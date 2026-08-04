@@ -1,6 +1,7 @@
 import { TReaderBlock, generateId as generateBlockId } from "@timelish/builder";
 import { deserializeMarkdown } from "@timelish/rte";
 import { templateSafeWithError } from "@timelish/utils";
+import { EMAIL_BRAND } from "../brand";
 import { renderToStaticMarkup } from "./static";
 
 export type UserEmailTemplateButton = {
@@ -124,8 +125,8 @@ const contentBlockTypeRenderMap: {
         width: "full",
         size: "large",
         buttonStyle: "rounded",
-        buttonTextColor: button.textColor ?? "#FFFFFF",
-        buttonBackgroundColor: button.backgroundColor ?? "#0066ff",
+        buttonTextColor: button.textColor ?? EMAIL_BRAND.onPrimary,
+        buttonBackgroundColor: button.backgroundColor ?? EMAIL_BRAND.primary,
       },
       style: {
         padding: {
@@ -161,10 +162,10 @@ export const renderUserEmailTemplate = async (
     type: "EmailLayout",
     id: "block-1740257042800",
     data: {
-      backdropColor: "#F5F5F5",
+      backdropColor: EMAIL_BRAND.cream,
       borderRadius: 0,
-      canvasColor: "#FFFFFF",
-      textColor: "#262626",
+      canvasColor: EMAIL_BRAND.creamLight,
+      textColor: EMAIL_BRAND.ink,
       fontFamily: "MODERN_SANS",
       previewText: previewText,
       maxWidth: 600,

@@ -257,7 +257,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="h-auto min-w-0 max-w-[16rem] rounded-full px-3 py-1.5 text-base font-medium tracking-tight truncate"
+                    className="h-auto min-w-0 max-w-[16rem] rounded-full px-3 py-1.5 font-display text-lg font-medium tracking-tight truncate"
                     aria-label={dateLabel}
                   >
                     {dateLabel}

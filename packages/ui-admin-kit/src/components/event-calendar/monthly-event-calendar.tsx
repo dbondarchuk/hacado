@@ -91,7 +91,7 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
             <span
               className={cn(
                 "inline-flex size-7 items-center justify-center rounded-full text-base font-medium tabular-nums",
-                isToday && "bg-primary text-primary-foreground shadow-sm",
+                isToday && "bg-brand text-brand-foreground shadow-sm",
                 !isToday && !outsideMonth && "text-foreground",
               )}
             >

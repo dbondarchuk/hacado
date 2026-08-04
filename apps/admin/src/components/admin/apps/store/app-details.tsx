@@ -19,8 +19,8 @@ import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
 import { canInstallApp } from "@timelish/utils";
 import { ArrowLeft } from "lucide-react";
 // import Image from "next/image";
-import React from "react";
 import { redirect } from "next/navigation";
+import React from "react";
 import { AddOrUpdateAppButton } from "../add-or-update-app-dialog";
 import { getInstalledApps } from "./actions";
 import { AppEventSubscriptionsDialog } from "./app-event-subscriptions-dialog";
@@ -72,8 +72,8 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
           <div className="flex flex-row flex-wrap gap-4 items-center">
             <span className="bg-secondary text-secondary-foreground text-emphasis rounded-md p-2 text-sm">
               {target === "member"
-                ? t("apps.common.targetUser")
-                : t("apps.common.targetCompany")}
+                ? t("apps.target.member")
+                : t("apps.target.company")}
             </span>
             {app.isFeatured && (
               <span className="text-emphasis">{t("apps.common.featured")}</span>
@@ -85,9 +85,9 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
                 : scope;
               const usageLabel =
                 usage === "member"
-                  ? t("apps.common.targetUser")
+                  ? t("apps.target.member")
                   : usage === "company"
-                    ? t("apps.common.targetCompany")
+                    ? t("apps.target.company")
                     : null;
               return (
                 <span

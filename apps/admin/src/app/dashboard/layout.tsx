@@ -1,3 +1,8 @@
+import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
+import Header from "@/components/admin/layout/header";
+import { AppSidebar } from "@/components/admin/layout/sidebar";
+import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
+import { navItems } from "@/constants/data";
 import { filterNavItemsForPermission } from "@/lib/auth/filter-nav-items-for-role";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
 import {
@@ -36,11 +41,6 @@ import {
 } from "../utils";
 import { NotificationsToastStream } from "./notifications-toast-stream";
 import { SubscriptionStatusListener } from "./subscription-status-listener";
-import Header from "@/components/admin/layout/header";
-import { AppSidebar } from "@/components/admin/layout/sidebar";
-import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
-import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
-import { navItems } from "@/constants/data";
 
 const SIDEBAR_COOKIE_NAME = "admin-sidebar-open";
 
@@ -213,7 +213,12 @@ export default async function DashboardLayout({
                   </div>
                 ) : (
                   <>
-                    <AppSidebar menuItems={groups} name={name} logo={logo} />
+                    <AppSidebar
+                      menuItems={groups}
+                      name={name}
+                      domain={organizationDomain}
+                      logo={logo}
+                    />
                     <NotificationsToastStream />
                     <SubscriptionStatusListener />
                     <SidebarInset

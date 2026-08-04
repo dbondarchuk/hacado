@@ -37,16 +37,16 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
   const canUpdate = canUpdateAppointment(user, appointment.memberId);
 
   return (
-    <div className="w-full flex flex-col md:max-w-sm rounded-lg border border-border bg-background overflow-hidden">
+    <div className="w-full flex flex-col md:max-w-sm rounded-2xl border border-border/70 bg-card overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-border/70">
         <div className="flex items-center gap-3 min-w-0">
           <Avatar>
             <AvatarImage
               src={appointment.customer?.avatar ?? undefined}
               alt={appointment.customer?.name ?? appointment.fields.name}
             />
-            <AvatarFallback>
+            <AvatarFallback className="bg-primary/10 text-primary font-display">
               {(appointment.customer?.name ?? appointment.fields.name)
                 .split(" ")
                 .map((name) => name[0]?.toUpperCase())
@@ -56,7 +56,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0">
-            <p className="text-sm text-muted-foreground truncate">
+            <p className="font-display text-lg font-medium text-foreground truncate">
               {t.rich("appointments.card.by", {
                 name: appointment.customer?.name ?? appointment.fields.name,
                 link: (chunks: any) => (
@@ -69,7 +69,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                 ),
               })}
             </p>
-            <p className="text-base font-medium text-foreground truncate">
+            <p className="text-sm text-muted-foreground truncate">
               <Link
                 href={`/dashboard/appointments/${appointment._id}`}
                 variant="underline"
@@ -80,7 +80,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           </div>
         </div>
         <span
-          className={`ml-3 shrink-0 text-sm font-medium px-2.5 py-1 rounded-full ${APPOINTMENT_STATUS_STYLES[appointment.status] ?? "bg-muted text-muted-foreground"}`}
+          className={`ml-3 shrink-0 text-xs font-medium px-2.5 py-1 rounded-full ${APPOINTMENT_STATUS_STYLES[appointment.status] ?? "bg-muted text-muted-foreground"}`}
         >
           {t(`appointments.status.${appointment.status}`)}
         </span>
@@ -166,7 +166,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <p className="text-base text-muted-foreground">
             {t("appointments.card.price")}
           </p>
-          <p className="text-lg font-medium text-foreground">
+          <p className="font-display text-2xl font-medium tracking-tight text-foreground">
             {currencyFormat(appointment.totalPrice)}
           </p>
         </div>

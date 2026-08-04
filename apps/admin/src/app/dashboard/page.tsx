@@ -196,7 +196,7 @@ export default async function Page(params: Params) {
                     <EventsCalendar memberId={memberId} />
                   </div>
                   <div className="@6xl:w-80 @6xl:shrink-0 flex flex-col gap-2">
-                    <h2 className="tracking-tight text-lg font-medium">
+                    <h2 className="font-display text-xl font-medium tracking-tight text-foreground">
                       {tAdmin("dashboard.appointments.nextAppointments")}
                     </h2>
                     <Suspense

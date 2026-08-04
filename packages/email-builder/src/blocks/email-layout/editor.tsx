@@ -29,8 +29,9 @@ export const EmailLayoutEditor = (props: EmailLayoutProps) => {
           setSelectedBlockId(null);
         }}
         style={{
-          backgroundColor: props.backdropColor ?? "#F5F5F5",
-          color: props.textColor ?? "#262626",
+          backgroundColor:
+            props.backdropColor ?? EmailLayoutDefaultProps.backdropColor,
+          color: props.textColor ?? EmailLayoutDefaultProps.textColor,
           fontFamily: getFontFamily(props.fontFamily),
           fontSize: "16px",
           fontWeight: "400",
@@ -51,7 +52,8 @@ export const EmailLayoutEditor = (props: EmailLayoutProps) => {
               props.maxWidth && props.maxWidth > 0
                 ? `${props.maxWidth}px`
                 : undefined,
-            backgroundColor: props.canvasColor ?? "#FFFFFF",
+            backgroundColor:
+              props.canvasColor ?? EmailLayoutDefaultProps.canvasColor,
             borderRadius: props.borderRadius ?? undefined,
             borderCollapse: "separate",
             border: props.borderColor

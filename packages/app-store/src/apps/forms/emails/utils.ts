@@ -1,4 +1,4 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
+import { renderUserEmailTemplate, EMAIL_BRAND } from "@timelish/email-builder/static";
 import { Language } from "@timelish/i18n";
 import { template } from "@timelish/utils";
 import { UserEmailTemplates } from ".";
@@ -49,7 +49,7 @@ export const getEmailTemplate = async (
           button: {
             text: buttonTexts.viewAllResponses,
             url: `${adminUrl}/dashboard/forms/responses?formId=${formId}`,
-            backgroundColor: "#5d8be2",
+            backgroundColor: EMAIL_BRAND.primaryDark,
           },
         },
       ],

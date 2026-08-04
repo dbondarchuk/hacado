@@ -325,7 +325,7 @@ export const PageHeaderForm: React.FC<{
                             value={field.value ?? ""}
                             onChange={field.onChange}
                             className={cn(
-                              "w-full border border-input rounded-md p-2 text-base sm:text-sm h-8",
+                              "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
                               InputGroupInputClasses({ variant: "suffix" }),
                             )}
                             disabled={loading}

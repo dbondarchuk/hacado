@@ -156,7 +156,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                 <span
                   className={cn(
                     "inline-flex size-7 items-center justify-center rounded-full text-base font-medium tabular-nums mr-2",
-                    isToday && "bg-primary text-primary-foreground shadow-sm",
+                    isToday && "bg-brand text-brand-foreground shadow-sm",
                     !isToday && "bg-muted text-foreground",
                   )}
                 >
@@ -172,7 +172,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                     { locale },
                   )}
                   {isToday && (
-                    <span className="ml-1.5 text-sm text-primary font-medium">
+                    <span className="ml-1.5 text-sm text-brand font-medium">
                       ({t("calendar.today")})
                     </span>
                   )}

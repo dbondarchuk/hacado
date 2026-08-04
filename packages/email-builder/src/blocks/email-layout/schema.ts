@@ -1,5 +1,6 @@
 import { BaseReaderBlockProps } from "@timelish/builder";
 import * as z from "zod";
+import { EMAIL_BRAND } from "../../brand";
 import {
   zColor,
   zColorNullable,
@@ -37,9 +38,9 @@ export type EmailLayoutReaderProps = BaseReaderBlockProps<any> &
   EmailLayoutProps;
 
 export const EmailLayoutDefaultProps = {
-  backdropColor: "#F5F5F5",
-  canvasColor: "#FFFFFF",
-  textColor: "#262626",
+  backdropColor: EMAIL_BRAND.cream,
+  canvasColor: EMAIL_BRAND.creamLight,
+  textColor: EMAIL_BRAND.ink,
   fontFamily: "MODERN_SANS",
   maxWidth: 600,
   padding: {

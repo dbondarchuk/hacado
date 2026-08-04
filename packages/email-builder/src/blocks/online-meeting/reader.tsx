@@ -88,7 +88,7 @@ export const OnlineMeetingReader = ({
                 <tr>
                   <td
                     style={{
-                      backgroundColor: styles.backgroundColor ?? "#ffffff",
+                      backgroundColor: styles.backgroundColor ?? "#FBF9F3",
                       padding: "18px",
                     }}
                   >
@@ -191,9 +191,9 @@ export const OnlineMeetingReader = ({
                                   <td>
                                     {/* Button: use table button for email clients */}
                                     {/*[if mso]>
-                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{MEET_URL}}" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#0b5cff" fillcolor="#0b5cff">
+                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{MEET_URL}}" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#7C8B6F" fillcolor="#7C8B6F">
                     <w:anchorlock/>
-                    <center style="color:#ffffff;font-family:Arial,sans-serif;font-size:14px;font-weight:600;">Join meeting</center>
+                    <center style="color:#FBF9F3;font-family:Arial,sans-serif;font-size:14px;font-weight:600;">Join meeting</center>
                   </v:roundrect>
                   <![endif]*/}
                                     {/* Non-Outlook */}
@@ -210,7 +210,7 @@ export const OnlineMeetingReader = ({
                                             style={{
                                               backgroundColor:
                                                 buttonBackgroundColor ??
-                                                "#0b5cff",
+                                                "#7C8B6F",
                                               borderRadius: "8px",
                                             }}
                                           >
@@ -223,7 +223,7 @@ export const OnlineMeetingReader = ({
                                                 fontSize: "14px",
                                                 fontWeight: 600,
                                                 color:
-                                                  buttonTextColor ?? "#ffffff",
+                                                  buttonTextColor ?? "#FBF9F3",
                                                 textDecoration: "none",
                                                 borderRadius: "8px",
                                                 lineHeight: "16px",
@@ -261,7 +261,7 @@ export const OnlineMeetingReader = ({
                                         style={{
                                           wordBreak: "break-all",
                                           color:
-                                            buttonBackgroundColor ?? "#0b5cff",
+                                            buttonBackgroundColor ?? "#7C8B6F",
                                           fontSize: "13px",
                                           paddingTop: "6px",
                                         }}
@@ -272,7 +272,7 @@ export const OnlineMeetingReader = ({
                                           style={{
                                             color:
                                               buttonBackgroundColor ??
-                                              "#0b5cff",
+                                              "#7C8B6F",
                                             textDecoration: "underline",
                                           }}
                                         >

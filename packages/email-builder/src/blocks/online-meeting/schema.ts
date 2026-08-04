@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { EMAIL_BRAND } from "../../brand";
 import {
   zColorNullable,
   zFontFamily,
@@ -39,8 +40,8 @@ export const OnlineMeetingPropsDefaults = {
     passwordText: "Password:",
     buttonText: "Join Meeting",
     linkText: "Trouble joining? Copy & paste this link into your browser:",
-    buttonTextColor: "#FFFFFF",
-    buttonBackgroundColor: "#0b5cff",
+    buttonTextColor: EMAIL_BRAND.onPrimary,
+    buttonBackgroundColor: EMAIL_BRAND.primary,
     type: "{{meetingInformation.type}}",
     logoUrl: "",
   },

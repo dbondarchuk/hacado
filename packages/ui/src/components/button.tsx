@@ -8,8 +8,8 @@ import { TextVariants, textVariants } from "./text";
 const buttonVariants = {
   primary:
     // "border border-primary bg-background text-primary hover:bg-primary hover:text-primary-foreground ",
-    "bg-primary text-primary-foreground hover:bg-primary/90",
-  default: "bg-primary text-primary-foreground hover:bg-primary/90",
+    "bg-primary text-primary-foreground hover:brightness-[0.88]",
+  default: "bg-primary text-primary-foreground hover:brightness-[0.88]",
   brand:
     "relative bg-gradient-primary dark:bg-gradient-dark text-primary-foreground z-[1] before:absolute before:inset-0 before:bg-background before:z-[-1] before:rounded-md before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-300 before:rounded-md before:bg-gradient-dark before:dark:bg-gradient-accent",
   "brand-dark":

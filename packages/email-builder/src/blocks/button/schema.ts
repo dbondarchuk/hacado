@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { EMAIL_BRAND } from "../../brand";
 import { zColorNullable, zStyles } from "../../style-inputs/helpers/zod";
 
 export const ButtonPropsSchema = z.object({
@@ -32,8 +33,8 @@ export const ButtonPropsDefaults = {
     width: "auto",
     size: "medium",
     buttonStyle: "rounded",
-    buttonTextColor: "#FFFFFF",
-    buttonBackgroundColor: "#999999",
+    buttonTextColor: EMAIL_BRAND.onPrimary,
+    buttonBackgroundColor: EMAIL_BRAND.primary,
   },
   style: {
     padding: { top: 16, bottom: 16, left: 24, right: 24 },

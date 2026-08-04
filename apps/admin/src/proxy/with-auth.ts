@@ -31,16 +31,16 @@ export const withAuth: MiddlewareProxy = (next) => {
       session?.user.organizationId || "",
     );
 
-    request.headers.set(
-      "x-organization-slug",
-      (session?.user as { organizationSlug?: string } | undefined)
-        ?.organizationSlug || "",
-    );
+    const organizationSlug = session?.user.organizationSlug || "";
+
+    request.headers.set("x-organization-slug", organizationSlug || "");
 
     request.headers.set(
       "x-organization-domain",
       (session?.user as { organizationDomain?: string } | undefined)
-        ?.organizationDomain || "",
+        ?.organizationDomain || organizationSlug
+        ? `${organizationSlug}.${process.env.PUBLIC_DOMAIN}`
+        : "",
     );
 
     request.headers.set("x-user-id", session?.user?.id || "");

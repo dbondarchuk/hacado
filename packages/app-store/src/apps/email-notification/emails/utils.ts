@@ -1,4 +1,4 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
+import { renderUserEmailTemplate, EMAIL_BRAND } from "@timelish/email-builder/static";
 import { Language } from "@timelish/i18n";
 import { Appointment } from "@timelish/types";
 import { AppointmentStatusToICalMethodMap, template } from "@timelish/utils";
@@ -63,14 +63,14 @@ export const getEmailTemplate = async (
             ? {
                 text: buttonTexts.decline,
                 url: `${url}/dashboard/appointments/${appointment._id}/decline`,
-                backgroundColor: "#ef4444",
+                backgroundColor: EMAIL_BRAND.destructive,
               }
             : undefined,
           appointment.status === "pending"
             ? {
                 text: buttonTexts.confirm,
                 url: `${url}/dashboard/appointments/${appointment._id}/confirm`,
-                backgroundColor: "#0066ff",
+                backgroundColor: EMAIL_BRAND.primary,
               }
             : undefined,
         ]

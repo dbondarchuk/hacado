@@ -243,9 +243,9 @@ export function OnlineMeetingEditor({ props, style }: OnlineMeetingProps) {
                                   <td>
                                     {/* Button: use table button for email clients */}
                                     {/*[if mso]>
-                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{MEET_URL}}" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#0b5cff" fillcolor="#0b5cff">
+                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{MEET_URL}}" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="10%" strokecolor="#7C8B6F" fillcolor="#7C8B6F">
                     <w:anchorlock/>
-                    <center style="color:#ffffff;font-family:Arial,sans-serif;font-size:14px;font-weight:600;">Join meeting</center>
+                    <center style="color:#FBF9F3;font-family:Arial,sans-serif;font-size:14px;font-weight:600;">Join meeting</center>
                   </v:roundrect>
                   <![endif]*/}
                                     {/* Non-Outlook */}

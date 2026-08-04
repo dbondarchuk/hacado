@@ -83,6 +83,7 @@ type SidebarProps = {
   className?: string;
   menuItems: NavItemGroup[];
   name: string;
+  domain: string;
   logo?: string;
 };
 
@@ -90,6 +91,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
   className,
   menuItems,
   name,
+  domain,
   logo,
 }) => {
   const path = usePathname();
@@ -123,8 +125,11 @@ export const AppSidebar: React.FC<SidebarProps> = ({
             </Avatar>
           </div>
           <div className="grid flex-1 text-left leading-tight">
-            <span className="truncate font-display text-xl font-semibold tracking-tight text-sidebar-accent-foreground">
+            <span className="truncate font-display text-base font-normal tracking-tight text-sidebar-accent-foreground">
               {name}
+            </span>
+            <span className="truncate font-display text-xs tracking-tight text-muted-foreground">
+              {domain}
             </span>
           </div>
         </SidebarMenuButton>

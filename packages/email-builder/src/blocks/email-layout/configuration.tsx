@@ -25,12 +25,12 @@ export const EmailLayoutConfiguration = ({
     <>
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.backdropColor")}
-        defaultValue={data.backdropColor ?? "#F5F5F5"}
+        defaultValue={data.backdropColor ?? EmailLayoutDefaultProps.backdropColor}
         onChange={(backdropColor) => updateData({ ...data, backdropColor })}
       />
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.canvasColor")}
-        defaultValue={data.canvasColor ?? "#FFFFFF"}
+        defaultValue={data.canvasColor ?? EmailLayoutDefaultProps.canvasColor}
         onChange={(canvasColor) => updateData({ ...data, canvasColor })}
       />
       <ColorInput
@@ -71,7 +71,7 @@ export const EmailLayoutConfiguration = ({
       />
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.textColor")}
-        defaultValue={data.textColor ?? "#262626"}
+        defaultValue={data.textColor ?? EmailLayoutDefaultProps.textColor}
         onChange={(textColor) => updateData({ ...data, textColor })}
       />
       <TextInput

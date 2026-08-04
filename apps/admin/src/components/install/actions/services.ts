@@ -71,8 +71,9 @@ export async function replaceServices(
   const session = await auth.api.getSession({ headers: headersList });
   const organizationId = (session?.user as { organizationId?: string })
     ?.organizationId;
-  if (!session?.user || !organizationId) {
-    logger.error({ session, organizationId }, "Unauthorized");
+  const memberId = (session?.user as { memberId?: string })?.memberId;
+  if (!session?.user || !organizationId || !memberId) {
+    logger.error({ session, organizationId, memberId }, "Unauthorized");
     return { ok: false, code: "unauthorized" };
   }
 
@@ -106,6 +107,7 @@ export async function replaceServices(
       await services.servicesService.deleteAddons(addonIds, source);
   }
 
+  const staff = [{ memberId }];
   const newIds: string[] = [];
   for (const row of parsed.data) {
     const d = Math.max(1, Math.floor(row.duration));
@@ -129,6 +131,7 @@ export async function replaceServices(
           withoutDeposit: { type: "inherit" },
         },
         reschedulePolicy: { type: "inherit" },
+        staff,
       };
     } else {
       const bounds = getFlexibleDurationBounds(d);
@@ -160,6 +163,7 @@ export async function replaceServices(
         reschedulePolicy: {
           type: "inherit",
         },
+        staff,
       };
     }
 
