@@ -1,5 +1,5 @@
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { CommunicationChannel, TemplateListModel } from "@timelish/types";
 import { cn, Combobox, IComboboxItem } from "@timelish/ui";
 import React from "react";

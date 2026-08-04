@@ -167,6 +167,7 @@ export class WaitlistRepositoryService {
     query: Query & {
       optionId?: string | string[];
       customerId?: string | string[];
+      memberId?: string | string[];
       range?: DateRange;
       status?: WaitlistStatus[];
       ids?: string[];
@@ -219,6 +220,16 @@ export class WaitlistRepositoryService {
           $in: Array.isArray(query.customerId)
             ? query.customerId
             : [query.customerId],
+        },
+      });
+    }
+
+    if (query.memberId) {
+      $and.push({
+        memberId: {
+          $in: Array.isArray(query.memberId)
+            ? query.memberId
+            : [query.memberId],
         },
       });
     }
@@ -474,6 +485,14 @@ export class WaitlistRepositoryService {
       },
       {
         $lookup: {
+          from: "members",
+          localField: "memberId",
+          foreignField: "_id",
+          as: "member",
+        },
+      },
+      {
+        $lookup: {
           from: "options",
           localField: "optionId",
           foreignField: "_id",
@@ -515,6 +534,9 @@ export class WaitlistRepositoryService {
           },
           option: {
             $first: "$option",
+          },
+          member: {
+            $first: "$member",
           },
         },
       },

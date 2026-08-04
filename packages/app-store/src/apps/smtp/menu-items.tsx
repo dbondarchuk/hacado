@@ -11,5 +11,6 @@ export const SmtpMenuItems: AppMenuItem<SmtpAdminNamespace, SmtpAdminKeys>[] = [
     label: "app_smtp_admin.navigation.title",
     icon: <SmtpLogo />,
     Page: (props) => <SmtpAppSetup appId={props.appId} />,
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

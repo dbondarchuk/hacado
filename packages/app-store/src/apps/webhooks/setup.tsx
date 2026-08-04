@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppSetupProps } from "@timelish/types";
 import {
   Badge,
@@ -185,7 +185,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                           value: eventType,
                           shortLabel: eventType,
                           label: (
-                            <span className="font-mono text-sm">{eventType}</span>
+                            <span className="font-mono text-sm">
+                              {eventType}
+                            </span>
                           ),
                         }))}
                       value={""}

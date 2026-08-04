@@ -1,11 +1,11 @@
 "use client";
 
-import { useQueryStates } from "nuqs";
-import React from "react";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WithTotal } from "@timelish/types";
 import { toast, useDebounce } from "@timelish/ui";
 import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";
+import { useQueryStates } from "nuqs";
+import React from "react";
 import { getDesigns } from "../../actions";
 import { DesignListModel } from "../../models";
 import { columns } from "./columns";

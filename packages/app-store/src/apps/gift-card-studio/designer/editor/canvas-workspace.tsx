@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type { UploadedFile } from "@timelish/types";
 import { cn, toast, useIsMac, useUploadFile } from "@timelish/ui";
 import { useCallback, useEffect, useRef, useState } from "react";

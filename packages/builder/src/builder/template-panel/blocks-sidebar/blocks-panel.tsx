@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/react";
-import { AllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, useI18n } from "@timelish/i18n/client";
 import {
   Button,
   cn,

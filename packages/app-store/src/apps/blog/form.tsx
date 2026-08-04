@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PlateEditor } from "@timelish/rte";
 import { DatabaseId } from "@timelish/types";
 import {
@@ -43,8 +43,8 @@ import {
   createBlogPost,
   updateBlogPost,
 } from "./actions";
-import type { OrganizationAuthorUser } from "./author-actions";
-import { getOrganizationAuthorUsers } from "./author-actions";
+import type { OrganizationAuthorMember } from "./author-actions";
+import { getOrganizationAuthorMembers } from "./author-actions";
 import {
   BlogPostAuthor,
   blogPostSchema,
@@ -79,7 +79,9 @@ export const BlogPostForm: React.FC<{
 
   const [loading, setLoading] = useState(false);
   const [slugManuallyChanged, setSlugManuallyChanged] = useState(false);
-  const [authorUsers, setAuthorUsers] = useState<OrganizationAuthorUser[]>([]);
+  const [authorMembers, setAuthorMembers] = useState<
+    OrganizationAuthorMember[]
+  >([]);
   const router = useRouter();
 
   const cachedUniqueSlugCheck = useDebounceCacheFn(
@@ -105,15 +107,15 @@ export const BlogPostForm: React.FC<{
       publicationDate: new Date(),
       tags: [],
       content: [],
-      author: { type: "user", id: "" },
+      author: { type: "member", memberId: "" },
     },
   });
 
   React.useEffect(() => {
     let cancelled = false;
-    void getOrganizationAuthorUsers().then((users) => {
+    void getOrganizationAuthorMembers().then((members) => {
       if (!cancelled) {
-        setAuthorUsers(users);
+        setAuthorMembers(members);
       }
     });
     return () => {
@@ -137,7 +139,7 @@ export const BlogPostForm: React.FC<{
       }
       form.setValue(
         "author",
-        { type: "user", id: user._id.toString() },
+        { type: "member", memberId: user._id },
         { shouldValidate: true },
       );
     });
@@ -355,7 +357,7 @@ export const BlogPostForm: React.FC<{
               name="author"
               render={({ field }) => {
                 const authorValue = field.value as BlogPostAuthor | undefined;
-                const authorSource = authorValue?.type ?? "user";
+                const authorSource = authorValue?.type ?? "member";
 
                 return (
                   <FormItem className="w-full">
@@ -366,13 +368,13 @@ export const BlogPostForm: React.FC<{
                     <Select
                       disabled={loading}
                       value={authorSource}
-                      onValueChange={(value: "user" | "custom") => {
-                        if (value === "user") {
+                      onValueChange={(value: "member" | "custom") => {
+                        if (value === "member") {
                           field.onChange({
-                            type: "user",
-                            id:
-                              authorValue?.type === "user"
-                                ? authorValue.id
+                            type: "member",
+                            memberId:
+                              authorValue?.type === "member"
+                                ? authorValue.memberId
                                 : "",
                           });
                         } else {
@@ -393,7 +395,7 @@ export const BlogPostForm: React.FC<{
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="user">
+                        <SelectItem value="member">
                           {t("form.author.source.user")}
                         </SelectItem>
                         <SelectItem value="custom">
@@ -401,20 +403,22 @@ export const BlogPostForm: React.FC<{
                         </SelectItem>
                       </SelectContent>
                     </Select>
-                    {authorSource === "user" ? (
+                    {authorSource === "member" ? (
                       <Combobox
                         disabled={loading}
                         value={
-                          authorValue?.type === "user" ? authorValue.id : ""
+                          authorValue?.type === "member"
+                            ? authorValue.memberId
+                            : ""
                         }
                         onItemSelect={(value) => {
-                          field.onChange({ type: "user", id: value });
+                          field.onChange({ type: "member", memberId: value });
                           field.onBlur();
                           form.trigger("author");
                         }}
-                        values={authorUsers.map((user) => ({
-                          value: user.id,
-                          label: user.name,
+                        values={authorMembers.map((member) => ({
+                          value: member.id,
+                          label: member.name,
                         }))}
                         placeholder={t("form.author.userPlaceholder")}
                       />

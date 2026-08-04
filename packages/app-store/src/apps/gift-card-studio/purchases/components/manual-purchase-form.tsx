@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   CustomerListModel,
   inPersonPaymentMethod,
@@ -40,8 +40,8 @@ import {
   Spinner,
   Textarea,
   toastPromise,
-  useDebounce,
   useCurrencySymbol,
+  useDebounce,
 } from "@timelish/ui";
 import { CustomerSelector } from "@timelish/ui-admin";
 import React, { useCallback, useEffect, useMemo, useState } from "react";

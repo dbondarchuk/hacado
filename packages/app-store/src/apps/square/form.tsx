@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PaymentAppFormProps } from "@timelish/types";
 import { Spinner, toast, useConfig, useCurrency } from "@timelish/ui";
 import { formatAmountString } from "@timelish/utils";

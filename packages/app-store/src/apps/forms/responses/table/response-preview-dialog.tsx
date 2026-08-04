@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "@timelish/i18n";
+import { useLocale } from "@timelish/i18n/client";
 import {
   Dialog,
   DialogContent,

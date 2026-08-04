@@ -1,5 +1,5 @@
 import { PaymentAppForms } from "@timelish/app-store/payment-forms";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { cn, useCurrencyFormat } from "@timelish/ui";
 import { formatAmount } from "@timelish/utils";
 import { CreditCard } from "lucide-react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import type { Appointment } from "@timelish/types";
 import {
   Avatar,
@@ -11,7 +11,8 @@ import {
   use12HourFormat,
   useCurrencyFormat,
 } from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+import { useAuth } from "@timelish/ui-admin";
+import { canUpdateAppointment, durationToTime } from "@timelish/utils";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
@@ -32,6 +33,8 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
   const locale = useLocale();
   const uses12HourFormat = use12HourFormat();
   const currencyFormat = useCurrencyFormat();
+  const { user } = useAuth();
+  const canUpdate = canUpdateAppointment(user, appointment.memberId);
 
   return (
     <div className="w-full flex flex-col md:max-w-sm rounded-lg border border-border bg-background overflow-hidden">
@@ -170,7 +173,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
       )}
 
       {/* Actions */}
-      {appointment.status !== "declined" && (
+      {canUpdate && appointment.status !== "declined" && (
         <div className="px-5 py-4 flex flex-col gap-2">
           <AppointmentDeclineDialog
             appointment={appointment}

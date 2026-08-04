@@ -7,7 +7,7 @@ import {
   useDocumentBlock,
   useInspectBlockId,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { SlotOrBlockStylesPanel } from "@timelish/page-builder-base";
 import { deepMemo } from "@timelish/ui";
 import { Columns3, Rows3 } from "lucide-react";

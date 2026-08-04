@@ -2,7 +2,8 @@
   "extends": "@timelish/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "jsx": "react-jsx"
   },
   "paths": {
     "@/*": ["./src/*"]

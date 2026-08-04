@@ -1,15 +1,41 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { getAccessibleConnectedApps } from "@/lib/auth/app-access";
 import { AvailableApps } from "@timelish/app-store";
-import { getI18nAsync } from "@timelish/i18n/server";
+import {
+  canViewCompanyApps,
+  canViewOtherMembersApps,
+} from "@timelish/utils";
 import React from "react";
 import { InstalledAppsClient } from "./installed-apps-client";
 
 export const InstalledApps: React.FC = async () => {
-  const t = await getI18nAsync("admin");
-  const servicesContainer = await getServicesContainer();
-  const apps = (await servicesContainer.connectedAppsService.getApps()).filter(
+  const [user, services, apps] = await Promise.all([
+    getUser(),
+    getServicesContainer(),
+    getAccessibleConnectedApps(),
+  ]);
+
+  const visibleApps = apps.filter(
     (app) => AvailableApps[app.name] && !AvailableApps[app.name].isHidden,
   );
 
-  return <InstalledAppsClient apps={apps} />;
+  const showCompanyScope = canViewCompanyApps(user);
+  const showMemberPicker = canViewOtherMembersApps(user);
+
+  const excludeMemberIds =
+    showMemberPicker && user.role !== "owner"
+      ? (await services.teamService.getActiveMembers())
+          .filter((member) => member.role === "owner")
+          .map((member) => member._id)
+      : undefined;
+
+  return (
+    <InstalledAppsClient
+      apps={visibleApps}
+      currentMemberId={user.memberId}
+      showCompanyScope={showCompanyScope}
+      showMemberPicker={showMemberPicker}
+      excludeMemberIds={excludeMemberIds}
+    />
+  );
 };

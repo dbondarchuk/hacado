@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@timelish/logger";
 import { inStorePaymentUpdateModelSchema } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -43,6 +44,15 @@ export async function PUT(
       { success: false, error: "Payment not found", code: "payment_not_found" },
       { status: 404 },
     );
+  }
+
+  if (payment.appointmentId) {
+    const auth = await requireCanUpdateAppointment(
+      payment.appointmentId,
+      "AdminAPI/payments/instore/[id]",
+      "PUT",
+    );
+    if (!auth.ok) return auth.response;
   }
 
   if (payment.method === "online" || payment.method === "gift-card") {
@@ -108,6 +118,15 @@ export async function DELETE(
       { success: false, error: "Payment not found", code: "payment_not_found" },
       { status: 404 },
     );
+  }
+
+  if (payment.appointmentId) {
+    const auth = await requireCanUpdateAppointment(
+      payment.appointmentId,
+      "AdminAPI/payments/instore/[id]",
+      "DELETE",
+    );
+    if (!auth.ok) return auth.response;
   }
 
   if (payment.method === "online") {

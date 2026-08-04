@@ -16,7 +16,7 @@ import { ObjectId } from "mongodb";
 import {
   ACTIVITIES_COLLECTION_NAME,
   CUSTOMERS_COLLECTION_NAME,
-  USERS_COLLECTION_NAME,
+  MEMBERS_COLLECTION_NAME,
 } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
@@ -30,8 +30,8 @@ export class ActivityService extends BaseService implements IActivityService {
     super("ActivityService", organizationId);
   }
 
-  private lastReadRedisKey(userId: string): string {
-    return `activityFeed:lastReadAt:${this.organizationId}:${userId}`;
+  private lastReadRedisKey(memberId: string): string {
+    return `activityFeed:lastReadAt:${this.organizationId}:${memberId}`;
   }
 
   private entryToPreview(entry: ActivityListItem): ActivityFeedPreview {
@@ -57,11 +57,13 @@ export class ActivityService extends BaseService implements IActivityService {
     return items.map((e) => this.entryToPreview(e));
   }
 
-  public async getUnreadActivityCount(userId: string): Promise<number> {
+  public async getUnreadActivityCount(memberId: string): Promise<number> {
     const logger = this.loggerFactory("getUnreadActivityCount");
-    logger.debug({ userId }, "Getting unread activity count");
+    logger.debug({ memberId }, "Getting unread activity count");
 
-    const lastRead = await this.redisClient.get(this.lastReadRedisKey(userId));
+    const lastRead = await this.redisClient.get(
+      this.lastReadRedisKey(memberId),
+    );
     const lastReadDate = lastRead ? new Date(lastRead) : new Date(0);
     const db = await getDbConnection();
     const count = await db
@@ -71,17 +73,19 @@ export class ActivityService extends BaseService implements IActivityService {
         createdAt: { $gt: lastReadDate },
       });
 
-    logger.debug({ userId, count }, "Unread activity count");
+    logger.debug({ memberId, count }, "Unread activity count");
     return count;
   }
 
   public async getHighestSeveritySinceLastRead(
-    userId: string,
+    memberId: string,
   ): Promise<ActivitySeverity | null> {
     const logger = this.loggerFactory("getHighestSeveritySinceLastRead");
-    logger.debug({ userId }, "Getting highest severity since last read");
+    logger.debug({ memberId }, "Getting highest severity since last read");
 
-    const lastRead = await this.redisClient.get(this.lastReadRedisKey(userId));
+    const lastRead = await this.redisClient.get(
+      this.lastReadRedisKey(memberId),
+    );
     const lastReadDate = lastRead ? new Date(lastRead) : new Date(0);
     const db = await getDbConnection();
     const activities = db.collection<ActivityEntry>(ACTIVITIES_COLLECTION_NAME);
@@ -92,8 +96,8 @@ export class ActivityService extends BaseService implements IActivityService {
           $match: {
             organizationId: this.organizationId,
             createdAt: { $gt: lastReadDate },
-            // Ignore activities performed by the same user.
-            $nor: [{ "source.actor": "user", "source.actorId": userId }],
+            // Ignore activities performed by the same member.
+            $nor: [{ "source.actor": "member", "source.actorId": memberId }],
           },
         },
         {
@@ -119,22 +123,22 @@ export class ActivityService extends BaseService implements IActivityService {
     const highestSeverity =
       result.length > 0 ? (result[0].severity ?? "info") : null;
     logger.debug(
-      { userId, highestSeverity },
+      { memberId, highestSeverity },
       "Highest severity since last read",
     );
     return highestSeverity;
   }
 
-  public async markActivityFeedRead(userId: string): Promise<void> {
+  public async markActivityFeedRead(memberId: string): Promise<void> {
     const logger = this.loggerFactory("markActivityFeedRead");
-    logger.debug({ userId }, "Marking activity feed as read");
+    logger.debug({ memberId }, "Marking activity feed as read");
 
     await this.redisClient.set(
-      this.lastReadRedisKey(userId),
+      this.lastReadRedisKey(memberId),
       new Date().toISOString(),
     );
 
-    logger.debug({ userId }, "Activity feed marked as read");
+    logger.debug({ memberId }, "Activity feed marked as read");
   }
 
   private async publishActivityFeedUpdate(id: string): Promise<void> {
@@ -359,14 +363,14 @@ export class ActivityService extends BaseService implements IActivityService {
     return [
       {
         $lookup: {
-          from: USERS_COLLECTION_NAME,
+          from: MEMBERS_COLLECTION_NAME,
           let: { actorId: "$source.actorId", actor: "$source.actor" },
           pipeline: [
             {
               $match: {
                 $expr: {
                   $and: [
-                    { $eq: ["$$actor", "user"] },
+                    { $eq: ["$$actor", "member"] },
                     { $eq: [{ $toString: "$_id" }, "$$actorId"] },
                     { $eq: ["$organizationId", this.organizationId] },
                   ],
@@ -375,7 +379,7 @@ export class ActivityService extends BaseService implements IActivityService {
             },
             { $project: { name: 1 } },
           ],
-          as: "actorUser",
+          as: "actorMember",
         },
       },
       {
@@ -416,15 +420,15 @@ export class ActivityService extends BaseService implements IActivityService {
                   },
                 },
                 {
-                  case: { $eq: ["$source.actor", "user"] },
+                  case: { $eq: ["$source.actor", "member"] },
                   then: {
-                    kind: "user",
-                    userId: { $ifNull: ["$source.actorId", ""] },
+                    kind: "member",
+                    memberId: { $ifNull: ["$source.actorId", ""] },
                     name: {
                       $cond: {
-                        if: { $gt: [{ $size: "$actorUser" }, 0] },
-                        then: { $arrayElemAt: ["$actorUser.name", 0] },
-                        else: "Unknown user",
+                        if: { $gt: [{ $size: "$actorMember" }, 0] },
+                        then: { $arrayElemAt: ["$actorMember.name", 0] },
+                        else: "Unknown member",
                       },
                     },
                   },
@@ -455,7 +459,7 @@ export class ActivityService extends BaseService implements IActivityService {
           },
         },
       },
-      { $unset: ["actorUser", "actorCustomer"] },
+      { $unset: ["actorMember", "actorCustomer"] },
     ];
   }
 }

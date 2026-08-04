@@ -12,7 +12,7 @@ export function resolvePlanTierFromProductId(
   options?: { feesExempt?: boolean },
 ): BillingPlanTier | null {
   if (options?.feesExempt === true) {
-    return BillingPlanTier.Pro;
+    return BillingPlanTier.Studio;
   }
 
   const normalized = productId?.trim();
@@ -21,8 +21,8 @@ export function resolvePlanTierFromProductId(
   const tier = getBillingPlanProductIdMap().get(normalized);
   if (tier) return tier;
 
-  // Unknown product on an active subscription defaults to Pro.
-  return BillingPlanTier.Pro;
+  // Unknown product on an active subscription defaults to Solo.
+  return BillingPlanTier.Solo;
 }
 
 export function resolvePlanTierFromOrganization(
@@ -41,7 +41,7 @@ export function canUseFeature(
   planTier: BillingPlanTier | null,
   feature: SubscriptionFeature,
 ): boolean {
-  if (!planTier || planTier === BillingPlanTier.Pro) return true;
+  if (!isFreeTier(planTier)) return true;
   return !FREE_TIER_DISABLED_FEATURES.has(feature);
 }
 

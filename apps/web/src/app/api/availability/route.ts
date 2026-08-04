@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
 
   const params = availabilitySearchParamsLoader(request.nextUrl.searchParams);
   const duration = params.duration;
+  let memberId = params.memberId;
 
   if (!duration || duration <= 0) {
     logger.warn({ duration }, "Invalid duration parameter");
@@ -44,19 +45,54 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  if (!memberId) {
+    const members = await servicesContainer.teamService.getActiveMembers();
+    if (members.length === 1) {
+      memberId = members[0]._id;
+    } else {
+      logger.warn(
+        { members },
+        "Multiple members found, but no memberId provided",
+      );
+      return NextResponse.json(
+        {
+          error: "Multiple members found, but no memberId provided",
+          code: "missing_member",
+          success: false,
+        },
+        { status: 400 },
+      );
+    }
+  }
+
+  if (!memberId) {
+    logger.warn({ memberId }, "Missing memberId parameter");
+    return NextResponse.json(
+      {
+        error: "Member is required",
+        code: "missing_member",
+        success: false,
+      },
+      { status: 400 },
+    );
+  }
+
   // Track availability check
   await trackBookingStep(request, "AVAILABILITY_CHECKED", {
     duration,
   });
 
-  logger.debug({ duration }, "Fetching availability");
+  logger.debug({ duration, memberId }, "Fetching availability");
 
-  const availability =
-    await servicesContainer.bookingService.getAvailability(duration);
+  const availability = await servicesContainer.bookingService.getAvailability(
+    duration,
+    memberId,
+  );
 
   logger.debug(
     {
       duration,
+      memberId,
       availableSlots: availability.length,
     },
     "Successfully retrieved availability",

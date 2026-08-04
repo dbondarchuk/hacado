@@ -8,6 +8,9 @@ form:
     label: Надіслати на email
     tooltip: Email адреса, на яку повинно бути надіслано email повідомлення. Залиште порожнім, щоб використовувати вашу email адресу за замовчуванням.
     placeholder: john@example.com
+  processOtherMembersAppointments:
+    label: Опрацьовувати записи інших учасників
+    description: Якщо увімкнено, також надсилати сповіщення про записи, призначені іншим учасникам команди.
   update: Оновити <app></app>
   add: Додати <app></app>
 statusText:

@@ -17,26 +17,16 @@ import {
   FormLabel,
   FormMessage,
   IComboboxItem,
-  Input,
-  PhoneInput,
   SimpleTimePicker,
-  ToggleGroup,
-  ToggleGroupItem,
   use12HourFormat,
   usePrevious,
 } from "@timelish/ui";
 
-import {
-  I18nRichText,
-  TranslationKeys,
-  useI18n,
-  useLocale,
-} from "@timelish/i18n";
+import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import { HourNumbers, MinuteNumbers } from "@timelish/types";
 import { deepEqual, formatTime, parseTime } from "@timelish/utils";
 import { getTimeZones } from "@vvo/tzdb";
-import { Mail, Phone } from "lucide-react";
-import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";
 
 const timeZones: IComboboxItem[] = getTimeZones().map((zone) => ({

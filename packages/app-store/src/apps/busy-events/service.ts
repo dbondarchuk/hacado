@@ -30,6 +30,8 @@ export const BUSY_EVENTS_COLLECTION_NAME = "busy-events";
 
 type BusyEventsEntity = WithDatabaseId<ScheduleOverride> & {
   appId: string;
+  /** Assigned staff member; absent on legacy single-member documents. */
+  memberId?: string;
 };
 
 export default class BusyEventsConnectedApp
@@ -146,11 +148,15 @@ export default class BusyEventsConnectedApp
       switch (data.type) {
         case "get-weekly-busy-events":
           logger.debug(
-            { appId: appData._id, week: data.week },
+            { appId: appData._id, week: data.week, memberId: data.memberId },
             "Getting weekly busy events",
           );
 
-          const result = await this.getWeekBusyEvents(appData._id, data.week);
+          const result = await this.getWeekBusyEvents(
+            appData._id,
+            data.week,
+            data.memberId,
+          );
 
           logger.debug(
             { appId: appData._id, week: data.week, eventCount: result.length },
@@ -164,11 +170,17 @@ export default class BusyEventsConnectedApp
               appId: appData._id,
               week: data.week,
               eventCount: data.events.length,
+              memberId: data.memberId,
             },
             "Setting busy events",
           );
 
-          await this.setBusyEvents(appData._id, data.week, data.events);
+          await this.setBusyEvents(
+            appData._id,
+            data.week,
+            data.events,
+            data.memberId,
+          );
           logger.info(
             { appId: appData._id, week: data.week },
             "Successfully set busy events",
@@ -211,9 +223,13 @@ export default class BusyEventsConnectedApp
   protected async getWeekBusyEvents(
     appId: string,
     weekIdentifier: WeekIdentifier,
+    memberId?: string,
   ): Promise<Schedule> {
     const logger = this.loggerFactory("getWeekBusyEvents");
-    logger.debug({ appId, week: weekIdentifier }, "Getting week busy events");
+    logger.debug(
+      { appId, week: weekIdentifier, memberId },
+      "Getting week busy events",
+    );
 
     try {
       const db = await this.props.getDbConnection();
@@ -225,6 +241,7 @@ export default class BusyEventsConnectedApp
         appId,
         week: weekIdentifier,
         organizationId: this.props.organizationId,
+        ...(memberId ? { memberId } : {}),
       });
 
       const schedule = result?.schedule || [];
@@ -248,10 +265,11 @@ export default class BusyEventsConnectedApp
     appId: string,
     week: WeekIdentifier,
     schedule: Schedule,
+    memberId?: string,
   ): Promise<void> {
     const logger = this.loggerFactory("setBusyEvents");
     logger.debug(
-      { appId, week, scheduleLength: schedule.length },
+      { appId, week, scheduleLength: schedule.length, memberId },
       "Setting busy events",
     );
 
@@ -262,10 +280,16 @@ export default class BusyEventsConnectedApp
       );
 
       const updateResult = await events.updateOne(
-        { week, appId, organizationId: this.props.organizationId },
+        {
+          week,
+          appId,
+          organizationId: this.props.organizationId,
+          ...(memberId ? { memberId } : {}),
+        },
         {
           $set: {
             schedule,
+            ...(memberId ? { memberId } : {}),
           },
           $setOnInsert: {
             appId,
@@ -296,6 +320,7 @@ export default class BusyEventsConnectedApp
     { _id: appId }: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId?: string,
   ): Promise<CalendarBusyTime[]> {
     const logger = this.loggerFactory("getBusyTimes");
     const t = await getI18nAsync<
@@ -303,7 +328,12 @@ export default class BusyEventsConnectedApp
       BusyEventsPublicKeys
     >(busyEventsPublicNamespace);
     logger.debug(
-      { appId, start: start.toISOString(), end: end.toISOString() },
+      {
+        appId,
+        start: start.toISOString(),
+        end: end.toISOString(),
+        memberId,
+      },
       "Getting busy times",
     );
 
@@ -341,6 +371,7 @@ export default class BusyEventsConnectedApp
             $in: weeks,
           },
           organizationId: this.props.organizationId,
+          ...(memberId ? { memberId } : {}),
         })
         .toArray();
 

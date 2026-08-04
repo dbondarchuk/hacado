@@ -10,9 +10,9 @@
     "lint:fix": "eslint . --fix"
   },
   "exports": {
-    ".": "./src/index.ts",
+    ".": "./src/index.tsx",
     "./static": "./src/documents/reader/static-render.tsx",
-    "./reader": "./src/reader.ts"
+    "./reader": "./src/reader.tsx"
   },
   "devDependencies": {
     "@types/node": "^20",

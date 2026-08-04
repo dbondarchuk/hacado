@@ -20,6 +20,7 @@ const nextConfig = {
     "@resvg/resvg-js",
   ],
   experimental: {
+    authInterrupts: true,
     webpackMemoryOptimizations: true,
     turbopackScopeHoisting: false,
     serverActions: {

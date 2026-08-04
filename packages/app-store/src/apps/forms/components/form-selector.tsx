@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ComboboxAsync, IComboboxItem, Skeleton } from "@timelish/ui";
 import { Lock } from "lucide-react";
 import React from "react";

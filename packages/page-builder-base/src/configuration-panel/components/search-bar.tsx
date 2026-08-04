@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Button, cn, Input } from "@timelish/ui";
 import { Plus, Search, X } from "lucide-react";
 import {
@@ -30,10 +30,11 @@ export const SearchBar = <T extends BaseStyleDictionary>({
       <div className="relative flex-grow">
         <Search
           className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground z-[1]"
-          size={16}
+          size={12}
         />
         <Input
           type="text"
+          h="sm"
           placeholder={t("pageBuilder.styles.searchPlaceholder")}
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
@@ -49,7 +50,7 @@ export const SearchBar = <T extends BaseStyleDictionary>({
         </Button>
       </div>
       <AddStyleButton availableStyles={availableStyles} onAddStyle={onAddStyle}>
-        <Button variant="ghost" size="xs">
+        <Button variant="ghost" size="sm">
           <Plus size={16} />
         </Button>
       </AddStyleButton>

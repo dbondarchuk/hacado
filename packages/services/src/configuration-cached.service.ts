@@ -89,10 +89,17 @@ export class CachedConfigurationService extends ConfigurationService {
 
     if (cached !== null) {
       logger.debug({ key }, "Configuration cache hit");
-      return JSON.parse(cached) as ConfigurationOption<T>["value"];
+      const parsed = JSON.parse(cached) as ConfigurationOption<T>["value"];
+      if (!parsed || Object.keys(parsed).length === 0) {
+        logger.debug({ key }, "Configuration cache invalid");
+      } else {
+        logger.debug({ key }, "Configuration cache valid");
+        return parsed;
+      }
+    } else {
+      logger.debug({ key }, "Configuration cache miss");
     }
 
-    logger.debug({ key }, "Configuration cache miss");
     const value = await super.getConfiguration(key);
     logger.debug({ key }, "Configuration fetched from database");
     await this.writeRedisCache(key, value);

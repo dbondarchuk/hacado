@@ -3,6 +3,7 @@ import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@timelish/app-store";
 import { AppImages } from "@timelish/app-store/images";
 import { getI18nAsync } from "@timelish/i18n/server";
+import { getAppScopeUsage, type SessionUser } from "@timelish/types";
 import {
   Button,
   Carousel,
@@ -15,9 +16,11 @@ import {
   Markdown,
 } from "@timelish/ui";
 import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
+import { canInstallApp } from "@timelish/utils";
 import { ArrowLeft } from "lucide-react";
 // import Image from "next/image";
 import React from "react";
+import { redirect } from "next/navigation";
 import { AddOrUpdateAppButton } from "../add-or-update-app-dialog";
 import { getInstalledApps } from "./actions";
 import { AppEventSubscriptionsDialog } from "./app-event-subscriptions-dialog";
@@ -32,7 +35,17 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
   const app = AvailableApps[appName];
   const installed = await getInstalledApps(appName);
   const session = await getSession();
-  const canInstall = session ? sessionCanInstallApp(session, appName) : false;
+  const target = app?.target ?? "company";
+  const canInstall =
+    !!session &&
+    !!app &&
+    canInstallApp(session.user as SessionUser, app) &&
+    sessionCanInstallApp(session, appName);
+
+  if (!canInstall && installed.length === 0) {
+    redirect("/dashboard/apps/store");
+  }
+
   const t = await getI18nAsync();
   //if (app.isHidden) return null;
 
@@ -57,19 +70,35 @@ export const AppDetails: React.FC<AppDetailsProps> = async ({ appName }) => {
             logoClassName="w-12 h-12"
           />
           <div className="flex flex-row flex-wrap gap-4 items-center">
+            <span className="bg-secondary text-secondary-foreground text-emphasis rounded-md p-2 text-sm">
+              {target === "member"
+                ? t("apps.common.targetUser")
+                : t("apps.common.targetCompany")}
+            </span>
             {app.isFeatured && (
               <span className="text-emphasis">{t("apps.common.featured")}</span>
             )}
-            {app.scope.map((scope) => (
-              <span
-                className="bg-secondary text-secondary-foreground text-emphasis rounded-md p-2 text-sm capitalize"
-                key={scope}
-              >
-                {t.has(`apps.scopes.${scope}` as any)
-                  ? t(`apps.scopes.${scope}` as any)
-                  : scope}
-              </span>
-            ))}
+            {app.scope.map((scope) => {
+              const usage = getAppScopeUsage(scope);
+              const scopeLabel = t.has(`apps.scopes.${scope}` as any)
+                ? t(`apps.scopes.${scope}` as any)
+                : scope;
+              const usageLabel =
+                usage === "member"
+                  ? t("apps.common.targetUser")
+                  : usage === "company"
+                    ? t("apps.common.targetCompany")
+                    : null;
+              return (
+                <span
+                  className="bg-secondary text-secondary-foreground text-emphasis rounded-md p-2 text-sm capitalize"
+                  key={scope}
+                >
+                  {scopeLabel}
+                  {usageLabel ? ` · ${usageLabel}` : null}
+                </span>
+              );
+            })}
             {!!app.subscribeTo?.length && (
               <AppEventSubscriptionsDialog
                 patterns={[...app.subscribeTo].sort()}

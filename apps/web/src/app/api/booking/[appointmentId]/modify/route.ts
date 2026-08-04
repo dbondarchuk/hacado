@@ -42,10 +42,27 @@ const processRescheduleRequest = async (
     "Processing reschedule request",
   );
 
+  const appointment =
+    await servicesContainer.bookingService.getAppointment(appointmentId);
+
+  if (!appointment) {
+    return NextResponse.json(
+      {
+        success: false,
+        code: "appointment_not_found",
+        message: "Appointment not found",
+      },
+      { status: 404 },
+    );
+  }
+
+  const memberId = appointment.memberId;
+
   const isAvailable =
     await servicesContainer.bookingService.verifyTimeAvailability(
       request.dateTime,
       information.duration,
+      memberId,
     );
 
   if (!isAvailable) {

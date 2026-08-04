@@ -1,12 +1,12 @@
 "use server";
 
-export type OrganizationAuthorUser = {
+export type OrganizationAuthorMember = {
   id: string;
   name: string;
 };
 
-export async function getOrganizationAuthorUsers(): Promise<
-  OrganizationAuthorUser[]
+export async function getOrganizationAuthorMembers(): Promise<
+  OrganizationAuthorMember[]
 > {
   const { headers } = await import("next/headers");
   const { ServicesContainer } = await import("@timelish/services");
@@ -17,11 +17,14 @@ export async function getOrganizationAuthorUsers(): Promise<
     return [];
   }
 
-  const users =
-    await ServicesContainer(organizationId).userService.getOrganizationAdminUsers();
+  const members = await ServicesContainer(
+    organizationId,
+  ).teamService.getActiveMembers();
 
-  return users.map((user) => ({
-    id: user._id.toString(),
-    name: user.name,
-  }));
+  return members
+    .filter((m) => m.role === "owner" || m.role === "admin")
+    .map((m) => ({
+      id: typeof m._id === "string" ? m._id : String(m._id),
+      name: m.name || m.email || String(m._id),
+    }));
 }

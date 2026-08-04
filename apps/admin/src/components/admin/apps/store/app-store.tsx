@@ -2,7 +2,7 @@
 import { authClient } from "@/app/auth-client";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@timelish/app-store";
-import { BaseAllKeys, useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { App } from "@timelish/types";
 import {
   Button,
@@ -17,40 +17,33 @@ import {
   Input,
   Link,
   Markdown,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
 } from "@timelish/ui";
 import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
-import { Lock } from "lucide-react";
+import { canInstallApp } from "@timelish/utils";
 import React from "react";
 
 export type AppStoreProps = {};
 
+function useCanInstallApp() {
+  const { data: session } = authClient.useSession();
+  return React.useCallback(
+    (app: App) => {
+      if (!session?.user) return false;
+      if (!canInstallApp(session.user as any, app)) return false;
+      return sessionCanInstallApp(session as any, app.name);
+    },
+    [session],
+  );
+}
+
 const AppCard: React.FC<{ app: App }> = ({ app }) => {
   const t = useI18n();
-  const { data: session } = authClient.useSession();
-  const canInstall = session?.user
-    ? sessionCanInstallApp(session as any, app.name)
-    : false;
 
   return (
     <Card className="pt-4 h-full">
       <CardContent className="flex flex-col gap-4 h-full">
         <div className="flex flex-row justify-between items-center">
           <ConnectedAppNameAndLogo appName={app.name} />
-          {!canInstall && (
-            <TooltipResponsive>
-              <TooltipResponsiveTrigger>
-                <Lock className="size-4 text-muted-foreground" />
-              </TooltipResponsiveTrigger>
-              <TooltipResponsiveContent>
-                <span className="text-sm">
-                  {t("apps.common.upgradeRequired" satisfies BaseAllKeys)}
-                </span>
-              </TooltipResponsiveContent>
-            </TooltipResponsive>
-          )}
         </div>
         <div className="text-default mt-2 flex-grow text-base line-clamp-3">
           <Markdown markdown={t(app.description.text)} prose="none" />
@@ -70,9 +63,13 @@ const AppCard: React.FC<{ app: App }> = ({ app }) => {
 export const AppStore: React.FC<AppStoreProps> = ({}) => {
   const tApps = useI18n("apps");
   const t = useI18n();
+  const canInstallApp = useCanInstallApp();
   const apps = React.useMemo(
-    () => Object.values(AvailableApps).filter((app) => !app.isHidden),
-    [],
+    () =>
+      Object.values(AvailableApps).filter(
+        (app) => !app.isHidden && canInstallApp(app),
+      ),
+    [canInstallApp],
   );
 
   const categories = React.useMemo(

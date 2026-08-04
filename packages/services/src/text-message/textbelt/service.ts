@@ -54,7 +54,7 @@ export class TextBeltService implements ITextMessageSender {
         sender: message.sender,
         replyWebhookUrl: `${url}/apps/textbelt/${organizationId}/webhook`,
         webhookData: message.data
-          ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.data.data ?? ""}`
+          ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.memberId ?? ""}|${message.data.data ?? ""}`
           : undefined,
       };
 

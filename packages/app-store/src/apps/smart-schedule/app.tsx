@@ -15,6 +15,7 @@ export const SmartScheduleApp: App<
   scope: ["availability-provider"],
   category: ["apps.categories.schedule"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <SmartScheduleLogo className={className} />,
   description: {
     text: "app_smart-schedule_admin.app.description",

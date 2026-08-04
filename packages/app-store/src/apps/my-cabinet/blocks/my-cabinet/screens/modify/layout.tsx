@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { Button, cn, Spinner, Stepper, usePrevious } from "@timelish/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";

@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WithDatabaseId } from "@timelish/types";
 import { Sortable } from "@timelish/ui-admin";
 import React from "react";

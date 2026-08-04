@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { GiftCardListModel } from "@timelish/types";
 import { Badge, Button, Checkbox, Link, useCurrencyFormat } from "@timelish/ui";
 import {

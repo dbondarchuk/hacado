@@ -28,7 +28,7 @@ export async function POST(
         appName,
         body,
         request,
-        session.user.id,
+        session.user,
       );
 
     logger.debug(

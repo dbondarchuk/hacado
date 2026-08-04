@@ -16,6 +16,7 @@ export const CustomerEmailNotificationApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["event-subscriber"],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <Mails className={className} />,
   isFeatured: true,
   dontAllowMultiple: true,

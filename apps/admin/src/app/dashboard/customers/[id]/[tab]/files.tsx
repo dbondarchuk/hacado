@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 
 import { AssetsTableAction } from "@/components/admin/assets/table/table-action";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   Checkbox,
@@ -26,14 +26,23 @@ import {
   toast,
   useUploadFile,
 } from "@timelish/ui";
-import { AssetPreview, useSelectedRowsStore } from "@timelish/ui-admin";
+import {
+  AssetPreview,
+  useAuth,
+  useSelectedRowsStore,
+} from "@timelish/ui-admin";
+import { hasPermission } from "@timelish/utils";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
 
-const AssetItem: React.FC<{ asset: Asset }> = ({ asset }) => {
+const AssetItem: React.FC<{ asset: Asset; allowSelect?: boolean }> = ({
+  asset,
+  allowSelect = true,
+}) => {
   const { rowSelection, setRowSelection } = useSelectedRowsStore();
   const setSelected = React.useCallback(() => {
+    if (!allowSelect) return;
     const index = rowSelection.findIndex((row: Asset) => row._id === asset._id);
     const newRows = [...rowSelection];
     if (index >= 0) {
@@ -43,25 +52,28 @@ const AssetItem: React.FC<{ asset: Asset }> = ({ asset }) => {
     }
 
     setRowSelection(newRows);
-  }, [rowSelection, setRowSelection, asset]);
+  }, [allowSelect, rowSelection, setRowSelection, asset]);
 
   const isSelected = !!rowSelection.find((row: Asset) => row._id === asset._id);
   return (
     <div
-      tabIndex={0}
-      role="button"
-      onClick={setSelected}
+      tabIndex={allowSelect ? 0 : undefined}
+      role={allowSelect ? "button" : undefined}
+      onClick={allowSelect ? setSelected : undefined}
       className={cn(
-        "border rounded-md flex flex-col gap-3 items-center justify-between cursor-pointer py-3 relative",
+        "border rounded-md flex flex-col gap-3 items-center justify-between py-3 relative",
+        allowSelect ? "cursor-pointer" : "",
         isSelected ? "bg-accent" : "",
       )}
       key={asset._id}
     >
-      <Checkbox
-        id={`asset-${asset._id}`}
-        checked={isSelected}
-        className="absolute top-1 left-1"
-      />
+      {allowSelect ? (
+        <Checkbox
+          id={`asset-${asset._id}`}
+          checked={isSelected}
+          className="absolute top-1 left-1"
+        />
+      ) : null}
       <AssetPreview asset={asset} />
       <div className="flex flex-col gap-1 items-center text-center">
         <span className="text-muted-foreground">{asset.description}</span>
@@ -99,11 +111,19 @@ const Loaders = () => (
 
 export const CustomerFilesTableAction: React.FC<{}> = () => {
   const router = useRouter();
+  const { user } = useAuth();
+  const canUpdate = hasPermission(user, "customer", "update");
   const onDelete = useCallback(() => {
     router.replace(`?key=${new Date().getTime()}`);
   }, [router]);
 
-  return <AssetsTableAction className="flex-1" onDelete={onDelete} />;
+  return (
+    <AssetsTableAction
+      className="flex-1"
+      onDelete={onDelete}
+      allowDelete={canUpdate}
+    />
+  );
 };
 
 export const CustomerFileUpload: React.FC<{
@@ -217,6 +237,8 @@ export const CustomerFiles: React.FC<{
   const [loading, setLoading] = React.useState(false);
   const [hasMore, setHasMore] = React.useState(true);
   const [initialLoad, setInitialLoad] = React.useState(true);
+  const { user } = useAuth();
+  const canUpdate = hasPermission(user, "customer", "update");
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -282,7 +304,9 @@ export const CustomerFiles: React.FC<{
     // <div className="flex flex-col gap-2 w-full">
     <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
       {loading && page === 1 && <Loaders />}
-      {assets?.map((asset) => <AssetItem asset={asset} key={asset._id} />)}
+      {assets?.map((asset) => (
+        <AssetItem asset={asset} key={asset._id} allowSelect={canUpdate} />
+      ))}
       {hasMore && !loading && <div ref={ref} className="h-1" />}
       {loading && page > 1 && <Loaders />}
     </div>

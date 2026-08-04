@@ -1,5 +1,6 @@
 import { CustomerForm } from "@/components/admin/customers/form";
 import PageContainer from "@/components/admin/layout/page-container";
+import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { Breadcrumbs, Heading } from "@timelish/ui";
@@ -15,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function NewCustomerPage(props: Props) {
+  await assertPageHasPermission("customer", "create");
   const logger = getLoggerFactory("AdminPages")("new-customer");
   const t = await getI18nAsync("admin");
   const searchParams = await props.searchParams;

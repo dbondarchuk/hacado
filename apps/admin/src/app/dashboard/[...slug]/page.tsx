@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { AvailableApps } from "@timelish/app-store";
 import { AppMenuItems } from "@timelish/app-store/menu-items";
@@ -9,8 +9,9 @@ import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@timelish/ui-admin-kit";
+import { meetsRequiredPermission } from "@timelish/utils";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { forbidden, redirect } from "next/navigation";
 import { cache } from "react";
 
 type Props = PageProps<"/dashboard/[...slug]">;
@@ -20,6 +21,7 @@ const getAppPage = cache(async (path: string) => {
   const tAdmin = await getI18nAsync("admin");
   const t = await getI18nAsync();
   const servicesContainer = await getServicesContainer();
+  const session = await getSession();
   logger.debug(
     {
       slug: path,
@@ -58,6 +60,14 @@ const getAppPage = cache(async (path: string) => {
   if (!menuItem) {
     logger.warn({ path }, "No menu item found for path");
     redirect("/dashboard");
+  }
+
+  if (!meetsRequiredPermission(session?.user, menuItem.requiredPermission)) {
+    logger.warn(
+      { path, requiredPermission: menuItem.requiredPermission },
+      "User missing permission for app page",
+    );
+    forbidden();
   }
 
   const breadcrumbItems = [

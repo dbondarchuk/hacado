@@ -4,7 +4,7 @@ import { useQueryStates } from "nuqs";
 import React from "react";
 import { searchParams } from "./search-params";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WithTotal } from "@timelish/types";
 import { toast, useDebounce } from "@timelish/ui";
 import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";
@@ -46,9 +46,8 @@ export const WaitlistTable: React.FC<{
       const search = query.search || undefined;
       const limit = query.limit;
       const optionId = query.option;
-      const customerId = customerIdLock
-        ? [customerIdLock]
-        : query.customer;
+      const customerId = customerIdLock ? [customerIdLock] : query.customer;
+      const memberId = query.member;
       const status = query.status;
       const start = query.start;
       const end = query.end;
@@ -64,6 +63,7 @@ export const WaitlistTable: React.FC<{
       const res = await getWaitlistEntries(appId, {
         optionId: optionId || undefined,
         customerId: customerId?.length ? customerId : undefined,
+        memberId: memberId?.length ? memberId : undefined,
         status,
         range,
         offset,

@@ -20,6 +20,10 @@ export const generalConfigurationSchema = z.object({
   currency: zCurrency,
   timeZone: zTimeZone,
   useClientTimezone: z.coerce.boolean<boolean>().optional(),
+  /** Display label override for the `coordinator` role (e.g. Front Desk). */
+  coordinatorLabel: asOptionalField(
+    z.string().max(64, "configuration.general.coordinatorLabel.max"),
+  ),
 });
 
 export type GeneralConfiguration = z.infer<typeof generalConfigurationSchema>;

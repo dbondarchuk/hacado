@@ -6,7 +6,7 @@ import {
   SelectInput,
   TextInput,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { StylesConfigurationPanel } from "@timelish/page-builder-base";
 import { Combobox, deepMemo, Label } from "@timelish/ui";
 import { useCallback } from "react";

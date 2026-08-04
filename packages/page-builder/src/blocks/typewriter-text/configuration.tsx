@@ -5,9 +5,9 @@ import {
   DndContext,
   KeyboardSensor,
   PointerSensor,
-  type DragEndEvent,
   useSensor,
   useSensors,
+  type DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -23,14 +23,21 @@ import {
   SliderInput,
   TextInput,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { Button, Checkbox, Label, cn, deepMemo } from "@timelish/ui";
-import { Clock, Hourglass, Timer, Trash2, Plus, GripVertical } from "lucide-react";
+import { Button, Checkbox, cn, deepMemo, Label } from "@timelish/ui";
+import {
+  Clock,
+  GripVertical,
+  Hourglass,
+  Plus,
+  Timer,
+  Trash2,
+} from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { TypewriterPhrase, TypewriterTextProps } from "./schema";
-import { styles } from "./styles";
 import { typewriterTextShortcuts } from "./shortcuts";
+import { styles } from "./styles";
 
 function SortablePhraseRow({
   phrase,
@@ -186,7 +193,12 @@ export const TypewriterTextConfiguration = deepMemo(
             <Label className="text-sm font-medium">
               {t("pageBuilder.blocks.typewriterText.phrases")}
             </Label>
-            <Button type="button" variant="outline" size="sm" onClick={addPhrase}>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={addPhrase}
+            >
               <Plus className="mr-1 size-4" />
               {t("pageBuilder.blocks.typewriterText.addPhrase")}
             </Button>

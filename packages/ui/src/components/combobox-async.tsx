@@ -3,7 +3,7 @@
 import { Check } from "lucide-react";
 import React from "react";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { useInView } from "react-intersection-observer";
 import { toast } from "sonner";
 import { useDebounce } from "../hooks";

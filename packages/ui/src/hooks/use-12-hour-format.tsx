@@ -1,4 +1,4 @@
-import { useLocale } from "@timelish/i18n";
+import { useLocale } from "@timelish/i18n/client";
 import { is12hourUserTimeFormat } from "@timelish/utils";
 
 export const use12HourFormat = () => {

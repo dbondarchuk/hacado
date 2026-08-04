@@ -1,7 +1,7 @@
 import { EmailTemplates } from "../types";
 
 const getText = (customText: string) => `
-Hi {{config.name}},
+Hi {{user.name}},
 
 ${customText}
 
@@ -16,6 +16,8 @@ Email: {{ waitlistEntry.email }}
 Phone: {{ waitlistEntry.phone }}
 
 Option selected: {{ waitlistEntry.option.name }}
+
+Specialist: {{ member.name }}
 
 Addons selected:
 

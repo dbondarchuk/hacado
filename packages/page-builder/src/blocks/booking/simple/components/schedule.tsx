@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi, handleBookingSubmitError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -12,12 +12,14 @@ import type {
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   FieldSchema,
+  PublicStaffMember,
 } from "@timelish/types";
 import {
   ApplyDiscountResponse,
   Availability,
-  CheckDuplicateAppointmentsResponse,
   BookingRestriction,
+  CheckDuplicateAppointmentsResponse,
+  getActiveStaffForAssignments,
   isBookingLimitRestriction,
 } from "@timelish/types";
 import { Spinner, toast, useTimeZone } from "@timelish/ui";
@@ -25,7 +27,7 @@ import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";
-import { ScheduleContext, StepType } from "./context";
+import { FlowOrder, ScheduleContext, StepType } from "./context";
 import { StepCard } from "./step-card";
 
 export type ScheduleProps = {
@@ -38,6 +40,10 @@ export type ScheduleProps = {
   className?: string;
   id?: string;
   isEditor?: boolean;
+  members: PublicStaffMember[];
+  flowOrder: FlowOrder;
+  /** Set when a specialist was already chosen before the service (specialist-first flow). */
+  preselectedMemberId?: string | null;
 };
 
 export const Schedule: React.FC<
@@ -52,6 +58,9 @@ export const Schedule: React.FC<
   className,
   id,
   isEditor,
+  members,
+  flowOrder,
+  preselectedMemberId,
   ...props
 }) => {
   const i18n = useI18n("translation");
@@ -117,12 +126,67 @@ export const Schedule: React.FC<
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
 
+  const optionBasePrice =
+    appointmentOption.durationType === "fixed"
+      ? appointmentOption.price
+      : appointmentOption.pricePerHour;
+  const optionBaseDuration =
+    appointmentOption.durationType === "fixed"
+      ? appointmentOption.duration
+      : undefined;
+
+  const activeStaff = React.useMemo(
+    () =>
+      getActiveStaffForAssignments(
+        appointmentOption.staff,
+        members,
+        optionBasePrice,
+        optionBaseDuration,
+      ),
+    [appointmentOption.staff, members, optionBasePrice, optionBaseDuration],
+  );
+
+  const showSpecialistStep = activeStaff.length > 1 && !preselectedMemberId;
+
+  const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
+    preselectedMemberId ??
+      (activeStaff.length === 1 ? activeStaff[0].member.id : null),
+  );
+
+  const flexibleDurationMin =
+    appointmentOption.durationType === "flexible"
+      ? appointmentOption.durationMin
+      : undefined;
+  const fixedDuration =
+    appointmentOption.durationType === "fixed"
+      ? appointmentOption.duration
+      : undefined;
+
   React.useEffect(() => {
-    setDuration(appointmentOptionDuration);
-  }, [appointmentOptionDuration, setDuration]);
+    if (flexibleDurationMin == null) return;
+    setDuration(flexibleDurationMin);
+  }, [appointmentOption._id, flexibleDurationMin, setDuration]);
+
+  React.useEffect(() => {
+    if (appointmentOption.durationType !== "fixed") return;
+
+    const selectedStaff = selectedMemberId
+      ? activeStaff.find((s) => s.member.id === selectedMemberId)
+      : undefined;
+
+    setDuration(selectedStaff?.effectiveDuration ?? fixedDuration);
+  }, [
+    appointmentOption.durationType,
+    fixedDuration,
+    selectedMemberId,
+    activeStaff,
+    setDuration,
+  ]);
 
   let initialStep: StepType = "duration";
-  if (appointmentOption.addons && appointmentOption.addons.length) {
+  if (appointmentOption.durationType === "fixed" && showSpecialistStep) {
+    initialStep = "specialist";
+  } else if (appointmentOption.addons && appointmentOption.addons.length) {
     initialStep = "addons";
   } else if (appointmentOption.durationType === "fixed")
     initialStep = "calendar";
@@ -190,6 +254,7 @@ export const Schedule: React.FC<
     try {
       const data = await clientApi.availability.getAvailability({
         duration: totalDuration,
+        memberId: selectedMemberId ?? undefined,
       });
 
       setAvailability(data);
@@ -247,6 +312,7 @@ export const Schedule: React.FC<
       timeZone: dateTime.timeZone,
       duration: duration,
       optionId: appointmentOption._id,
+      memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
@@ -393,6 +459,13 @@ export const Schedule: React.FC<
         value={{
           selectedAddons,
           appointmentOption,
+          members,
+          flowOrder,
+          selectedMemberId,
+          setSelectedMemberId,
+          preselectedMemberId,
+          activeStaff,
+          showSpecialistStep,
           duration,
           setDiscount: setPromoCode,
           discount: promoCode,

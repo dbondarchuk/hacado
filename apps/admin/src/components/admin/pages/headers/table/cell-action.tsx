@@ -1,6 +1,6 @@
 "use client";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PageHeaderListModel } from "@timelish/types";
 import {
   AlertModal,

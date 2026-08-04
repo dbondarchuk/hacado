@@ -23,7 +23,7 @@ import type { IScheduleService } from "./schedule.service";
 import type { ISyncedPaymentsService } from "./synced-payments.service";
 import type { IServicesService } from "./services.service";
 import type { ITemplatesService } from "./templates.service";
-import type { IUserService } from "./user.service";
+import type { ITeamService } from "./team.service";
 
 export type IServicesContainer = {
   activityService: IActivityService;
@@ -44,7 +44,7 @@ export type IServicesContainer = {
   syncedPaymentsService: ISyncedPaymentsService;
   jobService: IJobService;
   organizationService: IOrganizationService;
-  userService: IUserService;
+  teamService: ITeamService;
   dashboardNotificationsService: IDashboardNotificationsService;
   giftCardsService: IGiftCardsService;
   billingService: IBillingService;

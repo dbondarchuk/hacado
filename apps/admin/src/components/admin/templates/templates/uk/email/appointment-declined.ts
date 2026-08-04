@@ -109,7 +109,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate = {
                   align: "start",
                   children: [
                     {
-                      text: "На жаль, ми не можемо підтвердити ваш візит на послугу {{option.name}} {{dateTime.full}}.",
+                      text: "На жаль, ми не можемо підтвердити ваш візит на послугу {{option.name}} {{dateTime.full}} з {{member.name}}.",
                       fontSize: "14px",
                     },
                   ],

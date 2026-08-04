@@ -19,11 +19,12 @@ export const WaitlistApp: App<"app_waitlist_admin", WaitlistAdminKeys> = {
     "communication-templates-provider",
   ],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <CalendarClock className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_waitlist_admin.app.description",
   },

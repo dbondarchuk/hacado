@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
 import { EmailBuilder } from "@timelish/email-builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   CommunicationChannel,
   getTemplateSchemaWithUniqueCheck,

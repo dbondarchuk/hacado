@@ -15,6 +15,7 @@ export const searchParams = {
   ]),
   customer: parseAsArrayOf(parseAsString),
   option: parseAsArrayOf(parseAsString),
+  member: parseAsArrayOf(parseAsString),
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   sort: baseSearchParams.sort.withDefault([

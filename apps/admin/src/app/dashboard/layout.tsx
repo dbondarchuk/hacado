@@ -1,8 +1,4 @@
-import Header from "@/components/admin/layout/header";
-import { AppSidebar } from "@/components/admin/layout/sidebar";
-
-import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
-import { navItems } from "@/constants/data";
+import { filterNavItemsForPermission } from "@/lib/auth/filter-nav-items-for-role";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
 import {
   isSubscriptionInactive,
@@ -14,6 +10,7 @@ import {
   getSessionPlanTier,
   isFreeTier,
 } from "@/lib/billing/subscription-plan-access";
+import { serializeAppointmentsSearchParams } from "@timelish/api-sdk";
 import { AppMenuItems } from "@timelish/app-store/menu-items";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { NavItemGroup } from "@timelish/types";
@@ -25,6 +22,7 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@timelish/ui";
+import { canFilterByMember } from "@timelish/utils";
 import { AlertTriangle, Sparkles } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -38,6 +36,11 @@ import {
 } from "../utils";
 import { NotificationsToastStream } from "./notifications-toast-stream";
 import { SubscriptionStatusListener } from "./subscription-status-listener";
+import Header from "@/components/admin/layout/header";
+import { AppSidebar } from "@/components/admin/layout/sidebar";
+import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
+import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
+import { navItems } from "@/constants/data";
 
 const SIDEBAR_COOKIE_NAME = "admin-sidebar-open";
 
@@ -53,6 +56,16 @@ export default async function DashboardLayout({
   }
 
   if (!session.user.organizationId || !session.user.organizationInstalled) {
+    if (!session.user.organizationId) {
+      const pendingInvitation = await findPendingInvitationForEmail(
+        session.user.email,
+      );
+      if (pendingInvitation) {
+        redirect(
+          `/accept-invitation?invitationId=${encodeURIComponent(pendingInvitation.id)}`,
+        );
+      }
+    }
     const billingOk = await organizationHasInstallBillingAccess(
       session.user.organizationId,
     );
@@ -141,6 +154,7 @@ export default async function DashboardLayout({
             description: parent.description,
             notificationsCountKey: parent.notificationsCountKey,
             minimumPlanTier: parent.minimumPlanTier,
+            requiredPermission: parent.requiredPermission,
           });
         }
       }
@@ -153,7 +167,20 @@ export default async function DashboardLayout({
     });
 
   groups = filterNavItemsForPlanTier(groups, planTier);
+  groups = filterNavItemsForPermission(groups, session.user);
   const isSubscriptionPastDueFlag = isSubscriptionPastDue(subscriptionStatus);
+
+  const canSeeInactiveMemberWarnings = canFilterByMember(session.user);
+  const inactiveMemberWarnings = canSeeInactiveMemberWarnings
+    ? await servicesContainer.teamService.hasUpcomingAppointmentsOnInactiveMembers()
+    : [];
+  const inactiveMemberAppointmentCount = inactiveMemberWarnings.reduce(
+    (sum, warning) => sum + warning.count,
+    0,
+  );
+  const inactiveMembersAppointmentsHref = `/dashboard/appointments${serializeAppointmentsSearchParams(
+    { member: inactiveMemberWarnings.map((warning) => warning.memberId) },
+  )}`;
 
   return (
     <div className="flex">
@@ -192,7 +219,9 @@ export default async function DashboardLayout({
                     <SidebarInset
                       className={cn(
                         "group/main",
-                        isSubscriptionPastDueFlag || showFreeTierUpgradeBanner
+                        isSubscriptionPastDueFlag ||
+                          showFreeTierUpgradeBanner ||
+                          inactiveMemberAppointmentCount > 0
                           ? "has-banner"
                           : "",
                       )}
@@ -258,6 +287,40 @@ export default async function DashboardLayout({
                               className="inline-flex shrink-0 items-center justify-center self-start rounded-full border-2 border-primary/60 bg-transparent px-4 py-2 text-base font-medium text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 sm:self-auto"
                             >
                               {t("dashboard.freeTierUpgradeBanner.upgrade")}
+                            </Link>
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {inactiveMemberAppointmentCount > 0 ? (
+                        <div
+                          className="mx-4 mt-4 flex overflow-hidden rounded-lg border border-amber-500/50 bg-amber-950 shadow-sm dark:border-amber-500/40"
+                          role="alert"
+                        >
+                          <div
+                            className="w-1.5 shrink-0 bg-amber-400"
+                            aria-hidden
+                          />
+                          <div className="flex flex-1 flex-col items-stretch justify-center gap-3 p-3 pl-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pr-4">
+                            <div className="flex min-w-0 items-start gap-3 sm:items-center">
+                              <AlertTriangle
+                                className="mt-0.5 size-5 shrink-0 text-amber-400 sm:mt-0"
+                                strokeWidth={2}
+                                aria-hidden
+                              />
+                              <p className="text-base font-medium leading-snug text-amber-100/95">
+                                {t("dashboard.inactiveMembersBanner.message", {
+                                  count: inactiveMemberAppointmentCount,
+                                })}
+                              </p>
+                            </div>
+                            <Link
+                              href={inactiveMembersAppointmentsHref}
+                              className="inline-flex shrink-0 items-center justify-center self-start rounded-full border-2 border-amber-400/80 bg-transparent px-4 py-2 text-base font-medium text-amber-200 hover:text-amber-200/90 transition-colors hover:bg-amber-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60 sm:self-auto"
+                            >
+                              {t(
+                                "dashboard.inactiveMembersBanner.viewAppointments",
+                              )}
                             </Link>
                           </div>
                         </div>

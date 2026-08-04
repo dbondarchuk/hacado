@@ -1,4 +1,4 @@
-import { AllKeys, TranslationKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, TranslationKeys, useI18n } from "@timelish/i18n/client";
 import React from "react";
 import { cn } from "../../utils";
 import { useFormField } from "../form";

@@ -1,6 +1,7 @@
 export const BillingPlanTier = {
   Free: "free",
-  Pro: "pro",
+  Solo: "solo",
+  Studio: "studio",
 } as const;
 
 export type BillingPlanTier =
@@ -10,14 +11,15 @@ export const DEFAULT_MINIMUM_PLAN_TIER = BillingPlanTier.Free;
 
 const PLAN_TIER_RANK: Record<BillingPlanTier, number> = {
   [BillingPlanTier.Free]: 0,
-  [BillingPlanTier.Pro]: 1,
+  [BillingPlanTier.Solo]: 1,
+  [BillingPlanTier.Studio]: 2,
 };
 
 export function meetsMinimumPlanTier(
   currentTier: BillingPlanTier | null,
   requiredTier: BillingPlanTier,
 ): boolean {
-  if (!currentTier || currentTier === BillingPlanTier.Pro) return true;
+  if (!currentTier) return true;
   return PLAN_TIER_RANK[currentTier] >= PLAN_TIER_RANK[requiredTier];
 }
 
@@ -44,7 +46,7 @@ export function canCreateMoreServices(
   planTier: BillingPlanTier | null,
   currentCount: number,
 ): boolean {
-  if (!planTier || planTier === BillingPlanTier.Pro) return true;
+  if (!planTier || planTier !== BillingPlanTier.Free) return true;
   return currentCount < FREE_TIER_LIMITS.services;
 }
 
@@ -52,7 +54,7 @@ export function canCreateMorePages(
   planTier: BillingPlanTier | null,
   currentCount: number,
 ): boolean {
-  if (!planTier || planTier === BillingPlanTier.Pro) return true;
+  if (!planTier || planTier !== BillingPlanTier.Free) return true;
   return currentCount < FREE_TIER_LIMITS.pages;
 }
 

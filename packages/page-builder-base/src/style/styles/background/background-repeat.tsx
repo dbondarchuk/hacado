@@ -1,4 +1,4 @@
-import { BuilderKeys, useI18n } from "@timelish/i18n";
+import { BuilderKeys, useI18n } from "@timelish/i18n/client";
 import { Combobox } from "@timelish/ui";
 import { Repeat } from "lucide-react";
 import * as z from "zod";

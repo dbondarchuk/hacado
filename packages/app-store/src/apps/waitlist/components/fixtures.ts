@@ -13,6 +13,10 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       isAutoConfirm: "inherit",
       isOnline: false,
       durationType: "flexible",
+      staff: [
+        { memberId: "member-1" },
+        { memberId: "member-2", priceOverride: 25 },
+      ],
       addons: [
         {
           _id: "addon-1",
@@ -124,4 +128,18 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   ],
   fieldsSchema: {},
   showPromoCode: true,
+  members: [
+    {
+      id: "member-1",
+      name: "[DEMO] Alex Morgan",
+      bio: "Senior specialist with 8 years of experience.",
+      image: null,
+    },
+    {
+      id: "member-2",
+      name: "[DEMO] Jamie Lee",
+      bio: "Loves helping clients feel their best.",
+      image: null,
+    },
+  ],
 };

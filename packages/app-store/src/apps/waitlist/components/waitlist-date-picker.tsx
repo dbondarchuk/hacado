@@ -1,4 +1,4 @@
-import { useFormatter, useI18n, useLocale } from "@timelish/i18n";
+import { useFormatter, useI18n, useLocale } from "@timelish/i18n/client";
 import { DateRange } from "@timelish/types";
 import {
   Button,

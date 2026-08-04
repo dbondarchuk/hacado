@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { cn } from "@timelish/ui";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";

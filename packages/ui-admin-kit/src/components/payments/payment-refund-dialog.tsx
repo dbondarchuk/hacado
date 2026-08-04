@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Payment, PaymentSummary } from "@timelish/types";
 import {
   AlertDialog,
@@ -106,7 +106,10 @@ export const PaymentRefundDialog: React.FC<PaymentRefundDialogProps> = ({
   const refund = useCallback(
     async (refundAmount: number) => {
       try {
-        if (refundAmount <= 0 || refundAmount > payment.amount - totalRefunded) {
+        if (
+          refundAmount <= 0 ||
+          refundAmount > payment.amount - totalRefunded
+        ) {
           throw new Error("Invalid refund amount");
         }
 
@@ -137,7 +140,15 @@ export const PaymentRefundDialog: React.FC<PaymentRefundDialogProps> = ({
         setIsRefundInProgress(false);
       }
     },
-    [payment._id, payment.amount, totalRefunded, t, onSuccess, setIsOpen, router],
+    [
+      payment._id,
+      payment.amount,
+      totalRefunded,
+      t,
+      onSuccess,
+      setIsOpen,
+      router,
+    ],
   );
 
   return (

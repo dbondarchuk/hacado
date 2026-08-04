@@ -223,6 +223,7 @@ export async function POST(request: NextRequest) {
       files,
       eventSource: { actor: "customer" },
       giftCards: eventOrError.giftCards,
+      memberId: appointmentRequest.memberId,
     });
 
     await trackBookingStepWithCustomer(

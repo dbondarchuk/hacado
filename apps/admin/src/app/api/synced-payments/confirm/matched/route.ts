@@ -1,13 +1,19 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/synced-payments/confirm/matched")(
+  const auth = await requirePermission(
+    "syncedPayment",
+    "manage",
+    "AdminAPI/synced-payments/confirm/matched",
     "POST",
   );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
 

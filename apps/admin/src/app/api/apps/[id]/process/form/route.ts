@@ -1,4 +1,5 @@
 import { getServicesContainer, getSession } from "@/app/utils";
+import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@timelish/logger";
 import { ConnectedAppRequestError } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,12 +24,13 @@ export async function POST(
 
   try {
     const session = await getSession();
+    await assertCanAccessConnectedApp(id, session.user);
     const result =
       await servicesContainer.connectedAppsService.processFormRequest(
         id,
         formData,
         request,
-        session.user.id,
+        session.user,
       );
 
     logger.debug(

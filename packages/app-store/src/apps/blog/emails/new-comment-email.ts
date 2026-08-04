@@ -7,6 +7,7 @@ import type { BlogCommentCreatedPayload } from "../models/events";
 import { BlogAdminAllKeys } from "../translations/types";
 
 type AdminRecipient = {
+  memberId: string;
   email: string;
   name: string;
   language?: string | null;
@@ -127,7 +128,8 @@ export const buildNewBlogCommentEmailNotifications = async (
       },
       handledBy:
         "app_blog_admin.handlers.newCommentEmail" satisfies BlogAdminAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

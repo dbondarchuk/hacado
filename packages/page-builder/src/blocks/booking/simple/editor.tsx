@@ -26,6 +26,7 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         className={cn(className, base?.className)}
         id={base?.id}
         successPage={props.confirmationPage}
+        flowOrder={props.flowOrder}
         isEditor
         {...overlayProps}
       />

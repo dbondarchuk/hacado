@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import React from "react";
 
@@ -87,7 +87,11 @@ const ItemComponent = React.memo(
     );
 
     return (
-      <CommandItem style={props.style} onSelect={onSelect} className="text-base">
+      <CommandItem
+        style={props.style}
+        onSelect={onSelect}
+        className="text-base"
+      >
         <Check
           className={cn(
             "mr-2 size-3.5",

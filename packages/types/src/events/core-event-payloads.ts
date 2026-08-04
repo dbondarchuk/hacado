@@ -239,8 +239,8 @@ export type AppConnectedPayload = {
 export type AppFailedPayload = {
   appId: string;
   appName: string;
-  /** Connected-app owner; used for failure notifications. */
-  userId: string;
+  /** Connected-app owner member; used for failure notifications. */
+  memberId: string;
 };
 
 export type OrganizationDomainChangedPayload = {

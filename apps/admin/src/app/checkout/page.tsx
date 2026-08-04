@@ -3,6 +3,7 @@ import { StepVerify } from "@/components/install/steps/step-verify";
 import {
   getPolarBillingPlansFromEnv,
   POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS,
+  POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER,
 } from "@/config/polar-billing";
 import { ensureBillingOrganizationForUser } from "@/lib/billing/ensure-billing-org";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
@@ -109,13 +110,27 @@ export default async function CheckoutPage() {
   });
 
   const byId = new Map(list.result.items.map((p) => [p.id, p]));
-  const plans = planDefs.map((def) => {
+  const tierOrder: Record<string, number> = { free: 0, solo: 1, studio: 2 };
+  const plans = planDefs
+    .slice()
+    .sort(
+      (a, b) => (tierOrder[a.slug] ?? 99) - (tierOrder[b.slug] ?? 99),
+    )
+    .map((def) => {
     const product = byId.get(def.productId);
     const benefitKeys =
       POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS[def.slug] ??
-      POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS.pro ??
+      POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS.solo ??
       [];
     const benefits = benefitKeys.map((key) => t(key as any));
+    const lowerTierSlug = POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER[def.slug];
+    const includesLowerTierLabel = lowerTierSlug
+      ? t("checkout.everythingInPlus", {
+          tier: t.has(`checkout.plans.${lowerTierSlug}.title`)
+            ? t(`checkout.plans.${lowerTierSlug}.title`)
+            : lowerTierSlug,
+        })
+      : null;
     const priceParts = product
       ? formatPriceParts(product, t as (k: string) => string)
       : null;
@@ -137,6 +152,7 @@ export default async function CheckoutPage() {
         priceAmount: priceParts?.amount ?? null,
         pricePeriod: priceParts?.period ?? null,
         benefits,
+        includesLowerTierLabel,
       };
     }
     return {
@@ -148,13 +164,14 @@ export default async function CheckoutPage() {
       priceAmount: priceParts?.amount ?? null,
       pricePeriod: priceParts?.period ?? null,
       benefits,
+      includesLowerTierLabel,
     };
   });
 
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-card px-4 py-4 md:px-8">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Image src="/logo.png" alt="Timeli.sh" width={28} height={28} />
             <div className="text-xl font-semibold tracking-tight">
@@ -166,8 +183,8 @@ export default async function CheckoutPage() {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-4 py-8 md:px-8">
-        <div className="mb-8 space-y-2">
+      <main className="container mx-auto px-4 py-8 md:px-8">
+        <div className="mb-8 space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             {t("checkout.title")}
           </h1>

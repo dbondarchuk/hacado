@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getSession } from "@/app/utils";
 import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
@@ -32,6 +32,7 @@ import {
   RecentCommunications,
   SendCommunicationButton,
 } from "@timelish/ui-admin-kit";
+import { hasPermission } from "@timelish/utils";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -80,7 +81,11 @@ export default async function CustomerPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("customer-detail");
   const t = await getI18nAsync("admin");
   const tAll = await getI18nAsync();
-  const servicesContainer = await getServicesContainer();
+  const [servicesContainer, session] = await Promise.all([
+    getServicesContainer(),
+    getSession(),
+  ]);
+  const canUpdateCustomer = hasPermission(session.user, "customer", "update");
   const params = await props.params;
   const path = `/dashboard/customers/${params.id}`;
 
@@ -251,7 +256,7 @@ export default async function CustomerPage(props: Props) {
                 >
                   <div className="flex flex-col md:flex-row gap-2 w-full">
                     <CustomerFilesTableAction />
-                    {!customer.isDeleted && (
+                    {!customer.isDeleted && canUpdateCustomer && (
                       <HeaderActionButtonsPortal>
                         <CustomerFileUpload customerId={params.id} />
                       </HeaderActionButtonsPortal>

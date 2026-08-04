@@ -155,7 +155,7 @@ export const BLOG_APP_EVENTS: AppEventConfig = {
           return null;
         }
 
-        const admins = await services.userService.getOrganizationAdminUsers();
+        const admins = await services.teamService.getOrganizationAdminContacts();
         if (!admins.length) {
           return null;
         }

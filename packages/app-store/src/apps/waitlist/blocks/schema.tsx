@@ -132,7 +132,20 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
   },
 };
 
-export const WaitlistBlocks = Object.fromEntries(
+export const WaitlistBlocks: Record<
+  string,
+  {
+    schema: (typeof WaitlistBlocksSchema)[keyof typeof WaitlistBlocksSchema];
+    editor: EditorDocumentBlocksDictionary<
+      typeof WaitlistBlocksSchema
+    >[keyof typeof WaitlistBlocksSchema];
+    defaultMetadata: (
+      appName: string,
+      appId: string,
+    ) => Record<string, unknown>;
+    allowedInFooter: boolean;
+  }
+> = Object.fromEntries(
   Object.entries(WaitlistBlocksSchema).map(([key, schema]) => [
     key,
     {

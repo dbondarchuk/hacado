@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Button,
   cn,
@@ -12,13 +12,13 @@ import { durationToTime } from "@timelish/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
+import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
   waitlistPublicNamespace,
 } from "../../../../translations/types";
 import { ConfirmationCard } from "./confirmation-card";
-import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
 import { useScheduleContext } from "./context";
 import { ScheduleSteps } from "./steps";
 
@@ -46,11 +46,12 @@ export const BookingWithWaitlistLayout = ({
     price,
     basePrice,
     steps,
-    currentStepIndex,
     step,
     isLoading,
     areAppointmentOptionsLoading,
     isBookingRestricted,
+    activeStaff,
+    flowOrder,
   } = ctx;
 
   const showBookingRestriction = flow === "booking" && isBookingRestricted;
@@ -93,6 +94,14 @@ export const BookingWithWaitlistLayout = ({
         return false;
       }
 
+      if (
+        step === "specialist" &&
+        flowOrder !== "specialist-first" &&
+        activeStaff.length <= 1
+      ) {
+        return false;
+      }
+
       return true;
     })
     .map((step) => ({
@@ -100,6 +109,11 @@ export const BookingWithWaitlistLayout = ({
       label: t(`block.steps.${step}`),
       icon: ScheduleSteps[step].icon,
     }));
+
+  // Must use the filtered list: skipped steps (specialist/addons/payment) shift indices.
+  const filteredCurrentStepIndex = filteredSteps.findIndex(
+    (s) => s.id === currentStep,
+  );
 
   return (
     <div className={className} {...props}>
@@ -122,7 +136,7 @@ export const BookingWithWaitlistLayout = ({
             steps={filteredSteps}
             currentStepId={currentStep}
             isCompleted={(id, index) =>
-              isBookingConfirmed || index < currentStepIndex
+              isBookingConfirmed || index < filteredCurrentStepIndex
             }
             className="mb-8"
           />
@@ -153,96 +167,96 @@ export const BookingWithWaitlistLayout = ({
         {!isBookingConfirmed &&
           !areAppointmentOptionsLoading &&
           !showBookingRestriction && (
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
-            {!!selectedAppointmentOption && (
-              <div className="flex flex-col md:flex-row gap-2 w-full">
-                {!!basePrice && (
-                  <div className="text-left">
-                    <p className="text-xs text-muted-foreground amount-label">
-                      {i18n("booking.summary.estimates.amount")}
-                    </p>
-                    <p className="text-sm font-bold text-foreground flex items-center gap-2 amount-value">
-                      {currencyFormat(price)}
-                    </p>
-                  </div>
-                )}
-                {selectedAppointmentOption && (
-                  <div
-                    className={cn(
-                      "text-left",
-                      !!basePrice &&
-                        "border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0",
-                    )}
-                  >
-                    <p className="text-xs text-muted-foreground duration-label">
-                      {i18n("booking.summary.estimates.duration")}
-                    </p>
-                    <p className="text-sm font-bold text-foreground flex items-center gap-2 duration-value">
-                      {i18n(
-                        "common.formats.durationHourMin",
-                        durationToTime(duration),
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+              {!!selectedAppointmentOption && (
+                <div className="flex flex-col md:flex-row gap-2 w-full">
+                  {!!basePrice && (
+                    <div className="text-left">
+                      <p className="text-xs text-muted-foreground amount-label">
+                        {i18n("booking.summary.estimates.amount")}
+                      </p>
+                      <p className="text-sm font-bold text-foreground flex items-center gap-2 amount-value">
+                        {currencyFormat(price)}
+                      </p>
+                    </div>
+                  )}
+                  {selectedAppointmentOption && (
+                    <div
+                      className={cn(
+                        "text-left",
+                        !!basePrice &&
+                          "border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0",
                       )}
-                    </p>
-                  </div>
+                    >
+                      <p className="text-xs text-muted-foreground duration-label">
+                        {i18n("booking.summary.estimates.duration")}
+                      </p>
+                      <p className="text-sm font-bold text-foreground flex items-center gap-2 duration-value">
+                        {i18n(
+                          "common.formats.durationHourMin",
+                          durationToTime(duration),
+                        )}
+                      </p>
+                    </div>
+                  )}
+                  {flow === "booking" && !!dateTime && (
+                    <div className="text-left border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0">
+                      <p className="text-xs text-muted-foreground">
+                        {i18n("booking.summary.estimates.dateTime")}
+                      </p>
+                      <p className="text-sm font-bold text-foreground flex items-center gap-2 duration-value">
+                        {DateTime.fromJSDate(dateTime.date)
+                          .set({
+                            hour: dateTime.time.hour,
+                            minute: dateTime.time.minute,
+                          })
+                          .setZone(dateTime.timeZone)
+                          .toLocaleString(DateTime.DATETIME_FULL, { locale })}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div
+                className={cn(
+                  "w-full lg:w-auto flex justify-between gap-2 buttons-container",
+                  !step.prev.show(ctx) && "justify-end",
+                  !selectedAppointmentOption && "lg:w-full",
                 )}
-                {flow === "booking" && !!dateTime && (
-                  <div className="text-left border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0">
-                    <p className="text-xs text-muted-foreground">
-                      {i18n("booking.summary.estimates.dateTime")}
-                    </p>
-                    <p className="text-sm font-bold text-foreground flex items-center gap-2 duration-value">
-                      {DateTime.fromJSDate(dateTime.date)
-                        .set({
-                          hour: dateTime.time.hour,
-                          minute: dateTime.time.minute,
-                        })
-                        .setZone(dateTime.timeZone)
-                        .toLocaleString(DateTime.DATETIME_FULL, { locale })}
-                    </p>
-                  </div>
+              >
+                {step.prev.show(ctx) && (
+                  <Button
+                    variant="outline"
+                    className="back-button"
+                    onClick={() => step.prev.action(ctx)}
+                    disabled={
+                      !step.prev.isEnabled(ctx) ||
+                      isLoading ||
+                      areAppointmentOptionsLoading
+                    }
+                  >
+                    <ChevronLeft className="w-4 h-4 mr-1" />
+                    {t(step.prev.text ?? "block.buttons.steps.back")}
+                  </Button>
+                )}
+                {step.next.show(ctx) && (
+                  <Button
+                    className="next-button"
+                    onClick={() => step.next.action(ctx)}
+                    disabled={
+                      !step.next.isEnabled(ctx) ||
+                      isLoading ||
+                      areAppointmentOptionsLoading
+                    }
+                  >
+                    {t(step.next.text ?? "block.buttons.steps.next")}
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
                 )}
               </div>
-            )}
-
-            <div
-              className={cn(
-                "w-full lg:w-auto flex justify-between gap-2 buttons-container",
-                !step.prev.show(ctx) && "justify-end",
-                !selectedAppointmentOption && "lg:w-full",
-              )}
-            >
-              {step.prev.show(ctx) && (
-                <Button
-                  variant="outline"
-                  className="back-button"
-                  onClick={() => step.prev.action(ctx)}
-                  disabled={
-                    !step.prev.isEnabled(ctx) ||
-                    isLoading ||
-                    areAppointmentOptionsLoading
-                  }
-                >
-                  <ChevronLeft className="w-4 h-4 mr-1" />
-                  {t(step.prev.text ?? "block.buttons.steps.back")}
-                </Button>
-              )}
-              {step.next.show(ctx) && (
-                <Button
-                  className="next-button"
-                  onClick={() => step.next.action(ctx)}
-                  disabled={
-                    !step.next.isEnabled(ctx) ||
-                    isLoading ||
-                    areAppointmentOptionsLoading
-                  }
-                >
-                  {t(step.next.text ?? "block.buttons.steps.next")}
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
-              )}
             </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );

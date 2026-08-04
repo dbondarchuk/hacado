@@ -1,4 +1,4 @@
-import { BaseAllKeys, BuilderKeys, useI18n } from "@timelish/i18n";
+import { BaseAllKeys, BuilderKeys, useI18n } from "@timelish/i18n/client";
 import { Button, cn, Input, ScrollArea, useDebounce } from "@timelish/ui";
 import { AlertTriangle, Search, X } from "lucide-react";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";

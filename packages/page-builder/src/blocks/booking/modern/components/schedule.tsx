@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi, handleBookingSubmitError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -12,24 +12,29 @@ import type {
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   FieldSchema,
+  PublicStaffMember,
 } from "@timelish/types";
 import {
   ApplyDiscountResponse,
   Availability,
-  CheckDuplicateAppointmentsResponse,
   BookingRestriction,
+  CheckDuplicateAppointmentsResponse,
+  getActiveStaffAcrossAssignments,
+  getActiveStaffForAssignments,
   isBookingLimitRestriction,
 } from "@timelish/types";
 import { toast, useTimeZone } from "@timelish/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { ScheduleContext, StepType } from "./context";
+import { FlowOrder, ScheduleContext, StepType } from "./context";
 import { BookingLayout } from "./layout";
 
 export type ScheduleProps = {
   appointmentOptions: AppointmentChoice[];
   areAppointmentOptionsLoading: boolean;
+  members: PublicStaffMember[];
+  flowOrder: FlowOrder;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
@@ -47,6 +52,8 @@ export const Schedule: React.FC<
 > = ({
   appointmentOptions,
   areAppointmentOptionsLoading,
+  members,
+  flowOrder,
   successPage,
   fieldsSchema,
   showPromoCode,
@@ -61,6 +68,18 @@ export const Schedule: React.FC<
 }) => {
   const t = useI18n("translation");
   const isBookingRestricted = isBookingLimitRestriction(bookingRestriction);
+
+  const staffAcrossOptions = React.useMemo(
+    () =>
+      getActiveStaffAcrossAssignments(
+        appointmentOptions.map((o) => o.staff),
+        members,
+      ),
+    [appointmentOptions, members],
+  );
+
+  const isSpecialistFirst =
+    flowOrder === "specialist-first" && staffAcrossOptions.length > 0;
 
   const timeZone = useTimeZone();
 
@@ -80,9 +99,7 @@ export const Schedule: React.FC<
         "booking.submitEvent.timeNotAvailableDescription",
       ),
       limitReachedTitle: t("booking.submitEvent.limitReachedTitle"),
-      limitReachedDescription: t(
-        "booking.submitEvent.limitReachedDescription",
-      ),
+      limitReachedDescription: t("booking.submitEvent.limitReachedDescription"),
     }),
     [t],
   );
@@ -97,6 +114,31 @@ export const Schedule: React.FC<
 
   const [duration, setDuration] = React.useState<number | undefined>(
     appointmentOptionDuration,
+  );
+
+  const optionBasePrice =
+    selectedAppointmentOption?.durationType === "fixed"
+      ? selectedAppointmentOption?.price
+      : selectedAppointmentOption?.pricePerHour;
+  const optionBaseDuration =
+    selectedAppointmentOption?.durationType === "fixed"
+      ? selectedAppointmentOption?.duration
+      : undefined;
+
+  const activeStaff = React.useMemo(
+    () =>
+      getActiveStaffForAssignments(
+        selectedAppointmentOption?.staff,
+        members,
+        optionBasePrice,
+        optionBaseDuration,
+      ),
+    [
+      selectedAppointmentOption?.staff,
+      members,
+      optionBasePrice,
+      optionBaseDuration,
+    ],
   );
 
   const [isBookingConfirmed, setIsBookingConfirmed] = React.useState(false);
@@ -127,11 +169,34 @@ export const Schedule: React.FC<
   const [paymentInformation, setPaymentInformation] =
     React.useState<CollectPayment | null>();
 
-  React.useEffect(() => {
-    setDuration(appointmentOptionDuration);
-  }, [appointmentOptionDuration, setDuration]);
+  const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
+    null,
+  );
 
-  const initialStep: StepType = "option";
+  React.useEffect(() => {
+    if (!selectedAppointmentOption) return;
+    if (selectedAppointmentOption.durationType !== "flexible") return;
+    setDuration(selectedAppointmentOption.durationMin);
+  }, [selectedAppointmentOption?._id, setDuration]);
+
+  React.useEffect(() => {
+    if (!selectedAppointmentOption) {
+      setDuration(undefined);
+      return;
+    }
+
+    const selectedStaff = selectedMemberId
+      ? activeStaff.find((s) => s.member.id === selectedMemberId)
+      : undefined;
+
+    if (selectedAppointmentOption.durationType === "fixed") {
+      setDuration(
+        selectedStaff?.effectiveDuration ?? selectedAppointmentOption.duration,
+      );
+    }
+  }, [selectedAppointmentOption, selectedMemberId, activeStaff, setDuration]);
+
+  const initialStep: StepType = isSpecialistFirst ? "specialist" : "option";
   const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
@@ -200,6 +265,7 @@ export const Schedule: React.FC<
     try {
       const data = await clientApi.availability.getAvailability({
         duration: totalDuration,
+        memberId: selectedMemberId ?? undefined,
       });
 
       setAvailability(data);
@@ -277,6 +343,7 @@ export const Schedule: React.FC<
       timeZone: dateTime.timeZone,
       duration: duration,
       optionId: selectedAppointmentOption._id,
+      memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
@@ -300,8 +367,9 @@ export const Schedule: React.FC<
   // }, [initialStep, i18n]);
 
   const handleNewBooking = () => {
-    setCurrentStep("option");
+    setCurrentStep(isSpecialistFirst ? "specialist" : "option");
     setSelectedAppointmentOption(undefined);
+    setSelectedMemberId(null);
     setSelectedAddons([]);
     setDuration(undefined);
     setDateTime(undefined);
@@ -420,6 +488,11 @@ export const Schedule: React.FC<
       value={{
         appointmentOptions,
         areAppointmentOptionsLoading,
+        members,
+        flowOrder,
+        selectedMemberId,
+        setSelectedMemberId,
+        activeStaff,
         isLoading,
         setIsLoading,
         isBookingConfirmed,

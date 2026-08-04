@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PaymentSummary } from "@timelish/types";
 import {
   AlertModal,
@@ -14,12 +14,14 @@ import {
   DropdownMenuTrigger,
   toastPromise,
 } from "@timelish/ui";
+import { useAuth } from "@timelish/ui-admin";
 import {
   AddUpdatePaymentDialog,
   canRefundPayment,
   ManageSyncedPaymentDialog,
   PaymentRefundDialog,
 } from "@timelish/ui-admin-kit";
+import { canManageSyncedPayments } from "@timelish/utils";
 import { Calendar, Edit, MoreHorizontal, RotateCcw, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -32,6 +34,8 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
   const t = useI18n("admin");
   const router = useRouter();
+  const { user } = useAuth();
+  const canManageSynced = canManageSyncedPayments(user);
   const [loading, setLoading] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -131,7 +135,7 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
               </DropdownMenuItem>
             </>
           )}
-          {syncedExternalId && (
+          {canManageSynced && syncedExternalId && (
             <ManageSyncedPaymentDialog
               externalId={syncedExternalId}
               onUpdated={() => router.refresh()}

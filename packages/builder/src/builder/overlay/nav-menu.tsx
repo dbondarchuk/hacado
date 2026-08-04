@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -8,7 +8,14 @@ import {
   ToolbarGroup,
   useIsMobile,
 } from "@timelish/ui";
-import { ArrowDown, ArrowUp, ArrowUpFromLine, Copy, Slash, Trash } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpFromLine,
+  Copy,
+  Slash,
+  Trash,
+} from "lucide-react";
 import React, { memo, useCallback, useMemo } from "react";
 import {
   useBlockHierarchy,
@@ -39,7 +46,9 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
   const document = useDocument();
   const rootBlockId = useRootBlockId();
   const parentData = useBlockParentData(blockId);
-  const parentInGrandparent = useBlockParentData(parentData?.parentBlockId ?? null);
+  const parentInGrandparent = useBlockParentData(
+    parentData?.parentBlockId ?? null,
+  );
   const canMoveOut =
     blockId !== rootBlockId &&
     !disable?.move &&

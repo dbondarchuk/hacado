@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppSetupProps } from "@timelish/types";
 import { Button, Spinner } from "@timelish/ui";
 import {
@@ -24,13 +24,15 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<MyCabinetAdminNamespace, MyCabinetAdminKeys>(
     myCabinetAdminNamespace,
   );
-  const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>({
-    appId: existingAppId,
-    appName: MyCabinetApp.name,
-    schema: z.any(),
-    onSuccess,
-    onError,
-  });
+  const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>(
+    {
+      appId: existingAppId,
+      appName: MyCabinetApp.name,
+      schema: z.any(),
+      onSuccess,
+      onError,
+    },
+  );
 
   return (
     <>

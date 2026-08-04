@@ -8,11 +8,12 @@ export const SquareApp: App<SquareAdminNamespace, SquareAdminKeys> = {
   displayName: "app_square_admin.app.displayName",
   scope: ["payment"],
   type: "oauth",
+  target: "company",
   category: ["apps.categories.payment"],
   subscribeTo: [ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE],
   Logo: ({ className }) => <SquareLogo className={className} />,
   isFeatured: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_square_admin.app.description",
   },

@@ -1,7 +1,11 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { zEmail, zPhone } from "@timelish/types";
+import { useI18n } from "@timelish/i18n/client";
+import {
+  CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
+  zEmail,
+  zPhone,
+} from "@timelish/types";
 import {
   AutoSkeleton,
   Button,
@@ -17,7 +21,6 @@ import {
 } from "@timelish/ui";
 import { Mail, Phone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@timelish/types";
 import {
   MyCabinetPublicKeys,
   MyCabinetPublicNamespace,

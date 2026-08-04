@@ -1,7 +1,10 @@
 import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n";
+import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
 import { ApplyDiscountRequest, timeZones } from "@timelish/types";
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
   Checkbox,
   Collapsible,
@@ -32,6 +35,7 @@ export const ReviewCard: React.FC = () => {
   const {
     selectedAppointmentOption,
     selectedAddons,
+    selectedMember,
     duplicateAppointmentDoNotAllowScheduling,
     closestDuplicateAppointment,
     confirmDuplicateAppointment,
@@ -208,6 +212,16 @@ export const ReviewCard: React.FC = () => {
 
   const { name, email, phone, ...restFields } = fields;
   const shouldShowTotals = !!basePrice;
+  const servicePrice =
+    selectedAppointmentOption.durationType === "fixed"
+      ? (selectedMember?.effectivePrice ?? selectedAppointmentOption.price)
+      : (selectedMember?.effectivePrice ??
+        selectedAppointmentOption.pricePerHour);
+  const serviceDuration =
+    selectedAppointmentOption.durationType === "fixed"
+      ? (selectedMember?.effectiveDuration ??
+        selectedAppointmentOption.duration)
+      : undefined;
   return (
     <div className="space-y-6 review-card card-container">
       <div className="mb-6">
@@ -316,36 +330,57 @@ export const ReviewCard: React.FC = () => {
             />
           </div>
           {selectedAppointmentOption.durationType === "fixed" &&
-            (!!selectedAppointmentOption.price ||
-              !!selectedAppointmentOption.duration) && (
-                  <div className="text-right shrink-0 review-service-summary-price">
-                {!!selectedAppointmentOption.price && (
+            (!!servicePrice || !!serviceDuration) && (
+              <div className="text-right shrink-0 review-service-summary-price">
+                {!!servicePrice && (
                   <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
-                    {currencyFormat(selectedAppointmentOption.price)}
+                    {currencyFormat(servicePrice)}
                   </p>
                 )}
-                {!!selectedAppointmentOption.duration && (
+                {!!serviceDuration && (
                   <p className="text-xs text-muted-foreground flex items-center gap-1 justify-end review-service-summary-price-duration">
                     <Clock className="w-3 h-3" />{" "}
                     {t(
                       "common.formats.durationHourMin",
-                      durationToTime(selectedAppointmentOption.duration || 0),
+                      durationToTime(serviceDuration),
                     )}
                   </p>
                 )}
               </div>
             )}
           {selectedAppointmentOption.durationType === "flexible" &&
-            !!selectedAppointmentOption.pricePerHour && (
+            !!servicePrice && (
               <div className="text-right shrink-0 review-service-summary-price">
                 <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
                   {t("booking.option.price_per_hour", {
-                    price: currencyFormat(selectedAppointmentOption.pricePerHour),
+                    price: currencyFormat(servicePrice),
                   })}
                 </p>
               </div>
             )}
         </div>
+
+        {selectedMember && (
+          <div className="border-t pt-4 review-specialist">
+            <h4 className="text-sm font-medium text-muted-foreground mb-2 review-specialist-title">
+              {t("booking.review.specialist.title")}
+            </h4>
+            <div className="flex items-center gap-3 review-specialist-content">
+              <Avatar className="w-10 h-10 flex-shrink-0">
+                <AvatarImage
+                  src={selectedMember.member.image ?? undefined}
+                  alt={selectedMember.member.name}
+                />
+                <AvatarFallback>
+                  {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-xs font-medium text-foreground review-specialist-name">
+                {selectedMember.member.name}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Add-ons */}
         {selectedAddons.length > 0 && (
@@ -621,7 +656,9 @@ export const ReviewCard: React.FC = () => {
                                 </div>
                                 <div className="text-green-800 font-semibold">
                                   {t("booking.giftCard.giftCardAppliedAmount", {
-                                    appliedAmount: currencyFormat(giftCard.appliedAmount),
+                                    appliedAmount: currencyFormat(
+                                      giftCard.appliedAmount,
+                                    ),
                                   })}
                                 </div>
                               </div>

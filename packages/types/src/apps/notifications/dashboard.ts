@@ -63,7 +63,7 @@ export type DashboardNotification = {
 export interface IDashboardNotifierApp {
   getInitialNotifications(
     appData: ConnectedAppData,
-    userId: string,
+    memberId: string,
     date?: Date,
   ): Promise<DashboardNotification[]>;
 }

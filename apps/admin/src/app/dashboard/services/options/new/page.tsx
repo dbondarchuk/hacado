@@ -11,6 +11,7 @@ import {
   defaultDurationFromTemplate,
   defaultPriceFromTemplate,
 } from "@/components/install/constants";
+import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { sessionCanCreateMoreServices } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
@@ -32,6 +33,7 @@ export default async function NewOptionPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("new-service-option");
   const t = await getI18nAsync("admin");
   const tInstall = await getI18nAsync("install");
+  await assertPageHasPermission("service", "create");
   const { from: fromParam, template: templateParam } = await props.searchParams;
   const from = fromParam as string;
   const template = templateParam as string;

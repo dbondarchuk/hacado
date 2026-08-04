@@ -32,6 +32,7 @@ export const AppointmentNotificationsMenuItems: AppMenuItem<
     pageTitle: "app_appointment-notifications_admin.navigation.main.title",
     pageDescription:
       "app_appointment-notifications_admin.navigation.main.description",
+    requiredPermission: { resource: "settings", action: "update" },
   },
   {
     href: "communications/appointment-notifications/new",
@@ -51,6 +52,7 @@ export const AppointmentNotificationsMenuItems: AppMenuItem<
     pageTitle: "app_appointment-notifications_admin.navigation.new.title",
     pageDescription:
       "app_appointment-notifications_admin.navigation.new.description",
+    requiredPermission: { resource: "settings", action: "update" },
   },
   {
     href: "communications/appointment-notifications/edit",
@@ -70,5 +72,6 @@ export const AppointmentNotificationsMenuItems: AppMenuItem<
     pageTitle: "app_appointment-notifications_admin.navigation.edit.title",
     pageDescription:
       "app_appointment-notifications_admin.navigation.edit.description",
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

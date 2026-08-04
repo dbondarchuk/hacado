@@ -1,6 +1,6 @@
 "use client";
 
-import { AdminKeys, useI18n } from "@timelish/i18n";
+import { AdminKeys, useI18n } from "@timelish/i18n/client";
 import type { BookingStep, DateRange, PaymentSummary } from "@timelish/types";
 import {
   CalendarDateRangePicker,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Button, Combobox } from "@timelish/ui";
 import { Move, Plus, Trash2 } from "lucide-react";
 import { useCallback, useState } from "react";

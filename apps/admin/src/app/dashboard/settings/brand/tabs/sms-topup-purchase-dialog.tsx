@@ -5,7 +5,7 @@ import {
   listSmsTopupProductOffers,
   type SmsTopupProductOffer,
 } from "@/app/dashboard/settings/brand/sms-topup-actions";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Button,
   Dialog,

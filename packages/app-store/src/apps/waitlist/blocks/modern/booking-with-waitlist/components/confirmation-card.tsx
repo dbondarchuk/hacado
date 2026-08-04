@@ -1,5 +1,12 @@
-import { useFormatter, useI18n, useLocale } from "@timelish/i18n";
-import { Button, useCurrencyFormat, useTimeZone } from "@timelish/ui";
+import { useFormatter, useI18n, useLocale } from "@timelish/i18n/client";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@timelish/ui";
 import { durationToTime } from "@timelish/utils";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
@@ -22,6 +29,7 @@ export const ConfirmationCard: React.FC = () => {
     flow,
     fields,
     selectedAppointmentOption,
+    selectedMember,
     dateTime,
     isOnlyWaitlist,
     waitlistTimes,
@@ -71,6 +79,24 @@ export const ConfirmationCard: React.FC = () => {
         <p className="text-sm font-semibold text-foreground">
           {selectedAppointmentOption.name}
         </p>
+        {selectedMember && (
+          <div className="flex items-center gap-2 confirmation-specialist">
+            <Avatar className="w-8 h-8 flex-shrink-0">
+              <AvatarImage
+                src={selectedMember.member.image ?? undefined}
+                alt={selectedMember.member.name}
+              />
+              <AvatarFallback>
+                {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
+              </AvatarFallback>
+            </Avatar>
+            <p className="text-xs text-foreground">
+              {i18n("booking.confirmation.specialist", {
+                name: selectedMember.member.name,
+              })}
+            </p>
+          </div>
+        )}
         {flow === "booking" && dateTime && (
           <>
             <p className="text-xs text-foreground">

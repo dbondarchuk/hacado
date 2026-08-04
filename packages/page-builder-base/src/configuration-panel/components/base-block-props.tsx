@@ -2,7 +2,7 @@ import {
   BaseBlockProps as BaseBlockPropsType,
   TextInput,
 } from "@timelish/builder";
-import { BuilderKeys, useI18n } from "@timelish/i18n";
+import { BuilderKeys, useI18n } from "@timelish/i18n/client";
 import {
   cn,
   Collapsible,

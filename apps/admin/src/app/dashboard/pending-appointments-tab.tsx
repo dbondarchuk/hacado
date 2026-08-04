@@ -1,18 +1,30 @@
+import { getSession, getServicesContainer } from "@/app/utils";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { Card, CardContent, CardHeader } from "@timelish/ui";
 import { AppointmentCard } from "@timelish/ui-admin-kit";
+import {
+  canUpdateAppointments,
+  resolveUpdatableAppointmentMemberId,
+} from "@timelish/utils";
 import { DateTime } from "luxon";
+import { redirect } from "next/navigation";
 import React from "react";
-import { getServicesContainer } from "../utils";
 
 export const PendingAppointmentsTab: React.FC = async () => {
+  const session = await getSession();
+  if (!canUpdateAppointments(session?.user)) {
+    redirect("/dashboard");
+  }
+
   const t = await getI18nAsync("admin");
   const servicesContainer = await getServicesContainer();
   const beforeNow = DateTime.now().minus({ hours: 1 }).toJSDate();
+  const memberId = resolveUpdatableAppointmentMemberId(session.user);
   const pendingAppointments =
     await servicesContainer.bookingService.getPendingAppointments(
       20,
       beforeNow,
+      memberId,
     );
 
   const { timeZone } =

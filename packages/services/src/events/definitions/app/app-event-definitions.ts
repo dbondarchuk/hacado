@@ -148,22 +148,23 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     },
     emailNotifications: async (envelope, services) => {
       const payload = envelope.payload as AppFailedPayload;
-      let ownerUserId = payload.userId;
+      let ownerMemberId = payload.memberId;
 
-      if (!ownerUserId) {
+      if (!ownerMemberId) {
         try {
           const app = await services.connectedAppsService.getApp(payload.appId);
-          ownerUserId = app.userId;
+          ownerMemberId = app.memberId;
         } catch {
           return null;
         }
       }
 
-      if (!ownerUserId) {
+      if (!ownerMemberId) {
         return null;
       }
 
-      const owner = await services.userService.getUser(ownerUserId);
+      const owner =
+        await services.teamService.getMemberById(ownerMemberId);
       if (!owner?.email) {
         return null;
       }
@@ -226,7 +227,8 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             key: "admin.apps.emails.failed.handledBy" satisfies BaseAllKeys,
             args: { appDisplayName },
           },
-          participantType: "user" as const,
+          participantType: "member" as const,
+          memberId: ownerMemberId,
         },
       ];
     },

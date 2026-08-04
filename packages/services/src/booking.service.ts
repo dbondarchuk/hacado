@@ -25,6 +25,7 @@ import {
   DISCOUNT_APPLIED_EVENT_TYPE,
   FieldSchema,
   FREE_TIER_LIMITS,
+  getActiveStaffForAssignments,
   GetAppointmentOptionsResponse,
   IAvailabilityProvider,
   IBillingService,
@@ -33,8 +34,11 @@ import {
   IOrganizationService,
   IPaymentsService,
   IServicesService,
+  ITeamService,
+  OrganizationMember,
   Payment,
   PaymentHistory,
+  PublicStaffMember,
   TimeSlot,
   type AppointmentCreatedPayload,
   type AppointmentEvent,
@@ -59,13 +63,13 @@ import {
   type IConnectedAppsService,
   type ICustomersService,
   type IScheduleService,
-  type IUserService,
   type Period,
   type Query,
   type WithTotal,
 } from "@timelish/types";
 import {
   buildSearchQuery,
+  canUseMemberCalendarSources,
   escapeRegex,
   fileNameToMimeType,
   getAdminUrl,
@@ -82,16 +86,17 @@ import {
   APPOINTMENTS_HISTORY_COLLECTION_NAME,
   ASSETS_COLLECTION_NAME,
   CUSTOMERS_COLLECTION_NAME,
+  MEMBERS_COLLECTION_NAME,
   PAYMENTS_COLLECTION_NAME,
 } from "./collections";
 import { BaseService } from "./services/base.service";
 
 function historyActorFields(eventSource: EventSource): {
-  by: "customer" | "user";
-  userId?: string;
+  by: "customer" | "member";
+  memberId?: string;
 } {
-  if (eventSource.actor === "user") {
-    return { by: "user", userId: eventSource.actorId };
+  if (eventSource.actor === "member") {
+    return { by: "member", memberId: eventSource.actorId };
   }
   return { by: "customer" };
 }
@@ -118,9 +123,9 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly servicesService: IServicesService,
     private readonly paymentsService: IPaymentsService,
     private readonly eventService: IEventService,
-    private readonly userService: IUserService,
     private readonly organizationService: IOrganizationService,
     private readonly billingService: IBillingService,
+    private readonly teamService: ITeamService,
   ) {
     super("bookingService", organizationId);
   }
@@ -153,14 +158,17 @@ export class BookingService extends BaseService implements IBookingService {
     }
   }
 
-  public async getAvailability(duration: number): Promise<Availability> {
+  public async getAvailability(
+    duration: number,
+    memberId: string,
+  ): Promise<Availability> {
     const logger = this.loggerFactory("getAvailability");
-    logger.debug({ duration }, "Getting availability");
+    logger.debug({ duration, memberId }, "Getting availability");
 
     const { booking: config, general: generalConfig } =
       await this.configurationService.getConfigurations("booking", "general");
 
-    const events = await this.getBusyEvents();
+    const events = await this.getBusyEvents({ memberId });
 
     const start = DateTime.now().plus({
       hours: config.minHoursBeforeBooking || 0,
@@ -171,6 +179,7 @@ export class BookingService extends BaseService implements IBookingService {
     const schedule = await this.scheduleService.getSchedule(
       start.toJSDate(),
       end.toJSDate(),
+      memberId,
     );
 
     const availability = await this.getAvailableTimes(
@@ -194,9 +203,11 @@ export class BookingService extends BaseService implements IBookingService {
   public async getBusyEventsInTimeFrame(
     start: Date,
     end: Date,
+    options?: { memberId?: string },
   ): Promise<Period[]> {
     const logger = this.loggerFactory("getBusyEventsInTimeFrame");
-    logger.debug({ start, end }, "Getting busy events in time frame");
+    const memberId = options?.memberId;
+    logger.debug({ start, end, memberId }, "Getting busy events in time frame");
 
     const config = await this.configurationService.getConfiguration("booking");
 
@@ -204,6 +215,7 @@ export class BookingService extends BaseService implements IBookingService {
       DateTime.fromJSDate(start),
       DateTime.fromJSDate(end),
       config,
+      memberId,
     );
 
     logger.debug(
@@ -214,16 +226,19 @@ export class BookingService extends BaseService implements IBookingService {
     return events;
   }
 
-  public async getBusyEvents(): Promise<Period[]> {
+  public async getBusyEvents(options?: {
+    memberId?: string;
+  }): Promise<Period[]> {
     const logger = this.loggerFactory("getBusyEvents");
-    logger.debug("Getting busy events");
+    const memberId = options?.memberId;
+    logger.debug({ memberId }, "Getting busy events");
 
     const config = await this.configurationService.getConfiguration("booking");
 
     const start = DateTime.utc();
     const end = DateTime.utc().plus({ weeks: config.maxWeeksInFuture ?? 8 });
 
-    const events = await this.getBusyTimes(start, end, config);
+    const events = await this.getBusyTimes(start, end, config, memberId);
 
     logger.debug({ eventCount: events.length }, "Busy events retrieved");
 
@@ -238,6 +253,7 @@ export class BookingService extends BaseService implements IBookingService {
     paymentIntentId,
     eventSource,
     giftCards,
+    memberId,
   }: {
     event: AppointmentEvent;
     confirmed?: boolean;
@@ -246,6 +262,7 @@ export class BookingService extends BaseService implements IBookingService {
     paymentIntentId?: string;
     eventSource: EventSource;
     giftCards?: ApplyGiftCardsSuccessResponse["giftCards"];
+    memberId?: string;
   }): Promise<Appointment> {
     const logger = this.loggerFactory("createAppointment");
     logger.debug(
@@ -264,11 +281,14 @@ export class BookingService extends BaseService implements IBookingService {
         force,
         fileCount: files ? Object.keys(files).length : 0,
         paymentIntentId,
+        memberId,
       },
       "Creating event",
     );
 
     await this.assertFreeTierAppointmentLimit();
+
+    const resolvedMemberId = memberId ?? (await this.resolveDefaultMemberId());
 
     const { booking: config, general: generalConfig } =
       await this.configurationService.getConfigurations("booking", "general");
@@ -277,6 +297,7 @@ export class BookingService extends BaseService implements IBookingService {
       const isAvailable = await this.verifyTimeAvailability(
         event.dateTime,
         event.totalDuration,
+        resolvedMemberId,
         config,
         generalConfig,
       );
@@ -346,39 +367,49 @@ export class BookingService extends BaseService implements IBookingService {
 
     let meetingInformation: AppointmentOnlineMeetingInformation | undefined =
       undefined;
-    if (option?.isOnline && option?.meetingUrlProviderAppId) {
-      logger.debug(
-        { appointmentId, meetingProviderAppId: option.meetingUrlProviderAppId },
-        "This is an online option with meeting URL provider set up. Creating meeting link",
-      );
+    if (option?.isOnline) {
+      const member = await this.teamService.getMemberById(resolvedMemberId);
+      const meetingProviderAppId = member?.meetingUrlProviderAppId;
 
-      try {
-        const { app, service } =
-          await this.appsService.getAppService<IMeetingUrlProvider>(
-            option.meetingUrlProviderAppId,
-          );
-
-        meetingInformation = await service.getMeetingUrl(app, {
-          ...event,
-          _id: appointmentId,
-        });
-
+      if (meetingProviderAppId) {
         logger.debug(
-          {
-            appointmentId,
-            meetingProviderAppId: option.meetingUrlProviderAppId,
-            meetingInformation,
-          },
-          "Successfully created meeting information",
+          { appointmentId, meetingProviderAppId, memberId: resolvedMemberId },
+          "Online option — creating meeting link via member meeting URL provider",
         );
-      } catch (error: any) {
-        logger.error(
-          {
-            appointmentId,
-            meetingProviderAppId: option.meetingUrlProviderAppId,
-            error,
-          },
-          "Meeting URL creation has failed",
+
+        try {
+          const { app, service } =
+            await this.appsService.getAppService<IMeetingUrlProvider>(
+              meetingProviderAppId,
+            );
+
+          meetingInformation = await service.getMeetingUrl(app, {
+            ...event,
+            _id: appointmentId,
+          });
+
+          logger.debug(
+            {
+              appointmentId,
+              meetingProviderAppId,
+              meetingInformation,
+            },
+            "Successfully created meeting information",
+          );
+        } catch (error: any) {
+          logger.error(
+            {
+              appointmentId,
+              meetingProviderAppId,
+              error,
+            },
+            "Meeting URL creation has failed",
+          );
+        }
+      } else {
+        logger.warn(
+          { appointmentId, memberId: resolvedMemberId },
+          "Online option but member has no meeting URL provider configured",
         );
       }
     }
@@ -399,6 +430,7 @@ export class BookingService extends BaseService implements IBookingService {
       event,
       enrichedEventSource,
       customer,
+      resolvedMemberId,
       assets.length ? assets : undefined,
       paymentIntentId,
       meetingInformation,
@@ -564,10 +596,11 @@ export class BookingService extends BaseService implements IBookingService {
   public async getPendingAppointmentsCount(
     minimumDate?: Date,
     createdAfter?: Date,
+    memberId?: string,
   ): Promise<{ totalCount: number; newCount: number }> {
     const logger = this.loggerFactory("getPendingAppointmentsCount");
     logger.debug(
-      { minimumDate, createdAfter },
+      { minimumDate, createdAfter, memberId },
       "Getting pending appointments count",
     );
 
@@ -576,6 +609,7 @@ export class BookingService extends BaseService implements IBookingService {
       status: "pending",
       dateTime: minimumDate ? { $gte: minimumDate } : undefined,
       organizationId: this.organizationId,
+      ...(memberId ? { memberId } : {}),
     };
 
     const collection = db.collection<AppointmentEntity>(
@@ -623,7 +657,7 @@ export class BookingService extends BaseService implements IBookingService {
     };
 
     logger.debug(
-      { minimumDate, createdAfter, response },
+      { minimumDate, createdAfter, memberId, response },
       "Pending appointments count retrieved",
     );
 
@@ -633,9 +667,10 @@ export class BookingService extends BaseService implements IBookingService {
   public async getPendingAppointments(
     limit = 20,
     after?: Date,
+    memberId?: string,
   ): Promise<WithTotal<Appointment>> {
     const logger = this.loggerFactory("getPendingAppointments");
-    logger.debug({ limit, after }, "Getting pending appointments");
+    logger.debug({ limit, after, memberId }, "Getting pending appointments");
 
     const db = await getDbConnection();
     const filter: Filter<Appointment> = {
@@ -646,6 +681,7 @@ export class BookingService extends BaseService implements IBookingService {
             $gte: after,
           }
         : undefined,
+      ...(memberId ? { memberId } : {}),
     };
 
     const [result] = await db
@@ -680,6 +716,7 @@ export class BookingService extends BaseService implements IBookingService {
       {
         limit,
         after,
+        memberId,
         result: { total: response.total, count: response.items.length },
       },
       "Pending appointments retrieved",
@@ -711,9 +748,9 @@ export class BookingService extends BaseService implements IBookingService {
   // }
 
   // This requires upgrade of MongoDB to at least 5.0
-  public async getNextAppointments(date: Date, limit = 5) {
+  public async getNextAppointments(date: Date, limit = 5, memberId?: string) {
     const logger = this.loggerFactory("getNextAppointments");
-    logger.debug({ date, limit }, "Getting next appointments");
+    logger.debug({ date, limit, memberId }, "Getting next appointments");
 
     const db = await getDbConnection();
     const appointments = db.collection<AppointmentEntity>(
@@ -732,6 +769,7 @@ export class BookingService extends BaseService implements IBookingService {
             status: {
               $ne: "declined",
             },
+            ...(memberId ? { memberId } : {}),
           },
         },
         {
@@ -744,7 +782,7 @@ export class BookingService extends BaseService implements IBookingService {
       .toArray();
 
     logger.debug(
-      { date, limit, count: result.length },
+      { date, limit, memberId, count: result.length },
       "Next appointments retrieved",
     );
 
@@ -811,6 +849,12 @@ export class BookingService extends BaseService implements IBookingService {
         $in: Array.isArray(query.customerId)
           ? query.customerId
           : [query.customerId],
+      };
+    }
+
+    if (query.memberId) {
+      filter.memberId = {
+        $in: Array.isArray(query.memberId) ? query.memberId : [query.memberId],
       };
     }
 
@@ -927,9 +971,10 @@ export class BookingService extends BaseService implements IBookingService {
     start: Date,
     end: Date,
     status: AppointmentStatus[],
+    memberId?: string,
   ): Promise<CalendarEvent[]> {
     const logger = this.loggerFactory("getCalendarEvents");
-    logger.debug({ start, end, status }, "Getting events");
+    logger.debug({ start, end, status, memberId }, "Getting events");
 
     const appointments = await this.getAppointments({
       range: {
@@ -937,11 +982,16 @@ export class BookingService extends BaseService implements IBookingService {
         end,
       },
       status,
+      memberId,
     });
 
     const config = await this.configurationService.getConfiguration("booking");
 
-    const calendarSourceAppIds = await this.getCalendarSourceAppIds(config);
+    const calendarSourceAppIds = await this.getCalendarSourceAppIds(
+      config,
+      memberId,
+    );
+
     const apps = await this.appsService.getAppsData(calendarSourceAppIds);
 
     const url = getAdminUrl();
@@ -959,7 +1009,7 @@ export class BookingService extends BaseService implements IBookingService {
         this.appsService.getAppServiceProps(app._id),
       ) as any as ICalendarBusyTimeProvider;
 
-      return await service.getBusyTimes(app, start, end);
+      return await service.getBusyTimes(app, start, end, memberId);
     });
 
     const appsResponse = await Promise.all(appsPromises);
@@ -1460,11 +1510,15 @@ export class BookingService extends BaseService implements IBookingService {
   public async verifyTimeAvailability(
     dateTime: Date,
     duration: number,
+    memberId: string,
     propConfig?: BookingConfiguration,
     propGeneralConfig?: GeneralConfiguration,
   ): Promise<boolean> {
     const logger = this.loggerFactory("verifyTimeAvailability");
-    logger.debug({ dateTime, duration }, "Verifying time availability");
+    logger.debug(
+      { dateTime, duration, memberId },
+      "Verifying time availability",
+    );
 
     const config =
       propConfig ||
@@ -1489,11 +1543,12 @@ export class BookingService extends BaseService implements IBookingService {
     const start = eventTime.startOf("day");
     const end = start.endOf("day");
 
-    const events = await this.getBusyTimes(start, end, config);
+    const events = await this.getBusyTimes(start, end, config, memberId);
 
     const schedule = await this.scheduleService.getSchedule(
       start.toJSDate(),
       end.toJSDate(),
+      memberId,
     );
 
     const availability = await this.getAvailableTimes(
@@ -1545,7 +1600,32 @@ export class BookingService extends BaseService implements IBookingService {
       .map((o) => options.items?.find(({ _id }) => o.id == _id))
       .filter((o) => !!o);
 
-    const choices: AppointmentChoice[] = optionsChoices.map((option) => {
+    const activeMembers = await this.teamService.getActiveMembers();
+    const members: PublicStaffMember[] = activeMembers.map((member) => ({
+      id: String(member._id),
+      name: member.name || member.email || "",
+      bio: member.bio,
+      image: member.image,
+    }));
+
+    // Services with no assigned members are not bookable.
+    const bookableOptions = optionsChoices.filter((option) => {
+      const basePrice =
+        option.durationType === "fixed" ? option.price : option.pricePerHour;
+      const baseDuration =
+        option.durationType === "fixed" ? option.duration : undefined;
+
+      return (
+        getActiveStaffForAssignments(
+          option.staff,
+          members,
+          basePrice,
+          baseDuration,
+        ).length > 0
+      );
+    });
+
+    const choices: AppointmentChoice[] = bookableOptions.map((option) => {
       const addonsFiltered =
         option.addons
           ?.map((o) => addons.items?.find((x) => x._id === o.id))
@@ -1592,6 +1672,7 @@ export class BookingService extends BaseService implements IBookingService {
       fieldsSchema: configFields,
       showPromoCode: showPromoCode,
       bookingRestriction,
+      members,
     };
 
     return response;
@@ -1675,10 +1756,11 @@ export class BookingService extends BaseService implements IBookingService {
     start: DateTime,
     end: DateTime,
     config: BookingConfiguration,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("getBusyTimes");
 
-    logger.debug({ start, end }, "Getting busy times");
+    logger.debug({ start, end, memberId }, "Getting busy times");
 
     const url = getAdminUrl();
     const declinedAppointments = await this.getDbDeclinedEventIds(start, end);
@@ -1691,10 +1773,21 @@ export class BookingService extends BaseService implements IBookingService {
       "Declined appointments retrieved",
     );
 
-    const calendarSourceAppIds = await this.getCalendarSourceAppIds(config);
+    const calendarSourceAppIds = await this.getCalendarSourceAppIds(
+      config,
+      memberId,
+    );
+
+    if (!calendarSourceAppIds.length) {
+      logger.debug(
+        { start, end, memberId },
+        "No calendar sources allowed or configured; using DB busy times only",
+      );
+    }
+
     const apps = await this.appsService.getAppsData(calendarSourceAppIds);
 
-    const dbEventsPromise = this.getDbBusyTimes(start, end);
+    const dbEventsPromise = this.getDbBusyTimes(start, end, memberId);
     const appsPromises = apps.map(async (app) => {
       logger.debug(
         { appId: app._id, appName: app.name, start, end },
@@ -1705,7 +1798,12 @@ export class BookingService extends BaseService implements IBookingService {
         this.appsService.getAppServiceProps(app._id),
       ) as any as ICalendarBusyTimeProvider;
 
-      return service.getBusyTimes(app, start.toJSDate(), end.toJSDate());
+      return service.getBusyTimes(
+        app,
+        start.toJSDate(),
+        end.toJSDate(),
+        memberId,
+      );
     });
 
     const [dbEvents, ...appsEvents] = await Promise.all([
@@ -1748,31 +1846,99 @@ export class BookingService extends BaseService implements IBookingService {
     return [...dbEvents, ...remoteEvents];
   }
 
-  private async getCalendarSourceAppIds(config: BookingConfiguration) {
-    const users = await this.userService.getOrganizationAdminUsers();
-    const user = users[0];
-    if (user?.calendarSources?.length) {
-      return user.calendarSources.map((source) => source.appId);
+  private async getMemberCalendarSourceAppIds(
+    memberId: string,
+  ): Promise<{ appIds: string[] | undefined; role: string | undefined }> {
+    const db = await getDbConnection();
+    const member = await db
+      .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+      .findOne({
+        _id: memberId as unknown as OrganizationMember["_id"],
+        organizationId: this.organizationId,
+      });
+
+    if (!member) {
+      return { appIds: undefined, role: undefined };
     }
 
-    // Backward-compatible fallback while existing workspaces are migrated.
-    return (
-      (
-        config as BookingConfiguration & {
-          calendarSources?: { appId: string }[];
-        }
-      ).calendarSources?.map((source) => source.appId) || []
+    return {
+      role: member.role,
+      appIds: member.calendarSources?.length
+        ? member.calendarSources.map((source) => source.appId)
+        : undefined,
+    };
+  }
+
+  private async resolveDefaultMemberId(): Promise<string> {
+    const logger = this.loggerFactory("resolveDefaultMemberId");
+    const db = await getDbConnection();
+    const owner = await db
+      .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+      .findOne({ organizationId: this.organizationId, role: "owner" });
+
+    if (owner) {
+      return String(owner._id);
+    }
+
+    // Backward-compatible fallback while existing workspaces are migrated to members.
+    logger.warn(
+      { organizationId: this.organizationId },
+      "No owner member found, falling back to first admin user for memberId resolution",
     );
+    const contacts = await this.teamService.getOrganizationAdminContacts();
+    return contacts[0]?.memberId ?? "";
+  }
+
+  private async getCalendarSourceAppIds(
+    config: BookingConfiguration,
+    memberId?: string,
+  ) {
+    if (memberId) {
+      const { appIds, role } =
+        await this.getMemberCalendarSourceAppIds(memberId);
+
+      if (
+        !canUseMemberCalendarSources(role, {
+          allowStaffCalendarSources: config.allowStaffCalendarSources,
+        })
+      ) {
+        return [];
+      }
+
+      return appIds ?? [];
+    }
+
+    const members = await this.teamService.getActiveMembers();
+    const appIds = new Set<string>();
+
+    for (const member of members) {
+      if (
+        !canUseMemberCalendarSources(member.role, {
+          allowStaffCalendarSources: config.allowStaffCalendarSources,
+        })
+      ) {
+        continue;
+      }
+
+      for (const source of member.calendarSources || []) {
+        if (source.appId) {
+          appIds.add(source.appId);
+        }
+      }
+    }
+
+    return [...appIds];
   }
 
   private async getDbBusyTimes(
     start: DateTime,
     end: DateTime,
+    memberId?: string,
   ): Promise<Period[]> {
     const logger = this.loggerFactory("getDbBusyTimes");
 
     const db = await getDbConnection();
-    logger.debug({ start, end }, "Getting busy times from db");
+    logger.debug({ start, end, memberId }, "Getting busy times from db");
 
     const events = await db
       .collection<AppointmentEntity>(APPOINTMENTS_COLLECTION_NAME)
@@ -1785,6 +1951,7 @@ export class BookingService extends BaseService implements IBookingService {
         status: {
           $ne: "declined",
         },
+        ...(memberId ? { memberId } : {}),
       })
       .map(({ totalDuration: duration, dateTime }) => {
         return {
@@ -1846,6 +2013,7 @@ export class BookingService extends BaseService implements IBookingService {
     event: AppointmentEvent,
     eventSource: EventSource,
     customer: Customer,
+    memberId: string,
     files?: Asset[],
     paymentIntentId?: string,
     meetingInformation?: AppointmentOnlineMeetingInformation,
@@ -1864,6 +2032,7 @@ export class BookingService extends BaseService implements IBookingService {
         paymentIntentId,
         force,
         giftCardsLength: giftCards?.length ?? 0,
+        memberId,
       },
       "Saving event",
     );
@@ -1873,6 +2042,13 @@ export class BookingService extends BaseService implements IBookingService {
     const session = client.startSession();
     try {
       return await session.withTransaction(async () => {
+        const member = await this.teamService.getMemberById(memberId);
+
+        if (!member) {
+          logger.error({ memberId }, "Member not found");
+          throw new Error(`Member ${memberId} was not found`);
+        }
+
         const appointments = db.collection<AppointmentEntity>(
           APPOINTMENTS_COLLECTION_NAME,
         );
@@ -1881,6 +2057,7 @@ export class BookingService extends BaseService implements IBookingService {
           _id: id,
           organizationId: this.organizationId,
           ...event,
+          memberId,
           meetingInformation,
           dateTime: DateTime.fromJSDate(event.dateTime)
             .startOf("minute")
@@ -1985,6 +2162,7 @@ export class BookingService extends BaseService implements IBookingService {
         const result = {
           ...dbEvent,
           customer,
+          member,
           files,
           payments,
           endAt: DateTime.fromJSDate(event.dateTime)
@@ -2163,6 +2341,14 @@ export class BookingService extends BaseService implements IBookingService {
       },
       {
         $lookup: {
+          from: MEMBERS_COLLECTION_NAME,
+          localField: "memberId",
+          foreignField: "_id",
+          as: "member",
+        },
+      },
+      {
+        $lookup: {
           from: ASSETS_COLLECTION_NAME,
           localField: "_id",
           foreignField: "appointmentId",
@@ -2181,6 +2367,9 @@ export class BookingService extends BaseService implements IBookingService {
         $set: {
           customer: {
             $first: "$customer",
+          },
+          member: {
+            $first: "$member",
           },
         },
       },

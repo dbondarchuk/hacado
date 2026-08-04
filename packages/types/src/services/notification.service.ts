@@ -16,10 +16,19 @@ export type EmailNotificationRequest<
         key: AllKeys<T, CustomKeys>;
         args: Record<string, string>;
       };
-  participantType: CommunicationParticipantType;
   appointmentId?: string;
   customerId?: string;
-};
+} & (
+  | {
+      participantType: Extract<CommunicationParticipantType, "customer">;
+      /** Optional assigned member (e.g. staff on the appointment). */
+      memberId?: string;
+    }
+  | {
+      participantType: Extract<CommunicationParticipantType, "member">;
+      memberId: string;
+    }
+);
 
 export type TextMessageNotificationRequest<
   T extends I18nNamespaces = I18nNamespaces,
@@ -34,11 +43,20 @@ export type TextMessageNotificationRequest<
         key: AllKeys<T, CustomKeys>;
         args: Record<string, string>;
       };
-  participantType: CommunicationParticipantType;
   webhookData?: TextMessageData;
   appointmentId?: string;
   customerId?: string;
-};
+} & (
+  | {
+      participantType: Extract<CommunicationParticipantType, "customer">;
+      /** Optional assigned member (e.g. staff on the appointment). */
+      memberId?: string;
+    }
+  | {
+      participantType: Extract<CommunicationParticipantType, "member">;
+      memberId: string;
+    }
+);
 
 export interface INotificationService {
   sendEmail(props: EmailNotificationRequest): Promise<void>;

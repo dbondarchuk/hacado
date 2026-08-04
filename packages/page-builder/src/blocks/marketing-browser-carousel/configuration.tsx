@@ -26,7 +26,7 @@ import {
   useBlock,
   useSelectedBlockId,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { StylesConfigurationPanel } from "@timelish/page-builder-base";
 import { Button, Checkbox, cn, deepMemo, Label } from "@timelish/ui";
 import { GripVertical, Plus, Timer, Trash2 } from "lucide-react";

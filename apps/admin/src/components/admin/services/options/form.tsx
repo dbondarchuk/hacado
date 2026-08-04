@@ -1,8 +1,10 @@
 "use client";
 
+import { authClient } from "@/app/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { I18nRichText, useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import {
   AppointmentOptionUpdateModel,
   DatabaseId,
@@ -38,6 +40,7 @@ import { CancellationsTab } from "./tabs/cancellations";
 import { DuplicatesTab } from "./tabs/duplicates";
 import { FieldsTab } from "./tabs/fields";
 import { GeneralTab } from "./tabs/general";
+import { MembersTab } from "./tabs/members";
 import { PaymentsTab } from "./tabs/payments";
 import { ReschedulesTab } from "./tabs/reschedules";
 
@@ -67,6 +70,7 @@ export const OptionForm: React.FC<{
   } | null>(null);
   const [availabilityLoading, setAvailabilityLoading] = React.useState(false);
   const router = useRouter();
+  const { data: session } = authClient.useSession();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     mode: "all",
@@ -78,8 +82,20 @@ export const OptionForm: React.FC<{
       duplicateAppointmentCheck: {
         enabled: false,
       },
+      staff: [],
     },
   });
+
+  React.useEffect(() => {
+    if (initialData?._id || initialData?.staff?.length) return;
+    const memberId = (session?.user as { memberId?: string } | undefined)
+      ?.memberId;
+    if (!memberId) return;
+    const current = form.getValues("staff");
+    if (!current?.length) {
+      form.setValue("staff", [{ memberId }]);
+    }
+  }, [session?.user, initialData, form]);
 
   const triggerValidation = useCallback(() => {
     form.trigger();
@@ -134,16 +150,27 @@ export const OptionForm: React.FC<{
     try {
       setLoading(true);
 
+      const payload =
+        data.durationType === "flexible"
+          ? {
+              ...data,
+              staff: data.staff?.map(
+                ({ durationOverride: _durationOverride, ...assignment }) =>
+                  assignment,
+              ),
+            }
+          : data;
+
       const fn = async () => {
         if (!initialData?._id) {
           const { _id } =
-            await adminApi.serviceOptions.createServiceOption(data);
+            await adminApi.serviceOptions.createServiceOption(payload);
           setNewOption({ id: _id, name: data.name });
           setShowAvailabilityDialog(true);
         } else {
           await adminApi.serviceOptions.updateServiceOption(
             initialData._id,
-            data,
+            payload,
           );
 
           router.refresh();
@@ -182,8 +209,7 @@ export const OptionForm: React.FC<{
                   form.getFieldState("duration").invalid ||
                   form.getFieldState("price").invalid ||
                   form.getFieldState("isAutoConfirm").invalid ||
-                  form.getFieldState("isOnline").invalid ||
-                  form.getFieldState("meetingUrlProviderAppId").invalid
+                  form.getFieldState("isOnline").invalid
                   ? "text-destructive"
                   : "",
               )}
@@ -205,6 +231,14 @@ export const OptionForm: React.FC<{
               )}
             >
               {t("services.options.form.tabs.addons")}
+            </TabsTrigger>
+            <TabsTrigger
+              value="staff"
+              className={cn(
+                form.getFieldState("staff").invalid ? "text-destructive" : "",
+              )}
+            >
+              {t("services.options.form.tabs.staff")}
             </TabsTrigger>
             <TabsTrigger
               value="payments"
@@ -265,6 +299,9 @@ export const OptionForm: React.FC<{
           </TabsContent>
           <TabsContent value="cancellations">
             <CancellationsTab form={form} disabled={loading} />
+          </TabsContent>
+          <TabsContent value="staff">
+            <MembersTab form={form} disabled={loading} />
           </TabsContent>
           <TabsContent value="reschedules">
             <ReschedulesTab form={form} disabled={loading} />

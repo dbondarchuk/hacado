@@ -6,7 +6,7 @@ import {
   RadioGroupInputItem,
   TextInput,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { HeadingProps, HeadingPropsDefaults } from "./schema";
 

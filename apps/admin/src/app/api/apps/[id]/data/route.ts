@@ -1,4 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
+import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@timelish/logger";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -20,6 +21,7 @@ export async function GET(
   );
 
   try {
+    await assertCanAccessConnectedApp(id);
     const appService =
       await servicesContainer.connectedAppsService.getAppService(id);
 

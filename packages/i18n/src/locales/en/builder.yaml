@@ -618,6 +618,7 @@ pageBuilder:
       default: Default
       hover: Hover
       focus: Focus
+      focus-within: Focus Within
       active: Active
       disabled: Disabled
       before: Before (::before)
@@ -892,14 +893,14 @@ pageBuilder:
         logoAlt: Logo
         name: Brand name
       planCard:
-        badge: Pro
-        name: Pro plan
+        badge: Solo
+        name: Solo plan
         price: $29/month
         footnote: Free tier available
         features: "• Unlimited bookings\n• Website builder\n• SMS reminders"
         cta: Get started
     announcementBar:
-      message: "Free and Pro plans - create your account"
+      message: "Free and Solo plans - create your account"
     scrollingLogos:
       screenReaderText: "Scrolling logos include: Example, Sample."
       sampleCardName: Brand name
@@ -1351,6 +1352,10 @@ pageBuilder:
         hideSteps: Hide steps
         scrollToTop: Scroll to top on step change
       confirmationPage: Confirmation Page
+      flowOrder:
+        label: Booking flow order
+        serviceFirst: Service first
+        specialistFirst: Specialist first
     popup:
       displayName: Popup
       open: Open

@@ -3,7 +3,7 @@ import {
   NumberInputToolbarMenu,
   ToolbarColorMenu,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Brush, PaintBucket } from "lucide-react";
 import { DividerProps, DividerPropsDefaults } from "./schema";
 

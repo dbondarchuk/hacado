@@ -4,7 +4,7 @@ import {
   ToolbarDropdownPropsValues,
   ToolbarToggle,
 } from "@timelish/builder";
-import { AllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, useI18n } from "@timelish/i18n/client";
 import {
   backgroundColorShortcut,
   colorShortcut,

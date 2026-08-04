@@ -1,4 +1,4 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@timelish/i18n/components";
 import { BlogCommentsContext, BlogPost } from "../../models";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { getBlogConfiguration } from "../get-blog-config";

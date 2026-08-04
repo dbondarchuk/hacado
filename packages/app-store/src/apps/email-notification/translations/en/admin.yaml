@@ -8,6 +8,9 @@ form:
     label: Send to email
     tooltip: Email address to which email notification should be send. Leave empty to use your default email address.
     placeholder: john@example.com
+  processOtherMembersAppointments:
+    label: Process other members' appointments
+    description: When enabled, also send notifications for appointments assigned to other team members.
   update: Update <app></app>
   add: Add <app></app>
 statusText:

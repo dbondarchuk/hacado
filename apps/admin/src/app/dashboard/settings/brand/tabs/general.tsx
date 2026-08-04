@@ -1,6 +1,7 @@
 "use client";
 
-import { I18nRichText, useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import type { OrganizationBillingSubscriptionDetails } from "@timelish/types";
 import {
   countryOptions,

@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { serviceOptionsSearchParamsLoader } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
 import { appointmentOptionSchema, ServiceLimitReachedError } from "@timelish/types";
@@ -63,7 +64,15 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/services/options")("POST");
+  const auth = await requirePermission(
+    "service",
+    "create",
+    "AdminAPI/services/options",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   logger.debug(

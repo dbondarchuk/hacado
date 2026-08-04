@@ -1,3 +1,4 @@
+import { getPublicInvitation } from "@/app/accept-invitation/actions";
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserSignupForm } from "@/components/admin/auth/user-signup-form";
 import { getI18nAsync } from "@timelish/i18n/server";
@@ -14,9 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function SignupPage() {
+export default async function SignupPage(props: {
+  searchParams: Promise<{ invitationId?: string; callbackUrl?: string }>;
+}) {
   const logger = getLoggerFactory("AdminPages")("signup");
   const publicDomain = process.env.PUBLIC_DOMAIN!;
+  const searchParams = await props.searchParams;
+  const invitationId = searchParams.invitationId || "";
 
   logger.debug("Loading signup page");
 
@@ -25,20 +30,45 @@ export default async function SignupPage() {
   });
 
   if (session) {
+    if (invitationId) {
+      redirect(
+        `/accept-invitation?invitationId=${encodeURIComponent(invitationId)}`,
+      );
+    }
     const u = session.user as { organizationInstalled?: boolean };
     redirect(u.organizationInstalled ? "/dashboard" : "/checkout");
   }
 
   const t = await getI18nAsync("admin");
 
+  let invitation: {
+    id: string;
+    email: string;
+    organizationName: string;
+  } | null = null;
+
+  if (invitationId) {
+    const result = await getPublicInvitation(invitationId);
+    if (result.ok) {
+      invitation = {
+        id: result.invitation.id,
+        email: result.invitation.email,
+        organizationName: result.invitation.organizationName,
+      };
+    }
+  }
+
+  const description = invitation
+    ? t("team.acceptInvitation.description", {
+        organizationName: invitation.organizationName,
+      })
+    : t("auth.signUp.description");
+
   logger.debug("Signup page loaded");
 
   return (
-    <AuthLayout
-      title={t("auth.signUp.title")}
-      description={t("auth.signUp.description")}
-    >
-      <UserSignupForm publicDomain={publicDomain} />
+    <AuthLayout title={t("auth.signUp.title")} description={description}>
+      <UserSignupForm publicDomain={publicDomain} invitation={invitation} />
     </AuthLayout>
   );
 }

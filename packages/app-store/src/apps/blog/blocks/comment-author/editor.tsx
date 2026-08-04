@@ -5,7 +5,7 @@ import {
   useCurrentBlock,
   useEditorArgs,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { BlockStyle, useClassName } from "@timelish/page-builder-base";
 import { cn } from "@timelish/ui";
 import {
@@ -16,9 +16,7 @@ import {
 import { blogCommentFixtures } from "../comment-fixtures";
 import { BlogCommentAuthorProps, styles } from "./schema";
 
-export const BlogCommentAuthorEditor = ({
-  style,
-}: BlogCommentAuthorProps) => {
+export const BlogCommentAuthorEditor = ({ style }: BlogCommentAuthorProps) => {
   const currentBlock = useCurrentBlock<BlogCommentAuthorProps>();
   const overlayProps = useBlockEditor(currentBlock.id);
   const args = useEditorArgs();

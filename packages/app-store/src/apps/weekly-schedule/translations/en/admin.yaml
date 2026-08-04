@@ -13,6 +13,7 @@ form:
   previousWeek: Previous week
   nextWeek: Next week
   setCustomWeeklySchedule: Set custom weekly schedule
+  selectMember: Select team member
 dialogs:
   reset:
     title: Are you absolutely sure?

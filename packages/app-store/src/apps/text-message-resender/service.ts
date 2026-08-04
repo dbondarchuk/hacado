@@ -13,6 +13,7 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  subscriptionAllowsMultipleUsers,
   template,
 } from "@timelish/utils";
 import { TextMessageResenderMessages } from "./messages";
@@ -63,12 +64,45 @@ export default class TextMessageResenderConnectedApp
       );
     }
 
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+    const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
+      organization?.availableUsers,
+    );
+    const savedData: TextMessageResenderConfiguration = {
+      ...data,
+      defaultMemberId: allowsMultipleUsers
+        ? data.defaultMemberId
+        : undefined,
+    };
+
     logger.debug(
-      { appId: appData._id, phone: data?.phone },
+      { appId: appData._id, defaultMemberId: savedData.defaultMemberId },
       "Processing text message resender configuration request",
     );
 
     try {
+      if (savedData.defaultMemberId) {
+        const member = await this.props.services.teamService.getMemberById(
+          savedData.defaultMemberId,
+        );
+        if (!member) {
+          logger.error(
+            {
+              appId: appData._id,
+              defaultMemberId: savedData.defaultMemberId,
+            },
+            "Default member not found",
+          );
+          throw new ConnectedAppRequestError(
+            "invalid_text-message-resender_default_member",
+            { request, defaultMemberId: savedData.defaultMemberId },
+            400,
+            "Default member not found",
+          );
+        }
+      }
+
       const status: ConnectedAppStatusWithText<
         TextMessageResenderAdminNamespace,
         TextMessageResenderAdminKeys
@@ -79,7 +113,7 @@ export default class TextMessageResenderConnectedApp
       };
 
       this.props.update({
-        data,
+        data: savedData,
         ...status,
       });
 
@@ -142,6 +176,35 @@ export default class TextMessageResenderConnectedApp
 
       const { appointment, customer, ...reply } = textMessageReply;
 
+      const organization =
+        await this.props.services.organizationService.getOrganization();
+      const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
+        organization?.availableUsers,
+      );
+      const memberId =
+        textMessageReply.memberId ??
+        (allowsMultipleUsers ? appData.data?.defaultMemberId : undefined) ??
+        appData.memberId;
+      if (!memberId) {
+        logger.warn(
+          { appId: appData._id, memberId },
+          "Member ID is required in text message reply",
+        );
+        return null;
+      }
+
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
+
+      if (!member) {
+        logger.error(
+          { appId: appData._id, appointmentId: reply.data.appointmentId },
+          "Member not found",
+        );
+
+        throw new Error("Member not found");
+      }
+
       if (textMessageReply.data.data?.length) {
         logger.info(
           {
@@ -166,6 +229,7 @@ export default class TextMessageResenderConnectedApp
           appointmentId: reply.data.appointmentId,
           customerId: reply.data.customerId,
           participantType: "customer",
+          memberId,
           handledBy:
             "app_text-message-resender_admin.handlers.resendToCustomer" satisfies TextMessageResenderAdminAllKeys,
         });
@@ -178,7 +242,7 @@ export default class TextMessageResenderConnectedApp
         return {
           handledBy:
             "app_text-message-resender_admin.handlers.processUserReply" satisfies TextMessageResenderAdminAllKeys,
-          participantType: "user",
+          participantType: "member",
         };
       }
 
@@ -192,8 +256,6 @@ export default class TextMessageResenderConnectedApp
         "Processing reply from customer - resending to user",
       );
 
-      const organization =
-        await this.props.services.organizationService.getOrganization();
       if (!organization) {
         logger.error(
           { appointmentId: reply.data.appointmentId },
@@ -214,6 +276,8 @@ export default class TextMessageResenderConnectedApp
         },
         adminUrl,
         websiteUrl,
+        user: member,
+        member,
       });
 
       const body = template(
@@ -223,14 +287,15 @@ export default class TextMessageResenderConnectedApp
         args,
       );
 
-      const user = await this.props.services.userService.getUser(
-        appData.userId,
-      );
-      const phone = appData?.data?.phone || user?.phone || config.general.phone;
+      const phone = member.phone || config.general.phone;
       if (!phone) {
         logger.warn(
-          { appId: appData._id, appointmentId: reply.data.appointmentId },
-          "Phone field not found for owner notification",
+          {
+            appId: appData._id,
+            appointmentId: reply.data.appointmentId,
+            memberId,
+          },
+          "Phone field not found for member notification",
         );
 
         return null;
@@ -255,7 +320,8 @@ export default class TextMessageResenderConnectedApp
         },
         appointmentId: reply.data.appointmentId,
         customerId: reply.data.customerId,
-        participantType: "user",
+        participantType: "member",
+        memberId,
         handledBy:
           "app_text-message-resender_admin.handlers.resendToUser" satisfies TextMessageResenderAdminAllKeys,
       });

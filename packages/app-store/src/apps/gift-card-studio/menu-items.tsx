@@ -50,6 +50,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.main.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.main.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "giftCard", action: "update" },
   },
   {
     href: "gift-card-studio/new",
@@ -72,6 +73,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.new.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.new.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "giftCard", action: "update" },
   },
   {
     href: "gift-card-studio/edit",
@@ -94,6 +96,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.edit.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.edit.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "giftCard", action: "update" },
   },
   {
     href: "gift-card-studio/purchases",
@@ -117,6 +120,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.purchases.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.purchases.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "giftCard", action: "read" },
   },
   {
     href: "gift-card-studio/purchases/new",
@@ -143,6 +147,7 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.purchasesNew.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.purchasesNew.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "giftCard", action: "read" },
   },
   {
     href: "gift-card-studio/settings",
@@ -165,5 +170,6 @@ export const GiftCardStudioMenuItems: AppMenuItem<
       "app_gift-card-studio_admin.app.pages.settings.title" satisfies GiftCardStudioAdminAllKeys,
     pageDescription:
       "app_gift-card-studio_admin.app.pages.settings.description" satisfies GiftCardStudioAdminAllKeys,
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

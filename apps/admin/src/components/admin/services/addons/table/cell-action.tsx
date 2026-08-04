@@ -1,6 +1,6 @@
 "use client";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppointmentAddon } from "@timelish/types";
 import {
   AlertModal,
@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
   toastPromise,
 } from "@timelish/ui";
+import { useAuth } from "@timelish/ui-admin";
+import { hasPermission } from "@timelish/utils";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,9 +27,17 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ addon }) => {
   const t = useI18n("admin");
+  const { user } = useAuth();
+  const canCreate = hasPermission(user, "service", "create");
+  const canUpdate = hasPermission(user, "service", "update");
+  const canDelete = hasPermission(user, "service", "delete");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  if (!canCreate && !canUpdate && !canDelete) {
+    return null;
+  }
 
   const onConfirm = async () => {
     try {
@@ -69,30 +79,40 @@ export const CellAction: React.FC<CellActionProps> = ({ addon }) => {
           <DropdownMenuLabel>
             {t("services.addons.table.cellAction.actions")}
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/dashboard/services/addons/new?from=${addon._id}`}
-              className="text-foreground"
-            >
-              <Copy className="size-3.5" />{" "}
-              {t("services.addons.table.cellAction.clone")}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/dashboard/services/addons/${addon._id}`}
-              className="text-foreground"
-            >
-              <Edit className="size-3.5" />{" "}
-              {t("services.addons.table.cellAction.update")}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="size-3.5" />{" "}
-            {t("services.addons.table.cellAction.delete")}
-          </DropdownMenuItem>
+          {canCreate ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/dashboard/services/addons/new?from=${addon._id}`}
+                  className="text-foreground"
+                >
+                  <Copy className="size-3.5" />{" "}
+                  {t("services.addons.table.cellAction.clone")}
+                </Link>
+              </DropdownMenuItem>
+            </>
+          ) : null}
+          {canUpdate ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/dashboard/services/addons/${addon._id}`}
+                  className="text-foreground"
+                >
+                  <Edit className="size-3.5" />{" "}
+                  {t("services.addons.table.cellAction.update")}
+                </Link>
+              </DropdownMenuItem>
+            </>
+          ) : null}
+          {canDelete ? (
+            <DropdownMenuItem onClick={() => setOpen(true)}>
+              <Trash className="size-3.5" />{" "}
+              {t("services.addons.table.cellAction.delete")}
+            </DropdownMenuItem>
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

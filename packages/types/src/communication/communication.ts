@@ -2,6 +2,7 @@ import { AllKeys } from "@timelish/i18n";
 import { AppointmentEntity } from "../booking";
 import { Customer } from "../customers";
 import { WithDatabaseId, WithOrganizationId } from "../database";
+import type { OrganizationMember } from "../users";
 import { Prettify } from "../utils";
 
 export const emailCommunicationChannel = "email" as const;
@@ -17,7 +18,10 @@ export const communicationDirectionSchema = ["outbound", "inbound"] as const;
 export type CommunicationDirection =
   (typeof communicationDirectionSchema)[number];
 
-export const communicationParticipantTypeSchema = ["customer", "user"] as const;
+export const communicationParticipantTypeSchema = [
+  "customer",
+  "member",
+] as const;
 export type CommunicationParticipantType =
   (typeof communicationParticipantTypeSchema)[number];
 
@@ -39,6 +43,8 @@ export type CommunicationLogEntity = Prettify<
       channel: CommunicationChannel;
       participant: string;
       participantType: CommunicationParticipantType;
+      memberId?: string;
+      member?: OrganizationMember;
       handledBy:
         | AllKeys
         | {
@@ -63,7 +69,7 @@ export type CommunicationLogEntity = Prettify<
 
 export type CommunicationLogCreateInput = Pick<
   CommunicationLogEntity,
-  "direction" | "channel" | "participant" | "participantType" | "handledBy"
+  "direction" | "channel" | "participant" | "handledBy"
 > & {
   subject?: string;
   appointmentId?: string;
@@ -71,7 +77,17 @@ export type CommunicationLogCreateInput = Pick<
   text: string;
   html?: string;
   data?: unknown;
-};
+} & (
+      | {
+          participantType: Extract<CommunicationParticipantType, "customer">;
+          /** Optional assigned member (e.g. when a customer reply belongs to a staff thread). */
+          memberId?: string;
+        }
+      | {
+          participantType: Extract<CommunicationParticipantType, "member">;
+          memberId: string;
+        }
+  );
 
 /** API / UI list row: no full body fields, only preview metadata. */
 export type CommunicationLog = Omit<

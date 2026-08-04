@@ -12,6 +12,7 @@ import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { Breadcrumbs, Heading } from "@timelish/ui";
 import { DataTableSkeleton } from "@timelish/ui-admin";
+import { hasPermission } from "@timelish/utils";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -34,13 +35,17 @@ export default async function OptionsPage(props: Params) {
 
   const key = serviceOptionsSearchParamsSerializer({ ...parsed });
 
-  const session = await getSession();
-  const servicesContainer = await getServicesContainer();
+  const [session, servicesContainer] = await Promise.all([
+    getSession(),
+    getServicesContainer(),
+  ]);
+  const canCreate = hasPermission(session.user, "service", "create");
   const { total: serviceCount } =
     await servicesContainer.servicesService.getOptions({
       limit: 0,
     });
-  const canAddMore = sessionCanCreateMoreServices(session, serviceCount);
+  const canAddMore =
+    canCreate && sessionCanCreateMoreServices(session, serviceCount);
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
@@ -62,7 +67,9 @@ export default async function OptionsPage(props: Params) {
               description={t("services.options.description")}
             />
 
-            <AddOptionSplitButton canAddMore={canAddMore} />
+            {canCreate ? (
+              <AddOptionSplitButton canAddMore={canAddMore} />
+            ) : null}
           </div>
           {/* <Separator /> */}
         </div>

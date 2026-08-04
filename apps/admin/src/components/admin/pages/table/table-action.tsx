@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
 import {
   DataTableFilterBox,

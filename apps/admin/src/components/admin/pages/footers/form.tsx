@@ -7,7 +7,7 @@ import {
   AppsBlocksTemplates,
 } from "@timelish/app-store/blocks/editors";
 import { AppsBlocksReaders } from "@timelish/app-store/blocks/readers";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { BlockProviderRegistry, PageBuilder } from "@timelish/page-builder";
 import {
   getPageFooterSchemaWithUniqueNameCheck,

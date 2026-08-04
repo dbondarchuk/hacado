@@ -11,6 +11,7 @@ form:
   previousWeek: Попередній тиждень
   nextWeek: Наступний тиждень
   setCustomWeeklySchedule: Встановити власний тижневий розклад
+  selectMember: Виберіть співробітника
 dialogs:
   reset:
     title: Ви абсолютно впевнені?

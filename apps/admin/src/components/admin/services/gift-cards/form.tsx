@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { BaseAllKeys, useI18n } from "@timelish/i18n";
+import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
 import {
   getGiftCardSchemaWithUniqueCheck,
   GiftCard,

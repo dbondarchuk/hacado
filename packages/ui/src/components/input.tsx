@@ -11,8 +11,8 @@ export const inputVariants = cva(
   ],
   {
     defaultVariants: {
-      // h: "md",
-      h: "sm",
+      h: "md",
+      // h: "sm",
       variant: "default",
     },
     variants: {

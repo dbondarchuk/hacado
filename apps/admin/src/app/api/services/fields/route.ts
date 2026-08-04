@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { serviceFieldsSearchParamsLoader } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
 import { fieldSchema } from "@timelish/types";
@@ -60,7 +61,15 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/services/fields")("POST");
+  const auth = await requirePermission(
+    "service",
+    "create",
+    "AdminAPI/services/fields",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const body = await request.json();
   const servicesContainer = await getServicesContainer();

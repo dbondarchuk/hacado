@@ -10,6 +10,7 @@ import * as z from "zod";
 export const setBusyEventsActionSchema = z.object({
   events: shiftsSchema,
   week: weekIdentifierSchema,
+  memberId: z.string().optional(),
 });
 
 export type SetBusyEventsAction = z.infer<typeof setBusyEventsActionSchema>;
@@ -19,6 +20,7 @@ export const SetBusyEventsActionType = "set-busy-events" as const;
 
 export const getWeeklyBusyEventsRequestSchema = z.object({
   week: weekIdentifierSchema,
+  memberId: z.string().optional(),
 });
 
 export type GetWeeklyBusyEventsRequest = z.infer<

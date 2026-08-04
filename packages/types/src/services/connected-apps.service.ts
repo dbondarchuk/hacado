@@ -11,9 +11,10 @@ import {
   IConnectedApp,
   ConnectedAppUninstallResult,
 } from "../apps/connected-app.service";
+import type { SessionUser } from "../users/session-user";
 
 export interface IConnectedAppsService {
-  createNewApp(name: string, userId: string): Promise<string>;
+  createNewApp(name: string, memberId: string): Promise<string>;
   deleteApp(appId: string): Promise<ConnectedAppUninstallResult>;
   updateApp(appId: string, updateModel: ConnectedAppUpdateModel): Promise<void>;
   requestLoginUrl(appId: string): Promise<string>;
@@ -40,19 +41,19 @@ export interface IConnectedAppsService {
     appId: string,
     data: any,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any>;
   processStaticRequest(
     appName: string,
     data: any,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any>;
   processFormRequest(
     appId: string,
     formData: FormData,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any>;
   getAppStatus(appId: string): Promise<ConnectedApp>;
   getApps(): Promise<ConnectedApp[]>;

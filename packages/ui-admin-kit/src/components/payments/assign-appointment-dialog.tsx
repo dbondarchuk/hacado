@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi, appointmentsSearchParams } from "@timelish/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
+import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Appointment,
   AppointmentStatus,

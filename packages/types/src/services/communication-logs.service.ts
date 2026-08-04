@@ -19,10 +19,12 @@ export interface ICommunicationLogsService {
       range?: DateRange;
       customerId?: string | string[];
       appointmentId?: string;
+      memberId?: string | string[];
     },
   ): Promise<WithTotal<CommunicationLog>>;
   getCommunicationLogContent(
     logId: string,
+    options?: { memberId?: string | string[] },
   ): Promise<CommunicationLogContentPayload | null>;
   clearAllLogs(): Promise<void>;
   clearSelectedLogs(ids: string[]): Promise<void>;

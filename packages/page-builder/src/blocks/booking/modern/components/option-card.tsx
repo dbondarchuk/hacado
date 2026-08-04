@@ -1,8 +1,15 @@
-import { useI18n } from "@timelish/i18n";
-import { AppointmentChoice } from "@timelish/types";
+import { useI18n } from "@timelish/i18n/client";
+import {
+  AppointmentChoice,
+  effectiveStaffDuration,
+  effectiveStaffPrice,
+  minEffectiveDuration,
+  minEffectivePrice,
+} from "@timelish/types";
 import { cn, Markdown, Skeleton, useCurrencyFormat } from "@timelish/ui";
-import { durationToTime, formatAmountString } from "@timelish/utils";
+import { durationToTime } from "@timelish/utils";
 import { Clock, Minus, Plus } from "lucide-react";
+import React from "react";
 import { useScheduleContext } from "./context";
 
 export const AppointmentOptionCard: React.FC = () => {
@@ -16,16 +23,37 @@ export const AppointmentOptionCard: React.FC = () => {
     baseDuration,
     setDuration,
     setSelectedAddons,
+    members,
+    flowOrder,
+    selectedMemberId,
+    setSelectedMemberId,
   } = useScheduleContext();
 
   const t = useI18n("translation");
   const currencyFormat = useCurrencyFormat();
+
+  const activeMemberIds = React.useMemo(
+    () => new Set(members.map((m) => m.id)),
+    [members],
+  );
+
+  const visibleOptions =
+    flowOrder === "specialist-first" && selectedMemberId
+      ? appointmentOptions.filter(
+          (o) =>
+            !!o.staff?.length &&
+            o.staff.some((s) => s.memberId === selectedMemberId),
+        )
+      : appointmentOptions;
 
   const onClick = (option: AppointmentChoice): void => {
     setSelectedAppointmentOption(option);
     setSelectedAddons([]);
     setDiscount(undefined);
     setDateTime(undefined);
+    if (flowOrder !== "specialist-first") {
+      setSelectedMemberId(null);
+    }
   };
 
   return (
@@ -47,14 +75,34 @@ export const AppointmentOptionCard: React.FC = () => {
           </>
         ) : (
           <>
-            {appointmentOptions.map((option) => {
+            {visibleOptions.map((option) => {
               const isSelected = selectedAppointmentOption?._id === option._id;
-              const currentDuration =
+              const baseOptionDuration =
                 option.durationType === "fixed" ? option.duration : null;
-              const currentPrice =
+              const baseOptionPrice =
                 option.durationType === "fixed"
                   ? option.price
                   : option.pricePerHour;
+
+              const memberAssignment = selectedMemberId
+                ? option.staff?.find((s) => s.memberId === selectedMemberId)
+                : undefined;
+              const activeAssignments = (option.staff || []).filter((s) =>
+                activeMemberIds.has(s.memberId),
+              );
+              const isFromPricing =
+                !selectedMemberId && activeAssignments.length > 1;
+
+              const currentDuration = selectedMemberId
+                ? (effectiveStaffDuration(
+                    baseOptionDuration,
+                    memberAssignment,
+                  ) ?? baseOptionDuration)
+                : minEffectiveDuration(baseOptionDuration, activeAssignments);
+              const currentPrice = selectedMemberId
+                ? (effectiveStaffPrice(baseOptionPrice, memberAssignment) ??
+                  baseOptionPrice)
+                : minEffectivePrice(baseOptionPrice, activeAssignments);
 
               return (
                 <div
@@ -84,24 +132,38 @@ export const AppointmentOptionCard: React.FC = () => {
                       {(!!currentPrice || !!currentDuration) && (
                         <div className="text-right flex-shrink-0">
                           {!!currentPrice &&
-                            (option.durationType === "fixed" ? (
-                              <p className="text-sm font-semibold text-foreground">
-                                {currencyFormat(currentPrice)}
-                              </p>
-                            ) : (
-                              <p className="text-sm font-semibold text-foreground">
-                                {t("booking.option.price_per_hour", {
-                                  price: currencyFormat(currentPrice),
-                                })}
-                              </p>
-                            ))}
+                            (() => {
+                              const priceLabel =
+                                option.durationType === "fixed"
+                                  ? currencyFormat(currentPrice)
+                                  : t("booking.option.price_per_hour", {
+                                      price: currencyFormat(currentPrice),
+                                    });
+
+                              return (
+                                <p className="text-sm font-semibold text-foreground">
+                                  {isFromPricing
+                                    ? t("booking.specialist.fromPrice", {
+                                        price: priceLabel,
+                                      })
+                                    : priceLabel}
+                                </p>
+                              );
+                            })()}
                           {!!currentDuration && (
                             <p className="text-xs text-muted-foreground flex items-center gap-1 justify-end">
                               <Clock className="w-3 h-3" />{" "}
-                              {t(
-                                "common.formats.durationHourMin",
-                                durationToTime(currentDuration),
-                              )}
+                              {isFromPricing
+                                ? t("booking.specialist.fromDuration", {
+                                    duration: t(
+                                      "common.formats.durationHourMin",
+                                      durationToTime(currentDuration),
+                                    ),
+                                  })
+                                : t(
+                                    "common.formats.durationHourMin",
+                                    durationToTime(currentDuration),
+                                  )}
                             </p>
                           )}
                         </div>

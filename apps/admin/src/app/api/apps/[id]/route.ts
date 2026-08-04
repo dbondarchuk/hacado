@@ -1,5 +1,11 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
+import {
+  assertCanAccessConnectedApp,
+  getOwnerMemberIds,
+} from "@/lib/auth/app-access";
+import { withCatalogTarget } from "@timelish/app-store/utils";
 import { getLoggerFactory } from "@timelish/logger";
+import { canUninstallConnectedApp } from "@timelish/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +26,7 @@ export async function GET(
   );
 
   try {
+    await assertCanAccessConnectedApp(id);
     const app = await servicesContainer.connectedAppsService.getApp(id);
 
     logger.debug(
@@ -32,6 +39,12 @@ export async function GET(
 
     return NextResponse.json(app ?? null);
   } catch (error: any) {
+    if (error?.status === 403) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
     logger.error(
       {
         appId: id,
@@ -56,6 +69,7 @@ export async function DELETE(
 ) {
   const logger = getLoggerFactory("AdminAPI/apps/[id]")("DELETE");
   const servicesContainer = await getServicesContainer();
+  const user = await getUser();
   const { id } = await params;
 
   logger.debug(
@@ -66,6 +80,19 @@ export async function DELETE(
   );
 
   try {
+    const [app, ownerMemberIds] = await Promise.all([
+      assertCanAccessConnectedApp(id, user),
+      getOwnerMemberIds(),
+    ]);
+    if (
+      !canUninstallConnectedApp(user, withCatalogTarget(app), ownerMemberIds)
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
+
     const result = await servicesContainer.connectedAppsService.deleteApp(id);
 
     if (result.success) {
@@ -79,6 +106,12 @@ export async function DELETE(
 
     return NextResponse.json(result, { status: result.success ? 200 : 405 });
   } catch (error: any) {
+    if (error?.status === 403) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
     logger.error(
       {
         appId: id,

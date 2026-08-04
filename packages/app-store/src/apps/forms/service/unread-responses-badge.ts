@@ -8,19 +8,19 @@ import { FormsRepositoryService } from "./repository-service";
 function lastReadRedisKey(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
 ): string {
-  return `formsResponses:lastReadAt:${organizationId}:${appId}:${userId}`;
+  return `formsResponses:lastReadAt:${organizationId}:${appId}:${memberId}`;
 }
 
 export async function getFormResponsesLastReadAt(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
   services: IConnectedAppProps["services"],
 ): Promise<Date> {
   const lastRead = await services.redisClient.get(
-    lastReadRedisKey(organizationId, appId, userId),
+    lastReadRedisKey(organizationId, appId, memberId),
   );
   return lastRead ? new Date(lastRead) : new Date(0);
 }
@@ -28,11 +28,11 @@ export async function getFormResponsesLastReadAt(
 export async function markFormResponsesRead(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
   services: IConnectedAppProps["services"],
 ): Promise<void> {
   await services.redisClient.set(
-    lastReadRedisKey(organizationId, appId, userId),
+    lastReadRedisKey(organizationId, appId, memberId),
     new Date().toISOString(),
   );
 }
@@ -40,18 +40,18 @@ export async function markFormResponsesRead(
 export async function getFormsUnreadResponsesBadges(
   appId: string,
   organizationId: string,
-  userId: string | undefined,
+  memberId: string | undefined,
   getDbConnection: IConnectedAppProps["getDbConnection"],
   services: IConnectedAppProps["services"],
 ): Promise<DashboardNotificationBadge[]> {
-  if (!userId) {
+  if (!memberId) {
     return [{ key: FORMS_UNREAD_RESPONSES_BADGE_KEY, count: 0 }];
   }
 
   const lastReadAt = await getFormResponsesLastReadAt(
     organizationId,
     appId,
-    userId,
+    memberId,
     services,
   );
   const repository = new FormsRepositoryService(

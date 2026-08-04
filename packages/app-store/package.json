@@ -24,7 +24,8 @@
     "./images": "./src/images.ts",
     "./payment-forms": "./src/payment-forms.tsx",
     "./exports": "./src/exports.ts",
-    "./app-events": "./src/app-events/index.ts"
+    "./app-events": "./src/app-events/index.ts",
+    "./utils": "./src/utils.ts"
   },
   "devDependencies": {
     "@microsoft/microsoft-graph-types": "^2.40.0",
@@ -48,6 +49,7 @@
     "@paypal/paypal-server-sdk": "^1.1.0",
     "@paypal/react-paypal-js": "^8.8.3",
     "@resvg/resvg-js": "^2.6.2",
+    "@timelish/api-sdk": "*",
     "@timelish/email-builder": "*",
     "@timelish/i18n": "*",
     "@timelish/logger": "*",

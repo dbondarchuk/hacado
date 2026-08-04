@@ -14,4 +14,5 @@ export * from "./schedule";
 export * from "./service-addons";
 export * from "./service-fields";
 export * from "./service-options";
+export * from "./teams";
 export * from "./templates";

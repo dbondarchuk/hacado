@@ -15,6 +15,7 @@ export const TextMessageAutoReplyApp: App<
   scope: ["text-message-respond"],
   category: ["apps.categories.communications"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <MessageSquareReply className={className} />,
   description: {
     text: "app_text-message-auto-reply_admin.app.description",

@@ -1,10 +1,11 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { CommunicationLog } from "@timelish/types";
 import { Button, Checkbox, Link } from "@timelish/ui";
 import {
   CustomerName,
+  MemberName,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@timelish/ui-admin";
@@ -236,5 +237,15 @@ export const columns: ColumnDef<CommunicationLog>[] = [
         </Link>
       );
     },
+  },
+  {
+    id: "member.name",
+    sortingFn: tableSortNoopFunction,
+    header: tableSortHeader(
+      "communicationLogs.table.columns.member",
+      "string",
+      "admin",
+    ),
+    cell: ({ row }) => <MemberName member={row.original.member} />,
   },
 ];

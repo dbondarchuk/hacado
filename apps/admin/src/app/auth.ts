@@ -1,24 +1,85 @@
+import { getMemberLanguageForUser } from "@/lib/auth/member-language";
+import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
+import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
-import { applyPolarOrderPaidToSmsBalances } from "@/lib/billing/polar-order-paid-sms";
+import {
+  applyPolarOrderPaidToSmsBalances,
+  applyPolarOrderPaidToUserSlots,
+} from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { languages, type Language } from "@timelish/i18n";
 import { getPolarClient, getRedisClient } from "@timelish/services";
 import { resolvePlanTierFromOrganization } from "@timelish/services/billing";
+import { MEMBERS_COLLECTION_NAME } from "@timelish/services/collections";
 import {
   getDbConnection,
   getDbConnectionSync,
 } from "@timelish/services/database";
 import {
-  USER_ROLES,
+  OrganizationSubscriptionStatus,
   type Organization as OrganizationDbModel,
+  type OrganizationMember,
+  type SessionUser,
   type WithDatabaseId,
 } from "@timelish/types";
+import { getAdminUrl } from "@timelish/utils";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { customSession, Organization, organization } from "better-auth/plugins";
+import { APIError } from "better-auth/api";
+import { customSession, organization } from "better-auth/plugins";
 import { ObjectId } from "mongodb";
 import { ApiError } from "next/dist/server/api-utils";
+
+const memberProfileAdditionalFields = {
+  email: {
+    type: "string" as const,
+    required: false,
+    input: false,
+  },
+  name: {
+    type: "string" as const,
+    required: false,
+    input: true,
+  },
+  phone: {
+    type: "string" as const,
+    required: false,
+    input: true,
+  },
+  bio: {
+    type: "string" as const,
+    required: false,
+    input: true,
+  },
+  language: {
+    type: [...languages],
+    required: false,
+    input: true,
+    defaultValue: "en",
+  },
+  image: {
+    type: "string" as const,
+    required: false,
+    input: true,
+  },
+  status: {
+    type: "string" as const,
+    required: false,
+    defaultValue: "active",
+    input: false,
+  },
+  inactiveReason: {
+    type: "string" as const,
+    required: false,
+    input: false,
+  },
+  inactivatedAt: {
+    type: "date" as const,
+    required: false,
+    input: false,
+  },
+};
 
 export const auth = betterAuth({
   trustedOrigins: async (request) => {
@@ -28,12 +89,10 @@ export const auth = betterAuth({
         ? ["http://localhost:3001"]
         : []),
     ];
-    // request is undefined during initialization and auth.api calls
     if (!request) {
       return defaultOrigins;
     }
 
-    // Dynamic logic based on the request
     const url = new URL(request.url);
     if (url.pathname.startsWith("/api/auth/polar/webhooks")) {
       return ["*"];
@@ -63,15 +122,14 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    // database: {
-    //   generateId: () => new ObjectId().toString(),
-    // },
-    // generateId: () => new ObjectId().toString(),
+    database: {
+      generateId: () => new ObjectId().toString(),
+    },
     defaultCookieAttributes: {
       secure: true,
       httpOnly: true,
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: 60 * 60 * 24 * 30,
     },
   },
   emailAndPassword: {
@@ -79,7 +137,7 @@ export const auth = betterAuth({
     autoSignIn: true,
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url, token }) => {
-      const language = (user as any).language || "en";
+      const language = await getMemberLanguageForUser(user.id);
       await sendEmail("resetPassword", user.email, language, {
         url,
         token,
@@ -89,44 +147,21 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url, token }) => {
-      const language = (user as any).language || "en";
+      const language = await getMemberLanguageForUser(user.id);
       await sendEmail("emailVerification", user.email, language, {
         url,
         token,
         name: user.name,
       });
     },
+    autoSignInAfterVerification: true,
+    expiresIn: 60 * 60 * 24, // 24 hours
   },
   user: {
-    additionalFields: {
-      organizationId: {
-        type: "string",
-        input: false,
-      },
-      language: {
-        type: [...languages],
-        input: true,
-        defaultValue: "en",
-      },
-      phone: {
-        type: "string",
-        required: true,
-        input: true,
-      },
-      bio: {
-        type: "string",
-        input: true,
-      },
-      role: {
-        type: [...USER_ROLES],
-        input: false,
-        defaultValue: "owner",
-      },
-    },
     changeEmail: {
       enabled: true,
       sendChangeEmailConfirmation: async ({ user, newEmail, url, token }) => {
-        const language = ((user as any).language || "en") as Language;
+        const language = await getMemberLanguageForUser(user.id);
         await sendEmail("changeEmail", user.email, language, {
           url,
           token,
@@ -138,55 +173,14 @@ export const auth = betterAuth({
   },
   databaseHooks: {
     user: {
-      create: {
-        before: async (user) => {
-          //   const db = await getDbConnection();
-
-          //   const { organizationSlug, organizationName, ...userData } = user;
-          //   if (!organizationSlug) {
-          //     throw new ApiError(400, "Organization slug is required");
-          //   }
-
-          //   if (!organizationName) {
-          //     throw new ApiError(400, "Organization name is required");
-          //   }
-
-          //   const organization = await db
-          //     .collection<Organization>("organization")
-          //     .findOne({
-          //       slug: organizationSlug,
-          //     });
-
-          //   if (organization) {
-          //     throw new ApiError(400, "Organization already exists");
-          //   }
-
-          //   const organizationId = new ObjectId().toString();
-          //   await db
-          //     .collection<
-          //       WithDatabaseId<Omit<Organization, "id">>
-          //     >("organizations")
-          //     .insertOne({
-          //       slug: organizationSlug as string,
-          //       name: organizationName as string,
-          //       createdAt: new Date(),
-          //       _id: organizationId,
-          //     });
-
-          //   return {
-          //     data: {
-          //       ...userData,
-          //       organizationId,
-          //       language: "en",
-          //     },
-          //   };
-          // },
-          return {
-            data: {
-              ...user,
-              organizationId: "",
-            },
-          };
+      update: {
+        after: async (user) => {
+          if (!user.email || !user.id) return;
+          const db = await getDbConnection();
+          await db.collection(MEMBERS_COLLECTION_NAME).updateMany(
+            { userId: String(user.id) },
+            { $set: { email: String(user.email).toLowerCase() } },
+          );
         },
       },
     },
@@ -194,6 +188,135 @@ export const auth = betterAuth({
   plugins: [
     organization({
       organizationLimit: 1,
+      ac: teamAc,
+      roles: teamOrganizationRoles,
+      invitationExpiresIn: 60 * 60 * 24 * 7,
+      cancelPendingInvitationsOnReInvite: true,
+      membershipLimit: async (_user, organizationDoc) => {
+        const db = await getDbConnection();
+        const org = await db
+          .collection<OrganizationDbModel>("organizations")
+          .findOne({ _id: organizationDoc.id });
+        return (
+          org?.availableUsers ??
+          (org?.userSlots
+            ? (org.userSlots.included ?? 0) + (org.userSlots.additional ?? 0)
+            : 1)
+        );
+      },
+      schema: {
+        member: {
+          additionalFields: memberProfileAdditionalFields,
+        },
+      },
+      sendInvitationEmail: async (data) => {
+        const adminUrl = getAdminUrl();
+        const url = `${adminUrl}/accept-invitation?invitationId=${data.id}`;
+        const language = await getMemberLanguageForUser(
+          data.inviter.user.id,
+          data.organization.id,
+        );
+        await sendEmail("teamInvitation", data.email, language, {
+          url,
+          organizationName: data.organization.name,
+          inviterName: data.inviter.user.name,
+          role: data.role,
+        });
+      },
+      requireEmailVerificationOnInvitation: false,
+      organizationHooks: {
+        beforeAddMember: async ({ member, user }) => {
+          const profile = await resolveMemberProfileFields(user, {
+            name: (member as { name?: string }).name,
+            phone: (member as { phone?: string }).phone,
+            language: (member as { language?: Language }).language,
+          });
+          return {
+            data: {
+              ...member,
+              ...profile,
+            },
+          };
+        },
+        /**
+         * Better Auth's acceptInvitation calls createMember directly and skips
+         * beforeAddMember — apply signup profile fields here instead.
+         */
+        afterAcceptInvitation: async ({ member, user }) => {
+          const profile = await resolveMemberProfileFields(user, {
+            name: (member as { name?: string }).name,
+            phone: (member as { phone?: string }).phone,
+            language: (member as { language?: Language }).language,
+          });
+          const db = await getDbConnection();
+          await db.collection(MEMBERS_COLLECTION_NAME).updateOne(
+            {
+              organizationId: member.organizationId,
+              userId: user.id,
+            },
+            { $set: profile },
+          );
+        },
+        beforeCreateInvitation: async ({ invitation, organization: org }) => {
+          const db = await getDbConnection();
+          const email = invitation.email.toLowerCase();
+          const existingUser = await db
+            .collection("users")
+            .findOne(
+              { $expr: { $eq: [{ $toLower: "$email" }, email] } },
+              { projection: { _id: 1 } },
+            );
+          if (existingUser) {
+            const userId = String(existingUser._id);
+            const existingMembership = await db
+              .collection(MEMBERS_COLLECTION_NAME)
+              .findOne({ userId }, { projection: { _id: 1 } });
+            if (existingMembership) {
+              throw new APIError("BAD_REQUEST", {
+                message:
+                  "The user is part of another organization. Please use another email address",
+                code: "USER_ALREADY_IN_ORGANIZATION",
+              });
+            }
+          }
+          const orgDoc = await db
+            .collection<OrganizationDbModel>("organizations")
+            .findOne({ _id: org.id });
+          const available =
+            orgDoc?.availableUsers ??
+            (orgDoc?.userSlots
+              ? (orgDoc.userSlots.included ?? 0) +
+                (orgDoc.userSlots.additional ?? 0)
+              : 1);
+          const activeCount = await db
+            .collection(MEMBERS_COLLECTION_NAME)
+            .countDocuments({
+              organizationId: org.id,
+              status: "active",
+            });
+          if (activeCount >= available) {
+            throw new APIError("BAD_REQUEST", {
+              message:
+                "No available user slots. Purchase more seats to invite.",
+              code: "NO_AVAILABLE_USER_SLOTS",
+            });
+          }
+          if (invitation.role === "owner") {
+            throw new APIError("BAD_REQUEST", {
+              message: "Cannot invite another owner",
+              code: "INVALID_ROLE",
+            });
+          }
+        },
+        beforeRemoveMember: async ({ member }) => {
+          if (member.role === "owner") {
+            throw new APIError("BAD_REQUEST", {
+              message: "Cannot remove the owner",
+              code: "CANNOT_REMOVE_OWNER",
+            });
+          }
+        },
+      },
     }),
     polar({
       client: getPolarClient().client,
@@ -222,6 +345,7 @@ export const auth = betterAuth({
           },
           onOrderPaid: async ({ data }) => {
             await applyPolarOrderPaidToSmsBalances(data);
+            await applyPolarOrderPaidToUserSlots(data);
           },
           onPayload: async ({ data }) => {
             console.log("onPayloadReceived", data);
@@ -230,47 +354,86 @@ export const auth = betterAuth({
       ],
     }),
     customSession(async ({ user, session }) => {
-      let organizationId = (user as any).organizationId as string;
       const db = await getDbConnection();
-      if (!organizationId) {
-        const userDbModel = await db.collection<User>("users").findOne({
-          _id: new ObjectId(user.id),
-        });
+      const sessionActiveOrgId = (
+        session as { activeOrganizationId?: string | null }
+      ).activeOrganizationId;
 
-        if (!userDbModel) {
-          throw new ApiError(400, "User not found");
-        }
+      let member: OrganizationMember | null = null;
 
-        const orgIdFromDb = (userDbModel as User & { organizationId?: string })
-          .organizationId;
-
-        if (!orgIdFromDb) {
-          return {
-            ...session,
-            user: {
-              ...user,
-              organizationId: "",
-              organizationInstalled: false,
-              phone: (user as any).phone || "",
-              language: (user as any).language || "en",
-              organizationName: "",
-              organizationSlug: "",
-              organizationDomain: "",
-              role: (user as any).role || "owner",
-              subscriptionStatus: "active",
-              subscriptionPlanTier: null,
-              feesExempt: false,
-            },
-          };
-        }
-
-        organizationId = orgIdFromDb;
+      if (sessionActiveOrgId) {
+        member = await db
+          .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+          .findOne({
+            organizationId: sessionActiveOrgId,
+            userId: user.id,
+            status: "active",
+          });
       }
 
+      if (!member) {
+        member = await db
+          .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+          .find({ userId: user.id, status: "active" })
+          .sort({ createdAt: 1 })
+          .limit(1)
+          .next();
+
+        if (
+          member &&
+          session.token &&
+          member.organizationId !== sessionActiveOrgId
+        ) {
+          await db
+            .collection("sessions")
+            .updateOne(
+              { token: session.token },
+              { $set: { activeOrganizationId: member.organizationId } },
+            );
+        }
+      }
+
+      if (!member) {
+        const sessionUser = {
+          ...user,
+          organizationId: "",
+          organizationInstalled: false,
+          phone: "",
+          language: "en" as Language,
+          organizationName: "",
+          organizationSlug: "",
+          organizationDomain: "",
+          role: "owner" as const,
+          memberId: "",
+          memberStatus: "active" as const,
+          memberRole: "owner" as const,
+          availableUsers: 1,
+          allowAdditionalUsers: false,
+          subscriptionStatus: OrganizationSubscriptionStatus.Active,
+          subscriptionPlanTier: null,
+          feesExempt: false,
+          bio: null as string | null,
+          calendarSources: [] as SessionUser["calendarSources"],
+          meetingUrlProviderAppId: null as string | null,
+        } as SessionUser;
+        return {
+          ...session,
+          user: sessionUser,
+        };
+      }
+
+      if (!member.email && user.email) {
+        const email = user.email.toLowerCase();
+        await db.collection(MEMBERS_COLLECTION_NAME).updateOne(
+          { _id: member._id as never },
+          { $set: { email } },
+        );
+        member.email = email;
+      }
+
+      const organizationId = member.organizationId;
       const organization = await db
-        .collection<
-          WithDatabaseId<OrganizationDbModel & Organization>
-        >("organizations")
+        .collection<WithDatabaseId<OrganizationDbModel>>("organizations")
         .findOne({
           _id: organizationId,
         });
@@ -279,26 +442,52 @@ export const auth = betterAuth({
         throw new ApiError(400, "Organization not found");
       }
 
+      const memberRole = member.role || ("owner" as const);
+      const memberStatus = member.status || "active";
+      const memberId =
+        typeof member._id === "string" ? member._id : String(member._id);
+
+      const availableUsers =
+        organization.availableUsers ??
+        (organization.userSlots
+          ? (organization.userSlots.included ?? 0) +
+            (organization.userSlots.additional ?? 0)
+          : 1);
+
       return {
         ...session,
         user: {
           ...user,
-          phone: (user as any).phone || "",
-          organizationInstalled: organization.isInstalled,
-          organizationId: organizationId,
-          organizationName: organization.name,
+          name: member.name || user.name || "",
+          phone: member.phone || "",
+          bio: member.bio ?? null,
+          image: member.image ?? user.image ?? null,
+          organizationInstalled: !!organization.isInstalled,
+          organizationId,
+          organizationName: organization.name ?? "",
           organizationSlug: organization.slug,
-          organizationDomain: organization.domain,
-          language: (user as any).language || "en",
-          role: (user as any).role || "owner",
-          subscriptionStatus: organization.polarSubscriptionStatus || "active",
+          organizationDomain: organization.domain ?? "",
+          language: member.language || "en",
+          role: memberRole,
+          memberId,
+          memberStatus,
+          memberRole,
+          availableUsers,
+          allowAdditionalUsers: organization.allowAdditionalUsers ?? false,
+          subscriptionStatus:
+            organization.polarSubscriptionStatus ??
+            OrganizationSubscriptionStatus.Active,
           subscriptionPlanTier: resolvePlanTierFromOrganization(organization),
           feesExempt: !!organization.feesExempt,
-        },
+          calendarSources: member.calendarSources ?? [],
+          meetingUrlProviderAppId: member.meetingUrlProviderAppId ?? null,
+        } as SessionUser,
       };
     }),
   ],
 });
 
-export type Session = typeof auth.$Infer.Session;
-export type User = Session["user"];
+export type Session = Omit<typeof auth.$Infer.Session, "user"> & {
+  user: SessionUser;
+};
+export type User = SessionUser;

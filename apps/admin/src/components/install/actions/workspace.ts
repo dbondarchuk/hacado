@@ -6,6 +6,7 @@ import { getLoggerFactory } from "@timelish/logger";
 import { StaticOrganizationService } from "@timelish/services";
 import {
   CONFIGURATION_COLLECTION_NAME,
+  MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
 } from "@timelish/services/collections";
 import { getDbConnection } from "@timelish/services/database";
@@ -17,19 +18,29 @@ import {
   zTimeZone,
   type ConfigurationOption,
   type Organization,
+  type OrganizationMember,
 } from "@timelish/types";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { getDefaultBookingConfiguration } from "../default-booking";
+import {
+  getOrganizationSlugIssue,
+  ORGANIZATION_SLUG_MIN_LENGTH,
+  ORGANIZATION_SLUG_REGEX,
+} from "../organization-slug";
 
 const workspaceInputSchema = z.object({
   businessName: z.string().min(2).max(128),
   address: z.string().trim().max(256).optional().default(""),
   slug: z
     .string()
-    .regex(/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/)
-    .max(64),
+    .min(ORGANIZATION_SLUG_MIN_LENGTH)
+    .max(63)
+    .regex(ORGANIZATION_SLUG_REGEX)
+    .refine((slug) => !getOrganizationSlugIssue(slug), {
+      message: "reserved",
+    }),
   timeZone: zTimeZone,
   language: z.enum(languages),
   country: zCountry,
@@ -43,6 +54,16 @@ export async function createWorkspace(
 ): Promise<{ ok: true; updated: boolean } | { ok: false; code: string }> {
   const logger = getLoggerFactory("InstallActions")("createWorkspace");
   logger.debug({ input }, "Creating workspace");
+
+  const slugIssue =
+    typeof input?.slug === "string" ? getOrganizationSlugIssue(input.slug) : "invalid";
+  if (slugIssue === "too_short" || slugIssue === "invalid") {
+    return { ok: false, code: "slug_invalid" };
+  }
+  if (slugIssue === "reserved") {
+    return { ok: false, code: "slug_reserved" };
+  }
+
   const workspaceInputSchemaResult = workspaceInputSchema.safeParse(input);
   if (!workspaceInputSchemaResult.success) {
     logger.error(
@@ -107,18 +128,50 @@ export async function createWorkspace(
       });
   }
 
-  const adapter = (await auth.$context).adapter;
-  await adapter.update({
-    model: "users",
-    where: [
-      // @ts-ignore
-      { field: "id", operator: "eq", value: new ObjectId(session.user.id) },
-    ],
-    update: { organizationId: orgId },
-  });
+  const existingMember = await db
+    .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+    .findOne({ organizationId: orgId, userId: session.user.id });
+  if (!existingMember) {
+    await db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME).insertOne({
+      _id: new ObjectId().toString(),
+      organizationId: orgId,
+      userId: session.user.id,
+      role: "owner",
+      createdAt: new Date(),
+      status: "active",
+      name: session.user.name || "",
+      email: session.user.email.toLowerCase(),
+      phone: (session.user as { phone?: string }).phone || "",
+      language: parsed.language,
+      bio: null,
+      calendarSources: [],
+    });
+  } else {
+    await db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME).updateOne(
+      { _id: existingMember._id },
+      {
+        $set: {
+          language: parsed.language,
+          ...(!existingMember.name && session.user.name
+            ? { name: session.user.name }
+            : {}),
+        },
+      },
+    );
+  }
+
+  try {
+    await auth.api.setActiveOrganization({
+      body: { organizationId: orgId },
+      headers: headersList,
+    });
+  } catch {
+    // Active org may already be set.
+  }
+
   logger.debug(
     { orgId, userId: session.user.id },
-    "Assigned user to organization",
+    "Resolved organization for workspace",
   );
 
   const generalValue = generalConfigurationSchema.parse({

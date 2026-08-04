@@ -4,7 +4,7 @@ import { BuiltInApps } from "./apps";
 
 export const getBuiltInAppData = (
   organizationId: string,
-  userId: string,
+  memberId: string,
   name: keyof typeof BuiltInApps,
 ): ConnectedAppData => {
   return {
@@ -12,7 +12,7 @@ export const getBuiltInAppData = (
     statusText: "apps.common.statusText.connected" satisfies BaseAllKeys,
     name: name,
     _id: name,
-    userId: userId,
+    memberId,
     organizationId: organizationId,
   };
 };

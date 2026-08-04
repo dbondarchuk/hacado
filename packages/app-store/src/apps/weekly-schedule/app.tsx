@@ -14,6 +14,7 @@ export const WeeklyScheduleApp: App<
   displayName: "app_weekly-schedule_admin.app.displayName",
   scope: ["schedule"],
   type: "complex",
+  target: "company",
   category: ["apps.categories.schedule"],
   Logo: ({ className }) => <CalendarDays className={className} />,
   isFeatured: true,

@@ -38,7 +38,7 @@ async function buildSmsCreditThresholdEmails(
   envelope: EventEnvelope<SmsCreditsThresholdPayload>,
   services: IServicesContainer,
 ): Promise<EmailNotificationRequest[] | null> {
-  const admins = await services.userService.getOrganizationAdminUsers();
+  const admins = await services.teamService.getOrganizationAdminContacts();
   if (!admins.length) return null;
 
   const organization = await services.organizationService.getOrganization();
@@ -93,7 +93,8 @@ async function buildSmsCreditThresholdEmails(
     notifications.push({
       email: { to: admin.email, subject, body },
       handledBy: `${keyPrefix}.handledBy` as BaseAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

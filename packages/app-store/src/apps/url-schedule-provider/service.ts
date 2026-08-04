@@ -67,7 +67,7 @@ export default class UrlScheduleProviderConnectedApp
 
     try {
       // Test the URL by making a simple request
-      await this.testUrl(data);
+      await this.testUrl(data, appData.memberId);
 
       const status: ConnectedAppStatusWithText<
         UrlScheduleProviderAdminNamespace,
@@ -125,6 +125,7 @@ export default class UrlScheduleProviderConnectedApp
     app: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId: string,
   ): Promise<Record<string, DaySchedule>> {
     const logger = this.loggerFactory("getSchedule");
     logger.debug(
@@ -139,9 +140,33 @@ export default class UrlScheduleProviderConnectedApp
     );
 
     try {
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
+      if (!member) {
+        logger.error(
+          {
+            appId: app._id,
+            memberId,
+          },
+          "Member not found",
+        );
+
+        throw new ConnectedAppError<
+          UrlScheduleProviderAdminNamespace,
+          UrlScheduleProviderAdminKeys
+        >(
+          "app_url-schedule-provider_admin.statusText.error_fetching_schedule" satisfies UrlScheduleProviderAdminAllKeys,
+          {
+            message: "Member not found",
+          },
+        );
+      }
+
       const url = new URL(app.data.url);
       url.searchParams.set("start", start.toISOString());
       url.searchParams.set("end", end.toISOString());
+      url.searchParams.set("memberId", memberId);
+      url.searchParams.set("email", member.email);
 
       // Convert headers array to object
       const headers: Record<string, string> = {
@@ -220,10 +245,35 @@ export default class UrlScheduleProviderConnectedApp
     }
   }
 
-  private async testUrl(data: UrlScheduleProviderConfiguration): Promise<void> {
+  private async testUrl(
+    data: UrlScheduleProviderConfiguration,
+    memberId: string,
+  ): Promise<void> {
     const logger = this.loggerFactory("testUrl");
 
     try {
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
+
+      if (!member) {
+        logger.error(
+          {
+            memberId,
+          },
+          "Member not found",
+        );
+
+        throw new ConnectedAppError<
+          UrlScheduleProviderAdminNamespace,
+          UrlScheduleProviderAdminKeys
+        >(
+          "app_url-schedule-provider_admin.statusText.error_fetching_schedule" satisfies UrlScheduleProviderAdminAllKeys,
+          {
+            message: "Member not found",
+          },
+        );
+      }
+
       // Convert headers array to object
       const headers: Record<string, string> = {
         "Content-Type": "application/json",
@@ -240,6 +290,8 @@ export default class UrlScheduleProviderConnectedApp
       const url = new URL(data.url);
       url.searchParams.set("start", DateTime.now().toISO());
       url.searchParams.set("end", DateTime.now().plus({ days: 7 }).toISO());
+      url.searchParams.set("memberId", memberId);
+      url.searchParams.set("email", member.email);
 
       const response = await fetch(url.toString(), {
         method: "HEAD",

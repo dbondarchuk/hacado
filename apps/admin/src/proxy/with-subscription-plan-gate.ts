@@ -16,7 +16,7 @@ function getSessionPlanTier(
     subscriptionPlanTier?: BillingPlanTier | null;
     feesExempt?: boolean;
   };
-  if (user.feesExempt) return BillingPlanTier.Pro;
+  if (user.feesExempt) return BillingPlanTier.Studio;
   return user.subscriptionPlanTier ?? null;
 }
 
@@ -25,7 +25,7 @@ function blockedResponse() {
     {
       success: false,
       code: "subscription_upgrade_required",
-      message: "This feature requires a Pro subscription.",
+      message: "This feature requires a Solo subscription.",
       settingsUrl: BRAND_SETTINGS_UPGRADE_URL,
     },
     { status: 402 },
@@ -54,7 +54,10 @@ export const withSubscriptionPlanGate: MiddlewareProxy = (next) => {
       return next(request, event);
     }
 
-    const session = await auth.api.getSession({ headers: request.headers });
+    const session = await auth.api.getSession({
+      headers: request.headers,
+      query: { disableCookieCache: true },
+    });
     if (!session) {
       return next(request, event);
     }

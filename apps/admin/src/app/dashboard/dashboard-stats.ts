@@ -23,6 +23,7 @@ async function getPeriodMetrics(
   organizationId: string,
   start: Date,
   end: Date,
+  memberId?: string,
 ): Promise<{ count: number; revenue: number }> {
   const db = await getDbConnection();
   const appointments = db.collection("appointments");
@@ -34,6 +35,7 @@ async function getPeriodMetrics(
           organizationId,
           status: { $in: ["confirmed", "pending"] },
           dateTime: { $gte: start, $lte: end },
+          ...(memberId ? { memberId } : {}),
         },
       },
       {
@@ -51,6 +53,7 @@ async function getPeriodMetrics(
 
 export async function getDashboardStats(
   organizationId: string,
+  memberId?: string,
 ): Promise<DashboardStats> {
   const now = DateTime.now();
   const todayStart = now.startOf("day").toJSDate();
@@ -63,20 +66,23 @@ export async function getDashboardStats(
   const db = await getDbConnection();
   const appointments = db.collection("appointments");
   const activeStatuses = ["confirmed", "pending"];
+  const memberFilter = memberId ? { memberId } : {};
 
   const [todayCount, todayUpcoming, thisWeek, lastWeek] = await Promise.all([
     appointments.countDocuments({
       organizationId,
       status: { $in: activeStatuses },
       dateTime: { $gte: todayStart, $lte: todayEnd },
+      ...memberFilter,
     }),
     appointments.countDocuments({
       organizationId,
       status: { $in: activeStatuses },
       dateTime: { $gte: now.toJSDate(), $lte: todayEnd },
+      ...memberFilter,
     }),
-    getPeriodMetrics(organizationId, weekStart, weekEnd),
-    getPeriodMetrics(organizationId, lastWeekStart, lastWeekEnd),
+    getPeriodMetrics(organizationId, weekStart, weekEnd, memberId),
+    getPeriodMetrics(organizationId, lastWeekStart, lastWeekEnd, memberId),
   ]);
 
   const avgBookingValue =

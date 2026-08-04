@@ -59,7 +59,7 @@ export default async function CommunicationLogsPage(props: Params) {
         />
         <Suspense
           key={key}
-          fallback={<DataTableSkeleton columnCount={12} rowCount={10} />}
+          fallback={<DataTableSkeleton columnCount={13} rowCount={10} />}
         >
           <CommunicationLogsTable />
         </Suspense>

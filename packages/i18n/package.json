@@ -15,8 +15,10 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./client": "./src/client.tsx",
     "./server": "./src/server.ts",
-    "./request": "./src/request.ts"
+    "./request": "./src/request.ts",
+    "./components": "./src/components.tsx"
   },
   "devDependencies": {
     "@timelish/eslint-config": "*",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Card, CardContent, CardHeader } from "@timelish/ui";
 import { AlertCircle } from "lucide-react";
 import {

@@ -1,6 +1,6 @@
 "use client";
 import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { GetAppointmentOptionsResponse } from "@timelish/types";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../components/fixtures";
@@ -9,10 +9,12 @@ import {
   WaitlistPublicNamespace,
   waitlistPublicNamespace,
 } from "../../../../translations/types";
+import { FlowOrder } from "./context";
 import { Schedule } from "./schedule";
 
 export type BookingWithWaitlistProps = {
   successPage?: string | null;
+  flowOrder?: FlowOrder | null;
   className?: string;
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
@@ -28,6 +30,7 @@ export const BookingWithWaitlist: React.FC<
   } & React.HTMLAttributes<HTMLDivElement>
 > = ({
   successPage,
+  flowOrder,
   className,
   id,
   isEditor,
@@ -77,6 +80,8 @@ export const BookingWithWaitlist: React.FC<
       {...props}
       appointmentOptions={response?.options ?? []}
       areAppointmentOptionsLoading={!response}
+      members={response?.members ?? []}
+      flowOrder={flowOrder ?? "service-first"}
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}

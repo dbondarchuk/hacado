@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   toast,
@@ -59,7 +59,7 @@ export const StylesClipboardToolbar = <T extends BaseStyleDictionary>({
           <Button
             type="button"
             variant="outline"
-            size="xs"
+            size="sm"
             onClick={handleCopy}
             aria-label={t("pageBuilder.styles.copyStyles")}
           >
@@ -74,7 +74,7 @@ export const StylesClipboardToolbar = <T extends BaseStyleDictionary>({
           <Button
             type="button"
             variant="outline"
-            size="xs"
+            size="sm"
             onClick={handlePaste}
             disabled={!hasCopiedStyles}
             aria-label={t("pageBuilder.styles.pasteStyles")}

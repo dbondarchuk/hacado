@@ -8,12 +8,12 @@ import type { WithTotal } from "../database/with-total";
 export interface IActivityService {
   record(activity: ActivityRecord): Promise<string>;
   getActivities(query: ActivityListQuery): Promise<WithTotal<ActivityListItem>>;
-  getUnreadActivityCount(userId: string): Promise<number>;
-  /** Marks activity as seen for this user’s feed badge; publishes dashboard notification. */
-  markActivityFeedRead(userId: string): Promise<void>;
+  getUnreadActivityCount(memberId: string): Promise<number>;
+  /** Marks activity as seen for this member’s feed badge; publishes dashboard notification. */
+  markActivityFeedRead(memberId: string): Promise<void>;
   getActivityPreview(limit: number): Promise<ActivityFeedPreview[]>;
   getHighestSeveritySinceLastRead(
-    userId: string,
+    memberId: string,
   ): Promise<ActivitySeverity | null>;
   /** Distinct `eventType` values for filter UI (paginated, optional substring search). */
   getDistinctEventTypes(query: {

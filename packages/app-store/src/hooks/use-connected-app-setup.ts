@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ConnectedAppStatusWithText } from "@timelish/types";
 import { toastPromise } from "@timelish/ui";
 import React from "react";

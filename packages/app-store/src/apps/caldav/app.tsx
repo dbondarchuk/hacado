@@ -9,6 +9,7 @@ export const CaldavApp: App<CaldavAdminNamespace, CaldavAdminKeys> = {
   category: ["apps.categories.schedule"],
   scope: ["calendar-read", "calendar-write"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <CaldavLogo className={className} />,
   isFeatured: true,
   description: {

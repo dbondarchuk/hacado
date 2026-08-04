@@ -11,11 +11,19 @@ import {
   TabsTrigger,
   TabsViaUrl,
 } from "@timelish/ui";
+import {
+  canSeeAllCalendarMembers,
+  canUpdateAppointments,
+  canViewFinancials,
+  resolveCalendarMemberId,
+} from "@timelish/utils";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getOrganizationId, getServicesContainer, getSession } from "../utils";
 import { DashboardGreeting } from "./dashboard-greeting";
 import { DashboardKpiStrip } from "./dashboard-kpi-strip";
+import { DashboardMemberFilter } from "./dashboard-member-filter";
 import { getDashboardStats } from "./dashboard-stats";
 import { EventsCalendar } from "./events-calendar";
 import { NextAppointmentsCards } from "./next-appointments-cards";
@@ -23,7 +31,11 @@ import { DashboardNotificationsBadge } from "./notifications-toast-stream";
 import { PendingAppointmentsTab } from "./pending-appointments-tab";
 
 type Params = {
-  searchParams: Promise<{ activeTab?: string; key?: string }>;
+  searchParams: Promise<{
+    activeTab?: string;
+    key?: string;
+    member?: string;
+  }>;
 };
 
 const defaultTab = "overview";
@@ -35,16 +47,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-async function DashboardKpiSection() {
+async function DashboardKpiSection({ memberId }: { memberId?: string }) {
   const [organizationId, session] = await Promise.all([
     getOrganizationId(),
     getSession(),
   ]);
-  const stats = await getDashboardStats(organizationId);
-  const showFinancials = sessionCanUseFeature(session, "financials");
-  return (
-    <DashboardKpiStrip stats={stats} showFinancials={showFinancials} />
-  );
+  const stats = await getDashboardStats(organizationId, memberId);
+  const showFinancials =
+    sessionCanUseFeature(session, "financials") &&
+    canViewFinancials(session?.user);
+  return <DashboardKpiStrip stats={stats} showFinancials={showFinancials} />;
 }
 
 export default async function Page(params: Params) {
@@ -52,19 +64,33 @@ export default async function Page(params: Params) {
 
   const logger = getLoggerFactory("AdminPages")("dashboard");
   const searchParams = await params.searchParams;
-  const { activeTab = defaultTab, key } = searchParams;
+  const { activeTab = defaultTab, key, member } = searchParams;
   const tAdmin = await getI18nAsync("admin");
   const t = await getI18nAsync();
   const session = await getSession();
-  const showFinancialKpis = sessionCanUseFeature(session, "financials");
+  const showFinancialKpis =
+    sessionCanUseFeature(session, "financials") &&
+    canViewFinancials(session?.user);
+  const showMemberFilter = canSeeAllCalendarMembers(session?.user);
+  const showPendingAppointmentsTab = canUpdateAppointments(session?.user);
+  const memberId = resolveCalendarMemberId(
+    session?.user,
+    showMemberFilter ? member : undefined,
+  );
+  const memberScopeKey = memberId ?? "all";
   const breadcrumbItems = [
     { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
   ];
+
+  if (activeTab === "appointments" && !showPendingAppointmentsTab) {
+    redirect("/dashboard");
+  }
 
   logger.debug(
     {
       activeTab,
       key,
+      memberId,
     },
     "Loading dashboard page",
   );
@@ -111,13 +137,15 @@ export default async function Page(params: Params) {
               <TabsTrigger value="overview" className="rounded-full">
                 {tAdmin("dashboard.tabs.overview")}
               </TabsTrigger>
-              <TabsTrigger value="appointments" className="rounded-full">
-                {tAdmin("dashboard.tabs.pendingAppointments")}{" "}
-                <DashboardNotificationsBadge
-                  notificationsCountKey="pending_appointments"
-                  className="ml-1 scale-75 -translate-y-1"
-                />
-              </TabsTrigger>
+              {showPendingAppointmentsTab ? (
+                <TabsTrigger value="appointments" className="rounded-full">
+                  {tAdmin("dashboard.tabs.pendingAppointments")}{" "}
+                  <DashboardNotificationsBadge
+                    notificationsCountKey="pending_appointments"
+                    className="ml-1 scale-75 -translate-y-1"
+                  />
+                </TabsTrigger>
+              ) : null}
               {dashboardTabAppsMap.map((item) => (
                 <TabsTrigger
                   value={item.href}
@@ -139,7 +167,9 @@ export default async function Page(params: Params) {
                 value="overview"
                 className="space-y-5 @container [contain:layout]"
               >
+                {showMemberFilter ? <DashboardMemberFilter /> : null}
                 <Suspense
+                  key={`kpi-${memberScopeKey}`}
                   fallback={
                     <div
                       className={
@@ -159,18 +189,18 @@ export default async function Page(params: Params) {
                     </div>
                   }
                 >
-                  <DashboardKpiSection />
+                  <DashboardKpiSection memberId={memberId} />
                 </Suspense>
                 <div className="flex flex-col-reverse @6xl:flex-row gap-6">
                   <div className="flex flex-col @6xl:flex-1 min-w-0">
-                    <EventsCalendar />
+                    <EventsCalendar memberId={memberId} />
                   </div>
                   <div className="@6xl:w-80 @6xl:shrink-0 flex flex-col gap-2">
                     <h2 className="tracking-tight text-lg font-medium">
                       {tAdmin("dashboard.appointments.nextAppointments")}
                     </h2>
                     <Suspense
-                      key={key}
+                      key={`next-${memberScopeKey}-${key ?? ""}`}
                       fallback={
                         <>
                           {Array.from({ length: 3 }).map((_, index) => (
@@ -179,13 +209,16 @@ export default async function Page(params: Params) {
                         </>
                       }
                     >
-                      <NextAppointmentsCards className="flex-row @6xl:flex-col flex-wrap gap-2" />
+                      <NextAppointmentsCards
+                        className="flex-row @6xl:flex-col flex-wrap gap-2"
+                        memberId={memberId}
+                      />
                     </Suspense>
                   </div>
                 </div>
               </TabsContent>
             )}
-            {activeTab === "appointments" && (
+            {activeTab === "appointments" && showPendingAppointmentsTab && (
               <TabsContent value="appointments" className="space-y-4 flex-1">
                 <Suspense
                   key={key}

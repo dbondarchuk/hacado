@@ -3,6 +3,7 @@ import { Breadcrumbs, Heading } from "@timelish/ui";
 
 import { getServicesContainer } from "@/app/utils";
 import { AddonForm } from "@/components/admin/services/addons/form";
+import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { Metadata } from "next";
@@ -27,6 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function EditAddonPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-addon");
   const t = await getI18nAsync("admin");
+  await assertPageHasPermission("service", "update");
   const params = await props.params;
 
   logger.debug(

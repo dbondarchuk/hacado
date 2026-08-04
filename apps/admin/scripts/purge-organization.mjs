@@ -1,6 +1,12 @@
 /**
  * Irreversibly deletes an organization and related data from MongoDB.
  *
+ * Multi-user (Better Auth organization plugin): membership lives in `members`
+ * (and pending rows in `invitations`). Auth users no longer carry
+ * `organizationId`; this script resolves users via `members.userId`, then
+ * deletes members, invitations, auth artifacts (sessions/accounts/verifications),
+ * and those user documents.
+ *
  * Usage (from repo root):
  *   node apps/admin/scripts/purge-organization.mjs <organizationSlug> [--yes] [--slug=<slug>]
  *   node apps/admin/scripts/purge-organization.mjs --organization-id=<id> [--yes] [--slug=<slug>]
@@ -115,26 +121,92 @@ function orgIdFilter(id) {
 }
 
 /**
+ * Match documents whose organizationId may be stored as string or ObjectId.
+ * @param {string} organizationId
+ */
+function organizationIdMatch(organizationId) {
+  return {
+    $or: [
+      { organizationId },
+      ...(ObjectId.isValid(organizationId)
+        ? [{ organizationId: new ObjectId(organizationId) }]
+        : []),
+    ],
+  };
+}
+
+/**
+ * Build `$in` clause covering string and ObjectId forms of the same ids.
+ * @param {string[]} ids
+ */
+function idInClause(ids) {
+  /** @type {(string | ObjectId)[]} */
+  const values = [];
+  for (const id of ids) {
+    values.push(id);
+    if (ObjectId.isValid(id)) {
+      values.push(new ObjectId(id));
+    }
+  }
+  return { $in: values };
+}
+
+/**
+ * Resolve auth user ids for an org via `members` (canonical) plus any legacy
+ * `users.organizationId` rows that predate the multi-user migration.
+ *
+ * @param {import('mongodb').Db} db
+ * @param {string} organizationId
+ * @returns {Promise<{ memberCount: number, userIdStrings: string[] }>}
+ */
+async function collectOrganizationUserIds(db, organizationId) {
+  const orgMatch = organizationIdMatch(organizationId);
+
+  const members = await db
+    .collection("members")
+    .find(orgMatch)
+    .project({ userId: 1 })
+    .toArray();
+
+  /** @type {Set<string>} */
+  const userIds = new Set();
+  for (const member of members) {
+    if (member.userId != null) {
+      userIds.add(String(member.userId));
+    }
+  }
+
+  // Legacy single-user docs may still have organizationId before/without migration.
+  const legacyUsers = await db
+    .collection("users")
+    .find(orgMatch)
+    .project({ _id: 1 })
+    .toArray();
+  for (const user of legacyUsers) {
+    userIds.add(user._id.toString());
+  }
+
+  return {
+    memberCount: members.length,
+    userIdStrings: [...userIds],
+  };
+}
+
+/**
  * @param {import('mongodb').Db} db
  * @param {string} organizationId
  */
 async function purgeOrganization(db, organizationId) {
   const orgColl = db.collection("organizations");
+  const orgMatch = organizationIdMatch(organizationId);
 
-  const userDocs = await db
-    .collection("users")
-    .find({
-      $or: [
-        { organizationId: organizationId },
-        ...(ObjectId.isValid(organizationId)
-          ? [{ organizationId: new ObjectId(organizationId) }]
-          : []),
-      ],
-    })
-    .project({ _id: 1 })
-    .toArray();
-
-  const userIdStrings = userDocs.map((u) => u._id.toString());
+  const { memberCount, userIdStrings } = await collectOrganizationUserIds(
+    db,
+    organizationId,
+  );
+  console.log(
+    `Members: ${memberCount}; users to delete: ${userIdStrings.length}`,
+  );
 
   const collectionNames = await listUserCollectionNames(db);
   console.log(`Collections to scan: ${collectionNames.length}`);
@@ -142,64 +214,54 @@ async function purgeOrganization(db, organizationId) {
   /** @type {Record<string, number>} */
   const summary = {};
 
+  // Org-scoped docs (includes members + invitations). Skip auth identity tables.
   for (const name of collectionNames) {
     if (name === "organizations" || name === "users") {
       continue;
     }
 
-    const coll = db.collection(name);
-    const r1 = await coll.deleteMany({ organizationId: organizationId });
-    if (r1.deletedCount > 0) {
-      summary[`${name} (organizationId)`] = r1.deletedCount;
-    }
-
-    const r2 = await coll.deleteMany({
-      $or: [
-        { organizationId: organizationId },
-        ...(ObjectId.isValid(organizationId)
-          ? [{ organizationId: new ObjectId(organizationId) }]
-          : []),
-      ],
-    });
-    if (r2.deletedCount > 0) {
-      summary[`${name} (organizationId)`] = r2.deletedCount;
+    const r = await db.collection(name).deleteMany(orgMatch);
+    if (r.deletedCount > 0) {
+      summary[`${name} (organizationId)`] = r.deletedCount;
     }
   }
 
   if (userIdStrings.length > 0) {
-    const userIdClause = {
-      $in: [
-        ...userIdStrings,
-        ...userIdStrings
-          .filter((id) => ObjectId.isValid(id))
-          .map((id) => new ObjectId(id)),
-      ],
-    };
+    const userIdClause = idInClause(userIdStrings);
 
     for (const name of ["sessions", "accounts", "verifications"]) {
       if (!collectionNames.includes(name)) {
         continue;
       }
-      const coll = db.collection(name);
-      const r = await coll.deleteMany({ userId: userIdClause });
+      const r = await db.collection(name).deleteMany({ userId: userIdClause });
       if (r.deletedCount > 0) {
-        summary[`${name} (userId)`] = r.deletedCount;
+        summary[`${name} (userId)`] =
+          (summary[`${name} (userId)`] ?? 0) + r.deletedCount;
       }
     }
+
+    // Better Auth may keep activeOrganizationId on sessions without userId match edge cases.
+    if (collectionNames.includes("sessions")) {
+      const r = await db.collection("sessions").deleteMany({
+        $or: [
+          { activeOrganizationId: organizationId },
+          ...(ObjectId.isValid(organizationId)
+            ? [{ activeOrganizationId: new ObjectId(organizationId) }]
+            : []),
+        ],
+      });
+      if (r.deletedCount > 0) {
+        summary["sessions (activeOrganizationId)"] = r.deletedCount;
+      }
+    }
+
+    const usersDel = await db.collection("users").deleteMany({
+      _id: idInClause(userIdStrings),
+    });
+    summary["users (_id via members)"] = usersDel.deletedCount;
   }
 
-  const usersDel = await db.collection("users").deleteMany({
-    $or: [
-      { organizationId: organizationId },
-      ...(ObjectId.isValid(organizationId)
-        ? [{ organizationId: new ObjectId(organizationId) }]
-        : []),
-    ],
-  });
-  summary["users (organizationId)"] = usersDel.deletedCount;
-
-  const orgFilter = { _id: orgIdFilter(organizationId) };
-  const orgDel = await orgColl.deleteOne(orgFilter);
+  const orgDel = await orgColl.deleteOne({ _id: orgIdFilter(organizationId) });
   summary["organizations (_id)"] = orgDel.deletedCount;
 
   console.log("\nMongoDB delete summary:");
@@ -433,7 +495,7 @@ async function main() {
     try {
       if (!opts.yes) {
         const confirmYes = await rl.question(
-          'Type "yes" to confirm permanent deletion of this org and its users: ',
+          'Type "yes" to confirm permanent deletion of this org, its members, and their users: ',
         );
         if (confirmYes.trim() !== "yes") {
           console.log("Aborted.");

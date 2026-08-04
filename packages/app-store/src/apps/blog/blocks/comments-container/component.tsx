@@ -1,5 +1,5 @@
 import { ReaderBlock } from "@timelish/builder";
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@timelish/i18n/components";
 import {
   BlockStyle,
   generateClassName,

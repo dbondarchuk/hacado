@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Toggle } from "@timelish/ui";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithToggle } from "../types";

@@ -16,6 +16,7 @@ export const EmailNotificationApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["event-subscriber"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <Mailbox className={className} />,
   isFeatured: false,
   isHidden: false,

@@ -1,7 +1,7 @@
 "use client";
 
 import { AvailableApps } from "@timelish/app-store";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
+import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
 import { HydratedSyncedPayment, SyncedPaymentStatus } from "@timelish/types";
 import {
   Button,
@@ -114,14 +114,20 @@ export const SyncedPaymentCard = ({
       { locale },
     );
 
-  const showConfirm = !!payment.appointmentId && payment.status === "matched";
-  const showEdit = !!payment.appointmentId && payment.status !== "rejected";
+  const showConfirm =
+    !!onConfirm && !!payment.appointmentId && payment.status === "matched";
+  const showEdit =
+    !!onEditAmounts &&
+    !!payment.appointmentId &&
+    payment.status !== "rejected";
   const showRejectBtn =
-    !!payment.appointmentId && payment.status !== "rejected";
+    !!onReject && !!payment.appointmentId && payment.status !== "rejected";
   const showPrimaryActions = showConfirm || showEdit || showRejectBtn;
   const showReassign = payment.status !== "rejected" && !!onAssignOther;
   const showIgnore =
     payment.status !== "ignored" && payment.status !== "rejected" && !!onIgnore;
+  const showSuggestions =
+    !!onAssignSuggestion && otherSuggestions.length > 0;
 
   return (
     <Card className="overflow-hidden shadow-sm flex flex-col">
@@ -206,7 +212,7 @@ export const SyncedPaymentCard = ({
         </>
       )}
 
-      {otherSuggestions.length > 0 && (
+      {showSuggestions && (
         <>
           <div className="border-t border-border" />
           <div className="space-y-2.5 p-4">

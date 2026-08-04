@@ -126,7 +126,7 @@ import React, {
 } from "react";
 import { DayPicker, Matcher } from "react-day-picker";
 
-import { useLocale } from "@timelish/i18n";
+import { useLocale } from "@timelish/i18n/client";
 import { DateTime } from "luxon";
 import { cn } from "../../utils";
 import { Button, buttonVariants } from "../button";

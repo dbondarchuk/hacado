@@ -1,4 +1,9 @@
-import { CalendarEventVariant } from "./types";
+import {
+  getCalendarEventColorStyles,
+  type CalendarEventColorStatus,
+} from "@timelish/utils";
+import type { CSSProperties } from "react";
+import type { CalendarEventVariant, EventCalendarEvent } from "./types";
 
 export const EventVariantClasses: Record<CalendarEventVariant, string> = {
   /** Confirmed appointments */
@@ -16,3 +21,78 @@ export const EventVariantClasses: Record<CalendarEventVariant, string> = {
   current:
     "bg-primary/90 text-foreground hover:bg-primary border-2 border-primary shadow-sm dark:bg-primary/25 dark:hover:bg-primary/35",
 };
+
+const COLORABLE_VARIANTS = new Set<CalendarEventVariant>([
+  "primary",
+  "secondary",
+  "destructive",
+  "current",
+]);
+
+function variantToColorStatus(
+  variant: CalendarEventVariant,
+): CalendarEventColorStatus {
+  switch (variant) {
+    case "secondary":
+      return "pending";
+    case "destructive":
+      return "declined";
+    default:
+      return "confirmed";
+  }
+}
+
+export type EventAppearance = {
+  className: string;
+  style?: CSSProperties;
+};
+
+/**
+ * Resolve Tailwind classes + optional member-color inline styles for an event.
+ */
+export function getEventAppearance(
+  event: Pick<EventCalendarEvent, "variant" | "color">,
+): EventAppearance {
+  const variant = event.variant || "primary";
+
+  if (event.color && COLORABLE_VARIANTS.has(variant)) {
+    const tint = getCalendarEventColorStyles(
+      event.color,
+      variantToColorStatus(variant),
+    );
+
+    const style: CSSProperties =
+      variant === "current"
+        ? {
+            backgroundColor: tint.backgroundColor,
+            color: tint.color,
+          }
+        : {
+            backgroundColor: tint.backgroundColor,
+            color: tint.color,
+            borderColor: tint.borderColor,
+            ...(tint.borderLeftColor
+              ? { borderLeftColor: tint.borderLeftColor }
+              : {}),
+          };
+
+    const statusClasses =
+      variant === "secondary"
+        ? "border border-l-[3px]"
+        : variant === "destructive"
+          ? "border border-l-[3px] opacity-80 line-through"
+          : variant === "current"
+            ? "border-2 border-primary shadow-sm"
+            : "border";
+
+    return {
+      className: statusClasses,
+      style,
+    };
+  }
+
+  return {
+    className:
+      EventVariantClasses[variant] ?? EventVariantClasses.primary,
+  };
+}

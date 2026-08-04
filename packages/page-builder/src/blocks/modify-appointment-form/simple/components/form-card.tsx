@@ -21,9 +21,9 @@ import {
   usePrevious,
 } from "@timelish/ui";
 
-import { useI18n } from "@timelish/i18n";
-import { getTimeZones } from "@vvo/tzdb";
+import { useI18n } from "@timelish/i18n/client";
 import { deepEqual } from "@timelish/utils";
+import { getTimeZones } from "@vvo/tzdb";
 import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";
 
@@ -63,7 +63,9 @@ export const FormCard: React.FC = () => {
   const previousValues = usePrevious(values, values);
   React.useEffect(() => {
     if (!deepEqual(values, previousValues)) {
-      setFields({ dateTime: values.dateTime } satisfies ModifyAppointmentFields);
+      setFields({
+        dateTime: values.dateTime,
+      } satisfies ModifyAppointmentFields);
     }
   }, [values, previousValues, setFields]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WeekIdentifier } from "@timelish/types";
 import {
   AlertDialog,
@@ -40,6 +40,7 @@ import { getWeekDisplay } from "./utils";
 type CopyScheduleDialogProps = {
   appId: string;
   week: WeekIdentifier;
+  memberId?: string;
   disabled?: boolean;
   className?: string;
 };
@@ -47,6 +48,7 @@ type CopyScheduleDialogProps = {
 export const CopyScheduleDialog: React.FC<CopyScheduleDialogProps> = ({
   appId,
   week,
+  memberId,
   disabled,
   className,
 }) => {
@@ -65,7 +67,7 @@ export const CopyScheduleDialog: React.FC<CopyScheduleDialogProps> = ({
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await toastPromise(copyWeeklySchedule(appId, week, newWeek), {
+      await toastPromise(copyWeeklySchedule(appId, week, newWeek, memberId), {
         success: t("dialogs.copy.success"),
         error: t("statusText.request_error"),
       });

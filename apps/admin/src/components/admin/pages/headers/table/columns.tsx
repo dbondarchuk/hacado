@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { PageHeaderListModel } from "@timelish/types";
 import { Checkbox, Link } from "@timelish/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";

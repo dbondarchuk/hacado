@@ -19,9 +19,10 @@ export class ScheduleService implements IScheduleService {
   public async getSchedule(
     start: Date,
     end: Date,
+    memberId: string,
   ): Promise<Record<string, DaySchedule>> {
     const logger = this.loggerFactory("getSchedule");
-    logger.debug({ start, end }, "Getting schedule");
+    logger.debug({ start, end, memberId }, "Getting schedule");
 
     const days = eachOfInterval(start, end, "day");
 
@@ -45,6 +46,7 @@ export class ScheduleService implements IScheduleService {
         scheduleApp,
         start,
         end,
+        memberId,
       );
     } else {
       logger.debug("Using default schedule");

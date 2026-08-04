@@ -3,9 +3,9 @@
 import React from "react";
 
 import { PaymentAppForms } from "@timelish/app-store/payment-forms";
-import { useI18n } from "@timelish/i18n";
-import { formatAmount } from "@timelish/utils";
+import { useI18n } from "@timelish/i18n/client";
 import { useCurrencyFormat } from "@timelish/ui";
+import { formatAmount } from "@timelish/utils";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
 

@@ -22,11 +22,12 @@ export const GiftCardStudioApp: App<
     "dashboard-notifier",
   ],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <Gift className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_gift-card-studio_admin.app.description" satisfies GiftCardStudioAdminAllKeys,
   },

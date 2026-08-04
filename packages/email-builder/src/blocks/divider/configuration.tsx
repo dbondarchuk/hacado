@@ -1,7 +1,7 @@
 "use client";
 
 import { ColorInput, ConfigurationProps, SliderInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ArrowUpDown } from "lucide-react";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { DividerProps, DividerPropsDefaults } from "./schema";

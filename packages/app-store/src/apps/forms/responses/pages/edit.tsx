@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Spinner } from "@timelish/ui";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -60,7 +60,5 @@ export const ResponseEditPage = ({ appId }: { appId: string }) => {
     );
   }
 
-  return (
-    <ResponseForm form={form} appId={appId} response={response} />
-  );
+  return <ResponseForm form={form} appId={appId} response={response} />;
 };

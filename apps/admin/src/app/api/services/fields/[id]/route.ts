@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@timelish/logger";
 import { fieldSchema, okStatus } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -68,7 +69,15 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/services/fields/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/services/fields/[id]")("PUT");
+  const auth = await requirePermission(
+    "service",
+    "update",
+    "AdminAPI/services/fields/[id]",
+    "PUT",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
@@ -133,7 +142,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext<"/api/services/fields/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/services/fields/[id]")("DELETE");
+  const auth = await requirePermission(
+    "service",
+    "delete",
+    "AdminAPI/services/fields/[id]",
+    "DELETE",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;

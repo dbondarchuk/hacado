@@ -38,6 +38,11 @@ export function useCommunicationLogsTableFilters() {
     communicationLogsSearchParams.customer.withOptions({ shallow: false }),
   );
 
+  const [memberFilter, setMemberFilter] = useQueryState(
+    "member",
+    communicationLogsSearchParams.member.withOptions({ shallow: false }),
+  );
+
   const [page, setPage] = useQueryState(
     "page",
     communicationLogsSearchParams.page,
@@ -61,6 +66,7 @@ export function useCommunicationLogsTableFilters() {
     setStartValue(null);
     setEndValue(null);
     setCustomerFilter(null);
+    setMemberFilter(null);
 
     setPage(1);
   }, [
@@ -72,6 +78,7 @@ export function useCommunicationLogsTableFilters() {
     setStartValue,
     setEndValue,
     setCustomerFilter,
+    setMemberFilter,
   ]);
 
   const isAnyFilterActive = useMemo(() => {
@@ -83,7 +90,8 @@ export function useCommunicationLogsTableFilters() {
       participantTypeFilter !==
         communicationLogsSearchParams.participantType.defaultValue ||
       !!start ||
-      !!end
+      !!end ||
+      !!memberFilter?.length
     );
   }, [
     searchQuery,
@@ -92,6 +100,7 @@ export function useCommunicationLogsTableFilters() {
     participantTypeFilter,
     start,
     end,
+    memberFilter,
   ]);
 
   return {
@@ -113,5 +122,7 @@ export function useCommunicationLogsTableFilters() {
     setEndValue,
     customerFilter,
     setCustomerFilter,
+    memberFilter,
+    setMemberFilter,
   };
 }

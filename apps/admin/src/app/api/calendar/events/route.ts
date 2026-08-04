@@ -1,6 +1,7 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
 import { getLoggerFactory } from "@timelish/logger";
 import { AppointmentStatus, appointmentStatuses } from "@timelish/types";
+import { resolveCalendarMemberId } from "@timelish/utils";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/calendar/events")("GET");
   const servicesContainer = await getServicesContainer();
+  const user = await getUser();
   logger.debug(
     {
       url: request.url,
@@ -23,6 +25,7 @@ export async function GET(request: NextRequest) {
   const endStr = searchParams.get("end");
   const includeDeclined =
     searchParams.get("includeDeclined")?.toLowerCase() === "true";
+  const memberId = resolveCalendarMemberId(user, searchParams.get("member"));
 
   if (!startStr || !endStr) {
     logger.warn({ startStr, endStr }, "Missing required date range parameters");
@@ -52,40 +55,27 @@ export async function GET(request: NextRequest) {
       end: end.toISO(),
       includeDeclined,
       statuses,
+      memberId,
     },
     "Fetching events with parameters",
   );
 
-  let events = await servicesContainer.bookingService.getCalendarEvents(
+  const events = await servicesContainer.bookingService.getCalendarEvents(
     start.toJSDate(),
     end.toJSDate(),
     statuses,
+    memberId,
   );
 
   logger.debug(
     {
       start: start.toISO(),
       end: end.toISO(),
+      memberId,
       eventCount: events.length,
     },
     "Successfully retrieved events",
   );
-
-  // const config =
-  //   await ServicesContainer.ConfigurationService().getConfiguration("booking");
-
-  // events = events.map((event) => ({
-  //   ...event,
-  //   dateTime: DateTime.fromJSDate(event.dateTime)
-  //     .setZone(config.timezone)
-  //     .toJSDate(),
-  //   createdAt:
-  //     "createdAt" in event
-  //       ? DateTime.fromJSDate(event.createdAt)
-  //           .setZone(config.timezone)
-  //           .toJSDate()
-  //       : undefined,
-  // }));
 
   return NextResponse.json(events);
 }

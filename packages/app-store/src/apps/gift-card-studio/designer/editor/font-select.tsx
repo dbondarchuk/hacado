@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Combobox, Label } from "@timelish/ui";
 import {
   GiftCardStudioAdminKeys,

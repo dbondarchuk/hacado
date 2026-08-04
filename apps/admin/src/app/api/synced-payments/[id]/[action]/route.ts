@@ -1,5 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import {
   syncedPaymentAssignablePaymentTypes,
   type SyncedPaymentAssignablePaymentType,
@@ -25,9 +25,15 @@ export async function POST(
   request: NextRequest,
   { params }: RouteContext<"/api/synced-payments/[id]/[action]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/synced-payments/[id]/[action]")(
+  const auth = await requirePermission(
+    "syncedPayment",
+    "manage",
+    "AdminAPI/synced-payments/[id]/[action]",
     "POST",
   );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id, action } = await params;

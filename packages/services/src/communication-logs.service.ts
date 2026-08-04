@@ -19,6 +19,7 @@ import {
   APPOINTMENTS_COLLECTION_NAME,
   CUSTOMERS_COLLECTION_NAME,
   LOG_COLLECTION_NAME,
+  MEMBERS_COLLECTION_NAME,
 } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
@@ -70,6 +71,7 @@ export class CommunicationLogsService
       subject,
       handledBy,
     } = log;
+    const memberId = log.memberId;
     const logArgs = {
       channel,
       direction,
@@ -77,6 +79,7 @@ export class CommunicationLogsService
       customerId,
       participantType,
       participant,
+      memberId,
     };
 
     const logger = this.loggerFactory("log");
@@ -105,6 +108,7 @@ export class CommunicationLogsService
       channel,
       participant,
       participantType,
+      ...(memberId ? { memberId } : {}),
       handledBy,
       subject,
       appointmentId,
@@ -121,18 +125,28 @@ export class CommunicationLogsService
 
   public async getCommunicationLogContent(
     logId: string,
+    options?: { memberId?: string | string[] },
   ): Promise<CommunicationLogContentPayload | null> {
     const logger = this.loggerFactory("getCommunicationLogContent");
     const db = await getDbConnection();
 
-    logger.debug({ logId }, "Getting communication log content");
+    logger.debug({ logId, options }, "Getting communication log content");
+
+    const filter: Filter<CommunicationLogEntity> = {
+      _id: logId,
+      organizationId: this.organizationId,
+    };
+    if (options?.memberId) {
+      filter.memberId = {
+        $in: Array.isArray(options.memberId)
+          ? options.memberId
+          : [options.memberId],
+      };
+    }
 
     const doc = await db
       .collection<CommunicationLogEntity>(LOG_COLLECTION_NAME)
-      .findOne({
-        _id: logId,
-        organizationId: this.organizationId,
-      });
+      .findOne(filter);
 
     if (!doc) {
       logger.warn({ logId }, "Communication log not found");
@@ -189,6 +203,7 @@ export class CommunicationLogsService
       range?: DateRange;
       customerId?: string | string[];
       appointmentId?: string;
+      memberId?: string | string[];
     },
   ): Promise<WithTotal<CommunicationLog>> {
     const logger = this.loggerFactory("getCommunicationLogs");
@@ -235,6 +250,14 @@ export class CommunicationLogsService
     if (query.participantType && query.participantType.length) {
       filter.participantType = {
         $in: query.participantType,
+      };
+    }
+
+    if (query.memberId) {
+      filter.memberId = {
+        $in: Array.isArray(query.memberId)
+          ? query.memberId
+          : [query.memberId],
       };
     }
 
@@ -303,12 +326,30 @@ export class CommunicationLogsService
           },
         },
         {
+          $lookup: {
+            from: MEMBERS_COLLECTION_NAME,
+            localField: "memberId",
+            foreignField: "_id",
+            as: "member",
+            pipeline: [
+              {
+                $match: {
+                  organizationId: this.organizationId,
+                },
+              },
+            ],
+          },
+        },
+        {
           $set: {
             appointment: {
               $first: "$appointment",
             },
             customer: {
               $first: "$customer",
+            },
+            member: {
+              $first: "$member",
             },
           },
         },

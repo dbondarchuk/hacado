@@ -1,5 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { okStatus } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -12,9 +11,16 @@ export async function PATCH(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/note">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/appointments/[id]/note")("PATCH");
-  const servicesContainer = await getServicesContainer();
   const { id } = await params;
+  const auth = await requireCanUpdateAppointment(
+    id,
+    "AdminAPI/appointments/[id]/note",
+    "PATCH",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
+  const servicesContainer = auth.servicesContainer;
 
   logger.debug(
     {

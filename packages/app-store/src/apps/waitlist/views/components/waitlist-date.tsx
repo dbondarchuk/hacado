@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Badge,
   Button,

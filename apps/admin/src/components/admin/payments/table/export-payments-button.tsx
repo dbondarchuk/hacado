@@ -1,8 +1,11 @@
 "use client";
 
-import { adminApi, PaymentsExportError } from "@timelish/api-sdk";
-import { paymentsSearchParams } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import {
+  adminApi,
+  PaymentsExportError,
+  paymentsSearchParams,
+} from "@timelish/api-sdk";
+import { useI18n } from "@timelish/i18n/client";
 import { PAYMENTS_EXPORT_MAX_ROWS } from "@timelish/types";
 import { Button, toast } from "@timelish/ui";
 import { FileDown, Loader2 } from "lucide-react";

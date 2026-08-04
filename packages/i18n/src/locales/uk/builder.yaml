@@ -630,6 +630,7 @@ pageBuilder:
       default: Звичайний
       hover: Наведення
       focus: Фокус
+      focus-within: Фокус всередині
       active: Активний
       disabled: Вимкнений
       before: До (::before)
@@ -904,14 +905,14 @@ pageBuilder:
         logoAlt: Логотип
         name: Назва бренду
       planCard:
-        badge: Pro
-        name: Тариф Pro
+        badge: Solo
+        name: Тариф Solo
         price: $29/міс
         footnote: 7-денна проба
         features: "• Необмежені записи\n• Конструктор сайту\n• SMS-нагадування"
         cta: Почати
     announcementBar:
-      message: "7-денна пробна версія Pro - створіть обліковий запис"
+      message: "7-денна пробна версія Solo - створіть обліковий запис"
     scrollingLogos:
       screenReaderText: "Бігучі логотипи: Приклад, Зразок."
       sampleCardName: Назва бренду
@@ -1366,6 +1367,10 @@ pageBuilder:
         hideSteps: Приховати кроки
         scrollToTop: Прокрутити вгору при зміні кроку
       confirmationPage: Сторінка підтвердження
+      flowOrder:
+        label: Порядок кроків бронювання
+        serviceFirst: Спочатку послуга
+        specialistFirst: Спочатку спеціаліст
     popup:
       displayName: Попап
       open: Відкрити

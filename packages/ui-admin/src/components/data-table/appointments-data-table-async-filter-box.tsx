@@ -3,7 +3,7 @@
 import React from "react";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { Appointment } from "@timelish/types";
 import { Skeleton, useDebounceCacheFn, useTimeZone } from "@timelish/ui";
 import { DateTime } from "luxon";

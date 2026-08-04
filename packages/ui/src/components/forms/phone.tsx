@@ -5,7 +5,7 @@ import { PhoneInput } from "../phone-input";
 import { FieldValues } from "react-hook-form";
 import { getFieldName, IFormFieldProps } from "./form-field.types";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WithLabelFieldData } from "@timelish/types";
 import { FormFieldDescription } from "./form-field-description";
 import { FormFieldErrorMessage } from "./form-field-error-message";

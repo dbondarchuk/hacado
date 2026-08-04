@@ -1,7 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@timelish/i18n/client";
+import {
+  Button,
+  cn,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@timelish/ui";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
@@ -14,7 +20,7 @@ import { ActivityEventTypeAsyncFilterBox } from "./activity-event-type-async-fil
 import { useActivityTableFilters } from "./use-activity-table-filters";
 
 const severities = ["info", "success", "warning", "error"] as const;
-const actors = ["system", "user", "customer"] as const;
+const actors = ["system", "member", "customer"] as const;
 
 export const ActivityTableAction: React.FC<{ className?: string }> = ({
   className,

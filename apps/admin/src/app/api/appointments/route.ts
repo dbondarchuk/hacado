@@ -1,8 +1,13 @@
-import { getActor, getServicesContainer } from "@/app/utils";
+import { getActor, getServicesContainer, getUser } from "@/app/utils";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
 import { appointmentsSearchParamsLoader } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentEvent, appointmentEventSchema, AppointmentLimitReachedError } from "@timelish/types";
+import {
+  AppointmentEvent,
+  appointmentEventSchema,
+  AppointmentLimitReachedError,
+} from "@timelish/types";
+import { gateMemberIds } from "@timelish/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -10,6 +15,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/appointments")("GET");
   const servicesContainer = await getServicesContainer();
+  const user = await getUser();
 
   logger.debug(
     {
@@ -31,6 +37,7 @@ export async function GET(request: NextRequest) {
   const end = params.end ?? undefined;
   const referenceDate = params.referenceDate ?? undefined;
   const customerIds = params.customer ?? undefined;
+  const memberIds = gateMemberIds(user, params.member ?? undefined);
 
   const offset = (page - 1) * limit;
 
@@ -58,6 +65,7 @@ export async function GET(request: NextRequest) {
     range: start || end ? { start, end } : undefined,
     referenceDate,
     customerId: customerIds ?? undefined,
+    memberId: memberIds ?? undefined,
   });
 
   logger.debug(
@@ -228,6 +236,7 @@ export async function POST(request: NextRequest) {
       force: true,
       files,
       eventSource,
+      memberId: data.memberId,
     });
   } catch (error) {
     if (error instanceof AppointmentLimitReachedError) {

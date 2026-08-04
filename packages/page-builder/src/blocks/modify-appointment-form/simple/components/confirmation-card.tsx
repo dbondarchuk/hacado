@@ -1,4 +1,5 @@
-import { I18nRichText, useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import { ModifyAppointmentInformation } from "@timelish/types";
 import {
   Button,
@@ -163,11 +164,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 refundPercentage: appointment.refundPercentage,
                 refundAmount: currencyFormat(appointment.refundAmount),
                 feesAmount: currencyFormat(appointment.feesAmount),
@@ -186,11 +187,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 amount: currencyFormat(appointment.paymentAmount),
                 totalPrice: currencyFormat(appointment.price ?? 0),
               }}
@@ -202,11 +203,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 newDateTime: newDateTime?.toLocaleString(Luxon.DATETIME_FULL, {
                   locale,
                 }),

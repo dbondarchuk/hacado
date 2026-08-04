@@ -11,14 +11,21 @@ import { useCookies } from "react-cookie";
 
 type DashboardEventsCalendarView = Exclude<EventCalendarView, "days-around">;
 
-const COOKIE_NAME = "events-calendar-view";
+const VIEW_COOKIE_NAME = "events-calendar-view";
+
 type CookieValues = {
-  [COOKIE_NAME]?: DashboardEventsCalendarView;
+  [VIEW_COOKIE_NAME]?: DashboardEventsCalendarView;
 };
 
-export const EventsCalendar = ({ className }: { className?: string }) => {
-  const [cookies, setCookies] = useCookies<typeof COOKIE_NAME, CookieValues>([
-    COOKIE_NAME,
+export const EventsCalendar = ({
+  className,
+  memberId,
+}: {
+  className?: string;
+  memberId?: string;
+}) => {
+  const [cookies, setCookies] = useCookies<typeof VIEW_COOKIE_NAME, CookieValues>([
+    VIEW_COOKIE_NAME,
   ]);
 
   const [date, setDate] = React.useState(
@@ -26,13 +33,13 @@ export const EventsCalendar = ({ className }: { className?: string }) => {
   );
 
   const [view, setView] = React.useState<DashboardEventsCalendarView>(
-    cookies[COOKIE_NAME] ?? "weekly",
+    cookies[VIEW_COOKIE_NAME] ?? "weekly",
   );
 
   const changeView = (next: EventCalendarView) => {
     if (next === "days-around") return;
     setView(next);
-    setCookies(COOKIE_NAME, next, {
+    setCookies(VIEW_COOKIE_NAME, next, {
       expires: DateTime.now().plus({ years: 1 }).toJSDate(),
     });
   };
@@ -48,6 +55,7 @@ export const EventsCalendar = ({ className }: { className?: string }) => {
       onDateChange={(next) => setDate(DateTime.fromJSDate(next).startOf("day"))}
       view={view}
       onViewChange={changeView}
+      memberId={memberId}
       showControls
       allowTimeChange
       allowViewSwitch

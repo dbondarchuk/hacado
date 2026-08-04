@@ -109,7 +109,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate = {
                   align: "start",
                   children: [
                     {
-                      text: "Your appointment for {{option.name}} was rescheduled for {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.",
+                      text: "Your appointment for {{option.name}} with {{member.name}} was rescheduled for {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.",
                       fontSize: "14px",
                     },
                   ],

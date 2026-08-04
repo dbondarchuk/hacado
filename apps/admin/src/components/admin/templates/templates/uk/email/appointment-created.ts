@@ -135,6 +135,17 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate = {
                   ],
                   id: "4_g5MvqMhk",
                 },
+                {
+                  type: "p",
+                  align: "start",
+                  children: [
+                    {
+                      text: "Спеціаліст: {{member.name}}",
+                      fontSize: "14px",
+                    },
+                  ],
+                  id: "4_g5MvqMhk",
+                },
               ],
             },
           },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppSetupProps } from "@timelish/types";
 import {
   Button,
@@ -17,8 +17,11 @@ import {
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
+  useAuth,
 } from "@timelish/ui-admin";
+import { canProcessOtherMembersAppointments } from "@timelish/utils";
 import React from "react";
+import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { TextMessageNotificationApp } from "./app";
 import {
@@ -36,6 +39,8 @@ export const TextMessageNotificationAppSetup: React.FC<AppSetupProps> = ({
   onError,
   appId: existingAppId,
 }) => {
+  const { user } = useAuth();
+  const canProcessOthers = canProcessOtherMembersAppointments(user);
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextMessageNotificationConfiguration>({
       appId: existingAppId,
@@ -74,6 +79,16 @@ export const TextMessageNotificationAppSetup: React.FC<AppSetupProps> = ({
                 </FormItem>
               )}
             />
+            {canProcessOthers && (
+              <ProcessOtherMembersAppointmentsField
+                control={form.control}
+                label={t("form.processOtherMembersAppointments.label")}
+                description={t(
+                  "form.processOtherMembersAppointments.description",
+                )}
+                isLoading={isLoading}
+              />
+            )}
             <Button
               type="submit"
               variant="default"

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   BookingConfiguration,
   bookingConfigurationSchema,
@@ -29,7 +29,8 @@ import { ReschedulesTab } from "./tabs/reschedules";
 export const AppointmentsSettingsForm: React.FC<{
   values: BookingConfiguration;
   canUsePayments: boolean;
-}> = ({ values, canUsePayments }) => {
+  showTeamSettings?: boolean;
+}> = ({ values, canUsePayments, showTeamSettings }) => {
   const t = useI18n("admin");
   const form = useForm<BookingConfiguration>({
     resolver: zodResolver(bookingConfigurationSchema),
@@ -146,7 +147,7 @@ export const AppointmentsSettingsForm: React.FC<{
             </TabsTrigger>
           </ResponsiveTabsList>
           <TabsContent value="main">
-            <MainTab form={form} />
+            <MainTab form={form} showTeamSettings={showTeamSettings} />
           </TabsContent>
           <TabsContent value="options">
             <OptionsTab form={form} />

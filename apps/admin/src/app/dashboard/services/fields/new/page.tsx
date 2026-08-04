@@ -1,6 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { ServiceFieldForm } from "@/components/admin/services/fields/form";
+import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { ServiceFieldUpdateModel } from "@timelish/types";
@@ -20,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewServicePage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("new-service-field");
   const t = await getI18nAsync("admin");
+  await assertPageHasPermission("service", "create");
   const { from: fromParam } = await props.searchParams;
   const from = fromParam as string;
 

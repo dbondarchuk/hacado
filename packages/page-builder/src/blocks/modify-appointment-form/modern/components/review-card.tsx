@@ -1,4 +1,9 @@
-import { TranslationKeys, useFormatter, useI18n, useLocale } from "@timelish/i18n";
+import {
+  TranslationKeys,
+  useFormatter,
+  useI18n,
+  useLocale,
+} from "@timelish/i18n/client";
 import { ModifyAppointmentInformation, timeZones } from "@timelish/types";
 import {
   Button,

@@ -2,7 +2,7 @@
 
 import { applyInstallPersonalization } from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { fontsNames } from "@timelish/types";
 import {
   Button,

@@ -5,23 +5,24 @@ import {
   HeartPlus,
   Sparkles,
   User,
+  Users,
 } from "lucide-react";
 import { AddonsCard } from "./addons-card";
 import { CalendarCard } from "./calendar-card";
-import { ScheduleContextProps, Step, StepType } from "./context";
+import { FlowOrder, ScheduleContextProps, Step, StepType } from "./context";
 import { FormCard } from "./form-card";
 import { AppointmentOptionCard } from "./option-card";
 import { PaymentCard } from "./payment-card";
 import { ReviewCard } from "./review-card";
+import { SpecialistCard } from "./specialist-card";
 
-export const BOOKING_STEPS: StepType[] = [
-  "option",
-  "addons",
-  "calendar",
-  "form",
-  "review",
-  "payment",
-];
+export function getBookingSteps(flowOrder: FlowOrder): StepType[] {
+  if (flowOrder === "specialist-first") {
+    return ["specialist", "option", "addons", "calendar", "form", "review", "payment"];
+  }
+
+  return ["option", "specialist", "addons", "calendar", "form", "review", "payment"];
+}
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
@@ -38,37 +39,84 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   }
 };
 
+/** Goes to "addons" (if any) or fetches availability and goes to "calendar". */
+const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
+  if (ctx.selectedAppointmentOption?.addons?.length) {
+    ctx.setCurrentStep("addons");
+    return;
+  }
+
+  ctx.setCurrentStep("calendar");
+  await ctx.fetchAvailability();
+};
+
+/** Goes back to the step preceding "addons", accounting for the specialist step. */
+const goToStepBeforeAddons = (ctx: ScheduleContextProps) => {
+  if (ctx.flowOrder !== "specialist-first" && ctx.activeStaff.length > 1) {
+    ctx.setCurrentStep("specialist");
+    return;
+  }
+
+  ctx.setCurrentStep("option");
+};
+
 export const ScheduleSteps: Record<StepType, Step> = {
   option: {
     icon: Sparkles,
     prev: {
-      show: () => false,
-      isEnabled: () => false,
-      action: () => {},
+      show: (ctx) => ctx.flowOrder === "specialist-first",
+      isEnabled: () => true,
+      action: ({ setCurrentStep }) => setCurrentStep("specialist"),
     },
     next: {
       show: () => true,
       isEnabled: (ctx) => !!ctx.selectedAppointmentOption && !!ctx.duration,
       action: async (ctx) => {
-        if (ctx.selectedAppointmentOption?.addons?.length) {
-          ctx.setCurrentStep("addons");
-          return;
+        if (ctx.flowOrder !== "specialist-first") {
+          if (ctx.activeStaff.length > 1) {
+            ctx.setCurrentStep("specialist");
+            return;
+          }
+
+          if (ctx.activeStaff.length === 1) {
+            ctx.setSelectedMemberId(ctx.activeStaff[0].member.id);
+          } else {
+            ctx.setSelectedMemberId(null);
+          }
         }
 
-        ctx.setCurrentStep("calendar");
-        await ctx.fetchAvailability();
+        await goToStepAfterSpecialist(ctx);
       },
     },
     Content: AppointmentOptionCard,
+  },
+  specialist: {
+    icon: Users,
+    prev: {
+      show: (ctx) => ctx.flowOrder !== "specialist-first",
+      isEnabled: () => true,
+      action: ({ setCurrentStep }) => setCurrentStep("option"),
+    },
+    next: {
+      show: () => true,
+      isEnabled: ({ selectedMemberId }) => !!selectedMemberId,
+      action: async (ctx) => {
+        if (ctx.flowOrder === "specialist-first") {
+          ctx.setCurrentStep("option");
+          return;
+        }
+
+        await goToStepAfterSpecialist(ctx);
+      },
+    },
+    Content: SpecialistCard,
   },
   addons: {
     icon: HeartPlus,
     prev: {
       show: () => true,
       isEnabled: () => true,
-      action: ({ setCurrentStep }) => {
-        setCurrentStep("option");
-      },
+      action: (ctx) => goToStepBeforeAddons(ctx),
     },
     next: {
       show: () => true,
@@ -85,13 +133,13 @@ export const ScheduleSteps: Record<StepType, Step> = {
     prev: {
       show: () => true,
       isEnabled: () => true,
-      action: ({ selectedAppointmentOption, setCurrentStep }) => {
-        if (selectedAppointmentOption?.addons?.length) {
-          setCurrentStep("addons");
+      action: (ctx) => {
+        if (ctx.selectedAppointmentOption?.addons?.length) {
+          ctx.setCurrentStep("addons");
           return;
         }
 
-        setCurrentStep("option");
+        goToStepBeforeAddons(ctx);
       },
     },
     next: {

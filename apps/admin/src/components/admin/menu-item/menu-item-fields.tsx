@@ -1,6 +1,7 @@
 "use client";
 
-import { BaseAllKeys, I18nText, useI18n } from "@timelish/i18n";
+import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
+import { I18nText } from "@timelish/i18n/components";
 import { EditableText } from "@timelish/rte-inline";
 import {
   ButtonSizes,

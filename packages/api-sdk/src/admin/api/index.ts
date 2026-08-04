@@ -23,6 +23,7 @@ import * as serviceAddons from "./service-addons";
 import * as serviceFields from "./service-fields";
 import * as serviceOptions from "./service-options";
 import * as syncedPayments from "./synced-payments";
+import * as teams from "./teams";
 import * as templates from "./templates";
 import * as users from "./users";
 
@@ -41,6 +42,7 @@ export const adminApi = {
   pageHeaders,
   pageFooters,
   customers,
+  teams,
   serviceAddons,
   serviceFields,
   serviceOptions,

@@ -10,6 +10,7 @@ export type TextMessageData = {
 export type TextMessage = {
   phone: string;
   message: string;
+  memberId?: string;
   data?: TextMessageData;
   sender?: string;
 };

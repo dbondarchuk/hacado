@@ -126,6 +126,17 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate = {
                   ],
                   id: "4_g5MvqMhk",
                 },
+                {
+                  type: "p",
+                  align: "start",
+                  children: [
+                    {
+                      text: "Specialist: {{member.name}}",
+                      fontSize: "14px",
+                    },
+                  ],
+                  id: "4_g5MvqMhk",
+                },
               ],
             },
             style: {

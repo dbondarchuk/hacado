@@ -1,15 +1,15 @@
-import { auth } from "@/app/auth";
 import { getServicesContainer, getSession } from "@/app/utils";
 import { userUpdateSchema } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
-import { headers } from "next/headers";
+import type { SessionUser } from "@timelish/types";
+import { canManageCalendarSources } from "@timelish/utils";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const logger = getLoggerFactory("AdminAPI/users/me")("GET");
-  logger.debug("Getting current user information");
+  logger.debug("Getting current member profile");
   const session = await getSession();
   if (!session) {
     logger.warn("Unauthorized");
@@ -19,19 +19,21 @@ export async function GET() {
   logger.debug({ userId: session.user.id }, "Authorized");
 
   const servicesContainer = await getServicesContainer();
-  const user = await servicesContainer.userService.getUser(session.user.id);
+  const user = await servicesContainer.teamService.getMemberById(
+    session.user.memberId,
+  );
   if (!user) {
-    logger.warn({ userId: session.user.id }, "User not found");
+    logger.warn({ userId: session.user.id }, "Member profile not found");
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  logger.debug({ userId: session.user.id }, "User found");
+  logger.debug({ userId: session.user.id }, "Member profile found");
   return NextResponse.json(user);
 }
 
 export async function PATCH(request: Request) {
   const logger = getLoggerFactory("AdminAPI/users/me")("PATCH");
-  logger.debug("Updating current user information");
+  logger.debug("Updating current member profile");
   const session = await getSession();
   if (!session) {
     logger.warn("Unauthorized");
@@ -43,43 +45,45 @@ export async function PATCH(request: Request) {
     .safeParse(await request.json());
 
   if (!success) {
-    logger.warn({ error }, "Invalid user update model format");
+    logger.warn({ error }, "Invalid member profile update format");
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
     );
   }
 
-  const { bio, calendarSources, ...rest } = data;
-  const authBody: Record<string, any> = {
-    ...rest,
-  };
-
-  if (Object.keys(rest).length > 0) {
-    logger.debug({ rest }, "Updating auth fields");
-    await auth.api.updateUser({ body: authBody, headers: await headers() });
-  }
-
   const servicesContainer = await getServicesContainer();
-  const userPatch: Record<string, unknown> = {};
-  if ("bio" in data) {
-    userPatch.bio = bio;
-  }
-  if ("calendarSources" in data) {
-    userPatch.calendarSources = calendarSources;
-  }
-  if (Object.keys(userPatch).length > 0) {
-    logger.debug({ userPatch }, "Updating user profile fields");
-    await servicesContainer.userService.updateUser(session.user.id, userPatch);
-  }
+  const booking =
+    await servicesContainer.configurationService.getConfiguration("booking");
+  const mayManageSources = canManageCalendarSources(
+    session.user as SessionUser,
+    {
+      allowStaffCalendarSources: booking.allowStaffCalendarSources,
+    },
+  );
 
-  const user = await servicesContainer.userService.getUser(session.user.id);
+  const updatePayload = mayManageSources
+    ? data
+    : (() => {
+        const { calendarSources: _calendarSources, ...rest } = data;
+        return rest;
+      })();
+
+  logger.debug({ data: updatePayload }, "Updating member profile fields");
+  await servicesContainer.teamService.updateMemberProfile(
+    session.user.memberId,
+    updatePayload,
+  );
+
+  const user = await servicesContainer.teamService.getMemberById(
+    session.user.memberId,
+  );
 
   if (!user) {
-    logger.warn({ userId: session.user.id }, "User not found");
+    logger.warn({ userId: session.user.id }, "Member profile not found");
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  logger.debug({ userId: session.user.id }, "User updated");
+  logger.debug({ userId: session.user.id }, "Member profile updated");
   return NextResponse.json(user);
 }

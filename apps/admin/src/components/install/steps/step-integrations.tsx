@@ -4,9 +4,9 @@ import { authClient } from "@/app/auth-client";
 import { AddOrUpdateAppButton } from "@/components/admin/apps/add-or-update-app-dialog";
 import { DeleteAppButton } from "@/components/admin/apps/delete-app-button";
 import { AppInstallUpgradeHint } from "@/components/admin/apps/store/app-install-upgrade-hint";
-import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
 import { saveInstallPreferences } from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
+import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import {
   APPOINTMENT_NOTIFICATIONS_APP_NAME,
@@ -25,7 +25,7 @@ import {
   WAITLIST_APP_NAME,
   WAITLIST_NOTIFICATIONS_APP_NAME,
 } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type { ConnectedApp } from "@timelish/types";
 import { BillingPlanTier } from "@timelish/types";
 import {

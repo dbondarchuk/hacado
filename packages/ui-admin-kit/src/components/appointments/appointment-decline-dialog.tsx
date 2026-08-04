@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { Appointment, AppointmentStatus, Payment } from "@timelish/types";
 import {
   AlertDialog,

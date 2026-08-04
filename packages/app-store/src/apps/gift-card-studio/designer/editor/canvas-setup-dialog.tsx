@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   Dialog,
@@ -19,15 +19,22 @@ import {
 } from "@timelish/ui";
 import { Settings } from "lucide-react";
 import { useState } from "react";
-import { useEditorStore } from "../lib/store";
-import { ASPECT_RATIOS } from "../lib/types";
 import {
   GiftCardStudioAdminKeys,
   GiftCardStudioAdminNamespace,
   giftCardStudioAdminNamespace,
 } from "../../translations/types";
+import { useEditorStore } from "../lib/store";
+import { ASPECT_RATIOS } from "../lib/types";
 
-const aspectRatioLabelKeys: Record<string, "designer.canvasSetup.aspectRatio3_2" | "designer.canvasSetup.aspectRatio4_3" | "designer.canvasSetup.aspectRatio1_1" | "designer.canvasSetup.aspectRatio16_9" | "designer.canvasSetup.aspectRatioCustom"> = {
+const aspectRatioLabelKeys: Record<
+  string,
+  | "designer.canvasSetup.aspectRatio3_2"
+  | "designer.canvasSetup.aspectRatio4_3"
+  | "designer.canvasSetup.aspectRatio1_1"
+  | "designer.canvasSetup.aspectRatio16_9"
+  | "designer.canvasSetup.aspectRatioCustom"
+> = {
   "3:2": "designer.canvasSetup.aspectRatio3_2",
   "4:3": "designer.canvasSetup.aspectRatio4_3",
   "1:1": "designer.canvasSetup.aspectRatio1_1",
@@ -97,8 +104,12 @@ export function CanvasSetupDialog() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">{t("designer.canvasSetup.light")}</SelectItem>
-                <SelectItem value="dark">{t("designer.canvasSetup.dark")}</SelectItem>
+                <SelectItem value="light">
+                  {t("designer.canvasSetup.light")}
+                </SelectItem>
+                <SelectItem value="dark">
+                  {t("designer.canvasSetup.dark")}
+                </SelectItem>
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground mt-1">
@@ -160,7 +171,9 @@ export function CanvasSetupDialog() {
           <Button variant="outline" onClick={() => setOpen(false)}>
             {t("designer.canvasSetup.cancel")}
           </Button>
-          <Button onClick={handleApply}>{t("designer.canvasSetup.apply")}</Button>
+          <Button onClick={handleApply}>
+            {t("designer.canvasSetup.apply")}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

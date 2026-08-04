@@ -26,6 +26,8 @@ export const SCHEDULE_COLLECTION_NAME = "weekly-schedules";
 
 type ScheduleOverrideEntity = WithDatabaseId<ScheduleOverride> & {
   appId: string;
+  /** Assigned staff member; absent on legacy single-member documents. */
+  memberId?: string;
 };
 
 export default class WeeklyScheduleConnectedApp
@@ -64,10 +66,14 @@ export default class WeeklyScheduleConnectedApp
       switch (data.type) {
         case "get-weekly-schedule":
           logger.debug(
-            { appId: appData._id, week: data.week },
+            { appId: appData._id, week: data.week, memberId: data.memberId },
             "Getting weekly schedule",
           );
-          return await this.getWeekSchedule(appData._id, data.week);
+          return await this.getWeekSchedule(
+            appData._id,
+            data.week,
+            data.memberId,
+          );
 
         case "set-schedules":
           logger.info(
@@ -75,6 +81,7 @@ export default class WeeklyScheduleConnectedApp
               appId: appData._id,
               weekCount: Object.keys(data.schedules).length,
               replaceExisting: data.replaceExisting,
+              memberId: data.memberId,
             },
             "Setting weekly schedules",
           );
@@ -82,21 +89,30 @@ export default class WeeklyScheduleConnectedApp
             appData._id,
             data.schedules,
             data.replaceExisting,
+            data.memberId,
           );
 
         case "remove-schedule":
           logger.info(
-            { appId: appData._id, week: data.week },
+            { appId: appData._id, week: data.week, memberId: data.memberId },
             "Removing weekly schedule",
           );
-          return await this.removeSchedule(appData._id, data.week);
+          return await this.removeSchedule(
+            appData._id,
+            data.week,
+            data.memberId,
+          );
 
         case "remove-all-schedules":
           logger.info(
-            { appId: appData._id, week: data.week },
+            { appId: appData._id, week: data.week, memberId: data.memberId },
             "Removing all weekly schedules from week",
           );
-          return await this.removeAllSchedules(appData._id, data.week);
+          return await this.removeAllSchedules(
+            appData._id,
+            data.week,
+            data.memberId,
+          );
 
         default: {
           logger.debug(
@@ -226,6 +242,7 @@ export default class WeeklyScheduleConnectedApp
     appId: string,
     weekIdentifier: WeekIdentifier,
     schedule: Schedule,
+    memberId?: string,
   ): Promise<void> {
     const logger = this.loggerFactory("setSchedule");
     logger.debug(
@@ -240,6 +257,7 @@ export default class WeeklyScheduleConnectedApp
           [weekIdentifier]: schedule,
         },
         true,
+        memberId,
       );
 
       logger.debug(
@@ -259,6 +277,7 @@ export default class WeeklyScheduleConnectedApp
     appId: string,
     schedules: Record<WeekIdentifier, Schedule>,
     replaceExisting?: boolean,
+    memberId?: string,
   ): Promise<void> {
     const logger = this.loggerFactory("setSchedules");
     logger.debug(
@@ -267,6 +286,7 @@ export default class WeeklyScheduleConnectedApp
         weekCount: Object.keys(schedules).length,
         replaceExisting,
         weeks: Object.keys(schedules),
+        memberId,
       },
       "Setting multiple week schedules",
     );
@@ -280,13 +300,16 @@ export default class WeeklyScheduleConnectedApp
       const operations: AnyBulkWriteOperation<ScheduleOverrideEntity>[] =
         Object.entries(schedules).map(([week, schedule]) => ({
           updateOne: {
-            filter: { week: parseInt(week), appId },
+            filter: {
+              week: parseInt(week),
+              appId,
+              ...(memberId ? { memberId } : {}),
+            },
             update: {
-              $set: replaceExisting
-                ? {
-                    schedule,
-                  }
-                : {},
+              $set: {
+                ...(replaceExisting ? { schedule } : {}),
+                ...(memberId ? { memberId } : {}),
+              },
               $setOnInsert: {
                 week: parseInt(week),
                 appId,
@@ -321,10 +344,11 @@ export default class WeeklyScheduleConnectedApp
   protected async removeSchedule(
     appId: string,
     weekIdentifier: WeekIdentifier,
+    memberId?: string,
   ): Promise<void> {
     const logger = this.loggerFactory("removeSchedule");
     logger.debug(
-      { appId, week: weekIdentifier },
+      { appId, week: weekIdentifier, memberId },
       "Removing single week schedule",
     );
 
@@ -337,6 +361,7 @@ export default class WeeklyScheduleConnectedApp
       await scheduleOverrides.deleteOne({
         appId,
         week: weekIdentifier,
+        ...(memberId ? { memberId } : {}),
       });
 
       logger.info(
@@ -355,10 +380,11 @@ export default class WeeklyScheduleConnectedApp
   protected async removeAllSchedules(
     appId: string,
     weekIdentifier: WeekIdentifier,
+    memberId?: string,
   ): Promise<void> {
     const logger = this.loggerFactory("removeAllSchedules");
     logger.debug(
-      { appId, week: weekIdentifier },
+      { appId, week: weekIdentifier, memberId },
       "Removing all schedules from week onwards",
     );
 
@@ -373,6 +399,7 @@ export default class WeeklyScheduleConnectedApp
         week: {
           $gte: weekIdentifier,
         },
+        ...(memberId ? { memberId } : {}),
       });
 
       logger.info(
@@ -391,12 +418,16 @@ export default class WeeklyScheduleConnectedApp
   protected async getWeekSchedule(
     appId: string,
     weekIdentifier: WeekIdentifier,
+    memberId?: string,
   ): Promise<{
     schedule: Schedule;
     isDefault: boolean;
   }> {
     const logger = this.loggerFactory("getWeekSchedule");
-    logger.debug({ appId, week: weekIdentifier }, "Getting week schedule");
+    logger.debug(
+      { appId, week: weekIdentifier, memberId },
+      "Getting week schedule",
+    );
 
     try {
       const db = await this.props.getDbConnection();
@@ -407,6 +438,7 @@ export default class WeeklyScheduleConnectedApp
       const scheduleOverride = await scheduleOverrides.findOne({
         appId,
         week: weekIdentifier,
+        ...(memberId ? { memberId } : {}),
       });
 
       const result = scheduleOverride?.schedule
@@ -447,6 +479,7 @@ export default class WeeklyScheduleConnectedApp
     appData: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId?: string,
   ): Promise<Record<string, DaySchedule>> {
     const logger = this.loggerFactory("getSchedule");
     logger.debug(
@@ -454,6 +487,7 @@ export default class WeeklyScheduleConnectedApp
         appId: appData._id,
         start: start.toISOString(),
         end: end.toISOString(),
+        memberId,
       },
       "Getting schedule for date range",
     );
@@ -494,6 +528,7 @@ export default class WeeklyScheduleConnectedApp
           week: {
             $in: weeks,
           },
+          ...(memberId ? { memberId } : {}),
         })
         .toArray();
 

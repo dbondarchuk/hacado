@@ -1,9 +1,14 @@
 import { ServicesContainer } from "@timelish/services";
-import { userEventSource } from "@timelish/types";
+import { memberEventSource, SessionUser } from "@timelish/types";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
 import { cache } from "react";
 import { auth } from "./auth";
+
+type AuthSession = NonNullable<Awaited<ReturnType<typeof auth.api.getSession>>>;
+
+/** Session with a strongly typed `user` (Better Auth widens custom fields to `string`). */
+export type AppSession = Omit<AuthSession, "user"> & { user: SessionUser };
 
 export const getOrganizationIdAndSlug = async () => {
   const headersList = await headers();
@@ -27,10 +32,15 @@ export const getOrganizationIdAndSlug = async () => {
   };
 };
 
-export const getSession = cache(async () => {
+export const getSession = cache(async (): Promise<AppSession> => {
   const headersList = await headers();
   const session = await auth.api.getSession({
     headers: headersList,
+    query: {
+      // Entitlements (plan tier, seats) are derived in customSession from Mongo.
+      // Never serve a stale cookie-cache snapshot after Polar webhooks.
+      disableCookieCache: true,
+    },
   });
 
   if (!session) {
@@ -43,12 +53,30 @@ export const getSession = cache(async () => {
     redirect("/auth/signin");
   }
 
-  return session;
+  return session as AppSession;
+});
+
+export const getUser = cache(async (): Promise<SessionUser> => {
+  const session = await getSession();
+  return session.user;
+});
+
+export const getMember = cache(async () => {
+  const session = await getSession();
+  const servicesContainer = await getServicesContainer();
+  const member = await servicesContainer.teamService.getMemberById(
+    session.user.memberId,
+  );
+  if (!member) {
+    throw new Error("Member not found");
+  }
+
+  return member;
 });
 
 export const getActor = cache(async () => {
   const session = await getSession();
-  return userEventSource(session.user.id);
+  return memberEventSource(session.user.memberId);
 });
 
 export const getServicesContainer = cache(async () => {

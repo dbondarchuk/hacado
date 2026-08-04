@@ -78,6 +78,8 @@ export const generalBookingConfigurationSchema = z.object({
   scheduleAppId: z.string().optional(),
   availabilityProviderAppId: z.string().optional(),
   autoConfirm: z.coerce.boolean<boolean>().optional(),
+  /** When true, staff may configure and use personal calendar sources. Studio plan only. */
+  allowStaffCalendarSources: z.coerce.boolean<boolean>().optional(),
   allowPromoCode: z.enum(allowPromoCodeType),
   payments: paymentsConfigurationSchema,
   cancellationsAndReschedules: appointmentCancellationRescheduleSchema,

@@ -15,6 +15,7 @@ errors:
 thisWeek: Цей тиждень
 previousWeek: Попередній тиждень
 nextWeek: Наступний тиждень
+selectMember: Виберіть співробітника
 eventTitle: Зайнято
 addShift: Додати подію
 shifts: "{count, plural, =1 {1 подія} other {# подій}}"

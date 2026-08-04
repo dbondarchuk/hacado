@@ -117,7 +117,7 @@ export async function completeInstallSetup(
     (await services.configurationService.getConfiguration("general")) ?? null;
   const brand =
     (await services.configurationService.getConfiguration("brand")) ?? null;
-  if (!general) {
+  if (!general || Object.keys(general).length === 0) {
     logger.error({ organizationId }, "General configuration not found");
     return { ok: false, code: "no_general" };
   }
@@ -147,7 +147,7 @@ export async function completeInstallSetup(
 
   const setupResult = await runCompleteInstallSetupSteps({
     services,
-    userId: session.user.id,
+    user: session.user,
     prefs,
     language: installLanguage,
     businessName,

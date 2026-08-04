@@ -1,4 +1,4 @@
-import { TranslationKeys, useI18n } from "@timelish/i18n";
+import { TranslationKeys, useI18n } from "@timelish/i18n/client";
 import { ModifyAppointmentType } from "@timelish/types";
 import { cn } from "@timelish/ui";
 import { RefreshCw, XCircle } from "lucide-react";

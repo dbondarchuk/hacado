@@ -24,7 +24,7 @@ import {
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import type { InstallServiceDraftItem } from "@/components/install/types";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
-import { useI18n, type Language } from "@timelish/i18n";
+import { useI18n, type Language } from "@timelish/i18n/client";
 import { PlateMarkdownEditor } from "@timelish/rte";
 import {
   canCreateMoreServices,
@@ -490,7 +490,9 @@ export function StepService() {
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="text-2xl font-semibold">{t("wizard.service.title")}</h2>
+          <h2 className="text-2xl font-semibold">
+            {t("wizard.service.title")}
+          </h2>
           <p className="text-base text-muted-foreground">
             {t("wizard.service.subtitle")}
           </p>

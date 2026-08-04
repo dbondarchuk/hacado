@@ -1,7 +1,7 @@
 "use client";
 
 import { ConfigurationProps, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { StylesConfigurationPanel } from "@timelish/page-builder-base";
 import { deepMemo } from "@timelish/ui";
 import { useCallback, useMemo } from "react";
@@ -13,12 +13,12 @@ import {
   BlogPublicNamespace,
   blogPublicNamespace,
 } from "../../translations/types";
+import { blogTextShortcuts } from "../text-shortcuts";
 import {
   AUTHOR_FORMAT_KEYS,
   AuthorFormatKey,
   getFormatPreview,
 } from "./formats";
-import { blogTextShortcuts } from "../text-shortcuts";
 import {
   BlogPostAuthorProps,
   BlogPostAuthorPropsDefaults,

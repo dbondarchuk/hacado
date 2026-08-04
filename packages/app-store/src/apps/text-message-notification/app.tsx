@@ -19,6 +19,8 @@ export const TextMessageNotificationApp: App<
   Logo: ({ className }) => <SendHorizonal className={className} />,
   isFeatured: true,
   dontAllowMultiple: true,
+  target: "member",
+  requiredPermission: { resource: "app", action: "installPrivileged" },
   description: {
     text: "app_text-message-notification_admin.app.description",
   },

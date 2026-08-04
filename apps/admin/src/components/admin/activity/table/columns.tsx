@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import type { ActivityListItem } from "@timelish/types";
 import { Badge, Link } from "@timelish/ui";
 import {

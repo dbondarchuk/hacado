@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   BlockStyle,
   generateClassName,
@@ -30,7 +30,8 @@ export const BlogCommentNavigationButtonEditorWrapper = ({
 }: BlogCommentNavigationButtonEditorWrapperProps) => {
   const t = useI18n<BlogPublicNamespace, BlogPublicKeys>(blogPublicNamespace);
   const direction =
-    props?.direction ?? BlogCommentNavigationButtonPropsDefaults.props.direction;
+    props?.direction ??
+    BlogCommentNavigationButtonPropsDefaults.props.direction;
 
   const buttonText =
     direction === "prev"

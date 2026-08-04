@@ -4,14 +4,19 @@ import {
   organizationClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
+import {
+  teamAc,
+  teamOrganizationRoles,
+} from "@/lib/auth/permissions";
 import type { auth } from "./auth";
 
 export const authClient = createAuthClient({
   plugins: [
     inferAdditionalFields<typeof auth>(),
-    organizationClient(),
+    organizationClient({
+      ac: teamAc,
+      roles: teamOrganizationRoles,
+    }),
     polarClient(),
   ],
-  /** The base URL of the server (optional if you're using the same domain) */
-  //   baseURL: "http://localhost:3000",
 });

@@ -25,6 +25,7 @@ export const BookingReader = ({
       <Booking
         className={cn(className, base?.className)}
         successPage={props.confirmationPage}
+        flowOrder={props.flowOrder}
         id={base?.id}
       />
     </>

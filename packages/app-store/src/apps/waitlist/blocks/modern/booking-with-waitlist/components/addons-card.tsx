@@ -1,7 +1,7 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppointmentAddon } from "@timelish/types";
 import { cn, Markdown, useCurrencyFormat } from "@timelish/ui";
-import { durationToTime, formatAmountString } from "@timelish/utils";
+import { durationToTime } from "@timelish/utils";
 import { Check, Clock } from "lucide-react";
 import { useScheduleContext } from "./context";
 

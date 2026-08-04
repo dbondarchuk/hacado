@@ -1,6 +1,6 @@
 "use client";
 import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { GetAppointmentOptionsResponse } from "@timelish/types";
 import { Skeleton } from "@timelish/ui";
 import React from "react";
@@ -22,6 +22,7 @@ export const BookingWithWaitlist: React.FC<
   } & React.HTMLAttributes<HTMLDivElement>
 > = ({
   successPage,
+  flowOrder,
   className,
   id,
   isEditor,
@@ -77,6 +78,8 @@ export const BookingWithWaitlist: React.FC<
       {...props}
       className={className}
       options={response.options}
+      members={response.members}
+      flowOrder={flowOrder ?? "service-first"}
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}

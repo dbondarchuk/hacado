@@ -11,6 +11,7 @@ export type TextMessageReply = {
   data: TextMessageData;
   appointment: Appointment | null;
   customer: Customer | null;
+  memberId?: string;
   messageId?: string;
 };
 

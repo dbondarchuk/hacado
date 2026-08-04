@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { AppointmentHistoryEntry } from "@timelish/types";
 import { useInView } from "react-intersection-observer";
 
@@ -109,7 +109,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="outline" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
               {!!entry.data.payment?.appName && (
                 <Badge variant="outline" className="text-sm">
@@ -156,7 +156,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="secondary" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
             </>
           )}
@@ -179,7 +179,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="secondary" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
             </>
           )}

@@ -13,6 +13,7 @@ export const OutlookApp: App<OutlookAdminNamespace, OutlookAdminKeys> = {
     "meeting-url-provider",
   ],
   type: "oauth",
+  target: "member",
   category: ["apps.categories.calendar", "apps.categories.communications"],
   Logo: ({ className }) => <OutlookLogo className={className} />,
   isFeatured: true,

@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Payment } from "@timelish/types";
 import {
   AlertDialog,
@@ -14,9 +14,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  useCurrencyFormat,
   Spinner,
   toastPromise,
+  useCurrencyFormat,
 } from "@timelish/ui";
 import { Trash } from "lucide-react";
 import { DateTime } from "luxon";

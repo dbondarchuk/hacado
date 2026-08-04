@@ -1,7 +1,9 @@
 import PageContainer from "@/components/admin/layout/page-container";
+import { getUser } from "@/app/utils";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { Breadcrumbs, Heading, Link, Skeleton } from "@timelish/ui";
+import { canViewCompanyApps } from "@timelish/utils";
 import { Boxes, Store } from "lucide-react";
 import { Metadata } from "next/types";
 import { Suspense } from "react";
@@ -19,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AppsPage(props: Params) {
   const logger = getLoggerFactory("AdminPages")("apps");
   const t = await getI18nAsync("admin");
+  const user = await getUser();
+  const showCompanyTools = canViewCompanyApps(user);
 
   logger.debug("Loading apps page");
   const breadcrumbItems = [
@@ -37,9 +41,11 @@ export default async function AppsPage(props: Params) {
             />
 
             <div className="flex flex-col [&>a]:max-md:w-full md:flex-row gap-2 items-center">
-              <Link variant="secondary" button href="/dashboard/apps/default">
-                <Boxes /> {t("apps.defaultApps")}
-              </Link>
+              {showCompanyTools && (
+                <Link variant="secondary" button href="/dashboard/apps/default">
+                  <Boxes /> {t("apps.defaultApps")}
+                </Link>
+              )}
               <Link variant="default" button href="/dashboard/apps/store">
                 <Store /> {t("apps.appStore")}
               </Link>

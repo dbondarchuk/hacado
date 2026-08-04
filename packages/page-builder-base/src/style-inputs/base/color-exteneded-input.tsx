@@ -1,7 +1,7 @@
 "use client";
 
 import { ResetButton, type ColorInput } from "@timelish/builder";
-import { BuilderKeys, useI18n } from "@timelish/i18n";
+import { BuilderKeys, useI18n } from "@timelish/i18n/client";
 import { DistributiveOmit } from "@timelish/types";
 import {
   Button,

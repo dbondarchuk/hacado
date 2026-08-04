@@ -1,4 +1,5 @@
-import { I18nRichText, useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import {
   allowPromoCodeType,
   BookingConfiguration,
@@ -69,7 +70,11 @@ const TimePickerTag = ({ onAdd }: { onAdd: (value: string) => void }) => {
   );
 };
 
-export const MainTab: React.FC<TabProps> = ({ form, disabled }) => {
+export const MainTab: React.FC<TabProps> = ({
+  form,
+  disabled,
+  showTeamSettings,
+}) => {
   const t = useI18n("admin");
   const locale = useLocale();
 
@@ -169,6 +174,33 @@ export const MainTab: React.FC<TabProps> = ({ form, disabled }) => {
           </FormItem>
         )}
       />
+      {showTeamSettings ? (
+        <FormField
+          control={form.control}
+          name="allowStaffCalendarSources"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                {t("settings.appointments.form.main.allowStaffCalendarSources")}{" "}
+                <InfoTooltip>
+                  <I18nRichText
+                    namespace="admin"
+                    text="settings.appointments.form.main.allowStaffCalendarSourcesTooltip"
+                  />
+                </InfoTooltip>
+              </FormLabel>
+              <FormControl>
+                <BooleanSelect
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  className="w-full"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      ) : null}
       <FormField
         control={form.control}
         name="allowPromoCode"

@@ -66,6 +66,8 @@ export const appointmentEventSchema = z.object({
   totalDuration: z.coerce.number<number>().int().min(1),
   totalPrice: z.coerce.number<number>().optional(),
   dateTime: z.coerce.date<Date>(),
+  /** Preferred/assigned staff member; resolved server-side (owner fallback) when omitted. */
+  memberId: z.string().optional(),
   fields: z.looseObject({
     email: z.email("appointments.request.fields.email.required"),
     name: zNonEmptyString("appointments.request.fields.name.required"),
@@ -95,6 +97,8 @@ export type AppointmentEventRequest = z.infer<typeof appointmentEventSchema>;
 
 export const appointmentRequestSchema = z.object({
   optionId: zNonEmptyString("appointments.request.optionId.required"),
+  /** Preferred/assigned staff member; resolved server-side (owner fallback) when omitted. */
+  memberId: z.string().optional(),
   addonsIds: zUniqueArray(
     z.array(zNonEmptyString("appointments.request.addonsIds.required")),
     (x) => x,

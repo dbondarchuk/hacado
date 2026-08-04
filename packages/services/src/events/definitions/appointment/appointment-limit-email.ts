@@ -34,7 +34,7 @@ export async function buildAppointmentLimitReachedEmails(
     return null;
   }
 
-  const admins = await services.userService.getOrganizationAdminUsers();
+  const admins = await services.teamService.getOrganizationAdminContacts();
   if (!admins.length) return null;
 
   const organizationLabel =
@@ -78,7 +78,8 @@ export async function buildAppointmentLimitReachedEmails(
     notifications.push({
       email: { to: admin.email, subject, body },
       handledBy: `${EMAIL_KEY_PREFIX}.handledBy` as BaseAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

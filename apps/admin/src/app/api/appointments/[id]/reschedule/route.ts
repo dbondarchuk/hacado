@@ -1,6 +1,6 @@
-import { getActor, getServicesContainer } from "@/app/utils";
+import { getActor } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
-import { getLoggerFactory } from "@timelish/logger";
 import { okStatus } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -15,12 +15,17 @@ export async function PATCH(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/reschedule">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/appointments/[id]/reschedule")(
+  const { id } = await params;
+  const auth = await requireCanUpdateAppointment(
+    id,
+    "AdminAPI/appointments/[id]/reschedule",
     "PATCH",
   );
-  const servicesContainer = await getServicesContainer();
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
+  const servicesContainer = auth.servicesContainer;
   const eventSource = await getActor();
-  const { id } = await params;
 
   logger.debug(
     {

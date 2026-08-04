@@ -26,7 +26,7 @@ import {
   useIsSelectedEmbeddedSlot,
   usePortalContext,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   BlockStyle,
   useClassName,
@@ -39,6 +39,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@timelish/ui";
+import { motion } from "framer-motion";
 import { GripVertical, Plus, Settings, Trash2 } from "lucide-react";
 import {
   useCallback,
@@ -52,7 +53,6 @@ import {
   splitTableCellSlotStyles,
   tableCellInnerClassName,
 } from "./cell-slot-styles";
-import { motion } from "framer-motion";
 import {
   colWidthCssPercent,
   computeSpanCovered,
@@ -162,8 +162,7 @@ function TableCellSpanControls({
   isSlotSelected: boolean;
 }) {
   const t = useI18n("builder");
-  const label = (key: string) =>
-    t(key as Parameters<typeof t>[0]);
+  const label = (key: string) => t(key as Parameters<typeof t>[0]);
   const maxColspan = colCount - col;
   const maxRowspan = rowCount - row;
 

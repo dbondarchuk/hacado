@@ -1,4 +1,4 @@
-import { AllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, useI18n } from "@timelish/i18n/client";
 import { UploadedFile } from "@timelish/types";
 import { ToolbarButton } from "@timelish/ui";
 import { AssetSelectorDialog } from "@timelish/ui-admin";

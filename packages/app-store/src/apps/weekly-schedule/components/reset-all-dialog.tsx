@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WeekIdentifier } from "@timelish/types";
 import {
   AlertDialog,
@@ -26,6 +26,7 @@ import { getWeekDisplay } from "./utils";
 export type ResetAllDialogProps = {
   appId: string;
   week: WeekIdentifier;
+  memberId?: string;
   disabled?: boolean;
   className?: string;
   onConfirm: () => void;
@@ -34,6 +35,7 @@ export type ResetAllDialogProps = {
 export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   appId,
   week,
+  memberId,
   disabled,
   className,
   onConfirm: onResetAll,
@@ -47,7 +49,7 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await toastPromise(resetAllWeeklySchedule(appId, week), {
+      await toastPromise(resetAllWeeklySchedule(appId, week, memberId), {
         success: t("dialogs.resetAll.success", {
           week: getWeekDisplay(week),
         }),

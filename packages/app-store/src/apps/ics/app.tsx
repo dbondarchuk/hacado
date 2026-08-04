@@ -9,6 +9,7 @@ export const IcsApp: App<IcsAdminNamespace, IcsAdminKeys> = {
   scope: ["calendar-read"],
   category: ["apps.categories.calendar"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <IcsLogo className={className} />,
   isFeatured: true,
   description: {

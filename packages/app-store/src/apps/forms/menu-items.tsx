@@ -39,6 +39,7 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.main.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.main.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "forms/new",
@@ -61,6 +62,7 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.new.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.new.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "forms/edit",
@@ -83,6 +85,7 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.edit.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.edit.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "forms/responses",
@@ -107,6 +110,7 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.responses.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.responses.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "forms/responses/edit",
@@ -135,6 +139,7 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.responses.edit.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.responses.edit.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "forms/responses/new",
@@ -163,5 +168,6 @@ export const FormsMenuItems: AppMenuItem<
       "app_forms_admin.app.pages.responses.new.title" satisfies FormsAdminAllKeys,
     pageDescription:
       "app_forms_admin.app.pages.responses.new.description" satisfies FormsAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
 ];

@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PlateMarkdownEditor } from "@timelish/rte";
 import {
   BooleanSelect,
@@ -24,7 +24,6 @@ import {
   SelectValue,
   useCurrencySymbol,
 } from "@timelish/ui";
-import { AppSelector } from "@timelish/ui-admin";
 import { X } from "lucide-react";
 import React from "react";
 import { TabProps } from "./types";
@@ -35,7 +34,6 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
   const t = useI18n("admin");
   const currencySymbol = useCurrencySymbol();
 
-  const isOnline = form.watch("isOnline");
   const durationType = form.watch("durationType");
 
   return (
@@ -158,6 +156,22 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
                         shouldValidate: true,
                       });
                       form.trigger("durationStep");
+
+                      // Duration overrides only apply to fixed services.
+                      const staff = form.getValues("staff") ?? [];
+                      form.setValue(
+                        "staff",
+                        staff.map(
+                          ({
+                            durationOverride: _durationOverride,
+                            ...assignment
+                          }: {
+                            memberId: string;
+                            priceOverride?: number;
+                            durationOverride?: number;
+                          }) => assignment,
+                        ),
+                      );
                     }
 
                     field.onBlur();
@@ -426,40 +440,6 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
               </FormItem>
             )}
           />
-          {isOnline && (
-            <FormField
-              control={form.control}
-              name="meetingUrlProviderAppId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t(
-                      "services.options.form.onlineSettings.meetingUrlProviderAppId.label",
-                    )}{" "}
-                    <InfoTooltip>
-                      {t(
-                        "services.options.form.onlineSettings.meetingUrlProviderAppId.tooltip",
-                      )}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <AppSelector
-                      scope="meeting-url-provider"
-                      disabled={disabled}
-                      value={field.value}
-                      onItemSelect={(value) => {
-                        field.onChange(value);
-                        field.onBlur();
-                        form.trigger("isOnline");
-                      }}
-                      allowClear
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
         </div>
       </div>
     </div>

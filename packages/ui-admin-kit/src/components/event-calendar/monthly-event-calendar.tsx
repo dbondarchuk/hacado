@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   cn,
   TooltipResponsive,
@@ -12,7 +12,8 @@ import { Clock } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
 import { EventPopover } from "./event-popover";
-import { EventVariantClasses } from "./styles";
+import { EventItemContent } from "./event-item-content";
+import { getEventAppearance } from "./styles";
 import { MonthlyEventCalendarProps } from "./types";
 
 const getDates = (currentDate: DateTime) => {
@@ -90,8 +91,7 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
             <span
               className={cn(
                 "inline-flex size-7 items-center justify-center rounded-full text-base font-medium tabular-nums",
-                isToday &&
-                  "bg-primary text-primary-foreground shadow-sm",
+                isToday && "bg-primary text-primary-foreground shadow-sm",
                 !isToday && !outsideMonth && "text-foreground",
               )}
             >
@@ -131,27 +131,21 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
           </div>
           <div className="mt-2 space-y-1 overflow-y-auto max-h-24">
             {dayEvents.map((event, idx) => {
-              const start = DateTime.fromJSDate(event.start).setZone(timeZone);
+              const appearance = getEventAppearance(event);
               return (
                 <EventPopover key={idx} event={event}>
                   <div
                     className={cn(
-                      "text-[13px] leading-tight p-1.5 rounded-lg cursor-pointer shadow-sm truncate",
-                      EventVariantClasses[event.variant || "primary"] ??
-                        EventVariantClasses.primary,
+                      "text-[13px] leading-tight p-1.5 rounded-lg cursor-pointer shadow-sm min-w-0",
+                      appearance.className,
                     )}
+                    style={appearance.style}
                     onClick={(e) => {
                       onEventClick?.(event);
                       e.stopPropagation();
                     }}
                   >
-                    <div
-                      className="opacity-70 text-[12px] mb-0.5"
-                      suppressHydrationWarning
-                    >
-                      {start.toLocaleString(DateTime.TIME_SIMPLE, { locale })}
-                    </div>
-                    <div className="font-medium truncate">{event.title}</div>
+                    <EventItemContent event={event} density="compact" />
                   </div>
                 </EventPopover>
               );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { Appointment } from "@timelish/types";
 import { Link, useCurrencyFormat, useTimeZone } from "@timelish/ui";
 import { durationToTime } from "@timelish/utils";

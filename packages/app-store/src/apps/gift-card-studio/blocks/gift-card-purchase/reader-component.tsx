@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { CollectPayment, IdName } from "@timelish/types";
 import {
   Button,
@@ -30,9 +30,9 @@ import {
   Stepper,
   Textarea,
   toast,
-  useDebounce,
   useCurrencyFormat,
   useCurrencySymbol,
+  useDebounce,
 } from "@timelish/ui";
 import {
   CheckCircle2,

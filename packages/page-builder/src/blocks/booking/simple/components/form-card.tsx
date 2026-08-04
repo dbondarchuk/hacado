@@ -24,7 +24,7 @@ import {
 } from "@timelish/ui";
 
 import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n } from "@timelish/i18n";
+import { TranslationKeys, useI18n } from "@timelish/i18n/client";
 import { fieldSchemaMapper, fieldsComponentMap } from "@timelish/ui";
 import { deepEqual } from "@timelish/utils";
 import { DateTime as Luxon } from "luxon";

@@ -12,6 +12,7 @@ export const withAuth: MiddlewareProxy = (next) => {
     const { nextUrl } = request;
     const session = await auth.api.getSession({
       headers: request.headers,
+      query: { disableCookieCache: true },
     });
 
     if (!session && !containsAdminAuthApi(nextUrl.pathname)) {
@@ -44,22 +45,48 @@ export const withAuth: MiddlewareProxy = (next) => {
 
     request.headers.set("x-user-id", session?.user?.id || "");
 
-    if (session?.user) {
-      const user = session.user as {
-        subscriptionStatus?: string;
-        subscriptionPlanTier?: string | null;
-        feesExempt?: boolean;
-      };
+    const sessionUser = session?.user as
+      | {
+          memberId?: string;
+          memberStatus?: string;
+          memberRole?: string;
+          role?: string;
+          subscriptionStatus?: string;
+          subscriptionPlanTier?: string | null;
+          feesExempt?: boolean;
+        }
+      | undefined;
+
+    if (sessionUser?.memberStatus === "inactive") {
+      if (containsAdminDashboard(nextUrl.pathname)) {
+        await auth.api.signOut({ headers: request.headers });
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      if (containsAdminApi(nextUrl.pathname)) {
+        return NextResponse.json(
+          { error: "Member inactive", code: "member_inactive" },
+          { status: 403 },
+        );
+      }
+    }
+
+    request.headers.set("x-member-id", sessionUser?.memberId || "");
+    request.headers.set(
+      "x-member-role",
+      sessionUser?.memberRole || sessionUser?.role || "",
+    );
+
+    if (sessionUser) {
       request.headers.set(
         "x-subscription-status",
-        user.subscriptionStatus || "active",
+        sessionUser.subscriptionStatus || "active",
       );
-      if (user.feesExempt) {
-        request.headers.set("x-subscription-plan-tier", "pro");
-      } else if (user.subscriptionPlanTier) {
+      if (sessionUser.feesExempt) {
+        request.headers.set("x-subscription-plan-tier", "studio");
+      } else if (sessionUser.subscriptionPlanTier) {
         request.headers.set(
           "x-subscription-plan-tier",
-          user.subscriptionPlanTier,
+          sessionUser.subscriptionPlanTier,
         );
       }
     }

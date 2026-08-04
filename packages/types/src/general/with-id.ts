@@ -3,3 +3,7 @@ export type Id = {
 };
 
 export type WithId<T> = T & Id;
+
+export type WithEmail<T> = T & {
+  email: string;
+};

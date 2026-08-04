@@ -1,6 +1,6 @@
 import { LanguageOptions } from "@/constants/texts";
 import { BaseSidebarPanel } from "@timelish/builder";
-import { languages, useI18n } from "@timelish/i18n";
+import { languages, useI18n } from "@timelish/i18n/client";
 import {
   PageFooterListModel,
   PageHeaderListModel,

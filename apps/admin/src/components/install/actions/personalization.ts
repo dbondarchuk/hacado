@@ -87,7 +87,7 @@ export async function applyInstallPersonalization(
   logger.debug({ organizationId }, "Applied styling configuration");
 
   const brand = await services.configurationService.getConfiguration("brand");
-  if (!brand) {
+  if (!brand || Object.keys(brand).length === 0) {
     logger.error({ organizationId }, "Brand configuration not found");
     return { ok: false, code: "no_brand" };
   }

@@ -511,6 +511,7 @@ export default class CustomerEmailNotificationConnectedApp
         handledBy:
           `app_customer-email-notification_admin.handlers.${initiator}` satisfies CustomerEmailNotificationAdminAllKeys,
         participantType: "customer",
+        memberId: appointment.memberId,
         appointmentId: appointment._id,
       });
 

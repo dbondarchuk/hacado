@@ -2,7 +2,9 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
+import type { SessionUser } from "@timelish/types";
 import { Breadcrumbs, Heading } from "@timelish/ui";
+import { canManageCalendarSources } from "@timelish/utils";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "./form";
@@ -25,10 +27,20 @@ export default async function Page() {
   }
 
   const servicesContainer = await getServicesContainer();
-  const user = await servicesContainer.userService.getUser(session.user.id);
+  const [user, booking] = await Promise.all([
+    servicesContainer.teamService.getMemberById(session.user.memberId),
+    servicesContainer.configurationService.getConfiguration("booking"),
+  ]);
   if (!user) {
     redirect("/auth/signin");
   }
+
+  const canManageSources = canManageCalendarSources(
+    session.user as SessionUser,
+    {
+      allowStaffCalendarSources: booking.allowStaffCalendarSources,
+    },
+  );
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
@@ -48,7 +60,10 @@ export default async function Page() {
             description={t("users.profile.description")}
           />
         </div>
-        <ProfileForm values={user} />
+        <ProfileForm
+          values={user}
+          canManageCalendarSources={canManageSources}
+        />
       </div>
     </PageContainer>
   );

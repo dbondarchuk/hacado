@@ -1,5 +1,5 @@
 "use client";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import type { Time } from "@timelish/types";
 import {
   Button,

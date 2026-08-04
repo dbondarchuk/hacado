@@ -31,6 +31,7 @@ export const BookingWithWaitlistEditor = ({
         className={cn(className, base?.className)}
         id={base?.id}
         successPage={props.confirmationPage}
+        flowOrder={props.flowOrder}
         isEditor
         isOnlyWaitlist={false}
         appId={appId}

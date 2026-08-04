@@ -1,4 +1,4 @@
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n";
+import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
 import { Time, timeZones } from "@timelish/types";
 import { useCurrencyFormat } from "@timelish/ui";
 import { durationToTime, formatTimeLocale } from "@timelish/utils";

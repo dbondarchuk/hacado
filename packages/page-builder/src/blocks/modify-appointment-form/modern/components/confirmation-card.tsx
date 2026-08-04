@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { timeZones } from "@timelish/types";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
@@ -6,15 +6,18 @@ import { useModifyAppointmentFormContext } from "./context";
 
 export const ConfirmationCard: React.FC = () => {
   const t = useI18n("translation");
-  const { appointment, type, newDateTime, timeZone: selectedTimeZone } =
-    useModifyAppointmentFormContext();
+  const {
+    appointment,
+    type,
+    newDateTime,
+    timeZone: selectedTimeZone,
+  } = useModifyAppointmentFormContext();
   const locale = useLocale();
 
   if (!appointment) return null;
 
   const timeZoneInfo = timeZones.find(
-    (tz) =>
-      selectedTimeZone === tz.name || tz.group.includes(selectedTimeZone),
+    (tz) => selectedTimeZone === tz.name || tz.group.includes(selectedTimeZone),
   );
 
   return (

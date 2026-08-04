@@ -1,14 +1,14 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { timeZones } from "@timelish/types";
 import { Button, useTimeZone } from "@timelish/ui";
 import { TimeZone } from "@vvo/tzdb";
 import { CheckCircle2 } from "lucide-react";
+import { DateTime } from "luxon";
 import {
   MyCabinetPublicKeys,
   MyCabinetPublicNamespace,
   myCabinetPublicNamespace,
 } from "../../../../translations/types";
-import { DateTime } from "luxon";
 import { useCabinetModifyContext } from "./context";
 
 export const ConfirmationCard: React.FC = () => {
@@ -16,7 +16,8 @@ export const ConfirmationCard: React.FC = () => {
   const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
-  const { appointment, type, newDateTime, dateTime } = useCabinetModifyContext();
+  const { appointment, type, newDateTime, dateTime } =
+    useCabinetModifyContext();
   const defaultTimeZone = useTimeZone();
   const locale = useLocale();
 

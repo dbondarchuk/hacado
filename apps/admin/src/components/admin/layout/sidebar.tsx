@@ -1,5 +1,5 @@
 "use client";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { NavItemGroup } from "@timelish/types";
 import {
   Avatar,
@@ -63,7 +63,10 @@ const collectHrefs = (menuItems: NavItemGroup[]): string[] => {
 };
 
 /** Prefer the longest matching href so /apps does not steal /apps/store. */
-const getBestMatchingHref = (path: string, hrefs: string[]): string | undefined => {
+const getBestMatchingHref = (
+  path: string,
+  hrefs: string[],
+): string | undefined => {
   let best: string | undefined;
   for (const href of hrefs) {
     const matches =

@@ -1,7 +1,7 @@
 "use client";
 
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Button, cn, Link, Spinner, toast } from "@timelish/ui";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";

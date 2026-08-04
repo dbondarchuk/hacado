@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ToolbarButton } from "@timelish/ui";
 import { Underline } from "lucide-react";
 import { useRTEContext } from "../../context/rte-context";

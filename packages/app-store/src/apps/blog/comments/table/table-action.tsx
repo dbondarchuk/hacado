@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   ButtonGroup,
@@ -22,8 +22,8 @@ import {
   BlogAdminNamespace,
   blogAdminNamespace,
 } from "../../translations/types";
-import { BlogPostsDataTableAsyncFilterBox } from "./blog-posts-data-table-async-filter-box";
 import { ApproveSelectedBlogCommentsButton } from "./approve-selected";
+import { BlogPostsDataTableAsyncFilterBox } from "./blog-posts-data-table-async-filter-box";
 import { DeleteSelectedBlogCommentsButton } from "./delete-selected";
 import { RejectSelectedBlogCommentsButton } from "./reject-selected";
 import { useCommentsTableFilters } from "./use-table-filters";

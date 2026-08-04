@@ -16,6 +16,7 @@ export const CalendarWriterApp: App<
   subscribeTo: ["appointment.*", "app.uninstalled"],
   scope: ["event-subscriber"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <CalendarPlus className={className} />,
   isFeatured: false,
   isHidden: false,

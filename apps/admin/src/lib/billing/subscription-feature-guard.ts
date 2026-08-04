@@ -19,7 +19,7 @@ export async function getSubscriptionFeatureBlockedResponse(
     {
       success: false,
       code: "subscription_upgrade_required",
-      message: "This feature requires a Pro subscription.",
+      message: "This feature requires a Solo subscription.",
       settingsUrl: BRAND_SETTINGS_UPGRADE_URL,
     },
     { status: 402 },

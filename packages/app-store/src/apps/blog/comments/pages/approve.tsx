@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Skeleton, toastPromise } from "@timelish/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";

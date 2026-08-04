@@ -1,5 +1,5 @@
 import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ShortcutsToolbar } from "@timelish/page-builder-base";
 import { LinkProps } from "./schema";
 import { linkShortcuts } from "./shortcuts";

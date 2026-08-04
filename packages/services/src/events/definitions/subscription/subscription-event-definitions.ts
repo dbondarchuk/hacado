@@ -89,7 +89,7 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         return null;
       }
 
-      const admins = await services.userService.getOrganizationAdminUsers();
+      const admins = await services.teamService.getOrganizationAdminContacts();
       if (!admins.length) {
         return null;
       }
@@ -163,7 +163,8 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           email: { to: admin.email, subject, body },
           handledBy:
             "admin.billing.emails.subscriptionAlert.handledBy" as BaseAllKeys,
-          participantType: "user",
+          participantType: "member",
+          memberId: admin.memberId,
         });
       }
 

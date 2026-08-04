@@ -1,11 +1,11 @@
 import {
   useSelectedBlockId,
-  useSelectedSlot,
   useSelectedSidebarTab,
+  useSelectedSlot,
   useSetSidebarTab,
 } from "../../documents/editor/context";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   ResponsiveTabsList,
   Sidebar,

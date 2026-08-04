@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   Card,
@@ -54,7 +54,10 @@ export const StepCard: React.FC = () => {
             {duration && (
               <div className="flex flex-row items-center">
                 <Timer className="mr-1" />
-                {i18n("common.formats.durationHourMin", durationToTime(duration))}
+                {i18n(
+                  "common.formats.durationHourMin",
+                  durationToTime(duration),
+                )}
               </div>
             )}
             {!!price && (

@@ -19,5 +19,6 @@ export const CustomerTextMessageNotificationMenuItems: AppMenuItem<
     Page: (props) => (
       <CustomerTextMessageNotificationAppSetup appId={props.appId} />
     ),
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

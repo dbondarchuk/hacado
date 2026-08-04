@@ -12,8 +12,9 @@ export const TextBeltApp: App<TextBeltAdminNamespace, TextBeltAdminKeys> = {
   scope: ["text-message-send"],
   category: ["apps.categories.communications"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <TextBeltLogo className={className} />,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_text-belt_admin.app.description",
   },

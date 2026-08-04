@@ -1,7 +1,8 @@
 "use client";
 import { authClient } from "@/app/auth-client";
+import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BaseAllKeys, languages, useI18n } from "@timelish/i18n";
+import { BaseAllKeys, languages, useI18n } from "@timelish/i18n/client";
 import { zEmail, zPhone } from "@timelish/types";
 import {
   Button,
@@ -22,7 +23,17 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
+export const UserSignupForm = ({
+  publicDomain,
+  invitation,
+}: {
+  publicDomain: string;
+  invitation?: {
+    id: string;
+    email: string;
+    organizationName: string;
+  } | null;
+}) => {
   const formSchema = useMemo(
     () =>
       z
@@ -81,10 +92,12 @@ export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
   const [loading, setLoading] = useState(false);
   const t = useI18n("admin");
 
+  const postAuthPath = invitation ? "/dashboard" : (callbackUrl ?? "/checkout");
+
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      email: invitation?.email ?? "",
       name: "",
       password: "",
       confirmPassword: "",
@@ -102,16 +115,12 @@ export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
     setLoading(true);
     setError(null);
     try {
+      const email = invitation?.email ?? data.email;
       const response = await authClient.signUp.email({
-        email: data.email,
+        email,
         password: data.password,
         name: data.name,
-        language: data.language,
-        phone: data.phone,
-        bio: "",
-        // organizationName: data.organizationName,
-        // organizationSlug: data.organizationSlug,
-        callbackURL: callbackUrl ?? "/checkout",
+        callbackURL: postAuthPath,
       });
 
       if (response.error?.message) {
@@ -125,8 +134,16 @@ export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
       }
 
       if (response.data?.user) {
+        await saveSignupMemberProfile({
+          userId: response.data.user.id,
+          email,
+          name: data.name,
+          phone: data.phone,
+          language: data.language,
+        });
+
         toast.success(t("auth.signUp.toasts.success"));
-        router.push(callbackUrl ?? "/checkout");
+        router.push(postAuthPath);
       }
     } finally {
       setLoading(false);
@@ -150,7 +167,7 @@ export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
                   <Input
                     type="email"
                     placeholder={t("auth.signUp.emailPlaceholder")}
-                    disabled={loading}
+                    disabled={loading || !!invitation}
                     {...field}
                   />
                 </FormControl>
@@ -269,7 +286,13 @@ export const UserSignupForm = ({ publicDomain }: { publicDomain: string }) => {
         {t.rich("auth.sign_up_sign_in_link", {
           link: (chunks: any) => (
             <Link
-              href="/auth/signin"
+              href={
+                invitation
+                  ? `/auth/signin?callbackUrl=${encodeURIComponent(
+                      `/accept-invitation?invitationId=${invitation.id}`,
+                    )}`
+                  : "/auth/signin"
+              }
               className="ml-auto w-full"
               variant="underline"
             >

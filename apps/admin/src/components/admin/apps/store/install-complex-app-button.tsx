@@ -1,11 +1,13 @@
 "use client";
 
+import { authClient } from "@/app/auth-client";
 import { AvailableApps } from "@timelish/app-store";
-import { BaseAllKeys, useI18n } from "@timelish/i18n";
+import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
 import {
   ComplexApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
+  type SessionUser,
 } from "@timelish/types";
 import {
   AlertDialog,
@@ -21,6 +23,7 @@ import {
   Spinner,
   toastPromise,
 } from "@timelish/ui";
+import { filterInstallDefaultScopesForUser } from "@timelish/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
 import {
@@ -37,6 +40,7 @@ export const InstallComplexAppButton: React.FC<{
   const app = React.useMemo(() => AvailableApps[appName], [appName]);
   const router = useRouter();
   const t = useI18n("apps");
+  const { data: session } = authClient.useSession();
   const [pendingDefaultPrompt, setPendingDefaultPrompt] = React.useState<{
     appId: string;
     scopes: DefaultAppToInstallScope[];
@@ -47,10 +51,14 @@ export const InstallComplexAppButton: React.FC<{
   const [settingDefault, setSettingDefault] = React.useState(false);
 
   const defaultScopes = React.useMemo(() => {
-    return defaultAppToInstallScopes.filter((scope) =>
+    const intersecting = defaultAppToInstallScopes.filter((scope) =>
       app.scope.includes(scope),
     );
-  }, [app.scope]);
+    return filterInstallDefaultScopesForUser(
+      intersecting,
+      session?.user as SessionUser | undefined,
+    );
+  }, [app.scope, session?.user]);
 
   const finishInstallNavigation = React.useCallback(async () => {
     if (app.type === "complex" && app.settingsHref) {
@@ -113,9 +121,7 @@ export const InstallComplexAppButton: React.FC<{
     <>
       <Button
         variant="default"
-        disabled={
-          installBlocked || (app.dontAllowMultiple && installed > 0)
-        }
+        disabled={installBlocked || (app.dontAllowMultiple && installed > 0)}
         onClick={installComplex}
       >
         {app.dontAllowMultiple && installed > 0
@@ -141,7 +147,10 @@ export const InstallComplexAppButton: React.FC<{
             </AlertDialogDescription>
             <div className="flex flex-col gap-2 pt-2">
               {pendingDefaultPrompt?.scopes.map((scope) => (
-                <Label key={scope} className="flex items-center gap-2 text-base">
+                <Label
+                  key={scope}
+                  className="flex items-center gap-2 text-base"
+                >
                   <Checkbox
                     checked={selectedScopes.includes(scope)}
                     onCheckedChange={(checked) => {

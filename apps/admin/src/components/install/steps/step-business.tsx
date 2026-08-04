@@ -7,7 +7,8 @@ import {
 } from "@/components/install/actions";
 import { normalizeSlug } from "@/components/install/constants";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { languages, useI18n } from "@timelish/i18n";
+import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
+import { languages, useI18n } from "@timelish/i18n/client";
 import { countryOptions, currencyOptions } from "@timelish/types";
 import {
   Button,
@@ -57,7 +58,7 @@ export function StepBusiness() {
 
   const wrappedScheduleSlugCheck = useDebounceCallback(
     async (slug: string) => {
-      if (!slug || !/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/.test(slug)) {
+      if (getOrganizationSlugIssue(slug)) {
         setSlugCheck("idle");
         return;
       }
@@ -73,10 +74,12 @@ export function StepBusiness() {
       ? `https://${p.slug}.${publicDomain}`
       : `https://your-name.${publicDomain}`;
 
+  const slugIssue = p.slug ? getOrganizationSlugIssue(p.slug) : "too_short";
+
   const validateStep1 = () => {
     if (!p.businessName.trim() || p.businessName.trim().length < 2)
       return false;
-    if (!p.slug || slugCheck !== "available") return false;
+    if (slugIssue || slugCheck !== "available") return false;
     if (!p.timeZone) return false;
     if (!p.language) return false;
     if (!p.country) return false;
@@ -104,6 +107,10 @@ export function StepBusiness() {
       if (!result.ok) {
         if (result.code === "slug_taken") {
           toast.error(t("wizard.errors.slugTaken"));
+        } else if (result.code === "slug_reserved") {
+          toast.error(t("wizard.errors.slugReserved"));
+        } else if (result.code === "slug_invalid") {
+          toast.error(t("wizard.errors.slugInvalid"));
         } else {
           toast.error(t("wizard.errors.workspace"));
         }
@@ -180,17 +187,32 @@ export function StepBusiness() {
           <p className="text-sm text-muted-foreground">
             {t("wizard.business.slugHelp")}
           </p>
-          {slugCheck === "checking" ? (
+          {slugIssue === "too_short" && p.slug ? (
+            <p className="text-sm text-destructive">
+              {t("wizard.business.slugTooShort")}
+            </p>
+          ) : null}
+          {slugIssue === "reserved" ? (
+            <p className="text-sm text-destructive">
+              {t("wizard.business.slugReserved")}
+            </p>
+          ) : null}
+          {slugIssue === "invalid" ? (
+            <p className="text-sm text-destructive">
+              {t("wizard.errors.slugInvalid")}
+            </p>
+          ) : null}
+          {!slugIssue && slugCheck === "checking" ? (
             <p className="text-sm text-muted-foreground">
               {t("wizard.business.slugChecking")}
             </p>
           ) : null}
-          {slugCheck === "available" ? (
+          {!slugIssue && slugCheck === "available" ? (
             <p className="text-sm text-primary">
               {t("wizard.business.slugAvailable")}
             </p>
           ) : null}
-          {slugCheck === "taken" ? (
+          {!slugIssue && slugCheck === "taken" ? (
             <p className="text-sm text-destructive">
               {t("wizard.business.slugTaken")}
             </p>

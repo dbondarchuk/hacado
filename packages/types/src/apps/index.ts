@@ -1,4 +1,6 @@
 export * from "./app";
+export * from "./app-scope-usage";
+export * from "./app-target";
 export * from "./assets";
 export * from "./availability-provider";
 export * from "./calendars";

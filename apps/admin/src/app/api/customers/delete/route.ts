@@ -1,11 +1,19 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { bulkDeleteSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
 import { okStatus } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/customers/delete")("POST");
+  const auth = await requirePermission(
+    "customer",
+    "delete",
+    "AdminAPI/customers/delete",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const body = await request.json();

@@ -7,6 +7,7 @@ import {
   InstallWizardProvider,
   type SlugCheckState,
 } from "@/components/install/install-wizard-context";
+import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
 import {
   applyInstallCalendarSnapshot,
   sanitizePersisted,
@@ -182,7 +183,7 @@ export function InstallWizard({
   const scheduleSlugCheck = useCallback(
     (slug: string) => {
       if (slugTimer.current) clearTimeout(slugTimer.current);
-      if (!slug || !/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/.test(slug)) {
+      if (getOrganizationSlugIssue(slug)) {
         setSlugCheck("idle");
         return;
       }

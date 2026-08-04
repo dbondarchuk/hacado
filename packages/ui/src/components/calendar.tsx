@@ -5,7 +5,7 @@ import React from "react";
 import { DayPicker, DropdownProps } from "react-day-picker";
 
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { useLocale } from "@timelish/i18n";
+import { useLocale } from "@timelish/i18n/client";
 import { DateTime } from "luxon";
 import { useIsMobile } from "../hooks";
 import { cn } from "../utils";

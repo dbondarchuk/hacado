@@ -280,6 +280,7 @@ export class AppointmentNotificationsJobProcessor {
               },
             },
             appointmentId: appointment._id,
+            memberId: appointment.memberId,
           });
 
           logger.info(
@@ -349,6 +350,7 @@ export class AppointmentNotificationsJobProcessor {
               },
             },
             appointmentId: appointment._id,
+            memberId: appointment.memberId,
           });
 
           logger.info(

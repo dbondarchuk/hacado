@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
@@ -8,8 +8,9 @@ import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
 } from "@timelish/ui-admin-kit";
+import { canReassignAppointment, canUpdateAppointment } from "@timelish/utils";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { forbidden, notFound } from "next/navigation";
 
 type Props = PageProps<"/dashboard/appointments/[id]/edit">;
 
@@ -59,6 +60,11 @@ export default async function NewAssetsPage(props: Props) {
     return notFound();
   }
 
+  const session = await getSession();
+  if (!canUpdateAppointment(session.user, appointment.memberId)) {
+    forbidden();
+  }
+
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
     {
@@ -85,6 +91,9 @@ export default async function NewAssetsPage(props: Props) {
     "Edit appointment page loaded",
   );
 
+  const currentMemberId = session.user.memberId;
+  const canAssignMember = canReassignAppointment(session.user);
+
   const from: AppointmentScheduleFormFrom = {
     optionId: appointment.option._id,
     addonsIds: appointment.addons?.map((addon) => addon._id),
@@ -96,6 +105,7 @@ export default async function NewAssetsPage(props: Props) {
     note: appointment.note,
     status: appointment.status,
     discount: appointment.discount,
+    memberId: appointment.memberId,
   };
 
   return (
@@ -115,6 +125,8 @@ export default async function NewAssetsPage(props: Props) {
           isEdit={true}
           id={id}
           customer={appointment.customer}
+          canAssignMember={canAssignMember}
+          currentMemberId={currentMemberId}
         />
       </div>
     </PageContainer>

@@ -4,6 +4,7 @@ import {
   calendarSourcesConfigurationSchema,
   zAssetName,
   zNonEmptyString,
+  zObjectId,
   zPhone,
 } from "@timelish/types";
 import { z } from "zod";
@@ -27,6 +28,7 @@ export const userUpdateSchema = z.object({
       .max(1024, "admin.users.validation.bio.max" satisfies BaseAllKeys),
   ).nullable(),
   calendarSources: calendarSourcesConfigurationSchema,
+  meetingUrlProviderAppId: asOptionalField(zObjectId()).nullable(),
 });
 
 export type UserUpdate = z.infer<typeof userUpdateSchema>;

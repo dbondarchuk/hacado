@@ -1,4 +1,4 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@timelish/i18n/components";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { BlogCommentsContainerComponent } from "./component";
 import { BlogCommentsContainerReaderProps } from "./schema";
@@ -50,7 +50,9 @@ export const BlogCommentsContainerServerWrapper = async ({
   if (!appId || !postId) {
     return (
       <div className="text-sm text-muted-foreground">
-        <I18nText text={"app_blog_public.notInBlogContext" satisfies BlogPublicAllKeys} />
+        <I18nText
+          text={"app_blog_public.notInBlogContext" satisfies BlogPublicAllKeys}
+        />
       </div>
     );
   }

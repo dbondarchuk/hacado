@@ -1,7 +1,7 @@
 "use client";
 
 import { pageHeadersSearchParams } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

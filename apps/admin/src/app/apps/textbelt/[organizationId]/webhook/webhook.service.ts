@@ -14,6 +14,7 @@ import {
   IEventService,
   INotificationService,
   IOrganizationService,
+  ITeamService,
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
@@ -65,6 +66,7 @@ export class TextBeltWebhookService {
     private readonly organizationService: IOrganizationService,
     private readonly billingService: IBillingService,
     private readonly eventService: IEventService,
+    private readonly teamService: ITeamService,
   ) {}
 
   public async processWebhook(request: ApiRequest): Promise<ApiResponse> {
@@ -121,7 +123,8 @@ export class TextBeltWebhookService {
         "Received TextBelt reply webhook",
       );
 
-      await this.billingService.recordSmsCreditUsage({
+      await this.billingService.consumeSmsCredits({
+        amount: 1,
         direction: "inbound",
         textId: reply.textId,
       });
@@ -206,7 +209,12 @@ export class TextBeltWebhookService {
       "social",
     );
 
-    const { appointment, customer, ...reply } = textMessageReply;
+    const {
+      appointment,
+      customer,
+      memberId: _memberId,
+      ...reply
+    } = textMessageReply;
 
     const organization = await this.organizationService.getOrganization();
     if (!organization) {
@@ -252,6 +260,12 @@ export class TextBeltWebhookService {
       "Sending email to owner about incoming message",
     );
 
+    let memberId = _memberId;
+    if (!memberId) {
+      memberId =
+        appointment?.memberId ?? (await this.teamService.getOwnerMember())._id;
+    }
+
     await this.notificationService.sendEmail({
       email: {
         to: config.general.email,
@@ -259,7 +273,8 @@ export class TextBeltWebhookService {
         body: description,
       },
       handledBy: "admin.textbelt-webhook.handledBy" satisfies BaseAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId,
       appointmentId: appointment?._id,
       customerId: customer?._id,
     });
@@ -331,12 +346,19 @@ export class TextBeltWebhookService {
         channel: "text-message",
         direction: "inbound",
         participant: reply.from,
-        participantType: result.participantType,
         handledBy: result.handledBy,
         text: reply.message,
         data: reply.data,
         appointmentId: appointment?._id,
         customerId: customer?._id,
+        ...(result.participantType === "member"
+          ? { participantType: "member" as const, memberId }
+          : {
+              participantType: "customer" as const,
+              ...(appointment?.memberId
+                ? { memberId: appointment.memberId }
+                : {}),
+            }),
       });
 
       logger.info(

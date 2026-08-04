@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Button } from "@timelish/ui";
 import { durationToTime } from "@timelish/utils";
 import React from "react";

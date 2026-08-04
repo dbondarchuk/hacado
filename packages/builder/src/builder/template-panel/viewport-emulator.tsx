@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { cn, ScrollArea, ScrollBar, Skeleton } from "@timelish/ui";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";

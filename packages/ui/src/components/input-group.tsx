@@ -35,7 +35,8 @@ export const InputGroupAddonClasses = cva(
     },
     defaultVariants: {
       variant: "suffix",
-      h: "sm",
+      // h: "sm",
+      h: "md",
     },
   },
 );

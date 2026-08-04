@@ -4,7 +4,7 @@ import {} from "@/app/dashboard/notifications-toast-stream";
 import { ActivityActorDisplayView } from "@/components/admin/activity/actor-display";
 import { useActivityFeedStore } from "@/notifications/store";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type { ActivityFeedPreview, ActivitySeverity } from "@timelish/types";
 import {
   Button,

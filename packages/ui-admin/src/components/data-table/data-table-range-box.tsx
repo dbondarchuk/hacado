@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { DateRange } from "@timelish/types";
 import { CalendarDateRangePicker, useTimeZone } from "@timelish/ui";
 import { DateTime } from "luxon";

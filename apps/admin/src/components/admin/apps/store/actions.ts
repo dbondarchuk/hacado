@@ -1,9 +1,13 @@
 "use server";
 
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
+import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
+import { AvailableApps } from "@timelish/app-store";
+import { withCatalogTarget } from "@timelish/app-store/utils";
 import { BaseAllKeys } from "@timelish/i18n";
 import { getLoggerFactory } from "@timelish/logger";
+import type { SessionUser } from "@timelish/types";
 import {
   BookingConfiguration,
   BookingProviderScope,
@@ -15,7 +19,15 @@ import {
   DefaultAppScope,
   defaultAppScopes,
   DefaultAppToInstallScope,
+  MeetingUrlProviderScope,
+  meetingUrlProviderScopes,
 } from "@timelish/types";
+import {
+  canInstallApp,
+  canInstallCompanyApps,
+  filterConnectedAppsForInstallQuota,
+  filterInstallDefaultScopesForUser,
+} from "@timelish/utils";
 
 const logger = getLoggerFactory("AppStoreActions");
 
@@ -30,9 +42,21 @@ export const getInstalledApps = async (name: string) => {
   );
 
   try {
-    const servicesContainer = await getServicesContainer();
-    const result =
+    const [servicesContainer, session, ownerMemberIds] = await Promise.all([
+      getServicesContainer(),
+      getSession(),
+      getOwnerMemberIds(),
+    ]);
+    if (!session) {
+      throw new Error("Unauthorized");
+    }
+    const installed =
       await servicesContainer.connectedAppsService.getAppsByApp(name);
+    const result = filterConnectedAppsForInstallQuota(
+      session.user as SessionUser,
+      installed.map(withCatalogTarget),
+      ownerMemberIds,
+    );
 
     actionLogger.debug(
       {
@@ -72,13 +96,18 @@ export const installComplexApp = async (name: string) => {
       throw new Error("Unauthorized");
     }
 
-    if (!sessionCanInstallApp(session, name)) {
+    const catalogApp = AvailableApps[name];
+    if (
+      !catalogApp ||
+      !canInstallApp(session.user as SessionUser, catalogApp) ||
+      !sessionCanInstallApp(session, name)
+    ) {
       throw new Error("subscription_upgrade_required");
     }
 
     const appId = await servicesContainer.connectedAppsService.createNewApp(
       name,
-      session.user.id,
+      session.user.memberId,
     );
 
     actionLogger.debug(
@@ -176,12 +205,26 @@ export const setDefaultAppByScope = async (
   scopes: DefaultAppToInstallScope[],
 ) => {
   const actionLogger = logger("setDefaultAppByScope");
-  const servicesContainer = await getServicesContainer();
-  const actor = await getActor();
-  const uniqueScopes = [...new Set(scopes)];
+  const [servicesContainer, actor, session] = await Promise.all([
+    getServicesContainer(),
+    getActor(),
+    getSession(),
+  ]);
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  const uniqueScopes = filterInstallDefaultScopesForUser(
+    [...new Set(scopes)],
+    session.user as SessionUser,
+  );
 
   actionLogger.debug(
-    { appId, scopes: uniqueScopes },
+    {
+      appId,
+      scopes: uniqueScopes,
+      canInstallCompany: canInstallCompanyApps(session.user as SessionUser),
+    },
     "Setting default app by scope",
   );
 
@@ -194,27 +237,47 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting calendar source app",
     );
-    const session = await getSession();
-    if (!session?.user?.id) {
-      throw new Error("Unauthorized");
-    }
+    const user = await servicesContainer.teamService.getMemberById(
+      session.user.memberId,
+    );
 
-    const user = await servicesContainer.userService.getUser(session.user.id);
     if (!user) {
       throw new Error("User not found");
     }
 
     const currentSources = user.calendarSources ?? [];
     if (!currentSources.some((source) => source.appId === appId)) {
-      await servicesContainer.userService.updateUser(session.user.id, {
-        calendarSources: [...currentSources, { appId }],
-      });
+      await servicesContainer.teamService.updateMemberProfile(
+        session.user.memberId,
+        {
+          calendarSources: [...currentSources, { appId }],
+        },
+      );
 
       actionLogger.debug(
         { appId, scopes: uniqueScopes },
         "Calendar source app set",
       );
     }
+  }
+
+  if (
+    uniqueScopes.some((scope) =>
+      meetingUrlProviderScopes.includes(scope as MeetingUrlProviderScope),
+    )
+  ) {
+    actionLogger.debug(
+      { appId, scopes: uniqueScopes },
+      "Setting meeting URL provider app",
+    );
+    await servicesContainer.teamService.updateMemberProfile(
+      session.user.memberId,
+      { meetingUrlProviderAppId: appId },
+    );
+    actionLogger.debug(
+      { appId, scopes: uniqueScopes },
+      "Meeting URL provider app set",
+    );
   }
 
   if (

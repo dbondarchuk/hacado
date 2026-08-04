@@ -24,7 +24,7 @@ import {
 } from "@timelish/ui";
 
 import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n } from "@timelish/i18n";
+import { TranslationKeys, useI18n } from "@timelish/i18n/client";
 import { fieldSchemaMapper, fieldsComponentMap } from "@timelish/ui";
 import { deepEqual } from "@timelish/utils";
 import { DateTime as Luxon } from "luxon";
@@ -236,7 +236,9 @@ export const FormCard: React.FC = () => {
 
             {showPromoCode && !!basePrice && (
               <FormItem>
-                <Label htmlFor="promo-code">{i18n("common.labels.formPromoCode")}</Label>
+                <Label htmlFor="promo-code">
+                  {i18n("common.labels.formPromoCode")}
+                </Label>
                 <div className="flex flex-row gap-2">
                   <Input
                     className="w-full flex-1"
@@ -311,7 +313,8 @@ export const FormCard: React.FC = () => {
                       isLoadingGiftCards
                     }
                   >
-                    {isLoadingGiftCards && <Spinner />} {i18n("common.buttons.apply")}
+                    {isLoadingGiftCards && <Spinner />}{" "}
+                    {i18n("common.buttons.apply")}
                   </Button>
                 </div>
                 {!!giftCardError && (

@@ -1,14 +1,16 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { fieldTypes } from "@timelish/types";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
+  useAuth,
   useSelectedRowsStore,
 } from "@timelish/ui-admin";
+import { hasPermission } from "@timelish/utils";
 import { Settings2 } from "lucide-react";
 import { DeleteSelectedFieldsButton } from "./delete-selected";
 import { useFieldsTableFilters } from "./use-table-filters";
@@ -24,6 +26,8 @@ export function FieldsTableAction() {
     setSearchQuery,
   } = useFieldsTableFilters();
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
+  const canDelete = hasPermission(user, "service", "delete");
   const t = useI18n("admin");
 
   const additionalFilters = (
@@ -70,9 +74,11 @@ export function FieldsTableAction() {
           onReset={resetFilters}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-4">
-        <DeleteSelectedFieldsButton selected={rowSelection} />
-      </div>
+      {canDelete ? (
+        <div className="flex flex-wrap items-center gap-4">
+          <DeleteSelectedFieldsButton selected={rowSelection} />
+        </div>
+      ) : null}
     </div>
   );
 }

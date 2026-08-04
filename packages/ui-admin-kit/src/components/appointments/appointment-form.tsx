@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { fallbackLanguage, useI18n } from "@timelish/i18n/client";
 import {
   Appointment,
   AppointmentAddon,
@@ -16,6 +16,7 @@ import {
   Discount,
   Field,
   getFields,
+  OrganizationMember,
   Prettify,
   WithLabelFieldData,
   zNonEmptyString,
@@ -51,7 +52,11 @@ import {
   useCurrencySymbol,
   useTimeZone,
 } from "@timelish/ui";
-import { CustomerSelector, PromoCodeSelector } from "@timelish/ui-admin";
+import {
+  CustomerSelector,
+  MemberSelector,
+  PromoCodeSelector,
+} from "@timelish/ui-admin";
 import {
   durationToTime,
   formatAmount,
@@ -73,6 +78,7 @@ export const appointmentFromSchema = z.object({
   optionId: z.string().optional(),
   addonsIds: z.array(z.string()).optional(),
   customerId: z.string().optional(),
+  memberId: z.string(),
   fields: z.record(z.string(), z.any()).optional(),
   dateTime: z.date().optional(),
   totalDuration: z.number().optional(),
@@ -94,6 +100,8 @@ export type AppointmentScheduleFormProps = Prettify<
     options: AppointmentChoice[];
     knownFields: (Field<WithLabelFieldData> & { _id: string })[];
     customer?: Customer | null;
+    currentMemberId: string;
+    canAssignMember: boolean;
   } & (
     | ({
         from: AppointmentScheduleFormFrom;
@@ -148,7 +156,16 @@ const getSelectedFields = (
 
 export const AppointmentScheduleForm: React.FC<
   AppointmentScheduleFormProps
-> = ({ options, knownFields, from, isEdit, id, customer: propsCustomer }) => {
+> = ({
+  options,
+  knownFields,
+  from,
+  isEdit,
+  id,
+  customer: propsCustomer,
+  canAssignMember,
+  currentMemberId,
+}) => {
   const t = useI18n("admin");
   const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
@@ -192,6 +209,7 @@ export const AppointmentScheduleForm: React.FC<
       customerId: z.string().optional(),
       promoCode: z.string().optional().nullable(),
       doNotNotifyCustomer: z.coerce.boolean<boolean>().optional(),
+      memberId: z.string().optional(),
     })
     .superRefine((args, ctx) => {
       const option = options.find((x) => x._id === args.option);
@@ -277,6 +295,9 @@ export const AppointmentScheduleForm: React.FC<
       note: isEdit ? from?.note || "" : "",
       promoCode: isEdit ? from?.discount?.code : undefined,
       doNotNotifyCustomer: false,
+      memberId: canAssignMember
+        ? (from?.memberId ?? undefined)
+        : (currentMemberId ?? from?.memberId ?? undefined),
     },
   });
 
@@ -289,6 +310,8 @@ export const AppointmentScheduleForm: React.FC<
   const [customer, setCustomer] = React.useState<
     CustomerListModel | undefined
   >();
+
+  const [member, setMember] = React.useState<OrganizationMember | undefined>();
 
   const [discount, setDiscount] = React.useState<
     (Discount & { code: string }) | undefined
@@ -307,6 +330,7 @@ export const AppointmentScheduleForm: React.FC<
   const price = form.watch("totalPrice");
   const selectedOptionId = form.watch("option");
   const selectedAddonIds = form.watch("addons");
+  const selectedMemberId = form.watch("memberId");
 
   const selectedOption = React.useMemo(
     () => options.find((x) => x._id === selectedOptionId),
@@ -402,6 +426,7 @@ export const AppointmentScheduleForm: React.FC<
         note: data.note,
         discount: appointmentDiscount,
         data: from?.data,
+        memberId: !isEdit ? data.memberId : undefined,
       };
 
       let appointmentId = id;
@@ -459,7 +484,7 @@ export const AppointmentScheduleForm: React.FC<
   );
 
   const appointment: Appointment | undefined = React.useMemo(() => {
-    if (!selectedOption) return undefined;
+    if (!selectedOption || !selectedMemberId) return undefined;
 
     const dt = DateTime.fromJSDate(dateTime);
 
@@ -504,6 +529,21 @@ export const AppointmentScheduleForm: React.FC<
         knownPhones: [],
       },
       organizationId: "unknown",
+      memberId: selectedMemberId,
+      member: member ?? {
+        _id: selectedMemberId,
+        name: "",
+        email: "",
+        phone: "",
+        role: "staff",
+        status: "active",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        organizationId: "unknown",
+        userId: "unknown",
+        image: undefined,
+        language: fallbackLanguage,
+      },
     } as unknown as Appointment;
   }, [
     dateTime,
@@ -511,8 +551,17 @@ export const AppointmentScheduleForm: React.FC<
     price,
     selectedOption,
     selectedAddonIds,
+    selectedMemberId,
     name,
     email,
+    phone,
+    selectedFields,
+    timeZone,
+    now,
+    from,
+    customer,
+    id,
+    member,
   ]);
 
   React.useEffect(() => {
@@ -714,6 +763,27 @@ export const AppointmentScheduleForm: React.FC<
                   </FormItem>
                 )}
               />
+              {!isEdit && (
+                <FormField
+                  control={form.control}
+                  name="memberId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("appointments.form.assignTo")}</FormLabel>
+                      <FormControl>
+                        <MemberSelector
+                          value={field.value}
+                          onItemSelect={field.onChange}
+                          canAssign={canAssignMember}
+                          onValueChange={setMember}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               {selectedFields.map((field) => (
                 <React.Fragment key={field.name}>
                   {fieldsComponentMap("fields")[field.type](

@@ -465,6 +465,7 @@ export default class CustomerTextMessageNotificationConnectedApp
         },
         appointmentId: appointment._id,
         participantType: "customer",
+        memberId: appointment.memberId,
         handledBy:
           `app_customer-text-message-notification_admin.handlers.${initiator}` satisfies CustomerTextMessageNotificationAdminAllKeys,
       });

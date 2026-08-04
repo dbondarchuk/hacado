@@ -6,6 +6,8 @@ import {
   AppointmentOption,
   AppointmentRequest,
   Customer,
+  effectiveStaffDuration,
+  effectiveStaffPrice,
 } from "@timelish/types";
 import { formatAmount, getDiscountAmount } from "@timelish/utils";
 import { canUseFeature, resolvePlanTierFromOrganization } from "@timelish/services/billing";
@@ -244,9 +246,37 @@ export const getAppointmentEventFromRequest = async (
     logger.debug({ fieldValidationEnabled: false }, "Field validation skipped");
   }
 
+  const staffAssignment = request.memberId
+    ? selectedOption.staff?.find(
+        (assignment) => assignment.memberId === request.memberId,
+      )
+    : undefined;
+
+  if (
+    request.memberId &&
+    selectedOption.staff?.length &&
+    !staffAssignment
+  ) {
+    logger.warn(
+      {
+        optionId: request.optionId,
+        memberId: request.memberId,
+      },
+      "Selected member is not assigned to this option",
+    );
+
+    return {
+      error: {
+        code: "unknown_member",
+        message: `Selected specialist is not available for this option`,
+        status: 400,
+      },
+    };
+  }
+
   const optionDuration =
     selectedOption.durationType === "fixed"
-      ? selectedOption.duration
+      ? (effectiveStaffDuration(selectedOption.duration, staffAssignment) ?? 0)
       : (request.duration ?? 0);
   const totalDuration =
     (optionDuration ?? 0) +
@@ -254,8 +284,11 @@ export const getAppointmentEventFromRequest = async (
 
   const optionPrice =
     selectedOption.durationType === "fixed"
-      ? selectedOption.price
-      : ((selectedOption.pricePerHour || 0) / 60) * (optionDuration || 0);
+      ? effectiveStaffPrice(selectedOption.price, staffAssignment)
+      : ((effectiveStaffPrice(selectedOption.pricePerHour, staffAssignment) ||
+          0) /
+          60) *
+        (optionDuration || 0);
   let totalPrice: number | undefined =
     (optionPrice ?? 0) +
     (selectedAddons?.reduce((sum, cur) => sum + (cur.price ?? 0), 0) ?? 0);
@@ -265,6 +298,9 @@ export const getAppointmentEventFromRequest = async (
       optionDurationType: selectedOption.durationType,
       optionDuration,
       requestDuration: request.duration,
+      memberId: request.memberId,
+      priceOverride: staffAssignment?.priceOverride,
+      durationOverride: staffAssignment?.durationOverride,
       addonsDuration:
         selectedAddons?.reduce((sum, cur) => sum + (cur.duration ?? 0), 0) ?? 0,
       totalDuration,

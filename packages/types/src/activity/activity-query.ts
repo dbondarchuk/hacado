@@ -2,7 +2,7 @@ import type { DateRange } from "../general";
 import type { Query } from "../database/query";
 import type { ActivitySeverity } from "./activity-severity";
 
-export type ActivityActorFilter = "system" | "user" | "customer";
+export type ActivityActorFilter = "system" | "member" | "customer";
 
 export type ActivityListQuery = Query & {
   range?: DateRange;

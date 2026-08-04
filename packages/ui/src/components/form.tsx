@@ -2,7 +2,7 @@
 
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import { AllKeys, useI18n, ValidationKeys } from "@timelish/i18n";
+import { AllKeys, useI18n, ValidationKeys } from "@timelish/i18n/client";
 import { ErrorMessageWithParams } from "@timelish/types";
 import React, { ReactNode } from "react";
 import {

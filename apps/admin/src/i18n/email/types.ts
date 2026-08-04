@@ -13,4 +13,12 @@ export type EmailTemplate = {
     subject: string;
     body: UserEmailTemplateProps;
   };
+  teamInvitation: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
+  membersReactivated: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
 };

@@ -15,6 +15,7 @@ export const TextMessageResenderApp: App<
   scope: ["text-message-respond"],
   category: ["apps.categories.communications"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <MessageCircleReply className={className} />,
   description: {
     text: "app_text-message-resender_admin.app.description",

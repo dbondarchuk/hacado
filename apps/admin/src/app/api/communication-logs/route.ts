@@ -1,14 +1,21 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
 import { communicationLogsSearchParamsLoader } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
 import { okStatus } from "@timelish/types";
+import {
+  canFilterCommunicationByMember,
+  gateMemberIds,
+} from "@timelish/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/communication-logs")("GET");
-  const servicesContainer = await getServicesContainer();
+  const [servicesContainer, user] = await Promise.all([
+    getServicesContainer(),
+    getUser(),
+  ]);
   logger.debug(
     {
       url: request.url,
@@ -33,6 +40,9 @@ export async function GET(request: NextRequest) {
   const start = params.start ?? undefined;
   const end = params.end ?? undefined;
   const participantType = params.participantType ?? undefined;
+  const memberIds = gateMemberIds(user, params.member ?? undefined, {
+    canFilter: canFilterCommunicationByMember,
+  });
 
   const offset = (page - 1) * limit;
 
@@ -41,6 +51,7 @@ export async function GET(request: NextRequest) {
       page,
       limit,
       offset,
+      memberIds,
     },
     "Fetching communication logs with parameters",
   );
@@ -56,6 +67,7 @@ export async function GET(request: NextRequest) {
       direction,
       channel,
       participantType,
+      memberId: memberIds ?? undefined,
       range:
         start || end
           ? {

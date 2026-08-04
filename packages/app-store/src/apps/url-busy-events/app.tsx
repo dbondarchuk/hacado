@@ -15,9 +15,10 @@ export const UrlBusyEventsApp: App<
   scope: ["calendar-read"],
   category: ["apps.categories.calendar"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <UrlBusyEventsLogo className={className} />,
   description: {
     text: "app_url-busy-events_admin.app.description",
   },
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
 };

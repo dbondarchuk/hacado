@@ -29,6 +29,9 @@ export const BusyEventsMenuItems: AppMenuItem<
       },
     ],
     icon: <CalendarX2 />,
-    Page: (props) => <BusyEventsAppSetup appId={props.appId} />,
+    Page: (props) => (
+      <BusyEventsAppSetup appId={props.appId} services={props.services} />
+    ),
+    requiredPermission: { resource: "schedule", action: "update" },
   },
 ];

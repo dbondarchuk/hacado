@@ -9,6 +9,7 @@ export const emailNotificationConfigurationSchema = z.object({
       "validation.common.email.unique",
     ),
   ),
+  processOtherMembersAppointments: z.boolean().optional(),
 });
 
 export type EmailNotificationConfiguration = z.infer<

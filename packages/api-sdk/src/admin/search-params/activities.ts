@@ -13,7 +13,7 @@ import {
 import { baseSearchParams } from "./base";
 
 const activitySeverities = ["info", "success", "warning", "error"] as const;
-const activityActors = ["system", "user", "customer"] as const;
+const activityActors = ["system", "member", "customer"] as const;
 
 export const activitiesSearchParams = {
   ...baseSearchParams,

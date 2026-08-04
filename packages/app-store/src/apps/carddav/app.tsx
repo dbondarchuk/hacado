@@ -14,11 +14,12 @@ export const CarddavApp: App<CarddavAdminNamespace, CarddavAdminKeys> = {
   category: ["apps.categories.customers"],
   scope: [],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <IdCard className={className} />,
   isFeatured: false,
   dontAllowMultiple: true,
   description: {
     text: "app_carddav_admin.app.description" satisfies CarddavAdminAllKeys,
   },
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
 };

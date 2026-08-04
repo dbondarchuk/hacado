@@ -1,6 +1,6 @@
 "use client";
 
-import { AllKeys, BuilderKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, BuilderKeys, useI18n } from "@timelish/i18n/client";
 import {
   Popover,
   PopoverContent,

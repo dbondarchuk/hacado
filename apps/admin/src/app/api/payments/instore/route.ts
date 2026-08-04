@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@timelish/logger";
 import {
   inStorePaymentUpdateModelSchema,
@@ -37,27 +38,14 @@ export async function POST(request: NextRequest) {
   let customerId: string | undefined;
 
   if (payment.appointmentId) {
-    const appointment = await servicesContainer.bookingService.getAppointment(
+    const auth = await requireCanUpdateAppointment(
       payment.appointmentId,
+      "AdminAPI/payments/instore",
+      "POST",
     );
+    if (!auth.ok) return auth.response;
 
-    if (!appointment) {
-      logger.error(
-        { appointmentId: payment.appointmentId, payment },
-        "Appointment not found",
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Appointment not found",
-          code: "appointment_not_found",
-        },
-        { status: 404 },
-      );
-    }
-
-    customerId = appointment.customerId;
+    customerId = auth.appointment.customerId;
   } else if ("customerId" in payment && payment.customerId) {
     const customer = await servicesContainer.customersService.getCustomer(
       payment.customerId,

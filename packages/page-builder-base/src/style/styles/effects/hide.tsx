@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Checkbox, Label } from "@timelish/ui";
 import { EyeOff } from "lucide-react";
 import { useId } from "react";

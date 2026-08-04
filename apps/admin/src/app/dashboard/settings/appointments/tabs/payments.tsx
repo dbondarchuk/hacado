@@ -1,5 +1,6 @@
 import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
-import { I18nRichText, useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
+import { I18nRichText } from "@timelish/i18n/components";
 import {
   BooleanSelect,
   FormControl,
@@ -18,9 +19,11 @@ import {
 } from "@timelish/ui";
 import { TabProps } from "./types";
 
-export const PaymentsTab: React.FC<
-  TabProps & { canUsePayments?: boolean }
-> = ({ form, disabled, canUsePayments = true }) => {
+export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({
+  form,
+  disabled,
+  canUsePayments = true,
+}) => {
   const t = useI18n("admin");
   const currencySymbol = useCurrencySymbol();
   const enablePayments = form.watch("payments.enabled");
@@ -54,9 +57,7 @@ export const PaymentsTab: React.FC<
                 falseLabel={t("settings.appointments.form.payments.disable")}
               />
             </FormControl>
-            {!canUsePayments ? (
-              <FeatureUpgradeHint />
-            ) : null}
+            {!canUsePayments ? <FeatureUpgradeHint /> : null}
             <FormMessage />
           </FormItem>
         )}

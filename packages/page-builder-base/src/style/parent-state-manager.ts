@@ -199,6 +199,7 @@ export class ParentStateManager {
     const eventMap: Record<string, string[]> = {
       hover: ["mouseenter", "mouseleave"],
       focus: ["focusin", "focusout"],
+      "focus-within": ["focusin", "focusout"],
       active: ["mousedown", "mouseup"],
       disabled: ["focusin", "focusout"], // For disabled state, we'll check the disabled attribute
       inView: [], // Handled by Intersection Observer

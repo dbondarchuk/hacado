@@ -1,11 +1,13 @@
 import { EmailTemplates } from "../types";
 
 const getText = (customText: string) => `
-Привіт {{config.name}},
+Привіт {{user.name}},
 
 ${customText}
 
 Запитаний {{ requestedAt.full }}
+
+Персонал: {{ member.name }}
 
 Клієнт: [{{ customer.name }}]({{ adminUrl }}/dashboard/customers/{{customerId}})
 

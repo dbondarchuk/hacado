@@ -17,5 +17,6 @@ export const CustomerEmailNotificationMenuItems: AppMenuItem<
     label: "app_customer-email-notification_admin.navigation.title",
     icon: <Mails />,
     Page: (props) => <CustomerEmailNotificationAppSetup appId={props.appId} />,
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

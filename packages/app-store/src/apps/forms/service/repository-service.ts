@@ -2,7 +2,6 @@ import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
 import { Customer, IConnectedAppProps, WithTotal } from "@timelish/types";
 import { escapeRegex } from "@timelish/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
-import { CUSTOMERS_COLLECTION_NAME } from "../../../../../services/src/collections";
 import {
   FORM_RESPONSES_COLLECTION_NAME,
   FormAnswer,
@@ -16,6 +15,9 @@ import {
   GetFormsQuery,
   UpdateFormResponseModelWithNormalizedAnswers,
 } from "../models";
+
+/** Must match `@timelish/services/collections` — avoid importing services (circular dep). */
+const CUSTOMERS_COLLECTION_NAME = "customers";
 
 export class FormsRepositoryService {
   protected readonly loggerFactory: LoggerFactory;

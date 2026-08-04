@@ -1,6 +1,9 @@
 import { getLocale as getLocaleNext, getTranslations } from "next-intl/server";
 import { I18nFn, I18nNamespaces, Language } from "./types";
 
+export * from "./types";
+export * from "./utils";
+
 type LanguageOptions = { locale: Language };
 
 type Options<T extends I18nNamespaces | undefined = undefined> =

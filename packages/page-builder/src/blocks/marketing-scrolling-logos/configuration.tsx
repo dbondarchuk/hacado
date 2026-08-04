@@ -1,7 +1,7 @@
 "use client";
 
 import { ConfigurationProps, TextInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { StylesConfigurationPanel } from "@timelish/page-builder-base";
 import { deepMemo } from "@timelish/ui";
 import { useCallback } from "react";
@@ -44,7 +44,9 @@ export const MarketingScrollingLogosConfiguration = deepMemo(
         onBaseChange={onBaseChange}
       >
         <TextInput
-          label={t("pageBuilder.blocks.marketingScrollingLogos.screenReaderText")}
+          label={t(
+            "pageBuilder.blocks.marketingScrollingLogos.screenReaderText",
+          )}
           defaultValue={data.props?.screenReaderText ?? ""}
           onChange={(screenReaderText) =>
             updateProps({

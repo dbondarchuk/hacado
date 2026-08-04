@@ -17,6 +17,11 @@ export const webhooksApp: App<WebhooksAdminNamespace, WebhooksAdminKeys> = {
   Logo: WebhooksLogo,
   isFeatured: false,
   type: "basic",
+  target: "company",
   dontAllowMultiple: false,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
+  requiredPermission: {
+    resource: "app",
+    action: "useCompany",
+  },
 };

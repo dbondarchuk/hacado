@@ -15,9 +15,10 @@ export const UrlScheduleProviderApp: App<
   scope: ["schedule"],
   category: ["apps.categories.schedule"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <UrlScheduleProviderLogo className={className} />,
   description: {
     text: "app_url-schedule-provider_admin.app.description",
   },
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
 };

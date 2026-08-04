@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AutoSkeleton, Form } from "@timelish/ui";
 import { SaveButton } from "@timelish/ui-admin";
 import { ZodType } from "zod";

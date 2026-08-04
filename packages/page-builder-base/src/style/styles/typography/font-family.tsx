@@ -1,4 +1,4 @@
-import { AllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, useI18n } from "@timelish/i18n/client";
 import { Combobox } from "@timelish/ui";
 import { Type } from "lucide-react";
 import * as z from "zod";

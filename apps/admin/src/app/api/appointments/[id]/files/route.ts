@@ -1,5 +1,5 @@
-import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getActor } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,9 +8,16 @@ export async function POST(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/files">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/appointments/[id]/files")("POST");
-  const servicesContainer = await getServicesContainer();
   const { id } = await params;
+  const auth = await requireCanUpdateAppointment(
+    id,
+    "AdminAPI/appointments/[id]/files",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
+  const servicesContainer = auth.servicesContainer;
 
   logger.debug(
     {

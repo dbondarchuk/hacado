@@ -9,6 +9,8 @@
   },
   "svg.preview.background": "dark-transparent",
   "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
   }

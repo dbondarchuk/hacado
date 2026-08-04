@@ -1,6 +1,6 @@
 "use client";
 
-import { AllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, useI18n } from "@timelish/i18n/client";
 import { AvailablePeriod } from "@timelish/types";
 import {
   Accordion,
@@ -31,10 +31,7 @@ export interface SimpleSchedulerProps {
   expandDaysWithShiftsByDefault?: boolean;
 }
 
-function getExpandedDayIds(
-  days: number[],
-  value: AvailablePeriod[],
-): string[] {
+function getExpandedDayIds(days: number[], value: AvailablePeriod[]): string[] {
   return days
     .filter((day) => {
       const period = value.find((p) => p.weekDay === day);

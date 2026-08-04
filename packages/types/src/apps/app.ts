@@ -2,7 +2,9 @@ import type { AllKeys, I18nNamespaces } from "@timelish/i18n";
 import type { ReactElement, ReactNode } from "react";
 import type { BillingPlanTier } from "../billing/subscription-plan";
 import { IServicesContainer } from "../services/container";
+import type { RequiredPermission } from "../users/permissions";
 import type { Extandable } from "../utils/helpers";
+import type { AppTarget } from "./app-target";
 
 export type AppScope = Extandable<
   | "calendar-read"
@@ -62,6 +64,18 @@ type BaseApp<
   isFeatured?: boolean;
   /** Lowest subscription tier required to install and run this app. Defaults to Free. */
   minimumPlanTier?: BillingPlanTier;
+  /**
+   * Installation ownership (required). Independent of scope usage:
+   * `company` = org-wide install uniqueness; `member` = once per member.
+   * Mixed apps (e.g. Outlook) use `member` target with company-usage scopes.
+   */
+  target: AppTarget;
+  /**
+   * Optional extra permission required to install this app (in addition to
+   * target install gates). Typical for privileged member apps, e.g.
+   * `{ resource: "app", action: "installPrivileged" }` for coordinator+.
+   */
+  requiredPermission?: RequiredPermission;
 };
 
 export type AppMenuItem<
@@ -88,6 +102,11 @@ export type AppMenuItem<
   notificationsCountKey?: string;
   /** Lowest subscription tier required to show this app. Defaults to Free. */
   minimumPlanTier?: BillingPlanTier;
+  /**
+   * If set, the signed-in user must have this permission to see/open the item.
+   * Omit to allow every role.
+   */
+  requiredPermission?: RequiredPermission;
 } & (
   | {
       group:

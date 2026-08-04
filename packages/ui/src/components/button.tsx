@@ -33,8 +33,8 @@ const buttonVariants = {
 
 export const buttonSizes = {
   none: "",
-  // default: "h-9 px-4 py-2",
-  default: "h-8 rounded-md px-3 text-sm",
+  default: "h-9 px-4 py-2",
+  // default: "h-8 rounded-md px-3 text-sm",
   xs: "h-7 rounded-md px-3 text-sm [&>svg]:size-3",
   sm: "h-8 rounded-md px-3 text-sm",
   md: "h-9 rounded-md px-5",

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
+import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
 import { PaymentSummary } from "@timelish/types";
 import { Badge, Button, Link, useCurrencyFormat } from "@timelish/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";

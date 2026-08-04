@@ -1,8 +1,9 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
 import {
   appointmentsSearchParams,
   appointmentsSearchParamsCache,
 } from "@timelish/api-sdk";
+import { gateMemberIds } from "@timelish/utils";
 import { DataTable } from "@timelish/ui-admin";
 import { columns } from "./columns";
 
@@ -19,6 +20,11 @@ export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({
 
   const customerIds = appointmentsSearchParamsCache.get("customer");
   const discountIds = appointmentsSearchParamsCache.get("discount");
+  const user = await getUser();
+  const memberIds = gateMemberIds(
+    user,
+    appointmentsSearchParamsCache.get("member") ?? undefined,
+  );
 
   const offset = (page - 1) * limit;
 
@@ -32,6 +38,7 @@ export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({
     sort,
     customerId: customerId ?? customerIds ?? undefined,
     discountId: discountIds ?? undefined,
+    memberId: memberIds ?? undefined,
   });
 
   return (

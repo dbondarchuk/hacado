@@ -11,7 +11,7 @@
   },
   "exports": {
     ".": "./src/index.tsx",
-    "./static": "./src/static/index.ts"
+    "./static": "./src/static/index.tsx"
   },
   "devDependencies": {
     "@timelish/eslint-config": "*",

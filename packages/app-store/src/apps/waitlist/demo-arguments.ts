@@ -24,6 +24,12 @@ export const demoWaitlistEntry = {
     note: "Demo note",
     dontAllowBookings: false,
   },
+  member: {
+    _id: "member-1",
+    name: "Demo Employee",
+    email: "demo@example.com",
+    phone: "+1 (555)555-7777",
+  },
   email: "johnsmith@example.com",
   name: "Dr. John Smith",
   phone: "+1 (555)555-6666",

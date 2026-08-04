@@ -14,6 +14,7 @@ import {
   IEventSubscriber,
   ITextMessageResponder,
   RespondResult,
+  SessionUser,
   SocialConfiguration,
   TextMessageReply,
 } from "@timelish/types";
@@ -23,6 +24,8 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  resolveAppointmentEventForMemberId,
+  resolveProcessOtherMembersAppointmentsConfig,
   template,
 } from "@timelish/utils";
 import { TextMessageNotificationMessages } from "./messages";
@@ -52,51 +55,71 @@ export class TextMessageNotificationConnectedApp
     appData: ConnectedAppData,
     envelope: EventEnvelope,
   ): Promise<void> {
-    await dispatchAppointmentEventPayload(envelope, {
-      onAppointmentCreated: (appointment, confirmed) =>
-        this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentFullRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        _oldTime,
-        _oldDuration,
-        _doNotNotify,
-        _source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+    const config = (appData.data ?? {}) as TextMessageNotificationConfiguration;
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+    const forMemberId = await resolveAppointmentEventForMemberId(
+      async (memberId) => {
+        const member =
+          await this.props.services.teamService.getMemberById(memberId);
+        return member?.role ?? null;
+      },
+      appData.memberId,
+      config.processOtherMembersAppointments,
+      (organization?.availableUsers ?? 1) > 1,
+    );
+
+    await dispatchAppointmentEventPayload(
+      envelope,
+      {
+        onAppointmentCreated: (appointment, confirmed) =>
+          this.onAppointmentCreated(appData, appointment, confirmed),
+        onAppointmentFullRescheduled: (
           appointment,
           newTime,
           newDuration,
-        ),
-      onAppointmentSlotRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        _oldTime,
-        _oldDuration,
-        _doNotNotify,
-        _source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+          _oldTime,
+          _oldDuration,
+          _doNotNotify,
+          _source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+          ),
+        onAppointmentSlotRescheduled: (
           appointment,
           newTime,
           newDuration,
-        ),
-      onAppointmentStatusChanged: (
-        appointment,
-        newStatus,
-        _oldStatus,
-        _source,
-      ) => this.onAppointmentStatusChanged(appData, appointment, newStatus),
-    });
+          _oldTime,
+          _oldDuration,
+          _doNotNotify,
+          _source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+          ),
+        onAppointmentStatusChanged: (
+          appointment,
+          newStatus,
+          _oldStatus,
+          _source,
+        ) => this.onAppointmentStatusChanged(appData, appointment, newStatus),
+      },
+      forMemberId,
+    );
   }
 
   public async processRequest(
     appData: ConnectedAppData,
     request: TextMessageNotificationConfiguration,
+    _apiRequest?: unknown,
+    user?: SessionUser,
   ): Promise<
     ConnectedAppStatusWithText<
       TextMessageNotificationAdminNamespace,
@@ -119,8 +142,17 @@ export class TextMessageNotificationConnectedApp
       );
     }
 
+    const savedData: TextMessageNotificationConfiguration = {
+      ...data,
+      processOtherMembersAppointments:
+        resolveProcessOtherMembersAppointmentsConfig(
+          data.processOtherMembersAppointments,
+          user,
+        ),
+    };
+
     logger.debug(
-      { appId: appData._id, phone: data?.phone },
+      { appId: appData._id, phone: savedData?.phone },
       "Processing text message notification configuration request",
     );
 
@@ -135,7 +167,7 @@ export class TextMessageNotificationConnectedApp
       };
 
       this.props.update({
-        data,
+        data: savedData,
         ...status,
       });
 
@@ -203,6 +235,22 @@ export class TextMessageNotificationConnectedApp
       const adminUrl = getAdminUrl();
       const websiteUrl = getWebsiteUrl(organization);
 
+      const member = await this.props.services.teamService.getMemberById(
+        appData.memberId,
+      );
+
+      if (!member) {
+        logger.error(
+          {
+            appId: appData._id,
+            appointmentId: appointment._id,
+            memberId: appData.memberId,
+          },
+          "Member not found",
+        );
+        return;
+      }
+
       const args = getArguments({
         appointment,
         config,
@@ -214,6 +262,7 @@ export class TextMessageNotificationConnectedApp
         },
         adminUrl,
         websiteUrl,
+        user: member,
       });
 
       const body = template(
@@ -223,10 +272,7 @@ export class TextMessageNotificationConnectedApp
         args,
       );
 
-      const user = await this.props.services.userService.getUser(
-        appData.userId,
-      );
-      const phone = data?.phone || user?.phone || config.general.phone;
+      const phone = data?.phone || member?.phone || config.general.phone;
       if (!phone) {
         logger.warn(
           { appId: appData._id, appointmentId: appointment._id },
@@ -254,7 +300,8 @@ export class TextMessageNotificationConnectedApp
           appId: appData._id,
         },
         appointmentId: appointment._id,
-        participantType: "user",
+        participantType: "member",
+        memberId: appData.memberId,
         handledBy:
           "app_text-message-notification_admin.handlers.newRequest" satisfies TextMessageNotificationAdminAllKeys,
       });
@@ -314,7 +361,7 @@ export class TextMessageNotificationConnectedApp
   public async respond(
     appData: ConnectedAppData,
     reply: TextMessageReply,
-  ): Promise<RespondResult> {
+  ): Promise<RespondResult | null> {
     const logger = this.loggerFactory("respond");
     logger.debug(
       {
@@ -358,12 +405,29 @@ export class TextMessageNotificationConnectedApp
           "Unknown appointment in reply",
         );
 
+        const memberId = reply.memberId ?? appData.memberId;
+        if (!memberId) {
+          logger.warn(
+            { appId: appData._id, memberId },
+            "Member ID is required in text message reply",
+          );
+          return null;
+        }
+
+        const user =
+          await this.props.services.teamService.getMemberById(memberId);
+        if (!user) {
+          logger.warn({ appId: appData._id, memberId }, "User not found");
+          return null;
+        }
+
         const body = template(
           TextMessageNotificationMessages[config.brand.language]
             .unknownAppointment ??
             TextMessageNotificationMessages["en"].unknownAppointment,
           {
             config,
+            user,
           },
         );
 
@@ -372,13 +436,14 @@ export class TextMessageNotificationConnectedApp
           sender: config.general.name,
           body,
           webhookData: reply.data,
-          participantType: "user",
+          participantType: "member",
+          memberId: reply.memberId ?? appData.memberId,
           handledBy:
             "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
         });
 
         return {
-          participantType: "user",
+          participantType: "member",
           handledBy:
             "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
         };
@@ -405,7 +470,13 @@ export class TextMessageNotificationConnectedApp
           "Processing confirmation reply",
         );
 
-        return await this.processReply(appointment, "confirmed", reply, config);
+        return await this.processReply(
+          appointment,
+          "confirmed",
+          reply,
+          config,
+          appData,
+        );
       } else if (
         (replyMessage === "n" || replyMessage === "no") &&
         appointment.status !== "declined"
@@ -415,7 +486,13 @@ export class TextMessageNotificationConnectedApp
           "Processing decline reply",
         );
 
-        return await this.processReply(appointment, "declined", reply, config);
+        return await this.processReply(
+          appointment,
+          "declined",
+          reply,
+          config,
+          appData,
+        );
       } else {
         logger.warn(
           {
@@ -441,12 +518,29 @@ export class TextMessageNotificationConnectedApp
         const adminUrl = getAdminUrl();
         const websiteUrl = getWebsiteUrl(organization);
 
+        const memberId = reply.memberId ?? appData.memberId;
+        if (!memberId) {
+          logger.warn(
+            { appId: appData._id, memberId },
+            "Member ID is required in text message reply",
+          );
+          return null;
+        }
+
+        const user =
+          await this.props.services.teamService.getMemberById(memberId);
+        if (!user) {
+          logger.warn({ appId: appData._id, memberId }, "User not found");
+          return null;
+        }
+
         const args = getArguments({
           appointment,
           config,
           locale: config.brand.language,
           adminUrl,
           websiteUrl,
+          user,
         });
 
         const body = template(
@@ -461,13 +555,14 @@ export class TextMessageNotificationConnectedApp
           sender: config.general.name,
           body,
           webhookData: reply.data,
-          participantType: "user",
+          participantType: "member",
+          memberId: appData.memberId,
           handledBy:
             "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
         });
 
         return {
-          participantType: "user",
+          participantType: "member",
           handledBy:
             "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
         };
@@ -502,7 +597,8 @@ export class TextMessageNotificationConnectedApp
       booking: BookingConfiguration;
       social: SocialConfiguration;
     },
-  ): Promise<RespondResult> {
+    appData: ConnectedAppData,
+  ): Promise<RespondResult | null> {
     const logger = this.loggerFactory("processReply");
     logger.info(
       {
@@ -534,12 +630,30 @@ export class TextMessageNotificationConnectedApp
       const adminUrl = getAdminUrl();
       const websiteUrl = getWebsiteUrl(organization);
 
+      const memberId =
+        reply.memberId ?? appointment.memberId ?? appData.memberId;
+      if (!memberId) {
+        logger.warn(
+          { appId: reply.data.appId, memberId },
+          "Member ID is required in text message reply",
+        );
+        return null;
+      }
+
+      const user =
+        await this.props.services.teamService.getMemberById(memberId);
+      if (!user) {
+        logger.warn({ appId: reply.data.appId, memberId }, "User not found");
+        return null;
+      }
+
       const args = getArguments({
         appointment,
         config,
         locale: config.brand.language,
         adminUrl,
         websiteUrl,
+        user,
       });
 
       const responseBody = template(
@@ -572,7 +686,8 @@ export class TextMessageNotificationConnectedApp
         sender: config.general.name,
         body: responseBody,
         webhookData: reply.data,
-        participantType: "user",
+        participantType: "member",
+        memberId,
         handledBy:
           "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
       });
@@ -583,7 +698,7 @@ export class TextMessageNotificationConnectedApp
       );
 
       return {
-        participantType: "user",
+        participantType: "member",
         handledBy:
           "app_text-message-notification_admin.handlers.autoReply" satisfies TextMessageNotificationAdminAllKeys,
       };

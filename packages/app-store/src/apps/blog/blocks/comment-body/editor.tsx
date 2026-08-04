@@ -5,7 +5,7 @@ import {
   useCurrentBlock,
   useEditorArgs,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { BlockStyle, useClassName } from "@timelish/page-builder-base";
 import { cn } from "@timelish/ui";
 import {
@@ -23,9 +23,7 @@ export const BlogCommentBodyEditor = ({ style }: BlogCommentBodyProps) => {
   const t = useI18n<BlogPublicNamespace, BlogPublicKeys>(blogPublicNamespace);
 
   const body =
-    args?.comment?.body ??
-    args?._item?.body ??
-    blogCommentFixtures[0]?.body;
+    args?.comment?.body ?? args?._item?.body ?? blogCommentFixtures[0]?.body;
 
   const className = useClassName();
   const base = currentBlock?.base;

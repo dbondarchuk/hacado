@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Button,
   Checkbox,
@@ -15,6 +15,7 @@ import {
 } from "@timelish/ui";
 import {
   CustomerName,
+  MemberName,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@timelish/ui-admin";
@@ -86,6 +87,16 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
     id: "customer.name",
     header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(
       "table.columns.customer",
+      "string",
+      waitlistAdminNamespace,
+    ),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
+    cell: ({ row }) => <MemberName member={row.original.member} />,
+    id: "member.name",
+    header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(
+      "table.columns.member",
       "string",
       waitlistAdminNamespace,
     ),

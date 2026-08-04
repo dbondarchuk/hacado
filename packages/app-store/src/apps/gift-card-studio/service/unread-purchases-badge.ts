@@ -8,19 +8,19 @@ import { GiftCardStudioRepositoryService } from "./repository-service";
 function lastReadRedisKey(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
 ): string {
-  return `giftCardStudioPurchases:lastReadAt:${organizationId}:${appId}:${userId}`;
+  return `giftCardStudioPurchases:lastReadAt:${organizationId}:${appId}:${memberId}`;
 }
 
 export async function getGiftCardStudioPurchasesLastReadAt(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
   services: IConnectedAppProps["services"],
 ): Promise<Date> {
   const lastRead = await services.redisClient.get(
-    lastReadRedisKey(organizationId, appId, userId),
+    lastReadRedisKey(organizationId, appId, memberId),
   );
   return lastRead ? new Date(lastRead) : new Date(0);
 }
@@ -28,11 +28,11 @@ export async function getGiftCardStudioPurchasesLastReadAt(
 export async function markGiftCardStudioPurchasesRead(
   organizationId: string,
   appId: string,
-  userId: string,
+  memberId: string,
   services: IConnectedAppProps["services"],
 ): Promise<void> {
   await services.redisClient.set(
-    lastReadRedisKey(organizationId, appId, userId),
+    lastReadRedisKey(organizationId, appId, memberId),
     new Date().toISOString(),
   );
 }
@@ -40,18 +40,18 @@ export async function markGiftCardStudioPurchasesRead(
 export async function getGiftCardStudioUnreadPurchasesBadges(
   appId: string,
   organizationId: string,
-  userId: string | undefined,
+  memberId: string | undefined,
   getDbConnection: IConnectedAppProps["getDbConnection"],
   services: IConnectedAppProps["services"],
 ): Promise<DashboardNotificationBadge[]> {
-  if (!userId) {
+  if (!memberId) {
     return [{ key: GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY, count: 0 }];
   }
 
   const lastReadAt = await getGiftCardStudioPurchasesLastReadAt(
     organizationId,
     appId,
-    userId,
+    memberId,
     services,
   );
   const repository = new GiftCardStudioRepositoryService(

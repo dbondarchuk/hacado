@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { zEmail } from "@timelish/types";
 import {
   Button,

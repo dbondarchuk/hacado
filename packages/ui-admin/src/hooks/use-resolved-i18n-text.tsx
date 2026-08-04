@@ -1,6 +1,6 @@
 "use client";
 
-import { I18nFn, useI18n, useLocale } from "@timelish/i18n";
+import { I18nFn, useI18n, useLocale } from "@timelish/i18n/client";
 import { DATE_TIME_FORMATS, DateTimeFormat } from "@timelish/types";
 import { useTimeZone } from "@timelish/ui";
 import { DateTime } from "luxon";

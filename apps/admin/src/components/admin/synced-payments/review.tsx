@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   DateRange,
   HydratedSyncedPayment,
@@ -24,14 +24,16 @@ import {
   toastPromise,
   useTimeZone,
 } from "@timelish/ui";
+import { useAuth } from "@timelish/ui-admin";
 import {
   AssignAppointmentDialog,
   EditSyncedPaymentAmountsDialog,
   SyncedPaymentCard,
 } from "@timelish/ui-admin-kit";
+import { canManageSyncedPayments } from "@timelish/utils";
+import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Check } from "lucide-react";
 
 const NEEDS_REVIEW: SyncedPaymentStatus[] = ["matched", "unmatched"];
 const PAGE_SIZE = 20;
@@ -39,6 +41,8 @@ const PAGE_SIZE = 20;
 export const SyncedPaymentsReview = () => {
   const t = useI18n("admin");
   const timeZone = useTimeZone();
+  const { user } = useAuth();
+  const canManage = canManageSyncedPayments(user);
 
   const searchParams = useSearchParams();
   const externalId = searchParams.get("externalId") || undefined;
@@ -175,7 +179,7 @@ export const SyncedPaymentsReview = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {!showAll && (
+          {canManage && !showAll && (
             <Button
               size="sm"
               disabled={loading || approvingAll || pendingId !== null}
@@ -218,36 +222,58 @@ export const SyncedPaymentsReview = () => {
                   key={item._id}
                   payment={item}
                   disabled={pendingId === item._id || approvingAll}
-                  onConfirm={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.confirmSyncedPayment(item._id),
-                    )
-                  }
-                  onReject={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.rejectSyncedPayment(item._id),
-                    )
-                  }
-                  onIgnore={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.ignoreSyncedPayment(item._id),
-                    )
-                  }
-                  onAssignSuggestion={(appointmentId) =>
-                    runAction(item._id, () =>
-                      item.appointmentId
-                        ? adminApi.syncedPayments.reassignSyncedPayment(
-                            item._id,
-                            appointmentId,
+                  onConfirm={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.confirmSyncedPayment(
+                              item._id,
+                            ),
                           )
-                        : adminApi.syncedPayments.assignSyncedPayment(
-                            item._id,
-                            appointmentId,
-                          ),
-                    )
+                      : undefined
                   }
-                  onAssignOther={() => setAssignTarget(item)}
-                  onEditAmounts={() => setEditTarget(item)}
+                  onReject={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.rejectSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onIgnore={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.ignoreSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onAssignSuggestion={
+                    canManage
+                      ? (appointmentId) =>
+                          runAction(item._id, () =>
+                            item.appointmentId
+                              ? adminApi.syncedPayments.reassignSyncedPayment(
+                                  item._id,
+                                  appointmentId,
+                                )
+                              : adminApi.syncedPayments.assignSyncedPayment(
+                                  item._id,
+                                  appointmentId,
+                                ),
+                          )
+                      : undefined
+                  }
+                  onAssignOther={
+                    canManage ? () => setAssignTarget(item) : undefined
+                  }
+                  onEditAmounts={
+                    canManage ? () => setEditTarget(item) : undefined
+                  }
                 />
               ))}
         </div>

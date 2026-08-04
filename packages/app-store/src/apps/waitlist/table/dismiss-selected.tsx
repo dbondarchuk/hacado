@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AlertModal, Button, Spinner, toastPromise } from "@timelish/ui";
 import { useReload } from "@timelish/ui-admin";
 import { X } from "lucide-react";

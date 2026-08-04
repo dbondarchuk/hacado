@@ -1,4 +1,5 @@
 import { getServicesContainer, getSession } from "@/app/utils";
+import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@timelish/logger";
 import { ConnectedAppRequestError } from "@timelish/types";
 import { parseJSON } from "@timelish/utils";
@@ -24,11 +25,12 @@ export async function POST(
 
   try {
     const session = await getSession();
+    await assertCanAccessConnectedApp(id, session.user);
     const result = await servicesContainer.connectedAppsService.processRequest(
       id,
       body,
       request,
-      session.user.id,
+      session.user,
     );
 
     logger.debug(
@@ -41,6 +43,12 @@ export async function POST(
 
     return NextResponse.json(result ?? null);
   } catch (error: any) {
+    if (error?.status === 403) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
     logger.error(
       {
         appId: id,

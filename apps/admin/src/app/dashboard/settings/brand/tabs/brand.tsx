@@ -3,7 +3,7 @@
 import { LanguageOptions } from "@/constants/texts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { languages, useI18n } from "@timelish/i18n";
+import { languages, useI18n } from "@timelish/i18n/client";
 import { zNonEmptyString } from "@timelish/types";
 import {
   Button,
@@ -480,12 +480,16 @@ export const BrandTab: React.FC<{
               </Dialog>
             ) : (
               <p className="text-base text-muted-foreground">
-                {t("settings.brand.form.timeliAddress.customDomainUpgradeRequired")}{" "}
+                {t(
+                  "settings.brand.form.timeliAddress.customDomainUpgradeRequired",
+                )}{" "}
                 <Link
                   href="/dashboard/settings/brand?activeTab=general"
                   className="underline font-medium"
                 >
-                  {t("settings.brand.form.timeliAddress.customDomainUpgradeLink")}
+                  {t(
+                    "settings.brand.form.timeliAddress.customDomainUpgradeLink",
+                  )}
                 </Link>
               </p>
             )}

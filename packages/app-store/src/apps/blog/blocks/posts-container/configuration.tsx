@@ -1,7 +1,7 @@
 "use client";
 
 import { AppSelectorInput, ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   RawNumberInput,
   StylesConfigurationPanel,

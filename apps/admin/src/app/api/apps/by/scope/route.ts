@@ -1,6 +1,12 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { getOwnerMemberIds } from "@/lib/auth/app-access";
+import { withCatalogTarget } from "@timelish/app-store/utils";
 import { getLoggerFactory } from "@timelish/logger";
-import { AppScope } from "@timelish/types";
+import { AppScope, getAppScopeUsage } from "@timelish/types";
+import {
+  canViewCompanyApps,
+  filterConnectedAppsForUser,
+} from "@timelish/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -33,31 +39,81 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  logger.debug(
-    {
-      scope: scopeParams,
-    },
-    "Getting apps by scope",
+  const scopes = scopeParams as AppScope[];
+  const usages = new Set(
+    scopes.map((scope) => getAppScopeUsage(scope)).filter(Boolean),
   );
+  const hasCompanyUsage = usages.has("company");
+  const hasMemberUsage = usages.has("member");
+
+  if (hasCompanyUsage && hasMemberUsage) {
+    logger.warn({ scopes }, "Mixed company/member scope usage in one request");
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Cannot mix company and member usage scopes in one request",
+        code: "mixed_scope_usage",
+      },
+      { status: 400 },
+    );
+  }
+
+  logger.debug({ scope: scopes, usages: [...usages] }, "Getting apps by scope");
 
   try {
-    const apps = await servicesContainer.connectedAppsService.getAppsByScope(
-      ...(scopeParams as AppScope[]),
+    const user = await getUser();
+    const installed =
+      await servicesContainer.connectedAppsService.getAppsByScope(...scopes);
+
+    if (hasCompanyUsage) {
+      if (!canViewCompanyApps(user)) {
+        logger.warn(
+          { userId: user.id, scopes },
+          "Forbidden: company apps permission required",
+        );
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Forbidden",
+            code: "forbidden",
+          },
+          { status: 403 },
+        );
+      }
+
+      logger.debug(
+        { scope: scopes, count: installed.length },
+        "Company-usage apps by scope (org-wide)",
+      );
+      return NextResponse.json(installed);
+    }
+
+    if (hasMemberUsage) {
+      const own = installed.filter((app) => app.memberId === user.memberId);
+      logger.debug(
+        { scope: scopes, count: own.length },
+        "Member-usage apps by scope (own installs)",
+      );
+      return NextResponse.json(own);
+    }
+
+    const ownerMemberIds = await getOwnerMemberIds();
+    const apps = filterConnectedAppsForUser(
+      user,
+      installed.map(withCatalogTarget),
+      ownerMemberIds,
     );
 
     logger.debug(
-      {
-        scope: scopeParams,
-        count: apps.length,
-      },
-      "Apps by scope retrieved",
+      { scope: scopes, count: apps.length },
+      "Neutral-usage apps by scope",
     );
 
     return NextResponse.json(apps);
   } catch (error: any) {
     logger.error(
       {
-        scope: scopeParams,
+        scope: scopes,
         error: error?.message || error?.toString(),
       },
       "Failed to get apps by scope",

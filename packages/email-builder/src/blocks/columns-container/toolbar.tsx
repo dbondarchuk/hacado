@@ -3,7 +3,7 @@ import {
   ToolbarColorMenu,
   ToolbarDropdownMenu,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PaintBucket } from "lucide-react";
 import { ContentAlignmentDropdownMenu } from "../../toolbars/content-alignment";
 import { ColumnsContainerProps, ColumnsContainerPropsDefaults } from "./schema";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { cn, useCurrencyFormat } from "@timelish/ui";
 import {
   CalendarDays,
@@ -39,7 +39,8 @@ function KpiTile({
         <p
           className={cn(
             "text-sm",
-            detailTone === "positive" && "text-emerald-600 dark:text-emerald-400",
+            detailTone === "positive" &&
+              "text-emerald-600 dark:text-emerald-400",
             detailTone === "negative" && "text-destructive",
             detailTone === "primary" && "text-primary",
             detailTone === "muted" && "text-muted-foreground",

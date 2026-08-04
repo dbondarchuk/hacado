@@ -1,5 +1,5 @@
 import { AvailableApps } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { CalendarSourceConfiguration } from "@timelish/types";
 import {
   AlertDialog,

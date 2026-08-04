@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WeekIdentifier } from "@timelish/types";
 import {
   AlertDialog,
@@ -57,6 +57,7 @@ import { getWeekDisplay } from "./utils";
 type RepeatScheduleDialogProps = {
   appId: string;
   week: WeekIdentifier;
+  memberId?: string;
   disabled?: boolean;
   className?: string;
 };
@@ -64,6 +65,7 @@ type RepeatScheduleDialogProps = {
 export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
   appId,
   week,
+  memberId,
   disabled,
   className,
 }) => {
@@ -112,6 +114,7 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
           data.interval,
           data.maxWeek,
           data.replaceExisting ?? false,
+          memberId,
         ),
         {
           success: t("dialogs.repeat.success", {

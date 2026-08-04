@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Checkbox, Label, Markdown } from "@timelish/ui";
 import { template } from "@timelish/utils";
 import { DateTime } from "luxon";

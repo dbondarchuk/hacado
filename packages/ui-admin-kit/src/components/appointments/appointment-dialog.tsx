@@ -1,7 +1,7 @@
 "use client";
 
 import { DialogProps } from "@radix-ui/react-dialog";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Appointment } from "@timelish/types";
 import {
   Button,

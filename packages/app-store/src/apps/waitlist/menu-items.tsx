@@ -34,6 +34,7 @@ export const WaitlistMenuItems: AppMenuItem<
     pageBreadcrumbs: [waitlistBreadcrumb],
     pageTitle: "app_waitlist_admin.app.pages.main.title",
     pageDescription: "app_waitlist_admin.app.pages.main.description",
+    requiredPermission: { resource: "appointment", action: "read" },
   },
   {
     href: "waitlist/dismiss",
@@ -46,6 +47,7 @@ export const WaitlistMenuItems: AppMenuItem<
     pageBreadcrumbs: [waitlistBreadcrumb],
     pageTitle: "app_waitlist_admin.app.pages.main.title",
     pageDescription: "app_waitlist_admin.app.pages.main.description",
+    requiredPermission: { resource: "appointment", action: "read" },
   },
   {
     href: "waitlist/appointment/new",
@@ -58,5 +60,6 @@ export const WaitlistMenuItems: AppMenuItem<
     pageBreadcrumbs: [waitlistBreadcrumb],
     pageTitle: "app_waitlist_admin.app.pages.main.title",
     pageDescription: "app_waitlist_admin.app.pages.main.description",
+    requiredPermission: { resource: "appointment", action: "read" },
   },
 ];

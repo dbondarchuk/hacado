@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import { Appointment } from "@timelish/types";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
 } from "@timelish/ui";
 import {
   CustomerName,
+  MemberName,
   tableSortHeader,
   tableSortNoopFunction,
 } from "@timelish/ui-admin";
@@ -260,6 +261,16 @@ export const columns: ColumnDef<Appointment>[] = [
     id: "customer.name",
     header: tableSortHeader(
       "appointments.table.columns.customer",
+      "string",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
+    cell: ({ row }) => <MemberName member={row.original.member} />,
+    id: "member.name",
+    header: tableSortHeader(
+      "appointments.table.columns.member",
       "string",
       "admin",
     ),

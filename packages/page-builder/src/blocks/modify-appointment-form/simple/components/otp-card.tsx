@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
   zEmail,

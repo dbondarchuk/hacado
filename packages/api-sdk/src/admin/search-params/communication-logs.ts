@@ -31,6 +31,7 @@ export const communicationLogsSearchParams = {
     parseAsStringLiteral(communicationChannels),
   ).withDefault([...communicationChannels]),
   customer: parseAsArrayOf(parseAsString),
+  member: parseAsArrayOf(parseAsString),
   appointmentId: parseAsString,
   sort: baseSearchParams.sort.withDefault([
     {

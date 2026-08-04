@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { mimeTypeToExtension } from "@timelish/utils";
 import React, { InputHTMLAttributes } from "react";
 import { Accept, useDropzone } from "react-dropzone";

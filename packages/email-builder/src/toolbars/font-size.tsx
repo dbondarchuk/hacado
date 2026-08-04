@@ -1,5 +1,5 @@
 import { ConfigurationProps, NumberInputToolbarMenu } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Leaves } from "@timelish/types";
 
 const fontSizes = [8, 9, 10, 12, 14, 16, 18, 24, 30, 36, 48];

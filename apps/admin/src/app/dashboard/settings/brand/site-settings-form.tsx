@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { BillingPlanTier } from "@timelish/types";
+import { useI18n } from "@timelish/i18n/client";
 import type { OrganizationBillingSubscriptionDetails } from "@timelish/types";
+import { BillingPlanTier } from "@timelish/types";
 import {
   Form,
   IComboboxItem,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { WithTotal } from "@timelish/types";
 import { toast, useDebounce } from "@timelish/ui";
 import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";

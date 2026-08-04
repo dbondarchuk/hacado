@@ -14,7 +14,7 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PaymentAppFormProps } from "@timelish/types";
 import { Button, Spinner, toast, useConfig, useCurrency } from "@timelish/ui";
 import { formatAmountString } from "@timelish/utils";

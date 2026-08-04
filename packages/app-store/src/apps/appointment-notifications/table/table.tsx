@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { useQueryStates } from "nuqs";
 import React from "react";
 import { searchParams } from "./search-params";

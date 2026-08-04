@@ -146,6 +146,17 @@ export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate = {
                   ],
                   id: "4_g5MvqMhk",
                 },
+                {
+                  type: "p",
+                  align: "start",
+                  children: [
+                    {
+                      text: "Спеціаліст: {{waitlistEntry.member.name}}",
+                      fontSize: "14px",
+                    },
+                  ],
+                  id: "4_g5MvqMhk",
+                },
               ],
             },
           },

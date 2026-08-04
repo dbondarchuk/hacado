@@ -1,10 +1,19 @@
-"use client";
-
+import type { ComplexAppPageProps } from "@timelish/types";
 import React from "react";
 import { WeeklyScheduleForm } from "./components/form";
 
-export const WeeklyScheduleAppSetup: React.FC<{ appId: string }> = ({
-  appId,
-}) => {
-  return <WeeklyScheduleForm appId={appId} />;
+export const WeeklyScheduleAppSetup: React.FC<
+  Pick<ComplexAppPageProps, "appId" | "services">
+> = async ({ appId, services }) => {
+  const members = await services.teamService.getActiveMembers();
+
+  return (
+    <WeeklyScheduleForm
+      appId={appId}
+      members={members.map((member) => ({
+        id: member._id,
+        name: member.name || member.email || member.userId,
+      }))}
+    />
+  );
 };

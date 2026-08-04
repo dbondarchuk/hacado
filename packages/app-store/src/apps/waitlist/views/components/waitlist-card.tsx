@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@timelish/i18n/client";
 import {
   Avatar,
   AvatarFallback,
@@ -210,6 +210,43 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
           </div>
         )}
       </div>
+
+      {/* Team member */}
+      {entry.member && (
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2.5">
+            {t("view.member")}
+          </p>
+          <div className="flex items-center gap-3 min-w-0">
+            <Avatar>
+              <AvatarImage
+                src={entry.member.image ?? undefined}
+                alt={
+                  entry.member.name || entry.member.email || t("view.member")
+                }
+              />
+              <AvatarFallback>
+                {(entry.member.name || entry.member.email || "?")
+                  .split(" ")
+                  .map((part) => part[0]?.toUpperCase())
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .join("")}
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0 flex flex-col">
+              <span className="text-sm font-medium text-foreground truncate">
+                {entry.member.name || entry.member.email || "—"}
+              </span>
+              {entry.member.name && entry.member.email ? (
+                <span className="text-xs text-muted-foreground truncate">
+                  {entry.member.email}
+                </span>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Add-ons */}
       {entry.addons && entry.addons.length > 0 && (

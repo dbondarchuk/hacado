@@ -15,6 +15,7 @@ export const CustomerTextMessageNotificationApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["event-subscriber"],
   type: "complex",
+  target: "company",
   category: ["apps.categories.notifications"],
   Logo: ({ className }) => <Send className={className} />,
   isFeatured: true,

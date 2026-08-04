@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { PlateMarkdownEditor } from "@timelish/rte";
 import {
   AppointmentAddonUpdateModel,
@@ -26,8 +26,8 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   toastPromise,
-  useDebounceCacheFn,
   useCurrencySymbol,
+  useDebounceCacheFn,
 } from "@timelish/ui";
 import { SaveButton, Sortable } from "@timelish/ui-admin";
 import { useRouter } from "next/navigation";
@@ -35,6 +35,7 @@ import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import { FieldSelectCard } from "../field-select-card";
+import { StaffAssignmentPanel } from "../staff-assignment-panel";
 
 export const AddonForm: React.FC<{
   initialData?: AppointmentAddonUpdateModel & Partial<DatabaseId>;
@@ -249,6 +250,7 @@ export const AddonForm: React.FC<{
             </div>
           </Sortable>
         </div>
+        <StaffAssignmentPanel control={form.control} name="staff" />
         <SaveButton form={form} />
       </form>
     </Form>

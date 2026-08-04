@@ -5,7 +5,7 @@ import {
   SelectInput,
   SliderInput,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Checkbox, deepMemo, Label } from "@timelish/ui";
 import { Repeat1 } from "lucide-react";
 import { useCallback, useMemo } from "react";

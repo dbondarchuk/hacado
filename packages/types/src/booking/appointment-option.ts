@@ -14,6 +14,7 @@ import {
 } from "../utils";
 import { DistributiveOmit, Prettify } from "../utils/helpers";
 import { FieldSchema } from "./field";
+import { PublicStaffMember, staffAssignmentsSchema } from "./staff-assignment";
 
 export const isRequiredOptionTypes = ["inherit", "always", "never"] as const;
 export const optionPaymentCalculationType = ["percentage", "amount"] as const;
@@ -79,6 +80,8 @@ export const appointmentOptionSchema = z
       (field) => field.id,
       "validation.appointments.option.fields.id.unique",
     ).optional(),
+    /** Staff members who can perform this service (+ optional price/duration overrides). Empty = not bookable. */
+    staff: staffAssignmentsSchema,
     isAutoConfirm: isRequiredOptionSchema,
     duplicateAppointmentCheck: z
       .object({
@@ -244,7 +247,6 @@ export const appointmentOptionSchema = z
             error:
               "appointments.option.isOnline.required" satisfies ValidationKeys,
           }),
-          meetingUrlProviderAppId: zObjectId().optional(),
         }),
       ),
   )
@@ -345,6 +347,8 @@ export const appointmentAddonSchema = z.object({
   price: asOptinalNumberField(
     z.coerce.number<number>().min(1, "validation.addons.price.min"),
   ),
+  /** Staff who can offer this addon (+ optional overrides). Empty = any parent-service staff. */
+  staff: staffAssignmentsSchema,
   fields: zUniqueArray(
     z.array(
       z.object({
@@ -418,4 +422,6 @@ export type GetAppointmentOptionsResponse = {
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode: boolean;
   bookingRestriction?: BookingRestriction;
+  /** Active staff members, for resolving `AppointmentOption.staff` assignments in the public booking UI. */
+  members: PublicStaffMember[];
 };

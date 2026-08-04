@@ -34,7 +34,11 @@ export { canInstallApp, canUseFeature, isFreeTier };
 export const getPlanTier = cache(async (): Promise<BillingPlanTier | null> => {
   const headersList = await headers();
   const raw = headersList.get("x-subscription-plan-tier");
-  if (raw === BillingPlanTier.Free || raw === BillingPlanTier.Pro) {
+  if (
+    raw === BillingPlanTier.Free ||
+    raw === BillingPlanTier.Solo ||
+    raw === BillingPlanTier.Studio
+  ) {
     return raw;
   }
   return null;

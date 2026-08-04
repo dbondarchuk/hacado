@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { ToolbarButton, ToolbarGroup } from "@timelish/ui";
 import { ArrowDown, ArrowUp, ArrowUpFromLine, Copy, Trash } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
@@ -27,7 +27,9 @@ export const ToolbarBlockGroups = () => {
   const canDoBlockActions = selectedBlockId && selectedBlockId !== rootBlockId;
   const editorDisableOptions = useBlockEditorDisableOptions(selectedBlockId);
   const parentData = useBlockParentData(selectedBlockId);
-  const parentInGrandparent = useBlockParentData(parentData?.parentBlockId ?? null);
+  const parentInGrandparent = useBlockParentData(
+    parentData?.parentBlockId ?? null,
+  );
   const canMoveOut =
     !!canDoBlockActions &&
     !disable?.move &&

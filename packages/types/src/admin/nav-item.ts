@@ -1,6 +1,7 @@
 import type { AllKeys } from "@timelish/i18n";
 import type { ReactElement } from "react";
 import type { BillingPlanTier } from "../billing/subscription-plan";
+import type { RequiredPermission } from "../users/permissions";
 
 export interface NavItem {
   id: string;
@@ -16,6 +17,11 @@ export interface NavItem {
   notificationsCountKey?: string;
   /** Lowest subscription tier required to show this item. Defaults to Free. */
   minimumPlanTier?: BillingPlanTier;
+  /**
+   * If set, the signed-in user must have this permission to see the item.
+   * Omit to allow every role.
+   */
+  requiredPermission?: RequiredPermission;
 }
 
 export interface NavItemWithChildren extends NavItem {
@@ -38,6 +44,11 @@ export interface NavItemGroup {
   title: AllKeys;
   /** Lowest subscription tier required to show this group. Defaults to Free. */
   minimumPlanTier?: BillingPlanTier;
+  /**
+   * If set, the signed-in user must have this permission to see the group.
+   * Omit to allow every role.
+   */
+  requiredPermission?: RequiredPermission;
   children: NavItemWithOptionalChildren[];
 }
 

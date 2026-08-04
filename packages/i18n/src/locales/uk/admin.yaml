@@ -1,6 +1,6 @@
-﻿common:
+common:
   usesTemplatedValues: "* Використовує шаблонні значення"
-  featureUpgradeRequired: Ця функція доступна лише на тарифі Pro.
+  featureUpgradeRequired: Ця функція доступна лише на тарифі Solo.
   upgradeLink: Оновити в налаштуваннях бренду
   toasts:
     saved: Збережено!
@@ -20,6 +20,7 @@
       outbound: Вихідний
     participantType:
       user: Користувач
+      member: Учасник
       customer: Клієнт
     fieldType:
       email: Електронна пошта
@@ -282,8 +283,8 @@ billing:
       subject: Ліміт записів на Free вичерпано
       preview: Ви використали всі записи за цей білінговий цикл
       title: Ліміт записів за цикл досягнуто
-      body: Ви використали всі {limit} записів, включених у тариф Free за цей білінговий цикл. Нові бронювання заблоковані до початку наступного циклу. Перейдіть на Pro для необмежених записів.
-      button: Перейти на Pro
+      body: Ви використали всі {limit} записів, включених у тариф Free за цей білінговий цикл. Нові бронювання заблоковані до початку наступного циклу. Перейдіть на Solo для необмежених записів.
+      button: Перейти на Solo
       handledBy: Білінг (ліміт записів)
   notifications:
     smsCreditsLow:
@@ -344,10 +345,103 @@ navigation:
   logout: Вийти
   viewWebsite: Переглянути веб-сайт
   profile: Профіль
+  team: Команда
+team:
+  title: Команда
+  description: Керуйте учасниками, ролями та місцями користувачів.
+  invite: Запросити учасника
+  inviteEmail: Email
+  inviteRole: Роль
+  sendInvite: Надіслати запрошення
+  pendingInvitations: Очікувані запрошення
+  cancelInvite: Скасувати
+  members: Учасники
+  seats: "{active} з {available} місць зайнято"
+  purchaseSeats: Купити місця
+  purchaseSeatsDescription: Додайте місця користувачів до підписки.
+  seatsPurchase:
+    buyButton: Купити місця
+    dialogTitle: Купівля місць
+    dialogSubtitle: Оберіть, скільки додаткових місць додати до підписки.
+    dialogNote: Місця тарифікуються з підпискою та дають змогу запрошувати більше учасників.
+    bestValueBadge: Найкраща ціна
+    securePaymentLabel: Безпечна оплата
+    billedRecurring: Регулярно · Додається до підписки
+    savePercent: Заощадження {percent}%
+    continue: Продовжити
+    loadError: Не вдалося завантажити варіанти місць. Спробуйте ще раз.
+    empty: Варіанти місць поки недоступні.
+    seatsLine: "{count, plural, =1 {1 місце} few {# місця} many {# місць} other {# місця}}"
+    checkoutError: Не вдалося почати оплату. Спробуйте пізніше.
+    purchaseSuccess: Покупка обробляється. Оновлення місць може зайняти трохи часу.
+  noSlots: Немає вільних місць. Купіть більше місць, щоб запросити учасників.
+  upgradeRequired: Немає вільних місць. Перейдіть на тариф Team, щоб запросити більше учасників.
+  upgradeLink: Перейти на Team
+  inactive: Неактивний
+  inactiveReason:
+    downgrade: Неактивний (зниження плану)
+    removed: Неактивний (видалений)
+  deactivate: Деактивувати
+  deactivateTitle: Деактивувати учасника?
+  deactivateBody: У цього учасника є майбутні записи. Перепризначте їх перед деактивацією або деактивуйте все одно.
+  reassignAppointments: Перепризначити записи
+  deactivateAnyway: Деактивувати все одно
+  roleUpdated: Роль оновлено
+  inviteSent: Запрошення надіслано
+  inviteUserAlreadyInOrganization: Користувач уже є учасником іншої організації. Використайте іншу електронну адресу
+  acceptInvitation:
+    title: Прийняти запрошення
+    description: Вас запрошено до організації {organizationName}. Спочатку зареєструйтеся.
+    descriptionLoggedIn: Вас запрошено до організації {organizationName}. Прийміть запрошення, щоб приєднатися до команди та відкрити панель керування.
+    submit: Прийняти запрошення
+    success: Ви приєдналися до команди
+    error: Не вдалося прийняти запрошення. Спробуйте ще раз.
+    invalid: Це запрошення недійсне або прострочене.
+    missing: Посилання запрошення неповне.
+    emailMismatch: Це запрошення надіслано на іншу електронну адресу. Вийдіть і відкрийте посилання знову або увійдіть з запрошеною адресою.
+    signInLink: Вже маєте акаунт? <link>Увійти</link>
+  showInactive: Показати неактивних
+  assignTo: Призначити
+  name: Імʼя
+  email: Електронна пошта
+  role: Роль
+  status: Статус
+  actions: Дії
+  priceOverride: Індивідуальна ціна
+  durationOverride: Індивідуальна тривалість (хв)
+  clearStaff: Очистити призначення
+  table:
+    columns:
+      name: Імʼя
+      email: Електронна пошта
+      role: Роль
+      status: Статус
+      joinedAt: Приєднався
+      cellAction:
+        actions: Дії
+        setRole: "Встановити роль: {role}"
+        editProfile: Редагувати профіль
+    status:
+      active: Активний
+  editProfile:
+    title: Редагувати профіль учасника
+    description: Оновити дані профілю для {name}.
+userSlots:
+  title: Місця користувачів
+  included: Включені місця
+  additional: Додаткові місця
+  available: Доступні місця
+  allowAdditional: Цей план дозволяє купувати додаткові місця.
+  notAllowed: Ваш план не дозволяє додаткові місця.
+deactivation:
+  banner:
+    message: "У неактивних учасників залишились майбутні записи: {members}."
+    viewAppointments: Переглянути записи
 roles:
   owner: Власник
   admin: Адмін
   staff: Персонал
+  coordinator: Координатор
   member: Учасник
 themeToggle:
   toggleTheme: Переключити тему
@@ -623,11 +717,13 @@ appointments:
     filters:
       status: Статус
       tooltip: Фільтри
+      member: Співробітник
     columns:
       status: Статус
       statusAriaLabel: "Статус: {status}"
       option: Опція
       customer: Клієнт
+      member: Співробітник
       dateTime: Дата та час
       requestedAt: Затребувано
       duration: Тривалість
@@ -764,6 +860,7 @@ appointments:
     name: Ім'я
     email: Електронна пошта
     phone: Телефон
+    member: Співробітник
     fields: Поля
     yes: Так
     no: Ні
@@ -820,6 +917,7 @@ appointments:
     addons: Додатки
     selectAddons: Вибрати додатки...
     customer: Клієнт
+    assignTo: Призначити
     discount: Знижка
     duration: Тривалість
     price: Ціна
@@ -842,7 +940,7 @@ appointments:
     openSettings: Відкрити налаштування
     openingPortal: Відкриваємо портал оплати…
   history:
-    byUser: Користувачем
+    byMember: Учасником
     byCustomer: Клієнтом
     payment: Платіж {amount} через {appName}
     paymentType: "{type} через {appName}"
@@ -937,7 +1035,7 @@ assets:
 activity:
   actor:
     system: Система
-    user: "Користувач: {name}"
+    member: "Учасник: {name}"
     visitor: "Відвідувач: {name}"
     customer: "Клієнт: <link></link>"
   page:
@@ -961,7 +1059,7 @@ activity:
       eventType: Тип події
       actorKind:
         system: Система
-        user: Користувач
+        member: Учасник
         customer: Клієнт
     columns:
       createdAt: Дата
@@ -996,6 +1094,7 @@ communicationLogs:
       dateTime: Дата та час
       appointment: Запис
       customer: Клієнт
+      member: Член команди
     actions:
       selectAll: Вибрати все
       selectRow: Вибрати рядок
@@ -1009,6 +1108,7 @@ communicationLogs:
       direction: Напрямок
       channel: Канал
       participant: Учасник
+      member: Член команди
       status: Статус
 customers:
   title: Клієнти
@@ -1120,8 +1220,8 @@ pages:
   addNew: Додати нову
   addNewPage: Додати нову сторінку
   managePages: Керувати сторінками
-  upgradeRequired: На тарифі Free доступно до 10 сторінок. Перейдіть на Pro, щоб додати більше.
-  upgradeLink: Перейти на Pro
+  upgradeRequired: На тарифі Free доступно до 10 сторінок. Перейдіть на Solo, щоб додати більше.
+  upgradeLink: Перейти на Solo
   viewPage: Переглянути сторінку
   form:
     pageContent: Вміст сторінки
@@ -1342,6 +1442,9 @@ services:
   addonSelector:
     loading: Завантаження додатків...
     selectAddon: Вибрати додаток
+  memberSelector:
+    loading: Завантаження учасників...
+    selectMember: Вибрати учасника
   options:
     title: Послуги
     description: Керувати послугами, які ви надаєте
@@ -1352,7 +1455,7 @@ services:
       description: Оберіть професію та шаблон, щоб заповнити нову опцію.
       pickServiceLabel: Виберіть шаблон послуги, щоб заповнити нову опцію.
     createFromTemplate: Створити
-    upgradeRequired: Безкоштовний тариф включає одну послугу. Перейдіть на Pro, щоб додати більше.
+    upgradeRequired: Безкоштовний тариф включає одну послугу. Перейдіть на Solo, щоб додати більше.
     upgradeLink: Оновити в налаштуваннях бренду
     new: Нова
     newTitle: Нова опція послуги
@@ -1481,6 +1584,21 @@ services:
       selectOption: Вибрати опцію
       fields: Поля
       addons: Додатки
+      staff:
+        title: Робітники
+        hint: Послуги без учасників недоступні для бронювання.
+        add: Додати нового робітника
+        memberSelectCard:
+          moveMember: Переїзд військовослужбовця
+          member: Член
+          meetingUrlProviderWarning: У цього учасника на профілі не налаштовано постачальника URL зустрічі, тому для записів не буде створено URL зустрічі.
+          deleteConfirmTitle: Ви абсолютно впевнені?
+          deleteConfirmDescription: Ви впевнені, що хочете видалити цього учасника з цієї служби?
+          cancel: Скасувати
+          delete: Видалити
+          overrides:
+            price: Перевизначення ціни
+            duration: Перевизначення тривалості
       tabs:
         general: Загальне
         payments: Платежі
@@ -1488,6 +1606,7 @@ services:
         duplicates: Дублікати
         fields: Поля
         addons: Додатки
+        staff: Робітники
       duplicateAppointmentCheck:
         title: Дублюючі записи на ту саму послугу
         enabled: Перевіряти наявність дублюючого запису
@@ -2143,8 +2262,24 @@ settings:
       portalManageHint: Оновіть, понизьте або скасуйте свій план на порталі клієнтів Polar.
       planTier:
         free: Безкоштовний план
-        pro: Про план
-      freeTierHint: Оновіть платіжний портал, щоб розблокувати функції Pro.
+        solo: Solo
+        studio: Studio
+      freeTierHint: Оновіть платіжний портал, щоб розблокувати функції Solo.
+      seatsSectionTitle: Командні місця
+      seatsIncluded:
+        title: Включено (підписка)
+        includedLabel: Сидіння в комплекті
+        availableLabel: Всього доступно
+      seatsAdditional:
+        title: Додаткові місця
+        additionalLabel: Придбані місця
+        addonSeats: "{count, plural, =1 {1 місце} other {# місць}}"
+        unnamedAddon: "{count, plural, =1 {1 додаткове місце} other {# додаткових місць}}"
+        emptyAllowed: Додаткових підписок на місця ще немає. Придбайте місця, щоб запросити більше учасників команди.
+        emptyNotAllowed: Ваш поточний план не включає додаткові підписки на місця.
+      seatsPurchaseHint: Додаткові місця виставляються разом із вашою підпискою. Керуйте ними або скасовуйте їх на платіжному порталі.
+      seatsUpgradeHint: Потрібно більше учасників команди? Перейдіть на план, який підтримує кілька користувачів і додаткові місця.
+      seatsUpgradeButton: План оновлення
     form:
       name: Назва бізнесу
       namePlaceholder: Назва вашого бізнесу
@@ -2223,7 +2358,7 @@ settings:
         copyWebsiteUrlAriaLabel: Копіювати URL веб-сайту
         websiteUrlCopied: URL веб-сайту скопійовано.
         websiteUrlCopyFailed: Не вдалося скопіювати URL.
-        customDomainUpgradeRequired: Спеціальні домени доступні на Pro.
+        customDomainUpgradeRequired: Персональні домени доступні на Solo.
         customDomainUpgradeLink: Оновлення в налаштуваннях бренду
       toasts:
         changesSaved: Ваші зміни були збережені.
@@ -2246,6 +2381,8 @@ settings:
         availabilityProviderAppTooltip: Вибрати додатковий додаток для надання вашої доступності.<br></br>Якщо додаток не вибрано, буде застосовано базовий додаток доступності.
         autoConfirmAppointments: Автоматично підтверджувати записи
         autoConfirmTooltip: Виберіть цю опцію, якщо хочете автоматично підтверджувати всі записи, створені клієнтами.<br></br>За замовчуванням вам потрібно буде вручну підтверджувати кожен запис.
+        allowStaffCalendarSources: Дозволити персоналу керувати джерелами календаря
+        allowStaffCalendarSourcesTooltip: Якщо увімкнено, учасники з роллю «персонал» можуть підключати особисті джерела календаря у профілі, і ці календарі використовуються під час перевірки доступності. Якщо вимкнено, персонал не може керувати джерелами календаря, а їхні особисті календарі ігноруються при перевірці зайнятості.
         showPromoCodeField: Показати поле промокоду
         showPromoCodeTooltip: Налаштувати, чи повинно поле промокоду показуватися під час бронювання
         maxWeeksInFuture: Максимальна кількість тижнів у майбутньому
@@ -2523,6 +2660,10 @@ table:
   filters:
     status: Статус
 dashboard:
+  forbidden:
+    title: Доступ заборонено
+    description: У вас немає дозволу для перегляду цієї сторінки.
+    backToDashboard: Назад до панелі
   greeting:
     morning: Доброго ранку, {name}
     afternoon: Добрий день, {name}
@@ -2542,8 +2683,11 @@ dashboard:
     message: Платіж за підпискою прострочено — нові бронювання та зміни тимчасово заблоковані.
     goToSettings: Перейти до налаштувань →
   freeTierUpgradeBanner:
-    message: У вас тариф Free. Перейдіть на Pro, щоб отримати необмежену кількість послуг і записів, інтеграції оплат та інше.
-    upgrade: Перейти на Pro →
+    message: У вас тариф Free. Перейдіть на Solo, щоб отримати необмежену кількість послуг і записів, інтеграції оплат та інше.
+    upgrade: Перейти на Solo →
+  inactiveMembersBanner:
+    message: "{count, plural, one {# неактивний співробітник має} few {# неактивні співробітники мають} many {# неактивних співробітників мають} other {# неактивних співробітників мають}} майбутні записи, які потрібно перепризначити."
+    viewAppointments: Переглянути записи →
   subscriptionInactive:
     title: Підписку скасовано
     description: Підписка цього робочого простору неактивна. Зв’яжіться з нами, щоб відновити доступ.
@@ -2599,6 +2743,9 @@ calendar:
   agenda: Порядок денний
   eventTitle: "{customer} · {service}"
   appointment: Запис
+  member: Спеціаліст
+  allMembers: Уся команда
+  customer: Клієнт
   status: Статус
   price: Ціна
   note: Примітка
@@ -3059,6 +3206,10 @@ users:
             noAppSelected: Будь ласка, виберіть календарний додаток
       changePhoto: Змінити фото
       removePhoto: Видалити
+      meetingUrlProvider:
+        title: Постачальник URL-адреси зустрічі
+        app: Додаток для зустрічей
+        appTooltip: Виберіть підключену програму, яка використовується для створення посилань на онлайн-зустріч для ваших віртуальних зустрічей.
     security:
       title: Акаунт і безпека
       email: Email адреса
@@ -3115,3 +3266,8 @@ users:
       invalid: Невідома мова
     bio:
       max: Біографія має містити не більше 1024 символів
+memberSelector:
+  placeholder: Виберіть члена команди
+  unassigned: Непризначений
+  requestFailed: Запит на отримання членів команди не виконано
+

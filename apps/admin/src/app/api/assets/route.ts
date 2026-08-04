@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { assetsSearchParamsLoader } from "@timelish/api-sdk";
 import { getLoggerFactory } from "@timelish/logger";
 import { AssetTotalSizeLimitReachedError, UploadedFile } from "@timelish/types";
@@ -110,6 +111,16 @@ export async function POST(request: NextRequest) {
 
   const appointmentId = (formData.get("appointmentId") as string) ?? undefined;
   const customerId = (formData.get("customerId") as string) ?? undefined;
+
+  if (customerId) {
+    const auth = await requirePermission(
+      "customer",
+      "update",
+      "AdminAPI/assets",
+      "POST",
+    );
+    if (!auth.ok) return auth.response;
+  }
 
   if (appointmentId) {
     bucket = getAppointmentBucket(appointmentId);

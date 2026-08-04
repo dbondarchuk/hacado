@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   communicationChannels,
   communicationDirectionSchema,
@@ -19,8 +19,11 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  MembersDataTableAsyncFilterBox,
+  useAuth,
   useSelectedRowsStore,
 } from "@timelish/ui-admin";
+import { canFilterCommunicationByMember } from "@timelish/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";
@@ -58,9 +61,13 @@ export const CommunicationLogsTableAction: React.FC<{
     setEndValue,
     customerFilter,
     setCustomerFilter,
+    memberFilter,
+    setMemberFilter,
   } = useCommunicationLogsTableFilters();
 
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
+  const showMemberFilter = canFilterCommunicationByMember(user);
   const t = useI18n("admin");
 
   const additionalFilters = (
@@ -99,6 +106,13 @@ export const CommunicationLogsTableAction: React.FC<{
           filterValue={participantTypeFilter}
         />
       )}
+      {showMemberFilter ? (
+        <MembersDataTableAsyncFilterBox
+          title={t("communicationLogs.table.filters.member")}
+          filterValue={memberFilter || []}
+          setFilterValue={setMemberFilter as any}
+        />
+      ) : null}
       {showCustomerFilter && (
         <CustomersDataTableAsyncFilterBox
           filterValue={customerFilter}

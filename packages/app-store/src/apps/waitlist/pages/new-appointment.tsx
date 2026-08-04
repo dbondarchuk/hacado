@@ -34,6 +34,7 @@ export const WaitlistNewAppointmentPage: React.FC<{ appId: string }> = ({
         optionId: entry.option._id,
         addonsIds: entry.addons?.map((addon) => addon._id),
         customerId: entry.customer._id,
+        memberId: entry.memberId,
         fields: {
           name: entry.name,
           email: entry.email,

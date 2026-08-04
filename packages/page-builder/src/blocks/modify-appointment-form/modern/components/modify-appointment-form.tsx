@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi, ClientApiError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   CollectPayment,

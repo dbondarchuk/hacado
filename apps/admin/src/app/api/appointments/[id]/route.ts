@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@timelish/logger";
 import { AppointmentEvent, appointmentEventSchema } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -50,10 +51,16 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/appointments/[id]")("PUT");
-  const servicesContainer = await getServicesContainer();
-
   const { id } = await params;
+  const auth = await requireCanUpdateAppointment(
+    id,
+    "AdminAPI/appointments/[id]",
+    "PUT",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
+  const servicesContainer = auth.servicesContainer;
 
   logger.debug(
     {

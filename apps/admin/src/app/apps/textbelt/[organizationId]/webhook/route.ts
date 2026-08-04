@@ -46,6 +46,7 @@ const processWebhook = async (
     services.organizationService,
     services.billingService,
     services.eventService,
+    services.teamService,
   );
 
   try {

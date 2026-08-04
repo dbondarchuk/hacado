@@ -36,6 +36,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.main.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.main.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "blog/settings",
@@ -56,6 +57,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.settings.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.settings.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "settings", action: "update" },
   },
   {
     href: "blog/comments",
@@ -77,6 +79,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.comments.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.comments.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "blog/new",
@@ -97,6 +100,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.new.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.new.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "blog/comments/approve",
@@ -116,6 +120,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.comments.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.comments.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "blog/comments/reject",
@@ -135,6 +140,7 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.comments.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.comments.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
   {
     href: "blog/edit",
@@ -155,5 +161,6 @@ export const BlogMenuItems: AppMenuItem<BlogAdminNamespace, BlogAdminKeys>[] = [
     pageTitle: "app_blog_admin.app.pages.edit.title" satisfies BlogAdminAllKeys,
     pageDescription:
       "app_blog_admin.app.pages.edit.description" satisfies BlogAdminAllKeys,
+    requiredPermission: { resource: "page", action: "update" },
   },
 ];

@@ -1,5 +1,5 @@
 import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { AppointmentOption } from "@timelish/types";
 import {
   cn,
@@ -34,7 +34,9 @@ const OptionLabel: React.FC<{ option: AppointmentOption }> = ({ option }) => {
       {option.durationType === "flexible" && option.pricePerHour && (
         <div className="inline-flex gap-2 items-center text-xs italic">
           <DollarSign size={16} />{" "}
-          {t("common.pricePerHour", { price: currencyFormat(option.pricePerHour) })}
+          {t("common.pricePerHour", {
+            price: currencyFormat(option.pricePerHour),
+          })}
         </div>
       )}
     </span>

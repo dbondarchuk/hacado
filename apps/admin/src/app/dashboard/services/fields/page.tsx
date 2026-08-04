@@ -1,3 +1,4 @@
+import { getUser } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { FieldsTable } from "@/components/admin/services/fields/table/table";
 import { FieldsTableAction } from "@/components/admin/services/fields/table/table-action";
@@ -9,6 +10,7 @@ import { getI18nAsync } from "@timelish/i18n/server";
 import { getLoggerFactory } from "@timelish/logger";
 import { Breadcrumbs, Heading, Link } from "@timelish/ui";
 import { DataTableSkeleton } from "@timelish/ui-admin";
+import { hasPermission } from "@timelish/utils";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -31,6 +33,8 @@ export default async function FieldsPage(props: Params) {
   const parsed = serviceFieldsSearchParamsCache.parse(searchParams);
 
   const key = serviceFieldsSearchParamsSerializer({ ...parsed });
+  const user = await getUser();
+  const canCreate = hasPermission(user, "service", "create");
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
@@ -49,15 +53,16 @@ export default async function FieldsPage(props: Params) {
               description={t("services.fields.description")}
             />
 
-            <Link
-              button
-              href={"/dashboard/services/fields/new"}
-              variant="default"
-            >
-              <Plus /> {t("services.fields.addNew")}
-            </Link>
+            {canCreate ? (
+              <Link
+                button
+                href={"/dashboard/services/fields/new"}
+                variant="default"
+              >
+                <Plus /> {t("services.fields.addNew")}
+              </Link>
+            ) : null}
           </div>
-          {/* <Separator /> */}
         </div>
         <FieldsTableAction />
         <Suspense

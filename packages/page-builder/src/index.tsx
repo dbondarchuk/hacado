@@ -7,7 +7,7 @@ import {
   SidebarTab,
   TEditorConfiguration,
 } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Header } from "@timelish/page-builder-base";
 import { PageHeader, UploadedFile } from "@timelish/types";
 import { deepMemo } from "@timelish/ui";

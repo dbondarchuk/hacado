@@ -1,7 +1,7 @@
 "use client";
 
 import { ResourcesCard } from "@/components/admin/resource/resources-card";
-import { useFormatter, useI18n } from "@timelish/i18n";
+import { useFormatter, useI18n } from "@timelish/i18n/client";
 import {
   colors as colorOverrides,
   ColorOverrideSchema,
@@ -177,7 +177,9 @@ export const StylingTab: React.FC<{
                 name="styling.fonts.primary"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appearance.styling.form.primaryFont")}</FormLabel>
+                    <FormLabel>
+                      {t("appearance.styling.form.primaryFont")}
+                    </FormLabel>
                     <FormControl>
                       <Combobox
                         allowClear
@@ -201,7 +203,9 @@ export const StylingTab: React.FC<{
                 name="styling.fonts.secondary"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appearance.styling.form.secondaryFont")}</FormLabel>
+                    <FormLabel>
+                      {t("appearance.styling.form.secondaryFont")}
+                    </FormLabel>
                     <FormControl>
                       <Combobox
                         values={fonts}
@@ -225,7 +229,9 @@ export const StylingTab: React.FC<{
                 name="styling.fonts.tertiary"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appearance.styling.form.tertiaryFont")}</FormLabel>
+                    <FormLabel>
+                      {t("appearance.styling.form.tertiaryFont")}
+                    </FormLabel>
                     <FormControl>
                       <Combobox
                         allowClear
@@ -273,7 +279,9 @@ export const StylingTab: React.FC<{
                       {(colorsLabels as any)[rowType] ||
                         t("appearance.styling.form.invalidField")}
                       {hasMultipleTypes && (
-                        <span>{t("appearance.styling.form.duplicateType")}</span>
+                        <span>
+                          {t("appearance.styling.form.duplicateType")}
+                        </span>
                       )}
                     </div>
                     <div className="flex flex-row gap-2">
@@ -320,7 +328,9 @@ export const StylingTab: React.FC<{
                       name={`styling.colors.${index}.type` as any}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t("appearance.styling.form.type")}</FormLabel>
+                          <FormLabel>
+                            {t("appearance.styling.form.type")}
+                          </FormLabel>
                           <FormControl>
                             <Combobox
                               disabled={loading}

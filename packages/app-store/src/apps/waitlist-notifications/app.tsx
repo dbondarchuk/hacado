@@ -17,11 +17,12 @@ export const WaitlistNotificationsApp: App<
   subscribeTo: [WAITLIST_ENTRY_CREATED_EVENT_TYPE],
   scope: ["event-subscriber"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <Bell className={className} />,
   isFeatured: false,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_waitlist-notifications_admin.app.description",
   },

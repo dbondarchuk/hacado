@@ -1,9 +1,14 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Schedule, ScheduleOverride, WeekIdentifier } from "@timelish/types";
 import {
   Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Skeleton,
   toast,
   toastPromise,
@@ -25,18 +30,32 @@ import { getWeeklyEvents, setEvents } from "./actions";
 type WeeklySchedule = ScheduleOverride["schedule"];
 type BusyEventsFormProps = {
   appId: string;
+  /** Active org members; a member selector is shown when there is more than one. */
+  members?: { id: string; name: string }[];
 };
 
-export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
+export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
+  appId,
+  members = [],
+}) => {
   const [loading, setLoading] = React.useState(true);
   const t = useI18n<BusyEventsAdminNamespace, BusyEventsAdminKeys>(
     busyEventsAdminNamespace,
   );
   const tAdmin = useI18n("admin");
 
-  const weekStr = useSearchParams().get("week");
+  const searchParams = useSearchParams();
+  const weekStr = searchParams.get("week");
   const week =
     (weekStr ? parseInt(weekStr) : null) || getWeekIdentifier(new Date());
+
+  const showMemberSelector = members.length > 1;
+  const memberParam = searchParams.get("member");
+  const memberId = showMemberSelector
+    ? members.some((member) => member.id === memberParam)
+      ? (memberParam ?? undefined)
+      : members[0]?.id
+    : undefined;
 
   const router = useRouter();
   const todayWeek = getWeekIdentifier(new Date());
@@ -52,7 +71,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
     setLoading(true);
 
     try {
-      const response = await getWeeklyEvents(appId, week);
+      const response = await getWeeklyEvents(appId, week, memberId);
       setSchedule(response);
       setCurrentSchedule(response);
       setLoading(false);
@@ -64,7 +83,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
 
   useEffect(() => {
     loadSchedule();
-  }, [appId, week]);
+  }, [appId, week, memberId]);
 
   const onScheduleChange = async (newSchedule: WeeklySchedule) => {
     if (week < todayWeek) return;
@@ -72,7 +91,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
 
     try {
       // setLoading(true);
-      await toastPromise(setEvents(appId, week, newSchedule), {
+      await toastPromise(setEvents(appId, week, newSchedule, memberId), {
         success: tAdmin("common.toasts.saved"),
         error: tAdmin("common.toasts.error"),
       });
@@ -90,17 +109,59 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
     onScheduleChange(delayedSchedule);
   }, [delayedSchedule]);
 
+  const updateQuery = React.useCallback(
+    (updates: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null) {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
+
   const onWeekChange = React.useCallback(
     (newWeek: WeekIdentifier) => {
       if (newWeek !== week) {
-        router.push(`?week=${newWeek}`);
+        updateQuery({ week: String(newWeek) });
       }
     },
-    [router, week],
+    [updateQuery, week],
+  );
+
+  const onMemberChange = React.useCallback(
+    (newMemberId: string) => {
+      if (newMemberId !== memberId) {
+        updateQuery({ member: newMemberId });
+      }
+    },
+    [updateQuery, memberId],
   );
 
   return (
     <div className="w-full space-y-8 relative flex flex-col gap-2">
+      {showMemberSelector && (
+        <Select
+          value={memberId}
+          onValueChange={onMemberChange}
+          disabled={loading}
+        >
+          <SelectTrigger className="w-full lg:w-[280px]">
+            <SelectValue placeholder={t("selectMember")} />
+          </SelectTrigger>
+          <SelectContent>
+            {members.map((member) => (
+              <SelectItem key={member.id} value={member.id}>
+                {member.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
       <div className="flex flex-col lg:flex-row gap-2 justify-between">
         <Button
           variant={week === todayWeek ? "primary" : "outline"}

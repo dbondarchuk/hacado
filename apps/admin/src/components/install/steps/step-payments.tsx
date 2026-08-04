@@ -14,7 +14,7 @@ import {
   SQUARE_APP_NAME,
   STRIPE_APP_NAME,
 } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import type { ConnectedApp } from "@timelish/types";
 import { BillingPlanTier } from "@timelish/types";
 import {

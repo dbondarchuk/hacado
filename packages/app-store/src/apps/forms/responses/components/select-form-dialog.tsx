@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import {
   Button,
   Dialog,
@@ -23,13 +23,21 @@ export const SelectFormDialog: React.FC<{
   onOpenChange: (open: boolean) => void;
   onSelect: (formId: string) => void;
   selectedFormId?: string;
-}> = ({ appId, open, onOpenChange, onSelect, selectedFormId: initialSelectedFormId }) => {
+}> = ({
+  appId,
+  open,
+  onOpenChange,
+  onSelect,
+  selectedFormId: initialSelectedFormId,
+}) => {
   const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(formsAdminNamespace);
-  const [selectedFormId, setSelectedFormId] = useState<string | undefined>(initialSelectedFormId);
+  const [selectedFormId, setSelectedFormId] = useState<string | undefined>(
+    initialSelectedFormId,
+  );
 
   const handleOpenChange = (next: boolean) => {
     if (!next) setSelectedFormId(undefined);
-    
+
     onOpenChange(next);
   };
 

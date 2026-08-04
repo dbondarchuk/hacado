@@ -1,4 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
+import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
 import { getLoggerFactory } from "@timelish/logger";
 import { ConnectedAppUpdateModel, okStatus } from "@timelish/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,7 +11,6 @@ export async function GET(
   { params }: RouteContext<"/api/apps/[id]/status">,
 ) {
   const logger = getLoggerFactory("AdminAPI/apps/[id]/status")("GET");
-  const servicesContainer = await getServicesContainer();
   const { id } = await params;
 
   logger.debug(
@@ -21,7 +21,7 @@ export async function GET(
   );
 
   try {
-    const app = await servicesContainer.connectedAppsService.getAppStatus(id);
+    const app = await assertCanAccessConnectedApp(id);
 
     logger.debug(
       {
@@ -33,6 +33,12 @@ export async function GET(
 
     return NextResponse.json(app);
   } catch (error: any) {
+    if (error?.status === 403) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
     logger.error(
       {
         appId: id,
@@ -70,6 +76,7 @@ export async function PATCH(
   );
 
   try {
+    await assertCanAccessConnectedApp(id);
     await servicesContainer.connectedAppsService.updateApp(id, body);
 
     logger.debug(
@@ -83,6 +90,12 @@ export async function PATCH(
 
     return NextResponse.json(okStatus);
   } catch (error: any) {
+    if (error?.status === 403) {
+      return NextResponse.json(
+        { success: false, error: "Forbidden", code: "forbidden" },
+        { status: 403 },
+      );
+    }
     logger.error(
       {
         appId: id,

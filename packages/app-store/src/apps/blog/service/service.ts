@@ -13,6 +13,7 @@ import {
   IDashboardNotifierApp,
   ISitemapItemsProvider,
   Page,
+  SessionUser,
   SitemapUrlEntry,
 } from "@timelish/types";
 import {
@@ -89,7 +90,7 @@ export class BlogConnectedApp
 
   public async getInitialNotifications(
     appData: ConnectedAppData,
-    _userId: string,
+    _memberId: string,
     _date?: Date,
   ): Promise<DashboardNotification[]> {
     const badges = await getBlogPendingCommentsBadges(
@@ -111,11 +112,12 @@ export class BlogConnectedApp
     appData: ConnectedAppData,
     request: RequestAction,
     _apiRequest?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ): Promise<any> {
     const logger = this.loggerFactory("processRequest");
     logger.debug({ appId: appData._id }, "Processing blog request");
 
+    const memberId = user?.memberId;
     const { data, success, error } = requestActionSchema.safeParse(request);
     if (!success) {
       logger.error({ error }, "Invalid blog request");
@@ -132,13 +134,13 @@ export class BlogConnectedApp
       case GetBlogPostActionType:
         return this.processGetBlogPostRequest(appData, data);
       case CreateBlogPostActionType:
-        return this.processCreateBlogPostRequest(appData, data, userId);
+        return this.processCreateBlogPostRequest(appData, data, memberId);
       case UpdateBlogPostActionType:
-        return this.processUpdateBlogPostRequest(appData, data, userId);
+        return this.processUpdateBlogPostRequest(appData, data, memberId);
       case DeleteBlogPostActionType:
-        return this.processDeleteBlogPostRequest(appData, data, userId);
+        return this.processDeleteBlogPostRequest(appData, data, memberId);
       case DeleteSelectedBlogPostsActionType:
-        return this.processDeleteBlogPostsRequest(appData, data, userId);
+        return this.processDeleteBlogPostsRequest(appData, data, memberId);
       case GetBlogTagsActionType:
         return this.processGetBlogTagsRequest(appData, data);
       case CheckBlogPostSlugUniqueActionType:
@@ -146,13 +148,13 @@ export class BlogConnectedApp
       case GetBlogCommentsActionType:
         return this.processGetBlogCommentsRequest(appData, data);
       case ApproveBlogCommentActionType:
-        return this.processApproveBlogCommentRequest(appData, data, userId);
+        return this.processApproveBlogCommentRequest(appData, data, memberId);
       case RejectBlogCommentActionType:
-        return this.processRejectBlogCommentRequest(appData, data, userId);
+        return this.processRejectBlogCommentRequest(appData, data, memberId);
       case DeleteBlogCommentActionType:
-        return this.processDeleteBlogCommentRequest(appData, data, userId);
+        return this.processDeleteBlogCommentRequest(appData, data, memberId);
       case DeleteSelectedBlogCommentsActionType:
-        return this.processDeleteBlogCommentsRequest(appData, data, userId);
+        return this.processDeleteBlogCommentsRequest(appData, data, memberId);
       case ApproveSelectedBlogCommentsActionType:
         return this.processApproveBlogCommentsRequest(appData, data);
       case RejectSelectedBlogCommentsActionType:
@@ -368,8 +370,10 @@ export class BlogConnectedApp
     );
   }
 
-  private adminEventSource(userId?: string): EventSource {
-    return userId ? { actor: "user", actorId: userId } : { actor: "user" };
+  private adminEventSource(memberId?: string): EventSource {
+    return memberId
+      ? { actor: "member", actorId: memberId }
+      : { actor: "member" };
   }
 
   private async emitBlogEvent(
@@ -445,7 +449,7 @@ export class BlogConnectedApp
   private async processCreateBlogPostRequest(
     appData: ConnectedAppData,
     data: CreateBlogPostAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processCreateBlogPostRequest");
     logger.debug({ appId: appData._id }, "Processing create blog post request");
@@ -479,7 +483,7 @@ export class BlogConnectedApp
             slug: result.slug,
           },
         },
-        this.adminEventSource(userId),
+        this.adminEventSource(memberId),
       );
 
       logger.debug({ appId: appData._id }, "Successfully created blog post");
@@ -493,7 +497,7 @@ export class BlogConnectedApp
   private async processUpdateBlogPostRequest(
     appData: ConnectedAppData,
     data: UpdateBlogPostAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processUpdateBlogPostRequest");
     logger.debug({ appId: appData._id }, "Processing update blog post request");
@@ -529,7 +533,7 @@ export class BlogConnectedApp
               slug: result.slug,
             },
           },
-          this.adminEventSource(userId),
+          this.adminEventSource(memberId),
         );
       }
 
@@ -544,7 +548,7 @@ export class BlogConnectedApp
   private async processDeleteBlogPostRequest(
     appData: ConnectedAppData,
     data: DeleteBlogPostAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processDeleteBlogPostRequest");
     logger.debug({ appId: appData._id }, "Processing delete blog post request");
@@ -568,7 +572,7 @@ export class BlogConnectedApp
       await this.emitBlogEvent(
         BLOG_POST_DELETED_EVENT_TYPE,
         { postId: data.id },
-        this.adminEventSource(userId),
+        this.adminEventSource(memberId),
       );
 
       logger.debug({ appId: appData._id }, "Successfully deleted blog post");
@@ -582,7 +586,7 @@ export class BlogConnectedApp
   private async processDeleteBlogPostsRequest(
     appData: ConnectedAppData,
     data: DeleteSelectedBlogPostsAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processDeleteBlogPostsRequest");
     logger.debug(
@@ -598,7 +602,7 @@ export class BlogConnectedApp
 
       const result = await repositoryService.deleteBlogPosts(data.ids);
 
-      const source = this.adminEventSource(userId);
+      const source = this.adminEventSource(memberId);
       for (const postId of data.ids) {
         await this.emitBlogEvent(
           BLOG_POST_DELETED_EVENT_TYPE,
@@ -690,7 +694,7 @@ export class BlogConnectedApp
   private async processApproveBlogCommentRequest(
     appData: ConnectedAppData,
     data: ApproveBlogCommentAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const repositoryService = this.getRepositoryService(
       appData._id,
@@ -719,7 +723,7 @@ export class BlogConnectedApp
         },
         status: "approved",
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
     return result;
   }
@@ -727,7 +731,7 @@ export class BlogConnectedApp
   private async processRejectBlogCommentRequest(
     appData: ConnectedAppData,
     data: RejectBlogCommentAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const repositoryService = this.getRepositoryService(
       appData._id,
@@ -757,7 +761,7 @@ export class BlogConnectedApp
         },
         status: "rejected",
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
 
     return result;
@@ -766,7 +770,7 @@ export class BlogConnectedApp
   private async processDeleteBlogCommentRequest(
     appData: ConnectedAppData,
     data: DeleteBlogCommentAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const repositoryService = this.getRepositoryService(
       appData._id,
@@ -790,7 +794,7 @@ export class BlogConnectedApp
         commentId: result._id,
         postId: result.postId,
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
 
     return result;
@@ -799,7 +803,7 @@ export class BlogConnectedApp
   private async processDeleteBlogCommentsRequest(
     appData: ConnectedAppData,
     data: DeleteSelectedBlogCommentsAction,
-    userId?: string,
+    memberId?: string,
   ) {
     const repositoryService = this.getRepositoryService(
       appData._id,
@@ -809,7 +813,7 @@ export class BlogConnectedApp
     const comments = await repositoryService.getBlogCommentsByIds(data.ids);
     const result = await repositoryService.deleteComments(data.ids);
 
-    const source = this.adminEventSource(userId);
+    const source = this.adminEventSource(memberId);
     for (const comment of comments) {
       await this.emitBlogEvent(
         BLOG_COMMENT_DELETED_EVENT_TYPE,

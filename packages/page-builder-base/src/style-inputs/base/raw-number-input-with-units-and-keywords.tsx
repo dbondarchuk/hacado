@@ -1,6 +1,6 @@
 "use client";
 
-import { AllKeys, BaseAllKeys, useI18n } from "@timelish/i18n";
+import { AllKeys, BaseAllKeys, useI18n } from "@timelish/i18n/client";
 import { Button, cn, Combobox } from "@timelish/ui";
 import { X } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";

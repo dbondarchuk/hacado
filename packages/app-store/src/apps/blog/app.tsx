@@ -9,11 +9,12 @@ export const BlogApp: App<"app_blog_admin", BlogAdminKeys> = {
   category: ["apps.categories.content"],
   scope: ["ui-components", "sitemap-items-provider", "dashboard-notifier"],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <FileText className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_blog_admin.app.description",
   },

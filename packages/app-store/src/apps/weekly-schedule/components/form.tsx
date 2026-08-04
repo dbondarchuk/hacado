@@ -1,9 +1,14 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { Schedule, ScheduleOverride, WeekIdentifier } from "@timelish/types";
 import {
   Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Separator,
   Skeleton,
   toast,
@@ -29,19 +34,31 @@ import { ResetDialog } from "./reset-dialog";
 type WeeklySchedule = ScheduleOverride["schedule"];
 type WeeklyScheduleFormProps = {
   appId: string;
+  /** Active org members; a member selector is shown when there is more than one. */
+  members?: { id: string; name: string }[];
 };
 
 export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
   appId,
+  members = [],
 }) => {
   const t = useI18n<WeeklyScheduleAdminNamespace, WeeklyScheduleAdminKeys>(
     weeklyScheduleAdminNamespace,
   );
   const [loading, setLoading] = React.useState(true);
 
-  const weekStr = useSearchParams().get("week");
+  const searchParams = useSearchParams();
+  const weekStr = searchParams.get("week");
   const week =
     (weekStr ? parseInt(weekStr) : null) || getWeekIdentifier(new Date());
+
+  const showMemberSelector = members.length > 1;
+  const memberParam = searchParams.get("member");
+  const memberId = showMemberSelector
+    ? members.some((member) => member.id === memberParam)
+      ? (memberParam ?? undefined)
+      : members[0]?.id
+    : undefined;
 
   const router = useRouter();
   const todayWeek = getWeekIdentifier(new Date());
@@ -58,7 +75,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
     setLoading(true);
 
     try {
-      const response = await getWeeklySchedule(appId, week);
+      const response = await getWeeklySchedule(appId, week, memberId);
       setSchedule(response.schedule);
       setCurrentSchedule(response.schedule);
       setIsDefault(response.isDefault);
@@ -71,7 +88,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
 
   useEffect(() => {
     loadSchedule();
-  }, [appId, week]);
+  }, [appId, week, memberId]);
 
   const onScheduleChange = async (newSchedule: WeeklySchedule) => {
     if (week < todayWeek) return;
@@ -79,10 +96,13 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
 
     try {
       // setLoading(true);
-      await toastPromise(updateWeeklySchedule(appId, week, newSchedule), {
-        success: t("statusText.saved"),
-        error: t("statusText.request_error"),
-      });
+      await toastPromise(
+        updateWeeklySchedule(appId, week, newSchedule, memberId),
+        {
+          success: t("statusText.saved"),
+          error: t("statusText.request_error"),
+        },
+      );
 
       setIsDefault(false);
       setSchedule(newSchedule);
@@ -98,17 +118,59 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
     onScheduleChange(delayedSchedule);
   }, [delayedSchedule]);
 
+  const updateQuery = React.useCallback(
+    (updates: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null) {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
+
   const onWeekChange = React.useCallback(
     (newWeek: WeekIdentifier) => {
       if (newWeek !== week) {
-        router.push(`?week=${newWeek}`);
+        updateQuery({ week: String(newWeek) });
       }
     },
-    [router, week],
+    [updateQuery, week],
+  );
+
+  const onMemberChange = React.useCallback(
+    (newMemberId: string) => {
+      if (newMemberId !== memberId) {
+        updateQuery({ member: newMemberId });
+      }
+    },
+    [updateQuery, memberId],
   );
 
   return (
     <div className="w-full space-y-8 relative flex flex-col gap-2">
+      {showMemberSelector && (
+        <Select
+          value={memberId}
+          onValueChange={onMemberChange}
+          disabled={loading}
+        >
+          <SelectTrigger className="w-full lg:w-[280px]">
+            <SelectValue placeholder={t("form.selectMember")} />
+          </SelectTrigger>
+          <SelectContent>
+            {members.map((member) => (
+              <SelectItem key={member.id} value={member.id}>
+                {member.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
       <div className="flex flex-col lg:flex-row gap-2 justify-between">
         <Button
           variant={week === todayWeek ? "primary" : "outline"}
@@ -148,6 +210,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
             <ResetDialog
               appId={appId}
               week={week}
+              memberId={memberId}
               isDefault={isDefault}
               disabled={week < todayWeek || loading}
               onConfirm={loadSchedule}
@@ -157,6 +220,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
             <ResetAllDialog
               appId={appId}
               week={week}
+              memberId={memberId}
               disabled={week < todayWeek || loading}
               onConfirm={loadSchedule}
               className="rounded-l-none border-l-0 flex-1"
@@ -166,6 +230,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
             <CopyScheduleDialog
               appId={appId}
               week={week}
+              memberId={memberId}
               disabled={isDefault}
               className="rounded-r-none flex-1"
             />
@@ -173,6 +238,7 @@ export const WeeklyScheduleForm: React.FC<WeeklyScheduleFormProps> = ({
             <RepeatScheduleDialog
               appId={appId}
               week={week}
+              memberId={memberId}
               disabled={isDefault}
               className="rounded-l-none border-l-0 flex-1"
             />

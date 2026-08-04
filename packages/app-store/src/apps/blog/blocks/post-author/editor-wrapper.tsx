@@ -1,18 +1,15 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@timelish/i18n/client";
 import { useMemo } from "react";
 import {
   BlogPublicKeys,
   BlogPublicNamespace,
   blogPublicNamespace,
 } from "../../translations/types";
-import { getFormatPreview } from "./formats";
 import { BlogPostAuthorComponent } from "./component";
-import {
-  BlogPostAuthorProps,
-  BlogPostAuthorPropsDefaults,
-} from "./schema";
+import { getFormatPreview } from "./formats";
+import { BlogPostAuthorProps, BlogPostAuthorPropsDefaults } from "./schema";
 
 type BlogPostAuthorEditorWrapperProps = {
   props: BlogPostAuthorProps["props"];

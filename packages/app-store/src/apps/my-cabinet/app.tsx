@@ -14,6 +14,7 @@ export const MyCabinetApp: App<MyCabinetAdminNamespace, MyCabinetAdminKeys> = {
   category: ["apps.categories.appointments"],
   scope: ["ui-components"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <UserRound className={className} />,
   isFeatured: false,
   isHidden: false,
@@ -21,5 +22,5 @@ export const MyCabinetApp: App<MyCabinetAdminNamespace, MyCabinetAdminKeys> = {
   description: {
     text: "app_my-cabinet_admin.app.description" satisfies MyCabinetAdminAllKeys,
   },
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
 };

@@ -33,7 +33,7 @@ export function getSessionPlanTier(session: {
     session.user as { subscriptionPlanTier?: BillingPlanTier | null }
   ).subscriptionPlanTier;
   if (tier) return tier;
-  if (session.user.feesExempt) return BillingPlanTier.Pro;
+  if (session.user.feesExempt) return BillingPlanTier.Studio;
   return null;
 }
 

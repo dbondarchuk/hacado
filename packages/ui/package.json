@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "main": "./src/index.ts",
+  "main": "./src/index.tsx",
   "devDependencies": {
     "@timelish/eslint-config": "*",
     "@timelish/tailwind-config": "*",

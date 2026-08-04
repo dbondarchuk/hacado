@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@timelish/api-sdk";
-import { I18nFn, useI18n } from "@timelish/i18n";
+import { I18nFn, useI18n } from "@timelish/i18n/client";
 import { AppointmentStatus, okStatus } from "@timelish/types";
 import { Button, ButtonProps, cn, Spinner, toastPromise } from "@timelish/ui";
 import { useRouter } from "next/navigation";
