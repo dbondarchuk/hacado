@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { BookingWithWaitlistReader as ModernBookingWithWaitlistReader } from "./modern/booking-with-waitlist/reader";
 import { WaitlistReader as ModernWaitlistReader } from "./modern/waitlist/reader";
 import type { WaitlistBlocksSchema } from "./schema";

@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   PAYMENT_CREATED_EVENT_TYPE,
   PAYMENT_DELETED_EVENT_TYPE,
@@ -9,7 +9,7 @@ import {
   type PaymentDeletedPayload,
   type PaymentRefundedPayload,
   type PaymentUpdatedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

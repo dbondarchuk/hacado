@@ -1,4 +1,4 @@
-import { DashboardTabInjectorApp } from "@timelish/types";
+import { DashboardTabInjectorApp } from "@hacado/types";
 import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,

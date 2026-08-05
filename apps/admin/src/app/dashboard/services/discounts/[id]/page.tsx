@@ -1,10 +1,10 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 
 import { getServicesContainer } from "@/app/utils";
 import { DiscountForm } from "@/components/admin/services/discounts/form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 import { cache } from "react";

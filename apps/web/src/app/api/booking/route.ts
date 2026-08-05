@@ -2,12 +2,12 @@ import { getAppointmentEventAndIsPaymentRequired } from "@/utils/appointments/ge
 import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   appointmentRequestSchema,
   AppointmentLimitReachedError,
   AppointmentTimeNotAvaialbleError,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

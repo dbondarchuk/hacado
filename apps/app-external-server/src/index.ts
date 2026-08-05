@@ -1,5 +1,5 @@
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
 import dotenv from "dotenv";
 import http from "http";
 import { URL } from "url";

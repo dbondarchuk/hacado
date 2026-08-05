@@ -3,7 +3,7 @@ import {
   Reader,
   TReaderProps,
   renderElementToStaticMarkup as baseRenderToStaticMarkup,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import juice from "juice";
 import { ReaderBlocks } from "../blocks/reader";
 import { tailwindCss } from "./tailwind";

@@ -11,8 +11,8 @@ import {
   ICommunicationLogsService,
   Query,
   WithTotal,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex, stream2buffer } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex, stream2buffer } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { Readable } from "stream";
 import {

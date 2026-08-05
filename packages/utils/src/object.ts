@@ -1,4 +1,4 @@
-import { Leaves } from "@timelish/types";
+import { Leaves } from "@hacado/types";
 
 export const resolve = (
   obj: any,

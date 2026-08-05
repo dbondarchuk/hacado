@@ -2,7 +2,7 @@ import {
   AppointmentRescheduleConfiguration,
   AppointmentWithDepositCancellationConfiguration,
   AppointmentWithoutDepositCancellationConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 
 /**

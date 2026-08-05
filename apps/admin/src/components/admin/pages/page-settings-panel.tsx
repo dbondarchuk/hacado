@@ -1,12 +1,12 @@
 import { LanguageOptions } from "@/constants/texts";
-import { BaseSidebarPanel } from "@timelish/builder";
-import { languages, useI18n } from "@timelish/i18n/client";
+import { BaseSidebarPanel } from "@hacado/builder";
+import { languages, useI18n } from "@hacado/i18n/client";
 import {
   PageFooterListModel,
   PageHeaderListModel,
   pageTagSchema,
   zNonEmptyString,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Checkbox,
   Combobox,
@@ -20,7 +20,7 @@ import {
   TagInput,
   Textarea,
   use12HourFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { memo, useCallback } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import { FooterSelector } from "./footer-selector";

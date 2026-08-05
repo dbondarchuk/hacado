@@ -23,7 +23,7 @@ import {
 import { toast } from "sonner";
 import { useFilePicker } from "use-file-picker";
 
-import { UploadedFile } from "@timelish/types";
+import { UploadedFile } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -43,8 +43,8 @@ import {
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
   useOpenState,
-} from "@timelish/ui";
-import { AssetSelectorDialog } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetSelectorDialog } from "@hacado/ui-admin";
 import { useAbsoluteUrl } from "./absolute-url-context";
 
 const MEDIA_CONFIG: Record<

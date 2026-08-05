@@ -1,11 +1,11 @@
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AppSetupProps, ConnectedApp } from "@timelish/types";
-import { Button, Spinner } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps, ConnectedApp } from "@hacado/types";
+import { Button, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import React from "react";
 import { ZoomApp } from "./app";
 import {

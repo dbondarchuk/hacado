@@ -1,10 +1,10 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   IConnectedAppProps,
   inPersonPaymentMethod,
   WithTotal,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
   DesignListModel,
@@ -20,7 +20,7 @@ import {
   PurchasedGiftCardModel,
 } from "../models/purchased-gift-card";
 
-/** Must match `@timelish/services/collections` — avoid importing services (circular dep). */
+/** Must match `@hacado/services/collections` — avoid importing services (circular dep). */
 const CUSTOMERS_COLLECTION_NAME = "customers";
 
 export class GiftCardStudioRepositoryService {

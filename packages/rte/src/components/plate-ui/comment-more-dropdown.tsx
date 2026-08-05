@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn } from "@timelish/ui";
+import { Button, cn } from "@hacado/ui";
 import {
   useCommentDeleteButton,
   useCommentEditButton,
@@ -13,7 +13,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function CommentMoreDropdown() {
   const { props: editProps } = useCommentEditButton();

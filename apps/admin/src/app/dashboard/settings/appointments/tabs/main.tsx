@@ -1,11 +1,11 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
 import {
   allowPromoCodeType,
   BookingConfiguration,
   customTimeSlotSchema,
   Time,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   BooleanSelect,
   Button,
@@ -30,9 +30,9 @@ import {
   SimpleTimePicker,
   TagInput,
   use12HourFormat,
-} from "@timelish/ui";
-import { AppSelector } from "@timelish/ui-admin";
-import { formatTime, formatTimeLocale, parseTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { AppSelector } from "@hacado/ui-admin";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
 import React from "react";
 import { TabProps } from "./types";
 

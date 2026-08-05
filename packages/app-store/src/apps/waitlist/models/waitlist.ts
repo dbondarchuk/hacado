@@ -13,7 +13,7 @@ import {
   zObjectId,
   zPhone,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { WaitlistPublicAllKeys } from "../translations/types";
 

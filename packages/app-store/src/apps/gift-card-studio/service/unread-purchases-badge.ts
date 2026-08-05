@@ -1,7 +1,7 @@
 import {
   DashboardNotificationBadge,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "../const";
 import { GiftCardStudioRepositoryService } from "./repository-service";
 

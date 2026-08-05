@@ -1,4 +1,4 @@
-import type { I18nFn } from "@timelish/i18n";
+import type { I18nFn } from "@hacado/i18n";
 
 const MINUTES_PER_WEEK = 7 * 24 * 60;
 const MINUTES_PER_DAY = 24 * 60;

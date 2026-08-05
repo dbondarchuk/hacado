@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Skeleton } from "@timelish/ui";
-import { DataTableAsyncFilterBox } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Skeleton } from "@hacado/ui";
+import { DataTableAsyncFilterBox } from "@hacado/ui-admin";
 import { Archive } from "lucide-react";
 import React, { useCallback } from "react";
 import { getDesigns } from "../../actions";

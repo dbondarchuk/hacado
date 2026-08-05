@@ -2,15 +2,15 @@
 
 import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
 import {
   asOptionalField,
   fontName,
   zAssetName,
   type BrandConfiguration,
   type StylingConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 

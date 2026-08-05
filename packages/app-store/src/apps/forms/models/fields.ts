@@ -5,7 +5,7 @@ import {
   zNonEmptyString,
   zOptionalOrMinMaxLengthString,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { FormsAdminAllKeys } from "../translations/types";
 

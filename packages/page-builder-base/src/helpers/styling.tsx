@@ -1,6 +1,6 @@
-import { StylingConfiguration } from "@timelish/types";
-import { genericMemo } from "@timelish/ui";
-import { buildGoogleFontsUrl, deepEqual, getColorsCss } from "@timelish/utils";
+import { StylingConfiguration } from "@hacado/types";
+import { genericMemo } from "@hacado/ui";
+import { buildGoogleFontsUrl, deepEqual, getColorsCss } from "@hacado/utils";
 import React from "react";
 import {
   BaseStyleDictionary,

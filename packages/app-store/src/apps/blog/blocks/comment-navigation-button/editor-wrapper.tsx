@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import {
   BlogPublicKeys,
   BlogPublicNamespace,

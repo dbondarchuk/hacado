@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   DISCOUNT_APPLIED_EVENT_TYPE,
   DISCOUNT_CREATED_EVENT_TYPE,
@@ -9,7 +9,7 @@ import {
   type DiscountDeletedPayload,
   type DiscountUpdatedPayload,
   type EventDefinition,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

@@ -14,7 +14,7 @@ import {
   Message as OutlookMessage,
   ResponseType,
 } from "@microsoft/microsoft-graph-types";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   AppointmentEvent,
@@ -37,8 +37,8 @@ import {
   IMeetingUrlProvider,
   IOAuthConnectedApp,
   WithDatabaseId,
-} from "@timelish/types";
-import { decrypt, encrypt, getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt, getAdminUrl } from "@hacado/utils";
 import { createEvent } from "ics";
 import { DateTime } from "luxon";
 import { Readable } from "stream";

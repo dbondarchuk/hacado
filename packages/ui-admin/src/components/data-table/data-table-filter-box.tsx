@@ -1,7 +1,7 @@
 "use client";
 
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Badge,
   Button,
@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Separator,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CheckIcon } from "lucide-react";
 import { Options } from "nuqs";
 import React from "react";

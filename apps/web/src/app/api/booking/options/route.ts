@@ -1,7 +1,7 @@
 import { trackBookingStep } from "@/utils/booking-tracking";
 import { getPlanTier, getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { BillingPlanTier, FREE_TIER_LIMITS } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { BillingPlanTier, FREE_TIER_LIMITS } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

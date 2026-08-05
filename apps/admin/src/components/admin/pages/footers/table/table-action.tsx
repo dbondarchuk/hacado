@@ -4,7 +4,7 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { DeleteSelectedPageFootersButton } from "./delete-selected";
 import { usePageFootersTableFilters } from "./use-table-filters";
 

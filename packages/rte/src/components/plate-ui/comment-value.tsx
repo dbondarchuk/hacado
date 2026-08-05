@@ -1,6 +1,6 @@
 "use client";
 
-import { buttonVariants, cn, inputVariants } from "@timelish/ui";
+import { buttonVariants, cn, inputVariants } from "@hacado/ui";
 import {
   CommentEditActions,
   CommentEditTextarea,

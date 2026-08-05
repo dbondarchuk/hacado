@@ -3,19 +3,19 @@ import {
   getServicesContainer,
   getSession,
 } from "@/app/utils";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { getDashboardNotificationRealtimeBroker } from "@timelish/services";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { getDashboardNotificationRealtimeBroker } from "@hacado/services";
 import {
   DashboardNotification,
   IDashboardNotifierApp,
   type SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   canReadSyncedPayments,
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import { NextRequest } from "next/server";
 import { v4 } from "uuid";

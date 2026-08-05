@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, PageInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import { ConfigurationProps, PageInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { BookingConfirmationProps } from "./schema";
 import { styles } from "./styles";

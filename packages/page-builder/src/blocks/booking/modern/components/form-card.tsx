@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentFields, getFields } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentFields, getFields } from "@hacado/types";
 import {
   fieldSchemaMapper,
   fieldsComponentMap,
   Form,
   usePrevious,
-} from "@timelish/ui";
-import { deepEqual } from "@timelish/utils";
+} from "@hacado/ui";
+import { deepEqual } from "@hacado/utils";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

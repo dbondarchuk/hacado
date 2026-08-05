@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { AutoSkeleton, toast } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { AutoSkeleton, toast } from "@hacado/ui";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getDesignById } from "../../actions";

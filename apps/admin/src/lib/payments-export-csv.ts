@@ -1,6 +1,6 @@
-import type { AdminKeys } from "@timelish/i18n";
-import type { PaymentExportRow } from "@timelish/types";
-import { formatAmountString, rowsToCsv } from "@timelish/utils";
+import type { AdminKeys } from "@hacado/i18n";
+import type { PaymentExportRow } from "@hacado/types";
+import { formatAmountString, rowsToCsv } from "@hacado/utils";
 
 const COLUMN_KEYS = [
   "paidAt",

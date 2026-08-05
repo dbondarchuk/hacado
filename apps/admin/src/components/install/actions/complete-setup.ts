@@ -13,22 +13,22 @@ import {
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
   WAITLIST_NOTIFICATIONS_APP_NAME,
-} from "@timelish/app-store";
-import { AppointmentNotificationsTemplates } from "@timelish/app-store/exports";
-import { languages } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
-import { canInstallApp } from "@timelish/app-store";
-import { resolvePlanTierFromOrganization } from "@timelish/services/billing";
-import type { ApiRequest, SessionUser } from "@timelish/types";
-import { BillingPlanTier } from "@timelish/types";
+} from "@hacado/app-store";
+import { AppointmentNotificationsTemplates } from "@hacado/app-store/exports";
+import { languages } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
+import { canInstallApp } from "@hacado/app-store";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import type { ApiRequest, SessionUser } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types";
 import {
   bookingConfigurationSchema,
   systemEventSource,
   type PaymentsConfiguration,
   type TemplateUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BuiltInTemplateTemplates } from "../../admin/templates/templates";
 import {
   getDefaultBookingConfiguration,

@@ -1,4 +1,4 @@
-/** Core platform event type strings (emitted from @timelish/services). Payload shape is per event. */
+/** Core platform event type strings (emitted from @hacado/services). Payload shape is per event. */
 
 export const CUSTOMER_CREATED_EVENT_TYPE = "customer.created" as const;
 export const CUSTOMER_UPDATED_EVENT_TYPE = "customer.updated" as const;

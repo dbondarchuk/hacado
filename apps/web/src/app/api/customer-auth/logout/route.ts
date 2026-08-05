@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { CUSTOMER_SESSION_COOKIE } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { CUSTOMER_SESSION_COOKIE } from "@hacado/types";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

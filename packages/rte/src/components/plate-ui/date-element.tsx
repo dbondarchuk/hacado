@@ -8,7 +8,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { PlateElement } from "./plate-element";
 
 export const DateElement = withRef<typeof PlateElement>(

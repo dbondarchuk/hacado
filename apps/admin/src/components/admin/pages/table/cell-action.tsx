@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Page } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Page } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -14,7 +14,7 @@ import {
   toast,
   toastPromise,
   useWebsiteUrl,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import copy from "copy-text-to-clipboard";
 import {
   Copy,

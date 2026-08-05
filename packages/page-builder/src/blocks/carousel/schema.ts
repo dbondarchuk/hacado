@@ -1,8 +1,8 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
 import {
   getAllStylesWithAdditionalStyles,
   getStylesSchema,
-} from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base/style";
 import * as z from "zod";
 import { carouselChildrenAlignStyle } from "./carousel-children-align";
 import { carouselChildrenItemsPerSlideStyle } from "./carousel-children-items-per-slide";

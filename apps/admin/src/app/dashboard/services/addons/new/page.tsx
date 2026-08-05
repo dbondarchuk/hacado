@@ -2,10 +2,10 @@ import { getServicesContainer } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { AddonForm } from "@/components/admin/services/addons/form";
 import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentAddonUpdateModel } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentAddonUpdateModel } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 

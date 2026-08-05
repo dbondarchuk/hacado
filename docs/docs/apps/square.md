@@ -5,13 +5,13 @@ description: Take payments through Square at checkout or with Square hardware al
 
 # Square
 
-Connect Square when your business collects money through Square for online checkout, saved cards, terminals, gift cards mapped in Square, or similar flows exposed in Timelish.
+Connect Square when your business collects money through Square for online checkout, saved cards, terminals, gift cards mapped in Square, or similar flows exposed in Hacado.
 
 ## Adding the App
 
 1. Open **Apps**, then **Store**, and install **Square**.
 2. Sign in with your Square Seller account and approve access.
-3. Map locations or catalog items when the wizard asks so Timelish and Square agree on basics.
+3. Map locations or catalog items when the wizard asks so Hacado and Square agree on basics.
 4. Run a tiny test transaction in Sandbox or Live as your onboarding suggests.
 5. Set **Default apps** if multiple payment processors exist.
 
@@ -39,7 +39,7 @@ Regional availability differs. Confirm Square sells and settles in your country 
 
 **Use this when:** Redemption should hit Square ledgers.
 
-**You need:** Gift items configured in Square and linked the way Timelish expects.
+**You need:** Gift items configured in Square and linked the way Hacado expects.
 
 ## Removing the App
 
@@ -48,8 +48,8 @@ Regional availability differs. Confirm Square sells and settles in your country 
 
 ### What changes afterward
 
-Timelish stops creating new Square payments. Open Square tabs (disputes, payouts) still live in Square until closed.
+Hacado stops creating new Square payments. Open Square tabs (disputes, payouts) still live in Square until closed.
 
-### Outside Timelish
+### Outside Hacado
 
-Remove or rotate Timelish in Square Developer or connected apps screens if compliance asks for a clean revoke.
+Remove or rotate Hacado in Square Developer or connected apps screens if compliance asks for a clean revoke.

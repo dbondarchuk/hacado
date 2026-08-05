@@ -14,14 +14,14 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Plus } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as z from "zod";

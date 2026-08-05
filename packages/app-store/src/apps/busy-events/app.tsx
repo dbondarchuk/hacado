@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { CalendarX2 } from "lucide-react";
 import { BUSY_EVENTS_APP_NAME } from "./const";
 import {

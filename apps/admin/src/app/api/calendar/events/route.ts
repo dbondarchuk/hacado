@@ -1,7 +1,7 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentStatus, appointmentStatuses } from "@timelish/types";
-import { resolveCalendarMemberId } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentStatus, appointmentStatuses } from "@hacado/types";
+import { resolveCalendarMemberId } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 

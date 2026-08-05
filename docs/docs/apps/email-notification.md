@@ -9,7 +9,7 @@ Email notification emails **you or your chosen address** when appointment activi
 
 ## Adding the App
 
-1. Prefer **[SMTP](/docs/apps/smtp)** if you send from your own domain. Shared Timelish mail works only when your workspace already has outbound email configured elsewhere.
+1. Prefer **[SMTP](/docs/apps/smtp)** if you send from your own domain. Shared Hacado mail works only when your workspace already has outbound email configured elsewhere.
 2. Open **Apps**, then **Store**, and install **Email notification**.
 3. Enter **Send to email** when you want a different inbox than your account default (leave blank to use your primary email).
 4. Save until the setup reports success.
@@ -47,4 +47,4 @@ This App speaks to staff or internal mailboxes. Messages **to paying clients** a
 
 ### What changes afterward
 
-You stop receiving these automatic mailbox updates. Appointment changes still occur in Timelish; monitoring moves to dashboards or manual checks.
+You stop receiving these automatic mailbox updates. Appointment changes still occur in Hacado; monitoring moves to dashboards or manual checks.

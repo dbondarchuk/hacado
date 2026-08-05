@@ -8,8 +8,8 @@ import type {
   IActivityService,
   IDashboardNotificationsService,
   WithTotal,
-} from "@timelish/types";
-import { escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { escapeRegex } from "@hacado/utils";
 import type { Redis } from "ioredis";
 import type { Document, Filter } from "mongodb";
 import { ObjectId } from "mongodb";

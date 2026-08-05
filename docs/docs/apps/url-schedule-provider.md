@@ -5,11 +5,11 @@ description: Pull open hours or schedule data from your own web address for cale
 
 # URL schedule provider
 
-This App is for teams with a **developer or vendor** who exposes schedule data over HTTP. Timelish calls your URL with a time range (start and end as standard ISO query parameters) and expects a response that describes available schedule information for calendar integration. It is different from **[URL busy events](/docs/apps/url-busy-events)**, which only supplies busy blocks.
+This App is for teams with a **developer or vendor** who exposes schedule data over HTTP. Hacado calls your URL with a time range (start and end as standard ISO query parameters) and expects a response that describes available schedule information for calendar integration. It is different from **[URL busy events](/docs/apps/url-busy-events)**, which only supplies busy blocks.
 
 ## Adding the App
 
-1. Confirm the contract with your technical partner: URL, headers, and JSON (or similar) shape Timelish accepts.
+1. Confirm the contract with your technical partner: URL, headers, and JSON (or similar) shape Hacado accepts.
 2. Open **Apps**, then **Store**, and install **URL schedule provider**.
 3. Enter the **URL** and optional **headers** (for example a bearer token).
 4. Save until the App reports connected. Parse or auth errors must be fixed on your server or in the values you typed.
@@ -41,8 +41,8 @@ If you only need to block time from a regular calendar file, **[ICS Feed](/docs/
 
 ### What changes afterward
 
-Timelish stops asking your server for schedule data. Your weekly hours and other calendar Apps take over again.
+Hacado stops asking your server for schedule data. Your weekly hours and other calendar Apps take over again.
 
-### Outside Timelish
+### Outside Hacado
 
-Revoke keys or tokens you issued for Timelish. Update your server so old tokens cannot be reused.
+Revoke keys or tokens you issued for Hacado. Update your server so old tokens cannot be reused.

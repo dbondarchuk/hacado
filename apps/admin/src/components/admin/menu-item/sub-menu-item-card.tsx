@@ -1,8 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useI18n } from "@timelish/i18n/client";
-import { SubMenuItem } from "@timelish/types";
-import { Button, Card, CardContent, CardHeader, cn } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { SubMenuItem } from "@hacado/types";
+import { Button, Card, CardContent, CardHeader, cn } from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";

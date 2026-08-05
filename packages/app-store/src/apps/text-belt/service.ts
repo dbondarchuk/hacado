@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -15,7 +15,7 @@ import {
   TextMessage,
   TextMessageReply,
   TextMessageResponse,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   decrypt,
   encrypt,
@@ -23,7 +23,7 @@ import {
   getArguments,
   getWebsiteUrl,
   maskify,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import crypto from "crypto";
 import { getEmailTemplate } from "./emails/utils";
 import { TextBeltConfiguration, textBeltConfigurationSchema } from "./models";

@@ -10,7 +10,7 @@ describe("app subscription plan access", () => {
     const { canInstallApp, canProcessApp, getAppMinimumPlanTier } = await import(
       "./subscription-plan-access"
     );
-    const { BillingPlanTier } = await import("@timelish/types");
+    const { BillingPlanTier } = await import("@hacado/types");
 
     assert.equal(getAppMinimumPlanTier("stripe"), BillingPlanTier.Solo);
     assert.equal(getAppMinimumPlanTier("google-calendar"), BillingPlanTier.Free);

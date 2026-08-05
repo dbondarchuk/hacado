@@ -1,4 +1,4 @@
-import { ApplyDiscountRequest, ApplyDiscountResponse } from "@timelish/types";
+import { ApplyDiscountRequest, ApplyDiscountResponse } from "@hacado/types";
 import { fetchClientApi } from "./utils";
 
 export const applyDiscount = async (request: ApplyDiscountRequest) => {

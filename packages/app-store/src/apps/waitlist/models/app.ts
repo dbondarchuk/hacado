@@ -4,7 +4,7 @@ import {
   zObjectId,
   zTaggedUnion,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 import { WaitlistAdminAllKeys } from "../translations/types";

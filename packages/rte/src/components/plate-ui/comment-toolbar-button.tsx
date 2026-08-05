@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@timelish/ui";
+import { ToolbarButton } from "@hacado/ui";
 import { useCommentAddButton } from "@udecode/plate-comments/react";
 import { MessageSquarePlus } from "lucide-react";
 

@@ -4,8 +4,8 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
-import { template } from "@timelish/utils";
+} from "@hacado/builder";
+import { template } from "@hacado/utils";
 import { Ref } from "react";
 import { Video } from "./reader";
 import { VideoProps, VideoPropsDefaults } from "./schema";

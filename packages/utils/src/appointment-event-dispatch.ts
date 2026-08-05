@@ -1,4 +1,4 @@
-import type { EventEnvelope, EventSource, UserRole } from "@timelish/types";
+import type { EventEnvelope, EventSource, UserRole } from "@hacado/types";
 import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
@@ -10,7 +10,7 @@ import {
   type AppointmentSlotRescheduledPayload,
   type AppointmentStatus,
   type AppointmentStatusChangedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 import { roleCanProcessOtherMembersAppointments } from "./permissions";
 
 /**

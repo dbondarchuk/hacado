@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   Appointment,
@@ -13,8 +13,8 @@ import {
   IEventSubscriber,
   IScheduled,
   TemplateTemplatesList,
-} from "@timelish/types";
-import { dispatchAppointmentEventPayload } from "@timelish/utils";
+} from "@hacado/types";
+import { dispatchAppointmentEventPayload } from "@hacado/utils";
 import { AppointmentNotificationsJobProcessor } from "./job-processor";
 import {
   AppointmentNotification,

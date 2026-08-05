@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { AccordionItem } from "./accordion-item/reader";
 import { Accordion } from "./accordion/reader";
 import { BeforeAfterReader } from "./before-after/reader";

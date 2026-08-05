@@ -3,10 +3,10 @@
 // import Image from "next/image";
 import React from "react";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { CustomerListModel } from "@timelish/types";
-import { Skeleton, useDebounceCacheFn } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { CustomerListModel } from "@hacado/types";
+import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,

@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { BellRing } from "lucide-react";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./const";
 import {

@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { GiftCardListModel } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { GiftCardListModel } from "@hacado/types";
 import {
   AutoSkeleton,
   Button,
@@ -17,9 +17,9 @@ import {
   Link,
   ScrollArea,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { CustomerName } from "@timelish/ui-admin";
-import { GiftCardPaymentsDialog } from "@timelish/ui-admin-kit";
+} from "@hacado/ui";
+import { CustomerName } from "@hacado/ui-admin";
+import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";
 import { PurchasedGiftCardListModel } from "../../models";

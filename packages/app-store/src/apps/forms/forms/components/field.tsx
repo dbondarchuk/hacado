@@ -1,6 +1,6 @@
-import { useI18n } from "@timelish/i18n/client";
-import { PlateMarkdownEditor } from "@timelish/rte";
-import { fileFieldAcceptItemSchema } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateMarkdownEditor } from "@hacado/rte";
+import { fileFieldAcceptItemSchema } from "@hacado/types";
 import {
   BooleanSelect,
   Button,
@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
   TagInput,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";

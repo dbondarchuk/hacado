@@ -1,8 +1,8 @@
 "use server";
 
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { DefaultAppsConfiguration } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { DefaultAppsConfiguration } from "@hacado/types";
 
 const logger = getLoggerFactory("DefaultAppsActions");
 

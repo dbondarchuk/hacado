@@ -1,15 +1,15 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { CommunicationLog } from "@timelish/types";
-import { Button, Checkbox, Link } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { CommunicationLog } from "@hacado/types";
+import { Button, Checkbox, Link } from "@hacado/ui";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
-import { CommunicationLogPayloadDialog } from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin";
+import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 
 export const columns: ColumnDef<CommunicationLog>[] = [

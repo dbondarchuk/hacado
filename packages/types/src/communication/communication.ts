@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import { AppointmentEntity } from "../booking";
 import { Customer } from "../customers";
 import { WithDatabaseId, WithOrganizationId } from "../database";

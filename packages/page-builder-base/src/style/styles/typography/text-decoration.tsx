@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { Combobox } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { Underline } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

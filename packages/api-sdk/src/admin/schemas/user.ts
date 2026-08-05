@@ -1,4 +1,4 @@
-import { BaseAllKeys, languages } from "@timelish/i18n";
+import { BaseAllKeys, languages } from "@hacado/i18n";
 import {
   asOptionalField,
   calendarSourcesConfigurationSchema,
@@ -6,7 +6,7 @@ import {
   zNonEmptyString,
   zObjectId,
   zPhone,
-} from "@timelish/types";
+} from "@hacado/types";
 import { z } from "zod";
 
 export const userUpdateSchema = z.object({

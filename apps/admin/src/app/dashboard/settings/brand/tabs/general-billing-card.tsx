@@ -3,13 +3,13 @@
 import { SmsTopupPurchaseDialog } from "@/app/dashboard/settings/brand/tabs/sms-topup-purchase-dialog";
 import { PurchaseSeatsDialog } from "@/components/admin/team/purchase-seats-dialog";
 import { SeatsPurchaseSuccessToast } from "@/components/admin/team/seats-purchase-success-toast";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   BillingPlanTier,
   OrganizationBillingSubscriptionDetails,
   OrganizationSubscriptionStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Card,
@@ -21,7 +21,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ExternalLink } from "lucide-react";
 import { DateTime } from "luxon";
 import Link from "next/link";

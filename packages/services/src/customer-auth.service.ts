@@ -1,5 +1,5 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { BaseAllKeys } from "@timelish/i18n";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { BaseAllKeys } from "@hacado/i18n";
 import type {
   CustomerAuthConfiguration,
   CustomerSession,
@@ -10,7 +10,7 @@ import type {
   RequestOtpResult,
   VerifyOtpPayload,
   VerifyOtpResult,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   CUSTOMER_OTP_MAX_REQUESTS,
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
@@ -18,13 +18,13 @@ import {
   CUSTOMER_SESSION_COOKIE,
   CUSTOMER_SESSION_TTL_SECONDS,
   CustomerAuthError,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { createHmac, randomInt, randomUUID } from "node:crypto";
 import { BaseService } from "./services/base.service";
 
@@ -34,7 +34,7 @@ export {
   CustomerAuthError,
   type RequestOtpResult,
   type VerifyOtpResult,
-} from "@timelish/types";
+} from "@hacado/types";
 
 type OtpState = {
   customerId: string;

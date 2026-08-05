@@ -16,7 +16,7 @@ import {
   UnderlineIcon,
 } from "lucide-react";
 
-import { ToolbarGroup } from "@timelish/ui";
+import { ToolbarGroup } from "@hacado/ui";
 import { InlineEquationToolbarButton } from "./inline-equation-toolbar-button";
 import { LinkToolbarButton } from "./link-toolbar-button";
 import { MarkToolbarButton } from "./mark-toolbar-button";

@@ -1,4 +1,4 @@
-import { zOptionalOrMaxLengthString, zTaggedUnion } from "@timelish/types";
+import { zOptionalOrMaxLengthString, zTaggedUnion } from "@hacado/types";
 import * as z from "zod";
 import { CaldavAdminAllKeys } from "./translations/types";
 

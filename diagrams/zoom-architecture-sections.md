@@ -1,6 +1,6 @@
 # Zoom Integration Architecture (Detailed, Sectioned)
 
-This document describes how Zoom is integrated into Timelish as a connected OAuth app.
+This document describes how Zoom is integrated into Hacado as a connected OAuth app.
 It is split into focused sections so each part of the architecture is readable on its own.
 
 ## 1) What This Integration Does
@@ -30,7 +30,7 @@ flowchart LR
   Admin["Admin User"]
   Booker["Customer / Staff"]
 
-  subgraph Timelish["Timelish Platform"]
+  subgraph Hacado["Hacado Platform"]
     AdminFE["Admin Frontend (apps/admin)"]
     WebFE["Booking Frontend (apps/web)"]
     API["API + Services Layer"]

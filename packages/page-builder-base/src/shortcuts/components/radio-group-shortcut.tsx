@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { Label, RadioGroup, RadioGroupItem } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Label, RadioGroup, RadioGroupItem } from "@hacado/ui";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithRadio } from "../types";
 

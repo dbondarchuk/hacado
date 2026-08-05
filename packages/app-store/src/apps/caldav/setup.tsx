@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AppSetupProps } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
 import {
   Button,
   Form,
@@ -20,11 +20,11 @@ import {
   SelectValue,
   Spinner,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CaldavApp } from "./app";

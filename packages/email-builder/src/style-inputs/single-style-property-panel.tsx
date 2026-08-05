@@ -8,8 +8,8 @@ import {
   SelectInput,
   SliderInput,
   TextAlignInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { DraftingCompass } from "lucide-react";
 import { FONT_FAMILIES } from "./helpers/font-family";
 import { TStyle } from "./helpers/TStyle";

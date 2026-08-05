@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { FileText, MessageSquare, Settings } from "lucide-react";
 import { BLOG_PENDING_COMMENTS_BADGE_KEY } from "./const";
 import { BlogCommentApprovePage } from "./comments/pages/approve";

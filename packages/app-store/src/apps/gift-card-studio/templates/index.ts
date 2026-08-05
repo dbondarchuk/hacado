@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@timelish/types";
+import { TemplateTemplatesList } from "@hacado/types";
 import { giftCardToCustomerEmailTemplate as giftCardToCustomerEmailTemplateEn } from "./en/gift-card-to-customer";
 import { giftCardToRecipientEmailTemplate as giftCardToRecipientEmailTemplateEn } from "./en/gift-card-to-recipient";
 import { giftCardToCustomerEmailTemplate as giftCardToCustomerEmailTemplateUk } from "./uk/gift-card-to-customer";

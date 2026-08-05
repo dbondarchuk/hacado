@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   AppointmentAddon,
   AppointmentDiscount,
@@ -8,9 +8,9 @@ import {
   Customer,
   effectiveStaffDuration,
   effectiveStaffPrice,
-} from "@timelish/types";
-import { formatAmount, getDiscountAmount } from "@timelish/utils";
-import { canUseFeature, resolvePlanTierFromOrganization } from "@timelish/services/billing";
+} from "@hacado/types";
+import { formatAmount, getDiscountAmount } from "@hacado/utils";
+import { canUseFeature, resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import { getServicesContainer } from "../utils";
 
 export const getAppointmentEventFromRequest = async (

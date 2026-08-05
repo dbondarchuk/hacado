@@ -4,7 +4,7 @@ import {
   ConfigurationOption,
   IEventService,
   type EventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import type { Redis } from "ioredis";
 import { cache } from "react";
 import { ConfigurationService } from "./configuration.service";

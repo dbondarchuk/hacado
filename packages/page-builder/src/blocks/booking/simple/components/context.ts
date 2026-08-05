@@ -12,7 +12,7 @@ import {
   Fields,
   PublicStaffMember,
   WithLabelFieldData,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 

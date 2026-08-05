@@ -1,20 +1,20 @@
 "use client";
 
-import { AvailableApps } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n/client";
-import { ConnectedApp } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { useI18n } from "@hacado/i18n/client";
+import { ConnectedApp } from "@hacado/types";
 import {
   Button,
   Link,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppAccount,
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { RefreshCcw, Unplug } from "lucide-react";
 import { AddOrUpdateAppButton } from "./add-or-update-app-dialog";
 import { DeleteAppButton } from "./delete-app-button";

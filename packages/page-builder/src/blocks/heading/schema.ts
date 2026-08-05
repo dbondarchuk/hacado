@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
-import { Prettify } from "@timelish/types";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import { Prettify } from "@hacado/types";
 import * as z from "zod";
 import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";

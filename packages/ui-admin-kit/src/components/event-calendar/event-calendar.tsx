@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
   Calendar,
@@ -13,7 +13,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

@@ -1,4 +1,4 @@
-import { ConfigurationProps } from "@timelish/builder";
+import { ConfigurationProps } from "@hacado/builder";
 import { MarketingBrowserCarouselProps } from "./schema";
 
 export const MarketingBrowserCarouselToolbar = (

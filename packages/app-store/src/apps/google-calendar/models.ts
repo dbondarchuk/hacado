@@ -2,7 +2,7 @@ import {
   ConnectedOauthAppTokens,
   zNonEmptyString,
   zTaggedUnion,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 export const googleCalendarConfigurationSchema = z.object({

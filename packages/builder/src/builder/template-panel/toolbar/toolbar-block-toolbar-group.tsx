@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarGroup } from "@timelish/ui";
+import { ToolbarGroup } from "@hacado/ui";
 import { useCallback, useMemo } from "react";
 import { useSelectedSlotStyleHandlers } from "../../inspector-drawer/slot-styles-panel";
 import {

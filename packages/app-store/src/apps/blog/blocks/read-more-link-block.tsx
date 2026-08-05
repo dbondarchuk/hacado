@@ -2,8 +2,8 @@ import {
   generateId,
   generateId as generateLinkId,
   TEditorBlock,
-} from "@timelish/builder";
-import { COLORS } from "@timelish/page-builder-base/style";
+} from "@hacado/builder";
+import { COLORS } from "@hacado/page-builder-base/style";
 
 const InlineContainerPropsDefaults = {
   style: {

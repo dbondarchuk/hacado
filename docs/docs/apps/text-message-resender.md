@@ -9,7 +9,7 @@ When customers **reply** to business texts, this App forwards that reply to **yo
 
 ## Adding the App
 
-1. Ensure **[Textbelt SMS](/docs/apps/text-belt)** stays healthy and inbound replies are already reaching Timelish.
+1. Ensure **[Textbelt SMS](/docs/apps/text-belt)** stays healthy and inbound replies are already reaching Hacado.
 2. Open **Apps**, then **Store**, and install **Text message resender**.
 3. Optionally set a **phone override** field if forwards should reach a teammate or shared handset.
 4. Save. Ask a coworker’s phone to reply to an outbound SMS and confirm you receive the forwarded copy.
@@ -41,4 +41,4 @@ Treat forwarded messages like client data lock handsets respect privacy training
 
 ### What changes afterward
 
-Customer replies stay inside Timelish only. Nobody receives automatic phone forwards until you reinstall this App.
+Customer replies stay inside Hacado only. Nobody receives automatic phone forwards until you reinstall this App.

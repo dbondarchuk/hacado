@@ -1,11 +1,11 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { useQueryStates } from "nuqs";
 import React from "react";
 import { searchParams } from "./search-params";
 
-import { WithTotal } from "@timelish/types";
-import { toast, useDebounce } from "@timelish/ui";
-import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";
+import { WithTotal } from "@hacado/types";
+import { toast, useDebounce } from "@hacado/ui";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
 import { getAppointmentNotifications } from "../actions";
 import { AppointmentNotification } from "../models";
 import {

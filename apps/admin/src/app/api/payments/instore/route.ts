@@ -1,10 +1,10 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   inStorePaymentUpdateModelSchema,
   PaymentUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

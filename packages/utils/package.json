@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/utils",
+  "name": "@hacado/utils",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -17,12 +17,12 @@
     "@types/mustache": "^4.2.5",
     "@types/node": "^20",
     "@types/uuid": "^10.0.0",
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@timelish/types": "*",
+    "@hacado/types": "*",
     "color": "^5.0.0",
     "content-type": "1.0.4",
     "fast-equals": "^5.2.2",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import React from "react";
 

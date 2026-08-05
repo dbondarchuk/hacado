@@ -1,7 +1,7 @@
 import { auth } from "@/app/auth";
 import { getOrganizationId } from "@/app/utils";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { UserRole } from "@timelish/types";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { UserRole } from "@hacado/types";
 import { headers } from "next/headers";
 import { CancelInvitationButton } from "./cancel-invitation-button";
 

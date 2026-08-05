@@ -6,8 +6,8 @@ import {
   TemplateListModel,
   TemplateUpdateModel,
   WithTotal,
-} from "@timelish/types";
-import { FormattedArguments } from "@timelish/utils";
+} from "@hacado/types";
+import { FormattedArguments } from "@hacado/utils";
 import {
   TemplateSearchParams,
   templateSearchParamsSerializer,

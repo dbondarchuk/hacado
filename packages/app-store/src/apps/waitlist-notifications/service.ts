@@ -1,6 +1,6 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { AllKeys } from "@timelish/i18n";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { AllKeys } from "@hacado/i18n";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   BookingConfiguration,
   BrandConfiguration,
@@ -14,14 +14,14 @@ import {
   IConnectedAppProps,
   IEventSubscriber,
   SocialConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   durationToTime,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import {
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,

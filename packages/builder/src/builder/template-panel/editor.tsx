@@ -1,5 +1,5 @@
 import { DragOverlay } from "@dnd-kit/react";
-import { cn, TabsContent } from "@timelish/ui";
+import { cn, TabsContent } from "@hacado/ui";
 import { memo, useMemo } from "react";
 import { EditorBlock } from "../../documents/editor/block";
 import {

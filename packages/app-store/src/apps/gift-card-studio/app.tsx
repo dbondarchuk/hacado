@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { Gift } from "lucide-react";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./const";
 import {

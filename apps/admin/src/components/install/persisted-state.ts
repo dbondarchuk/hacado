@@ -3,8 +3,8 @@ import {
   GOOGLE_CALENDAR_APP_NAME,
   ICS_APP_NAME,
   OUTLOOK_APP_NAME,
-} from "@timelish/app-store";
-import { fontsNames, shiftsSchema, type ConnectedApp, type Schedule } from "@timelish/types";
+} from "@hacado/app-store";
+import { fontsNames, shiftsSchema, type ConnectedApp, type Schedule } from "@hacado/types";
 import { getDefaultInstallSchedule } from "./default-schedule";
 import {
   getCatalogProfession,

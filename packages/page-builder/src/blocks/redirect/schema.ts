@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
-import { Prettify, zNonEmptyString } from "@timelish/types";
+import { BaseReaderBlockProps } from "@hacado/builder";
+import { Prettify, zNonEmptyString } from "@hacado/types";
 import * as z from "zod";
 
 export const RedirectPropsSchema = z.object({

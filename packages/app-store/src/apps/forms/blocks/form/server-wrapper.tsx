@@ -32,7 +32,7 @@ export const FormBlockServerWrapper = async ({
   }
 
   const { headers } = await import("next/headers");
-  const { ServicesContainer } = await import("@timelish/services");
+  const { ServicesContainer } = await import("@hacado/services");
   const { FormsRepositoryService } = await import(
     "../../service/repository-service"
   );

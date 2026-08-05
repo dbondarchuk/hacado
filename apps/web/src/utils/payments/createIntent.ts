@@ -1,5 +1,5 @@
 import { getAppointmentEventAndIsPaymentRequired } from "@/utils/appointments/get-payment-required";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   AppointmentRequest,
   CollectPayment,
@@ -8,8 +8,8 @@ import {
   ModifyAppointmentRequest,
   PaymentIntentUpdateModel,
   PaymentType,
-} from "@timelish/types";
-import { deepEqual } from "@timelish/utils";
+} from "@hacado/types";
+import { deepEqual } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { getModifyAppointmentInformationRequestResult } from "../appointments/get-modify-appointment-request";
 import {

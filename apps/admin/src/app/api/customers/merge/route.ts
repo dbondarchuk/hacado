@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { okStatus, zNonEmptyString } from "@timelish/types";
+import { okStatus, zNonEmptyString } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

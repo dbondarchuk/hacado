@@ -5,14 +5,14 @@ import {
 } from "@/utils/customer-auth/session";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ModifyAppointmentInformation,
   ModifyAppointmentRequest,
   modifyAppointmentRequestSchema,
   OnlinePayment,
-} from "@timelish/types";
-import { formatAmount } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmount } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 const processRescheduleRequest = async (

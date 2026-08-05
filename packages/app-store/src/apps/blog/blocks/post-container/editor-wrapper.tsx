@@ -1,11 +1,11 @@
 "use client";
 
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { blogPostsListFixtures } from "../fixtures";
 import { BlogPostContainerReaderProps, styles } from "./schema";

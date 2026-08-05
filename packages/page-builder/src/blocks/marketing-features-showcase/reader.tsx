@@ -1,9 +1,9 @@
-import { ReaderBlock, TReaderBlock } from "@timelish/builder";
+import { ReaderBlock, TReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { Fragment } from "react";
 import { MarketingFeaturesShowcaseClient } from "./marketing-features-showcase.client";
 import { MarketingFeaturesShowcaseReaderProps } from "./schema";

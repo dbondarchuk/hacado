@@ -8,22 +8,22 @@ import {
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { polar, portal, webhooks } from "@polar-sh/better-auth";
-import { languages, type Language } from "@timelish/i18n";
-import { getPolarClient, getRedisClient } from "@timelish/services";
-import { resolvePlanTierFromOrganization } from "@timelish/services/billing";
-import { MEMBERS_COLLECTION_NAME } from "@timelish/services/collections";
+import { languages, type Language } from "@hacado/i18n";
+import { getPolarClient, getRedisClient } from "@hacado/services";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
 import {
   getDbConnection,
   getDbConnectionSync,
-} from "@timelish/services/database";
+} from "@hacado/services/database";
 import {
   OrganizationSubscriptionStatus,
   type Organization as OrganizationDbModel,
   type OrganizationMember,
   type SessionUser,
   type WithDatabaseId,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";

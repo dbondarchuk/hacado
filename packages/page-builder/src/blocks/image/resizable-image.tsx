@@ -4,11 +4,11 @@ import {
   BaseBlockProps,
   useEditorArgs,
   usePortalContext,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn, useDebounce } from "@timelish/ui";
-import { mergeRefs } from "@timelish/ui/src/utils/merge-refs";
-import { template } from "@timelish/utils";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn, useDebounce } from "@hacado/ui";
+import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
+import { template } from "@hacado/utils";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { ImageProps } from "./schema";
 import { styles } from "./styles";

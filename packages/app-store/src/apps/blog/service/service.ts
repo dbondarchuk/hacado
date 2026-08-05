@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -15,7 +15,7 @@ import {
   Page,
   SessionUser,
   SitemapUrlEntry,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,
   BLOG_COMMENT_DELETED_EVENT_TYPE,

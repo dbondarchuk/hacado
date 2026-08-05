@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Ellipsis } from "lucide-react";
 import { useIsMobile } from "../hooks/use-mobile";
 import { cn } from "../utils/cn";

@@ -1,14 +1,14 @@
 "use client";
 
 import { ResourcesCard } from "@/components/admin/resource/resources-card";
-import { useFormatter, useI18n } from "@timelish/i18n/client";
+import { useFormatter, useI18n } from "@hacado/i18n/client";
 import {
   colors as colorOverrides,
   ColorOverrideSchema,
   colorsLabels,
   fontsNames,
   fontsOptions,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,9 +33,9 @@ import {
   FormMessage,
   IComboboxItem,
   InfoTooltip,
-} from "@timelish/ui";
-import { ColorPickerInput, NonSortable } from "@timelish/ui-admin";
-import { getWebfontPreviewFilename } from "@timelish/utils";
+} from "@hacado/ui";
+import { ColorPickerInput, NonSortable } from "@hacado/ui-admin";
+import { getWebfontPreviewFilename } from "@hacado/utils";
 import { Trash } from "lucide-react";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";

@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { durationToTime, timeToDuration, weeks } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { durationToTime, timeToDuration, weeks } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import React from "react";
 import { cn } from "../utils/cn";

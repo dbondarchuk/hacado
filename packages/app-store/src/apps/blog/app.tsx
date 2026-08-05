@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { FileText } from "lucide-react";
 import { BLOG_APP_NAME } from "./const";
 import { BlogAdminKeys } from "./translations/types";

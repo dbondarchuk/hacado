@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { Form } from "lucide-react";
 import { FORMS_APP_NAME } from "./const";
 import {

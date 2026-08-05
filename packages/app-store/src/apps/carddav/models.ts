@@ -1,4 +1,4 @@
-import { ConnectedAppStatusWithText, Prettify } from "@timelish/types";
+import { ConnectedAppStatusWithText, Prettify } from "@hacado/types";
 
 export type CarddavConfiguration = {
   username: string;

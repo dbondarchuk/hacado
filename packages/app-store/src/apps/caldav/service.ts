@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   CalendarBusyTime,
   CalendarWriterEvent,
@@ -12,8 +12,8 @@ import {
   ICalendarWriter,
   IConnectedApp,
   IConnectedAppProps,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt } from "@hacado/utils";
 import { parseIcsCalendar, parseIcsEvent } from "@ts-ics/schema-zod";
 import { DateTime } from "luxon";
 import {
@@ -643,7 +643,7 @@ export default class CaldavConnectedApp
 
     const ics = generateIcsCalendar({
       version: "2.0",
-      prodId: "-//timelish-caldav//EN",
+      prodId: "-//hacado-caldav//EN",
       events: [
         {
           start: {

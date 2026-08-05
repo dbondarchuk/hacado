@@ -1,8 +1,8 @@
 import { getServicesContainer, getSession } from "@/app/utils";
-import { userUpdateSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import type { SessionUser } from "@timelish/types";
-import { canManageCalendarSources } from "@timelish/utils";
+import { userUpdateSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import type { SessionUser } from "@hacado/types";
+import { canManageCalendarSources } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -1,4 +1,4 @@
-import { AllKeys, I18nNamespaces } from "@timelish/i18n";
+import { AllKeys, I18nNamespaces } from "@hacado/i18n";
 import { Email } from "../apps/mail";
 import { DashboardNotification } from "../apps/notifications/dashboard";
 import { TextMessageData } from "../apps/text-message";

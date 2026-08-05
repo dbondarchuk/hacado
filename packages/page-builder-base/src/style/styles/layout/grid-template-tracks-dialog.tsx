@@ -1,6 +1,6 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -19,7 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Grid3X3 } from "lucide-react";
 import React, { useState } from "react";
 

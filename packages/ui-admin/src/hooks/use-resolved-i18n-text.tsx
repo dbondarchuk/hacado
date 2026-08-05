@@ -1,8 +1,8 @@
 "use client";
 
-import { I18nFn, useI18n, useLocale } from "@timelish/i18n/client";
-import { DATE_TIME_FORMATS, DateTimeFormat } from "@timelish/types";
-import { useTimeZone } from "@timelish/ui";
+import { I18nFn, useI18n, useLocale } from "@hacado/i18n/client";
+import { DATE_TIME_FORMATS, DateTimeFormat } from "@hacado/types";
+import { useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 
 const T_PREFIX = "t_";

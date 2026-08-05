@@ -6,7 +6,7 @@ import {
   type TeamPermissionResource,
   type TeamRolePermissions,
   type UserRole,
-} from "@timelish/types";
+} from "@hacado/types";
 
 function isUserRole(role: string | undefined | null): role is UserRole {
   return !!role && role in teamRolePermissions;

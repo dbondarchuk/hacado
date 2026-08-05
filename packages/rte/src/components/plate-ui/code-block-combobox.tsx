@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import {
   useCodeBlockCombobox,
   useCodeBlockComboboxState,
@@ -20,7 +20,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 import Prism from "prismjs";
 import "prismjs/components/prism-antlr4.js";

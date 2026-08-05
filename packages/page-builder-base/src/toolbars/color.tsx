@@ -1,5 +1,5 @@
-import { ConfigurationProps } from "@timelish/builder";
-import { Leaves } from "@timelish/types";
+import { ConfigurationProps } from "@hacado/builder";
+import { Leaves } from "@hacado/types";
 import {
   Button,
   DropdownMenu,
@@ -12,8 +12,8 @@ import {
   SelectValue,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
-import { destructAndReplace, resolveProperty } from "@timelish/utils";
+} from "@hacado/ui";
+import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { Sketch } from "@uiw/react-color";
 import { X } from "lucide-react";
 import React, { ReactNode } from "react";

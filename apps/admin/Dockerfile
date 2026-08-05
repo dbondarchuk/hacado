@@ -43,11 +43,11 @@ COPY --parents *.* ./
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ARG MONGODB_URI=mongodb://mongodb:27017/timelish?retryWrites=true&w=majority
+ARG MONGODB_URI=mongodb://mongodb:27017/hacado?retryWrites=true&w=majority
 RUN \
-  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@timelish/admin; \
-  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@timelish/admin; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@timelish/admin; \
+  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@hacado/admin; \
+  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@hacado/admin; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@hacado/admin; \
   else echo "Lockfile not found." && exit 1; \
   fi
 

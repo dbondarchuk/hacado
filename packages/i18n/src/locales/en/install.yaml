@@ -75,7 +75,7 @@ wizard:
   verify:
     title: Confirm your email to continue
     description: >-
-      We need a verified email before we can finish setting up your Timeli.sh
+      We need a verified email before we can finish setting up your Hacado
       workspace. This keeps your account secure.
     resend: Resend verification email
     resendSuccess: Verification email sent
@@ -292,9 +292,9 @@ wizard:
     taskCalendar: Preparing calendar connections
     taskFinalize: Finalizing setup
     buildingExperience: We are building your booking experience now.
-    readyTitle: Your Timeli.sh is ready
+    readyTitle: Your Hacado is ready
     readySubtitle: Head to the dashboard to manage bookings or share your public page.
-    ctaDashboard: Manage my Timeli.sh
+    ctaDashboard: Manage my Hacado
     ctaBooking: View my booking page
     finalizeError: Could not finalize install. Please retry.
     retry: Retry

@@ -1,7 +1,7 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { Appointment } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
 import {
   Button,
   Link,
@@ -10,15 +10,15 @@ import {
   TooltipResponsiveTrigger,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
-import { AppointmentDialog } from "@timelish/ui-admin-kit";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { AppointmentDialog } from "@hacado/ui-admin-kit";
+import { durationToTime } from "@hacado/utils";
 import {
   CalendarCheck,
   CalendarClock,

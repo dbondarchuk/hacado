@@ -1,12 +1,12 @@
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
-import { getPolarClient } from "@timelish/services";
-import { ORGANIZATIONS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
+import { getPolarClient } from "@hacado/services";
+import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
 import {
   OrganizationSubscriptionStatus,
   parseOrganizationSubscriptionStatus,
   type Organization,
-} from "@timelish/types";
+} from "@hacado/types";
 
 const ALLOWED_STATUSES = new Set<OrganizationSubscriptionStatus>([
   OrganizationSubscriptionStatus.Active,

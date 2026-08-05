@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { canUpdateAppointment } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { canUpdateAppointment } from "@hacado/utils";
 import { forbidden, notFound, redirect } from "next/navigation";
 
 type Props = PageProps<"/dashboard/appointments/[id]/[status]">;

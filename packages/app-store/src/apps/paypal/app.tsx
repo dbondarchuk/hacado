@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { PAYPAL_APP_NAME } from "./const";
 import { PaypalLogo } from "./logo";
 import { PaypalAdminKeys, PaypalAdminNamespace } from "./translations/types";

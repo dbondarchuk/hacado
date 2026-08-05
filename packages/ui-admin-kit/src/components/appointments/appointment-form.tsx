@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { fallbackLanguage, useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentAddon,
@@ -20,7 +20,7 @@ import {
   Prettify,
   WithLabelFieldData,
   zNonEmptyString,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -51,17 +51,17 @@ import {
   useCurrencyFormat,
   useCurrencySymbol,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomerSelector,
   MemberSelector,
   PromoCodeSelector,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import {
   durationToTime,
   formatAmount,
   getDiscountAmount,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

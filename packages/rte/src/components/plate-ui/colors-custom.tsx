@@ -2,7 +2,7 @@
 
 import { type ComponentPropsWithoutRef } from "react";
 
-import { buttonVariants, cn } from "@timelish/ui";
+import { buttonVariants, cn } from "@hacado/ui";
 import {
   useColorsCustom,
   useColorsCustomState,
@@ -15,7 +15,7 @@ import {
 } from "./color-dropdown-menu-items";
 import { ColorInput } from "./color-input";
 // import { ColorInput } from './color-input';
-import { DropdownMenuItem } from "@timelish/ui";
+import { DropdownMenuItem } from "@hacado/ui";
 
 type ColorCustomProps = {
   colors: TColor[];

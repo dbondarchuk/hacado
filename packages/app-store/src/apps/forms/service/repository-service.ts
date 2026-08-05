@@ -1,6 +1,6 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
-import { Customer, IConnectedAppProps, WithTotal } from "@timelish/types";
-import { escapeRegex } from "@timelish/utils";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { Customer, IConnectedAppProps, WithTotal } from "@hacado/types";
+import { escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
   FORM_RESPONSES_COLLECTION_NAME,
@@ -16,7 +16,7 @@ import {
   UpdateFormResponseModelWithNormalizedAnswers,
 } from "../models";
 
-/** Must match `@timelish/services/collections` — avoid importing services (circular dep). */
+/** Must match `@hacado/services/collections` — avoid importing services (circular dep). */
 const CUSTOMERS_COLLECTION_NAME = "customers";
 
 export class FormsRepositoryService {

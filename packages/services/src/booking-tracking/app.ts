@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   BOOKING_TRACKING_STEP_EVENT_TYPE,
   BookingStep,
@@ -11,7 +11,7 @@ import {
   IScheduled,
   IServicesContainer,
   JobRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Redis } from "ioredis";
 import { DateTime } from "luxon";
 import { getRedisClient } from "../bullmq";

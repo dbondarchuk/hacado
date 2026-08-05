@@ -1,4 +1,4 @@
-import { clientApi, ClientApiError } from "@timelish/api-sdk";
+import { clientApi, ClientApiError } from "@hacado/api-sdk";
 
 import type {
 
@@ -6,7 +6,7 @@ import type {
 
   ModifyAppointmentType,
 
-} from "@timelish/types";
+} from "@hacado/types";
 
 import type {
 

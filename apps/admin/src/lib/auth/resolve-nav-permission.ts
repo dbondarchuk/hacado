@@ -1,5 +1,5 @@
 import { navItems } from "@/constants/data";
-import type { RequiredPermission } from "@timelish/types";
+import type { RequiredPermission } from "@hacado/types";
 
 type NavNode = {
   href?: string;

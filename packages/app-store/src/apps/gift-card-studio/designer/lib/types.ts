@@ -1,4 +1,4 @@
-import type { IconName } from "@timelish/ui";
+import type { IconName } from "@hacado/ui";
 import { DateTime } from "luxon";
 
 export type { IconName };

@@ -1,4 +1,4 @@
-import type { Language } from "@timelish/i18n";
+import type { Language } from "@hacado/i18n";
 import type { Query, WithTotal } from "../database";
 import type {
   MemberInactiveReason,

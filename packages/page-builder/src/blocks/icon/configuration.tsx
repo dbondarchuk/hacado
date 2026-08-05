@@ -1,8 +1,8 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
 import {
   ComboboxAsync,
   deepMemo,
@@ -11,8 +11,8 @@ import {
   iconNames,
   Label,
   type IconName,
-} from "@timelish/ui";
-import { capitalize } from "@timelish/utils";
+} from "@hacado/ui";
+import { capitalize } from "@hacado/utils";
 import { useCallback } from "react";
 import { IconProps, IconPropsDefaults } from "./schema";
 import { iconShortcuts } from "./shortcuts";

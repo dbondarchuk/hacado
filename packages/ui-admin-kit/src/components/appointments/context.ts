@@ -1,4 +1,4 @@
-import { Appointment } from "@timelish/types";
+import { Appointment } from "@hacado/types";
 import React from "react";
 
 export const AppointmentViewContext = React.createContext<{

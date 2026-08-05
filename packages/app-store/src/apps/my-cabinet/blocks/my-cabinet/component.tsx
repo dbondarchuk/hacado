@@ -1,18 +1,18 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
 import {
   Skeleton,
   cn,
   toast,
   useTimeZone,
   useUseClientTimezone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useEffect, useState } from "react";
 import {

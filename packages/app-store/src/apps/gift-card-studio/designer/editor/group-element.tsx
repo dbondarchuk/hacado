@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, Icon } from "@timelish/ui";
+import { cn, Icon } from "@hacado/ui";
 import type React from "react";
 import { useCallback, useRef } from "react";
 import { useEditorStore } from "../lib/store";

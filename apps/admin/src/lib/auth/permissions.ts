@@ -2,12 +2,12 @@ import {
   teamPermissionStatements,
   teamRolePermissions,
   type UserRole,
-} from "@timelish/types";
+} from "@hacado/types";
 import { createAccessControl } from "better-auth/plugins/access";
 
 /**
- * Better Auth access-control built from shared `@timelish/types` role permissions.
- * Permission *checks* live in `@timelish/utils` (`hasPermission`, etc.).
+ * Better Auth access-control built from shared `@hacado/types` role permissions.
+ * Permission *checks* live in `@hacado/utils` (`hasPermission`, etc.).
  */
 export const teamAc = createAccessControl(
   teamPermissionStatements as unknown as {

@@ -1,7 +1,7 @@
 "use client";
 
-import { ConfigurationProps, TextInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+import { ConfigurationProps, TextInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { ConditionalContainerProps } from "./schema";
 
 export const ConditionalContainerConfiguration = ({

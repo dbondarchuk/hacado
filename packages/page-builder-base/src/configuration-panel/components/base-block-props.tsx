@@ -1,14 +1,14 @@
 import {
   BaseBlockProps as BaseBlockPropsType,
   TextInput,
-} from "@timelish/builder";
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Eclipse, Hash } from "lucide-react";
 import { useState } from "react";
 

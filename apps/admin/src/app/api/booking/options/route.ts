@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { getDefaultBookingConfiguration } from "@/components/install/default-booking";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { bookingConfigurationSchema, zObjectId } from "@timelish/types";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { bookingConfigurationSchema, zObjectId } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

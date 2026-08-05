@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Payment, PaymentSummary } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { Payment, PaymentSummary } from "@hacado/types";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { PaymentCard } from "./payment-card";

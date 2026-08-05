@@ -18,7 +18,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { PlateElement } from "./plate-element";
 
 export const ColumnElement = withHOC(

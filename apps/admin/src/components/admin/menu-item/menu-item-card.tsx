@@ -1,13 +1,13 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useI18n } from "@timelish/i18n/client";
-import { StaticText } from "@timelish/rte-inline/reader";
+import { useI18n } from "@hacado/i18n/client";
+import { StaticText } from "@hacado/rte-inline/reader";
 import {
   MenuItem,
   MenuItemType,
   menuItemTypes,
   MenuItemWithSubMenu,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Card,
@@ -20,7 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";

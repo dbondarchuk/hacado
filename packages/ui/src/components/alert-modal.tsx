@@ -1,5 +1,5 @@
 "use client";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { useEffect, useState } from "react";
 import { Button } from "./button";
 import { Modal } from "./modal";

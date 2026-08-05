@@ -1,13 +1,13 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { assetsSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { AssetTotalSizeLimitReachedError, UploadedFile } from "@timelish/types";
+import { assetsSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { AssetTotalSizeLimitReachedError, UploadedFile } from "@hacado/types";
 import {
   fileNameToMimeType,
   getAppointmentBucket,
   getCustomerBucket,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 } from "uuid";
 

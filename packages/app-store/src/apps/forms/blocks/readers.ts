@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { FormBlockReader } from "./form";
 import type { FormsBlocksSchema } from "./schema";
 

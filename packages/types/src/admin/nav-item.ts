@@ -1,4 +1,4 @@
-import type { AllKeys } from "@timelish/i18n";
+import type { AllKeys } from "@hacado/i18n";
 import type { ReactElement } from "react";
 import type { BillingPlanTier } from "../billing/subscription-plan";
 import type { RequiredPermission } from "../users/permissions";

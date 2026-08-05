@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { getLoggerFactory } from "@timelish/logger";
-import { assetUpdateSchema, okStatus, UploadedFile } from "@timelish/types";
-import { canUpdateAppointment } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { assetUpdateSchema, okStatus, UploadedFile } from "@hacado/types";
+import { canUpdateAppointment } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

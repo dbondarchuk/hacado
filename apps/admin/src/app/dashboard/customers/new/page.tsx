@@ -1,9 +1,9 @@
 import { CustomerForm } from "@/components/admin/customers/form";
 import PageContainer from "@/components/admin/layout/page-container";
 import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 
 type Props = PageProps<"/dashboard/customers/new">;

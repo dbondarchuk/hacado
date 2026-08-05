@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   IJobService,
   Job,
@@ -6,7 +6,7 @@ import {
   OrganizationJobRequest,
   RepeatableJobOptions,
   ScheduleRepeatableJobRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";
 import { serializeJobData } from "./utils";

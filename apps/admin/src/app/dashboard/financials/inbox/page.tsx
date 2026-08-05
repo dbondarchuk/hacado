@@ -1,7 +1,7 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { SyncedPaymentsReview } from "@/components/admin/synced-payments/review";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

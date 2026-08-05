@@ -1,5 +1,5 @@
-import { ConfigurationProps } from "@timelish/builder";
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
 import { blogTextShortcuts } from "./text-shortcuts";
 
 export const BlogTextToolbar = <T extends { style?: unknown }>(

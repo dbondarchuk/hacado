@@ -1,5 +1,5 @@
-import { AllKeys } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { AllKeys } from "@hacado/i18n";
+import { Leaves } from "@hacado/types";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../const";
 import type adminKeys from "./en/admin.generated";
 

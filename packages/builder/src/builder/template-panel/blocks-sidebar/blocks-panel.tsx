@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/react";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   cn,
@@ -10,7 +10,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useDebounce,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { GripVertical, Layers, Search, X } from "lucide-react";
 import { memo, useMemo, useState } from "react";
 import {

@@ -1,5 +1,5 @@
 "use client";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useNavigationGuard } from "next-navigation-guard";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { UseFormReturn, useFormState } from "react-hook-form";

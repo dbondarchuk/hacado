@@ -1,4 +1,4 @@
-import { okStatus } from "@timelish/types";
+import { okStatus } from "@hacado/types";
 import {
   dismissWaitlistEntries,
   getWaitlistEntry as getWaitlistEntryAction,

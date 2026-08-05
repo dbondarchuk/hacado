@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { claimEventHandler } from "../claim-event-handler";
 import { resolveEventDefinition } from "../event-registry";
 import type { EventHandler } from "./types";

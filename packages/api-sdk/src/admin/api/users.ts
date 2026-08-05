@@ -1,4 +1,4 @@
-import { OrganizationMember } from "@timelish/types";
+import { OrganizationMember } from "@hacado/types";
 import { UserUpdate } from "../schemas/user";
 import { fetchAdminApi } from "./utils";
 

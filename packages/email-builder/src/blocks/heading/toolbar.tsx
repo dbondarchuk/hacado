@@ -2,8 +2,8 @@ import {
   ConfigurationProps,
   ToolbarColorMenu,
   ToolbarDropdownMenu,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Baseline,
   Heading1,

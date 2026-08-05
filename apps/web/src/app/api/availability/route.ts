@@ -1,8 +1,8 @@
 import { trackBookingStep } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
-import { availabilitySearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
+import { availabilitySearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

@@ -31,8 +31,8 @@ import {
   Label,
   popoverVariants,
   Separator,
-} from "@timelish/ui";
-import { PageSelectorDialog } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { PageSelectorDialog } from "@hacado/ui-admin";
 import { useRef } from "react";
 import { useWindow } from "./window-context";
 

@@ -2,8 +2,8 @@ import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { Booking } from "./components/booking";
 import { BookingReaderProps } from "./schema";
 import { styles } from "./styles";

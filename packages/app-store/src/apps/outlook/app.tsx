@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { OUTLOOK_APP_NAME } from "./const";
 import { OutlookLogo } from "./logo";
 import { OutlookAdminKeys, OutlookAdminNamespace } from "./translations/types";

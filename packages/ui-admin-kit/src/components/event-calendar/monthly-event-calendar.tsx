@@ -1,12 +1,12 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   cn,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useTimeZone,
-} from "@timelish/ui";
-import { formatTimeLocale, hasSame, parseTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
 
 import { Clock } from "lucide-react";
 import { DateTime } from "luxon";

@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Badge,
   Button,
@@ -14,8 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
   Link,
-} from "@timelish/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { DateTime } from "luxon";
 import { BlogCommentListItem } from "../../models";
 import {

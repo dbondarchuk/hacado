@@ -1,10 +1,10 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import {
   EventsCalendar as KitEventsCalendar,
   EventCalendarView,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import React from "react";
 import { useCookies } from "react-cookie";

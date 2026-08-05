@@ -1,14 +1,14 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { canReassignAppointment } from "@timelish/utils";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentChoice } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { canReassignAppointment } from "@hacado/utils";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentChoice } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
 import { Metadata } from "next";
 import { searchParamsCache } from "./search-params";
 

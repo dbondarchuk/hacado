@@ -1,6 +1,6 @@
-import { LoggerFactory } from "@timelish/logger";
-import { ConnectedAppData, PaymentFee } from "@timelish/types";
-import { round2 } from "@timelish/utils";
+import { LoggerFactory } from "@hacado/logger";
+import { ConnectedAppData, PaymentFee } from "@hacado/types";
+import { round2 } from "@hacado/utils";
 import { PaypalClient, PaypalTransactionDetail } from "./client";
 import { PAYPAL_TRANSACTION_SYNC_LOOKBACK_SECONDS } from "./const";
 import { PaypalConfiguration } from "./models";

@@ -1,4 +1,4 @@
-import { App, APPOINTMENT_CREATED_EVENT_TYPE, BillingPlanTier } from "@timelish/types";
+import { App, APPOINTMENT_CREATED_EVENT_TYPE, BillingPlanTier } from "@hacado/types";
 import { CalendarClock } from "lucide-react";
 import { WAITLIST_APP_NAME } from "./const";
 import { WaitlistAdminKeys } from "./translations/types";

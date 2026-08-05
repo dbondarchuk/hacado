@@ -1,4 +1,4 @@
-import { colorShortcut, Shortcut } from "@timelish/page-builder-base";
+import { colorShortcut, Shortcut } from "@hacado/page-builder-base";
 import { MoveDiagonal2, Paintbrush2 } from "lucide-react";
 import { IconStylesSchema } from "./styles";
 

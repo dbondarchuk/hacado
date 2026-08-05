@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 import { waitlistEntryCreatedEmailTemplate as waitlistEntryCreatedEmailTemplateEn } from "./en/waitlist-entry-created";
 import { waitlistEntryCreatedEmailTemplate as waitlistEntryCreatedEmailTemplateUk } from "./uk/waitlist-entry-created";
 

@@ -1,5 +1,5 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { DaySchedule, Shift } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { DaySchedule, Shift } from "@hacado/types";
 import {
   cn,
   ScrollArea,
@@ -9,8 +9,8 @@ import {
   TooltipResponsiveTrigger,
   usePointer,
   useTimeZone,
-} from "@timelish/ui";
-import { formatTime, formatTimeLocale, parseTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import { DateTime, HourNumbers, SecondNumbers } from "luxon";
 import React, { CSSProperties, Fragment, useCallback } from "react";

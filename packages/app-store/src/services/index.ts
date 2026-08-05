@@ -1,4 +1,4 @@
-import { IConnectedApp, IConnectedAppProps } from "@timelish/types";
+import { IConnectedApp, IConnectedAppProps } from "@hacado/types";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../apps/appointment-notifications/const";
 import ScheduledNotificationsConnectedApp from "../apps/appointment-notifications/service";
 import { BLOG_APP_NAME } from "../apps/blog/const";

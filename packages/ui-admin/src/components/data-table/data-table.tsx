@@ -13,9 +13,9 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { baseSearchParams } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Sort } from "@timelish/types";
+import { baseSearchParams } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Sort } from "@hacado/types";
 import {
   Button,
   cn,
@@ -32,7 +32,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect, useMemo, useRef, useState } from "react";

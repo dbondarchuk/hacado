@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "@timelish/ui";
+import { Button, ButtonProps } from "@hacado/ui";
 import { X } from "lucide-react";
 
 export const ResetButton: React.FC<{

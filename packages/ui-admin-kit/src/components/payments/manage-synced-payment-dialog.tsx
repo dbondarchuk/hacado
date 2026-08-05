@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { HydratedSyncedPayment } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { HydratedSyncedPayment } from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -13,7 +13,7 @@ import {
   DialogTrigger,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React, { useCallback, useEffect, useState } from "react";
 import { AssignAppointmentDialog } from "./assign-appointment-dialog";
 import { EditSyncedPaymentAmountsDialog } from "./edit-synced-payment-amounts-dialog";

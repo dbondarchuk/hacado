@@ -48,7 +48,7 @@ import {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { PlateElement } from "./plate-element";
 import {
   BorderAll,

@@ -3,7 +3,7 @@ import {
   AppointmentOptionUpdateModel,
   okStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   ServiceOptionsSearchParams,
   serviceOptionsSearchParamsSerializer,

@@ -1,12 +1,12 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DateRange,
   HydratedSyncedPayment,
   SyncedPaymentStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,14 +23,14 @@ import {
   Spinner,
   toastPromise,
   useTimeZone,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
 import {
   AssignAppointmentDialog,
   EditSyncedPaymentAmountsDialog,
   SyncedPaymentCard,
-} from "@timelish/ui-admin-kit";
-import { canManageSyncedPayments } from "@timelish/utils";
+} from "@hacado/ui-admin-kit";
+import { canManageSyncedPayments } from "@hacado/utils";
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

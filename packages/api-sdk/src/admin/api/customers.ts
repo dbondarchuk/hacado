@@ -4,7 +4,7 @@ import {
   CustomerUpdateModel,
   okStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   CustomersSearchParams,
   customersSearchParamsSerializer,

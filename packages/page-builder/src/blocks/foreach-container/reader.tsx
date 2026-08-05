@@ -1,9 +1,9 @@
-import { evaluate, ReaderBlock } from "@timelish/builder";
+import { evaluate, ReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { Fragment } from "react";
 import { ForeachContainerReaderProps, styles } from "./schema";
 import { sliceForeachArray } from "./utils";

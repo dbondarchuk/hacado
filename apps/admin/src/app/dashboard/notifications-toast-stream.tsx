@@ -5,19 +5,19 @@ import {
   useActivityFeedStore,
   useNotificationsStore,
 } from "@/notifications/store";
-import { BASE_ADMIN_API_URL } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { BASE_ADMIN_API_URL } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   DASHBOARD_BADGE_EVENT,
   DashboardBadgeUpdate,
   DashboardNotification,
   type SessionUser,
-} from "@timelish/types";
-import { Badge, cn, toast, useTimeZone } from "@timelish/ui";
+} from "@hacado/types";
+import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
 import {
   applyDashboardBadgeUpdate,
   resolvedI18nText,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import React from "react";
 

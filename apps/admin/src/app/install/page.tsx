@@ -1,6 +1,6 @@
 import { InstallWizard } from "@/components/install/install-wizard";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import {
@@ -27,7 +27,7 @@ export default async function InstallPage({
   searchParams: Promise<{ checkout_id?: string }>;
 }) {
   const session = await getSession();
-  const publicDomain = process.env.PUBLIC_DOMAIN ?? "timeli.sh";
+  const publicDomain = process.env.PUBLIC_DOMAIN ?? "haca.do";
   const sp = await searchParams;
 
   if (session.user.organizationId && session.user.organizationInstalled) {

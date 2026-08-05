@@ -1,5 +1,5 @@
-import { generateClassName } from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+import { generateClassName } from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { GiftCardPurchaseBlockReader } from "./reader-component";
 import { GiftCardPurchaseBlockReaderProps } from "./schema";
 

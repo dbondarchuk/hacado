@@ -1,6 +1,6 @@
 "use client";
 
-import { AllKeys, BuilderKeys, useI18n } from "@timelish/i18n/client";
+import { AllKeys, BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   Popover,
   PopoverContent,
@@ -9,7 +9,7 @@ import {
   Separator,
   ToolbarButton,
   ToolbarGroup,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { AlertTriangle, Check, TriangleAlert } from "lucide-react";
 import { Fragment, useMemo } from "react";
 import {

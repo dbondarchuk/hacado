@@ -1,6 +1,6 @@
-import { renderUserEmailTemplate, EMAIL_BRAND } from "@timelish/email-builder/static";
-import { Language } from "@timelish/i18n";
-import { template } from "@timelish/utils";
+import { renderUserEmailTemplate, EMAIL_BRAND } from "@hacado/email-builder/static";
+import { Language } from "@hacado/i18n";
+import { template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 import { WaitlistEntry } from "../../waitlist/models/waitlist";
 

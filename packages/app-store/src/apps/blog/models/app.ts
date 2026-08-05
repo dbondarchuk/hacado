@@ -1,4 +1,4 @@
-import { querySchema, zObjectId, zTaggedUnion } from "@timelish/types";
+import { querySchema, zObjectId, zTaggedUnion } from "@hacado/types";
 import * as z from "zod";
 import { getBlogCommentsQuerySchema } from "./blog-comment";
 import { blogPostSchema } from "./blog-post";

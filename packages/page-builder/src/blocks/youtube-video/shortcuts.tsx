@@ -1,4 +1,4 @@
-import { Shortcut } from "@timelish/page-builder-base";
+import { Shortcut } from "@hacado/page-builder-base";
 import { AlignLeft, Film, Play, Volume2 } from "lucide-react";
 import { YouTubeVideoStylesSchema } from "./styles";
 

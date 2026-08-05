@@ -5,8 +5,8 @@ import {
   fontSizeShortcut,
   Shortcut,
   textAlignmentShortcut,
-} from "@timelish/page-builder-base";
-import { AllStylesSchemas } from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base";
+import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 
 /** Same shortcuts as InlineText — for blog blocks that render static text. */
 export const blogTextShortcuts: Shortcut<AllStylesSchemas>[] = [

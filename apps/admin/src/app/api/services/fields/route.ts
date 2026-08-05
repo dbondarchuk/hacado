@@ -1,8 +1,8 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { serviceFieldsSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { fieldSchema } from "@timelish/types";
+import { serviceFieldsSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { fieldSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

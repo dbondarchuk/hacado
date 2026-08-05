@@ -1,4 +1,4 @@
-import { type AppEventConfig, type EventDefinition } from "@timelish/types";
+import { type AppEventConfig, type EventDefinition } from "@hacado/types";
 import {
   WAITLIST_ENTRIES_DISMISSED_EVENT_TYPE,
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,

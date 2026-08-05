@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -9,8 +9,8 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IMailSenderApp,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt } from "@hacado/utils";
 import { createEvent } from "ics";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";

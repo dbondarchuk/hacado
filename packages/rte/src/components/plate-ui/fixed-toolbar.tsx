@@ -1,6 +1,6 @@
 "use client";
 
-import { Toolbar, withCn } from "@timelish/ui";
+import { Toolbar, withCn } from "@hacado/ui";
 
 export const FixedToolbar = withCn(
   Toolbar,

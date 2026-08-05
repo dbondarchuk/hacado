@@ -21,8 +21,8 @@ import {
   type AssetDeletedPayload,
   type AssetUpdatedPayload,
   type EventSource,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { createHash } from "crypto";
 import { DateTime } from "luxon";
 import { ClientSession, Filter, ObjectId, Sort } from "mongodb";

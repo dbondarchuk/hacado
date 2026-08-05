@@ -28,8 +28,8 @@ import {
   type SyncedPaymentIgnoredPayload,
   type SyncedPaymentIngestedPayload,
   type SyncedPaymentRejectedPayload,
-} from "@timelish/types";
-import { round2 } from "@timelish/utils";
+} from "@hacado/types";
+import { round2 } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { SYNCED_PAYMENTS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";

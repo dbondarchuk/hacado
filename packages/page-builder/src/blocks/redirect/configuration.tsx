@@ -1,8 +1,8 @@
 "use client";
 
-import { ConfigurationProps, PageInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+import { ConfigurationProps, PageInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { useCallback } from "react";
 import { RedirectDefaultUrl, RedirectProps } from "./schema";
 

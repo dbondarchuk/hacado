@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { SmtpLogo } from "./logo";
 import { SmtpAppSetup } from "./setup";
 import { SmtpAdminKeys, SmtpAdminNamespace } from "./translations/types";

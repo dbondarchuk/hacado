@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PaymentSummary } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PaymentSummary } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -13,15 +13,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
 import {
   AddUpdatePaymentDialog,
   canRefundPayment,
   ManageSyncedPaymentDialog,
   PaymentRefundDialog,
-} from "@timelish/ui-admin-kit";
-import { canManageSyncedPayments } from "@timelish/utils";
+} from "@hacado/ui-admin-kit";
+import { canManageSyncedPayments } from "@hacado/utils";
 import { Calendar, Edit, MoreHorizontal, RotateCcw, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

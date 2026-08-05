@@ -1,7 +1,7 @@
-import { AvailableApps } from "@timelish/app-store";
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { BaseAllKeys, fallbackLanguage, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { AvailableApps } from "@hacado/app-store";
+import { renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { BaseAllKeys, fallbackLanguage, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   APP_CONNECTED_EVENT_TYPE,
   APP_FAILED_EVENT_TYPE,
@@ -12,8 +12,8 @@ import {
   type AppInstalledPayload,
   type AppUninstalledPayload,
   type EventDefinition,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 
 export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [APP_INSTALLED_EVENT_TYPE]: {

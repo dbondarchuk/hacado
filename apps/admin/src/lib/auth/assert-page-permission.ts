@@ -3,8 +3,8 @@ import type {
   RequiredPermission,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@timelish/types";
-import { hasPermission, meetsRequiredPermission } from "@timelish/utils";
+} from "@hacado/types";
+import { hasPermission, meetsRequiredPermission } from "@hacado/utils";
 import { forbidden } from "next/navigation";
 
 /** Throw Next.js `forbidden()` (403) when the user lacks `required`. */

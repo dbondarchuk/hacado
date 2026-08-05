@@ -5,9 +5,9 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { LinkProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

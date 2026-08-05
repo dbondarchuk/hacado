@@ -1,4 +1,4 @@
-import { ScrollArea } from "@timelish/ui";
+import { ScrollArea } from "@hacado/ui";
 import React from "react";
 
 export default function PageContainer({

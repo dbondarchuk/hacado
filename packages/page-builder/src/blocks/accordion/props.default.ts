@@ -1,4 +1,4 @@
-import { generateId } from "@timelish/builder";
+import { generateId } from "@hacado/builder";
 import { AccordionItemPropsDefaults } from "../accordion-item/schema";
 import type { AccordionProps } from "./schema";
 

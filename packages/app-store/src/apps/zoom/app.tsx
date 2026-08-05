@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { ZOOM_APP_NAME } from "./const";
 import { ZoomLogo } from "./logo";
 import { ZoomAdminKeys, ZoomAdminNamespace } from "./translations/types";

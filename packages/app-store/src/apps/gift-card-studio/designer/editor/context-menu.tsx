@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ArrowDown,
   ArrowUp,

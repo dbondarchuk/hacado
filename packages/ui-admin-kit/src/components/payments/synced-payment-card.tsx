@@ -1,8 +1,8 @@
 "use client";
 
-import { AvailableApps } from "@timelish/app-store";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
-import { HydratedSyncedPayment, SyncedPaymentStatus } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { HydratedSyncedPayment, SyncedPaymentStatus } from "@hacado/types";
 import {
   Button,
   Card,
@@ -10,8 +10,8 @@ import {
   cn,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
-import { CustomerName } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerName } from "@hacado/ui-admin";
 import {
   ArrowLeftRight,
   Check,

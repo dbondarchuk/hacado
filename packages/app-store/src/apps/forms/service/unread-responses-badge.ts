@@ -1,7 +1,7 @@
 import {
   DashboardNotificationBadge,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "../const";
 import { FormsRepositoryService } from "./repository-service";
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Button, Spinner, toastPromise } from "@timelish/ui";
-import { useReload } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Spinner, toastPromise } from "@hacado/ui";
+import { useReload } from "@hacado/ui-admin";
 import { X } from "lucide-react";
 import React from "react";
 import { rejectSelectedBlogComments } from "../../actions";

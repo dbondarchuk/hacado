@@ -3,9 +3,9 @@ import {
   assertCanAccessConnectedApp,
   getOwnerMemberIds,
 } from "@/lib/auth/app-access";
-import { withCatalogTarget } from "@timelish/app-store/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { canUninstallConnectedApp } from "@timelish/utils";
+import { withCatalogTarget } from "@hacado/app-store/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { canUninstallConnectedApp } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

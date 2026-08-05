@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/email-builder",
+  "name": "@hacado/email-builder",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -14,9 +14,9 @@
     "./static": "./src/static/index.tsx"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
     "@types/node": "^20",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
-    "@timelish/builder": "*",
-    "@timelish/rte": "*",
-    "@timelish/ui": "*",
-    "@timelish/ui-admin": "*",
+    "@hacado/builder": "*",
+    "@hacado/rte": "*",
+    "@hacado/ui": "*",
+    "@hacado/ui-admin": "*",
     "juice": "^11.0.3",
     "lucide-react": "^0.555.0",
     "react-dom": "19.0.0",

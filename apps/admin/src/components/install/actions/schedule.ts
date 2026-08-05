@@ -2,13 +2,13 @@
 
 import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
 import {
   scheduleConfigurationSchema,
   shiftsSchema,
   type Schedule,
-} from "@timelish/types";
+} from "@hacado/types";
 import { headers } from "next/headers";
 
 export async function getInstallScheduleSnapshot(): Promise<Schedule | null> {

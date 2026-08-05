@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   cn,
   ResizableHandle,
@@ -10,7 +10,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
   GiftCardStudioAdminKeys,

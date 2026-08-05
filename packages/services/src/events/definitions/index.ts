@@ -1,4 +1,4 @@
-import type { EventDefinition } from "@timelish/types";
+import type { EventDefinition } from "@hacado/types";
 
 import { APP_EVENT_DEFINITIONS } from "./app/app-event-definitions";
 import { ADDON_EVENT_DEFINITIONS } from "./addon/addon-event-definitions";

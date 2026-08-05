@@ -36,8 +36,8 @@ import {
   type PageHeaderDeletedPayload,
   type PageHeaderUpdatedPayload,
   type PageUpdatedPayload,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";

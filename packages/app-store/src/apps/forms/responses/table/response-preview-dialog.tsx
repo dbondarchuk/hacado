@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "@timelish/i18n/client";
+import { useLocale } from "@hacado/i18n/client";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   ScrollArea,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { FormResponseListModel } from "../../models";
 import { AnswerPreviewFields } from "../components/answer-preview-fields";

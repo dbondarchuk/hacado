@@ -1,4 +1,4 @@
-import { teamsSearchParamsLoader } from "@timelish/api-sdk";
+import { teamsSearchParamsLoader } from "@hacado/api-sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { getTeamServices } from "../_utils";
 

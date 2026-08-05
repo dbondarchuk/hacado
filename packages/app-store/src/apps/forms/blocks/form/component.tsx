@@ -1,12 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
 import {
   Button,
   cn,
@@ -20,7 +20,7 @@ import {
   Spinner,
   toast,
   useDebounceCacheFn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CheckCircle } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";

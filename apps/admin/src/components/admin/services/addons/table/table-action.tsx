@@ -5,8 +5,8 @@ import {
   DataTableSearch,
   useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { DeleteSelectedAddonsButton } from "./delete-selected";
 import { useAddonsTableFilters } from "./use-table-filters";
 

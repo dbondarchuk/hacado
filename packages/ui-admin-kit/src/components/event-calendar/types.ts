@@ -1,4 +1,4 @@
-import type { DaySchedule, HourNumbers } from "@timelish/types";
+import type { DaySchedule, HourNumbers } from "@hacado/types";
 import type { ReactNode } from "react";
 
 declare module "react" {

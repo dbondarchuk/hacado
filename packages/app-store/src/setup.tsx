@@ -1,4 +1,4 @@
-import { BasicAppSetup } from "@timelish/types";
+import { BasicAppSetup } from "@hacado/types";
 
 // Import all setup components
 import { CaldavAppSetup } from "./apps/caldav/setup";

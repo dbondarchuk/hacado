@@ -1,6 +1,6 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { IConnectedAppProps } from "@timelish/types";
-import { Card, CardContent, CardHeader } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { IConnectedAppProps } from "@hacado/types";
+import { Card, CardContent, CardHeader } from "@hacado/ui";
 import { DateTime } from "luxon";
 import React from "react";
 import { WaitlistRepositoryService } from "../service/repository-service";

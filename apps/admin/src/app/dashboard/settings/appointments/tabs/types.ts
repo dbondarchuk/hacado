@@ -1,4 +1,4 @@
-import { BookingConfiguration } from "@timelish/types";
+import { BookingConfiguration } from "@hacado/types";
 import { UseFormReturn } from "react-hook-form";
 
 export type TabProps = {

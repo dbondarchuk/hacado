@@ -1,8 +1,8 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { useI18n } from "@timelish/i18n/client";
-import { toast } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { toast } from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useEffect } from "react";

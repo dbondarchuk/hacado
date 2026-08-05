@@ -1,5 +1,5 @@
 {
-  "extends": "@timelish/typescript-config/base.json",
+  "extends": "@hacado/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",

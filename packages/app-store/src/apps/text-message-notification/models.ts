@@ -1,4 +1,4 @@
-import { asOptionalField, zPhone } from "@timelish/types";
+import { asOptionalField, zPhone } from "@hacado/types";
 import * as z from "zod";
 
 export const textMessageNotificationConfigurationSchema = z.object({

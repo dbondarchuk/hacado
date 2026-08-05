@@ -8,8 +8,8 @@ import {
 import { normalizeSlug } from "@/components/install/constants";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
-import { languages, useI18n } from "@timelish/i18n/client";
-import { countryOptions, currencyOptions } from "@timelish/types";
+import { languages, useI18n } from "@hacado/i18n/client";
+import { countryOptions, currencyOptions } from "@hacado/types";
 import {
   Button,
   cn,
@@ -24,7 +24,7 @@ import {
   Spinner,
   toast,
   useDebounceCallback,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,21 +1,21 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   canUseFeature,
   resolvePlanTierFromOrganization,
-} from "@timelish/services/billing";
+} from "@hacado/services/billing";
 import {
   AppJobRequest,
   Appointment,
   ConnectedAppData,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import pLimit from "p-limit";
 import {

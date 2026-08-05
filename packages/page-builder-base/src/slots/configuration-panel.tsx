@@ -1,7 +1,7 @@
 "use client";
 
-import type { BaseBlockProps, SelectedSlotRef } from "@timelish/builder";
-import { useSelectedSlotStyleHandlers } from "@timelish/builder";
+import type { BaseBlockProps, SelectedSlotRef } from "@hacado/builder";
+import { useSelectedSlotStyleHandlers } from "@hacado/builder";
 import type { ReactNode } from "react";
 import { StylesConfigurationPanel } from "../configuration-panel/styles-configuration-panel";
 import type { Shortcut } from "../shortcuts/types";

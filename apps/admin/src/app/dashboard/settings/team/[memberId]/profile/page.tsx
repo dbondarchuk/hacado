@@ -1,10 +1,10 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { TeamMemberProfileForm } from "@/components/admin/team/team-member-profile-form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import type { SessionUser } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
-import { canUpdateTeamMemberProfile } from "@timelish/utils";
+import { getI18nAsync } from "@hacado/i18n/server";
+import type { SessionUser } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
+import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { Metadata } from "next";
 import { forbidden, notFound, redirect } from "next/navigation";
 

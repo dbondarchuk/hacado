@@ -1,10 +1,10 @@
-import { StaticText } from "@timelish/rte-inline/reader";
+import { StaticText } from "@hacado/rte-inline/reader";
 import {
   PageHeaderLogoNameFontSize,
   PageHeaderLogoNameFontWeight,
   PageHeaderLogoSize,
-} from "@timelish/types";
-import { cn } from "@timelish/ui/src/utils";
+} from "@hacado/types";
+import { cn } from "@hacado/ui/src/utils";
 import Link from "next/link";
 import React from "react";
 

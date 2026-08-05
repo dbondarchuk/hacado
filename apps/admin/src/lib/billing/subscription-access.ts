@@ -1,4 +1,4 @@
-import { OrganizationSubscriptionStatus } from "@timelish/types";
+import { OrganizationSubscriptionStatus } from "@hacado/types";
 
 export function isSubscriptionActiveOrTrialing(
   status: string | undefined | null,

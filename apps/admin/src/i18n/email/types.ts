@@ -1,4 +1,4 @@
-import { UserEmailTemplateProps } from "@timelish/email-builder/static";
+import { UserEmailTemplateProps } from "@hacado/email-builder/static";
 
 export type EmailTemplate = {
   changeEmail: {

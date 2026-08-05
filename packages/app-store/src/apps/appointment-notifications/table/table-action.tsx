@@ -1,21 +1,21 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { communicationChannels } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { communicationChannels } from "@hacado/types";
 import {
   Button,
   Link,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { HeaderActionButtonsPortal } from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
 import { Plus, Settings2 } from "lucide-react";
 import React from "react";
 import { appointmentNotificationTypes } from "../models";

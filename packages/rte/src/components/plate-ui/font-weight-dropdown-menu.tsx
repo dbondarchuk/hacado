@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useCallback } from "react";
 
 const FONT_WEIGHT_VALUES = [

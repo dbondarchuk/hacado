@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Link,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronDownIcon } from "lucide-react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";

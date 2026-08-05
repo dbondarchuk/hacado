@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Breadcrumbs,
   Card,
   CardContent,
   CardHeader,
   Label,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFormById } from "../../actions";

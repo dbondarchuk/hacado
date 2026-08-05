@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@timelish/ui";
+import { ToolbarButton } from "@hacado/ui";
 import { useEditorRef, useEditorSelector, withRef } from "@udecode/plate/react";
 import { Redo2Icon, Undo2Icon } from "lucide-react";
 

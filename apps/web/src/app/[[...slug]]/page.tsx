@@ -1,13 +1,13 @@
 import { getOrganizationId, getServicesContainer } from "@/utils/utils";
-import { AppsBlocksReaders } from "@timelish/app-store/blocks/readers";
-import { getLoggerFactory } from "@timelish/logger";
+import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   BlockProviderRegistry,
   Header,
   PageReader,
   Styling,
-} from "@timelish/page-builder/reader";
-import { formatArguments, setPageData } from "@timelish/utils";
+} from "@hacado/page-builder/reader";
+import { formatArguments, setPageData } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Metadata, ResolvingMetadata } from "next";
 import { cookies, headers } from "next/headers";

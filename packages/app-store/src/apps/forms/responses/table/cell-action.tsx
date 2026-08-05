@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AlertModal,
   Button,
@@ -19,8 +19,8 @@ import {
   DropdownMenuTrigger,
   Label,
   toastPromise,
-} from "@timelish/ui";
-import { CustomerSelector, useReload } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector, useReload } from "@hacado/ui-admin";
 import { MoreHorizontal, Pencil, Trash2, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,7 +1,7 @@
-import { canInstallApp } from "@timelish/app-store";
-import { ServicesContainer } from "@timelish/services";
-import { canUseFeature, isFreeTier } from "@timelish/services/billing";
-import { BillingPlanTier, type SubscriptionFeature } from "@timelish/types";
+import { canInstallApp } from "@hacado/app-store";
+import { ServicesContainer } from "@hacado/services";
+import { canUseFeature, isFreeTier } from "@hacado/services/billing";
+import { BillingPlanTier, type SubscriptionFeature } from "@hacado/types";
 import { headers } from "next/headers";
 import { cache } from "react";
 

@@ -1,9 +1,9 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   justifyItemsStyle,
   StyleDefinition,
-} from "@timelish/page-builder-base/style";
-import { Combobox } from "@timelish/ui";
+} from "@hacado/page-builder-base/style";
+import { Combobox } from "@hacado/ui";
 import { AlignLeft } from "lucide-react";
 import * as z from "zod";
 

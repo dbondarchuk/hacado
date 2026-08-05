@@ -1,15 +1,15 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AppScope, ConnectedApp, Prettify } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppScope, ConnectedApp, Prettify } from "@hacado/types";
 import {
   cn,
   Combobox,
   ComboboxProps,
   IComboboxItem,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import {
   ConnectedAppAccount,

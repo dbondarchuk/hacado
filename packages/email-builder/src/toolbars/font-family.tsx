@@ -1,9 +1,9 @@
 import {
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { Leaves } from "@timelish/types";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { Leaves } from "@hacado/types";
 import { FONT_FAMILIES } from "../style-inputs/helpers/font-family";
 import { FontFamily } from "../style-inputs/helpers/zod";
 

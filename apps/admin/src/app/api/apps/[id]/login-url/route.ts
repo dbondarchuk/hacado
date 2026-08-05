@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

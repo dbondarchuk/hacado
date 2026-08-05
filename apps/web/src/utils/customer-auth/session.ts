@@ -1,4 +1,4 @@
-import { CUSTOMER_SESSION_COOKIE, CustomerSession } from "@timelish/types";
+import { CUSTOMER_SESSION_COOKIE, CustomerSession } from "@hacado/types";
 import { cookies } from "next/headers";
 import { getServicesContainer } from "../utils";
 

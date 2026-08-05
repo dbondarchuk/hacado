@@ -1,10 +1,10 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { withCatalogTarget } from "@timelish/app-store/utils";
-import type { ConnectedApp, SessionUser } from "@timelish/types";
+import { withCatalogTarget } from "@hacado/app-store/utils";
+import type { ConnectedApp, SessionUser } from "@hacado/types";
 import {
   canAccessConnectedApp,
   filterConnectedAppsForUser,
-} from "@timelish/utils";
+} from "@hacado/utils";
 
 export async function getOwnerMemberIds(
   organizationId?: string,

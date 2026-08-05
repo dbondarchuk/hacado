@@ -1,9 +1,9 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
   type EventDefinition,
   type OrganizationDomainChangedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 import { dashboardUrls } from "../links";
 
 export const ORGANIZATION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {

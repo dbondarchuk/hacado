@@ -1,5 +1,5 @@
-import { AppsTranslations } from "@timelish/app-store/translations";
-import { getConfig } from "@timelish/i18n/request";
+import { AppsTranslations } from "@hacado/app-store/translations";
+import { getConfig } from "@hacado/i18n/request";
 
 const config = getConfig(
   async (baseLocale: string | undefined) => {

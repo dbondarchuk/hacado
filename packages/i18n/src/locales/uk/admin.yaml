@@ -2219,7 +2219,7 @@ settings:
         label: Статус
         feesExempt:
           label: Підписка не потрібна
-          hint: Цей робочий простір звільнено від оплати підписки Timeli.sh.
+          hint: Цей робочий простір звільнено від оплати підписки Hacado.
       openPortal: Відкрити портал оплати
       choosePlan: Обрати тариф
       portalError: Не вдалося відкрити портал оплати. Спробуйте пізніше.
@@ -2341,18 +2341,18 @@ settings:
       faviconTooltip: Іконка на вкладці браузера
       faviconPlaceholder: URL favicon
       language: Мова сайту за замовчуванням
-      timeliAddress:
-        sectionTitle: Ваша адреса Timeli.sh
+      hacadoAddress:
+        sectionTitle: Ваша адреса Hacado
         websiteUrlLabel: URL веб-сайту
         connectCustomDomain: Підключити власний домен
         disconnectCustomDomain: Від'єднати власний домен
         organizationSlugLabel: Слаг організації
         updateSlugComingSoon: Оновити слаг (незабаром)
         connectDialogTitle: Підключити власний домен
-        connectDialogDescription: Підключіть власний домен до Timeli.sh, щоб повністю контролювати свій бренд.
+        connectDialogDescription: Підключіть власний домен до Hacado, щоб повністю контролювати свій бренд.
         connectDialogDnsTitle: Спочатку налаштуйте DNS
         connectDialogDnsARecord: У панелі DNS створіть A-запис для @ (кореня) або вашого піддомену зі значенням {ip}.
-        connectDialogDnsCname: Або додайте CNAME або ALIAS на {host} - це ім’я хоста вашого сайту в Timeli.sh.
+        connectDialogDnsCname: Або додайте CNAME або ALIAS на {host} - це ім’я хоста вашого сайту в Hacado.
         domainLabel: Домен
         connectButton: Підключити
         copyWebsiteUrlAriaLabel: Копіювати URL веб-сайту
@@ -3270,4 +3270,3 @@ memberSelector:
   placeholder: Виберіть члена команди
   unassigned: Непризначений
   requestFailed: Запит на отримання членів команди не виконано
-

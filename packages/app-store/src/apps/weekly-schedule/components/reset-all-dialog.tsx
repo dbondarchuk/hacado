@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { WeekIdentifier } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { WeekIdentifier } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,7 +12,7 @@ import {
   Button,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { RotateCcw } from "lucide-react";
 import React from "react";
 import {

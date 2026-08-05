@@ -1,10 +1,10 @@
 import { auth } from "@/app/auth";
-import { BRAND_SETTINGS_UPGRADE_URL } from "@timelish/services/billing";
+import { BRAND_SETTINGS_UPGRADE_URL } from "@hacado/services/billing";
 import {
   BillingPlanTier,
   type SubscriptionFeature,
-} from "@timelish/types";
-import { canUseFeature } from "@timelish/services/billing";
+} from "@hacado/types";
+import { canUseFeature } from "@hacado/services/billing";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareProxy } from "./types";
 import { containsAdminApi } from "./utils";

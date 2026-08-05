@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { Button, cn, Input } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, cn, Input } from "@hacado/ui";
 import { Plus, Search, X } from "lucide-react";
 import {
   BaseStyleDictionary,

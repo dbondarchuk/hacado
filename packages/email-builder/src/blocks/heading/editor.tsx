@@ -10,9 +10,9 @@ import {
   useEditorArgs,
   usePortalContext,
   useSetSelectedBlockId,
-} from "@timelish/builder";
-import { ArgumentsAutocomplete } from "@timelish/ui-admin";
-import { mergeRefs } from "@timelish/ui/src/utils/merge-refs";
+} from "@hacado/builder";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin";
+import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
 import { HeadingProps } from "./schema";
 import { getStyles } from "./styles";
 

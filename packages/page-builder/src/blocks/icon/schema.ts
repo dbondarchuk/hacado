@@ -1,6 +1,6 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
-import { Prettify } from "@timelish/types";
-import { iconNames } from "@timelish/ui";
+import { BaseReaderBlockProps } from "@hacado/builder";
+import { Prettify } from "@hacado/types";
+import { iconNames } from "@hacado/ui";
 import * as z from "zod";
 import { zStyles } from "./styles";
 

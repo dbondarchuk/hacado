@@ -1,4 +1,4 @@
-import type { Language } from "@timelish/i18n";
+import type { Language } from "@hacado/i18n";
 import type { BillingPlanTier } from "../billing/subscription-plan";
 import type { OrganizationSubscriptionStatus } from "../billing/subscription-status";
 import type { CalendarSourceConfiguration } from "../configuration/booking/calendar-source";

@@ -1,13 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { zNonEmptyString } from "@timelish/types";
+} from "@hacado/page-builder-base/reader";
+import { zNonEmptyString } from "@hacado/types";
 import {
   Button,
   cn,
@@ -21,7 +21,7 @@ import {
   Spinner,
   Textarea,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

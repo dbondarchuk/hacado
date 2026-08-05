@@ -2,9 +2,9 @@ import { getServicesContainer } from "@/app/utils";
 import {
   teamsSearchParams,
   teamsSearchParamsCache,
-} from "@timelish/api-sdk";
-import type { MemberStatus, UserRole } from "@timelish/types";
-import { DataTable } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import type { MemberStatus, UserRole } from "@hacado/types";
+import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
 export const TeamMembersTable: React.FC = async () => {

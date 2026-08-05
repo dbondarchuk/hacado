@@ -1,4 +1,4 @@
-import { ValidationKeys } from "@timelish/i18n";
+import { ValidationKeys } from "@hacado/i18n";
 import * as z from "zod";
 import {
   appointmentRescheduleSchema,

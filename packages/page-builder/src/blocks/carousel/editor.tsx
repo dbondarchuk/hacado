@@ -2,8 +2,8 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import {
   Carousel,
   CarouselContent,
@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   cn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { memo } from "react";
 import { CarouselProps, styles } from "./schema";
 

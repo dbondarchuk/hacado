@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { CalendarPlus } from "lucide-react";
 import { CALENDAR_WRITER_APP_NAME } from "./const";
 import {

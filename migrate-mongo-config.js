@@ -3,7 +3,7 @@
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: process.env.MONGODB_URI || "mongodb://localhost:27017/timelish",
+    url: process.env.MONGODB_URI || "mongodb://localhost:27017/hacado",
     databaseName: process.env.MONGODB_DB,
 
     options: {

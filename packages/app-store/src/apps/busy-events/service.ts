@@ -1,5 +1,5 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   CalendarBusyTime,
   ConnectedAppData,
@@ -13,8 +13,8 @@ import {
   ScheduleOverride,
   WeekIdentifier,
   WithDatabaseId,
-} from "@timelish/types";
-import { eachOfInterval, getWeekIdentifier, parseTime } from "@timelish/utils";
+} from "@hacado/types";
+import { eachOfInterval, getWeekIdentifier, parseTime } from "@hacado/utils";
 import { ObjectId } from "mongodb";
 import { RequestAction, requestActionSchema } from "./models";
 import {

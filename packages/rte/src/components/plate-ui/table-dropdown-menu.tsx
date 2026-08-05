@@ -31,7 +31,7 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function TableDropdownMenu(props: DropdownMenuProps) {
   const tableSelected = useEditorSelector(

@@ -2,7 +2,7 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { BaseColumnsContainer } from "./base";
 import { ColumnsContainerProps } from "./schema";
 

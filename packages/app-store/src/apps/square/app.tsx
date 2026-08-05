@@ -1,4 +1,4 @@
-import { App, BillingPlanTier, ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE } from "@timelish/types";
+import { App, BillingPlanTier, ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE } from "@hacado/types";
 import { SQUARE_APP_NAME } from "./const";
 import { SquareLogo } from "./logo";
 import { SquareAdminKeys, SquareAdminNamespace } from "./translations/types";

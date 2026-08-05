@@ -3,7 +3,7 @@ import {
   ApplyDiscountRequest,
   AppointmentFields,
   getFields,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import React, { useEffect, useMemo } from "react";
 
@@ -21,12 +21,12 @@ import {
   cn,
   useCurrencyFormat,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
-import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n } from "@timelish/i18n/client";
-import { fieldSchemaMapper, fieldsComponentMap } from "@timelish/ui";
-import { deepEqual } from "@timelish/utils";
+import { clientApi } from "@hacado/api-sdk";
+import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui";
+import { deepEqual } from "@hacado/utils";
 import { DateTime as Luxon } from "luxon";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";

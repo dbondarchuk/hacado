@@ -1,9 +1,9 @@
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { ContainerReaderProps, styles } from "./schema";
 
 export const ContainerReader = ({

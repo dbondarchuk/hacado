@@ -1,4 +1,4 @@
-import { SonnerToaster } from "@timelish/ui";
+import { SonnerToaster } from "@hacado/ui";
 import type { ReactNode } from "react";
 
 import type { Metadata } from "next";
@@ -19,8 +19,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "timeli.sh",
-    template: "%s | timeli.sh",
+    default: "Hacado",
+    template: "%s | Hacado",
   },
 };
 

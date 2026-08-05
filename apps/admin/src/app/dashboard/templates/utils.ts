@@ -1,12 +1,12 @@
 import { getServicesContainer } from "@/app/utils";
 import { BuiltInTemplateTemplates } from "@/components/admin/templates/templates";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   CommunicationChannel,
   ICommunicationTemplatesProvider,
   TemplateTemplatesList,
   TemplatesTemplate,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export const getAllTemplates = async (
   type: CommunicationChannel,

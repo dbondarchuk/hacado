@@ -1,10 +1,10 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { getAccessibleConnectedApps } from "@/lib/auth/app-access";
-import { AvailableApps } from "@timelish/app-store";
+import { AvailableApps } from "@hacado/app-store";
 import {
   canViewCompanyApps,
   canViewOtherMembersApps,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import React from "react";
 import { InstalledAppsClient } from "./installed-apps-client";
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { discountTypes } from "@timelish/types";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { discountTypes } from "@hacado/types";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { Settings2 } from "lucide-react";
 import { DeleteSelectedDiscountsButton } from "./delete-selected";
 import { useDiscountsTableFilters } from "./use-table-filters";

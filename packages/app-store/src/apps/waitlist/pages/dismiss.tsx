@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@timelish/ui";
+import { Skeleton } from "@hacado/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { dismissWaitlistEntry } from "../views/components/actions";

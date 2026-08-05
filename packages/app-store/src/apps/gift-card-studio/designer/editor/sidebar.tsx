@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   useWebsiteUrl,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   Circle,
   ImageIcon,

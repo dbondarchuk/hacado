@@ -1,9 +1,9 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { TemplateListModel } from "@timelish/types";
-import { Checkbox, Link } from "@timelish/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { TemplateListModel } from "@hacado/types";
+import { Checkbox, Link } from "@hacado/ui";
+import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 

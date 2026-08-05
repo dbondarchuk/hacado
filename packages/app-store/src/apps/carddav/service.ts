@@ -1,13 +1,13 @@
 // Replace your CarddavConnectedApp class with this version (keeps your helpers)
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppStatusWithText,
   Customer,
   IConnectedApp,
   IConnectedAppProps,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt } from "@hacado/utils";
 import crypto from "crypto";
 import {
   CarddavConfiguration,

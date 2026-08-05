@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { ComboboxAsync, IComboboxItem, Skeleton } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
 import { Lock } from "lucide-react";
 import React from "react";
 import { getForms } from "../actions";

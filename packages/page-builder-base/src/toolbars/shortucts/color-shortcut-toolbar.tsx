@@ -16,12 +16,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch } from "@uiw/react-color";
 import { VariantProps } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
 import React from "react";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import { ShortcutWithColor } from "../../shortcuts";
 import { BaseStyleDictionary, COLORS_LIST, getColorStyle } from "../../style";
 

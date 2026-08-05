@@ -5,13 +5,13 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { ButtonProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

@@ -1,9 +1,9 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { StaticText } from "@timelish/rte-inline/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { StaticText } from "@hacado/rte-inline/reader";
+import { cn } from "@hacado/ui";
 import { InlineTextPropsDefaults, InlineTextReaderProps } from "./schema";
 import { styles } from "./styles";
 

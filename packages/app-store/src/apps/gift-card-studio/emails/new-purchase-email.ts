@@ -1,8 +1,8 @@
-import { EMAIL_BRAND, renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { fallbackLanguage, languages, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import type { EmailNotificationRequest } from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+import { EMAIL_BRAND, renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import type { EmailNotificationRequest } from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 import type { GiftCardStudioPurchaseCreatedPayload } from "../models/events";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 

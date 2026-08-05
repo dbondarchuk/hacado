@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Spinner } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Spinner } from "@hacado/ui";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFormById, getFormResponseById } from "../../actions";

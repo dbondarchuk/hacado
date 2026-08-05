@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PageListModelWithUrl } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PageListModelWithUrl } from "@hacado/types";
 import {
   Button,
   cn,
@@ -14,7 +14,7 @@ import {
   Skeleton,
   toast,
   useDebounce,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 

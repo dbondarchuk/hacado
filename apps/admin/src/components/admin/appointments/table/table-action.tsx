@@ -1,15 +1,15 @@
 "use client";
 
 import { useCanUseFeature } from "@/lib/billing/use-subscription-plan-access";
-import { useI18n } from "@timelish/i18n/client";
-import { appointmentStatuses } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { appointmentStatuses } from "@hacado/types";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -19,8 +19,8 @@ import {
   DiscountsDataTableAsyncFilterBox,
   MembersDataTableAsyncFilterBox,
   useAuth,
-} from "@timelish/ui-admin";
-import { canFilterByMember } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { canFilterByMember } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { useAppointmentsTableFilters } from "./use-table-filters";

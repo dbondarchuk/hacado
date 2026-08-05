@@ -1,8 +1,8 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { deepMemo, Label, Textarea } from "@timelish/ui";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { deepMemo, Label, Textarea } from "@hacado/ui";
 import { useCallback } from "react";
 import { HtmlMonacoEditorDialog } from "./html-monaco-editor-dialog";
 import { CustomHTMLProps } from "./schema";

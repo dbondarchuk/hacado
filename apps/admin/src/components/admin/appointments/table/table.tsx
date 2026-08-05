@@ -2,9 +2,9 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import {
   appointmentsSearchParams,
   appointmentsSearchParamsCache,
-} from "@timelish/api-sdk";
-import { gateMemberIds } from "@timelish/utils";
-import { DataTable } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { gateMemberIds } from "@hacado/utils";
+import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
 export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({

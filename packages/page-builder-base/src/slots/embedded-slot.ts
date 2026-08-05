@@ -1,10 +1,10 @@
-import type { TEditorBlock } from "@timelish/builder";
+import type { TEditorBlock } from "@hacado/builder";
 import {
   EmbeddedSlotData,
   generateId,
   isEditorBlockLike,
   isEmbeddedSlot,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import type { ZodType } from "zod";
 import * as z from "zod";
 

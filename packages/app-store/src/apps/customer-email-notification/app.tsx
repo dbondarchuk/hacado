@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { Mails } from "lucide-react";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./const";
 import {

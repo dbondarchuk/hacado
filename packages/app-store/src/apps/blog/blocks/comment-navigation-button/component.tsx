@@ -1,9 +1,9 @@
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import {
   BlogCommentNavigationButtonProps,
   styles,

@@ -39,19 +39,19 @@ export default function Home(): ReactNode {
           <div className="row">
             <div className="col col--8 col--offset-2">
               <p className="text--lead">
-                <a href="https://timelish.com">Timeli.sh</a> is an all-in-one
+                <a href="https://hacado.com">Hacado</a> is an all-in-one
                 booking platform: accept appointments, automate notifications,
                 process payments, and build a complete website from one admin
                 dashboard. No tech skills needed-if you can use email, you can
-                use <a href="https://timelish.com">Timeli.sh</a>.
+                use <a href="https://hacado.com">Hacado</a>.
               </p>
               <p>
-                <a href="https://timelish.com">Timeli.sh</a> is a comprehensive
+                <a href="https://hacado.com">Hacado</a> is a comprehensive
                 appointment scheduling and business management platform built
                 for service providers, coaches, clinics, salons, and any
                 business that relies on bookings. From a drag-and-drop website
                 builder to automated SMS reminders and integrated payment
-                processing, <a href="https://timelish.com">Timeli.sh</a> brings
+                processing, <a href="https://hacado.com">Hacado</a> brings
                 every part of your booking workflow into one place.
               </p>
               <p>
@@ -60,8 +60,8 @@ export default function Home(): ReactNode {
                   introduction
                 </Link>
                 , then{" "}
-                <Link to="/docs/getting-started/what-is-timelish">
-                  what Timelish is
+                <Link to="/docs/getting-started/what-is-hacado">
+                  what Hacado is
                 </Link>
                 , <Link to="/docs/getting-started/sign-up">sign up</Link>,{" "}
                 <Link to="/docs/getting-started/subscription-and-checkout">

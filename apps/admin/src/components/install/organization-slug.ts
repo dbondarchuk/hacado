@@ -262,6 +262,9 @@ const BLOCKLIST_ENTRIES = [
   "timeli",
   "timelish",
   "timeli-sh",
+  "hacado",
+  "haca",
+  "haca-do",
 
   // Junk / placeholder
   "test",

@@ -3,7 +3,7 @@ import React from "react";
 import type { SlateElementProps } from "@udecode/plate";
 import type { TMentionElement } from "@udecode/plate-mention";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { IS_APPLE, SlateElement } from "@udecode/plate";
 
 export function MentionElementStatic({

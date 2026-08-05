@@ -1,8 +1,8 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   getTextBeltConfiguration,
   ServicesContainer,
-} from "@timelish/services";
+} from "@hacado/services";
 import { NextRequest, NextResponse } from "next/server";
 import { TextBeltWebhookService } from "./webhook.service";
 

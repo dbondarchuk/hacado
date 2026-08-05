@@ -6,7 +6,7 @@ import {
   type ConnectedApp,
   type DefaultAppToInstallScope,
   type SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import { hasPermission, meetsRequiredPermission } from "./permissions";
 
 type ConnectedAppAccess = Pick<ConnectedApp, "memberId"> & {

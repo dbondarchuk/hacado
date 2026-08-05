@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -9,13 +9,13 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   template,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import {
   TextMessageAutoReplyConfiguration,
   textMessageAutoReplyConfigurationSchema,

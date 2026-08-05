@@ -1,4 +1,4 @@
-import { Page } from "@timelish/types";
+import { Page } from "@hacado/types";
 import { cache } from "react";
 
 export type PageDataStore = {

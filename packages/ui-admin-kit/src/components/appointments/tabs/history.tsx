@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { AppointmentHistoryEntry } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AppointmentHistoryEntry } from "@hacado/types";
 import { useInView } from "react-intersection-observer";
 
-import { adminApi } from "@timelish/api-sdk";
-import { AvailableApps } from "@timelish/app-store";
+import { adminApi } from "@hacado/api-sdk";
+import { AvailableApps } from "@hacado/app-store";
 import {
   Badge,
   cn,
@@ -17,7 +17,7 @@ import {
   useCurrencyFormat,
   useIsMobile,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   Banknote,
   BanknoteX,

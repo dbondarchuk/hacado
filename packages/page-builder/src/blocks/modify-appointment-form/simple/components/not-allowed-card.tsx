@@ -1,5 +1,5 @@
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
+import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
 import { DateTime as Luxon } from "luxon";
 import { useModifyAppointmentFormContext } from "./context";
 

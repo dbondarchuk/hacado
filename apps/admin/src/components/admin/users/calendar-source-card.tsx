@@ -1,6 +1,6 @@
-import { AvailableApps } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n/client";
-import { CalendarSourceConfiguration } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { useI18n } from "@hacado/i18n/client";
+import { CalendarSourceConfiguration } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,8 +21,8 @@ import {
   FormLabel,
   FormMessage,
   InfoTooltip,
-} from "@timelish/ui";
-import { AppSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AppSelector } from "@hacado/ui-admin";
 import { Trash } from "lucide-react";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";

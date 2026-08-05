@@ -3,8 +3,8 @@ import {
   useFormatter,
   useI18n,
   useLocale,
-} from "@timelish/i18n/client";
-import { ModifyAppointmentInformation, timeZones } from "@timelish/types";
+} from "@hacado/i18n/client";
+import { ModifyAppointmentInformation, timeZones } from "@hacado/types";
 import {
   Button,
   Collapsible,
@@ -13,8 +13,8 @@ import {
   Input,
   Spinner,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { AlertTriangle, Gift, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useMemo, useState } from "react";

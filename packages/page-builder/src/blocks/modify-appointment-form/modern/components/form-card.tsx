@@ -20,12 +20,12 @@ import {
   SimpleTimePicker,
   use12HourFormat,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
-import { HourNumbers, MinuteNumbers } from "@timelish/types";
-import { deepEqual, formatTime, parseTime } from "@timelish/utils";
+import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import { HourNumbers, MinuteNumbers } from "@hacado/types";
+import { deepEqual, formatTime, parseTime } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import { useModifyAppointmentFormContext } from "./context";
 

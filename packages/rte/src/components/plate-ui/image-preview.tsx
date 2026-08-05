@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import {
   PreviewImage,
   useImagePreview,

@@ -12,8 +12,8 @@ import type {
   TeamMemberListModel,
   UserRole,
   WithTotal,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { getRedisClient } from "./bullmq/redis-client";
 import {

@@ -1,15 +1,15 @@
-# Timelish documentation (Docusaurus)
+# Hacado documentation (Docusaurus)
 
-Product documentation site for Timelish, built with [Docusaurus](https://docusaurus.io/).
+Product documentation site for Hacado, built with [Docusaurus](https://docusaurus.io/).
 
 ## Scripts
 
 From the repo root:
 
 ```bash
-yarn workspace @timelish/docs start
-yarn workspace @timelish/docs build
-yarn workspace @timelish/docs serve
+yarn workspace @hacado/docs start
+yarn workspace @hacado/docs build
+yarn workspace @hacado/docs serve
 ```
 
 From this directory:

@@ -15,10 +15,10 @@ import {
   getSessionPlanTier,
   isFreeTier,
 } from "@/lib/billing/subscription-plan-access";
-import { serializeAppointmentsSearchParams } from "@timelish/api-sdk";
-import { AppMenuItems } from "@timelish/app-store/menu-items";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { NavItemGroup } from "@timelish/types";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { AppMenuItems } from "@hacado/app-store/menu-items";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { NavItemGroup } from "@hacado/types";
 import {
   BreadcrumbsProvider,
   cn,
@@ -26,8 +26,8 @@ import {
   Link,
   SidebarInset,
   SidebarProvider,
-} from "@timelish/ui";
-import { canFilterByMember } from "@timelish/utils";
+} from "@hacado/ui";
+import { canFilterByMember } from "@hacado/utils";
 import { AlertTriangle, Sparkles } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

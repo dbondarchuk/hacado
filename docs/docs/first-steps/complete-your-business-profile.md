@@ -31,7 +31,7 @@ Use **Brand** for what visitors see on your booking website:
 - **Logo and favicon** - the small icon in browser tabs; a logo builds trust even if it is simple.
 - **Language** - the default language for your booking site.
 - **SEO Meta** - provide a good description of your business and keywords that greatly describe it for search engines (Google) to show your website higher in the search results. Keep them short but on target.
-- **Booking website address** - your live link (for example `https://yourname.timeli.sh`) with a copy button.
+- **Booking website address** - your live link (for example `https://yourname.haca.do`) with a copy button.
 - **Custom domain** - optional; see [Connect your own web address](/docs/daily-use/connect-domain) when you own a domain name.
 
 ## Social tab

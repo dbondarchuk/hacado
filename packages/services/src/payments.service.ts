@@ -25,8 +25,8 @@ import {
   type PaymentDeletedPayload,
   type PaymentRefundedPayload,
   type PaymentUpdatedPayload,
-} from "@timelish/types";
-import { escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { escapeRegex } from "@hacado/utils";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

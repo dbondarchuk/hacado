@@ -1,5 +1,5 @@
-import { ServicesContainer } from "@timelish/services";
-import { memberEventSource, SessionUser } from "@timelish/types";
+import { ServicesContainer } from "@hacado/services";
+import { memberEventSource, SessionUser } from "@hacado/types";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
 import { cache } from "react";

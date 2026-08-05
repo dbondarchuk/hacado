@@ -1,4 +1,4 @@
-import { resolve } from "@timelish/utils";
+import { resolve } from "@hacado/utils";
 import { Fragment, ReactNode } from "react";
 import reactStringReplace from "react-string-replace";
 

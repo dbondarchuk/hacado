@@ -1,4 +1,4 @@
-import { Language } from "@timelish/i18n";
+import { Language } from "@hacado/i18n";
 import { giftCardStudioInvoiceTranslationsEn } from "./en/invoice";
 import { giftCardStudioInvoiceTranslationsUk } from "./uk/invoice";
 

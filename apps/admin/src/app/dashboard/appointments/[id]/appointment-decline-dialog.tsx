@@ -1,8 +1,8 @@
 "use client";
 
-import { Appointment, AppointmentStatus } from "@timelish/types";
-import { useReload } from "@timelish/ui-admin";
-import { AppointmentDeclineDialog } from "@timelish/ui-admin-kit";
+import { Appointment, AppointmentStatus } from "@hacado/types";
+import { useReload } from "@hacado/ui-admin";
+import { AppointmentDeclineDialog } from "@hacado/ui-admin-kit";
 
 export const AppointmentDeclineDialogWrapper: React.FC<{
   appointment: Appointment;

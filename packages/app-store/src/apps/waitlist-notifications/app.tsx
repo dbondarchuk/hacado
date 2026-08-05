@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";
 import { Bell } from "lucide-react";
 import { WAITLIST_NOTIFICATIONS_APP_NAME } from "./const";

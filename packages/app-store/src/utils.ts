@@ -1,4 +1,4 @@
-import type { AppTarget } from "@timelish/types";
+import type { AppTarget } from "@hacado/types";
 import { AvailableApps } from "./apps";
 
 /** Resolve install ownership from the catalog (not stored on connected apps). */

@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { IdCard } from "lucide-react";
 import { CARDDAV_APP_NAME } from "./const";
 import {

@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ToolbarButton } from "./toolbar";
 
 export function ModeDropdownMenu(props: DropdownMenuProps) {

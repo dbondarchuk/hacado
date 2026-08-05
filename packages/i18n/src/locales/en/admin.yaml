@@ -2347,7 +2347,7 @@ settings:
         label: Status
         feesExempt:
           label: No subscription required
-          hint: This workspace is exempt from Timeli.sh subscription billing.
+          hint: This workspace is exempt from Hacado subscription billing.
       openPortal: Open billing portal
       managePlanInPortal: Manage plan
       choosePlan: Choose a plan
@@ -2472,16 +2472,15 @@ settings:
       faviconTooltip: Icon shown in browser tabs
       faviconPlaceholder: Favicon URL
       language: Default site language
-      timeliAddress:
-        sectionTitle: Your Timeli.sh address
+      hacadoAddress:
+        sectionTitle: Your Hacado address
         websiteUrlLabel: Website URL
         connectCustomDomain: Connect custom domain
         disconnectCustomDomain: Disconnect custom domain
         organizationSlugLabel: Organization slug
         updateSlugComingSoon: Update slug (coming soon)
         connectDialogTitle: Connect custom domain
-        connectDialogDescription:
-          Connect your own domain to Timeli.sh to take full
+        connectDialogDescription: Connect your own domain to Hacado to take full
           control of your brand.
         connectDialogDnsTitle: Configure DNS first
         connectDialogDnsARecord:
@@ -2489,7 +2488,7 @@ settings:
           or your subdomain pointing to {ip}.
         connectDialogDnsCname:
           Or create a CNAME or ALIAS record pointing to {host}
-          - the hostname for your Timeli.sh site.
+          - the hostname for your Hacado site.
         domainLabel: Domain
         connectButton: Connect
         customDomainUpgradeRequired: Custom domains are available on Solo.

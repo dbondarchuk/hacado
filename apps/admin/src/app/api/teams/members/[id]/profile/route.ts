@@ -1,8 +1,8 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { userUpdateSchema } from "@timelish/api-sdk";
-import type { SessionUser } from "@timelish/types";
-import { canUpdateTeamMemberProfile } from "@timelish/utils";
+import { userUpdateSchema } from "@hacado/api-sdk";
+import type { SessionUser } from "@hacado/types";
+import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -1,6 +1,6 @@
-import { useI18n } from "@timelish/i18n/client";
-import { Checkbox, Label, Markdown } from "@timelish/ui";
-import { template } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { Checkbox, Label, Markdown } from "@hacado/ui";
+import { template } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { useScheduleContext } from "./context";
 

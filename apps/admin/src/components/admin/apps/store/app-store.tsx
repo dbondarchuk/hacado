@@ -1,9 +1,9 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
-import { AvailableApps } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n/client";
-import { App } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { useI18n } from "@hacado/i18n/client";
+import { App } from "@hacado/types";
 import {
   Button,
   Card,
@@ -17,9 +17,9 @@ import {
   Input,
   Link,
   Markdown,
-} from "@timelish/ui";
-import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
-import { canInstallApp } from "@timelish/utils";
+} from "@hacado/ui";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
+import { canInstallApp } from "@hacado/utils";
 import React from "react";
 
 export type AppStoreProps = {};

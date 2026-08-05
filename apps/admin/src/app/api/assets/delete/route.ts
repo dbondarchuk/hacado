@@ -1,9 +1,9 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { bulkDeleteSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus } from "@timelish/types";
-import { canUpdateAppointment } from "@timelish/utils";
+import { bulkDeleteSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { okStatus } from "@hacado/types";
+import { canUpdateAppointment } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

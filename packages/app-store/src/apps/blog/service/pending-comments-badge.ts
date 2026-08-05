@@ -1,7 +1,7 @@
 import {
   DashboardNotificationBadge,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BLOG_PENDING_COMMENTS_BADGE_KEY } from "../const";
 import { BlogRepositoryService } from "./repository-service";
 

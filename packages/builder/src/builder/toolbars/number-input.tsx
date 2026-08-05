@@ -1,6 +1,6 @@
 "use client";
 
-import { Leaves } from "@timelish/types";
+import { Leaves } from "@hacado/types";
 import {
   cn,
   Popover,
@@ -10,8 +10,8 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
-import { destructAndReplace, resolveProperty } from "@timelish/utils";
+} from "@hacado/ui";
+import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { ConfigurationProps } from "../../documents/types";

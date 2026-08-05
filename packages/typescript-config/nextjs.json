@@ -11,7 +11,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "@timelish/*": ["../../packages/*"]
+      "@hacado/*": ["../../packages/*"]
     }
   },
   "exclude": [

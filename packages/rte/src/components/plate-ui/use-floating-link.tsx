@@ -19,7 +19,7 @@ import {
   usePluginOption,
 } from "@udecode/plate/react";
 
-import { PageListModelWithUrl } from "@timelish/types";
+import { PageListModelWithUrl } from "@hacado/types";
 import {
   encodeUrlIfNeeded,
   safeDecodeUrl,

@@ -9,7 +9,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Card,
@@ -18,7 +18,7 @@ import {
   CardTitle,
   cn,
   ScrollArea,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import React from "react";

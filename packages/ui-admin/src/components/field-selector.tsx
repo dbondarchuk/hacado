@@ -1,7 +1,7 @@
-import { adminApi } from "@timelish/api-sdk";
-import { I18nFn, useI18n } from "@timelish/i18n/client";
-import { ServiceField } from "@timelish/types";
-import { cn, Combobox, IComboboxItem } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { I18nFn, useI18n } from "@hacado/i18n/client";
+import { ServiceField } from "@hacado/types";
+import { cn, Combobox, IComboboxItem } from "@hacado/ui";
 import React from "react";
 
 const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({

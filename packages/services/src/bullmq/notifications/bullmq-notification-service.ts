@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Email,
   EmailNotificationRequest,
@@ -7,7 +7,7 @@ import {
   TextMessageNotificationRequest,
   TextMessageResponse,
   WithOrganizationId,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Job } from "bullmq";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQNotificationConfig } from "./types";

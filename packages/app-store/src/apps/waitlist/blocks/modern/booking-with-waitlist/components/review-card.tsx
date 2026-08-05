@@ -1,6 +1,6 @@
-import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n/client";
-import { ApplyDiscountRequest, timeZones } from "@timelish/types";
+import { clientApi } from "@hacado/api-sdk";
+import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { ApplyDiscountRequest, timeZones } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -15,8 +15,8 @@ import {
   Markdown,
   Spinner,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime, template } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime, template } from "@hacado/utils";
 import { TimeZone } from "@vvo/tzdb";
 import {
   AlertTriangle,

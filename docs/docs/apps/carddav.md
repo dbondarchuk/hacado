@@ -1,11 +1,11 @@
 ---
 sidebar_position: 40
-description: Share Timelish contacts with trusted CardDAV desktop or phone apps.
+description: Share Hacado contacts with trusted CardDAV desktop or phone apps.
 ---
 
 # CardDAV contacts
 
-Use this App when approved contact programs should read the people you already store inside Timelish. After you turn it on, Timelish shows a CardDAV **URL**, **username**, and **password** (plus a button to **regenerate** the password if needed). That information is what you type into compatible desktop or phone apps.
+Use this App when approved contact programs should read the people you already store inside Hacado. After you turn it on, Hacado shows a CardDAV **URL**, **username**, and **password** (plus a button to **regenerate** the password if needed). That information is what you type into compatible desktop or phone apps.
 
 This is different from **[CalDAV calendar](/docs/apps/caldav)**. CalDAV is for calendars. CardDAV is for **contact cards**.
 
@@ -34,7 +34,7 @@ Treat CardDAV login like a privileged key. Rotate it on a schedule your security
 
 ### Honour do-not-contact preferences everywhere
 
-**Use this when:** Marketing opt-outs must stay consistent across Timelish and other tools.
+**Use this when:** Marketing opt-outs must stay consistent across Hacado and other tools.
 
 ## Removing the App
 

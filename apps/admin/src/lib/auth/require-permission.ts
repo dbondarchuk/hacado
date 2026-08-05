@@ -1,11 +1,11 @@
 import { getSession } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import type {
   SessionUser,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@timelish/types";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/types";
+import { hasPermission } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export async function requirePermission<R extends TeamPermissionResource>(

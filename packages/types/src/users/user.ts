@@ -1,4 +1,4 @@
-import type { Language } from "@timelish/i18n";
+import type { Language } from "@hacado/i18n";
 
 /** Org-scoped roles. Canonical source is Better Auth `members.role`. */
 export const USER_ROLES = ["owner", "admin", "coordinator", "staff"] as const;

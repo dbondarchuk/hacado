@@ -1,10 +1,10 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   ConnectedAppData,
   IServicesContainer,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Args,
   formatAmountWithCurrency,
@@ -12,7 +12,7 @@ import {
   getArguments,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Readable } from "stream";
 import { png2pdf, renderGiftCard } from "../designer/lib/render/render";

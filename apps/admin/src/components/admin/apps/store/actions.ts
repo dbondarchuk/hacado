@@ -3,11 +3,11 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
-import { AvailableApps } from "@timelish/app-store";
-import { withCatalogTarget } from "@timelish/app-store/utils";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import type { SessionUser } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { withCatalogTarget } from "@hacado/app-store/utils";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import type { SessionUser } from "@hacado/types";
 import {
   BookingConfiguration,
   BookingProviderScope,
@@ -21,13 +21,13 @@ import {
   DefaultAppToInstallScope,
   MeetingUrlProviderScope,
   meetingUrlProviderScopes,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   canInstallApp,
   canInstallCompanyApps,
   filterConnectedAppsForInstallQuota,
   filterInstallDefaultScopesForUser,
-} from "@timelish/utils";
+} from "@hacado/utils";
 
 const logger = getLoggerFactory("AppStoreActions");
 

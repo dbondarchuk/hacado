@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
   SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
@@ -13,9 +13,9 @@ import {
   type SyncedPaymentIgnoredPayload,
   type SyncedPaymentIngestedPayload,
   type SyncedPaymentRejectedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
-import { AvailableApps } from "@timelish/app-store";
+import { AvailableApps } from "@hacado/app-store";
 import { dashboardUrls } from "../links";
 
 export const SYNCED_PAYMENTS_REVIEW_BADGE_KEY = "synced_payments_review";

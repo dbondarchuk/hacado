@@ -2,7 +2,7 @@
 
 import type { TCommentText } from "@udecode/plate-comments";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import {
   useCommentLeaf,
   useCommentLeafState,

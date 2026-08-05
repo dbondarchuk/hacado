@@ -12,7 +12,7 @@ import type { Descendant, TText } from "@udecode/slate";
 import { ChevronRight, FileUp, RadicalIcon } from "lucide-react";
 import React from "react";
 
-import { Button, cn } from "@timelish/ui";
+import { Button, cn } from "@hacado/ui";
 import { BaseParagraphPlugin, type Value } from "@udecode/plate";
 import {
   BaseBoldPlugin,

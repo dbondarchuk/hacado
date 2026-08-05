@@ -4,7 +4,7 @@ import {
   Page,
   PageUpdateModel,
   type EventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import type { Redis } from "ioredis";
 import { PageRouteEntry, PagesService } from "./pages.service";
 

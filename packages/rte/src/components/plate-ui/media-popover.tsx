@@ -26,7 +26,7 @@ import {
   PopoverAnchor,
   PopoverContent,
   Separator,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CaptionButton } from "./caption";
 
 export interface MediaPopoverProps {

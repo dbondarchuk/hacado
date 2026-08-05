@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React, { useEffect, useState } from "react";
 import { FormSelector } from "../../components/form-selector";
 import {

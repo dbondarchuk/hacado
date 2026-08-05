@@ -1,10 +1,10 @@
-import type { BaseZodDictionary } from "@timelish/builder";
+import type { BaseZodDictionary } from "@hacado/builder";
 import {
   isEmbeddedSlot,
   ReaderBlock,
   TReaderProps,
   type TReaderBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { BlockStyle } from "../helpers/styling";
 import type { StyleValue } from "../style/css-renderer";
 import type { BaseStyleDictionary } from "../style/types";

@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { CustomerListModel } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { CustomerListModel } from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -16,8 +16,8 @@ import {
   Label,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
-import { CustomerSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector } from "@hacado/ui-admin";
 import { Merge } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

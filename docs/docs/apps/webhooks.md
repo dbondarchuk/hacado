@@ -5,7 +5,7 @@ description: Send booking and payment signals to your own secure web URL for aut
 
 # Webhooks
 
-Webhooks asks Timelish to call a **website address that you host** whenever certain events occur. Examples include new appointments, status changes, or payment updates (**the full checklist appears inside the Webhooks form**). Each request is usually an HTTPS POST with JSON data. You may add a **secret** so your server can confirm the message truly came from Timelish.
+Webhooks asks Hacado to call a **website address that you host** whenever certain events occur. Examples include new appointments, status changes, or payment updates (**the full checklist appears inside the Webhooks form**). Each request is usually an HTTPS POST with JSON data. You may add a **secret** so your server can confirm the message truly came from Hacado.
 
 You need someone comfortable with servers or integrations. They deploy the URL, reply with a fast success signal (usually within a fraction of a second), then finish heavy work afterward.
 
@@ -26,7 +26,7 @@ Collect only the smallest amount of personal data your automation truly needs an
 
 ### Push each booking into an internal database or spreadsheet
 
-**Use this when:** You already maintain reporting outside Timelish.
+**Use this when:** You already maintain reporting outside Hacado.
 
 ### Hand off to automation tools your company approves
 
@@ -40,9 +40,9 @@ Collect only the smallest amount of personal data your automation truly needs an
 
 1. Open **Apps**, then **Installed apps**.
 2. Delete the Webhooks entry or uninstall the App.
-3. Rotate any shared secret and remove firewall allow rules that only existed for Timelish.
+3. Rotate any shared secret and remove firewall allow rules that only existed for Hacado.
 
 ### What changes afterward
 
-Timelish stops calling your automation. Processes that depended on continual pushes may pause until you replace them or poll data another way.
+Hacado stops calling your automation. Processes that depended on continual pushes may pause until you replace them or poll data another way.
 

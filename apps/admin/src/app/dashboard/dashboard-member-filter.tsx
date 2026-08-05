@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { MemberSelector } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { MemberSelector } from "@hacado/ui-admin";
 import { parseAsString, useQueryState } from "nuqs";
 import React from "react";
 

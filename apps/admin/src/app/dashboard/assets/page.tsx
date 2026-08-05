@@ -4,11 +4,11 @@ import PageContainer from "@/components/admin/layout/page-container";
 import {
   assetsSearchParamsCache,
   serializeAssetsSearchParams,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading, Link } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading, Link } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
 import { Upload } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";

@@ -1,9 +1,9 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { Appointment, CalendarEvent, DaySchedule } from "@timelish/types";
-import { cn } from "@timelish/ui";
-import { getColorForName } from "@timelish/utils";
+import { adminApi } from "@hacado/api-sdk";
+import { Appointment, CalendarEvent, DaySchedule } from "@hacado/types";
+import { cn } from "@hacado/ui";
+import { getColorForName } from "@hacado/utils";
 import { DateTime, HourNumbers } from "luxon";
 import React from "react";
 import { EventCalendar, EventCalendarEvent } from "../event-calendar";

@@ -1,14 +1,14 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { paymentMethods, paymentType } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { paymentMethods, paymentType } from "@hacado/types";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AppointmentsDataTableAsyncFilterBox,
   CustomersDataTableAsyncFilterBox,
@@ -16,7 +16,7 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { ExportPaymentsButton } from "./export-payments-button";

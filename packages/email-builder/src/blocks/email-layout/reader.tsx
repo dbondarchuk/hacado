@@ -1,4 +1,4 @@
-import { ReaderBlock, ReaderProps } from "@timelish/builder";
+import { ReaderBlock, ReaderProps } from "@hacado/builder";
 import { getFontFamily, getPadding } from "../../style-inputs/helpers/styles";
 import { EmailLayoutDefaultProps, EmailLayoutReaderProps } from "./schema";
 

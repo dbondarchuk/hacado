@@ -1,6 +1,6 @@
 "use client";
 
-import { dispatchDashboardBadge, useReload } from "@timelish/ui-admin";
+import { dispatchDashboardBadge, useReload } from "@hacado/ui-admin";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {

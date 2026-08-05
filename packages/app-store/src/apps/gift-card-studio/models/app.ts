@@ -3,7 +3,7 @@ import {
   zObjectId,
   zTaggedUnion,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { designSchemaBase, getDesignsQuerySchema } from "./design";
 import {

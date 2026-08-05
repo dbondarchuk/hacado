@@ -12,14 +12,14 @@ import type {
   OrganizationBillingSeatsBenefit,
   OrganizationBillingSubscriptionDetails,
   SmsCreditsState,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Organization,
   parseOrganizationSubscriptionStatus,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
   SmsCreditsExhaustedError,
   systemEventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import { ORGANIZATIONS_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";
 import { BaseService } from "../services/base.service";

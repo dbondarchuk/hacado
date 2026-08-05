@@ -1,5 +1,5 @@
 "use client";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
   BookingRestriction,
@@ -7,8 +7,8 @@ import {
   getActiveStaffAcrossAssignments,
   isBookingLimitRestriction,
   PublicStaffMember,
-} from "@timelish/types";
-import { cn } from "@timelish/ui";
+} from "@hacado/types";
+import { cn } from "@hacado/ui";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";

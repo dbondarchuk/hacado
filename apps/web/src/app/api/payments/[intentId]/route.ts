@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest } from "next/server";
 import { createOrUpdateIntent } from "../../../../utils/payments/createIntent";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";

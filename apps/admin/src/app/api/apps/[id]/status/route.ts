@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
-import { getLoggerFactory } from "@timelish/logger";
-import { ConnectedAppUpdateModel, okStatus } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { ConnectedAppUpdateModel, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

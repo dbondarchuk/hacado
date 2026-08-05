@@ -1,7 +1,7 @@
 "use client";
 
-import { clientApi, handleBookingSubmitError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -13,7 +13,7 @@ import type {
   DateTime,
   FieldSchema,
   PublicStaffMember,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   ApplyDiscountResponse,
   Availability,
@@ -22,8 +22,8 @@ import {
   getActiveStaffAcrossAssignments,
   getActiveStaffForAssignments,
   isBookingLimitRestriction,
-} from "@timelish/types";
-import { toast, useTimeZone } from "@timelish/ui";
+} from "@hacado/types";
+import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";

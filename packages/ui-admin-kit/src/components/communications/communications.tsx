@@ -1,12 +1,12 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
   CommunicationDirection,
   CommunicationLog,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Badge,
   Button,
@@ -16,7 +16,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useIsMobile,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Mail, MailQuestion, MessageSquare, Send } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

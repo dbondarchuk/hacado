@@ -4,10 +4,10 @@ import {
   AppSelectorInput,
   ConfigurationProps,
   PageInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { BLOG_APP_NAME } from "../../const";
 import {

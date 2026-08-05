@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { PlateMarkdownEditor } from "@timelish/rte";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   BooleanSelect,
   Button,
@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
   useCurrencySymbol,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { X } from "lucide-react";
 import React from "react";
 import { TabProps } from "./types";

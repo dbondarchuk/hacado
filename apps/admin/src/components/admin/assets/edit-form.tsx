@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AssetEntity } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AssetEntity } from "@hacado/types";
 import {
   Form,
   FormControl,
@@ -14,8 +14,8 @@ import {
   Input,
   Textarea,
   toastPromise,
-} from "@timelish/ui";
-import { AssetPreview, SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetPreview, SaveButton } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";

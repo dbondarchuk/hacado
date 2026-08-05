@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import { LightboxProvider } from "./context";
 import { Lightbox } from "./lightbox";
 import { LightboxReaderProps } from "./schema";

@@ -5,8 +5,8 @@ import {
   fontSizeShortcut,
   Shortcut,
   textAlignmentShortcut,
-} from "@timelish/page-builder-base";
-import { AllStylesSchemas, COLORS } from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base";
+import { AllStylesSchemas, COLORS } from "@hacado/page-builder-base/style";
 import { Bold, Space, TypeOutline } from "lucide-react";
 
 export const textShortcuts: Shortcut<AllStylesSchemas>[] = [

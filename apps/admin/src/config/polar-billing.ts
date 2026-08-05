@@ -1,10 +1,10 @@
-import { InstallKeys } from "@timelish/i18n";
+import { InstallKeys } from "@hacado/i18n";
 import {
   getPolarBillingPlansFromEnv,
   resolvePlanTierFromProductId,
   type PolarBillingPlanDef,
-} from "@timelish/services/billing";
-import type { BillingPlanTier } from "@timelish/types";
+} from "@hacado/services/billing";
+import type { BillingPlanTier } from "@hacado/types";
 
 export type PolarBillingPlanSlug = BillingPlanTier;
 export type { PolarBillingPlanDef };

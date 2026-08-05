@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Payment, PaymentSummary } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Payment, PaymentSummary } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -19,8 +19,8 @@ import {
   Spinner,
   toast,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { formatAmount } from "@timelish/utils";
+} from "@hacado/ui";
+import { formatAmount } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { getPaymentMethod } from "./payment-method-display";

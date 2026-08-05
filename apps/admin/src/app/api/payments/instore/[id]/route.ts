@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { getLoggerFactory } from "@timelish/logger";
-import { inStorePaymentUpdateModelSchema } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { inStorePaymentUpdateModelSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(

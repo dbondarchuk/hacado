@@ -1,10 +1,9 @@
 "use client";
 
 import { LanguageOptions } from "@/constants/texts";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { languages, useI18n } from "@timelish/i18n/client";
-import { zNonEmptyString } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { languages, useI18n } from "@hacado/i18n/client";
+import { zNonEmptyString } from "@hacado/types";
 import {
   Button,
   Card,
@@ -33,8 +32,9 @@ import {
   toast,
   toastPromise,
   useClipboard,
-} from "@timelish/ui";
-import { AssetSelectorInput } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetSelectorInput } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Plug, Unplug } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -63,8 +63,8 @@ export const BrandTab: React.FC<{
   customDomain?: string;
   organizationSlug: string;
   websiteUrl: string;
-  timeliBaseHost: string;
-  timeliBaseUrl: string;
+  baseHost: string;
+  baseUrl: string;
   customDomainARecordIp?: string;
   canConnectCustomDomain?: boolean;
 }> = ({
@@ -73,8 +73,8 @@ export const BrandTab: React.FC<{
   customDomain,
   organizationSlug,
   websiteUrl,
-  timeliBaseHost,
-  timeliBaseUrl,
+  baseHost,
+  baseUrl,
   customDomainARecordIp,
   canConnectCustomDomain = true,
 }) => {
@@ -129,9 +129,9 @@ export const BrandTab: React.FC<{
   const onCopyWebsiteUrl = async () => {
     const ok = await copyToClipboard(websiteUrl);
     if (ok) {
-      toast.success(t("settings.brand.form.timeliAddress.websiteUrlCopied"));
+      toast.success(t("settings.brand.form.hacadoAddress.websiteUrlCopied"));
     } else {
-      toast.error(t("settings.brand.form.timeliAddress.websiteUrlCopyFailed"));
+      toast.error(t("settings.brand.form.hacadoAddress.websiteUrlCopyFailed"));
     }
   };
 
@@ -354,14 +354,14 @@ export const BrandTab: React.FC<{
       <Card className="mt-4">
         <CardHeader className="border-b">
           <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("settings.brand.form.timeliAddress.sectionTitle")}
+            {t("settings.brand.form.hacadoAddress.sectionTitle")}
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-col gap-1 min-w-0 flex-1">
               <span className="text-sm text-muted-foreground uppercase tracking-wide">
-                {t("settings.brand.form.timeliAddress.websiteUrlLabel")}
+                {t("settings.brand.form.hacadoAddress.websiteUrlLabel")}
               </span>
               <div className="flex items-center gap-1 min-w-0">
                 <span className="text-base truncate">{websiteUrl}</span>
@@ -372,7 +372,7 @@ export const BrandTab: React.FC<{
                   className="shrink-0"
                   onClick={onCopyWebsiteUrl}
                   aria-label={t(
-                    "settings.brand.form.timeliAddress.copyWebsiteUrlAriaLabel",
+                    "settings.brand.form.hacadoAddress.copyWebsiteUrlAriaLabel",
                   )}
                 >
                   <Copy />
@@ -387,48 +387,48 @@ export const BrandTab: React.FC<{
                 disabled={disconnecting}
               >
                 {disconnecting ? <Spinner /> : <Unplug />}{" "}
-                {t("settings.brand.form.timeliAddress.disconnectCustomDomain")}
+                {t("settings.brand.form.hacadoAddress.disconnectCustomDomain")}
               </Button>
             ) : canConnectCustomDomain ? (
               <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                   <Button type="button" variant="outline">
                     <Plug />{" "}
-                    {t("settings.brand.form.timeliAddress.connectCustomDomain")}
+                    {t("settings.brand.form.hacadoAddress.connectCustomDomain")}
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>
                       {t(
-                        "settings.brand.form.timeliAddress.connectDialogTitle",
+                        "settings.brand.form.hacadoAddress.connectDialogTitle",
                       )}
                     </DialogTitle>
                     <DialogDescription>
                       {t(
-                        "settings.brand.form.timeliAddress.connectDialogDescription",
+                        "settings.brand.form.hacadoAddress.connectDialogDescription",
                       )}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-2 rounded-md border bg-muted/40 px-3 py-3 text-base text-muted-foreground">
                     <p className="font-medium text-foreground">
                       {t(
-                        "settings.brand.form.timeliAddress.connectDialogDnsTitle",
+                        "settings.brand.form.hacadoAddress.connectDialogDnsTitle",
                       )}
                     </p>
                     {customDomainARecordIp ? (
                       <p>
                         {t(
-                          "settings.brand.form.timeliAddress.connectDialogDnsARecord",
+                          "settings.brand.form.hacadoAddress.connectDialogDnsARecord",
                           { ip: customDomainARecordIp },
                         )}
                       </p>
                     ) : null}
                     <p>
                       {t(
-                        "settings.brand.form.timeliAddress.connectDialogDnsCname",
+                        "settings.brand.form.hacadoAddress.connectDialogDnsCname",
                         {
-                          host: timeliBaseHost,
+                          host: baseHost,
                         },
                       )}
                     </p>
@@ -443,7 +443,7 @@ export const BrandTab: React.FC<{
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>
-                            {t("settings.brand.form.timeliAddress.domainLabel")}
+                            {t("settings.brand.form.hacadoAddress.domainLabel")}
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -473,7 +473,7 @@ export const BrandTab: React.FC<{
                       }
                     >
                       {savingDomain ? <Spinner /> : <Plug />}{" "}
-                      {t("settings.brand.form.timeliAddress.connectButton")}
+                      {t("settings.brand.form.hacadoAddress.connectButton")}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -481,14 +481,14 @@ export const BrandTab: React.FC<{
             ) : (
               <p className="text-base text-muted-foreground">
                 {t(
-                  "settings.brand.form.timeliAddress.customDomainUpgradeRequired",
+                  "settings.brand.form.hacadoAddress.customDomainUpgradeRequired",
                 )}{" "}
                 <Link
                   href="/dashboard/settings/brand?activeTab=general"
                   className="underline font-medium"
                 >
                   {t(
-                    "settings.brand.form.timeliAddress.customDomainUpgradeLink",
+                    "settings.brand.form.hacadoAddress.customDomainUpgradeLink",
                   )}
                 </Link>
               </p>
@@ -498,12 +498,12 @@ export const BrandTab: React.FC<{
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground uppercase tracking-wide">
-                {t("settings.brand.form.timeliAddress.organizationSlugLabel")}
+                {t("settings.brand.form.hacadoAddress.organizationSlugLabel")}
               </span>
               <span className="text-base">{organizationSlug}</span>
             </div>
             <Button type="button" variant="outline" disabled>
-              {t("settings.brand.form.timeliAddress.updateSlugComingSoon")}
+              {t("settings.brand.form.hacadoAddress.updateSlugComingSoon")}
             </Button>
           </div>
         </CardContent>

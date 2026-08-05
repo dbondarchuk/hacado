@@ -1,7 +1,7 @@
 "use client";
 
-import { adminApi, appointmentsSearchParams } from "@timelish/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
+import { adminApi, appointmentsSearchParams } from "@hacado/api-sdk";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentStatus,
@@ -9,7 +9,7 @@ import {
   AppointmentWithReferenceDateDistance,
   DateRange,
   Sort,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   CalendarDateRangePicker,
@@ -33,12 +33,12 @@ import {
   TableRow,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomerName,
   CustomerSelector,
   DataTableFilterBox,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useRef, useState } from "react";

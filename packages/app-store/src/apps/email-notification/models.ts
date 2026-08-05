@@ -1,4 +1,4 @@
-import { asOptionalField, zEmail, zUniqueArray } from "@timelish/types";
+import { asOptionalField, zEmail, zUniqueArray } from "@hacado/types";
 import * as z from "zod";
 
 export const emailNotificationConfigurationSchema = z.object({

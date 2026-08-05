@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   BillingPlanTier,
   Email,
@@ -21,8 +21,8 @@ import {
   TextMessage,
   TextMessageNotificationRequest,
   TextMessageResponse,
-} from "@timelish/types";
-import { maskify } from "@timelish/utils";
+} from "@hacado/types";
+import { maskify } from "@hacado/utils";
 import { convert } from "html-to-text";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 

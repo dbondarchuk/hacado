@@ -1,7 +1,7 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
-import { colors } from "@timelish/types";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { colors } from "@hacado/types";
 import {
   Button,
   cn,
@@ -12,7 +12,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch } from "@uiw/react-color";
 import { Plus, X } from "lucide-react";
 import { useCallback, useState } from "react";

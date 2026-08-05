@@ -1,4 +1,4 @@
-import { StylingConfiguration } from "@timelish/types";
+import { StylingConfiguration } from "@hacado/types";
 import Color from "color";
 
 export const getColorsCss = (

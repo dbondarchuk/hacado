@@ -2,7 +2,7 @@ import {
   shiftsSchema,
   weekIdentifierSchema,
   zTaggedUnion,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 export const setSchedulesActionSchema = z.object({

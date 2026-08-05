@@ -1,4 +1,4 @@
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import { Ref } from "react";
 import { YouTubeVideoReader } from "./reader";
 import { YouTubeVideoProps } from "./schema";

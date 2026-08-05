@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/i18n",
+  "name": "@hacado/i18n",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -21,8 +21,8 @@
     "./components": "./src/components.tsx"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
     "typescript": "5.5.4"
   },
   "dependencies": {

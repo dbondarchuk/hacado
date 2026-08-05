@@ -1,9 +1,9 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { PlateStaticEditor } from "@timelish/rte";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { PlateStaticEditor } from "@hacado/rte";
+import { cn } from "@hacado/ui";
 import { TextPropsDefaults, TextReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

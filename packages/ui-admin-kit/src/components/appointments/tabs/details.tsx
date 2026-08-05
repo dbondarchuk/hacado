@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n/client";
-import { Appointment, AppointmentStatus, timeZones } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment, AppointmentStatus, timeZones } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -21,9 +21,9 @@ import {
   use12HourFormat,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
-import { CustomerName, useAuth } from "@timelish/ui-admin";
-import { canUpdateAppointment, durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { CustomerName, useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

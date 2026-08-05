@@ -1,8 +1,8 @@
 "use client";
 
 import { arrayMove } from "@dnd-kit/sortable";
-import { BaseBlockProps as BaseBlockPropsType } from "@timelish/builder";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+import { BaseBlockProps as BaseBlockPropsType } from "@hacado/builder";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import React, { useCallback, useMemo, useState } from "react";
 import * as z from "zod";
 import { Shortcuts } from "../shortcuts";

@@ -2,7 +2,7 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,9 +31,9 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   useCurrencySymbol,
-} from "@timelish/ui";
-import type { TeamMemberListModel } from "@timelish/types";
-import { MemberSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import type { TeamMemberListModel } from "@hacado/types";
+import { MemberSelector } from "@hacado/ui-admin";
 import { cva } from "class-variance-authority";
 import { AlertTriangle, GripVertical, Trash, X } from "lucide-react";
 import React from "react";

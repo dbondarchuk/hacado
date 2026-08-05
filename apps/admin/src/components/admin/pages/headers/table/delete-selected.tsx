@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PageHeaderListModel } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PageHeaderListModel } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -15,7 +15,7 @@ import {
   Button,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

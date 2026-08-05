@@ -1,8 +1,8 @@
 "use client";
 
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   EventDeliveryJobRequest,
@@ -8,11 +8,11 @@ import {
   IServicesContainer,
   OrganizationJobRequest,
   WithOrganizationId,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Job } from "bullmq";
 import { BuiltInApps } from "../../built-in/apps";
 import { getBuiltInAppData } from "../../built-in/utils";
-import { canProcessApp } from "@timelish/app-store";
+import { canProcessApp } from "@hacado/app-store";
 import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";

@@ -1,9 +1,9 @@
-import { useI18n } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
+import { useI18n } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
 import {
   isRequiredOptionTypes,
   optionPaymentCalculationType,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Combobox,
   FormControl,
@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
   useCurrencySymbol,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { TabProps } from "./types";
 

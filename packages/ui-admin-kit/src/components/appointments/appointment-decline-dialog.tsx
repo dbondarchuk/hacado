@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { Appointment, AppointmentStatus, Payment } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment, AppointmentStatus, Payment } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,8 +24,8 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { formatAmount } from "@timelish/utils";
+} from "@hacado/ui";
+import { formatAmount } from "@hacado/utils";
 import { CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React, { useCallback, useEffect, useId } from "react";

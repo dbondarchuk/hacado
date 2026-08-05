@@ -1,6 +1,6 @@
 ---
 sidebar_position: 23
-description: Offer PayPal and related wallet buttons where Timelish supports PayPal checkout.
+description: Offer PayPal and related wallet buttons where Hacado supports PayPal checkout.
 ---
 
 # PayPal
@@ -11,7 +11,7 @@ PayPal lets clients pay with PayPal balances, linked bank, or eligible cards alo
 
 1. Open **Apps**, then **Store**, and install **PayPal**.
 2. Sign in with a **business-ready** PayPal account. Finish email, phone, and identity steps PayPal asks for.
-3. Connect until Timelish shows PayPal successfully linked.
+3. Connect until Hacado shows PayPal successfully linked.
 4. If you offer more than one way to pay, open **Default apps** and verify which processor should lead.
 
 PayPal frequently pauses payouts for verification. Resolve messages in PayPal itself. **[Apps troubleshooting](/docs/apps/troubleshooting)** helps with redirects and Pending states.
@@ -43,6 +43,6 @@ PayPal refunds and settlements follow PayPal timelines, which differ from instan
 
 PayPal disappears as a checkout option unless you reconnect. Orders already paid settle under PayPal’s normal lifecycle.
 
-### Outside Timelish
+### Outside Hacado
 
-Revoke REST credentials or unlink Timelish in PayPal merchant settings if auditors require a formal disconnect.
+Revoke REST credentials or unlink Hacado in PayPal merchant settings if auditors require a formal disconnect.

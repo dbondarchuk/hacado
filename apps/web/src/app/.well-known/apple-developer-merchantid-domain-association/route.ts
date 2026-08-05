@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { IPaymentProcessor } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { IPaymentProcessor } from "@hacado/types";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

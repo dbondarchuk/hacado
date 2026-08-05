@@ -2,7 +2,7 @@ import {
   canAccessFinancialsSection,
   canReadSyncedPayments,
   canViewFinancials,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { redirectIfFeatureUnavailable } from "@/lib/billing/subscription-feature-guard";
 import { getSession } from "@/app/utils";
 import { forbidden } from "next/navigation";

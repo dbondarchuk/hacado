@@ -1,15 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PlateMarkdownEditor } from "@timelish/rte";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   AppointmentAddonUpdateModel,
   DatabaseId,
   getAppointmentAddonSchemaWithUniqueCheck,
   WithDatabaseId,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   DurationInput,
   Form,
@@ -28,8 +28,8 @@ import {
   toastPromise,
   useCurrencySymbol,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { SaveButton, Sortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton, Sortable } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";

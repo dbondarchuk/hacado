@@ -1,5 +1,5 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { timeZones } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { timeZones } from "@hacado/types";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useModifyAppointmentFormContext } from "./context";

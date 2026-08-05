@@ -1,5 +1,5 @@
-import { getLocale } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLocale } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -16,14 +16,14 @@ import {
   IDashboardNotifierApp,
   SessionUser,
   systemEventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   fileNameToMimeType,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   parseJSON,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { v4 as uuidv4 } from "uuid";
 import { getEmailTemplate } from "../emails/utils";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../events";

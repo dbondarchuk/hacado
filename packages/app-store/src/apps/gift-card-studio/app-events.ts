@@ -1,5 +1,5 @@
-import type { AppEventConfig, EventDefinition } from "@timelish/types";
-import { formatAmountWithCurrency } from "@timelish/utils";
+import type { AppEventConfig, EventDefinition } from "@hacado/types";
+import { formatAmountWithCurrency } from "@hacado/utils";
 import { buildNewPurchaseEmailNotifications } from "./emails/new-purchase-email";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
 import {

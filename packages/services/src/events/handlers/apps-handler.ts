@@ -1,8 +1,8 @@
 import {
   BUILT_IN_APP_EVENT_IDS,
   getAppNamesSubscribedToEventType,
-} from "@timelish/app-store/app-events";
-import { getLoggerFactory } from "@timelish/logger";
+} from "@hacado/app-store/app-events";
+import { getLoggerFactory } from "@hacado/logger";
 import { claimEventHandler } from "../claim-event-handler";
 import type { EventHandler } from "./types";
 

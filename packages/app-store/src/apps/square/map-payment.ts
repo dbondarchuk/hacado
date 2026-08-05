@@ -1,5 +1,5 @@
-import { PaymentFee } from "@timelish/types";
-import { round2 } from "@timelish/utils";
+import { PaymentFee } from "@hacado/types";
+import { round2 } from "@hacado/utils";
 
 export type SquareMoney = {
   amount?: bigint | number | string;

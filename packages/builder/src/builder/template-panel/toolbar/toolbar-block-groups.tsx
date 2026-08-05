@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { ToolbarButton, ToolbarGroup } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { ToolbarButton, ToolbarGroup } from "@hacado/ui";
 import { ArrowDown, ArrowUp, ArrowUpFromLine, Copy, Trash } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import {

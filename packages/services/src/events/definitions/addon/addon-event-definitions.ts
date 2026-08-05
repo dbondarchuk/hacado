@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   ADDON_CREATED_EVENT_TYPE,
   ADDON_DELETED_EVENT_TYPE,
@@ -7,7 +7,7 @@ import {
   type AddonDeletedPayload,
   type AddonUpdatedPayload,
   type EventDefinition,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

@@ -1,8 +1,8 @@
 "use client";
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { GetAppointmentOptionsResponse } from "@timelish/types";
-import { Skeleton } from "@timelish/ui";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { GetAppointmentOptionsResponse } from "@hacado/types";
+import { Skeleton } from "@hacado/ui";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../components/fixtures";
 import {

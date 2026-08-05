@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import type { SessionUser } from "../users/session-user";
 import { ConnectedAppData, ConnectedAppResponse } from "./connected-app.data";
 import { IConnectedAppProps } from "./connected-app.props";

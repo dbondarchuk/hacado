@@ -1,5 +1,5 @@
-import { EditorDocumentBlocksDictionary } from "@timelish/builder";
-import { AllKeys } from "@timelish/i18n";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { AllKeys } from "@hacado/i18n";
 import { FileInput } from "lucide-react";
 import {
   FormBlockConfiguration,

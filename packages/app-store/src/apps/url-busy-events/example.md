@@ -4,7 +4,7 @@ This diagram shows how the URL Busy Events app works:
 
 ```
 ┌─────────────────┐    HTTP GET     ┌──────────────────┐
-│   Timeli.sh App     │ ──────────────► │  External API    │
+│   Hacado App     │ ──────────────► │  External API    │
 │                 │                 │                  │
 │ - Start: 9:00   │                 │ - Query params:  │
 │ - End: 17:00    │                 │   start, end     │

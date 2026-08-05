@@ -1,6 +1,6 @@
 "use client";
 
-import { resolve } from "@timelish/utils";
+import { resolve } from "@hacado/utils";
 import { useCallback } from "react";
 import {
   useBlock,

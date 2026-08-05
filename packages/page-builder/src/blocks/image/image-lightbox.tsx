@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { useLightboxImage } from "../lightbox/context";
 

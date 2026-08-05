@@ -1,11 +1,11 @@
 import { auth } from "@/app/auth";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
-} from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { Organization, OrganizationMember } from "@timelish/types";
+} from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { Organization, OrganizationMember } from "@hacado/types";
 
 async function collectOrganizationUserIds(
   organizationId: string,

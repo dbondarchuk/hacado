@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AppointmentFields } from "@timelish/types";
+import { AppointmentFields } from "@hacado/types";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,15 +19,15 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 import {
   waitlistRequestDates,
   waitlistRequestFormSchemaBase,
 } from "../../../../models/waitlist";
 
-import { useI18n } from "@timelish/i18n/client";
-import { deepEqual } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { deepEqual } from "@hacado/utils";
 import { DateTime as LuxonDateTime } from "luxon";
 import { WaitlistDatePicker } from "../../../../components/waitlist-date-picker";
 import {

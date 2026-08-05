@@ -1,8 +1,8 @@
 import { AppStore } from "@/components/admin/apps/store/app-store";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs } from "@hacado/ui";
 import { Metadata } from "next";
 
 type Params = PageProps<"/dashboard/apps/store">;

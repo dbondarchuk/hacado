@@ -1,6 +1,6 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import { EditorRedirect } from "./editor-redirect";
 import { RedirectDefaultUrl, RedirectProps } from "./schema";
 

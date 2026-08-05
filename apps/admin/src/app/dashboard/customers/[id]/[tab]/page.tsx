@@ -11,10 +11,10 @@ import {
   serializeAppointmentsSearchParams,
   serializeAssetsSearchParams,
   serializeCommunicationLogsSearchParams,
-} from "@timelish/api-sdk";
-import { CustomerTabInjectorApps } from "@timelish/app-store/injectors/customer-tab";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+} from "@hacado/api-sdk";
+import { CustomerTabInjectorApps } from "@hacado/app-store/injectors/customer-tab";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Breadcrumbs,
   Heading,
@@ -23,16 +23,16 @@ import {
   TabsContent,
   TabsTrigger,
   TabsViaUrl,
-} from "@timelish/ui";
-import { CustomerName, DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsPortal,
   HeaderActionButtonsProvider,
   RecentCommunications,
   SendCommunicationButton,
-} from "@timelish/ui-admin-kit";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui-admin-kit";
+import { hasPermission } from "@hacado/utils";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

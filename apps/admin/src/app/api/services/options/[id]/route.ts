@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { getLoggerFactory } from "@timelish/logger";
-import { appointmentOptionSchema, okStatus } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { appointmentOptionSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

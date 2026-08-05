@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import type { StaffAssignment } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import type { StaffAssignment } from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -13,7 +13,7 @@ import {
   FormMessage,
   Input,
   Label,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useEffect, useState } from "react";
 import type { Control, FieldValues, Path } from "react-hook-form";
 

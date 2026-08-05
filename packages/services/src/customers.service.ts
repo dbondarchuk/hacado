@@ -15,8 +15,8 @@ import {
   type CustomerUpdatedPayload,
   type EventSource,
   type ICustomersService,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

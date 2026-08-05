@@ -1,4 +1,4 @@
-import { RadioButtonGroupItem } from "@timelish/ui";
+import { RadioButtonGroupItem } from "@hacado/ui";
 import React from "react";
 
 export type RadioGroupInputItemProps = {

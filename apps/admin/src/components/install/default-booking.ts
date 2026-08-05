@@ -3,7 +3,7 @@ import {
   bookingConfigurationSchema,
   type AppointmentCancellationRescheduleConfiguration,
   type BookingConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 
 /** Customer-friendly defaults when the install wizard enables cancel/reschedule. */
 export function getInstallEnabledCancellationsAndReschedules(): AppointmentCancellationRescheduleConfiguration {

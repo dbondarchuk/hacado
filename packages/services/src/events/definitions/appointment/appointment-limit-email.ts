@@ -1,14 +1,14 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   BillingPlanTier,
   FREE_TIER_LIMITS,
   type EmailNotificationRequest,
   type EventEnvelope,
   type IServicesContainer,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 
 import { getNonDeclinedAppointmentsCreatedInBillingCycleCount } from "../../../billing/free-tier-appointment-usage";
 import { resolvePlanTierFromOrganization } from "../../../billing/subscription-entitlements";

@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import type { ActivityActorDisplay } from "../../activity/activity-actor";
 import type { ActivityTextField } from "../../activity/activity-record";
 import type { ActivitySeverity } from "../../activity/activity-severity";

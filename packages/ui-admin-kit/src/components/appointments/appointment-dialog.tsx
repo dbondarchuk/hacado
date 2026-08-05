@@ -1,8 +1,8 @@
 "use client";
 
 import { DialogProps } from "@radix-ui/react-dialog";
-import { useI18n } from "@timelish/i18n/client";
-import { Appointment } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   Link,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { SquareArrowOutUpRight } from "lucide-react";
 import React from "react";
 import {

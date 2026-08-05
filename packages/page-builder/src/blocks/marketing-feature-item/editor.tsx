@@ -5,13 +5,13 @@ import {
   EditorEmbeddedSlot,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { MarketingFeatureItemProps } from "./schema";
 import { styles } from "./styles";
 

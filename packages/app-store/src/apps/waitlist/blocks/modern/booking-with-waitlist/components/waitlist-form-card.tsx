@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentFields } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentFields } from "@hacado/types";
 import {
   Button,
   EmailField,
@@ -16,8 +16,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   usePrevious,
-} from "@timelish/ui";
-import { deepEqual } from "@timelish/utils";
+} from "@hacado/ui";
+import { deepEqual } from "@hacado/utils";
 import { Calendar } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo } from "react";

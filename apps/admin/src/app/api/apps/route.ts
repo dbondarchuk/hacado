@@ -1,11 +1,11 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { getAccessibleConnectedApps } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
-import { AvailableApps } from "@timelish/app-store";
-import { getLoggerFactory } from "@timelish/logger";
-import { BRAND_SETTINGS_UPGRADE_URL } from "@timelish/services/billing";
-import type { SessionUser } from "@timelish/types";
-import { canInstallApp } from "@timelish/utils";
+import { AvailableApps } from "@hacado/app-store";
+import { getLoggerFactory } from "@hacado/logger";
+import { BRAND_SETTINGS_UPGRADE_URL } from "@hacado/services/billing";
+import type { SessionUser } from "@hacado/types";
+import { canInstallApp } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

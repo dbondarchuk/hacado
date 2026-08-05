@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PlateEditor } from "@timelish/rte";
-import { DatabaseId } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateEditor } from "@hacado/rte";
+import { DatabaseId } from "@hacado/types";
 import {
   BooleanSelect,
   Breadcrumbs,
@@ -27,13 +27,13 @@ import {
   toastPromise,
   use12HourFormat,
   useDebounceCacheFn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AssetPreview,
   AssetSelectorInput,
   SaveButton,
-} from "@timelish/ui-admin";
-import { fileNameToMimeType } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { fileNameToMimeType } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

@@ -1,7 +1,7 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
 import { useCallback, useMemo } from "react";
 import { normalizeTableGridProps, resizeTableDimensions } from "./grid-utils";
 import { createEmptyTableCell, TableProps } from "./schema";

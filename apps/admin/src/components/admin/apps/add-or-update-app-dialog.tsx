@@ -1,16 +1,16 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { AvailableApps } from "@timelish/app-store";
-import { AppSetups } from "@timelish/app-store/setup";
-import { useI18n } from "@timelish/i18n/client";
+import { AvailableApps } from "@hacado/app-store";
+import { AppSetups } from "@hacado/app-store/setup";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppSetupProps,
   ConnectedApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
   type SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -32,8 +32,8 @@ import {
   Spinner,
   toast,
   toastPromise,
-} from "@timelish/ui";
-import { filterInstallDefaultScopesForUser } from "@timelish/utils";
+} from "@hacado/ui";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { setDefaultAppByScope } from "./store/actions";

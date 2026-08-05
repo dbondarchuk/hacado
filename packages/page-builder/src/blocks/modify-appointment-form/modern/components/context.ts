@@ -1,4 +1,4 @@
-import { TranslationKeys } from "@timelish/i18n";
+import { TranslationKeys } from "@hacado/i18n";
 import {
   ApplyGiftCardsSuccessResponse,
   Availability,
@@ -6,7 +6,7 @@ import {
   DateTime,
   ModifyAppointmentInformation,
   ModifyAppointmentType,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 import { ModifyAppointmentFields } from "../../types";

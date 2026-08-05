@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Payment } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Payment } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +17,7 @@ import {
   Spinner,
   toastPromise,
   useCurrencyFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Trash } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

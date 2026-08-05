@@ -1,6 +1,6 @@
 "use client";
 
-import { teamsSearchParams } from "@timelish/api-sdk";
+import { teamsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

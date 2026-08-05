@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentAddon } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentAddon } from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -9,8 +9,8 @@ import {
   Checkbox,
   Markdown,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

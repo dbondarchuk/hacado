@@ -1,4 +1,4 @@
-/** Timeli.sh brand colors for user-facing emails. */
+/** Hacado brand colors for user-facing emails. */
 export const EMAIL_BRAND = {
   /** Sage — primary CTAs */
   primary: "#7C8B6F",

@@ -1,6 +1,6 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
-import { ModifyAppointmentInformation } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import { ModifyAppointmentInformation } from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -11,7 +11,7 @@ import {
   Label,
   Spinner,
   useCurrencyFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Gift } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";

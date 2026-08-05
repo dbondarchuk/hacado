@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   AppointmentStatus,
@@ -17,7 +17,7 @@ import {
   SessionUser,
   SocialConfiguration,
   TextMessageReply,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   dispatchAppointmentEventPayload,
   formatAmountString,
@@ -27,7 +27,7 @@ import {
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
   template,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { TextMessageNotificationMessages } from "./messages";
 import {
   TextMessageNotificationConfiguration,

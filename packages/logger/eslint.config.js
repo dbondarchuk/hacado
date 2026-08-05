@@ -1,3 +1,3 @@
-const config = require("@timelish/eslint-config");
+const config = require("@hacado/eslint-config");
 
 module.exports = config;

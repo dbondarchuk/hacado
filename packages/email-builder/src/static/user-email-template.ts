@@ -1,6 +1,6 @@
-import { TReaderBlock, generateId as generateBlockId } from "@timelish/builder";
-import { deserializeMarkdown } from "@timelish/rte";
-import { templateSafeWithError } from "@timelish/utils";
+import { TReaderBlock, generateId as generateBlockId } from "@hacado/builder";
+import { deserializeMarkdown } from "@hacado/rte";
+import { templateSafeWithError } from "@hacado/utils";
 import { EMAIL_BRAND } from "../brand";
 import { renderToStaticMarkup } from "./static";
 
@@ -156,7 +156,7 @@ export const renderUserEmailTemplate = async (
     ),
   );
 
-  const appUrl = `https://${process.env.ADMIN_DOMAIN ?? "app.timelish.com"}`;
+  const appUrl = `https://${process.env.ADMIN_DOMAIN ?? "app.hacado.com"}`;
 
   const userEmailTemplate = {
     type: "EmailLayout",
@@ -176,7 +176,7 @@ export const renderUserEmailTemplate = async (
           data: {
             props: {
               url: `${appUrl}/email-logo.png`,
-              alt: "Timeli.sh Logo",
+              alt: "Hacado Logo",
               contentAlignment: "middle",
               linkHref: appUrl,
               x: 50,
@@ -201,8 +201,8 @@ export const renderUserEmailTemplate = async (
           data: {
             props: {
               text: args.config?.name
-                ? `Timeli.sh - ${args.config.name}`
-                : "Timeli.sh",
+                ? `Hacado - ${args.config.name}`
+                : "Hacado",
               level: "h3",
             },
             style: {
@@ -241,12 +241,12 @@ export const renderUserEmailTemplate = async (
                         {
                           fontSize: "11px",
                           color: "#999999",
-                          text: "Timeli.sh",
+                          text: "Hacado",
                         },
                       ],
                       target: "_blank",
                       type: "a",
-                      url: "https://timelish.com",
+                      url: "https://hacado.com",
                       id: "X72UXuZzN_",
                     },
                     {

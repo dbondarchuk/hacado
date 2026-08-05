@@ -1,4 +1,4 @@
-import { templateSafeWithError } from "@timelish/utils";
+import { templateSafeWithError } from "@hacado/utils";
 
 const recursiveLoop = (data: any, modifier: (value: string) => string): any => {
   if (Array.isArray(data)) {

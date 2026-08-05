@@ -1,11 +1,11 @@
 ---
 sidebar_position: 18
-description: Write Timelish appointments into a connected calendar you select.
+description: Write Hacado appointments into a connected calendar you select.
 ---
 
 # Calendar Writer
 
-Calendar Writer keeps an external calendar up to date when appointments change in Timelish. After you connect it, Timelish **adds, updates, or removes** calendar events on the calendar App you pick (for example **Google Calendar**, **Outlook**, or **CalDAV Calendar**) whenever appointments are created, rescheduled, or canceled.
+Calendar Writer keeps an external calendar up to date when appointments change in Hacado. After you connect it, Hacado **adds, updates, or removes** calendar events on the calendar App you pick (for example **Google Calendar**, **Outlook**, or **CalDAV Calendar**) whenever appointments are created, rescheduled, or canceled.
 
 ## Adding the App
 
@@ -47,8 +47,8 @@ This App does **not** replace your main calendar connection. You still usually c
 
 ### What changes afterward
 
-New changes in Timelish no longer create or update events on that target calendar through Calendar Writer. Existing events already written may stay on the calendar until you delete them manually.
+New changes in Hacado no longer create or update events on that target calendar through Calendar Writer. Existing events already written may stay on the calendar until you delete them manually.
 
-### Outside Timelish
+### Outside Hacado
 
-The calendar you wrote to (Google, Microsoft, your CalDAV host) still holds whatever was created there. Removing Calendar Writer in Timelish does not bulk-delete those past events.
+The calendar you wrote to (Google, Microsoft, your CalDAV host) still holds whatever was created there. Removing Calendar Writer in Hacado does not bulk-delete those past events.

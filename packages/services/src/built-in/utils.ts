@@ -1,5 +1,5 @@
-import type { BaseAllKeys } from "@timelish/i18n";
-import type { AppScope, ConnectedAppData } from "@timelish/types";
+import type { BaseAllKeys } from "@hacado/i18n";
+import type { AppScope, ConnectedAppData } from "@hacado/types";
 import { BuiltInApps } from "./apps";
 
 export const getBuiltInAppData = (

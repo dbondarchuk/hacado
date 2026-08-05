@@ -1,5 +1,5 @@
 import Providers from "@/components/admin/layout/providers";
-import { SonnerToaster } from "@timelish/ui";
+import { SonnerToaster } from "@hacado/ui";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
@@ -25,7 +25,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: {
     default: "Dashboard",
-    template: "%s | timeli.sh",
+    template: "%s | Hacado",
   },
   icons: {
     icon: "/icon.ico",

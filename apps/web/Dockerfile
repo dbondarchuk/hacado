@@ -27,7 +27,7 @@ RUN \
 
 # Rebuild the source code only when needed
 FROM base AS builder
-ARG MONGODB_URI=mongodb://mongo:27017/timelish?retryWrites=true&w=majority
+ARG MONGODB_URI=mongodb://mongo:27017/hacado?retryWrites=true&w=majority
 # ENV NODE_OPTIONS="--max_old_space_size=4096"
 
 WORKDIR /app
@@ -44,9 +44,9 @@ COPY --parents *.* ./
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN \
-  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@timelish/web; \
-  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@timelish/web; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@timelish/web; \
+  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@hacado/web; \
+  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@hacado/web; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@hacado/web; \
   else echo "Lockfile not found." && exit 1; \
   fi
 

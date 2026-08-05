@@ -1,4 +1,4 @@
-import type { App } from "@timelish/types";
+import type { App } from "@hacado/types";
 import { AppointmentNotificationsApp } from "./apps/appointment-notifications/app";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
 import { BlogApp } from "./apps/blog/app";

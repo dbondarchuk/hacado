@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
+import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -21,7 +21,7 @@ import {
   Input,
   Spinner,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

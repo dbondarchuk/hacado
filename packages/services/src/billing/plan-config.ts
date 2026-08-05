@@ -1,4 +1,4 @@
-import { BillingPlanTier } from "@timelish/types";
+import { BillingPlanTier } from "@hacado/types";
 
 export type PolarBillingPlanDef = {
   slug: BillingPlanTier;

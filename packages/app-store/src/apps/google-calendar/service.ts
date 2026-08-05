@@ -4,7 +4,7 @@ import {
   calendar as googleCalendar,
 } from "@googleapis/calendar";
 import { meet as googleMeet } from "@googleapis/meet";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   AppointmentEvent,
@@ -24,8 +24,8 @@ import {
   IOAuthConnectedApp,
   okStatus,
   WithDatabaseId,
-} from "@timelish/types";
-import { decrypt, encrypt, getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt, getAdminUrl } from "@hacado/utils";
 import { Credentials, OAuth2Client } from "google-auth-library";
 import { DateTime } from "luxon";
 import {

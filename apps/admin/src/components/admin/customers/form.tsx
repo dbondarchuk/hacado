@@ -1,14 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerUpdateModel,
   DatabaseId,
   getCustomerSchemaWithUniqueCheck,
   isPaymentRequiredForCustomerTypes,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Card,
@@ -40,9 +40,9 @@ import {
   Textarea,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { AssetSelectorDialog, SaveButton, useAuth } from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui";
+import { AssetSelectorDialog, SaveButton, useAuth } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { PlusCircle, Trash } from "lucide-react";
 // import Image from "next/image";
 import { useRouter } from "next/navigation";

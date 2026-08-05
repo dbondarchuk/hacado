@@ -1,7 +1,7 @@
 import { auth } from "@/app/auth";
-import { AppsTranslations } from "@timelish/app-store/translations";
-import { getConfig } from "@timelish/i18n/request";
-import { ServicesContainer } from "@timelish/services";
+import { AppsTranslations } from "@hacado/app-store/translations";
+import { getConfig } from "@hacado/i18n/request";
+import { ServicesContainer } from "@hacado/services";
 import { headers } from "next/headers";
 
 const config = getConfig(

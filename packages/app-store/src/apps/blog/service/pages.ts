@@ -1,4 +1,4 @@
-import { PageUpdateModel } from "@timelish/types";
+import { PageUpdateModel } from "@hacado/types";
 import { getBlogPostReadMoreLinkBlock } from "../blocks/read-more-link-block";
 
 export const BLOG_PAGES: (

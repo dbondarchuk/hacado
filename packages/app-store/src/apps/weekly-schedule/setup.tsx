@@ -1,4 +1,4 @@
-import type { ComplexAppPageProps } from "@timelish/types";
+import type { ComplexAppPageProps } from "@hacado/types";
 import React from "react";
 import { WeeklyScheduleForm } from "./components/form";
 

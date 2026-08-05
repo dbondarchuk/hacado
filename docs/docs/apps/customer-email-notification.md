@@ -11,7 +11,7 @@ This App sends emails **to clients** tied to appointments. You pick templates fo
 
 1. Confirm outbound email ready (often **[SMTP](/docs/apps/smtp)**) so replies look like `@yourbiz.com`.
 2. Open **Apps**, then **Store**, and install **Customer email notification**.
-3. For each lifecycle stage Timelish shows (pending confirmed declined rescheduled patterns may vary), attach the matching email template supplied by Timelish or your workspace.
+3. For each lifecycle stage Hacado shows (pending confirmed declined rescheduled patterns may vary), attach the matching email template supplied by Hacado or your workspace.
 4. Save and trigger a sandbox booking path to preview copy.
 
 Problems sending? **[Apps troubleshooting](/docs/apps/troubleshooting)**

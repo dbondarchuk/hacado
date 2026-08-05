@@ -12,7 +12,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch, SketchProps } from "@uiw/react-color";
 import { Palette } from "lucide-react";
 import React from "react";

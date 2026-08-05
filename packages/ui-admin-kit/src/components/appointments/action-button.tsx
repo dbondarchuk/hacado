@@ -1,9 +1,9 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { I18nFn, useI18n } from "@timelish/i18n/client";
-import { AppointmentStatus, okStatus } from "@timelish/types";
-import { Button, ButtonProps, cn, Spinner, toastPromise } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { I18nFn, useI18n } from "@hacado/i18n/client";
+import { AppointmentStatus, okStatus } from "@hacado/types";
+import { Button, ButtonProps, cn, Spinner, toastPromise } from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import React from "react";
 import {

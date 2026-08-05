@@ -1,10 +1,10 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Email,
   EmailResponse,
   IAssetsStorage,
   IMailSender,
-} from "@timelish/types";
+} from "@hacado/types";
 import { createEvent } from "ics";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";

@@ -1,18 +1,18 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   communicationChannels,
   communicationDirectionSchema,
   communicationParticipantTypeSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -22,8 +22,8 @@ import {
   MembersDataTableAsyncFilterBox,
   useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { canFilterCommunicationByMember } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { canFilterCommunicationByMember } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";

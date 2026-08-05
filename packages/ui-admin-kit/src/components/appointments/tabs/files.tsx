@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Appointment, AssetEntity } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment, AssetEntity } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,11 +27,11 @@ import {
   toast,
   toastPromise,
   useUploadFile,
-} from "@timelish/ui";
-import { canUpdateAppointment, mimeTypeToExtension } from "@timelish/utils";
+} from "@hacado/ui";
+import { canUpdateAppointment, mimeTypeToExtension } from "@hacado/utils";
 import { FileIcon, Trash } from "lucide-react";
 // import Image from "next/image";
-import { useAuth } from "@timelish/ui-admin";
+import { useAuth } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { DefaultExtensionType, defaultStyles } from "react-file-icon";

@@ -3,7 +3,7 @@ import {
   EditorDocumentBlocksDictionary,
   ReaderDocumentBlocksDictionary,
   TemplatesConfiguration,
-} from "@timelish/builder";
+} from "@hacado/builder";
 
 export type BlockProvider<T extends BuilderSchema = any> = {
   providerName: string; // appName

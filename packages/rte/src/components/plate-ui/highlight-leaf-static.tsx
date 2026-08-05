@@ -1,6 +1,6 @@
 import type { SlateLeafProps } from "@udecode/plate";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { SlateLeaf } from "@udecode/plate";
 
 export function HighlightLeafStatic({

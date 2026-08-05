@@ -1,5 +1,5 @@
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { AccordionProps } from "./schema";
 
 export const AccordionToolbar = (props: ConfigurationProps<AccordionProps>) => {

@@ -1,4 +1,4 @@
-import type { AppEventConfig, EventDefinition } from "@timelish/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types";
 import { buildNewBlogCommentEmailNotifications } from "./emails/new-comment-email";
 import { getBlogPendingCommentsBadges } from "./service/pending-comments-badge";
 import { blogConfigurationSchema } from "./models";

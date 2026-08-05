@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Highlighter } from "lucide-react";
 import { useCallback, useState } from "react";
 import { ColorPickerButton } from "../../components/toolbar/color-picker";

@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 import { appointmentConfirmedEmailTemplate } from "./email/appointment-confirmed";
 import { appointmentCreatedEmailTemplate } from "./email/appointment-created";
 import { appointmentDeclinedEmailTemplate } from "./email/appointment-declined";

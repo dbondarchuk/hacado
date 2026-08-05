@@ -1,13 +1,13 @@
 import { auth } from "@/app/auth";
 import { takePendingMemberProfile } from "@/lib/auth/pending-member-profile";
-import type { Language } from "@timelish/i18n";
-import { getPolarClient } from "@timelish/services";
+import type { Language } from "@hacado/i18n";
+import { getPolarClient } from "@hacado/services";
 import {
   MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
-} from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { OrganizationMember, User } from "@timelish/types";
+} from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { OrganizationMember, User } from "@hacado/types";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 

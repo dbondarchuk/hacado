@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/services",
+  "name": "@hacado/services",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -16,8 +16,8 @@
     "./billing": "./src/billing/index.ts"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
     "@types/node": "^20",
     "@types/content-type": "1.1.5",
     "@types/react": "19.0.2",
@@ -27,12 +27,12 @@
   },
   "dependencies": {
     "@polar-sh/sdk": "^0.47.0",
-    "@timelish/email-builder": "*",
-    "@timelish/i18n": "*",
-    "@timelish/types": "*",
-    "@timelish/logger": "*",
-    "@timelish/utils": "*",
-    "@timelish/app-store": "*",
+    "@hacado/email-builder": "*",
+    "@hacado/i18n": "*",
+    "@hacado/types": "*",
+    "@hacado/logger": "*",
+    "@hacado/utils": "*",
+    "@hacado/app-store": "*",
     "html-to-text": "^9.0.5",
     "p-limit": "^6.2.0",
     "mongodb": "^6.8.0",

@@ -1,4 +1,4 @@
-import type { NestedOmit } from "@timelish/types";
+import type { NestedOmit } from "@hacado/types";
 import { CSSProperties, forwardRef, JSX } from "react";
 import { getPadding } from "../../style-inputs/helpers/styles";
 import { ColumnsContainerProps, ColumnsContainerPropsDefaults } from "./schema";

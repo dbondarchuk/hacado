@@ -1,10 +1,10 @@
-import { Reader } from "@timelish/builder/reader";
+import { Reader } from "@hacado/builder/reader";
 import {
   BlockProviderRegistry,
   resolveProviders,
 } from "./block-providers/reader";
 import { ReaderBlocks } from "./blocks/reader";
-export { Header, Styling } from "@timelish/page-builder-base/reader";
+export { Header, Styling } from "@hacado/page-builder-base/reader";
 
 export * from "./block-providers/reader";
 

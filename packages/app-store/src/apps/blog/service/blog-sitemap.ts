@@ -3,7 +3,7 @@ import type {
   IConnectedAppProps,
   Page,
   SitemapUrlEntry,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BlogRepositoryService } from "./repository-service";
 
 function blogPathPrefixFromPageSlug(slug: string): string | null {

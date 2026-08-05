@@ -1,4 +1,4 @@
-import { CustomerTabInjectorApp } from "@timelish/types";
+import { CustomerTabInjectorApp } from "@hacado/types";
 import { WaitlistCustomerTab } from "./customer-tab-view";
 import {
   WaitlistAdminAllKeys,

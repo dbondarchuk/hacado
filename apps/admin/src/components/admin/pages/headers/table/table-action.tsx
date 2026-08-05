@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { DeleteSelectedPageHeadersButton } from "./delete-selected";
 import { usePageHeadersTableFilters } from "./use-table-filters";
 

@@ -3,8 +3,8 @@ import {
   generateClassName,
   ReaderEmbeddedSlotChildren,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { MarketingFeatureItemReaderProps } from "./schema";
 import { styles } from "./styles";
 

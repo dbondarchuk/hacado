@@ -1,14 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
   getGiftCardSchemaWithUniqueCheck,
   GiftCard,
   InPersonPaymentMethod,
   inPersonPaymentMethod,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   cn,
@@ -39,8 +39,8 @@ import {
   use12HourFormat,
   useCurrencySymbol,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { CustomerSelector, SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector, SaveButton } from "@hacado/ui-admin";
 import { Copy, Dices } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

@@ -1,5 +1,5 @@
-import { AllKeys, useI18n } from "@timelish/i18n/client";
-import { ToolbarButton } from "@timelish/ui";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { ToolbarButton } from "@hacado/ui";
 import { Shortcut } from "../../shortcuts";
 import {
   applyShortcutOption,

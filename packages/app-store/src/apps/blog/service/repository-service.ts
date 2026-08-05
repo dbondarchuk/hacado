@@ -1,11 +1,11 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   IConnectedAppProps,
   Query,
   systemEventSource,
   WithTotal,
-} from "@timelish/types";
-import { escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { escapeRegex } from "@hacado/utils";
 import { ObjectId, type Document, type Filter, type Sort } from "mongodb";
 import {
   BLOG_COMMENTS_COLLECTION_NAME,

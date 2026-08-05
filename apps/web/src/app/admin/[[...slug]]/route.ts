@@ -1,5 +1,5 @@
-import { getLoggerFactory } from "@timelish/logger";
-import { getAdminUrl } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { getAdminUrl } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

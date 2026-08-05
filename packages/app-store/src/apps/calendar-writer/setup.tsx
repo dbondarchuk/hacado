@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { AppSetupProps } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
 import {
   Button,
   Form,
@@ -12,14 +12,14 @@ import {
   FormMessage,
   InfoTooltip,
   Spinner,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AppSelector,
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
   useAuth,
-} from "@timelish/ui-admin";
-import { canProcessOtherMembersAppointments } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { canProcessOtherMembersAppointments } from "@hacado/utils";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";

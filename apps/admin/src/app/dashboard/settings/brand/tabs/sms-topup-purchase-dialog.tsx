@@ -5,7 +5,7 @@ import {
   listSmsTopupProductOffers,
   type SmsTopupProductOffer,
 } from "@/app/dashboard/settings/brand/sms-topup-actions";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -21,7 +21,7 @@ import {
   Spinner,
   cn,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { BadgeDollarSign, Lock } from "lucide-react";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useCallback, useEffect, useMemo, useState } from "react";

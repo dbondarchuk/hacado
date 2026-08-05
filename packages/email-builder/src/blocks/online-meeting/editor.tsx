@@ -8,8 +8,8 @@ import {
   useCurrentBlock,
   useDispatchAction,
   useEditorArgs,
-} from "@timelish/builder";
-import { ArgumentsAutocomplete } from "@timelish/ui-admin";
+} from "@hacado/builder";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin";
 import { OnlineMeetingProps, OnlineMeetingPropsDefaults } from "./schema";
 import { getLogoUrl, getStyles } from "./styles";
 

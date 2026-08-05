@@ -1,15 +1,15 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { AvailableApps } from "@timelish/app-store";
-import { AppMenuItems } from "@timelish/app-store/menu-items";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { AvailableApps } from "@hacado/app-store";
+import { AppMenuItems } from "@hacado/app-store/menu-items";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
-} from "@timelish/ui-admin-kit";
-import { meetsRequiredPermission } from "@timelish/utils";
+} from "@hacado/ui-admin-kit";
+import { meetsRequiredPermission } from "@hacado/utils";
 import { Metadata } from "next";
 import { forbidden, redirect } from "next/navigation";
 import { cache } from "react";

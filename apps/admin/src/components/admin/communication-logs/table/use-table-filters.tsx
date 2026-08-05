@@ -1,6 +1,6 @@
 "use client";
 
-import { communicationLogsSearchParams } from "@timelish/api-sdk";
+import { communicationLogsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

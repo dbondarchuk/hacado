@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { CalendarClock } from "lucide-react";
 import { WaitlistDismissPage } from "./pages/dismiss";
 import { WaitlistPage } from "./pages/main";

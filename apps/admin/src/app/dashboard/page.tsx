@@ -1,8 +1,8 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
-import { DashboardTabInjectorApps } from "@timelish/app-store/injectors/dashboard-tab";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+import { DashboardTabInjectorApps } from "@hacado/app-store/injectors/dashboard-tab";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Breadcrumbs,
   ResponsiveTabsList,
@@ -10,13 +10,13 @@ import {
   TabsContent,
   TabsTrigger,
   TabsViaUrl,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   canSeeAllCalendarMembers,
   canUpdateAppointments,
   canViewFinancials,
   resolveCalendarMemberId,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";

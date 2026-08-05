@@ -1,6 +1,6 @@
-import { AssetEntity } from "@timelish/types";
-import { cn, Dialog, DialogContent, DialogTrigger, Link } from "@timelish/ui";
-import { mimeTypeToExtension } from "@timelish/utils";
+import { AssetEntity } from "@hacado/types";
+import { cn, Dialog, DialogContent, DialogTrigger, Link } from "@hacado/ui";
+import { mimeTypeToExtension } from "@hacado/utils";
 import { FileIcon, Play } from "lucide-react";
 // import Image from "next/image";
 import React from "react";

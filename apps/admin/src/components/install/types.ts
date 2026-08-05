@@ -1,5 +1,5 @@
-import type { Language } from "@timelish/i18n";
-import type { Country, Currency, Schedule } from "@timelish/types";
+import type { Language } from "@hacado/i18n";
+import type { Country, Currency, Schedule } from "@hacado/types";
 
 export type WizardStep = "verify" | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 

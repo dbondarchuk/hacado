@@ -3,9 +3,9 @@ import type { PersistedState } from "./types";
 import {
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
-} from "@timelish/utils";
+} from "@hacado/utils";
 
-export const STORAGE_KEY = "timelish-install-v4";
+export const STORAGE_KEY = "hacado-install-v1";
 
 export function newInstallServiceClientId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {

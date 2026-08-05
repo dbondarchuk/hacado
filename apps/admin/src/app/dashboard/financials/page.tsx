@@ -2,7 +2,7 @@ import { getSession } from "@/app/utils";
 import {
   canReadSyncedPayments,
   canViewFinancials,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { forbidden, redirect } from "next/navigation";
 
 export default async function FinancialsIndexPage() {

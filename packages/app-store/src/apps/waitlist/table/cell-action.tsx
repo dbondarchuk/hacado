@@ -1,5 +1,5 @@
 "use client";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AlertModal,
   Button,
@@ -10,9 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { useReload } from "@timelish/ui-admin";
-import { SendCommunicationDialog } from "@timelish/ui-admin-kit";
+} from "@hacado/ui";
+import { useReload } from "@hacado/ui-admin";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
 import { CalendarPlus, MoreHorizontal, Send, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

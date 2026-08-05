@@ -2,8 +2,8 @@
 
 import type React from "react";
 
-import { useI18n } from "@timelish/i18n/client";
-import { formatAmountString } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { formatAmountString } from "@hacado/utils";
 import { DollarSign, Percent } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useCurrencyFormat, useCurrencySymbol } from "../context/config";

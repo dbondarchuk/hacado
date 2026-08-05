@@ -4,7 +4,7 @@ import type {
   DateRange,
   Payment,
   PaymentSummary,
-} from "@timelish/types";
+} from "@hacado/types";
 import type {
   BookingConversionStats,
   BookingStats,
@@ -17,7 +17,7 @@ import type {
   TimeGrouping,
 } from "./types";
 import { Filter } from "mongodb";
-import { getDbConnection } from "@timelish/services/database";
+import { getDbConnection } from "@hacado/services/database";
 
 const PAYMENTS_COLLECTION_NAME = "payments";
 const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";

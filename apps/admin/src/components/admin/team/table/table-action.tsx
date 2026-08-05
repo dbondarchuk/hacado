@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { MEMBER_STATUSES, USER_ROLES } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { useTeamMembersTableFilters } from "./use-table-filters";
 
 export function TeamMembersTableAction() {

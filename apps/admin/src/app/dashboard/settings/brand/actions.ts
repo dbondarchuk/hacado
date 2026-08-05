@@ -1,11 +1,11 @@
 "use server";
 
 import { getActor, getOrganizationId, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { getPolarClient } from "@timelish/services";
-import { ORGANIZATIONS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { Organization } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { getPolarClient } from "@hacado/services";
+import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { Organization } from "@hacado/types";
 import { siteSettingsFormSchema } from "./site-settings-schema";
 
 export type SaveSiteSettingsResult =

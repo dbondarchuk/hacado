@@ -1,8 +1,8 @@
 "use client";
 
 import { DashboardNotificationsBadge } from "@/app/dashboard/notifications-toast-stream";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
-import { cn, useSidebar } from "@timelish/ui";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { cn, useSidebar } from "@hacado/ui";
 
 export const SidebarNavLabel: React.FC<{
   title: AllKeys;

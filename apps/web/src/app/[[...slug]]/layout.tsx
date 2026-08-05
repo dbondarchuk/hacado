@@ -8,15 +8,15 @@ import {
   isFreeTier,
   sessionCanUseFeature,
 } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { Resource } from "@timelish/types";
-import { ConfigProvider, SonnerToaster, Toaster } from "@timelish/ui";
+import { getLoggerFactory } from "@hacado/logger";
+import { Resource } from "@hacado/types";
+import { ConfigProvider, SonnerToaster, Toaster } from "@hacado/ui";
 import {
   buildGoogleFontsUrl,
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
   getColorsCss,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
@@ -173,11 +173,11 @@ export default async function RootLayout({
                   <div className="text-center text-sm text-gray-500 w-full">
                     Built with{" "}
                     <a
-                      href="https://timelish.com"
+                      href="https://hacado.com"
                       target="_blank"
                       className="text-xs text-primary underline"
                     >
-                      timeli.sh
+                      Hacado
                     </a>
                   </div>
                 )}

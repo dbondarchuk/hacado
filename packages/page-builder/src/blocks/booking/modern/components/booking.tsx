@@ -1,6 +1,6 @@
 "use client";
-import { clientApi } from "@timelish/api-sdk";
-import { GetAppointmentOptionsResponse } from "@timelish/types";
+import { clientApi } from "@hacado/api-sdk";
+import { GetAppointmentOptionsResponse } from "@hacado/types";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
 import { FlowOrder } from "./context";

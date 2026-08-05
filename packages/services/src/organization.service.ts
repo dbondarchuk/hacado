@@ -4,7 +4,7 @@ import {
   IOrganizationService,
   ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
   Organization,
-} from "@timelish/types";
+} from "@hacado/types";
 import { ORGANIZATIONS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { invalidateOrganizationHostnameCache } from "./organization-hostname-cache";

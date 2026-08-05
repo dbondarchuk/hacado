@@ -1,15 +1,15 @@
 "use client";
 
-import { ResetButton, type ColorInput } from "@timelish/builder";
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
-import { DistributiveOmit } from "@timelish/types";
+import { ResetButton, type ColorInput } from "@hacado/builder";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { DistributiveOmit } from "@hacado/types";
 import {
   Button,
   Combobox,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch } from "@uiw/react-color";
 import { Plus } from "lucide-react";
 import React from "react";

@@ -1,9 +1,9 @@
-import { ServicesContainer } from "@timelish/services";
+import { ServicesContainer } from "@hacado/services";
 import {
   SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
   systemEventSource,
   type SubscriptionStatusChangedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export async function emitSubscriptionStatusChangedEvent(
   organizationId: string,

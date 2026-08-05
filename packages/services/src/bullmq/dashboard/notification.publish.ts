@@ -1,9 +1,9 @@
-import type { LoggerFactory } from "@timelish/logger";
-import { getLoggerFactory } from "@timelish/logger";
+import type { LoggerFactory } from "@hacado/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import type {
   DashboardNotification,
   IDashboardNotificationsService,
-} from "@timelish/types";
+} from "@hacado/types";
 import type { Redis } from "ioredis";
 
 export class RedisDashboardNotificationPublisher

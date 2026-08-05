@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import * as z from "zod";
 import { RawNumberInputWithUnitsProps } from "../style-inputs/base/raw-number-input-with-units";
 import { BaseStyleDictionary } from "../style/types";

@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const appointmentRescheduledEmailTemplate: TemplatesTemplate = {
   name: "Перенесення запису (email)",

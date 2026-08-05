@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
   inPersonPaymentMethod,
@@ -9,7 +9,7 @@ import {
   zMinMaxLengthString,
   zObjectId,
   zOptionalOrMinMaxLengthString,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -42,8 +42,8 @@ import {
   toastPromise,
   useCurrencySymbol,
   useDebounce,
-} from "@timelish/ui";
-import { CustomerSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector } from "@hacado/ui-admin";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

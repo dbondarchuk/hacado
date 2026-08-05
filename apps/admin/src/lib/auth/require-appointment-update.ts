@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { canUpdateAppointment } from "@timelish/utils";
+import { canUpdateAppointment } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 /**

@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { ICS_APP_NAME } from "./const";
 import { IcsLogo } from "./logo";
 import { IcsAdminKeys, IcsAdminNamespace } from "./translations/types";

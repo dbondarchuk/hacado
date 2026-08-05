@@ -1,10 +1,10 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ITextMessageSender,
   TextMessage,
   TextMessageResponse,
-} from "@timelish/types";
-import { getAdminUrl, maskify } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl, maskify } from "@hacado/utils";
 import { TextBeltConfiguration } from "./types";
 
 type SmsRequest = {

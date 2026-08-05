@@ -4,7 +4,7 @@ import {
   WithDatabaseId,
   WithOrganizationId,
   zNonEmptyString,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { designSchema } from "../designer/lib/schema";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";

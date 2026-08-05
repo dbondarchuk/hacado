@@ -1,4 +1,4 @@
-import { baseSearchParams } from "@timelish/api-sdk";
+import { baseSearchParams } from "@hacado/api-sdk";
 import { createSerializer } from "nuqs";
 
 export const searchParams = {

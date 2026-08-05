@@ -1,8 +1,8 @@
 import {
   AvailableAppServices,
   ServiceAvailableApps,
-} from "@timelish/app-store/services";
-import { BaseAllKeys } from "@timelish/i18n";
+} from "@hacado/app-store/services";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   ApiRequest,
   App,
@@ -31,7 +31,7 @@ import {
   IServicesContainer,
   OrganizationMember,
   SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import { ObjectId } from "mongodb";
 import pLimit from "p-limit";
 import { cache } from "react";

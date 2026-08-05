@@ -5,7 +5,7 @@ description: Timed reminders and follow-ups around appointments by email or SMS.
 
 # Appointment notifications
 
-This App sends **scheduled** messages around each appointment. Examples: remind the client two days before, send a thank-you one day after, or prompt a review a few days later. You choose the timing, pick **email**, **SMS**, or both **when Timelish shows both on your screens**, and attach templates for each rule.
+This App sends **scheduled** messages around each appointment. Examples: remind the client two days before, send a thank-you one day after, or prompt a review a few days later. You choose the timing, pick **email**, **SMS**, or both **when Hacado shows both on your screens**, and attach templates for each rule.
 
 ## Adding the App
 

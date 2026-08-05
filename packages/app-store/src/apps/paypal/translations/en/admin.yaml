@@ -4,7 +4,7 @@ app:
   description: |-
     **PayPal** is a payment service people use to pay online with their **PayPal balance**, a linked **bank account**, **digital wallets** (**Google Pay** and **Apple Pay** where it is available), or **cards** saved in PayPal.
 
-    **Timeli.sh** connects to your **business PayPal** account so clients can **pay when they book** using PayPal’s checkout, and the payment is completed through PayPal.
+    **Hacado** connects to your **business PayPal** account so clients can **pay when they book** using PayPal’s checkout, and the payment is completed through PayPal.
 form:
   clientId:
     label: Client ID

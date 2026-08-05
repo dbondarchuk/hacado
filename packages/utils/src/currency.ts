@@ -1,5 +1,5 @@
-import { Language } from "@timelish/i18n";
-import { Currency, Discount } from "@timelish/types";
+import { Language } from "@hacado/i18n";
+import { Currency, Discount } from "@hacado/types";
 
 /** Rounds a number to two decimal places (e.g. currency amounts). */
 export const round2 = (value: number): number =>

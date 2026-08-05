@@ -6,8 +6,8 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import { useMemo } from "react";
 import { blogCommentFixtures } from "../comment-fixtures";
 import { CommentsPaginationContext } from "./comments-pagination-context";

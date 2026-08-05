@@ -1,6 +1,6 @@
 import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
-import { useI18n } from "@timelish/i18n/client";
-import { I18nRichText } from "@timelish/i18n/components";
+import { useI18n } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
 import {
   BooleanSelect,
   FormControl,
@@ -16,7 +16,7 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   useCurrencySymbol,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { TabProps } from "./types";
 
 export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({

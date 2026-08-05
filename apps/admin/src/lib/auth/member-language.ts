@@ -1,7 +1,7 @@
-import type { Language } from "@timelish/i18n";
-import { MEMBERS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { OrganizationMember } from "@timelish/types";
+import type { Language } from "@hacado/i18n";
+import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { OrganizationMember } from "@hacado/types";
 
 /** Prefer active membership language; fall back to first membership, then en. */
 export async function getMemberLanguageForUser(

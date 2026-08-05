@@ -1,10 +1,10 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   BOOKING_TRACKING_STEP_EVENT_TYPE,
   BookingStep,
   BookingTrackingEventData,
   BookingTrackingMetadata,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest } from "next/server";
 import { getServicesContainer } from "./utils";
 

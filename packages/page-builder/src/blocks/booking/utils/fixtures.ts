@@ -1,4 +1,4 @@
-import { GetAppointmentOptionsResponse } from "@timelish/types";
+import { GetAppointmentOptionsResponse } from "@hacado/types";
 
 export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   options: [

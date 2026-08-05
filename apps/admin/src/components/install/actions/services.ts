@@ -3,9 +3,9 @@
 import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
 import type { InstallServiceServerSnapshot } from "@/components/install/types";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
-import { resolvePlanTierFromOrganization } from "@timelish/services/billing";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   appointmentAddonSchema,
   canCreateMoreServices,
@@ -13,7 +13,7 @@ import {
   ServiceLimitReachedError,
   type AppointmentAddonUpdateModel,
   type AppointmentOptionUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { getDefaultBookingConfiguration } from "../default-booking";

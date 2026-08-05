@@ -1,4 +1,4 @@
-import { Language } from "@timelish/i18n";
+import { Language } from "@hacado/i18n";
 
 export const LanguageOptions: Record<Language, string> = {
   en: "English",

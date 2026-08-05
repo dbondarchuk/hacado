@@ -7,7 +7,7 @@ import {
   TimeSlotPeriod,
   TimeSlotsFinderConfiguration,
   TimeSlotsFinderError,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export type DateTimePeriod = {
   startAt: Luxon;

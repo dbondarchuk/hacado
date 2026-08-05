@@ -1,4 +1,4 @@
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import type { SlateRenderElementProps } from "@udecode/plate";
 import type { CSSProperties } from "react";
 import { CheckboxStatic } from "./checkbox-static";

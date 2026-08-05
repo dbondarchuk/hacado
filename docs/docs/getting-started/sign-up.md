@@ -1,11 +1,11 @@
 ---
 sidebar_position: 3
-description: Create your Timelish account and confirm your email.
+description: Create your Hacado account and confirm your email.
 ---
 
 # Sign up
 
-Signing up creates your **Timelish login** and the **workspace** where your booking site and dashboard live. After signup you confirm your **email**, pick a **plan** if prompted, pay when required, then walk through **[Set up your workspace](./workspace-install-wizard)**.
+Signing up creates your **Hacado login** and the **workspace** where your booking site and dashboard live. After signup you confirm your **email**, pick a **plan** if prompted, pay when required, then walk through **[Set up your workspace](./workspace-install-wizard)**.
 
 ## Before you start
 
@@ -14,7 +14,7 @@ Signing up creates your **Timelish login** and the **workspace** where your book
 
 ## Create your account
 
-Open the **Sign up** page from the Timelish website (or the link you were given). Fill in what the form asks - usually **email**, **password**, and any agreement checkboxes - then submit.
+Open the **Sign up** page from the Hacado website (or the link you were given). Fill in what the form asks - usually **email**, **password**, and any agreement checkboxes - then submit.
 
 ![Sign-up form](/img/getting-started/sign-up.png)
 

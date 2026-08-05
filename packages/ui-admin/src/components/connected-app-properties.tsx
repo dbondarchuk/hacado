@@ -1,8 +1,8 @@
 "use client";
-import { appStatusTextClasses, AvailableApps } from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n/client";
-import { ConnectedApp } from "@timelish/types";
-import { cn } from "@timelish/ui";
+import { appStatusTextClasses, AvailableApps } from "@hacado/app-store";
+import { useI18n } from "@hacado/i18n/client";
+import { ConnectedApp } from "@hacado/types";
+import { cn } from "@hacado/ui";
 
 export const ConnectedAppAccount: React.FC<{
   account: ConnectedApp["account"];

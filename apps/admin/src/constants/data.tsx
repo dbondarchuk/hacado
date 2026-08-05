@@ -1,4 +1,4 @@
-import { BillingPlanTier, NavItemGroup } from "@timelish/types";
+import { BillingPlanTier, NavItemGroup } from "@hacado/types";
 import {
   ArrowDownToLine,
   BadgeDollarSign,

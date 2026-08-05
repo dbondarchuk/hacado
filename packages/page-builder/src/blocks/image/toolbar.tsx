@@ -1,10 +1,10 @@
 "use client";
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
-import { UploadedFile } from "@timelish/types";
-import { ToolbarButton } from "@timelish/ui";
-import { AssetSelectorDialog } from "@timelish/ui-admin";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
+import { UploadedFile } from "@hacado/types";
+import { ToolbarButton } from "@hacado/ui";
+import { AssetSelectorDialog } from "@hacado/ui-admin";
 import { Image } from "lucide-react";
 import { useState } from "react";
 import { ImageProps } from "./schema";

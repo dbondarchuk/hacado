@@ -1,7 +1,7 @@
 "use client";
 
-import { AssetPreview } from "@timelish/ui-admin";
-import { fileNameToMimeType } from "@timelish/utils";
+import { AssetPreview } from "@hacado/ui-admin";
+import { fileNameToMimeType } from "@hacado/utils";
 import { FC } from "react";
 import { FormsFieldType } from "../../models/fields";
 import { FormAnswer } from "../../models/form";

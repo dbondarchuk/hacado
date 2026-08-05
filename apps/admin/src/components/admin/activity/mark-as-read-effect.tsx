@@ -1,7 +1,7 @@
 "use client";
 
 import { useActivityFeedStore } from "@/notifications/store";
-import { adminApi } from "@timelish/api-sdk";
+import { adminApi } from "@hacado/api-sdk";
 import React, { useEffect } from "react";
 
 export const MarkAsReadEffect: React.FC<{

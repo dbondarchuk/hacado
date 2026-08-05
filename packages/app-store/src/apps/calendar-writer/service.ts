@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   APP_UNINSTALLED_EVENT_TYPE,
   Appointment,
@@ -17,7 +17,7 @@ import {
   IConnectedAppProps,
   IEventSubscriber,
   SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
@@ -27,7 +27,7 @@ import {
   getWebsiteUrl,
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { convert } from "html-to-text";
 import {
   CalendarWriterConfiguration,

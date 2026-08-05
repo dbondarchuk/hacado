@@ -22,10 +22,10 @@ import {
   generateId,
   SliderInput,
   TextInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { Button, Checkbox, cn, deepMemo, Label } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { Button, Checkbox, cn, deepMemo, Label } from "@hacado/ui";
 import {
   Clock,
   GripVertical,

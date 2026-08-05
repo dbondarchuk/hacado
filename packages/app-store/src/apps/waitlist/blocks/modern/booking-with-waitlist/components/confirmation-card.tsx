@@ -1,4 +1,4 @@
-import { useFormatter, useI18n, useLocale } from "@timelish/i18n/client";
+import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Avatar,
   AvatarFallback,
@@ -6,8 +6,8 @@ import {
   Button,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { formatDateRange, groupWaitlistDates } from "../../../../models/utils";

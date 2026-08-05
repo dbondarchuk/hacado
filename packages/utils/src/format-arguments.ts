@@ -1,5 +1,5 @@
-import { Language } from "@timelish/i18n";
-import { Currency } from "@timelish/types";
+import { Language } from "@hacado/i18n";
+import { Currency } from "@hacado/types";
 import { DateTime } from "luxon";
 import { formatAmountWithCurrency } from "./currency";
 

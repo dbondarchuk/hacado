@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
   ScrollArea,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import React from "react";

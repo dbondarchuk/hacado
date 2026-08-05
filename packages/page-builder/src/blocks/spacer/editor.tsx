@@ -1,7 +1,7 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
-import { useResizeBlockStyles } from "@timelish/page-builder-base";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useResizeBlockStyles } from "@hacado/page-builder-base";
 import { SpacerProps } from "./schema";
 import { Spacer } from "./spacer";
 

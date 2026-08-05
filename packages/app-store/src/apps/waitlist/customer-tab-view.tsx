@@ -1,4 +1,4 @@
-import { Customer } from "@timelish/types";
+import { Customer } from "@hacado/types";
 import React from "react";
 import { WaitlistTable } from "./table/table";
 import { WaitlistTableAction } from "./table/table-action";

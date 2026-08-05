@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Avatar,
   AvatarFallback,
@@ -18,9 +18,9 @@ import {
   Spinner,
   toastPromise,
   useTimeZone,
-} from "@timelish/ui";
-import { SendCommunicationDialog } from "@timelish/ui-admin-kit";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+import { durationToTime } from "@hacado/utils";
 import { CalendarPlus, Send, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

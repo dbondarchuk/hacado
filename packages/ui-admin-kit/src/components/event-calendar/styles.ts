@@ -1,7 +1,7 @@
 import {
   getCalendarEventColorStyles,
   type CalendarEventColorStatus,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import type { CSSProperties } from "react";
 import type { CalendarEventVariant, EventCalendarEvent } from "./types";
 

@@ -1,13 +1,13 @@
 "use client";
 
-import { ButtonGroup } from "@timelish/ui";
+import { ButtonGroup } from "@hacado/ui";
 import {
   DataTableResetFilter,
   DataTableSearch,
   useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { DeleteSelectedCustomersButton } from "./delete-selected";
 import { MergeSelectedCustomersButton } from "./merge-selected";
 import { useCustomersTableFilters } from "./use-table-filters";

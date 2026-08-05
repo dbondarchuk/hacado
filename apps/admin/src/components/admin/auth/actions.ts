@@ -1,6 +1,6 @@
 "use server";
 
-import { StaticOrganizationService } from "@timelish/services";
+import { StaticOrganizationService } from "@hacado/services";
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
 
 export async function checkOrganizationSlug(

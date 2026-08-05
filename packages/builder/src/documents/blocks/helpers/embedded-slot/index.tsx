@@ -1,7 +1,7 @@
 "use client";
 
 import { useDroppable } from "@dnd-kit/react";
-import { cn, deepMemo } from "@timelish/ui";
+import { cn, deepMemo } from "@hacado/ui";
 import { motion } from "framer-motion";
 import {
   Fragment,

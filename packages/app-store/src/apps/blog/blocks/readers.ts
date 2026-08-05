@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { BlogPostContainerReader } from "./post-container/reader";
 import { BlogPostContentReader } from "./post-content/reader";
 import { BlogPostCommentCountReader } from "./post-comment-count/reader";

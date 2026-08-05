@@ -1,10 +1,10 @@
 import { isSubscriptionInactive } from "@/utils/subscription-access";
-import { getBaseLoggerFactory } from "@timelish/logger";
+import { getBaseLoggerFactory } from "@hacado/logger";
 import {
   resolveOrganizationByHostname,
   resolvePlanTierFromOrganization,
   StaticOrganizationService,
-} from "@timelish/services";
+} from "@hacado/services";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { ChainableProxy, MiddlewareProxy } from "./types";
 

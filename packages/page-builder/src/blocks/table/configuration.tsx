@@ -6,10 +6,10 @@ import {
   useBlock,
   useDocumentBlock,
   useInspectBlockId,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { SlotOrBlockStylesPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { Columns3, Rows3 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { normalizeTableGridProps, resizeTableDimensions } from "./grid-utils";

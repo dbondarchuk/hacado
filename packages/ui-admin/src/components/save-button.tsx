@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Button, Spinner } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Spinner } from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { Save } from "lucide-react";
 import React from "react";

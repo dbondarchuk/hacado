@@ -2,8 +2,8 @@
 
 import { createPolarCheckoutSession } from "@/components/checkout/actions";
 import { PolarBillingPlanSlug } from "@/config/polar-billing";
-import { InstallKeys, useI18n } from "@timelish/i18n/client";
-import { Button, Spinner, toast } from "@timelish/ui";
+import { InstallKeys, useI18n } from "@hacado/i18n/client";
+import { Button, Spinner, toast } from "@hacado/ui";
 import { Check, Sparkles } from "lucide-react";
 import { useState } from "react";
 

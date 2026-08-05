@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { BlogReaders } from "../apps/blog/blocks/readers";
 import { BLOG_APP_NAME } from "../apps/blog/const";
 import { FormsReaders } from "../apps/forms/blocks/readers";

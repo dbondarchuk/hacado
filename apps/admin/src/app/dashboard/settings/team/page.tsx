@@ -9,14 +9,14 @@ import { TeamMembersTable } from "@/components/admin/team/table/table";
 import { TeamMembersTableAction } from "@/components/admin/team/table/table-action";
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
 import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-access";
-import { canManageTeam } from "@timelish/utils";
+import { canManageTeam } from "@hacado/utils";
 import {
   teamsSearchParamsCache,
   teamsSearchParamsSerializer,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Button, Heading } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Button, Heading } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
 import { Metadata } from "next";
 import Link from "next/link";
 import { forbidden, redirect } from "next/navigation";

@@ -1,7 +1,7 @@
 "use client";
 
 import { ProfileForm as SharedProfileForm } from "@/components/admin/users/profile-form";
-import { adminApi, UserUpdate } from "@timelish/api-sdk";
+import { adminApi, UserUpdate } from "@hacado/api-sdk";
 import React from "react";
 
 export const ProfileForm: React.FC<{

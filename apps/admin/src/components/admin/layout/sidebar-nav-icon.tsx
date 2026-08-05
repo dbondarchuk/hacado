@@ -1,7 +1,7 @@
 "use client";
 
 import { useHasDashboardNotifications } from "@/app/dashboard/notifications-toast-stream";
-import { cn, useSidebar } from "@timelish/ui";
+import { cn, useSidebar } from "@hacado/ui";
 import React from "react";
 
 const NavIcon = ({

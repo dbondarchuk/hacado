@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function DataTableSkeleton({
   columnCount = 1,

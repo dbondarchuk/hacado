@@ -38,7 +38,7 @@ import { GripVertical } from "lucide-react";
 
 import { STRUCTURAL_TYPES } from "../editor/transforms";
 
-import { TooltipButton } from "@timelish/ui";
+import { TooltipButton } from "@hacado/ui";
 
 const UNDRAGGABLE_KEYS = [
   ColumnItemPlugin.key,

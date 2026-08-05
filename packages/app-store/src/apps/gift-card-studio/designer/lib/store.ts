@@ -1,4 +1,4 @@
-import { debounce } from "@timelish/types";
+import { debounce } from "@hacado/types";
 import { create } from "zustand";
 import type { Canvas, Design, Element } from "./types";
 

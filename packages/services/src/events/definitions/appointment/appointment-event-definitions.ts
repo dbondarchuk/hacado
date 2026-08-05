@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
@@ -9,8 +9,8 @@ import {
   type AppointmentSlotRescheduledPayload,
   type AppointmentStatusChangedPayload,
   type EventDefinition,
-} from "@timelish/types";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/types";
+import { durationToTime } from "@hacado/utils";
 
 import { buildAppointmentLimitReachedEmails } from "./appointment-limit-email";
 

@@ -3,11 +3,11 @@
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserUpdate, userUpdateSchema } from "@timelish/api-sdk";
-import { languages } from "@timelish/i18n";
-import { useI18n } from "@timelish/i18n/client";
-import { PlateMarkdownEditor } from "@timelish/rte";
-import { CalendarSourceConfiguration } from "@timelish/types";
+import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
+import { languages } from "@hacado/i18n";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateMarkdownEditor } from "@hacado/rte";
+import { CalendarSourceConfiguration } from "@hacado/types";
 import {
   Button,
   Card,
@@ -26,13 +26,13 @@ import {
   PhoneInput,
   toast,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AppSelector,
   AssetSelectorDialog,
   NonSortable,
   SaveButton,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { Lock, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";

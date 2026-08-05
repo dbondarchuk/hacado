@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
   Card,
@@ -9,8 +9,8 @@ import {
   CardTitle,
   cn,
   Spinner,
-} from "@timelish/ui";
-import { durationToTime, formatAmountString } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime, formatAmountString } from "@hacado/utils";
 import { Calendar, DollarSign, Timer } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";

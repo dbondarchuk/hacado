@@ -1,5 +1,5 @@
-import { getLoggerFactory } from "@timelish/logger";
-import type { BillingPlanTier, Organization } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import type { BillingPlanTier, Organization } from "@hacado/types";
 import { getRedisClient } from "./bullmq/redis-client";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import { StaticOrganizationService } from "./organization.service";

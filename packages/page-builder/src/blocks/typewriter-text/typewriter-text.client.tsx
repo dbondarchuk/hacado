@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { forwardRef, useEffect, useMemo, useState } from "react";
 
 export type TypewriterTextClientProps = {

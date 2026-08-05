@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n/client";
-import { CollectPayment, IdName } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { CollectPayment, IdName } from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -33,7 +33,7 @@ import {
   useCurrencyFormat,
   useCurrencySymbol,
   useDebounce,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CheckCircle2,
   ChevronLeft,

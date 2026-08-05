@@ -3,7 +3,7 @@ import { EmailTemplate } from "../types";
 export const TeamInvitationTemplate: EmailTemplate["teamInvitation"] = {
   subject: "You've been invited to join {{organizationName}}",
   body: {
-    previewText: "Join {{organizationName}} on Timeli.sh",
+    previewText: "Join {{organizationName}} on Hacado",
     content: [
       {
         type: "title",

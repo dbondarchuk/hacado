@@ -1,9 +1,9 @@
 import { getServicesContainer, getUser } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   canFilterCommunicationByMember,
   gateMemberIds,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -4,9 +4,9 @@ import {
   ConfigurationProps,
   SelectInput,
   SliderInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { Repeat1 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { LightboxProps, overlayType } from "./schema";

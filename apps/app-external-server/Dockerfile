@@ -31,9 +31,9 @@ COPY --parents *.* ./
 
 # Build the app external server
 RUN \
-  if [ -f yarn.lock ]; then yarn run build --filter=@timelish/app-external-server; \
-  elif [ -f package-lock.json ]; then npm run build --filter=@timelish/app-external-server; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build --filter=@timelish/app-external-server; \
+  if [ -f yarn.lock ]; then yarn run build --filter=@hacado/app-external-server; \
+  elif [ -f package-lock.json ]; then npm run build --filter=@hacado/app-external-server; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build --filter=@hacado/app-external-server; \
   else echo "Lockfile not found." && exit 1; \
   fi
 

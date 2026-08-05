@@ -1,4 +1,4 @@
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Shortcut, ShortcutOption } from "../../shortcuts";
 import {
   applyShortcutOption,

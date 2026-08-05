@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
-import type { I18nFn } from "@timelish/i18n";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import type { I18nFn } from "@hacado/i18n";
 import * as z from "zod";
 import { MarketingFeatureItemPropsDefaults } from "../marketing-feature-item/schema";
 import { zStyles } from "./styles";

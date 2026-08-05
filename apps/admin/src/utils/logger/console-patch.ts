@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 
 const getLogMethod = (consoleMethod: string) => {
   return function () {

@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function LineHeightDropdownMenu({ ...props }: DropdownMenuProps) {
   const openState = useOpenState();

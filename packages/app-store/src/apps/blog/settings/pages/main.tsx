@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { AutoSkeleton, Form } from "@timelish/ui";
-import { SaveButton } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { AutoSkeleton, Form } from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin";
 import { ZodType } from "zod";
 import { useConnectedAppSetup } from "../../../../hooks/use-connected-app-setup";
 import { BlogApp } from "../../app";

@@ -13,17 +13,17 @@ import {
   PAYPAL_APP_NAME,
   SQUARE_APP_NAME,
   STRIPE_APP_NAME,
-} from "@timelish/app-store";
-import { languages } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
+} from "@hacado/app-store";
+import { languages } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
 import {
   fontName,
   zCountry,
   zCurrency,
   zTimeZone,
   type ConnectedApp,
-} from "@timelish/types";
+} from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 

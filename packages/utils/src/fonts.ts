@@ -1,4 +1,4 @@
-import { fontsOptions } from "@timelish/types";
+import { fontsOptions } from "@hacado/types";
 
 export { getWebfontPreviewFilename } from "./font-preview-filename";
 

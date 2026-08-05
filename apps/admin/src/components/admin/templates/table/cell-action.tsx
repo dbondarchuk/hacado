@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { TemplateListModel } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { TemplateListModel } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

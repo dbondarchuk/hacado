@@ -1,14 +1,14 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
-import { getLoggerFactory } from "@timelish/logger";
-import { getPolarClient } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { getPolarClient } from "@hacado/services";
 import {
   BookingConfiguration,
   ConfigurationKey,
   configurationSchemaMap,
   type GeneralConfiguration,
   okStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

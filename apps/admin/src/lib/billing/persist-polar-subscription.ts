@@ -3,17 +3,17 @@ import {
   invalidateOrganizationHostnameCacheForOrganization,
   ServicesContainer,
   getPolarClient,
-} from "@timelish/services";
-import { resolvePlanTierFromProductId } from "@timelish/services/billing";
-import { ORGANIZATIONS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
+} from "@hacado/services";
+import { resolvePlanTierFromProductId } from "@hacado/services/billing";
+import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
 import {
   BillingPlanTier,
   parseOrganizationSubscriptionStatus,
   systemEventSource,
   type Organization,
-} from "@timelish/types";
-import { getLoggerFactory } from "@timelish/logger";
+} from "@hacado/types";
+import { getLoggerFactory } from "@hacado/logger";
 
 import { invalidateOrganizationSessions } from "@/lib/auth/invalidate-organization-sessions";
 import { emitSubscriptionStatusChangedEvent } from "./emit-subscription-status-event";

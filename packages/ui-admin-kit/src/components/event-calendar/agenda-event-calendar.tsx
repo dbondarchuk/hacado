@@ -1,6 +1,6 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { Button, cn, ScrollArea, useTimeZone } from "@timelish/ui";
-import { formatTimeLocale, hasSame, parseTime } from "@timelish/utils";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Button, cn, ScrollArea, useTimeZone } from "@hacado/ui";
+import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
 import { CalendarIcon, ChevronDown, ChevronRight, Clock } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

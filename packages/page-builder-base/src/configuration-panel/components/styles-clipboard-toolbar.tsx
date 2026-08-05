@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ClipboardCopy, ClipboardPaste } from "lucide-react";
 import { useCallback } from "react";
 import { StyleValue } from "../../style/css-renderer";

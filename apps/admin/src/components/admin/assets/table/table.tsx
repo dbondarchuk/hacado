@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { assetsSearchParams, assetsSearchParamsCache } from "@timelish/api-sdk";
-import { DataTable } from "@timelish/ui-admin";
+import { assetsSearchParams, assetsSearchParamsCache } from "@hacado/api-sdk";
+import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
 export const AssetsTable: React.FC<{ customerId?: string }> = async ({

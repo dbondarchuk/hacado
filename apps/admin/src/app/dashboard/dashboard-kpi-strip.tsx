@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { cn, useCurrencyFormat } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { cn, useCurrencyFormat } from "@hacado/ui";
 import {
   CalendarDays,
   Clock3,

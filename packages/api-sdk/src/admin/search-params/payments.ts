@@ -10,7 +10,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { paymentMethods, paymentType } from "@timelish/types";
+import { paymentMethods, paymentType } from "@hacado/types";
 import { baseSearchParams } from "./base";
 
 export const paymentsSearchParams = {

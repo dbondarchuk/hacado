@@ -1,7 +1,7 @@
 "use client";
 
-import { AllKeys, useI18n } from "@timelish/i18n/client";
-import { AvailablePeriod } from "@timelish/types";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { AvailablePeriod } from "@hacado/types";
 import {
   Accordion,
   AccordionContent,
@@ -12,8 +12,8 @@ import {
   CardContent,
   SimpleTimePicker,
   use12HourFormat,
-} from "@timelish/ui";
-import { parseTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { parseTime } from "@hacado/utils";
 import { Clock, Plus, X } from "lucide-react";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";

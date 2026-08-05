@@ -1,10 +1,10 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Appointment, Payment } from "@timelish/types";
-import { Button } from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { canUpdateAppointment } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment, Payment } from "@hacado/types";
+import { Button } from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment } from "@hacado/utils";
 import { BanknoteArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AddUpdatePaymentDialog, PaymentCard } from "../../payments";

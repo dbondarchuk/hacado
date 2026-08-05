@@ -1,8 +1,8 @@
 "use client";
 
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { useI18n } from "@timelish/i18n/client";
-import { Progress, Stepper, type StepperStep } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Progress, Stepper, type StepperStep } from "@hacado/ui";
 import {
   Building2,
   CalendarPlus,
@@ -78,9 +78,9 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Timeli.sh" width={28} height={28} />
-            <div className="text-xl font-semibold tracking-tight">
-              timeli<span className="text-primary">.sh</span>
+            <Image src="/logo.png" alt="Hacado" width={28} height={28} />
+            <div className="text-xl font-semibold tracking-tight font-display">
+              hacado
             </div>
           </div>
           <div className="hidden text-base text-muted-foreground sm:block">

@@ -16,7 +16,7 @@ async function fetchBlogAuthorMemberName(
   }
 
   const promise = (async () => {
-    const { ServicesContainer } = await import("@timelish/services");
+    const { ServicesContainer } = await import("@hacado/services");
     const member =
       await ServicesContainer(organizationId).teamService.getMemberById(
         memberId,

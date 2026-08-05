@@ -1,5 +1,5 @@
-import { useLocale } from "@timelish/i18n/client";
-import { is12hourUserTimeFormat } from "@timelish/utils";
+import { useLocale } from "@hacado/i18n/client";
+import { is12hourUserTimeFormat } from "@hacado/utils";
 
 export const use12HourFormat = () => {
   const locale = useLocale();

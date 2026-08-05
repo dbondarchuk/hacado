@@ -1,10 +1,10 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
   minEffectiveDuration,
   minEffectivePrice,
   PublicStaffMember,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -14,8 +14,8 @@ import {
   cn,
   Markdown,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 

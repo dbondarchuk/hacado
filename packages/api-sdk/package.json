@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/api-sdk",
+  "name": "@hacado/api-sdk",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -16,14 +16,14 @@
     "@types/react-big-calendar": "^1.8.10",
     "@types/react-dom": "19.0.2",
     "@types/react-window": "^1.8.8",
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@timelish/i18n": "*",
-    "@timelish/types": "*",
-    "@timelish/utils": "*"
+    "@hacado/i18n": "*",
+    "@hacado/types": "*",
+    "@hacado/utils": "*"
   }
 }

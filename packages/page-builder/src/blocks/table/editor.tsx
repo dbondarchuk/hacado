@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   closestCenter,
@@ -25,20 +25,20 @@ import {
   useDocumentBlock,
   useIsSelectedEmbeddedSlot,
   usePortalContext,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@timelish/page-builder-base";
+} from "@hacado/page-builder-base";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { motion } from "framer-motion";
 import { GripVertical, Plus, Settings, Trash2 } from "lucide-react";
 import {

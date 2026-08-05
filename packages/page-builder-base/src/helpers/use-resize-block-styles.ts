@@ -4,7 +4,7 @@ import {
   useCurrentBlockId,
   useDispatchAction,
   useEditorStateStore,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { useCallback } from "react";
 import { BaseStyleDictionary, StyleValue } from "../style";
 

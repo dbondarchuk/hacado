@@ -2,8 +2,8 @@
 
 import type { PublicInvitation } from "@/app/accept-invitation/actions";
 import { authClient } from "@/app/auth-client";
-import { useI18n } from "@timelish/i18n/client";
-import { Button, Link, toast } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Link, toast } from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

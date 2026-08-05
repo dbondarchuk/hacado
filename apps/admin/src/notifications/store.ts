@@ -1,4 +1,4 @@
-import { ActivityFeedPreview, ActivitySeverity } from "@timelish/types";
+import { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
 import { DateTime } from "luxon";
 import { create } from "zustand";
 

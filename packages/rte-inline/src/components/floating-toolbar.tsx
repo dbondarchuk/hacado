@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Eraser, MoreHorizontal, Redo2, Undo2 } from "lucide-react";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { useRTEContext } from "../context/rte-context";

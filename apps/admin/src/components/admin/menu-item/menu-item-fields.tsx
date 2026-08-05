@@ -1,8 +1,8 @@
 "use client";
 
-import { BaseAllKeys, useI18n } from "@timelish/i18n/client";
-import { I18nText } from "@timelish/i18n/components";
-import { EditableText } from "@timelish/rte-inline";
+import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { I18nText } from "@hacado/i18n/components";
+import { EditableText } from "@hacado/rte-inline";
 import {
   ButtonSizes,
   ButtonVariants,
@@ -13,7 +13,7 @@ import {
   TextFonts,
   TextSizes,
   TextWeights,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Combobox,
   FormControl,
@@ -24,8 +24,8 @@ import {
   IComboboxItem,
   Input,
   Link,
-} from "@timelish/ui";
-import { PageSelectorInput, Sortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { PageSelectorInput, Sortable } from "@hacado/ui-admin";
 import { useMemo } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { IconSelect } from "./icon-select";

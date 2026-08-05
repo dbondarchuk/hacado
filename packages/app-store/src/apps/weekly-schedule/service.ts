@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppRequestError,
@@ -12,8 +12,8 @@ import {
   ScheduleOverride,
   WeekIdentifier,
   WithDatabaseId,
-} from "@timelish/types";
-import { eachOfInterval, getWeekIdentifier } from "@timelish/utils";
+} from "@hacado/types";
+import { eachOfInterval, getWeekIdentifier } from "@hacado/utils";
 import { AnyBulkWriteOperation, ObjectId } from "mongodb";
 import { RequestAction, requestActionSchema } from "./models";
 import {

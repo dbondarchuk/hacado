@@ -4,10 +4,10 @@ import { PaymentsTableAction } from "@/components/admin/payments/table/table-act
 import {
   paymentsSearchParamsCache,
   paymentsSearchParamsSerializer,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Heading } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Heading } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

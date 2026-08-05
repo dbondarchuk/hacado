@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { AvatarReader } from "./avatar";
 import { Button } from "./button";
 import { ColumnsContainerReader } from "./columns-container";

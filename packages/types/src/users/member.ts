@@ -1,4 +1,4 @@
-import type { Language } from "@timelish/i18n";
+import type { Language } from "@hacado/i18n";
 import type { CalendarSourcesConfiguration } from "../configuration/booking/calendar-source";
 import type { UserRole } from "./user";
 

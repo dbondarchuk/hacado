@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { SendHorizonal } from "lucide-react";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./const";
 import {

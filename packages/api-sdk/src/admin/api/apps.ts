@@ -5,7 +5,7 @@ import {
   ConnectedAppUninstallResult,
   ConnectedAppStatusWithText,
   okStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import { fetchAdminApi } from "./utils";
 
 export const addNewApp = async (type: string) => {

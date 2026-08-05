@@ -7,7 +7,7 @@ import {
   FormItem,
   FormLabel,
   Switch,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import type { Control, FieldPath, FieldValues } from "react-hook-form";
 
 type ProcessOtherMembersAppointmentsFieldProps<T extends FieldValues> = {

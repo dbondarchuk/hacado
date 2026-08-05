@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ApplyGiftCardsSuccessResponse,
   Appointment,
@@ -11,8 +11,8 @@ import {
   RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON,
   RESCHEDULE_NOT_ALLOWED_REASON,
   RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON,
-} from "@timelish/types";
-import { formatAmount, getPolicyForRequest } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmount, getPolicyForRequest } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer } from "../utils";

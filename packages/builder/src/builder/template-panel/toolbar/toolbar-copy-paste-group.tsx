@@ -1,10 +1,10 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   toast,
   ToolbarButton,
   ToolbarGroup,
   useUploadFile,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ClipboardCopy, ClipboardPaste } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import {

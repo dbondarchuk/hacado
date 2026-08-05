@@ -1,7 +1,7 @@
 "use client";
 
-import { UploadedFile } from "@timelish/types";
-import { cn, SidebarInset, SidebarProvider, useSidebar } from "@timelish/ui";
+import { UploadedFile } from "@hacado/types";
+import { cn, SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { createPortal } from "react-dom";

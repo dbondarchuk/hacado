@@ -13,7 +13,7 @@ Open **Settings** → **Apps** → **App Store** in the side menu. Browse or sea
 
 ## Calendar
 
-Pick the calendar you check every day. Timelish can add new bookings there and read your existing events to avoid double bookings.
+Pick the calendar you check every day. Hacado can add new bookings there and read your existing events to avoid double bookings.
 
 | App | Best for |
 | --- | -------- |

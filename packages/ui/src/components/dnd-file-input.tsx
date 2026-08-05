@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { mimeTypeToExtension } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { mimeTypeToExtension } from "@hacado/utils";
 import React, { InputHTMLAttributes } from "react";
 import { Accept, useDropzone } from "react-dropzone";
 import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";

@@ -1,5 +1,5 @@
-import { APP_EVENT_CONFIGS } from "@timelish/app-store/app-events";
-import type { EventDefinition } from "@timelish/types";
+import { APP_EVENT_CONFIGS } from "@hacado/app-store/app-events";
+import type { EventDefinition } from "@hacado/types";
 
 import { DOMAIN_EVENT_DEFINITIONS } from "./definitions";
 

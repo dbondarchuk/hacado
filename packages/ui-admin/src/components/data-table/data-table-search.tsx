@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { cn, Input } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { cn, Input } from "@hacado/ui";
 import { Options } from "nuqs";
 import { useTransition } from "react";
 

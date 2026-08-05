@@ -1,6 +1,6 @@
 import { getWebsiteUrl } from "@/app/utils";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Link, Separator, SidebarTrigger } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Link, Separator, SidebarTrigger } from "@hacado/ui";
 import { Globe2 } from "lucide-react";
 import { ActivityFeedHeaderButton } from "./activity-feed-header-button";
 import { BreadcrumbsRender } from "./breadcrumbs";

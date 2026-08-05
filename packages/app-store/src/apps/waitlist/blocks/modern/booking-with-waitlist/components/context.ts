@@ -13,7 +13,7 @@ import {
   getActiveStaffAcrossAssignments,
   PublicStaffMember,
   WithLabelFieldData,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext, useMemo } from "react";
 import { WaitlistDate } from "../../../../models/waitlist";

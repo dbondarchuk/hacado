@@ -1,8 +1,8 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { SlotOrBlockStylesPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import { ConfigurationProps } from "@hacado/builder";
+import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { MarketingFeatureItemProps } from "./schema";
 import { marketingFeatureItemShortcuts } from "./shortcuts";

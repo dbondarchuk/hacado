@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { type PlateStaticProps, PlateStatic } from "@udecode/plate";
 import { cva } from "class-variance-authority";
 

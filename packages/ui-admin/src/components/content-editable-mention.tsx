@@ -9,7 +9,7 @@ import {
   CommandItem,
   CommandList,
   mergeRefs,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React, {
   CSSProperties,
   JSX,

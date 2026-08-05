@@ -2,7 +2,7 @@ import { getNonDeclinedAppointmentsCreatedInBillingCycleCount } from "./billing/
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import { getDbClient, getDbConnection } from "./database";
 
-import { AvailableAppServices } from "@timelish/app-store/services";
+import { AvailableAppServices } from "@hacado/app-store/services";
 
 import {
   ApplyGiftCardsSuccessResponse,
@@ -66,7 +66,7 @@ import {
   type Period,
   type Query,
   type WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   buildSearchQuery,
   canUseMemberCalendarSources,
@@ -77,7 +77,7 @@ import {
   getAvailableTimeSlotsInCalendar,
   getIcsEventUid,
   parseTime,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import { v4 } from "uuid";

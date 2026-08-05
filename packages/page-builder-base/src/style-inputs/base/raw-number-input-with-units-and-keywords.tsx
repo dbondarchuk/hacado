@@ -1,7 +1,7 @@
 "use client";
 
-import { AllKeys, BaseAllKeys, useI18n } from "@timelish/i18n/client";
-import { Button, cn, Combobox } from "@timelish/ui";
+import { AllKeys, BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { Button, cn, Combobox } from "@hacado/ui";
 import { X } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import {

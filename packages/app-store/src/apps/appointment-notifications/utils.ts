@@ -1,4 +1,4 @@
-import { Appointment } from "@timelish/types";
+import { Appointment } from "@hacado/types";
 import { DateTime } from "luxon";
 import { AppointmentNotification } from "./models";
 

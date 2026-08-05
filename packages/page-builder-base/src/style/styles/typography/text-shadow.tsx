@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { Input, Label } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Input, Label } from "@hacado/ui";
 import { Type } from "lucide-react";
 import * as z from "zod";
 import { ColorExtendedInput } from "../../../style-inputs/base/color-exteneded-input";

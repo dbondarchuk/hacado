@@ -1,14 +1,14 @@
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentOption } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentOption } from "@hacado/types";
 import {
   cn,
   ComboboxAsync,
   IComboboxItem,
   Skeleton,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";
 

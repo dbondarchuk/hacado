@@ -33,7 +33,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 interface Model {
   label: string;

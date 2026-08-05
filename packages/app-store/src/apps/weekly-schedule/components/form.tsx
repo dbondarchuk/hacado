@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { Schedule, ScheduleOverride, WeekIdentifier } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { Schedule, ScheduleOverride, WeekIdentifier } from "@hacado/types";
 import {
   Button,
   Select,
@@ -14,9 +14,9 @@ import {
   toast,
   toastPromise,
   useDebounce,
-} from "@timelish/ui";
-import { Scheduler, WeekSelector } from "@timelish/ui-admin";
-import { getDateFromWeekIdentifier, getWeekIdentifier } from "@timelish/utils";
+} from "@hacado/ui";
+import { Scheduler, WeekSelector } from "@hacado/ui-admin";
+import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";

@@ -1,4 +1,4 @@
-import { DaySchedule } from "@timelish/types";
+import { DaySchedule } from "@hacado/types";
 import {
   ScheduleSearchParams,
   serializeScheduleSearchParams,

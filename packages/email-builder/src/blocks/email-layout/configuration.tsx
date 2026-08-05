@@ -8,8 +8,8 @@ import {
   SliderInput,
   TextDimensionInput,
   TextInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { SquareRoundCorner } from "lucide-react";
 import { FONT_FAMILIES } from "../../style-inputs/helpers/font-family";
 import { EmailLayoutDefaultProps, EmailLayoutProps } from "./schema";

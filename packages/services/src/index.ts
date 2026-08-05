@@ -1,4 +1,4 @@
-import { IServicesContainer } from "@timelish/types";
+import { IServicesContainer } from "@hacado/types";
 import { cache } from "react";
 import { ActivityService } from "./activity.service";
 import { AssetsService } from "./assets.service";

@@ -2,7 +2,7 @@ import {
   BaseZodDictionary,
   EditorDocumentBlocksDictionary,
   TemplateDefinition,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { BlogBlocks } from "../apps/blog/blocks/schema";
 import { BlogTemplates } from "../apps/blog/blocks/templates";
 import { BLOG_APP_NAME } from "../apps/blog/const";

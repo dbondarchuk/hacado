@@ -1,14 +1,14 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n/client";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   backgroundColorStyle,
   COLORS,
   colorStyle,
   fontFamilyStyle,
-} from "@timelish/page-builder-base/style";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+} from "@hacado/page-builder-base/style";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { useCallback } from "react";
 import { PageLayoutDefaultProps, PageLayoutProps } from "./schema";
 

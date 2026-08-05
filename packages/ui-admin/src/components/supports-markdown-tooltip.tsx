@@ -1,10 +1,10 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Link,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CodeSquare } from "lucide-react";
 import React from "react";
 

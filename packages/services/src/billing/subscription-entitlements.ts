@@ -3,7 +3,7 @@ import {
   FREE_TIER_DISABLED_FEATURES,
   type Organization,
   type SubscriptionFeature,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { getBillingPlanProductIdMap } from "./plan-config";
 

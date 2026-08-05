@@ -4,7 +4,7 @@ app:
   description: |-
     **Square** is a payment service businesses use to take **credit and debit cards** and **digital wallets** (including **Google Pay** where it is available) online.
 
-    **Timeli.sh** connects to your Square account so clients can **pay when they book**-cards and Google Pay at checkout-while the actual charge runs through Square.
+    **Hacado** connects to your Square account so clients can **pay when they book**-cards and Google Pay at checkout-while the actual charge runs through Square.
 form:
   connect: Connect <app></app>
   reconnect: Reconnect <app></app>

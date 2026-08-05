@@ -1,7 +1,7 @@
 "use client";
 
-import { pageFootersSearchParams } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { pageFootersSearchParams } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

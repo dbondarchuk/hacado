@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { CustomerAuthError } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { CustomerAuthError } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

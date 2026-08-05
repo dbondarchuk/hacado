@@ -4,8 +4,8 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
-import { templateSafeWithError } from "@timelish/utils";
+} from "@hacado/builder";
+import { templateSafeWithError } from "@hacado/utils";
 import { Avatar } from "./avatar";
 import { AvatarProps } from "./schema";
 

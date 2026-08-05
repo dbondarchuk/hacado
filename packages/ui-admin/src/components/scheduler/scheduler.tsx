@@ -1,4 +1,4 @@
-import { useIsMobile } from "@timelish/ui";
+import { useIsMobile } from "@hacado/ui";
 import React from "react";
 import {
   DayScheduleSelector,

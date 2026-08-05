@@ -1,4 +1,4 @@
-import type { IBillingService } from "@timelish/types";
+import type { IBillingService } from "@hacado/types";
 import { DateTime } from "luxon";
 
 import { APPOINTMENTS_COLLECTION_NAME } from "../collections";

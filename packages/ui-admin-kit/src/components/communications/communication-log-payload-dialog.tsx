@@ -1,11 +1,11 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
   CommunicationLogContentPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -19,7 +19,7 @@ import {
   Markdown,
   Skeleton,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import JsonView from "@uiw/react-json-view";
 import * as React from "react";
 

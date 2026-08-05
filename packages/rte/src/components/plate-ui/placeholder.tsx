@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { HEADING_KEYS } from "@udecode/plate-heading";
 import {
   ParagraphPlugin,

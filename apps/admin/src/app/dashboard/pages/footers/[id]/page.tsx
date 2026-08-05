@@ -2,10 +2,10 @@ import PageContainer from "@/components/admin/layout/page-container";
 
 import { getServicesContainer } from "@/app/utils";
 import { PageFooterForm } from "@/components/admin/pages/footers/form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Styling } from "@timelish/page-builder/reader";
-import { formatArguments } from "@timelish/utils";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Styling } from "@hacado/page-builder/reader";
+import { formatArguments } from "@hacado/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";

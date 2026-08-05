@@ -1,4 +1,4 @@
-import { getDbConnection } from "@timelish/services/database";
+import { getDbConnection } from "@hacado/services/database";
 import { DateTime } from "luxon";
 
 export type DashboardStats = {

@@ -1,7 +1,7 @@
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { PageHeaderListModel } from "@timelish/types";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PageHeaderListModel } from "@hacado/types";
+import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
 import React from "react";
 
 const HeaderShortLabel: React.FC<{

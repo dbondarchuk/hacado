@@ -4,10 +4,10 @@ import {
   getSessionPlanTier,
   sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { BillingPlanTier, meetsMinimumPlanTier } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 import { AppointmentsSettingsForm } from "./form";
 

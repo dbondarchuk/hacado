@@ -1,11 +1,11 @@
 import { getSession, getServicesContainer } from "@/app/utils";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Card, CardContent, CardHeader } from "@timelish/ui";
-import { AppointmentCard } from "@timelish/ui-admin-kit";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Card, CardContent, CardHeader } from "@hacado/ui";
+import { AppointmentCard } from "@hacado/ui-admin-kit";
 import {
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import { redirect } from "next/navigation";
 import React from "react";

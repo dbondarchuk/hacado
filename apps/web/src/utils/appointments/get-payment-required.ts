@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ApplyGiftCardsSuccessResponse,
   AppointmentEvent,
@@ -6,8 +6,8 @@ import {
   AppointmentRequest,
   Customer,
   IServicesContainer,
-} from "@timelish/types";
-import { formatAmount } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmount } from "@hacado/utils";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 import { getAppointmentEventFromRequest } from "./get-event";

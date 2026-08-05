@@ -2,7 +2,7 @@ import {
   AssetTotalSizeLimitReachedError,
   FREE_TIER_LIMITS,
   UploadedFile,
-} from "@timelish/types";
+} from "@hacado/types";
 import React from "react";
 
 import { toast } from "sonner";

@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -7,7 +7,7 @@ import {
   ToolbarButton,
   ToolbarGroup,
   useIsMobile,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ArrowDown,
   ArrowUp,

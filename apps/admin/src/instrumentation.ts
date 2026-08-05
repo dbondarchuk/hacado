@@ -15,7 +15,7 @@ export const onRequestError: Instrumentation.onRequestError = async (
 ) => {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     await import("pino");
-    const { getLoggerFactory } = await import("@timelish/logger");
+    const { getLoggerFactory } = await import("@hacado/logger");
     const logger = getLoggerFactory("Instrumentation")("onRequestError");
 
     logger.error(

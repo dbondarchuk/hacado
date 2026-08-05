@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { PublicStaffMember } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { PublicStaffMember } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -11,8 +11,8 @@ import {
   cn,
   Markdown,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

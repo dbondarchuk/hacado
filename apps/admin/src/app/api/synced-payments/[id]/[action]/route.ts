@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/auth/require-permission";
 import {
   syncedPaymentAssignablePaymentTypes,
   type SyncedPaymentAssignablePaymentType,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

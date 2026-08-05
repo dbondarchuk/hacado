@@ -5,7 +5,7 @@ description: Set your working hours so clients can only book times you are actua
 
 # Set your availability
 
-Clients can only book when you are open. Your **default weekly schedule** tells Timelish which days and hours to offer on your booking website.
+Clients can only book when you are open. Your **default weekly schedule** tells Hacado which days and hours to offer on your booking website.
 
 Open **Settings** → **Schedule** (you can also reach schedule tools from the **Appointments** area).
 
@@ -19,11 +19,11 @@ On the **Default schedule** screen, set working hours for each day of the week:
 - For open days, set **start** and **end** times for each block of hours.
 - Add more than one block per day if you take a lunch break, for example morning and afternoon slots.
 
-Tap **Save** when finished. These hours are the baseline Timelish uses before any optional tools adjust them further.
+Tap **Save** when finished. These hours are the baseline Hacado uses before any optional tools adjust them further.
 
 ## How availability works on your site
 
-When a client opens your booking page, Timelish shows open slots based on:
+When a client opens your booking page, Hacado shows open slots based on:
 
 1. Your default weekly schedule.
 2. Any appointments already booked.

@@ -5,8 +5,8 @@ import {
   BaseAllKeys,
   useI18n,
   useLocale,
-} from "@timelish/i18n/client";
-import { Payment, PaymentStatus, PaymentSummary } from "@timelish/types";
+} from "@hacado/i18n/client";
+import { Payment, PaymentStatus, PaymentSummary } from "@hacado/types";
 import {
   Badge,
   Button,
@@ -15,9 +15,9 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { canManageSyncedPayments } from "@timelish/utils";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canManageSyncedPayments } from "@hacado/utils";
 import { Check, CheckCircle, Clock, Pencil } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

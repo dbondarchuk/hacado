@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const appointmentCreatedTextMessageTemplate: TemplatesTemplate = {
   name: "New appointment request text message",

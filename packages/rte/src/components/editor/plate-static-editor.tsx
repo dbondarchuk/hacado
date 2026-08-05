@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import React from "react";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { withProps } from "@udecode/cn";
 import {
   BaseParagraphPlugin,

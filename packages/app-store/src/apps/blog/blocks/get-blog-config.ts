@@ -1,4 +1,4 @@
-import { ServicesContainer } from "@timelish/services";
+import { ServicesContainer } from "@hacado/services";
 import { BlogConfiguration, blogConfigurationSchema } from "../models";
 
 export const getBlogConfiguration = async (

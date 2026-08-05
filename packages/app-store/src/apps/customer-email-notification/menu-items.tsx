@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { Mails } from "lucide-react";
 import { CustomerEmailNotificationAppSetup } from "./setup";
 import {

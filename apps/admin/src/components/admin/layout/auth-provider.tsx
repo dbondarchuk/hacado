@@ -1,6 +1,6 @@
 import { authClient } from "@/app/auth-client";
-import type { SessionUser } from "@timelish/types";
-import { AuthContext } from "@timelish/ui-admin";
+import type { SessionUser } from "@hacado/types";
+import { AuthContext } from "@hacado/ui-admin";
 import { useMemo } from "react";
 
 export const AuthProvider: React.FC<React.PropsWithChildren> = ({

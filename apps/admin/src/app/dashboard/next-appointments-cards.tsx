@@ -1,6 +1,6 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Card, CardContent, cn } from "@timelish/ui";
-import { AppointmentCard } from "@timelish/ui-admin-kit";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Card, CardContent, cn } from "@hacado/ui";
+import { AppointmentCard } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import React from "react";
 import { getServicesContainer } from "../utils";

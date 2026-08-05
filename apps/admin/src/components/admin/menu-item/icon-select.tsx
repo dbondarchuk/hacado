@@ -1,12 +1,12 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Combobox,
   IComboboxItem,
   Icon,
   iconNames,
   type IconName,
-} from "@timelish/ui";
-import { capitalize } from "@timelish/utils";
+} from "@hacado/ui";
+import { capitalize } from "@hacado/utils";
 import { ControllerRenderProps } from "react-hook-form";
 
 export type IconSelectProps = {

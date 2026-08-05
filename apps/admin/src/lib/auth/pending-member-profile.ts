@@ -1,7 +1,7 @@
-import { USERS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { Language } from "@timelish/i18n";
-import type { PendingMemberProfile, User } from "@timelish/types";
+import { USERS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { Language } from "@hacado/i18n";
+import type { PendingMemberProfile, User } from "@hacado/types";
 
 export type { PendingMemberProfile };
 

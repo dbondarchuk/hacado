@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -10,7 +10,7 @@ import {
   parseTime,
   Period,
   TimeSlot,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import { SmartScheduleConfiguration } from "./models";
 import { SmartScheduleAdminAllKeys } from "./translations/types";

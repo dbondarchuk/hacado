@@ -2,7 +2,7 @@ import {
   TimeSlot as BaseTimeSlot,
   DaySchedule,
   TimeSlotsFinderConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 
 type TimeSlotsWithPriorityFinderConfiguration = {

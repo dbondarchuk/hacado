@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import type { TPlaceholderElement } from "@udecode/plate-media";
 
-import { cn, useUploadFile } from "@timelish/ui";
+import { cn, useUploadFile } from "@hacado/ui";
 import {
   AudioPlugin,
   FilePlugin,

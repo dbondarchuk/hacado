@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@timelish/ui";
+import { Skeleton } from "@hacado/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createSerializer, parseAsJson } from "nuqs/server";
 import { useEffect } from "react";

@@ -1,6 +1,6 @@
-import { adminApi } from "@timelish/api-sdk";
-import { Schedule, WeekIdentifier } from "@timelish/types";
-import { getWeekIdentifier } from "@timelish/utils";
+import { adminApi } from "@hacado/api-sdk";
+import { Schedule, WeekIdentifier } from "@hacado/types";
+import { getWeekIdentifier } from "@hacado/utils";
 import { RequestAction } from "../models";
 
 export const getWeeklySchedule = async (

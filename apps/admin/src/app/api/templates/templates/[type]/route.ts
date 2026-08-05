@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { CommunicationChannel } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { CommunicationChannel } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import { getAllTemplates } from "../../../../dashboard/templates/utils";
 

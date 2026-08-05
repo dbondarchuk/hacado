@@ -1,12 +1,12 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Skeleton, useDebounceCacheFn } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
 import {
   AsyncFilterBoxOption,
   DataTableAsyncFilterBox,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import React from "react";
 
 export const ActivityEventTypeAsyncFilterBox: React.FC<{

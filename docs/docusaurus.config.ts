@@ -3,11 +3,11 @@ import type { Config } from "@docusaurus/types";
 import { themes as prismThemes } from "prism-react-renderer";
 
 const config: Config = {
-  title: "Timeli.sh Docs",
-  tagline: "Timeli.sh: all-in-one appointment booking platform.",
+  title: "Hacado Docs",
+  tagline: "Hacado: all-in-one appointment booking platform.",
   favicon: "img/favicon.ico",
 
-  url: "https://docs.timelish.com",
+  url: "https://docs.hacado.com",
   baseUrl: "/",
 
   onBrokenLinks: "throw",
@@ -56,7 +56,7 @@ const config: Config = {
     navbar: {
       title: "",
       logo: {
-        alt: "Timelish",
+        alt: "Hacado",
         src: "img/navbar-logo.svg",
         srcDark: "img/navbar-logo-dark.svg",
       },
@@ -68,7 +68,7 @@ const config: Config = {
           label: "Docs",
         },
         {
-          href: "https://timelish.com",
+          href: "https://hacado.com",
           label: "Website",
           position: "right",
         },
@@ -106,13 +106,13 @@ const config: Config = {
           title: "Product",
           items: [
             {
-              label: "Timeli.sh",
-              href: "https://timeli.sh",
+              label: "Hacado",
+              href: "https://hacado.com",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Timelish.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Hacado.`,
     },
     prism: {
       theme: prismThemes.github,

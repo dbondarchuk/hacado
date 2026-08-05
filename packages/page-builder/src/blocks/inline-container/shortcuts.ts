@@ -6,8 +6,8 @@ import {
   fontSizeShortcut,
   Shortcut,
   textAlignmentShortcut,
-} from "@timelish/page-builder-base";
-import { AllStylesSchemas } from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base";
+import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 import {
   AlignCenterHorizontal,
   AlignCenterVertical,

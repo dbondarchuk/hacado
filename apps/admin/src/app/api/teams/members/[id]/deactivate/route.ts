@@ -1,4 +1,4 @@
-import type { MemberInactiveReason } from "@timelish/types";
+import type { MemberInactiveReason } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 import { getTeamServices, requireTeamManager } from "../../../_utils";

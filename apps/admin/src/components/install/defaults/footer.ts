@@ -1624,7 +1624,7 @@ export const footerDefaultPage = (
                           type: "Link",
                           data: {
                             props: {
-                              url: "https://timelish.com",
+                              url: "https://hacado.com",
                               target: "_blank",
                               children: [
                                 {
@@ -1637,7 +1637,7 @@ export const footerDefaultPage = (
                                           type: "paragraph",
                                           content: [
                                             {
-                                              text: "Timeli.sh",
+                                              text: "Hacado",
                                             },
                                           ],
                                         },

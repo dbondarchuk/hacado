@@ -1,4 +1,4 @@
-import { ReplaceOriginalColors } from "@timelish/page-builder-base";
+import { ReplaceOriginalColors } from "@hacado/page-builder-base";
 import { FormBlockEditorWrapper } from "./editor-wrapper";
 import { FormBlockReaderProps } from "./schema";
 import { FormBlockServerWrapper } from "./server-wrapper";

@@ -1,6 +1,6 @@
 import { HeaderContext, Row, SortDirection } from "@tanstack/react-table";
-import { I18nKey, I18nNamespaces, useI18n } from "@timelish/i18n/client";
-import { Button } from "@timelish/ui";
+import { I18nKey, I18nNamespaces, useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui";
 import {
   ArrowDown10,
   ArrowDownWideNarrow,

@@ -1,4 +1,4 @@
-import { zNonEmptyString } from "@timelish/types";
+import { zNonEmptyString } from "@hacado/types";
 import * as z from "zod";
 import { PAYPAL_TRANSACTION_SYNC_JOB_TYPE } from "./const";
 import { PaypalAdminAllKeys } from "./translations/types";

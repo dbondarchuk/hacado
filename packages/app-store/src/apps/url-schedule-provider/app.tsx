@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./const";
 import { UrlScheduleProviderLogo } from "./logo";
 import {

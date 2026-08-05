@@ -1,13 +1,13 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
   cn,
   useTimeZone,
-} from "@timelish/ui";
-import { MemberName } from "@timelish/ui-admin";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { MemberName } from "@hacado/ui-admin";
+import { durationToTime } from "@hacado/utils";
 import { CalendarClock, Clock, Timer, User } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

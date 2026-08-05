@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
-import { zColorNullable, zFontFamily } from "@timelish/page-builder-base/style";
+import { BaseReaderBlockProps } from "@hacado/builder";
+import { zColorNullable, zFontFamily } from "@hacado/page-builder-base/style";
 import * as z from "zod";
 
 export const PageLayoutPropsSchema = z.object({

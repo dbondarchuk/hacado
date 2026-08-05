@@ -1,15 +1,15 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { AppointmentEntity, CustomerListModel } from "@timelish/types";
-import { Checkbox, Link } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AppointmentEntity, CustomerListModel } from "@hacado/types";
+import { Checkbox, Link } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
   useAuth,
-} from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { DateTime } from "luxon";
 // import Image from "next/image";
 import React from "react";

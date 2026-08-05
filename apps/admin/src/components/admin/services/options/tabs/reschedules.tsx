@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentReschedulePolicyRow } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentReschedulePolicyRow } from "@hacado/types";
 import {
   Badge,
   BooleanSelect,
@@ -19,12 +19,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
-import { NonSortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { NonSortable } from "@hacado/ui-admin";
 import {
   ReschedulePolicyCard,
   ReschedulePolicyCardContent,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { TabProps } from "./types";

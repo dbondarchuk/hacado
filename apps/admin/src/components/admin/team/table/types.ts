@@ -1,1 +1,1 @@
-export type { TeamMemberListModel } from "@timelish/types";
+export type { TeamMemberListModel } from "@hacado/types";

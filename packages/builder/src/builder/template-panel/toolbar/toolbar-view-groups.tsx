@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   cn,
@@ -17,7 +17,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useTheme,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";
 import { lightTheme } from "@uiw/react-json-view/light";

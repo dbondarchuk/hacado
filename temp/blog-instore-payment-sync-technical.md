@@ -1,8 +1,8 @@
-# Syncing In-Store Card Payments Into Timelish: PayPal, Square, Stripe, and the Payments Inbox
+# Syncing In-Store Card Payments Into Hacado: PayPal, Square, Stripe, and the Payments Inbox
 
 **Dmytro Bondarchuk** | June 12, 2026 | 18 min read
 
-Timelish already handled online deposits: a client books, pays through PayPal/Square/Stripe on your booking page, and the payment lands on the appointment. That path is straightforward because we create the payment intent, we own the metadata, and we know exactly which appointment the money belongs to.
+Hacado already handled online deposits: a client books, pays through PayPal/Square/Stripe on your booking page, and the payment lands on the appointment. That path is straightforward because we create the payment intent, we own the metadata, and we know exactly which appointment the money belongs to.
 
 In-store is different. A client taps a card on your PayPal reader, Square Terminal, or Stripe reader at the front desk. That transaction lives in the processor's world first. Your booking calendar does not automatically know about it unless you build a bridge.
 
@@ -12,7 +12,7 @@ This post is about that bridge: how we ingest in-store card payments into a **Pa
 
 ## The problem we were solving
 
-Service businesses on Timelish often run a split payment model:
+Service businesses on Hacado often run a split payment model:
 
 1. Client pays a **deposit online** when booking (we already track this).
 2. Client pays the **balance in person** at the appointment (we did not track this automatically).
@@ -21,7 +21,7 @@ Without sync, owners reconcile manually: export from Square, scroll the appointm
 
 We wanted:
 
-- In-store processor charges to appear in Timelish within minutes.
+- In-store processor charges to appear in Hacado within minutes.
 - A **suggested appointment** when the amount and time line up.
 - Staff review before money is permanently attached (matched / unmatched / confirm / reject).
 - **No double-counting** of online checkout payments we already recorded.
@@ -71,7 +71,7 @@ export type SyncedPaymentTransaction = {
 
 PayPal was the reference implementation. The core insight came early: **PayPal only delivers webhooks for payments created by the REST app that registered the listener.**
 
-Timelish online deposits go through our PayPal client: we create the order, the client pays, we get a capture we already own. A front-desk tap on a PayPal/Zettle reader does not. That charge is initiated by the POS stack against the merchant account. It never touches Timelish's client id. PayPal therefore never posts `PAYMENT.CAPTURE.COMPLETED` to our webhook URL for those transactions.
+Hacado online deposits go through our PayPal client: we create the order, the client pays, we get a capture we already own. A front-desk tap on a PayPal/Zettle reader does not. That charge is initiated by the POS stack against the merchant account. It never touches Hacado's client id. PayPal therefore never posts `PAYMENT.CAPTURE.COMPLETED` to our webhook URL for those transactions.
 
 Square and Stripe do not have this limitation at the merchant-account level: a platform webhook sees activity on the connected merchant account regardless of which API call created the payment. PayPal scopes notifications to the app.
 
@@ -155,7 +155,7 @@ The 24-hour lookback plus hourly interval is a deliberate tradeoff: late-arrivin
 | Check                                                                  | Why                                      |
 | ---------------------------------------------------------------------- | ---------------------------------------- |
 | `payments` collection already has this `externalId` (capture or order) | Online checkout already finalized        |
-| `payment-intents` collection has this `externalId`                     | Timelish checkout in flight or completed |
+| `payment-intents` collection has this `externalId`                     | Hacado checkout in flight or completed |
 | `synced-payments` already has this `externalId`                        | Idempotent re-delivery                   |
 | `amount <= 0`                                                          | Noise / invalid                          |
 | Capture status not `COMPLETED` (poll path)                             | Not settled yet                          |
@@ -205,7 +205,7 @@ Staff can confirm, reassign, edit amounts, or reject from the inbox UI. Reject r
 
 ## Square: OAuth + platform webhook
 
-Square was simpler to wire because Timelish already used **Square OAuth** and a **single platform webhook** at `/apps/webhook/square` (signature verified with `SQUARE_APP_WEBHOOK_SIGNATURE_KEY`).
+Square was simpler to wire because Hacado already used **Square OAuth** and a **single platform webhook** at `/apps/webhook/square` (signature verified with `SQUARE_APP_WEBHOOK_SIGNATURE_KEY`).
 
 ### Ingest trigger
 
@@ -221,7 +221,7 @@ No hourly poll. Square's webhook delivery has been reliable enough in testing, a
 
 Same idea as PayPal:
 
-- Skip if `externalId` already exists on a Timelish payment or intent (online checkout).
+- Skip if `externalId` already exists on a Hacado payment or intent (online checkout).
 - Skip if already in `synced-payments`.
 
 ### Tip split
@@ -247,12 +247,12 @@ Static endpoint `/apps/webhook/stripe`. Connect events include `event.account` (
 On `charge.succeeded`, after the existing fee-sync branch for online checkouts, we ingest external charges when:
 
 - `enableInStoreSync` is on for that app.
-- The charge is **not** a Timelish online checkout (PaymentIntent metadata contains `organizationId` + `timelishIntentId`).
+- The charge is **not** a Hacado online checkout (PaymentIntent metadata contains `organizationId` + `hacadoIntentId`).
 
 ```ts
 // packages/app-store/src/apps/stripe/map-charge.ts
-export function isTimelishCheckoutPaymentIntent(metadata) {
-  return Boolean(metadata?.organizationId && metadata?.timelishIntentId);
+export function isHacadoCheckoutPaymentIntent(metadata) {
+  return Boolean(metadata?.organizationId && metadata?.hacadoIntentId);
 }
 ```
 
@@ -287,7 +287,7 @@ Same reasoning as Square: webhook + retrieve is sufficient for our use case.
 
 **Treat PayPal Transaction Search as untrusted input.** The phantom capture problem would have caused subtle data bugs if we skipped verification.
 
-**Plan for shared merchant accounts early.** Square and Stripe webhooks are platform-scoped; one event may map to multiple Timelish organizations. We query all matching connected apps and ingest per org with org-scoped dedup.
+**Plan for shared merchant accounts early.** Square and Stripe webhooks are platform-scoped; one event may map to multiple Hacado organizations. We query all matching connected apps and ingest per org with org-scoped dedup.
 
 **Keep online and in-store paths visibly separate.** The metadata/intent checks are boring but essential. One missed filter double-books revenue.
 
@@ -295,7 +295,7 @@ Same reasoning as Square: webhook + retrieve is sufficient for our use case.
 
 ## Try it
 
-If you run a Timelish organization with PayPal, Square, or Stripe:
+If you run a Hacado organization with PayPal, Square, or Stripe:
 
 1. Connect the processor in **Apps**.
 2. Enable in-store sync (PayPal: toggle in app settings; Square/Stripe: on by default).
@@ -305,4 +305,4 @@ The inbox is the same UI regardless of processor. The apps only disagree on how 
 
 ---
 
-_Timelish is the appointment scheduling platform I build at [timelish.com](https://timelish.com). This blog runs on it._
+_Hacado is the appointment scheduling platform I build at [hacado.com](https://hacado.com). This blog runs on it._

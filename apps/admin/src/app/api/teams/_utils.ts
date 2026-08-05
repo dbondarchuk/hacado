@@ -1,7 +1,7 @@
 import { getServicesContainer, getSession } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import type { SessionUser } from "@timelish/types";
-import { canFilterByMember, canManageTeam } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import type { SessionUser } from "@hacado/types";
+import { canFilterByMember, canManageTeam } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export async function requireTeamManager(logName: string, method: string) {

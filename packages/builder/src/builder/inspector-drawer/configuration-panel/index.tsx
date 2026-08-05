@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { useCallback, useMemo } from "react";
 import {
   useBlock,

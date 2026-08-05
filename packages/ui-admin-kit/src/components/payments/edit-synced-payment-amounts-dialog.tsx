@@ -1,12 +1,12 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   HydratedSyncedPayment,
   SyncedPaymentAssignablePaymentType,
   syncedPaymentAssignablePaymentTypes,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -31,8 +31,8 @@ import {
   toastPromise,
   useCurrencyFormat,
   useCurrencySymbol,
-} from "@timelish/ui";
-import { round2 } from "@timelish/utils";
+} from "@hacado/ui";
+import { round2 } from "@hacado/utils";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 

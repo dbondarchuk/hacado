@@ -1,7 +1,7 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { VariantProps, cva } from "class-variance-authority";
 import { PanelLeft, PanelRight } from "lucide-react";
 import React from "react";

@@ -1,5 +1,5 @@
-import { AllKeys } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { AllKeys } from "@hacado/i18n";
+import { Leaves } from "@hacado/types";
 import type adminKeys from "./en/admin.generated";
 import type publicKeys from "./en/public.generated";
 

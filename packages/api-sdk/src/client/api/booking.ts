@@ -5,7 +5,7 @@ import {
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
   ModifyAppointmentRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { fetchClientApi } from "./utils";
 
 export const getBookingOptions = async () => {

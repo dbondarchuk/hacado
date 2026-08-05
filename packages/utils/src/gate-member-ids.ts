@@ -1,4 +1,4 @@
-import type { SessionUser } from "@timelish/types";
+import type { SessionUser } from "@hacado/types";
 import { canFilterByMember } from "./permissions";
 
 /**

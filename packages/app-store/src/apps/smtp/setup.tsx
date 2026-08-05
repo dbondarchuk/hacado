@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AutoSkeleton,
   BooleanSelect,
@@ -12,8 +12,8 @@ import {
   FormMessage,
   InfoTooltip,
   Input,
-} from "@timelish/ui";
-import { ConnectedAppStatusMessage, SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { ConnectedAppStatusMessage, SaveButton } from "@hacado/ui-admin";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { SmtpApp } from "./app";

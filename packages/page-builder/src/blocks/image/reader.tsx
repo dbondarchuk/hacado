@@ -1,8 +1,8 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { forwardRef } from "react";
 import { ImageLightbox } from "./image-lightbox";
 import { ImageReaderProps } from "./schema";

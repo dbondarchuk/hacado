@@ -1,6 +1,6 @@
 "use client";
-import { useI18n } from "@timelish/i18n/client";
-import { NavItemGroup } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { NavItemGroup } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -30,7 +30,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";

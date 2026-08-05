@@ -1,4 +1,4 @@
-import type { getAppointmentOptionSchemaWithUniqueCheck } from "@timelish/types";
+import type { getAppointmentOptionSchemaWithUniqueCheck } from "@hacado/types";
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 

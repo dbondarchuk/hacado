@@ -1,11 +1,11 @@
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Label,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { Breakpoint, breakpoints } from "../../style/zod";
 

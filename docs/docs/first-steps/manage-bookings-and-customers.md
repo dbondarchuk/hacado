@@ -29,7 +29,7 @@ Click any appointment to open its detail view. Common actions:
 - **Reschedule** - move the visit to a new time (you or the client may do this, depending on your settings).
 - **Decline** - cancel or reject a booking.
 - **Edit** - update notes or details.
-- **Send message** - email or text the client from Timelish.
+- **Send message** - email or text the client from Hacado.
 - **Schedule again** - create a follow-up booking based on this one.
 
 Tabs on the detail screen include **Payments**, **Files**, **Communications**, and **History** - useful when a client calls with a question.
@@ -49,7 +49,7 @@ There is no separate "Contacts" area - **Customers** is where client records liv
 
 ## Inquiries and waitlist
 
-Timelish does not have a generic inbox. Instead:
+Hacado does not have a generic inbox. Instead:
 
 ### Form responses
 
@@ -61,7 +61,7 @@ If you installed **[Waitlist](/docs/apps/waitlist)**, clients who could not find
 
 ### Communication logs
 
-**Settings** → **Communications** → **Logs** shows outbound emails and texts Timelish already sent - helpful when a client says they never received a message.
+**Settings** → **Communications** → **Logs** shows outbound emails and texts Hacado already sent - helpful when a client says they never received a message.
 
 ## Hand off to everyday reference
 

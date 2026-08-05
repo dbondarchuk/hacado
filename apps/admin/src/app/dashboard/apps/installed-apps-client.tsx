@@ -1,10 +1,10 @@
 "use client";
 
 import { ConnectedAppRow } from "@/components/admin/apps/connected-app";
-import { AvailableApps } from "@timelish/app-store";
-import { withCatalogTarget } from "@timelish/app-store/utils";
-import { useI18n } from "@timelish/i18n/client";
-import { ConnectedApp } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { withCatalogTarget } from "@hacado/app-store/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { ConnectedApp } from "@hacado/types";
 import {
   Button,
   Input,
@@ -16,8 +16,8 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@timelish/ui";
-import { MemberSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { MemberSelector } from "@hacado/ui-admin";
 import { Search, X } from "lucide-react";
 import React from "react";
 

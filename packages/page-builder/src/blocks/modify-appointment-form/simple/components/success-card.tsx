@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import { DateTime as Luxon } from "luxon";
 import { useModifyAppointmentFormContext } from "./context";
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { Appointment } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
 import {
   cn,
   ComboboxAsync,
   IComboboxItem,
   Skeleton,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { DateTime } from "luxon";
 import React from "react";
 import { CustomerName } from "./data-table/customer-name";

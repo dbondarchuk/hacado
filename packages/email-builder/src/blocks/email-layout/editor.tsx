@@ -7,7 +7,7 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useSetSelectedBlockId,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { getFontFamily, getPadding } from "../../style-inputs/helpers/styles";
 import { EmailLayoutDefaultProps, EmailLayoutProps } from "./schema";
 

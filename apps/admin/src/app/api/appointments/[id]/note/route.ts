@@ -1,5 +1,5 @@
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { okStatus } from "@timelish/types";
+import { okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

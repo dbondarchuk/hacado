@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   ToolbarButton,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { DEFAULT_COLORS, DEFAULT_CUSTOM_COLORS } from "./color-constants";
 import { ColorPicker } from "./color-picker";
 

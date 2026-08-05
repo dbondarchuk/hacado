@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { pagesSearchParams, pagesSearchParamsCache } from "@timelish/api-sdk";
-import { DataTable } from "@timelish/ui-admin";
+import { pagesSearchParams, pagesSearchParamsCache } from "@hacado/api-sdk";
+import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
 export const PagesTable: React.FC = async () => {

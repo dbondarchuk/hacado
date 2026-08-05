@@ -1,10 +1,10 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   BullMQNotificationConfig,
   BullMQNotificationWorker,
   getBullMQNotificationConfig,
   ServicesContainer,
-} from "@timelish/services";
+} from "@hacado/services";
 import dotenv from "dotenv";
 
 // Load environment variables

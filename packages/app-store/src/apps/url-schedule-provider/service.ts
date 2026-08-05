@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -8,7 +8,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IScheduleProvider,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import {
   UrlScheduleProviderConfiguration,

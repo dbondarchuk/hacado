@@ -1,8 +1,8 @@
 "use client";
 
-import { useLocale } from "@timelish/i18n/client";
-import { cn } from "@timelish/ui";
-import { MemberName } from "@timelish/ui-admin";
+import { useLocale } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui";
+import { MemberName } from "@hacado/ui-admin";
 import { User } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

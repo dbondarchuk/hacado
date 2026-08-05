@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import type { Appointment } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { Appointment } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -10,9 +10,9 @@ import {
   Link,
   use12HourFormat,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { canUpdateAppointment, durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

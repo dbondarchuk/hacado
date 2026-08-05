@@ -1,16 +1,16 @@
 import { getMember, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getSubscriptionFeatureBlockedResponse } from "@/lib/billing/subscription-feature-guard";
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   Customer,
   okStatus,
   sendCommunicationRequestSchema,
-} from "@timelish/types";
-import { getAdminUrl, getArguments, template } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl, getArguments, template } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

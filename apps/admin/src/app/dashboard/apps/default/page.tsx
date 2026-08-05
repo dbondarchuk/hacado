@@ -1,9 +1,9 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
-import { canViewCompanyApps } from "@timelish/utils";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading } from "@hacado/ui";
+import { canViewCompanyApps } from "@hacado/utils";
 import { redirect } from "next/navigation";
 import { DefaultAppsConfigurationForm } from "./form";
 

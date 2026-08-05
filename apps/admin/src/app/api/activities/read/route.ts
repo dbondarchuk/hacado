@@ -1,6 +1,6 @@
 import { getServicesContainer, getSession } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { okStatus } from "@hacado/types";
 import { NextResponse } from "next/server";
 
 export async function POST() {

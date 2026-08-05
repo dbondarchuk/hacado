@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
   Checkbox,
@@ -12,13 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
   Link,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { CalendarPlus } from "lucide-react";
 import { DateTime } from "luxon";
 import { WaitlistEntry } from "../models";

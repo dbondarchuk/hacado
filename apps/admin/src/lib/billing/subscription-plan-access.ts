@@ -1,10 +1,10 @@
-import { canInstallApp, canProcessApp, getAppMinimumPlanTier } from "@timelish/app-store";
+import { canInstallApp, canProcessApp, getAppMinimumPlanTier } from "@hacado/app-store";
 import {
   BRAND_SETTINGS_UPGRADE_URL,
   canUseFeature,
   isFreeTier,
   resolvePlanTierFromProductId,
-} from "@timelish/services/billing";
+} from "@hacado/services/billing";
 import {
   BillingPlanTier,
   canCreateMoreServices,
@@ -12,7 +12,7 @@ import {
   DEFAULT_MINIMUM_PLAN_TIER,
   meetsMinimumPlanTier,
   type SubscriptionFeature,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export {
   BRAND_SETTINGS_UPGRADE_URL,

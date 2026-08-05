@@ -906,11 +906,11 @@ pageBuilder:
       sampleCardName: Brand name
     browserCarousel:
       slide1Label: Dashboard
-      slide1Address: app.timelish.com/dashboard
+      slide1Address: app.hacado.com/dashboard
       slide2Label: Booking website
-      slide2Address: yourname.timeli.sh
+      slide2Address: yourname.haca.do
       slide3Label: Page builder
-      slide3Address: app.timelish.com/page-builder
+      slide3Address: app.hacado.com/page-builder
     featureItem:
       title: Feature title
       description: Short description of the feature for the card face.

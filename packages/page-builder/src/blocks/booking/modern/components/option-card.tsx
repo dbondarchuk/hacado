@@ -1,13 +1,13 @@
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
   effectiveStaffDuration,
   effectiveStaffPrice,
   minEffectiveDuration,
   minEffectivePrice,
-} from "@timelish/types";
-import { cn, Markdown, Skeleton, useCurrencyFormat } from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/types";
+import { cn, Markdown, Skeleton, useCurrencyFormat } from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { Clock, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

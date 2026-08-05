@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage, cn } from "@timelish/ui";
+import { Avatar, AvatarFallback, AvatarImage, cn } from "@hacado/ui";
 import React from "react";
 
 export type MemberNameMember = {

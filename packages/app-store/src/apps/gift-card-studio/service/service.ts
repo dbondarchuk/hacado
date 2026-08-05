@@ -1,5 +1,5 @@
-import { getLocale } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLocale } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   CollectPayment,
@@ -21,8 +21,8 @@ import {
   systemEventSource,
   TemplateTemplatesList,
   memberEventSource,
-} from "@timelish/types";
-import { formatAmountWithCurrency } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmountWithCurrency } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
 import { demoPurchasedGiftCard } from "../demo-arguments";

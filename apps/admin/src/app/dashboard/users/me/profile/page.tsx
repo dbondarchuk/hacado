@@ -1,10 +1,10 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import type { SessionUser } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
-import { canManageCalendarSources } from "@timelish/utils";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import type { SessionUser } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
+import { canManageCalendarSources } from "@hacado/utils";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "./form";

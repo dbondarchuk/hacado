@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
-import type { AdminKeys } from "@timelish/i18n";
-import { useI18n } from "@timelish/i18n/client";
+import type { AdminKeys } from "@hacado/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Avatar,
   AvatarFallback,
@@ -17,7 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

@@ -35,7 +35,7 @@ describe("subscription entitlements", () => {
 
   it("limits free tier services", async () => {
     const { canCreateMoreServices, canCreateMorePages, FREE_TIER_LIMITS } =
-      await import("@timelish/types");
+      await import("@hacado/types");
 
     assert.equal(FREE_TIER_LIMITS.services, 1);
     assert.equal(FREE_TIER_LIMITS.appointments, 15);

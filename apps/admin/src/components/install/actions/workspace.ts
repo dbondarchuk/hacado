@@ -1,15 +1,15 @@
 "use server";
 
 import { auth } from "@/app/auth";
-import { languages } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { StaticOrganizationService } from "@timelish/services";
+import { languages } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { StaticOrganizationService } from "@hacado/services";
 import {
   CONFIGURATION_COLLECTION_NAME,
   MEMBERS_COLLECTION_NAME,
   ORGANIZATIONS_COLLECTION_NAME,
-} from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
+} from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
 import {
   brandConfigurationSchema,
   generalConfigurationSchema,
@@ -19,7 +19,7 @@ import {
   type ConfigurationOption,
   type Organization,
   type OrganizationMember,
-} from "@timelish/types";
+} from "@hacado/types";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 import * as z from "zod";
@@ -187,7 +187,7 @@ export async function createWorkspace(
 
   const brandValue = brandConfigurationSchema.parse({
     title: parsed.businessName,
-    description: `${parsed.businessName} - Book online with Timeli.sh.`,
+    description: `${parsed.businessName} - Book online with Hacado.`,
     keywords: `${parsed.businessName}, booking`,
     language: parsed.language,
   });

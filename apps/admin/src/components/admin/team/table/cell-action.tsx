@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import type { UserRole } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import type { UserRole } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -19,9 +19,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { canUpdateTeamMemberProfile } from "@timelish/utils";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { MoreHorizontal, Pencil, UserCog, UserMinus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

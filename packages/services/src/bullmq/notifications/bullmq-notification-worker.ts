@@ -1,10 +1,10 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Email,
   EmailNotificationRequest,
   IServicesContainer,
   TextMessageNotificationRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Job } from "bullmq";
 import { SmtpService } from "../../email";
 import { getSmtpConfiguration } from "../../email/smtp/utils";

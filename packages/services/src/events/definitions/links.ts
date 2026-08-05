@@ -1,4 +1,4 @@
-import type { Payment } from "@timelish/types";
+import type { Payment } from "@hacado/types";
 
 export const dashboardUrls = {
   customer: (id: string) => `/dashboard/customers/${id}`,

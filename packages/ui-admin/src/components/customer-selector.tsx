@@ -1,11 +1,11 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
   getCustomerSchemaWithUniqueCheck,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   cn,
@@ -31,7 +31,7 @@ import {
   Spinner,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { PlusCircle } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";

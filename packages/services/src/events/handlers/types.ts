@@ -1,4 +1,4 @@
-import type { EventEnvelope, IConnectedAppProps } from "@timelish/types";
+import type { EventEnvelope, IConnectedAppProps } from "@hacado/types";
 import type { Redis } from "ioredis";
 
 export type EventHandlerContext = {

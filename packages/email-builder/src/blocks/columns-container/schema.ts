@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { BaseReaderBlockProps } from "@timelish/builder";
+import { BaseReaderBlockProps } from "@hacado/builder";
 import { zStylesBase } from "../../style-inputs/helpers/zod";
 
 export const ColumnsContainerPropsSchema = z.object({

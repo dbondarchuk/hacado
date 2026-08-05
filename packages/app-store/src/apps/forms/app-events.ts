@@ -1,4 +1,4 @@
-import type { AppEventConfig, EventDefinition } from "@timelish/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "./const";
 import {
   FORM_RESPONSE_CREATED_EVENT_TYPE,

@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { AppointmentAddon } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentAddon } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -12,9 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

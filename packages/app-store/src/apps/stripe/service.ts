@@ -1,4 +1,4 @@
-﻿import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -22,13 +22,13 @@ import {
   PaymentFee,
   SyncedPaymentTransaction,
   systemEventSource,
-} from "@timelish/types";
-import { encrypt, getWebsiteDomain } from "@timelish/utils";
+} from "@hacado/types";
+import { encrypt, getWebsiteDomain } from "@hacado/utils";
 import Stripe from "stripe";
 import { getStripeApplePayDomainAssociation } from "./apple-pay";
 import { STRIPE_APP_NAME } from "./const";
 import {
-  isTimelishCheckoutPaymentIntent,
+  isHacadoCheckoutPaymentIntent,
   feesFromStripeCharge as mapFeesFromStripeCharge,
   mapStripeChargeToIngestInput,
   StripeInStoreChargeInput,
@@ -61,15 +61,15 @@ const DEFAULT_IN_STORE_MATCH_WINDOW_MINUTES = 120;
 type InStoreChargeIngestResult = "ingested" | "skipped" | "already_exists";
 
 /** Stripe metadata key for our internal payment intent id (current). */
-const METADATA_TIMELISH_INTENT_ID = "timelishIntentId";
+const METADATA_HACADO_INTENT_ID = "hacadoIntentId";
 
-function getTimelishIntentIdFromStripeMetadata(
+function getHacadoIntentIdFromStripeMetadata(
   metadata: Stripe.Metadata | null,
 ): string | undefined {
   if (!metadata) {
     return undefined;
   }
-  return metadata[METADATA_TIMELISH_INTENT_ID] ?? undefined;
+  return metadata[METADATA_HACADO_INTENT_ID] ?? undefined;
 }
 
 class StripeConnectedApp
@@ -533,25 +533,25 @@ class StripeConnectedApp
 
   private async handleCreatePaymentIntent(
     appData: ConnectedAppData<StripeAccountData>,
-    timelishIntentId: string,
+    hacadoIntentId: string,
   ): Promise<ApiResponse> {
     const logger = this.loggerFactory("handleCreatePaymentIntent");
     logger.debug(
-      { appId: appData._id, timelishIntentId },
+      { appId: appData._id, hacadoIntentId },
       "Creating Stripe PaymentIntent for internal intent",
     );
 
     const intent =
-      await this.props.services.paymentsService.getIntent(timelishIntentId);
+      await this.props.services.paymentsService.getIntent(hacadoIntentId);
     if (!intent) {
-      logger.debug({ timelishIntentId }, "Internal payment intent not found");
+      logger.debug({ hacadoIntentId }, "Internal payment intent not found");
       return Response.json({ error: "intent_not_found" }, { status: 404 });
     }
 
     if (intent.appId !== appData._id) {
       logger.debug(
         {
-          timelishIntentId,
+          hacadoIntentId,
           expectedAppId: appData._id,
           intentAppId: intent.appId,
         },
@@ -562,7 +562,7 @@ class StripeConnectedApp
 
     if (intent.status === "paid") {
       logger.debug(
-        { timelishIntentId },
+        { hacadoIntentId },
         "Internal intent already paid, not creating Stripe PI",
       );
       return Response.json({ error: "intent_already_paid" }, { status: 400 });
@@ -570,7 +570,7 @@ class StripeConnectedApp
 
     if (intent.status === "failed") {
       logger.debug(
-        { timelishIntentId, status: intent.status },
+        { hacadoIntentId, status: intent.status },
         "Internal intent in failed state",
       );
       return Response.json({ error: "intent_failed" }, { status: 400 });
@@ -592,7 +592,7 @@ class StripeConnectedApp
       return Response.json({ error: "amount_too_low" }, { status: 400 });
     }
 
-    const idempotencyKey = `timelish_pi_${timelishIntentId}_${amountCents}`;
+    const idempotencyKey = `hacado_pi_${hacadoIntentId}_${amountCents}`;
 
     if (intent.externalId) {
       const existing = await stripe.paymentIntents.retrieve(
@@ -613,13 +613,13 @@ class StripeConnectedApp
       }
 
       const existingAmount = existing.amount;
-      const existingTimelishId = getTimelishIntentIdFromStripeMetadata(
+      const existingHacadoId = getHacadoIntentIdFromStripeMetadata(
         existing.metadata,
       );
 
       if (
         existingAmount === amountCents &&
-        existingTimelishId === timelishIntentId &&
+        existingHacadoId === hacadoIntentId &&
         (existing.status === "requires_payment_method" ||
           existing.status === "requires_confirmation" ||
           existing.status === "requires_action" ||
@@ -669,7 +669,7 @@ class StripeConnectedApp
         currency: currencyCode,
         automatic_payment_methods: { enabled: true },
         metadata: {
-          [METADATA_TIMELISH_INTENT_ID]: intent._id,
+          [METADATA_HACADO_INTENT_ID]: intent._id,
           organizationId: appData.organizationId,
           appId: appData._id,
         },
@@ -679,7 +679,7 @@ class StripeConnectedApp
 
     logger.debug(
       {
-        timelishIntentId: intent._id,
+        hacadoIntentId: intent._id,
         stripePaymentIntentId: created.id,
         amountCents,
         currency: currencyCode,
@@ -705,20 +705,20 @@ class StripeConnectedApp
 
   private async handleConfirmPayment(
     appData: ConnectedAppData<StripeAccountData>,
-    timelishIntentId: string,
+    hacadoIntentId: string,
     stripePaymentIntentId?: string,
   ): Promise<ApiResponse> {
     const logger = this.loggerFactory("handleConfirmPayment");
     logger.debug(
-      { appId: appData._id, timelishIntentId, stripePaymentIntentId },
+      { appId: appData._id, hacadoIntentId, stripePaymentIntentId },
       "Confirming Stripe payment for internal intent",
     );
 
     const intent =
-      await this.props.services.paymentsService.getIntent(timelishIntentId);
+      await this.props.services.paymentsService.getIntent(hacadoIntentId);
     if (!intent) {
       logger.debug(
-        { timelishIntentId },
+        { hacadoIntentId },
         "Internal payment intent not found for confirm",
       );
       return Response.json({ error: "intent_not_found" }, { status: 404 });
@@ -727,7 +727,7 @@ class StripeConnectedApp
     if (intent.appId !== appData._id) {
       logger.debug(
         {
-          timelishIntentId,
+          hacadoIntentId,
           expectedAppId: appData._id,
           intentAppId: intent.appId,
         },
@@ -739,7 +739,7 @@ class StripeConnectedApp
     const piId = intent.externalId ?? stripePaymentIntentId;
     if (!piId) {
       logger.debug(
-        { timelishIntentId },
+        { hacadoIntentId },
         "No Stripe PaymentIntent id on internal intent for confirm",
       );
       return Response.json(
@@ -781,7 +781,7 @@ class StripeConnectedApp
         );
         logger.debug(
           {
-            timelishIntentId: intent._id,
+            hacadoIntentId: intent._id,
             stripePaymentIntentId: pi.id,
             feeCount: fees.length,
             appliedToPayment: applied,
@@ -792,7 +792,7 @@ class StripeConnectedApp
         );
       } else {
         logger.debug(
-          { timelishIntentId: intent._id, stripePaymentIntentId: pi.id },
+          { hacadoIntentId: intent._id, stripePaymentIntentId: pi.id },
           "Internal intent already paid; no fee data on PaymentIntent, skipping fee update",
         );
       }
@@ -812,7 +812,7 @@ class StripeConnectedApp
 
     logger.debug(
       {
-        timelishIntentId: intent._id,
+        hacadoIntentId: intent._id,
         stripePaymentIntentId: pi.id,
         hasFees: !!fees?.length,
         feesAppliedToPayment: feesApplied,
@@ -1034,25 +1034,25 @@ class StripeConnectedApp
   ): Promise<ApiResponse> {
     const logger = this.loggerFactory("onPaymentIntentSucceeded");
     const orgId = pi.metadata?.organizationId;
-    const timelishIntentId = getTimelishIntentIdFromStripeMetadata(pi.metadata);
-    if (!orgId || !timelishIntentId) {
+    const hacadoIntentId = getHacadoIntentIdFromStripeMetadata(pi.metadata);
+    if (!orgId || !hacadoIntentId) {
       logger.debug(
         {
           stripePaymentIntentId: pi.id,
           hasOrg: !!orgId,
-          hasIntentId: !!timelishIntentId,
+          hasIntentId: !!hacadoIntentId,
         },
-        "Stripe PI missing org or timelish intent id in metadata, ignoring",
+        "Stripe PI missing org or hacado intent id in metadata, ignoring",
       );
       return Response.json({ received: true });
     }
 
     const props = getOrganizationServiceContainer(orgId);
     const paymentService = props.services.paymentsService;
-    const intent = await paymentService.getIntent(timelishIntentId);
+    const intent = await paymentService.getIntent(hacadoIntentId);
     if (!intent) {
       logger.warn(
-        { timelishIntentId, stripePaymentIntentId: pi.id },
+        { hacadoIntentId, stripePaymentIntentId: pi.id },
         "Internal payment intent not found for Stripe webhook",
       );
       return Response.json({ received: true });
@@ -1060,7 +1060,7 @@ class StripeConnectedApp
 
     if (intent.appName !== STRIPE_APP_NAME) {
       logger.debug(
-        { timelishIntentId, appName: intent.appName },
+        { hacadoIntentId, appName: intent.appName },
         "Internal intent is not for Stripe app, ignoring webhook",
       );
       return Response.json({ received: true });
@@ -1082,7 +1082,7 @@ class StripeConnectedApp
 
     if (!accountId) {
       logger.debug(
-        { timelishIntentId, hasConnectAccount: !!connectAccount },
+        { hacadoIntentId, hasConnectAccount: !!connectAccount },
         "Could not resolve Stripe connected account for webhook retrieve",
       );
       return Response.json({ received: true });
@@ -1105,7 +1105,7 @@ class StripeConnectedApp
         );
         logger.debug(
           {
-            timelishIntentId,
+            hacadoIntentId,
             stripePaymentIntentId: retrieveResult.id,
             feeCount: fees.length,
             appliedToPayment: applied,
@@ -1116,14 +1116,14 @@ class StripeConnectedApp
         );
       } else {
         logger.debug(
-          { timelishIntentId, stripePaymentIntentId: retrieveResult.id },
+          { hacadoIntentId, stripePaymentIntentId: retrieveResult.id },
           "Intent already paid; fee data not ready on PI (expect charge.updated / charge.succeeded)",
         );
       }
       return Response.json({ received: true });
     }
 
-    await paymentService.updateIntent(timelishIntentId, {
+    await paymentService.updateIntent(hacadoIntentId, {
       status: "paid",
       externalId: retrieveResult.id,
     });
@@ -1135,7 +1135,7 @@ class StripeConnectedApp
 
     logger.debug(
       {
-        timelishIntentId,
+        hacadoIntentId,
         stripePaymentIntentId: retrieveResult.id,
         feeCount: fees?.length ?? 0,
         feesAppliedToPayment: feesApplied,
@@ -1225,16 +1225,16 @@ class StripeConnectedApp
     );
 
     const orgId = paymentIntent.metadata?.organizationId;
-    const timelishIntentId = getTimelishIntentIdFromStripeMetadata(
+    const hacadoIntentId = getHacadoIntentIdFromStripeMetadata(
       paymentIntent.metadata,
     );
 
-    if (!orgId || !timelishIntentId) {
+    if (!orgId || !hacadoIntentId) {
       if (stripeEventType === "charge.succeeded" && connectAccount) {
-        if (isTimelishCheckoutPaymentIntent(paymentIntent.metadata)) {
+        if (isHacadoCheckoutPaymentIntent(paymentIntent.metadata)) {
           logger.debug(
             { chargeId: charge.id, piId: paymentIntentId },
-            "Timeli checkout charge, skipping in-store ingest",
+            "Hacado checkout charge, skipping in-store ingest",
           );
           return Response.json({ received: true });
         }
@@ -1252,19 +1252,19 @@ class StripeConnectedApp
           chargeId: charge.id,
           piId: paymentIntentId,
           hasOrg: !!orgId,
-          hasTimelishIntent: !!timelishIntentId,
+          hasHacadoIntent: !!hacadoIntentId,
         },
-        `PI metadata missing org or timelish intent id, ignoring ${stripeEventType}`,
+        `PI metadata missing org or hacado intent id, ignoring ${stripeEventType}`,
       );
       return Response.json({ received: true });
     }
 
     const props = getOrganizationServiceContainer(orgId);
     const paymentService = props.services.paymentsService;
-    const intent = await paymentService.getIntent(timelishIntentId);
+    const intent = await paymentService.getIntent(hacadoIntentId);
     if (!intent) {
       logger.warn(
-        { timelishIntentId, chargeId: charge.id },
+        { hacadoIntentId, chargeId: charge.id },
         `Internal payment intent not found for ${stripeEventType}`,
       );
       return Response.json({ received: true });
@@ -1295,7 +1295,7 @@ class StripeConnectedApp
     const fees = this.feesFromCharge(chargeWithBt);
     if (!fees?.length) {
       logger.debug(
-        { timelishIntentId, chargeId: charge.id },
+        { hacadoIntentId, chargeId: charge.id },
         "No fee data on charge after retrieve, skipping",
       );
       return Response.json({ received: true });
@@ -1309,7 +1309,7 @@ class StripeConnectedApp
 
     logger.debug(
       {
-        timelishIntentId,
+        hacadoIntentId,
         chargeId: charge.id,
         feeCount: fees.length,
         appliedToPayment: applied,
@@ -1349,7 +1349,7 @@ class StripeConnectedApp
 
     if (
       paymentIntent &&
-      isTimelishCheckoutPaymentIntent(paymentIntent.metadata)
+      isHacadoCheckoutPaymentIntent(paymentIntent.metadata)
     ) {
       return Response.json({ received: true });
     }
@@ -1637,34 +1637,34 @@ class StripeConnectedApp
   ): Promise<ApiResponse> {
     const logger = this.loggerFactory("onPaymentIntentFailed");
     const orgId = pi.metadata?.organizationId;
-    const timelishIntentId = getTimelishIntentIdFromStripeMetadata(pi.metadata);
+    const hacadoIntentId = getHacadoIntentIdFromStripeMetadata(pi.metadata);
     logger.debug(
-      { orgId, timelishIntentId },
+      { orgId, hacadoIntentId },
       "Finding Stripe account id for app",
     );
 
-    if (!orgId || !timelishIntentId) {
+    if (!orgId || !hacadoIntentId) {
       logger.debug(
         { stripePaymentIntentId: pi.id },
-        "Failed PI missing org or timelish intent id in metadata",
+        "Failed PI missing org or hacado intent id in metadata",
       );
       return Response.json({ received: true });
     }
 
     const paymentService =
       getOrganizationServiceContainer(orgId).services.paymentsService;
-    const intent = await paymentService.getIntent(timelishIntentId);
+    const intent = await paymentService.getIntent(hacadoIntentId);
     if (!intent || intent.status === "paid") {
       logger.debug(
-        { timelishIntentId, hasIntent: !!intent, status: intent?.status },
+        { hacadoIntentId, hasIntent: !!intent, status: intent?.status },
         "Skipping failed-webhook update",
       );
       return Response.json({ received: true });
     }
 
-    await paymentService.updateIntent(timelishIntentId, { status: "failed" });
+    await paymentService.updateIntent(hacadoIntentId, { status: "failed" });
     logger.debug(
-      { timelishIntentId, stripePaymentIntentId: pi.id },
+      { hacadoIntentId, stripePaymentIntentId: pi.id },
       "Marked internal intent failed from Stripe payment_intent.payment_failed",
     );
 

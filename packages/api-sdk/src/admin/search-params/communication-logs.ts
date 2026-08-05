@@ -14,7 +14,7 @@ import {
   communicationChannels,
   communicationDirectionSchema,
   communicationParticipantTypeSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import { baseSearchParams } from "./base";
 
 export const communicationLogsSearchParams = {

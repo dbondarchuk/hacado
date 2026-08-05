@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { pagesSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { PageLimitReachedError, PageListModelWithUrl, pageSchema } from "@timelish/types";
+import { pagesSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { PageLimitReachedError, PageListModelWithUrl, pageSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -1,7 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n/client";
+import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -15,8 +15,8 @@ import {
   Spinner,
   toast,
   useTimeZone,
-} from "@timelish/ui";
-import { resolvedI18nText } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { resolvedI18nText } from "@hacado/ui-admin";
 import { Unplug } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

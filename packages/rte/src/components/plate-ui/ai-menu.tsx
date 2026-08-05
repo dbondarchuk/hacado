@@ -28,7 +28,7 @@ import {
   Popover,
   PopoverAnchor,
   PopoverContent,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { AIChatEditor } from "./ai-chat-editor";
 import { AIMenuItems } from "./ai-menu-items";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
-import { UploadedFile } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { UploadedFile } from "@hacado/types";
 import {
   Button,
   Input,
@@ -10,7 +10,7 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   inputVariants,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { VariantProps } from "class-variance-authority";
 import React from "react";
 import { AssetSelectorDialog } from "./assets-selector-dialog";

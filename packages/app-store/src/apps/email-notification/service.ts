@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   AppointmentStatus,
@@ -11,7 +11,7 @@ import {
   IConnectedAppProps,
   IEventSubscriber,
   SessionUser,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
@@ -21,7 +21,7 @@ import {
   getWebsiteUrl,
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import {
   EmailNotificationConfiguration,
   emailNotificationConfigurationSchema,

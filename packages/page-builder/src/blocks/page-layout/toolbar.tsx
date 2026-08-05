@@ -3,15 +3,15 @@ import {
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
   ToolbarToggle,
-} from "@timelish/builder";
-import { AllKeys, useI18n } from "@timelish/i18n/client";
+} from "@hacado/builder";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   backgroundColorShortcut,
   colorShortcut,
   ColorShortcutToolbar,
   FONT_FAMILIES,
   FONT_FAMILIES_LIST,
-} from "@timelish/page-builder-base";
+} from "@hacado/page-builder-base";
 import { AlignHorizontalSpaceAround } from "lucide-react";
 import { PageLayoutDefaultProps, PageLayoutProps } from "./schema";
 

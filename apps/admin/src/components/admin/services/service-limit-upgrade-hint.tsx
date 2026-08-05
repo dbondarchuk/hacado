@@ -1,6 +1,6 @@
 import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-access";
-import { useI18n } from "@timelish/i18n/client";
-import { cn } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui";
 import Link from "next/link";
 
 export function ServiceLimitUpgradeHint({

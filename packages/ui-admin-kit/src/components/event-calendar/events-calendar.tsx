@@ -1,9 +1,9 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Appointment, CalendarEvent, DaySchedule } from "@timelish/types";
-import { getColorForName } from "@timelish/utils";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment, CalendarEvent, DaySchedule } from "@hacado/types";
+import { getColorForName } from "@hacado/utils";
 import {
   CheckCircle,
   DollarSign,

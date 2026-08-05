@@ -10,7 +10,7 @@ import {
   zEmail,
   zNonEmptyString,
   zObjectId,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { FormsAdminAllKeys } from "../translations/types";
 import { formsFieldsSchema, FormsFieldType } from "./fields";

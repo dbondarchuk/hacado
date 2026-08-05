@@ -1,6 +1,6 @@
 "use client";
 
-import { Separator, useConfig } from "@timelish/ui";
+import { Separator, useConfig } from "@hacado/ui";
 import { usePathname } from "next/navigation";
 
 /** On dashboard home, show the business name; elsewhere render breadcrumbs. */

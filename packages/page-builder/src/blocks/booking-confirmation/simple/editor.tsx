@@ -4,14 +4,14 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@timelish/page-builder-base";
-import { Appointment } from "@timelish/types";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { Appointment } from "@hacado/types";
+import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { ConfirmationCard } from "./confirmation-card";
 import { BookingConfirmationProps } from "./schema";

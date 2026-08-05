@@ -1,5 +1,5 @@
-import { EditorDocumentBlocksDictionary } from "@timelish/builder";
-import { AllKeys, BuilderKeys } from "@timelish/i18n";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { AllKeys, BuilderKeys } from "@hacado/i18n";
 import { CalendarClock, CalendarFold } from "lucide-react";
 import {
   WaitlistAdminKeys,

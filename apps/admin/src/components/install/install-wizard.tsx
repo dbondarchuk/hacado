@@ -28,8 +28,8 @@ import type {
   PersistedState,
   WizardStep,
 } from "@/components/install/types";
-import type { ConnectedApp, Schedule } from "@timelish/types";
-import { Spinner } from "@timelish/ui";
+import type { ConnectedApp, Schedule } from "@hacado/types";
+import { Spinner } from "@hacado/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function InstallWizard({

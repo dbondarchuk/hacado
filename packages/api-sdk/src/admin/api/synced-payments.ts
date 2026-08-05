@@ -4,7 +4,7 @@ import {
   SyncedPaymentAssignablePaymentType,
   SyncedPaymentStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import { fetchAdminApi } from "./utils";
 
 export const listSyncedPayments = async (params?: {

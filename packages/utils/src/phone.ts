@@ -1,4 +1,4 @@
-import { Appointment, FieldType, ServiceField } from "@timelish/types";
+import { Appointment, FieldType, ServiceField } from "@hacado/types";
 
 export const getPhoneField = (
   appointment: Appointment,

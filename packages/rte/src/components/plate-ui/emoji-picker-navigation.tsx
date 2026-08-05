@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export type EmojiPickerNavigationProps = {
   onClick: (id: EmojiCategoryList) => void;

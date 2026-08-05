@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { redirect } from "next/navigation";
 
 export default async function ServicesPage() {

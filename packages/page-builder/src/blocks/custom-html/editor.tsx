@@ -1,8 +1,8 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { CustomHTMLProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

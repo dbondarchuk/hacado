@@ -1,5 +1,5 @@
-import { useI18n, useLocale } from "@timelish/i18n/client";
-import { Button, cn, Spinner, Stepper, usePrevious } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Button, cn, Spinner, Stepper, usePrevious } from "@hacado/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";

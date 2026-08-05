@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { syncedPaymentStatus, SyncedPaymentStatus } from "@timelish/types";
+import { syncedPaymentStatus, SyncedPaymentStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

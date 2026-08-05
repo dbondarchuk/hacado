@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { Gift, Receipt, Settings } from "lucide-react";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
 import { DesignEditPage } from "./designs/pages/edit";

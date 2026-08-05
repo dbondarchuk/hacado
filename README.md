@@ -1,10 +1,10 @@
-# Timeli.sh
+# Hacado
 
 **The all-in-one appointment scheduling platform that helps you manage bookings, communicate with clients, and grow your business-all from one beautiful interface.**
 
-## ✨ What is Timeli.sh?
+## ✨ What is Hacado?
 
-Timeli.sh is a powerful appointment scheduling system designed for businesses, service providers, and professionals who want to streamline their booking process. Whether you're a consultant, therapist, fitness coach, or run a service-based business, Timeli.sh helps you:
+Hacado is a powerful appointment scheduling system designed for businesses, service providers, and professionals who want to streamline their booking process. Whether you're a consultant, therapist, fitness coach, or run a service-based business, Hacado helps you:
 
 - **Create your complete booking website** with a powerful drag-and-drop page builder-no coding required
 - **Accept bookings 24/7** through beautiful, fully customizable booking websites
@@ -20,7 +20,7 @@ Timeli.sh is a powerful appointment scheduling system designed for businesses, s
 - **Teams**: Multi-staff businesses that need coordinated scheduling
 - **Agencies**: Organizations managing multiple clients or locations
 - **Calendly Users**: Perfect alternative for anyone looking for a Calendly replacement with automatic video meeting setup (Zoom, Google Meet) and more customization options
-- **Website Builders**: Create your entire booking website without needing a separate website builder-Timeli.sh includes everything you need
+- **Website Builders**: Create your entire booking website without needing a separate website builder-Hacado includes everything you need
 
 ## 🌟 Key Features
 
@@ -60,7 +60,7 @@ Timeli.sh is a powerful appointment scheduling system designed for businesses, s
 
 **🌐 Complete Website Builder**
 
-- **Build your entire booking website** with Timeli.sh's powerful page builder
+- **Build your entire booking website** with Hacado's powerful page builder
 - Drag-and-drop interface-no coding or design skills required
 - Create multi-page websites with custom content, services, and booking flows
 - Add custom sections: About, Services, Testimonials, FAQ, Contact, and more
@@ -161,7 +161,7 @@ Timeli.sh is a powerful appointment scheduling system designed for businesses, s
 
 ### App Store Modules (Built-in)
 
-Timeli.sh ships with modular apps that can be enabled per organization:
+Hacado ships with modular apps that can be enabled per organization:
 
 - **Scheduling & Availability**: `weekly-schedule`, `smart-schedule`, `busy-events`, `url-busy-events`, `url-schedule-provider`, `waitlist`
 - **Calendar Providers**: `google-calendar`, `outlook`, `caldav`, `carddav`, `ics`, `calendar-writer`
@@ -315,7 +315,7 @@ Timeli.sh ships with modular apps that can be enabled per organization:
 
 ## 🌍 Multi-Language Support
 
-Timeli.sh supports multiple languages, making it accessible to businesses and clients worldwide. Currently available in:
+Hacado supports multiple languages, making it accessible to businesses and clients worldwide. Currently available in:
 
 - English
 - Ukrainian
@@ -330,7 +330,7 @@ More languages coming soon!
 
 ## 🎨 Customization
 
-Make Timeli.sh yours:
+Make Hacado yours:
 
 - **Complete Website Builder**: Build your entire booking website with multiple pages and custom content
 - **Branding**: Custom colors, logos, and fonts throughout your site
@@ -364,11 +364,11 @@ Make Timeli.sh yours:
 
 ## 🛠️ For Developers
 
-_If you're setting up or contributing to Timeli.sh, see the [Technical Documentation](#technical-documentation) section below._
+_If you're setting up or contributing to Hacado, see the [Technical Documentation](#technical-documentation) section below._
 
 ### Technical Overview
 
-Timeli.sh is built as a modern multi-tenant monorepo using:
+Hacado is built as a modern multi-tenant monorepo using:
 
 - **Next.js 15** for the web applications
 - **React 19** for the user interface
@@ -389,7 +389,7 @@ Timeli.sh is built as a modern multi-tenant monorepo using:
 
    ```bash
    git clone <repository-url>
-   cd timeli.sh
+   cd hacado
    yarn install
    ```
 
@@ -423,7 +423,7 @@ See `docker-compose.yaml` for all available configuration options.
 ### Project Structure
 
 ```
-timeli.sh/
+./
 ├── apps/
 │   ├── admin/              # Admin dashboard
 │   ├── web/                # Public booking pages
@@ -458,4 +458,4 @@ We welcome contributions! Please:
 
 ---
 
-**Ready to streamline your booking process?** Get started with Timeli.sh today and see how easy appointment scheduling can be!
+**Ready to streamline your booking process?** Get started with Hacado today and see how easy appointment scheduling can be!

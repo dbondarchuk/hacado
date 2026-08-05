@@ -2,8 +2,8 @@ import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { BookingWithWaitlist } from "../booking-with-waitlist/components/booking";
 import { WaitlistReaderProps } from "./schema";
 import { styles } from "./styles";

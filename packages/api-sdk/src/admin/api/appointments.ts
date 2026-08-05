@@ -10,7 +10,7 @@ import {
   okStatus,
   Payment,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AppointmentHistorySearchParams,
   serializeAppointmentHistorySearchParams,

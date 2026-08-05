@@ -1,7 +1,7 @@
 "use server";
 
-import { getDbConnection } from "@timelish/services/database";
-import type { Organization as OrganizationDbModel } from "@timelish/types";
+import { getDbConnection } from "@hacado/services/database";
+import type { Organization as OrganizationDbModel } from "@hacado/types";
 
 export type PublicInvitation = {
   id: string;

@@ -19,7 +19,7 @@ import {
   PopoverAnchor,
   PopoverContent,
   Separator,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { PlateElement } from "./plate-element";
 
 export const ColumnGroupElement = withRef<typeof PlateElement>(

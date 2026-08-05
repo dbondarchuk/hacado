@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -10,8 +10,8 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt } from "@hacado/utils";
 import crypto from "crypto";
 import {
   LIST_SELECTABLE_EVENT_TYPES_REQUEST_TYPE,

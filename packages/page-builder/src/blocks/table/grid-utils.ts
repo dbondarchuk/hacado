@@ -1,5 +1,5 @@
-import type { TEditorBlock } from "@timelish/builder";
-import { coerceArray } from "@timelish/builder";
+import type { TEditorBlock } from "@hacado/builder";
+import { coerceArray } from "@hacado/builder";
 import type { TableProps } from "./schema";
 
 type TableCellSlot = TableProps["props"]["cells"][number];

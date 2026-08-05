@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 
-import { Appointment, AppointmentStatus } from "@timelish/types";
+import { Appointment, AppointmentStatus } from "@hacado/types";
 import {
   Button,
   ButtonGroup,
@@ -14,9 +14,9 @@ import {
   Tabs,
   TabsContent,
   TabsTrigger,
-} from "@timelish/ui";
-import { useAuth } from "@timelish/ui-admin";
-import { canUpdateAppointment } from "@timelish/utils";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment } from "@hacado/utils";
 import {
   CalendarCheck2,
   CalendarCog,

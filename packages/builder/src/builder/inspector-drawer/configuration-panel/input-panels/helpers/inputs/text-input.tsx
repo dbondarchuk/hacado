@@ -1,8 +1,8 @@
 "use client";
 import { JSX, useCallback, useId } from "react";
 
-import { cn, FormDescription, Label } from "@timelish/ui";
-import { ArgumentsAutocomplete } from "@timelish/ui-admin";
+import { cn, FormDescription, Label } from "@hacado/ui";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin";
 import React from "react";
 import { useEditorArgs } from "../../../../../../documents/editor/context";
 import { ResetButton } from "./reset-button";

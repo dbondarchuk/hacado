@@ -1,4 +1,4 @@
-import { asOptionalField, zEmail, zObjectId } from "@timelish/types";
+import { asOptionalField, zEmail, zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { WaitlistNotificationsAdminAllKeys } from "./translations/types";
 

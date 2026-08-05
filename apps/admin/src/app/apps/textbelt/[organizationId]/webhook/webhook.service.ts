@@ -1,7 +1,7 @@
-import { getTextBeltWebhookEmailTemplate } from "@timelish/app-store/exports";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { TextBeltConfiguration } from "@timelish/services";
+import { getTextBeltWebhookEmailTemplate } from "@hacado/app-store/exports";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { TextBeltConfiguration } from "@hacado/services";
 import {
   ApiRequest,
   ApiResponse,
@@ -18,13 +18,13 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   maskify,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import crypto from "crypto";
 
 type TextbeltWebhookData = {

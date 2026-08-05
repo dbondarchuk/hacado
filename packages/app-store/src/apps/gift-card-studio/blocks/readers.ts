@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { GiftCardPurchaseBlockReaderWrapper } from "./gift-card-purchase";
 import type { GiftCardStudioBlocksSchema } from "./schema";
 

@@ -2,7 +2,7 @@ import type { UserRole } from "./user";
 
 /**
  * Canonical team permission catalog (resources → actions).
- * Better Auth access-control in admin is built from this; app code checks via `@timelish/utils`.
+ * Better Auth access-control in admin is built from this; app code checks via `@hacado/utils`.
  */
 export const teamPermissionStatements = {
   organization: ["update", "delete"],

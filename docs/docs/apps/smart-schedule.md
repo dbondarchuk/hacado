@@ -1,11 +1,11 @@
 ---
 sidebar_position: 17
-description: Tune how Timelish picks time slots so availability feels smarter for your team.
+description: Tune how Hacado picks time slots so availability feels smarter for your team.
 ---
 
 # Smart schedule
 
-Smart schedule shapes **how** Timelish fills open time: for example, whether it may skip breaks when nothing else fits, prefers back-to-back appointments, favors later starts, allows slightly unconventional start times for a tighter day, or gives priority to a specific service when demand matters.
+Smart schedule shapes **how** Hacado fills open time: for example, whether it may skip breaks when nothing else fits, prefers back-to-back appointments, favors later starts, allows slightly unconventional start times for a tighter day, or gives priority to a specific service when demand matters.
 
 ## Adding the App
 
@@ -43,4 +43,4 @@ If settings will not save, see **[Apps troubleshooting](/docs/apps/troubleshooti
 
 ### What changes afterward
 
-Timelish falls back to simpler slot picking. Your weekly hours and other calendar rules still apply.
+Hacado falls back to simpler slot picking. Your weekly hours and other calendar rules still apply.

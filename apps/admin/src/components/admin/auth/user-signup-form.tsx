@@ -2,8 +2,8 @@
 import { authClient } from "@/app/auth-client";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BaseAllKeys, languages, useI18n } from "@timelish/i18n/client";
-import { zEmail, zPhone } from "@timelish/types";
+import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
+import { zEmail, zPhone } from "@hacado/types";
 import {
   Button,
   Combobox,
@@ -17,7 +17,7 @@ import {
   Link,
   PhoneInput,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

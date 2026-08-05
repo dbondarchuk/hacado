@@ -1,4 +1,4 @@
-import { AllKeys, I18nFn } from "@timelish/i18n";
+import { AllKeys, I18nFn } from "@hacado/i18n";
 import * as z from "zod";
 import { TEditorBlock } from "./editor/core";
 

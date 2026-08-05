@@ -1,11 +1,11 @@
 "use client";
 
-import { Asset } from "@timelish/types";
+import { Asset } from "@hacado/types";
 import { useInView } from "react-intersection-observer";
 
 import { AssetsTableAction } from "@/components/admin/assets/table/table-action";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Checkbox,
@@ -25,13 +25,13 @@ import {
   cn,
   toast,
   useUploadFile,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AssetPreview,
   useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";

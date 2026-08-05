@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 type ImportType = "html" | "markdown";
 

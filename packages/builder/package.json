@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/builder",
+  "name": "@hacado/builder",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -19,17 +19,17 @@
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "@types/react-window": "^1.8.8",
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
     "typescript": "5.5.4"
   },
   "dependencies": {
     "@uiw/react-json-view": "2.0.0-alpha.30",
-    "@timelish/i18n": "*",
-    "@timelish/rte": "*",
-    "@timelish/ui": "*",
-    "@timelish/ui-admin": "*",
+    "@hacado/i18n": "*",
+    "@hacado/rte": "*",
+    "@hacado/ui": "*",
+    "@hacado/ui-admin": "*",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.555.0",
     "react-dom": "19.0.0"

@@ -2,8 +2,8 @@ import type {
   NavItemGroup,
   RequiredPermission,
   SessionUser,
-} from "@timelish/types";
-import { meetsRequiredPermission } from "@timelish/utils";
+} from "@hacado/types";
+import { meetsRequiredPermission } from "@hacado/utils";
 
 type NavItemWithPermission = {
   requiredPermission?: RequiredPermission;

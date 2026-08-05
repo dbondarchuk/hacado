@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { URL_BUSY_EVENTS_APP_NAME } from "./const";
 import { UrlBusyEventsLogo } from "./logo";
 import {

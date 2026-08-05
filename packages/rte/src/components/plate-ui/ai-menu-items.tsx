@@ -25,7 +25,7 @@ import {
   X,
 } from "lucide-react";
 
-import { CommandGroup, CommandItem } from "@timelish/ui";
+import { CommandGroup, CommandItem } from "@hacado/ui";
 
 export type EditorChatState =
   | "cursorCommand"

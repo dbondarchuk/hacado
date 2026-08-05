@@ -9,7 +9,7 @@ export async function getOrganizationAuthorMembers(): Promise<
   OrganizationAuthorMember[]
 > {
   const { headers } = await import("next/headers");
-  const { ServicesContainer } = await import("@timelish/services");
+  const { ServicesContainer } = await import("@hacado/services");
 
   const headersList = await headers();
   const organizationId = headersList.get("x-organization-id");

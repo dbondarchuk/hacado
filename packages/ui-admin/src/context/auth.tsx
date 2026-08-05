@@ -1,6 +1,6 @@
 "use client";
 
-import type { SessionUser } from "@timelish/types";
+import type { SessionUser } from "@hacado/types";
 import { createContext, useContext } from "react";
 
 export type AuthContextProps = {

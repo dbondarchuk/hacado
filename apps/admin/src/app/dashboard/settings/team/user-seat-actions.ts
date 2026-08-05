@@ -5,10 +5,10 @@ import {
   getServicesContainer,
   getSession,
 } from "@/app/utils";
-import { canManageTeam } from "@timelish/utils";
+import { canManageTeam } from "@hacado/utils";
 import { resolveAppOrigin } from "@/lib/resolve-app-origin";
-import { getLoggerFactory } from "@timelish/logger";
-import { getPolarClient, getPolarConfig } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { getPolarClient, getPolarConfig } from "@hacado/services";
 import * as z from "zod";
 
 const USER_SLOTS_LABEL = "users_amount";

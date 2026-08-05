@@ -1,7 +1,7 @@
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { CommunicationChannel, TemplateListModel } from "@timelish/types";
-import { cn, Combobox, IComboboxItem } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { CommunicationChannel, TemplateListModel } from "@hacado/types";
+import { cn, Combobox, IComboboxItem } from "@hacado/ui";
 import React from "react";
 import { toast } from "sonner";
 

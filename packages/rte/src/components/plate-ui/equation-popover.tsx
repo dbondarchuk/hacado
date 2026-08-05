@@ -7,7 +7,7 @@ import TextareaAutosize, {
 
 import type { TEquationElement } from "@udecode/plate-math";
 
-import { Button, cn, PopoverContent } from "@timelish/ui";
+import { Button, cn, PopoverContent } from "@hacado/ui";
 import { useEquationInput } from "@udecode/plate-math/react";
 import { BlockSelectionPlugin } from "@udecode/plate-selection/react";
 import {

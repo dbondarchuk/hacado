@@ -19,10 +19,10 @@ import {
   IComboboxItem,
   use12HourFormat,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
-import { useI18n } from "@timelish/i18n/client";
-import { deepEqual } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { deepEqual } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";

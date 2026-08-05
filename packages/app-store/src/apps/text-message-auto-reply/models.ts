@@ -1,4 +1,4 @@
-import { zObjectId } from "@timelish/types";
+import { zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { TextMessageAutoReplyAdminAllKeys } from "./translations/types";
 

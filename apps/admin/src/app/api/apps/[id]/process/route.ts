@@ -1,8 +1,8 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
-import { getLoggerFactory } from "@timelish/logger";
-import { ConnectedAppRequestError } from "@timelish/types";
-import { parseJSON } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { ConnectedAppRequestError } from "@hacado/types";
+import { parseJSON } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

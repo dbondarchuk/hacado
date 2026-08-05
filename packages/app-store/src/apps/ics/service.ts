@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   CalendarBusyTime,
   ConnectedAppData,
@@ -8,7 +8,7 @@ import {
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import { parseIcsCalendar } from "@ts-ics/schema-zod";
 import { DateTime } from "luxon";
 import { IcsLinkCalendarSource, icsLinkCalendarSourceSchema } from "./models";

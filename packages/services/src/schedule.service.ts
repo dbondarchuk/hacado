@@ -1,12 +1,12 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   DaySchedule,
   IConfigurationService,
   IConnectedAppsService,
   IScheduleProvider,
   IScheduleService,
-} from "@timelish/types";
-import { eachOfInterval } from "@timelish/utils";
+} from "@hacado/types";
+import { eachOfInterval } from "@hacado/utils";
 
 export class ScheduleService implements IScheduleService {
   protected readonly loggerFactory = getLoggerFactory("ScheduleService");

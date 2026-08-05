@@ -13,7 +13,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export const description = "An interactive bar chart";
 

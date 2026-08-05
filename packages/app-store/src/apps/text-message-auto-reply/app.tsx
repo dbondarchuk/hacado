@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { MessageSquareReply } from "lucide-react";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./const";
 import {

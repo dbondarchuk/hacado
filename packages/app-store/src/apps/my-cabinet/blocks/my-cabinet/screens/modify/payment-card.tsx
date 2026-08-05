@@ -1,6 +1,6 @@
-import { PaymentAppForms } from "@timelish/app-store/payment-forms";
-import { useI18n } from "@timelish/i18n/client";
-import { cn, useCurrencyFormat } from "@timelish/ui";
+import { PaymentAppForms } from "@hacado/app-store/payment-forms";
+import { useI18n } from "@hacado/i18n/client";
+import { cn, useCurrencyFormat } from "@hacado/ui";
 import { CreditCard } from "lucide-react";
 import { useCabinetModifyContext } from "./context";
 

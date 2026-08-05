@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { TEXTBELT_APP_NAME } from "./const";
 import { TextBeltLogo } from "./logo";
 import {

@@ -1,4 +1,4 @@
-import { Sortable } from "@timelish/ui-admin";
+import { Sortable } from "@hacado/ui-admin";
 import { useMemo } from "react";
 import {
   ArrayPath,

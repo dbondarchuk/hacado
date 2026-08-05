@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n/client";
-import { Payment, PaymentSummary } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Payment, PaymentSummary } from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -15,8 +15,8 @@ import {
   ScrollArea,
   Skeleton,
   toast,
-} from "@timelish/ui";
-import { AddUpdatePaymentDialog, PaymentCard } from "@timelish/ui-admin-kit";
+} from "@hacado/ui";
+import { AddUpdatePaymentDialog, PaymentCard } from "@hacado/ui-admin-kit";
 import { BanknoteArrowUp } from "lucide-react";
 import { useState } from "react";
 

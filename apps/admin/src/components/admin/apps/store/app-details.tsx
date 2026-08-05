@@ -1,9 +1,9 @@
 import { getSession } from "@/app/utils";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
-import { AvailableApps } from "@timelish/app-store";
-import { AppImages } from "@timelish/app-store/images";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getAppScopeUsage, type SessionUser } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { AppImages } from "@hacado/app-store/images";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getAppScopeUsage, type SessionUser } from "@hacado/types";
 import {
   Button,
   Carousel,
@@ -14,9 +14,9 @@ import {
   Heading,
   Link,
   Markdown,
-} from "@timelish/ui";
-import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
-import { canInstallApp } from "@timelish/utils";
+} from "@hacado/ui";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
+import { canInstallApp } from "@hacado/utils";
 import { ArrowLeft } from "lucide-react";
 // import Image from "next/image";
 import { redirect } from "next/navigation";

@@ -5,12 +5,12 @@ import { FieldsTableAction } from "@/components/admin/services/fields/table/tabl
 import {
   serviceFieldsSearchParamsCache,
   serviceFieldsSearchParamsSerializer,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading, Link } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
-import { hasPermission } from "@timelish/utils";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading, Link } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Plus } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";

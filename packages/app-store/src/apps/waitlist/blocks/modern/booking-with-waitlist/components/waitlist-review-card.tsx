@@ -1,12 +1,12 @@
-import { useFormatter, useI18n, useLocale } from "@timelish/i18n/client";
+import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
   Markdown,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { Calendar, Clock } from "lucide-react";
 import { formatDateRange, groupWaitlistDates } from "../../../../models/utils";
 import {

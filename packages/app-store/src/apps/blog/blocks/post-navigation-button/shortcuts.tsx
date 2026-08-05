@@ -3,8 +3,8 @@ import {
   colorShortcut,
   fontFamilyShortcut,
   Shortcut,
-} from "@timelish/page-builder-base";
-import { AllStylesSchemas, COLORS } from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base";
+import { AllStylesSchemas, COLORS } from "@hacado/page-builder-base/style";
 import {
   AlignLeft,
   MoveDiagonal2,

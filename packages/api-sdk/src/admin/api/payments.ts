@@ -3,7 +3,7 @@ import {
   Payment,
   PaymentSummary,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   PaymentsSearchParams,
   paymentsSearchParamsSerializer,

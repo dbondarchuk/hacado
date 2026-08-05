@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/types",
+  "name": "@hacado/types",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -14,9 +14,9 @@
     "./fonts": "./src/configuration/styling/fonts.json"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
-    "@timelish/i18n": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
+    "@hacado/i18n": "*",
     "@types/react": "19.0.2",
     "typescript": "5.5.4",
     "mongodb": "^6.8.0",

@@ -1,5 +1,5 @@
 {
-  "name": "timelish",
+  "name": "hacado",
   "private": true,
   "workspaces": [
     "apps/*",

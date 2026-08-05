@@ -1,6 +1,6 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   Badge,
   Button,
@@ -8,7 +8,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import * as z from "zod";

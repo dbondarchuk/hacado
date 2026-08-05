@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentEvent, appointmentEventSchema } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentEvent, appointmentEventSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

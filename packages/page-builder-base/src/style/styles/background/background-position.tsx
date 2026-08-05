@@ -1,6 +1,6 @@
-import { RawDoubleNumberInput } from "@timelish/builder";
-import { BuilderKeys, useI18n } from "@timelish/i18n/client";
-import { Combobox } from "@timelish/ui";
+import { RawDoubleNumberInput } from "@hacado/builder";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { Move } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

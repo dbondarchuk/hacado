@@ -1,8 +1,8 @@
 "use client";
 
 import { MemberSelectCard } from "@/components/admin/services/options/member-select-card";
-import { useI18n } from "@timelish/i18n/client";
-import { Sortable } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Sortable } from "@hacado/ui-admin";
 import React from "react";
 import { useFieldArray, UseFormReturn, useWatch } from "react-hook-form";
 import { TabProps } from "./types";

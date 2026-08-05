@@ -2,8 +2,8 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useI18n } from "@timelish/i18n/client";
-import { Button, cn, Label } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, cn, Label } from "@hacado/ui";
 import { ArrowDown, ArrowUp, Copy, GripVertical, Trash } from "lucide-react";
 import * as z from "zod";
 import {

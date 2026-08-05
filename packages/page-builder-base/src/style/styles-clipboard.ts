@@ -4,7 +4,7 @@ import { useCallback, useSyncExternalStore } from "react";
 import { StyleValue } from "./css-renderer";
 import { BaseStyleDictionary, StyleDictionary } from "./types";
 
-const STORAGE_KEY = "timelish:page-builder-copied-styles";
+const STORAGE_KEY = "hacado:page-builder-copied-styles";
 
 export type CopiedBlockStyles = StyleValue<BaseStyleDictionary>;
 
