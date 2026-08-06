@@ -4,8 +4,8 @@ import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  appointmentRequestSchema,
   AppointmentLimitReachedError,
+  appointmentRequestSchema,
   AppointmentTimeNotAvaialbleError,
 } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";

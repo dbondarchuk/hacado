@@ -5,6 +5,7 @@ import {
   AvailableApps,
   BLOG_APP_NAME,
   CALENDAR_WRITER_APP_NAME,
+  canInstallApp,
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   EMAIL_NOTIFICATION_APP_NAME,
@@ -19,11 +20,10 @@ import { languages } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { ServicesContainer } from "@hacado/services";
-import { canInstallApp } from "@hacado/app-store";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import type { ApiRequest, SessionUser } from "@hacado/types";
-import { BillingPlanTier } from "@hacado/types";
 import {
+  BillingPlanTier,
   bookingConfigurationSchema,
   systemEventSource,
   type PaymentsConfiguration,

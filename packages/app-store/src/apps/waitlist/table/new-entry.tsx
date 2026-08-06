@@ -1,4 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon, AppointmentOption } from "@hacado/types";
 import {
@@ -31,6 +30,7 @@ import {
   OptionSelector,
   useReload,
 } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";

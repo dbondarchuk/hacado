@@ -50,7 +50,10 @@ export async function DELETE() {
     "DELETE",
   );
   const servicesContainer = await getServicesContainer();
-  await servicesContainer.organizationService.setDomain(undefined, await getActor());
+  await servicesContainer.organizationService.setDomain(
+    undefined,
+    await getActor(),
+  );
   logger.debug("Custom domain removed");
   return NextResponse.json(okStatus, { status: 200 });
 }

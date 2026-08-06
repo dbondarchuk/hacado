@@ -171,8 +171,7 @@ const getAppointmentBasePrice = ({
       : undefined;
 
     if (appointmentOption.durationType === "fixed") {
-      basePrice =
-        selectedStaff?.effectivePrice ?? appointmentOption.price ?? 0;
+      basePrice = selectedStaff?.effectivePrice ?? appointmentOption.price ?? 0;
     } else {
       const pricePerHour =
         selectedStaff?.effectivePrice ?? appointmentOption.pricePerHour ?? 0;

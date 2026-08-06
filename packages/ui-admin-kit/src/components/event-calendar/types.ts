@@ -28,8 +28,13 @@ export type EventCalendarEvent = {
   title: string;
   /** Customer display name (appointments). */
   customerName?: string;
-  /** Assigned staff member (appointments). */
-  member?: EventCalendarMember;
+  /** Assigned staff member (appointments / events from calendar apps). */
+  member?: {
+    _id: string;
+    name: string | null;
+    email: string | null;
+    image?: string | null;
+  };
   variant?: CalendarEventVariant;
   /** Member-derived hex; when set, overrides variant fill with tinted styles. */
   color?: string;

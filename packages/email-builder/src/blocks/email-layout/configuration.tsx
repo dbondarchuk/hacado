@@ -25,7 +25,9 @@ export const EmailLayoutConfiguration = ({
     <>
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.backdropColor")}
-        defaultValue={data.backdropColor ?? EmailLayoutDefaultProps.backdropColor}
+        defaultValue={
+          data.backdropColor ?? EmailLayoutDefaultProps.backdropColor
+        }
         onChange={(backdropColor) => updateData({ ...data, backdropColor })}
       />
       <ColorInput

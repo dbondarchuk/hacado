@@ -1,9 +1,5 @@
 import type { TEditorBlock } from "@hacado/builder";
-import {
-  BaseReaderBlockProps,
-  coerceArray,
-  generateId,
-} from "@hacado/builder";
+import { BaseReaderBlockProps, coerceArray, generateId } from "@hacado/builder";
 import type { I18nFn } from "@hacado/i18n";
 import {
   createEmptySlot,

@@ -66,7 +66,6 @@ export const Logo: React.FC<{
       data-header-id={headerId}
     >
       {logo && showLogo && (
-        // eslint-disable-next-line @next/next/no-img-element
         <img
           className={cn(
             "relative object-contain header-logo-image",

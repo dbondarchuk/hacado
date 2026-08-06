@@ -117,17 +117,14 @@ export const SyncedPaymentCard = ({
   const showConfirm =
     !!onConfirm && !!payment.appointmentId && payment.status === "matched";
   const showEdit =
-    !!onEditAmounts &&
-    !!payment.appointmentId &&
-    payment.status !== "rejected";
+    !!onEditAmounts && !!payment.appointmentId && payment.status !== "rejected";
   const showRejectBtn =
     !!onReject && !!payment.appointmentId && payment.status !== "rejected";
   const showPrimaryActions = showConfirm || showEdit || showRejectBtn;
   const showReassign = payment.status !== "rejected" && !!onAssignOther;
   const showIgnore =
     payment.status !== "ignored" && payment.status !== "rejected" && !!onIgnore;
-  const showSuggestions =
-    !!onAssignSuggestion && otherSuggestions.length > 0;
+  const showSuggestions = !!onAssignSuggestion && otherSuggestions.length > 0;
 
   return (
     <Card className="overflow-hidden shadow-sm flex flex-col">

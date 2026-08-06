@@ -5,15 +5,6 @@ import {
   LogLevel,
   Configuration as MsalConfig,
 } from "@azure/msal-node";
-import { Client } from "@microsoft/microsoft-graph-client";
-import {
-  Attachment,
-  FileAttachment,
-  OnlineMeeting,
-  Event as OutlookEvent,
-  Message as OutlookMessage,
-  ResponseType,
-} from "@microsoft/microsoft-graph-types";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
@@ -39,6 +30,15 @@ import {
   WithDatabaseId,
 } from "@hacado/types";
 import { decrypt, encrypt, getAdminUrl } from "@hacado/utils";
+import { Client } from "@microsoft/microsoft-graph-client";
+import {
+  Attachment,
+  FileAttachment,
+  OnlineMeeting,
+  Event as OutlookEvent,
+  Message as OutlookMessage,
+  ResponseType,
+} from "@microsoft/microsoft-graph-types";
 import { createEvent } from "ics";
 import { DateTime } from "luxon";
 import { Readable } from "stream";

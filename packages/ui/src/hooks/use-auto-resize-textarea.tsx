@@ -21,9 +21,7 @@ export const useAutoResizeTextarea = (
     ref?.addEventListener("input", updateTextareaHeight);
 
     return () => ref?.removeEventListener("input", updateTextareaHeight);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [autoResize]);
 
   return { textAreaRef };
 };

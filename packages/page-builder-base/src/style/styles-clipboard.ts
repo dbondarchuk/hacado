@@ -100,8 +100,7 @@ export const useStylesClipboard = () => {
   const activeCopiedStyles = useCopiedBlockStyles();
 
   const hasCopiedStyles =
-    activeCopiedStyles !== null &&
-    Object.keys(activeCopiedStyles).length > 0;
+    activeCopiedStyles !== null && Object.keys(activeCopiedStyles).length > 0;
 
   const copyStyles = useCallback(
     (styles: StyleValue<BaseStyleDictionary> | null | undefined) => {

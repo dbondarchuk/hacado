@@ -1,6 +1,5 @@
 "use client";
 
-import Editor from "@monaco-editor/react";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
@@ -12,6 +11,7 @@ import {
   DialogTrigger,
   useTheme,
 } from "@hacado/ui";
+import Editor from "@monaco-editor/react";
 import { Maximize2 } from "lucide-react";
 import React from "react";
 

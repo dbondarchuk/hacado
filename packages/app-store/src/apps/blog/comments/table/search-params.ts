@@ -10,9 +10,7 @@ import { blogCommentStatusSchema } from "../../models";
 export const searchParams = {
   ...baseSearchParams,
   postId: parseAsArrayOf(parseAsString),
-  status: parseAsArrayOf(
-    parseAsStringEnum(blogCommentStatusSchema.options),
-  ),
+  status: parseAsArrayOf(parseAsStringEnum(blogCommentStatusSchema.options)),
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   sort: baseSearchParams.sort.withDefault([

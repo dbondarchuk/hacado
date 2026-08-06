@@ -1,5 +1,5 @@
-import PageContainer from "@/components/admin/layout/page-container";
 import { getUser } from "@/app/utils";
+import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Breadcrumbs, Heading, Link, Skeleton } from "@hacado/ui";

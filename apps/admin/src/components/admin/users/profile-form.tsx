@@ -2,7 +2,6 @@
 
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
@@ -33,6 +32,7 @@ import {
   NonSortable,
   SaveButton,
 } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Lock, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
@@ -103,7 +103,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         error: t("users.profile.toasts.requestError"),
       });
 
-      if (isSelfProfile && data.language !== values.language && window?.location) {
+      if (
+        isSelfProfile &&
+        data.language !== values.language &&
+        window?.location
+      ) {
         setTimeout(() => window.location.reload(), 1000);
       } else {
         if (isSelfProfile) {
@@ -358,8 +362,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           .filter(
                             (appId) =>
                               appId !==
-                              form.getValues(`calendarSources.${index}`)
-                                ?.appId,
+                              form.getValues(`calendarSources.${index}`)?.appId,
                           )}
                       />
                     ))}

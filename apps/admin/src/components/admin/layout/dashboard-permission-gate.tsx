@@ -1,5 +1,5 @@
-import { resolveRequiredPermissionForPath } from "@/lib/auth/resolve-nav-permission";
 import { getSession } from "@/app/utils";
+import { resolveRequiredPermissionForPath } from "@/lib/auth/resolve-nav-permission";
 import { meetsRequiredPermission } from "@hacado/utils";
 import { headers } from "next/headers";
 import { forbidden } from "next/navigation";

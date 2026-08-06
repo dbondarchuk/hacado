@@ -18,10 +18,26 @@ import { SpecialistCard } from "./specialist-card";
 
 export function getBookingSteps(flowOrder: FlowOrder): StepType[] {
   if (flowOrder === "specialist-first") {
-    return ["specialist", "option", "addons", "calendar", "form", "review", "payment"];
+    return [
+      "specialist",
+      "option",
+      "addons",
+      "calendar",
+      "form",
+      "review",
+      "payment",
+    ];
   }
 
-  return ["option", "specialist", "addons", "calendar", "form", "review", "payment"];
+  return [
+    "option",
+    "specialist",
+    "addons",
+    "calendar",
+    "form",
+    "review",
+    "payment",
+  ];
 }
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {

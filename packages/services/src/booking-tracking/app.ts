@@ -69,7 +69,10 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
     const logger = this.loggerFactory("onEvent");
     logger.debug({ envelope }, "Tracking booking step");
     if (envelope.type !== BOOKING_TRACKING_STEP_EVENT_TYPE) {
-      logger.debug({ type: envelope.type }, "Skipping event, unknown event type");
+      logger.debug(
+        { type: envelope.type },
+        "Skipping event, unknown event type",
+      );
       return;
     }
 

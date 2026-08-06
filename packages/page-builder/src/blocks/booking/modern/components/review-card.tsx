@@ -195,7 +195,6 @@ export const ReviewCard: React.FC = () => {
     };
 
     fn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);
 
   let timeZone: TimeZone | undefined = timeZones.find((tz) => {

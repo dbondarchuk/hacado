@@ -1,5 +1,4 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AppointmentEntity, CustomerListModel } from "@hacado/types";
 import { Checkbox, Link } from "@hacado/ui";
@@ -10,6 +9,7 @@ import {
   useAuth,
 } from "@hacado/ui-admin";
 import { hasPermission } from "@hacado/utils";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 // import Image from "next/image";
 import React from "react";

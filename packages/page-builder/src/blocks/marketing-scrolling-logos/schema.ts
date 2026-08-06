@@ -3,7 +3,6 @@ import type { I18nFn } from "@hacado/i18n";
 import * as z from "zod";
 import { ContainerPropsDefaults } from "../container/schema";
 import { ImagePropsDefaults } from "../image/schema";
-import { InlineTextPropsDefaults } from "../inline-text/schema";
 import { zStyles } from "./styles";
 
 export const MarketingScrollingLogosPropsSchema = z.object({
@@ -19,8 +18,8 @@ export const MarketingScrollingLogosPropsSchema = z.object({
 export type MarketingScrollingLogosProps = z.infer<
   typeof MarketingScrollingLogosPropsSchema
 >;
-export type MarketingScrollingLogosReaderProps =
-  BaseReaderBlockProps<any> & MarketingScrollingLogosProps;
+export type MarketingScrollingLogosReaderProps = BaseReaderBlockProps<any> &
+  MarketingScrollingLogosProps;
 
 export const MarketingScrollingLogosPropsDefaults = (
   t: I18nFn<undefined, undefined>,

@@ -40,7 +40,9 @@ export function resolveRequiredPermissionForPath(
     [];
   collectNavPermissions(navItems, entries);
 
-  let best: { href: string; requiredPermission: RequiredPermission } | undefined;
+  let best:
+    | { href: string; requiredPermission: RequiredPermission }
+    | undefined;
   for (const entry of entries) {
     const href = entry.href.replace(/\/$/, "");
     if (path === href || path.startsWith(`${href}/`)) {

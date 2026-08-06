@@ -51,14 +51,14 @@ export const EventPopover: React.FC<EventPopoverProps> = ({
           ) : null}
           {event.member ? <MemberName member={event.member} /> : null}
 
-          <div className="flex items-center text-base text-muted-foreground">
+          <div className="flex gap-2 items-center text-base text-muted-foreground">
             <Clock />
             <span>
               {eventDate.toLocaleString(DateTime.DATETIME_FULL, { locale })}
             </span>
           </div>
           {duration.hours < 23 && (
-            <div className="flex items-center text-base text-muted-foreground">
+            <div className="flex gap-2 items-center text-base text-muted-foreground">
               <Timer />
               <span>
                 {duration.hours} {t("calendar.hour")} {duration.minutes}{" "}
@@ -66,7 +66,7 @@ export const EventPopover: React.FC<EventPopoverProps> = ({
               </span>
             </div>
           )}
-          <div className="flex items-center text-base text-muted-foreground">
+          <div className="flex gap-2 items-center text-base text-muted-foreground">
             <CalendarClock />
             <span>
               {endDate.toLocaleString(DateTime.DATETIME_FULL, { locale })}

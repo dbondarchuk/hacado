@@ -52,6 +52,7 @@ import {
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Filter, ObjectId, Sort } from "mongodb";
+import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import {
   ADDONS_COLLECTION_NAME,
   APPOINTMENTS_COLLECTION_NAME,
@@ -60,7 +61,6 @@ import {
   OPTIONS_COLLECTION_NAME,
 } from "./collections";
 import { getDbConnection } from "./database";
-import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import { BaseService } from "./services/base.service";
 
 export class ServicesService extends BaseService implements IServicesService {

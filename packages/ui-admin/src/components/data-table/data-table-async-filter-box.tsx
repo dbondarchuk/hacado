@@ -1,6 +1,5 @@
 "use client";
 
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Badge,
@@ -21,6 +20,7 @@ import {
   toast,
   useDebounce,
 } from "@hacado/ui";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 import { Options } from "nuqs";
 import React from "react";

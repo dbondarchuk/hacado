@@ -16,13 +16,13 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@types/react-window": "^1.8.8",
     "@hacado/eslint-config": "*",
     "@hacado/tailwind-config": "*",
     "@hacado/typescript-config": "*",
-    "typescript": "5.5.4"
+    "typescript": "6.0.2"
   },
   "dependencies": {
     "@uiw/react-json-view": "2.0.0-alpha.30",
@@ -32,6 +32,6 @@
     "@hacado/ui-admin": "*",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.555.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.2.8"
   }
 }

@@ -1,6 +1,5 @@
 "use client";
 import { authClient } from "@/app/auth-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { zEmail } from "@hacado/types";
 import {
@@ -24,6 +23,7 @@ import {
   Spinner,
   toast,
 } from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -28,7 +28,10 @@ export async function GET(request: NextRequest) {
     actor: params.actor?.length ? params.actor : undefined,
   });
 
-  logger.debug({ total: res.total, count: res.items.length }, "Listed activities");
+  logger.debug(
+    { total: res.total, count: res.items.length },
+    "Listed activities",
+  );
 
   return NextResponse.json(res);
 }

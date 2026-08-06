@@ -4,8 +4,12 @@ import {
   ICS_APP_NAME,
   OUTLOOK_APP_NAME,
 } from "@hacado/app-store";
-import { fontsNames, shiftsSchema, type ConnectedApp, type Schedule } from "@hacado/types";
-import { getDefaultInstallSchedule } from "./default-schedule";
+import {
+  fontsNames,
+  shiftsSchema,
+  type ConnectedApp,
+  type Schedule,
+} from "@hacado/types";
 import {
   getCatalogProfession,
   getDefaultCatalogSeed,
@@ -14,6 +18,7 @@ import {
   INSTALL_CATALOG_DATA,
 } from "./catalog";
 import { emptyPersisted, newInstallServiceClientId } from "./constants";
+import { getDefaultInstallSchedule } from "./default-schedule";
 import type {
   InstallPreferencesServerState,
   InstallServiceDraftItem,
@@ -295,7 +300,9 @@ export function sanitizePersisted(
 
   if (serverSchedule) {
     merged.installSchedule = normalizeInstallSchedule(serverSchedule);
-  } else if (Array.isArray((partialMerged as Partial<PersistedState>).installSchedule)) {
+  } else if (
+    Array.isArray((partialMerged as Partial<PersistedState>).installSchedule)
+  ) {
     merged.installSchedule = normalizeInstallSchedule(
       (partialMerged as Partial<PersistedState>).installSchedule,
     );

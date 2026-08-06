@@ -9,7 +9,6 @@ import { TeamMembersTable } from "@/components/admin/team/table/table";
 import { TeamMembersTableAction } from "@/components/admin/team/table/table-action";
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
 import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-access";
-import { canManageTeam } from "@hacado/utils";
 import {
   teamsSearchParamsCache,
   teamsSearchParamsSerializer,
@@ -17,6 +16,7 @@ import {
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Breadcrumbs, Button, Heading } from "@hacado/ui";
 import { DataTableSkeleton } from "@hacado/ui-admin";
+import { canManageTeam } from "@hacado/utils";
 import { Metadata } from "next";
 import Link from "next/link";
 import { forbidden, redirect } from "next/navigation";
@@ -99,9 +99,7 @@ export default async function TeamSettingsPage(props: Params) {
         </div>
 
         {atCapacity ? (
-          <TeamSeatsCapacityHint
-            allowAdditionalUsers={allowAdditionalUsers}
-          />
+          <TeamSeatsCapacityHint allowAdditionalUsers={allowAdditionalUsers} />
         ) : null}
 
         <PendingInvitations />

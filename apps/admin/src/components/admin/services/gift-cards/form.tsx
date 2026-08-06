@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
@@ -41,6 +40,7 @@ import {
   useDebounceCacheFn,
 } from "@hacado/ui";
 import { CustomerSelector, SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Dices } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

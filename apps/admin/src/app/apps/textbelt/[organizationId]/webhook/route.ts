@@ -1,8 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  getTextBeltConfiguration,
-  ServicesContainer,
-} from "@hacado/services";
+import { getTextBeltConfiguration, ServicesContainer } from "@hacado/services";
 import { NextRequest, NextResponse } from "next/server";
 import { TextBeltWebhookService } from "./webhook.service";
 

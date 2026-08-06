@@ -1,9 +1,9 @@
 import type { EventDefinition } from "@hacado/types";
 
-import { APP_EVENT_DEFINITIONS } from "./app/app-event-definitions";
 import { ADDON_EVENT_DEFINITIONS } from "./addon/addon-event-definitions";
-import { APPOINTMENT_EVENT_DEFINITIONS } from "./appointment/appointment-event-definitions";
+import { APP_EVENT_DEFINITIONS } from "./app/app-event-definitions";
 import { APPOINTMENT_OPTION_EVENT_DEFINITIONS } from "./appointment-option/appointment-option-event-definitions";
+import { APPOINTMENT_EVENT_DEFINITIONS } from "./appointment/appointment-event-definitions";
 import { ASSET_EVENT_DEFINITIONS } from "./asset/asset-event-definitions";
 import { BILLING_EVENT_DEFINITIONS } from "./billing/billing-event-definitions";
 import { CUSTOMER_EVENT_DEFINITIONS } from "./customer/customer-event-definitions";

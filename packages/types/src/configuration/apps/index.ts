@@ -1,5 +1,5 @@
-import type { MappedAppScope } from "../../apps/app-scope-usage";
 import * as z from "zod";
+import type { MappedAppScope } from "../../apps/app-scope-usage";
 import { zObjectId } from "../../utils";
 
 export const defaultAppsConfigurationSchema = z.object({

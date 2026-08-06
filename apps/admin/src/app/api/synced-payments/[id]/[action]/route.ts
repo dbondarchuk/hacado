@@ -98,7 +98,10 @@ export async function POST(
     }
   }
 
-  logger.debug({ id, action, appointmentId }, "Processing synced payment action");
+  logger.debug(
+    { id, action, appointmentId },
+    "Processing synced payment action",
+  );
 
   try {
     const service = servicesContainer.syncedPaymentsService;

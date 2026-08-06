@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import {
   AppsBlocksEditors,
@@ -39,6 +38,7 @@ import {
 } from "@hacado/ui";
 import { SaveButton, useDemoArguments } from "@hacado/ui-admin";
 import { formatArguments, generateSlugPreview } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Globe, Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";

@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -21,6 +20,7 @@ import {
   toast,
   useDebounceCacheFn,
 } from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Resolver, useForm } from "react-hook-form";
@@ -188,7 +188,7 @@ export const FormBlockComponent = ({
       setCustomerIdFromUrl(fromUrl);
       formHook.setValue("customerId", fromUrl, { shouldValidate: true });
     }
-  }, [requireCustomerId]); // eslint-disable-line react-hooks/exhaustive-deps -- only run when requireCustomerId is set
+  }, [requireCustomerId]);
 
   const onSubmit = async (values: FormValues) => {
     if (!form || !appId || isEditor) return;

@@ -1,7 +1,7 @@
 import type { AppEventConfig, EventDefinition } from "@hacado/types";
 import { formatAmountWithCurrency } from "@hacado/utils";
-import { buildNewPurchaseEmailNotifications } from "./emails/new-purchase-email";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
+import { buildNewPurchaseEmailNotifications } from "./emails/new-purchase-email";
 import {
   GIFT_CARD_STUDIO_DESIGN_CREATED_EVENT_TYPE,
   GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE,
@@ -14,8 +14,8 @@ import {
   type GiftCardStudioPurchaseCreatedPayload,
   type GiftCardStudioPurchaseDeletedPayload,
 } from "./models/events";
-import { GiftCardStudioAdminAllKeys } from "./translations/types";
 import type { GiftCardStudioSettings } from "./models/settings";
+import { GiftCardStudioAdminAllKeys } from "./translations/types";
 
 export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
   events: [
@@ -155,7 +155,8 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
           return null;
         }
 
-        const admins = await services.teamService.getOrganizationAdminContacts();
+        const admins =
+          await services.teamService.getOrganizationAdminContacts();
         if (!admins.length) {
           return null;
         }

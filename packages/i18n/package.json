@@ -23,10 +23,10 @@
   "devDependencies": {
     "@hacado/eslint-config": "*",
     "@hacado/typescript-config": "*",
-    "typescript": "5.5.4"
+    "typescript": "6.0.2"
   },
   "dependencies": {
-    "next-intl": "^4.3.9",
+    "next-intl": "^4.13.5",
     "yaml": "^2.7.0"
   }
 }

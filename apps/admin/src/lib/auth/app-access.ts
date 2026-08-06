@@ -43,11 +43,7 @@ export async function assertCanAccessConnectedApp(
   ]);
   const app = await services.connectedAppsService.getAppStatus(appId);
   if (
-    !canAccessConnectedApp(
-      sessionUser,
-      withCatalogTarget(app),
-      ownerMemberIds,
-    )
+    !canAccessConnectedApp(sessionUser, withCatalogTarget(app), ownerMemberIds)
   ) {
     const error = new Error("Forbidden");
     (error as Error & { status: number }).status = 403;

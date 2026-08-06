@@ -20,12 +20,12 @@ import {
   WebhooksConfiguration,
   webhooksConfigurationSchema,
 } from "./models";
+import { getWebhookSelectableEventTypes } from "./selectable-event-types";
 import {
   WebhooksAdminAllKeys,
   WebhooksAdminKeys,
   WebhooksAdminNamespace,
 } from "./translations/types";
-import { getWebhookSelectableEventTypes } from "./selectable-event-types";
 
 export class WebhooksConnectedApp implements IConnectedApp, IEventSubscriber {
   protected readonly loggerFactory: LoggerFactory;

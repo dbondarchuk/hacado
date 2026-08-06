@@ -16,11 +16,11 @@ import {
   IDemoArgumentsProvider,
   IPaymentProcessor,
   IScheduled,
+  memberEventSource,
   PaymentIntentUpdateModel,
   SessionUser,
   systemEventSource,
   TemplateTemplatesList,
-  memberEventSource,
 } from "@hacado/types";
 import { formatAmountWithCurrency } from "@hacado/utils";
 import { DateTime } from "luxon";
@@ -521,9 +521,7 @@ export class GiftCardStudioConnectedApp
   }
 
   private adminEventSource(memberId?: string): EventSource {
-    return memberId
-      ? memberEventSource(memberId)
-      : { actor: "member" };
+    return memberId ? memberEventSource(memberId) : { actor: "member" };
   }
 
   private async emitGiftCardStudioEvent(

@@ -1,5 +1,5 @@
-import { Header } from "@tanstack/react-table";
 import { cn } from "@hacado/ui";
+import { Header } from "@tanstack/react-table";
 import { GripVertical } from "lucide-react";
 
 export const ColumnResizer = <TData,>({

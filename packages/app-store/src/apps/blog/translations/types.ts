@@ -13,13 +13,6 @@ export const blogPublicNamespace = "app_blog_public" as const;
 
 export type BlogPublicNamespace = typeof blogPublicNamespace;
 
-export type BlogAdminAllKeys = AllKeys<
-  BlogAdminNamespace,
-  BlogAdminKeys
->;
+export type BlogAdminAllKeys = AllKeys<BlogAdminNamespace, BlogAdminKeys>;
 
-export type BlogPublicAllKeys = AllKeys<
-  BlogPublicNamespace,
-  BlogPublicKeys
->;
-
+export type BlogPublicAllKeys = AllKeys<BlogPublicNamespace, BlogPublicKeys>;

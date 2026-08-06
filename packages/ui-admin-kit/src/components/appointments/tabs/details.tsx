@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import { Appointment, AppointmentStatus, timeZones } from "@hacado/types";
@@ -24,6 +23,7 @@ import {
 } from "@hacado/ui";
 import { CustomerName, useAuth } from "@hacado/ui-admin";
 import { canUpdateAppointment, durationToTime } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

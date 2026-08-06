@@ -1,5 +1,4 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types";
 import {
@@ -19,6 +18,7 @@ import {
 } from "@hacado/ui-admin";
 import { AppointmentDialog } from "@hacado/ui-admin-kit";
 import { durationToTime } from "@hacado/utils";
+import { ColumnDef } from "@tanstack/react-table";
 import {
   CalendarCheck,
   CalendarClock,

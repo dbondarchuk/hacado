@@ -25,9 +25,7 @@ const getActivityFeedNotifications = async (memberId: string) => {
 
   const [preview, highestSeverity] = await Promise.all([
     servicesContainer.activityService.getActivityPreview(3),
-    servicesContainer.activityService.getHighestSeveritySinceLastRead(
-      memberId,
-    ),
+    servicesContainer.activityService.getHighestSeveritySinceLastRead(memberId),
   ]);
 
   return {
@@ -160,11 +158,7 @@ export async function GET(request: NextRequest) {
       >(
         "dashboard-notifier",
         async (app, service) => {
-          return await service.getInitialNotifications(
-            app,
-            memberId,
-            lastDate,
-          );
+          return await service.getInitialNotifications(app, memberId, lastDate);
         },
         {
           concurrencyLimit: 10,

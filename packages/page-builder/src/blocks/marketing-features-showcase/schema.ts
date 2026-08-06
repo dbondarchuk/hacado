@@ -16,8 +16,8 @@ export const MarketingFeaturesShowcasePropsSchema = z.object({
 export type MarketingFeaturesShowcaseProps = z.infer<
   typeof MarketingFeaturesShowcasePropsSchema
 >;
-export type MarketingFeaturesShowcaseReaderProps =
-  BaseReaderBlockProps<any> & MarketingFeaturesShowcaseProps;
+export type MarketingFeaturesShowcaseReaderProps = BaseReaderBlockProps<any> &
+  MarketingFeaturesShowcaseProps;
 
 export const MarketingFeaturesShowcasePropsDefaults = (
   t: I18nFn<undefined, undefined>,

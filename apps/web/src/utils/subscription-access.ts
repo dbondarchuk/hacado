@@ -19,5 +19,7 @@ export function isSubscriptionInactive(
   status: string | undefined | null,
 ): boolean {
   if (!status) return false;
-  return !isSubscriptionActiveOrTrialing(status) && !isSubscriptionPastDue(status);
+  return (
+    !isSubscriptionActiveOrTrialing(status) && !isSubscriptionPastDue(status)
+  );
 }

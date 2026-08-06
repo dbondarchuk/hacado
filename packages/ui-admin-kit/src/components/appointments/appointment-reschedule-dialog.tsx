@@ -1,7 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DialogProps } from "@radix-ui/react-dialog";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment, CalendarEvent } from "@hacado/types";
@@ -38,6 +36,8 @@ import {
   use12HourFormat,
   useTimeZone,
 } from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogProps } from "@radix-ui/react-dialog";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";

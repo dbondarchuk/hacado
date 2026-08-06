@@ -1,6 +1,5 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import { PaymentSummary } from "@hacado/types";
 import { Badge, Button, Link, useCurrencyFormat } from "@hacado/ui";
@@ -11,6 +10,7 @@ import {
   getPaymentStatusColor,
   PaymentDetailsDialog,
 } from "@hacado/ui-admin-kit";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 

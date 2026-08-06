@@ -1,4 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields } from "@hacado/types";
 import {
@@ -18,6 +17,7 @@ import {
   usePrevious,
 } from "@hacado/ui";
 import { deepEqual } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Calendar } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo } from "react";

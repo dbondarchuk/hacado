@@ -38,9 +38,7 @@ export const withAuth: MiddlewareProxy = (next) => {
     request.headers.set(
       "x-organization-domain",
       (session?.user as { organizationDomain?: string } | undefined)
-        ?.organizationDomain || organizationSlug
-        ? `${organizationSlug}.${process.env.PUBLIC_DOMAIN}`
-        : "",
+        ?.organizationDomain || "",
     );
 
     request.headers.set("x-user-id", session?.user?.id || "");

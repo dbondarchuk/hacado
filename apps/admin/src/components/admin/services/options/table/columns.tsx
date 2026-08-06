@@ -1,5 +1,4 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AppointmentOption } from "@hacado/types";
 import { Checkbox, Link } from "@hacado/ui";
@@ -9,6 +8,7 @@ import {
   useAuth,
 } from "@hacado/ui-admin";
 import { hasPermission } from "@hacado/utils";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 

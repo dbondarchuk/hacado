@@ -30,10 +30,7 @@ export async function requirePermission<R extends TeamPermissionResource>(
   }
 
   if (!hasPermission(user, resource, action)) {
-    logger.warn(
-      { role: user.role, resource, action },
-      "Forbidden",
-    );
+    logger.warn({ role: user.role, resource, action }, "Forbidden");
     return {
       ok: false as const,
       response: NextResponse.json(

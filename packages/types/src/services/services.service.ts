@@ -11,8 +11,8 @@ import {
 } from "../booking";
 import { ServiceField, ServiceFieldUpdateModel } from "../configuration";
 import { Query, WithTotal } from "../database";
-import { DateRange } from "../general";
 import type { EventSource } from "../events/envelope";
+import { DateRange } from "../general";
 
 export type IdName = {
   _id: string;
@@ -72,7 +72,10 @@ export interface IServicesService {
     update: AppointmentAddonUpdateModel,
     source: EventSource,
   ): Promise<void>;
-  deleteAddon(id: string, source: EventSource): Promise<AppointmentAddon | null>;
+  deleteAddon(
+    id: string,
+    source: EventSource,
+  ): Promise<AppointmentAddon | null>;
   deleteAddons(ids: string[], source: EventSource): Promise<void>;
   checkAddonUniqueName(name: string, id?: string): Promise<boolean>;
 

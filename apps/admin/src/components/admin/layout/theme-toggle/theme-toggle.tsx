@@ -1,7 +1,7 @@
 "use client";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useI18n } from "@hacado/i18n/client";
 import { useTheme } from "@hacado/ui";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 import {
   Button,

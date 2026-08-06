@@ -1,6 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { getLoggerFactory } from "@hacado/logger";
 import { customerSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
@@ -41,6 +40,7 @@ import {
   TemplateSelector,
   useArguments,
 } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";

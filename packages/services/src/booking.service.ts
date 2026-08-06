@@ -76,6 +76,7 @@ import {
   getAppointmentBucket,
   getAvailableTimeSlotsInCalendar,
   getIcsEventUid,
+  omit,
   parseTime,
 } from "@hacado/utils";
 import { DateTime } from "luxon";
@@ -987,12 +988,20 @@ export class BookingService extends BaseService implements IBookingService {
 
     const config = await this.configurationService.getConfiguration("booking");
 
-    const calendarSourceAppIds = await this.getCalendarSourceAppIds(
-      config,
-      memberId,
+    const membersAndCalendarSourceAppIds =
+      await this.getMembersAndCalendarSourceAppIds(config, memberId);
+
+    const appIdsMap = membersAndCalendarSourceAppIds.reduce(
+      (map, m) => {
+        m.appIds.forEach((appId) => {
+          map[appId] = m.member;
+        });
+        return map;
+      },
+      {} as Record<string, OrganizationMember>,
     );
 
-    const apps = await this.appsService.getAppsData(calendarSourceAppIds);
+    const apps = await this.appsService.getAppsData(Object.keys(appIdsMap));
 
     const url = getAdminUrl();
     const skipUids = new Set(
@@ -1009,21 +1018,28 @@ export class BookingService extends BaseService implements IBookingService {
         this.appsService.getAppServiceProps(app._id),
       ) as any as ICalendarBusyTimeProvider;
 
-      return await service.getBusyTimes(app, start, end, memberId);
+      return {
+        appId: app._id,
+        member: appIdsMap[app._id],
+        busyTimes: await service.getBusyTimes(app, start, end, memberId),
+      };
     });
 
     const appsResponse = await Promise.all(appsPromises);
     const appsEvents: CalendarEvent[] = appsResponse
-      .flat()
-      .map((event) => ({
-        title: event.title || "Busy",
-        dateTime: event.startAt,
-        totalDuration: DateTime.fromJSDate(event.endAt).diff(
-          DateTime.fromJSDate(event.startAt),
-          "minutes",
-        ).minutes,
-        uid: event.uid,
-      }))
+      .flatMap((app) =>
+        app.busyTimes.map((event) => ({
+          title: event.title || "Busy",
+          dateTime: event.startAt,
+          memberId: app.member._id,
+          totalDuration: DateTime.fromJSDate(event.endAt).diff(
+            DateTime.fromJSDate(event.startAt),
+            "minutes",
+          ).minutes,
+          uid: event.uid,
+          member: omit(app.member, ["calendarSources"]),
+        })),
+      )
       .filter((event) => !skipUids.has(event.uid));
 
     const result = [...appointments.items, ...appsEvents];
@@ -1773,19 +1789,19 @@ export class BookingService extends BaseService implements IBookingService {
       "Declined appointments retrieved",
     );
 
-    const calendarSourceAppIds = await this.getCalendarSourceAppIds(
-      config,
-      memberId,
-    );
+    const membersAndCalendarSourceAppIds =
+      await this.getMembersAndCalendarSourceAppIds(config, memberId);
 
-    if (!calendarSourceAppIds.length) {
+    if (!membersAndCalendarSourceAppIds.length) {
       logger.debug(
         { start, end, memberId },
         "No calendar sources allowed or configured; using DB busy times only",
       );
     }
 
-    const apps = await this.appsService.getAppsData(calendarSourceAppIds);
+    const appIds = membersAndCalendarSourceAppIds.map((m) => m.appIds).flat();
+
+    const apps = await this.appsService.getAppsData(appIds);
 
     const dbEventsPromise = this.getDbBusyTimes(start, end, memberId);
     const appsPromises = apps.map(async (app) => {
@@ -1889,27 +1905,34 @@ export class BookingService extends BaseService implements IBookingService {
     return contacts[0]?.memberId ?? "";
   }
 
-  private async getCalendarSourceAppIds(
+  private async getMembersAndCalendarSourceAppIds(
     config: BookingConfiguration,
     memberId?: string,
-  ) {
+  ): Promise<{ member: OrganizationMember; appIds: string[] }[]> {
     if (memberId) {
-      const { appIds, role } =
-        await this.getMemberCalendarSourceAppIds(memberId);
+      const member = await this.teamService.getMemberById(memberId);
+      if (!member) {
+        return [];
+      }
 
       if (
-        !canUseMemberCalendarSources(role, {
+        !canUseMemberCalendarSources(member.role, {
           allowStaffCalendarSources: config.allowStaffCalendarSources,
         })
       ) {
         return [];
       }
 
-      return appIds ?? [];
+      return [
+        {
+          member,
+          appIds: member.calendarSources?.map((source) => source.appId) ?? [],
+        },
+      ];
     }
 
     const members = await this.teamService.getActiveMembers();
-    const appIds = new Set<string>();
+    const appIds: { member: OrganizationMember; appIds: string[] }[] = [];
 
     for (const member of members) {
       if (
@@ -1920,14 +1943,13 @@ export class BookingService extends BaseService implements IBookingService {
         continue;
       }
 
-      for (const source of member.calendarSources || []) {
-        if (source.appId) {
-          appIds.add(source.appId);
-        }
-      }
+      appIds.push({
+        member,
+        appIds: member.calendarSources?.map((source) => source.appId) ?? [],
+      });
     }
 
-    return [...appIds];
+    return appIds;
   }
 
   private async getDbBusyTimes(

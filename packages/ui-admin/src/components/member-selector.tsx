@@ -139,7 +139,6 @@ export const MemberSelector: React.FC<MemberSelectorProps> = ({
       cancelled = true;
     };
     // Intentionally omit itemsCache: only refetch when value changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   React.useEffect(() => {

@@ -66,14 +66,7 @@ export function useActivityTableFilters() {
       !!start ||
       !!end
     );
-  }, [
-    searchQuery,
-    severityFilter,
-    actorFilter,
-    eventTypeFilter,
-    start,
-    end,
-  ]);
+  }, [searchQuery, severityFilter, actorFilter, eventTypeFilter, start, end]);
 
   return {
     searchQuery,

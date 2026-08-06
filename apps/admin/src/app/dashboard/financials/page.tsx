@@ -1,8 +1,5 @@
 import { getSession } from "@/app/utils";
-import {
-  canReadSyncedPayments,
-  canViewFinancials,
-} from "@hacado/utils";
+import { canReadSyncedPayments, canViewFinancials } from "@hacado/utils";
 import { forbidden, redirect } from "next/navigation";
 
 export default async function FinancialsIndexPage() {

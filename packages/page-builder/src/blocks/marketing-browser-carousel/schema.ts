@@ -29,8 +29,8 @@ export const MarketingBrowserCarouselPropsSchema = z.object({
 export type MarketingBrowserCarouselProps = Prettify<
   z.infer<typeof MarketingBrowserCarouselPropsSchema>
 >;
-export type MarketingBrowserCarouselReaderProps =
-  BaseReaderBlockProps<any> & MarketingBrowserCarouselProps;
+export type MarketingBrowserCarouselReaderProps = BaseReaderBlockProps<any> &
+  MarketingBrowserCarouselProps;
 
 export const MarketingBrowserCarouselPropsDefaults = (
   t: I18nFn<undefined, undefined>,

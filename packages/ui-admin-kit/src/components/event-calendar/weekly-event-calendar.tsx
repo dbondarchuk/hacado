@@ -337,8 +337,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                     <span
                       className={cn(
                         "inline-flex size-8 items-center justify-center rounded-full text-base font-medium tabular-nums",
-                        isToday &&
-                          "bg-brand text-brand-foreground shadow-sm",
+                        isToday && "bg-brand text-brand-foreground shadow-sm",
                         !isToday && "text-foreground",
                       )}
                     >

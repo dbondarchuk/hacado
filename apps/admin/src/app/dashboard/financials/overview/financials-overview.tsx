@@ -1,6 +1,6 @@
 import { getOrganizationId } from "@/app/utils";
-import { FinancialsOverviewClient } from "./financials-overview-client";
 import { createFinancialOverviewQueries } from "./data";
+import { FinancialsOverviewClient } from "./financials-overview-client";
 
 type FinancialsOverviewProps = {
   searchParams: {

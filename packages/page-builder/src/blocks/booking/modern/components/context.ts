@@ -239,10 +239,11 @@ export const useScheduleContext = () => {
     duration: getAppointmentDuration(ctx),
   };
 
-  const staffAcrossOptions: PublicStaffMember[] = getActiveStaffAcrossAssignments(
-    ctx.appointmentOptions.map((o) => o.staff),
-    ctx.members,
-  );
+  const staffAcrossOptions: PublicStaffMember[] =
+    getActiveStaffAcrossAssignments(
+      ctx.appointmentOptions.map((o) => o.staff),
+      ctx.members,
+    );
 
   return {
     ...baseCtx,

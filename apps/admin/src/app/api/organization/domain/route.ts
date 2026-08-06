@@ -46,7 +46,10 @@ export async function POST(request: NextRequest) {
 export async function DELETE() {
   const logger = getLoggerFactory("AdminAPI/organization/domain")("DELETE");
   const servicesContainer = await getServicesContainer();
-  await servicesContainer.organizationService.setDomain(undefined, await getActor());
+  await servicesContainer.organizationService.setDomain(
+    undefined,
+    await getActor(),
+  );
   logger.debug("Domain removed");
   return NextResponse.json(okStatus, { status: 200 });
 }

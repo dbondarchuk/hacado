@@ -57,8 +57,12 @@ export default class AppointmentNotificationsConnectedApp
     await dispatchAppointmentEventPayload(envelope, {
       onAppointmentCreated: (appointment, confirmed) =>
         this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentStatusChanged: (appointment, _newStatus, _oldStatus, _source) =>
-        this.onAppointmentStatusChanged(appData, appointment),
+      onAppointmentStatusChanged: (
+        appointment,
+        _newStatus,
+        _oldStatus,
+        _source,
+      ) => this.onAppointmentStatusChanged(appData, appointment),
     });
   }
 

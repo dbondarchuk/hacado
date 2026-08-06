@@ -12,6 +12,7 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   output: "standalone",
   outputFileTracingRoot: join(__dirname, "../../"),
+  allowedDevOrigins: ["*.dev.bondarchuk.me", "*.dev.hacado.com"],
   serverExternalPackages: [
     "pino",
     "pino-pretty",
@@ -20,27 +21,11 @@ const nextConfig = {
     "pdfkit",
   ],
   experimental: {
-    useCache: true,
     webpackMemoryOptimizations: true,
     serverActions: {
       bodySizeLimit: "150mb",
     },
-    // turbo: {
-    //   rules: {
-    //     "*.html": {
-    //       loaders: ["raw-loader"],
-    //       as: "*.js",
-    //     },
-    //   },
-    // },
   },
-  // webpack: (config) => {
-  //   config.module.rules.push({
-  //     test: /\.html$/,
-  //     use: "raw-loader",
-  //   });
-  //   return config;
-  // },
   rewrites: () => [
     {
       source: "/robots.txt",

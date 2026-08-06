@@ -36,7 +36,10 @@ export class CachedPagesService extends PagesService {
       }
 
       const entries = JSON.parse(value) as PageRouteEntry[];
-      logger.debug({ count: entries.length }, "Page route table retrieved from Redis");
+      logger.debug(
+        { count: entries.length },
+        "Page route table retrieved from Redis",
+      );
       return entries;
     } catch (error) {
       logger.warn({ error }, "Redis lookup failed");
@@ -83,7 +86,10 @@ export class CachedPagesService extends PagesService {
 
     logger.debug("Page route table cache miss");
     const entries = await super.fetchPageRouteEntries();
-    logger.debug({ count: entries.length }, "Page route entries fetched from database");
+    logger.debug(
+      { count: entries.length },
+      "Page route entries fetched from database",
+    );
     await this.writeRedisCache(entries);
     return entries;
   }
@@ -94,7 +100,10 @@ export class CachedPagesService extends PagesService {
   ): Promise<Page> {
     const logger = this.loggerFactory("createPage");
     const created = await super.createPage(page, source);
-    logger.debug({ pageId: created._id, slug: created.slug }, "Invalidating page route cache after create");
+    logger.debug(
+      { pageId: created._id, slug: created.slug },
+      "Invalidating page route cache after create",
+    );
     await this.invalidateRouteCache();
     return created;
   }
@@ -106,7 +115,10 @@ export class CachedPagesService extends PagesService {
   ): Promise<void> {
     const logger = this.loggerFactory("updatePage");
     await super.updatePage(id, update, source);
-    logger.debug({ pageId: id, slug: update.slug }, "Invalidating page route cache after update");
+    logger.debug(
+      { pageId: id, slug: update.slug },
+      "Invalidating page route cache after update",
+    );
     await this.invalidateRouteCache();
   }
 
@@ -116,7 +128,10 @@ export class CachedPagesService extends PagesService {
   ): Promise<Page | null> {
     const logger = this.loggerFactory("deletePage");
     const deleted = await super.deletePage(id, source);
-    logger.debug({ pageId: id, slug: deleted?.slug }, "Invalidating page route cache after delete");
+    logger.debug(
+      { pageId: id, slug: deleted?.slug },
+      "Invalidating page route cache after delete",
+    );
     await this.invalidateRouteCache();
     return deleted;
   }
@@ -124,7 +139,10 @@ export class CachedPagesService extends PagesService {
   public async deletePages(ids: string[], source: EventSource): Promise<void> {
     const logger = this.loggerFactory("deletePages");
     await super.deletePages(ids, source);
-    logger.debug({ pageIds: ids }, "Invalidating page route cache after bulk delete");
+    logger.debug(
+      { pageIds: ids },
+      "Invalidating page route cache after bulk delete",
+    );
     await this.invalidateRouteCache();
   }
 }

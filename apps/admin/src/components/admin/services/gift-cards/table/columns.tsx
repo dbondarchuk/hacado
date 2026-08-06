@@ -1,5 +1,4 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types";
 import { Badge, Button, Checkbox, Link, useCurrencyFormat } from "@hacado/ui";
@@ -9,6 +8,7 @@ import {
   tableSortNoopFunction,
 } from "@hacado/ui-admin";
 import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { parseAsString, useQueryState } from "nuqs";
 import { useCallback } from "react";

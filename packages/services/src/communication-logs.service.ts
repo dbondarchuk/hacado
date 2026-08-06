@@ -255,9 +255,7 @@ export class CommunicationLogsService
 
     if (query.memberId) {
       filter.memberId = {
-        $in: Array.isArray(query.memberId)
-          ? query.memberId
-          : [query.memberId],
+        $in: Array.isArray(query.memberId) ? query.memberId : [query.memberId],
       };
     }
 

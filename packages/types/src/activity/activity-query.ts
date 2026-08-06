@@ -1,5 +1,5 @@
-import type { DateRange } from "../general";
 import type { Query } from "../database/query";
+import type { DateRange } from "../general";
 import type { ActivitySeverity } from "./activity-severity";
 
 export type ActivityActorFilter = "system" | "member" | "customer";

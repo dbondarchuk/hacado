@@ -45,9 +45,10 @@ export async function getAppointments(
     throw new Error("Failed to get appointments");
   }
 
-  const data = await result.json<
-    WithTotal<Appointment | AppointmentWithReferenceDateDistance>
-  >();
+  const data =
+    await result.json<
+      WithTotal<Appointment | AppointmentWithReferenceDateDistance>
+    >();
 
   console.debug("Appointments retrieved successfully", {
     total: data.total,
@@ -90,9 +91,7 @@ export async function changeStatus(
       method: "PATCH",
       body: JSON.stringify({
         status: newStatus,
-        ...(requestedByCustomer !== undefined
-          ? { requestedByCustomer }
-          : {}),
+        ...(requestedByCustomer !== undefined ? { requestedByCustomer } : {}),
       }),
     });
 

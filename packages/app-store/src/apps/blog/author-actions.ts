@@ -17,9 +17,8 @@ export async function getOrganizationAuthorMembers(): Promise<
     return [];
   }
 
-  const members = await ServicesContainer(
-    organizationId,
-  ).teamService.getActiveMembers();
+  const members =
+    await ServicesContainer(organizationId).teamService.getActiveMembers();
 
   return members
     .filter((m) => m.role === "owner" || m.role === "admin")

@@ -2,7 +2,6 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Editor } from "@monaco-editor/react";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Resource,
@@ -35,6 +34,7 @@ import {
   useTheme,
 } from "@hacado/ui";
 import { stripObject } from "@hacado/utils";
+import { Editor } from "@monaco-editor/react";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";

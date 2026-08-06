@@ -3,8 +3,8 @@ import {
   appointmentsSearchParams,
   appointmentsSearchParamsCache,
 } from "@hacado/api-sdk";
-import { gateMemberIds } from "@hacado/utils";
 import { DataTable } from "@hacado/ui-admin";
+import { gateMemberIds } from "@hacado/utils";
 import { columns } from "./columns";
 
 export const AppointmentsTable: React.FC<{ customerId?: string }> = async ({

@@ -1,7 +1,7 @@
 import { invalidateOrganizationSessions } from "@/lib/auth/invalidate-organization-sessions";
-import type { Order } from "@polar-sh/sdk/models/components/order";
 import { getLoggerFactory } from "@hacado/logger";
 import { getPolarClient, ServicesContainer } from "@hacado/services";
+import type { Order } from "@polar-sh/sdk/models/components/order";
 
 const USER_SLOTS_PRODUCT_TYPE = "users_amount";
 

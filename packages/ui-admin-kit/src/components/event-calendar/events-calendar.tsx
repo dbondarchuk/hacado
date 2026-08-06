@@ -109,6 +109,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
           customerName: app.fields.name,
           member: app.member
             ? {
+                _id: app.member._id,
                 name: app.member.name,
                 email: app.member.email,
                 image: app.member.image,
@@ -128,6 +129,14 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
           end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
           title: app.title,
           variant: "tertiary",
+          member: app.member
+            ? {
+                _id: app.member._id,
+                name: app.member.name,
+                email: app.member.email,
+                image: app.member.image,
+              }
+            : undefined,
         };
       }
     });
@@ -186,7 +195,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
             </div>
           )}
           {memberName && (
-            <div className="py-1 flex flex-row gap-2 flex-wra @sm:grid @sm:grid-cols-3 @sm:gap-4">
+            <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
               <dt className="flex self-center items-center gap-1">
                 <UserCircle size={16} /> {t("calendar.member")}:
               </dt>

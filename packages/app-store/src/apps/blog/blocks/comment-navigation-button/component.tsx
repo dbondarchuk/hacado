@@ -4,10 +4,7 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui";
-import {
-  BlogCommentNavigationButtonProps,
-  styles,
-} from "./schema";
+import { BlogCommentNavigationButtonProps, styles } from "./schema";
 
 type BlogCommentNavigationButtonComponentProps = {
   direction: "prev" | "next";

@@ -1,14 +1,9 @@
 /** Hostname-label format for organization public booking slug (max 63 chars). */
-export const ORGANIZATION_SLUG_REGEX =
-  /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
+export const ORGANIZATION_SLUG_REGEX = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
 export const ORGANIZATION_SLUG_MIN_LENGTH = 3;
 
-export type OrganizationSlugIssue =
-  | "too_short"
-  | "invalid"
-  | "reserved"
-  | null;
+export type OrganizationSlugIssue = "too_short" | "invalid" | "reserved" | null;
 
 const BLOCKLIST_ENTRIES = [
   // Platform / product reserved

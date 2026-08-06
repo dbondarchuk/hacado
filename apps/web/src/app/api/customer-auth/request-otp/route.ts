@@ -9,10 +9,8 @@ export async function POST(request: NextRequest) {
   const authService = servicesContainer.customerAuthService;
 
   const json = await request.json();
-  const email =
-    typeof json.email === "string" ? json.email : undefined;
-  const phone =
-    typeof json.phone === "string" ? json.phone : undefined;
+  const email = typeof json.email === "string" ? json.email : undefined;
+  const phone = typeof json.phone === "string" ? json.phone : undefined;
 
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";

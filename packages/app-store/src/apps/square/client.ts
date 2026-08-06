@@ -1,8 +1,5 @@
+import type { SquareOrderForSync, SquarePaymentForSync } from "./map-payment";
 import { SQUARE_API_VERSION, squareApiBaseUrl } from "./urls";
-import type {
-  SquareOrderForSync,
-  SquarePaymentForSync,
-} from "./map-payment";
 
 export async function getSquarePayment(
   accessToken: string,

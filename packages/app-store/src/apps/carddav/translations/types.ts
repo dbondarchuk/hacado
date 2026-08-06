@@ -11,4 +11,3 @@ export type CarddavAdminAllKeys = AllKeys<
   CarddavAdminNamespace,
   CarddavAdminKeys
 >;
-

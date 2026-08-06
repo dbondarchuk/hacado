@@ -14,10 +14,7 @@ import {
   type SessionUser,
 } from "@hacado/types";
 import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
-import {
-  applyDashboardBadgeUpdate,
-  resolvedI18nText,
-} from "@hacado/ui-admin";
+import { applyDashboardBadgeUpdate, resolvedI18nText } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import React from "react";
 

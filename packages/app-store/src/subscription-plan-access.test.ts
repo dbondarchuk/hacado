@@ -7,13 +7,15 @@ describe("app subscription plan access", () => {
   });
 
   it("uses each app's minimumPlanTier", async () => {
-    const { canInstallApp, canProcessApp, getAppMinimumPlanTier } = await import(
-      "./subscription-plan-access"
-    );
+    const { canInstallApp, canProcessApp, getAppMinimumPlanTier } =
+      await import("./subscription-plan-access");
     const { BillingPlanTier } = await import("@hacado/types");
 
     assert.equal(getAppMinimumPlanTier("stripe"), BillingPlanTier.Solo);
-    assert.equal(getAppMinimumPlanTier("google-calendar"), BillingPlanTier.Free);
+    assert.equal(
+      getAppMinimumPlanTier("google-calendar"),
+      BillingPlanTier.Free,
+    );
     assert.equal(canInstallApp("free", "stripe"), false);
     assert.equal(canInstallApp("free", "blog"), false);
     assert.equal(canInstallApp("free", "google-calendar"), true);

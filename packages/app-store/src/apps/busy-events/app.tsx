@@ -14,7 +14,7 @@ export const BusyEventsApp: App<BusyEventsAdminNamespace, BusyEventsAdminKeys> =
       "app_busy-events_admin.app.displayName" satisfies BusyEventsAdminAllKeys,
     scope: ["calendar-read"],
     type: "complex",
-  target: "company",
+    target: "company",
     category: ["apps.categories.schedule"],
     Logo: ({ className }) => <CalendarX2 className={className} />,
     isFeatured: true,

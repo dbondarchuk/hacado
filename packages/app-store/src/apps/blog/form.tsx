@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateEditor } from "@hacado/rte";
@@ -28,12 +27,9 @@ import {
   use12HourFormat,
   useDebounceCacheFn,
 } from "@hacado/ui";
-import {
-  AssetPreview,
-  AssetSelectorInput,
-  SaveButton,
-} from "@hacado/ui-admin";
+import { AssetPreview, AssetSelectorInput, SaveButton } from "@hacado/ui-admin";
 import { fileNameToMimeType } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

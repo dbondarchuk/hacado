@@ -18,7 +18,8 @@ export const EmailLayoutReader = ({
       )}
       <div
         style={{
-          backgroundColor: props.backdropColor ?? EmailLayoutDefaultProps.backdropColor,
+          backgroundColor:
+            props.backdropColor ?? EmailLayoutDefaultProps.backdropColor,
           color: props.textColor ?? EmailLayoutDefaultProps.textColor,
           fontFamily: getFontFamily(props.fontFamily),
           fontSize: "16px",
@@ -37,7 +38,8 @@ export const EmailLayoutReader = ({
           style={{
             margin: "0 auto",
             maxWidth: props.maxWidth ? `${props.maxWidth}px` : undefined,
-            backgroundColor: props.canvasColor ?? EmailLayoutDefaultProps.canvasColor,
+            backgroundColor:
+              props.canvasColor ?? EmailLayoutDefaultProps.canvasColor,
             borderRadius: props.borderRadius ?? undefined,
             border: props.borderColor
               ? `1px solid ${props.borderColor}`

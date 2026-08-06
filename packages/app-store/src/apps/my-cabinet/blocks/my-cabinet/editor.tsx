@@ -1,7 +1,6 @@
 "use client";
 
 import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
-import { ReplaceOriginalColors } from "@hacado/page-builder-base";
 import { MyCabinetBlockComponent } from "./component";
 import { MyCabinetBlockProps } from "./schema";
 

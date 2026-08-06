@@ -19,9 +19,10 @@ export async function assertPagePermission(
 }
 
 /** Throw Next.js `forbidden()` (403) when the user lacks resource/action. */
-export async function assertPageHasPermission<
-  R extends TeamPermissionResource,
->(resource: R, action: TeamPermissionAction<R>): Promise<void> {
+export async function assertPageHasPermission<R extends TeamPermissionResource>(
+  resource: R,
+  action: TeamPermissionAction<R>,
+): Promise<void> {
   const user = await getUser();
   if (!hasPermission(user, resource, action)) {
     forbidden();

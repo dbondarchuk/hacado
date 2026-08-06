@@ -339,7 +339,9 @@ export class ConnectedAppsService
       )
     ) {
       const db = await getDbConnection();
-      const members = db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME);
+      const members = db.collection<OrganizationMember>(
+        MEMBERS_COLLECTION_NAME,
+      );
       await members.updateMany(
         { organizationId: this.organizationId },
         { $pull: { calendarSources: { appId } } },
@@ -350,7 +352,9 @@ export class ConnectedAppsService
 
     if (scopes.includes("meeting-url-provider")) {
       const db = await getDbConnection();
-      const members = db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME);
+      const members = db.collection<OrganizationMember>(
+        MEMBERS_COLLECTION_NAME,
+      );
       await members.updateMany(
         {
           organizationId: this.organizationId,
@@ -1046,7 +1050,8 @@ export class ConnectedAppsService
       try {
         const services = this.getServices();
         const service = new app.getService(this.organizationId, services);
-        const contacts = await services.teamService.getOrganizationAdminContacts();
+        const contacts =
+          await services.teamService.getOrganizationAdminContacts();
         const contact = contacts[0];
         if (!contact) {
           logger.error(
@@ -1057,11 +1062,7 @@ export class ConnectedAppsService
         }
 
         return await callback(
-          getBuiltInAppData(
-            this.organizationId,
-            contact.memberId,
-            app.name,
-          ),
+          getBuiltInAppData(this.organizationId, contact.memberId, app.name),
           service,
         );
       } catch (error) {

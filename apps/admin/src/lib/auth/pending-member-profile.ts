@@ -1,6 +1,6 @@
+import type { Language } from "@hacado/i18n";
 import { USERS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { Language } from "@hacado/i18n";
 import type { PendingMemberProfile, User } from "@hacado/types";
 
 export type { PendingMemberProfile };
@@ -18,15 +18,14 @@ async function setPendingMemberProfile(
   profile: PendingMemberProfile,
 ): Promise<boolean> {
   const db = await getDbConnection();
-  const result = await db.collection<User>(USERS_COLLECTION_NAME).updateOne(
-    filter,
-    {
+  const result = await db
+    .collection<User>(USERS_COLLECTION_NAME)
+    .updateOne(filter, {
       $set: {
         pendingMemberProfile: profile,
         updatedAt: new Date(),
       },
-    },
-  );
+    });
   return result.matchedCount > 0;
 }
 

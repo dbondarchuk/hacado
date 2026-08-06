@@ -56,7 +56,9 @@ export async function createWorkspace(
   logger.debug({ input }, "Creating workspace");
 
   const slugIssue =
-    typeof input?.slug === "string" ? getOrganizationSlugIssue(input.slug) : "invalid";
+    typeof input?.slug === "string"
+      ? getOrganizationSlugIssue(input.slug)
+      : "invalid";
   if (slugIssue === "too_short" || slugIssue === "invalid") {
     return { ok: false, code: "slug_invalid" };
   }

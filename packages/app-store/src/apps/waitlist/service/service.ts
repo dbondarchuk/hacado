@@ -22,7 +22,11 @@ import {
   TemplateTemplatesList,
   type EventSource,
 } from "@hacado/types";
-import { dispatchAppointmentEventPayload, gateMemberIds, hasPermission } from "@hacado/utils";
+import {
+  dispatchAppointmentEventPayload,
+  gateMemberIds,
+  hasPermission,
+} from "@hacado/utils";
 import {
   CreateWaitlistEntryAction,
   CreateWaitlistEntryActionType,

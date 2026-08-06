@@ -1,8 +1,4 @@
-import {
-  ConfigurationKey,
-  ConfigurationOption,
-  okStatus,
-} from "@hacado/types";
+import { ConfigurationKey, ConfigurationOption, okStatus } from "@hacado/types";
 import { fetchAdminApi } from "./utils";
 
 export const getConfiguration = async <T extends ConfigurationKey>(

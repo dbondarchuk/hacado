@@ -16,5 +16,5 @@ export const clientApi = {
   apps,
 };
 
-export * from "./utils";
 export * from "../booking-submit-error";
+export * from "./utils";

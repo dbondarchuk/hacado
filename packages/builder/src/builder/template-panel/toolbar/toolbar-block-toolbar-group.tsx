@@ -2,7 +2,6 @@
 
 import { ToolbarGroup } from "@hacado/ui";
 import { useCallback, useMemo } from "react";
-import { useSelectedSlotStyleHandlers } from "../../inspector-drawer/slot-styles-panel";
 import {
   useBlock,
   useBlocks,
@@ -13,6 +12,7 @@ import {
   useSelectedBlock,
   useSelectedSlot,
 } from "../../../documents/editor/context";
+import { useSelectedSlotStyleHandlers } from "../../inspector-drawer/slot-styles-panel";
 
 export const ToolbarBlockToolbarGroup = () => {
   const selectedBlock = useSelectedBlock();
@@ -66,7 +66,9 @@ export const ToolbarBlockToolbarGroup = () => {
   const setToolbarData = useCallback(
     (data: unknown) => {
       if (selectedSlot) {
-        setSlotStyles((data as { style?: Record<string, unknown> }).style ?? {});
+        setSlotStyles(
+          (data as { style?: Record<string, unknown> }).style ?? {},
+        );
         return;
       }
       setBlockData(data);

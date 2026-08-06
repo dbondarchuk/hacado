@@ -22,7 +22,11 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(
-      { success: false, code: "cancel_failed", error: "Failed to cancel invitation" },
+      {
+        success: false,
+        code: "cancel_failed",
+        error: "Failed to cancel invitation",
+      },
       { status: 500 },
     );
   }

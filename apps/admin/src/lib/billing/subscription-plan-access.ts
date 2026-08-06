@@ -1,4 +1,8 @@
-import { canInstallApp, canProcessApp, getAppMinimumPlanTier } from "@hacado/app-store";
+import {
+  canInstallApp,
+  canProcessApp,
+  getAppMinimumPlanTier,
+} from "@hacado/app-store";
 import {
   BRAND_SETTINGS_UPGRADE_URL,
   canUseFeature,
@@ -7,8 +11,8 @@ import {
 } from "@hacado/services/billing";
 import {
   BillingPlanTier,
-  canCreateMoreServices,
   canCreateMorePages,
+  canCreateMoreServices,
   DEFAULT_MINIMUM_PLAN_TIER,
   meetsMinimumPlanTier,
   type SubscriptionFeature,

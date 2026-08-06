@@ -91,12 +91,14 @@ export const getOrganizationId = cache(async () => {
   return organizationId;
 });
 
-export const getWebsiteUrl = cache(async () => {
+export const getOrganizationFullDomain = cache(async () => {
   const { organizationSlug, organizationDomain } =
     await getOrganizationIdAndSlug();
-
   const domain = organizationDomain?.trim();
-  return domain
-    ? `https://${domain}`
-    : `https://${organizationSlug}.${process.env.PUBLIC_DOMAIN}`;
+  return domain || `${organizationSlug}.${process.env.PUBLIC_DOMAIN}`;
+});
+
+export const getWebsiteUrl = cache(async () => {
+  const organizationDomain = await getOrganizationFullDomain();
+  return `https://${organizationDomain}`;
 });

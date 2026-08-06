@@ -86,6 +86,7 @@ export const AppointmentCalendar: React.FC<{
             customerName: app.fields.name,
             member: app.member
               ? {
+                  _id: app.member._id,
                   name: app.member.name,
                   email: app.member.email,
                   image: app.member.image,
@@ -103,6 +104,14 @@ export const AppointmentCalendar: React.FC<{
             end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
             title: app.title,
             variant: "tertiary",
+            member: app.member
+              ? {
+                  _id: app.member._id,
+                  name: app.member.name,
+                  email: app.member.email,
+                  image: app.member.image,
+                }
+              : undefined,
           };
         }
       }),

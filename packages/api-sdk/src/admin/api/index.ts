@@ -16,8 +16,6 @@ import * as pageFooters from "./page-footers";
 import * as pageHeaders from "./page-headers";
 import * as pages from "./pages";
 import * as payments from "./payments";
-export type { ListPaymentsParams } from "./payments";
-export { PaymentsExportError } from "./payments";
 import * as schedule from "./schedule";
 import * as serviceAddons from "./service-addons";
 import * as serviceFields from "./service-fields";
@@ -26,6 +24,8 @@ import * as syncedPayments from "./synced-payments";
 import * as teams from "./teams";
 import * as templates from "./templates";
 import * as users from "./users";
+export { PaymentsExportError } from "./payments";
+export type { ListPaymentsParams } from "./payments";
 
 export const adminApi = {
   billing,

@@ -1,9 +1,6 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  canFilterCommunicationByMember,
-  gateMemberIds,
-} from "@hacado/utils";
+import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

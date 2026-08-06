@@ -2,8 +2,8 @@ import {
   AppScope,
   ConnectedApp,
   ConnectedAppData,
-  ConnectedAppUninstallResult,
   ConnectedAppStatusWithText,
+  ConnectedAppUninstallResult,
   okStatus,
 } from "@hacado/types";
 import { fetchAdminApi } from "./utils";

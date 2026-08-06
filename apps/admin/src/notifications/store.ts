@@ -60,11 +60,7 @@ export const useActivityFeedStore = create<ActivityFeedStore>((set, get) => ({
       typeof forceHighestSeverity !== "undefined"
         ? forceHighestSeverity
         : newPreviews.length > 0
-          ? maxSeverityInPreview(
-              newPreviews,
-              currentHighestSeverity,
-              memberId,
-            )
+          ? maxSeverityInPreview(newPreviews, currentHighestSeverity, memberId)
           : currentHighestSeverity;
 
     set({

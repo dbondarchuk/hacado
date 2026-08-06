@@ -14,7 +14,8 @@ import { getNonDeclinedAppointmentsCreatedInBillingCycleCount } from "../../../b
 import { resolvePlanTierFromOrganization } from "../../../billing/subscription-entitlements";
 import { dashboardUrls } from "../links";
 
-const EMAIL_KEY_PREFIX = "admin.billing.emails.appointmentLimitReached" as const;
+const EMAIL_KEY_PREFIX =
+  "admin.billing.emails.appointmentLimitReached" as const;
 
 export async function buildAppointmentLimitReachedEmails(
   envelope: EventEnvelope,

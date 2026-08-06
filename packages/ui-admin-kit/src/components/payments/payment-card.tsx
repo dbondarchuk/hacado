@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AllKeys,
-  BaseAllKeys,
-  useI18n,
-  useLocale,
-} from "@hacado/i18n/client";
+import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import { Payment, PaymentStatus, PaymentSummary } from "@hacado/types";
 import {
   Badge,

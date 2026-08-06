@@ -1,3 +1,4 @@
+import { canProcessApp } from "@hacado/app-store";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
@@ -10,10 +11,9 @@ import {
   WithOrganizationId,
 } from "@hacado/types";
 import { Job } from "bullmq";
+import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BuiltInApps } from "../../built-in/apps";
 import { getBuiltInAppData } from "../../built-in/utils";
-import { canProcessApp } from "@hacado/app-store";
-import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";
 import { reviveJobData } from "./utils";

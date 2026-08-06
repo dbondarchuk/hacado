@@ -1,9 +1,9 @@
-import { getDefaultInstallSchedule } from "./default-schedule";
-import type { PersistedState } from "./types";
 import {
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
 } from "@hacado/utils";
+import { getDefaultInstallSchedule } from "./default-schedule";
+import type { PersistedState } from "./types";
 
 export const STORAGE_KEY = "hacado-install-v1";
 

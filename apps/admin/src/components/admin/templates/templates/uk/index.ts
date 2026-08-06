@@ -3,12 +3,12 @@ import { appointmentConfirmedEmailTemplate } from "./email/appointment-confirmed
 import { appointmentCreatedEmailTemplate } from "./email/appointment-created";
 import { appointmentDeclinedEmailTemplate } from "./email/appointment-declined";
 import { appointmentRescheduledEmailTemplate } from "./email/appointment-rescheduled";
+import { customerOtpEmailTemplate } from "./email/customer-otp";
 import { appointmentConfirmedTextMessageTemplate } from "./text-message/appointment-confirmed";
 import { appointmentCreatedTextMessageTemplate } from "./text-message/appointment-created";
 import { appointmentDeclinedTextMessageTemplate } from "./text-message/appointment-declined";
 import { appointmentRescheduledTextMessageTemplate } from "./text-message/appointment-rescheduled";
 import { autoReplyTextMessageTemplate } from "./text-message/auto-reply";
-import { customerOtpEmailTemplate } from "./email/customer-otp";
 import { customerOtpTextTemplate } from "./text-message/customer-otp";
 
 export const ukTemplates: Record<string, TemplatesTemplate> = {

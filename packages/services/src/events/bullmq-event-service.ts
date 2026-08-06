@@ -1,9 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type {
-  EventEnvelope,
-  EventSource,
-  IEventService,
-} from "@hacado/types";
+import type { EventEnvelope, EventSource, IEventService } from "@hacado/types";
 import { randomUUID } from "crypto";
 import { BaseBullMQClient } from "../bullmq/base-bullmq-client";
 import { serializeJobData } from "../bullmq/jobs/utils";

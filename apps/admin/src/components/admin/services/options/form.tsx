@@ -1,7 +1,6 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
@@ -30,6 +29,7 @@ import {
   useDebounceCacheFn,
 } from "@hacado/ui";
 import { SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";

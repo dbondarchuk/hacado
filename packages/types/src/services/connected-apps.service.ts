@@ -8,8 +8,8 @@ import type { IConnectedAppProps } from "../apps/connected-app.props";
 import {
   ApiRequest,
   ApiResponse,
-  IConnectedApp,
   ConnectedAppUninstallResult,
+  IConnectedApp,
 } from "../apps/connected-app.service";
 import type { SessionUser } from "../users/session-user";
 

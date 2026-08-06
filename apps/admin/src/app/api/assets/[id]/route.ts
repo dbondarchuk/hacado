@@ -249,10 +249,7 @@ async function assertCanMutateAsset(
     const appointment = await servicesContainer.bookingService.getAppointment(
       asset.appointmentId,
     );
-    if (
-      appointment &&
-      !canUpdateAppointment(auth.user, appointment.memberId)
-    ) {
+    if (appointment && !canUpdateAppointment(auth.user, appointment.memberId)) {
       return {
         ok: false as const,
         response: NextResponse.json(

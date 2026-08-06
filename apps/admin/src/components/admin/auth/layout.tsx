@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@hacado/ui";
-import Image from "next/image";
 import { Suspense } from "react";
 
 export const AuthLayout = ({
@@ -22,7 +21,6 @@ export const AuthLayout = ({
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-2 text-center">
           <div className="flex gap-2 items-center justify-center mb-4 mx-auto">
-            <Image src="/logo.png" alt="Hacado" width={40} height={40} />
             <div className="text-3xl font-semibold tracking-tight text-balance font-display">
               hacado
             </div>

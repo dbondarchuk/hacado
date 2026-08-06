@@ -30,7 +30,11 @@ export async function GET(request: NextRequest) {
     });
   } catch {
     return NextResponse.json(
-      { success: false, code: "list_failed", error: "Failed to list invitations" },
+      {
+        success: false,
+        code: "list_failed",
+        error: "Failed to list invitations",
+      },
       { status: 500 },
     );
   }

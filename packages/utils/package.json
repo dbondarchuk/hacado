@@ -19,7 +19,7 @@
     "@types/uuid": "^10.0.0",
     "@hacado/eslint-config": "*",
     "@hacado/typescript-config": "*",
-    "typescript": "5.5.4"
+    "typescript": "6.0.2"
   },
   "dependencies": {
     "@hacado/types": "*",
@@ -30,11 +30,11 @@
     "mime-type": "^5.0.0",
     "mustache": "^4.2.0",
     "raw-body": "2.4.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "uuid": "^10.0.0"
   },
   "peerDependencies": {
-    "next": "15.5.9"
+    "next": "16.3.0"
   }
 }

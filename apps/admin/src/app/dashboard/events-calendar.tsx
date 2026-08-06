@@ -2,8 +2,8 @@
 
 import { cn } from "@hacado/ui";
 import {
-  EventsCalendar as KitEventsCalendar,
   EventCalendarView,
+  EventsCalendar as KitEventsCalendar,
 } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import React from "react";
@@ -24,9 +24,10 @@ export const EventsCalendar = ({
   className?: string;
   memberId?: string;
 }) => {
-  const [cookies, setCookies] = useCookies<typeof VIEW_COOKIE_NAME, CookieValues>([
-    VIEW_COOKIE_NAME,
-  ]);
+  const [cookies, setCookies] = useCookies<
+    typeof VIEW_COOKIE_NAME,
+    CookieValues
+  >([VIEW_COOKIE_NAME]);
 
   const [date, setDate] = React.useState(
     DateTime.now().startOf("day") as DateTime,

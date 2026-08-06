@@ -1,16 +1,10 @@
 import { getI18nAsync } from "@hacado/i18n/server";
 import { BlogPost } from "../../models";
-import {
-  BlogPublicKeys,
-  BlogPublicNamespace,
-} from "../../translations/types";
+import { BlogPublicKeys, BlogPublicNamespace } from "../../translations/types";
 import { BlogPostAuthorComponent } from "./component";
 import { getAuthorLabel } from "./formats";
 import { resolveAuthorNameFromPostAsync } from "./resolve-author";
-import {
-  BlogPostAuthorProps,
-  BlogPostAuthorPropsDefaults,
-} from "./schema";
+import { BlogPostAuthorProps, BlogPostAuthorPropsDefaults } from "./schema";
 
 type BlogPostAuthorServerWrapperProps = {
   props: BlogPostAuthorProps["props"];
@@ -43,7 +37,10 @@ export const BlogPostAuthorServerWrapper = async ({
   } else if (!organizationId) {
     label = t("block.postAuthor.missingAuthor" satisfies BlogPublicKeys);
   } else {
-    const authorName = await resolveAuthorNameFromPostAsync(post, organizationId);
+    const authorName = await resolveAuthorNameFromPostAsync(
+      post,
+      organizationId,
+    );
     if (!authorName) {
       label = t("block.postAuthor.missingAuthor" satisfies BlogPublicKeys);
     } else {

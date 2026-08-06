@@ -106,7 +106,10 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
         "Job scheduler upserted",
       );
     } catch (error) {
-      logger.error({ error, jobRequest, repeat }, "Failed to upsert job scheduler");
+      logger.error(
+        { error, jobRequest, repeat },
+        "Failed to upsert job scheduler",
+      );
       throw error;
     }
   }
@@ -124,7 +127,10 @@ export class BullMQJobService extends BaseBullMQClient implements IJobService {
         logger.debug({ schedulerId: id }, "Job scheduler not found");
       }
     } catch (error) {
-      logger.error({ error, schedulerId: id }, "Failed to remove job scheduler");
+      logger.error(
+        { error, schedulerId: id },
+        "Failed to remove job scheduler",
+      );
       throw error;
     }
   }

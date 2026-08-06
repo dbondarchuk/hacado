@@ -210,7 +210,6 @@ export const FormCard: React.FC = () => {
       } finally {
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);
 
   const fieldsMap = useMemo(

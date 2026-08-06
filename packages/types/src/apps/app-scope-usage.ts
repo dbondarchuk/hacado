@@ -20,9 +20,7 @@ export const APP_SCOPE_USAGE = {
 
 export type MappedAppScope = keyof typeof APP_SCOPE_USAGE;
 
-export function getAppScopeUsage(
-  scope: AppScope,
-): AppScopeUsage | undefined {
+export function getAppScopeUsage(scope: AppScope): AppScopeUsage | undefined {
   return APP_SCOPE_USAGE[scope as MappedAppScope];
 }
 

@@ -1,9 +1,9 @@
 import { getRequestConfig } from "next-intl/server";
-import { mergeObjects } from "./utils";
 import {
   localeNamespaceLoaders,
   resolveMessageLocale,
 } from "./locales/locale-namespace-loaders.generated";
+import { mergeObjects } from "./utils";
 
 export const getConfig = (
   getLocale: (baseLocale: string | undefined) => Promise<{

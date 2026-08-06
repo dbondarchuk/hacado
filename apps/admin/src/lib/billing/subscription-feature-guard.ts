@@ -4,8 +4,8 @@ import {
   sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
 import type { SubscriptionFeature } from "@hacado/types";
-import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export async function getSubscriptionFeatureBlockedResponse(
   feature: SubscriptionFeature,
@@ -26,7 +26,9 @@ export async function getSubscriptionFeatureBlockedResponse(
   );
 }
 
-export async function redirectIfFeatureUnavailable(feature: SubscriptionFeature) {
+export async function redirectIfFeatureUnavailable(
+  feature: SubscriptionFeature,
+) {
   const session = await getSession();
   if (!session) {
     redirect("/auth/signin");

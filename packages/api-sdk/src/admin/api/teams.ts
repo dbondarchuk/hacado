@@ -5,11 +5,11 @@ import {
   UserRole,
   WithTotal,
 } from "@hacado/types";
+import type { UserUpdate } from "../schemas/user";
 import {
   TeamsSearchParams,
   teamsSearchParamsSerializer,
 } from "../search-params/teams";
-import type { UserUpdate } from "../schemas/user";
 import { AdminApiError, fetchAdminApi } from "./utils";
 
 export type TeamInviteRole = Exclude<UserRole, "owner">;
@@ -94,10 +94,9 @@ export const cancelInvitation = async (
 ): Promise<TeamActionResult> => {
   console.debug("Canceling team invitation", { invitationId });
   try {
-    const response = await fetchAdminApi(
-      `/teams/invitations/${invitationId}`,
-      { method: "DELETE" },
-    );
+    const response = await fetchAdminApi(`/teams/invitations/${invitationId}`, {
+      method: "DELETE",
+    });
     await response.json();
     return { ok: true };
   } catch (error) {

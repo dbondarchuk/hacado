@@ -4,8 +4,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { DayPicker, DropdownProps } from "react-day-picker";
 
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useLocale } from "@hacado/i18n/client";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { DateTime } from "luxon";
 import { useIsMobile } from "../hooks";
 import { cn } from "../utils";

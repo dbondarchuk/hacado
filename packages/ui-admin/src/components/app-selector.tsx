@@ -3,13 +3,7 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppScope, ConnectedApp, Prettify } from "@hacado/types";
-import {
-  cn,
-  Combobox,
-  ComboboxProps,
-  IComboboxItem,
-  toast,
-} from "@hacado/ui";
+import { cn, Combobox, ComboboxProps, IComboboxItem, toast } from "@hacado/ui";
 import React from "react";
 import {
   ConnectedAppAccount,

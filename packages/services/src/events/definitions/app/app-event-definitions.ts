@@ -163,8 +163,7 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         return null;
       }
 
-      const owner =
-        await services.teamService.getMemberById(ownerMemberId);
+      const owner = await services.teamService.getMemberById(ownerMemberId);
       if (!owner?.email) {
         return null;
       }

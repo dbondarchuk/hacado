@@ -1,7 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import type { BillingPlanTier, Organization } from "@hacado/types";
-import { getRedisClient } from "./bullmq/redis-client";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
+import { getRedisClient } from "./bullmq/redis-client";
 import { StaticOrganizationService } from "./organization.service";
 
 const loggerFactory = getLoggerFactory("OrganizationHostnameCache");

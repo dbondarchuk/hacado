@@ -11,8 +11,8 @@ import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
-import { EventPopover } from "./event-popover";
 import { EventItemContent } from "./event-item-content";
+import { EventPopover } from "./event-popover";
 import { getEventAppearance } from "./styles";
 import { MonthlyEventCalendarProps } from "./types";
 

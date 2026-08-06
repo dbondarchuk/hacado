@@ -1,6 +1,6 @@
-import { HeaderContext, Row, SortDirection } from "@tanstack/react-table";
 import { I18nKey, I18nNamespaces, useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui";
+import { HeaderContext, Row, SortDirection } from "@tanstack/react-table";
 import {
   ArrowDown10,
   ArrowDownWideNarrow,

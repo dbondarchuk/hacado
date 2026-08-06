@@ -27,9 +27,7 @@ export async function notifyOwnerOfMemberReactivations(
   await sendEmail("membersReactivated", owner.email, owner.language || "en", {
     name: owner.name || owner.email,
     organizationName: org?.name ?? "",
-    memberNames: restored
-      .map((m) => m.name || m.email || m.userId)
-      .join(", "),
+    memberNames: restored.map((m) => m.name || m.email || m.userId).join(", "),
     remainingSlots,
   });
 }

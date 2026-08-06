@@ -1,8 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
-import {
-  teamsSearchParams,
-  teamsSearchParamsCache,
-} from "@hacado/api-sdk";
+import { teamsSearchParams, teamsSearchParamsCache } from "@hacado/api-sdk";
 import type { MemberStatus, UserRole } from "@hacado/types";
 import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";

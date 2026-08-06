@@ -1,6 +1,5 @@
 "use client";
 
-import { DialogProps } from "@radix-ui/react-dialog";
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types";
 import {
@@ -14,6 +13,7 @@ import {
   DialogTitle,
   Link,
 } from "@hacado/ui";
+import { DialogProps } from "@radix-ui/react-dialog";
 import { SquareArrowOutUpRight } from "lucide-react";
 import React from "react";
 import {

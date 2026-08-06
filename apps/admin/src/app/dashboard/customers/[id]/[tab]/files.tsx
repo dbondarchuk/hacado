@@ -26,11 +26,7 @@ import {
   toast,
   useUploadFile,
 } from "@hacado/ui";
-import {
-  AssetPreview,
-  useAuth,
-  useSelectedRowsStore,
-} from "@hacado/ui-admin";
+import { AssetPreview, useAuth, useSelectedRowsStore } from "@hacado/ui-admin";
 import { hasPermission } from "@hacado/utils";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";

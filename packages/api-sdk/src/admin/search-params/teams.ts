@@ -30,8 +30,10 @@ export const teamsSearchParams = {
   ]),
 };
 
-export const teamsSearchParamsCache = createSearchParamsCache(teamsSearchParams);
-export const teamsSearchParamsSchema = createStandardSchemaV1(teamsSearchParams);
+export const teamsSearchParamsCache =
+  createSearchParamsCache(teamsSearchParams);
+export const teamsSearchParamsSchema =
+  createStandardSchemaV1(teamsSearchParams);
 export const teamsSearchParamsSerializer = createSerializer(teamsSearchParams);
 export const teamsSearchParamsLoader = createLoader(teamsSearchParams);
 export type TeamsSearchParams = Partial<

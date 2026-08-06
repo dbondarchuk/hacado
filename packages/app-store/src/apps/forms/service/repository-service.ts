@@ -468,10 +468,12 @@ export class FormsRepositoryService {
     if (phone) payload.phone = phone;
     if (name) payload.name = name;
 
-    const customer =
-      await this.services.customersService.getOrUpsertCustomer(payload, {
+    const customer = await this.services.customersService.getOrUpsertCustomer(
+      payload,
+      {
         actor: "customer",
-      });
+      },
+    );
 
     logger.debug(
       { customerId: customer._id },

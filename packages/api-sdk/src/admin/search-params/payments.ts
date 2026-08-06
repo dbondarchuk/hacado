@@ -29,17 +29,14 @@ export const paymentsSearchParams = {
   ]),
 };
 
-export const paymentsSearchParamsCache = createSearchParamsCache(
-  paymentsSearchParams,
-);
-export const paymentsSearchParamsSerializer = createSerializer(
-  paymentsSearchParams,
-);
+export const paymentsSearchParamsCache =
+  createSearchParamsCache(paymentsSearchParams);
+export const paymentsSearchParamsSerializer =
+  createSerializer(paymentsSearchParams);
 
 export type PaymentsSearchParams = Partial<
   inferParserType<typeof paymentsSearchParams>
 >;
 export const paymentsSearchParamsLoader = createLoader(paymentsSearchParams);
-export const paymentsSearchParamsSchema = createStandardSchemaV1(
-  paymentsSearchParams,
-);
+export const paymentsSearchParamsSchema =
+  createStandardSchemaV1(paymentsSearchParams);

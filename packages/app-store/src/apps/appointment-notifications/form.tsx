@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels, DatabaseId } from "@hacado/types";
 import {
@@ -23,6 +22,7 @@ import {
   use12HourFormat,
 } from "@hacado/ui";
 import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";

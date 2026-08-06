@@ -8,7 +8,10 @@ export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/activities/event-types")("GET");
   const servicesContainer = await getServicesContainer();
 
-  const page = Math.max(1, Number(request.nextUrl.searchParams.get("page")) || 1);
+  const page = Math.max(
+    1,
+    Number(request.nextUrl.searchParams.get("page")) || 1,
+  );
   const limit = Math.min(
     50,
     Math.max(1, Number(request.nextUrl.searchParams.get("limit")) || 10),

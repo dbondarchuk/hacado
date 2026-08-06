@@ -1,4 +1,3 @@
-import type { Product } from "@polar-sh/sdk/models/components/product";
 import type {
   BillingConsumeSmsInput,
   BillingInterval,
@@ -20,12 +19,13 @@ import {
   SmsCreditsExhaustedError,
   systemEventSource,
 } from "@hacado/types";
+import type { Product } from "@polar-sh/sdk/models/components/product";
 import { ORGANIZATIONS_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";
 import { BaseService } from "../services/base.service";
 import type { PolarClientWrapper } from "./polar-client-wrapper";
-import { resolvePlanTierFromProductId } from "./subscription-entitlements";
 import { maybeEmitSmsCreditThresholdEvent } from "./sms-credit-threshold-notify";
+import { resolvePlanTierFromProductId } from "./subscription-entitlements";
 
 function assertNonNegInt(n: number, label: string) {
   if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) {
@@ -281,10 +281,7 @@ export class PolarBillingService
     if (!org || org.feesExempt === true) return null;
     const included = Math.max(0, org.userSlots?.included ?? 1);
     const additional = Math.max(0, org.userSlots?.additional ?? 0);
-    const available = Math.max(
-      0,
-      org.availableUsers ?? included + additional,
-    );
+    const available = Math.max(0, org.availableUsers ?? included + additional);
     return {
       included,
       additional,
@@ -479,7 +476,9 @@ export class PolarBillingService
 
       return {
         feesExempt: false,
-        planTier: resolvePlanTierFromProductId(productId, { feesExempt: false }),
+        planTier: resolvePlanTierFromProductId(productId, {
+          feesExempt: false,
+        }),
         subscriptionId,
         subscriptionName,
         status,
@@ -615,9 +614,7 @@ export class PolarBillingService
     await this.recomputeAvailableUsers();
   }
 
-  public async removeUserSlotGrant(
-    polarSubscriptionId: string,
-  ): Promise<void> {
+  public async removeUserSlotGrant(polarSubscriptionId: string): Promise<void> {
     const db = await getDbConnection();
     const collection = db.collection<Organization>(
       ORGANIZATIONS_COLLECTION_NAME,

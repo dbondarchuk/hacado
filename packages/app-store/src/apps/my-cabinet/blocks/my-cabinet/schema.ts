@@ -17,8 +17,11 @@ export const MyCabinetBlockPropsSchema = z.object({
   style: zStyles,
 });
 
-export type MyCabinetBlockProps = Prettify<z.infer<typeof MyCabinetBlockPropsSchema>>;
-export type MyCabinetBlockReaderProps = BaseReaderBlockProps<any> & MyCabinetBlockProps;
+export type MyCabinetBlockProps = Prettify<
+  z.infer<typeof MyCabinetBlockPropsSchema>
+>;
+export type MyCabinetBlockReaderProps = BaseReaderBlockProps<any> &
+  MyCabinetBlockProps;
 
 export const MyCabinetBlockPropsDefaults = {
   props: {

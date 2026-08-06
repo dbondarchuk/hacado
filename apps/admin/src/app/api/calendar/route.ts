@@ -1,7 +1,11 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { calendarSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentStatus, appointmentStatuses } from "@hacado/types";
+import {
+  AppointmentStatus,
+  appointmentStatuses,
+  CalendarEvent,
+} from "@hacado/types";
 import { resolveCalendarMemberId } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -46,7 +50,7 @@ export async function GET(request: NextRequest) {
     (s) => includeDeclined || s !== "declined",
   );
 
-  const [events, schedule] = await Promise.all([
+  const [fullEvents, schedule] = await Promise.all([
     servicesContainer.bookingService.getCalendarEvents(
       start,
       end,
@@ -59,6 +63,16 @@ export async function GET(request: NextRequest) {
       memberId ?? user.memberId,
     ),
   ]);
+
+  // Trim actual calendar events titles for other members
+  const events: CalendarEvent[] = fullEvents.map((event) =>
+    "_id" in event
+      ? event
+      : {
+          ...event,
+          title: event.memberId === user.memberId ? event.title : "Busy",
+        },
+  );
 
   logger.debug(
     {

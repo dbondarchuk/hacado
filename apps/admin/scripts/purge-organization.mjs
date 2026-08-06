@@ -89,11 +89,7 @@ function parseArgs(argv) {
       out.slug = argv[++i] ?? null;
       continue;
     }
-    if (
-      !a.startsWith("-") &&
-      !out.organizationSlug &&
-      !out.organizationId
-    ) {
+    if (!a.startsWith("-") && !out.organizationSlug && !out.organizationId) {
       out.organizationSlug = a;
     }
   }
@@ -411,7 +407,9 @@ async function purgeOrganizationS3Prefix(organizationId) {
     if (remaining.length > 20) {
       console.error(`  ... and ${remaining.length - 20} more`);
     }
-    throw new Error("S3 purge failed: objects remain under organization prefix");
+    throw new Error(
+      "S3 purge failed: objects remain under organization prefix",
+    );
   }
 
   console.log(
@@ -476,7 +474,9 @@ async function main() {
           .findOne({ _id: new ObjectId(organizationIdArg) });
       }
       if (!orgDoc) {
-        console.error(`No organization with _id matching: ${organizationIdArg}`);
+        console.error(
+          `No organization with _id matching: ${organizationIdArg}`,
+        );
         process.exit(1);
       }
     }

@@ -127,7 +127,9 @@ export type CalendarEventColorStyles = {
   borderLeftColor?: string;
 };
 
-function softEventTint(base: ReturnType<typeof Color>): CalendarEventColorStyles {
+function softEventTint(
+  base: ReturnType<typeof Color>,
+): CalendarEventColorStyles {
   const background = Color("#ffffff").mix(base, 0.18).alpha(0.9);
   const text = base.darken(0.35).saturate(0.1);
   const border = Color("#ffffff").mix(base, 0.4);

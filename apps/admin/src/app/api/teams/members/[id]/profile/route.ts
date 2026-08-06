@@ -1,4 +1,4 @@
-import { getServicesContainer, getSession } from "@/app/utils";
+import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { userUpdateSchema } from "@hacado/api-sdk";
 import type { SessionUser } from "@hacado/types";

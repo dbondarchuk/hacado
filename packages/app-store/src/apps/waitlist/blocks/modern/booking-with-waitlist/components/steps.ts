@@ -9,7 +9,13 @@ import {
 } from "lucide-react";
 import { AddonsCard } from "./addons-card";
 import { CalendarCard } from "./calendar-card";
-import { FlowOrder, FlowType, ScheduleContextProps, Step, StepType } from "./context";
+import {
+  FlowOrder,
+  FlowType,
+  ScheduleContextProps,
+  Step,
+  StepType,
+} from "./context";
 import { FormCard } from "./form-card";
 import { AppointmentOptionCard } from "./option-card";
 import { PaymentCard } from "./payment-card";

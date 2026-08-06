@@ -1,4 +1,3 @@
-import { Environment } from "@paypal/paypal-server-sdk";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
@@ -20,6 +19,7 @@ import {
   systemEventSource,
 } from "@hacado/types";
 import { decrypt, encrypt, getAdminUrl, maskify } from "@hacado/utils";
+import { Environment } from "@paypal/paypal-server-sdk";
 import {
   APPLE_PAY_DOMAIN_ASSOCIATION_PRODUCTION,
   APPLE_PAY_DOMAIN_ASSOCIATION_SANDBOX,

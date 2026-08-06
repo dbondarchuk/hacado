@@ -1,8 +1,8 @@
-import type { Subscription } from "@polar-sh/sdk/models/components/subscription";
+import { getLoggerFactory } from "@hacado/logger";
 import {
+  getPolarClient,
   invalidateOrganizationHostnameCacheForOrganization,
   ServicesContainer,
-  getPolarClient,
 } from "@hacado/services";
 import { resolvePlanTierFromProductId } from "@hacado/services/billing";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
@@ -13,7 +13,7 @@ import {
   systemEventSource,
   type Organization,
 } from "@hacado/types";
-import { getLoggerFactory } from "@hacado/logger";
+import type { Subscription } from "@polar-sh/sdk/models/components/subscription";
 
 import { invalidateOrganizationSessions } from "@/lib/auth/invalidate-organization-sessions";
 import { emitSubscriptionStatusChangedEvent } from "./emit-subscription-status-event";
@@ -105,7 +105,8 @@ async function syncUserSlotsFromSubscription(
       return;
     }
 
-    const result = await ServicesContainer(orgId).teamService.reconcileMembersToSlots();
+    const result =
+      await ServicesContainer(orgId).teamService.reconcileMembersToSlots();
     if (result.reactivatedMemberIds.length) {
       await notifyOwnerOfMemberReactivations(orgId, result);
     }

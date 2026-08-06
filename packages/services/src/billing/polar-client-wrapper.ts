@@ -1,6 +1,6 @@
+import { getLoggerFactory } from "@hacado/logger";
 import type { Polar } from "@polar-sh/sdk";
 import type { Subscription } from "@polar-sh/sdk/models/components/subscription";
-import { getLoggerFactory } from "@hacado/logger";
 import { getPolarClient } from "./polar-client";
 import { PolarConfig } from "./types";
 

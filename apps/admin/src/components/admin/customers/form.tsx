@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -43,6 +42,7 @@ import {
 } from "@hacado/ui";
 import { AssetSelectorDialog, SaveButton, useAuth } from "@hacado/ui-admin";
 import { hasPermission } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle, Trash } from "lucide-react";
 // import Image from "next/image";
 import { useRouter } from "next/navigation";

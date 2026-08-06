@@ -34,7 +34,7 @@ import { redirect } from "next/navigation";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { CookiesProvider } from "../../components/cookies-provider";
 import {
-  getOrganizationIdAndSlug,
+  getOrganizationFullDomain,
   getServicesContainer,
   getSession,
   getWebsiteUrl,
@@ -97,7 +97,7 @@ export default async function DashboardLayout({
   const logo = brand.logo;
 
   const websiteUrl = await getWebsiteUrl();
-  const { organizationDomain } = await getOrganizationIdAndSlug();
+  const organizationDomain = await getOrganizationFullDomain();
 
   let groups: NavItemGroup[] = navItems.map((x) => ({
     ...x,

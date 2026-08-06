@@ -1,6 +1,6 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { AppointmentFields } from "@hacado/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

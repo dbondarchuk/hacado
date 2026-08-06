@@ -1,5 +1,4 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
@@ -19,6 +18,7 @@ import {
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin";
+import { ColumnDef } from "@tanstack/react-table";
 import { CalendarPlus } from "lucide-react";
 import { DateTime } from "luxon";
 import { WaitlistEntry } from "../models";

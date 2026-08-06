@@ -10,12 +10,7 @@ import type {
   ModifyAppointmentRequest,
 } from "@hacado/types";
 import { Availability, ModifyAppointmentInformation } from "@hacado/types";
-import {
-  Spinner,
-  toast,
-  useTimeZone,
-  useUseClientTimezone,
-} from "@hacado/ui";
+import { Spinner, toast, useTimeZone, useUseClientTimezone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";
 import { ModifyAppointmentFields, ModifyAppointmentType } from "../../types";

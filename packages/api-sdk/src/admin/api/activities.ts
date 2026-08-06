@@ -1,9 +1,9 @@
+import type { ActivityListItem, WithTotal } from "@hacado/types";
 import {
   ActivitiesSearchParams,
   serializeActivitiesSearchParams,
 } from "../search-params";
 import { fetchAdminApi } from "./utils";
-import type { ActivityListItem, WithTotal } from "@hacado/types";
 
 export const getActivities = async (searchParams: ActivitiesSearchParams) => {
   const serialized = serializeActivitiesSearchParams(searchParams);

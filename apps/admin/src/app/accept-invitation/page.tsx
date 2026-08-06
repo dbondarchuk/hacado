@@ -1,5 +1,5 @@
-import { auth } from "@/app/auth";
 import { getPublicInvitation } from "@/app/accept-invitation/actions";
+import { auth } from "@/app/auth";
 import { AcceptInvitationForm } from "@/components/admin/auth/accept-invitation-form";
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { getI18nAsync } from "@hacado/i18n/server";
@@ -45,9 +45,7 @@ export default async function AcceptInvitationPage(props: {
   });
 
   if (!session?.user?.id) {
-    redirect(
-      `/auth/signup?invitationId=${encodeURIComponent(invitation.id)}`,
-    );
+    redirect(`/auth/signup?invitationId=${encodeURIComponent(invitation.id)}`);
   }
 
   const db = await getDbConnection();

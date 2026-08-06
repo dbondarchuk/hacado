@@ -50,7 +50,6 @@ const CssRenderer = ({
     case "inline":
       return <style id={id.toString()}>{resource.value}</style>;
     case "remote":
-      // eslint-disable-next-line @next/next/no-css-tags
       return <link rel="stylesheet" href={resource.url} />;
   }
 };

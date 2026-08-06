@@ -76,7 +76,9 @@ function buildCatalogTree(en) {
     tree[catId] = {};
     for (const [profId, prof] of Object.entries(professions)) {
       for (const tag of prof.tags || []) {
-        const tid = String(tag).toLowerCase().replace(/[^a-z0-9]+/g, "_");
+        const tid = String(tag)
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "_");
         if (!tags[tid]) tags[tid] = titleCase(String(tag));
       }
       tree[catId][profId] = {

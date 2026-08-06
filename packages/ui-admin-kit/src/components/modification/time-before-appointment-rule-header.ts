@@ -23,8 +23,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
     totalMinutes == null || Number.isNaN(totalMinutes)
       ? 0
       : Math.max(0, totalMinutes);
-  const { weeks, days, hours, minutes } =
-    toWeeksDaysHoursMinutes(safeMinutes);
+  const { weeks, days, hours, minutes } = toWeeksDaysHoursMinutes(safeMinutes);
 
   const parts: string[] = [];
   if (weeks > 0) {

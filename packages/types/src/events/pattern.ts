@@ -1,5 +1,8 @@
 /** Glob-style matching: `*` matches any substring (including across `.`). */
-export function eventPatternMatches(pattern: string, eventType: string): boolean {
+export function eventPatternMatches(
+  pattern: string,
+  eventType: string,
+): boolean {
   if (pattern === "*") {
     return true;
   }

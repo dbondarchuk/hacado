@@ -30,8 +30,8 @@ import { getS3Configuration } from "./s3-assets-storage/utils";
 import { ScheduleService } from "./schedule.service";
 import { ServicesService } from "./services.service";
 import { SyncedPaymentsService } from "./synced-payments.service";
-import { TemplatesService } from "./templates.service";
 import { TeamService } from "./team.service";
+import { TemplatesService } from "./templates.service";
 
 // BullMQ exports
 export * from "./bullmq";

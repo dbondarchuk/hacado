@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build --turbo",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "typegen": "next typegen",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@mdx-js/react": "^3.0.1",
@@ -32,14 +32,14 @@
     "luxon": "^3.5.0",
     "mdx-bundler": "^10.0.2",
     "mongodb": "^6.8.0",
-    "next": "15.5.9",
+    "next": "16.3.0",
     "next-logger": "^5.0.1",
     "next-navigation-guard": "^0.2.0",
     "nextjs-toploader": "^1.6.12",
     "npm": "^10.8.2",
     "p-limit": "^6.2.0",
     "pino-http": "^10.5.0",
-    "react": "19.0.0",
+    "react": "19.2.8",
     "react-window": "^1.8.10",
     "rehype-pretty-code": "^0.14.0",
     "rehype-starry-night": "^2.2.0",
@@ -49,19 +49,20 @@
   "devDependencies": {
     "@types/color": "^4.2.0",
     "@types/node": "^20",
-    "@types/react": "19.0.2",
+    "@types/react": "19.2.18",
     "@types/react-file-icon": "^1.0.4",
     "@hacado/eslint-config": "*",
     "@hacado/tailwind-config": "*",
     "@hacado/typescript-config": "*",
+    "eslint": "^9.34.0",
     "postcss": "^8",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "typescript": "6.0.2"
   },
   "resolutions": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4"
   }
 }

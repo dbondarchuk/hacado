@@ -101,8 +101,7 @@ export function extractOrderSplit(
     const raw =
       item.total_money?.amount ??
       (item.base_price_money?.amount != null
-        ? Number(item.base_price_money.amount) *
-          Number(item.quantity ?? "1")
+        ? Number(item.base_price_money.amount) * Number(item.quantity ?? "1")
         : undefined);
     if (raw == null) {
       return undefined;

@@ -7,7 +7,6 @@ import {
   applyPolarOrderPaidToUserSlots,
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
-import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { languages, type Language } from "@hacado/i18n";
 import { getPolarClient, getRedisClient } from "@hacado/services";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
@@ -24,6 +23,7 @@ import {
   type WithDatabaseId,
 } from "@hacado/types";
 import { getAdminUrl } from "@hacado/utils";
+import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";
@@ -177,10 +177,12 @@ export const auth = betterAuth({
         after: async (user) => {
           if (!user.email || !user.id) return;
           const db = await getDbConnection();
-          await db.collection(MEMBERS_COLLECTION_NAME).updateMany(
-            { userId: String(user.id) },
-            { $set: { email: String(user.email).toLowerCase() } },
-          );
+          await db
+            .collection(MEMBERS_COLLECTION_NAME)
+            .updateMany(
+              { userId: String(user.id) },
+              { $set: { email: String(user.email).toLowerCase() } },
+            );
         },
       },
     },
@@ -424,10 +426,9 @@ export const auth = betterAuth({
 
       if (!member.email && user.email) {
         const email = user.email.toLowerCase();
-        await db.collection(MEMBERS_COLLECTION_NAME).updateOne(
-          { _id: member._id as never },
-          { $set: { email } },
-        );
+        await db
+          .collection(MEMBERS_COLLECTION_NAME)
+          .updateOne({ _id: member._id as never }, { $set: { email } });
         member.email = email;
       }
 

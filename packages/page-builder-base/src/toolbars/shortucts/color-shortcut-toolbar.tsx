@@ -1,3 +1,4 @@
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   cn,
   DropdownMenu,
@@ -21,7 +22,6 @@ import { Sketch } from "@uiw/react-color";
 import { VariantProps } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
 import React from "react";
-import { AllKeys, useI18n } from "@hacado/i18n/client";
 import { ShortcutWithColor } from "../../shortcuts";
 import { BaseStyleDictionary, COLORS_LIST, getColorStyle } from "../../style";
 

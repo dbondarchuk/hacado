@@ -1,4 +1,7 @@
-import { renderUserEmailTemplate, EMAIL_BRAND } from "@hacado/email-builder/static";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
 import { Language } from "@hacado/i18n";
 import { template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";

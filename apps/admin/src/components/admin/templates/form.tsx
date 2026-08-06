@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
@@ -24,6 +23,7 @@ import {
 } from "@hacado/ui";
 import { ArgumentsAutocomplete, SaveButton } from "@hacado/ui-admin";
 import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";

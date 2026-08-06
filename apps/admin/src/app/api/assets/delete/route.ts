@@ -57,10 +57,9 @@ export async function POST(request: NextRequest) {
 
     for (const asset of appointmentAssets) {
       if (!asset.appointmentId) continue;
-      const appointment =
-        await servicesContainer.bookingService.getAppointment(
-          asset.appointmentId,
-        );
+      const appointment = await servicesContainer.bookingService.getAppointment(
+        asset.appointmentId,
+      );
       if (
         appointment &&
         !canUpdateAppointment(auth.user, appointment.memberId)

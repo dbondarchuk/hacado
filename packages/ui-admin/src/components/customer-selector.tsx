@@ -1,5 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -32,6 +31,7 @@ import {
   toastPromise,
   useDebounceCacheFn,
 } from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";

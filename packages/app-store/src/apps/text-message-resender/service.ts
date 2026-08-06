@@ -71,9 +71,7 @@ export default class TextMessageResenderConnectedApp
     );
     const savedData: TextMessageResenderConfiguration = {
       ...data,
-      defaultMemberId: allowsMultipleUsers
-        ? data.defaultMemberId
-        : undefined,
+      defaultMemberId: allowsMultipleUsers ? data.defaultMemberId : undefined,
     };
 
     logger.debug(

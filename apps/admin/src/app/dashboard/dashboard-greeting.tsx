@@ -11,11 +11,7 @@ function greetingKey(hour: number): AdminKeys {
   return "dashboard.greeting.evening";
 }
 
-export async function DashboardGreeting({
-  subtitle,
-}: {
-  subtitle: string;
-}) {
+export async function DashboardGreeting({ subtitle }: { subtitle: string }) {
   const session = await getSession();
   const t = await getI18nAsync("admin");
   const firstName =

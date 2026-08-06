@@ -3,19 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001 --turbo",
+    "dev": "next dev --port 3001",
     "generate-font-previews": "node scripts/generate-font-previews.mjs",
     "purge-organization": "node scripts/purge-organization.mjs",
-    "build": "next build --turbo",
+    "build": "next build",
     "typegen": "next typegen",
     "start": "next start --port 3001",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@mdx-js/react": "^3.0.1",
-    "@polar-sh/better-auth": "^1.8.3",
-    "@polar-sh/sdk": "^0.47.0",
     "@hacado/api-sdk": "*",
     "@hacado/app-store": "*",
     "@hacado/email-builder": "*",
@@ -29,6 +26,9 @@
     "@hacado/ui-admin": "*",
     "@hacado/ui-admin-kit": "*",
     "@hacado/utils": "*",
+    "@mdx-js/react": "^3.0.1",
+    "@polar-sh/better-auth": "^1.8.3",
+    "@polar-sh/sdk": "^0.47.0",
     "@vvo/tzdb": "^6.142.0",
     "better-auth": "^1.6.5",
     "class-variance-authority": "^0.7.1",
@@ -41,14 +41,14 @@
     "luxon": "^3.5.0",
     "mdx-bundler": "^10.0.2",
     "mongodb": "^6.8.0",
-    "next": "15.5.9",
+    "next": "16.3.0",
     "next-logger": "^5.0.1",
     "next-navigation-guard": "^0.2.0",
     "nextjs-toploader": "^1.6.12",
     "npm": "^10.8.2",
     "p-limit": "^6.2.0",
     "pino-http": "^10.5.0",
-    "react": "19.0.0",
+    "react": "19.2.8",
     "react-window": "^1.8.10",
     "rehype-pretty-code": "^0.14.0",
     "rehype-starry-night": "^2.2.0",
@@ -57,24 +57,25 @@
     "shiki": "^1.24.2"
   },
   "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2",
     "@hacado/eslint-config": "*",
     "@hacado/tailwind-config": "*",
     "@hacado/typescript-config": "*",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/color": "^4.2.0",
     "@types/node": "^20",
-    "@types/react": "19.0.2",
+    "@types/react": "19.2.18",
     "@types/react-file-icon": "^1.0.4",
+    "eslint": "^9.34.0",
     "postcss": "^8",
     "raw-loader": "^4.0.2",
     "satori": "^0.25.0",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5",
+    "typescript": "6.0.2",
     "yaml": "^2.7.0"
   },
   "resolutions": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4"
   }
 }

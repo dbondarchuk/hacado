@@ -10,10 +10,10 @@ import { FormsBlocks } from "../apps/forms/blocks/schema";
 import { FORMS_APP_NAME } from "../apps/forms/const";
 import { GiftCardStudioBlocks } from "../apps/gift-card-studio/blocks/schema";
 import { GIFT_CARD_STUDIO_APP_NAME } from "../apps/gift-card-studio/const";
-import { WaitlistBlocks } from "../apps/waitlist/blocks/schema";
-import { WAITLIST_APP_NAME } from "../apps/waitlist/const";
 import { MyCabinetBlocks } from "../apps/my-cabinet/blocks/schema";
 import { MY_CABINET_APP_NAME } from "../apps/my-cabinet/const";
+import { WaitlistBlocks } from "../apps/waitlist/blocks/schema";
+import { WAITLIST_APP_NAME } from "../apps/waitlist/const";
 
 export const AppsBlocksEditors: Record<
   string,

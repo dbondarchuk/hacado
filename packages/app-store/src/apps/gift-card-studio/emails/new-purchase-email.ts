@@ -1,4 +1,7 @@
-import { EMAIL_BRAND, renderUserEmailTemplate } from "@hacado/email-builder/static";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
 import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { EmailNotificationRequest } from "@hacado/types";

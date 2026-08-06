@@ -92,7 +92,6 @@ export function getEventAppearance(
   }
 
   return {
-    className:
-      EventVariantClasses[variant] ?? EventVariantClasses.primary,
+    className: EventVariantClasses[variant] ?? EventVariantClasses.primary,
   };
 }

@@ -1,5 +1,9 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  canUseFeature,
+  resolvePlanTierFromOrganization,
+} from "@hacado/services/billing";
+import {
   AppointmentAddon,
   AppointmentDiscount,
   AppointmentEvent,
@@ -10,7 +14,6 @@ import {
   effectiveStaffPrice,
 } from "@hacado/types";
 import { formatAmount, getDiscountAmount } from "@hacado/utils";
-import { canUseFeature, resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import { getServicesContainer } from "../utils";
 
 export const getAppointmentEventFromRequest = async (
@@ -252,11 +255,7 @@ export const getAppointmentEventFromRequest = async (
       )
     : undefined;
 
-  if (
-    request.memberId &&
-    selectedOption.staff?.length &&
-    !staffAssignment
-  ) {
+  if (request.memberId && selectedOption.staff?.length && !staffAssignment) {
     logger.warn(
       {
         optionId: request.optionId,

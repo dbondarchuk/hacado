@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { CollectPayment, IdName } from "@hacado/types";
 import {
@@ -34,6 +33,7 @@ import {
   useCurrencySymbol,
   useDebounce,
 } from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CheckCircle2,
   ChevronLeft,

@@ -1,10 +1,10 @@
-import React from "react";
 import { getServicesContainer } from "@/app/utils";
 import {
   activitiesSearchParams,
   activitiesSearchParamsCache,
 } from "@hacado/api-sdk";
 import { DataTable } from "@hacado/ui-admin";
+import React from "react";
 import { columns } from "./columns";
 
 export const ActivityTable: React.FC = async () => {

@@ -605,11 +605,13 @@ export class BlogRepositoryService {
 
   public async getPendingCommentsCount(): Promise<number> {
     const db = await this.getDbConnection();
-    return db.collection<BlogComment>(BLOG_COMMENTS_COLLECTION_NAME).countDocuments({
-      organizationId: this.organizationId,
-      appId: this.appId,
-      status: "pending",
-    });
+    return db
+      .collection<BlogComment>(BLOG_COMMENTS_COLLECTION_NAME)
+      .countDocuments({
+        organizationId: this.organizationId,
+        appId: this.appId,
+        status: "pending",
+      });
   }
 
   public async getBlogCommentsByIds(ids: string[]): Promise<BlogComment[]> {

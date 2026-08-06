@@ -1,4 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields, getFields } from "@hacado/types";
 import {
@@ -8,6 +7,7 @@ import {
   usePrevious,
 } from "@hacado/ui";
 import { deepEqual } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

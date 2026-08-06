@@ -1,6 +1,6 @@
 export * from "./addon-selector";
-export * from "./appointment-selector";
 export * from "./app-selector";
+export * from "./appointment-selector";
 export * from "./arguments-autocomplete";
 export * from "./asset-preview";
 export * from "./asset-selector-input";

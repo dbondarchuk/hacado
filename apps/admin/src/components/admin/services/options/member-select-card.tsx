@@ -3,6 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
+import type { TeamMemberListModel } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,7 +33,6 @@ import {
   InputGroupInputClasses,
   useCurrencySymbol,
 } from "@hacado/ui";
-import type { TeamMemberListModel } from "@hacado/types";
 import { MemberSelector } from "@hacado/ui-admin";
 import { cva } from "class-variance-authority";
 import { AlertTriangle, GripVertical, Trash, X } from "lucide-react";
@@ -116,9 +116,7 @@ export const MemberSelectCard: React.FC<MemberSelectProps> = ({
   });
 
   const showMeetingProviderWarning =
-    isOnline &&
-    !!selectedMember &&
-    !selectedMember.meetingUrlProviderAppId;
+    isOnline && !!selectedMember && !selectedMember.meetingUrlProviderAppId;
 
   return (
     <Card

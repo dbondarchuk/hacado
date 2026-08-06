@@ -20,9 +20,7 @@ export const activitiesSearchParams = {
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   eventType: parseAsArrayOf(parseAsString),
-  severity: parseAsArrayOf(
-    parseAsStringLiteral([...activitySeverities]),
-  ),
+  severity: parseAsArrayOf(parseAsStringLiteral([...activitySeverities])),
   actor: parseAsArrayOf(parseAsStringLiteral([...activityActors])),
   sort: baseSearchParams.sort.withDefault([
     {

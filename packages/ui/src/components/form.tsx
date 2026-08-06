@@ -1,9 +1,9 @@
 "use client";
 
-import * as LabelPrimitive from "@radix-ui/react-label";
-import { Slot } from "@radix-ui/react-slot";
 import { AllKeys, useI18n, ValidationKeys } from "@hacado/i18n/client";
 import { ErrorMessageWithParams } from "@hacado/types";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { Slot } from "@radix-ui/react-slot";
 import React, { ReactNode } from "react";
 import {
   Controller,

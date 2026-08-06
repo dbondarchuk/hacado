@@ -1,9 +1,9 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
 import { useI18n } from "@hacado/i18n/client";
 import { Checkbox, Link } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { DesignListModel } from "../../models";
 import {

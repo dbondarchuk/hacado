@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { adminApi } from "@hacado/api-sdk";
 import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
 import {
@@ -57,11 +56,8 @@ import {
   MemberSelector,
   PromoCodeSelector,
 } from "@hacado/ui-admin";
-import {
-  durationToTime,
-  formatAmount,
-  getDiscountAmount,
-} from "@hacado/utils";
+import { durationToTime, formatAmount, getDiscountAmount } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

@@ -1,4 +1,7 @@
-import { renderUserEmailTemplate, EMAIL_BRAND } from "@hacado/email-builder/static";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
 import { Language } from "@hacado/i18n";
 import { Appointment } from "@hacado/types";
 import { AppointmentStatusToICalMethodMap, template } from "@hacado/utils";

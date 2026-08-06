@@ -1,6 +1,12 @@
+/// <reference types="applepayjs" />
 "use client";
 
 import GooglePayButton from "@google-pay/button-react";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PaymentAppFormProps } from "@hacado/types";
+import { Button, Spinner, toast, useConfig, useCurrency } from "@hacado/ui";
+import { formatAmountString } from "@hacado/utils";
 import {
   PayPalButtons,
   PayPalCardFieldsProvider,
@@ -13,11 +19,6 @@ import {
   usePayPalCardFields,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
-import { clientApi } from "@hacado/api-sdk";
-import { useI18n } from "@hacado/i18n/client";
-import { PaymentAppFormProps } from "@hacado/types";
-import { Button, Spinner, toast, useConfig, useCurrency } from "@hacado/ui";
-import { formatAmountString } from "@hacado/utils";
 import React from "react";
 import { PaypalLogo } from "./logo";
 import { PaypalFormProps } from "./models";

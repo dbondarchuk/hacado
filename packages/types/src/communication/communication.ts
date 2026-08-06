@@ -78,15 +78,15 @@ export type CommunicationLogCreateInput = Pick<
   html?: string;
   data?: unknown;
 } & (
-      | {
-          participantType: Extract<CommunicationParticipantType, "customer">;
-          /** Optional assigned member (e.g. when a customer reply belongs to a staff thread). */
-          memberId?: string;
-        }
-      | {
-          participantType: Extract<CommunicationParticipantType, "member">;
-          memberId: string;
-        }
+    | {
+        participantType: Extract<CommunicationParticipantType, "customer">;
+        /** Optional assigned member (e.g. when a customer reply belongs to a staff thread). */
+        memberId?: string;
+      }
+    | {
+        participantType: Extract<CommunicationParticipantType, "member">;
+        memberId: string;
+      }
   );
 
 /** API / UI list row: no full body fields, only preview metadata. */

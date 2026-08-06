@@ -7,6 +7,6 @@ export {
   type EmbeddedSlotData,
 } from "./embedded-slot";
 
-export { isEmbeddedSlot, isEditorBlockLike } from "@hacado/builder";
-export { ReaderEmbeddedSlotChildren, slotClassName } from "./reader-slot";
+export { isEditorBlockLike, isEmbeddedSlot } from "@hacado/builder";
 export { SlotOrBlockStylesPanel } from "./configuration-panel";
+export { ReaderEmbeddedSlotChildren, slotClassName } from "./reader-slot";

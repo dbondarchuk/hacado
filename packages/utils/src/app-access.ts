@@ -151,9 +151,7 @@ export function filterConnectedAppsForUser<T extends ConnectedAppAccess>(
   apps: T[],
   ownerMemberIds: ReadonlySet<string>,
 ): T[] {
-  return apps.filter((app) =>
-    canAccessConnectedApp(user, app, ownerMemberIds),
-  );
+  return apps.filter((app) => canAccessConnectedApp(user, app, ownerMemberIds));
 }
 
 /**

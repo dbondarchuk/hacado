@@ -1,3 +1,4 @@
+import { getDbConnection } from "@hacado/services/database";
 import type {
   BookingStep,
   BookingTrackingEvent,
@@ -5,6 +6,7 @@ import type {
   Payment,
   PaymentSummary,
 } from "@hacado/types";
+import { Filter } from "mongodb";
 import type {
   BookingConversionStats,
   BookingStats,
@@ -16,8 +18,6 @@ import type {
   ServiceDataPoint,
   TimeGrouping,
 } from "./types";
-import { Filter } from "mongodb";
-import { getDbConnection } from "@hacado/services/database";
 
 const PAYMENTS_COLLECTION_NAME = "payments";
 const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";

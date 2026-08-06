@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useI18n } from "@hacado/i18n/client";
 import {
   DefaultAppsConfiguration,
@@ -17,6 +16,7 @@ import {
   toastPromise,
 } from "@hacado/ui";
 import { AppSelector, SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
