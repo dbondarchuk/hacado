@@ -8,7 +8,11 @@ import {
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { languages, type Language } from "@hacado/i18n";
-import { getPolarClient, getRedisClient } from "@hacado/services";
+import {
+  getPolarClient,
+  getRedisClient,
+  ServicesContainer,
+} from "@hacado/services";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
 import {
@@ -16,7 +20,9 @@ import {
   getDbConnectionSync,
 } from "@hacado/services/database";
 import {
+  memberEventSource,
   OrganizationSubscriptionStatus,
+  systemEventSource,
   type Organization as OrganizationDbModel,
   type OrganizationMember,
   type SessionUser,
@@ -244,7 +250,7 @@ export const auth = betterAuth({
          * Better Auth's acceptInvitation calls createMember directly and skips
          * beforeAddMember — apply signup profile fields here instead.
          */
-        afterAcceptInvitation: async ({ member, user }) => {
+        afterAcceptInvitation: async ({ invitation, member, user }) => {
           const profile = await resolveMemberProfileFields(user, {
             name: (member as { name?: string }).name,
             phone: (member as { phone?: string }).phone,
@@ -257,6 +263,70 @@ export const auth = betterAuth({
               userId: user.id,
             },
             { $set: profile },
+          );
+
+          const teamService = ServicesContainer(
+            member.organizationId,
+          ).teamService;
+          const created = await teamService.getMemberByUserId(user.id);
+          if (created) {
+            const memberId =
+              typeof created._id === "string"
+                ? created._id
+                : String(created._id);
+            await teamService.emitMemberCreated(
+              created,
+              memberEventSource(memberId),
+              { invitationId: invitation.id },
+            );
+          }
+        },
+        afterCreateInvitation: async ({
+          invitation,
+          inviter,
+          organization,
+        }) => {
+          const teamService = ServicesContainer(organization.id).teamService;
+          const inviterMember = await teamService.getMemberByUserId(inviter.id);
+          const source = inviterMember
+            ? memberEventSource(
+                typeof inviterMember._id === "string"
+                  ? inviterMember._id
+                  : String(inviterMember._id),
+              )
+            : systemEventSource;
+          await teamService.emitInvitationCreated(
+            {
+              invitationId: invitation.id,
+              email: invitation.email,
+              role: String(invitation.role),
+            },
+            source,
+          );
+        },
+        afterCancelInvitation: async ({
+          invitation,
+          cancelledBy,
+          organization,
+        }) => {
+          const teamService = ServicesContainer(organization.id).teamService;
+          const actorMember = await teamService.getMemberByUserId(
+            cancelledBy.id,
+          );
+          const source = actorMember
+            ? memberEventSource(
+                typeof actorMember._id === "string"
+                  ? actorMember._id
+                  : String(actorMember._id),
+              )
+            : systemEventSource;
+          await teamService.emitInvitationCanceled(
+            {
+              invitationId: invitation.id,
+              email: invitation.email,
+              role: String(invitation.role),
+            },
+            source,
           );
         },
         beforeCreateInvitation: async ({ invitation, organization: org }) => {

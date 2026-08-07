@@ -87,6 +87,16 @@ export const ASSET_CREATED_EVENT_TYPE = "asset.created" as const;
 export const ASSET_UPDATED_EVENT_TYPE = "asset.updated" as const;
 export const ASSET_DELETED_EVENT_TYPE = "asset.deleted" as const;
 
+export const MEMBER_DEACTIVATED_EVENT_TYPE = "member.deactivated" as const;
+export const MEMBER_REACTIVATED_EVENT_TYPE = "member.reactivated" as const;
+export const MEMBER_ROLE_CHANGED_EVENT_TYPE = "member.roleChanged" as const;
+export const MEMBER_PROFILE_UPDATED_EVENT_TYPE =
+  "member.profileUpdated" as const;
+export const MEMBER_CREATED_EVENT_TYPE = "member.created" as const;
+
+export const INVITATION_CREATED_EVENT_TYPE = "invitation.created" as const;
+export const INVITATION_CANCELED_EVENT_TYPE = "invitation.canceled" as const;
+
 /** Polar / billing subscription status changed (persisted to organization). */
 export const SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE =
   "subscription.statusChanged" as const;

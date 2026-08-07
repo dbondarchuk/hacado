@@ -112,7 +112,7 @@ export const ServicesContainer: (
       organizationService,
     );
 
-    const teamService = new TeamService(organizationId);
+    const teamService = new TeamService(organizationId, eventService);
     const customersService = new CustomersService(organizationId, eventService);
     const activityService = new ActivityService(
       organizationId,

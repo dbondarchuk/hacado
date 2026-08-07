@@ -4,8 +4,9 @@ app:
 form:
   url:
     label: URL
-    placeholder: https://example.com/api/busy-events
-    tooltip: URL-адреса кінцевої точки, яка надає дані зайнятих подій. Час початку та закінчення будуть передані як параметри запиту в форматі ISO.
+    placeholder: "https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'"
+    description: "Використовуйте плейсхолдери, які підставляються під час виклику: <code>'{{start}}'</code> та <code>'{{end}}'</code> (дата/час у ISO).<br></br>Приклад: <code>https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'</code>."
+    tooltip: URL-адреса кінцевої точки з даними зайнятих подій. Нічого не додається автоматично — вкажіть потрібні плейсхолдери в URL.
   headers:
     label: Заголовки
     addButton: Додати заголовок
@@ -14,7 +15,8 @@ form:
     valueLabel: Значення заголовка
     valuePlaceholder: Bearer token
     removeButton: Видалити
-    tooltip: Додаткові HTTP-заголовки для включення в запити
+    description: "Назви та значення заголовків підтримують ті самі плейсхолдери: <code>'{{start}}'</code> та <code>'{{end}}'</code>."
+    tooltip: Додаткові HTTP-заголовки. Плейсхолдери підставляються під час кожного запиту.
   connect: Підключитися з <app></app>
 validation:
   form:
@@ -35,4 +37,3 @@ statusText:
   error_processing_configuration: Помилка обробки конфігурації
   error_fetching_busy_times: Помилка отримання зайнятих часів з URL
   invalid_response_format: Недійсний формат відповіді з URL
-

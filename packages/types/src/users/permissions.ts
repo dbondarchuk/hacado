@@ -32,6 +32,8 @@ export const teamPermissionStatements = {
   syncedPayment: ["read", "manage"],
   team: ["invite", "remove", "updateRole", "read", "update"],
   settings: ["read", "update"],
+  /** Organization activity feed and activity page. */
+  activity: ["read"],
 } as const;
 
 export type TeamPermissionStatements = typeof teamPermissionStatements;
@@ -75,6 +77,7 @@ const ownerAppPermissions = {
   syncedPayment: ["read", "manage"],
   team: ["invite", "remove", "updateRole", "read", "update"],
   settings: ["read", "update"],
+  activity: ["read"],
 } as const satisfies TeamRolePermissions;
 
 /**

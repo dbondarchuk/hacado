@@ -19,6 +19,10 @@ import {
   UrlScheduleProviderAdminKeys,
   UrlScheduleProviderAdminNamespace,
 } from "./translations/types";
+import {
+  applyUrlPlaceholders,
+  buildHeadersWithPlaceholders,
+} from "./url-placeholders";
 
 export default class UrlScheduleProviderConnectedApp
   implements IConnectedApp<UrlScheduleProviderConfiguration>, IScheduleProvider
@@ -162,24 +166,20 @@ export default class UrlScheduleProviderConnectedApp
         );
       }
 
-      const url = new URL(app.data.url);
-      url.searchParams.set("start", start.toISOString());
-      url.searchParams.set("end", end.toISOString());
-      url.searchParams.set("memberId", memberId);
-      url.searchParams.set("email", member.email);
-
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
+      const placeholderValues = {
+        memberId,
+        email: member.email,
+        start: start.toISOString(),
+        end: end.toISOString(),
       };
+      const url = new URL(
+        applyUrlPlaceholders(app.data.url, placeholderValues),
+      );
 
-      if (app.data.headers) {
-        app.data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
-      }
+      const headers = buildHeadersWithPlaceholders(
+        app.data.headers,
+        placeholderValues,
+      );
 
       const response = await fetch(url.toString(), {
         method: "GET",
@@ -274,24 +274,18 @@ export default class UrlScheduleProviderConnectedApp
         );
       }
 
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
+      const placeholderValues = {
+        memberId,
+        email: member.email,
+        start: DateTime.now().toISO()!,
+        end: DateTime.now().plus({ days: 7 }).toISO()!,
       };
+      const headers = buildHeadersWithPlaceholders(
+        data.headers,
+        placeholderValues,
+      );
 
-      if (data.headers) {
-        data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
-      }
-
-      const url = new URL(data.url);
-      url.searchParams.set("start", DateTime.now().toISO());
-      url.searchParams.set("end", DateTime.now().plus({ days: 7 }).toISO());
-      url.searchParams.set("memberId", memberId);
-      url.searchParams.set("email", member.email);
+      const url = new URL(applyUrlPlaceholders(data.url, placeholderValues));
 
       const response = await fetch(url.toString(), {
         method: "HEAD",

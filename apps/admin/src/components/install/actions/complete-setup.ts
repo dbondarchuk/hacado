@@ -532,9 +532,13 @@ async function ensureInstallUserCalendarSources(
     return;
   }
 
-  await services.teamService.updateMemberProfile(memberId, {
-    calendarSources: [...existingSources, ...toAdd],
-  });
+  await services.teamService.updateMemberProfile(
+    memberId,
+    {
+      calendarSources: [...existingSources, ...toAdd],
+    },
+    systemEventSource,
+  );
   logger.debug(
     { addedAppIds: toAdd.map((x) => x.appId) },
     "Merged connected calendar apps into member calendarSources",

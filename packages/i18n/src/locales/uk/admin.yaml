@@ -233,13 +233,36 @@ platformEvents:
   asset:
     created:
       title: Ассет завантажено
-      description: "{ім'я файлу}"
+      description: "{filename}"
     updated:
       title: Ассет оновлено
-      description: "{ім'я файлу}"
+      description: "{filename}"
     deleted:
       title: Ассети видалено
       description: "{count, plural, =1 {# ассет} few {# ассети} other {# ассетів}}"
+  member:
+    created:
+      title: Учасник команди приєднався
+      description: "{memberName} · {role}"
+    deactivated:
+      title: Учасника команди деактивовано
+      description: "{memberName} · {reason}"
+    reactivated:
+      title: Учасника команди реактивовано
+      description: "{memberName}"
+    roleChanged:
+      title: Змінено роль учасника команди
+      description: "{memberName}: {previousRole} → {role}"
+    profileUpdated:
+      title: Оновлено профіль учасника команди
+      description: "{memberName}"
+  invitation:
+    created:
+      title: Надіслано запрошення до команди
+      description: "{email} · {role}"
+    canceled:
+      title: Скасовано запрошення до команди
+      description: "{email} · {role}"
   subscription:
     statusChanged:
       title: Зміна статусу підписки

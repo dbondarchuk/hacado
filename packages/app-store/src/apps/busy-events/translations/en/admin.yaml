@@ -15,7 +15,6 @@ errors:
 thisWeek: This week
 previousWeek: Previous week
 nextWeek: Next week
-selectMember: Select team member
 eventTitle: Busy
 addShift: Add event
 shifts: "{count, plural, =1 {1 event} other {# events}}"

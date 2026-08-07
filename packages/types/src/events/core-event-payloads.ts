@@ -20,6 +20,11 @@ import type { ConfigurationKey } from "../configuration";
 import type { Customer, CustomerUpdateModel } from "../customers/customer";
 import type { Page, PageFooter, PageHeader } from "../pages";
 import type { Template } from "../templates";
+import type {
+  MemberInactiveReason,
+  OrganizationMember,
+  UserRole,
+} from "../users";
 import {
   ADDON_CREATED_EVENT_TYPE,
   ADDON_DELETED_EVENT_TYPE,
@@ -52,6 +57,13 @@ import {
   GIFT_CARD_DELETED_EVENT_TYPE,
   GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
   GIFT_CARD_UPDATED_EVENT_TYPE,
+  INVITATION_CANCELED_EVENT_TYPE,
+  INVITATION_CREATED_EVENT_TYPE,
+  MEMBER_CREATED_EVENT_TYPE,
+  MEMBER_DEACTIVATED_EVENT_TYPE,
+  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+  MEMBER_REACTIVATED_EVENT_TYPE,
+  MEMBER_ROLE_CHANGED_EVENT_TYPE,
   ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
   PAGE_CREATED_EVENT_TYPE,
   PAGE_DELETED_EVENT_TYPE,
@@ -273,6 +285,54 @@ export type AssetUpdatedPayload = {
 };
 export type AssetDeletedPayload = { assetIds: string[] };
 
+export type MemberDeactivatedPayload = {
+  member: OrganizationMember;
+  reason: MemberInactiveReason;
+};
+
+export type MemberReactivatedPayload = {
+  member: OrganizationMember;
+};
+
+export type MemberRoleChangedPayload = {
+  member: OrganizationMember;
+  previousRole: UserRole;
+  role: Exclude<UserRole, "owner">;
+};
+
+export type MemberProfileUpdatedPayload = {
+  member: OrganizationMember;
+  update: Partial<
+    Pick<
+      OrganizationMember,
+      | "name"
+      | "phone"
+      | "language"
+      | "image"
+      | "bio"
+      | "calendarSources"
+      | "meetingUrlProviderAppId"
+    >
+  >;
+};
+
+export type MemberCreatedPayload = {
+  member: OrganizationMember;
+  invitationId?: string;
+};
+
+export type InvitationCreatedPayload = {
+  invitationId: string;
+  email: string;
+  role: string;
+};
+
+export type InvitationCanceledPayload = {
+  invitationId: string;
+  email: string;
+  role: string;
+};
+
 export type SubscriptionStatusChangedPayload = {
   oldStatus: OrganizationSubscriptionStatus | null;
   newStatus: OrganizationSubscriptionStatus;
@@ -346,6 +406,13 @@ export type CoreEventPayloadByType = {
   [ASSET_CREATED_EVENT_TYPE]: AssetCreatedPayload;
   [ASSET_UPDATED_EVENT_TYPE]: AssetUpdatedPayload;
   [ASSET_DELETED_EVENT_TYPE]: AssetDeletedPayload;
+  [MEMBER_DEACTIVATED_EVENT_TYPE]: MemberDeactivatedPayload;
+  [MEMBER_REACTIVATED_EVENT_TYPE]: MemberReactivatedPayload;
+  [MEMBER_ROLE_CHANGED_EVENT_TYPE]: MemberRoleChangedPayload;
+  [MEMBER_PROFILE_UPDATED_EVENT_TYPE]: MemberProfileUpdatedPayload;
+  [MEMBER_CREATED_EVENT_TYPE]: MemberCreatedPayload;
+  [INVITATION_CREATED_EVENT_TYPE]: InvitationCreatedPayload;
+  [INVITATION_CANCELED_EVENT_TYPE]: InvitationCanceledPayload;
   [SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE]: SubscriptionStatusChangedPayload;
   [SMS_CREDITS_LOW_EVENT_TYPE]: SmsCreditsThresholdPayload;
   [SMS_CREDITS_EXHAUSTED_EVENT_TYPE]: SmsCreditsThresholdPayload;

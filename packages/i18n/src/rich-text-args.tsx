@@ -17,5 +17,9 @@ export const richTextArgs = {
   div: (chunks: any) => <div>{chunks}</div>,
   hr: () => <hr />,
   blockquote: (chunks: any) => <blockquote>{chunks}</blockquote>,
-  code: (chunks: any) => <code>{chunks}</code>,
+  code: (chunks: any) => (
+    <code className="bg-muted text-muted-foreground text-mono px-1 py-0.5 rounded-sm">
+      {chunks}
+    </code>
+  ),
 };

@@ -45,19 +45,11 @@ export const ColorPickerInput: React.FC<ColorPickerInputProps> = ({
 
   return (
     <InputGroup>
-      <div
-        className={cn(
-          InputGroupAddonClasses({ variant: "prefix" }),
-          "size-9",
-          "transition-colors",
-        )}
-        style={{ backgroundColor: value }}
-      ></div>
       <InputGroupInput>
         <Input
           disabled={disabled}
           className={cn(
-            InputGroupInputClasses({ variant: "prefix" }),
+            // InputGroupInputClasses({ variant: "prefix" }),
             InputGroupInputClasses({ variant: "suffix" }),
           )}
           value={value}
@@ -73,7 +65,14 @@ export const ColorPickerInput: React.FC<ColorPickerInputProps> = ({
             disabled={disabled}
             className={InputGroupAddonClasses()}
           >
-            <Palette size={16} />
+            {!!value ? (
+              <div
+                className={cn("w-5 h-full transition-colors")}
+                style={{ backgroundColor: value }}
+              />
+            ) : (
+              <Palette size={16} />
+            )}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="bg-transparent border-none shadow-none w-fit">

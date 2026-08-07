@@ -1,15 +1,21 @@
-import { getServicesContainer, getSession } from "@/app/utils";
-import { getLoggerFactory } from "@hacado/logger";
+import { getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { okStatus } from "@hacado/types";
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const logger = getLoggerFactory("AdminAPI/activities/read")("POST");
-  const session = await getSession();
+  const auth = await requirePermission(
+    "activity",
+    "read",
+    "AdminAPI/activities/read",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   await servicesContainer.activityService.markActivityFeedRead(
-    session.user.memberId,
+    auth.user.memberId,
   );
-  logger.debug("Activity feed marked read");
+  auth.logger.debug("Activity feed marked read");
   return NextResponse.json(okStatus, { status: 200 });
 }

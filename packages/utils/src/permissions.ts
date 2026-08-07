@@ -75,6 +75,11 @@ export function canUpdateTeamMemberProfile(
   return isRoleStrictlyHigher(actor.role, target.role);
 }
 
+/** Organization activity feed / activity page — admin and owner. */
+export function canReadActivity(user: SessionUser | null | undefined): boolean {
+  return hasPermission(user, "activity", "read");
+}
+
 /** Financial overview / payment KPIs — requires billing read. */
 export function canViewFinancials(
   user: SessionUser | null | undefined,

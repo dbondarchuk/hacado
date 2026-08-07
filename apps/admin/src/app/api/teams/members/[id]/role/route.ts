@@ -1,3 +1,4 @@
+import { getActor } from "@/app/utils";
 import type { UserRole } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -29,9 +30,11 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   }
 
   const services = await getTeamServices();
+  const actor = await getActor();
   const updated = await services.teamService.updateMemberRole(
     id,
     parsed.data.role as Exclude<UserRole, "owner">,
+    actor,
   );
   if (!updated) {
     return NextResponse.json(

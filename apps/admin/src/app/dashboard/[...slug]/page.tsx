@@ -45,9 +45,14 @@ const getAppPage = cache(async (path: string) => {
     redirect("/dashboard");
   }
 
-  const appId = (
-    await servicesContainer.connectedAppsService.getAppsByApp(app.app.name)
-  )[0]?._id;
+  const installs = await servicesContainer.connectedAppsService.getAppsByApp(
+    app.app.name,
+  );
+  const appId =
+    app.app.target === "member"
+      ? installs.find((install) => install.memberId === session?.user?.memberId)
+          ?._id
+      : installs[0]?._id;
   if (!appId) {
     logger.warn({ appId }, "No app ID found for app");
     redirect("/dashboard");

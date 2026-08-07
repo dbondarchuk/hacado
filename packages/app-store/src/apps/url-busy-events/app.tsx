@@ -15,7 +15,8 @@ export const UrlBusyEventsApp: App<
   scope: ["calendar-read"],
   category: ["apps.categories.calendar"],
   type: "basic",
-  target: "company",
+  target: "member",
+  requiredPermission: { resource: "app", action: "installPrivileged" },
   Logo: ({ className }) => <UrlBusyEventsLogo className={className} />,
   description: {
     text: "app_url-busy-events_admin.app.description",

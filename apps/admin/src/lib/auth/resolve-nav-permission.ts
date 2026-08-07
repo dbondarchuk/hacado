@@ -8,6 +8,17 @@ type NavNode = {
   children?: NavNode[];
 };
 
+/** Pages that are not sidebar nav items but still need permission gates. */
+const EXTRA_PATH_PERMISSIONS: {
+  href: string;
+  requiredPermission: RequiredPermission;
+}[] = [
+  {
+    href: "/dashboard/activity",
+    requiredPermission: { resource: "activity", action: "read" },
+  },
+];
+
 function collectNavPermissions(
   items: readonly NavNode[],
   out: { href: string; requiredPermission: RequiredPermission }[],
@@ -39,6 +50,7 @@ export function resolveRequiredPermissionForPath(
   const entries: { href: string; requiredPermission: RequiredPermission }[] =
     [];
   collectNavPermissions(navItems, entries);
+  entries.push(...EXTRA_PATH_PERMISSIONS);
 
   let best:
     | { href: string; requiredPermission: RequiredPermission }

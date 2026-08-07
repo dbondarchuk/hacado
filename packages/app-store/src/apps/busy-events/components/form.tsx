@@ -2,18 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { Schedule, ScheduleOverride, WeekIdentifier } from "@hacado/types";
-import {
-  Button,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Skeleton,
-  toast,
-  toastPromise,
-  useDebounce,
-} from "@hacado/ui";
+import { Button, Skeleton, toast, toastPromise, useDebounce } from "@hacado/ui";
 import { Scheduler, WeekSelector } from "@hacado/ui-admin";
 import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -30,14 +19,9 @@ import { getWeeklyEvents, setEvents } from "./actions";
 type WeeklySchedule = ScheduleOverride["schedule"];
 type BusyEventsFormProps = {
   appId: string;
-  /** Active org members; a member selector is shown when there is more than one. */
-  members?: { id: string; name: string }[];
 };
 
-export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
-  appId,
-  members = [],
-}) => {
+export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
   const [loading, setLoading] = React.useState(true);
   const t = useI18n<BusyEventsAdminNamespace, BusyEventsAdminKeys>(
     busyEventsAdminNamespace,
@@ -48,14 +32,6 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
   const weekStr = searchParams.get("week");
   const week =
     (weekStr ? parseInt(weekStr) : null) || getWeekIdentifier(new Date());
-
-  const showMemberSelector = members.length > 1;
-  const memberParam = searchParams.get("member");
-  const memberId = showMemberSelector
-    ? members.some((member) => member.id === memberParam)
-      ? (memberParam ?? undefined)
-      : members[0]?.id
-    : undefined;
 
   const router = useRouter();
   const todayWeek = getWeekIdentifier(new Date());
@@ -71,7 +47,7 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
     setLoading(true);
 
     try {
-      const response = await getWeeklyEvents(appId, week, memberId);
+      const response = await getWeeklyEvents(appId, week);
       setSchedule(response);
       setCurrentSchedule(response);
       setLoading(false);
@@ -83,15 +59,14 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
 
   useEffect(() => {
     loadSchedule();
-  }, [appId, week, memberId]);
+  }, [appId, week]);
 
   const onScheduleChange = async (newSchedule: WeeklySchedule) => {
     if (week < todayWeek) return;
     if (JSON.stringify(schedule) === JSON.stringify(newSchedule)) return;
 
     try {
-      // setLoading(true);
-      await toastPromise(setEvents(appId, week, newSchedule, memberId), {
+      await toastPromise(setEvents(appId, week, newSchedule), {
         success: tAdmin("common.toasts.saved"),
         error: tAdmin("common.toasts.error"),
       });
@@ -99,8 +74,6 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
       setSchedule(newSchedule);
     } catch (error: any) {
       console.error(error);
-    } finally {
-      // setLoading(false);
     }
   };
 
@@ -133,35 +106,8 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({
     [updateQuery, week],
   );
 
-  const onMemberChange = React.useCallback(
-    (newMemberId: string) => {
-      if (newMemberId !== memberId) {
-        updateQuery({ member: newMemberId });
-      }
-    },
-    [updateQuery, memberId],
-  );
-
   return (
     <div className="w-full space-y-8 relative flex flex-col gap-2">
-      {showMemberSelector && (
-        <Select
-          value={memberId}
-          onValueChange={onMemberChange}
-          disabled={loading}
-        >
-          <SelectTrigger className="w-full lg:w-[280px]">
-            <SelectValue placeholder={t("selectMember")} />
-          </SelectTrigger>
-          <SelectContent>
-            {members.map((member) => (
-              <SelectItem key={member.id} value={member.id}>
-                {member.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      )}
       <div className="flex flex-col lg:flex-row gap-2 justify-between">
         <Button
           variant={week === todayWeek ? "primary" : "outline"}

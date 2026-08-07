@@ -1,8 +1,17 @@
 import type {
   DeactivateMemberResult,
+  EventSource,
+  IEventService,
+  InvitationCanceledPayload,
+  InvitationCreatedPayload,
   ITeamService,
+  MemberCreatedPayload,
+  MemberDeactivatedPayload,
   MemberInactiveReason,
   MemberProfileUpdate,
+  MemberProfileUpdatedPayload,
+  MemberReactivatedPayload,
+  MemberRoleChangedPayload,
   MemberStatus,
   Organization,
   OrganizationAdminContact,
@@ -12,6 +21,15 @@ import type {
   TeamMemberListModel,
   UserRole,
   WithTotal,
+} from "@hacado/types";
+import {
+  INVITATION_CANCELED_EVENT_TYPE,
+  INVITATION_CREATED_EVENT_TYPE,
+  MEMBER_CREATED_EVENT_TYPE,
+  MEMBER_DEACTIVATED_EVENT_TYPE,
+  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+  MEMBER_REACTIVATED_EVENT_TYPE,
+  MEMBER_ROLE_CHANGED_EVENT_TYPE,
 } from "@hacado/types";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
@@ -29,7 +47,10 @@ function normalizeMemberId(id: ObjectId | string): string {
 }
 
 export class TeamService extends BaseService implements ITeamService {
-  public constructor(organizationId: string) {
+  public constructor(
+    organizationId: string,
+    private readonly eventService: IEventService,
+  ) {
     super("TeamService", organizationId);
   }
 
@@ -288,6 +309,7 @@ export class TeamService extends BaseService implements ITeamService {
   public async deactivateMember(
     memberId: string,
     reason: MemberInactiveReason,
+    source: EventSource,
     options?: { force?: boolean },
   ): Promise<DeactivateMemberResult> {
     const logger = this.loggerFactory("deactivateMember");
@@ -309,6 +331,7 @@ export class TeamService extends BaseService implements ITeamService {
     }
 
     const db = await getDbConnection();
+    const inactivatedAt = new Date();
     await db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME).updateOne(
       {
         _id: memberId as unknown as OrganizationMember["_id"],
@@ -318,12 +341,29 @@ export class TeamService extends BaseService implements ITeamService {
         $set: {
           status: "inactive",
           inactiveReason: reason,
-          inactivatedAt: new Date(),
+          inactivatedAt,
         },
       },
     );
 
     await this.invalidateUserSessions(member.userId);
+
+    const deactivatedMember: OrganizationMember = {
+      ...member,
+      status: "inactive",
+      inactiveReason: reason,
+      inactivatedAt,
+    };
+
+    await this.eventService.emit(
+      MEMBER_DEACTIVATED_EVENT_TYPE,
+      {
+        member: deactivatedMember,
+        reason,
+      } satisfies MemberDeactivatedPayload,
+      source,
+    );
+
     logger.info({ memberId, reason }, "Member deactivated");
     return {
       ok: true,
@@ -335,6 +375,7 @@ export class TeamService extends BaseService implements ITeamService {
 
   public async reactivateMember(
     memberId: string,
+    source: EventSource,
   ): Promise<OrganizationMember | null> {
     if (!(await this.canInviteMoreMembers())) {
       return null;
@@ -353,15 +394,30 @@ export class TeamService extends BaseService implements ITeamService {
       },
     );
 
-    return this.getMemberById(memberId);
+    const member = await this.getMemberById(memberId);
+    if (member?.status === "active") {
+      await this.eventService.emit(
+        MEMBER_REACTIVATED_EVENT_TYPE,
+        { member } satisfies MemberReactivatedPayload,
+        source,
+      );
+    }
+
+    return member;
   }
 
   public async updateMemberRole(
     memberId: string,
     role: Exclude<UserRole, "owner">,
+    source: EventSource,
   ): Promise<OrganizationMember | null> {
     const member = await this.getMemberById(memberId);
     if (!member || member.role === "owner") return null;
+
+    const previousRole = member.role;
+    if (previousRole === role) {
+      return member;
+    }
 
     const db = await getDbConnection();
     await db.collection<OrganizationMember>(MEMBERS_COLLECTION_NAME).updateOne(
@@ -372,10 +428,25 @@ export class TeamService extends BaseService implements ITeamService {
       { $set: { role } },
     );
 
-    return this.getMemberById(memberId);
+    const updated = await this.getMemberById(memberId);
+    if (updated) {
+      await this.eventService.emit(
+        MEMBER_ROLE_CHANGED_EVENT_TYPE,
+        {
+          member: updated,
+          previousRole,
+          role,
+        } satisfies MemberRoleChangedPayload,
+        source,
+      );
+    }
+
+    return updated;
   }
 
-  public async reconcileMembersToSlots(): Promise<ReconcileSlotsResult> {
+  public async reconcileMembersToSlots(
+    source: EventSource,
+  ): Promise<ReconcileSlotsResult> {
     const logger = this.loggerFactory("reconcileMembersToSlots");
     const db = await getDbConnection();
     const org = await db
@@ -403,7 +474,7 @@ export class TeamService extends BaseService implements ITeamService {
 
       for (let i = 0; i < excess && i < nonOwners.length; i++) {
         const id = normalizeMemberId(nonOwners[i]._id);
-        await this.deactivateMember(id, "downgrade", { force: true });
+        await this.deactivateMember(id, "downgrade", source, { force: true });
         deactivatedMemberIds.push(id);
       }
     } else if (active.length < availableUsers) {
@@ -421,7 +492,7 @@ export class TeamService extends BaseService implements ITeamService {
 
       for (const m of candidates) {
         const id = normalizeMemberId(m._id);
-        const reactivated = await this.reactivateMember(id);
+        const reactivated = await this.reactivateMember(id, source);
         if (reactivated?.status === "active") {
           reactivatedMemberIds.push(id);
         }
@@ -479,6 +550,7 @@ export class TeamService extends BaseService implements ITeamService {
   public async updateMemberProfile(
     memberId: string,
     profile: MemberProfileUpdate,
+    source: EventSource,
   ): Promise<OrganizationMember | null> {
     const logger = this.loggerFactory("updateMemberProfile");
     logger.debug(
@@ -505,7 +577,64 @@ export class TeamService extends BaseService implements ITeamService {
       return null;
     }
 
-    return this.getMemberById(memberId);
+    const member = await this.getMemberById(memberId);
+    if (member) {
+      await this.eventService.emit(
+        MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+        {
+          member,
+          update: profile,
+        } satisfies MemberProfileUpdatedPayload,
+        source,
+      );
+    }
+
+    return member;
+  }
+
+  public async emitInvitationCreated(
+    invitation: { invitationId: string; email: string; role: string },
+    source: EventSource,
+  ): Promise<void> {
+    await this.eventService.emit(
+      INVITATION_CREATED_EVENT_TYPE,
+      {
+        invitationId: invitation.invitationId,
+        email: invitation.email,
+        role: invitation.role,
+      } satisfies InvitationCreatedPayload,
+      source,
+    );
+  }
+
+  public async emitInvitationCanceled(
+    invitation: { invitationId: string; email: string; role: string },
+    source: EventSource,
+  ): Promise<void> {
+    await this.eventService.emit(
+      INVITATION_CANCELED_EVENT_TYPE,
+      {
+        invitationId: invitation.invitationId,
+        email: invitation.email,
+        role: invitation.role,
+      } satisfies InvitationCanceledPayload,
+      source,
+    );
+  }
+
+  public async emitMemberCreated(
+    member: OrganizationMember,
+    source: EventSource,
+    options?: { invitationId?: string },
+  ): Promise<void> {
+    await this.eventService.emit(
+      MEMBER_CREATED_EVENT_TYPE,
+      {
+        member,
+        invitationId: options?.invitationId,
+      } satisfies MemberCreatedPayload,
+      source,
+    );
   }
 
   public async getOrganizationAdminContacts(): Promise<

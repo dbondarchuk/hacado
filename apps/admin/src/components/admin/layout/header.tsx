@@ -1,6 +1,7 @@
-import { getWebsiteUrl } from "@/app/utils";
+import { getSession, getWebsiteUrl } from "@/app/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Link, Separator, SidebarTrigger } from "@hacado/ui";
+import { canReadActivity } from "@hacado/utils";
 import { Globe2 } from "lucide-react";
 import { ActivityFeedHeaderButton } from "./activity-feed-header-button";
 import { BreadcrumbsRender } from "./breadcrumbs";
@@ -10,6 +11,8 @@ import ThemeToggle from "./theme-toggle/theme-toggle";
 export default async function Header({}: {}) {
   const t = await getI18nAsync("admin");
   const websiteUrl = await getWebsiteUrl();
+  const session = await getSession();
+  const showActivity = canReadActivity(session?.user);
 
   return (
     <header className="sticky inset-x-0 top-0 z-10 w-full bg-background/80 backdrop-blur-sm">
@@ -26,7 +29,7 @@ export default async function Header({}: {}) {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <ActivityFeedHeaderButton />
+          {showActivity ? <ActivityFeedHeaderButton /> : null}
           <ThemeToggle />
           <Link
             href={websiteUrl}

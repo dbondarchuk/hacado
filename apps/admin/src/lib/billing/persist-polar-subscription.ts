@@ -106,7 +106,9 @@ async function syncUserSlotsFromSubscription(
     }
 
     const result =
-      await ServicesContainer(orgId).teamService.reconcileMembersToSlots();
+      await ServicesContainer(orgId).teamService.reconcileMembersToSlots(
+        systemEventSource,
+      );
     if (result.reactivatedMemberIds.length) {
       await notifyOwnerOfMemberReactivations(orgId, result);
     }

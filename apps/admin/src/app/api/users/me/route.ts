@@ -1,4 +1,4 @@
-import { getServicesContainer, getSession } from "@/app/utils";
+import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { userUpdateSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import type { SessionUser } from "@hacado/types";
@@ -70,9 +70,11 @@ export async function PATCH(request: Request) {
       })();
 
   logger.debug({ data: updatePayload }, "Updating member profile fields");
+  const actor = await getActor();
   await servicesContainer.teamService.updateMemberProfile(
     session.user.memberId,
     updatePayload,
+    actor,
   );
 
   const user = await servicesContainer.teamService.getMemberById(

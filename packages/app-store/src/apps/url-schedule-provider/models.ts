@@ -1,12 +1,11 @@
 import { zNonEmptyString, zUniqueArray } from "@hacado/types";
 import * as z from "zod";
 import { UrlScheduleProviderAdminAllKeys } from "./translations/types";
+import { isValidUrlWithPlaceholders } from "./url-placeholders";
 
 export const urlScheduleProviderConfigurationSchema = z.object({
   url: z
-    .url(
-      "app_url-schedule-provider_admin.validation.form.url.url" satisfies UrlScheduleProviderAdminAllKeys,
-    )
+    .string()
     .min(
       1,
       "app_url-schedule-provider_admin.validation.form.url.required" satisfies UrlScheduleProviderAdminAllKeys,
@@ -14,6 +13,10 @@ export const urlScheduleProviderConfigurationSchema = z.object({
     .max(
       2048,
       "app_url-schedule-provider_admin.validation.form.url.max" satisfies UrlScheduleProviderAdminAllKeys,
+    )
+    .refine(
+      isValidUrlWithPlaceholders,
+      "app_url-schedule-provider_admin.validation.form.url.url" satisfies UrlScheduleProviderAdminAllKeys,
     ),
   headers: zUniqueArray(
     z.array(

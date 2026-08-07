@@ -1,6 +1,7 @@
 import { invalidateOrganizationSessions } from "@/lib/auth/invalidate-organization-sessions";
 import { getLoggerFactory } from "@hacado/logger";
 import { getPolarClient, ServicesContainer } from "@hacado/services";
+import { systemEventSource } from "@hacado/types";
 import type { Order } from "@polar-sh/sdk/models/components/order";
 
 const USER_SLOTS_PRODUCT_TYPE = "users_amount";
@@ -76,7 +77,7 @@ export async function applyPolarOrderPaidToUserSlots(
     });
 
     const team = ServicesContainer(organizationId).teamService;
-    await team.reconcileMembersToSlots();
+    await team.reconcileMembersToSlots(systemEventSource);
     await invalidateOrganizationSessions(organizationId);
 
     logger.info(

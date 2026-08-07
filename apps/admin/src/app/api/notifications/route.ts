@@ -12,6 +12,7 @@ import {
   type SessionUser,
 } from "@hacado/types";
 import {
+  canReadActivity,
   canReadSyncedPayments,
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,
@@ -142,12 +143,14 @@ export async function GET(request: NextRequest) {
     const syncedPaymentsReview = canReadSyncedPayments(session.user)
       ? await getSyncedPaymentsReviewNotifications()
       : undefined;
-    const activityFeed = await getActivityFeedNotifications(memberId);
+    const activityFeed = canReadActivity(session.user)
+      ? await getActivityFeedNotifications(memberId)
+      : undefined;
 
     let notifications: DashboardNotification[] = [
       count,
       ...(syncedPaymentsReview ? [syncedPaymentsReview] : []),
-      activityFeed,
+      ...(activityFeed ? [activityFeed] : []),
     ];
 
     logger.debug("Invoking dashboard notifier apps");

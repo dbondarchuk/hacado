@@ -16,6 +16,7 @@ import {
   isFreeTier,
 } from "@/lib/billing/subscription-plan-access";
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { NavItemGroup } from "@hacado/types";
@@ -109,7 +110,16 @@ export default async function DashboardLayout({
     ],
   }));
 
-  const appsWithMenu = await servicesContainer.connectedAppsService.getApps();
+  const currentMemberId = session.user.memberId;
+  const appsWithMenu = (
+    await servicesContainer.connectedAppsService.getApps()
+  ).filter((app) => {
+    const target = AvailableApps[app.name]?.target;
+    if (target === "member") {
+      return !!currentMemberId && app.memberId === currentMemberId;
+    }
+    return true;
+  });
   const appsMenus = appsWithMenu.flatMap(({ name }) =>
     (AppMenuItems[name] || []).map((item) => ({
       ...item,

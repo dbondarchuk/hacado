@@ -1,11 +1,18 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@hacado/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/activities/event-types")("GET");
+  const auth = await requirePermission(
+    "activity",
+    "read",
+    "AdminAPI/activities/event-types",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
 
   const page = Math.max(
@@ -26,7 +33,10 @@ export async function GET(request: NextRequest) {
       limit,
     });
 
-  logger.debug({ total, count: items.length }, "Listed distinct event types");
+  auth.logger.debug(
+    { total, count: items.length },
+    "Listed distinct event types",
+  );
 
   return NextResponse.json({ items, total });
 }

@@ -1,5 +1,6 @@
 import type { Language } from "@hacado/i18n";
 import type { Query, WithTotal } from "../database";
+import type { EventSource } from "../events/envelope";
 import type {
   MemberInactiveReason,
   MemberStatus,
@@ -82,21 +83,26 @@ export interface ITeamService {
   deactivateMember(
     memberId: string,
     reason: MemberInactiveReason,
+    source: EventSource,
     options?: { force?: boolean },
   ): Promise<DeactivateMemberResult>;
 
-  reactivateMember(memberId: string): Promise<OrganizationMember | null>;
+  reactivateMember(
+    memberId: string,
+    source: EventSource,
+  ): Promise<OrganizationMember | null>;
 
   updateMemberRole(
     memberId: string,
     role: Exclude<UserRole, "owner">,
+    source: EventSource,
   ): Promise<OrganizationMember | null>;
 
   /**
    * After availableUsers changes: deactivate excess (newest non-owners first)
    * or reactivate downgrade-inactive (oldest first).
    */
-  reconcileMembersToSlots(): Promise<ReconcileSlotsResult>;
+  reconcileMembersToSlots(source: EventSource): Promise<ReconcileSlotsResult>;
 
   listUpcomingAppointmentsForMember(memberId: string): Promise<
     Array<{
@@ -118,7 +124,27 @@ export interface ITeamService {
   updateMemberProfile(
     memberId: string,
     profile: MemberProfileUpdate,
+    source: EventSource,
   ): Promise<OrganizationMember | null>;
+
+  /** Emits activity when Better Auth creates an invitation. */
+  emitInvitationCreated(
+    invitation: { invitationId: string; email: string; role: string },
+    source: EventSource,
+  ): Promise<void>;
+
+  /** Emits activity when Better Auth cancels an invitation. */
+  emitInvitationCanceled(
+    invitation: { invitationId: string; email: string; role: string },
+    source: EventSource,
+  ): Promise<void>;
+
+  /** Emits activity when a member is created (e.g. invitation accepted). */
+  emitMemberCreated(
+    member: OrganizationMember,
+    source: EventSource,
+    options?: { invitationId?: string },
+  ): Promise<void>;
 
   getOrganizationAdminContacts(): Promise<OrganizationAdminContact[]>;
 }

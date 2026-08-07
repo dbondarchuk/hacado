@@ -32,6 +32,6 @@ export const BusyEventsMenuItems: AppMenuItem<
     Page: (props) => (
       <BusyEventsAppSetup appId={props.appId} services={props.services} />
     ),
-    requiredPermission: { resource: "schedule", action: "update" },
+    requiredPermission: { resource: "schedule", action: "read" },
   },
 ];

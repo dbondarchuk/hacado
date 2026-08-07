@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { userUpdateSchema } from "@hacado/api-sdk";
 import type { SessionUser } from "@hacado/types";
@@ -92,7 +92,8 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
     "Updating other member profile fields",
   );
 
-  await gate.services.teamService.updateMemberProfile(id, rest);
+  const actor = await getActor();
+  await gate.services.teamService.updateMemberProfile(id, rest, actor);
 
   const updated = await gate.services.teamService.getMemberById(id);
   if (!updated) {

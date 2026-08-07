@@ -247,11 +247,13 @@ export const setDefaultAppByScope = async (
 
     const currentSources = user.calendarSources ?? [];
     if (!currentSources.some((source) => source.appId === appId)) {
+      const actor = await getActor();
       await servicesContainer.teamService.updateMemberProfile(
         session.user.memberId,
         {
           calendarSources: [...currentSources, { appId }],
         },
+        actor,
       );
 
       actionLogger.debug(
@@ -270,9 +272,11 @@ export const setDefaultAppByScope = async (
       { appId, scopes: uniqueScopes },
       "Setting meeting URL provider app",
     );
+    const actor = await getActor();
     await servicesContainer.teamService.updateMemberProfile(
       session.user.memberId,
       { meetingUrlProviderAppId: appId },
+      actor,
     );
     actionLogger.debug(
       { appId, scopes: uniqueScopes },

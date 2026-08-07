@@ -1,3 +1,4 @@
+import { getActor } from "@/app/utils";
 import type { MemberInactiveReason } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -29,9 +30,11 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   }
 
   const services = await getTeamServices();
+  const actor = await getActor();
   const result = await services.teamService.deactivateMember(
     id,
     "removed" satisfies MemberInactiveReason,
+    actor,
     { force: parsed.data.force },
   );
   return NextResponse.json(result);

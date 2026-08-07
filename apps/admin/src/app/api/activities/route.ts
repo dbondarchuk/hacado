@@ -1,12 +1,19 @@
 import { getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { activitiesSearchParamsLoader } from "@hacado/api-sdk";
-import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/activities")("GET");
+  const auth = await requirePermission(
+    "activity",
+    "read",
+    "AdminAPI/activities",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
 
   const params = activitiesSearchParamsLoader(request.nextUrl.searchParams);
@@ -28,7 +35,7 @@ export async function GET(request: NextRequest) {
     actor: params.actor?.length ? params.actor : undefined,
   });
 
-  logger.debug(
+  auth.logger.debug(
     { total: res.total, count: res.items.length },
     "Listed activities",
   );

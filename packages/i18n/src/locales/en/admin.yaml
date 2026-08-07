@@ -240,6 +240,29 @@ platformEvents:
     deleted:
       title: Assets removed
       description: "{count, plural, =1 {# asset} other {# assets}}"
+  member:
+    created:
+      title: Team member joined
+      description: "{memberName} · {role}"
+    deactivated:
+      title: Team member deactivated
+      description: "{memberName} · {reason}"
+    reactivated:
+      title: Team member reactivated
+      description: "{memberName}"
+    roleChanged:
+      title: Team member role changed
+      description: "{memberName}: {previousRole} → {role}"
+    profileUpdated:
+      title: Team member profile updated
+      description: "{memberName}"
+  invitation:
+    created:
+      title: Team invitation sent
+      description: "{email} · {role}"
+    canceled:
+      title: Team invitation canceled
+      description: "{email} · {role}"
   subscription:
     statusChanged:
       title: Subscription status changed
