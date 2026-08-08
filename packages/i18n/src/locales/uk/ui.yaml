@@ -151,6 +151,7 @@ scheduler:
   endTime: Час закінчення
   edit: Редагувати
   addShift: Додати зміну
+  time: Час
 timePicker:
   seconds: Секунди
   am: ДП

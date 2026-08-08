@@ -1,6 +1,11 @@
 import { adminApi } from "@hacado/api-sdk";
-import { Schedule, WeekIdentifier } from "@hacado/types";
-import { getWeekIdentifier } from "@hacado/utils";
+import {
+  Schedule,
+  ScheduleDaySource,
+  ScheduleRecurrenceInfo,
+  ScheduleWeekDay,
+  WeekIdentifier,
+} from "@hacado/types";
 import { RequestAction } from "../models";
 
 export const getWeeklySchedule = async (
@@ -15,6 +20,9 @@ export const getWeeklySchedule = async (
   } as RequestAction)) as {
     schedule: Schedule;
     isDefault: boolean;
+    daySources?: Record<number, ScheduleDaySource>;
+    holidays?: ScheduleWeekDay[];
+    recurrence?: ScheduleRecurrenceInfo | null;
   };
 };
 
@@ -31,6 +39,18 @@ export const updateWeeklySchedule = async (
     },
     replaceExisting: true,
     memberId,
+  } as RequestAction);
+};
+
+export const setCompanyHolidays = async (
+  appId: string,
+  weekIdentifier: WeekIdentifier,
+  holidays: ScheduleWeekDay[],
+) => {
+  await adminApi.apps.processRequest(appId, {
+    type: "set-company-holidays",
+    week: weekIdentifier,
+    holidays,
   } as RequestAction);
 };
 
@@ -58,6 +78,18 @@ export const resetAllWeeklySchedule = async (
   } as RequestAction);
 };
 
+export const removeRecurringWeeklySchedule = async (
+  appId: string,
+  exceptionId: string,
+  memberId?: string,
+) => {
+  await adminApi.apps.processRequest(appId, {
+    type: "remove-recurring-schedule",
+    exceptionId,
+    memberId,
+  } as RequestAction);
+};
+
 export const copyWeeklySchedule = async (
   appId: string,
   fromWeek: WeekIdentifier,
@@ -76,6 +108,10 @@ export const copyWeeklySchedule = async (
     replaceExisting: true,
     memberId,
   } as RequestAction);
+
+  if (!memberId) {
+    await setCompanyHolidays(appId, toWeek, fromSchedule.holidays ?? []);
+  }
 };
 
 export const repeatWeeklySchedule = async (
@@ -86,21 +122,11 @@ export const repeatWeeklySchedule = async (
   replaceExisting?: boolean,
   memberId?: string,
 ) => {
-  const fromSchedule = await getWeeklySchedule(appId, week, memberId);
-  if (fromSchedule.isDefault)
-    throw new Error(`Week ${week} does not have custom schedule`);
-
-  const todayWeek = getWeekIdentifier(new Date());
-  const weeks: Record<WeekIdentifier, Schedule> = {};
-  for (let w = week; w <= maxWeek; w += interval) {
-    if (w < todayWeek) continue;
-
-    weeks[w] = fromSchedule.schedule;
-  }
-
   await adminApi.apps.processRequest(appId, {
-    type: "set-schedules",
-    schedules: weeks,
+    type: "repeat-schedule",
+    week,
+    interval,
+    maxWeek,
     replaceExisting,
     memberId,
   } as RequestAction);

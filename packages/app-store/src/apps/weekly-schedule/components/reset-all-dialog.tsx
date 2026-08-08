@@ -45,14 +45,20 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   );
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const resetToCompany = !!memberId;
 
   const onConfirm = async () => {
     try {
       setLoading(true);
       await toastPromise(resetAllWeeklySchedule(appId, week, memberId), {
-        success: t("dialogs.resetAll.success", {
-          week: getWeekDisplay(week),
-        }),
+        success: t(
+          resetToCompany
+            ? "dialogs.resetAll.successCompany"
+            : "dialogs.resetAll.success",
+          {
+            week: getWeekDisplay(week),
+          },
+        ),
         error: t("statusText.request_error"),
       });
 
@@ -69,16 +75,26 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
     <AlertDialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
       <AlertDialogTrigger asChild>
         <Button variant="secondary" disabled={disabled} className={className}>
-          <RotateCcw /> {t("dialogs.resetAll.resetAllToDefault")}
+          <RotateCcw />{" "}
+          {t(
+            resetToCompany
+              ? "dialogs.resetAll.resetAllToCompany"
+              : "dialogs.resetAll.resetAllToDefault",
+          )}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("dialogs.resetAll.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {t("dialogs.resetAll.description", {
-              week: getWeekDisplay(week),
-            })}
+            {t(
+              resetToCompany
+                ? "dialogs.resetAll.descriptionCompany"
+                : "dialogs.resetAll.description",
+              {
+                week: getWeekDisplay(week),
+              },
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

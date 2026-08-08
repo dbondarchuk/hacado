@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@hacado/i18n/client";
-import { AvailablePeriod, Shift } from "@hacado/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AvailablePeriod, ScheduleDaySource, Shift } from "@hacado/types";
 import { cn, use12HourFormat } from "@hacado/ui";
 import { GripHorizontal, X } from "lucide-react";
 import { DateTime } from "luxon";
@@ -12,6 +12,10 @@ import React, {
   useRef,
   useState,
 } from "react";
+import {
+  scheduleSourceBlockActiveClass,
+  scheduleSourceBlockClass,
+} from "./schedule-source-styles";
 import {
   formatTime,
   generateId,
@@ -32,6 +36,8 @@ export interface DayScheduleSelectorProps {
   onChange?: (value: AvailablePeriod[]) => void;
   disabled?: boolean;
   weekDate?: Date;
+  /** Per-weekday source layer for shift block colors. */
+  daySources?: Record<number, ScheduleDaySource>;
 }
 
 interface Block {
@@ -82,6 +88,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
   onChange,
   disabled,
   weekDate,
+  daySources,
 }) => {
   const t = useI18n("ui");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -101,6 +108,8 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
   const [cellDimensions, setCellDimensions] = useState<
     Record<number, { width: number; height: number }>
   >({});
+
+  const locale = useLocale();
 
   const [timeCellDimensions, setTimeCellDimensions] = useState({
     width: 0,
@@ -847,7 +856,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
         >
           {/* Header row */}
           <div className="time-cell bg-muted text-center p-2 font-medium border-b border-r sticky top-0 left-0 z-[13] select-none">
-            Time
+            {t("scheduler.time")}
           </div>
           {days.map((day, index) => (
             <div
@@ -860,6 +869,7 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
             >
               {weekDate
                 ? DateTime.fromJSDate(weekDate)
+                    .setLocale(locale)
                     .startOf("week")
                     .plus({ days: day - 1 })
                     .toFormat("EEE, MMM d")
@@ -924,89 +934,92 @@ export const DayScheduleSelector: React.FC<DayScheduleSelectorProps> = ({
               )}
 
               {/* Existing blocks */}
-              {blocks.map((block) => (
-                <div
-                  key={block.id}
-                  className={cn(
-                    "shift-block absolute rounded border pointer-events-auto transition-colors duration-150",
-                    activeBlockId === block.id
-                      ? "bg-primary/60 border-primary shadow-lg z-20"
-                      : "bg-primary/40 border-primary/30 hover:bg-primary/50",
-                  )}
-                  style={getBlockStyle(block)}
-                >
-                  {/* Top resize handle */}
+              {blocks.map((block) => {
+                const source = daySources?.[block.day] || "default";
+                return (
                   <div
+                    key={block.id}
                     className={cn(
-                      "absolute top-0 left-0 w-full h-2 bg-primary/10 hover:bg-primary/20 z-10",
-                      disabled ? "cursor-not-allowed" : "cursor-ns-resize",
+                      "shift-block absolute rounded border pointer-events-auto transition-colors duration-150",
+                      activeBlockId === block.id
+                        ? scheduleSourceBlockActiveClass[source]
+                        : scheduleSourceBlockClass[source],
                     )}
-                    onMouseDown={(e) =>
-                      handleBlockResizeStart(e, block, "resize-start")
-                    }
-                    onTouchStart={(e) =>
-                      handleBlockResizeStart(e, block, "resize-start")
-                    }
+                    style={getBlockStyle(block)}
                   >
-                    <div className="absolute top-1 left-1/2 transform -translate-x-1/2">
-                      <GripHorizontal className="h-3 w-3 text-primary/70" />
-                    </div>
-                  </div>
-
-                  {/* Time display and delete button */}
-                  <div
-                    className={cn(
-                      "absolute inset-2 flex items-center justify-between px-2",
-                      disabled ? "cursor-not-allowed" : "cursor-move",
-                    )}
-                    onMouseDown={(e) => handleBlockMoveStart(e, block)}
-                    onTouchStart={(e) => handleBlockMoveStart(e, block)}
-                  >
-                    <div className="text-xs font-medium select-none">
-                      <span>
-                        {formatTimeWithLocale(
-                          block.startTime,
-                          t("timePicker.am"),
-                          t("timePicker.pm"),
-                        )}
-                      </span>
-                      <span> - </span>
-                      <span>
-                        {formatTimeWithLocale(
-                          block.endTime,
-                          t("timePicker.am"),
-                          t("timePicker.pm"),
-                        )}
-                      </span>
-                    </div>
-                    <button
-                      disabled={disabled}
-                      className="h-5 w-5 rounded-full bg-white text-primary flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition-colors"
-                      onClick={(e) => handleDeleteBlock(e, block.id)}
+                    {/* Top resize handle */}
+                    <div
+                      className={cn(
+                        "absolute top-0 left-0 w-full h-2 bg-black/5 hover:bg-black/10 z-10",
+                        disabled ? "cursor-not-allowed" : "cursor-ns-resize",
+                      )}
+                      onMouseDown={(e) =>
+                        handleBlockResizeStart(e, block, "resize-start")
+                      }
+                      onTouchStart={(e) =>
+                        handleBlockResizeStart(e, block, "resize-start")
+                      }
                     >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
+                      <div className="absolute top-1 left-1/2 transform -translate-x-1/2">
+                        <GripHorizontal className="h-3 w-3 opacity-70" />
+                      </div>
+                    </div>
 
-                  {/* Bottom resize handle */}
-                  <div
-                    className={cn(
-                      "absolute bottom-0 left-0 w-full h-2 bg-primary/10 hover:bg-primary/20 z-10",
-                      disabled ? "cursor-not-allowed" : "cursor-ns-resize",
-                    )}
-                    onMouseDown={(e) =>
-                      handleBlockResizeStart(e, block, "resize-end")
-                    }
-                    onTouchStart={(e) =>
-                      handleBlockResizeStart(e, block, "resize-end")
-                    }
-                  >
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                      <GripHorizontal className="h-3 w-3 text-primary/70" />
+                    {/* Time display and delete button */}
+                    <div
+                      className={cn(
+                        "absolute inset-2 flex items-center justify-between px-2",
+                        disabled ? "cursor-not-allowed" : "cursor-move",
+                      )}
+                      onMouseDown={(e) => handleBlockMoveStart(e, block)}
+                      onTouchStart={(e) => handleBlockMoveStart(e, block)}
+                    >
+                      <div className="text-xs font-medium select-none">
+                        <span>
+                          {formatTimeWithLocale(
+                            block.startTime,
+                            t("timePicker.am"),
+                            t("timePicker.pm"),
+                          )}
+                        </span>
+                        <span> - </span>
+                        <span>
+                          {formatTimeWithLocale(
+                            block.endTime,
+                            t("timePicker.am"),
+                            t("timePicker.pm"),
+                          )}
+                        </span>
+                      </div>
+                      <button
+                        disabled={disabled}
+                        className="h-5 w-5 rounded-full bg-white/90 text-foreground flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition-colors"
+                        onClick={(e) => handleDeleteBlock(e, block.id)}
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </div>
+
+                    {/* Bottom resize handle */}
+                    <div
+                      className={cn(
+                        "absolute bottom-0 left-0 w-full h-2 bg-black/5 hover:bg-black/10 z-10",
+                        disabled ? "cursor-not-allowed" : "cursor-ns-resize",
+                      )}
+                      onMouseDown={(e) =>
+                        handleBlockResizeStart(e, block, "resize-end")
+                      }
+                      onTouchStart={(e) =>
+                        handleBlockResizeStart(e, block, "resize-end")
+                      }
+                    >
+                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+                        <GripHorizontal className="h-3 w-3 opacity-70" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -8,6 +8,10 @@ import {
 } from "@hacado/types";
 import { eachOfInterval } from "@hacado/utils";
 
+/**
+ * Resolves open hours from the org default schedule, optionally overridden
+ * day-by-day by the connected schedule app (`booking.scheduleAppId`).
+ */
 export class ScheduleService implements IScheduleService {
   protected readonly loggerFactory = getLoggerFactory("ScheduleService");
 
@@ -49,7 +53,7 @@ export class ScheduleService implements IScheduleService {
         memberId,
       );
     } else {
-      logger.debug("Using default schedule");
+      logger.debug("Using default schedule only");
     }
 
     const result = days.reduce(

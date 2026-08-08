@@ -277,6 +277,8 @@ const server = http.createServer((req, res) => {
         examples: {
           busyEvents: `http://${HOST}:${PORT}/api/busy-events?start=2024-01-15T00:00:00.000Z&end=2024-01-15T23:59:59.000Z`,
           schedule: `http://${HOST}:${PORT}/api/schedule?start=2024-01-15T00:00:00.000Z&end=2024-01-15T23:59:59.000Z`,
+          scheduleWithPlaceholders:
+            "Configure URL schedule provider as http://HOST:PORT/api/schedule?start={{start}}&end={{end}}&memberId={{memberId}}",
         },
         responseFormats: {
           busyEvents: [

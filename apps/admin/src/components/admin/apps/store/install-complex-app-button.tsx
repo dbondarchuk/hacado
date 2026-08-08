@@ -24,7 +24,6 @@ import {
   toastPromise,
 } from "@hacado/ui";
 import { filterInstallDefaultScopesForUser } from "@hacado/utils";
-import { useRouter } from "next/navigation";
 import React from "react";
 import {
   installComplexApp,
@@ -38,7 +37,6 @@ export const InstallComplexAppButton: React.FC<{
   installBlocked?: boolean;
 }> = ({ appName, installed, installBlocked = false }) => {
   const app = React.useMemo(() => AvailableApps[appName], [appName]);
-  const router = useRouter();
   const t = useI18n("apps");
   const { data: session } = authClient.useSession();
   const [pendingDefaultPrompt, setPendingDefaultPrompt] = React.useState<{
@@ -60,13 +58,15 @@ export const InstallComplexAppButton: React.FC<{
     );
   }, [app.scope, session?.user]);
 
-  const finishInstallNavigation = React.useCallback(async () => {
-    if (app.type === "complex" && app.settingsHref) {
-      router.push(`/dashboard/${app.settingsHref}`);
-    } else if (app.type === "system") {
-      router.refresh();
-    }
-  }, [(app as ComplexApp).settingsHref, app.type, router]);
+  const finishInstallNavigation = React.useCallback(() => {
+    // Full reload so dashboard layout rebuilds sidebar menu items for the new app.
+    // Soft router.refresh() is not enough after the install / default-targets dialog.
+    const href =
+      app.type === "complex" && app.settingsHref
+        ? `/dashboard/${app.settingsHref}`
+        : window.location.pathname + window.location.search;
+    window.location.assign(href);
+  }, [(app as ComplexApp).settingsHref, app.type]);
 
   const installComplex = async () => {
     if (installBlocked) return;
@@ -85,7 +85,7 @@ export const InstallComplexAppButton: React.FC<{
         setPendingDefaultPrompt({ appId, scopes: defaultScopes });
         setSelectedScopes(defaultScopes);
       } else {
-        await finishInstallNavigation();
+        finishInstallNavigation();
       }
     };
 
@@ -113,7 +113,7 @@ export const InstallComplexAppButton: React.FC<{
     } finally {
       setSettingDefault(false);
       setPendingDefaultPrompt(null);
-      await finishInstallNavigation();
+      finishInstallNavigation();
     }
   };
 
@@ -133,7 +133,7 @@ export const InstallComplexAppButton: React.FC<{
         onOpenChange={(open) => {
           if (!open && !settingDefault) {
             setPendingDefaultPrompt(null);
-            void finishInstallNavigation();
+            finishInstallNavigation();
           }
         }}
       >
@@ -171,9 +171,9 @@ export const InstallComplexAppButton: React.FC<{
           <AlertDialogFooter>
             <AlertDialogCancel
               disabled={settingDefault}
-              onClick={async () => {
+              onClick={() => {
                 setPendingDefaultPrompt(null);
-                await finishInstallNavigation();
+                finishInstallNavigation();
               }}
             >
               {t("common.installTargetsPrompt.actions.skip")}

@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { shiftsSchema } from "./shifts";
 
+export * from "./exception";
 export * from "./override";
 export * from "./shifts";
 

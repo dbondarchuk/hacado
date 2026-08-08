@@ -151,6 +151,7 @@ scheduler:
   endTime: End Time
   edit: Edit
   addShift: Add Shift
+  time: Time
 timePicker:
   seconds: Seconds
   am: AM

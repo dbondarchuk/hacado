@@ -660,8 +660,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth.ts": {
-    "mtime": 1786122150.6936443,
-    "ast_hash": "1103784b1de63b7d210a4f3c86d35161",
+    "mtime": 1786128162.8259392,
+    "ast_hash": "c37e136db8070283d76aefc7a98c0f5e",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/email/verified/route.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/[...slug]/page.tsx": {
-    "mtime": 1786124555.573428,
-    "ast_hash": "5bb56936e33bf067c02114b3e9373074",
+    "mtime": 1786128162.8259392,
+    "ast_hash": "64cc27c2a86ab4864d5afc24188e9848",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/activity/page.tsx": {
@@ -1300,8 +1300,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/apps/store/install-complex-app-button.tsx": {
-    "mtime": 1785952530.3940637,
-    "ast_hash": "901cb282ad9749550188139a7f395342",
+    "mtime": 1786134636.6331317,
+    "ast_hash": "5442c50162969f89abd0c1824ddafb1c",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/assets/edit-form.tsx": {
@@ -4750,8 +4750,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/busy-events/components/form.tsx": {
-    "mtime": 1786124474.224647,
-    "ast_hash": "de53d4076b759ff261748d2166291041",
+    "mtime": 1786128147.4998527,
+    "ast_hash": "801b73c465276f1e8487dc4b881b701e",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/busy-events/const.ts": {
@@ -6600,17 +6600,17 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/models.ts": {
-    "mtime": 1786125346.1624885,
+    "mtime": 1786134636.6261303,
     "ast_hash": "8ce1d78f003fe178f9768ac962207609",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/service.ts": {
-    "mtime": 1786125357.4778025,
+    "mtime": 1786134636.6331317,
     "ast_hash": "4327bbac0152eff44e7129e53c45cc09",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/setup.tsx": {
-    "mtime": 1786125434.7370007,
+    "mtime": 1786134636.6331317,
     "ast_hash": "4dff7fd1db0da6d5fc27611c586e40b4",
     "semantic_hash": ""
   },
@@ -6645,8 +6645,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/service.ts": {
-    "mtime": 1786125291.7829676,
-    "ast_hash": "f7b889b663c62f11c5d6fc49b8e10b06",
+    "mtime": 1786128147.4998527,
+    "ast_hash": "44e3766c5fcba965dd0078b49feb9bc0",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/setup.tsx": {
@@ -7325,8 +7325,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/actions.ts": {
-    "mtime": 1785874219.8966687,
-    "ast_hash": "8bf965d735b622d371704dff0767066d",
+    "mtime": 1786205435.6146386,
+    "ast_hash": "fb930804b807f39ec6e3deec01c2feee",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/copy-schedule-dialog.tsx": {
@@ -7335,8 +7335,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/form.tsx": {
-    "mtime": 1785874219.8966687,
-    "ast_hash": "a1d4f838468dd18864faa451879daed8",
+    "mtime": 1786205492.8668683,
+    "ast_hash": "8aeae313631560d1fc6898b6c0fed455",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/repeat-schedule-dialog.tsx": {
@@ -7345,13 +7345,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/reset-all-dialog.tsx": {
-    "mtime": 1785874219.8977187,
-    "ast_hash": "19b51b9e9d9f16b3ab0c6559590bed3e",
+    "mtime": 1786136781.7923555,
+    "ast_hash": "d40911a7fbf27e9d93480ae2051793be",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/reset-dialog.tsx": {
-    "mtime": 1785874219.8982327,
-    "ast_hash": "6bded9f546cfb04b2a4474d0d28378b5",
+    "mtime": 1786205461.821409,
+    "ast_hash": "7752483ce765fbc42cbba9ec59356452",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/utils.ts": {
@@ -7370,18 +7370,18 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/models.ts": {
-    "mtime": 1785874219.8997512,
-    "ast_hash": "02fef9f23e754f01bad636481f20304b",
+    "mtime": 1786205293.9999788,
+    "ast_hash": "b8b13dd55f697a83275619139994f65b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/service.ts": {
-    "mtime": 1785874219.8997512,
-    "ast_hash": "6f9d78418865e79fc357da24b713b6a7",
+    "mtime": 1786205398.4496717,
+    "ast_hash": "d01b484a89b9e9ff2c60e04d07d5929f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/setup.tsx": {
-    "mtime": 1785874219.900748,
-    "ast_hash": "7266b56716ee2a5e89c4860fe8bf9a0d",
+    "mtime": 1786138710.4461286,
+    "ast_hash": "6e9f1a68b5ab097fd68c63c806e070e4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/translations/index.ts": {
@@ -8655,8 +8655,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/rich-text-args.tsx": {
-    "mtime": 1773675371.282996,
-    "ast_hash": "0544d56274eb4fa3f3f18961ccd332c8",
+    "mtime": 1786126331.7957869,
+    "ast_hash": "6c1f1ef0bc4bcbef7d9bff97c1283ced",
     "semantic_hash": ""
   },
   "packages/i18n/src/server.ts": {
@@ -12845,7 +12845,7 @@
     "semantic_hash": ""
   },
   "packages/services/src/collections.ts": {
-    "mtime": 1784916211.350525,
+    "mtime": 1786131780.7848983,
     "ast_hash": "a845823c3082f4dc38fa0c01047dc385",
     "semantic_hash": ""
   },
@@ -13080,7 +13080,7 @@
     "semantic_hash": ""
   },
   "packages/services/src/index.ts": {
-    "mtime": 1786120636.5358775,
+    "mtime": 1786131776.0338292,
     "ast_hash": "5fda3aa990f5acc0de667e5bc9ea4c05",
     "semantic_hash": ""
   },
@@ -13135,8 +13135,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/schedule.service.ts": {
-    "mtime": 1785874220.1474595,
-    "ast_hash": "08facc98fefd182b75791f7e299d30c8",
+    "mtime": 1786134636.6241312,
+    "ast_hash": "f62bd071a7dfafbbd360dcf7485650d5",
     "semantic_hash": ""
   },
   "packages/services/src/services.service.ts": {
@@ -13610,8 +13610,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/configuration/schedule/index.ts": {
-    "mtime": 1773675371.4609983,
-    "ast_hash": "d6a75b80175890f8e37fa8c46f6fa303",
+    "mtime": 1786134636.6331317,
+    "ast_hash": "7a203d5df3c8c6bcdd2340d678196fbd",
     "semantic_hash": ""
   },
   "packages/types/src/configuration/schedule/override.ts": {
@@ -13720,13 +13720,13 @@
     "semantic_hash": ""
   },
   "packages/types/src/events/all-core-event-types.ts": {
-    "mtime": 1786122070.8036125,
-    "ast_hash": "5251f7e0b19ead9d25787061d8394826",
+    "mtime": 1786128059.4567254,
+    "ast_hash": "92735f4a1f726a8a8b4d3cd54212c3f1",
     "semantic_hash": ""
   },
   "packages/types/src/events/core-event-payloads.ts": {
-    "mtime": 1786122065.245524,
-    "ast_hash": "cedf9f2cc9819b30eb268ad9d03c8c5e",
+    "mtime": 1786128076.2706158,
+    "ast_hash": "0068eb12536b75806c0c7b2f6cf97fec",
     "semantic_hash": ""
   },
   "packages/types/src/events/core-events.ts": {
@@ -14435,8 +14435,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/scheduler/day-schedule-selector.tsx": {
-    "mtime": 1785874220.1854596,
-    "ast_hash": "b02031608773e4a6a4f74baa7ae5d154",
+    "mtime": 1786134755.0633104,
+    "ast_hash": "1d607bee0b3700f274246270aca55f04",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/scheduler/index.ts": {
@@ -14450,8 +14450,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/scheduler/simple-scheduler.tsx": {
-    "mtime": 1785874220.1854596,
-    "ast_hash": "b3efb50203da17b78acb076d6e52c612",
+    "mtime": 1786134636.6331317,
+    "ast_hash": "87d0eddb3801b23e7b47c95d83d993e3",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/scheduler/utils.ts": {
@@ -15200,8 +15200,8 @@
     "semantic_hash": ""
   },
   "packages/utils/package.json": {
-    "mtime": 1785960466.0123012,
-    "ast_hash": "a6535fd58d834fbd6c33c2d08d8f73e8",
+    "mtime": 1786134636.6261303,
+    "ast_hash": "a37082918262bd1147a5f4a88ec8f71b",
     "semantic_hash": ""
   },
   "packages/utils/src/appointment-event-dispatch.ts": {
@@ -15290,8 +15290,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/index.ts": {
-    "mtime": 1785952927.4202142,
-    "ast_hash": "4cd133699615c3191ef5d12dc79994ec",
+    "mtime": 1786134636.6331317,
+    "ast_hash": "ca7d9b99e9f7bcb5cb9014ba1edc8b1d",
     "semantic_hash": ""
   },
   "packages/utils/src/markdown.ts": {
@@ -15370,8 +15370,8 @@
     "semantic_hash": ""
   },
   "test-url-apps-server.js": {
-    "mtime": 1773675371.529499,
-    "ast_hash": "d4f55a17b966f06d40c7b21d64f1e0e7",
+    "mtime": 1786134636.62313,
+    "ast_hash": "d6da2215f34e8a11b092a77b243a6871",
     "semantic_hash": ""
   },
   "tools/diagram-md-to-html.mjs": {
@@ -15725,8 +15725,8 @@
     "semantic_hash": ""
   },
   "docs/docs/apps/weekly-schedule.md": {
-    "mtime": 1777924614.515381,
-    "ast_hash": "4d8fa89c949495950210eb9f22f80101",
+    "mtime": 1786205511.1449254,
+    "ast_hash": "e69de9877bc8ff8c139e9e6c2ae2e8a2",
     "semantic_hash": ""
   },
   "docs/docs/apps/zoom.md": {
@@ -16120,13 +16120,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/translations/en/admin.yaml": {
-    "mtime": 1786125384.8666472,
-    "ast_hash": "6707769354b98fc68d0bd6ed75f52b60",
+    "mtime": 1786134636.6261303,
+    "ast_hash": "da9317c9f729743ff270adb07dd3c842",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/translations/uk/admin.yaml": {
-    "mtime": 1786125385.3507612,
-    "ast_hash": "d8e054bfefd288ead9742dcce0d66ed4",
+    "mtime": 1786134636.6301303,
+    "ast_hash": "d647ef23326c172ee2910a9691ba7e8f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/README.md": {
@@ -16135,13 +16135,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/translations/en/admin.yaml": {
-    "mtime": 1786125192.3312082,
-    "ast_hash": "a8de51c55c7cd14de907f425279c8c9e",
+    "mtime": 1786126363.5239382,
+    "ast_hash": "ddfdf767902d4a74db74ea410aa22b20",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/translations/uk/admin.yaml": {
-    "mtime": 1786125192.3609164,
-    "ast_hash": "b51ac459f32502944f8d11804ccd2af3",
+    "mtime": 1786126369.3937528,
+    "ast_hash": "b8c5b3a9a9076237573bba32218e58eb",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist-notifications/translations/en/admin.yaml": {
@@ -16195,13 +16195,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/translations/en/admin.yaml": {
-    "mtime": 1784916211.317961,
-    "ast_hash": "48ebfcc405ae0bbbbcaeb46e555447cc",
+    "mtime": 1786205435.991497,
+    "ast_hash": "c5d0cfaf8e31463880a83ba88b3152d8",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/translations/uk/admin.yaml": {
-    "mtime": 1784916211.3189604,
-    "ast_hash": "ac9ab98ad78260d87e212fe6ac410dfc",
+    "mtime": 1786205461.6840441,
+    "ast_hash": "8b4c27896c71b4972271fc933f3513e4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/zoom/translations/en/admin.yaml": {
@@ -16225,7 +16225,7 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1786122120.1202466,
+    "mtime": 1786139378.113065,
     "ast_hash": "96c7076f8b0d5836f216ecb6751c7805",
     "semantic_hash": ""
   },
@@ -16250,8 +16250,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/ui.yaml": {
-    "mtime": 1784911651.595562,
-    "ast_hash": "c149e8f40c326b8778f3c1cd0738b982",
+    "mtime": 1786134693.5079863,
+    "ast_hash": "49f51d0a91d48a2c54192f7d71e01e8a",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/validation.yaml": {
@@ -16260,7 +16260,7 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1786122120.292557,
+    "mtime": 1786139378.2765877,
     "ast_hash": "8560183ef2298a3ff0d8c20ceeed4e1d",
     "semantic_hash": ""
   },
@@ -16285,8 +16285,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/ui.yaml": {
-    "mtime": 1784911651.595562,
-    "ast_hash": "0689f774c4bdc862b8814363ca99f385",
+    "mtime": 1786134706.3292677,
+    "ast_hash": "bda1d33d4d952adea9251577a110ae13",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/validation.yaml": {
@@ -27550,8 +27550,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/table-action.tsx": {
-    "mtime": 1786050087.61451,
-    "ast_hash": "096b9d57b8442b3a4782b7fa4373fffe",
+    "mtime": 1786128162.8259392,
+    "ast_hash": "afab6c3d07048654afd5401a61ffdeb7",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/table.tsx": {
@@ -27665,7 +27665,7 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/member-selector.tsx": {
-    "mtime": 1785953078.697628,
+    "mtime": 1786139377.9933674,
     "ast_hash": "a50c27b4e49e999fe3767205f6ae596e",
     "semantic_hash": ""
   },
@@ -27880,8 +27880,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/permissions.ts": {
-    "mtime": 1786123081.3756547,
-    "ast_hash": "b62b7a522a01d1dc8dae5338f331de5b",
+    "mtime": 1786128101.2775996,
+    "ast_hash": "b9fcea29032f41bafb1e277d0050b9f8",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/app-access.ts": {
@@ -28145,13 +28145,43 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-schedule-provider/url-placeholders.ts": {
-    "mtime": 1786125174.4659123,
-    "ast_hash": "78b2a806e2c18b9c45d5c45e44bfbfd6",
+    "mtime": 1786126034.8920689,
+    "ast_hash": "6440bf7fd962ef9449b65c004a12dc72",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/url-busy-events/url-placeholders.ts": {
-    "mtime": 1786125344.7573545,
-    "ast_hash": "9e6823ed0b21bfb54491345dd9c2d2e1",
+    "mtime": 1786126035.0881023,
+    "ast_hash": "909cab3c0f3d4e58603fe886685ff063",
+    "semantic_hash": ""
+  },
+  "packages/types/src/configuration/schedule/exception.ts": {
+    "mtime": 1786205249.3367167,
+    "ast_hash": "96edd36534bf6c3e7a6e9249f3222a29",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/schedule-exception.ts": {
+    "mtime": 1786134636.6331317,
+    "ast_hash": "5d6d6f72556e86388ea10493e65790c2",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/schedule-resolve.test.ts": {
+    "mtime": 1786205280.445366,
+    "ast_hash": "233aacf08beae2b9abb4cb04d4e6210e",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/schedule-resolve.ts": {
+    "mtime": 1786205264.2971942,
+    "ast_hash": "fa5ff6c73cdd7c2d24c4253270986b4b",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/weekly-schedule/README.md": {
+    "mtime": 1786205511.4226675,
+    "ast_hash": "73c98510151bcffe95a4394ac8f5a5d1",
+    "semantic_hash": ""
+  },
+  "packages/ui-admin/src/components/scheduler/schedule-source-styles.ts": {
+    "mtime": 1786134636.6331317,
+    "ast_hash": "26f0b257086a7cc2dcfa8c24cf4edb6d",
     "semantic_hash": ""
   }
 }

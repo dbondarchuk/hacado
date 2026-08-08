@@ -10,10 +10,7 @@ export const WeeklyScheduleAppSetup: React.FC<
   return (
     <WeeklyScheduleForm
       appId={appId}
-      members={members.map((member) => ({
-        id: member._id,
-        name: member.name || member.email || member.userId,
-      }))}
+      showMemberSelector={members.length >= 1}
     />
   );
 };

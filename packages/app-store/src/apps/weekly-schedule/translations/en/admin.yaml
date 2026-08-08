@@ -2,8 +2,8 @@ title: Weekly schedule
 app:
   displayName: Weekly schedule
   description: |-
-    Weekly Schedule gives you full control over your availability by letting you set your work hours on a week-by-week basis.
-    Easily adjust your schedule for special events, holidays, or changing routines - keeping your bookings accurate and flexible.
+    Set company holidays and per-member week exceptions on top of your default hours.
+    Mark holidays to close everyone; otherwise members can override company open hours.
 navigation:
   main:
     title: Weekly schedule
@@ -14,45 +14,81 @@ form:
   nextWeek: Next week
   setCustomWeeklySchedule: Set custom weekly schedule
   selectMember: Select team member
+  companySchedule: Company (all members)
+  legend: "Hours come from:"
+  source:
+    default: Default
+    company: Company
+    member: Member
+    app: App
+    holiday: Holiday
+  recurrence:
+    badge: "Recurring every {everyWeeks} weeks until {until}"
+    weekOverride: This week has a one-off override on top of the series
+  holidays:
+    title: Company holidays
+    description: Hard closures for everyone. Clearing hours below is not a holiday - members own shifts stillmay be set.
+    closeWeek: Close whole week
+    clear: Clear holidays
 dialogs:
   reset:
     title: Are you absolutely sure?
     description: This action cannot be undone. This will reset the schedule for the week of {week} to the default one.
+    descriptionCompany: This action cannot be undone. This will reset the schedule for the week of {week} to the company schedule.
+    descriptionFromSeries: This action cannot be undone. This will remove the week of {week} from the recurring schedule (every {everyWeeks} weeks). Hours will fall back to the default schedule. Other weeks in the series stay.
+    descriptionFromSeriesCompany: This action cannot be undone. This will remove the week of {week} from the recurring schedule (every {everyWeeks} weeks). Hours will fall back to the company schedule. Other weeks in the series stay.
+    descriptionOverrideOnSeries: This action cannot be undone. This will clear the one-off override for the week of {week} and remove it from the recurring schedule. Hours will fall back to the default schedule.
+    descriptionOverrideOnSeriesCompany: This action cannot be undone. This will clear the one-off override for the week of {week} and remove it from the recurring schedule. Hours will fall back to the company schedule.
     success: Weekly schedule for the week of {week} was successfully reset to the default
+    successCompany: Weekly schedule for the week of {week} was successfully reset to the company schedule
+    successFromSeries: Week of {week} was removed from the recurring schedule
     cancel: Cancel
     reset: Reset
+    resetThisWeekToDefault: Reset this week to default
+    resetThisWeekToCompany: Reset this week to company
+    removeThisWeekFromSeries: Remove this week from series
     resetToDefault: Reset to default
+    resetToCompany: Reset to company
     defaultSchedule: Default schedule
+    companySchedule: Company schedule
+    removeSeries: Remove recurring schedule
+    removeSeriesDescription: This will delete the recurring schedule (every {everyWeeks} weeks until {until}). All weeks in that series will fall back to the {fallback} schedule. One-off week overrides are kept.
+    removeSeriesSuccess: Recurring schedule was removed
+    fallbackDefault: default
+    fallbackCompany: company
   resetAll:
     title: Are you absolutely sure?
-    description: This action cannot be undone. This will reset all schedules from the week of {week} to the default one.
+    description: This action cannot be undone. This will reset all schedules from the week of {week} to the default one, including recurring series that start on or after this week (earlier series are clipped).
+    descriptionCompany: This action cannot be undone. This will reset all schedules from the week of {week} to the company schedule, including recurring series that start on or after this week (earlier series are clipped).
     success: All schedules from the week of {week} were successfully reset to the default
+    successCompany: All schedules from the week of {week} were successfully reset to the company schedule
     cancel: Cancel
     reset: Reset
-    resetAllToDefault: Reset all to default
+    resetAllToDefault: Reset all from this week to default
+    resetAllToCompany: Reset all from this week to company
   copy:
     title: Copy schedule
-    description: Copy the schedule from the week of {week} to another week.
+    description: Copy this week's hours to another week as a one-off schedule (not a recurring series).
     success: Schedule was successfully copied
     cancel: Cancel
     copy: Copy
     copySchedule: Copy schedule
   repeat:
     title: Repeat schedule
-    description: Copy this weekly schedule with interval
-    success: Schedule for week of {week} was successfully copied for every {interval}-nd week until {maxWeek}
+    description: Create a new repeating schedule from this week's hours. This does not edit an existing series.
+    success: New recurring schedule from week of {week} every {interval} weeks until {maxWeek} was created
     cancel: Cancel
-    copy: Copy
+    copy: Create
     repeatSchedule: Repeat schedule
     repeatEvery: Repeat every
     repeatUntil: Repeat until
     repeatUntilTooltip: The latest week (including) up to which to repeat the schedule
     weeks: weeks
-    replaceExisting: Replace existing
-    replaceExistingDescription: If checked, this will replace existing schedules for weeks that fall into the repeated weeks
+    replaceExisting: Replace existing week overrides
+    replaceExistingDescription: If checked, one-off schedules for weeks in the new series are cleared so the new repeating pattern applies
     close: Close
     confirmTitle: Are you absolutely sure?
-    confirmDescription: This action cannot be undone. This will repeat the schedule for the week {week} ever {interval} weeks until the week of {maxWeek}.
+    confirmDescription: This will create a new repeating schedule from the week of {week} every {interval} weeks until the week of {maxWeek}. Existing series are not edited; the newest series wins where they overlap.
 statusText:
   successfully_installed: Successfully installed the app
   error_processing_request: Error processing weekly schedule request

@@ -1,12 +1,13 @@
 "use client";
 
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { AvailablePeriod } from "@hacado/types";
+import { AvailablePeriod, ScheduleDaySource } from "@hacado/types";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  Badge,
   Button,
   Card,
   CardContent,
@@ -18,6 +19,7 @@ import { Clock, Plus, X } from "lucide-react";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { scheduleSourceBlockClass } from "./schedule-source-styles";
 import { formatTime, getWeekDayMap, timeToMinutes } from "./utils";
 
 export interface SimpleSchedulerProps {
@@ -29,6 +31,9 @@ export interface SimpleSchedulerProps {
   weekDate?: Date;
   /** When true, accordion sections for days that already have shifts start expanded. */
   expandDaysWithShiftsByDefault?: boolean;
+  /** Per-weekday source layer for shift badges. */
+  daySources?: Record<number, ScheduleDaySource>;
+  daySourceLabels?: Partial<Record<ScheduleDaySource, string>>;
 }
 
 function getExpandedDayIds(days: number[], value: AvailablePeriod[]): string[] {
@@ -48,6 +53,8 @@ export const SimpleScheduler: React.FC<SimpleSchedulerProps> = ({
   shiftsLabel,
   weekDate,
   expandDaysWithShiftsByDefault = false,
+  daySources,
+  daySourceLabels,
 }) => {
   const t = useI18n("ui");
   const tAll = useI18n();
@@ -309,103 +316,129 @@ export const SimpleScheduler: React.FC<SimpleSchedulerProps> = ({
             <AccordionContent>
               <div className="space-y-3 pt-2">
                 {/* List existing shifts */}
-                {getShiftsForDay(day).map((shift, index) => (
-                  <Card key={index} className="relative">
-                    <CardContent className="p-3">
-                      {editingShift &&
-                      editingShift.day === day &&
-                      editingShift.index === index ? (
-                        // Edit mode
-                        <div className="space-y-3">
-                          <div className="grid grid-cols-2 gap-2">
-                            <div>
-                              <label className="text-xs font-medium mb-1 block">
-                                {t("scheduler.startTime")}
-                              </label>
-                              <SimpleTimePicker
-                                modal
-                                minutesDivisibleBy={5}
-                                use12HourFormat={uses12HourFormat}
-                                value={timeToDate(editingShift.startTime)}
-                                onChange={(date) =>
-                                  setEditingShift({
-                                    ...editingShift,
-                                    startTime: dateToTime(date),
-                                  })
-                                }
-                              />
+                {getShiftsForDay(day).map((shift, index) => {
+                  const source = daySources?.[day] || "default";
+                  const sourceLabel = daySourceLabels?.[source];
+                  return (
+                    <Card
+                      key={index}
+                      className={`relative border ${scheduleSourceBlockClass[source]}`}
+                    >
+                      <CardContent className="p-3">
+                        {editingShift &&
+                        editingShift.day === day &&
+                        editingShift.index === index ? (
+                          // Edit mode
+                          <div className="space-y-3">
+                            <div className="grid grid-cols-2 gap-2">
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">
+                                  {t("scheduler.startTime")}
+                                </label>
+                                <SimpleTimePicker
+                                  modal
+                                  minutesDivisibleBy={5}
+                                  use12HourFormat={uses12HourFormat}
+                                  value={timeToDate(editingShift.startTime)}
+                                  onChange={(date) =>
+                                    setEditingShift({
+                                      ...editingShift,
+                                      startTime: dateToTime(date),
+                                    })
+                                  }
+                                />
+                              </div>
+                              <div>
+                                <label className="text-xs font-medium mb-1 block">
+                                  {t("scheduler.endTime")}
+                                </label>
+                                <SimpleTimePicker
+                                  modal
+                                  minutesDivisibleBy={5}
+                                  use12HourFormat={uses12HourFormat}
+                                  value={timeToDate(editingShift.endTime)}
+                                  onChange={(date) =>
+                                    setEditingShift({
+                                      ...editingShift,
+                                      endTime: dateToTime(date),
+                                    })
+                                  }
+                                />
+                              </div>
                             </div>
-                            <div>
-                              <label className="text-xs font-medium mb-1 block">
-                                {t("scheduler.endTime")}
-                              </label>
-                              <SimpleTimePicker
-                                modal
-                                minutesDivisibleBy={5}
-                                use12HourFormat={uses12HourFormat}
-                                value={timeToDate(editingShift.endTime)}
-                                onChange={(date) =>
-                                  setEditingShift({
-                                    ...editingShift,
-                                    endTime: dateToTime(date),
-                                  })
-                                }
-                              />
+                            <div className="flex justify-end gap-2 mt-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={handleCancelEdit}
+                              >
+                                {t("common.cancel")}
+                              </Button>
+                              <Button size="sm" onClick={handleSaveEdit}>
+                                {t("common.save")}
+                              </Button>
                             </div>
                           </div>
-                          <div className="flex justify-end gap-2 mt-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={handleCancelEdit}
-                            >
-                              {t("common.cancel")}
-                            </Button>
-                            <Button size="sm" onClick={handleSaveEdit}>
-                              {t("common.save")}
-                            </Button>
+                        ) : (
+                          // View mode
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex flex-col gap-1.5 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4 shrink-0 opacity-70" />
+                                <span>
+                                  {formatTimeWithLocale(shift.start)} -{" "}
+                                  {formatTimeWithLocale(shift.end)}
+                                </span>
+                              </div>
+                              {sourceLabel && (
+                                <Badge
+                                  variant={
+                                    source === "company"
+                                      ? "default"
+                                      : source === "member"
+                                        ? "outline"
+                                        : source === "app" ||
+                                            source === "holiday"
+                                          ? "destructive"
+                                          : "secondary"
+                                  }
+                                  className="w-fit"
+                                >
+                                  {sourceLabel}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex gap-1 shrink-0">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 px-2"
+                                onClick={() =>
+                                  handleEditShift(
+                                    day,
+                                    index,
+                                    shift.start,
+                                    shift.end,
+                                  )
+                                }
+                              >
+                                {t("scheduler.edit")}
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 w-7 p-0 text-destructive"
+                                onClick={() => handleDeleteShift(day, index)}
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        // View mode
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4 text-muted-foreground" />
-                            <span>
-                              {formatTimeWithLocale(shift.start)} -{" "}
-                              {formatTimeWithLocale(shift.end)}
-                            </span>
-                          </div>
-                          <div className="flex gap-1">
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-7 px-2"
-                              onClick={() =>
-                                handleEditShift(
-                                  day,
-                                  index,
-                                  shift.start,
-                                  shift.end,
-                                )
-                              }
-                            >
-                              {t("scheduler.edit")}
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="h-7 w-7 p-0 text-destructive"
-                              onClick={() => handleDeleteShift(day, index)}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
+                        )}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
 
                 {/* New shift form */}
                 {newShift && newShift.day === day ? (
