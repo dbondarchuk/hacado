@@ -35,13 +35,14 @@ export async function GET(request: NextRequest) {
   const response = await servicesContainer.scheduleService.getSchedule(
     start,
     end,
-    member ?? user.memberId,
+    memberId ?? user.memberId,
   );
 
   logger.debug(
     {
       start,
       end,
+      memberId: memberId ?? user.memberId,
     },
     "Successfully retrieved schedule",
   );

@@ -16,6 +16,12 @@ Edits store sparse exceptions (only days that differ from the parent layer).
 
 **Repeat** creates one recurring exception (`repeatEveryWeeks`, `repeatUntil`, `createdAt`). Resolve expands it; newer recurrings win on overlap; single-week docs beat any series. Week reset uses `excludeWeeks`; remove-series deletes the recurring doc. Copy always writes a single week.
 
+## Storage
+
+Mongo collection `weekly-schedule-exceptions` (owned by this app install via `appId`).
+
+Legacy dense weeks in `weekly-schedules` (pre-multiuser) are converted to company-scoped exceptions by migration `20260808140000-weekly_schedules_to_exceptions` (empty days → `holidays`).
+
 ## Setup
 
 Install Weekly schedule, then use the scope selector for **Company (all members)** or a staff member.

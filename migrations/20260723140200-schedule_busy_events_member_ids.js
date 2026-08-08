@@ -1,7 +1,12 @@
 module.exports = {
   /**
-   * Stamp weekly-schedules / busy-events with owner memberId and add compound indexes.
+   * Stamp busy-events with owner memberId and add compound indexes.
    * Depends on 20260723140000-team_members_and_user_slots.
+   *
+   * Note: weekly-schedules were also stamped here historically, but that
+   * collection is superseded by weekly-schedule-exceptions (see
+   * 20260808140000-weekly_schedules_to_exceptions). Busy-events still need
+   * memberId for multiuser calendar filtering.
    *
    * @param db {import('mongodb').Db}
    * @param client {import('mongodb').MongoClient}
@@ -49,11 +54,13 @@ module.exports = {
       return updated;
     }
 
+    // weekly-schedules memberId stamp is obsolete (exception model); keep for
+    // idempotent re-runs on DBs that still have the old collection.
     const weekly = await migrateCollection("weekly-schedules");
     const busy = await migrateCollection("busy-events");
 
     console.log(
-      `Schedule memberIds: weekly-schedules=${weekly}, busy-events=${busy}`,
+      `Schedule memberIds: weekly-schedules=${weekly} (legacy), busy-events=${busy}`,
     );
   },
 
