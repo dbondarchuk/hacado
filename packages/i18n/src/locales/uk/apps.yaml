@@ -100,6 +100,7 @@ scopes:
   dashboard-notifier: Сповіщувач панелі керування
   demo-arguments-provider: Постачальник демонстраційних аргументів
   sitemap-items-provider: Постачальник елементів sitemap
+  page-seo-arguments-provider: Постачальник аргументів SEO сторінки
 target:
   company: Компанія
   member: Учасник

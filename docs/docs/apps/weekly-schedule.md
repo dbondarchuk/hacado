@@ -65,7 +65,7 @@ Your workspace **time zone** should be correct in settings. Wrong time zones cre
 - **Reset this week** removes a one-off override and/or punches the week out of the series. **Remove recurring schedule** deletes the whole series.
 - **Reset all from this week** clears week overrides from that week onward and clips or deletes recurring series accordingly.
 
-Upgrading from the pre-multiuser app converts old `weekly-schedules` weeks into company exceptions (empty days become holidays).
+Upgrading from the pre-multiuser app converts old `weekly-schedules` weeks into company exceptions (empty days become holidays) and renames the old collection to `_to_remove_weekly-schedules`.
 
 ## Removing the App
 

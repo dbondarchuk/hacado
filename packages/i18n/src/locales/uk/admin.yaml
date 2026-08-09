@@ -1267,6 +1267,12 @@ pages:
     description: Опис
     descriptionPlaceholder: Опис сторінки
     descriptionTooltip: Також використовується компонентом списку сторінок (тобто списком блогу) для показу попереднього перегляду
+    featuredImage: Головне зображення
+    featuredImagePlaceholder: Виберіть головне зображення
+    featuredImageTooltip:
+      Використовується як зображення Open Graph, коли сторінку
+      поширюють у соцмережах. Має пріоритет над зображеннями з додатків
+      (наприклад, зображенням допису блогу).
     doNotCombineDescription: Не об'єднувати опис
     doNotCombineDescriptionTooltip: Чи повинен опис сторінки об'єднуватися з описом веб-сайту для SEO
     keywords: Ключові слова

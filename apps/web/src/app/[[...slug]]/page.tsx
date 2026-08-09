@@ -1,4 +1,8 @@
-import { getOrganizationId, getServicesContainer } from "@/utils/utils";
+import { getOrganizationId, getServicesContainer, getWebsiteUrl } from "@/utils/utils";
+import {
+  collectPageSeoArgs,
+  resolvePageSeoFields,
+} from "@/utils/page-seo";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { getLoggerFactory } from "@hacado/logger";
 import {
@@ -132,10 +136,11 @@ export async function generateMetadata(
       "Processing metadata generation request",
     );
 
-    const { page, brand } = await getSource(
-      params.slug?.join("/"),
-      !!searchParams?.preview,
-    );
+    const {
+      page,
+      brand,
+      params: routeParams,
+    } = await getSource(params.slug?.join("/"), !!searchParams?.preview);
 
     logger.debug(
       {
@@ -145,17 +150,14 @@ export async function generateMetadata(
       "Retrieved general configuration",
     );
 
-    const title = page.doNotCombine?.title
-      ? page.title
-      : [page.title, brand.title].filter((x) => !!x).join(" | ");
+    const seoArgs = await collectPageSeoArgs(page, routeParams);
+    const websiteUrl = await getWebsiteUrl();
+    const { title, description, keywords, featuredImage } =
+      resolvePageSeoFields(page, brand, seoArgs, websiteUrl);
 
-    const description = page.doNotCombine?.description
-      ? page.description
-      : [brand.description, page.description].filter((x) => !!x).join("\n");
-
-    const keywords = page.doNotCombine?.keywords
-      ? page.keywords
-      : [brand.keywords, page.keywords].filter((x) => !!x).join(", ");
+    const slugPath = params.slug?.join("/") || "home";
+    const ogImageUrl =
+      featuredImage || `${websiteUrl.replace(/\/$/, "")}/api/og/${slugPath}`;
 
     logger.debug(
       {
@@ -165,6 +167,7 @@ export async function generateMetadata(
         doNotCombineTitle: page.doNotCombine?.title,
         doNotCombineDescription: page.doNotCombine?.description,
         doNotCombineKeywords: page.doNotCombine?.keywords,
+        ogImageUrl,
       },
       "Generated page metadata",
     );
@@ -175,6 +178,17 @@ export async function generateMetadata(
       keywords,
       icons: {
         icon: brand.favicon || "/icon.ico",
+      },
+      openGraph: {
+        title,
+        description,
+        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [ogImageUrl],
       },
     };
   } catch (error: any) {

@@ -54,6 +54,7 @@
     "@hacado/i18n": "*",
     "@hacado/logger": "*",
     "@hacado/page-builder-base": "*",
+    "@hacado/rte": "*",
     "@hacado/types": "*",
     "@hacado/ui": "*",
     "@hacado/ui-admin": "*",

@@ -20,7 +20,7 @@ Edits store sparse exceptions (only days that differ from the parent layer).
 
 Mongo collection `weekly-schedule-exceptions` (owned by this app install via `appId`).
 
-Legacy dense weeks in `weekly-schedules` (pre-multiuser) are converted to company-scoped exceptions by migration `20260808140000-weekly_schedules_to_exceptions` (empty days → `holidays`).
+Legacy dense weeks in `weekly-schedules` (pre-multiuser) are converted to company-scoped exceptions by migration `20260808140000-weekly_schedules_to_exceptions` (empty days → `holidays`). The old collection is renamed to `_to_remove_weekly-schedules` for later drop.
 
 ## Setup
 

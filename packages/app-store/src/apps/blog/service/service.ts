@@ -11,8 +11,10 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
+  IPageSeoArgumentsProvider,
   ISitemapItemsProvider,
   Page,
+  PageSeoArguments,
   SessionUser,
   SitemapUrlEntry,
 } from "@hacado/types";
@@ -68,6 +70,7 @@ import {
   BlogAdminKeys,
   BlogAdminNamespace,
 } from "../translations/types";
+import { provideBlogPageSeoArguments } from "./blog-page-seo-args";
 import { expandBlogPlaceholderPageSitemapItems } from "./blog-sitemap";
 import { getBlogPendingCommentsBadges } from "./pending-comments-badge";
 import {
@@ -77,7 +80,11 @@ import {
 } from "./repository-service";
 
 export class BlogConnectedApp
-  implements IConnectedApp, ISitemapItemsProvider, IDashboardNotifierApp
+  implements
+    IConnectedApp,
+    ISitemapItemsProvider,
+    IDashboardNotifierApp,
+    IPageSeoArgumentsProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -945,5 +952,13 @@ export class BlogConnectedApp
       page,
       appData,
     );
+  }
+
+  public async providePageSeoArguments(
+    appData: ConnectedAppData,
+    page: Page,
+    params: Record<string, string>,
+  ): Promise<PageSeoArguments | undefined> {
+    return provideBlogPageSeoArguments(this.props, page, params, appData);
   }
 }

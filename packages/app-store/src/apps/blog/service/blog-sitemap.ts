@@ -30,7 +30,7 @@ function visitPageDocumentBlocks(
   }
 }
 
-function pageUsesBlogApp(page: Page, appId: string): boolean {
+export function pageUsesBlogApp(page: Page, appId: string): boolean {
   if (!page.content) return false;
   let found = false;
   visitPageDocumentBlocks(page.content, (block) => {

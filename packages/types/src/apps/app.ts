@@ -24,6 +24,7 @@ export type AppScope = Extandable<
   | "dashboard-notifier"
   | "demo-arguments-provider"
   | "sitemap-items-provider"
+  | "page-seo-arguments-provider"
 >;
 
 export type AppSetupProps = {

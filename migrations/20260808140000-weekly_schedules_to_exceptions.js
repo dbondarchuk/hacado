@@ -4,8 +4,9 @@
  *
  * - Empty day shifts become `holidays` (main: cleared = closed for everyone).
  * - Non-empty days become sparse `days` hour overrides.
- * - Leaves `weekly-schedules` in place (log counts only); safe to re-run
- *   (skips weeks that already have a matching company exception).
+ * - After conversion, renames `weekly-schedules` → `_to_remove_weekly-schedules`
+ *   so it is clearly marked for later drop. Safe to re-run (skips weeks that
+ *   already have a matching company exception; skips if already renamed).
  *
  * Supersedes the weekly-schedules half of 20260723140200 (memberId stamp on
  * the old collection is unused by the new exception model).
@@ -14,6 +15,7 @@
 const { ObjectId } = require("mongodb");
 
 const OLD_COLLECTION = "weekly-schedules";
+const ARCHIVED_COLLECTION = "_to_remove_weekly-schedules";
 const NEW_COLLECTION = "weekly-schedule-exceptions";
 
 /** Matches packages/utils getDateFromWeekIdentifier (Mon 1970-01-05 epoch). */
@@ -51,16 +53,27 @@ function scheduleToExceptionFields(schedule) {
   return { days, holidays };
 }
 
+async function collectionExists(db, name) {
+  return (await db.listCollections({ name }).toArray()).length > 0;
+}
+
 module.exports = {
   /**
    * @param db {import('mongodb').Db}
    * @param client {import('mongodb').MongoClient}
    */
   async up(db) {
-    const oldExists =
-      (await db.listCollections({ name: OLD_COLLECTION }).toArray()).length > 0;
+    const oldExists = await collectionExists(db, OLD_COLLECTION);
+    const archivedExists = await collectionExists(db, ARCHIVED_COLLECTION);
+
     if (!oldExists) {
-      console.log(`Skip: ${OLD_COLLECTION} collection does not exist`);
+      if (archivedExists) {
+        console.log(
+          `Skip: ${OLD_COLLECTION} already renamed to ${ARCHIVED_COLLECTION}`,
+        );
+      } else {
+        console.log(`Skip: ${OLD_COLLECTION} collection does not exist`);
+      }
       return;
     }
 
@@ -156,8 +169,18 @@ module.exports = {
       console.warn(`Index create on ${NEW_COLLECTION}:`, err.message);
     }
 
+    let renamed = false;
+    if (archivedExists) {
+      console.warn(
+        `${ARCHIVED_COLLECTION} already exists; leaving ${OLD_COLLECTION} in place after migrate`,
+      );
+    } else {
+      await db.renameCollection(OLD_COLLECTION, ARCHIVED_COLLECTION);
+      renamed = true;
+    }
+
     console.log(
-      `weekly-schedules → exceptions: migrated=${migrated}, skippedExisting=${skippedExisting}, skippedInvalid=${skippedInvalid} (old collection left intact)`,
+      `weekly-schedules → exceptions: migrated=${migrated}, skippedExisting=${skippedExisting}, skippedInvalid=${skippedInvalid}, renamed=${renamed ? `${OLD_COLLECTION} → ${ARCHIVED_COLLECTION}` : "no"}`,
     );
   },
 

@@ -1310,6 +1310,12 @@ pages:
     descriptionTooltip:
       It is also used by page list component (a.k.a blog list) for
       showing preview
+    featuredImage: Featured image
+    featuredImagePlaceholder: Select featured image
+    featuredImageTooltip:
+      Used as the Open Graph image when this page is shared on social
+      networks. Overrides featured images provided by apps (for example,
+      a blog post image).
     doNotCombineDescription: Do not combine description
     doNotCombineDescriptionTooltip:
       Should the page description be combined with website

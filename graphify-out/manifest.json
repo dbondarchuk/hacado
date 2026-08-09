@@ -2600,8 +2600,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/page.tsx": {
-    "mtime": 1785952530.4927359,
-    "ast_hash": "6fdb9e047b46943a1c470d29ed845a65",
+    "mtime": 1786303319.2898948,
+    "ast_hash": "cd67e0cabec7f3b1a20cd41aaf50f9dd",
     "semantic_hash": ""
   },
   "apps/web/src/app/admin/[[...slug]]/route.ts": {
@@ -3700,8 +3700,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1785960465.992147,
-    "ast_hash": "b4f2f46a012698d77d9d14a652c9270d",
+    "mtime": 1786302202.8547852,
+    "ast_hash": "633ed41547717c8c872fb55a19649498",
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/index.ts": {
@@ -3865,8 +3865,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/app.tsx": {
-    "mtime": 1785874219.7841792,
-    "ast_hash": "e86a49df22913bcd9b1c5c2e8ae674da",
+    "mtime": 1786301812.6052136,
+    "ast_hash": "86ba4080c20ef3c9c3f210399962413e",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/author-actions.ts": {
@@ -4660,8 +4660,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/blog-sitemap.ts": {
-    "mtime": 1785874219.7804954,
-    "ast_hash": "ca38e5059db2c06c2be20cbcf5147bcc",
+    "mtime": 1786301811.3096812,
+    "ast_hash": "06a24066bb10097ec545d2e0c08c412d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/index.ts": {
@@ -4670,8 +4670,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/pages.ts": {
-    "mtime": 1785874219.7810187,
-    "ast_hash": "2466e1d505095d43cb3fba9fcd5f06e2",
+    "mtime": 1786302202.990976,
+    "ast_hash": "99c3a487f04d94cfb1ea1e4d2597074f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/repository-service.ts": {
@@ -4680,8 +4680,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/service.ts": {
-    "mtime": 1785874219.7820756,
-    "ast_hash": "c5eca348463ce887e8d875e1aedf8e34",
+    "mtime": 1786301816.334069,
+    "ast_hash": "65d2eadf3139e1ac7136e7022fd8d700",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/settings/pages/main.tsx": {
@@ -13255,8 +13255,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/app.ts": {
-    "mtime": 1785874220.1524591,
-    "ast_hash": "a645ec975d4b3602cd9d7ed977fa7852",
+    "mtime": 1786301795.3126018,
+    "ast_hash": "b99964c418af499c86c84ebc808ff482",
     "semantic_hash": ""
   },
   "packages/types/src/apps/assets/assets-storage.ts": {
@@ -13350,8 +13350,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/index.ts": {
-    "mtime": 1785608281.610711,
-    "ast_hash": "f1b5ddca776618be17d1792e03c1c6c2",
+    "mtime": 1786301795.593242,
+    "ast_hash": "459c35d7b5dffc240ef870b9c708beb4",
     "semantic_hash": ""
   },
   "packages/types/src/apps/injectors.ts": {
@@ -15725,8 +15725,8 @@
     "semantic_hash": ""
   },
   "docs/docs/apps/weekly-schedule.md": {
-    "mtime": 1786208647.2139835,
-    "ast_hash": "4dee316a02ad88f9759a306ee0c0519e",
+    "mtime": 1786299603.6262121,
+    "ast_hash": "f68693cd0a8383f1898a8e9dd58ae66f",
     "semantic_hash": ""
   },
   "docs/docs/apps/zoom.md": {
@@ -16230,8 +16230,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
-    "mtime": 1785855780.0483718,
-    "ast_hash": "7771f17eaee969b5a62fef9e9eaf54c8",
+    "mtime": 1786301927.7203727,
+    "ast_hash": "b5ff002ff3f13d1cb56d1fba23dc0062",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/builder.yaml": {
@@ -16265,8 +16265,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
-    "mtime": 1785855791.4919121,
-    "ast_hash": "39a97aea88e480413d339b4b3b8c7414",
+    "mtime": 1786301933.4557147,
+    "ast_hash": "f1c42ff6935e0f1347183f7ceeabdbbb",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/builder.yaml": {
@@ -27795,8 +27795,8 @@
     "semantic_hash": ""
   },
   "packages/rte/src/index.tsx": {
-    "mtime": 1780933648.4599884,
-    "ast_hash": "0bb7ab3f9c7bce8b33ea16b2a244a855",
+    "mtime": 1786302201.4480884,
+    "ast_hash": "eb37c18f50a4d11d9790217009513e72",
     "semantic_hash": ""
   },
   "packages/ui/src/components/css/flags.css.d.ts": {
@@ -28175,8 +28175,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/README.md": {
-    "mtime": 1786208638.3359246,
-    "ast_hash": "ff53e63389e82c869a127a6ebfb5b27c",
+    "mtime": 1786299603.5512137,
+    "ast_hash": "75a67efd8dfa868f1437a2b9aeed2b10",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/scheduler/schedule-source-styles.ts": {
@@ -28185,8 +28185,33 @@
     "semantic_hash": ""
   },
   "migrations/20260808140000-weekly_schedules_to_exceptions.js": {
-    "mtime": 1786208628.5487263,
-    "ast_hash": "d10b38038eba759b11f7ae92882ec794",
+    "mtime": 1786299616.295326,
+    "ast_hash": "bd5cd15ab72d3d51d81cdb9e74bd7805",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/blog/service/blog-page-seo-args.ts": {
+    "mtime": 1786303208.225235,
+    "ast_hash": "f78ff71282332ffa79aa57fbf8171e95",
+    "semantic_hash": ""
+  },
+  "packages/types/src/apps/page-seo-arguments-provider.ts": {
+    "mtime": 1786301794.619222,
+    "ast_hash": "2ba91db54d5e82655713ff1d3f975b86",
+    "semantic_hash": ""
+  },
+  "packages/rte/src/components/editor/plate-static-plain-text.ts": {
+    "mtime": 1786302298.5302057,
+    "ast_hash": "7359ee44a88ae0029f1e10cc9af5bf60",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/api/og/[[...slug]]/route.tsx": {
+    "mtime": 1786303333.3630352,
+    "ast_hash": "d76bdd50acf9432c313f3d38c961f8a2",
+    "semantic_hash": ""
+  },
+  "apps/web/src/utils/page-seo.ts": {
+    "mtime": 1786303312.2429287,
+    "ast_hash": "fa216a4ed6420dcd924d64bda8fa2cf8",
     "semantic_hash": ""
   }
 }

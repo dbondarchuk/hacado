@@ -100,6 +100,7 @@ scopes:
   dashboard-notifier: Dashboard notifier
   demo-arguments-provider: Demo arguments provider
   sitemap-items-provider: Sitemap items provider
+  page-seo-arguments-provider: Page SEO arguments provider
 target:
   company: Company
   member: Member

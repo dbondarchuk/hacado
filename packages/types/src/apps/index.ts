@@ -14,6 +14,7 @@ export * from "./events";
 export * from "./injectors";
 export * from "./mail";
 export * from "./notifications";
+export * from "./page-seo-arguments-provider";
 export * from "./payment";
 export * from "./schedule";
 export * from "./scheduled";
