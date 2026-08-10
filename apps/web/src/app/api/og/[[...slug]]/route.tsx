@@ -1,13 +1,13 @@
 import {
-  getOrganizationId,
-  getServicesContainer,
-  getWebsiteUrl,
-} from "@/utils/utils";
-import {
   collectPageSeoArgs,
   resolvePageSeoFields,
   toAbsoluteWebsiteUrl,
 } from "@/utils/page-seo";
+import {
+  getOrganizationId,
+  getServicesContainer,
+  getWebsiteUrl,
+} from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";

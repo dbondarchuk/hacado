@@ -1,8 +1,9 @@
-import { getOrganizationId, getServicesContainer, getWebsiteUrl } from "@/utils/utils";
+import { collectPageSeoArgs, resolvePageSeoFields } from "@/utils/page-seo";
 import {
-  collectPageSeoArgs,
-  resolvePageSeoFields,
-} from "@/utils/page-seo";
+  getOrganizationId,
+  getServicesContainer,
+  getWebsiteUrl,
+} from "@/utils/utils";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { getLoggerFactory } from "@hacado/logger";
 import {

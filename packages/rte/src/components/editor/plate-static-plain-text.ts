@@ -86,8 +86,7 @@ function phrasingText(nodes: Descendant[]): string {
       continue;
     }
     if (el.type === INLINE_EQUATION_KEY) {
-      const tex =
-        typeof el.texExpression === "string" ? el.texExpression : "";
+      const tex = typeof el.texExpression === "string" ? el.texExpression : "";
       if (tex) s += tex;
       s += phrasingText(ch);
       continue;
@@ -197,8 +196,7 @@ function blockToPlainTextBlocks(node: Descendant): string[] {
         const fromChildren = phrasingText(
           (lineEl.children ?? []) as Descendant[],
         );
-        const legacy =
-          typeof lineEl.text === "string" ? lineEl.text : "";
+        const legacy = typeof lineEl.text === "string" ? lineEl.text : "";
         return fromChildren || legacy;
       });
       return [lines.join("\n")];
