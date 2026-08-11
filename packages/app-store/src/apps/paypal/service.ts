@@ -18,7 +18,7 @@ import {
   SyncedPaymentTransaction,
   systemEventSource,
 } from "@hacado/types";
-import { decrypt, encrypt, getAdminUrl, maskify } from "@hacado/utils";
+import { decrypt, encrypt, getAppsExternalUrl, maskify } from "@hacado/utils";
 import { Environment } from "@paypal/paypal-server-sdk";
 import {
   APPLE_PAY_DOMAIN_ASSOCIATION_PRODUCTION,
@@ -290,7 +290,7 @@ class PaypalConnectedApp
 
   /** Builds the per-install webhook listener URL. */
   protected getWebhookUrl(appId: string): string {
-    return `${getAdminUrl()}/apps/${this.props.organizationId}/${appId}/webhook`;
+    return `${getAppsExternalUrl()}/api/webhooks/apps/id/${this.props.organizationId}/${appId}`;
   }
 
   /**

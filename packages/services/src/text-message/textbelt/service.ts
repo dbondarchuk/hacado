@@ -4,7 +4,7 @@ import {
   TextMessage,
   TextMessageResponse,
 } from "@hacado/types";
-import { getAdminUrl, maskify } from "@hacado/utils";
+import { getAppsExternalUrl, maskify } from "@hacado/utils";
 import { TextBeltConfiguration } from "./types";
 
 type SmsRequest = {
@@ -45,14 +45,14 @@ export class TextBeltService implements ITextMessageSender {
     );
 
     try {
-      const url = getAdminUrl();
+      const url = getAppsExternalUrl();
 
       const request: SmsRequest = {
         message: message.message,
         key: this.configuration.apiKey,
         phone: message.phone,
         sender: message.sender,
-        replyWebhookUrl: `${url}/apps/textbelt/${organizationId}/webhook`,
+        replyWebhookUrl: `${url}/api/webhooks/platform/textbelt/${organizationId}`,
         webhookData: message.data
           ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.memberId ?? ""}|${message.data.data ?? ""}`
           : undefined,

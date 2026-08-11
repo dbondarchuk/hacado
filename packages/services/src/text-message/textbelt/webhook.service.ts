@@ -1,7 +1,6 @@
 import { getTextBeltWebhookEmailTemplate } from "@hacado/app-store/exports";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { TextBeltConfiguration } from "@hacado/services";
 import {
   ApiRequest,
   ApiResponse,
@@ -26,6 +25,7 @@ import {
   maskify,
 } from "@hacado/utils";
 import crypto from "crypto";
+import { TextBeltConfiguration } from "./types";
 
 type TextbeltWebhookData = {
   textId: string;

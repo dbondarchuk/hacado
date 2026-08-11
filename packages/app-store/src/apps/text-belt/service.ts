@@ -20,6 +20,7 @@ import {
   decrypt,
   encrypt,
   getAdminUrl,
+  getAppsExternalUrl,
   getArguments,
   getWebsiteUrl,
   maskify,
@@ -139,14 +140,14 @@ export default class TextBeltConnectedApp
         );
 
       const apiKey = decrypt(app.data.apiKey);
-      const url = getAdminUrl();
+      const url = getAppsExternalUrl();
 
       const request: SmsRequest = {
         message: message.message,
         key: apiKey,
         phone: message.phone,
         sender: message.sender,
-        replyWebhookUrl: `${url}/apps/${this.props.organizationId}/${app._id}/webhook`,
+        replyWebhookUrl: `${url}/api/webhooks/apps/id/${this.props.organizationId}/${app._id}`,
         webhookData: message.data
           ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.memberId ?? ""}|${message.data.data ?? ""}`
           : undefined,

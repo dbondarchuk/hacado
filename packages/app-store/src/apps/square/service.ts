@@ -24,7 +24,12 @@ import {
   SyncedPaymentTransaction,
   systemEventSource,
 } from "@hacado/types";
-import { decrypt, encrypt, getAdminUrl, getWebsiteDomain } from "@hacado/utils";
+import {
+  decrypt,
+  encrypt,
+  getAppsExternalUrl,
+  getWebsiteDomain,
+} from "@hacado/utils";
 import { getApplePayDomainAssociation } from "./apple-pay";
 import { getSquareOrder, getSquarePayment } from "./client";
 import { SQUARE_APP_NAME } from "./const";
@@ -509,7 +514,7 @@ class SquareConnectedApp
       );
     }
 
-    const notificationUrl = `${getAdminUrl()}/apps/webhook/square`;
+    const notificationUrl = `${getAppsExternalUrl()}/api/webhooks/apps/name/square`;
 
     const sig =
       request.headers.get("x-square-hmacsha256-signature") ??

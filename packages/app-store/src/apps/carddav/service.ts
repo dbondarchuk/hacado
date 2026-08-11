@@ -7,7 +7,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
 } from "@hacado/types";
-import { decrypt, encrypt } from "@hacado/utils";
+import { decrypt, encrypt, getAppsExternalUrl } from "@hacado/utils";
 import crypto from "crypto";
 import {
   CarddavConfiguration,
@@ -27,7 +27,7 @@ function generatePassword(): string {
 }
 
 function generateCarddavUrl(organizationId: string, appId: string): string {
-  return `https://${process.env.APPS_EXTERNAL_DOMAIN}/api/apps/${organizationId}/${appId}`;
+  return `${getAppsExternalUrl()}/api/apps/${organizationId}/${appId}`;
 }
 
 /* (Keep your escapeVCardText and customerToVCard helpers unchanged) */
