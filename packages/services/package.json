@@ -39,6 +39,7 @@
     "bullmq": "^5.0.0",
     "ioredis": "^5.3.2",
     "nodemailer": "^6.9.14",
+    "resend": "^6.19.0",
     "@aws-sdk/client-s3": "^3.782.0"
   }
 }

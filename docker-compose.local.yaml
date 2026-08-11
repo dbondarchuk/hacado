@@ -130,6 +130,7 @@ services:
       - S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-smtp}
       - SMTP_HOST=${SMTP_HOST:-smtp.example.com}
       - SMTP_PORT=${SMTP_PORT:-465}
       - SMTP_SECURE=${SMTP_SECURE:-true}
@@ -137,6 +138,9 @@ services:
       - SMTP_FROM_NAME=${SMTP_FROM_NAME:-Hacado}
       - SMTP_AUTH_USER=${SMTP_AUTH_USER:-hacado@example.com}
       - SMTP_AUTH_PASS=${SMTP_AUTH_PASS:-"secure_password"}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - RESEND_EMAIL=${RESEND_EMAIL:-}
+      - RESEND_FROM_NAME=${RESEND_FROM_NAME:-Hacado}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
     restart: unless-stopped
     networks:

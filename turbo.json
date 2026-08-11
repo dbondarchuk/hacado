@@ -82,7 +82,11 @@
     "REDIS_PORT",
     "REDIS_PASSWORD",
     "REDIS_USERNAME",
-    "REDIS_DB"
+    "REDIS_DB",
+    "EMAIL_PROVIDER",
+    "RESEND_API_KEY",
+    "RESEND_EMAIL",
+    "RESEND_FROM_NAME"
   ],
   "tasks": {
     "build": {
