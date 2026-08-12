@@ -11,7 +11,7 @@ import {
   use12HourFormat,
   useCurrencyFormat,
 } from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+import { MemberName, useAuth } from "@hacado/ui-admin";
 import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
@@ -57,6 +57,14 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           </Avatar>
           <div className="min-w-0">
             <p className="font-display text-lg font-medium text-foreground truncate">
+              <Link
+                href={`/dashboard/appointments/${appointment._id}`}
+                variant="underline"
+              >
+                {appointment.option.name}
+              </Link>
+            </p>
+            <p className="text-sm text-muted-foreground truncate">
               {t.rich("appointments.card.by", {
                 name: appointment.customer?.name ?? appointment.fields.name,
                 link: (chunks: any) => (
@@ -68,14 +76,6 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                   </Link>
                 ),
               })}
-            </p>
-            <p className="text-sm text-muted-foreground truncate">
-              <Link
-                href={`/dashboard/appointments/${appointment._id}`}
-                variant="underline"
-              >
-                {appointment.option.name}
-              </Link>
             </p>
           </div>
         </div>
@@ -126,6 +126,16 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           </p>
         </div>
       </div>
+
+      {/* Assigned member */}
+      {appointment.member && (
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
+            {t("appointments.card.member")}
+          </p>
+          <MemberName member={appointment.member} />
+        </div>
+      )}
 
       {/* Add-ons */}
       {appointment.addons && appointment.addons.length > 0 && (

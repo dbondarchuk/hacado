@@ -19,7 +19,9 @@ import {
   Availability,
   BookingRestriction,
   CheckDuplicateAppointmentsResponse,
+  effectiveAddonDuration,
   getActiveStaffForAssignments,
+  isAddonAvailableForMember,
   isBookingLimitRestriction,
 } from "@hacado/types";
 import { Spinner, toast, useTimeZone } from "@hacado/ui";
@@ -200,6 +202,17 @@ export const Schedule: React.FC<
     AppointmentAddon[]
   >([]);
 
+  React.useEffect(() => {
+    if (!selectedAddons.length) return;
+    const filtered = selectedAddons.filter((addon) =>
+      isAddonAvailableForMember(addon.staff, selectedMemberId),
+    );
+    if (filtered.length !== selectedAddons.length) {
+      setSelectedAddons(filtered);
+    }
+    // Only re-filter when the selected specialist changes.
+  }, [selectedMemberId]);
+
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
   const allFormFields = [...(appointmentOption.fields || []), ...addonsFields];
@@ -238,7 +251,13 @@ export const Schedule: React.FC<
     return (
       duration +
       (selectedAddons || []).reduce(
-        (sum, addon) => sum + (addon.duration || 0),
+        (sum, addon) =>
+          sum +
+          (effectiveAddonDuration(
+            addon.duration,
+            addon.staff,
+            selectedMemberId,
+          ) || 0),
         0,
       )
     );

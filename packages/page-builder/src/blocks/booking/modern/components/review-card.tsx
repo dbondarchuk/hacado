@@ -1,6 +1,11 @@
 import { clientApi } from "@hacado/api-sdk";
 import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { ApplyDiscountRequest, timeZones } from "@hacado/types";
+import {
+  ApplyDiscountRequest,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+  timeZones,
+} from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -387,34 +392,46 @@ export const ReviewCard: React.FC = () => {
             <h4 className="text-sm font-medium text-muted-foreground mb-2 review-addons-title">
               {t("booking.review.addons.title")}
             </h4>
-            {selectedAddons.map((addon) => (
-              <div
-                key={addon._id}
-                className="flex items-center justify-between py-1 review-addons-item"
-              >
-                <span className="text-xs text-foreground review-addons-name">
-                  {addon.name}
-                </span>
-                {(!!addon.price || !!addon.duration) && (
-                  <div className="text-right shrink-0 review-addons-price">
-                    {!!addon.price && (
-                      <span className="text-xs font-medium text-foreground">
-                        +{currencyFormat(addon.price || 0)}
-                      </span>
-                    )}
-                    {!!addon.duration && (
-                      <span className="text-xs text-muted-foreground ml-2 review-addons-duration">
-                        +
-                        {t(
-                          "common.formats.durationHourMin",
-                          durationToTime(addon.duration),
-                        )}
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+            {selectedAddons.map((addon) => {
+              const price = effectiveAddonPrice(
+                addon.price,
+                addon.staff,
+                selectedMember?.member.id,
+              );
+              const duration = effectiveAddonDuration(
+                addon.duration,
+                addon.staff,
+                selectedMember?.member.id,
+              );
+              return (
+                <div
+                  key={addon._id}
+                  className="flex items-center justify-between py-1 review-addons-item"
+                >
+                  <span className="text-xs text-foreground review-addons-name">
+                    {addon.name}
+                  </span>
+                  {(!!price || !!duration) && (
+                    <div className="text-right shrink-0 review-addons-price">
+                      {!!price && (
+                        <span className="text-xs font-medium text-foreground">
+                          +{currencyFormat(price || 0)}
+                        </span>
+                      )}
+                      {!!duration && (
+                        <span className="text-xs text-muted-foreground ml-2 review-addons-duration">
+                          +
+                          {t(
+                            "common.formats.durationHourMin",
+                            durationToTime(duration),
+                          )}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

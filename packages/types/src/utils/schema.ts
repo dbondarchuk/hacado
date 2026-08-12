@@ -173,7 +173,7 @@ export function asOptionalField<T extends z.ZodType>(schema: T) {
 
 export function asOptinalNumberField<T extends z.ZodNumber>(schema: T) {
   return z.preprocess(
-    (arg) => (arg === "" ? undefined : arg),
+    (arg) => (arg === "" || arg === null ? undefined : arg),
     schema.optional(),
   ) as unknown as z.ZodOptional<T>;
 }

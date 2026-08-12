@@ -1,23 +1,53 @@
 import * as z from "zod";
-import { zObjectId } from "../utils";
+import { asOptinalNumberField, zObjectId } from "../utils";
 
 /** Embedded staff assignment + optional per-member price/duration overrides. */
 export const staffAssignmentSchema = z.object({
   memberId: zObjectId("validation.staff.memberId.required"),
-  priceOverride: z.coerce
-    .number<number>()
-    .min(0, "validation.staff.priceOverride.min")
-    .optional(),
-  durationOverride: z.coerce
-    .number<number>()
-    .int("validation.staff.durationOverride.int")
-    .min(1, "validation.staff.durationOverride.min")
-    .optional(),
+  priceOverride: asOptinalNumberField(
+    z.coerce.number<number>().min(0, "validation.staff.priceOverride.min"),
+  ),
+  durationOverride: asOptinalNumberField(
+    z.coerce
+      .number<number>()
+      .int("validation.staff.durationOverride.int")
+      .min(1, "validation.staff.durationOverride.min"),
+  ),
 });
 
 export type StaffAssignment = z.infer<typeof staffAssignmentSchema>;
 
 export const staffAssignmentsSchema = z.array(staffAssignmentSchema).optional();
+
+/**
+ * Per-member addon override. Empty list = all parent-service staff can offer
+ * the addon at base price/duration. Entries customize price/duration or mark
+ * a member unavailable for the addon.
+ */
+export const addonStaffOverrideSchema = staffAssignmentSchema.extend({
+  /** When true, this member cannot offer the addon. */
+  unavailable: z.boolean().optional(),
+});
+
+export type AddonStaffOverride = z.infer<typeof addonStaffOverrideSchema>;
+
+export const addonStaffOverridesSchema = z
+  .array(addonStaffOverrideSchema)
+  .optional();
+
+/** Strip price/duration overrides when a member is marked unavailable. */
+export function normalizeAddonStaffOverrides(
+  staff: AddonStaffOverride[] | undefined,
+): AddonStaffOverride[] | undefined {
+  if (!staff?.length) return staff;
+  return staff.map((override) => {
+    if (!override.unavailable) return override;
+    return {
+      memberId: override.memberId,
+      unavailable: true,
+    };
+  });
+}
 
 export function effectiveStaffPrice(
   basePrice: number | undefined | null,
@@ -33,6 +63,88 @@ export function effectiveStaffDuration(
 ): number | undefined {
   if (assignment?.durationOverride != null) return assignment.durationOverride;
   return baseDuration ?? undefined;
+}
+
+export function getAddonStaffOverride(
+  staff: AddonStaffOverride[] | undefined,
+  memberId: string | undefined | null,
+): AddonStaffOverride | undefined {
+  if (!staff?.length || !memberId) return undefined;
+  return staff.find((s) => s.memberId === memberId);
+}
+
+/** False only when an override explicitly marks the member unavailable. */
+export function isAddonAvailableForMember(
+  staff: AddonStaffOverride[] | undefined,
+  memberId: string | undefined | null,
+): boolean {
+  const override = getAddonStaffOverride(staff, memberId);
+  return !override?.unavailable;
+}
+
+/** True when the member is on the service staff allowlist. */
+export function isMemberAssignedToOption(
+  staff: StaffAssignment[] | undefined,
+  memberId: string | undefined | null,
+): boolean {
+  if (!memberId) return true;
+  if (!staff?.length) return false;
+  return staff.some((s) => s.memberId === memberId);
+}
+
+/**
+ * True when the member may offer the addon (not explicitly marked unavailable).
+ * Empty addon staff overrides = available to parent-service staff.
+ */
+export function isMemberAssignedToAddon(
+  staff: AddonStaffOverride[] | undefined,
+  memberId: string | undefined | null,
+): boolean {
+  return isAddonAvailableForMember(staff, memberId);
+}
+
+export function getUnassignedMemberIssues(args: {
+  optionStaff: StaffAssignment[] | undefined;
+  optionName?: string;
+  addons?: { name: string; staff?: AddonStaffOverride[] }[];
+  memberId: string | undefined | null;
+}): {
+  optionUnassigned: boolean;
+  unassignedAddonNames: string[];
+  needsAcknowledgement: boolean;
+} {
+  const optionUnassigned = !isMemberAssignedToOption(
+    args.optionStaff,
+    args.memberId,
+  );
+  const unassignedAddonNames = (args.addons || [])
+    .filter((addon) => !isMemberAssignedToAddon(addon.staff, args.memberId))
+    .map((addon) => addon.name);
+  return {
+    optionUnassigned,
+    unassignedAddonNames,
+    needsAcknowledgement: optionUnassigned || unassignedAddonNames.length > 0,
+  };
+}
+
+export function effectiveAddonPrice(
+  basePrice: number | undefined | null,
+  staff: AddonStaffOverride[] | undefined,
+  memberId: string | undefined | null,
+): number | undefined {
+  const override = getAddonStaffOverride(staff, memberId);
+  if (override?.unavailable) return basePrice ?? undefined;
+  return effectiveStaffPrice(basePrice, override);
+}
+
+export function effectiveAddonDuration(
+  baseDuration: number | undefined | null,
+  staff: AddonStaffOverride[] | undefined,
+  memberId: string | undefined | null,
+): number | undefined {
+  const override = getAddonStaffOverride(staff, memberId);
+  if (override?.unavailable) return baseDuration ?? undefined;
+  return effectiveStaffDuration(baseDuration, override);
 }
 
 export function minEffectivePrice(

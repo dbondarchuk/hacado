@@ -9,6 +9,8 @@ import {
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
   Fields,
   PublicStaffMember,
   WithLabelFieldData,
@@ -151,7 +153,13 @@ const getAppointmentDuration = ({
   return (
     baseDuration +
     (selectedAddons || []).reduce(
-      (sum, addon) => sum + (addon.duration || 0),
+      (sum, addon) =>
+        sum +
+        (effectiveAddonDuration(
+          addon.duration,
+          addon.staff,
+          selectedMemberId,
+        ) || 0),
       0,
     )
   );
@@ -181,7 +189,12 @@ const getAppointmentBasePrice = ({
 
   return (
     basePrice +
-    (selectedAddons || []).reduce((sum, addon) => sum + (addon.price || 0), 0)
+    (selectedAddons || []).reduce(
+      (sum, addon) =>
+        sum +
+        (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
+      0,
+    )
   );
 };
 

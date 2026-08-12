@@ -10,8 +10,11 @@ import {
   AppointmentOption,
   AppointmentRequest,
   Customer,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
   effectiveStaffDuration,
   effectiveStaffPrice,
+  isAddonAvailableForMember,
 } from "@hacado/types";
 import { formatAmount, getDiscountAmount } from "@hacado/utils";
 import { getServicesContainer } from "../utils";
@@ -180,6 +183,29 @@ export const getAppointmentEventFromRequest = async (
       },
       "Successfully retrieved all selected addons",
     );
+
+    if (request.memberId) {
+      const unavailableAddons = selectedAddons.filter(
+        (addon) => !isAddonAvailableForMember(addon.staff, request.memberId),
+      );
+      if (unavailableAddons.length) {
+        logger.warn(
+          {
+            memberId: request.memberId,
+            unavailableAddonIds: unavailableAddons.map((a) => a._id),
+          },
+          "Selected addons are unavailable for this member",
+        );
+
+        return {
+          error: {
+            code: "addon_unavailable_for_member",
+            message: `One or more selected addons are not available for the selected specialist`,
+            status: 400,
+          },
+        };
+      }
+    }
   }
 
   const allFields: Map<string, boolean> = new Map();
@@ -277,9 +303,15 @@ export const getAppointmentEventFromRequest = async (
     selectedOption.durationType === "fixed"
       ? (effectiveStaffDuration(selectedOption.duration, staffAssignment) ?? 0)
       : (request.duration ?? 0);
-  const totalDuration =
-    (optionDuration ?? 0) +
-    (selectedAddons?.reduce((sum, cur) => sum + (cur.duration ?? 0), 0) ?? 0);
+  const addonsDuration =
+    selectedAddons?.reduce(
+      (sum, cur) =>
+        sum +
+        (effectiveAddonDuration(cur.duration, cur.staff, request.memberId) ??
+          0),
+      0,
+    ) ?? 0;
+  const totalDuration = (optionDuration ?? 0) + addonsDuration;
 
   const optionPrice =
     selectedOption.durationType === "fixed"
@@ -288,9 +320,14 @@ export const getAppointmentEventFromRequest = async (
           0) /
           60) *
         (optionDuration || 0);
-  let totalPrice: number | undefined =
-    (optionPrice ?? 0) +
-    (selectedAddons?.reduce((sum, cur) => sum + (cur.price ?? 0), 0) ?? 0);
+  const addonsPrice =
+    selectedAddons?.reduce(
+      (sum, cur) =>
+        sum +
+        (effectiveAddonPrice(cur.price, cur.staff, request.memberId) ?? 0),
+      0,
+    ) ?? 0;
+  let totalPrice: number | undefined = (optionPrice ?? 0) + addonsPrice;
 
   logger.debug(
     {
@@ -300,12 +337,10 @@ export const getAppointmentEventFromRequest = async (
       memberId: request.memberId,
       priceOverride: staffAssignment?.priceOverride,
       durationOverride: staffAssignment?.durationOverride,
-      addonsDuration:
-        selectedAddons?.reduce((sum, cur) => sum + (cur.duration ?? 0), 0) ?? 0,
+      addonsDuration,
       totalDuration,
       optionPrice: optionPrice,
-      addonsPrice:
-        selectedAddons?.reduce((sum, cur) => sum + (cur.price ?? 0), 0) ?? 0,
+      addonsPrice,
       totalPrice,
     },
     "Calculated duration and price",
@@ -424,8 +459,12 @@ export const getAppointmentEventFromRequest = async (
     addons: selectedAddons?.map((addon) => ({
       _id: addon._id,
       name: addon.name,
-      price: addon.price,
-      duration: addon.duration,
+      price: effectiveAddonPrice(addon.price, addon.staff, request.memberId),
+      duration: effectiveAddonDuration(
+        addon.duration,
+        addon.staff,
+        request.memberId,
+      ),
     })),
     fields: request.fields,
     discount: appointmentDiscount,

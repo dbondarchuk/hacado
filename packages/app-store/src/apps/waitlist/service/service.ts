@@ -11,6 +11,7 @@ import {
   ConnectedAppUninstallResult,
   DashboardNotification,
   DemoArguments,
+  effectiveAddonDuration,
   EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
@@ -18,6 +19,7 @@ import {
   IDashboardNotifierApp,
   IDemoArgumentsProvider,
   IEventSubscriber,
+  isAddonAvailableForMember,
   SessionUser,
   TemplateTemplatesList,
   type EventSource,
@@ -490,6 +492,27 @@ export class WaitlistConnectedApp
       );
     }
 
+    const memberIdForAddons =
+      data.entry.memberId ?? (await this.resolveDefaultMemberId());
+
+    if (
+      memberIdForAddons &&
+      addons?.some(
+        (addon) => !isAddonAvailableForMember(addon.staff, memberIdForAddons),
+      )
+    ) {
+      logger.error(
+        { memberId: memberIdForAddons, addonsIds: data.entry.addonsIds },
+        "Addons unavailable for member",
+      );
+      throw new ConnectedAppRequestError(
+        "addon_unavailable_for_member",
+        { data },
+        400,
+        "One or more addons are not available for the selected member",
+      );
+    }
+
     const { customerId, ...waitlistRequestData } = data.entry;
 
     const customer =
@@ -510,12 +533,20 @@ export class WaitlistConnectedApp
       : (option.durationType === "fixed"
           ? option.duration
           : option.durationMin) +
-        (addons?.reduce((sum, addon) => sum + (addon.duration || 0), 0) ?? 0);
+        (addons?.reduce(
+          (sum, addon) =>
+            sum +
+            (effectiveAddonDuration(
+              addon.duration,
+              addon.staff,
+              memberIdForAddons,
+            ) || 0),
+          0,
+        ) ?? 0);
 
     const waitlistRequest: WaitlistRequest = {
       ...waitlistRequestData,
-      memberId:
-        waitlistRequestData.memberId ?? (await this.resolveDefaultMemberId()),
+      memberId: memberIdForAddons,
       duration,
       email: customer.email,
       name: customer.name,

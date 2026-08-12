@@ -14,7 +14,11 @@ import {
 } from "../utils";
 import { DistributiveOmit, Prettify } from "../utils/helpers";
 import { FieldSchema } from "./field";
-import { PublicStaffMember, staffAssignmentsSchema } from "./staff-assignment";
+import {
+  addonStaffOverridesSchema,
+  PublicStaffMember,
+  staffAssignmentsSchema,
+} from "./staff-assignment";
 
 export const isRequiredOptionTypes = ["inherit", "always", "never"] as const;
 export const optionPaymentCalculationType = ["percentage", "amount"] as const;
@@ -347,8 +351,12 @@ export const appointmentAddonSchema = z.object({
   price: asOptinalNumberField(
     z.coerce.number<number>().min(1, "validation.addons.price.min"),
   ),
-  /** Staff who can offer this addon (+ optional overrides). Empty = any parent-service staff. */
-  staff: staffAssignmentsSchema,
+  /**
+   * Per-member overrides for this addon. Empty = all parent-service staff can
+   * offer it at base price/duration. Entries may set price/duration overrides
+   * or mark a member unavailable (`unavailable: true`).
+   */
+  staff: addonStaffOverridesSchema,
   fields: zUniqueArray(
     z.array(
       z.object({

@@ -1,5 +1,10 @@
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentAddon } from "@hacado/types";
+import {
+  AppointmentAddon,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+  isAddonAvailableForMember,
+} from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -23,9 +28,14 @@ export const AddonsCard: React.FC = () => {
     selectedAddons,
     setDiscount,
     className,
+    selectedMemberId,
   } = useScheduleContext();
 
   const currencyFormat = useCurrencyFormat();
+
+  const availableAddons = (appointmentOption.addons || []).filter((addon) =>
+    isAddonAvailableForMember(addon.staff, selectedMemberId),
+  );
 
   const onClick = (option: AppointmentAddon): void => {
     const index = (selectedAddons || []).findIndex(
@@ -50,7 +60,17 @@ export const AddonsCard: React.FC = () => {
         <h2 className="text-xl">{i18n("booking.addons.selectLabel")}</h2>
       </div>
       <div className={className}>
-        {(appointmentOption.addons || []).map((addon) => {
+        {availableAddons.map((addon) => {
+          const price = effectiveAddonPrice(
+            addon.price,
+            addon.staff,
+            selectedMemberId,
+          );
+          const duration = effectiveAddonDuration(
+            addon.duration,
+            addon.staff,
+            selectedMemberId,
+          );
           return (
             <Card
               key={addon._id}
@@ -64,32 +84,32 @@ export const AddonsCard: React.FC = () => {
                 <div className="flex flex-col grow gap-2">
                   <CardTitle className="mt-0">{addon.name}</CardTitle>
                   <CardDescription className="flex flex-col gap-2">
-                    {addon.duration && (
+                    {duration ? (
                       <div
                         className="flex flex-row items-center"
                         aria-label={i18n(
                           "common.formats.formDurationHourMinutesLabel",
-                          durationToTime(addon.duration),
+                          durationToTime(duration),
                         )}
                       >
                         <Timer className="mr-1" />
                         {i18n(
                           "common.formats.durationHourMin",
-                          durationToTime(addon.duration),
+                          durationToTime(duration),
                         )}
                       </div>
-                    )}
-                    {addon.price && (
+                    ) : null}
+                    {price ? (
                       <div
                         className="flex flex-row items-center"
                         aria-label={i18n("common.formats.formPriceLabel", {
-                          price: currencyFormat(addon.price),
+                          price: currencyFormat(price),
                         })}
                       >
                         <DollarSign className="mr-1" />
-                        {currencyFormat(addon.price)}
+                        {currencyFormat(price)}
                       </div>
-                    )}
+                    ) : null}
                   </CardDescription>
                 </div>
                 <div className="flex place-content-start">

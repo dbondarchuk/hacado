@@ -7,6 +7,7 @@ import {
   AppointmentAddonUpdateModel,
   DatabaseId,
   getAppointmentAddonSchemaWithUniqueCheck,
+  normalizeAddonStaffOverrides,
   WithDatabaseId,
 } from "@hacado/types";
 import {
@@ -32,10 +33,10 @@ import { SaveButton, Sortable } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, type Resolver } from "react-hook-form";
 import * as z from "zod";
 import { FieldSelectCard } from "../field-select-card";
-import { StaffAssignmentPanel } from "../staff-assignment-panel";
+import { StaffOverrides } from "./staff-overrides";
 
 export const AddonForm: React.FC<{
   initialData?: AppointmentAddonUpdateModel & Partial<DatabaseId>;
@@ -58,7 +59,7 @@ export const AddonForm: React.FC<{
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
   const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as Resolver<FormValues>,
     mode: "all",
     reValidateMode: "onChange",
     defaultValues: initialData || {},
@@ -68,14 +69,20 @@ export const AddonForm: React.FC<{
     try {
       setLoading(true);
 
+      const payload = {
+        ...data,
+        staff: normalizeAddonStaffOverrides(data.staff),
+      };
+
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.serviceAddons.createServiceAddon(data);
+          const { _id } =
+            await adminApi.serviceAddons.createServiceAddon(payload);
           router.push(`/dashboard/services/addons/${_id}`);
         } else {
           await adminApi.serviceAddons.updateServiceAddon(
             initialData._id,
-            data,
+            payload,
           );
 
           router.refresh();
@@ -250,7 +257,7 @@ export const AddonForm: React.FC<{
             </div>
           </Sortable>
         </div>
-        <StaffAssignmentPanel control={form.control} name="staff" />
+        <StaffOverrides form={form} disabled={loading} />
         <SaveButton form={form} />
       </form>
     </Form>

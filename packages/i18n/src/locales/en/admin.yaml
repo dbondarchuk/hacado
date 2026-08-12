@@ -786,6 +786,7 @@ appointments:
     decline: Decline
     confirm: Confirm
     addons: Add-ons
+    member: Team member
   declineDialog:
     title: Decline appointment
     description:
@@ -973,6 +974,26 @@ appointments:
     confirmOverlapDescription:
       I understand that scheduling this appointment will
       create an overlap in my schedule
+    unassignedMember:
+      title: Member not assigned
+      description:
+        The selected team member is not assigned to part of this appointment.
+        Base option/add-on price and duration will be used until you adjust them.
+      optionNotAssigned: "Not assigned to option: {option}"
+      addonsNotAssigned: "Not assigned to add-on(s): {addons}"
+      priceDurationHint:
+        Please verify that the total price and duration are correct before
+        scheduling.
+      ackLabel: I acknowledge this member is not assigned
+      ackDescription:
+        Required when the selected member is not assigned to the option or one
+        or more selected add-ons. Please verify price and duration before
+        scheduling.
+      ackRequired:
+        Please acknowledge that the selected member is not assigned to the
+        option or add-on(s).
+      cancel: Close
+      confirm: Got it
     scheduleAppointment: Schedule appointment
     doNotNotifyCustomer: Do not notify customer
     doNotNotifyCustomerDescription:
@@ -2082,6 +2103,28 @@ services:
       priceTooltip: Price of the add-on
       fields: Fields
       fieldsTooltip: Fields required for this add-on
+      staffOverrides:
+        title: Member overrides
+        hint:
+          By default, any member who can perform the parent service can offer
+          this add-on at the base price and duration. Add a member only to set a
+          different price or duration, or to mark that they cannot offer this
+          add-on.
+        add: Add override
+        memberOverrideCard:
+          member: Member
+          unavailable: Cannot offer this add-on
+          unavailableHint:
+            When enabled, this member will not be able to offer this add-on
+            during booking.
+          deleteConfirmTitle: Are you absolutely sure?
+          deleteConfirmDescription:
+            Are you sure you want to remove this member override?
+          cancel: Cancel
+          delete: Delete
+          overrides:
+            price: Price override
+            duration: Duration override
       validation:
         nameUnique: Add-on name must be unique
       toasts:
