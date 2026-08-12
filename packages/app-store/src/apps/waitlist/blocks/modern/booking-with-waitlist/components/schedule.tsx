@@ -402,38 +402,51 @@ export const Schedule: React.FC<
 
   const router = useRouter();
 
-  const fetchAvailability = useCallback(async () => {
-    const totalDuration = getTotalDuration();
-    if (!totalDuration) return;
-    if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
+  const fetchAvailability = useCallback(
+    async (memberIdOverride?: string | null) => {
+      const totalDuration = getTotalDuration();
+      if (!totalDuration) return;
+      if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
-    setIsLoading(true);
-    setAvailability([]);
-    setDateTime(undefined);
+      const resolvedMemberId =
+        memberIdOverride ??
+        selectedMemberId ??
+        (activeStaff.length === 1 ? activeStaff[0].member.id : null);
 
-    try {
-      const data = await clientApi.availability.getAvailability({
-        duration: totalDuration,
-        memberId: selectedMemberId ?? undefined,
-      });
+      if (resolvedMemberId && resolvedMemberId !== selectedMemberId) {
+        setSelectedMemberId(resolvedMemberId);
+      }
 
-      setAvailability(data);
-    } catch (e) {
-      console.error(e);
-
+      setIsLoading(true);
       setAvailability([]);
-      toast.error(errors.fetchTitle, {
-        description: errors.fetchDescription,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [
-    getTotalDuration,
-    errors.fetchTitle,
-    errors.fetchDescription,
-    selectedMemberId,
-  ]);
+      setDateTime(undefined);
+
+      try {
+        const data = await clientApi.availability.getAvailability({
+          duration: totalDuration,
+          memberId: resolvedMemberId ?? undefined,
+        });
+
+        setAvailability(data);
+      } catch (e) {
+        console.error(e);
+
+        setAvailability([]);
+        toast.error(errors.fetchTitle, {
+          description: errors.fetchDescription,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [
+      getTotalDuration,
+      errors.fetchTitle,
+      errors.fetchDescription,
+      selectedMemberId,
+      activeStaff,
+    ],
+  );
 
   const checkDuplicateAppointments =
     useCallback(async (): Promise<CheckDuplicateAppointmentsResponse> => {

@@ -80,7 +80,8 @@ export type ScheduleContextProps = {
   setIsFormValid: (isValid: boolean) => void;
 
   availability: Availability;
-  fetchAvailability: () => Promise<void>;
+  /** Optional memberId override avoids stale state right after setSelectedMemberId. */
+  fetchAvailability: (memberId?: string | null) => Promise<void>;
 
   checkDuplicateAppointments: () => Promise<CheckDuplicateAppointmentsResponse>;
   closestDuplicateAppointment?: LuxonDateTime;

@@ -47,14 +47,29 @@ const goToStepBeforeAddons = (ctx: ScheduleContextProps) => {
   goToStepBeforeSpecialist(ctx);
 };
 
+/** Resolves the member to use when the specialist step is skipped (sole staff). */
+const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
+  if (ctx.selectedMemberId || ctx.preselectedMemberId) {
+    return ctx.selectedMemberId ?? ctx.preselectedMemberId ?? null;
+  }
+  if (ctx.activeStaff.length === 1) {
+    const memberId = ctx.activeStaff[0].member.id;
+    ctx.setSelectedMemberId(memberId);
+    return memberId;
+  }
+  return null;
+};
+
 /** Resolves the assigned staff (if needed) then proceeds to addons/calendar. */
 const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
   if (ctx.appointmentOption.addons?.length) {
+    resolveMemberIdForFetch(ctx);
     ctx.setStep("addons");
     return;
   }
 
-  await ctx.fetchAvailability();
+  const memberId = resolveMemberIdForFetch(ctx);
+  await ctx.fetchAvailability(memberId);
   ctx.setStep("calendar");
 };
 
@@ -72,10 +87,6 @@ export const ScheduleSteps: Record<StepType, Step> = {
         if (ctx.showSpecialistStep) {
           ctx.setStep("specialist");
           return;
-        }
-
-        if (!ctx.preselectedMemberId && ctx.activeStaff.length === 1) {
-          ctx.setSelectedMemberId(ctx.activeStaff[0].member.id);
         }
 
         await goToStepAfterSpecialist(ctx);

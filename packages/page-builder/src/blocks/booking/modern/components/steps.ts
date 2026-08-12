@@ -55,15 +55,29 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   }
 };
 
+/** Resolves the member to use when the specialist step is skipped (sole staff). */
+const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
+  if (ctx.selectedMemberId) return ctx.selectedMemberId;
+  if (ctx.activeStaff.length === 1) {
+    const memberId = ctx.activeStaff[0].member.id;
+    ctx.setSelectedMemberId(memberId);
+    return memberId;
+  }
+  return null;
+};
+
 /** Goes to "addons" (if any) or fetches availability and goes to "calendar". */
 const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
   if (ctx.selectedAppointmentOption?.addons?.length) {
+    // Ensure sole staff is selected before addons so later availability has memberId.
+    resolveMemberIdForFetch(ctx);
     ctx.setCurrentStep("addons");
     return;
   }
 
+  const memberId = resolveMemberIdForFetch(ctx);
   ctx.setCurrentStep("calendar");
-  await ctx.fetchAvailability();
+  await ctx.fetchAvailability(memberId);
 };
 
 /** Goes back to the step preceding "addons", accounting for the specialist step. */
@@ -92,12 +106,6 @@ export const ScheduleSteps: Record<StepType, Step> = {
           if (ctx.activeStaff.length > 1) {
             ctx.setCurrentStep("specialist");
             return;
-          }
-
-          if (ctx.activeStaff.length === 1) {
-            ctx.setSelectedMemberId(ctx.activeStaff[0].member.id);
-          } else {
-            ctx.setSelectedMemberId(null);
           }
         }
 

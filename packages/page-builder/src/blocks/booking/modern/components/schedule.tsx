@@ -272,10 +272,19 @@ export const Schedule: React.FC<
     );
   };
 
-  const fetchAvailability = async () => {
+  const fetchAvailability = async (memberIdOverride?: string | null) => {
     const totalDuration = getTotalDuration();
     if (!totalDuration) return;
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
+
+    const resolvedMemberId =
+      memberIdOverride ??
+      selectedMemberId ??
+      (activeStaff.length === 1 ? activeStaff[0].member.id : null);
+
+    if (resolvedMemberId && resolvedMemberId !== selectedMemberId) {
+      setSelectedMemberId(resolvedMemberId);
+    }
 
     setIsLoading(true);
     setAvailability([]);
@@ -284,7 +293,7 @@ export const Schedule: React.FC<
     try {
       const data = await clientApi.availability.getAvailability({
         duration: totalDuration,
-        memberId: selectedMemberId ?? undefined,
+        memberId: resolvedMemberId ?? undefined,
       });
 
       setAvailability(data);

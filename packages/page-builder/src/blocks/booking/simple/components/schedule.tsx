@@ -263,17 +263,27 @@ export const Schedule: React.FC<
     );
   };
 
-  const fetchAvailability = async () => {
+  const fetchAvailability = async (memberIdOverride?: string | null) => {
     const totalDuration = getTotalDuration();
     if (!totalDuration) return;
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
+
+    const resolvedMemberId =
+      memberIdOverride ??
+      selectedMemberId ??
+      preselectedMemberId ??
+      (activeStaff.length === 1 ? activeStaff[0].member.id : null);
+
+    if (resolvedMemberId && resolvedMemberId !== selectedMemberId) {
+      setSelectedMemberId(resolvedMemberId);
+    }
 
     setIsLoading(true);
 
     try {
       const data = await clientApi.availability.getAvailability({
         duration: totalDuration,
-        memberId: selectedMemberId ?? undefined,
+        memberId: resolvedMemberId ?? undefined,
       });
 
       setAvailability(data);
