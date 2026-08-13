@@ -13,7 +13,7 @@ export const TeamInvitationTemplate: EmailTemplate["teamInvitation"] = {
         type: "text",
         text: `Вітаємо,
 
-**{{inviterName}}** запрошує вас приєднатися до **{{organizationName}}** як **{{role}}**.
+**{{inviterName}}** запрошує вас приєднатися до **{{organizationName}}**.
 
 Натисніть кнопку нижче, щоб прийняти запрошення.
 `,
