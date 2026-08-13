@@ -18,6 +18,7 @@ export type UserEmailTemplateContentBlock =
   | {
       type: "text";
       text: string;
+      align?: "left" | "center" | "right";
     }
   | {
       type: "title";
@@ -67,6 +68,7 @@ const contentBlockTypeRenderMap: {
           right: 24,
           left: 24,
         },
+        textAlign: block.align,
       },
       props: {
         value: deserializeMarkdown(
@@ -264,6 +266,7 @@ export const renderUserEmailTemplate = async (
                 right: 24,
               },
               fontWeight: "normal",
+              textAlign: "center",
             },
           },
         },
