@@ -525,7 +525,7 @@ export const ReviewCard: React.FC = () => {
         {/* Total */}
         {shouldShowTotals && (
           <div className="border-t pt-4 review-total">
-            <div className="flex items-center justify-between review-total-content text-xs">
+            <div className="flex items-center justify-between review-total-content text-sm">
               <div>
                 <p className="font-semibold text-foreground review-total-title">
                   {t("booking.review.price.original")}
@@ -536,14 +536,14 @@ export const ReviewCard: React.FC = () => {
               </p>
             </div>
             {showPromoCode && !!basePrice && (
-              <div className="flex items-center justify-between review-total-promo-code">
+              <div className="flex items-center justify-between review-total-promo-code mt-2">
                 <Collapsible
                   open={openPromoCode || !!promoCode}
                   onOpenChange={setOpenPromoCode}
                   className="w-full"
                 >
-                  <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex  items-center gap-2 underline review-total-gift-cards-title">
-                    <TicketPercent className="w-3 h-3" />{" "}
+                  <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
+                    <TicketPercent className="size-4 shrink-0" />{" "}
                     {t("booking.promoCode.trigger")}
                   </CollapsibleTrigger>
                   <CollapsibleContent className="w-full">
@@ -610,14 +610,15 @@ export const ReviewCard: React.FC = () => {
               </div>
             )}
             {!!basePrice && (
-              <div className="flex items-center justify-between mb-2 review-total-gift-cards">
+              <div className="flex items-center justify-between my-2 review-total-gift-cards">
                 <Collapsible
                   open={openGiftCards || !!giftCards?.length}
                   onOpenChange={setOpenGiftCards}
                   className="w-full"
                 >
-                  <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
-                    <Gift className="w-3 h-3" /> {t("booking.giftCard.trigger")}
+                  <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
+                    <Gift className="size-4 shrink-0" />{" "}
+                    {t("booking.giftCard.trigger")}
                   </CollapsibleTrigger>
                   <CollapsibleContent className="w-full">
                     <div className="mt-2 flex flex-col gap-2 items-center w-full review-total-gift-cards-content">

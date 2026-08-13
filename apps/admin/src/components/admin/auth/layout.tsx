@@ -21,7 +21,7 @@ export const AuthLayout = ({
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-2 text-center">
           <div className="flex gap-2 items-center justify-center mb-4 mx-auto">
-            <div className="text-3xl font-semibold tracking-tight text-balance font-display">
+            <div className="text-3xl font-semibold tracking-tight text-balance font-display text-primary">
               hacado
             </div>
           </div>

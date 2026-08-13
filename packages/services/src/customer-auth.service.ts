@@ -186,9 +186,9 @@ export class CustomerAuthService
       additionalProperties: { otp: code },
     });
 
-    if (channel === "email" && customer.email) {
-      await this.sendOtpEmail(customer.email, customer._id, config, args);
-    } else if (channel === "phone" && customer.phone) {
+    if (channel === "email") {
+      await this.sendOtpEmail(email!, customer._id, config, args);
+    } else if (channel === "phone") {
       if (!config.allowPhoneOtp) {
         logger.warn(
           { customerId: customer._id },
@@ -196,7 +196,7 @@ export class CustomerAuthService
         );
         throw new CustomerAuthError("phone_otp_not_enabled", 400);
       }
-      await this.sendOtpText(customer.phone, customer._id, config, args);
+      await this.sendOtpText(phone!, customer._id, config, args);
     } else {
       logger.warn(
         { customerId: customer._id, channel },

@@ -267,8 +267,8 @@ export const ReviewCard: React.FC = () => {
                 onOpenChange={setOpenGiftCards}
                 className="w-full"
               >
-                <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex items-center gap-2 underline">
-                  <Gift className="w-3 h-3" />
+                <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline">
+                  <Gift className="size-4 shrink-0" />
                   {t("booking.giftCard.trigger")}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="w-full">

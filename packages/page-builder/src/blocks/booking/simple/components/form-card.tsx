@@ -234,7 +234,7 @@ export const FormCard: React.FC = () => {
 
             {showPromoCode && !!basePrice && (
               <FormItem>
-                <Label htmlFor="promo-code">
+                <Label htmlFor="promo-code" className="text-sm font-medium">
                   {i18n("common.labels.formPromoCode")}
                 </Label>
                 <div className="flex flex-row gap-2">
@@ -273,8 +273,8 @@ export const FormCard: React.FC = () => {
             )}
             {!!basePrice && (
               <FormItem>
-                <Label htmlFor="gift-card-code">
-                  {i18n("booking.giftCard.title")}
+                <Label htmlFor="gift-card-code" className="text-sm font-medium">
+                  {i18n("booking.giftCard.trigger")}
                 </Label>
                 <div className="flex flex-row gap-2">
                   <Input

@@ -42,5 +42,6 @@ export function getDefaultBookingConfiguration(): BookingConfiguration {
     minHoursBeforeBooking: 24,
     breakDuration: 30,
     autoConfirm: false,
+    allowPromoCode: "allow-if-has-active",
   });
 }
