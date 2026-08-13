@@ -27,7 +27,7 @@ export function getInstallEnabledCancellationsAndReschedules(): AppointmentCance
 
 export function getDefaultBookingConfiguration(): BookingConfiguration {
   return bookingConfigurationSchema.parse({
-    allowPromoCode: "never",
+    allowPromoCode: "allow-if-has-active",
     payments: { enabled: false },
     cancellationsAndReschedules: {
       cancellations: {
@@ -42,6 +42,5 @@ export function getDefaultBookingConfiguration(): BookingConfiguration {
     minHoursBeforeBooking: 24,
     breakDuration: 30,
     autoConfirm: false,
-    allowPromoCode: "allow-if-has-active",
   });
 }

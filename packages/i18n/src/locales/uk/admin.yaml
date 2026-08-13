@@ -2860,6 +2860,8 @@ auth:
   quote: Я люблю це!
   quoteAuthor: Олеся Бондарчук
   forgotPasswordLink: <link>Забули пароль?</link>
+  captcha:
+    error: Не вдалося підтвердити, що ви не робот. Будь ласка, спробуйте знову.
   forgotPassword:
     title: Забули пароль
     description: Введіть ваш email нижче, щоб скинути ваш пароль

@@ -1,6 +1,12 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
+import {
+  captchaFetchOptions,
+  isCaptchaError,
+  TurnstileField,
+  useTurnstileField,
+} from "@/components/admin/auth/turnstile-field";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types";
 import {
@@ -26,6 +32,7 @@ import * as z from "zod";
 export const UserSignupForm = ({
   publicDomain,
   invitation,
+  turnstileSiteKey,
 }: {
   publicDomain: string;
   invitation?: {
@@ -33,6 +40,7 @@ export const UserSignupForm = ({
     email: string;
     organizationName: string;
   } | null;
+  turnstileSiteKey: string;
 }) => {
   const formSchema = useMemo(
     () =>
@@ -110,8 +118,15 @@ export const UserSignupForm = ({
 
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const turnstile = useTurnstileField();
 
   const onSubmit = async (data: UserFormValue) => {
+    const captchaToken = turnstile.token;
+    if (!captchaToken) {
+      toast.error(t("auth.captcha.error"));
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -121,11 +136,14 @@ export const UserSignupForm = ({
         password: data.password,
         name: data.name,
         callbackURL: postAuthPath,
+        fetchOptions: captchaFetchOptions(captchaToken),
       });
 
       if (response.error?.message) {
         if (response.error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
           toast.error(t("auth.signUp.toasts.userAlreadyExists"));
+        } else if (isCaptchaError(response.error)) {
+          toast.error(t("auth.captcha.error"));
         } else {
           toast.error(t("auth.signUp.toasts.error"));
         }
@@ -146,6 +164,7 @@ export const UserSignupForm = ({
         router.push(postAuthPath);
       }
     } finally {
+      turnstile.reset();
       setLoading(false);
     }
   };
@@ -277,7 +296,17 @@ export const UserSignupForm = ({
             )}
           />
 
-          <Button disabled={loading} className="ml-auto w-full" type="submit">
+          <TurnstileField
+            siteKey={turnstileSiteKey}
+            widgetRef={turnstile.widgetRef}
+            onTokenChange={turnstile.setToken}
+          />
+
+          <Button
+            disabled={loading || !turnstile.token || !form.formState.isValid}
+            className="ml-auto w-full"
+            type="submit"
+          >
             {t("auth.signUp.submit")}
           </Button>
         </form>

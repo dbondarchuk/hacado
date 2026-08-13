@@ -36,6 +36,8 @@ services:
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
     restart: unless-stopped
     ports:
       - "3001:3001"

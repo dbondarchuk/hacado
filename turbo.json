@@ -86,7 +86,9 @@
     "EMAIL_PROVIDER",
     "RESEND_API_KEY",
     "RESEND_EMAIL",
-    "RESEND_FROM_NAME"
+    "RESEND_FROM_NAME",
+    "TURNSTILE_SITE_KEY",
+    "TURNSTILE_SECRET_KEY"
   ],
   "tasks": {
     "build": {

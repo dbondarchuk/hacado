@@ -68,7 +68,11 @@ export default async function SignupPage(props: {
 
   return (
     <AuthLayout title={t("auth.signUp.title")} description={description}>
-      <UserSignupForm publicDomain={publicDomain} invitation={invitation} />
+      <UserSignupForm
+        publicDomain={publicDomain}
+        invitation={invitation}
+        turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
+      />
     </AuthLayout>
   );
 }

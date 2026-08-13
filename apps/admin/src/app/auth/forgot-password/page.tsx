@@ -36,7 +36,9 @@ export default async function AuthenticationPage() {
       title={t("auth.forgotPassword.title")}
       description={t("auth.forgotPassword.description")}
     >
-      <UserForgotPasswordForm />
+      <UserForgotPasswordForm
+        turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
+      />
     </AuthLayout>
   );
 }

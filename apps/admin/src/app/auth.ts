@@ -33,7 +33,7 @@ import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";
-import { customSession, organization } from "better-auth/plugins";
+import { captcha, customSession, organization } from "better-auth/plugins";
 import { ObjectId } from "mongodb";
 import { ApiError } from "next/dist/server/api-utils";
 
@@ -194,6 +194,15 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    ...(process.env.TURNSTILE_SITE_KEY && process.env.TURNSTILE_SECRET_KEY
+      ? [
+          captcha({
+            provider: "cloudflare-turnstile",
+            secretKey: process.env.TURNSTILE_SECRET_KEY!,
+            endpoints: ["/sign-up/email", "/request-password-reset"],
+          }),
+        ]
+      : []),
     organization({
       organizationLimit: 1,
       ac: teamAc,

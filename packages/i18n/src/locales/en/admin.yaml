@@ -3088,6 +3088,8 @@ auth:
   quote: I love it!
   quoteAuthor: Olesia Bondarchuk
   forgotPasswordLink: "<link>Forgot your password?</link>"
+  captcha:
+    error: Captcha verification failed. Please try again.
   verification:
     notVerified:
       Your email has not been verified. Please check your email for a verification

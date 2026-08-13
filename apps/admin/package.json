@@ -26,6 +26,7 @@
     "@hacado/ui-admin": "*",
     "@hacado/ui-admin-kit": "*",
     "@hacado/utils": "*",
+    "@marsidev/react-turnstile": "^1.6.0",
     "@mdx-js/react": "^3.0.1",
     "@polar-sh/better-auth": "^1.8.3",
     "@polar-sh/sdk": "^0.47.0",
