@@ -198,23 +198,17 @@ export const UserAuthForm = () => {
       </Form>
 
       <div className="text-center w-full text-base">
-        <Link
-          href="/auth/forgot-password"
-          className="ml-auto w-full"
-          variant="underline"
-        >
-          {t.rich("auth.forgotPasswordLink", {
-            link: (chunks: any) => (
-              <Link
-                href="/auth/forgot-password"
-                className="ml-auto w-full"
-                variant="underline"
-              >
-                {chunks}
-              </Link>
-            ),
-          })}
-        </Link>
+        {t.rich("auth.forgotPasswordLink", {
+          link: (chunks: any) => (
+            <Link
+              href="/auth/forgot-password"
+              className="ml-auto w-full"
+              variant="underline"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
       </div>
 
       <div className="text-center w-full text-base">

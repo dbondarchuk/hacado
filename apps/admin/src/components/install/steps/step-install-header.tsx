@@ -12,7 +12,6 @@ import {
   Link2,
   Palette,
 } from "lucide-react";
-import Image from "next/image";
 import { useMemo } from "react";
 
 export function StepInstallHeader({ stepNum }: { stepNum: number }) {
@@ -78,8 +77,8 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Hacado" width={28} height={28} />
-            <div className="text-xl font-semibold tracking-tight font-display">
+            {/* <Image src="/logo.png" alt="Hacado" width={28} height={28} /> */}
+            <div className="text-xl font-semibold tracking-tight font-display text-primary">
               hacado
             </div>
           </div>

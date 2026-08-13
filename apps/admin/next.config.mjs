@@ -19,6 +19,7 @@ const nextConfig = {
     "bullmq",
     "pdfkit",
     "@resvg/resvg-js",
+    "geoip-lite",
   ],
   experimental: {
     authInterrupts: true,

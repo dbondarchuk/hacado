@@ -144,6 +144,11 @@ export const UserSignupForm = ({
           toast.error(t("auth.signUp.toasts.userAlreadyExists"));
         } else if (isCaptchaError(response.error)) {
           toast.error(t("auth.captcha.error"));
+        } else if (
+          response.error.code === "SIGNUP_REGION_BLOCKED" ||
+          response.error.message.toLowerCase().includes("region")
+        ) {
+          toast.error(t("auth.signUp.regionBlocked.toast"));
         } else {
           toast.error(t("auth.signUp.toasts.error"));
         }
@@ -303,7 +308,7 @@ export const UserSignupForm = ({
           />
 
           <Button
-            disabled={loading || !turnstile.token || !form.formState.isValid}
+            disabled={loading || !turnstile.token}
             className="ml-auto w-full"
             type="submit"
           >

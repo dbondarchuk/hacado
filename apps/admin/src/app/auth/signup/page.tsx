@@ -1,8 +1,10 @@
 import { getPublicInvitation } from "@/app/accept-invitation/actions";
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserSignupForm } from "@/components/admin/auth/user-signup-form";
+import { isPublicSignupAllowedFromHeaders } from "@/lib/auth/signup-geo";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { Link } from "@hacado/ui";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -25,8 +27,9 @@ export default async function SignupPage(props: {
 
   logger.debug("Loading signup page");
 
+  const requestHeaders = await headers();
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: requestHeaders,
   });
 
   if (session) {
@@ -64,7 +67,41 @@ export default async function SignupPage(props: {
       })
     : t("auth.signUp.description");
 
-  logger.debug("Signup page loaded");
+  const regionAllowed =
+    !!invitation ||
+    isPublicSignupAllowedFromHeaders(requestHeaders, "signup-page");
+
+  if (invitation) {
+    logger.info(
+      { invitationId: invitation.id },
+      "Signup page allowed: valid invitation",
+    );
+  }
+
+  logger.debug(
+    { regionAllowed, hasInvitation: !!invitation },
+    "Signup page loaded",
+  );
+
+  if (!regionAllowed) {
+    logger.warn("Signup page blocked: region not allowed");
+    return (
+      <AuthLayout
+        title={t("auth.signUp.regionBlocked.title")}
+        description={t("auth.signUp.regionBlocked.description")}
+      >
+        <div className="text-center w-full text-base">
+          <Link
+            href="/auth/signin"
+            className="ml-auto w-full"
+            variant="underline"
+          >
+            {t("auth.signIn")}
+          </Link>
+        </div>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout title={t("auth.signUp.title")} description={description}>

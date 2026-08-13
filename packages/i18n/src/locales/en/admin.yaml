@@ -3136,6 +3136,12 @@ auth:
     confirmPassword: Confirm password
     confirmPasswordPlaceholder: Confirm your password
     submit: Sign up
+    regionBlocked:
+      title: Sign up is not available in your region
+      description:
+        Public registration is limited to North America and Europe. If you were
+        invited to a team, use the invitation link from your email.
+      toast: Sign up is not available in your region
     toasts:
       success:
         We sent you an email with a verification link. Please check your email

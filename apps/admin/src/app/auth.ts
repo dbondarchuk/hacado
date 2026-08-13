@@ -1,6 +1,11 @@
 import { getMemberLanguageForUser } from "@/lib/auth/member-language";
+import { hasPendingInvitationForEmail } from "@/lib/auth/pending-invitation";
 import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
+import {
+  isPublicSignupAllowedFromHeaders,
+  isSignupGeoBlockingEnabled,
+} from "@/lib/auth/signup-geo";
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
 import {
   applyPolarOrderPaidToSmsBalances,
@@ -8,6 +13,7 @@ import {
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { languages, type Language } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   getPolarClient,
   getRedisClient,
@@ -32,7 +38,7 @@ import { getAdminUrl } from "@hacado/utils";
 import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { APIError } from "better-auth/api";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { captcha, customSession, organization } from "better-auth/plugins";
 import { ObjectId } from "mongodb";
 import { ApiError } from "next/dist/server/api-utils";
@@ -137,6 +143,47 @@ export const auth = betterAuth({
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 30,
     },
+    ipAddress: {
+      ipAddressHeaders: ["x-forwarded-for", "x-real-ip"],
+    },
+  },
+  hooks: {
+    before: createAuthMiddleware(async (ctx) => {
+      if (ctx.path !== "/sign-up/email") return;
+
+      const logger = getLoggerFactory("SignupGeo")("signUpEmail");
+
+      if (!isSignupGeoBlockingEnabled()) {
+        logger.debug({ path: ctx.path }, "Signup geo blocking disabled");
+        return;
+      }
+
+      const email = typeof ctx.body?.email === "string" ? ctx.body.email : "";
+
+      logger.debug({ path: ctx.path }, "Signup request received");
+
+      if (email && (await hasPendingInvitationForEmail(email))) {
+        logger.info(
+          { email },
+          "Signup allowed: pending invitation for email, skipping region check",
+        );
+        return;
+      }
+
+      const requestHeaders = ctx.headers ?? new Headers();
+      const allowed = isPublicSignupAllowedFromHeaders(
+        requestHeaders,
+        "sign-up/email",
+      );
+
+      if (!allowed) {
+        logger.warn({ email }, "Signup rejected: SIGNUP_REGION_BLOCKED");
+        throw new APIError("FORBIDDEN", {
+          message: "Sign-up is not available in your region",
+          code: "SIGNUP_REGION_BLOCKED",
+        });
+      }
+    }),
   },
   emailAndPassword: {
     enabled: true,

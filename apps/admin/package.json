@@ -36,6 +36,7 @@
     "copy-text-to-clipboard": "^3.2.0",
     "dotenv": "^16.4.5",
     "esbuild": "^0.23.0",
+    "geoip-lite": "1.4.10",
     "i": "^0.3.7",
     "lodash": "^4.17.21",
     "lucide-react": "^0.555.0",

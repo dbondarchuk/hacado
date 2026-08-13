@@ -171,8 +171,8 @@ export default async function CheckoutPage() {
       <header className="border-b bg-card px-4 py-4 md:px-8">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Hacado" width={28} height={28} />
-            <div className="text-xl font-semibold tracking-tight font-display">
+            {/* <Image src="/logo.png" alt="Hacado" width={28} height={28} /> */}
+            <div className="text-xl font-semibold tracking-tight font-display text-primary">
               hacado
             </div>
           </div>
