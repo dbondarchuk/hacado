@@ -3150,6 +3150,9 @@ auth:
       userAlreadyExists:
         A user with this email already exists. Please use another
         email.
+      emailBlocked:
+        We cannot accept this email address. Please use a permanent work or
+        personal email.
   validation:
     name:
       required: Name is required

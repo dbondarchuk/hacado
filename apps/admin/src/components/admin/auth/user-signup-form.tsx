@@ -145,6 +145,13 @@ export const UserSignupForm = ({
         } else if (isCaptchaError(response.error)) {
           toast.error(t("auth.captcha.error"));
         } else if (
+          response.error.code === "SIGNUP_EMAIL_BLOCKED" ||
+          response.error.message
+            .toLowerCase()
+            .includes("cannot accept this email")
+        ) {
+          toast.error(t("auth.signUp.toasts.emailBlocked"));
+        } else if (
           response.error.code === "SIGNUP_REGION_BLOCKED" ||
           response.error.message.toLowerCase().includes("region")
         ) {

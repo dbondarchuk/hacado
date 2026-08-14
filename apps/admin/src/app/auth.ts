@@ -3,6 +3,10 @@ import { hasPendingInvitationForEmail } from "@/lib/auth/pending-invitation";
 import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
 import {
+  getSignupEmailBlockReason,
+  isSignupEmailBlockingEnabled,
+} from "@/lib/auth/signup-email";
+import {
   isPublicSignupAllowedFromHeaders,
   isSignupGeoBlockingEnabled,
 } from "@/lib/auth/signup-geo";
@@ -151,22 +155,38 @@ export const auth = betterAuth({
     before: createAuthMiddleware(async (ctx) => {
       if (ctx.path !== "/sign-up/email") return;
 
-      const logger = getLoggerFactory("SignupGeo")("signUpEmail");
+      const email = typeof ctx.body?.email === "string" ? ctx.body.email : "";
+      const emailLogger = getLoggerFactory("SignupEmail")("signUpEmail");
+      const geoLogger = getLoggerFactory("SignupGeo")("signUpEmail");
 
-      if (!isSignupGeoBlockingEnabled()) {
-        logger.debug({ path: ctx.path }, "Signup geo blocking disabled");
+      emailLogger.debug({ path: ctx.path }, "Signup request received");
+
+      if (email && (await hasPendingInvitationForEmail(email))) {
+        emailLogger.info(
+          { email },
+          "Signup allowed: pending invitation for email, skipping email and region checks",
+        );
         return;
       }
 
-      const email = typeof ctx.body?.email === "string" ? ctx.body.email : "";
+      if (isSignupEmailBlockingEnabled()) {
+        const reason = getSignupEmailBlockReason(email);
+        if (reason) {
+          emailLogger.warn(
+            { email, reason },
+            "Signup rejected: SIGNUP_EMAIL_BLOCKED",
+          );
+          throw new APIError("FORBIDDEN", {
+            message: "We cannot accept this email address",
+            code: "SIGNUP_EMAIL_BLOCKED",
+          });
+        }
+      } else {
+        emailLogger.debug({ path: ctx.path }, "Signup email blocking disabled");
+      }
 
-      logger.debug({ path: ctx.path }, "Signup request received");
-
-      if (email && (await hasPendingInvitationForEmail(email))) {
-        logger.info(
-          { email },
-          "Signup allowed: pending invitation for email, skipping region check",
-        );
+      if (!isSignupGeoBlockingEnabled()) {
+        geoLogger.debug({ path: ctx.path }, "Signup geo blocking disabled");
         return;
       }
 
@@ -177,7 +197,7 @@ export const auth = betterAuth({
       );
 
       if (!allowed) {
-        logger.warn({ email }, "Signup rejected: SIGNUP_REGION_BLOCKED");
+        geoLogger.warn({ email }, "Signup rejected: SIGNUP_REGION_BLOCKED");
         throw new APIError("FORBIDDEN", {
           message: "Sign-up is not available in your region",
           code: "SIGNUP_REGION_BLOCKED",

@@ -5769,6 +5769,11 @@
     eslint-plugin-unicorn "^48.0.1"
     prettier-plugin-packagejson "^2.4.5"
 
+"@visulima/disposable-email-domains@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@visulima/disposable-email-domains/-/disposable-email-domains-1.1.0.tgz#4a08c5fd65e35ad10614db41094dd6d8905fe70e"
+  integrity sha512-Z8RFcgxrQPI+WT6MY6XIqAKFqfoqfLO20u8LgQB5LY0mlZe5OoQNV3vpVydyDwsEVaJuOfQPIBBqTfoPe1b4vw==
+
 "@vvo/tzdb@^6.142.0":
   version "6.160.0"
   resolved "https://registry.yarnpkg.com/@vvo/tzdb/-/tzdb-6.160.0.tgz#8efda08eca44ad3cc2e4201670251766f6c0bf96"

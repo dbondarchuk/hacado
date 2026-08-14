@@ -20,6 +20,7 @@ const nextConfig = {
     "pdfkit",
     "@resvg/resvg-js",
     "geoip-lite",
+    "@visulima/disposable-email-domains",
   ],
   experimental: {
     authInterrupts: true,
