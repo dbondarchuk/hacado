@@ -116,7 +116,7 @@ export const UserForgotPasswordForm = ({
           />
 
           <Button
-            disabled={loading || !turnstile.token || !form.formState.isValid}
+            disabled={loading || !turnstile.token}
             className="ml-auto w-full"
             type="submit"
             variant="brand-dark"

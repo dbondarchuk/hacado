@@ -2,6 +2,7 @@ import {
   HydratedSyncedPayment,
   SyncedPayment,
   SyncedPaymentAssignablePaymentType,
+  SyncedPaymentStandalonePaymentType,
   SyncedPaymentStatus,
   SyncedPaymentTransaction,
 } from "../booking";
@@ -74,8 +75,33 @@ export interface ISyncedPaymentsService {
     source: EventSource,
   ): Promise<SyncedPayment>;
 
+  /**
+   * Detaches a synced payment from its appointment, removing linked payments
+   * and returning it to the unmatched review queue.
+   */
+  unassign(id: string, source: EventSource): Promise<SyncedPayment>;
+
   /** Dismisses a synced payment without assigning it, removing any payments. */
   ignore(id: string, source: EventSource): Promise<SyncedPayment>;
+
+  /**
+   * Records an unmatched synced payment as a standalone payment (no appointment)
+   * against a customer, then confirms it.
+   */
+  recordStandalone(
+    id: string,
+    details: {
+      customerId: string;
+      paymentType: SyncedPaymentStandalonePaymentType;
+    },
+    source: EventSource,
+  ): Promise<SyncedPayment>;
+
+  /**
+   * Removes a standalone customer recording, deleting linked payments and
+   * returning the synced payment to the unmatched review queue.
+   */
+  unrecord(id: string, source: EventSource): Promise<SyncedPayment>;
 
   /**
    * Updates the service-payment and tip amounts of an assigned synced payment,

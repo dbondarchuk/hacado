@@ -17,6 +17,7 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import { AssignAppointmentDialog } from "./assign-appointment-dialog";
 import { EditSyncedPaymentAmountsDialog } from "./edit-synced-payment-amounts-dialog";
+import { RecordSyncedPaymentDialog } from "./record-synced-payment-dialog";
 import { SyncedPaymentCard } from "./synced-payment-card";
 
 type ManageSyncedPaymentDialogProps = {
@@ -64,6 +65,7 @@ export const ManageSyncedPaymentDialog = ({
   const [pending, setPending] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [recordOpen, setRecordOpen] = useState(false);
 
   const loadRecord = useCallback(async () => {
     if (preloaded) {
@@ -104,6 +106,7 @@ export const ManageSyncedPaymentDialog = ({
     if (!open) {
       setAssignOpen(false);
       setEditOpen(false);
+      setRecordOpen(false);
     }
   }, [open]);
 
@@ -192,6 +195,17 @@ export const ManageSyncedPaymentDialog = ({
                 onAssignSuggestion={handleAssign}
                 onAssignOther={() => setAssignOpen(true)}
                 onEditAmounts={() => setEditOpen(true)}
+                onRecord={() => setRecordOpen(true)}
+                onUnassign={() =>
+                  runAction(() =>
+                    adminApi.syncedPayments.unassignSyncedPayment(record._id),
+                  )
+                }
+                onUnrecord={() =>
+                  runAction(() =>
+                    adminApi.syncedPayments.unrecordSyncedPayment(record._id),
+                  )
+                }
               />
             </div>
           )}
@@ -223,6 +237,18 @@ export const ManageSyncedPaymentDialog = ({
               await loadRecord();
               onUpdated?.();
             }}
+          />
+          <RecordSyncedPaymentDialog
+            open={recordOpen}
+            onOpenChange={setRecordOpen}
+            onConfirm={(details) =>
+              runAction(() =>
+                adminApi.syncedPayments.recordSyncedPayment(
+                  record._id,
+                  details,
+                ),
+              )
+            }
           />
         </>
       )}

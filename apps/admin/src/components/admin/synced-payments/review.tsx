@@ -28,6 +28,7 @@ import { useAuth } from "@hacado/ui-admin";
 import {
   AssignAppointmentDialog,
   EditSyncedPaymentAmountsDialog,
+  RecordSyncedPaymentDialog,
   SyncedPaymentCard,
 } from "@hacado/ui-admin-kit";
 import { canManageSyncedPayments } from "@hacado/utils";
@@ -59,6 +60,8 @@ export const SyncedPaymentsReview = () => {
   const [editTarget, setEditTarget] = useState<HydratedSyncedPayment | null>(
     null,
   );
+  const [recordTarget, setRecordTarget] =
+    useState<HydratedSyncedPayment | null>(null);
   const [approvingAll, setApprovingAll] = useState(false);
   const [approveAllOpen, setApproveAllOpen] = useState(false);
 
@@ -274,6 +277,27 @@ export const SyncedPaymentsReview = () => {
                   onEditAmounts={
                     canManage ? () => setEditTarget(item) : undefined
                   }
+                  onRecord={canManage ? () => setRecordTarget(item) : undefined}
+                  onUnassign={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.unassignSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onUnrecord={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.unrecordSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
                 />
               ))}
         </div>
@@ -338,6 +362,21 @@ export const SyncedPaymentsReview = () => {
           onUpdated={() => load()}
         />
       )}
+
+      <RecordSyncedPaymentDialog
+        open={recordTarget !== null}
+        onOpenChange={(open) => !open && setRecordTarget(null)}
+        onConfirm={async (details) => {
+          if (!recordTarget) {
+            return;
+          }
+          const target = recordTarget;
+          setRecordTarget(null);
+          await runAction(target._id, () =>
+            adminApi.syncedPayments.recordSyncedPayment(target._id, details),
+          );
+        }}
+      />
 
       <AlertDialog
         open={approveAllOpen}

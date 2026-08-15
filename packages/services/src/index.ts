@@ -175,6 +175,7 @@ export const ServicesContainer: (
       organizationId,
       bookingService,
       paymentsService,
+      customersService,
       eventService,
     );
 

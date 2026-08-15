@@ -17,7 +17,10 @@ import {
   Check,
   CreditCard,
   EyeOffIcon,
+  FilePlus,
+  FileX,
   Pencil,
+  Unlink,
   X,
 } from "lucide-react";
 import { DateTime } from "luxon";
@@ -43,6 +46,9 @@ export type SyncedPaymentCardProps = {
   onAssignSuggestion?: (appointmentId: string) => void;
   onAssignOther?: () => void;
   onEditAmounts?: () => void;
+  onRecord?: () => void;
+  onUnassign?: () => void;
+  onUnrecord?: () => void;
 };
 
 const SectionLabel = ({ children }: { children: ReactNode }) => (
@@ -77,6 +83,9 @@ export const SyncedPaymentCard = ({
   onAssignSuggestion,
   onAssignOther,
   onEditAmounts,
+  onRecord,
+  onUnassign,
+  onUnrecord,
 }: SyncedPaymentCardProps) => {
   const t = useI18n("admin");
   const tAll = useI18n();
@@ -101,6 +110,7 @@ export const SyncedPaymentCard = ({
   const otherSuggestions = (payment.suggestions || []).filter(
     (suggestion) => suggestion.appointmentId !== payment.appointmentId,
   );
+  const customer = payment.customer ?? payment.appointment?.customer;
 
   const formatDateTime = (value: Date | string) =>
     DateTime.fromJSDate(new Date(value), { zone: timeZone }).toLocaleString(
@@ -116,15 +126,39 @@ export const SyncedPaymentCard = ({
 
   const showConfirm =
     !!onConfirm && !!payment.appointmentId && payment.status === "matched";
+  const showAssignPrimary =
+    !!onAssignOther &&
+    !payment.appointmentId &&
+    payment.status !== "rejected" &&
+    payment.status !== "confirmed";
+  const showRecord =
+    !!onRecord &&
+    !payment.appointmentId &&
+    payment.status !== "rejected" &&
+    payment.status !== "ignored" &&
+    payment.status !== "confirmed";
   const showEdit =
     !!onEditAmounts && !!payment.appointmentId && payment.status !== "rejected";
   const showRejectBtn =
     !!onReject && !!payment.appointmentId && payment.status !== "rejected";
-  const showPrimaryActions = showConfirm || showEdit || showRejectBtn;
-  const showReassign = payment.status !== "rejected" && !!onAssignOther;
+  const showPrimaryActions =
+    showConfirm || showAssignPrimary || showEdit || showRejectBtn;
+  const showReassign =
+    !!onAssignOther && !!payment.appointmentId && payment.status !== "rejected";
+  const showUnassign =
+    !!onUnassign &&
+    !!payment.appointmentId &&
+    payment.status !== "rejected" &&
+    payment.status !== "ignored";
+  const showUnrecord =
+    !!onUnrecord &&
+    !payment.appointmentId &&
+    !!payment.customerId &&
+    payment.status === "confirmed";
   const showIgnore =
     payment.status !== "ignored" && payment.status !== "rejected" && !!onIgnore;
-  const showSuggestions = !!onAssignSuggestion && otherSuggestions.length > 0;
+  const showSuggestions =
+    !!onAssignSuggestion && otherSuggestions.length > 0 && !showUnrecord;
 
   return (
     <Card className="overflow-hidden shadow-sm flex flex-col">
@@ -182,26 +216,34 @@ export const SyncedPaymentCard = ({
         )}
       </div>
 
-      {payment.appointment && (
+      {(payment.appointment || customer) && (
         <>
           <div className="border-t border-border" />
           <div className="space-y-2.5 p-4 flex-1">
             <SectionLabel>
-              {t("syncedPayments.sections.matchedTo")}
+              {payment.appointment
+                ? t("syncedPayments.sections.matchedTo")
+                : t("syncedPayments.sections.recordedTo")}
             </SectionLabel>
-            <DetailRow label={t("syncedPayments.fields.appointment")}>
-              <Link href={`/dashboard/appointments/${payment.appointment._id}`}>
-                {payment.appointment.option.name}
-                {" · "}
-                {formatAppointmentTime(payment.appointment.dateTime)}
-              </Link>
-            </DetailRow>
-            {payment.appointment.customer && (
+            {payment.appointment && (
+              <DetailRow label={t("syncedPayments.fields.appointment")}>
+                <Link
+                  href={`/dashboard/appointments/${payment.appointment._id}`}
+                  variant="underline"
+                >
+                  {payment.appointment.option.name}
+                  {" · "}
+                  {formatAppointmentTime(payment.appointment.dateTime)}
+                </Link>
+              </DetailRow>
+            )}
+            {customer && (
               <DetailRow label={t("syncedPayments.fields.customer")}>
                 <Link
-                  href={`/dashboard/customers/${payment.appointment.customer._id}`}
+                  href={`/dashboard/customers/${customer._id}`}
+                  variant="underline"
                 >
-                  <CustomerName customer={payment.appointment.customer} />
+                  <CustomerName customer={customer} />
                 </Link>
               </DetailRow>
             )}
@@ -256,12 +298,17 @@ export const SyncedPaymentCard = ({
         </>
       )}
 
-      {(showPrimaryActions || showReassign || showIgnore) && (
+      {(showPrimaryActions ||
+        showRecord ||
+        showReassign ||
+        showUnassign ||
+        showUnrecord ||
+        showIgnore) && (
         <>
           <div className="border-t border-border" />
           <div className="flex flex-col gap-2 p-4">
             {showPrimaryActions && (
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row  gap-2">
                 {showConfirm && (
                   <Button
                     className="flex-1"
@@ -270,6 +317,16 @@ export const SyncedPaymentCard = ({
                   >
                     <Check />
                     {t("syncedPayments.actions.confirm")}
+                  </Button>
+                )}
+                {showAssignPrimary && (
+                  <Button
+                    className="flex-1"
+                    disabled={disabled}
+                    onClick={onAssignOther}
+                  >
+                    <ArrowLeftRight />
+                    {t("syncedPayments.actions.assignOther")}
                   </Button>
                 )}
                 {showEdit && (
@@ -297,8 +354,23 @@ export const SyncedPaymentCard = ({
               </div>
             )}
 
-            {(showReassign || showIgnore) && (
-              <div className="grid grid-cols-2 gap-2">
+            {(showRecord ||
+              showReassign ||
+              showUnassign ||
+              showUnrecord ||
+              showIgnore) && (
+              <div className="flex flex-col sm:flex-row gap-2">
+                {showRecord && (
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    disabled={disabled}
+                    onClick={onRecord}
+                  >
+                    <FilePlus />
+                    {t("syncedPayments.actions.record")}
+                  </Button>
+                )}
                 {showReassign && (
                   <Button
                     variant="outline"
@@ -307,15 +379,42 @@ export const SyncedPaymentCard = ({
                     onClick={onAssignOther}
                   >
                     <ArrowLeftRight />
-                    {payment.appointmentId
-                      ? t("syncedPayments.actions.reassignOther")
-                      : t("syncedPayments.actions.assignOther")}
+                    {t("syncedPayments.actions.reassignOther")}
+                  </Button>
+                )}
+                {showUnassign && (
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    disabled={disabled}
+                    onClick={onUnassign}
+                  >
+                    <Unlink />
+                    {t("syncedPayments.actions.unassign")}
+                  </Button>
+                )}
+                {showUnrecord && (
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    disabled={disabled}
+                    onClick={onUnrecord}
+                  >
+                    <FileX />
+                    {t("syncedPayments.actions.removeRecord")}
                   </Button>
                 )}
                 {showIgnore && (
                   <Button
                     variant="outline"
-                    className={cn("w-full", !showReassign && "col-span-2")}
+                    className={cn(
+                      "w-full",
+                      !showRecord &&
+                        !showReassign &&
+                        !showUnassign &&
+                        !showUnrecord &&
+                        "col-span-2",
+                    )}
                     disabled={disabled}
                     onClick={onIgnore}
                   >

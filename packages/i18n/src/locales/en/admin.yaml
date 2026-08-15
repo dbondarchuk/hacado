@@ -120,6 +120,12 @@ platformEvents:
     reassigned:
       title: Synced payment reassigned
       description: "{amount} moved to another appointment"
+    unassigned:
+      title: Synced payment unassigned
+      description: "{amount} removed from appointment"
+    unrecorded:
+      title: Synced payment record removed
+      description: "{amount} unlinked from customer"
     ignored:
       title: Synced payment ignored
       description: "{amount}"
@@ -660,6 +666,7 @@ syncedPayments:
   sections:
     totalReceived: Total received
     matchedTo: Matched to
+    recordedTo: Recorded to
     suggestions: Suggested appointments
   actions:
     confirm: Confirm
@@ -670,6 +677,9 @@ syncedPayments:
     assign: Assign here
     reassignOther: Reassign
     assignOther: Assign
+    record: Record
+    unassign: Unassign
+    removeRecord: Remove record
     editAmounts: Edit amounts
     viewAppointment: View appointment
   editAmounts:
@@ -716,6 +726,13 @@ syncedPayments:
         daysHours: "{days, plural, one {# day} other {# days}}, {hours, plural, one {# hour} other {# hours}} after"
         daysOnly: "{days, plural, one {# day} other {# days}} after"
         hoursOnly: "{hours, plural, one {# hour} other {# hours}} after"
+  recordDialog:
+    title: Record without appointment
+    description: Save this in-store payment to a customer without attaching it to an appointment. It will appear in financials.
+    customer: Customer
+    paymentType: Payment type
+    confirm: Record payment
+    cancel: Cancel
   toast:
     success: Synced payment updated
     error: Could not update synced payment

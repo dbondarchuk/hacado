@@ -3,6 +3,7 @@ import {
   DateRange,
   HydratedSyncedPayment,
   IBookingService,
+  ICustomersService,
   IEventService,
   IngestSyncedPaymentOptions,
   IPaymentsService,
@@ -15,8 +16,11 @@ import {
   SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
   SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
   SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
   SyncedPayment,
   SyncedPaymentAssignablePaymentType,
+  SyncedPaymentStandalonePaymentType,
   SyncedPaymentStatus,
   SyncedPaymentSuggestion,
   SyncedPaymentTransaction,
@@ -28,15 +32,19 @@ import {
   type SyncedPaymentIgnoredPayload,
   type SyncedPaymentIngestedPayload,
   type SyncedPaymentRejectedPayload,
+  type SyncedPaymentUnassignedPayload,
+  type SyncedPaymentUnrecordedPayload,
 } from "@hacado/types";
 import { round2 } from "@hacado/utils";
-import { Filter, ObjectId, Sort } from "mongodb";
+import { Filter, ObjectId, Sort, UpdateFilter } from "mongodb";
 import { SYNCED_PAYMENTS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
 
 const DEFAULT_SYNCED_PAYMENT_TYPE: SyncedPaymentAssignablePaymentType =
   "payment";
+const DEFAULT_STANDALONE_PAYMENT_TYPE: SyncedPaymentStandalonePaymentType =
+  "other";
 const DEFAULT_MATCH_WINDOW_MINUTES = 120;
 const MAX_SUGGESTIONS = 5;
 
@@ -78,6 +86,7 @@ export class SyncedPaymentsService
     organizationId: string,
     protected readonly bookingService: IBookingService,
     protected readonly paymentsService: IPaymentsService,
+    protected readonly customersService: ICustomersService,
     protected readonly eventService: IEventService,
   ) {
     super("SyncedPaymentsService", organizationId);
@@ -500,6 +509,57 @@ export class SyncedPaymentsService
     return this.reassign(id, appointmentId, source);
   }
 
+  public async unassign(
+    id: string,
+    source: EventSource,
+  ): Promise<SyncedPayment> {
+    const logger = this.loggerFactory("unassign");
+    logger.debug({ id, source }, "Unassigning synced payment");
+
+    const record = await this.getById(id);
+    if (!record.appointmentId) {
+      logger.warn(
+        { id, externalId: record.externalId },
+        "Cannot unassign a synced payment that has no appointment",
+      );
+      throw new Error("Synced payment is not assigned to an appointment");
+    }
+
+    const previousAppointmentId = record.appointmentId;
+    await this.removePayments(record, source);
+    const updated = await this.update(id, {
+      status: "unmatched",
+      appointmentId: undefined,
+      customerId: undefined,
+      paymentIds: [],
+      paymentAmount: undefined,
+      inferredTip: undefined,
+      paymentType: undefined,
+      originalAmount: undefined,
+      originalTip: undefined,
+      originalPaymentType: undefined,
+    });
+
+    logger.info(
+      {
+        id,
+        externalId: updated.externalId,
+        previousAppointmentId,
+        removedPaymentIds: record.paymentIds,
+      },
+      "Synced payment unassigned",
+    );
+    await this.eventService.emit(
+      SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+      {
+        syncedPayment: updated,
+        previousAppointmentId,
+      } satisfies SyncedPaymentUnassignedPayload,
+      source,
+    );
+    return updated;
+  }
+
   public async ignore(id: string, source: EventSource): Promise<SyncedPayment> {
     const logger = this.loggerFactory("ignore");
     logger.debug({ id, source }, "Ignoring synced payment");
@@ -525,6 +585,179 @@ export class SyncedPaymentsService
     await this.eventService.emit(
       SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
       { syncedPayment: updated } satisfies SyncedPaymentIgnoredPayload,
+      source,
+    );
+    return updated;
+  }
+
+  public async recordStandalone(
+    id: string,
+    details: {
+      customerId: string;
+      paymentType: SyncedPaymentStandalonePaymentType;
+    },
+    source: EventSource,
+  ): Promise<SyncedPayment> {
+    const logger = this.loggerFactory("recordStandalone");
+    const paymentType = details.paymentType ?? DEFAULT_STANDALONE_PAYMENT_TYPE;
+    logger.debug(
+      { id, customerId: details.customerId, paymentType, source },
+      "Recording synced payment without an appointment",
+    );
+
+    const record = await this.getById(id);
+
+    if (record.appointmentId) {
+      logger.warn(
+        {
+          id,
+          externalId: record.externalId,
+          appointmentId: record.appointmentId,
+        },
+        "Cannot record a synced payment that is already assigned to an appointment",
+      );
+
+      throw new Error(
+        "Unassign from the appointment before recording as a standalone payment",
+      );
+    }
+
+    const customer = await this.customersService.getCustomer(
+      details.customerId,
+    );
+    if (!customer) {
+      logger.warn(
+        { id, customerId: details.customerId },
+        "Customer not found for standalone synced payment",
+      );
+
+      throw new Error(`Customer ${details.customerId} not found`);
+    }
+
+    await this.removePayments(record, source);
+
+    const paymentAmount = round2(Math.max(0, record.amount));
+    const paymentIds: string[] = [];
+
+    if (paymentAmount > 0) {
+      const payment: PaymentUpdateModel = {
+        amount: paymentAmount,
+        status: "paid",
+        paidAt: record.transactionTime,
+        customerId: details.customerId,
+        description: "syncedPayment",
+        type: paymentType,
+        method: "in-person-card",
+        source: "synced",
+        disableUpdate: true,
+        externalId: record.externalId,
+        appName: record.appName,
+        appId: record.appId,
+        fees: record.fees,
+      };
+
+      const created = await this.paymentsService.createPayment(payment, source);
+      paymentIds.push(created._id);
+    }
+
+    const updated = await this.update(id, {
+      status: "confirmed",
+      customerId: details.customerId,
+      paymentIds,
+      paymentAmount,
+      inferredTip: 0,
+      paymentType,
+      originalAmount: paymentAmount,
+      originalTip: 0,
+      originalPaymentType: paymentType,
+    });
+
+    logger.info(
+      {
+        id,
+        externalId: updated.externalId,
+        customerId: details.customerId,
+        paymentType,
+        paymentIds,
+        paymentAmount,
+      },
+      "Synced payment recorded as standalone",
+    );
+
+    await this.eventService.emit(
+      SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE,
+      { syncedPayment: updated } satisfies SyncedPaymentConfirmedPayload,
+      source,
+    );
+
+    return updated;
+  }
+
+  public async unrecord(
+    id: string,
+    source: EventSource,
+  ): Promise<SyncedPayment> {
+    const logger = this.loggerFactory("unrecord");
+    logger.debug({ id, source }, "Removing standalone synced payment record");
+
+    const record = await this.getById(id);
+
+    if (record.appointmentId) {
+      logger.warn(
+        {
+          id,
+          externalId: record.externalId,
+          appointmentId: record.appointmentId,
+        },
+        "Cannot unrecord a synced payment that is assigned to an appointment",
+      );
+      throw new Error(
+        "Unassign from the appointment instead of removing a customer record",
+      );
+    }
+
+    if (!record.customerId || record.status !== "confirmed") {
+      logger.warn(
+        {
+          id,
+          externalId: record.externalId,
+          customerId: record.customerId,
+          status: record.status,
+        },
+        "Cannot unrecord a synced payment that is not recorded to a customer",
+      );
+      throw new Error("Synced payment is not recorded to a customer");
+    }
+
+    const previousCustomerId = record.customerId;
+    await this.removePayments(record, source);
+    const updated = await this.update(id, {
+      status: "unmatched",
+      customerId: undefined,
+      paymentIds: [],
+      paymentAmount: undefined,
+      inferredTip: undefined,
+      paymentType: undefined,
+      originalAmount: undefined,
+      originalTip: undefined,
+      originalPaymentType: undefined,
+    });
+
+    logger.info(
+      {
+        id,
+        externalId: updated.externalId,
+        previousCustomerId,
+        removedPaymentIds: record.paymentIds,
+      },
+      "Synced payment record removed",
+    );
+    await this.eventService.emit(
+      SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
+      {
+        syncedPayment: updated,
+        previousCustomerId,
+      } satisfies SyncedPaymentUnrecordedPayload,
       source,
     );
     return updated;
@@ -967,6 +1200,13 @@ export class SyncedPaymentsService
         undefined)
       : undefined;
 
+    const customer = appointment?.customer
+      ? appointment.customer
+      : record.customerId
+        ? ((await this.customersService.getCustomer(record.customerId)) ??
+          undefined)
+        : undefined;
+
     const suggestions = record.suggestions
       ? await Promise.all(
           record.suggestions.map(async (suggestion) => ({
@@ -979,7 +1219,7 @@ export class SyncedPaymentsService
         )
       : undefined;
 
-    return { ...record, appointment, suggestions };
+    return { ...record, appointment, customer, suggestions };
   }
 
   private async getRaw(externalId: string): Promise<SyncedPayment | null> {
@@ -1084,9 +1324,24 @@ export class SyncedPaymentsService
 
     const { _id: _, organizationId: __, ...rest } = update as SyncedPayment;
 
+    const toSet: Record<string, unknown> = { updatedAt: new Date() };
+    const toUnset: Record<string, ""> = {};
+    for (const [key, value] of Object.entries(rest)) {
+      if (value === undefined) {
+        toUnset[key] = "";
+      } else {
+        toSet[key] = value;
+      }
+    }
+
+    const mongoUpdate: UpdateFilter<SyncedPayment> = { $set: toSet };
+    if (Object.keys(toUnset).length) {
+      mongoUpdate.$unset = toUnset;
+    }
+
     const result = await collection.updateOne(
       { _id: id, organizationId: this.organizationId },
-      { $set: { ...rest, updatedAt: new Date() } },
+      mongoUpdate,
     );
 
     if (result.matchedCount === 0) {

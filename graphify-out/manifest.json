@@ -1340,8 +1340,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-forgot-password-form.tsx": {
-    "mtime": 1786641960.0536654,
-    "ast_hash": "28ed4848f2833aba3950cc72ca2809a1",
+    "mtime": 1786813558.028224,
+    "ast_hash": "03c3c66d2b4e45aeda91279b26a55ece",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-reset-password-form.tsx": {
@@ -13060,8 +13060,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/index.ts": {
-    "mtime": 1786131776.0338292,
-    "ast_hash": "5fda3aa990f5acc0de667e5bc9ea4c05",
+    "mtime": 1786813818.8684268,
+    "ast_hash": "cce5036507cab9f4cd6d953ab82ffedc",
     "semantic_hash": ""
   },
   "packages/services/src/notifications.service.ts": {
@@ -13700,18 +13700,18 @@
     "semantic_hash": ""
   },
   "packages/types/src/events/all-core-event-types.ts": {
-    "mtime": 1786128059.4567254,
-    "ast_hash": "92735f4a1f726a8a8b4d3cd54212c3f1",
+    "mtime": 1786814322.6184285,
+    "ast_hash": "f9311cc0ddb6c51abe6658d242305146",
     "semantic_hash": ""
   },
   "packages/types/src/events/core-event-payloads.ts": {
-    "mtime": 1786128076.2706158,
-    "ast_hash": "0068eb12536b75806c0c7b2f6cf97fec",
+    "mtime": 1786814320.8311822,
+    "ast_hash": "b489652fb1dc6edca6e67bfe863bb94e",
     "semantic_hash": ""
   },
   "packages/types/src/events/core-events.ts": {
-    "mtime": 1786122054.5433795,
-    "ast_hash": "ae6c63694f45598a067c856f8427c632",
+    "mtime": 1786814318.9745317,
+    "ast_hash": "6a0082683dbcd0ef941f817c0e41d672",
     "semantic_hash": ""
   },
   "packages/types/src/events/envelope.ts": {
@@ -14190,8 +14190,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/index.ts": {
-    "mtime": 1781551204.7687151,
-    "ast_hash": "ef551e16280c069ff8cfbcba24124424",
+    "mtime": 1786813818.8664248,
+    "ast_hash": "b5e167d237f2a6869fc292d5c3f43713",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-card.tsx": {
@@ -16205,8 +16205,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1786735065.3380284,
-    "ast_hash": "2195318aad04a9264d88bdb8e43a6e2c",
+    "mtime": 1786814363.4834862,
+    "ast_hash": "50ac6511cba1cb9538a48c91c14c5e51",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16240,8 +16240,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1786735065.9719248,
-    "ast_hash": "466f63dd1869e8b0dde56342b044ff93",
+    "mtime": 1786814364.2365959,
+    "ast_hash": "47adb3bb4715d22834eb382875f02bc0",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -26705,8 +26705,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/synced-payments/[id]/[action]/route.ts": {
-    "mtime": 1785952561.3957849,
-    "ast_hash": "48a4b771821a467bd8a88f6f7cb598ec",
+    "mtime": 1786814360.2641087,
+    "ast_hash": "f4cf1506eecd23647e25d4c8a403b2a7",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/synced-payments/[id]/route.ts": {
@@ -26725,8 +26725,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/synced-payments/review.tsx": {
-    "mtime": 1785952530.4344046,
-    "ast_hash": "16668e0a39e886c420ee46d704f28062",
+    "mtime": 1786814389.1646192,
+    "ast_hash": "356417c147de30ea5b6f76324b263833",
     "semantic_hash": ""
   },
   "docs/.docusaurus/docusaurus-plugin-content-docs/default/p/docs-category-first-steps-b72.json": {
@@ -26790,28 +26790,28 @@
     "semantic_hash": ""
   },
   "packages/api-sdk/src/admin/api/synced-payments.ts": {
-    "mtime": 1785874219.7402046,
-    "ast_hash": "6e81fafb17e74a32fc3bb5426843abd5",
+    "mtime": 1786814361.4615097,
+    "ast_hash": "01af6bbc7e308f9fa072def9f21dcc44",
     "semantic_hash": ""
   },
   "packages/services/src/synced-payments.service.ts": {
-    "mtime": 1786812632.7871585,
-    "ast_hash": "a7cacbaf9ca937d730fd19b71a7f565d",
+    "mtime": 1786814356.4769225,
+    "ast_hash": "e2aea40f6e1c872849c28c104ef77866",
     "semantic_hash": ""
   },
   "packages/types/src/booking/synced-payment.ts": {
-    "mtime": 1786812621.318895,
-    "ast_hash": "70e9cabc5cc5293a6fc0ebeca1a96c49",
+    "mtime": 1786813818.8684268,
+    "ast_hash": "9ec1636ab6eff3b4391f09b2116b9983",
     "semantic_hash": ""
   },
   "packages/types/src/services/synced-payments.service.ts": {
-    "mtime": 1783711343.4553008,
-    "ast_hash": "dfcbb85c489c8dc63189c339e8a7238b",
+    "mtime": 1786814322.8996315,
+    "ast_hash": "181d9c8678b5bccba7927ce1be50c465",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/assign-appointment-dialog.tsx": {
-    "mtime": 1785953199.4901192,
-    "ast_hash": "803d97bf2f54d4ae769af95ad5bbbe28",
+    "mtime": 1786814649.7531445,
+    "ast_hash": "df829ef6383e799b9886573cab9296f5",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/edit-synced-payment-amounts-dialog.tsx": {
@@ -26820,13 +26820,13 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/manage-synced-payment-dialog.tsx": {
-    "mtime": 1785953199.4901192,
-    "ast_hash": "0b8d2ec907030d7098a27ee06f5967aa",
+    "mtime": 1786814388.8517258,
+    "ast_hash": "362ae0c841f554be90b0cf766e1eae30",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/synced-payment-card.tsx": {
-    "mtime": 1785953199.4901192,
-    "ast_hash": "43a5033b268ba388330464c135982640",
+    "mtime": 1786814495.865786,
+    "ast_hash": "8dc2b445ccfe5148583b95a7fed5bb67",
     "semantic_hash": ""
   },
   "docs/docs/first-steps/build-your-website.md": {
@@ -26940,8 +26940,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/synced-payment/synced-payment-event-definitions.ts": {
-    "mtime": 1785874220.1354587,
-    "ast_hash": "0e6c5bea08032ccd66df62a72f4fcd58",
+    "mtime": 1786814358.928475,
+    "ast_hash": "a0104fdc677f38bd859a5465eb7f1e2d",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/payments/route.ts": {
@@ -28262,6 +28262,16 @@
   "migrations/20260815125000-backfill_unmatched_assigned_synced_payments.js": {
     "mtime": 1786812626.86097,
     "ast_hash": "a576fc0f6447ddd2d118f3e79dd48085",
+    "semantic_hash": ""
+  },
+  "packages/ui-admin-kit/src/components/payments/record-synced-payment-dialog.tsx": {
+    "mtime": 1786814048.3714724,
+    "ast_hash": "f0d4d8fd3b8c35e42e3c76141b7bb318",
+    "semantic_hash": ""
+  },
+  "temp/seed-demo-synced-payments.js": {
+    "mtime": 1786813818.8644245,
+    "ast_hash": "0e08b7141e4906e364ac4ce646d298cb",
     "semantic_hash": ""
   }
 }

@@ -1,3 +1,4 @@
+import { Customer } from "../customers/customer";
 import { WithDatabaseId, WithOrganizationId } from "../database";
 import { Prettify } from "../utils/helpers";
 import { Appointment } from "./appointment";
@@ -14,6 +15,15 @@ export const syncedPaymentAssignablePaymentTypes = [
 
 export type SyncedPaymentAssignablePaymentType =
   (typeof syncedPaymentAssignablePaymentTypes)[number];
+
+/** Payment types allowed when recording a synced payment without an appointment. */
+export const syncedPaymentStandalonePaymentTypes = [
+  "payment",
+  "other",
+] as const satisfies readonly SyncedPaymentAssignablePaymentType[];
+
+export type SyncedPaymentStandalonePaymentType =
+  (typeof syncedPaymentStandalonePaymentTypes)[number];
 
 export const syncedPaymentStatus = [
   /** Attached to an appointment (auto-match or staff assign), awaiting staff review. */
@@ -105,10 +115,11 @@ export type SyncedPaymentSuggestionWithAppointment = SyncedPaymentSuggestion & {
   appointment?: Appointment;
 };
 
-/** A synced payment hydrated with its appointment and suggestion details. */
+/** A synced payment hydrated with its appointment, customer, and suggestion details. */
 export type HydratedSyncedPayment = Prettify<
   Omit<SyncedPayment, "suggestions"> & {
     appointment?: Appointment;
+    customer?: Customer;
     suggestions?: SyncedPaymentSuggestionWithAppointment[];
   }
 >;

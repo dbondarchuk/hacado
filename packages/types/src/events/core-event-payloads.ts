@@ -89,6 +89,8 @@ import {
   SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
   SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
   SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
   TEMPLATE_CREATED_EVENT_TYPE,
   TEMPLATE_DELETED_EVENT_TYPE,
   TEMPLATE_UPDATED_EVENT_TYPE,
@@ -173,6 +175,16 @@ export type SyncedPaymentRejectedPayload = { syncedPayment: SyncedPayment };
 export type SyncedPaymentAssignedPayload = {
   syncedPayment: SyncedPayment;
   previousAppointmentId?: string;
+};
+
+export type SyncedPaymentUnassignedPayload = {
+  syncedPayment: SyncedPayment;
+  previousAppointmentId?: string;
+};
+
+export type SyncedPaymentUnrecordedPayload = {
+  syncedPayment: SyncedPayment;
+  previousCustomerId?: string;
 };
 
 export type SyncedPaymentIgnoredPayload = { syncedPayment: SyncedPayment };
@@ -362,6 +374,8 @@ export type CoreEventPayloadByType = {
   [SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE]: SyncedPaymentConfirmedPayload;
   [SYNCED_PAYMENT_REJECTED_EVENT_TYPE]: SyncedPaymentRejectedPayload;
   [SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE]: SyncedPaymentAssignedPayload;
+  [SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE]: SyncedPaymentUnassignedPayload;
+  [SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE]: SyncedPaymentUnrecordedPayload;
   [SYNCED_PAYMENT_IGNORED_EVENT_TYPE]: SyncedPaymentIgnoredPayload;
   [SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE]: SyncedPaymentAmountsUpdatedPayload;
   [GIFT_CARD_CREATED_EVENT_TYPE]: GiftCardCreatedPayload;

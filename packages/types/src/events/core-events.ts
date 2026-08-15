@@ -17,6 +17,10 @@ export const SYNCED_PAYMENT_REJECTED_EVENT_TYPE =
   "syncedPayment.rejected" as const;
 export const SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE =
   "syncedPayment.assigned" as const;
+export const SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE =
+  "syncedPayment.unassigned" as const;
+export const SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE =
+  "syncedPayment.unrecorded" as const;
 export const SYNCED_PAYMENT_IGNORED_EVENT_TYPE =
   "syncedPayment.ignored" as const;
 export const SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE =

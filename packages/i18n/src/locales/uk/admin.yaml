@@ -120,6 +120,12 @@ platformEvents:
     reassigned:
       title: Синхронізований платіж перепризначено
       description: "{amount} перенесено до іншого запису"
+    unassigned:
+      title: Синхронізований платіж відв’язано
+      description: "{amount} знято із запису"
+    unrecorded:
+      title: Зарахування синхронізованого платежу скасовано
+      description: "{amount} відв’язано від клієнта"
     ignored:
       title: Синхронізований платіж проігноровано
       description: "{сума}"
@@ -656,6 +662,7 @@ syncedPayments:
   sections:
     totalReceived: Отримано всього
     matchedTo: Зіставлено з
+    recordedTo: Зараховано на
     suggestions: Запропоновані записи
   actions:
     confirm: Підтвердити
@@ -666,6 +673,9 @@ syncedPayments:
     assign: Призначити сюди
     reassignOther: Перепризначити
     assignOther: Призначити
+    record: Зарахувати
+    unassign: Відв’язати
+    removeRecord: Скасувати зарахування
     editAmounts: Редагувати суми
     viewAppointment: Переглянути запис
   editAmounts:
@@ -712,6 +722,13 @@ syncedPayments:
         daysHours: "{days, plural, one {# день} few {# дні} other {# днів}}, {hours, plural, one {# година} few {# години} other {# годин}} після"
         daysOnly: "{days, plural, one {# день} few {# дні} other {# днів}} після"
         hoursOnly: "{hours, plural, one {# година} few {# години} other {# годин}} після"
+  recordDialog:
+    title: Зарахувати без запису
+    description: Збережіть цей платіж за клієнтом, не призначаючи його до запису. Він з’явиться у фінансах.
+    customer: Клієнт
+    paymentType: Тип платежу
+    confirm: Зарахувати платіж
+    cancel: Скасувати
   toast:
     success: Синхронізований платіж оновлено
     error: Не вдалося оновити синхронізований платіж
