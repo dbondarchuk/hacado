@@ -1,5 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  CommunicationParticipantType,
   Email,
   EmailResponse,
   IAssetsStorage,
@@ -20,6 +21,7 @@ export class SmtpService implements IMailSender {
 
   public async sendMail(
     email: Email,
+    _target: CommunicationParticipantType,
     fromName?: string,
   ): Promise<EmailResponse> {
     const logger = this.loggerFactory("sendMail");

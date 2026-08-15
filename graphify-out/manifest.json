@@ -12875,8 +12875,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/email/smtp/service.ts": {
-    "mtime": 1785874220.130459,
-    "ast_hash": "eaac1d24733866efb37eba4adae24be9",
+    "mtime": 1786811820.793097,
+    "ast_hash": "8f760d873732f592463ae4215f3b64e4",
     "semantic_hash": ""
   },
   "packages/services/src/email/smtp/types.ts": {
@@ -13065,8 +13065,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/notifications.service.ts": {
-    "mtime": 1786474632.6038873,
-    "ast_hash": "dd4092df041e8993d0e8b4e3a2f5359f",
+    "mtime": 1786811812.0999527,
+    "ast_hash": "760c6e20203098c2d833564e874af4f1",
     "semantic_hash": ""
   },
   "packages/services/src/organization-hostname-cache.ts": {
@@ -13350,8 +13350,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/mail/mail-sender.ts": {
-    "mtime": 1773777728.0000248,
-    "ast_hash": "e810d5eb83f86423903be9caf1ddc72a",
+    "mtime": 1786811805.0362172,
+    "ast_hash": "411193c9b4e98bd26f4b69ead63ccc0f",
     "semantic_hash": ""
   },
   "packages/types/src/apps/notifications/dashboard.ts": {
@@ -15530,18 +15530,18 @@
     "semantic_hash": ""
   },
   "docker-compose.local.yaml": {
-    "mtime": 1786641304.5965302,
-    "ast_hash": "aeef55779593b8ea6797b3eab72c4e54",
+    "mtime": 1786811816.1248956,
+    "ast_hash": "3a1850033f68ea37441e57a0436bb627",
     "semantic_hash": ""
   },
   "docker-compose.services.yaml": {
-    "mtime": 1786641308.5737114,
-    "ast_hash": "560fecf1cd9b7b859a75c600cdcf6143",
+    "mtime": 1786811816.1248956,
+    "ast_hash": "5e1cf2526552e134411998dbb23f7ff3",
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1786641311.0264146,
-    "ast_hash": "0edca0d3aa819de19a5a25e6693d5be2",
+    "mtime": 1786811814.6906297,
+    "ast_hash": "823e94361df5881d94543799f7908530",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -28215,18 +28215,18 @@
     "semantic_hash": ""
   },
   "packages/services/src/email/resend/service.ts": {
-    "mtime": 1786482473.504738,
-    "ast_hash": "c544960a964562dcbb70487735d1afc0",
+    "mtime": 1786811810.6249151,
+    "ast_hash": "6fcb7d1868c20ff3c9b75eb71e8cf519",
     "semantic_hash": ""
   },
   "packages/services/src/email/resend/types.ts": {
-    "mtime": 1786482473.5057385,
-    "ast_hash": "2f86d1efd0912715a01ff693987fddb4",
+    "mtime": 1786811806.6054647,
+    "ast_hash": "6869e4ab7541078d9616dd99d2aeb670",
     "semantic_hash": ""
   },
   "packages/services/src/email/resend/utils.ts": {
-    "mtime": 1786482473.5057385,
-    "ast_hash": "07d529acfb3447789de30ec8757267d4",
+    "mtime": 1786811807.3803132,
+    "ast_hash": "ebd20ca9a8dac5f4b447f98df1650c28",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/turnstile-field.tsx": {

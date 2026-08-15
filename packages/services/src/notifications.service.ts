@@ -72,7 +72,11 @@ export class NotificationService implements INotificationService {
       }
 
       sendMail = async (email: Email) =>
-        await this.defaultEmailService.sendMail(email, fromName);
+        await this.defaultEmailService.sendMail(
+          email,
+          participantType,
+          fromName,
+        );
     }
 
     logger.info(
@@ -266,7 +270,7 @@ export class SystemNotificationService implements ISystemNotificationService {
     const logger = this.loggerFactory("sendSystemEmail");
     logger.info({ email }, "Sending system email");
     try {
-      await this.emailService.sendMail(email);
+      await this.emailService.sendMail(email, "member");
       logger.info({ email }, "System email sent");
     } catch (error) {
       logger.error({ error }, "Error sending system email");

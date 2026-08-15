@@ -1,5 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  CommunicationParticipantType,
   Email,
   EmailResponse,
   IAssetsStorage,
@@ -31,6 +32,7 @@ export class ResendService implements IMailSender {
 
   public async sendMail(
     email: Email,
+    target: CommunicationParticipantType,
     fromName?: string,
   ): Promise<EmailResponse> {
     const logger = this.loggerFactory("sendMail");
@@ -40,7 +42,8 @@ export class ResendService implements IMailSender {
         to: Array.isArray(email.to) ? email.to : [email.to],
         hasAttachments: !!email.attachments?.length,
         hasIcalEvent: !!email.icalEvent,
-        fromName: fromName,
+        fromName,
+        target,
       },
       "Sending email via Resend",
     );
@@ -103,7 +106,16 @@ export class ResendService implements IMailSender {
         attachments.push(...fileAttachments);
       }
 
-      const from = `${fromName || this.configuration.fromName} <${this.configuration.email}>`;
+      const fromEmail =
+        target === "customer" && this.configuration.customerEmail
+          ? this.configuration.customerEmail
+          : this.configuration.email;
+      const fromDisplayName =
+        fromName ||
+        (target === "customer" && this.configuration.customerFromName
+          ? this.configuration.customerFromName
+          : this.configuration.fromName);
+      const from = `${fromDisplayName} <${fromEmail}>`;
       const to = Array.isArray(email.to) ? email.to : [email.to];
       const cc = email.cc
         ? Array.isArray(email.cc)
@@ -114,7 +126,7 @@ export class ResendService implements IMailSender {
       logger.debug(
         {
           subject: email.subject,
-          from: this.configuration.email,
+          from: fromEmail,
           to,
           attachmentCount: attachments.length,
         },

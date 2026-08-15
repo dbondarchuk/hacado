@@ -1,3 +1,4 @@
+import { CommunicationParticipantType } from "../../communication/communication";
 import { ConnectedAppData } from "../connected-app.data";
 import { EventAttributes } from "./event-attributes";
 
@@ -32,5 +33,9 @@ export interface IMailSenderApp {
 }
 
 export interface IMailSender {
-  sendMail: (mail: Email, fromName?: string) => Promise<EmailResponse>;
+  sendMail: (
+    mail: Email,
+    target: CommunicationParticipantType,
+    fromName?: string,
+  ) => Promise<EmailResponse>;
 }
