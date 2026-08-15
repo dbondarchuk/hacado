@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { EditableText } from "@hacado/rte-inline";
+import { EditableText, richTextToString } from "@hacado/rte-inline";
 import {
   getPageHeaderSchemaWithUniqueNameCheck,
   LinkMenuItem,
@@ -68,6 +68,7 @@ export const PageHeaderForm: React.FC<{
   type PageFormValues = z.infer<typeof formSchema>;
 
   const [loading, setLoading] = useState(false);
+  const [customLogoTextEditorKey, setCustomLogoTextEditorKey] = useState(0);
   const router = useRouter();
   const form = useForm<PageFormValues>({
     resolver: zodResolver(formSchema),
@@ -322,8 +323,15 @@ export const PageHeaderForm: React.FC<{
                       <InputGroup>
                         <InputGroupInput>
                           <EditableText
+                            key={customLogoTextEditorKey}
                             value={field.value ?? ""}
-                            onChange={field.onChange}
+                            onChange={(value) => {
+                              field.onChange(
+                                richTextToString(value).trim()
+                                  ? value
+                                  : undefined,
+                              );
+                            }}
                             className={cn(
                               "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
                               InputGroupInputClasses({ variant: "suffix" }),
@@ -334,6 +342,7 @@ export const PageHeaderForm: React.FC<{
                         </InputGroupInput>
                         <InputGroupAddon>
                           <Button
+                            type="button"
                             variant="outline"
                             size="sm"
                             disabled={loading}
@@ -342,6 +351,11 @@ export const PageHeaderForm: React.FC<{
                                 variant: "suffix",
                               }),
                             )}
+                            onClick={() => {
+                              field.onChange(undefined);
+                              setCustomLogoTextEditorKey((key) => key + 1);
+                              field.onBlur();
+                            }}
                           >
                             <X className="w-4 h-4" />
                           </Button>

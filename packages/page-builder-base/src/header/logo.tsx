@@ -1,4 +1,4 @@
-import { StaticText } from "@hacado/rte-inline/reader";
+import { richTextToString, StaticText } from "@hacado/rte-inline/reader";
 import {
   PageHeaderLogoNameFontSize,
   PageHeaderLogoNameFontWeight,
@@ -89,7 +89,11 @@ export const Logo: React.FC<{
           headerId && `header-${headerId}-logo-text`,
         )}
       >
-        {customLogoText ? <StaticText value={customLogoText} inline /> : name}
+        {customLogoText && richTextToString(customLogoText).trim() ? (
+          <StaticText value={customLogoText} inline />
+        ) : (
+          name
+        )}
       </span>
     </Link>
   );

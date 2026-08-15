@@ -1,4 +1,33 @@
-const { ObjectId } = require("mongodb");
+/**
+ * Detect BSON ObjectId from any mongodb/bson copy.
+ * `instanceof ObjectId` is false on prod when migrate-mongo's driver (bson 7
+ * via unpinned `npx migrate-mongo`) and `require("mongodb")` (bson 6) differ.
+ *
+ * @param {unknown} value
+ * @returns {boolean}
+ */
+function isBsonObjectId(value) {
+  if (value == null || typeof value !== "object") return false;
+  const type = /** @type {{ _bsontype?: string }} */ (value)._bsontype;
+  return type === "ObjectId" || type === "ObjectID";
+}
+
+/**
+ * @param {unknown} value
+ * @returns {string}
+ */
+function toIdString(value) {
+  if (typeof value === "string") return value;
+  if (
+    value &&
+    typeof value === "object" &&
+    typeof /** @type {{ toHexString?: () => string }} */ (value).toHexString ===
+      "function"
+  ) {
+    return /** @type {{ toHexString: () => string }} */ (value).toHexString();
+  }
+  return String(value);
+}
 
 /**
  * Rewrite a document whose `_id` is ObjectId to the same hex as a string.
@@ -11,12 +40,12 @@ const { ObjectId } = require("mongodb");
  */
 async function convertDoc(collection, doc, fkFields) {
   const oldId = doc._id;
-  const idIsObjectId = oldId instanceof ObjectId;
+  const idIsObjectId = isBsonObjectId(oldId);
   const $set = {};
 
   for (const field of fkFields) {
-    if (doc[field] instanceof ObjectId) {
-      $set[field] = doc[field].toString();
+    if (isBsonObjectId(doc[field])) {
+      $set[field] = toIdString(doc[field]);
     }
   }
 
@@ -29,7 +58,7 @@ async function convertDoc(collection, doc, fkFields) {
     return true;
   }
 
-  const newId = oldId.toString();
+  const newId = toIdString(oldId);
   const { _id, ...rest } = doc;
   const next = { ...rest, ...$set };
 
@@ -41,11 +70,8 @@ async function convertDoc(collection, doc, fkFields) {
     for (const [k, v] of Object.entries(next)) {
       if (existing[k] === undefined || existing[k] === null) {
         mergeSet[k] = v;
-      } else if (
-        existing[k] instanceof ObjectId &&
-        fkFields.includes(k)
-      ) {
-        mergeSet[k] = existing[k].toString();
+      } else if (isBsonObjectId(existing[k]) && fkFields.includes(k)) {
+        mergeSet[k] = toIdString(existing[k]);
       }
     }
     for (const field of fkFields) {
@@ -76,7 +102,12 @@ async function convertCollection(db, name, fkFields) {
   }
 
   const collection = db.collection(name);
-  const cursor = collection.find({});
+  const typeFilters = [{ _id: { $type: "objectId" } }];
+  for (const field of fkFields) {
+    typeFilters.push({ [field]: { $type: "objectId" } });
+  }
+
+  const cursor = collection.find({ $or: typeFilters });
   let converted = 0;
   let skipped = 0;
 
@@ -91,7 +122,18 @@ async function convertCollection(db, name, fkFields) {
   console.log(`${name}: converted=${converted}, skipped=${skipped}`);
 }
 
+/**
+ * @param {import('mongodb').Db} db
+ */
+async function convertAuthObjectIdFields(db) {
+  await convertCollection(db, "users", []);
+  await convertCollection(db, "members", ["userId"]);
+  await convertCollection(db, "accounts", ["accountId", "userId"]);
+  await convertCollection(db, "sessions", ["userId"]);
+}
+
 module.exports = {
+  convertAuthObjectIdFields,
   /**
    * Convert ObjectId → string (same hex) for Better Auth collections:
    * - users: `_id`
@@ -103,10 +145,7 @@ module.exports = {
    * @returns {Promise<void>}
    */
   async up(db) {
-    await convertCollection(db, "users", []);
-    await convertCollection(db, "members", ["userId"]);
-    await convertCollection(db, "accounts", ["accountId", "userId"]);
-    await convertCollection(db, "sessions", ["userId"]);
+    await convertAuthObjectIdFields(db);
   },
 
   async down() {
