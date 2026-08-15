@@ -16,7 +16,7 @@ export type SyncedPaymentAssignablePaymentType =
   (typeof syncedPaymentAssignablePaymentTypes)[number];
 
 export const syncedPaymentStatus = [
-  /** Auto-attached to the best candidate appointment, awaiting staff review. */
+  /** Attached to an appointment (auto-match or staff assign), awaiting staff review. */
   "matched",
   /** No candidate appointment found; waiting in the review queue. */
   "unmatched",

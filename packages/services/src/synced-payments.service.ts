@@ -446,6 +446,8 @@ export class SyncedPaymentsService
     const { paymentIds, customerId, split } =
       await this.createPaymentsForAppointment(appointmentId, record, source);
 
+    const paymentType = record.paymentType ?? DEFAULT_SYNCED_PAYMENT_TYPE;
+
     const updated = await this.update(id, {
       appointmentId,
       customerId,
@@ -454,6 +456,13 @@ export class SyncedPaymentsService
       inferredTip: split.tip,
       originalAmount: split.paymentAmount,
       originalTip: split.tip,
+      ...(record.status === "unmatched" || record.status === "ignored"
+        ? { status: "matched" as const }
+        : {}),
+      ...(record.paymentType == null ? { paymentType } : {}),
+      ...(record.originalPaymentType == null
+        ? { originalPaymentType: paymentType }
+        : {}),
     });
 
     logger.info(
