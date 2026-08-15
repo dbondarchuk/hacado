@@ -142,13 +142,13 @@ export class BookingTrackingRepository extends BaseService {
     const total = await collection.countDocuments(filter);
 
     // Apply sorting
-    let sort: Sort = { createdAt: -1 }; // Default sort by newest first
-    if (query?.sort && query.sort.length > 0) {
-      sort = {};
-      for (const sortOption of query.sort) {
-        sort[sortOption.id] = sortOption.desc ? -1 : 1;
-      }
-    }
+    const sort: Sort = query?.sort?.reduce(
+      (prev, curr) => ({
+        ...prev,
+        [curr.id]: curr.desc ? -1 : 1,
+      }),
+      {},
+    ) || { createdAt: -1 };
 
     // Apply pagination
     const limit = query?.limit || 100;
