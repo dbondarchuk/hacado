@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -15,15 +15,16 @@ import {
   TextMessage,
   TextMessageReply,
   TextMessageResponse,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   decrypt,
   encrypt,
   getAdminUrl,
+  getAppsExternalUrl,
   getArguments,
   getWebsiteUrl,
   maskify,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import crypto from "crypto";
 import { getEmailTemplate } from "./emails/utils";
 import { TextBeltConfiguration, textBeltConfigurationSchema } from "./models";
@@ -126,6 +127,7 @@ export default class TextBeltConnectedApp
         sender: message.sender,
         messageLength: message.message.length,
         hasData: !!message.data,
+        memberId: message.memberId,
       },
       "Sending text message via TextBelt",
     );
@@ -138,16 +140,16 @@ export default class TextBeltConnectedApp
         );
 
       const apiKey = decrypt(app.data.apiKey);
-      const url = getAdminUrl();
+      const url = getAppsExternalUrl();
 
       const request: SmsRequest = {
         message: message.message,
         key: apiKey,
         phone: message.phone,
         sender: message.sender,
-        replyWebhookUrl: `${url}/apps/${this.props.organizationId}/${app._id}/webhook`,
+        replyWebhookUrl: `${url}/api/webhooks/apps/id/${this.props.organizationId}/${app._id}`,
         webhookData: message.data
-          ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.data.data ?? ""}`
+          ? `${message.data.appId ?? ""}|${message.data.appointmentId ?? ""}|${message.data.customerId ?? ""}|${message.memberId ?? ""}|${message.data.data ?? ""}`
           : undefined,
       };
 
@@ -204,26 +206,29 @@ export default class TextBeltConnectedApp
       });
 
       if (response.quotaRemaining < 100) {
-        const user = await this.props.services.userService.getUser(app.userId);
+        const member = await this.props.services.teamService.getMemberById(
+          app.memberId,
+        );
         const { template: description, subject } = await getEmailTemplate(
           "user-notify-low-quota",
-          user?.language ?? brand.language,
+          member?.language ?? brand.language,
           url,
           {
             quotaRemaining: response.quotaRemaining,
-            name: user?.name ?? general.name,
+            name: member?.name ?? general.name,
           },
         );
 
         await this.props.services.notificationService.sendEmail({
           email: {
-            to: user?.email ?? general.email,
+            to: member?.email ?? general.email,
             subject,
             body: description,
           },
           handledBy:
             "app_text-belt_admin.lowQuotaHandler" satisfies TextBeltAdminAllKeys,
-          participantType: "user",
+          participantType: "member",
+          memberId: app.memberId,
         });
       }
 
@@ -329,7 +334,8 @@ export default class TextBeltConnectedApp
       const appId = parts[0] || undefined;
       const appointmentId = parts[1] || undefined;
       const customerId = parts[2] || undefined;
-      const data = parts[3] || undefined;
+      const memberId = parts[3] || undefined;
+      const data = parts[4] || undefined;
 
       logger.debug(
         {
@@ -361,6 +367,7 @@ export default class TextBeltConnectedApp
         },
         appointment,
         customer,
+        memberId,
         messageId: reply.textId,
       };
 
@@ -568,7 +575,12 @@ export default class TextBeltConnectedApp
         "social",
       );
 
-    const { appointment, customer, ...reply } = textMessageReply;
+    const {
+      appointment,
+      customer,
+      memberId: _memberId,
+      ...reply
+    } = textMessageReply;
 
     const organization =
       await this.props.services.organizationService.getOrganization();
@@ -577,6 +589,18 @@ export default class TextBeltConnectedApp
         { appId: appData._id, appointmentId: appointment?._id },
         "Organization not found",
       );
+      return;
+    }
+
+    let memberId = _memberId;
+    if (!memberId) {
+      memberId = appointment?.memberId ?? appData.memberId;
+    }
+
+    const member =
+      await this.props.services.teamService.getMemberById(memberId);
+    if (!member) {
+      logger.error({ appId: appData._id, memberId }, "Member not found");
       return;
     }
 
@@ -594,6 +618,7 @@ export default class TextBeltConnectedApp
           message: reply.message?.trim(),
         },
       },
+      member,
       locale: config.brand.language,
       adminUrl,
       websiteUrl,
@@ -610,19 +635,20 @@ export default class TextBeltConnectedApp
     );
 
     logger.debug(
-      { appId: appData._id, ownerEmail: config.general.email },
+      { appId: appData._id, ownerEmail: member.email },
       "Sending email to owner about incoming message",
     );
 
     await this.props.services.notificationService.sendEmail({
       email: {
-        to: config.general.email,
+        to: member.email,
         subject,
         body: description,
       },
       handledBy:
         "app_text-belt_admin.webhookHandlerUser" satisfies TextBeltAdminAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: member._id,
       appointmentId: appointment?._id,
       customerId: customer?._id,
     });
@@ -711,12 +737,22 @@ export default class TextBeltConnectedApp
         channel: "text-message",
         direction: "inbound",
         participant: reply.from,
-        participantType: result.participantType,
         handledBy: result.handledBy,
         text: reply.message,
         data: reply.data,
         appointmentId: appointment?._id,
         customerId: customer?._id,
+        ...(result.participantType === "member"
+          ? {
+              participantType: "member" as const,
+              memberId: appointment?.memberId ?? appData.memberId,
+            }
+          : {
+              participantType: "customer" as const,
+              ...(appointment?.memberId
+                ? { memberId: appointment.memberId }
+                : {}),
+            }),
       });
 
       logger.info(

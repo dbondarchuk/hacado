@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { ServiceField } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { ServiceField } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -12,7 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,9 +27,17 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ field }) => {
   const t = useI18n("admin");
+  const { user } = useAuth();
+  const canCreate = hasPermission(user, "service", "create");
+  const canUpdate = hasPermission(user, "service", "update");
+  const canDelete = hasPermission(user, "service", "delete");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  if (!canCreate && !canUpdate && !canDelete) {
+    return null;
+  }
 
   const onConfirm = async () => {
     try {
@@ -69,31 +79,43 @@ export const CellAction: React.FC<CellActionProps> = ({ field }) => {
           <DropdownMenuLabel>
             {t("services.fields.table.cellAction.actions")}
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/dashboard/services/fields/new?from=${field._id}`}
-              className="text-foreground"
-            >
-              <Copy className="size-3.5" />{" "}
-              {t("services.fields.table.cellAction.clone")}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/dashboard/services/fields/${field._id}`}
-              className="text-foreground"
-            >
-              <Edit className="size-3.5" />{" "}
-              {t("services.fields.table.cellAction.update")}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="size-3.5" />{" "}
-            {t("services.fields.table.cellAction.delete")}
-          </DropdownMenuItem>
+          {canCreate ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/dashboard/services/fields/new?from=${field._id}`}
+                  className="text-foreground"
+                >
+                  <Copy className="size-3.5" />{" "}
+                  {t("services.fields.table.cellAction.clone")}
+                </Link>
+              </DropdownMenuItem>
+            </>
+          ) : null}
+          {canUpdate ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link
+                  href={`/dashboard/services/fields/${field._id}`}
+                  className="text-foreground"
+                >
+                  <Edit className="size-3.5" />{" "}
+                  {t("services.fields.table.cellAction.update")}
+                </Link>
+              </DropdownMenuItem>
+            </>
+          ) : null}
+          {canDelete ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setOpen(true)}>
+                <Trash className="size-3.5" />{" "}
+                {t("services.fields.table.cellAction.delete")}
+              </DropdownMenuItem>
+            </>
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

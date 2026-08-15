@@ -9,7 +9,7 @@ Use this guide when an App shows **Pending**, sign-in loops, or suddenly stops w
 
 ## Before you start
 
-1. Make sure you opened the right **Timelish workspace**.
+1. Make sure you opened the right **Hacado workspace**.
 2. Try another browser or a private (incognito) window.
 3. Temporarily turn off extensions that block cookies or pop-ups.
 
@@ -19,7 +19,7 @@ Use this guide when an App shows **Pending**, sign-in loops, or suddenly stops w
 
 **Try this:**
 
-- Allow pop-ups for your Timelish admin site.
+- Allow pop-ups for your Hacado admin site.
 - Try again with strict tracking protection relaxed just for that step.
 - Use another browser or device.
 
@@ -33,16 +33,16 @@ If it still fails, record a short screen video and contact support. Say which Ap
 
 - Open **Apps**, then **Installed apps**. Open the App and use **Reconnect**. Complete every screen.
 - Check email for security messages from Google, Microsoft, Stripe, PayPal, Zoom, or your email host.
-- If your company manages access to outside apps, ask IT to allow Timelish.
+- If your company manages access to outside apps, ask IT to allow Hacado.
 
 ## Permission or access errors
 
-**What you might see:** The other service says Timelish cannot access calendar, mail, payments, or meetings.
+**What you might see:** The other service says Hacado cannot access calendar, mail, payments, or meetings.
 
 **Try this:**
 
 - Use **Reconnect** and accept **all** permissions the App asks for.
-- If you denied access earlier, remove the old connection at that service if needed. Then remove the App in Timelish and add it again from **Store**.
+- If you denied access earlier, remove the old connection at that service if needed. Then remove the App in Hacado and add it again from **Store**.
 
 ## SMTP or calendar server sign-in fails
 
@@ -59,9 +59,9 @@ If it still fails, record a short screen video and contact support. Say which Ap
 **Try this:**
 
 - Open Stripe, Square, or PayPal in their own dashboards and fix any alerts (identity checks, compliance, limits).
-- In Timelish, check **Default apps** and booking or payment settings so the processor you expect is selected.
+- In Hacado, check **Default apps** and booking or payment settings so the processor you expect is selected.
 - Run a small test payment before you invite clients to pay.
 
 ## Still stuck
 
-Contact **Timelish support** using the channel your plan includes. Share the App name, your workspace, when it failed, and what you tried from this page.
+Contact **Hacado support** using the channel your plan includes. Share the App name, your workspace, when it failed, and what you tried from this page.

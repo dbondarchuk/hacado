@@ -10,8 +10,8 @@
     "jsx": "preserve",
     "noEmit": true,
     "paths": {
-      "@/*": ["./*"],
-      "@timelish/*": ["../../packages/*"]
+      "@/*": ["./src/*"],
+      "@hacado/*": ["../../packages/*"]
     }
   },
   "exclude": [

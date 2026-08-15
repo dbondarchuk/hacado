@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { customerSchema, okStatus } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { customerSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,15 @@ export async function GET(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/customers/[id]")("GET");
+  const auth = await requirePermission(
+    "customer",
+    "read",
+    "AdminAPI/customers/[id]",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 
@@ -70,7 +78,15 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/customers/[id]")("PUT");
+  const auth = await requirePermission(
+    "customer",
+    "update",
+    "AdminAPI/customers/[id]",
+    "PUT",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id } = await params;
@@ -135,7 +151,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/customers/[id]")("DELETE");
+  const auth = await requirePermission(
+    "customer",
+    "delete",
+    "AdminAPI/customers/[id]",
+    "DELETE",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id } = await params;

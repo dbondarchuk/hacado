@@ -31,9 +31,9 @@ COPY --parents *.* ./
 
 # Build the notification sender app
 RUN \
-  if [ -f yarn.lock ]; then yarn run build --filter=@timelish/job-processor; \
-  elif [ -f package-lock.json ]; then npm run build --filter=@timelish/job-processor; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build --filter=@timelish/job-processor; \
+  if [ -f yarn.lock ]; then yarn run build --filter=@hacado/job-processor; \
+  elif [ -f package-lock.json ]; then npm run build --filter=@hacado/job-processor; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build --filter=@hacado/job-processor; \
   else echo "Lockfile not found." && exit 1; \
   fi
 

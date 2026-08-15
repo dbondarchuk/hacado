@@ -1,4 +1,4 @@
-import { evaluate, ReaderBlock } from "@timelish/builder";
+import { evaluate, ReaderBlock } from "@hacado/builder";
 import { ConditionalContainerReaderProps } from "./schema";
 
 export const ConditionalContainerReader = ({

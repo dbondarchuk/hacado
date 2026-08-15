@@ -1,4 +1,4 @@
-import base from "@timelish/tailwind-config";
+import base from "@hacado/tailwind-config";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

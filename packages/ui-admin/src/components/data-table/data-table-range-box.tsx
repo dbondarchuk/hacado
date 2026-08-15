@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { DateRange } from "@timelish/types";
-import { CalendarDateRangePicker, useTimeZone } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { DateRange } from "@hacado/types";
+import { CalendarDateRangePicker, useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { Options } from "nuqs";
 

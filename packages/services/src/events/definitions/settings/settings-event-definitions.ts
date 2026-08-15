@@ -1,9 +1,9 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   SETTINGS_UPDATED_EVENT_TYPE,
   type EventDefinition,
   type SettingsUpdatedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

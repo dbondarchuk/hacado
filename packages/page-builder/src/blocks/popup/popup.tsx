@@ -1,8 +1,8 @@
 "use client";
 
-import { usePortalContext } from "@timelish/builder";
-import { PopupProvider } from "@timelish/page-builder-base";
-import { Dialog, DialogContent } from "@timelish/ui";
+import { usePortalContext } from "@hacado/builder";
+import { PopupProvider } from "@hacado/page-builder-base";
+import { Dialog, DialogContent } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useCookies } from "react-cookie";

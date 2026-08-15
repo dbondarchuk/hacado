@@ -1,11 +1,12 @@
-import { BaseAllKeys, languages } from "@timelish/i18n";
+import { BaseAllKeys, languages } from "@hacado/i18n";
 import {
   asOptionalField,
   calendarSourcesConfigurationSchema,
   zAssetName,
   zNonEmptyString,
+  zObjectId,
   zPhone,
-} from "@timelish/types";
+} from "@hacado/types";
 import { z } from "zod";
 
 export const userUpdateSchema = z.object({
@@ -27,6 +28,7 @@ export const userUpdateSchema = z.object({
       .max(1024, "admin.users.validation.bio.max" satisfies BaseAllKeys),
   ).nullable(),
   calendarSources: calendarSourcesConfigurationSchema,
+  meetingUrlProviderAppId: asOptionalField(zObjectId()).nullable(),
 });
 
 export type UserUpdate = z.infer<typeof userUpdateSchema>;

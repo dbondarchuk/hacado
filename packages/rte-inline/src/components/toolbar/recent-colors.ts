@@ -1,4 +1,4 @@
-const STORAGE_KEY = "timelish/rte-inline/recent-colors";
+const STORAGE_KEY = "hacado/rte-inline/recent-colors";
 export const RECENT_COLOR_SLOTS = 2;
 
 function isBrowser() {

@@ -1,5 +1,5 @@
-import type { AppEventConfig } from "@timelish/types";
-import { eventPatternMatches } from "@timelish/types";
+import type { AppEventConfig } from "@hacado/types";
+import { eventPatternMatches } from "@hacado/types";
 import { AvailableApps } from "../apps";
 import { BLOG_APP_EVENTS } from "../apps/blog/app-events";
 import { BLOG_APP_NAME } from "../apps/blog/const";

@@ -1,8 +1,7 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
-import { Customer, IConnectedAppProps, WithTotal } from "@timelish/types";
-import { escapeRegex } from "@timelish/utils";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { Customer, IConnectedAppProps, WithTotal } from "@hacado/types";
+import { escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
-import { CUSTOMERS_COLLECTION_NAME } from "../../../../../services/src/collections";
 import {
   FORM_RESPONSES_COLLECTION_NAME,
   FormAnswer,
@@ -16,6 +15,9 @@ import {
   GetFormsQuery,
   UpdateFormResponseModelWithNormalizedAnswers,
 } from "../models";
+
+/** Must match `@hacado/services/collections` — avoid importing services (circular dep). */
+const CUSTOMERS_COLLECTION_NAME = "customers";
 
 export class FormsRepositoryService {
   protected readonly loggerFactory: LoggerFactory;
@@ -466,10 +468,12 @@ export class FormsRepositoryService {
     if (phone) payload.phone = phone;
     if (name) payload.name = name;
 
-    const customer =
-      await this.services.customersService.getOrUpsertCustomer(payload, {
+    const customer = await this.services.customersService.getOrUpsertCustomer(
+      payload,
+      {
         actor: "customer",
-      });
+      },
+    );
 
     logger.debug(
       { customerId: customer._id },

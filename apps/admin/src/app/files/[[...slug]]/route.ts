@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { fileNameToMimeType } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { fileNameToMimeType } from "@hacado/utils";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";

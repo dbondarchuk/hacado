@@ -1,10 +1,10 @@
-import type { BaseAllKeys } from "@timelish/i18n";
-import type { AppScope, ConnectedAppData } from "@timelish/types";
+import type { BaseAllKeys } from "@hacado/i18n";
+import type { AppScope, ConnectedAppData } from "@hacado/types";
 import { BuiltInApps } from "./apps";
 
 export const getBuiltInAppData = (
   organizationId: string,
-  userId: string,
+  memberId: string,
   name: keyof typeof BuiltInApps,
 ): ConnectedAppData => {
   return {
@@ -12,7 +12,7 @@ export const getBuiltInAppData = (
     statusText: "apps.common.statusText.connected" satisfies BaseAllKeys,
     name: name,
     _id: name,
-    userId: userId,
+    memberId,
     organizationId: organizationId,
   };
 };

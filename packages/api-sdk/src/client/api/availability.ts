@@ -1,4 +1,4 @@
-import { Availability } from "@timelish/types";
+import { Availability } from "@hacado/types";
 import {
   AvailabilitySearchParams,
   serializeAvailabilitySearchParams,

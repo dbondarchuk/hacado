@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { BellRing } from "lucide-react";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./const";
 import {
@@ -15,6 +15,7 @@ export const AppointmentNotificationsApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["scheduled", "event-subscriber", "communication-templates-provider"],
   type: "complex",
+  target: "company",
   category: ["apps.categories.notifications"],
   Logo: ({ className }) => <BellRing className={className} />,
   dontAllowMultiple: true,

@@ -5,7 +5,7 @@ description: What Apps are, where to manage them, and how each guide is written.
 
 # Apps
 
-**Apps** connect your Timelish workspace to the tools you already use: calendars, video meetings, email, texts, payments, and extra website features. They help keep your schedule accurate and your clients informed.
+**Apps** connect your Hacado workspace to the tools you already use: calendars, video meetings, email, texts, payments, and extra website features. They help keep your schedule accurate and your clients informed.
 
 In the admin sidebar, open **Apps**. You will use three areas often:
 
@@ -19,12 +19,12 @@ If setup or reconnect fails, start with **[Apps troubleshooting](/docs/apps/trou
 
 Every App guide uses the same sections.
 
-**Adding the App.** Steps to connect or turn it on inside Timelish, plus a link to troubleshooting when something breaks.
+**Adding the App.** Steps to connect or turn it on inside Hacado, plus a link to troubleshooting when something breaks.
 
 **Usage.** Simple examples of what you might do, and what should already be in place.
 
-**Removing the App.** How to turn it off in Timelish, what changes for your daily work, and a short note about data. Other companies (Google, Microsoft, Stripe, PayPal, Zoom, and similar) may still hold their own copies until you remove data in those accounts too.
+**Removing the App.** How to turn it off in Hacado, what changes for your daily work, and a short note about data. Other companies (Google, Microsoft, Stripe, PayPal, Zoom, and similar) may still hold their own copies until you remove data in those accounts too.
 
 ## App not listed here
 
-Some Apps depend on your region or plan. Contact **Timelish support** if you need one you do not see.
+Some Apps depend on your region or plan. Contact **Hacado support** if you need one you do not see.

@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { useCallback, useMemo } from "react";
 import { overlayType, PopupProps, showPopupType } from "./schema";
 import { popupShortcuts } from "./shortcuts";

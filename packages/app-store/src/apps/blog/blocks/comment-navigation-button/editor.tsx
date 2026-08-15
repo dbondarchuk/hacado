@@ -1,9 +1,9 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import {
   BlogPublicKeys,
   BlogPublicNamespace,
@@ -24,7 +24,8 @@ export const BlogCommentNavigationButtonEditor = ({
   const t = useI18n<BlogPublicNamespace, BlogPublicKeys>(blogPublicNamespace);
 
   const direction =
-    props?.direction ?? BlogCommentNavigationButtonPropsDefaults.props.direction;
+    props?.direction ??
+    BlogCommentNavigationButtonPropsDefaults.props.direction;
 
   const buttonText =
     direction === "prev"

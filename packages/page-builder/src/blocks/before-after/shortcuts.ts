@@ -1,5 +1,5 @@
-import { Shortcut } from "@timelish/page-builder-base";
-import { AllStylesSchemas } from "@timelish/page-builder-base/style";
+import { Shortcut } from "@hacado/page-builder-base";
+import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 import { Proportions, RotateCcw } from "lucide-react";
 
 export const beforeAfterShortcuts: Shortcut<AllStylesSchemas>[] = [

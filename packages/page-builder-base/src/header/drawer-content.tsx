@@ -1,7 +1,7 @@
 "use client";
 
-import { usePortalContext } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { usePortalContext } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   DrawerClose,
@@ -9,7 +9,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Menu, X } from "lucide-react";
 import { ReplaceOriginalColors } from "../helpers/replace-original-colors";
 

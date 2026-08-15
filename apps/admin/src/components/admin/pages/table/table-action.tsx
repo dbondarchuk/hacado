@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { Settings2 } from "lucide-react";
 import { DeleteSelectedPagesButton } from "./delete-selected";
 import { usePagesTableFilters } from "./use-table-filters";

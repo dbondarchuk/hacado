@@ -1,6 +1,6 @@
-import { useI18n } from "@timelish/i18n";
-import { Id } from "@timelish/types";
-import { Sortable } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Id } from "@hacado/types";
+import { Sortable } from "@hacado/ui-admin";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { OptionSelectCard } from "./cards/option-select-card";

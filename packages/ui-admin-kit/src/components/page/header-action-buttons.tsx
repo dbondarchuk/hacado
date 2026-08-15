@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 

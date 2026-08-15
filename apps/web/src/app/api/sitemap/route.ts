@@ -1,8 +1,8 @@
 import { getServicesContainer, getWebsiteUrl } from "@/utils/utils";
-import { AvailableAppServices } from "@timelish/app-store/services";
-import { getLoggerFactory } from "@timelish/logger";
-import type { ISitemapItemsProvider, SitemapUrlEntry } from "@timelish/types";
-import { pageSlugHasPlaceholder } from "@timelish/types";
+import { AvailableAppServices } from "@hacado/app-store/services";
+import { getLoggerFactory } from "@hacado/logger";
+import type { ISitemapItemsProvider, SitemapUrlEntry } from "@hacado/types";
+import { pageSlugHasPlaceholder } from "@hacado/types";
 import { NextRequest } from "next/server";
 
 const SITEMAP_ITEMS_PROVIDER_SCOPE = "sitemap-items-provider" as const;

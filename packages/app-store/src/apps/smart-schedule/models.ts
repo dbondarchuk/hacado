@@ -1,4 +1,4 @@
-import { asOptionalField } from "@timelish/types";
+import { asOptionalField } from "@hacado/types";
 import * as z from "zod";
 
 export const smartScheduleConfigurationSchema = z.object({

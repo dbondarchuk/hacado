@@ -1,10 +1,10 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@hacado/i18n/components";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { PlateStaticEditor } from "@timelish/rte";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { PlateStaticEditor } from "@hacado/rte";
+import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { resolveBlogPostDisplayContent } from "./resolve-display-content";

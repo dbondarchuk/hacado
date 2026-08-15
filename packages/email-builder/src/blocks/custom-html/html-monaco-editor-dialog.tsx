@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
   useTheme,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import Editor from "@monaco-editor/react";
 import { Maximize2 } from "lucide-react";
 import React from "react";
@@ -75,7 +75,11 @@ export const HtmlMonacoEditorDialog: React.FC<HtmlMonacoEditorDialogProps> = ({
           />
         </div>
         <DialogFooter className="px-6 py-4 shrink-0">
-          <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setOpen(false)}
+          >
             {t("emailBuilder.blocks.customHtml.editorCancel")}
           </Button>
           <Button type="button" onClick={handleApply}>

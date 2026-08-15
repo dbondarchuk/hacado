@@ -1,16 +1,15 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { PlateMarkdownEditor } from "@timelish/rte";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   DatabaseId,
   fieldTypes,
   fileFieldAcceptItemSchema,
   getFieldSchemaWithUniqueCheck,
   ServiceFieldUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   BooleanSelect,
   Button,
@@ -36,8 +35,9 @@ import {
   TagInput,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { SaveButton, Sortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton, Sortable } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";

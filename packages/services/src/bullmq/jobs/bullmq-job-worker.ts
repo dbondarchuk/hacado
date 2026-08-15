@@ -1,4 +1,5 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { canProcessApp } from "@hacado/app-store";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   EventDeliveryJobRequest,
@@ -8,12 +9,11 @@ import {
   IServicesContainer,
   OrganizationJobRequest,
   WithOrganizationId,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Job } from "bullmq";
+import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BuiltInApps } from "../../built-in/apps";
 import { getBuiltInAppData } from "../../built-in/utils";
-import { canProcessApp } from "@timelish/app-store";
-import { resolvePlanTierFromOrganization } from "../../billing/subscription-entitlements";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQJobConfig } from "./types";
 import { reviveJobData } from "./utils";
@@ -286,14 +286,15 @@ export class BullMQJobWorker extends BaseBullMQClient {
 
       const builtIn = BuiltInApps[jobData.appId as keyof typeof BuiltInApps];
       if (builtIn?.scheduled) {
-        const users = await services.userService.getOrganizationAdminUsers();
-        const user = users[0];
-        if (!user) {
-          throw new Error("Organization admin user not found");
+        const contacts =
+          await services.teamService.getOrganizationAdminContacts();
+        const contact = contacts[0];
+        if (!contact) {
+          throw new Error("Organization admin member not found");
         }
         const appData = getBuiltInAppData(
           organizationId,
-          user._id.toString(),
+          contact.memberId,
           jobData.appId as keyof typeof BuiltInApps,
         );
         const service = new builtIn.getService(organizationId, services);
@@ -356,14 +357,15 @@ export class BullMQJobWorker extends BaseBullMQClient {
 
       const builtIn = BuiltInApps[jobData.appId];
       if (builtIn) {
-        const users = await services.userService.getOrganizationAdminUsers();
-        const user = users[0];
-        if (!user) {
-          throw new Error("Organization admin user not found");
+        const contacts =
+          await services.teamService.getOrganizationAdminContacts();
+        const contact = contacts[0];
+        if (!contact) {
+          throw new Error("Organization admin member not found");
         }
         const appData = getBuiltInAppData(
           organizationId,
-          user._id.toString(),
+          contact.memberId,
           jobData.appId as keyof typeof BuiltInApps,
         );
         const service = new builtIn.getService(organizationId, services);

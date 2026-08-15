@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Minus, Plus } from "lucide-react";
 import React from "react";
 
@@ -34,7 +34,11 @@ type RawNumberInputProps = {
     }
 );
 
-const isPartialNumber = (val: string, float?: boolean, allowNegative?: boolean) => {
+const isPartialNumber = (
+  val: string,
+  float?: boolean,
+  allowNegative?: boolean,
+) => {
   if (val === "") return true;
   if (allowNegative && val === "-") return true;
   if (float) {
@@ -151,9 +155,7 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
               }}
               onChange={(e) => {
                 const next = e.target.value;
-                if (
-                  !isPartialNumber(next, float, !disableNegative)
-                ) {
+                if (!isPartialNumber(next, float, !disableNegative)) {
                   return;
                 }
 

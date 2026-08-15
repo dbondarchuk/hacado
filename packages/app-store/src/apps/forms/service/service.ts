@@ -1,5 +1,5 @@
-import { getLocale } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLocale } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -14,15 +14,16 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
+  SessionUser,
   systemEventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   fileNameToMimeType,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   parseJSON,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { v4 as uuidv4 } from "uuid";
 import { getEmailTemplate } from "../emails/utils";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../events";
@@ -87,13 +88,13 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
 
   public async getInitialNotifications(
     appData: ConnectedAppData,
-    userId: string,
+    memberId: string,
     _date?: Date,
   ): Promise<DashboardNotification[]> {
     const badges = await getFormsUnreadResponsesBadges(
       appData._id,
       appData.organizationId,
-      userId,
+      memberId,
       this.props.getDbConnection,
       this.props.services,
     );
@@ -110,7 +111,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     appData: ConnectedAppData,
     request: RequestAction,
     apiRequest?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ): Promise<any> {
     const logger = this.loggerFactory("processRequest");
     logger.debug(
@@ -118,7 +119,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       "Processing forms request",
     );
 
-    if (apiRequest === undefined || userId === undefined) {
+    if (apiRequest === undefined || !user?.memberId) {
       throw new ConnectedAppRequestError(
         "invalid_forms_request",
         { request },
@@ -127,6 +128,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       );
     }
 
+    const memberId = user.memberId;
     const { data, success, error } = requestActionSchema.safeParse(request);
     if (!success) {
       logger.error({ error }, "Invalid forms request");
@@ -168,11 +170,11 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       case SetFormsArchivedActionType:
         return this.processSetFormsArchivedRequest(appData, data);
       case CreateFormResponseActionType:
-        return this.processCreateFormResponseRequest(appData, data, userId);
+        return this.processCreateFormResponseRequest(appData, data, memberId);
       case CheckFormNameUniqueActionType:
         return this.processCheckFormNameUniqueRequest(appData, data);
       case MarkFormResponsesReadActionType:
-        return this.processMarkFormResponsesReadRequest(appData, userId);
+        return this.processMarkFormResponsesReadRequest(appData, memberId);
       default:
         logger.warn({ type: (data as any).type }, "Unknown forms request type");
         return null;
@@ -611,12 +613,15 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
 
   private async processMarkFormResponsesReadRequest(
     appData: ConnectedAppData,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processMarkFormResponsesReadRequest");
-    logger.debug({ appId: appData._id, userId }, "Marking form responses read");
+    logger.debug(
+      { appId: appData._id, memberId },
+      "Marking form responses read",
+    );
 
-    if (!userId) {
+    if (!memberId) {
       throw new ConnectedAppRequestError(
         "invalid_forms_request",
         { appId: appData._id },
@@ -628,7 +633,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     await markFormResponsesRead(
       appData.organizationId,
       appData._id,
-      userId,
+      memberId,
       this.props.services,
     );
 
@@ -1169,10 +1174,10 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
   private formResponseEventSource(
     formResponse: FormResponseModel,
     customer: Customer | null | undefined,
-    userId?: string,
+    memberId?: string,
   ): EventSource {
-    if (userId) {
-      return { actor: "user", actorId: userId };
+    if (memberId) {
+      return { actor: "member", actorId: memberId };
     }
     const cid = formResponse.customerId ?? customer?._id;
     return cid ? { actor: "customer", actorId: cid } : { actor: "customer" };
@@ -1181,7 +1186,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
   private async processCreateFormResponseRequest(
     appData: ConnectedAppData,
     data: CreateFormResponseAction,
-    userId: string,
+    memberId: string,
   ) {
     const logger = this.loggerFactory("processCreateFormResponseRequest");
     logger.debug(
@@ -1298,7 +1303,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       customerId: customer?._id,
     });
 
-    await this.enqueueFormResponseHook(created, form, customer, userId);
+    await this.enqueueFormResponseHook(created, form, customer, memberId);
 
     logger.debug(
       { formId: form._id, responseId: created._id },
@@ -1348,11 +1353,11 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
         throw new Error("Organization not found");
       }
 
-      const user = await this.props.services.userService.getUser(
-        appData.userId,
+      const member = await this.props.services.teamService.getMemberById(
+        appData.memberId,
       );
       const recipientEmail =
-        form.notifications.email ?? user?.email ?? config.general.email;
+        form.notifications.email ?? member?.email ?? config.general.email;
 
       if (!recipientEmail) {
         logger.debug(
@@ -1434,7 +1439,8 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
         },
         handledBy:
           "app_forms_admin.handlers.formResponseCreated" satisfies FormsAdminAllKeys,
-        participantType: "user",
+        participantType: "member",
+        memberId: appData.memberId,
         customerId: formResponse.customerId,
       });
       logger.debug(
@@ -1454,7 +1460,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     formResponse: FormResponseModel,
     form: FormModel,
     customer?: Customer | null,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("enqueueFormResponseHook");
     // Enqueue hook for apps that want to react to form submissions
@@ -1462,7 +1468,7 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       const source = this.formResponseEventSource(
         formResponse,
         customer,
-        userId,
+        memberId,
       );
       await this.props.services.eventService.emit(
         FORM_RESPONSE_CREATED_EVENT_TYPE,

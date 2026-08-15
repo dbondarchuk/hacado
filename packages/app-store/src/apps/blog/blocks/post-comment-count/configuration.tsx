@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback, useMemo } from "react";
 import {
   BlogAdminKeys,
@@ -47,7 +47,9 @@ export const BlogPostCommentCountConfiguration = deepMemo(
     const format =
       data.props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
 
-    const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
+    const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(
+      blogAdminNamespace,
+    );
     const tPublic = useI18n<BlogPublicNamespace, BlogPublicKeys>(
       blogPublicNamespace,
     );

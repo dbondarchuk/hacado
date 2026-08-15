@@ -7,9 +7,9 @@ import {
   useDispatchAction,
   useEditorArgs,
   useIsSelectedBlock,
-} from "@timelish/builder";
-import { useResizeBlockStyles } from "@timelish/page-builder-base";
-import { template } from "@timelish/utils";
+} from "@hacado/builder";
+import { useResizeBlockStyles } from "@hacado/page-builder-base";
+import { template } from "@hacado/utils";
 import { Ref, useCallback } from "react";
 import { useAllowImageResize } from "./context";
 import { Image } from "./reader";

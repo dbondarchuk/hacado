@@ -1,19 +1,21 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Card, CardContent, cn } from "@timelish/ui";
-import { AppointmentCard } from "@timelish/ui-admin-kit";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Card, CardContent, cn } from "@hacado/ui";
+import { AppointmentCard } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import React from "react";
 import { getServicesContainer } from "../utils";
 
-export const NextAppointmentsCards: React.FC<{ className?: string }> = async ({
-  className,
-}) => {
+export const NextAppointmentsCards: React.FC<{
+  className?: string;
+  memberId?: string;
+}> = async ({ className, memberId }) => {
   const t = await getI18nAsync("admin");
   const servicesContainer = await getServicesContainer();
   const nextAppointments =
     await servicesContainer.bookingService.getNextAppointments(
       DateTime.now().toJSDate(),
       3,
+      memberId,
     );
 
   const { timeZone } =

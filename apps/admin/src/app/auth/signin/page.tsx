@@ -1,7 +1,7 @@
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserAuthForm } from "@/components/admin/auth/user-auth-form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

@@ -5,7 +5,7 @@ description: Capture visitors who still want appointments when calendars look bu
 
 # Waitlist
 
-Waitlist gathers people who showed interest **even though** no ideal slot existed right away. Inside Timelish you review each row, dismiss entries that faded, or invite someone straight into booking **when your admin screens expose those actions**. Optionally add **[Waitlist notifications](/docs/apps/waitlist-notifications)** so staff emails and optional customer confirmations send automatically.
+Waitlist gathers people who showed interest **even though** no ideal slot existed right away. Inside Hacado you review each row, dismiss entries that faded, or invite someone straight into booking **when your admin screens expose those actions**. Optionally add **[Waitlist notifications](/docs/apps/waitlist-notifications)** so staff emails and optional customer confirmations send automatically.
 
 ## Adding the App
 
@@ -28,4 +28,4 @@ Explain how you prioritise **first arrival**, **loyalty tiers**, optional paid h
 ## Removing the App
 
 1. Export a spreadsheet if bookkeeping wants proof historical trend.
-2. Uninstall hides public signup existing rows archival policy clarify with Timelish support.
+2. Uninstall hides public signup existing rows archival policy clarify with Hacado support.

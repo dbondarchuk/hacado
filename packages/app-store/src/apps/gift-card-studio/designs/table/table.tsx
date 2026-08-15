@@ -1,11 +1,11 @@
 "use client";
 
+import { useI18n } from "@hacado/i18n/client";
+import { WithTotal } from "@hacado/types";
+import { toast, useDebounce } from "@hacado/ui";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
 import { useQueryStates } from "nuqs";
 import React from "react";
-import { useI18n } from "@timelish/i18n";
-import { WithTotal } from "@timelish/types";
-import { toast, useDebounce } from "@timelish/ui";
-import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";
 import { getDesigns } from "../../actions";
 import { DesignListModel } from "../../models";
 import { columns } from "./columns";

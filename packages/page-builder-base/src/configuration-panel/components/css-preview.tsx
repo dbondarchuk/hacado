@@ -1,9 +1,9 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Bug } from "lucide-react";
 import { useMemo } from "react";
 import {

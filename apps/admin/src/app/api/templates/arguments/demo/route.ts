@@ -1,6 +1,6 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { demoAppointment, getAdminUrl, getArguments } from "@timelish/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { demoAppointment, getAdminUrl, getArguments } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

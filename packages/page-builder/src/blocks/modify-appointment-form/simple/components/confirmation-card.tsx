@@ -1,5 +1,6 @@
-import { I18nRichText, useI18n, useLocale } from "@timelish/i18n";
-import { ModifyAppointmentInformation } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import { ModifyAppointmentInformation } from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -10,7 +11,7 @@ import {
   Label,
   Spinner,
   useCurrencyFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Gift } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";
@@ -163,11 +164,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 refundPercentage: appointment.refundPercentage,
                 refundAmount: currencyFormat(appointment.refundAmount),
                 feesAmount: currencyFormat(appointment.feesAmount),
@@ -186,11 +187,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 amount: currencyFormat(appointment.paymentAmount),
                 totalPrice: currencyFormat(appointment.price ?? 0),
               }}
@@ -202,11 +203,11 @@ export const ConfirmationCard: React.FC = () => {
               args={{
                 name: (appointment as any).name,
                 service: (appointment as any).optionName,
-                dateTime: Luxon.fromJSDate(
-                  (appointment as any).dateTime,
-                ).setZone(timeZone).toLocaleString(Luxon.DATETIME_FULL, {
-                  locale,
-                }),
+                dateTime: Luxon.fromJSDate((appointment as any).dateTime)
+                  .setZone(timeZone)
+                  .toLocaleString(Luxon.DATETIME_FULL, {
+                    locale,
+                  }),
                 newDateTime: newDateTime?.toLocaleString(Luxon.DATETIME_FULL, {
                   locale,
                 }),
@@ -232,8 +233,8 @@ export const ConfirmationCard: React.FC = () => {
               onOpenChange={setOpenGiftCards}
               className="w-full"
             >
-              <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex items-center gap-2 underline">
-                <Gift className="w-3 h-3" />
+              <CollapsibleTrigger className="w-full text-sm sm:text-base font-medium text-foreground inline-flex items-center gap-2.5 hover:underline">
+                <Gift className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 {i18n("booking.giftCard.trigger")}
               </CollapsibleTrigger>
               <CollapsibleContent className="w-full">

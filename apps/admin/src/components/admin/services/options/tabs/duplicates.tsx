@@ -1,5 +1,6 @@
-import { I18nRichText, useI18n } from "@timelish/i18n";
-import { PlateMarkdownEditor } from "@timelish/rte";
+import { useI18n } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   BooleanSelect,
   Collapsible,
@@ -18,7 +19,7 @@ import {
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight } from "lucide-react";
 import React from "react";
 import { TabProps } from "./types";

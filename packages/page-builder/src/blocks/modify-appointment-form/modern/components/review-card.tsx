@@ -1,5 +1,10 @@
-import { TranslationKeys, useFormatter, useI18n, useLocale } from "@timelish/i18n";
-import { ModifyAppointmentInformation, timeZones } from "@timelish/types";
+import {
+  TranslationKeys,
+  useFormatter,
+  useI18n,
+  useLocale,
+} from "@hacado/i18n/client";
+import { ModifyAppointmentInformation, timeZones } from "@hacado/types";
 import {
   Button,
   Collapsible,
@@ -8,8 +13,8 @@ import {
   Input,
   Spinner,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { AlertTriangle, Gift, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useMemo, useState } from "react";
@@ -250,7 +255,7 @@ export const ReviewCard: React.FC = () => {
         )}
         {!!paymentFee && (
           <>
-            <div className="flex justify-between py-2 border-b border-border review-service-summary-item">
+            <div className="flex justify-between py-2 border-b border-border review-service-summary-item text-sm">
               <span className="text-muted-foreground review-service-summary-item-label">
                 {t(`modification.review.${type}.fee`)}
               </span>
@@ -264,8 +269,8 @@ export const ReviewCard: React.FC = () => {
                 onOpenChange={setOpenGiftCards}
                 className="w-full"
               >
-                <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex items-center gap-2 underline">
-                  <Gift className="w-3 h-3" />
+                <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline">
+                  <Gift className="size-4 shrink-0" />
                   {t("booking.giftCard.trigger")}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="w-full">

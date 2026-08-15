@@ -1,6 +1,6 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import { CustomHTMLProps } from "./schema";
 
 export const CustomHTMLEditor = () => {

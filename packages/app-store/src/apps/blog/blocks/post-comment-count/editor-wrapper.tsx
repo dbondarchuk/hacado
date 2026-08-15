@@ -1,14 +1,14 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import { useMemo } from "react";
 import {
   BlogPublicKeys,
   BlogPublicNamespace,
   blogPublicNamespace,
 } from "../../translations/types";
-import { getCommentCountFormatPreview } from "./formats";
 import { BlogPostCommentCountComponent } from "./component";
+import { getCommentCountFormatPreview } from "./formats";
 import {
   BlogPostCommentCountProps,
   BlogPostCommentCountPropsDefaults,
@@ -30,7 +30,8 @@ export const BlogPostCommentCountEditorWrapper = ({
   overlayProps,
 }: BlogPostCommentCountEditorWrapperProps) => {
   const t = useI18n<BlogPublicNamespace, BlogPublicKeys>(blogPublicNamespace);
-  const format = props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
+  const format =
+    props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
 
   const label = useMemo(() => {
     if (!args?.post) {

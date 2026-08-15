@@ -6,6 +6,7 @@ import { DuplicateAppointmentConfirmationCard } from "./duplicate-appointment-co
 import { DurationCard } from "./duration-card";
 import { FormCard } from "./form-card";
 import { PaymentCard } from "./payment-card";
+import { SpecialistCard } from "./specialist-card";
 import { WaitlistConfirmationCard } from "./waitlist-confirmation-card";
 import { WaitlistFormCard } from "./waitlist-form-card";
 
@@ -24,6 +25,56 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   }
 };
 
+/** Goes back to the step preceding the (optional) "specialist" step. */
+const goToStepBeforeSpecialist = (ctx: ScheduleContextProps) => {
+  if (
+    ctx.appointmentOption.durationType === "fixed" &&
+    ctx.appointmentOption.duration &&
+    ctx.goBack
+  ) {
+    ctx.goBack();
+    return;
+  }
+
+  ctx.setStep("duration");
+};
+
+/** Goes back to the step preceding "addons", accounting for the specialist step. */
+const goToStepBeforeAddons = (ctx: ScheduleContextProps) => {
+  if (ctx.showSpecialistStep) {
+    ctx.setStep("specialist");
+    return;
+  }
+
+  goToStepBeforeSpecialist(ctx);
+};
+
+/** Resolves the member to use when the specialist step is skipped (sole staff). */
+const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
+  if (ctx.selectedMemberId || ctx.preselectedMemberId) {
+    return ctx.selectedMemberId ?? ctx.preselectedMemberId ?? null;
+  }
+  if (ctx.activeStaff.length === 1) {
+    const memberId = ctx.activeStaff[0].member.id;
+    ctx.setSelectedMemberId(memberId);
+    return memberId;
+  }
+  return null;
+};
+
+/** Goes to "addons" (if any), or fetches availability and goes to "calendar". */
+const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
+  if (ctx.appointmentOption.addons?.length) {
+    resolveMemberIdForFetch(ctx);
+    ctx.setStep("addons");
+    return;
+  }
+
+  const memberId = resolveMemberIdForFetch(ctx);
+  await ctx.fetchAvailability(memberId);
+  ctx.setStep("calendar");
+};
+
 export const ScheduleSteps: Record<StepType, Step> = {
   duration: {
     prev: {
@@ -34,33 +85,34 @@ export const ScheduleSteps: Record<StepType, Step> = {
     next: {
       show: () => true,
       isEnabled: ({ duration: optionDuration }) => !!optionDuration,
-      action: async ({ setStep, appointmentOption, fetchAvailability }) => {
-        if (appointmentOption.addons?.length) {
-          setStep("addons");
+      action: async (ctx) => {
+        if (ctx.showSpecialistStep) {
+          ctx.setStep("specialist");
           return;
         }
-
-        await fetchAvailability();
-        setStep("calendar");
+        await goToStepAfterSpecialist(ctx);
       },
     },
     Content: DurationCard,
+  },
+  specialist: {
+    prev: {
+      show: () => true,
+      isEnabled: () => true,
+      action: (ctx) => goToStepBeforeSpecialist(ctx),
+    },
+    next: {
+      show: () => true,
+      isEnabled: ({ selectedMemberId }) => !!selectedMemberId,
+      action: async (ctx) => goToStepAfterSpecialist(ctx),
+    },
+    Content: SpecialistCard,
   },
   addons: {
     prev: {
       show: () => true,
       isEnabled: () => true,
-      action: ({ appointmentOption, goBack, setStep }) => {
-        if (
-          appointmentOption.durationType === "fixed" &&
-          appointmentOption.duration &&
-          !!goBack
-        ) {
-          goBack();
-        } else {
-          setStep("duration");
-        }
-      },
+      action: (ctx) => goToStepBeforeAddons(ctx),
     },
     next: {
       show: () => true,
@@ -81,22 +133,13 @@ export const ScheduleSteps: Record<StepType, Step> = {
     prev: {
       show: () => true,
       isEnabled: () => true,
-      action: ({ appointmentOption, goBack, setStep }) => {
-        if (appointmentOption.addons?.length) {
-          setStep("addons");
+      action: (ctx) => {
+        if (ctx.appointmentOption.addons?.length) {
+          ctx.setStep("addons");
           return;
         }
 
-        if (
-          appointmentOption.durationType === "fixed" &&
-          appointmentOption.duration &&
-          goBack
-        ) {
-          goBack();
-          return;
-        }
-
-        setStep("duration");
+        goToStepBeforeAddons(ctx);
       },
     },
     next: {
@@ -185,27 +228,18 @@ export const ScheduleSteps: Record<StepType, Step> = {
     prev: {
       show: () => true,
       isEnabled: () => true,
-      action: ({ setStep, appointmentOption, goBack, isOnlyWaitlist }) => {
-        if (!isOnlyWaitlist) {
-          setStep("calendar");
+      action: (ctx) => {
+        if (!ctx.isOnlyWaitlist) {
+          ctx.setStep("calendar");
           return;
         }
 
-        if (appointmentOption.addons?.length) {
-          setStep("addons");
+        if (ctx.appointmentOption.addons?.length) {
+          ctx.setStep("addons");
           return;
         }
 
-        if (
-          appointmentOption.durationType === "fixed" &&
-          appointmentOption.duration &&
-          !!goBack
-        ) {
-          goBack();
-          return;
-        }
-
-        setStep("duration");
+        goToStepBeforeAddons(ctx);
       },
     },
     next: {

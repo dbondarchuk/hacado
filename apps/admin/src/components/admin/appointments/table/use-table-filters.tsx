@@ -1,6 +1,6 @@
 "use client";
 
-import { appointmentsSearchParams } from "@timelish/api-sdk";
+import { appointmentsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 
@@ -29,6 +29,11 @@ export function useAppointmentsTableFilters() {
     appointmentsSearchParams.discount.withOptions({ shallow: false }),
   );
 
+  const [memberFilter, setMemberFilter] = useQueryState(
+    "member",
+    appointmentsSearchParams.member.withOptions({ shallow: false }),
+  );
+
   const [page, setPage] = useQueryState("page", appointmentsSearchParams.page);
 
   const [start, setStartValue] = useQueryState(
@@ -48,6 +53,7 @@ export function useAppointmentsTableFilters() {
     setEndValue(null);
     setCustomerFilter(null);
     setDiscountFilter(null);
+    setMemberFilter(null);
 
     setPage(1);
   }, [
@@ -57,6 +63,7 @@ export function useAppointmentsTableFilters() {
     setEndValue,
     setCustomerFilter,
     setDiscountFilter,
+    setMemberFilter,
     setPage,
   ]);
 
@@ -67,9 +74,18 @@ export function useAppointmentsTableFilters() {
       !!start ||
       !!end ||
       !!customerFilter ||
-      !!discountFilter
+      !!discountFilter ||
+      !!memberFilter
     );
-  }, [searchQuery, statusFilter, start, end, customerFilter, discountFilter]);
+  }, [
+    searchQuery,
+    statusFilter,
+    start,
+    end,
+    customerFilter,
+    discountFilter,
+    memberFilter,
+  ]);
 
   return {
     searchQuery,
@@ -88,5 +104,7 @@ export function useAppointmentsTableFilters() {
     setCustomerFilter,
     discountFilter,
     setDiscountFilter,
+    memberFilter,
+    setMemberFilter,
   };
 }

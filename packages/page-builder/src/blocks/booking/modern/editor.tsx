@@ -1,12 +1,12 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { Booking } from "./components/booking";
 import { BookingProps } from "./schema";
 import { styles } from "./styles";
@@ -30,6 +30,7 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         hideTitle={props.hideTitle}
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}
+        flowOrder={props.flowOrder}
         {...overlayProps}
       />
     </>

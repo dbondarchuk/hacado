@@ -44,7 +44,11 @@ export const EDITOR_FONTS: FontEntry[] = [
   { label: "Allura", value: "Allura", fallback: "cursive" },
   { label: "Tangerine", value: "Tangerine", fallback: "cursive" },
   { label: "Cookie", value: "Cookie", fallback: "cursive" },
-  { label: "Cormorant Garamond", value: "Cormorant Garamond", fallback: "serif" },
+  {
+    label: "Cormorant Garamond",
+    value: "Cormorant Garamond",
+    fallback: "serif",
+  },
   { label: "Cormorant", value: "Cormorant", fallback: "serif" },
   { label: "Abril Fatface", value: "Abril Fatface", fallback: "serif" },
   { label: "Cinzel", value: "Cinzel", fallback: "serif" },

@@ -2,8 +2,8 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import { ContainerProps, styles } from "./schema";
 
 export const ContainerEditor = ({ style, props }: ContainerProps) => {

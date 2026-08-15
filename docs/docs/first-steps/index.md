@@ -5,7 +5,7 @@ description: Your checklist and dashboard tour right after setup - about 30 minu
 
 # First steps
 
-You finished signup and the setup wizard. Welcome to your **dashboard** - the place where you run your business on Timelish.
+You finished signup and the setup wizard. Welcome to your **dashboard** - the place where you run your business on Hacado.
 
 This guide is your checklist. Work through the steps below in order. Most owners can go from a fresh account to a live, tested booking page in **about 30 minutes**.
 
@@ -20,14 +20,14 @@ This guide is your checklist. Work through the steps below in order. Most owners
 7. **[Test the customer experience](./test-the-customer-experience.md)** - book yourself once to prove everything works.
 8. **[Manage bookings and customers](./manage-bookings-and-customers.md)** - learn where incoming bookings and client info live.
 
-## Two sides of Timelish
+## Two sides of Hacado
 
 | Where                    | What it is for                                                   |
 | ------------------------ | ---------------------------------------------------------------- |
 | **Your dashboard**       | You set up services, hours, your website, messages, and billing. |
 | **Your booking website** | Clients see your pages and book time with you.                   |
 
-Your booking website address looks like **`https://yourname.timeli.sh`**. You can find and copy it under **Settings** → **Brand**. You can also use your own web address later - see [Connect your own web address](/docs/daily-use/connect-domain).
+Your booking website address looks like **`https://yourname.haca.do`**. You can find and copy it under **Settings** → **Brand**. You can also use your own web address later - see [Connect your own web address](/docs/daily-use/connect-domain).
 
 ## Get to know your dashboard
 

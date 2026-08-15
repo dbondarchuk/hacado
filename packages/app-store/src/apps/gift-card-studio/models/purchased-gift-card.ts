@@ -8,7 +8,7 @@ import {
   WithOrganizationId,
   zEmail,
   zObjectId,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 export const PURCHASED_GIFT_CARDS_COLLECTION_NAME =

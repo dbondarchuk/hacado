@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import { Type } from "lucide-react";
 import { AllStylesSchemas } from "../../style";
 import { FONT_FAMILIES_LIST } from "../../style-inputs/helpers/font-family";

@@ -2,7 +2,7 @@ import {
   Time,
   parseTime as typesParseTime,
   WeekIdentifier,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime, DateTimeUnit, Duration, Interval } from "luxon";
 
 const REFERENCE_DATE = DateTime.fromObject({ year: 1970, month: 1, day: 5 }); // January 5, 1970 (Monday)

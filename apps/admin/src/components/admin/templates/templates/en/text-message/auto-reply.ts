@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const autoReplyTextMessageTemplate: TemplatesTemplate = {
   name: "Text message auto reply",

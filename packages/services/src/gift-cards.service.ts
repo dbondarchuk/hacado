@@ -22,8 +22,8 @@ import {
   type GiftCardDeletedPayload,
   type GiftCardStatusChangedPayload,
   type GiftCardUpdatedPayload,
-} from "@timelish/types";
-import { buildSearchQuery, escapeRegex } from "@timelish/utils";
+} from "@hacado/types";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

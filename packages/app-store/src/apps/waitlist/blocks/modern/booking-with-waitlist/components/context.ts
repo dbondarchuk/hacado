@@ -1,4 +1,5 @@
 import {
+  ActiveStaffOption,
   ApplyDiscountResponse,
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -8,17 +9,22 @@ import {
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
   Fields,
+  getActiveStaffAcrossAssignments,
+  PublicStaffMember,
   WithLabelFieldData,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext, useMemo } from "react";
 import { WaitlistDate } from "../../../../models/waitlist";
 import { WaitlistPublicKeys } from "../../../../translations/types";
-import { BOOKING_STEPS, ScheduleSteps, WAITLIST_STEPS } from "./steps";
+import { getSteps, ScheduleSteps } from "./steps";
 
 export type StepType =
   | "option"
+  | "specialist"
   | "addons"
   | "calendar"
   | "form"
@@ -29,6 +35,7 @@ export type StepType =
   | "waitlist-review";
 
 export type FlowType = "booking" | "waitlist";
+export type FlowOrder = "service-first" | "specialist-first";
 
 export type StepDirectionButton = {
   action: (ctx: ScheduleContextProps) => void | Promise<void>;
@@ -52,6 +59,13 @@ export type ScheduleContextProps = {
 
   flow: FlowType;
   setFlow: (flow: FlowType) => void;
+
+  /** Active org staff members, for resolving `appointmentOption.staff` assignments. */
+  members: PublicStaffMember[];
+  flowOrder: FlowOrder;
+  selectedMemberId: string | null;
+  setSelectedMemberId: (memberId: string | null) => void;
+  activeStaff: ActiveStaffOption[];
 
   selectedAppointmentOption?: AppointmentChoice;
   setSelectedAppointmentOption: (option?: AppointmentChoice) => void;
@@ -79,7 +93,8 @@ export type ScheduleContextProps = {
   }) => void;
 
   availability: Availability;
-  fetchAvailability: () => Promise<void>;
+  /** Optional memberId override avoids stale state right after setSelectedMemberId. */
+  fetchAvailability: (memberId?: string | null) => Promise<void>;
 
   checkDuplicateAppointments: () => Promise<CheckDuplicateAppointmentsResponse>;
   closestDuplicateAppointment?: LuxonDateTime;
@@ -135,8 +150,17 @@ const getAppointmentDuration = ({
   duration,
   selectedAppointmentOption,
   selectedAddons,
+  selectedMemberId,
+  activeStaff,
 }: ScheduleContextProps) => {
-  let baseDuration = duration;
+  const selectedStaff = selectedMemberId
+    ? activeStaff.find((s) => s.member.id === selectedMemberId)
+    : undefined;
+
+  let baseDuration =
+    selectedAppointmentOption?.durationType === "fixed"
+      ? (selectedStaff?.assignment.durationOverride ?? duration)
+      : duration;
   if (!baseDuration && selectedAppointmentOption) {
     if (selectedAppointmentOption.durationType === "fixed") {
       baseDuration = selectedAppointmentOption.duration;
@@ -150,7 +174,13 @@ const getAppointmentDuration = ({
   return (
     baseDuration +
     (selectedAddons || []).reduce(
-      (sum, addon) => sum + (addon.duration || 0),
+      (sum, addon) =>
+        sum +
+        (effectiveAddonDuration(
+          addon.duration,
+          addon.staff,
+          selectedMemberId,
+        ) || 0),
       0,
     )
   );
@@ -160,20 +190,35 @@ const getAppointmentBasePrice = ({
   selectedAppointmentOption,
   selectedAddons,
   duration,
+  selectedMemberId,
+  activeStaff,
 }: ScheduleContextProps) => {
   let basePrice = 0;
   if (selectedAppointmentOption) {
+    const selectedStaff = selectedMemberId
+      ? activeStaff.find((s) => s.member.id === selectedMemberId)
+      : undefined;
+
     if (selectedAppointmentOption.durationType === "fixed") {
-      basePrice = selectedAppointmentOption.price || 0;
-    } else {
       basePrice =
-        ((selectedAppointmentOption.pricePerHour || 0) / 60) * (duration || 0);
+        selectedStaff?.effectivePrice ?? selectedAppointmentOption.price ?? 0;
+    } else {
+      const pricePerHour =
+        selectedStaff?.effectivePrice ??
+        selectedAppointmentOption.pricePerHour ??
+        0;
+      basePrice = (pricePerHour / 60) * (duration || 0);
     }
   }
 
   return (
     basePrice +
-    (selectedAddons || []).reduce((sum, addon) => sum + (addon.price || 0), 0)
+    (selectedAddons || []).reduce(
+      (sum, addon) =>
+        sum +
+        (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
+      0,
+    )
   );
 };
 
@@ -206,15 +251,21 @@ const getAppointmentPrice = (ctx: ScheduleContextProps) => {
 export const useScheduleContext = () => {
   const ctx = useContext(ScheduleContext);
   const steps = useMemo(
-    () => (ctx.flow === "booking" ? BOOKING_STEPS : WAITLIST_STEPS),
-    [ctx.flow],
+    () => getSteps(ctx.flow, ctx.flowOrder),
+    [ctx.flow, ctx.flowOrder],
   );
 
   const currentStepIndex = steps.indexOf(ctx.currentStep);
   const step = ScheduleSteps[ctx.currentStep];
 
+  const selectedMember =
+    ctx.activeStaff.find((s) => s.member.id === ctx.selectedMemberId) ?? null;
+
   const baseDuration =
-    ctx.duration ||
+    (ctx.selectedAppointmentOption?.durationType === "fixed"
+      ? selectedMember?.assignment.durationOverride
+      : undefined) ??
+    ctx.duration ??
     (ctx.selectedAppointmentOption?.durationType === "fixed"
       ? ctx.selectedAppointmentOption?.duration
       : ctx.selectedAppointmentOption?.durationMin);
@@ -227,6 +278,12 @@ export const useScheduleContext = () => {
 
   const price = getAppointmentPrice(baseCtx);
 
+  const staffAcrossOptions: PublicStaffMember[] =
+    getActiveStaffAcrossAssignments(
+      ctx.appointmentOptions.map((o) => o.staff),
+      ctx.members,
+    );
+
   return {
     ...baseCtx,
     basePrice: getAppointmentBasePrice(baseCtx),
@@ -235,5 +292,7 @@ export const useScheduleContext = () => {
     currentStepIndex,
     steps,
     step,
+    selectedMember,
+    staffAcrossOptions,
   };
 };

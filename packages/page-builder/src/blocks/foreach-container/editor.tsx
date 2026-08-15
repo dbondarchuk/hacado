@@ -7,10 +7,10 @@ import {
   useCurrentBlock,
   useEditorArgs,
   useIsSelectedBlock,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { ForeachContainerProps, styles } from "./schema";
 import { sliceForeachArray } from "./utils";

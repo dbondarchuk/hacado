@@ -1,6 +1,6 @@
 import { getCustomerSessionFromRequest } from "@/utils/customer-auth/session";
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextResponse } from "next/server";
 
 export async function GET() {

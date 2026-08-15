@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,
   DataTableAsyncFilterBox,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import React from "react";
 import { getBlogPosts } from "../../actions";
 import {

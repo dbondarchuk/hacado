@@ -1,15 +1,15 @@
 "use client";
 
 import { useCanUseFeature } from "@/lib/billing/use-subscription-plan-access";
-import { useI18n } from "@timelish/i18n";
-import { appointmentStatuses } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { appointmentStatuses } from "@hacado/types";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -17,7 +17,10 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   DiscountsDataTableAsyncFilterBox,
-} from "@timelish/ui-admin";
+  MembersDataTableAsyncFilterBox,
+  useAuth,
+} from "@hacado/ui-admin";
+import { canFilterByMember } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { useAppointmentsTableFilters } from "./use-table-filters";
@@ -27,6 +30,8 @@ export const AppointmentsTableAction: React.FC<{
   className?: string;
 }> = ({ showCustomerFilter, className }) => {
   const t = useI18n("admin");
+  const { user } = useAuth();
+  const showMemberFilter = canFilterByMember(user);
   const {
     statusFilter,
     setStatusFilter,
@@ -43,6 +48,8 @@ export const AppointmentsTableAction: React.FC<{
     setCustomerFilter,
     discountFilter,
     setDiscountFilter,
+    memberFilter,
+    setMemberFilter,
   } = useAppointmentsTableFilters();
 
   const canUseDiscounts = useCanUseFeature("discounts");
@@ -77,6 +84,12 @@ export const AppointmentsTableAction: React.FC<{
           setFilterValue={setDiscountFilter}
         />
       )}
+      {showMemberFilter ? (
+        <MembersDataTableAsyncFilterBox
+          filterValue={memberFilter || []}
+          setFilterValue={setMemberFilter as any}
+        />
+      ) : null}
     </>
   );
 

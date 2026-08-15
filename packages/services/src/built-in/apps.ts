@@ -1,4 +1,4 @@
-import { AppScope, IServicesContainer } from "@timelish/types";
+import { AppScope, IServicesContainer } from "@hacado/types";
 import { BuiltInBookingTrackingApp } from "../booking-tracking/app";
 import { BOOKING_TRACKING_APP_ID } from "../booking-tracking/const";
 

@@ -1,4 +1,4 @@
-import { zObjectId } from "@timelish/types";
+import { zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { CalendarWriterAdminAllKeys } from "./translations/types";
 
@@ -6,6 +6,7 @@ export const calendarWriterConfigurationSchema = z.object({
   appId: zObjectId(
     "app_calendar-writer_admin.validation.appId.required" satisfies CalendarWriterAdminAllKeys,
   ),
+  processOtherMembersAppointments: z.boolean().optional(),
 });
 
 export type CalendarWriterConfiguration = z.infer<
@@ -14,4 +15,5 @@ export type CalendarWriterConfiguration = z.infer<
 
 export type CalendarWriterStoredConfiguration = {
   appId: string | null;
+  processOtherMembersAppointments?: boolean;
 };

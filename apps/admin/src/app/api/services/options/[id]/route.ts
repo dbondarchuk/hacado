@@ -1,6 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { appointmentOptionSchema, okStatus } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
+import { appointmentOptionSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -49,7 +50,15 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/services/options/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/services/options/[id]")("PUT");
+  const auth = await requirePermission(
+    "service",
+    "update",
+    "AdminAPI/services/options/[id]",
+    "PUT",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
@@ -132,7 +141,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext<"/api/services/options/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/services/options/[id]")("DELETE");
+  const auth = await requirePermission(
+    "service",
+    "delete",
+    "AdminAPI/services/options/[id]",
+    "DELETE",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;

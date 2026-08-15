@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { TEXTBELT_APP_NAME } from "./const";
 import { TextBeltLogo } from "./logo";
 import {
@@ -12,8 +12,9 @@ export const TextBeltApp: App<TextBeltAdminNamespace, TextBeltAdminKeys> = {
   scope: ["text-message-send"],
   category: ["apps.categories.communications"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <TextBeltLogo className={className} />,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_text-belt_admin.app.description",
   },

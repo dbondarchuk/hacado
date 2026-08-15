@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/rte-inline",
+  "name": "@hacado/rte-inline",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -15,16 +15,16 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@types/react-window": "^1.8.8",
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
-    "typescript": "5.5.4"
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
+    "typescript": "6.0.2"
   },
   "dependencies": {
-    "@timelish/ui": "*",
-    "@timelish/i18n": "*"
+    "@hacado/ui": "*",
+    "@hacado/i18n": "*"
   }
 }

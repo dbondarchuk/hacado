@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
 import {
   Button,
   Form,
@@ -12,13 +12,16 @@ import {
   FormMessage,
   InfoTooltip,
   Spinner,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AppSelector,
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+  useAuth,
+} from "@hacado/ui-admin";
+import { canProcessOtherMembersAppointments } from "@hacado/utils";
 import React from "react";
+import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CalendarWriterApp } from "./app";
 import {
@@ -36,6 +39,8 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
   onError,
   appId: existingAppId,
 }) => {
+  const { user } = useAuth();
+  const canProcessOthers = canProcessOtherMembersAppointments(user);
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<CalendarWriterConfiguration>({
       appId: existingAppId,
@@ -81,6 +86,16 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
                 </FormItem>
               )}
             />
+            {canProcessOthers && (
+              <ProcessOtherMembersAppointmentsField
+                control={form.control}
+                label={t("form.processOtherMembersAppointments.label")}
+                description={t(
+                  "form.processOtherMembersAppointments.description",
+                )}
+                isLoading={isLoading}
+              />
+            )}
             <Button
               type="submit"
               variant="default"

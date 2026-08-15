@@ -1,4 +1,4 @@
-import { sortSchema } from "@timelish/types";
+import { sortSchema } from "@hacado/types";
 import { parseAsInteger, parseAsJson, parseAsString } from "nuqs/server";
 
 export const baseSearchParams = {

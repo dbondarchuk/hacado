@@ -1,4 +1,4 @@
-import { languages } from "@timelish/i18n";
+import { languages } from "@hacado/i18n";
 import * as z from "zod";
 import { asOptionalField, zAssetName, zNonEmptyString } from "../../utils";
 

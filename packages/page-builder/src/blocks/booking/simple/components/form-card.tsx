@@ -3,7 +3,7 @@ import {
   ApplyDiscountRequest,
   AppointmentFields,
   getFields,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import React, { useEffect, useMemo } from "react";
 
@@ -21,12 +21,12 @@ import {
   cn,
   useCurrencyFormat,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
-import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n } from "@timelish/i18n";
-import { fieldSchemaMapper, fieldsComponentMap } from "@timelish/ui";
-import { deepEqual } from "@timelish/utils";
+import { clientApi } from "@hacado/api-sdk";
+import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui";
+import { deepEqual } from "@hacado/utils";
 import { DateTime as Luxon } from "luxon";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
@@ -219,7 +219,6 @@ export const FormCard: React.FC = () => {
       } finally {
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);
 
   return (
@@ -235,7 +234,7 @@ export const FormCard: React.FC = () => {
 
             {showPromoCode && !!basePrice && (
               <FormItem>
-                <Label htmlFor="promo-code">
+                <Label htmlFor="promo-code" className="text-sm font-medium">
                   {i18n("common.labels.formPromoCode")}
                 </Label>
                 <div className="flex flex-row gap-2">
@@ -274,8 +273,8 @@ export const FormCard: React.FC = () => {
             )}
             {!!basePrice && (
               <FormItem>
-                <Label htmlFor="gift-card-code">
-                  {i18n("booking.giftCard.title")}
+                <Label htmlFor="gift-card-code" className="text-sm font-medium">
+                  {i18n("booking.giftCard.trigger")}
                 </Label>
                 <div className="flex flex-row gap-2">
                   <Input

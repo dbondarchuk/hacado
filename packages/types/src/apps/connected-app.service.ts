@@ -1,4 +1,5 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
+import type { SessionUser } from "../users/session-user";
 import { ConnectedAppData, ConnectedAppResponse } from "./connected-app.data";
 import { IConnectedAppProps } from "./connected-app.props";
 
@@ -41,18 +42,18 @@ export interface IConnectedApp<TData = any, TToken = any> {
     appData: ConnectedAppData<TData, TToken>,
     data: any,
     request?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ) => Promise<any>;
   processStaticRequest?: (
     data: any,
     request?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ) => Promise<any>;
   processFormRequest?: (
     appData: ConnectedAppData<TData, TToken>,
     formData: FormData,
     request?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ) => Promise<any>;
   install?: (appData: ConnectedAppData<TData, TToken>) => Promise<void>;
   unInstall?: (

@@ -1,3 +1,4 @@
+import { getSession } from "@/app/utils";
 import { CustomersTableColumnLength } from "@/components/admin/customers/table/columns";
 import { CustomersTable } from "@/components/admin/customers/table/table";
 import { CustomersTableAction } from "@/components/admin/customers/table/table-action";
@@ -5,11 +6,12 @@ import PageContainer from "@/components/admin/layout/page-container";
 import {
   customersSearchParamsCache,
   customersSearchParamsSerializer,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading, Link } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading, Link } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Plus } from "lucide-react";
 import { Metadata } from "next/types";
 import { Suspense } from "react";
@@ -31,6 +33,8 @@ export default async function CustomersPage(props: Params) {
   const searchParams = await props.searchParams;
   const parsed = customersSearchParamsCache.parse(searchParams);
   const key = customersSearchParamsSerializer({ ...parsed });
+  const session = await getSession();
+  const canCreate = hasPermission(session.user, "customer", "create");
 
   logger.debug(
     {
@@ -56,9 +60,11 @@ export default async function CustomersPage(props: Params) {
               description={t("customers.manageCustomers")}
             />
 
-            <Link button href={"/dashboard/customers/new"} variant="default">
-              <Plus /> {t("customers.addNew")}
-            </Link>
+            {canCreate ? (
+              <Link button href={"/dashboard/customers/new"} variant="default">
+                <Plus /> {t("customers.addNew")}
+              </Link>
+            ) : null}
           </div>
           {/* <Separator /> */}
         </div>

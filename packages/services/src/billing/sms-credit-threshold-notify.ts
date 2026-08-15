@@ -3,7 +3,7 @@ import {
   SMS_CREDITS_LOW_EVENT_TYPE,
   systemEventSource,
   type IEventService,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export function resolveSmsCreditThresholdKind(
   previousBalance: number,

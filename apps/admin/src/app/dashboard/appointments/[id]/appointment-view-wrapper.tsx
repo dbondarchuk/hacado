@@ -1,10 +1,10 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentView,
   AppointmentViewButtons,
   AppointmentViewProvider,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
 import { notFound } from "next/navigation";
 import React from "react";
 import { AppointmentDeclineDialogWrapper } from "./appointment-decline-dialog";

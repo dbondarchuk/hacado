@@ -1,11 +1,11 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   cn,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { GripVertical } from "lucide-react";
 import { memo, Ref, RefCallback } from "react";
 

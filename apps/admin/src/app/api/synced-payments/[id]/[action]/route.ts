@@ -1,9 +1,11 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import {
   syncedPaymentAssignablePaymentTypes,
+  syncedPaymentStandalonePaymentTypes,
   type SyncedPaymentAssignablePaymentType,
-} from "@timelish/types";
+  type SyncedPaymentStandalonePaymentType,
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +16,9 @@ const ACTIONS = [
   "reassign",
   "assign",
   "ignore",
+  "record",
+  "unassign",
+  "unrecord",
   "update",
   "revert",
 ] as const;
@@ -25,9 +30,15 @@ export async function POST(
   request: NextRequest,
   { params }: RouteContext<"/api/synced-payments/[id]/[action]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/synced-payments/[id]/[action]")(
+  const auth = await requirePermission(
+    "syncedPayment",
+    "manage",
+    "AdminAPI/synced-payments/[id]/[action]",
     "POST",
   );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id, action } = await params;
@@ -43,7 +54,10 @@ export async function POST(
   const typedAction = action as Action;
 
   const body =
-    typedAction === "confirm" || typedAction === "revert"
+    typedAction === "confirm" ||
+    typedAction === "revert" ||
+    typedAction === "unassign" ||
+    typedAction === "unrecord"
       ? {}
       : await request.json().catch(() => ({}));
 
@@ -92,7 +106,35 @@ export async function POST(
     }
   }
 
-  logger.debug({ id, action, appointmentId }, "Processing synced payment action");
+  if (typedAction === "record") {
+    const customerId = body?.customerId;
+    const paymentType = body?.paymentType as
+      | SyncedPaymentStandalonePaymentType
+      | undefined;
+    if (
+      !customerId ||
+      typeof customerId !== "string" ||
+      !paymentType ||
+      !(syncedPaymentStandalonePaymentTypes as readonly string[]).includes(
+        paymentType,
+      )
+    ) {
+      logger.warn({ id, action, body }, "Invalid payload for record action");
+      return NextResponse.json(
+        {
+          success: false,
+          error: "customerId and a standalone paymentType are required",
+          code: "invalid_record",
+        },
+        { status: 400 },
+      );
+    }
+  }
+
+  logger.debug(
+    { id, action, appointmentId },
+    "Processing synced payment action",
+  );
 
   try {
     const service = servicesContainer.syncedPaymentsService;
@@ -112,6 +154,22 @@ export async function POST(
         break;
       case "assign":
         result = await service.assign(id, appointmentId!, actor);
+        break;
+      case "unassign":
+        result = await service.unassign(id, actor);
+        break;
+      case "unrecord":
+        result = await service.unrecord(id, actor);
+        break;
+      case "record":
+        result = await service.recordStandalone(
+          id,
+          {
+            customerId: body.customerId as string,
+            paymentType: body.paymentType as SyncedPaymentStandalonePaymentType,
+          },
+          actor,
+        );
         break;
       case "update":
         result = await service.updateAmounts(

@@ -1,4 +1,4 @@
-import type { Language } from "@timelish/i18n";
+import type { Language } from "@hacado/i18n";
 
 import {
   Appointment,
@@ -9,11 +9,12 @@ import {
   Currency,
   Customer,
   GeneralConfiguration,
+  OrganizationMember,
   Payment,
   SocialConfiguration,
   SocialLinkType,
   socialType,
-} from "@timelish/types";
+} from "@hacado/types";
 import { formatArguments, FormattedArguments } from "./format-arguments";
 import { capitalize } from "./string";
 import { durationToTime } from "./time";
@@ -42,6 +43,7 @@ type Props<
 > = {
   appointment?: TAppointment;
   customer?: Customer | null;
+  user?: OrganizationMember;
   config: {
     booking: BookingConfiguration;
     general: GeneralConfiguration;
@@ -54,6 +56,7 @@ type Props<
   currency?: Currency;
   useAppointmentTimezone?: boolean;
   additionalProperties?: T;
+  member?: OrganizationMember;
 };
 
 type ArgsProps = {
@@ -100,6 +103,7 @@ type ArgsProps = {
   currency: Currency;
   websiteUrl: string;
   adminUrl: string;
+  user?: OrganizationMember;
 };
 
 type BaseArgs<TAppointment extends Appointment | null | undefined> =
@@ -129,6 +133,8 @@ export const getArguments = <
   additionalProperties,
   adminUrl,
   websiteUrl,
+  user,
+  member,
 }: Props<TAppointment, TAdditional>): FormattedArguments<
   Args<TAppointment, TAdditional>
 > => {
@@ -198,6 +204,7 @@ export const getArguments = <
       : undefined;
 
   const extendedArgs: ArgsProps = {
+    user,
     payments: payments || [],
     totalAmountLeft,
     totalAmountRefunded: totalRefunded,
@@ -258,6 +265,7 @@ export const getArguments = <
       appointment?.totalPrice || appointment?.discount?.discountAmount
         ? appointment.totalPrice || 0
         : undefined,
+    member: member || appointment?.member,
   };
 
   const args = formatArguments(

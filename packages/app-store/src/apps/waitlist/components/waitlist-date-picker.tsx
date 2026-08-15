@@ -1,5 +1,5 @@
-import { useFormatter, useI18n, useLocale } from "@timelish/i18n";
-import { DateRange } from "@timelish/types";
+import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
+import { DateRange } from "@hacado/types";
 import {
   Button,
   CalendarDateRangePicker,
@@ -17,8 +17,8 @@ import {
   DialogTrigger,
   Label,
   useTimeZone,
-} from "@timelish/ui";
-import { eachOfInterval } from "@timelish/utils";
+} from "@hacado/ui";
+import { eachOfInterval } from "@hacado/utils";
 import { ChevronDown, ChevronRight, Plus, X } from "lucide-react";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useState } from "react";

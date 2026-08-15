@@ -1,6 +1,6 @@
 ---
 sidebar_position: 34
-description: Publish articles and updates on your public Timelish website.
+description: Publish articles and updates on your public Hacado website.
 ---
 
 # Blog

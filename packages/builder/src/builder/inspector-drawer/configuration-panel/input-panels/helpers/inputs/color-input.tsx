@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch } from "@uiw/react-color";
 import { Plus } from "lucide-react";
 import { ResetButton } from "./reset-button";

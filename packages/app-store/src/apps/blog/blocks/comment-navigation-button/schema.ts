@@ -1,9 +1,9 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
+import { BaseReaderBlockProps } from "@hacado/builder";
 import {
   ALL_STYLES,
   COLORS,
   getStylesSchema,
-} from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base/style";
 import * as z from "zod";
 
 export const styles = ALL_STYLES;

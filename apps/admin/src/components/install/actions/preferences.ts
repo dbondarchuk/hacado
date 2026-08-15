@@ -1,12 +1,12 @@
 "use server";
 
 import { auth } from "@/app/auth";
-import { languages } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
-import { ORGANIZATIONS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import { type Organization } from "@timelish/types";
+import { languages } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
+import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import { type Organization } from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { runCompleteInstallSetupSteps } from "./complete-setup";
@@ -117,7 +117,7 @@ export async function completeInstallSetup(
     (await services.configurationService.getConfiguration("general")) ?? null;
   const brand =
     (await services.configurationService.getConfiguration("brand")) ?? null;
-  if (!general) {
+  if (!general || Object.keys(general).length === 0) {
     logger.error({ organizationId }, "General configuration not found");
     return { ok: false, code: "no_general" };
   }
@@ -140,14 +140,14 @@ export async function completeInstallSetup(
     (typeof general.name === "string" && general.name.trim()) ||
     (typeof brand?.title === "string" && brand.title.trim()) ||
     (typeof legacyGeneral.title === "string" && legacyGeneral.title.trim()) ||
-    "Timeli.sh";
+    "Hacado";
 
   const hasAddress =
     typeof general.address === "string" && general.address.trim().length > 0;
 
   const setupResult = await runCompleteInstallSetupSteps({
     services,
-    userId: session.user.id,
+    user: session.user,
     prefs,
     language: installLanguage,
     businessName,

@@ -4,7 +4,7 @@ import {
   okStatus,
   UploadedFile,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AssetsSearchParams,
   serializeAssetsSearchParams,

@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { DatabaseId } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { DatabaseId } from "@hacado/types";
 import {
   Breadcrumbs,
   cn,
@@ -15,8 +14,9 @@ import {
   Spinner,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

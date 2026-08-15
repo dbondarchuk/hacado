@@ -18,7 +18,7 @@ import {
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
   useOpenState,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function NumberedIndentListToolbarButton() {
   const editor = useEditorRef();

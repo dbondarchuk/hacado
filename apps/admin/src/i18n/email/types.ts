@@ -1,4 +1,4 @@
-import { UserEmailTemplateProps } from "@timelish/email-builder/static";
+import { UserEmailTemplateProps } from "@hacado/email-builder/static";
 
 export type EmailTemplate = {
   changeEmail: {
@@ -10,6 +10,14 @@ export type EmailTemplate = {
     body: UserEmailTemplateProps;
   };
   emailVerification: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
+  teamInvitation: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
+  membersReactivated: {
     subject: string;
     body: UserEmailTemplateProps;
   };

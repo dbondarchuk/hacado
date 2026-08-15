@@ -6,11 +6,13 @@ import {
   inferParserType,
   parseAsBoolean,
   parseAsIsoDateTime,
+  parseAsString,
 } from "nuqs/server";
 export const calendarSearchParams = {
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   includeDeclined: parseAsBoolean.withDefault(false),
+  member: parseAsString,
 };
 
 export const calendarSearchParamsLoader = createLoader(calendarSearchParams);

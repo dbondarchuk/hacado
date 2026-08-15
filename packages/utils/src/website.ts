@@ -25,3 +25,10 @@ export const getAdminUrl = () => {
     : "https";
   return `${schema}://${process.env.ADMIN_DOMAIN}`;
 };
+
+export const getAppsExternalUrl = () => {
+  const schema = process.env.APPS_EXTERNAL_DOMAIN?.startsWith("localhost")
+    ? "http"
+    : "https";
+  return `${schema}://${process.env.APPS_EXTERNAL_DOMAIN}`;
+};

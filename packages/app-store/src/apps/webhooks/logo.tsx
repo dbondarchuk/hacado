@@ -1,4 +1,4 @@
-import { AppLogoProps } from "@timelish/types";
+import { AppLogoProps } from "@hacado/types";
 
 export function WebhooksLogo(props: AppLogoProps) {
   return (

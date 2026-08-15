@@ -1,5 +1,6 @@
-import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -10,13 +11,20 @@ export async function GET(
 ) {
   const logger = getLoggerFactory("AdminAPI/communication-logs/[id]")("GET");
   const { id } = await params;
-  const servicesContainer = await getServicesContainer();
+  const [servicesContainer, user] = await Promise.all([
+    getServicesContainer(),
+    getUser(),
+  ]);
+  const memberIds = gateMemberIds(user, undefined, {
+    canFilter: canFilterCommunicationByMember,
+  });
 
-  logger.debug({ logId: id }, "Fetching communication log payload");
+  logger.debug({ logId: id, memberIds }, "Fetching communication log payload");
 
   const content =
     await servicesContainer.communicationLogsService.getCommunicationLogContent(
       id,
+      { memberId: memberIds ?? undefined },
     );
 
   if (!content) {

@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { URL_BUSY_EVENTS_APP_NAME } from "./const";
 import { UrlBusyEventsLogo } from "./logo";
 import {
@@ -15,9 +15,11 @@ export const UrlBusyEventsApp: App<
   scope: ["calendar-read"],
   category: ["apps.categories.calendar"],
   type: "basic",
+  target: "member",
+  requiredPermission: { resource: "app", action: "installPrivileged" },
   Logo: ({ className }) => <UrlBusyEventsLogo className={className} />,
   description: {
     text: "app_url-busy-events_admin.app.description",
   },
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
 };

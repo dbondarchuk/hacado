@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, popoverVariants } from "@timelish/ui";
+import { cn, popoverVariants } from "@hacado/ui";
 import {
   CommentProvider,
   CommentsPositioner,

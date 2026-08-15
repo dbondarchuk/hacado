@@ -1,8 +1,8 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { useI18n } from "@timelish/i18n";
-import { Button, Progress, Spinner, toast } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Progress, Spinner, toast } from "@hacado/ui";
 import { Mail } from "lucide-react";
 import { useState } from "react";
 

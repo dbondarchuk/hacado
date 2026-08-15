@@ -1,12 +1,12 @@
 "use client";
 
-import { ConfigurationProps, TextInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { ConfigurationProps, TextInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   RawNumberInput,
   StylesConfigurationPanel,
-} from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { containerShortcuts } from "../container/shortcuts";
 import { ForeachContainerProps, styles } from "./schema";

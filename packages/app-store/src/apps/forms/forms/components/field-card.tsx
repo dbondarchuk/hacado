@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useI18n } from "@timelish/i18n";
-import { WithId } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { WithId } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +17,7 @@ import {
   CardContent,
   CardHeader,
   cn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { FC } from "react";

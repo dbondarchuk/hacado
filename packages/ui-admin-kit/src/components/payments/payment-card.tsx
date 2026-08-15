@@ -1,7 +1,7 @@
 "use client";
 
-import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@timelish/i18n";
-import { Payment, PaymentStatus, PaymentSummary } from "@timelish/types";
+import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { Payment, PaymentStatus, PaymentSummary } from "@hacado/types";
 import {
   Badge,
   Button,
@@ -10,7 +10,9 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrencyFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canManageSyncedPayments } from "@hacado/utils";
 import { Check, CheckCircle, Clock, Pencil } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
@@ -116,6 +118,8 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
   const t = useI18n();
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
+  const { user } = useAuth();
+  const canManageSynced = canManageSyncedPayments(user);
 
   const dateTime =
     typeof paidAt === "string"
@@ -395,7 +399,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
 
       {/* Action */}
       <div className="px-5 py-4">
-        {canRefundPayment(payment) && (
+        {onRefund && canRefundPayment(payment) && (
           <PaymentRefundDialog payment={payment} onSuccess={onRefundSuccess}>
             <Button variant="destructive" size="md" className="w-full">
               {t("admin.payment.card.refund")}
@@ -403,7 +407,8 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
           </PaymentRefundDialog>
         )}
 
-        {method !== "online" &&
+        {onDelete &&
+          method !== "online" &&
           method !== "gift-card" &&
           (!("disableUpdate" in rest) || !rest.disableUpdate) && (
             <div className="mt-4 flex flex-row gap-2 w-full">
@@ -424,7 +429,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
             </div>
           )}
 
-        {syncedExternalId && status === "paid" && (
+        {canManageSynced && syncedExternalId && status === "paid" && (
           <div className="mt-4 w-full">
             <ManageSyncedPaymentDialog
               externalId={syncedExternalId}

@@ -1,4 +1,4 @@
-import { cn, Slider, Text } from "@timelish/ui";
+import { cn, Slider, Text } from "@hacado/ui";
 import React, { JSX } from "react";
 
 type SliderInputProps = {

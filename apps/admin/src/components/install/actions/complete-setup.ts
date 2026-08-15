@@ -5,6 +5,7 @@ import {
   AvailableApps,
   BLOG_APP_NAME,
   CALENDAR_WRITER_APP_NAME,
+  canInstallApp,
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   EMAIL_NOTIFICATION_APP_NAME,
@@ -13,22 +14,21 @@ import {
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
   WAITLIST_NOTIFICATIONS_APP_NAME,
-} from "@timelish/app-store";
-import { AppointmentNotificationsTemplates } from "@timelish/app-store/exports";
-import { languages } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { ServicesContainer } from "@timelish/services";
-import { canInstallApp } from "@timelish/app-store";
-import { resolvePlanTierFromOrganization } from "@timelish/services/billing";
-import type { ApiRequest } from "@timelish/types";
-import { BillingPlanTier } from "@timelish/types";
+} from "@hacado/app-store";
+import { AppointmentNotificationsTemplates } from "@hacado/app-store/exports";
+import { languages } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import type { ApiRequest, SessionUser } from "@hacado/types";
 import {
+  BillingPlanTier,
   bookingConfigurationSchema,
   systemEventSource,
   type PaymentsConfiguration,
   type TemplateUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BuiltInTemplateTemplates } from "../../admin/templates/templates";
 import {
   getDefaultBookingConfiguration,
@@ -179,7 +179,7 @@ async function ensureInstallBookingPaymentsDefaultAppsAndCancellations(
 
 async function ensureInstalledApp(
   services: ReturnType<typeof ServicesContainer>,
-  userId: string,
+  memberId: string,
   appName: string,
 ) {
   const logger = getLoggerFactory("InstallActions")("ensureInstalledApp");
@@ -189,7 +189,7 @@ async function ensureInstalledApp(
 
   const appId = await services.connectedAppsService.createNewApp(
     appName,
-    userId,
+    memberId,
   );
   await services.connectedAppsService.updateApp(appId, {
     status: "connected",
@@ -282,7 +282,7 @@ async function ensureInstallCustomerNotificationTemplates(
   services: ReturnType<typeof ServicesContainer>,
   language: (typeof languages)[number],
   prefs: InstallPreferences,
-  userId: string,
+  user: SessionUser,
 ): Promise<void> {
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallCustomerNotificationTemplates",
@@ -346,7 +346,7 @@ async function ensureInstallCustomerNotificationTemplates(
             },
           },
           null as unknown as ApiRequest,
-          userId,
+          user,
         );
         logger.debug(
           { appId: emailApp._id },
@@ -407,7 +407,7 @@ async function ensureInstallCustomerNotificationTemplates(
             },
           },
           null as unknown as ApiRequest,
-          userId,
+          user,
         );
         logger.debug(
           { appId: smsApp._id },
@@ -422,7 +422,7 @@ async function ensureInstallAppointmentNotificationDefaults(
   services: ReturnType<typeof ServicesContainer>,
   language: (typeof languages)[number],
   prefs: InstallPreferences,
-  userId: string,
+  user: SessionUser,
 ): Promise<void> {
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallAppointmentNotificationDefaults",
@@ -470,7 +470,7 @@ async function ensureInstallAppointmentNotificationDefaults(
       name: defaultName,
     },
     null as unknown as ApiRequest,
-    userId,
+    user,
   )) as boolean;
   if (!isUnique) return;
 
@@ -492,7 +492,7 @@ async function ensureInstallAppointmentNotificationDefaults(
       },
     },
     null as unknown as ApiRequest,
-    userId,
+    user,
   );
   logger.debug(
     { appId: app._id, templateId, defaultName },
@@ -502,7 +502,7 @@ async function ensureInstallAppointmentNotificationDefaults(
 
 async function ensureInstallUserCalendarSources(
   services: ReturnType<typeof ServicesContainer>,
-  userId: string,
+  memberId: string,
 ): Promise<void> {
   const logger = getLoggerFactory("InstallActions")(
     "ensureInstallUserCalendarSources",
@@ -511,17 +511,17 @@ async function ensureInstallUserCalendarSources(
     await services.connectedAppsService.getAppsByScope("calendar-read");
   const connectedCalendarApps = apps.filter((a) => a.status === "connected");
   if (!connectedCalendarApps.length) {
-    logger.debug("No connected calendar apps; leaving user calendarSources");
+    logger.debug("No connected calendar apps; leaving member calendarSources");
     return;
   }
 
-  const user = await services.userService.getUser(userId);
-  if (!user) {
-    logger.error({ userId }, "User missing; cannot set calendarSources");
+  const member = await services.teamService.getMemberById(memberId);
+  if (!member) {
+    logger.error({ memberId }, "Member missing; cannot set calendarSources");
     return;
   }
 
-  const existingSources = user.calendarSources ?? [];
+  const existingSources = member.calendarSources ?? [];
   const existingIds = new Set(existingSources.map((s) => s.appId));
   const toAdd = connectedCalendarApps
     .filter((a) => !existingIds.has(a._id))
@@ -532,12 +532,16 @@ async function ensureInstallUserCalendarSources(
     return;
   }
 
-  await services.userService.updateUser(userId, {
-    calendarSources: [...existingSources, ...toAdd],
-  });
+  await services.teamService.updateMemberProfile(
+    memberId,
+    {
+      calendarSources: [...existingSources, ...toAdd],
+    },
+    systemEventSource,
+  );
   logger.debug(
     { addedAppIds: toAdd.map((x) => x.appId) },
-    "Merged connected calendar apps into user calendarSources",
+    "Merged connected calendar apps into member calendarSources",
   );
 }
 
@@ -701,7 +705,7 @@ async function ensureInstallDefaultConfigurations(
 
 export async function runCompleteInstallSetupSteps(args: {
   services: ReturnType<typeof ServicesContainer>;
-  userId: string;
+  user: SessionUser;
   prefs: InstallPreferences;
   language: (typeof languages)[number];
   businessName: string;
@@ -710,7 +714,15 @@ export async function runCompleteInstallSetupSteps(args: {
   const logger = getLoggerFactory("InstallActions")(
     "runCompleteInstallSetupSteps",
   );
-  const { services, userId, prefs: rawPrefs, language, businessName, hasAddress } = args;
+  const {
+    services,
+    user,
+    prefs: rawPrefs,
+    language,
+    businessName,
+    hasAddress,
+  } = args;
+  const memberId = user.memberId;
 
   const org = await services.organizationService.getOrganization();
   const planTier = resolvePlanTierFromOrganization(org);
@@ -799,7 +811,7 @@ export async function runCompleteInstallSetupSteps(args: {
       continue;
     }
     logger.debug({ appName: name }, "Ensuring app is installed");
-    await ensureInstalledApp(services, userId, name);
+    await ensureInstalledApp(services, memberId, name);
   }
 
   if (prefs.inviteMode === "calendar_writer") {
@@ -833,7 +845,7 @@ export async function runCompleteInstallSetupSteps(args: {
     );
     const writer = await ensureInstalledApp(
       services,
-      userId,
+      memberId,
       CALENDAR_WRITER_APP_NAME,
     );
 
@@ -844,7 +856,7 @@ export async function runCompleteInstallSetupSteps(args: {
         appId: targetId,
       },
       null as unknown as ApiRequest,
-      userId,
+      user,
     );
 
     logger.debug({ writerId: writer._id }, "Configured calendar writer app");
@@ -854,7 +866,7 @@ export async function runCompleteInstallSetupSteps(args: {
 
   await ensureDefaultInstallSchedule(services);
 
-  await ensureInstallUserCalendarSources(services, userId);
+  await ensureInstallUserCalendarSources(services, memberId);
 
   const bookingPaymentResult =
     await ensureInstallBookingPaymentsDefaultAppsAndCancellations(
@@ -871,7 +883,7 @@ export async function runCompleteInstallSetupSteps(args: {
     services,
     language,
     prefs,
-    userId,
+    user,
   );
 
   logger.debug(
@@ -882,7 +894,7 @@ export async function runCompleteInstallSetupSteps(args: {
     services,
     language,
     prefs,
-    userId,
+    user,
   );
 
   if (prefs.optMyCabinet) {

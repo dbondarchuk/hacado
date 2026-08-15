@@ -1,15 +1,11 @@
 "use server";
 
-import {
-  getActor,
-  getOrganizationId,
-  getServicesContainer,
-} from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { getPolarClient } from "@timelish/services";
-import { ORGANIZATIONS_COLLECTION_NAME } from "@timelish/services/collections";
-import { getDbConnection } from "@timelish/services/database";
-import type { Organization } from "@timelish/types";
+import { getActor, getOrganizationId, getServicesContainer } from "@/app/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { getPolarClient } from "@hacado/services";
+import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { getDbConnection } from "@hacado/services/database";
+import type { Organization } from "@hacado/types";
 import { siteSettingsFormSchema } from "./site-settings-schema";
 
 export type SaveSiteSettingsResult =
@@ -34,10 +30,26 @@ export async function saveSiteSettingsAction(
   const d = parsed.data;
 
   try {
-    await services.configurationService.setConfiguration("general", d.general, source);
-    await services.configurationService.setConfiguration("brand", d.brand, source);
-    await services.configurationService.setConfiguration("social", d.social, source);
-    await services.configurationService.setConfiguration("styling", d.styling, source);
+    await services.configurationService.setConfiguration(
+      "general",
+      d.general,
+      source,
+    );
+    await services.configurationService.setConfiguration(
+      "brand",
+      d.brand,
+      source,
+    );
+    await services.configurationService.setConfiguration(
+      "social",
+      d.social,
+      source,
+    );
+    await services.configurationService.setConfiguration(
+      "styling",
+      d.styling,
+      source,
+    );
     logger.debug("Persisted site settings (general, brand, social, styling)");
 
     const organizationId = await getOrganizationId();

@@ -4,10 +4,10 @@ services:
     build:
       context: .
       dockerfile: apps/admin/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-admin:latest
+    image: ghcr.io/dbondarchuk/hacado-admin:latest
     env_file: ".env"
     environment:
-      - MONGODB_URI=${MONGODB_URI:-mongodb://host.docker.internal:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://host.docker.internal:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - TZ=America/New_York
       - AUTH_SECRET=${AUTH_SECRET:-n6WKAuaUVdOYMRReNYXEd/sHLF/Ddfams+FAGMe7vzk=}
@@ -37,13 +37,15 @@ services:
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
     restart: unless-stopped
     ports:
       - "3001:3001"
     volumes:
       - "./apps/admin/public/upload:/app/public/upload"
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
       - redis
@@ -54,10 +56,10 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-web:latest
+    image: ghcr.io/dbondarchuk/hacado-web:latest
     env_file: ".env"
     environment:
-      - MONGODB_URI=${MONGODB_URI:-mongodb://host.docker.internal:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://host.docker.internal:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - TZ=America/New_York
       - AUTH_PASSWORD=password
@@ -84,14 +86,14 @@ services:
       - S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
-      - ORGANIZATION_SLUG=${ORGANIZATION_SLUG:-timelish}
+      - ORGANIZATION_SLUG=${ORGANIZATION_SLUG:-demo}
     restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
       - "./apps/web/public/upload:/app/public/upload"
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
       - redis
@@ -102,7 +104,7 @@ services:
     build:
       context: .
       dockerfile: apps/notification-sender/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-notification-sender:latest
+    image: ghcr.io/dbondarchuk/hacado-notification-sender:latest
     env_file: ".env"
     environment:
       - REDIS_HOST=${REDIS_HOST:-redis}
@@ -110,7 +112,7 @@ services:
       - REDIS_USERNAME=${REDIS_USERNAME:-}
       - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - REDIS_DB=${REDIS_DB:-0}
-      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
@@ -130,17 +132,23 @@ services:
       - S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-smtp}
       - SMTP_HOST=${SMTP_HOST:-smtp.example.com}
       - SMTP_PORT=${SMTP_PORT:-465}
       - SMTP_SECURE=${SMTP_SECURE:-true}
-      - SMTP_EMAIL=${SMTP_EMAIL:-timelish@example.com}
-      - SMTP_FROM_NAME=${SMTP_FROM_NAME:-Timeli.sh}
-      - SMTP_AUTH_USER=${SMTP_AUTH_USER:-timelish@example.com}
+      - SMTP_EMAIL=${SMTP_EMAIL:-hacado@example.com}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME:-Hacado}
+      - SMTP_AUTH_USER=${SMTP_AUTH_USER:-hacado@example.com}
       - SMTP_AUTH_PASS=${SMTP_AUTH_PASS:-"secure_password"}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - RESEND_EMAIL=${RESEND_EMAIL:-}
+      - RESEND_FROM_NAME=${RESEND_FROM_NAME:-Hacado}
+      - RESEND_CUSTOMER_EMAIL=${RESEND_CUSTOMER_EMAIL:-}
+      - RESEND_CUSTOMER_FROM_NAME=${RESEND_CUSTOMER_FROM_NAME:-}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
     restart: unless-stopped
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
       - redis
@@ -149,7 +157,7 @@ services:
     build:
       context: .
       dockerfile: apps/job-processor/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-job-processor:latest
+    image: ghcr.io/dbondarchuk/hacado-job-processor:latest
     env_file: ".env"
     environment:
       - REDIS_HOST=${REDIS_HOST:-redis}
@@ -157,7 +165,7 @@ services:
       - REDIS_USERNAME=${REDIS_USERNAME:-}
       - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - REDIS_DB=${REDIS_DB:-0}
-      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
@@ -179,7 +187,7 @@ services:
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
     restart: unless-stopped
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
       - redis
@@ -188,7 +196,7 @@ services:
     build:
       context: .
       dockerfile: apps/app-external-server/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-app-external-server:latest
+    image: ghcr.io/dbondarchuk/hacado-app-external-server:latest
     env_file: ".env"
     environment:
       - REDIS_HOST=${REDIS_HOST:-redis}
@@ -196,7 +204,7 @@ services:
       - REDIS_USERNAME=${REDIS_USERNAME:-}
       - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - REDIS_DB=${REDIS_DB:-0}
-      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
@@ -210,6 +218,11 @@ services:
       - ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}
       - ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}
       - PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}
+      - SQUARE_APP_WEBHOOK_SIGNATURE_KEY=${SQUARE_APP_WEBHOOK_SIGNATURE_KEY}
+      - SQUARE_ENVIRONMENT=${SQUARE_ENVIRONMENT:-sandbox}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
       - S3_REGION=${S3_REGION:-local}
       - S3_ACCESS_KEY=${S3_ACCESS_KEY:-}
       - S3_SECRET_KEY=${S3_SECRET_KEY:-}
@@ -220,7 +233,7 @@ services:
     ports:
       - "5556:5556"
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
       - redis
@@ -229,11 +242,11 @@ services:
     build:
       context: .
       dockerfile: apps/domain-checker/Dockerfile
-    image: ghcr.io/dbondarchuk/timelish-domain-checker:latest
+    image: ghcr.io/dbondarchuk/hacado-domain-checker:latest
     env_file: ".env"
     environment:
       - TZ=${TZ:-America/New_York}
-      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/timelish?retryWrites=true&w=majority}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - REDIS_HOST=${REDIS_HOST:-redis}
       - REDIS_PORT=${REDIS_PORT:-6379}
@@ -246,7 +259,7 @@ services:
     ports:
       - "5555:5555"
     networks:
-      - timelish-network
+      - hacado-network
     depends_on:
       - mongodb
 
@@ -264,7 +277,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - mongodb-data:/data/db
   redis:
@@ -273,7 +286,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - redis-data:/data
 
@@ -283,12 +296,12 @@ services:
     ports:
       - "8080:80"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - s3-data:/data
 
 networks:
-  timelish-network:
+  hacado-network:
     driver: bridge
 volumes:
   redis-data:

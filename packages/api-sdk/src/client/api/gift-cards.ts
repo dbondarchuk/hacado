@@ -1,4 +1,4 @@
-import { ApplyGiftCardsRequest, ApplyGiftCardsResponse } from "@timelish/types";
+import { ApplyGiftCardsRequest, ApplyGiftCardsResponse } from "@hacado/types";
 import { fetchClientApi } from "./utils";
 
 export const applyGiftCards = async (request: ApplyGiftCardsRequest) => {

@@ -1,21 +1,16 @@
 "use client";
 
-import { clientApi, ClientApiError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   ModifyAppointmentRequest,
-} from "@timelish/types";
-import { Availability, ModifyAppointmentInformation } from "@timelish/types";
-import {
-  Spinner,
-  toast,
-  useTimeZone,
-  useUseClientTimezone,
-} from "@timelish/ui";
+} from "@hacado/types";
+import { Availability, ModifyAppointmentInformation } from "@hacado/types";
+import { Spinner, toast, useTimeZone, useUseClientTimezone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";
 import { ModifyAppointmentFields, ModifyAppointmentType } from "../../types";

@@ -2,7 +2,7 @@ import type { SlateElementProps } from "@udecode/plate";
 import type { TCaptionElement } from "@udecode/plate-caption";
 import type { TImageElement } from "@udecode/plate-media";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { NodeApi, SlateElement } from "@udecode/plate";
 
 export function ImageElementStatic({

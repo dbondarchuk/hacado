@@ -1,12 +1,12 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
-import { Button, Spinner } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
+import { Button, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import * as z from "zod";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { MyCabinetApp } from "./app";
@@ -24,13 +24,15 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
   const t = useI18n<MyCabinetAdminNamespace, MyCabinetAdminKeys>(
     myCabinetAdminNamespace,
   );
-  const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>({
-    appId: existingAppId,
-    appName: MyCabinetApp.name,
-    schema: z.any(),
-    onSuccess,
-    onError,
-  });
+  const { appStatus, isLoading, isValid, onSubmit } = useConnectedAppSetup<any>(
+    {
+      appId: existingAppId,
+      appName: MyCabinetApp.name,
+      schema: z.any(),
+      onSuccess,
+      onError,
+    },
+  );
 
   return (
     <>

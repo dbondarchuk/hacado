@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { discountsSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { discountSchema } from "@timelish/types";
+import { discountsSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { discountSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

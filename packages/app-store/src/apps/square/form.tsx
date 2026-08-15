@@ -1,10 +1,10 @@
 "use client";
 
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { PaymentAppFormProps } from "@timelish/types";
-import { Spinner, toast, useConfig, useCurrency } from "@timelish/ui";
-import { formatAmountString } from "@timelish/utils";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PaymentAppFormProps } from "@hacado/types";
+import { Spinner, toast, useConfig, useCurrency } from "@hacado/ui";
+import { formatAmountString } from "@hacado/utils";
 import React from "react";
 import {
   ApplePay,
@@ -33,7 +33,7 @@ type SquarePaymentRequestOptions = {
   total: { amount: string; label: string };
 };
 
-/** Aligns Square SDK pay button with `@timelish/ui` primary button (CSS variables). */
+/** Aligns Square SDK pay button with `@hacado/ui` primary button (CSS variables). */
 const squarePrimaryPayButtonCss = {
   width: "100%",
   minHeight: "2.5rem",

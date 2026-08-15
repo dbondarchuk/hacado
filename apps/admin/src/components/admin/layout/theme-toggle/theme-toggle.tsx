@@ -1,7 +1,7 @@
 "use client";
+import { useI18n } from "@hacado/i18n/client";
+import { useTheme } from "@hacado/ui";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { useI18n } from "@timelish/i18n";
-import { useTheme } from "@timelish/ui";
 
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 type CompProps = {};
 export default function ThemeToggle({}: CompProps) {
   const { setTheme } = useTheme();

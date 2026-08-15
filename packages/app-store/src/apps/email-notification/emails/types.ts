@@ -1,4 +1,4 @@
-import { AppointmentStatusToICalMethodMap } from "@timelish/utils";
+import { AppointmentStatusToICalMethodMap } from "@hacado/utils";
 
 export type EmailTemplate = {
   title: string;

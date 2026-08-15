@@ -1,14 +1,14 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
-import type { ActivityListItem } from "@timelish/types";
-import { Badge, Link } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { ActivityListItem } from "@hacado/types";
+import { Badge, Link } from "@hacado/ui";
 import {
   ResolvedI18nText,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import React from "react";
 import { ActivityActorDisplayView } from "../actor-display";

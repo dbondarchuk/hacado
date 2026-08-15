@@ -1,11 +1,11 @@
 import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { sessionCanUseFeature } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest } from "next/server";
 import { createOrUpdateIntent } from "../../../utils/payments/createIntent";
 

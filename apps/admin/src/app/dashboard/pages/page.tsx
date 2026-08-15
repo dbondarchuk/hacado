@@ -7,11 +7,11 @@ import { sessionCanCreateMorePages } from "@/lib/billing/subscription-plan-acces
 import {
   pagesSearchParamsCache,
   pagesSearchParamsSerializer,
-} from "@timelish/api-sdk";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
-import { DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading } from "@hacado/ui";
+import { DataTableSkeleton } from "@hacado/ui-admin";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

@@ -1,7 +1,11 @@
 import { getServicesContainer, getSession } from "@/app/utils";
+import { getAccessibleConnectedApps } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
-import { BRAND_SETTINGS_UPGRADE_URL } from "@timelish/services/billing";
-import { getLoggerFactory } from "@timelish/logger";
+import { AvailableApps } from "@hacado/app-store";
+import { getLoggerFactory } from "@hacado/logger";
+import { BRAND_SETTINGS_UPGRADE_URL } from "@hacado/services/billing";
+import type { SessionUser } from "@hacado/types";
+import { canInstallApp } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
@@ -13,7 +17,6 @@ const createAppSchema = z.object({
 
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/apps")("GET");
-  const servicesContainer = await getServicesContainer();
   logger.debug(
     {
       url: request.url,
@@ -23,7 +26,7 @@ export async function GET(request: NextRequest) {
   );
 
   try {
-    const apps = await servicesContainer.connectedAppsService.getApps();
+    const apps = await getAccessibleConnectedApps();
 
     logger.debug(
       {
@@ -79,12 +82,27 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const appDefinition = AvailableApps[data.type];
+  if (!appDefinition || appDefinition.isHidden) {
+    return NextResponse.json(
+      { success: false, error: "Unknown app", code: "unknown_app" },
+      { status: 404 },
+    );
+  }
+
+  if (!canInstallApp(session.user as SessionUser, appDefinition)) {
+    return NextResponse.json(
+      { success: false, error: "Forbidden", code: "forbidden" },
+      { status: 403 },
+    );
+  }
+
   if (!sessionCanInstallApp(session, data.type)) {
     return NextResponse.json(
       {
         success: false,
         code: "subscription_upgrade_required",
-        message: "This app requires a Pro subscription.",
+        message: "This app requires a Solo subscription.",
         settingsUrl: BRAND_SETTINGS_UPGRADE_URL,
       },
       { status: 402 },
@@ -94,7 +112,7 @@ export async function POST(request: NextRequest) {
   try {
     const appId = await servicesContainer.connectedAppsService.createNewApp(
       data.type,
-      session.user.id,
+      session.user.memberId,
     );
 
     logger.debug(

@@ -26,7 +26,7 @@ import {
   PopoverAnchor,
   PopoverContent,
   Separator,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CaptionButton } from "./caption";
 
 export interface MediaPopoverProps {
@@ -49,7 +49,6 @@ export function MediaPopover({ children, plugin }: MediaPopoverProps) {
     if (!isOpen && isEditing) {
       FloatingMediaStore.set("isEditing", false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const element = useElement();

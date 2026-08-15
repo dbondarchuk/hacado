@@ -5,18 +5,16 @@ import {
   useActivityFeedStore,
   useNotificationsStore,
 } from "@/notifications/store";
-import { BASE_ADMIN_API_URL } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { BASE_ADMIN_API_URL } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   DASHBOARD_BADGE_EVENT,
   DashboardBadgeUpdate,
   DashboardNotification,
-} from "@timelish/types";
-import { Badge, cn, toast, useTimeZone } from "@timelish/ui";
-import {
-  applyDashboardBadgeUpdate,
-  resolvedI18nText,
-} from "@timelish/ui-admin";
+  type SessionUser,
+} from "@hacado/types";
+import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
+import { applyDashboardBadgeUpdate, resolvedI18nText } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -71,10 +69,11 @@ export const NotificationsToastStream: React.FC = () => {
 
   const lastDate = React.useRef<Date | undefined>(undefined);
 
-  // when session updates, we need to remember last user id to avoid unnecessary re-renders
-  const userId = React.useRef<string>("");
-  if (session?.user?.id) {
-    userId.current = session.user.id;
+  // when session updates, we need to remember last member id to avoid unnecessary re-renders
+  const memberId = React.useRef<string>("");
+  const sessionUser = session?.user as SessionUser | undefined;
+  if (sessionUser?.memberId) {
+    memberId.current = sessionUser.memberId;
   }
 
   React.useEffect(() => {
@@ -95,7 +94,7 @@ export const NotificationsToastStream: React.FC = () => {
   }, [setBadges]);
 
   React.useEffect(() => {
-    if (!userId.current) {
+    if (!memberId.current) {
       return;
     }
 
@@ -137,7 +136,7 @@ export const NotificationsToastStream: React.FC = () => {
       if (data.activityFeed?.preview) {
         addPreviews(
           data.activityFeed.preview,
-          userId.current,
+          memberId.current,
           data.activityFeed.highestSeverity,
         );
       }
@@ -182,7 +181,7 @@ export const NotificationsToastStream: React.FC = () => {
     return () => {
       eventSource.close();
     };
-  }, [t, setBadges, addPreviews, router, userId.current, timeZone]);
+  }, [t, setBadges, addPreviews, router, memberId.current, timeZone]);
 
   return null;
 };

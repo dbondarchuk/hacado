@@ -1,6 +1,6 @@
 import type React from "react";
-import type { MarkPlugin } from "../types";
 import type { TextMark } from "../../lib/rich-text-types";
+import type { MarkPlugin } from "../types";
 
 function rgbToHex(rgb: string): string {
   // Already hex

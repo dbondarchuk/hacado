@@ -1,9 +1,6 @@
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import { BlogCommentsContext, BlogPost } from "../../models";
-import {
-  BlogPublicKeys,
-  BlogPublicNamespace,
-} from "../../translations/types";
+import { BlogPublicKeys, BlogPublicNamespace } from "../../translations/types";
 import { BlogPostCommentCountComponent } from "./component";
 import { getCommentCountLabel } from "./formats";
 import {
@@ -29,7 +26,8 @@ export const BlogPostCommentCountServerWrapper = async ({
     "app_blog_public",
   );
 
-  const format = props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
+  const format =
+    props?.format ?? BlogPostCommentCountPropsDefaults.props.format;
   const post = args?.post;
   const config = args?.blogCommentsConfig;
 

@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   GIFT_CARD_CREATED_EVENT_TYPE,
   GIFT_CARD_DELETED_EVENT_TYPE,
@@ -9,7 +9,7 @@ import {
   type GiftCardDeletedPayload,
   type GiftCardStatusChangedPayload,
   type GiftCardUpdatedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

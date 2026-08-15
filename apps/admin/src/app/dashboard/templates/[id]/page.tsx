@@ -1,7 +1,7 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Heading, Link, Skeleton } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Heading, Link, Skeleton } from "@hacado/ui";
 import { Copy } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";

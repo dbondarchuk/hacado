@@ -12,6 +12,7 @@ checkout:
     You can upgrade, downgrade, or cancel anytime from your Polar customer
     portal - no long-term contract, no hidden fees.
   includedLabel: What's included
+  everythingInPlus: "Everything in {tier}, plus:"
   pricePerMonth: / month
   pricePerYear: / year
   pricePerWeek: / week
@@ -31,20 +32,30 @@ checkout:
         calendar: "Calendar sync (Google, Outlook, CalDAV)"
         emailNotifications: Email notifications
         textNotifications: Text message notifications (SMS credits purchased separately)
-    pro:
-      title: Pro subscription
+    solo:
+      title: Solo
       subtitle: Everything you need to scale
-      cta: Subscribe to Pro
+      badge: Recommended
+      cta: Subscribe to Solo
       benefits:
+        payments: "Accept payments online - Square, Stripe, PayPal, and more"
+        syncedPayments: Sync in-store card payments automatically - track how you get paid
+        domain: Connect your own domain to stand out above your competition
+        unlimited: Unlimited bookings, services, and clients, always
+        promotions: Branded gift cards, discounts & promotions
+        apps: Appointment waitlist, intake forms, blog
+        clientPortal: Client self-service portal for bookings and profiles
         smsCredits: 100 SMS credits included every month
-        bookings: Unlimited bookings & clients
-        services: Unlimited bookable services
-        branding: Custom booking page with your branding
-        domain: Use your own domain name
-        calendar: "Calendar sync (Google, Outlook, CalDAV)"
-        payments: "Payment integrations (PayPal, Square, Stripe)"
-        emailNotifications: Email notifications
-        textNotifications: Text message notifications
+    studio:
+      title: Studio
+      subtitle: For businesses with multiple employees
+      badge: Good for business
+      cta: Subscribe to Studio
+      benefits:
+        teamMembers: 5 team members included
+        additionalSeats: Additional seats starting at $4/month each
+        individualCalendars: Individual calendars and schedules per team member
+        smsCredits: 300 SMS credits included every month
   checkoutError: Could not start checkout. Try again shortly.
 wizard:
   progressLabel: Your setup progress
@@ -64,7 +75,7 @@ wizard:
   verify:
     title: Confirm your email to continue
     description: >-
-      We need a verified email before we can finish setting up your Timeli.sh
+      We need a verified email before we can finish setting up your Hacado
       workspace. This keeps your account secure.
     resend: Resend verification email
     resendSuccess: Verification email sent
@@ -96,7 +107,9 @@ wizard:
     slug: Public booking address
     slugPlaceholder: your-studio-name
     slugHint: "Preview: {url}"
-    slugHelp: "Use lowercase letters, numbers, and hyphens. You can change this later."
+    slugHelp: "Use at least 3 lowercase letters, numbers, and hyphens. You can change this later."
+    slugTooShort: Use at least 3 characters.
+    slugReserved: This address is reserved. Try another.
     slugChecking: Checking availability…
     slugAvailable: This address is available.
     slugTaken: This address is already taken.
@@ -272,16 +285,16 @@ wizard:
     cancelPolicy: Allow cancellations and reschedules
     cancelHelp: You can define windows and fees in appointment settings later.
     flex: All of this can be changed anytime - we are just getting you started.
-    acceptPaymentsUpgradeHint: Upgrade to Pro to accept online payments.
+    acceptPaymentsUpgradeHint: Upgrade to Solo to accept online payments.
   finish:
     taskPage: Creating your booking page
     taskAvailability: Applying availability defaults
     taskCalendar: Preparing calendar connections
     taskFinalize: Finalizing setup
     buildingExperience: We are building your booking experience now.
-    readyTitle: Your Timeli.sh is ready
+    readyTitle: Your Hacado is ready
     readySubtitle: Head to the dashboard to manage bookings or share your public page.
-    ctaDashboard: Manage my Timeli.sh
+    ctaDashboard: Manage my Hacado
     ctaBooking: View my booking page
     finalizeError: Could not finalize install. Please retry.
     retry: Retry
@@ -319,12 +332,14 @@ wizard:
   errors:
     fixStep: Please complete the required fields before continuing.
     slugTaken: That booking address is no longer available.
+    slugReserved: This address is reserved. Try another.
+    slugInvalid: That booking address is not valid. Try another.
     workspace: We could not create your workspace. Try again.
     service: We could not save your services. Try again.
     serviceNeedOne: Add at least one service to continue.
     serviceDuplicateName: Each service needs a unique name. Change a name and try again.
     serviceLimitReached: >-
-      The Free plan includes one service. Upgrade to Pro to add more, or remove
+      The Free plan includes one service. Upgrade to Solo to add more, or remove
       an extra service and try again.
 catalog:
   categories:

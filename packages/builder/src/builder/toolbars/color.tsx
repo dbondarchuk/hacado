@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { Leaves } from "@hacado/types";
 import {
   Button,
   DropdownMenu,
@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
-import { destructAndReplace, resolveProperty } from "@timelish/utils";
+} from "@hacado/ui";
+import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { Sketch } from "@uiw/react-color";
 import { X } from "lucide-react";
 import { ReactNode } from "react";

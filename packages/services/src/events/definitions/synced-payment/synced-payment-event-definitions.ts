@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
   SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
@@ -6,6 +6,8 @@ import {
   SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
   SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
   SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
   type EventDefinition,
   type SyncedPaymentAmountsUpdatedPayload,
   type SyncedPaymentAssignedPayload,
@@ -13,9 +15,11 @@ import {
   type SyncedPaymentIgnoredPayload,
   type SyncedPaymentIngestedPayload,
   type SyncedPaymentRejectedPayload,
-} from "@timelish/types";
+  type SyncedPaymentUnassignedPayload,
+  type SyncedPaymentUnrecordedPayload,
+} from "@hacado/types";
 
-import { AvailableApps } from "@timelish/app-store";
+import { AvailableApps } from "@hacado/app-store";
 import { dashboardUrls } from "../links";
 
 export const SYNCED_PAYMENTS_REVIEW_BADGE_KEY = "synced_payments_review";
@@ -180,6 +184,58 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
           link: syncedPayment.appointmentId
             ? dashboardUrls.appointment(syncedPayment.appointmentId)
             : dashboardUrls.syncedPayment(syncedPayment),
+        };
+      },
+      dashboardNotification: async (_envelope, services) => ({
+        type: "synced-payments-review",
+        badges: await reviewQueueBadges(services),
+      }),
+      emailNotifications: false,
+      smsNotifications: false,
+    },
+    [SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE]: {
+      type: SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+      recordActivity: (envelope) => {
+        const { syncedPayment } =
+          envelope.payload as SyncedPaymentUnassignedPayload;
+        return {
+          eventId: envelope.id,
+          eventType: envelope.type,
+          title: {
+            key: "admin.platformEvents.syncedPayment.unassigned.title" satisfies BaseAllKeys,
+          },
+          description: {
+            key: "admin.platformEvents.syncedPayment.unassigned.description" satisfies BaseAllKeys,
+            args: { amount: syncedPayment.amount },
+          },
+          source: envelope.source,
+          link: dashboardUrls.syncedPayment(syncedPayment),
+        };
+      },
+      dashboardNotification: async (_envelope, services) => ({
+        type: "synced-payments-review",
+        badges: await reviewQueueBadges(services),
+      }),
+      emailNotifications: false,
+      smsNotifications: false,
+    },
+    [SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE]: {
+      type: SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
+      recordActivity: (envelope) => {
+        const { syncedPayment } =
+          envelope.payload as SyncedPaymentUnrecordedPayload;
+        return {
+          eventId: envelope.id,
+          eventType: envelope.type,
+          title: {
+            key: "admin.platformEvents.syncedPayment.unrecorded.title" satisfies BaseAllKeys,
+          },
+          description: {
+            key: "admin.platformEvents.syncedPayment.unrecorded.description" satisfies BaseAllKeys,
+            args: { amount: syncedPayment.amount },
+          },
+          source: envelope.source,
+          link: dashboardUrls.syncedPayment(syncedPayment),
         };
       },
       dashboardNotification: async (_envelope, services) => ({

@@ -1,11 +1,8 @@
 import React from "react";
 
-import { Prettify } from "@timelish/types";
-import { cn, FormDescription, Label } from "@timelish/ui";
-import {
-  AssetSelectorInput,
-  AssetSelectorInputProps,
-} from "@timelish/ui-admin";
+import { Prettify } from "@hacado/types";
+import { cn, FormDescription, Label } from "@hacado/ui";
+import { AssetSelectorInput, AssetSelectorInputProps } from "@hacado/ui-admin";
 import { ResetButton } from "./reset-button";
 
 type Props = Prettify<

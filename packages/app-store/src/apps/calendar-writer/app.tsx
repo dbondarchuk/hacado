@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { CalendarPlus } from "lucide-react";
 import { CALENDAR_WRITER_APP_NAME } from "./const";
 import {
@@ -16,6 +16,7 @@ export const CalendarWriterApp: App<
   subscribeTo: ["appointment.*", "app.uninstalled"],
   scope: ["event-subscriber"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <CalendarPlus className={className} />,
   isFeatured: false,
   isHidden: false,

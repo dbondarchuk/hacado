@@ -9,9 +9,9 @@ import {
   useCurrentBlockId,
   useDispatchAction,
   usePortalContext,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { useCallback } from "react";
 import { ImageProvider } from "../image/context";
 import { BeforeAfterSlider } from "./before-after-slider";

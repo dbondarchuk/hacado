@@ -1,5 +1,5 @@
 import { getWebsiteUrl } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

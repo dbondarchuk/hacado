@@ -1,6 +1,6 @@
-import { Leaves } from "@timelish/types";
-import { Toggle, useOpenState } from "@timelish/ui";
-import { destructAndReplace, resolveProperty } from "@timelish/utils";
+import { Leaves } from "@hacado/types";
+import { Toggle, useOpenState } from "@hacado/ui";
+import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { ReactNode } from "react";
 import { ConfigurationProps } from "../../documents/types";
 

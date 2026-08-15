@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import type { TPlaceholderElement } from "@udecode/plate-media";
 
-import { cn, useUploadFile } from "@timelish/ui";
+import { cn, useUploadFile } from "@hacado/ui";
 import {
   AudioPlugin,
   FilePlugin,
@@ -130,7 +130,6 @@ export const MediaPlaceholderElement = withHOC(
         });
 
         api.placeholder.removeUploadingFile(element.id as string);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [uploadedFiles, element.id, usesAbsoluteUrl]);
 
       // React dev mode will call useEffect twice
@@ -148,8 +147,6 @@ export const MediaPlaceholderElement = withHOC(
         if (!currentFiles) return;
 
         replaceCurrentPlaceholder(currentFiles);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [isReplaced]);
 
       return (

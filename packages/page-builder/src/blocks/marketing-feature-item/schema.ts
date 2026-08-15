@@ -1,10 +1,10 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
-import type { BaseAllKeys, I18nFn } from "@timelish/i18n";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import {
   embeddedSlotSchema,
   migratePropsSlots,
   migrateSlotValue,
-} from "@timelish/page-builder-base/slots";
+} from "@hacado/page-builder-base/slots";
 import * as z from "zod";
 import { GridContainerPropsDefaults } from "../grid-container/schema";
 import { HeadingPropsDefaults } from "../heading/schema";

@@ -1,22 +1,22 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { Appointment, CalendarEvent, DaySchedule } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment, CalendarEvent, DaySchedule } from "@hacado/types";
+import { getColorForName } from "@hacado/utils";
 import {
   CheckCircle,
   DollarSign,
   Presentation,
   StickyNote,
+  User,
+  UserCircle,
 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
 import { AppointmentDialog } from "../appointments/appointment-dialog";
 import { EventCalendar } from "./event-calendar";
-import {
-  EventCalendarEvent,
-  EventsCalendarProps,
-} from "./types";
+import { EventCalendarEvent, EventsCalendarProps } from "./types";
 
 export type { EventsCalendarProps };
 
@@ -41,6 +41,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
   events: eventsProp,
   schedule: scheduleProp,
   onRangeChange: onRangeChangeProp,
+  memberId,
   ...rest
 }) => {
   const t = useI18n("admin");
@@ -56,29 +57,40 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
   const [loading, setLoading] = React.useState(false);
   const managedEvents = eventsProp === undefined;
   const managedSchedule = scheduleProp === undefined;
+  const rangeRef = React.useRef<{ start: Date; end: Date } | null>(null);
 
-  const getEvents = async (start: Date, end: Date) => {
-    if (!managedEvents) {
+  const getEvents = React.useCallback(
+    async (start: Date, end: Date) => {
+      if (!managedEvents) {
+        onRangeChangeProp?.(start, end);
+        return;
+      }
+
+      rangeRef.current = { start, end };
+      setLoading(true);
+      setEvents([]);
+
+      const result = await adminApi.calendar.getCalendar({
+        start: DateTime.fromJSDate(start).startOf("day").toJSDate(),
+        end: DateTime.fromJSDate(end).endOf("day").toJSDate(),
+        member: memberId,
+      });
+
+      setLoading(false);
+
+      if (managedSchedule) {
+        setSchedule(result.schedule);
+      }
+      setEvents(result.events || []);
       onRangeChangeProp?.(start, end);
-      return;
-    }
+    },
+    [managedEvents, managedSchedule, memberId, onRangeChangeProp],
+  );
 
-    setLoading(true);
-    setEvents([]);
-
-    const result = await adminApi.calendar.getCalendar({
-      start: DateTime.fromJSDate(start).startOf("day").toJSDate(),
-      end: DateTime.fromJSDate(end).endOf("day").toJSDate(),
-    });
-
-    setLoading(false);
-
-    if (managedSchedule) {
-      setSchedule(result.schedule);
-    }
-    setEvents(result.events || []);
-    onRangeChangeProp?.(start, end);
-  };
+  React.useEffect(() => {
+    if (!managedEvents || !rangeRef.current) return;
+    void getEvents(rangeRef.current.start, rangeRef.current.end);
+  }, [getEvents, managedEvents, memberId]);
 
   const calendarEvents: EventCalendarEvent[] = React.useMemo(() => {
     if (!managedEvents && eventsProp) {
@@ -88,15 +100,28 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
     return events.map((app) => {
       const start = DateTime.fromJSDate(app.dateTime);
       if ("_id" in app) {
+        const memberName = app.member?.name || app.member?.email || "";
         return {
           start: start.toJSDate(),
           end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
           id: app._id,
-          title: t("calendar.eventTitle", {
-            customer: app.fields.name,
-            service: app.option.name,
-          }),
-          variant: app.status !== "confirmed" ? "secondary" : "primary",
+          title: app.option.name,
+          customerName: app.fields.name,
+          member: app.member
+            ? {
+                _id: app.member._id,
+                name: app.member.name,
+                email: app.member.email,
+                image: app.member.image,
+              }
+            : undefined,
+          color: memberName ? getColorForName(memberName) : undefined,
+          variant:
+            app.status === "declined"
+              ? "destructive"
+              : app.status === "pending"
+                ? "secondary"
+                : "primary",
         };
       } else {
         return {
@@ -104,10 +129,18 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
           end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
           title: app.title,
           variant: "tertiary",
+          member: app.member
+            ? {
+                _id: app.member._id,
+                name: app.member.name,
+                email: app.member.email,
+                image: app.member.image,
+              }
+            : undefined,
         };
       }
     });
-  }, [events, eventsProp, managedEvents, t]);
+  }, [events, eventsProp, managedEvents]);
 
   const onEventClick = (event: EventCalendarEvent) => {
     onEventClickProp?.(event);
@@ -142,15 +175,34 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
 
       if (!found) return null;
 
+      const memberName = found.member?.name || found.member?.email;
+      const customerName = found.fields?.name || found.fields?.email;
+
       return (
         <dl className="divide-y">
-          <div className="py-1 flex flex-row gap-2 flex-wrap @sm:py-2 @sm:grid @sm:grid-cols-3 @sm:gap-4">
+          <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
             <dt className="flex self-center items-center gap-1">
               <Presentation size={16} /> {t("calendar.appointment")}:
             </dt>
             <dd className="col-span-2">{found.option.name}</dd>
           </div>
-          <div className="py-1 flex flex-row gap-2 flex-wrap @sm:py-2 @sm:grid @sm:grid-cols-3 @sm:gap-4">
+          {customerName && (
+            <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
+              <dt className="flex self-center items-center gap-1">
+                <User size={16} /> {t("calendar.customer")}:
+              </dt>
+              <dd className="col-span-2">{customerName}</dd>
+            </div>
+          )}
+          {memberName && (
+            <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
+              <dt className="flex self-center items-center gap-1">
+                <UserCircle size={16} /> {t("calendar.member")}:
+              </dt>
+              <dd className="col-span-2">{memberName}</dd>
+            </div>
+          )}
+          <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
             <dt className="flex self-center items-center gap-1">
               <CheckCircle size={16} /> {t("calendar.status")}:
             </dt>
@@ -159,7 +211,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
             </dd>
           </div>
           {found.totalPrice && (
-            <div className="py-1 flex flex-row gap-2 flex-wrap @sm:py-2 @sm:grid @sm:grid-cols-3 @sm:gap-4">
+            <div className="py-1 flex flex-row gap-2 flex-wrap @sm:grid @sm:grid-cols-3 @sm:gap-4">
               <dt className="flex self-center items-center gap-1">
                 <DollarSign size={16} /> {t("calendar.price")}:
               </dt>

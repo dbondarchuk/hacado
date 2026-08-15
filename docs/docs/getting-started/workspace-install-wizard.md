@@ -5,19 +5,19 @@ description: Step by step first-time setup with field notes and screenshot place
 
 # Set up your workspace
 
-Timelish launches this wizard after signup and billing. Numbers in the header show your place in the sequence. Finish on **the same browser** when possible saved answers return after short breaks.
+Hacado launches this wizard after signup and billing. Numbers in the header show your place in the sequence. Finish on **the same browser** when possible saved answers return after short breaks.
 
 ---
 
 ## Step 1: About your business
 
-Tell Timelish how clients should recognise you and which regional defaults shape money, language, and clocks.
+Tell Hacado how clients should recognise you and which regional defaults shape money, language, and clocks.
 
 What you normally fill:
 
 - **Business name** - displayed on your booking website and in client emails.
 - **Address** - physical office location (optional).
-- **Organization domain** - the unique prefix before `.timeli.sh` for your website address.
+- **Organization domain** - the unique prefix before `.haca.do` for your website address.
 - **Time zone** - your personal/office time zone to anchor appointments, reminders.
 - **Language** - controls what language your booking website will use.
 - **Country** - your location's country.
@@ -41,7 +41,7 @@ Choose your color palette, typography, logo, and favicon to make your booking we
 
 ## Step 3: Add your services
 
-Timelish needs **at least one bookable offering** to start. You can create a completely new one or select a template to help you jump start your website.
+Hacado needs **at least one bookable offering** to start. You can create a completely new one or select a template to help you jump start your website.
 
 ### Suggested professions
 
@@ -71,7 +71,7 @@ You can adjust the schedule later in your dashboard or install app that will all
 
 ## Step 5: Connect calendar & apps
 
-In this step, Timelish asks:
+In this step, Hacado asks:
 **"How should we deliver bookings to your calendar?"**
 
 This means:
@@ -89,9 +89,9 @@ What are possible options?
 
 ### What is a calendar app?
 
-A calendar app is a connector between Timelish and your calendar account (for example Google Calendar or Outlook).
+A calendar app is a connector between Hacado and your calendar account (for example Google Calendar or Outlook).
 
-When connected, Timelish can:
+When connected, Hacado can:
 
 - Add new bookings to your calendar automatically.
 - Read your existing events to avoid double bookings.
@@ -101,7 +101,7 @@ When connected, Timelish can:
 
 - **Google Calendar** - Saves bookings to Google Calendar, reads busy times, and can add a Google Meet link for online appointments.
 - **Outlook** - Saves bookings to Outlook/Microsoft 365 and reads busy times from there.
-- **CalDAV** - Connects to calendars that support the CalDAV standard (often self-hosted or provider-specific calendars). Timelish can read and/or write bookings depending on that server.
+- **CalDAV** - Connects to calendars that support the CalDAV standard (often self-hosted or provider-specific calendars). Hacado can read and/or write bookings depending on that server.
 - **Calendar feed (ICS)** - Uses a calendar URL feed to read busy times. Good when another system gives you a read-only calendar link.
 
 ### Optional apps in this step

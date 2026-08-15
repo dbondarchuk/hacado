@@ -1,4 +1,4 @@
-import { ServicesContainer } from "@timelish/services";
+import { ServicesContainer } from "@hacado/services";
 import { BlogConfiguration, blogConfigurationSchema } from "../models";
 
 export const getBlogConfiguration = async (
@@ -6,9 +6,9 @@ export const getBlogConfiguration = async (
   appId: string,
 ): Promise<BlogConfiguration> => {
   const props =
-    await ServicesContainer(organizationId).connectedAppsService.getAppServiceProps(
-      appId,
-    );
+    await ServicesContainer(
+      organizationId,
+    ).connectedAppsService.getAppServiceProps(appId);
   const app = await props.services.connectedAppsService.getApp(appId);
   return blogConfigurationSchema.parse(app?.data ?? {});
 };

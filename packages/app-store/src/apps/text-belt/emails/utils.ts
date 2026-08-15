@@ -1,6 +1,9 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { Language } from "@timelish/i18n";
-import { template } from "@timelish/utils";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
+import { Language } from "@hacado/i18n";
+import { template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 import { EmailTemplateKey } from "./types";
 
@@ -47,7 +50,7 @@ export const getEmailTemplate = async (
           button: {
             text: buttonTexts.viewCustomer,
             url: `${url}/dashboard/customers/${customerId}`,
-            backgroundColor: "#5d8be2",
+            backgroundColor: EMAIL_BRAND.primaryDark,
           },
         },
       ],

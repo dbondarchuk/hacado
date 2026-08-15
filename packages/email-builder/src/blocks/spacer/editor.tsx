@@ -2,7 +2,7 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { useCallback } from "react";
 import { SpacerProps } from "./schema";
 import { Spacer } from "./spacer";

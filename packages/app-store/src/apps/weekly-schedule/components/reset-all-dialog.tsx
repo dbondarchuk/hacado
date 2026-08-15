@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n";
-import { WeekIdentifier } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { WeekIdentifier } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,7 +12,7 @@ import {
   Button,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { RotateCcw } from "lucide-react";
 import React from "react";
 import {
@@ -26,6 +26,7 @@ import { getWeekDisplay } from "./utils";
 export type ResetAllDialogProps = {
   appId: string;
   week: WeekIdentifier;
+  memberId?: string;
   disabled?: boolean;
   className?: string;
   onConfirm: () => void;
@@ -34,6 +35,7 @@ export type ResetAllDialogProps = {
 export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   appId,
   week,
+  memberId,
   disabled,
   className,
   onConfirm: onResetAll,
@@ -43,14 +45,20 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
   );
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const resetToCompany = !!memberId;
 
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await toastPromise(resetAllWeeklySchedule(appId, week), {
-        success: t("dialogs.resetAll.success", {
-          week: getWeekDisplay(week),
-        }),
+      await toastPromise(resetAllWeeklySchedule(appId, week, memberId), {
+        success: t(
+          resetToCompany
+            ? "dialogs.resetAll.successCompany"
+            : "dialogs.resetAll.success",
+          {
+            week: getWeekDisplay(week),
+          },
+        ),
         error: t("statusText.request_error"),
       });
 
@@ -67,16 +75,26 @@ export const ResetAllDialog: React.FC<ResetAllDialogProps> = ({
     <AlertDialog open={openConfirmDialog} onOpenChange={setOpenConfirmDialog}>
       <AlertDialogTrigger asChild>
         <Button variant="secondary" disabled={disabled} className={className}>
-          <RotateCcw /> {t("dialogs.resetAll.resetAllToDefault")}
+          <RotateCcw />{" "}
+          {t(
+            resetToCompany
+              ? "dialogs.resetAll.resetAllToCompany"
+              : "dialogs.resetAll.resetAllToDefault",
+          )}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("dialogs.resetAll.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {t("dialogs.resetAll.description", {
-              week: getWeekDisplay(week),
-            })}
+            {t(
+              resetToCompany
+                ? "dialogs.resetAll.descriptionCompany"
+                : "dialogs.resetAll.description",
+              {
+                week: getWeekDisplay(week),
+              },
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

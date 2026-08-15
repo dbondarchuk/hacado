@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { VariableData } from "../lib/rich-text-types";
 

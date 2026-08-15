@@ -1,23 +1,31 @@
-import { Language } from "@timelish/i18n";
-import type { ObjectId } from "mongodb";
-import type { CalendarSourcesConfiguration } from "../configuration/booking/calendar-source";
+import type { Language } from "@hacado/i18n";
 
-export const USER_ROLES = ["owner", "admin", "staff", "viewer"] as const;
+/** Org-scoped roles. Canonical source is Better Auth `members.role`. */
+export const USER_ROLES = ["owner", "admin", "coordinator", "staff"] as const;
 export type UserRole = (typeof USER_ROLES)[number];
 
+/**
+ * Signup staging until an organization member row is created.
+ * Cleared after create-org / accept-invitation succeeds.
+ */
+export type PendingMemberProfile = {
+  name?: string;
+  phone?: string;
+  language?: Language;
+};
+
+/**
+ * Auth-identity user document. Organization membership and per-org profile
+ * live on `members` (`OrganizationMember`).
+ */
 export type User = {
-  _id: ObjectId;
+  _id: string;
   email: string;
+  /** Better Auth account display name (not the org profile source of truth). */
   name: string;
-  organizationId: string; // Link user to organization
-  role: UserRole;
-  permissions: string[];
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt?: Date;
-  language: Language;
-  image?: string | null;
-  bio?: string | null;
-  phone: string;
-  calendarSources?: CalendarSourcesConfiguration;
+  emailVerified?: boolean;
+  pendingMemberProfile?: PendingMemberProfile | null;
 };

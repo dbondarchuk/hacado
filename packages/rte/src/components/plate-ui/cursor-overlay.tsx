@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { RangeApi } from "@udecode/plate";
 import {
   type CursorData,

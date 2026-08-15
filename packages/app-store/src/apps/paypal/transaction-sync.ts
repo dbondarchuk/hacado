@@ -1,10 +1,10 @@
-import { LoggerFactory } from "@timelish/logger";
-import { ConnectedAppData, PaymentFee } from "@timelish/types";
-import { round2 } from "@timelish/utils";
+import { LoggerFactory } from "@hacado/logger";
+import { ConnectedAppData, PaymentFee } from "@hacado/types";
+import { round2 } from "@hacado/utils";
 import { PaypalClient, PaypalTransactionDetail } from "./client";
 import { PAYPAL_TRANSACTION_SYNC_LOOKBACK_SECONDS } from "./const";
 import { PaypalConfiguration } from "./models";
-import { OrdersCapture, CaptureStatus } from "./types";
+import { CaptureStatus, OrdersCapture } from "./types";
 
 export type InStoreCaptureInput = {
   /** PayPal capture id — stored as payment / synced-payment externalId. */
@@ -137,9 +137,7 @@ export function mapVerifiedCaptureToIngestInput(
     : new Date();
 
   const providerSplit =
-    listDetail !== undefined
-      ? extractCartSplit(listDetail, amount)
-      : undefined;
+    listDetail !== undefined ? extractCartSplit(listDetail, amount) : undefined;
 
   return {
     captureId,

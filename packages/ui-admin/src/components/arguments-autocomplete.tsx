@@ -1,5 +1,5 @@
-import { InputProps, TextareaProps } from "@timelish/ui";
-import { propertiesToArray } from "@timelish/utils";
+import { InputProps, TextareaProps } from "@hacado/ui";
+import { propertiesToArray } from "@hacado/utils";
 import React from "react";
 import { ContentEditableMentions } from "./content-editable-mention";
 import { MentionData, TextareaMentions } from "./textarea-mention";

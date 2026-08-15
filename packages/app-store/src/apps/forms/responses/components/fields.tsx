@@ -1,4 +1,4 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Checkbox,
   FormControl,
@@ -15,9 +15,9 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@timelish/ui";
-import { AssetPreview, AssetSelectorInput } from "@timelish/ui-admin";
-import { fileNameToMimeType } from "@timelish/utils";
+} from "@hacado/ui";
+import { AssetPreview, AssetSelectorInput } from "@hacado/ui-admin";
+import { fileNameToMimeType } from "@hacado/utils";
 import { FC } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { FormsFieldType } from "../../models/fields";

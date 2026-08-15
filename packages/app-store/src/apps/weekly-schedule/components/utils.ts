@@ -1,5 +1,5 @@
-import { WeekIdentifier } from "@timelish/types";
-import { getDateFromWeekIdentifier } from "@timelish/utils";
+import { WeekIdentifier } from "@hacado/types";
+import { getDateFromWeekIdentifier } from "@hacado/utils";
 import { DateTime } from "luxon";
 
 export const getWeekDisplay = (week: WeekIdentifier) => {

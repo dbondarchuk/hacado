@@ -1,4 +1,6 @@
 export * from "./app";
+export * from "./app-scope-usage";
+export * from "./app-target";
 export * from "./assets";
 export * from "./availability-provider";
 export * from "./calendars";
@@ -12,6 +14,7 @@ export * from "./events";
 export * from "./injectors";
 export * from "./mail";
 export * from "./notifications";
+export * from "./page-seo-arguments-provider";
 export * from "./payment";
 export * from "./schedule";
 export * from "./scheduled";

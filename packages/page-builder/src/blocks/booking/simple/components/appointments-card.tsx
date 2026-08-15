@@ -1,5 +1,10 @@
-import { useI18n } from "@timelish/i18n";
-import { AppointmentChoice } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import {
+  AppointmentChoice,
+  minEffectiveDuration,
+  minEffectivePrice,
+  PublicStaffMember,
+} from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -9,13 +14,14 @@ import {
   cn,
   Markdown,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 
 export type AppointmentsCardProps = {
   options: AppointmentChoice[];
+  members?: PublicStaffMember[];
   className?: string;
   id?: string;
   isBookingRestricted?: boolean;
@@ -24,9 +30,21 @@ export type AppointmentsCardProps = {
 
 export const AppointmentsCard: React.FC<
   AppointmentsCardProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ options: meetings, className, id, isBookingRestricted, onSelectOption, ...props }) => {
+> = ({
+  options: meetings,
+  members = [],
+  className,
+  id,
+  isBookingRestricted,
+  onSelectOption,
+  ...props
+}) => {
   const i18n = useI18n("translation");
   const currencyFormat = useCurrencyFormat();
+  const activeMemberIds = React.useMemo(
+    () => new Set(members.map((m) => m.id)),
+    [members],
+  );
 
   const onKeyPress = React.useCallback(
     (id: string, event: React.KeyboardEvent<any>) => {
@@ -41,6 +59,19 @@ export const AppointmentsCard: React.FC<
   return (
     <div className={className} id={id} {...props}>
       {meetings.map((option) => {
+        const activeAssignments = (option.staff || []).filter((s) =>
+          activeMemberIds.has(s.memberId),
+        );
+        const isFromPricing = activeAssignments.length > 1;
+        const displayDuration =
+          option.durationType === "fixed"
+            ? minEffectiveDuration(option.duration, activeAssignments)
+            : undefined;
+        const displayPrice =
+          option.durationType === "fixed"
+            ? minEffectivePrice(option.price, activeAssignments)
+            : minEffectivePrice(option.pricePerHour, activeAssignments);
+
         return (
           <Card
             key={option._id}
@@ -74,44 +105,62 @@ export const AppointmentsCard: React.FC<
                       option.durationType === "fixed"
                         ? i18n(
                             "common.formats.formDurationHourMinutesLabel",
-                            durationToTime(option.duration),
+                            durationToTime(displayDuration ?? option.duration),
                           )
                         : i18n("common.formats.customDurationLabel")
                     }
                   >
                     <Timer className="mr-1" />
                     {option.durationType === "fixed"
-                      ? i18n(
-                          "common.formats.durationHourMin",
-                          durationToTime(option.duration),
-                        )
+                      ? isFromPricing
+                        ? i18n("booking.specialist.fromDuration", {
+                            duration: i18n(
+                              "common.formats.durationHourMin",
+                              durationToTime(
+                                displayDuration ?? option.duration,
+                              ),
+                            ),
+                          })
+                        : i18n(
+                            "common.formats.durationHourMin",
+                            durationToTime(displayDuration ?? option.duration),
+                          )
                       : i18n("common.labels.durationCustom")}
                   </div>
-                  {option.durationType === "fixed" && !!option.price && (
+                  {option.durationType === "fixed" && !!displayPrice && (
                     <div
                       className="flex flex-row items-center"
                       aria-label={i18n("common.formats.formPriceLabel", {
-                        price: currencyFormat(option.price),
+                        price: currencyFormat(displayPrice),
                       })}
                     >
                       <DollarSign className="mr-1" aria-label="" />
-                      {currencyFormat(option.price)}
+                      {isFromPricing
+                        ? i18n("booking.specialist.fromPrice", {
+                            price: currencyFormat(displayPrice),
+                          })
+                        : currencyFormat(displayPrice)}
                     </div>
                   )}
-                  {option.durationType === "flexible" &&
-                    !!option.pricePerHour && (
-                      <div
-                        className="flex flex-row items-center"
-                        aria-label={i18n("common.formats.formPriceLabel", {
-                          price: currencyFormat(option.pricePerHour),
-                        })}
-                      >
-                        <DollarSign className="mr-1" aria-label="" />
-                        {i18n("booking.option.price_per_hour", {
-                          price: currencyFormat(option.pricePerHour),
-                        })}
-                      </div>
-                    )}
+                  {option.durationType === "flexible" && !!displayPrice && (
+                    <div
+                      className="flex flex-row items-center"
+                      aria-label={i18n("common.formats.formPriceLabel", {
+                        price: currencyFormat(displayPrice),
+                      })}
+                    >
+                      <DollarSign className="mr-1" aria-label="" />
+                      {isFromPricing
+                        ? i18n("booking.specialist.fromPrice", {
+                            price: i18n("booking.option.price_per_hour", {
+                              price: currencyFormat(displayPrice),
+                            }),
+                          })
+                        : i18n("booking.option.price_per_hour", {
+                            price: currencyFormat(displayPrice),
+                          })}
+                    </div>
+                  )}
                 </CardDescription>
               </div>
             </CardHeader>

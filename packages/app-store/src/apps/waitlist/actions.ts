@@ -1,5 +1,5 @@
-import { adminApi } from "@timelish/api-sdk";
-import { WithTotal } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { WithTotal } from "@hacado/types";
 import {
   CreateWaitlistEntryActionType,
   CreateWaitlistEntryRequest,

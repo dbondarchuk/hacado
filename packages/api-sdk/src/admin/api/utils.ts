@@ -2,7 +2,7 @@ import {
   fetchWithJson,
   responseWithJsonBody,
   type FetchWithJsonResponse,
-} from "@timelish/utils";
+} from "@hacado/utils";
 
 export const BASE_ADMIN_API_URL = "/api";
 

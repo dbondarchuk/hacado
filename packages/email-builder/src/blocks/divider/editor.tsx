@@ -1,4 +1,4 @@
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import { Divider } from "./divider";
 import { DividerProps } from "./schema";
 

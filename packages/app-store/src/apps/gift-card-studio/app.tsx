@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { Gift } from "lucide-react";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./const";
 import {
@@ -22,11 +22,12 @@ export const GiftCardStudioApp: App<
     "dashboard-notifier",
   ],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <Gift className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_gift-card-studio_admin.app.description" satisfies GiftCardStudioAdminAllKeys,
   },

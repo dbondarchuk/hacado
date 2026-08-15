@@ -1,7 +1,7 @@
 "use client";
 
-import { clientApi, ClientApiError } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n } from "@timelish/i18n";
+import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { TranslationKeys, useI18n } from "@hacado/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   Availability,
@@ -12,8 +12,8 @@ import type {
   ModifyAppointmentReason,
   ModifyAppointmentRequest,
   ModifyAppointmentType,
-} from "@timelish/types";
-import { AutoSkeleton, Button, cn, toast } from "@timelish/ui";
+} from "@hacado/types";
+import { AutoSkeleton, Button, cn, toast } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";
 import {

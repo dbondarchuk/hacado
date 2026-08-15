@@ -6,7 +6,7 @@ import {
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Rows3 } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

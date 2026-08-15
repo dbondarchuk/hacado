@@ -2,6 +2,7 @@ const { resolve } = require("node:path");
 const prettierConfig = require("eslint-config-prettier/flat");
 const turboConfig = require("eslint-config-turbo/flat");
 const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
+const tsParser = require("@typescript-eslint/parser");
 const project = resolve(process.cwd(), "tsconfig.json");
 
 /** @type {import("eslint").Linter.Config} */
@@ -10,8 +11,8 @@ module.exports = [
   prettierConfig,
   eslintPluginPrettierRecommended,
   {
-    // plugins: ["only-warn"],
     languageOptions: {
+      parser: tsParser,
       globals: {
         React: true,
         JSX: true,
@@ -24,12 +25,10 @@ module.exports = [
         },
       },
     },
-    files: ["*.js?(x)", "*.ts?(x)"],
+    files: ["**/*.js?(x)", "**/*.ts?(x)"],
   },
-  // Should use global ignore config to apply to all rules
   {
     ignores: [
-      // Ignore dotfiles
       ".*.js",
       "node_modules/",
       "dist/",
@@ -37,6 +36,11 @@ module.exports = [
       "public/",
       "public/**",
       "public/**/*",
+      ".next/",
+      ".next/**",
+      "**/.next/**",
+      "next-env.d.ts",
+      "**/*.generated.ts",
     ],
   },
   {

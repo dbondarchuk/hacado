@@ -1,16 +1,10 @@
-import { useI18n } from "@timelish/i18n";
-import { Combobox } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { AlignHorizontalSpaceAround } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";
 
-const justifySelfKeys = [
-  "auto",
-  "start",
-  "end",
-  "center",
-  "stretch",
-] as const;
+const justifySelfKeys = ["auto", "start", "end", "center", "stretch"] as const;
 
 const JustifySelfSchema = z.enum(justifySelfKeys);
 
@@ -19,9 +13,7 @@ export const justifySelfStyle = {
   label: "builder.pageBuilder.styles.properties.justifySelf",
   category: "layout",
   schema: JustifySelfSchema,
-  icon: ({ className }) => (
-    <AlignHorizontalSpaceAround className={className} />
-  ),
+  icon: ({ className }) => <AlignHorizontalSpaceAround className={className} />,
   defaultValue: "auto",
   renderToCSS: (value) => {
     if (!value || value === "auto") return null;

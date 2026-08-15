@@ -2,8 +2,8 @@
 
 import { applyInstallPersonalization } from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { useI18n } from "@timelish/i18n";
-import { fontsNames } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { fontsNames } from "@hacado/types";
 import {
   Button,
   Combobox,
@@ -11,9 +11,9 @@ import {
   Label,
   Spinner,
   toast,
-} from "@timelish/ui";
-import { AssetSelectorInput, ColorPickerInput } from "@timelish/ui-admin";
-import { getWebfontPreviewFilename } from "@timelish/utils";
+} from "@hacado/ui";
+import { AssetSelectorInput, ColorPickerInput } from "@hacado/ui-admin";
+import { getWebfontPreviewFilename } from "@hacado/utils";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";

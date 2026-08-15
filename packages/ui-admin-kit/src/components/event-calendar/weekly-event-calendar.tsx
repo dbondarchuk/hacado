@@ -1,5 +1,5 @@
-import { useI18n, useLocale } from "@timelish/i18n";
-import { DaySchedule, Shift } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { DaySchedule, Shift } from "@hacado/types";
 import {
   cn,
   ScrollArea,
@@ -9,13 +9,14 @@ import {
   TooltipResponsiveTrigger,
   usePointer,
   useTimeZone,
-} from "@timelish/ui";
-import { formatTime, formatTimeLocale, parseTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import { DateTime, HourNumbers, SecondNumbers } from "luxon";
 import React, { CSSProperties, Fragment, useCallback } from "react";
+import { EventItemContent } from "./event-item-content";
 import { EventPopover } from "./event-popover";
-import { EventVariantClasses } from "./styles";
+import { getEventAppearance } from "./styles";
 import { EventCalendarEvent, WeeklyEventCalendarProps } from "./types";
 
 const colStartClass = "col-start-[var(--calendar-col-start)]";
@@ -191,6 +192,8 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
         ),
       );
 
+      const appearance = getEventAppearance(event);
+
       const styles = {
         "--calendar-col-start": `${timeSlotColCount + dateIndex + 1}`,
         "--calendar-col-end": `span ${Math.floor(
@@ -226,6 +229,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
         "--calendar-row-end": `span ${Math.floor(
           event.end.diff(event.start, "minutes").minutes / slotInterval,
         )}`,
+        ...appearance.style,
       };
 
       const classes = cn(
@@ -234,8 +238,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
         event.isMultiDay && colSpanClass,
         rowStartClass,
         !event.isMultiDay && rowSpanClass,
-        EventVariantClasses[event.variant || "primary"] ||
-          EventVariantClasses.primary,
+        appearance.className,
         isOverlappingNonMultiDay &&
           "w-[75%] ml-[25%] border border-white/80 text-right z-[3] hover:z-[4]",
       );
@@ -334,8 +337,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                     <span
                       className={cn(
                         "inline-flex size-8 items-center justify-center rounded-full text-base font-medium tabular-nums",
-                        isToday &&
-                          "bg-primary text-primary-foreground shadow-sm",
+                        isToday && "bg-brand text-brand-foreground shadow-sm",
                         !isToday && "text-foreground",
                       )}
                     >
@@ -389,7 +391,11 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                     )}
                     style={restStyles}
                   >
-                    {event.title}
+                    <EventItemContent
+                      event={calendarEvent}
+                      showTime={false}
+                      density="compact"
+                    />
                   </div>
                 </EventPopover>
               );
@@ -507,21 +513,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                     className={classes}
                     style={styles}
                   >
-                    <div className="min-h-0 overflow-hidden">
-                      <div
-                        className="text-[12px] opacity-70 mb-0.5"
-                        suppressHydrationWarning
-                      >
-                        {event.start.toLocaleString(DateTime.TIME_SIMPLE, {
-                          locale,
-                        })}{" "}
-                        -{" "}
-                        {event.end.toLocaleString(DateTime.TIME_SIMPLE, {
-                          locale,
-                        })}
-                      </div>
-                      <div className="font-medium">{event.title}</div>
-                    </div>
+                    <EventItemContent event={calendarEvent} />
                   </div>
                 </EventPopover>
               );

@@ -4,7 +4,7 @@ import {
   IOrganizationService,
   ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
   Organization,
-} from "@timelish/types";
+} from "@hacado/types";
 import { ORGANIZATIONS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { invalidateOrganizationHostnameCache } from "./organization-hostname-cache";
@@ -40,7 +40,10 @@ export class OrganizationService
       );
       return null;
     }
-    return organization;
+    return {
+      ...organization,
+      _id: String(organization._id),
+    };
   }
 
   public async setDomain(
@@ -108,7 +111,10 @@ export class StaticOrganizationService {
       // console.warn({ slug }, "Organization not found by slug");
       return null;
     }
-    return organization;
+    return {
+      ...organization,
+      _id: String(organization._id),
+    };
   }
 
   public async getOrganizationByDomain(
@@ -123,6 +129,9 @@ export class StaticOrganizationService {
       // console.warn({ domain }, "Organization not found by domain");
       return null;
     }
-    return organization;
+    return {
+      ...organization,
+      _id: String(organization._id),
+    };
   }
 }

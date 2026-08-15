@@ -5,7 +5,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronsUpDown } from "lucide-react";
 import React from "react";
 

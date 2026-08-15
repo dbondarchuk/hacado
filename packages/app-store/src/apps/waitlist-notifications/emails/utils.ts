@@ -1,6 +1,9 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { Language } from "@timelish/i18n";
-import { template } from "@timelish/utils";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
+import { Language } from "@hacado/i18n";
+import { template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 import { WaitlistEntry } from "../../waitlist/models/waitlist";
 
@@ -46,7 +49,7 @@ export const getEmailTemplate = async (
           button: {
             text: buttonTexts.dismiss,
             url: `${url}/dashboard/waitlist/dismiss?id=${entry._id}`,
-            backgroundColor: "#ef4444",
+            backgroundColor: EMAIL_BRAND.destructive,
           },
         },
         {
@@ -54,7 +57,7 @@ export const getEmailTemplate = async (
           button: {
             text: buttonTexts.createAppointment,
             url: `${url}/dashboard/waitlist/appointment/new?id=${entry._id}`,
-            backgroundColor: "#0066ff",
+            backgroundColor: EMAIL_BRAND.primary,
           },
         },
       ],

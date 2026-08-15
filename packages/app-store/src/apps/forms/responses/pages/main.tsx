@@ -1,6 +1,6 @@
 "use client";
 
-import { dispatchDashboardBadge } from "@timelish/ui-admin";
+import { dispatchDashboardBadge } from "@hacado/ui-admin";
 import React from "react";
 import { markFormResponsesRead } from "../../actions";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "../../const";

@@ -1,6 +1,6 @@
 export * from "./addon-selector";
-export * from "./appointment-selector";
 export * from "./app-selector";
+export * from "./appointment-selector";
 export * from "./arguments-autocomplete";
 export * from "./asset-preview";
 export * from "./asset-selector-input";
@@ -12,6 +12,7 @@ export * from "./customer-selector";
 export * from "./data-table";
 export * from "./field-selector";
 export * from "./gift-card-selector";
+export * from "./member-selector";
 export * from "./non-sortable";
 export * from "./option-selector";
 export * from "./page-selector-dialog";

@@ -1,4 +1,4 @@
-import { Leaves } from "@timelish/types";
+import { Leaves } from "@hacado/types";
 
 export const buildSearchQuery = <T extends {}>(
   filter: any,

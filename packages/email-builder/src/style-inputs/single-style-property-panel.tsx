@@ -8,8 +8,8 @@ import {
   SelectInput,
   SliderInput,
   TextAlignInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { DraftingCompass } from "lucide-react";
 import { FONT_FAMILIES } from "./helpers/font-family";
 import { TStyle } from "./helpers/TStyle";
@@ -27,7 +27,6 @@ export const SingleStylePropertyPanel: React.FC<StylePropertyPanelProps> = ({
 }) => {
   const t = useI18n("builder");
   const defaultValue = value[name] ?? null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (v: any) => {
     onChange({ ...value, [name]: v });
   };

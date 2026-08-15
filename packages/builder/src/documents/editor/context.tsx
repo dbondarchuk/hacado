@@ -3,8 +3,8 @@
 import * as z from "zod";
 import { create, StoreApi, UseBoundStore, useStore } from "zustand";
 
-import { DeepOmit, UploadedFile } from "@timelish/types";
-import { deepEqual } from "@timelish/utils";
+import { DeepOmit, UploadedFile } from "@hacado/types";
+import { deepEqual } from "@hacado/utils";
 import {
   createContext,
   FC,

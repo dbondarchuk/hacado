@@ -1,4 +1,4 @@
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
 import { YouTubeVideoProps } from "./schema";
 import { youtubeVideoShortcuts } from "./shortcuts";
 

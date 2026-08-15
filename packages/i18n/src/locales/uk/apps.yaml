@@ -4,7 +4,7 @@ common:
   featured: Рекомендовані
   addApp: Додати додаток
   alreadyInstalled: Вже встановлено
-  upgradeRequired: Цей додаток доступний лише на тарифі Pro.
+  upgradeRequired: Цей додаток доступний лише на тарифі Solo.
   upgradeLink: Оновити тариф у налаштуваннях бренду
   appStore: Магазин додатків
   addNewApps: Додати нові додатки
@@ -70,6 +70,7 @@ common:
       calendar-read: Джерело календаря
       schedule: Постачальник розкладу
       availability-provider: Постачальник доступності
+      meeting-url-provider: Постачальник URL зустрічі
     actions:
       apply: Застосувати вибране
       skip: Не зараз
@@ -99,6 +100,10 @@ scopes:
   dashboard-notifier: Сповіщувач панелі керування
   demo-arguments-provider: Постачальник демонстраційних аргументів
   sitemap-items-provider: Постачальник елементів sitemap
+  page-seo-arguments-provider: Постачальник аргументів SEO сторінки
+target:
+  company: Компанія
+  member: Учасник
 status:
   connected: Підключено
   failed: Підключення не вдалося

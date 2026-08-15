@@ -2,7 +2,7 @@ import type {
   Appointment,
   ModifyAppointmentInformation,
   ModifyAppointmentType,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export type AppointmentResponse = {
   appointment: Appointment;

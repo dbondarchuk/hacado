@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const appointmentReminderEmailTemplate: TemplatesTemplate = {
   name: "Нагадування про запис (email)",
@@ -97,7 +97,7 @@ export const appointmentReminderEmailTemplate: TemplatesTemplate = {
                 {
                   children: [
                     {
-                      text: "Це дружнє нагадування про ваш майбутній візит {{dateTime.full}}.",
+                      text: "Це дружнє нагадування про ваш майбутній візит {{dateTime.full}} з {{member.name}}.",
                       fontSize: "14px",
                     },
                   ],

@@ -1,4 +1,4 @@
-import { BuilderKeys, useI18n } from "@timelish/i18n";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Label,
@@ -8,8 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
   Slider,
-} from "@timelish/ui";
-import { AssetSelectorInput } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetSelectorInput } from "@hacado/ui-admin";
 import { Image, Plus, Trash2 } from "lucide-react";
 import * as z from "zod";
 import { ColorExtendedInput } from "../../../style-inputs/base/color-exteneded-input";

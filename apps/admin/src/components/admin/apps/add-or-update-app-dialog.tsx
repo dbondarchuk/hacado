@@ -1,14 +1,16 @@
 "use client";
 
-import { AvailableApps } from "@timelish/app-store";
-import { AppSetups } from "@timelish/app-store/setup";
-import { useI18n } from "@timelish/i18n";
+import { authClient } from "@/app/auth-client";
+import { AvailableApps } from "@hacado/app-store";
+import { AppSetups } from "@hacado/app-store/setup";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppSetupProps,
   ConnectedApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
-} from "@timelish/types";
+  type SessionUser,
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -30,7 +32,8 @@ import {
   Spinner,
   toast,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { setDefaultAppByScope } from "./store/actions";
@@ -59,6 +62,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
 }) => {
   const router = useRouter();
   const t = useI18n("apps");
+  const { data: session } = authClient.useSession();
 
   let app: ConnectedApp | undefined = undefined;
   let appType: string;
@@ -84,10 +88,14 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
   const defaultScopes = useMemo(() => {
     const currentApp = AvailableApps[appType];
     if (!currentApp) return undefined;
-    return defaultAppToInstallScopes.filter((scope) =>
+    const intersecting = defaultAppToInstallScopes.filter((scope) =>
       currentApp.scope.includes(scope),
     );
-  }, [appType]);
+    return filterInstallDefaultScopesForUser(
+      intersecting,
+      session?.user as SessionUser | undefined,
+    );
+  }, [appType, session?.user]);
 
   const openDialog = () => {
     setIsOpen(true);
@@ -141,7 +149,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
       },
       appId: app?._id,
     }),
-    [app?._id, t, closeDialog],
+    [app, app?._id, t, closeDialog, defaultScopes, dontAskToSetDefault],
   );
 
   const onSetDefault = async () => {
@@ -228,7 +236,10 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
             </AlertDialogDescription>
             <div className="flex flex-col gap-2 pt-2">
               {pendingDefaultPrompt?.scopes.map((scope) => (
-                <Label key={scope} className="flex items-center gap-2 text-base">
+                <Label
+                  key={scope}
+                  className="flex items-center gap-2 text-base"
+                >
                   <Checkbox
                     checked={selectedScopes.includes(scope)}
                     onCheckedChange={(checked) => {

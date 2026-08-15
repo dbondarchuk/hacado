@@ -1,4 +1,4 @@
-import { PlateStaticEditor } from "@timelish/rte";
+import { PlateStaticEditor } from "@hacado/rte";
 import { TextProps } from "./schema";
 import { getStyles } from "./styles";
 

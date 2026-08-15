@@ -6,15 +6,15 @@ import {
 } from "./apps";
 import { BookingConfiguration, bookingConfigurationSchema } from "./booking";
 import { BrandConfiguration, brandConfigurationSchema } from "./brand";
+import {
+  CustomerAuthConfiguration,
+  customerAuthConfigurationSchema,
+} from "./customer-auth";
 import { GeneralConfiguration, generalConfigurationSchema } from "./general";
 import { ScheduleConfiguration, scheduleConfigurationSchema } from "./schedule";
 import { ScriptsConfiguration, scriptsConfigurationSchema } from "./scripts";
 import { SocialConfiguration, socialConfigurationSchema } from "./social";
 import { StylingConfiguration, stylingConfigurationSchema } from "./styling";
-import {
-  CustomerAuthConfiguration,
-  customerAuthConfigurationSchema,
-} from "./customer-auth";
 
 export * from "./apps";
 export * from "./booking";

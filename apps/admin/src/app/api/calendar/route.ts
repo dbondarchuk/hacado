@@ -1,7 +1,12 @@
-import { getServicesContainer } from "@/app/utils";
-import { calendarSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentStatus, appointmentStatuses } from "@timelish/types";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { calendarSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import {
+  AppointmentStatus,
+  appointmentStatuses,
+  CalendarEvent,
+} from "@hacado/types";
+import { resolveCalendarMemberId } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +14,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/calendar")("GET");
   const servicesContainer = await getServicesContainer();
+  const user = await getUser();
 
   logger.debug(
     {
@@ -20,7 +26,8 @@ export async function GET(request: NextRequest) {
   );
 
   const searchParams = calendarSearchParamsLoader(request.nextUrl.searchParams);
-  const { start, end, includeDeclined } = searchParams;
+  const { start, end, includeDeclined, member } = searchParams;
+  const memberId = resolveCalendarMemberId(user, member);
   if (!start || !end) {
     logger.warn("Missing required date range parameters");
     return NextResponse.json(
@@ -34,6 +41,7 @@ export async function GET(request: NextRequest) {
       start,
       end,
       includeDeclined,
+      memberId,
     },
     "Fetching calendar data",
   );
@@ -42,16 +50,37 @@ export async function GET(request: NextRequest) {
     (s) => includeDeclined || s !== "declined",
   );
 
-  const [events, schedule] = await Promise.all([
-    servicesContainer.bookingService.getCalendarEvents(start, end, statuses),
-    servicesContainer.scheduleService.getSchedule(start, end),
+  const [fullEvents, schedule] = await Promise.all([
+    servicesContainer.bookingService.getCalendarEvents(
+      start,
+      end,
+      statuses,
+      memberId,
+    ),
+    servicesContainer.scheduleService.getSchedule(
+      start,
+      end,
+      memberId ?? user.memberId,
+    ),
   ]);
+
+  // Trim actual calendar events titles for other members
+  const events: CalendarEvent[] = fullEvents.map((event) =>
+    "_id" in event
+      ? event
+      : {
+          ...event,
+          title: event.memberId === user.memberId ? event.title : "Busy",
+        },
+  );
 
   logger.debug(
     {
       start,
       end,
       includeDeclined,
+      memberId,
+      eventCount: events.length,
     },
     "Successfully retrieved calendar data",
   );

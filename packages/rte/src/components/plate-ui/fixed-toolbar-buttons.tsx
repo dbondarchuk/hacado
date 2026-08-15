@@ -30,7 +30,7 @@ import {
 
 import { MoreDropdownMenu } from "./more-dropdown-menu";
 
-import { ToolbarGroup } from "@timelish/ui";
+import { ToolbarGroup } from "@hacado/ui";
 import { AlignDropdownMenu } from "./align-dropdown-menu";
 import { ColorDropdownMenu } from "./color-dropdown-menu";
 import { EmojiDropdownMenu } from "./emoji-dropdown-menu";

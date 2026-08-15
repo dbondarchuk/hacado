@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { NumberValueWithUnit, Unit, units } from "../../style/zod";
 import { RawNumberInput } from "./raw-number-input";
 

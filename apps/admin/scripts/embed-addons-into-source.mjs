@@ -45,12 +45,8 @@ function buildAddonsForService(svc, tags, cat, serviceId) {
 
   const firstTag = tags[0] ?? cat;
   const secondTag = tags[1] ?? tags[0] ?? cat;
-  const suggested1 = basePrice
-    ? Math.max(5, Math.round(basePrice * 0.25))
-    : 15;
-  const suggested2 = basePrice
-    ? Math.max(5, Math.round(basePrice * 0.4))
-    : 25;
+  const suggested1 = basePrice ? Math.max(5, Math.round(basePrice * 0.25)) : 15;
+  const suggested2 = basePrice ? Math.max(5, Math.round(basePrice * 0.4)) : 25;
 
   /** @type {object[]} */
   const addons = [];
@@ -88,7 +84,9 @@ for (const f of files) {
 
   for (const prof of Object.values(j)) {
     const tags = (prof.tags || []).map((t) =>
-      String(t).toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+      String(t)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_"),
     );
     const services = prof.services || [];
     for (let idx = 0; idx < services.length; idx++) {
@@ -105,11 +103,7 @@ for (const f of files) {
   }
 
   if (changed) {
-    fs.writeFileSync(
-      full,
-      `${stringifyYaml(j, { lineWidth: 0 })}\n`,
-      "utf8",
-    );
+    fs.writeFileSync(full, `${stringifyYaml(j, { lineWidth: 0 })}\n`, "utf8");
     touched++;
     console.log("updated", f);
   }

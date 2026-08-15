@@ -2,6 +2,7 @@ import { AssetEntity } from "../assets/entity";
 import { Customer } from "../customers/customer";
 import { WithDatabaseId, WithOrganizationId } from "../database";
 import { DateRange } from "../general";
+import { OrganizationMember } from "../users/member";
 import { Prettify } from "../utils/helpers";
 import {
   AppointmentEvent,
@@ -24,6 +25,8 @@ export type AppointmentEntity = Prettify<
         status: AppointmentStatus;
         createdAt: Date;
         customerId: string;
+        /** Assigned staff member (Better Auth members._id). */
+        memberId: string;
         meetingInformation?: AppointmentOnlineMeetingInformation;
       }
     >
@@ -33,6 +36,7 @@ export type AppointmentEntity = Prettify<
 export type Appointment = Prettify<
   AppointmentEntity & {
     customer: Customer;
+    member: OrganizationMember;
     files?: AssetEntity[];
     payments?: Payment[];
     endAt: Date;
@@ -53,6 +57,7 @@ export type GetAppointmentsQueryBase = {
   optionId?: string | string[];
   customerId?: string | string[];
   discountId?: string | string[];
+  memberId?: string | string[];
 };
 
 export type GetAppointmentsQueryWithReferenceDate = GetAppointmentsQueryBase & {

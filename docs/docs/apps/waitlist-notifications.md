@@ -5,7 +5,7 @@ description: Notify staff and optionally clients when someone joins your waitlis
 
 # Waitlist notifications
 
-Works together with **[Waitlist](/docs/apps/waitlist)**. After you turn it on, Timelish can email **your team** when a new row is added and can email **the customer** who joined. You assign an email template to the customer-facing message when that option is on.
+Works together with **[Waitlist](/docs/apps/waitlist)**. After you turn it on, Hacado can email **your team** when a new row is added and can email **the customer** who joined. You assign an email template to the customer-facing message when that option is on.
 
 ## Adding the App
 

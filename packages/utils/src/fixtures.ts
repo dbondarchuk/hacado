@@ -1,4 +1,4 @@
-import { Appointment, AppointmentFields } from "@timelish/types";
+import { Appointment, AppointmentFields } from "@hacado/types";
 import { v4 } from "uuid";
 
 const proxyHandler = {
@@ -15,6 +15,7 @@ const customerId = "customer-1234";
 export const demoAppointment: Appointment = {
   _id: appointmentId,
   organizationId: "organization-1",
+  memberId: "member-1",
   createdAt: new Date(2024, 10, 20, 9, 0, 0),
   dateTime: new Date(2024, 10, 20, 9, 0, 0),
   status: "confirmed",
@@ -32,6 +33,18 @@ export const demoAppointment: Appointment = {
     isOnline: false,
     durationType: "fixed",
     // requireDeposit: "inherit",
+  },
+  member: {
+    _id: "member-1",
+    organizationId: "organization-1",
+    userId: "user-1",
+    createdAt: new Date(),
+    status: "active",
+    name: "Joe Doe",
+    role: "owner",
+    email: "joe.doe@example.com",
+    phone: "+1 (555)555-6666",
+    language: "en",
   },
   meetingInformation: {
     type: "google_meet",

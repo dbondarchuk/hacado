@@ -1,5 +1,5 @@
 import { getServicesContainer, getSession } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -28,7 +28,7 @@ export async function POST(
         appName,
         body,
         request,
-        session.user.id,
+        session.user,
       );
 
     logger.debug(

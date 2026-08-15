@@ -1,4 +1,4 @@
-import { ValidationKeys } from "@timelish/i18n";
+import { ValidationKeys } from "@hacado/i18n";
 import * as z from "zod";
 import {
   appointmentRescheduleSchema,
@@ -14,6 +14,11 @@ import {
 } from "../utils";
 import { DistributiveOmit, Prettify } from "../utils/helpers";
 import { FieldSchema } from "./field";
+import {
+  addonStaffOverridesSchema,
+  PublicStaffMember,
+  staffAssignmentsSchema,
+} from "./staff-assignment";
 
 export const isRequiredOptionTypes = ["inherit", "always", "never"] as const;
 export const optionPaymentCalculationType = ["percentage", "amount"] as const;
@@ -79,6 +84,8 @@ export const appointmentOptionSchema = z
       (field) => field.id,
       "validation.appointments.option.fields.id.unique",
     ).optional(),
+    /** Staff members who can perform this service (+ optional price/duration overrides). Empty = not bookable. */
+    staff: staffAssignmentsSchema,
     isAutoConfirm: isRequiredOptionSchema,
     duplicateAppointmentCheck: z
       .object({
@@ -244,7 +251,6 @@ export const appointmentOptionSchema = z
             error:
               "appointments.option.isOnline.required" satisfies ValidationKeys,
           }),
-          meetingUrlProviderAppId: zObjectId().optional(),
         }),
       ),
   )
@@ -345,6 +351,12 @@ export const appointmentAddonSchema = z.object({
   price: asOptinalNumberField(
     z.coerce.number<number>().min(1, "validation.addons.price.min"),
   ),
+  /**
+   * Per-member overrides for this addon. Empty = all parent-service staff can
+   * offer it at base price/duration. Entries may set price/duration overrides
+   * or mark a member unavailable (`unavailable: true`).
+   */
+  staff: addonStaffOverridesSchema,
   fields: zUniqueArray(
     z.array(
       z.object({
@@ -418,4 +430,6 @@ export type GetAppointmentOptionsResponse = {
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode: boolean;
   bookingRestriction?: BookingRestriction;
+  /** Active staff members, for resolving `AppointmentOption.staff` assignments in the public booking UI. */
+  members: PublicStaffMember[];
 };

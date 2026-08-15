@@ -1,4 +1,4 @@
-import { giftCardStatus, zNonEmptyString } from "@timelish/types";
+import { giftCardStatus, zNonEmptyString } from "@hacado/types";
 import * as z from "zod";
 
 export const setGiftCardStatusSchema = z.object({

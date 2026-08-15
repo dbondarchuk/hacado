@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, SliderInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+import { ConfigurationProps, SliderInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { Repeat1 } from "lucide-react";
 import { useCallback } from "react";
 import { CarouselProps, styles } from "./schema";

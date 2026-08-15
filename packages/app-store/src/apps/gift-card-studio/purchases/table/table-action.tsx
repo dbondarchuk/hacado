@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@timelish/ui-admin";
-import { HeaderActionButtonsPortal } from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
 import { Settings2, ShoppingCart } from "lucide-react";
 import React from "react";
 import {

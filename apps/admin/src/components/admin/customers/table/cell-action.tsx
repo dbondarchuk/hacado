@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { CustomerListModel } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { CustomerListModel } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -12,7 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,9 +27,16 @@ interface CellActionProps {
 
 export const CellAction: React.FC<CellActionProps> = ({ customer }) => {
   const t = useI18n("admin");
+  const { user } = useAuth();
+  const canUpdate = hasPermission(user, "customer", "update");
+  const canDelete = hasPermission(user, "customer", "delete");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  if ((!canUpdate && !canDelete) || customer.isDeleted) {
+    return null;
+  }
 
   const onConfirm = async () => {
     try {
@@ -69,7 +78,7 @@ export const CellAction: React.FC<CellActionProps> = ({ customer }) => {
           <DropdownMenuLabel>
             {t("customers.table.actions.actions")}
           </DropdownMenuLabel>
-          {!customer.isDeleted && (
+          {canUpdate ? (
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
@@ -82,8 +91,8 @@ export const CellAction: React.FC<CellActionProps> = ({ customer }) => {
                 </Link>
               </DropdownMenuItem>
             </>
-          )}
-          {!customer.isDeleted && (
+          ) : null}
+          {canDelete ? (
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setOpen(true)}>
@@ -91,7 +100,7 @@ export const CellAction: React.FC<CellActionProps> = ({ customer }) => {
                 {t("customers.table.actions.delete")}
               </DropdownMenuItem>
             </>
-          )}
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

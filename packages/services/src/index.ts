@@ -1,4 +1,4 @@
-import { IServicesContainer } from "@timelish/types";
+import { IServicesContainer } from "@hacado/types";
 import { cache } from "react";
 import { ActivityService } from "./activity.service";
 import { AssetsService } from "./assets.service";
@@ -30,8 +30,8 @@ import { getS3Configuration } from "./s3-assets-storage/utils";
 import { ScheduleService } from "./schedule.service";
 import { ServicesService } from "./services.service";
 import { SyncedPaymentsService } from "./synced-payments.service";
+import { TeamService } from "./team.service";
 import { TemplatesService } from "./templates.service";
-import { UserService } from "./user.service";
 
 // BullMQ exports
 export * from "./bullmq";
@@ -61,7 +61,7 @@ export * from "./s3-assets-storage";
 export * from "./schedule.service";
 export * from "./services.service";
 export * from "./synced-payments.service";
-export * from "./user.service";
+export * from "./team.service";
 
 /**
  * ServicesContainer provides organization-scoped services
@@ -112,7 +112,7 @@ export const ServicesContainer: (
       organizationService,
     );
 
-    const userService = new UserService(organizationId);
+    const teamService = new TeamService(organizationId, eventService);
     const customersService = new CustomersService(organizationId, eventService);
     const activityService = new ActivityService(
       organizationId,
@@ -166,15 +166,16 @@ export const ServicesContainer: (
       servicesService,
       paymentsService,
       eventService,
-      userService,
       organizationService,
       billingService,
+      teamService,
     );
 
     const syncedPaymentsService = new SyncedPaymentsService(
       organizationId,
       bookingService,
       paymentsService,
+      customersService,
       eventService,
     );
 
@@ -230,7 +231,7 @@ export const ServicesContainer: (
       eventService,
       notificationService,
       organizationService,
-      userService,
+      teamService,
       dashboardNotificationsService,
       giftCardsService,
       billingService,

@@ -1,9 +1,9 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { WithTotal } from "@timelish/types";
-import { toast, useDebounce } from "@timelish/ui";
-import { DataTable, DataTableSkeleton } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { WithTotal } from "@hacado/types";
+import { toast, useDebounce } from "@hacado/ui";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
 import { useQueryStates } from "nuqs";
 import React, { useEffect, useState } from "react";
 import { getFormResponses } from "../../actions";

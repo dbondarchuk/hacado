@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentAddon,
@@ -14,13 +13,27 @@ import {
   Customer,
   CustomerListModel,
   Discount,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+  effectiveStaffDuration,
+  effectiveStaffPrice,
   Field,
   getFields,
+  getUnassignedMemberIssues,
+  isMemberAssignedToOption,
+  OrganizationMember,
   Prettify,
   WithLabelFieldData,
   zNonEmptyString,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
   Button,
   Checkbox,
   cn,
@@ -50,13 +63,14 @@ import {
   useCurrencyFormat,
   useCurrencySymbol,
   useTimeZone,
-} from "@timelish/ui";
-import { CustomerSelector, PromoCodeSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
 import {
-  durationToTime,
-  formatAmount,
-  getDiscountAmount,
-} from "@timelish/utils";
+  CustomerSelector,
+  MemberSelector,
+  PromoCodeSelector,
+} from "@hacado/ui-admin";
+import { durationToTime, formatAmount, getDiscountAmount } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
@@ -73,6 +87,7 @@ export const appointmentFromSchema = z.object({
   optionId: z.string().optional(),
   addonsIds: z.array(z.string()).optional(),
   customerId: z.string().optional(),
+  memberId: z.string(),
   fields: z.record(z.string(), z.any()).optional(),
   dateTime: z.date().optional(),
   totalDuration: z.number().optional(),
@@ -94,6 +109,8 @@ export type AppointmentScheduleFormProps = Prettify<
     options: AppointmentChoice[];
     knownFields: (Field<WithLabelFieldData> & { _id: string })[];
     customer?: Customer | null;
+    currentMemberId: string;
+    canAssignMember: boolean;
   } & (
     | ({
         from: AppointmentScheduleFormFrom;
@@ -148,7 +165,16 @@ const getSelectedFields = (
 
 export const AppointmentScheduleForm: React.FC<
   AppointmentScheduleFormProps
-> = ({ options, knownFields, from, isEdit, id, customer: propsCustomer }) => {
+> = ({
+  options,
+  knownFields,
+  from,
+  isEdit,
+  id,
+  customer: propsCustomer,
+  canAssignMember,
+  currentMemberId,
+}) => {
   const t = useI18n("admin");
   const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
@@ -192,6 +218,8 @@ export const AppointmentScheduleForm: React.FC<
       customerId: z.string().optional(),
       promoCode: z.string().optional().nullable(),
       doNotNotifyCustomer: z.coerce.boolean<boolean>().optional(),
+      memberId: z.string().optional(),
+      acknowledgeUnassignedMember: z.coerce.boolean<boolean>().optional(),
     })
     .superRefine((args, ctx) => {
       const option = options.find((x) => x._id === args.option);
@@ -200,6 +228,23 @@ export const AppointmentScheduleForm: React.FC<
       const addons =
         option.addons.filter((x) => args.addons?.some((a) => a.id === x._id)) ||
         [];
+
+      const unassignedIssues = getUnassignedMemberIssues({
+        optionStaff: option.staff,
+        addons,
+        memberId: args.memberId,
+      });
+      if (
+        unassignedIssues.needsAcknowledgement &&
+        !args.acknowledgeUnassignedMember
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["acknowledgeUnassignedMember"],
+          message: t("appointments.form.unassignedMember.ackRequired"),
+        });
+      }
+
       const selectedFields = getSelectedFields(option, addons, knownFields);
 
       const fieldSchema = z.object(
@@ -237,18 +282,40 @@ export const AppointmentScheduleForm: React.FC<
   const fromDuration = from
     ? from?.totalDuration
       ? (fromOption?.durationType === "fixed"
-          ? fromOption?.duration
+          ? (effectiveStaffDuration(
+              fromOption?.duration,
+              fromOption?.staff?.find((s) => s.memberId === from.memberId),
+            ) ?? 0)
           : fromOption?.durationMin || 0) +
-        (fromAddons?.reduce((sum, addon) => sum + (addon?.duration || 0), 0) ||
-          0)
+        (fromAddons?.reduce(
+          (sum, addon) =>
+            sum +
+            (effectiveAddonDuration(
+              addon?.duration,
+              addon?.staff,
+              from.memberId,
+            ) || 0),
+          0,
+        ) || 0)
       : undefined
     : undefined;
 
   const fromPrice = from
     ? ((fromOption?.durationType === "fixed"
-        ? fromOption?.price
-        : (fromOption?.pricePerHour || 0) / 60) || 0) +
-      (fromAddons?.reduce((sum, addon) => sum + (addon?.price || 0), 0) || 0)
+        ? effectiveStaffPrice(
+            fromOption?.price,
+            fromOption?.staff?.find((s) => s.memberId === from.memberId),
+          )
+        : (effectiveStaffPrice(
+            fromOption?.pricePerHour,
+            fromOption?.staff?.find((s) => s.memberId === from.memberId),
+          ) || 0) / 60) || 0) +
+      (fromAddons?.reduce(
+        (sum, addon) =>
+          sum +
+          (effectiveAddonPrice(addon?.price, addon?.staff, from.memberId) || 0),
+        0,
+      ) || 0)
     : undefined;
 
   const form = useForm<FormValues>({
@@ -277,11 +344,16 @@ export const AppointmentScheduleForm: React.FC<
       note: isEdit ? from?.note || "" : "",
       promoCode: isEdit ? from?.discount?.code : undefined,
       doNotNotifyCustomer: false,
+      memberId: canAssignMember
+        ? (from?.memberId ?? currentMemberId ?? undefined)
+        : (currentMemberId ?? from?.memberId ?? undefined),
+      acknowledgeUnassignedMember: false,
     },
   });
 
   const [loading, setLoading] = React.useState(false);
   const [confirmOverlap, setConfirmOverlap] = React.useState(false);
+  const [unassignedDialogOpen, setUnassignedDialogOpen] = React.useState(false);
   const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[]>(
     [],
   );
@@ -289,6 +361,8 @@ export const AppointmentScheduleForm: React.FC<
   const [customer, setCustomer] = React.useState<
     CustomerListModel | undefined
   >();
+
+  const [member, setMember] = React.useState<OrganizationMember | undefined>();
 
   const [discount, setDiscount] = React.useState<
     (Discount & { code: string }) | undefined
@@ -307,6 +381,8 @@ export const AppointmentScheduleForm: React.FC<
   const price = form.watch("totalPrice");
   const selectedOptionId = form.watch("option");
   const selectedAddonIds = form.watch("addons");
+  const selectedMemberId = form.watch("memberId");
+  const acknowledgeUnassignedMember = form.watch("acknowledgeUnassignedMember");
 
   const selectedOption = React.useMemo(
     () => options.find((x) => x._id === selectedOptionId),
@@ -402,6 +478,9 @@ export const AppointmentScheduleForm: React.FC<
         note: data.note,
         discount: appointmentDiscount,
         data: from?.data,
+        memberId: !isEdit ? data.memberId : undefined,
+        acknowledgeUnassignedMember:
+          data.acknowledgeUnassignedMember || undefined,
       };
 
       let appointmentId = id;
@@ -459,7 +538,7 @@ export const AppointmentScheduleForm: React.FC<
   );
 
   const appointment: Appointment | undefined = React.useMemo(() => {
-    if (!selectedOption) return undefined;
+    if (!selectedOption || !selectedMemberId) return undefined;
 
     const dt = DateTime.fromJSDate(dateTime);
 
@@ -504,6 +583,21 @@ export const AppointmentScheduleForm: React.FC<
         knownPhones: [],
       },
       organizationId: "unknown",
+      memberId: selectedMemberId,
+      member: member ?? {
+        _id: selectedMemberId,
+        name: "",
+        email: "",
+        phone: "",
+        role: "staff",
+        status: "active",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        organizationId: "unknown",
+        userId: "unknown",
+        image: undefined,
+        language: fallbackLanguage,
+      },
     } as unknown as Appointment;
   }, [
     dateTime,
@@ -511,8 +605,17 @@ export const AppointmentScheduleForm: React.FC<
     price,
     selectedOption,
     selectedAddonIds,
+    selectedMemberId,
     name,
     email,
+    phone,
+    selectedFields,
+    timeZone,
+    now,
+    from,
+    customer,
+    id,
+    member,
   ]);
 
   React.useEffect(() => {
@@ -525,22 +628,73 @@ export const AppointmentScheduleForm: React.FC<
     form.setValue("addons", newAddons);
   }, [selectedOption]);
 
+  const unassignedIssues = React.useMemo(
+    () =>
+      getUnassignedMemberIssues({
+        optionStaff: selectedOption?.staff,
+        optionName: selectedOption?.name,
+        addons: selectedAddons,
+        memberId: selectedMemberId,
+      }),
+    [selectedOption, selectedAddons, selectedMemberId],
+  );
+
+  const selectedAddonIdsKey = React.useMemo(
+    () =>
+      (selectedAddonIds || [])
+        .map((a) => a.id)
+        .sort()
+        .join(","),
+    [selectedAddonIds],
+  );
+
   React.useEffect(() => {
+    form.setValue("acknowledgeUnassignedMember", false);
+    if (unassignedIssues.needsAcknowledgement && selectedMemberId) {
+      setUnassignedDialogOpen(true);
+    } else {
+      setUnassignedDialogOpen(false);
+    }
+  }, [
+    selectedOptionId,
+    selectedAddonIdsKey,
+    selectedMemberId,
+    unassignedIssues.needsAcknowledgement,
+    form,
+  ]);
+
+  React.useEffect(() => {
+    const staffAssignment =
+      selectedMemberId &&
+      isMemberAssignedToOption(selectedOption?.staff, selectedMemberId)
+        ? selectedOption?.staff?.find((s) => s.memberId === selectedMemberId)
+        : undefined;
+
     const duration =
       (selectedOption?.durationType === "fixed"
-        ? selectedOption?.duration
+        ? (effectiveStaffDuration(selectedOption?.duration, staffAssignment) ??
+          0)
         : selectedOption?.durationMin || 0) +
       (selectedAddons || []).reduce(
-        (prev, curr) => prev + (curr.duration || 0),
+        (prev, curr) =>
+          prev +
+          (effectiveAddonDuration(
+            curr.duration,
+            curr.staff,
+            selectedMemberId,
+          ) || 0),
         0,
       );
 
     let price: number | undefined =
       ((selectedOption?.durationType === "fixed"
-        ? selectedOption?.price
-        : selectedOption?.pricePerHour) || 0) +
+        ? effectiveStaffPrice(selectedOption?.price, staffAssignment)
+        : effectiveStaffPrice(selectedOption?.pricePerHour, staffAssignment)) ||
+        0) +
       (selectedAddons || []).reduce(
-        (prev, curr) => prev + (curr.price || 0),
+        (prev, curr) =>
+          prev +
+          (effectiveAddonPrice(curr.price, curr.staff, selectedMemberId) || 0),
         0,
       );
 
@@ -558,7 +712,7 @@ export const AppointmentScheduleForm: React.FC<
     );
 
     form.trigger("totalDuration");
-  }, [selectedOption, selectedAddons, discount]);
+  }, [selectedOption, selectedAddons, selectedMemberId, discount, form]);
 
   React.useEffect(() => {
     setDisabledFields((prev) => {
@@ -589,7 +743,7 @@ export const AppointmentScheduleForm: React.FC<
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-2">
-            <div className="w-full space-y-4 relative px-1 content-start">
+            <div className="w-full space-y-4 relative px-1 pb-2 content-start">
               <FormField
                 control={form.control}
                 name="option"
@@ -687,6 +841,25 @@ export const AppointmentScheduleForm: React.FC<
                             label: addon.name,
                           })) || []
                         }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="memberId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("appointments.form.assignTo")}</FormLabel>
+                    <FormControl>
+                      <MemberSelector
+                        value={field.value}
+                        onItemSelect={field.onChange}
+                        canAssign={canAssignMember}
+                        onValueChange={setMember}
+                        disabled={loading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -897,6 +1070,36 @@ export const AppointmentScheduleForm: React.FC<
                   </FormDescription>
                 </FormItem>
               )}
+              {unassignedIssues.needsAcknowledgement && (
+                <FormField
+                  control={form.control}
+                  name="acknowledgeUnassignedMember"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex flex-row items-center gap-2">
+                        <Checkbox
+                          id="acknowledge-unassigned-member"
+                          disabled={loading}
+                          checked={!!field.value}
+                          onCheckedChange={(checked) =>
+                            field.onChange(!!checked)
+                          }
+                        />
+                        <FormLabel
+                          htmlFor="acknowledge-unassigned-member"
+                          className="cursor-pointer"
+                        >
+                          {t("appointments.form.unassignedMember.ackLabel")}
+                        </FormLabel>
+                      </div>
+                      <FormDescription>
+                        {t("appointments.form.unassignedMember.ackDescription")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             <div className="flex flex-col gap-2">
               {appointment && (
@@ -909,7 +1112,13 @@ export const AppointmentScheduleForm: React.FC<
           </div>
         </div>
         <Button
-          disabled={loading || !isValid || (isOverlaping && !confirmOverlap)}
+          disabled={
+            loading ||
+            !isValid ||
+            (isOverlaping && !confirmOverlap) ||
+            (unassignedIssues.needsAcknowledgement &&
+              !acknowledgeUnassignedMember)
+          }
           className="ml-auto self-end fixed bottom-4 right-4 inline-flex gap-1 items-center z-50"
           type="submit"
         >
@@ -925,6 +1134,41 @@ export const AppointmentScheduleForm: React.FC<
           )}
         </Button>
       </form>
+      <AlertDialog
+        open={unassignedDialogOpen}
+        onOpenChange={setUnassignedDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {t("appointments.form.unassignedMember.title")}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-3 text-left">
+              <p>{t("appointments.form.unassignedMember.description")}</p>
+              {unassignedIssues.optionUnassigned ? (
+                <p>
+                  {t("appointments.form.unassignedMember.optionNotAssigned", {
+                    option: selectedOption?.name || "",
+                  })}
+                </p>
+              ) : null}
+              {unassignedIssues.unassignedAddonNames.length > 0 ? (
+                <p>
+                  {t("appointments.form.unassignedMember.addonsNotAssigned", {
+                    addons: unassignedIssues.unassignedAddonNames.join(", "),
+                  })}
+                </p>
+              ) : null}
+              <p>{t("appointments.form.unassignedMember.priceDurationHint")}</p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setUnassignedDialogOpen(false)}>
+              {t("appointments.form.unassignedMember.confirm")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Form>
   );
 };

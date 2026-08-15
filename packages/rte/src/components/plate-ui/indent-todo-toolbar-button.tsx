@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@timelish/ui";
+import { ToolbarButton } from "@hacado/ui";
 import { withRef } from "@udecode/cn";
 import {
   useIndentTodoToolBarButton,

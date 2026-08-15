@@ -1,4 +1,4 @@
-import { fetchWithJson } from "@timelish/utils";
+import { fetchWithJson } from "@hacado/utils";
 
 export const BASE_CLIENT_API_URL = "/api";
 

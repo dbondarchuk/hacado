@@ -3,7 +3,7 @@ import {
   generalConfigurationSchema,
   socialConfigurationSchema,
   stylingConfigurationSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 export const siteSettingsFormSchema = z.object({

@@ -5,14 +5,14 @@ import {
 } from "@/utils/customer-auth/session";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ModifyAppointmentInformation,
   ModifyAppointmentRequest,
   modifyAppointmentRequestSchema,
   OnlinePayment,
-} from "@timelish/types";
-import { formatAmount } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmount } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 const processRescheduleRequest = async (
@@ -42,10 +42,27 @@ const processRescheduleRequest = async (
     "Processing reschedule request",
   );
 
+  const appointment =
+    await servicesContainer.bookingService.getAppointment(appointmentId);
+
+  if (!appointment) {
+    return NextResponse.json(
+      {
+        success: false,
+        code: "appointment_not_found",
+        message: "Appointment not found",
+      },
+      { status: 404 },
+    );
+  }
+
+  const memberId = appointment.memberId;
+
   const isAvailable =
     await servicesContainer.bookingService.verifyTimeAvailability(
       request.dateTime,
       information.duration,
+      memberId,
     );
 
   if (!isAvailable) {

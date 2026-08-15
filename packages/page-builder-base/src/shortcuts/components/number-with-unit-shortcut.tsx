@@ -1,4 +1,4 @@
-import { BuilderKeys } from "@timelish/i18n";
+import { BuilderKeys } from "@hacado/i18n";
 import { RawNumberInputWithUnit } from "../../style-inputs/base/raw-number-input-with-units";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";

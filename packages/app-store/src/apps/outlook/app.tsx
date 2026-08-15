@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { OUTLOOK_APP_NAME } from "./const";
 import { OutlookLogo } from "./logo";
 import { OutlookAdminKeys, OutlookAdminNamespace } from "./translations/types";
@@ -13,6 +13,7 @@ export const OutlookApp: App<OutlookAdminNamespace, OutlookAdminKeys> = {
     "meeting-url-provider",
   ],
   type: "oauth",
+  target: "member",
   category: ["apps.categories.calendar", "apps.categories.communications"],
   Logo: ({ className }) => <OutlookLogo className={className} />,
   isFeatured: true,

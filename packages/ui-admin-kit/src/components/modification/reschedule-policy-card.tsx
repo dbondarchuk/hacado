@@ -1,10 +1,10 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   appointmentReschedulePolicyActionType,
   modificationPaymentCalculationType,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -40,7 +40,7 @@ import {
   SelectTrigger,
   SelectValue,
   useCurrencySymbol,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Trash } from "lucide-react";
 import React, { useEffect } from "react";
 import { UseFormReturn, useFormState } from "react-hook-form";

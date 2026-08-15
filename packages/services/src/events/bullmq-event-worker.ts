@@ -1,5 +1,5 @@
-import { getLoggerFactory } from "@timelish/logger";
-import type { EventEnvelope, IServicesContainer } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import type { EventEnvelope, IServicesContainer } from "@hacado/types";
 import { Job } from "bullmq";
 import { BaseBullMQClient } from "../bullmq/base-bullmq-client";
 import { reviveJobData } from "../bullmq/jobs/utils";

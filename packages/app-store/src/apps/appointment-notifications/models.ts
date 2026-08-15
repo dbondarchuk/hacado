@@ -1,4 +1,4 @@
-import { AllKeys } from "@timelish/i18n";
+import { AllKeys } from "@hacado/i18n";
 import {
   asOptinalNumberField,
   communicationChannels,
@@ -7,7 +7,7 @@ import {
   WithOrganizationId,
   zObjectId,
   zTaggedUnion,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { AppointmentNotificationsAdminAllKeys } from "./translations/types";
 

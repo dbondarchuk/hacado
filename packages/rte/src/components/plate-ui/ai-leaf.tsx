@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { PlateLeaf } from "@udecode/plate/react";
 
 export function AILeaf({

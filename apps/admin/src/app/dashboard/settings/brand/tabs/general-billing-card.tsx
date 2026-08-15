@@ -1,13 +1,15 @@
 "use client";
 
 import { SmsTopupPurchaseDialog } from "@/app/dashboard/settings/brand/tabs/sms-topup-purchase-dialog";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n";
+import { PurchaseSeatsDialog } from "@/components/admin/team/purchase-seats-dialog";
+import { SeatsPurchaseSuccessToast } from "@/components/admin/team/seats-purchase-success-toast";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   BillingPlanTier,
   OrganizationBillingSubscriptionDetails,
   OrganizationSubscriptionStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Card,
@@ -19,7 +21,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ExternalLink } from "lucide-react";
 import { DateTime } from "luxon";
 import Link from "next/link";
@@ -77,6 +79,25 @@ export function GeneralBillingCard({
     return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
   }, [locale]);
 
+  const formatSeatAddonPrice = (
+    price: NonNullable<
+      NonNullable<
+        OrganizationBillingSubscriptionDetails["benefits"]["seats"]
+      >["addons"][number]["price"]
+    >,
+  ) => {
+    const amount = new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: price.currency,
+    }).format(price.amountCents / 100);
+    return price.recurringInterval
+      ? t(
+          `settings.general.billing.priceWithIntervalLabel.${price.recurringInterval}`,
+          { price: amount },
+        )
+      : amount;
+  };
+
   let primary: string;
   let secondary: string | undefined;
   if (details.feesExempt) {
@@ -111,6 +132,8 @@ export function GeneralBillingCard({
         details.nextCycleDate,
     );
 
+  const seats = details.benefits.seats;
+
   const openPortal = async () => {
     setOpening(true);
     try {
@@ -126,6 +149,7 @@ export function GeneralBillingCard({
 
   return (
     <Card className="mt-4">
+      <SeatsPurchaseSuccessToast />
       <CardHeader className="border-b">
         <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           {t("settings.general.billing.sectionTitle")}
@@ -141,7 +165,9 @@ export function GeneralBillingCard({
               {primary}
             </span>
             {secondary ? (
-              <span className="text-base text-muted-foreground">{secondary}</span>
+              <span className="text-base text-muted-foreground">
+                {secondary}
+              </span>
             ) : null}
             {!details.feesExempt && details.planTier ? (
               <span className="text-base text-muted-foreground">
@@ -226,6 +252,126 @@ export function GeneralBillingCard({
             ) : null}
           </div>
         ) : null}
+        {seats ? (
+          <div className="flex flex-col gap-4 border-t pt-4">
+            <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+              {t("settings.general.billing.seatsSectionTitle")}
+            </span>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
+                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("settings.general.billing.seatsIncluded.title")}
+                </span>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-sm uppercase tracking-wide text-muted-foreground">
+                      {t(
+                        "settings.general.billing.seatsIncluded.includedLabel",
+                      )}
+                    </span>
+                    <span className="text-base font-medium text-foreground">
+                      {numberFormatter.format(seats.included)}
+                    </span>
+                  </div>
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-sm uppercase tracking-wide text-muted-foreground">
+                      {t(
+                        "settings.general.billing.seatsIncluded.availableLabel",
+                      )}
+                    </span>
+                    <span className="text-base font-medium text-foreground">
+                      {numberFormatter.format(seats.available)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-3">
+                <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("settings.general.billing.seatsAdditional.title")}
+                </span>
+                <div className="flex min-w-0 flex-col gap-1">
+                  <span className="text-sm uppercase tracking-wide text-muted-foreground">
+                    {t(
+                      "settings.general.billing.seatsAdditional.additionalLabel",
+                    )}
+                  </span>
+                  <span className="text-base font-medium text-foreground">
+                    {numberFormatter.format(seats.additional)}
+                  </span>
+                </div>
+                {seats.addons.length > 0 ? (
+                  <ul className="flex flex-col gap-2">
+                    {seats.addons.map((addon) => (
+                      <li
+                        key={addon.subscriptionId}
+                        className="flex flex-col gap-0.5 border-t pt-2 first:border-t-0 first:pt-0"
+                      >
+                        <span className="text-base font-medium text-foreground">
+                          {addon.name?.trim() ||
+                            t(
+                              "settings.general.billing.seatsAdditional.unnamedAddon",
+                              { count: addon.usersAmount },
+                            )}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {t(
+                            "settings.general.billing.seatsAdditional.addonSeats",
+                            { count: addon.usersAmount },
+                          )}
+                          {addon.price
+                            ? ` · ${formatSeatAddonPrice(addon.price)}`
+                            : null}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    {seats.allowAdditionalUsers
+                      ? t(
+                          "settings.general.billing.seatsAdditional.emptyAllowed",
+                        )
+                      : t(
+                          "settings.general.billing.seatsAdditional.emptyNotAllowed",
+                        )}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
+                {seats.allowAdditionalUsers
+                  ? t("settings.general.billing.seatsPurchaseHint")
+                  : t("settings.general.billing.seatsUpgradeHint")}
+              </p>
+              {seats.allowAdditionalUsers ? (
+                <PurchaseSeatsDialog
+                  canPurchase
+                  triggerVariant="outline"
+                  returnTo="/dashboard/settings/brand"
+                />
+              ) : showChoosePlan ? (
+                <Button type="button" variant="secondary" asChild>
+                  <Link href="/checkout">
+                    {t("settings.general.billing.seatsUpgradeButton")}
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={openPortal}
+                  disabled={opening}
+                >
+                  {opening ? (
+                    <Spinner className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  {t("settings.general.billing.seatsUpgradeButton")}
+                </Button>
+              )}
+            </div>
+          </div>
+        ) : null}
         {details.benefits.sms ? (
           <div className="flex flex-col gap-4 border-t pt-4">
             <span className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
@@ -293,7 +439,7 @@ export function GeneralBillingCard({
               </div>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-muted-foreground sm:max-w-prose">
+              <p className="text-sm text-muted-foreground">
                 {t("settings.general.billing.smsTopupPool.depletionOrderHint")}
               </p>
               <SmsTopupPurchaseDialog canPurchase />

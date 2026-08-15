@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   AppointmentStatus,
@@ -10,7 +10,8 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@timelish/types";
+  SessionUser,
+} from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
@@ -18,7 +19,9 @@ import {
   getArguments,
   getEventCalendarContent,
   getWebsiteUrl,
-} from "@timelish/utils";
+  resolveAppointmentEventForMemberId,
+  resolveProcessOtherMembersAppointmentsConfig,
+} from "@hacado/utils";
 import {
   EmailNotificationConfiguration,
   emailNotificationConfigurationSchema,
@@ -47,61 +50,86 @@ export class EmailNotificationConnectedApp
     appData: ConnectedAppData,
     envelope: EventEnvelope,
   ): Promise<void> {
-    await dispatchAppointmentEventPayload(envelope, {
-      onAppointmentCreated: (appointment, confirmed) =>
-        this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentFullRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        oldTime,
-        oldDuration,
-        doNotNotifyCustomer,
-        source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+    const config = (appData.data ?? {}) as EmailNotificationConfiguration;
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+    const forMemberId = await resolveAppointmentEventForMemberId(
+      async (memberId) => {
+        const member =
+          await this.props.services.teamService.getMemberById(memberId);
+        return member?.role ?? null;
+      },
+      appData.memberId,
+      config.processOtherMembersAppointments,
+      (organization?.availableUsers ?? 1) > 1,
+    );
+
+    await dispatchAppointmentEventPayload(
+      envelope,
+      {
+        onAppointmentCreated: (appointment, confirmed) =>
+          this.onAppointmentCreated(appData, appointment, confirmed),
+        onAppointmentFullRescheduled: (
           appointment,
           newTime,
           newDuration,
-          source,
           oldTime,
           oldDuration,
           doNotNotifyCustomer,
-        ),
-      onAppointmentSlotRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        oldTime,
-        oldDuration,
-        doNotNotifyCustomer,
-        source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+          source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+            source,
+            oldTime,
+            oldDuration,
+            doNotNotifyCustomer,
+          ),
+        onAppointmentSlotRescheduled: (
           appointment,
           newTime,
           newDuration,
-          source,
           oldTime,
           oldDuration,
           doNotNotifyCustomer,
-        ),
-      onAppointmentStatusChanged: (appointment, newStatus, oldStatus, source) =>
-        this.onAppointmentStatusChanged(
-          appData,
+          source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+            source,
+            oldTime,
+            oldDuration,
+            doNotNotifyCustomer,
+          ),
+        onAppointmentStatusChanged: (
           appointment,
           newStatus,
           oldStatus,
           source,
-        ),
-    });
+        ) =>
+          this.onAppointmentStatusChanged(
+            appData,
+            appointment,
+            newStatus,
+            oldStatus,
+            source,
+          ),
+      },
+      forMemberId,
+    );
   }
 
   public async processRequest(
     appData: ConnectedAppData,
     request: EmailNotificationConfiguration,
+    _apiRequest?: unknown,
+    user?: SessionUser,
   ): Promise<
     ConnectedAppStatusWithText<
       EmailNotificationAdminNamespace,
@@ -126,6 +154,15 @@ export class EmailNotificationConnectedApp
       );
     }
 
+    const savedData: EmailNotificationConfiguration = {
+      ...data,
+      processOtherMembersAppointments:
+        resolveProcessOtherMembersAppointmentsConfig(
+          data.processOtherMembersAppointments,
+          user,
+        ),
+    };
+
     try {
       const status: ConnectedAppStatusWithText<
         EmailNotificationAdminNamespace,
@@ -137,7 +174,7 @@ export class EmailNotificationConnectedApp
       };
 
       this.props.update({
-        data,
+        data: savedData,
         ...status,
       });
 
@@ -363,6 +400,22 @@ export class EmailNotificationConnectedApp
         "Retrieved configuration for email notification",
       );
 
+      const member = await this.props.services.teamService.getMemberById(
+        appData.memberId,
+      );
+
+      if (!member) {
+        logger.error(
+          {
+            appId: appData._id,
+            appointmentId: appointment._id,
+            memberId: appData.memberId,
+          },
+          "Member not found",
+        );
+        return;
+      }
+
       const args = getArguments({
         appointment,
         config,
@@ -371,6 +424,7 @@ export class EmailNotificationConnectedApp
         customer: appointment.customer,
         useAppointmentTimezone: true,
         locale: config.brand.language,
+        user: member,
       });
 
       logger.debug(
@@ -428,11 +482,8 @@ export class EmailNotificationConnectedApp
         "Generated event calendar content",
       );
 
-      const user = await this.props.services.userService.getUser(
-        appData.userId,
-      );
-
-      const recipientEmail = data?.email || user?.email || config.general.email;
+      const recipientEmail =
+        data?.email || member?.email || config.general.email;
 
       logger.debug(
         {
@@ -462,7 +513,8 @@ export class EmailNotificationConnectedApp
             content: eventContent,
           },
         },
-        participantType: "user",
+        participantType: "member",
+        memberId: appData.memberId,
         handledBy:
           `app_email-notification_admin.handlers.${initiator}` satisfies EmailNotificationAdminAllKeys,
         appointmentId: appointment._id,

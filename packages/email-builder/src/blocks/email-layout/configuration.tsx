@@ -8,8 +8,8 @@ import {
   SliderInput,
   TextDimensionInput,
   TextInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { SquareRoundCorner } from "lucide-react";
 import { FONT_FAMILIES } from "../../style-inputs/helpers/font-family";
 import { EmailLayoutDefaultProps, EmailLayoutProps } from "./schema";
@@ -25,12 +25,14 @@ export const EmailLayoutConfiguration = ({
     <>
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.backdropColor")}
-        defaultValue={data.backdropColor ?? "#F5F5F5"}
+        defaultValue={
+          data.backdropColor ?? EmailLayoutDefaultProps.backdropColor
+        }
         onChange={(backdropColor) => updateData({ ...data, backdropColor })}
       />
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.canvasColor")}
-        defaultValue={data.canvasColor ?? "#FFFFFF"}
+        defaultValue={data.canvasColor ?? EmailLayoutDefaultProps.canvasColor}
         onChange={(canvasColor) => updateData({ ...data, canvasColor })}
       />
       <ColorInput
@@ -71,7 +73,7 @@ export const EmailLayoutConfiguration = ({
       />
       <ColorInput
         label={t("emailBuilder.blocks.emailLayout.textColor")}
-        defaultValue={data.textColor ?? "#262626"}
+        defaultValue={data.textColor ?? EmailLayoutDefaultProps.textColor}
         onChange={(textColor) => updateData({ ...data, textColor })}
       />
       <TextInput

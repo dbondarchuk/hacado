@@ -1,10 +1,11 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
+  CommunicationParticipantType,
   Email,
   EmailResponse,
   IAssetsStorage,
   IMailSender,
-} from "@timelish/types";
+} from "@hacado/types";
 import { createEvent } from "ics";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
@@ -20,6 +21,7 @@ export class SmtpService implements IMailSender {
 
   public async sendMail(
     email: Email,
+    _target: CommunicationParticipantType,
     fromName?: string,
   ): Promise<EmailResponse> {
     const logger = this.loggerFactory("sendMail");

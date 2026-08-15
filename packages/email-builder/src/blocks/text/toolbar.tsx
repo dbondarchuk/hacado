@@ -1,5 +1,5 @@
-import { ConfigurationProps, ToolbarColorMenu } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { ConfigurationProps, ToolbarColorMenu } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { Baseline, PaintBucket } from "lucide-react";
 import { FontFamilyDropdownMenu } from "../../toolbars/font-family";
 import { FontWeightDropdownMenu } from "../../toolbars/font-weight";

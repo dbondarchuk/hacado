@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   CalendarBusyTime,
   ConnectedAppData,
@@ -8,7 +8,7 @@ import {
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import {
   UrlBusyEventsConfiguration,
@@ -19,6 +19,10 @@ import {
   UrlBusyEventsAdminKeys,
   UrlBusyEventsAdminNamespace,
 } from "./translations/types";
+import {
+  applyUrlPlaceholders,
+  buildHeadersWithPlaceholders,
+} from "./url-placeholders";
 
 export default class UrlBusyEventsConnectedApp
   implements
@@ -139,22 +143,18 @@ export default class UrlBusyEventsConnectedApp
     );
 
     try {
-      const url = new URL(app.data.url);
-      url.searchParams.set("start", start.toISOString());
-      url.searchParams.set("end", end.toISOString());
-
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
+      const placeholderValues = {
+        start: start.toISOString(),
+        end: end.toISOString(),
       };
+      const url = new URL(
+        applyUrlPlaceholders(app.data.url, placeholderValues),
+      );
 
-      if (app.data.headers) {
-        app.data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
-      }
+      const headers = buildHeadersWithPlaceholders(
+        app.data.headers,
+        placeholderValues,
+      );
 
       const response = await fetch(url.toString(), {
         method: "GET",
@@ -222,22 +222,16 @@ export default class UrlBusyEventsConnectedApp
     const logger = this.loggerFactory("testUrl");
 
     try {
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
+      const placeholderValues = {
+        start: DateTime.now().toISO()!,
+        end: DateTime.now().plus({ days: 1 }).toISO()!,
       };
+      const headers = buildHeadersWithPlaceholders(
+        data.headers,
+        placeholderValues,
+      );
 
-      if (data.headers) {
-        data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
-      }
-
-      const url = new URL(data.url);
-      url.searchParams.set("start", DateTime.now().toISO());
-      url.searchParams.set("end", DateTime.now().plus({ days: 1 }).toISO());
+      const url = new URL(applyUrlPlaceholders(data.url, placeholderValues));
 
       const response = await fetch(url.toString(), {
         method: "HEAD",

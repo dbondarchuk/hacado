@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { CalendarX2 } from "lucide-react";
 import { BusyEventsAppSetup } from "./setup";
 import {
@@ -29,6 +29,9 @@ export const BusyEventsMenuItems: AppMenuItem<
       },
     ],
     icon: <CalendarX2 />,
-    Page: (props) => <BusyEventsAppSetup appId={props.appId} />,
+    Page: (props) => (
+      <BusyEventsAppSetup appId={props.appId} services={props.services} />
+    ),
+    requiredPermission: { resource: "schedule", action: "read" },
   },
 ];

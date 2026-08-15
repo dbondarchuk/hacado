@@ -3,7 +3,7 @@ import {
   CommunicationLogContentPayload,
   okStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   CommunicationLogsSearchParams,
   serializeCommunicationLogsSearchParams,

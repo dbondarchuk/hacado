@@ -1,9 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { EditableText } from "@timelish/rte-inline";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { EditableText } from "@hacado/rte-inline";
 import {
   getPageHeaderSchemaWithUniqueNameCheck,
   LinkMenuItem,
@@ -12,7 +11,7 @@ import {
   pageHeaderLogoSize,
   pageHeaderShadowType,
   PageHeaderUpdateModel,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Breadcrumbs,
   Button,
@@ -36,8 +35,9 @@ import {
   InputGroupInputClasses,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { SaveButton, Sortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton, Sortable } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -325,7 +325,7 @@ export const PageHeaderForm: React.FC<{
                             value={field.value ?? ""}
                             onChange={field.onChange}
                             className={cn(
-                              "w-full border border-input rounded-md p-2 text-base sm:text-sm h-8",
+                              "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
                               InputGroupInputClasses({ variant: "suffix" }),
                             )}
                             disabled={loading}

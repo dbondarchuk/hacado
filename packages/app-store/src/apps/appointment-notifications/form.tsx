@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { communicationChannels, DatabaseId } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { communicationChannels, DatabaseId } from "@hacado/types";
 import {
   Combobox,
   Form,
@@ -21,8 +20,9 @@ import {
   SimpleTimePicker,
   toastPromise,
   use12HourFormat,
-} from "@timelish/ui";
-import { SaveButton, TemplateSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";

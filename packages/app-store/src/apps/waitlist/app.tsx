@@ -1,4 +1,8 @@
-import { App, APPOINTMENT_CREATED_EVENT_TYPE, BillingPlanTier } from "@timelish/types";
+import {
+  App,
+  APPOINTMENT_CREATED_EVENT_TYPE,
+  BillingPlanTier,
+} from "@hacado/types";
 import { CalendarClock } from "lucide-react";
 import { WAITLIST_APP_NAME } from "./const";
 import { WaitlistAdminKeys } from "./translations/types";
@@ -19,11 +23,12 @@ export const WaitlistApp: App<"app_waitlist_admin", WaitlistAdminKeys> = {
     "communication-templates-provider",
   ],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <CalendarClock className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_waitlist_admin.app.description",
   },

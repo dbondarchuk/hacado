@@ -1,4 +1,4 @@
-import { BillingPlanTier, NavItemGroup } from "@timelish/types";
+import { BillingPlanTier, NavItemGroup } from "@hacado/types";
 import {
   ArrowDownToLine,
   BadgeDollarSign,
@@ -28,6 +28,7 @@ import {
   Store,
   TextCursorInput,
   UserRound,
+  Users,
   Wallet,
 } from "lucide-react";
 
@@ -61,6 +62,7 @@ export const navItems: NavItemGroup[] = [
         id: "schedule",
         title: "admin.navigation.schedule",
         icon: <CalendarRange />,
+        requiredPermission: { resource: "schedule", action: "update" },
         items: [
           {
             id: "schedule-base",
@@ -68,6 +70,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/schedule",
             label: "admin.navigation.defaultSchedule",
             icon: <CalendarRange />,
+            requiredPermission: { resource: "schedule", action: "update" },
           },
         ],
       },
@@ -75,6 +78,7 @@ export const navItems: NavItemGroup[] = [
         id: "services",
         title: "admin.navigation.services",
         icon: <HandPlatter />,
+        requiredPermission: { resource: "service", action: "read" },
         items: [
           {
             id: "services-fields",
@@ -82,6 +86,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/services/fields",
             label: "admin.navigation.fields",
             icon: <TextCursorInput />,
+            requiredPermission: { resource: "service", action: "update" },
           },
           {
             id: "services-addons",
@@ -89,6 +94,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/services/addons",
             label: "admin.navigation.addons",
             icon: <Grid2X2Plus />,
+            requiredPermission: { resource: "service", action: "update" },
           },
           {
             id: "services-options",
@@ -96,6 +102,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/services/options",
             label: "admin.navigation.options",
             icon: <HandPlatter />,
+            requiredPermission: { resource: "service", action: "update" },
           },
           {
             id: "discounts",
@@ -103,7 +110,8 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/services/discounts",
             label: "admin.navigation.discounts",
             icon: <BadgeDollarSign />,
-            minimumPlanTier: BillingPlanTier.Pro,
+            minimumPlanTier: BillingPlanTier.Solo,
+            requiredPermission: { resource: "discount", action: "read" },
           },
           {
             id: "gift-cards",
@@ -111,7 +119,8 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/services/gift-cards",
             label: "admin.navigation.giftCards",
             icon: <Gift />,
-            minimumPlanTier: BillingPlanTier.Pro,
+            minimumPlanTier: BillingPlanTier.Solo,
+            requiredPermission: { resource: "giftCard", action: "read" },
           },
         ],
       },
@@ -120,7 +129,8 @@ export const navItems: NavItemGroup[] = [
   {
     id: "financials",
     title: "admin.navigation.financials",
-    minimumPlanTier: BillingPlanTier.Pro,
+    minimumPlanTier: BillingPlanTier.Solo,
+    requiredPermission: { resource: "billing", action: "read" },
     children: [
       {
         id: "financials-overview",
@@ -128,6 +138,7 @@ export const navItems: NavItemGroup[] = [
         href: "/dashboard/financials/overview",
         icon: <ChartArea />,
         label: "admin.navigation.financialOverview",
+        requiredPermission: { resource: "billing", action: "read" },
       },
       {
         id: "payments",
@@ -135,6 +146,7 @@ export const navItems: NavItemGroup[] = [
         href: "/dashboard/financials/payments",
         icon: <CircleDollarSign />,
         label: "admin.navigation.payments",
+        requiredPermission: { resource: "billing", action: "read" },
       },
       {
         id: "payments-inbox",
@@ -143,6 +155,7 @@ export const navItems: NavItemGroup[] = [
         icon: <Wallet />,
         label: "admin.navigation.paymentsInbox",
         notificationsCountKey: "synced_payments_review",
+        requiredPermission: { resource: "syncedPayment", action: "read" },
       },
     ],
   },
@@ -156,6 +169,7 @@ export const navItems: NavItemGroup[] = [
         href: "/dashboard/customers",
         icon: <BookUser />,
         label: "admin.navigation.customers",
+        requiredPermission: { resource: "customer", action: "read" },
       },
     ],
   },
@@ -169,6 +183,7 @@ export const navItems: NavItemGroup[] = [
         href: "/dashboard/pages",
         icon: <Globe />,
         label: "admin.navigation.pages",
+        requiredPermission: { resource: "page", action: "read" },
       },
       {
         id: "assets",
@@ -176,12 +191,14 @@ export const navItems: NavItemGroup[] = [
         href: "/dashboard/assets",
         icon: <Paperclip />,
         label: "admin.navigation.assets",
+        requiredPermission: { resource: "page", action: "read" },
       },
 
       {
         id: "appearance",
         title: "admin.navigation.appearance",
         icon: <Paintbrush />,
+        requiredPermission: { resource: "page", action: "read" },
         items: [
           {
             id: "appearence-scripts",
@@ -189,7 +206,8 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/appearence/scripts",
             icon: <Code2 />,
             label: "admin.navigation.scripts",
-            minimumPlanTier: BillingPlanTier.Pro,
+            minimumPlanTier: BillingPlanTier.Solo,
+            requiredPermission: { resource: "settings", action: "update" },
           },
           {
             id: "appearance-page-headers",
@@ -197,6 +215,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/pages/headers",
             icon: <PanelTop />,
             label: "admin.navigation.pageHeaders",
+            requiredPermission: { resource: "page", action: "update" },
           },
           {
             id: "appearance-page-footers",
@@ -204,6 +223,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/pages/footers",
             icon: <PanelBottom />,
             label: "admin.navigation.pageFooters",
+            requiredPermission: { resource: "page", action: "update" },
           },
         ],
       },
@@ -217,6 +237,7 @@ export const navItems: NavItemGroup[] = [
         id: "settings",
         title: "admin.navigation.settings",
         icon: <Settings />,
+        requiredPermission: { resource: "settings", action: "read" },
         items: [
           {
             id: "settings-brand",
@@ -224,6 +245,15 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/brand",
             icon: <Building />,
             label: "admin.navigation.brand",
+            requiredPermission: { resource: "settings", action: "update" },
+          },
+          {
+            id: "settings-team",
+            title: "admin.navigation.team",
+            href: "/dashboard/settings/team",
+            icon: <Users />,
+            label: "admin.navigation.team",
+            requiredPermission: { resource: "team", action: "invite" },
           },
           {
             id: "settings-appointments",
@@ -231,6 +261,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/appointments",
             icon: <CalendarClock />,
             label: "admin.navigation.appointments",
+            requiredPermission: { resource: "settings", action: "update" },
           },
           {
             id: "settings-customer-access",
@@ -238,6 +269,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/customer-access",
             icon: <UserRound />,
             label: "admin.navigation.customerAccess",
+            requiredPermission: { resource: "settings", action: "update" },
           },
         ],
       },
@@ -253,6 +285,10 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/templates",
             icon: <LayoutTemplate />,
             label: "admin.navigation.templates",
+            requiredPermission: {
+              resource: "communication",
+              action: "readAll",
+            },
           },
           {
             id: "communications-logs",
@@ -260,6 +296,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/communication-logs",
             icon: <MailSearch />,
             label: "admin.navigation.communicationLogs",
+            requiredPermission: { resource: "communication", action: "read" },
           },
         ],
       },
@@ -289,13 +326,10 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/apps/default",
             icon: <Boxes />,
             label: "admin.navigation.defaultApps",
+            requiredPermission: { resource: "app", action: "useCompany" },
           },
         ],
       },
     ],
   },
 ];
-
-// export const navItems: NavItemWithOptionalChildren[] = [
-
-// ];

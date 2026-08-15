@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { cn, useCurrencyFormat } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { cn, useCurrencyFormat } from "@hacado/ui";
 import {
   CalendarDays,
   Clock3,
@@ -27,19 +27,22 @@ function KpiTile({
   detailTone = "muted",
 }: KpiTileProps) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/80 px-4 py-4">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/30 text-primary">
+    <div className="flex items-start gap-3 rounded-2xl border border-border/70 bg-card px-4 py-4">
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-primary/25 bg-primary/5 text-primary">
         <Icon className="size-4" strokeWidth={1.5} />
       </div>
       <div className="min-w-0 space-y-0.5">
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="text-2xl font-semibold tracking-tight tabular-nums">
+        <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
+          {label}
+        </p>
+        <p className="font-display text-3xl font-medium tracking-tight tabular-nums text-foreground">
           {value}
         </p>
         <p
           className={cn(
             "text-sm",
-            detailTone === "positive" && "text-emerald-600 dark:text-emerald-400",
+            detailTone === "positive" &&
+              "text-emerald-700 dark:text-emerald-400",
             detailTone === "negative" && "text-destructive",
             detailTone === "primary" && "text-primary",
             detailTone === "muted" && "text-muted-foreground",

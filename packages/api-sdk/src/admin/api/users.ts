@@ -1,4 +1,4 @@
-import { User } from "@timelish/types";
+import { OrganizationMember } from "@hacado/types";
 import { UserUpdate } from "../schemas/user";
 import { fetchAdminApi } from "./utils";
 
@@ -8,7 +8,7 @@ export const getMyUser = async () => {
     method: "GET",
   });
 
-  const data = await response.json<User>();
+  const data = await response.json<OrganizationMember>();
   console.debug("My user retrieved successfully", { data });
   return data;
 };
@@ -19,7 +19,7 @@ export const updateMyUser = async (user: Partial<UserUpdate>) => {
     method: "PATCH",
     body: JSON.stringify(user),
   });
-  const data = await response.json<User>();
+  const data = await response.json<OrganizationMember>();
   console.debug("My user updated successfully", { data });
   return data;
 };

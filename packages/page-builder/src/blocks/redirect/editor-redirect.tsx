@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import { forwardRef } from "react";
 
 export const EditorRedirect = forwardRef<

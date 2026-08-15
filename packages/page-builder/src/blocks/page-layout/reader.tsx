@@ -1,11 +1,11 @@
-import { ReaderBlock, ReaderProps } from "@timelish/builder";
+import { ReaderBlock, ReaderProps } from "@hacado/builder";
 import {
   getFontFamily,
   ReaderProvider,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { COLORS, getColorStyle } from "@timelish/page-builder-base/style";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { COLORS, getColorStyle } from "@hacado/page-builder-base/style";
+import { cn } from "@hacado/ui";
 import { PageLayoutReaderProps } from "./schema";
 
 export const PageLayoutReader = ({

@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@timelish/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
 import { MyCabinetBlockReader } from "./my-cabinet";
 import { MyCabinetBlocksSchema } from "./schema";
 

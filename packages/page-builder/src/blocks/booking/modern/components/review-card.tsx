@@ -1,7 +1,15 @@
-import { clientApi } from "@timelish/api-sdk";
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n";
-import { ApplyDiscountRequest, timeZones } from "@timelish/types";
+import { clientApi } from "@hacado/api-sdk";
+import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
+  ApplyDiscountRequest,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+  timeZones,
+} from "@hacado/types";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Button,
   Checkbox,
   Collapsible,
@@ -12,8 +20,8 @@ import {
   Spinner,
   cn,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime, template } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime, template } from "@hacado/utils";
 import { TimeZone } from "@vvo/tzdb";
 import {
   AlertTriangle,
@@ -32,6 +40,7 @@ export const ReviewCard: React.FC = () => {
   const {
     selectedAppointmentOption,
     selectedAddons,
+    selectedMember,
     duplicateAppointmentDoNotAllowScheduling,
     closestDuplicateAppointment,
     confirmDuplicateAppointment,
@@ -191,7 +200,6 @@ export const ReviewCard: React.FC = () => {
     };
 
     fn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);
 
   let timeZone: TimeZone | undefined = timeZones.find((tz) => {
@@ -208,6 +216,16 @@ export const ReviewCard: React.FC = () => {
 
   const { name, email, phone, ...restFields } = fields;
   const shouldShowTotals = !!basePrice;
+  const servicePrice =
+    selectedAppointmentOption.durationType === "fixed"
+      ? (selectedMember?.effectivePrice ?? selectedAppointmentOption.price)
+      : (selectedMember?.effectivePrice ??
+        selectedAppointmentOption.pricePerHour);
+  const serviceDuration =
+    selectedAppointmentOption.durationType === "fixed"
+      ? (selectedMember?.effectiveDuration ??
+        selectedAppointmentOption.duration)
+      : undefined;
   return (
     <div className="space-y-6 review-card card-container">
       <div className="mb-6">
@@ -316,36 +334,57 @@ export const ReviewCard: React.FC = () => {
             />
           </div>
           {selectedAppointmentOption.durationType === "fixed" &&
-            (!!selectedAppointmentOption.price ||
-              !!selectedAppointmentOption.duration) && (
-                  <div className="text-right shrink-0 review-service-summary-price">
-                {!!selectedAppointmentOption.price && (
+            (!!servicePrice || !!serviceDuration) && (
+              <div className="text-right shrink-0 review-service-summary-price">
+                {!!servicePrice && (
                   <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
-                    {currencyFormat(selectedAppointmentOption.price)}
+                    {currencyFormat(servicePrice)}
                   </p>
                 )}
-                {!!selectedAppointmentOption.duration && (
+                {!!serviceDuration && (
                   <p className="text-xs text-muted-foreground flex items-center gap-1 justify-end review-service-summary-price-duration">
                     <Clock className="w-3 h-3" />{" "}
                     {t(
                       "common.formats.durationHourMin",
-                      durationToTime(selectedAppointmentOption.duration || 0),
+                      durationToTime(serviceDuration),
                     )}
                   </p>
                 )}
               </div>
             )}
           {selectedAppointmentOption.durationType === "flexible" &&
-            !!selectedAppointmentOption.pricePerHour && (
+            !!servicePrice && (
               <div className="text-right shrink-0 review-service-summary-price">
                 <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
                   {t("booking.option.price_per_hour", {
-                    price: currencyFormat(selectedAppointmentOption.pricePerHour),
+                    price: currencyFormat(servicePrice),
                   })}
                 </p>
               </div>
             )}
         </div>
+
+        {selectedMember && (
+          <div className="border-t pt-4 review-specialist">
+            <h4 className="text-sm font-medium text-muted-foreground mb-2 review-specialist-title">
+              {t("booking.review.specialist.title")}
+            </h4>
+            <div className="flex items-center gap-3 review-specialist-content">
+              <Avatar className="w-10 h-10 flex-shrink-0">
+                <AvatarImage
+                  src={selectedMember.member.image ?? undefined}
+                  alt={selectedMember.member.name}
+                />
+                <AvatarFallback>
+                  {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-xs font-medium text-foreground review-specialist-name">
+                {selectedMember.member.name}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Add-ons */}
         {selectedAddons.length > 0 && (
@@ -353,34 +392,46 @@ export const ReviewCard: React.FC = () => {
             <h4 className="text-sm font-medium text-muted-foreground mb-2 review-addons-title">
               {t("booking.review.addons.title")}
             </h4>
-            {selectedAddons.map((addon) => (
-              <div
-                key={addon._id}
-                className="flex items-center justify-between py-1 review-addons-item"
-              >
-                <span className="text-xs text-foreground review-addons-name">
-                  {addon.name}
-                </span>
-                {(!!addon.price || !!addon.duration) && (
-                  <div className="text-right shrink-0 review-addons-price">
-                    {!!addon.price && (
-                      <span className="text-xs font-medium text-foreground">
-                        +{currencyFormat(addon.price || 0)}
-                      </span>
-                    )}
-                    {!!addon.duration && (
-                      <span className="text-xs text-muted-foreground ml-2 review-addons-duration">
-                        +
-                        {t(
-                          "common.formats.durationHourMin",
-                          durationToTime(addon.duration),
-                        )}
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+            {selectedAddons.map((addon) => {
+              const price = effectiveAddonPrice(
+                addon.price,
+                addon.staff,
+                selectedMember?.member.id,
+              );
+              const duration = effectiveAddonDuration(
+                addon.duration,
+                addon.staff,
+                selectedMember?.member.id,
+              );
+              return (
+                <div
+                  key={addon._id}
+                  className="flex items-center justify-between py-1 review-addons-item"
+                >
+                  <span className="text-xs text-foreground review-addons-name">
+                    {addon.name}
+                  </span>
+                  {(!!price || !!duration) && (
+                    <div className="text-right shrink-0 review-addons-price">
+                      {!!price && (
+                        <span className="text-xs font-medium text-foreground">
+                          +{currencyFormat(price || 0)}
+                        </span>
+                      )}
+                      {!!duration && (
+                        <span className="text-xs text-muted-foreground ml-2 review-addons-duration">
+                          +
+                          {t(
+                            "common.formats.durationHourMin",
+                            durationToTime(duration),
+                          )}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -474,7 +525,7 @@ export const ReviewCard: React.FC = () => {
         {/* Total */}
         {shouldShowTotals && (
           <div className="border-t pt-4 review-total">
-            <div className="flex items-center justify-between review-total-content text-xs">
+            <div className="flex items-center justify-between review-total-content text-sm">
               <div>
                 <p className="font-semibold text-foreground review-total-title">
                   {t("booking.review.price.original")}
@@ -485,14 +536,14 @@ export const ReviewCard: React.FC = () => {
               </p>
             </div>
             {showPromoCode && !!basePrice && (
-              <div className="flex items-center justify-between review-total-promo-code">
+              <div className="flex items-center justify-between review-total-promo-code mt-2">
                 <Collapsible
                   open={openPromoCode || !!promoCode}
                   onOpenChange={setOpenPromoCode}
                   className="w-full"
                 >
-                  <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex  items-center gap-2 underline review-total-gift-cards-title">
-                    <TicketPercent className="w-3 h-3" />{" "}
+                  <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
+                    <TicketPercent className="size-4 shrink-0" />{" "}
                     {t("booking.promoCode.trigger")}
                   </CollapsibleTrigger>
                   <CollapsibleContent className="w-full">
@@ -559,14 +610,15 @@ export const ReviewCard: React.FC = () => {
               </div>
             )}
             {!!basePrice && (
-              <div className="flex items-center justify-between mb-2 review-total-gift-cards">
+              <div className="flex items-center justify-between my-2 review-total-gift-cards">
                 <Collapsible
                   open={openGiftCards || !!giftCards?.length}
                   onOpenChange={setOpenGiftCards}
                   className="w-full"
                 >
-                  <CollapsibleTrigger className="w-full text-xs text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
-                    <Gift className="w-3 h-3" /> {t("booking.giftCard.trigger")}
+                  <CollapsibleTrigger className="w-full text-sm font-medium text-muted-foreground inline-flex items-center gap-2 underline review-total-gift-cards-title">
+                    <Gift className="size-4 shrink-0" />{" "}
+                    {t("booking.giftCard.trigger")}
                   </CollapsibleTrigger>
                   <CollapsibleContent className="w-full">
                     <div className="mt-2 flex flex-col gap-2 items-center w-full review-total-gift-cards-content">
@@ -621,7 +673,9 @@ export const ReviewCard: React.FC = () => {
                                 </div>
                                 <div className="text-green-800 font-semibold">
                                   {t("booking.giftCard.giftCardAppliedAmount", {
-                                    appliedAmount: currencyFormat(giftCard.appliedAmount),
+                                    appliedAmount: currencyFormat(
+                                      giftCard.appliedAmount,
+                                    ),
                                   })}
                                 </div>
                               </div>

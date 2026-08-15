@@ -13,16 +13,14 @@ import {
 import { baseSearchParams } from "./base";
 
 const activitySeverities = ["info", "success", "warning", "error"] as const;
-const activityActors = ["system", "user", "customer"] as const;
+const activityActors = ["system", "member", "customer"] as const;
 
 export const activitiesSearchParams = {
   ...baseSearchParams,
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   eventType: parseAsArrayOf(parseAsString),
-  severity: parseAsArrayOf(
-    parseAsStringLiteral([...activitySeverities]),
-  ),
+  severity: parseAsArrayOf(parseAsStringLiteral([...activitySeverities])),
   actor: parseAsArrayOf(parseAsStringLiteral([...activityActors])),
   sort: baseSearchParams.sort.withDefault([
     {

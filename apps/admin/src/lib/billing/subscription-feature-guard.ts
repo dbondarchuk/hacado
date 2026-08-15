@@ -3,9 +3,9 @@ import {
   BRAND_SETTINGS_UPGRADE_URL,
   sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
-import type { SubscriptionFeature } from "@timelish/types";
-import { NextResponse } from "next/server";
+import type { SubscriptionFeature } from "@hacado/types";
 import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export async function getSubscriptionFeatureBlockedResponse(
   feature: SubscriptionFeature,
@@ -19,14 +19,16 @@ export async function getSubscriptionFeatureBlockedResponse(
     {
       success: false,
       code: "subscription_upgrade_required",
-      message: "This feature requires a Pro subscription.",
+      message: "This feature requires a Solo subscription.",
       settingsUrl: BRAND_SETTINGS_UPGRADE_URL,
     },
     { status: 402 },
   );
 }
 
-export async function redirectIfFeatureUnavailable(feature: SubscriptionFeature) {
+export async function redirectIfFeatureUnavailable(
+  feature: SubscriptionFeature,
+) {
   const session = await getSession();
   if (!session) {
     redirect("/auth/signin");

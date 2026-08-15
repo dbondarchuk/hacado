@@ -43,11 +43,11 @@ COPY --parents *.* ./
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-ARG MONGODB_URI=mongodb://mongodb:27017/timelish?retryWrites=true&w=majority
+ARG MONGODB_URI=mongodb://mongodb:27017/hacado?retryWrites=true&w=majority
 RUN \
-  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@timelish/admin; \
-  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@timelish/admin; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@timelish/admin; \
+  if [ -f yarn.lock ]; then NODE_OPTIONS="--max-old-space-size=4096" yarn run build --filter=@hacado/admin; \
+  elif [ -f package-lock.json ]; then NODE_OPTIONS="--max-old-space-size=4096" npm run build --filter=@hacado/admin; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && NODE_OPTIONS="--max-old-space-size=4096" pnpm run build --filter=@hacado/admin; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
@@ -80,6 +80,8 @@ COPY --from=builder /app/apps/admin/src/components/install/defaults ./apps/admin
 COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/static ./apps/admin/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/geoip-lite ./node_modules/geoip-lite
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@visulima/disposable-email-domains ./node_modules/@visulima/disposable-email-domains
 COPY --from=builder --chown=nextjs:nodejs /app/migrations ./migrations
 COPY --from=builder --chown=nextjs:nodejs /app/migrate-mongo-config.js ./migrate-mongo-config.js
 COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/entrypoint.sh ./entrypoint.sh

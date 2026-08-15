@@ -1,6 +1,5 @@
-import type { AppEventConfig, EventDefinition } from "@timelish/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types";
 import { buildNewBlogCommentEmailNotifications } from "./emails/new-comment-email";
-import { getBlogPendingCommentsBadges } from "./service/pending-comments-badge";
 import { blogConfigurationSchema } from "./models";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,
@@ -16,6 +15,7 @@ import {
   type BlogPostDeletedPayload,
   type BlogPostUpdatedPayload,
 } from "./models/events";
+import { getBlogPendingCommentsBadges } from "./service/pending-comments-badge";
 import { BlogAdminAllKeys } from "./translations/types";
 
 export const BLOG_APP_EVENTS: AppEventConfig = {
@@ -155,7 +155,8 @@ export const BLOG_APP_EVENTS: AppEventConfig = {
           return null;
         }
 
-        const admins = await services.userService.getOrganizationAdminUsers();
+        const admins =
+          await services.teamService.getOrganizationAdminContacts();
         if (!admins.length) {
           return null;
         }

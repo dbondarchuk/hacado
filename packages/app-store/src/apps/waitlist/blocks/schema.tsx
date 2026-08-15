@@ -1,5 +1,5 @@
-import { EditorDocumentBlocksDictionary } from "@timelish/builder";
-import { AllKeys, BuilderKeys } from "@timelish/i18n";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { AllKeys, BuilderKeys } from "@hacado/i18n";
 import { CalendarClock, CalendarFold } from "lucide-react";
 import {
   WaitlistAdminKeys,
@@ -132,7 +132,20 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
   },
 };
 
-export const WaitlistBlocks = Object.fromEntries(
+export const WaitlistBlocks: Record<
+  string,
+  {
+    schema: (typeof WaitlistBlocksSchema)[keyof typeof WaitlistBlocksSchema];
+    editor: EditorDocumentBlocksDictionary<
+      typeof WaitlistBlocksSchema
+    >[keyof typeof WaitlistBlocksSchema];
+    defaultMetadata: (
+      appName: string,
+      appId: string,
+    ) => Record<string, unknown>;
+    allowedInFooter: boolean;
+  }
+> = Object.fromEntries(
   Object.entries(WaitlistBlocksSchema).map(([key, schema]) => [
     key,
     {

@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 
 const getLogMethod = (consoleMethod: string) => {
   return function () {
@@ -26,7 +26,6 @@ const getLogMethod = (consoleMethod: string) => {
 
 const consoleMethods = ["log", "debug", "info", "warn", "error"];
 consoleMethods.forEach((method) => {
-  // eslint-disable-next-line no-console
   // @ts-ignore
   console[method] = getLogMethod(method);
 });

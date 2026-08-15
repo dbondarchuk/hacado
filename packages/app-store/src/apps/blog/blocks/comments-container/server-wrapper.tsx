@@ -1,4 +1,4 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@hacado/i18n/components";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { BlogCommentsContainerComponent } from "./component";
 import { BlogCommentsContainerReaderProps } from "./schema";
@@ -26,7 +26,7 @@ export const BlogCommentsContainerServerWrapper = async ({
   args,
 }: BlogCommentsContainerServerWrapperProps) => {
   const { headers } = await import("next/headers");
-  const { ServicesContainer } = await import("@timelish/services");
+  const { ServicesContainer } = await import("@hacado/services");
   const { BlogRepositoryService } = await import(
     "../../service/repository-service"
   );
@@ -50,7 +50,9 @@ export const BlogCommentsContainerServerWrapper = async ({
   if (!appId || !postId) {
     return (
       <div className="text-sm text-muted-foreground">
-        <I18nText text={"app_blog_public.notInBlogContext" satisfies BlogPublicAllKeys} />
+        <I18nText
+          text={"app_blog_public.notInBlogContext" satisfies BlogPublicAllKeys}
+        />
       </div>
     );
   }

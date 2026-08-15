@@ -1,4 +1,4 @@
-import { Checkbox, Label } from "@timelish/ui";
+import { Checkbox, Label } from "@hacado/ui";
 import React, { useId } from "react";
 
 type Props = {

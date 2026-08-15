@@ -1,13 +1,13 @@
 // Replace your CarddavConnectedApp class with this version (keeps your helpers)
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppStatusWithText,
   Customer,
   IConnectedApp,
   IConnectedAppProps,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt, getAppsExternalUrl } from "@hacado/utils";
 import crypto from "crypto";
 import {
   CarddavConfiguration,
@@ -27,7 +27,7 @@ function generatePassword(): string {
 }
 
 function generateCarddavUrl(organizationId: string, appId: string): string {
-  return `https://${process.env.APPS_EXTERNAL_DOMAIN}/api/apps/${organizationId}/${appId}`;
+  return `${getAppsExternalUrl()}/api/apps/${organizationId}/${appId}`;
 }
 
 /* (Keep your escapeVCardText and customerToVCard helpers unchanged) */

@@ -1,6 +1,6 @@
 "use client";
 
-import { activitiesSearchParams } from "@timelish/api-sdk";
+import { activitiesSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 
@@ -66,14 +66,7 @@ export function useActivityTableFilters() {
       !!start ||
       !!end
     );
-  }, [
-    searchQuery,
-    severityFilter,
-    actorFilter,
-    eventTypeFilter,
-    start,
-    end,
-  ]);
+  }, [searchQuery, severityFilter, actorFilter, eventTypeFilter, start, end]);
 
   return {
     searchQuery,

@@ -1,6 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { AppointmentAddon, AppointmentOption } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentAddon, AppointmentOption } from "@hacado/types";
 import {
   Button,
   Dialog,
@@ -24,13 +23,14 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AddonSelector,
   CustomerSelector,
   OptionSelector,
   useReload,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";

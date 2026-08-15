@@ -1,13 +1,13 @@
 "use client";
 
-import { BuilderKeys, useI18n } from "@timelish/i18n";
+import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
   ToolbarButton,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Type } from "lucide-react";
 import { useCallback } from "react";
 import { useRTEContext } from "../../context/rte-context";

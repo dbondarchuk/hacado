@@ -1,4 +1,4 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@hacado/i18n/components";
 import { BlogCommentsContext, BlogPost } from "../../models";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { getBlogConfiguration } from "../get-blog-config";
@@ -30,12 +30,12 @@ export const BlogPostsContainerServerWrapper = async ({
   args,
 }: BlogPostsContainerServerWrapperProps) => {
   const { headers } = await import("next/headers");
-  const { ServicesContainer } = await import("@timelish/services");
+  const { ServicesContainer } = await import("@hacado/services");
   const { BlogRepositoryService } = await import(
     "../../service/repository-service"
   );
 
-  const logger = (await import("@timelish/logger")).getLoggerFactory(
+  const logger = (await import("@hacado/logger")).getLoggerFactory(
     "BlogPostsContainerServerWrapper",
   )("render");
 

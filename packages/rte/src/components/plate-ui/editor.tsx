@@ -5,7 +5,7 @@ import React from "react";
 import type { PlateContentProps } from "@udecode/plate/react";
 import type { VariantProps } from "class-variance-authority";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import {
   PlateContent,
   useEditorContainerRef,

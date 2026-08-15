@@ -1,4 +1,4 @@
-import { Leaves } from "@timelish/types";
+import { Leaves } from "@hacado/types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
   useOpenState,
-} from "@timelish/ui";
-import { destructAndReplace, resolveProperty } from "@timelish/utils";
+} from "@hacado/ui";
+import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { CSSProperties, ReactNode } from "react";
 import { ConfigurationProps } from "../../documents/types";
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo, Label, Textarea } from "@timelish/ui";
+import { ConfigurationProps } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo, Label, Textarea } from "@hacado/ui";
 import { useCallback } from "react";
 import { HtmlMonacoEditorDialog } from "./html-monaco-editor-dialog";
 import { CustomHTMLProps } from "./schema";
@@ -45,7 +45,9 @@ export const CustomHTMLConfiguration = deepMemo(
             </Label>
             <HtmlMonacoEditorDialog
               value={html}
-              onApply={(nextHtml) => updateProps({ ...data.props, html: nextHtml })}
+              onApply={(nextHtml) =>
+                updateProps({ ...data.props, html: nextHtml })
+              }
             />
           </div>
           <Textarea

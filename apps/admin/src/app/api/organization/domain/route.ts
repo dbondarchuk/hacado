@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { organizationDomainSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus } from "@timelish/types";
+import { organizationDomainSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -46,7 +46,10 @@ export async function POST(request: NextRequest) {
 export async function DELETE() {
   const logger = getLoggerFactory("AdminAPI/organization/domain")("DELETE");
   const servicesContainer = await getServicesContainer();
-  await servicesContainer.organizationService.setDomain(undefined, await getActor());
+  await servicesContainer.organizationService.setDomain(
+    undefined,
+    await getActor(),
+  );
   logger.debug("Domain removed");
   return NextResponse.json(okStatus, { status: 200 });
 }

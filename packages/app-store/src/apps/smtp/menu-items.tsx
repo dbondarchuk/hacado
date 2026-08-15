@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { SmtpLogo } from "./logo";
 import { SmtpAppSetup } from "./setup";
 import { SmtpAdminKeys, SmtpAdminNamespace } from "./translations/types";
@@ -11,5 +11,6 @@ export const SmtpMenuItems: AppMenuItem<SmtpAdminNamespace, SmtpAdminKeys>[] = [
     label: "app_smtp_admin.navigation.title",
     icon: <SmtpLogo />,
     Page: (props) => <SmtpAppSetup appId={props.appId} />,
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

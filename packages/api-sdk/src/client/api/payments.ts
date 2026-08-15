@@ -1,7 +1,7 @@
 import {
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { fetchClientApi } from "./utils";
 
 export const createPaymentIntent = async (

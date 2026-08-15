@@ -7,13 +7,13 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useSetSelectedBlockId,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   getFontFamily,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base";
-import { COLORS, getColorStyle } from "@timelish/page-builder-base/style";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { COLORS, getColorStyle } from "@hacado/page-builder-base/style";
+import { cn } from "@hacado/ui";
 import { PageLayoutProps } from "./schema";
 
 export const PageLayoutEditor = () => {

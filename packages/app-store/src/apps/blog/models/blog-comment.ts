@@ -7,7 +7,7 @@ import {
   WithOrganizationId,
   zNonEmptyString,
   zObjectId,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { BlogPublicAllKeys } from "../translations/types";
 

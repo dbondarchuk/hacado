@@ -1,12 +1,13 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
-import { assetsSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { AssetTotalSizeLimitReachedError, UploadedFile } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { assetsSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { AssetTotalSizeLimitReachedError, UploadedFile } from "@hacado/types";
 import {
   fileNameToMimeType,
   getAppointmentBucket,
   getCustomerBucket,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 } from "uuid";
 
@@ -110,6 +111,16 @@ export async function POST(request: NextRequest) {
 
   const appointmentId = (formData.get("appointmentId") as string) ?? undefined;
   const customerId = (formData.get("customerId") as string) ?? undefined;
+
+  if (customerId) {
+    const auth = await requirePermission(
+      "customer",
+      "update",
+      "AdminAPI/assets",
+      "POST",
+    );
+    if (!auth.ok) return auth.response;
+  }
 
   if (appointmentId) {
     bucket = getAppointmentBucket(appointmentId);

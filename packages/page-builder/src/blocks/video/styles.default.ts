@@ -1,4 +1,4 @@
-import type { DefaultCSSProperties } from "@timelish/page-builder-base/style";
+import type { DefaultCSSProperties } from "@hacado/page-builder-base/style";
 import type { VideoProps } from "./schema";
 import type { VideoStylesSchema } from "./styles";
 

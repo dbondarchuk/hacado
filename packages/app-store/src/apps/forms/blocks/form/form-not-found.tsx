@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Card, CardContent, CardHeader } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Card, CardContent, CardHeader } from "@hacado/ui";
 import { AlertCircle } from "lucide-react";
 import {
   FormsPublicKeys,

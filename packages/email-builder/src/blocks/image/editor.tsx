@@ -7,8 +7,8 @@ import {
   useDispatchAction,
   useEditorArgs,
   useIsSelectedBlock,
-} from "@timelish/builder";
-import { templateSafeWithError } from "@timelish/utils";
+} from "@hacado/builder";
+import { templateSafeWithError } from "@hacado/utils";
 import { Ref, useCallback } from "react";
 import { Image } from "./image";
 import { ResizableImage } from "./resizable-image";

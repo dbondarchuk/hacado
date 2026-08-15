@@ -8,10 +8,10 @@ import {
   useEditorArgs,
   usePortalContext,
   useSetSelectedBlockId,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { cn } from "@timelish/ui";
-import { ArgumentsAutocomplete } from "@timelish/ui-admin";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin";
 import { useRef } from "react";
 import sanitizeHtml from "sanitize-html";
 import { ButtonProps } from "./schema";

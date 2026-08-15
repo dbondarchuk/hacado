@@ -7,6 +7,7 @@ table:
     createAppointment: Create appointment
     customer: Customer
     option: Service
+    member: Team member
     note: Note
   actions:
     createAppointment: Create appointment
@@ -46,6 +47,7 @@ view:
   byFormat: by <link>{name}</link>
   badge: Waitlist
   preferredAvailability: Preferred availability
+  member: Team member
   noSpecificDates: No specific dates
   toast:
     dismissed: Waitlist entry dismissed

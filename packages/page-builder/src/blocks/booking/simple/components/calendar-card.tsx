@@ -1,6 +1,6 @@
 "use client";
-import { useI18n, useLocale } from "@timelish/i18n";
-import type { Time } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { Time } from "@hacado/types";
 import {
   Button,
   Calendar,
@@ -11,8 +11,8 @@ import {
   TooltipResponsiveTrigger,
   useTimeZone,
   useUseClientTimezone,
-} from "@timelish/ui";
-import { areTimesEqual, formatTimeLocale } from "@timelish/utils";
+} from "@hacado/ui";
+import { areTimesEqual, formatTimeLocale } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import * as Locales from "date-fns/locale";
 import { Globe2Icon } from "lucide-react";

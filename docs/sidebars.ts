@@ -68,7 +68,7 @@ const sidebars: SidebarsConfig = {
       },
       items: [
         "getting-started/introduction",
-        "getting-started/what-is-timelish",
+        "getting-started/what-is-hacado",
         "getting-started/sign-up",
         "getting-started/subscription-and-checkout",
         "getting-started/workspace-install-wizard",

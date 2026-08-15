@@ -1,7 +1,9 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { bulkDeleteSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { bulkDeleteSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { okStatus } from "@hacado/types";
+import { canUpdateAppointment } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -24,6 +26,50 @@ export async function POST(request: NextRequest) {
       { error, success: false, code: "invalid_request_format" },
       { status: 400 },
     );
+  }
+
+  const assets = await Promise.all(
+    data.ids.map((id) => servicesContainer.assetsService.getAsset(id)),
+  );
+  const found = assets.filter((asset): asset is NonNullable<typeof asset> =>
+    Boolean(asset),
+  );
+
+  if (found.some((asset) => asset.customerId)) {
+    const auth = await requirePermission(
+      "customer",
+      "update",
+      "AdminAPI/assets/delete",
+      "POST",
+    );
+    if (!auth.ok) return auth.response;
+  }
+
+  const appointmentAssets = found.filter((asset) => asset.appointmentId);
+  if (appointmentAssets.length) {
+    const auth = await requirePermission(
+      "appointment",
+      "update",
+      "AdminAPI/assets/delete",
+      "POST",
+    );
+    if (!auth.ok) return auth.response;
+
+    for (const asset of appointmentAssets) {
+      if (!asset.appointmentId) continue;
+      const appointment = await servicesContainer.bookingService.getAppointment(
+        asset.appointmentId,
+      );
+      if (
+        appointment &&
+        !canUpdateAppointment(auth.user, appointment.memberId)
+      ) {
+        return NextResponse.json(
+          { success: false, code: "forbidden", error: "Forbidden" },
+          { status: 403 },
+        );
+      }
+    }
   }
 
   const actor = await getActor();

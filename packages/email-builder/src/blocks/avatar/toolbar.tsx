@@ -1,5 +1,5 @@
-import { ConfigurationProps, ToolbarDropdownMenu } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { ConfigurationProps, ToolbarDropdownMenu } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { Circle, Square, SquareRoundCorner } from "lucide-react";
 import { TextAlignDropdownMenu } from "../../toolbars/text-align";
 import { AvatarProps, AvatarPropsDefaults } from "./schema";

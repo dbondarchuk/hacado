@@ -1,13 +1,19 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
+import {
+  Skeleton,
+  cn,
+  toast,
+  useTimeZone,
+  useUseClientTimezone,
+} from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
-import { Skeleton, cn, toast, useTimeZone, useUseClientTimezone } from "@timelish/ui";
 import { useEffect, useState } from "react";
 import {
   MyCabinetPublicKeys,
@@ -16,11 +22,11 @@ import {
 } from "../../translations/types";
 import { checkSessionAction } from "./actions";
 import { CustomerProfileContext } from "./customer-profile-context";
-import { SessionExpiredContext } from "./session-expired-context";
 import { MyCabinetBlockReaderProps, styles } from "./schema";
 import { AppointmentsScreen } from "./screens/appointments-screen";
 import { AuthScreen } from "./screens/auth-screen";
 import { ModifyScreen } from "./screens/modify-screen";
+import { SessionExpiredContext } from "./session-expired-context";
 import { CustomerProfile, HashState } from "./types";
 
 const parseHash = (hash: string): HashState => {
@@ -69,7 +75,9 @@ export const MyCabinetBlockComponent = ({
   const [customerProfile, setCustomerProfile] =
     useState<CustomerProfile | null>(null);
   const [timezone, setTimeZone] = useState<string>(
-    useClientTimezone ? (LuxonDateTime.now().zoneName ?? configTimeZone) : configTimeZone,
+    useClientTimezone
+      ? (LuxonDateTime.now().zoneName ?? configTimeZone)
+      : configTimeZone,
   );
   const [hashState, setHashState] = useState<HashState>({ screen: "list" });
 
@@ -88,7 +96,11 @@ export const MyCabinetBlockComponent = ({
       .then((res) => {
         if (!mounted) return;
         setIsAuthenticated(true);
-        setCustomerProfile({ name: res.name, email: res.email, phone: res.phone });
+        setCustomerProfile({
+          name: res.name,
+          email: res.email,
+          phone: res.phone,
+        });
       })
       .catch(() => {})
       .finally(() => {
@@ -120,7 +132,11 @@ export const MyCabinetBlockComponent = ({
       />
       {isEditor && <ReplaceOriginalColors />}
       <div
-        className={cn(className, blockBase?.className, "space-y-4 my-cabinet-container")}
+        className={cn(
+          className,
+          blockBase?.className,
+          "space-y-4 my-cabinet-container",
+        )}
         id={blockBase?.id}
       >
         {children}
@@ -158,21 +174,23 @@ export const MyCabinetBlockComponent = ({
         </div>
       ) : (
         <SessionExpiredContext.Provider value={handleSessionExpired}>
-        <CustomerProfileContext.Provider value={{ customer: customerProfile, timezone, setTimeZone }}>
-          {!isAuthenticated ? (
-            <AuthScreen appId={appId} onAuthenticated={handleAuthenticated} />
-          ) : hashState.screen === "list" ? (
-            <AppointmentsScreen appId={appId} />
-          ) : (
-            <ModifyScreen
-              appId={appId}
-              appointmentId={hashState.appointmentId}
-              action={hashState.action}
-              scrollToTop={scrollToTop ?? true}
-              isEditor={isEditor}
-            />
-          )}
-        </CustomerProfileContext.Provider>
+          <CustomerProfileContext.Provider
+            value={{ customer: customerProfile, timezone, setTimeZone }}
+          >
+            {!isAuthenticated ? (
+              <AuthScreen appId={appId} onAuthenticated={handleAuthenticated} />
+            ) : hashState.screen === "list" ? (
+              <AppointmentsScreen appId={appId} />
+            ) : (
+              <ModifyScreen
+                appId={appId}
+                appointmentId={hashState.appointmentId}
+                action={hashState.action}
+                scrollToTop={scrollToTop ?? true}
+                isEditor={isEditor}
+              />
+            )}
+          </CustomerProfileContext.Provider>
         </SessionExpiredContext.Provider>
       )}
     </>,

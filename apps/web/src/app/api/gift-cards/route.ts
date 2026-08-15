@@ -1,10 +1,10 @@
 import { applyGiftCards } from "@/utils/gift-cards/apply";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   applyGiftCardsRequestSchema,
   ApplyGiftCardsResponse,
   ApplyGiftCardsSuccessResponse,
-} from "@timelish/types";
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

@@ -1,4 +1,4 @@
-import { EditorDocumentBlocksDictionary } from "@timelish/builder";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder";
 import { Gift } from "lucide-react";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 import {

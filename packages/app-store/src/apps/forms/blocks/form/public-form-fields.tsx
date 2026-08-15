@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Checkbox,
   FormControl,
@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { FormModel } from "../../models";

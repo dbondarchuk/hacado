@@ -1,14 +1,14 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
-import { GiftCardListModel } from "@timelish/types";
-import { Badge, Button, Checkbox, Link, useCurrencyFormat } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { GiftCardListModel } from "@hacado/types";
+import { Badge, Button, Checkbox, Link, useCurrencyFormat } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
-import { GiftCardPaymentsDialog } from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin";
+import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { parseAsString, useQueryState } from "nuqs";
 import { useCallback } from "react";

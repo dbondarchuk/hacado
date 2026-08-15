@@ -1,5 +1,5 @@
-import { AllKeys } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { AllKeys } from "@hacado/i18n";
+import { Leaves } from "@hacado/types";
 import type adminKeys from "./en/admin.generated";
 import type publicKeys from "./en/public.generated";
 
@@ -13,13 +13,6 @@ export const blogPublicNamespace = "app_blog_public" as const;
 
 export type BlogPublicNamespace = typeof blogPublicNamespace;
 
-export type BlogAdminAllKeys = AllKeys<
-  BlogAdminNamespace,
-  BlogAdminKeys
->;
+export type BlogAdminAllKeys = AllKeys<BlogAdminNamespace, BlogAdminKeys>;
 
-export type BlogPublicAllKeys = AllKeys<
-  BlogPublicNamespace,
-  BlogPublicKeys
->;
-
+export type BlogPublicAllKeys = AllKeys<BlogPublicNamespace, BlogPublicKeys>;

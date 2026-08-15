@@ -1,4 +1,5 @@
 import {
+  ActiveStaffOption,
   ApplyDiscountResponse,
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -8,14 +9,20 @@ import {
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
   Fields,
+  PublicStaffMember,
   WithLabelFieldData,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 
+export type FlowOrder = "service-first" | "specialist-first";
+
 export type StepType =
   | "duration"
+  | "specialist"
   | "addons"
   | "calendar"
   | "form"
@@ -39,6 +46,20 @@ export type ScheduleContextProps = {
   appointmentOption: AppointmentChoice;
   useClientTimezone?: boolean;
 
+  /** Active org staff members, for resolving `appointmentOption.staff` assignments. */
+  members: PublicStaffMember[];
+  flowOrder: FlowOrder;
+
+  selectedMemberId: string | null;
+  setSelectedMemberId: (memberId: string | null) => void;
+  /**
+   * Whether the specialist was already chosen before this service (specialist-first
+   * flow), in which case the in-schedule "specialist" step is skipped entirely.
+   */
+  preselectedMemberId?: string | null;
+  activeStaff: ActiveStaffOption[];
+  showSpecialistStep: boolean;
+
   selectedAddons: AppointmentAddon[];
   setSelectedAddons: (addons: AppointmentAddon[]) => void;
 
@@ -56,7 +77,8 @@ export type ScheduleContextProps = {
   setIsFormValid: (isValid: boolean) => void;
 
   availability: Availability;
-  fetchAvailability: () => Promise<void>;
+  /** Optional memberId override avoids stale state right after setSelectedMemberId. */
+  fetchAvailability: (memberId?: string | null) => Promise<void>;
 
   checkDuplicateAppointments: () => Promise<CheckDuplicateAppointmentsResponse>;
   closestDuplicateAppointment?: LuxonDateTime;
@@ -108,8 +130,17 @@ const getAppointmentDuration = ({
   duration,
   appointmentOption,
   selectedAddons,
+  selectedMemberId,
+  activeStaff,
 }: ScheduleContextProps) => {
-  let baseDuration = duration;
+  const selectedStaff = selectedMemberId
+    ? activeStaff.find((s) => s.member.id === selectedMemberId)
+    : undefined;
+
+  let baseDuration =
+    appointmentOption?.durationType === "fixed"
+      ? (selectedStaff?.assignment.durationOverride ?? duration)
+      : duration;
   if (!baseDuration && appointmentOption) {
     if (appointmentOption.durationType === "fixed") {
       baseDuration = appointmentOption.duration;
@@ -123,7 +154,13 @@ const getAppointmentDuration = ({
   return (
     baseDuration +
     (selectedAddons || []).reduce(
-      (sum, addon) => sum + (addon.duration || 0),
+      (sum, addon) =>
+        sum +
+        (effectiveAddonDuration(
+          addon.duration,
+          addon.staff,
+          selectedMemberId,
+        ) || 0),
       0,
     )
   );
@@ -133,20 +170,32 @@ const getAppointmentBasePrice = ({
   appointmentOption,
   selectedAddons,
   duration,
+  selectedMemberId,
+  activeStaff,
 }: ScheduleContextProps) => {
   let basePrice = 0;
   if (appointmentOption) {
+    const selectedStaff = selectedMemberId
+      ? activeStaff.find((s) => s.member.id === selectedMemberId)
+      : undefined;
+
     if (appointmentOption.durationType === "fixed") {
-      basePrice = appointmentOption.price || 0;
+      basePrice = selectedStaff?.effectivePrice ?? appointmentOption.price ?? 0;
     } else {
-      basePrice =
-        ((appointmentOption.pricePerHour || 0) / 60) * (duration || 0);
+      const pricePerHour =
+        selectedStaff?.effectivePrice ?? appointmentOption.pricePerHour ?? 0;
+      basePrice = (pricePerHour / 60) * (duration || 0);
     }
   }
 
   return (
     basePrice +
-    (selectedAddons || []).reduce((sum, addon) => sum + (addon.price || 0), 0)
+    (selectedAddons || []).reduce(
+      (sum, addon) =>
+        sum +
+        (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
+      0,
+    )
   );
 };
 
@@ -179,8 +228,14 @@ export const getAppointmentPrice = (ctx: ScheduleContextProps) => {
 export const useScheduleContext = () => {
   const ctx = useContext(ScheduleContext);
 
+  const selectedMember =
+    ctx.activeStaff.find((s) => s.member.id === ctx.selectedMemberId) ?? null;
+
   const baseDuration =
-    ctx.duration ||
+    (ctx.appointmentOption?.durationType === "fixed"
+      ? selectedMember?.assignment.durationOverride
+      : undefined) ??
+    ctx.duration ??
     (ctx.appointmentOption?.durationType === "fixed"
       ? ctx.appointmentOption?.duration
       : ctx.appointmentOption?.durationMin);
@@ -196,5 +251,6 @@ export const useScheduleContext = () => {
     basePrice: getAppointmentBasePrice(baseCtx),
     discountAmount: getAppointmentDiscountAmount(baseCtx),
     price: getAppointmentPrice(baseCtx),
+    selectedMember,
   };
 };

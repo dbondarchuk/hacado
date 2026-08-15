@@ -1,11 +1,13 @@
 "use client";
 
-import { ButtonGroup } from "@timelish/ui";
+import { ButtonGroup } from "@hacado/ui";
 import {
   DataTableResetFilter,
   DataTableSearch,
+  useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { DeleteSelectedCustomersButton } from "./delete-selected";
 import { MergeSelectedCustomersButton } from "./merge-selected";
 import { useCustomersTableFilters } from "./use-table-filters";
@@ -19,6 +21,9 @@ export function CustomersTableAction() {
     setSearchQuery,
   } = useCustomersTableFilters();
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
+  const canDelete = hasPermission(user, "customer", "delete");
+  const canMerge = hasPermission(user, "customer", "merge");
 
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-2">
@@ -34,12 +39,18 @@ export function CustomersTableAction() {
           onReset={resetFilters}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-4">
-        <ButtonGroup>
-          <MergeSelectedCustomersButton selected={rowSelection} />
-          <DeleteSelectedCustomersButton selected={rowSelection} />
-        </ButtonGroup>
-      </div>
+      {canDelete || canMerge ? (
+        <div className="flex flex-wrap items-center gap-4">
+          <ButtonGroup>
+            {canMerge ? (
+              <MergeSelectedCustomersButton selected={rowSelection} />
+            ) : null}
+            {canDelete ? (
+              <DeleteSelectedCustomersButton selected={rowSelection} />
+            ) : null}
+          </ButtonGroup>
+        </div>
+      ) : null}
     </div>
   );
 }

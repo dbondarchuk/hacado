@@ -1,4 +1,4 @@
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { createSlateEditor, type SlateEditor } from "@udecode/plate";
 import {
   BaseCodeBlockPlugin,

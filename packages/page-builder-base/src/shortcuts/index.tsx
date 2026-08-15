@@ -1,12 +1,12 @@
 "use client";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
   Label,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Settings } from "lucide-react";
 import { useState } from "react";
 import { StyleValue } from "../style/css-renderer";

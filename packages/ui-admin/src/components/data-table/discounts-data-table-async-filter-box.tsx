@@ -2,9 +2,9 @@
 
 import React from "react";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { Discount } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Discount } from "@hacado/types";
 import {
   Skeleton,
   Tooltip,
@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
   useDebounceCacheFn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,

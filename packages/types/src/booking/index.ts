@@ -12,5 +12,6 @@ export * from "./fields";
 export * from "./gift-card";
 export * from "./payment";
 export * from "./period";
+export * from "./staff-assignment";
 export * from "./synced-payment";
 export * from "./time-slot";

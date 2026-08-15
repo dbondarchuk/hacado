@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
+import { BaseReaderBlockProps } from "@hacado/builder";
 import * as z from "zod";
 import { zColorNullable, zStylesBase } from "../../style-inputs/helpers/zod";
 

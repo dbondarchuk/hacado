@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { EMAIL_BRAND } from "../../brand";
 import { zColorNullable, zStyles } from "../../style-inputs/helpers/zod";
 
 export const ButtonPropsSchema = z.object({
@@ -28,12 +29,12 @@ export type ButtonProps = z.infer<typeof ButtonPropsSchema>;
 export const ButtonPropsDefaults = {
   props: {
     text: "Button",
-    url: "https://timelishnail.studio",
+    url: "https://hacado.com",
     width: "auto",
     size: "medium",
     buttonStyle: "rounded",
-    buttonTextColor: "#FFFFFF",
-    buttonBackgroundColor: "#999999",
+    buttonTextColor: EMAIL_BRAND.onPrimary,
+    buttonBackgroundColor: EMAIL_BRAND.primary,
   },
   style: {
     padding: { top: 16, bottom: 16, left: 24, right: 24 },

@@ -1,28 +1,31 @@
-import type { Product } from "@polar-sh/sdk/models/components/product";
 import type {
   BillingConsumeSmsInput,
   BillingInterval,
   BillingPeriod,
   BillingRecordSmsUsageInput,
+  BillingSubscriptionPrice,
   IBillingService,
   IEventService,
   IOrganizationService,
+  OrganizationBillingSeatAddonSubscription,
+  OrganizationBillingSeatsBenefit,
   OrganizationBillingSubscriptionDetails,
   SmsCreditsState,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Organization,
   parseOrganizationSubscriptionStatus,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
   SmsCreditsExhaustedError,
   systemEventSource,
-} from "@timelish/types";
+} from "@hacado/types";
+import type { Product } from "@polar-sh/sdk/models/components/product";
 import { ORGANIZATIONS_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";
 import { BaseService } from "../services/base.service";
 import type { PolarClientWrapper } from "./polar-client-wrapper";
-import { resolvePlanTierFromProductId } from "./subscription-entitlements";
 import { maybeEmitSmsCreditThresholdEvent } from "./sms-credit-threshold-notify";
+import { resolvePlanTierFromProductId } from "./subscription-entitlements";
 
 function assertNonNegInt(n: number, label: string) {
   if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) {
@@ -271,6 +274,80 @@ export class PolarBillingService
     await this.consumeSmsCredits({ ...input, amount: 1 });
   }
 
+  private seatsBenefitFromOrg(
+    org: Organization | null | undefined,
+    addons: OrganizationBillingSeatAddonSubscription[] = [],
+  ): OrganizationBillingSeatsBenefit | null {
+    if (!org || org.feesExempt === true) return null;
+    const included = Math.max(0, org.userSlots?.included ?? 1);
+    const additional = Math.max(0, org.userSlots?.additional ?? 0);
+    const available = Math.max(0, org.availableUsers ?? included + additional);
+    return {
+      included,
+      additional,
+      available,
+      allowAdditionalUsers: org.allowAdditionalUsers === true,
+      addons,
+    };
+  }
+
+  private async loadSeatAddonSubscriptions(
+    org: Organization | null | undefined,
+  ): Promise<OrganizationBillingSeatAddonSubscription[]> {
+    const logger = this.loggerFactory("loadSeatAddonSubscriptions");
+    const grants =
+      org?.userSlotGrants?.filter((g) => g.source === "addon") ?? [];
+    if (!grants.length || !this.polar.client) {
+      return grants.map((g) => ({
+        subscriptionId: g.polarSubscriptionId,
+        name: null,
+        usersAmount: Math.max(0, g.usersAmount),
+        price: null,
+        status: null,
+        nextCycleDate: null,
+      }));
+    }
+
+    const results = await Promise.all(
+      grants.map(async (grant) => {
+        const base: OrganizationBillingSeatAddonSubscription = {
+          subscriptionId: grant.polarSubscriptionId,
+          name: null,
+          usersAmount: Math.max(0, grant.usersAmount),
+          price: null,
+          status: null,
+          nextCycleDate: null,
+        };
+        try {
+          const subscription = await this.polar.getSubscriptionById(
+            grant.polarSubscriptionId,
+          );
+          const price: BillingSubscriptionPrice = {
+            amountCents: subscription.amount,
+            currency: subscription.currency,
+            recurringInterval:
+              (subscription.recurringInterval as BillingInterval) ?? null,
+          };
+          return {
+            ...base,
+            name: subscription.product?.name ?? null,
+            price,
+            status: parseOrganizationSubscriptionStatus(subscription.status),
+            nextCycleDate: subscription.currentPeriodEnd ?? null,
+          };
+        } catch (error) {
+          logger.debug(
+            { error, subscriptionId: grant.polarSubscriptionId },
+            "Could not load seat-addon subscription details",
+          );
+          return base;
+        }
+      }),
+    );
+
+    return results;
+  }
+
   public async getSubscriptionDetails(): Promise<OrganizationBillingSubscriptionDetails> {
     const logger = this.loggerFactory("getSubscriptionDetails");
     logger.debug("Getting subscription details");
@@ -279,20 +356,28 @@ export class PolarBillingService
     const subscriptionId = org?.polarSubscriptionId?.trim() ?? null;
     const statusFromDb = org?.polarSubscriptionStatus ?? null;
 
-    const empty = (): OrganizationBillingSubscriptionDetails => ({
-      feesExempt,
-      planTier: resolvePlanTierFromProductId(
-        org?.polarSubscriptionProductId,
-        { feesExempt },
-      ),
-      subscriptionId,
-      subscriptionName: null,
-      status: statusFromDb,
-      subscriptionPrice: null,
-      currentPeriodStart: null,
-      nextCycleDate: null,
-      benefits: { sms: null },
-    });
+    const empty = async (): Promise<OrganizationBillingSubscriptionDetails> => {
+      const addons = feesExempt
+        ? []
+        : await this.loadSeatAddonSubscriptions(org);
+      return {
+        feesExempt,
+        planTier: resolvePlanTierFromProductId(
+          org?.polarSubscriptionProductId,
+          { feesExempt },
+        ),
+        subscriptionId,
+        subscriptionName: null,
+        status: statusFromDb,
+        subscriptionPrice: null,
+        currentPeriodStart: null,
+        nextCycleDate: null,
+        benefits: {
+          sms: null,
+          seats: this.seatsBenefitFromOrg(org, addons),
+        },
+      };
+    };
 
     if (feesExempt) {
       logger.debug("Fees exempt; skipping subscription details");
@@ -373,6 +458,9 @@ export class PolarBillingService
         includedPerCycle,
       };
 
+      const seatAddons = await this.loadSeatAddonSubscriptions(org);
+      const seats = this.seatsBenefitFromOrg(org, seatAddons);
+
       logger.debug(
         {
           subscriptionName,
@@ -381,20 +469,23 @@ export class PolarBillingService
           included,
           topup,
           includedPerCycle,
+          seats,
         },
         "Retrieved subscription details",
       );
 
       return {
         feesExempt: false,
-        planTier: resolvePlanTierFromProductId(productId, { feesExempt: false }),
+        planTier: resolvePlanTierFromProductId(productId, {
+          feesExempt: false,
+        }),
         subscriptionId,
         subscriptionName,
         status,
         subscriptionPrice,
         currentPeriodStart,
         nextCycleDate: nextCycleEnd,
-        benefits: { sms },
+        benefits: { sms, seats },
       };
     } catch (error) {
       logger.warn(
@@ -422,5 +513,120 @@ export class PolarBillingService
     } catch {
       return null;
     }
+  }
+
+  public async recomputeAvailableUsers(): Promise<number> {
+    const db = await getDbConnection();
+    const collection = db.collection<Organization>(
+      ORGANIZATIONS_COLLECTION_NAME,
+    );
+    const org = await collection.findOne({ _id: this.organizationId });
+    const grants = org?.userSlotGrants ?? [];
+    const planGrant = grants.find((g) => g.source === "plan");
+    const addonSum = grants
+      .filter((g) => g.source === "addon")
+      .reduce((sum, g) => sum + Math.max(0, g.usersAmount), 0);
+    const included = Math.max(
+      0,
+      planGrant?.usersAmount ?? org?.userSlots?.included ?? 1,
+    );
+    const additional = Math.max(0, addonSum);
+    const availableUsers = included + additional;
+
+    await collection.updateOne(
+      { _id: this.organizationId },
+      {
+        $set: {
+          userSlots: { included, additional },
+          availableUsers,
+        },
+      },
+    );
+
+    return availableUsers;
+  }
+
+  public async setIncludedUserSlots(
+    amount: number,
+    options?: {
+      polarSubscriptionId?: string;
+      allowAdditionalUsers?: boolean;
+    },
+  ): Promise<void> {
+    const logger = this.loggerFactory("setIncludedUserSlots");
+    assertNonNegInt(amount, "amount");
+    const db = await getDbConnection();
+    const collection = db.collection<Organization>(
+      ORGANIZATIONS_COLLECTION_NAME,
+    );
+    const org = await collection.findOne({ _id: this.organizationId });
+    let grants = [...(org?.userSlotGrants ?? [])].filter(
+      (g) => g.source !== "plan",
+    );
+    const planSubId =
+      options?.polarSubscriptionId ??
+      org?.userSlotGrants?.find((g) => g.source === "plan")
+        ?.polarSubscriptionId ??
+      org?.polarSubscriptionId ??
+      "plan";
+    grants.push({
+      polarSubscriptionId: planSubId,
+      usersAmount: amount,
+      source: "plan",
+    });
+
+    await collection.updateOne(
+      { _id: this.organizationId },
+      {
+        $set: {
+          userSlotGrants: grants,
+          "userSlots.included": amount,
+          ...(options?.allowAdditionalUsers !== undefined
+            ? { allowAdditionalUsers: options.allowAdditionalUsers }
+            : {}),
+        },
+      },
+    );
+
+    await this.recomputeAvailableUsers();
+    logger.debug({ amount }, "Included user slots set");
+  }
+
+  public async upsertUserSlotGrant(grant: {
+    polarSubscriptionId: string;
+    usersAmount: number;
+    source: "plan" | "addon";
+  }): Promise<void> {
+    assertNonNegInt(grant.usersAmount, "usersAmount");
+    const db = await getDbConnection();
+    const collection = db.collection<Organization>(
+      ORGANIZATIONS_COLLECTION_NAME,
+    );
+    const org = await collection.findOne({ _id: this.organizationId });
+    const grants = [...(org?.userSlotGrants ?? [])].filter(
+      (g) => g.polarSubscriptionId !== grant.polarSubscriptionId,
+    );
+    grants.push(grant);
+    await collection.updateOne(
+      { _id: this.organizationId },
+      { $set: { userSlotGrants: grants } },
+    );
+    await this.recomputeAvailableUsers();
+  }
+
+  public async removeUserSlotGrant(polarSubscriptionId: string): Promise<void> {
+    const db = await getDbConnection();
+    const collection = db.collection<Organization>(
+      ORGANIZATIONS_COLLECTION_NAME,
+    );
+    const org = await collection.findOne({ _id: this.organizationId });
+    const grants = (org?.userSlotGrants ?? []).filter(
+      (g) => g.polarSubscriptionId !== polarSubscriptionId,
+    );
+    await collection.updateOne(
+      { _id: this.organizationId },
+      { $set: { userSlotGrants: grants } },
+    );
+    await this.recomputeAvailableUsers();
   }
 }

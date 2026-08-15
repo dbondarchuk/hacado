@@ -1,8 +1,8 @@
 import {
   AvailableAppServices,
   ServiceAvailableApps,
-} from "@timelish/app-store/services";
-import { BaseAllKeys } from "@timelish/i18n";
+} from "@hacado/app-store/services";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   ApiRequest,
   App,
@@ -29,15 +29,16 @@ import {
   IConnectedAppWithWebhook,
   IOAuthConnectedApp,
   IServicesContainer,
-  User,
-} from "@timelish/types";
+  OrganizationMember,
+  SessionUser,
+} from "@hacado/types";
 import { ObjectId } from "mongodb";
 import pLimit from "p-limit";
 import { cache } from "react";
 import { getBuiltInAppData, getBuiltInAppsForScope } from "./built-in/utils";
 import {
   CONNECTED_APPS_COLLECTION_NAME,
-  USERS_COLLECTION_NAME,
+  MEMBERS_COLLECTION_NAME,
 } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
@@ -55,13 +56,31 @@ export class ConnectedAppsService
     super("ConnectedAppsService", organizationId);
   }
 
-  public async createNewApp(name: string, userId: string): Promise<string> {
+  public async createNewApp(name: string, memberId: string): Promise<string> {
     const logger = this.loggerFactory("createNewApp");
-    logger.debug({ name }, "Creating new app");
+    logger.debug({ name, memberId }, "Creating new app");
 
-    if (!ServiceAvailableApps[name]) {
+    const appDefinition = ServiceAvailableApps[name];
+    if (!appDefinition) {
       logger.error({ name }, "Unknown app type");
       throw new Error("Unknown app type");
+    }
+
+    const target = appDefinition.target;
+
+    if (appDefinition.dontAllowMultiple) {
+      const existing = await this.getAppsByApp(name);
+      const blocksInstall =
+        target === "member"
+          ? existing.some((app) => app.memberId === memberId)
+          : existing.length > 0;
+      if (blocksInstall) {
+        logger.warn(
+          { name, memberId, target, existingCount: existing.length },
+          "App does not allow multiple installations",
+        );
+        throw new Error("app_already_installed");
+      }
     }
 
     const app: ConnectedAppData = {
@@ -70,7 +89,7 @@ export class ConnectedAppsService
       status: "pending",
       statusText: "apps.common.statusText.pending" satisfies BaseAllKeys,
       name,
-      userId,
+      memberId,
     };
 
     const db = await getDbConnection();
@@ -109,8 +128,8 @@ export class ConnectedAppsService
       APP_INSTALLED_EVENT_TYPE,
       { appId: app._id, appName: app.name },
       {
-        actor: "user",
-        actorId: userId,
+        actor: "member",
+        actorId: memberId,
       },
     );
 
@@ -214,7 +233,7 @@ export class ConnectedAppsService
           {
             appId: app._id,
             appName: app.name,
-            userId: app.userId,
+            memberId: app.memberId,
           },
           { actor: "system" },
         );
@@ -237,6 +256,7 @@ export class ConnectedAppsService
       "Cleaning app references",
     );
 
+    // Company-usage scopes that write org defaultApps
     if (
       scopes.some((scope) =>
         defaultAppScopes.includes(scope as DefaultAppScope),
@@ -319,13 +339,31 @@ export class ConnectedAppsService
       )
     ) {
       const db = await getDbConnection();
-      const users = db.collection<User>(USERS_COLLECTION_NAME);
-      await users.updateMany(
+      const members = db.collection<OrganizationMember>(
+        MEMBERS_COLLECTION_NAME,
+      );
+      await members.updateMany(
         { organizationId: this.organizationId },
         { $pull: { calendarSources: { appId } } },
       );
 
-      logger.debug({ appId }, "Removed app from user calendar sources");
+      logger.debug({ appId }, "Removed app from member calendar sources");
+    }
+
+    if (scopes.includes("meeting-url-provider")) {
+      const db = await getDbConnection();
+      const members = db.collection<OrganizationMember>(
+        MEMBERS_COLLECTION_NAME,
+      );
+      await members.updateMany(
+        {
+          organizationId: this.organizationId,
+          meetingUrlProviderAppId: appId,
+        },
+        { $unset: { meetingUrlProviderAppId: "" } },
+      );
+
+      logger.debug({ appId }, "Cleared member meeting URL provider references");
     }
   }
 
@@ -624,7 +662,7 @@ export class ConnectedAppsService
     appId: string,
     data: any,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any> {
     const logger = this.loggerFactory("processRequest");
     logger.debug({ appId, data }, "Processing request");
@@ -643,7 +681,7 @@ export class ConnectedAppsService
       throw new Error(`App ${app.name} does not implement processRequest`);
     }
 
-    const result = await appService.processRequest(app, data, request, userId);
+    const result = await appService.processRequest(app, data, request, user);
 
     logger.debug({ appId }, "Returning request response");
     return result;
@@ -653,7 +691,7 @@ export class ConnectedAppsService
     appName: string,
     data: any,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any> {
     const logger = this.loggerFactory("processStaticRequest");
     logger.debug({ appName }, "Processing static request");
@@ -667,14 +705,14 @@ export class ConnectedAppsService
     }
 
     logger.debug({ appName }, "Returning static request response");
-    return await appService.processStaticRequest(data, request, userId);
+    return await appService.processStaticRequest(data, request, user);
   }
 
   public async processFormRequest(
     appId: string,
     formData: FormData,
     request: ApiRequest,
-    userId: string,
+    user: SessionUser,
   ): Promise<any> {
     const logger = this.loggerFactory("processFormRequest");
     logger.debug({ appId, formData }, "Processing form request");
@@ -695,7 +733,7 @@ export class ConnectedAppsService
       app,
       formData,
       request,
-      userId,
+      user,
     );
 
     logger.debug({ appId }, "Returning form request response");
@@ -1012,18 +1050,19 @@ export class ConnectedAppsService
       try {
         const services = this.getServices();
         const service = new app.getService(this.organizationId, services);
-        const users = await services.userService.getOrganizationAdminUsers();
-        const user = users[0];
-        if (!user) {
+        const contacts =
+          await services.teamService.getOrganizationAdminContacts();
+        const contact = contacts[0];
+        if (!contact) {
           logger.error(
             { appName: app.name },
-            "Organization admin user not found",
+            "Organization admin member not found",
           );
-          throw new Error("Organization admin user not found");
+          throw new Error("Organization admin member not found");
         }
 
         return await callback(
-          getBuiltInAppData(this.organizationId, user._id.toString(), app.name),
+          getBuiltInAppData(this.organizationId, contact.memberId, app.name),
           service,
         );
       } catch (error) {

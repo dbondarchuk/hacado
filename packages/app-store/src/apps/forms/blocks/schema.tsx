@@ -1,17 +1,13 @@
-import { EditorDocumentBlocksDictionary } from "@timelish/builder";
-import { AllKeys } from "@timelish/i18n";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { AllKeys } from "@hacado/i18n";
 import { FileInput } from "lucide-react";
+import { FormsAdminKeys, FormsAdminNamespace } from "../translations/types";
 import {
   FormBlockConfiguration,
   FormBlockEditor,
   FormBlockPropsDefaults,
   FormBlockPropsSchema,
 } from "./form";
-import {
-  FormsAdminKeys,
-  FormsAdminNamespace,
-  formsAdminNamespace,
-} from "../translations/types";
 
 export const FormsBlocksSchema = {
   Form: FormBlockPropsSchema,
@@ -32,20 +28,18 @@ export const FormsEditors: EditorDocumentBlocksDictionary<
   typeof FormsBlocksSchema
 > = {
   Form: {
-    displayName:
-      "app_forms_admin.block.displayName" satisfies AllKeys<
-        FormsAdminNamespace,
-        FormsAdminKeys
-      >,
+    displayName: "app_forms_admin.block.displayName" satisfies AllKeys<
+      FormsAdminNamespace,
+      FormsAdminKeys
+    >,
     icon: <FileInput />,
     Configuration: FormBlockConfiguration,
     Editor: FormBlockEditor,
     defaultValue: FormBlockPropsDefaults,
-    category:
-      "app_forms_admin.block.category" satisfies AllKeys<
-        FormsAdminNamespace,
-        FormsAdminKeys
-      >,
+    category: "app_forms_admin.block.category" satisfies AllKeys<
+      FormsAdminNamespace,
+      FormsAdminKeys
+    >,
     capabilities: ["block", "form"],
     tags: ["form"],
   },
@@ -56,7 +50,10 @@ type FormsBlocksType = {
     schema: (typeof FormsBlocksSchema)[K];
     editor: (typeof FormsEditors)[K];
     allowedInFooter: (typeof FormsBlocksAllowedInFooter)[K];
-    defaultMetadata: (appName: string, appId: string) => Record<string, unknown>;
+    defaultMetadata: (
+      appName: string,
+      appId: string,
+    ) => Record<string, unknown>;
   };
 };
 

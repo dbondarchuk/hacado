@@ -1,7 +1,7 @@
 import type {
   AllStylesSchemas,
   DefaultCSSProperties,
-} from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base/style";
 import { DefaultHeadingLevel, HeadingProps } from "./schema";
 
 export function getFontSize(

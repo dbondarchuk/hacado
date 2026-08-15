@@ -4,7 +4,7 @@ import {
   zObjectId,
   zTaggedUnion,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 
 import { WaitlistAdminAllKeys } from "../translations/types";
@@ -27,6 +27,7 @@ export const getWaitlistEntriesActionSchema = z.object({
     status: z.array(z.enum(waitlistStatus)).optional(),
     optionId: z.array(zObjectId()).or(zObjectId()).optional(),
     customerId: z.array(zObjectId()).or(zObjectId()).optional(),
+    memberId: z.array(zObjectId()).or(zObjectId()).optional(),
     range: dateRangeSchema.optional(),
   }),
 });
@@ -84,6 +85,10 @@ export const createWaitlistEntryRequestSchema = z
       )
       .optional(),
     optionId: zObjectId("validation.appointments.request.optionId.required"),
+    /** Preferred/assigned staff member; resolved to the owner member when omitted. */
+    memberId: zObjectId(
+      "validation.appointments.request.memberId.required",
+    ).optional(),
     addonsIds: zUniqueArray(
       z.array(zObjectId("validation.appointments.request.addonsIds.required")),
       (x) => x,

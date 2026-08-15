@@ -1,6 +1,6 @@
-﻿common:
+common:
   usesTemplatedValues: "* Uses templated values"
-  featureUpgradeRequired: This feature requires a Pro subscription.
+  featureUpgradeRequired: This feature requires a Solo subscription.
   upgradeLink: Upgrade in brand settings
   toasts:
     saved: Saved!
@@ -20,6 +20,7 @@
       outbound: Outbound
     participantType:
       user: User
+      member: Member
       customer: Customer
     fieldType:
       email: Email
@@ -119,6 +120,12 @@ platformEvents:
     reassigned:
       title: Synced payment reassigned
       description: "{amount} moved to another appointment"
+    unassigned:
+      title: Synced payment unassigned
+      description: "{amount} removed from appointment"
+    unrecorded:
+      title: Synced payment record removed
+      description: "{amount} unlinked from customer"
     ignored:
       title: Synced payment ignored
       description: "{amount}"
@@ -239,6 +246,29 @@ platformEvents:
     deleted:
       title: Assets removed
       description: "{count, plural, =1 {# asset} other {# assets}}"
+  member:
+    created:
+      title: Team member joined
+      description: "{memberName} · {role}"
+    deactivated:
+      title: Team member deactivated
+      description: "{memberName} · {reason}"
+    reactivated:
+      title: Team member reactivated
+      description: "{memberName}"
+    roleChanged:
+      title: Team member role changed
+      description: "{memberName}: {previousRole} → {role}"
+    profileUpdated:
+      title: Team member profile updated
+      description: "{memberName}"
+  invitation:
+    created:
+      title: Team invitation sent
+      description: "{email} · {role}"
+    canceled:
+      title: Team invitation canceled
+      description: "{email} · {role}"
   subscription:
     statusChanged:
       title: Subscription status changed
@@ -285,8 +315,8 @@ billing:
       body: >-
         You have used all {limit} appointments included on the Free plan for
         this billing cycle. New bookings are blocked until your cycle resets.
-        Upgrade to Pro for unlimited appointments.
-      button: Upgrade to Pro
+        Upgrade to Solo for unlimited appointments.
+      button: Upgrade to Solo
       handledBy: Billing (appointment limit)
   notifications:
     smsCreditsLow:
@@ -347,11 +377,105 @@ navigation:
   logout: Log out
   viewWebsite: View website
   profile: Profile
+  team: Team
+team:
+  title: Team
+  description: Manage members, roles, and user seats for your business.
+  invite: Invite member
+  inviteEmail: Email address
+  inviteRole: Role
+  sendInvite: Send invitation
+  pendingInvitations: Pending invitations
+  cancelInvite: Cancel
+  members: Members
+  seats: "{active} of {available} seats used"
+  purchaseSeats: Purchase seats
+  purchaseSeatsDescription: Add recurring user seats to your subscription.
+  seatsPurchase:
+    buyButton: Purchase seats
+    dialogTitle: Purchase seats
+    dialogSubtitle: Choose how many additional seats to add to your subscription.
+    dialogNote: Seats are billed with your subscription and unlock more team invites.
+    bestValueBadge: Best value
+    securePaymentLabel: Secure payment
+    billedRecurring: Recurring · Added to your subscription
+    savePercent: Save {percent}%
+    continue: Continue
+    loadError: Could not load seat options. Please try again.
+    empty: No seat products are available yet.
+    seatsLine: "{count, plural, =1 {1 seat} other {# seats}}"
+    checkoutError: Could not start checkout. Try again later.
+    purchaseSuccess: Your purchase is processing. It may take a moment for seats to update.
+  noSlots: No available seats. Purchase more seats to invite members.
+  upgradeRequired: No available seats. Upgrade to the Studio plan to invite more members.
+  upgradeLink: Upgrade to Studio
+  inactive: Inactive
+  inactiveReason:
+    downgrade: Inactive (plan downgrade)
+    removed: Inactive (removed)
+  deactivate: Deactivate
+  deactivateTitle: Deactivate member?
+  deactivateBody: This member has upcoming appointments. Reassign them before deactivating, or deactivate anyway.
+  reassignAppointments: Reassign appointments
+  deactivateAnyway: Deactivate anyway
+  roleUpdated: Role updated
+  inviteSent: Invitation sent
+  editProfile:
+    title: Edit member profile
+    description: Update profile details for {name}.
+  inviteUserAlreadyInOrganization: The user is part of another organization. Please use another email address
+  acceptInvitation:
+    title: Accept invitation
+    description: You have been invited to join {organizationName}. Please sign up first.
+    descriptionLoggedIn: You have been invited to join {organizationName}. Accept to join the team and open your dashboard.
+    submit: Accept invitation
+    success: You joined the team
+    error: Could not accept the invitation. Please try again.
+    invalid: This invitation is invalid or has expired.
+    missing: Invitation link is incomplete.
+    emailMismatch: This invitation was sent to a different email address. Sign out and open the link again, or sign in with the invited email.
+    signInLink: Already have an account? <link>Sign in</link>
+  showInactive: Show inactive members
+  assignTo: Assign to
+  name: Name
+  email: Email
+  role: Role
+  status: Status
+  actions: Actions
+  priceOverride: Price override
+  durationOverride: Duration override (min)
+  clearStaff: Clear assignments
+  table:
+    columns:
+      name: Name
+      email: Email
+      role: Role
+      status: Status
+      joinedAt: Joined
+      cellAction:
+        actions: Actions
+        setRole: "Set role: {role}"
+        editProfile: Edit profile
+    status:
+      active: Active
+userSlots:
+  title: User seats
+  included: Included seats
+  additional: Additional seats
+  available: Available seats
+  allowAdditional: This plan allows purchasing additional seats.
+  notAllowed: Your plan does not allow additional seats.
+deactivation:
+  banner:
+    message: "Inactive members still have upcoming appointments that need attention: {members}."
+    viewAppointments: View appointments
 roles:
   owner: Owner
   admin: Admin
   staff: Staff
+  coordinator: Coordinator
   member: Member
+
 themeToggle:
   toggleTheme: Toggle theme
   light: Light
@@ -542,6 +666,7 @@ syncedPayments:
   sections:
     totalReceived: Total received
     matchedTo: Matched to
+    recordedTo: Recorded to
     suggestions: Suggested appointments
   actions:
     confirm: Confirm
@@ -552,6 +677,9 @@ syncedPayments:
     assign: Assign here
     reassignOther: Reassign
     assignOther: Assign
+    record: Record
+    unassign: Unassign
+    removeRecord: Remove record
     editAmounts: Edit amounts
     viewAppointment: View appointment
   editAmounts:
@@ -598,6 +726,13 @@ syncedPayments:
         daysHours: "{days, plural, one {# day} other {# days}}, {hours, plural, one {# hour} other {# hours}} after"
         daysOnly: "{days, plural, one {# day} other {# days}} after"
         hoursOnly: "{hours, plural, one {# hour} other {# hours}} after"
+  recordDialog:
+    title: Record without appointment
+    description: Save this in-store payment to a customer without attaching it to an appointment. It will appear in financials.
+    customer: Customer
+    paymentType: Payment type
+    confirm: Record payment
+    cancel: Cancel
   toast:
     success: Synced payment updated
     error: Could not update synced payment
@@ -626,11 +761,13 @@ appointments:
     filters:
       status: Status
       tooltip: Filters
+      member: Team member
     columns:
       status: Status
       statusAriaLabel: "Status: {status}"
       option: Option
       customer: Customer
+      member: Team member
       dateTime: Date & time
       requestedAt: Requested at
       duration: Duration
@@ -666,6 +803,7 @@ appointments:
     decline: Decline
     confirm: Confirm
     addons: Add-ons
+    member: Team member
   declineDialog:
     title: Decline appointment
     description:
@@ -722,7 +860,7 @@ appointments:
     pleaseWait: Please wait...
   calendar:
     loading: Loading
-    eventTitle: "{customer} for {service}"
+    eventTitle: "{customer} for {service} · {member}"
   new:
     title: New appointment
     description: Schedule a new appointment on behalf of the customer
@@ -775,6 +913,7 @@ appointments:
     name: Name
     email: Email
     phone: Phone
+    member: Team member
     fields: Fields
     "yes": "Yes"
     "no": "No"
@@ -805,7 +944,7 @@ appointments:
   detail:
     by: By {name}
   history:
-    byUser: By user
+    byMember: By member
     byCustomer: By customer
     payment: Payment {amount} via {appName}
     paymentType: "{type} via {appName}"
@@ -841,6 +980,7 @@ appointments:
     addons: Addons
     selectAddons: Select addons...
     customer: Customer
+    assignTo: Assign to
     discount: Discount
     duration: Duration
     price: Price
@@ -851,6 +991,26 @@ appointments:
     confirmOverlapDescription:
       I understand that scheduling this appointment will
       create an overlap in my schedule
+    unassignedMember:
+      title: Member not assigned
+      description:
+        The selected team member is not assigned to part of this appointment.
+        Base option/add-on price and duration will be used until you adjust them.
+      optionNotAssigned: "Not assigned to option: {option}"
+      addonsNotAssigned: "Not assigned to add-on(s): {addons}"
+      priceDurationHint:
+        Please verify that the total price and duration are correct before
+        scheduling.
+      ackLabel: I acknowledge this member is not assigned
+      ackDescription:
+        Required when the selected member is not assigned to the option or one
+        or more selected add-ons. Please verify price and duration before
+        scheduling.
+      ackRequired:
+        Please acknowledge that the selected member is not assigned to the
+        option or add-on(s).
+      cancel: Close
+      confirm: Got it
     scheduleAppointment: Schedule appointment
     doNotNotifyCustomer: Do not notify customer
     doNotNotifyCustomerDescription:
@@ -955,7 +1115,7 @@ assets:
 activity:
   actor:
     system: System
-    user: "User: {name}"
+    member: "Member: {name}"
     visitor: "Visitor: {name}"
     customer: "Customer: <link></link>"
   page:
@@ -979,7 +1139,7 @@ activity:
       eventType: Event type
       actorKind:
         system: System
-        user: User
+        member: Member
         customer: Customer
     columns:
       createdAt: Date
@@ -1018,6 +1178,7 @@ communicationLogs:
       dateTime: Date & time
       appointment: Appointment
       customer: Customer
+      member: Team member
     actions:
       selectAll: Select all
       selectRow: Select row
@@ -1031,6 +1192,7 @@ communicationLogs:
       direction: Direction
       channel: Channel
       participant: Participant
+      member: Team member
       status: Status
 customers:
   title: Customers
@@ -1154,8 +1316,8 @@ pages:
   addNew: Add New
   addNewPage: Add new page
   managePages: Manage pages
-  upgradeRequired: The Free plan includes up to 10 pages. Upgrade to Pro to add more.
-  upgradeLink: Upgrade to Pro
+  upgradeRequired: The Free plan includes up to 10 pages. Upgrade to Solo to add more.
+  upgradeLink: Upgrade to Solo
   viewPage: View page
   form:
     pageContent: Page content
@@ -1186,6 +1348,12 @@ pages:
     descriptionTooltip:
       It is also used by page list component (a.k.a blog list) for
       showing preview
+    featuredImage: Featured image
+    featuredImagePlaceholder: Select featured image
+    featuredImageTooltip:
+      Used as the Open Graph image when this page is shared on social
+      networks. Overrides featured images provided by apps (for example,
+      a blog post image).
     doNotCombineDescription: Do not combine description
     doNotCombineDescriptionTooltip:
       Should the page description be combined with website
@@ -1400,6 +1568,9 @@ services:
   addonSelector:
     loading: Loading addons...
     selectAddon: Select addon
+  memberSelector:
+    loading: Loading members...
+    selectMember: Select member
   options:
     title: Services
     description: Manage services that you provide
@@ -1410,7 +1581,7 @@ services:
       description: Pick a profession and template to prefill the new option.
       pickServiceLabel: Pick a service template to prefill the new option.
     createFromTemplate: Create
-    upgradeRequired: The Free plan includes one service. Upgrade to Pro to add more.
+    upgradeRequired: The Free plan includes one service. Upgrade to Solo to add more.
     upgradeLink: Upgrade in brand settings
     new: New
     newTitle: New service option
@@ -1555,6 +1726,25 @@ services:
       selectOption: Select option
       fields: Fields
       addons: Add-ons
+      staff:
+        title: Staff
+        hint: Services with no members are not available for booking.
+        add: Add new member
+        memberSelectCard:
+          moveMember: Move service member
+          member: Member
+          meetingUrlProviderWarning:
+            This member has not set a meeting URL provider on their profile, so
+            appointments will not create a meeting URL.
+          deleteConfirmTitle: Are you absolutely sure?
+          deleteConfirmDescription:
+            Are you sure you want to remove this member from this
+            service?
+          cancel: Cancel
+          delete: Delete
+          overrides:
+            price: Price override
+            duration: Duration override
       tabs:
         general: General
         payments: Payments
@@ -1562,6 +1752,7 @@ services:
         duplicates: Duplicates
         fields: Fields
         addons: Add-ons
+        staff: Staff
       duplicateAppointmentCheck:
         title: Duplicate bookings for same service
         enabled: Check for duplicate bookings
@@ -1929,6 +2120,28 @@ services:
       priceTooltip: Price of the add-on
       fields: Fields
       fieldsTooltip: Fields required for this add-on
+      staffOverrides:
+        title: Member overrides
+        hint:
+          By default, any member who can perform the parent service can offer
+          this add-on at the base price and duration. Add a member only to set a
+          different price or duration, or to mark that they cannot offer this
+          add-on.
+        add: Add override
+        memberOverrideCard:
+          member: Member
+          unavailable: Cannot offer this add-on
+          unavailableHint:
+            When enabled, this member will not be able to offer this add-on
+            during booking.
+          deleteConfirmTitle: Are you absolutely sure?
+          deleteConfirmDescription:
+            Are you sure you want to remove this member override?
+          cancel: Cancel
+          delete: Delete
+          overrides:
+            price: Price override
+            duration: Duration override
       validation:
         nameUnique: Add-on name must be unique
       toasts:
@@ -2223,7 +2436,7 @@ settings:
         label: Status
         feesExempt:
           label: No subscription required
-          hint: This workspace is exempt from Timeli.sh subscription billing.
+          hint: This workspace is exempt from Hacado subscription billing.
       openPortal: Open billing portal
       managePlanInPortal: Manage plan
       choosePlan: Choose a plan
@@ -2232,8 +2445,9 @@ settings:
       portalManageHint: Upgrade, downgrade, or cancel your plan in the Polar customer portal.
       planTier:
         free: Free plan
-        pro: Pro plan
-      freeTierHint: Upgrade in the billing portal to unlock Pro features.
+        solo: Solo plan
+        studio: Studio plan
+      freeTierHint: Upgrade in the billing portal to unlock Solo features.
       planLabel: Plan
       priceLabel: Price
       nextBillingLabel: Next billing
@@ -2243,6 +2457,21 @@ settings:
         week: "{price}/ week"
         day: "{price}/ day"
       smsCreditsSectionTitle: SMS credits
+      seatsSectionTitle: Team seats
+      seatsIncluded:
+        title: Included (subscription)
+        includedLabel: Included seats
+        availableLabel: Total available
+      seatsAdditional:
+        title: Additional seats
+        additionalLabel: Purchased seats
+        addonSeats: "{count, plural, =1 {1 seat} other {# seats}}"
+        unnamedAddon: "{count, plural, =1 {1 additional seat} other {# additional seats}}"
+        emptyAllowed: No additional seat subscriptions yet. Purchase seats to invite more team members.
+        emptyNotAllowed: Your current plan does not include additional seat subscriptions.
+      seatsPurchaseHint: Additional seats are billed with your subscription. Manage or cancel them in the billing portal.
+      seatsUpgradeHint: Need more team members? Upgrade to a plan that supports multiple users and additional seats.
+      seatsUpgradeButton: Upgrade plan
       smsIncluded:
         title: Included (subscription)
         balanceLabel: Balance
@@ -2332,16 +2561,15 @@ settings:
       faviconTooltip: Icon shown in browser tabs
       faviconPlaceholder: Favicon URL
       language: Default site language
-      timeliAddress:
-        sectionTitle: Your Timeli.sh address
+      hacadoAddress:
+        sectionTitle: Your Hacado address
         websiteUrlLabel: Website URL
         connectCustomDomain: Connect custom domain
         disconnectCustomDomain: Disconnect custom domain
         organizationSlugLabel: Organization slug
         updateSlugComingSoon: Update slug (coming soon)
         connectDialogTitle: Connect custom domain
-        connectDialogDescription:
-          Connect your own domain to Timeli.sh to take full
+        connectDialogDescription: Connect your own domain to Hacado to take full
           control of your brand.
         connectDialogDnsTitle: Configure DNS first
         connectDialogDnsARecord:
@@ -2349,10 +2577,10 @@ settings:
           or your subdomain pointing to {ip}.
         connectDialogDnsCname:
           Or create a CNAME or ALIAS record pointing to {host}
-          - the hostname for your Timeli.sh site.
+          - the hostname for your Hacado site.
         domainLabel: Domain
         connectButton: Connect
-        customDomainUpgradeRequired: Custom domains are available on Pro.
+        customDomainUpgradeRequired: Custom domains are available on Solo.
         customDomainUpgradeLink: Upgrade in brand settings
         copyWebsiteUrlAriaLabel: Copy website URL
         websiteUrlCopied: Website URL copied to clipboard.
@@ -2385,6 +2613,12 @@ settings:
           Select this option if you want to auto confirm all appointments
           created by customers.<br></br>By default, you will need to manually confirm
           each appointment.
+        allowStaffCalendarSources: Allow staff to manage calendar sources
+        allowStaffCalendarSourcesTooltip:
+          When enabled, staff members can connect personal calendar sources on
+          their profile and those calendars are used when checking availability.
+          When disabled, staff cannot manage calendar sources and busy times
+          ignore their personal calendars.
         showPromoCodeField: Show promo code field
         showPromoCodeTooltip:
           Configure whether the promo code field should be shown
@@ -2746,6 +2980,10 @@ table:
   filters:
     status: Status
 dashboard:
+  forbidden:
+    title: Access denied
+    description: You do not have permission to view this page.
+    backToDashboard: Back to dashboard
   greeting:
     morning: Good morning, {name}
     afternoon: Good afternoon, {name}
@@ -2766,9 +3004,14 @@ dashboard:
     goToSettings: Go to settings →
   freeTierUpgradeBanner:
     message: >-
-      You are on the Free plan. Upgrade to Pro for unlimited services and
+      You are on the Free plan. Upgrade to Solo for unlimited services and
       appointments, payment integrations, and more.
-    upgrade: Upgrade to Pro →
+    upgrade: Upgrade to Solo →
+  inactiveMembersBanner:
+    message: >-
+      {count, plural, =1 {# inactive team member has} other {# inactive team
+      members have}} upcoming appointments that need to be reassigned.
+    viewAppointments: View appointments →
   subscriptionInactive:
     title: Subscription cancelled
     description: This workspace subscription is not active. Contact us to restore access.
@@ -2824,8 +3067,11 @@ calendar:
   week: Week
   month: Month
   agenda: Agenda
-  eventTitle: "{customer} · {service}"
+  eventTitle: "{customer} · {service} · {member}"
   appointment: Appointment
+  member: Member
+  allMembers: All team members
+  customer: Customer
   status: Status
   price: Price
   note: Note
@@ -2859,6 +3105,8 @@ auth:
   quote: I love it!
   quoteAuthor: Olesia Bondarchuk
   forgotPasswordLink: "<link>Forgot your password?</link>"
+  captcha:
+    error: Captcha verification failed. Please try again.
   verification:
     notVerified:
       Your email has not been verified. Please check your email for a verification
@@ -2905,6 +3153,12 @@ auth:
     confirmPassword: Confirm password
     confirmPasswordPlaceholder: Confirm your password
     submit: Sign up
+    regionBlocked:
+      title: Sign up is not available in your region
+      description:
+        Public registration is limited to North America and Europe. If you were
+        invited to a team, use the invitation link from your email.
+      toast: Sign up is not available in your region
     toasts:
       success:
         We sent you an email with a verification link. Please check your email
@@ -2913,6 +3167,9 @@ auth:
       userAlreadyExists:
         A user with this email already exists. Please use another
         email.
+      emailBlocked:
+        We cannot accept this email address. Please use a permanent work or
+        personal email.
   validation:
     name:
       required: Name is required
@@ -3295,6 +3552,10 @@ customerSelector:
       email: Email
       phone: Phone
     confirm: Create
+memberSelector:
+  placeholder: Select team member
+  unassigned: Unassigned
+  requestFailed: Request to fetch team members has failed
 giftCardSelector:
   amountLabel: "{amount} (amount left: {amountLeft})"
   expiresAt: Expires at {expiresAt}
@@ -3334,6 +3595,12 @@ users:
             cancel: Cancel
             delete: Delete
             noAppSelected: Please select a calendar app
+      meetingUrlProvider:
+        title: Meeting URL provider
+        app: Meeting app
+        appTooltip:
+          Select the connected app used to create online meeting links for your
+          virtual appointments.
       changePhoto: Change photo
       removePhoto: Remove
     security:

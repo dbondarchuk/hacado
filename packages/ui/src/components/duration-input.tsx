@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n";
-import { durationToTime, timeToDuration, weeks } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { durationToTime, timeToDuration, weeks } from "@hacado/utils";
 import { Clock } from "lucide-react";
 import React from "react";
 import { cn } from "../utils/cn";
@@ -21,8 +21,8 @@ export type DurationInputProps = Omit<
 
 const sizes: Record<NonNullable<InputProps["h"]>, string> = {
   lg: "py-2",
-  md: "py-2",
-  sm: "py-2",
+  md: "py-1",
+  sm: "py-1",
   xs: "py-1",
 };
 
@@ -320,8 +320,8 @@ export const DurationInput: React.FC<DurationInputProps> = ({
       ? t("durationInput.min")
       : t("durationInput.sec");
 
-  // const size = rest.h ? sizes[rest.h] : sizes.md;
-  const size = rest.h ? sizes[rest.h] : sizes.sm;
+  const size = rest.h ? sizes[rest.h] : sizes.md;
+  // const size = rest.h ? sizes[rest.h] : sizes.sm;
 
   return (
     <div className="flex items-center bg-background border rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background">

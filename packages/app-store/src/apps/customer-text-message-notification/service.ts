@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   AppointmentStatus,
@@ -9,7 +9,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   CustomerTextMessageNotificationConfiguration,
   customerTextMessageNotificationConfigurationSchema,
@@ -27,7 +27,7 @@ import {
   getPhoneField,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 
 export default class CustomerTextMessageNotificationConnectedApp
   implements IConnectedApp, IEventSubscriber
@@ -465,6 +465,7 @@ export default class CustomerTextMessageNotificationConnectedApp
         },
         appointmentId: appointment._id,
         participantType: "customer",
+        memberId: appointment.memberId,
         handledBy:
           `app_customer-text-message-notification_admin.handlers.${initiator}` satisfies CustomerTextMessageNotificationAdminAllKeys,
       });

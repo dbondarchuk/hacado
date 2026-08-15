@@ -1,3 +1,5 @@
+import type { Asset, AssetEntity, AssetUpdate } from "../assets";
+import type { OrganizationSubscriptionStatus } from "../billing";
 import type { Appointment, AppointmentStatus } from "../booking/appointment";
 import type {
   AppointmentAddon,
@@ -6,6 +8,7 @@ import type {
   AppointmentOptionUpdateModel,
 } from "../booking/appointment-option";
 import type { Discount, DiscountUpdateModel } from "../booking/discount";
+import type { ServiceField, ServiceFieldUpdateModel } from "../booking/field";
 import type {
   GiftCardListModel,
   GiftCardStatus,
@@ -13,25 +16,23 @@ import type {
 } from "../booking/gift-card";
 import type { Payment, PaymentUpdateModel } from "../booking/payment";
 import type { SyncedPayment } from "../booking/synced-payment";
-import type { ServiceField, ServiceFieldUpdateModel } from "../booking/field";
-import type { Customer, CustomerUpdateModel } from "../customers/customer";
-import type { Asset, AssetEntity, AssetUpdate } from "../assets";
-import type { OrganizationSubscriptionStatus } from "../billing";
 import type { ConfigurationKey } from "../configuration";
+import type { Customer, CustomerUpdateModel } from "../customers/customer";
 import type { Page, PageFooter, PageHeader } from "../pages";
 import type { Template } from "../templates";
+import type {
+  MemberInactiveReason,
+  OrganizationMember,
+  UserRole,
+} from "../users";
 import {
-  APP_INSTALLED_EVENT_TYPE,
-  APP_UNINSTALLED_EVENT_TYPE,
-  APP_CONNECTED_EVENT_TYPE,
-  APP_FAILED_EVENT_TYPE,
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-  ASSET_CREATED_EVENT_TYPE,
-  ASSET_DELETED_EVENT_TYPE,
-  ASSET_UPDATED_EVENT_TYPE,
   ADDON_CREATED_EVENT_TYPE,
   ADDON_DELETED_EVENT_TYPE,
   ADDON_UPDATED_EVENT_TYPE,
+  APP_CONNECTED_EVENT_TYPE,
+  APP_FAILED_EVENT_TYPE,
+  APP_INSTALLED_EVENT_TYPE,
+  APP_UNINSTALLED_EVENT_TYPE,
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_OPTION_CREATED_EVENT_TYPE,
   APPOINTMENT_OPTION_DELETED_EVENT_TYPE,
@@ -39,6 +40,9 @@ import {
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
+  ASSET_CREATED_EVENT_TYPE,
+  ASSET_DELETED_EVENT_TYPE,
+  ASSET_UPDATED_EVENT_TYPE,
   CUSTOMER_CREATED_EVENT_TYPE,
   CUSTOMER_DELETED_EVENT_TYPE,
   CUSTOMER_UPDATED_EVENT_TYPE,
@@ -53,30 +57,40 @@ import {
   GIFT_CARD_DELETED_EVENT_TYPE,
   GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
   GIFT_CARD_UPDATED_EVENT_TYPE,
-  PAYMENT_CREATED_EVENT_TYPE,
-  PAYMENT_DELETED_EVENT_TYPE,
-  PAYMENT_REFUNDED_EVENT_TYPE,
-  PAYMENT_UPDATED_EVENT_TYPE,
-  SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
-  SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
-  SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE,
-  SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
-  SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
-  SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
+  INVITATION_CANCELED_EVENT_TYPE,
+  INVITATION_CREATED_EVENT_TYPE,
+  MEMBER_CREATED_EVENT_TYPE,
+  MEMBER_DEACTIVATED_EVENT_TYPE,
+  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+  MEMBER_REACTIVATED_EVENT_TYPE,
+  MEMBER_ROLE_CHANGED_EVENT_TYPE,
+  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
   PAGE_CREATED_EVENT_TYPE,
   PAGE_DELETED_EVENT_TYPE,
-  PAGE_UPDATED_EVENT_TYPE,
   PAGE_FOOTER_CREATED_EVENT_TYPE,
   PAGE_FOOTER_DELETED_EVENT_TYPE,
   PAGE_FOOTER_UPDATED_EVENT_TYPE,
   PAGE_HEADER_CREATED_EVENT_TYPE,
   PAGE_HEADER_DELETED_EVENT_TYPE,
   PAGE_HEADER_UPDATED_EVENT_TYPE,
+  PAGE_UPDATED_EVENT_TYPE,
+  PAYMENT_CREATED_EVENT_TYPE,
+  PAYMENT_DELETED_EVENT_TYPE,
+  PAYMENT_REFUNDED_EVENT_TYPE,
+  PAYMENT_UPDATED_EVENT_TYPE,
   SETTINGS_UPDATED_EVENT_TYPE,
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
   SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
+  SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
+  SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
+  SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE,
+  SYNCED_PAYMENT_IGNORED_EVENT_TYPE,
+  SYNCED_PAYMENT_INGESTED_EVENT_TYPE,
+  SYNCED_PAYMENT_REJECTED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE,
+  SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE,
   TEMPLATE_CREATED_EVENT_TYPE,
   TEMPLATE_DELETED_EVENT_TYPE,
   TEMPLATE_UPDATED_EVENT_TYPE,
@@ -163,6 +177,16 @@ export type SyncedPaymentAssignedPayload = {
   previousAppointmentId?: string;
 };
 
+export type SyncedPaymentUnassignedPayload = {
+  syncedPayment: SyncedPayment;
+  previousAppointmentId?: string;
+};
+
+export type SyncedPaymentUnrecordedPayload = {
+  syncedPayment: SyncedPayment;
+  previousCustomerId?: string;
+};
+
 export type SyncedPaymentIgnoredPayload = { syncedPayment: SyncedPayment };
 
 export type SyncedPaymentAmountsUpdatedPayload = {
@@ -239,8 +263,8 @@ export type AppConnectedPayload = {
 export type AppFailedPayload = {
   appId: string;
   appName: string;
-  /** Connected-app owner; used for failure notifications. */
-  userId: string;
+  /** Connected-app owner member; used for failure notifications. */
+  memberId: string;
 };
 
 export type OrganizationDomainChangedPayload = {
@@ -267,8 +291,59 @@ export type PageFooterDeletedPayload = { pageFooterIds: string[] };
 export type SettingsUpdatedPayload = { key: ConfigurationKey };
 
 export type AssetCreatedPayload = { asset: AssetEntity };
-export type AssetUpdatedPayload = { asset: Asset; update: Partial<AssetUpdate> };
+export type AssetUpdatedPayload = {
+  asset: Asset;
+  update: Partial<AssetUpdate>;
+};
 export type AssetDeletedPayload = { assetIds: string[] };
+
+export type MemberDeactivatedPayload = {
+  member: OrganizationMember;
+  reason: MemberInactiveReason;
+};
+
+export type MemberReactivatedPayload = {
+  member: OrganizationMember;
+};
+
+export type MemberRoleChangedPayload = {
+  member: OrganizationMember;
+  previousRole: UserRole;
+  role: Exclude<UserRole, "owner">;
+};
+
+export type MemberProfileUpdatedPayload = {
+  member: OrganizationMember;
+  update: Partial<
+    Pick<
+      OrganizationMember,
+      | "name"
+      | "phone"
+      | "language"
+      | "image"
+      | "bio"
+      | "calendarSources"
+      | "meetingUrlProviderAppId"
+    >
+  >;
+};
+
+export type MemberCreatedPayload = {
+  member: OrganizationMember;
+  invitationId?: string;
+};
+
+export type InvitationCreatedPayload = {
+  invitationId: string;
+  email: string;
+  role: string;
+};
+
+export type InvitationCanceledPayload = {
+  invitationId: string;
+  email: string;
+  role: string;
+};
 
 export type SubscriptionStatusChangedPayload = {
   oldStatus: OrganizationSubscriptionStatus | null;
@@ -299,6 +374,8 @@ export type CoreEventPayloadByType = {
   [SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE]: SyncedPaymentConfirmedPayload;
   [SYNCED_PAYMENT_REJECTED_EVENT_TYPE]: SyncedPaymentRejectedPayload;
   [SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE]: SyncedPaymentAssignedPayload;
+  [SYNCED_PAYMENT_UNASSIGNED_EVENT_TYPE]: SyncedPaymentUnassignedPayload;
+  [SYNCED_PAYMENT_UNRECORDED_EVENT_TYPE]: SyncedPaymentUnrecordedPayload;
   [SYNCED_PAYMENT_IGNORED_EVENT_TYPE]: SyncedPaymentIgnoredPayload;
   [SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE]: SyncedPaymentAmountsUpdatedPayload;
   [GIFT_CARD_CREATED_EVENT_TYPE]: GiftCardCreatedPayload;
@@ -343,6 +420,13 @@ export type CoreEventPayloadByType = {
   [ASSET_CREATED_EVENT_TYPE]: AssetCreatedPayload;
   [ASSET_UPDATED_EVENT_TYPE]: AssetUpdatedPayload;
   [ASSET_DELETED_EVENT_TYPE]: AssetDeletedPayload;
+  [MEMBER_DEACTIVATED_EVENT_TYPE]: MemberDeactivatedPayload;
+  [MEMBER_REACTIVATED_EVENT_TYPE]: MemberReactivatedPayload;
+  [MEMBER_ROLE_CHANGED_EVENT_TYPE]: MemberRoleChangedPayload;
+  [MEMBER_PROFILE_UPDATED_EVENT_TYPE]: MemberProfileUpdatedPayload;
+  [MEMBER_CREATED_EVENT_TYPE]: MemberCreatedPayload;
+  [INVITATION_CREATED_EVENT_TYPE]: InvitationCreatedPayload;
+  [INVITATION_CANCELED_EVENT_TYPE]: InvitationCanceledPayload;
   [SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE]: SubscriptionStatusChangedPayload;
   [SMS_CREDITS_LOW_EVENT_TYPE]: SmsCreditsThresholdPayload;
   [SMS_CREDITS_EXHAUSTED_EVENT_TYPE]: SmsCreditsThresholdPayload;

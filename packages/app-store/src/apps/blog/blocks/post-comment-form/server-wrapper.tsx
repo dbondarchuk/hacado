@@ -1,4 +1,4 @@
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import { BlogCommentsContext, BlogPost } from "../../models";
 import { BlogPublicKeys, BlogPublicNamespace } from "../../translations/types";
 import { BlogPostCommentFormComponent } from "./component";

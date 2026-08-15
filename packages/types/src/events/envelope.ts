@@ -1,6 +1,6 @@
 export type EventSource =
   | {
-      actor: "user" | "customer";
+      actor: "member" | "customer";
       actorId?: string;
     }
   | {
@@ -11,11 +11,11 @@ export type EventSource =
       actor: "system";
     };
 
-/** Emits from jobs, install flows, and integrations without a signed-in user. */
+/** Emits from jobs, install flows, and integrations without a signed-in member. */
 export const systemEventSource: EventSource = { actor: "system" };
 
-export function userEventSource(userId: string): EventSource {
-  return { actor: "user", actorId: userId };
+export function memberEventSource(memberId: string): EventSource {
+  return { actor: "member", actorId: memberId };
 }
 
 export function customerEventSource(customerId: string): EventSource {

@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const giftCardToCustomerEmailTemplate: TemplatesTemplate = {
   name: "Gift card purchase (to buyer)",

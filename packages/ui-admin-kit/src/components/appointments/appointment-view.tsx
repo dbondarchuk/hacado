@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 
-import { Appointment, AppointmentStatus } from "@timelish/types";
+import { Appointment, AppointmentStatus } from "@hacado/types";
 import {
   Button,
   ButtonGroup,
@@ -14,7 +14,9 @@ import {
   Tabs,
   TabsContent,
   TabsTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment } from "@hacado/utils";
 import {
   CalendarCheck2,
   CalendarCog,
@@ -64,9 +66,11 @@ export const AppointmentViewProvider: React.FC<{
 
 export const AppointmentViewButtons: React.FC = () => {
   const t = useI18n("admin");
+  const { user } = useAuth();
   const { appointment, setAppointment, key, setKey } = React.useContext(
     AppointmentViewContext,
   );
+  const canUpdate = canUpdateAppointment(user, appointment.memberId);
   const reschedule = ({
     dateTime,
     duration,
@@ -98,100 +102,115 @@ export const AppointmentViewButtons: React.FC = () => {
 
   return (
     <div className="flex flex-row justify-end gap-2 flex-wrap [&>form]:hidden">
-      <SendCommunicationDialog
-        appointmentId={appointment._id}
-        onSuccess={() => setKey(new Date().getTime().toString())}
-      >
-        <Button variant="secondary">
-          <Send /> {t("appointments.view.sendMessage")}
-        </Button>
-      </SendCommunicationDialog>
+      {canUpdate ? (
+        <SendCommunicationDialog
+          appointmentId={appointment._id}
+          onSuccess={() => setKey(new Date().getTime().toString())}
+        >
+          <Button variant="secondary">
+            <Send /> {t("appointments.view.sendMessage")}
+          </Button>
+        </SendCommunicationDialog>
+      ) : null}
 
-      <AppointmentDeclineDialog
-        appointment={appointment}
-        onSuccess={updateStatus}
-        open={isDeclineDialogOpen}
-        onClose={() => setIsDeclineDialogOpen(false)}
-      />
-      <AppointmentRescheduleDialog
-        appointment={appointment}
-        onRescheduled={reschedule}
-        open={isRescheduleDialogOpen}
-        onOpenChange={(open) => setIsRescheduleDialogOpen(open)}
-      />
+      {canUpdate ? (
+        <>
+          <AppointmentDeclineDialog
+            appointment={appointment}
+            onSuccess={updateStatus}
+            open={isDeclineDialogOpen}
+            onClose={() => setIsDeclineDialogOpen(false)}
+          />
+          <AppointmentRescheduleDialog
+            appointment={appointment}
+            onRescheduled={reschedule}
+            open={isRescheduleDialogOpen}
+            onOpenChange={(open) => setIsRescheduleDialogOpen(open)}
+          />
 
-      {appointment.status !== "declined" ? (
-        <ButtonGroup>
-          {appointment.status === "pending" ? (
-            <AppointmentActionButton
-              variant="default"
-              _id={appointment._id}
-              status="confirmed"
-              className="gap-2"
-              onSuccess={updateStatus}
-              icon={CalendarCheck2}
-            >
-              {t("appointments.view.confirm")}
-            </AppointmentActionButton>
-          ) : (
-            <Button
-              variant="outline"
-              className="inline-flex flex-row gap-2 items-center"
-              onClick={() => setIsRescheduleDialogOpen(true)}
-            >
-              <CalendarSearch size={20} />
-              {t("appointments.view.reschedule")}
-            </Button>
-          )}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant={
-                  appointment.status === "pending" ? "default" : "outline"
-                }
-                className="inline-flex flex-row gap-2 items-center"
-                aria-label={t("common.buttons.more")}
-              >
-                <MoreHorizontal size={20} />
-              </Button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent>
-              <DropdownMenuItem asChild>
-                <NextLink
-                  className="inline-flex flex-row gap-2 items-center w-full"
-                  href={`/dashboard/appointments/new?from=${appointment._id}`}
+          {appointment.status !== "declined" ? (
+            <ButtonGroup>
+              {appointment.status === "pending" ? (
+                <AppointmentActionButton
+                  variant="default"
+                  _id={appointment._id}
+                  status="confirmed"
+                  className="gap-2"
+                  onSuccess={updateStatus}
+                  icon={CalendarCheck2}
                 >
-                  <CalendarSync size={20} />{" "}
-                  {t("appointments.view.scheduleAgain")}
-                </NextLink>
-              </DropdownMenuItem>
-              {appointment.status === "pending" && (
-                <DropdownMenuItem
+                  {t("appointments.view.confirm")}
+                </AppointmentActionButton>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="inline-flex flex-row gap-2 items-center"
                   onClick={() => setIsRescheduleDialogOpen(true)}
                 >
                   <CalendarSearch size={20} />
                   {t("appointments.view.reschedule")}
-                </DropdownMenuItem>
+                </Button>
               )}
-              <DropdownMenuItem asChild>
-                <NextLink
-                  className="inline-flex flex-row gap-2 items-center w-full"
-                  href={`/dashboard/appointments/${appointment._id}/edit`}
-                >
-                  <CalendarCog size={20} /> {t("appointments.view.edit")}
-                </NextLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => setIsDeclineDialogOpen(true)}
-                className="text-destructive-foreground bg-destructive hover:bg-destructive/90 focus:bg-destructive/90 hover:text-destructive-foreground focus:text-destructive-foreground"
-              >
-                <CalendarX2 size={20} />
-                {t("appointments.view.decline")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </ButtonGroup>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant={
+                      appointment.status === "pending" ? "default" : "outline"
+                    }
+                    className="inline-flex flex-row gap-2 items-center"
+                    aria-label={t("common.buttons.more")}
+                  >
+                    <MoreHorizontal size={20} />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent>
+                  <DropdownMenuItem asChild>
+                    <NextLink
+                      className="inline-flex flex-row gap-2 items-center w-full"
+                      href={`/dashboard/appointments/new?from=${appointment._id}`}
+                    >
+                      <CalendarSync size={20} />{" "}
+                      {t("appointments.view.scheduleAgain")}
+                    </NextLink>
+                  </DropdownMenuItem>
+                  {appointment.status === "pending" && (
+                    <DropdownMenuItem
+                      onClick={() => setIsRescheduleDialogOpen(true)}
+                    >
+                      <CalendarSearch size={20} />
+                      {t("appointments.view.reschedule")}
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem asChild>
+                    <NextLink
+                      className="inline-flex flex-row gap-2 items-center w-full"
+                      href={`/dashboard/appointments/${appointment._id}/edit`}
+                    >
+                      <CalendarCog size={20} /> {t("appointments.view.edit")}
+                    </NextLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setIsDeclineDialogOpen(true)}
+                    className="text-destructive-foreground bg-destructive hover:bg-destructive/90 focus:bg-destructive/90 hover:text-destructive-foreground focus:text-destructive-foreground"
+                  >
+                    <CalendarX2 size={20} />
+                    {t("appointments.view.decline")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </ButtonGroup>
+          ) : null}
+        </>
+      ) : appointment.status !== "declined" ? (
+        <Button variant="outline" asChild>
+          <NextLink
+            className="inline-flex flex-row gap-2 items-center"
+            href={`/dashboard/appointments/new?from=${appointment._id}`}
+          >
+            <CalendarSync size={20} /> {t("appointments.view.scheduleAgain")}
+          </NextLink>
+        </Button>
       ) : null}
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { isSubscriptionInactive } from "@/lib/billing/subscription-access";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import { FC, useEffect } from "react";
 import { authClient } from "../auth-client";
 

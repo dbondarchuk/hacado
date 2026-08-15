@@ -4,8 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@timelish/ui";
-import Image from "next/image";
+} from "@hacado/ui";
 import { Suspense } from "react";
 
 export const AuthLayout = ({
@@ -22,9 +21,8 @@ export const AuthLayout = ({
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-2 text-center">
           <div className="flex gap-2 items-center justify-center mb-4 mx-auto">
-            <Image src="/logo.png" alt="Timeli.sh" width={40} height={40} />
-            <div className="text-3xl font-semibold tracking-tight text-balance">
-              timeli<span className="text-primary">.sh</span>
+            <div className="text-3xl font-semibold tracking-tight text-balance font-display text-primary">
+              hacado
             </div>
           </div>
           <CardTitle className="text-2xl font-semibold tracking-tight text-balance">

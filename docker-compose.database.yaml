@@ -14,7 +14,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - mongodb-data:/data/db
   redis:
@@ -23,7 +23,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - redis-data:/data
 
@@ -33,12 +33,12 @@ services:
     ports:
       - "8080:80"
     networks:
-      - timelish-network
+      - hacado-network
     volumes:
       - s3-data:/data
 
 networks:
-  timelish-network:
+  hacado-network:
     driver: bridge
 volumes:
   redis-data:

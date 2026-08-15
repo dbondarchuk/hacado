@@ -1,8 +1,9 @@
 {
-  "extends": "@timelish/typescript-config/react-library.json",
+  "extends": "@hacado/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
+    "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"]
     }

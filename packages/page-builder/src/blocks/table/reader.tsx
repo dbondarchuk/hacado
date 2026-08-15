@@ -1,14 +1,11 @@
-import { isEmbeddedSlot, ReaderBlock } from "@timelish/builder/reader";
+import { isEmbeddedSlot, ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { EmbeddedSlotData } from "@timelish/page-builder-base/slots";
-import {
-  AllStylesSchemas,
-  StyleValue,
-} from "@timelish/page-builder-base/style";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { EmbeddedSlotData } from "@hacado/page-builder-base/slots";
+import { AllStylesSchemas, StyleValue } from "@hacado/page-builder-base/style";
+import { cn } from "@hacado/ui";
 import type { ReactNode } from "react";
 import {
   splitTableCellSlotStyles,

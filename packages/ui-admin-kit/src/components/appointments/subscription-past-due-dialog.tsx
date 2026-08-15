@@ -1,7 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,7 +14,7 @@ import {
   Link,
   Spinner,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 
 export function isSubscriptionPastDueError(error: unknown): boolean {

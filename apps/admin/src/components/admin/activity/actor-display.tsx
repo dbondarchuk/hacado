@@ -1,9 +1,9 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import type { ActivityActorDisplay } from "@timelish/types";
-import { cn, Link } from "@timelish/ui";
-import { CustomerName } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import type { ActivityActorDisplay } from "@hacado/types";
+import { cn, Link } from "@hacado/ui";
+import { CustomerName } from "@hacado/ui-admin";
 import React from "react";
 
 export const ActivityActorDisplayView: React.FC<{
@@ -18,10 +18,10 @@ export const ActivityActorDisplayView: React.FC<{
           {t("activity.actor.system")}
         </span>
       );
-    case "user":
+    case "member":
       return (
         <span className={cn("text-sm", className)}>
-          {t("activity.actor.user", { name: actor.name })}
+          {t("activity.actor.member", { name: actor.name })}
         </span>
       );
     case "visitor":

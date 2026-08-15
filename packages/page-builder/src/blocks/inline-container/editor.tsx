@@ -3,12 +3,12 @@ import {
   EditorChildren,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@timelish/page-builder-base";
+} from "@hacado/page-builder-base";
 import { InlineContainerProps, styles } from "./schema";
 
 const allowOnly: BlockFilterRule = {

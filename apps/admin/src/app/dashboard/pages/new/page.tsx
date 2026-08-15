@@ -2,10 +2,10 @@ import { getServicesContainer, getSession, getWebsiteUrl } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { PageForm } from "@/components/admin/pages/form";
 import { sessionCanCreateMorePages } from "@/lib/billing/subscription-plan-access";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Styling } from "@timelish/page-builder/reader";
-import { PageUpdateModel } from "@timelish/types";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Styling } from "@hacado/page-builder/reader";
+import { PageUpdateModel } from "@hacado/types";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 

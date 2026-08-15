@@ -1,7 +1,7 @@
 import { FormControl, FormField, FormItem } from "../form";
 import { Textarea } from "../textarea";
 
-import { WithLabelFieldData } from "@timelish/types";
+import { WithLabelFieldData } from "@hacado/types";
 import { FieldValues } from "react-hook-form";
 import { FormFieldDescription } from "./form-field-description";
 import { FormFieldErrorMessage } from "./form-field-error-message";

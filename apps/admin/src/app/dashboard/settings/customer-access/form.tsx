@@ -1,12 +1,11 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerAuthConfiguration,
   customerAuthConfigurationSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   BooleanSelect,
   Form,
@@ -16,8 +15,9 @@ import {
   FormLabel,
   FormMessage,
   toastPromise,
-} from "@timelish/ui";
-import { SaveButton, TemplateSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";

@@ -3,7 +3,7 @@
  * using Satori + Resvg (same stack as gift-card-studio).
  *
  * From repo root:
- *   yarn workspace @timelish/admin generate-font-previews
+ *   yarn workspace @hacado/admin generate-font-previews
  * Optional: --max=50
  *
  * Plain Node ESM - no tsx. Keep getWebfontPreviewFilename() in sync with

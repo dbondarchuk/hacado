@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/email-builder",
+  "name": "@hacado/email-builder",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -11,28 +11,28 @@
   },
   "exports": {
     ".": "./src/index.tsx",
-    "./static": "./src/static/index.ts"
+    "./static": "./src/static/index.tsx"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
     "@types/node": "^20",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@types/react-window": "^1.8.8",
     "@types/sanitize-html": "^2.13.0",
-    "typescript": "5.5.4"
+    "typescript": "6.0.2"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
-    "@timelish/builder": "*",
-    "@timelish/rte": "*",
-    "@timelish/ui": "*",
-    "@timelish/ui-admin": "*",
+    "@hacado/builder": "*",
+    "@hacado/rte": "*",
+    "@hacado/ui": "*",
+    "@hacado/ui-admin": "*",
     "juice": "^11.0.3",
     "lucide-react": "^0.555.0",
-    "react-dom": "19.0.0",
+    "react-dom": "19.2.8",
     "sanitize-html": "^2.14.0"
   }
 }

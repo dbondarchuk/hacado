@@ -1,14 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerUpdateModel,
   DatabaseId,
   getCustomerSchemaWithUniqueCheck,
   isPaymentRequiredForCustomerTypes,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Card,
@@ -40,8 +39,10 @@ import {
   Textarea,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { AssetSelectorDialog, SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetSelectorDialog, SaveButton, useAuth } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle, Trash } from "lucide-react";
 // import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -54,6 +55,11 @@ export const CustomerForm: React.FC<{
     Partial<DatabaseId> & { isDeleted?: boolean };
 }> = ({ initialData }) => {
   const t = useI18n("admin");
+  const { user } = useAuth();
+  const isEditing = Boolean(initialData?._id);
+  const canSave = isEditing
+    ? hasPermission(user, "customer", "update")
+    : hasPermission(user, "customer", "create");
 
   const customerUniqueCheck = useDebounceCacheFn(
     adminApi.customers.checkCustomerUniqueEmailAndPhone,
@@ -155,7 +161,7 @@ export const CustomerForm: React.FC<{
   };
 
   const requireDeposit = form.watch("requireDeposit");
-  const disabled = loading || initialData?.isDeleted;
+  const disabled = loading || initialData?.isDeleted || !canSave;
 
   return (
     <Form {...form}>
@@ -460,6 +466,7 @@ export const CustomerForm: React.FC<{
                   size="icon"
                   onClick={onAddName}
                   title={t("customers.form.addName")}
+                  disabled={disabled}
                 >
                   <PlusCircle />
                 </Button>
@@ -516,6 +523,7 @@ export const CustomerForm: React.FC<{
                   size="icon"
                   onClick={onAddEmail}
                   title={t("customers.form.addEmail")}
+                  disabled={disabled}
                 >
                   <PlusCircle />
                 </Button>
@@ -573,6 +581,7 @@ export const CustomerForm: React.FC<{
                   size="icon"
                   onClick={onAddPhone}
                   title={t("customers.form.addPhone")}
+                  disabled={disabled}
                 >
                   <PlusCircle />
                 </Button>
@@ -619,7 +628,7 @@ export const CustomerForm: React.FC<{
           </Card>
         </div>
 
-        <SaveButton form={form} disabled={disabled} />
+        {canSave ? <SaveButton form={form} disabled={disabled} /> : null}
       </form>
     </Form>
   );

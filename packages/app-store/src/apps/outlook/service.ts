@@ -5,16 +5,7 @@ import {
   LogLevel,
   Configuration as MsalConfig,
 } from "@azure/msal-node";
-import { Client } from "@microsoft/microsoft-graph-client";
-import {
-  Attachment,
-  FileAttachment,
-  OnlineMeeting,
-  Event as OutlookEvent,
-  Message as OutlookMessage,
-  ResponseType,
-} from "@microsoft/microsoft-graph-types";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   AppointmentEvent,
@@ -37,8 +28,17 @@ import {
   IMeetingUrlProvider,
   IOAuthConnectedApp,
   WithDatabaseId,
-} from "@timelish/types";
-import { decrypt, encrypt, getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt, getAdminUrl } from "@hacado/utils";
+import { Client } from "@microsoft/microsoft-graph-client";
+import {
+  Attachment,
+  FileAttachment,
+  OnlineMeeting,
+  Event as OutlookEvent,
+  Message as OutlookMessage,
+  ResponseType,
+} from "@microsoft/microsoft-graph-types";
 import { createEvent } from "ics";
 import { DateTime } from "luxon";
 import { Readable } from "stream";

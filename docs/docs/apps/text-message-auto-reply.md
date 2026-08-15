@@ -5,11 +5,11 @@ description: Send one automatic SMS reply when someone texts your business numbe
 
 # Text message auto reply
 
-When inbound texts reach Timelish through your texting setup, this App can send **one automatic reply** using a template you write. Common uses: confirm hours, thank the sender, share a booking link, or say staff will answer later.
+When inbound texts reach Hacado through your texting setup, this App can send **one automatic reply** using a template you write. Common uses: confirm hours, thank the sender, share a booking link, or say staff will answer later.
 
 ## Adding the App
 
-1. Complete whatever inbound SMS setup your tenancy requires (often tied to Textbelt or similar). Follow on-screen banners until Timelish shows the path is ready.
+1. Complete whatever inbound SMS setup your tenancy requires (often tied to Textbelt or similar). Follow on-screen banners until Hacado shows the path is ready.
 2. Open **Apps**, then **Store**, and install **Text message auto reply**.
 3. Choose the **auto reply template**. Write clear simple language. Mention that a human will follow up when that is true.
 4. Send a test inbound text and confirm you get only one polite loop (no endless reply chains).

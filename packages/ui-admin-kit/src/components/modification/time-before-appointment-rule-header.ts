@@ -1,4 +1,4 @@
-import type { I18nFn } from "@timelish/i18n";
+import type { I18nFn } from "@hacado/i18n";
 
 const MINUTES_PER_WEEK = 7 * 24 * 60;
 const MINUTES_PER_DAY = 24 * 60;
@@ -23,8 +23,7 @@ export function formatTimeBeforeAppointmentRuleHeader(
     totalMinutes == null || Number.isNaN(totalMinutes)
       ? 0
       : Math.max(0, totalMinutes);
-  const { weeks, days, hours, minutes } =
-    toWeeksDaysHoursMinutes(safeMinutes);
+  const { weeks, days, hours, minutes } = toWeeksDaysHoursMinutes(safeMinutes);
 
   const parts: string[] = [];
   if (weeks > 0) {

@@ -1,10 +1,11 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 
 import { getServicesContainer } from "@/app/utils";
 import { ServiceFieldForm } from "@/components/admin/services/fields/form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 import { cache } from "react";
@@ -28,6 +29,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function EditFieldPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("edit-service-field");
   const t = await getI18nAsync("admin");
+  await assertPageHasPermission("service", "update");
   const params = await props.params;
 
   logger.debug(

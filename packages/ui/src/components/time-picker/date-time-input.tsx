@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import { CalendarIcon, CircleAlert, CircleCheck, X } from "lucide-react";
 import { DateTime } from "luxon";
 import {

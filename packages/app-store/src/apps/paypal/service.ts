@@ -1,5 +1,4 @@
-import { Environment } from "@paypal/paypal-server-sdk";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -18,8 +17,9 @@ import {
   PaymentFee,
   SyncedPaymentTransaction,
   systemEventSource,
-} from "@timelish/types";
-import { decrypt, encrypt, getAdminUrl, maskify } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt, getAppsExternalUrl, maskify } from "@hacado/utils";
+import { Environment } from "@paypal/paypal-server-sdk";
 import {
   APPLE_PAY_DOMAIN_ASSOCIATION_PRODUCTION,
   APPLE_PAY_DOMAIN_ASSOCIATION_SANDBOX,
@@ -290,7 +290,7 @@ class PaypalConnectedApp
 
   /** Builds the per-install webhook listener URL. */
   protected getWebhookUrl(appId: string): string {
-    return `${getAdminUrl()}/apps/${this.props.organizationId}/${appId}/webhook`;
+    return `${getAppsExternalUrl()}/api/webhooks/apps/id/${this.props.organizationId}/${appId}`;
   }
 
   /**

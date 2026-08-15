@@ -8,7 +8,7 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   Label,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ResetButton } from "./reset-button";
 
 type TextDimensionInputProps = {

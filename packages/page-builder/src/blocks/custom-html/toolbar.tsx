@@ -1,4 +1,4 @@
-import { ConfigurationProps } from "@timelish/builder";
+import { ConfigurationProps } from "@hacado/builder";
 import { CustomHTMLProps } from "./schema";
 
 export const CustomHTMLToolbar = (

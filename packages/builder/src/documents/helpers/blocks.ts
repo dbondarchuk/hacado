@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { resolve } from "@timelish/utils";
+import { resolve } from "@hacado/utils";
 import { TEditorBlock, TEditorConfiguration } from "../editor/core";
 import { isSlotLikeObject } from "../embedded-slot";
 import { BuilderSchema } from "../types";

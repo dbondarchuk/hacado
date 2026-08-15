@@ -1,14 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { EmailBuilder } from "@timelish/email-builder";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { EmailBuilder } from "@hacado/email-builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   communicationChannels,
   SendCommunicationRequest,
   sendCommunicationRequestSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -35,12 +34,13 @@ import {
   Spinner,
   toast,
   toastPromise,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ArgumentsAutocomplete,
   TemplateSelector,
   useArguments,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";

@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { GOOGLE_CALENDAR_APP_NAME } from "./const";
 import { GoogleCalendarLogo } from "./logo";
 import {
@@ -14,6 +14,7 @@ export const GoogleCalendarApp: App<
   displayName: "app_google-calendar_admin.app.displayName",
   scope: ["calendar-read", "calendar-write", "meeting-url-provider"],
   type: "oauth",
+  target: "member",
   category: ["apps.categories.calendar", "apps.categories.communications"],
   Logo: ({ className }) => <GoogleCalendarLogo className={className} />,
   isFeatured: true,

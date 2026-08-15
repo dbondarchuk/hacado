@@ -1,4 +1,4 @@
-import { asOptinalNumberField, zObjectId } from "@timelish/types";
+import { asOptinalNumberField, zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 

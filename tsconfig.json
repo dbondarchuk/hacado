@@ -4,9 +4,11 @@
   "references": [],
   "compilerOptions": {
     "composite": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "react-jsx"
   },
   "exclude": [
+    "node_modules",
     "**/node_modules",
     "**/dist",
     "**/build",

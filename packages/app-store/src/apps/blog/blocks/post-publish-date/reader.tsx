@@ -1,9 +1,9 @@
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@hacado/i18n/components";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { formatDate } from "./formats";

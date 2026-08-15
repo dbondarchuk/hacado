@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { DropdownMenuCheckboxItem } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { DropdownMenuCheckboxItem } from "@hacado/ui";
 import { Subscript } from "lucide-react";
 import { useRTEContext } from "../../context/rte-context";
 

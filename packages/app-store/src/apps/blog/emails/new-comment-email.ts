@@ -1,12 +1,16 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { fallbackLanguage, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import type { EmailNotificationRequest } from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
+import { fallbackLanguage, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import type { EmailNotificationRequest } from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 import type { BlogCommentCreatedPayload } from "../models/events";
 import { BlogAdminAllKeys } from "../translations/types";
 
 type AdminRecipient = {
+  memberId: string;
   email: string;
   name: string;
   language?: string | null;
@@ -96,7 +100,7 @@ export const buildNewBlogCommentEmailNotifications = async (
             "app_blog_admin.emails.newComment.reject" satisfies BlogAdminAllKeys,
           ),
           url: rejectUrl,
-          backgroundColor: "#ef4444",
+          backgroundColor: EMAIL_BRAND.destructive,
         },
       },
       {
@@ -106,7 +110,7 @@ export const buildNewBlogCommentEmailNotifications = async (
             "app_blog_admin.emails.newComment.view" satisfies BlogAdminAllKeys,
           ),
           url: commentsUrl,
-          backgroundColor: "#0066ff",
+          backgroundColor: EMAIL_BRAND.primary,
         },
       },
     );
@@ -127,7 +131,8 @@ export const buildNewBlogCommentEmailNotifications = async (
       },
       handledBy:
         "app_blog_admin.handlers.newCommentEmail" satisfies BlogAdminAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

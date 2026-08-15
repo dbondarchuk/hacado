@@ -1,12 +1,12 @@
 title: Text message resender
 app:
   displayName: Text message resender
-  description: Ensure you never miss a customer response. When a customer replies to a text message, their reply is automatically forwarded to your phone number - keeping communication seamless and personal, no matter where you are.
+  description: Ensure you never miss a customer response. When a customer replies to a text message, their reply is automatically forwarded to the assigned team member - or a default member you choose - keeping communication seamless and personal.
 form:
-  phone:
-    label: Phone number
-    tooltip: Optional phone number override to use for notifications. Your phone is used by default
-    placeholder: Phone
+  defaultMemberId:
+    label: Default member
+    tooltip: Team member who receives customer replies when the original message has no assigned member. Their phone number is used. Leave empty to use the app installer's phone.
+    placeholder: Select a member
   connectWith: Connect with <app></app>
 statusText:
   successfully_set_up: Successfully set up

@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
-import type { Appointment } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { Appointment } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -10,8 +10,9 @@ import {
   Link,
   use12HourFormat,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { MemberName, useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
@@ -32,18 +33,20 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
   const locale = useLocale();
   const uses12HourFormat = use12HourFormat();
   const currencyFormat = useCurrencyFormat();
+  const { user } = useAuth();
+  const canUpdate = canUpdateAppointment(user, appointment.memberId);
 
   return (
-    <div className="w-full flex flex-col md:max-w-sm rounded-lg border border-border bg-background overflow-hidden">
+    <div className="w-full flex flex-col md:max-w-sm rounded-2xl border border-border/70 bg-card overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-border/70">
         <div className="flex items-center gap-3 min-w-0">
           <Avatar>
             <AvatarImage
               src={appointment.customer?.avatar ?? undefined}
               alt={appointment.customer?.name ?? appointment.fields.name}
             />
-            <AvatarFallback>
+            <AvatarFallback className="bg-primary/10 text-primary font-display">
               {(appointment.customer?.name ?? appointment.fields.name)
                 .split(" ")
                 .map((name) => name[0]?.toUpperCase())
@@ -53,6 +56,14 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0">
+            <p className="font-display text-lg font-medium text-foreground truncate">
+              <Link
+                href={`/dashboard/appointments/${appointment._id}`}
+                variant="underline"
+              >
+                {appointment.option.name}
+              </Link>
+            </p>
             <p className="text-sm text-muted-foreground truncate">
               {t.rich("appointments.card.by", {
                 name: appointment.customer?.name ?? appointment.fields.name,
@@ -66,18 +77,10 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                 ),
               })}
             </p>
-            <p className="text-base font-medium text-foreground truncate">
-              <Link
-                href={`/dashboard/appointments/${appointment._id}`}
-                variant="underline"
-              >
-                {appointment.option.name}
-              </Link>
-            </p>
           </div>
         </div>
         <span
-          className={`ml-3 shrink-0 text-sm font-medium px-2.5 py-1 rounded-full ${APPOINTMENT_STATUS_STYLES[appointment.status] ?? "bg-muted text-muted-foreground"}`}
+          className={`ml-3 shrink-0 text-xs font-medium px-2.5 py-1 rounded-full ${APPOINTMENT_STATUS_STYLES[appointment.status] ?? "bg-muted text-muted-foreground"}`}
         >
           {t(`appointments.status.${appointment.status}`)}
         </span>
@@ -124,6 +127,16 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
         </div>
       </div>
 
+      {/* Assigned member */}
+      {appointment.member && (
+        <div className="px-5 py-4 border-b border-border">
+          <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
+            {t("appointments.card.member")}
+          </p>
+          <MemberName member={appointment.member} />
+        </div>
+      )}
+
       {/* Add-ons */}
       {appointment.addons && appointment.addons.length > 0 && (
         <div className="px-5 py-4 border-b border-border">
@@ -163,14 +176,14 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
           <p className="text-base text-muted-foreground">
             {t("appointments.card.price")}
           </p>
-          <p className="text-lg font-medium text-foreground">
+          <p className="font-display text-2xl font-medium tracking-tight text-foreground">
             {currencyFormat(appointment.totalPrice)}
           </p>
         </div>
       )}
 
       {/* Actions */}
-      {appointment.status !== "declined" && (
+      {canUpdate && appointment.status !== "declined" && (
         <div className="px-5 py-4 flex flex-col gap-2">
           <AppointmentDeclineDialog
             appointment={appointment}

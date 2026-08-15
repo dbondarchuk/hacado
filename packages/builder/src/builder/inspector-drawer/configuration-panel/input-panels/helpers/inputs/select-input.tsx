@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ResetButton } from "./reset-button";
 
 type Props = Pick<React.ComponentProps<typeof SelectTrigger>, "size"> & {

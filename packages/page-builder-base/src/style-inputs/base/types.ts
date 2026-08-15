@@ -1,4 +1,4 @@
-import { AllKeys, BaseAllKeys } from "@timelish/i18n";
+import { AllKeys, BaseAllKeys } from "@hacado/i18n";
 
 export interface CSSValueOption<T extends string> {
   value: T;

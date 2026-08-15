@@ -4,7 +4,7 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import { BlogPostCommentCountEditorWrapper } from "./editor-wrapper";
 import { BlogPostCommentCountProps } from "./schema";
 

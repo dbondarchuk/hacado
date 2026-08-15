@@ -7,7 +7,7 @@ import {
   SETTINGS_UPDATED_EVENT_TYPE,
   type EventSource,
   type SettingsUpdatedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 import { CONFIGURATION_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";

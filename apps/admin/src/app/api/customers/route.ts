@@ -1,13 +1,21 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { customersSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { customerSchema } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { customersSearchParamsLoader } from "@hacado/api-sdk";
+import { customerSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/customers")("GET");
+  const auth = await requirePermission(
+    "customer",
+    "read",
+    "AdminAPI/customers",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -66,7 +74,15 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/customers")("POST");
+  const auth = await requirePermission(
+    "customer",
+    "create",
+    "AdminAPI/customers",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const body = await request.json();

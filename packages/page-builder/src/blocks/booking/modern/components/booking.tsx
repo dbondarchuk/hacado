@@ -1,8 +1,9 @@
 "use client";
-import { clientApi } from "@timelish/api-sdk";
-import { GetAppointmentOptionsResponse } from "@timelish/types";
+import { clientApi } from "@hacado/api-sdk";
+import { GetAppointmentOptionsResponse } from "@hacado/types";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
+import { FlowOrder } from "./context";
 import { Schedule } from "./schedule";
 
 export type BookingProps = {
@@ -11,6 +12,7 @@ export type BookingProps = {
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
+  flowOrder?: FlowOrder | null;
 };
 
 export const Booking: React.FC<
@@ -26,6 +28,7 @@ export const Booking: React.FC<
   scrollToTop,
   hideTitle,
   hideSteps,
+  flowOrder,
   ...props
 }) => {
   const [response, setResponse] =
@@ -50,6 +53,8 @@ export const Booking: React.FC<
       {...props}
       appointmentOptions={response?.options ?? []}
       areAppointmentOptionsLoading={!response}
+      members={response?.members ?? []}
+      flowOrder={flowOrder ?? "service-first"}
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}

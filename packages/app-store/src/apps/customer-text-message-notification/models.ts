@@ -1,4 +1,4 @@
-import { appointmentStatuses, zObjectId } from "@timelish/types";
+import { appointmentStatuses, zObjectId } from "@hacado/types";
 import * as z from "zod";
 
 export const textMessagesTemplateSchema = z.object({

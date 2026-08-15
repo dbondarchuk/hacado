@@ -1,7 +1,7 @@
-import { AllKeys, useI18n } from "@timelish/i18n";
-import { UploadedFile } from "@timelish/types";
-import { ToolbarButton } from "@timelish/ui";
-import { AssetSelectorDialog } from "@timelish/ui-admin";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { UploadedFile } from "@hacado/types";
+import { ToolbarButton } from "@hacado/ui";
+import { AssetSelectorDialog } from "@hacado/ui-admin";
 import React from "react";
 import { ShortcutWithAssetSelector } from "../../shortcuts";
 import { BaseStyleDictionary } from "../../style/types";

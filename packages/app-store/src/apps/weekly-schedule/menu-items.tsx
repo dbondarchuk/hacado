@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { CalendarDays } from "lucide-react";
 import { WeeklyScheduleAppSetup } from "./setup";
 import {
@@ -24,6 +24,9 @@ export const WeeklyScheduleMenuItems: AppMenuItem<
       },
     ],
     icon: <CalendarDays />,
-    Page: (props) => <WeeklyScheduleAppSetup appId={props.appId} />,
+    Page: (props) => (
+      <WeeklyScheduleAppSetup appId={props.appId} services={props.services} />
+    ),
+    requiredPermission: { resource: "schedule", action: "update" },
   },
 ];

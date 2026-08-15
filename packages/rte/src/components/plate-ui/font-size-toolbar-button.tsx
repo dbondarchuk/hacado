@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   ToolbarButton,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { toUnitLess } from "@udecode/plate-font";
 import { FontSizePlugin } from "@udecode/plate-font/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";

@@ -3,8 +3,8 @@ import {
   ToolbarColorMenu,
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { Baseline, Brush, PaintBucket, PaintRoller } from "lucide-react";
 import { FONT_FAMILIES } from "../../style-inputs/helpers/font-family";
 import { fontFamilyItems } from "../../toolbars/font-family";

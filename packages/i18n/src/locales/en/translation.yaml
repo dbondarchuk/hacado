@@ -42,6 +42,7 @@ booking:
   description: Complete the steps below to schedule your session
   steps:
     option: Service
+    specialist: Specialist
     addons: Add-ons
     calendar: Date & Time
     form: Details
@@ -60,6 +61,11 @@ booking:
         title: Session Duration
         min_max: "Min: {min} • Max: {max}"
     price_per_hour: "{price}/hr"
+  specialist:
+    title: Select a Specialist
+    choose: Choose who you'd like to book with
+    fromPrice: "From {price}"
+    fromDuration: "From {duration}"
   addons:
     title: Enhance Your Experience
     description: Optional add-ons to make the most of your session
@@ -83,6 +89,8 @@ booking:
       confirm: I understand and want to proceed anyway
       confirmationTitle: Are you sure?
       confirmationCheckboxLabel: I confirm that I understand and want to book this appointment
+    specialist:
+      title: Specialist
     addons:
       title: Add-ons
     date:
@@ -167,6 +175,7 @@ booking:
     fetchFailedTitle: We can't find your appointment
     appointmentDetails: Appointment details
     duration: "Duration: {duration}"
+    specialist: "Specialist: {name}"
     newBookingButton: Book Another Appointment
   availability:
     fetchFailedTitle: Uh oh! Something went wrong.

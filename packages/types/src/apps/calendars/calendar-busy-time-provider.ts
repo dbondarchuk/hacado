@@ -11,5 +11,6 @@ export interface ICalendarBusyTimeProvider {
     app: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId?: string,
   ): Promise<CalendarBusyTime[]>;
 }

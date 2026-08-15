@@ -1,10 +1,15 @@
 "use client";
 
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { PaymentAppFormProps } from "@timelish/types";
-import { Button, Spinner, toast } from "@timelish/ui";
-import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { PaymentAppFormProps } from "@hacado/types";
+import { Button, Spinner, toast } from "@hacado/ui";
+import {
+  Elements,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import {
   loadStripe,
   type StripeElementsOptions,
@@ -104,7 +109,9 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
   onSubmit,
   className,
 }) => {
-  const t = useI18n<StripePublicNamespace, StripePublicKeys>(stripePublicNamespace);
+  const t = useI18n<StripePublicNamespace, StripePublicKeys>(
+    stripePublicNamespace,
+  );
   const [clientSecret, setClientSecret] = React.useState<string | null>(null);
   const [loadError, setLoadError] = React.useState<string | null>(null);
   /** Connect: platform publishable key + `stripeAccount` so the PI `client_secret` resolves. */

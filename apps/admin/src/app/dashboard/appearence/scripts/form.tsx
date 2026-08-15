@@ -1,15 +1,15 @@
 "use client";
 
 import { ResourcesCard } from "@/components/admin/resource/resources-card";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   ScriptsConfiguration,
   scriptsConfigurationSchema,
-} from "@timelish/types";
-import { Form, toastPromise } from "@timelish/ui";
-import { SaveButton } from "@timelish/ui-admin";
+} from "@hacado/types";
+import { Form, toastPromise } from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";

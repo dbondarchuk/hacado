@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { RadioReceiver } from "lucide-react";
 import React from "react";
 
@@ -20,7 +20,7 @@ export type AppEventSubscriptionsDialogProps = {
 };
 
 /**
- * Lists {@link import("@timelish/types").App}'s `subscribeTo` patterns in a modal (store app detail).
+ * Lists {@link import("@hacado/types").App}'s `subscribeTo` patterns in a modal (store app detail).
  */
 export const AppEventSubscriptionsDialog: React.FC<
   AppEventSubscriptionsDialogProps

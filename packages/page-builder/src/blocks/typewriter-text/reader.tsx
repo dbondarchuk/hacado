@@ -1,11 +1,11 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
-import { TypewriterTextClient } from "./typewriter-text.client";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { TypewriterTextReaderProps } from "./schema";
 import { styles } from "./styles";
+import { TypewriterTextClient } from "./typewriter-text.client";
 
 export const TypewriterTextReader = ({
   props,

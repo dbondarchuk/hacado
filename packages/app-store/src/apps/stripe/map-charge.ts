@@ -1,5 +1,5 @@
-import { PaymentFee } from "@timelish/types";
-import { round2 } from "@timelish/utils";
+import { PaymentFee } from "@hacado/types";
+import { round2 } from "@hacado/utils";
 import type Stripe from "stripe";
 
 type StripeChargeWithTip = Stripe.Charge & {
@@ -16,15 +16,15 @@ export type StripeInStoreChargeInput = {
   raw?: unknown;
 };
 
-export function isTimelishCheckoutPaymentIntent(
+export function isHacadoCheckoutPaymentIntent(
   metadata: Stripe.Metadata | null | undefined,
 ): boolean {
   if (!metadata) {
     return false;
   }
   const orgId = metadata.organizationId;
-  const timelishIntentId = metadata.timelishIntentId ?? undefined;
-  return Boolean(orgId && timelishIntentId);
+  const hacadoIntentId = metadata.hacadoIntentId ?? undefined;
+  return Boolean(orgId && hacadoIntentId);
 }
 
 export function feesFromStripeCharge(ch: Stripe.Charge): PaymentFee[] {

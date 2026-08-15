@@ -1,4 +1,4 @@
-import { ConnectedAppStatus } from "@timelish/types";
+import { ConnectedAppStatus } from "@hacado/types";
 
 export const appStatusTextClasses: Record<ConnectedAppStatus, string> = {
   connected: "text-green-500",

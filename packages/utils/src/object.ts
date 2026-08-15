@@ -1,4 +1,4 @@
-import { Leaves } from "@timelish/types";
+import { Leaves } from "@hacado/types";
 
 export const resolve = (
   obj: any,
@@ -115,4 +115,44 @@ export const destructAndReplace = <T>(
   const newObj = JSON.parse(JSON.stringify(obj));
   resolve(newObj, property, true, false, true, newValue);
   return newObj;
+};
+
+type NullishRecord = Record<PropertyKey, unknown> | undefined | null;
+
+type OmitResult<T, K extends PropertyKey> = T extends undefined
+  ? undefined
+  : T extends null
+    ? null
+    : Omit<Extract<T, object>, K>;
+
+type PickResult<T, K extends PropertyKey> = T extends undefined
+  ? undefined
+  : T extends null
+    ? null
+    : Pick<Extract<T, object>, Extract<K, keyof Extract<T, object>>>;
+
+export const omit = <T extends NullishRecord, K extends keyof NonNullable<T>>(
+  obj: T,
+  keys: K[],
+): OmitResult<T, K> => {
+  if (obj == null || typeof obj !== "object")
+    return obj as unknown as OmitResult<T, K>;
+
+  const omitKeys = new Set<PropertyKey>(keys);
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !omitKeys.has(key)),
+  ) as OmitResult<T, K>;
+};
+
+export const pick = <T extends NullishRecord, K extends keyof NonNullable<T>>(
+  obj: T,
+  keys: K[],
+): PickResult<T, K> => {
+  if (obj == null || typeof obj !== "object")
+    return obj as unknown as PickResult<T, K>;
+
+  const pickKeys = new Set<PropertyKey>(keys);
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => pickKeys.has(key)),
+  ) as PickResult<T, K>;
 };

@@ -1,8 +1,8 @@
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
 import {
   Carousel,
   CarouselContent,
@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   cn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CarouselReaderProps, styles } from "./schema";
 
 export const CarouselReader = ({

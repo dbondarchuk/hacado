@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n";
-import { Checkbox, Label } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Checkbox, Label } from "@hacado/ui";
 import { EyeOff } from "lucide-react";
 import { useId } from "react";
 import * as z from "zod";

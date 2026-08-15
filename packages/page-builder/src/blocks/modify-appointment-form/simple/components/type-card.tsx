@@ -1,4 +1,4 @@
-import { Button } from "@timelish/ui";
+import { Button } from "@hacado/ui";
 import { CalendarSync, CalendarX } from "lucide-react";
 import { ModifyAppointmentType } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";

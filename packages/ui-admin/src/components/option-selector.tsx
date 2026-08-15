@@ -1,14 +1,14 @@
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { AppointmentOption } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppointmentOption } from "@hacado/types";
 import {
   cn,
   ComboboxAsync,
   IComboboxItem,
   Skeleton,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";
 
@@ -34,7 +34,9 @@ const OptionLabel: React.FC<{ option: AppointmentOption }> = ({ option }) => {
       {option.durationType === "flexible" && option.pricePerHour && (
         <div className="inline-flex gap-2 items-center text-xs italic">
           <DollarSign size={16} />{" "}
-          {t("common.pricePerHour", { price: currencyFormat(option.pricePerHour) })}
+          {t("common.pricePerHour", {
+            price: currencyFormat(option.pricePerHour),
+          })}
         </div>
       )}
     </span>

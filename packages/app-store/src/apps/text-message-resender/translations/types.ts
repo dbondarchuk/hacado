@@ -1,5 +1,5 @@
-import { AllKeys } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { AllKeys } from "@hacado/i18n";
+import { Leaves } from "@hacado/types";
 import { TEXT_MESSAGE_RESENDER_APP_NAME } from "../const";
 import type admin from "./en/admin.generated";
 

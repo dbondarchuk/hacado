@@ -1,20 +1,22 @@
-import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
+import { getMember, getServicesContainer, getWebsiteUrl } from "@/app/utils";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getSubscriptionFeatureBlockedResponse } from "@/lib/billing/subscription-feature-guard";
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   Customer,
   okStatus,
   sendCommunicationRequestSchema,
-} from "@timelish/types";
-import { getAdminUrl, getArguments, template } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl, getArguments, template } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/communications")("POST");
   const servicesContainer = await getServicesContainer();
+  const member = await getMember();
   logger.debug(
     {
       url: request.url,
@@ -46,27 +48,14 @@ export async function POST(request: NextRequest) {
   let appointment: Appointment | null = null;
 
   if ("appointmentId" in data) {
-    appointment = await servicesContainer.bookingService.getAppointment(
+    const auth = await requireCanUpdateAppointment(
       data.appointmentId,
+      "AdminAPI/communications",
+      "POST",
     );
+    if (!auth.ok) return auth.response;
 
-    if (!appointment) {
-      logger.error(
-        {
-          error: "appointment_not_found",
-          message: `Appointment ${data.appointmentId} was not found`,
-        },
-        "Appointment not found",
-      );
-      return NextResponse.json(
-        {
-          error: "appointment_not_found",
-          message: `Appointment ${data.appointmentId} was not found`,
-        },
-        { status: 404 },
-      );
-    }
-
+    appointment = auth.appointment;
     customer = appointment.customer;
   } else {
     const _customer = await servicesContainer.customersService.getCustomer(
@@ -110,6 +99,7 @@ export async function POST(request: NextRequest) {
     locale,
     adminUrl,
     websiteUrl,
+    user: member,
   });
 
   const customerId = "customerId" in data ? data.customerId : undefined;
@@ -138,6 +128,7 @@ export async function POST(request: NextRequest) {
           customerId,
           appointmentId,
         },
+        memberId: member._id,
       });
 
       break;
@@ -159,6 +150,7 @@ export async function POST(request: NextRequest) {
         participantType: "customer",
         appointmentId,
         customerId,
+        memberId: member._id,
       });
       break;
     }

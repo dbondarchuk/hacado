@@ -7,6 +7,7 @@ table:
     createAppointment: Створити запис
     customer: Клієнт
     option: Послуга
+    member: Співробітник
     note: Примітка
   actions:
     createAppointment: Створити запис
@@ -46,6 +47,7 @@ view:
   byFormat: від <link>{name}</link>
   badge: Список очікування
   preferredAvailability: Бажаний час
+  member: Співробітник
   noSpecificDates: Немає конкретних дат
   toast:
     dismissed: Запис списку очікування відхилено

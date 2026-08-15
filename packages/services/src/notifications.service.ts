@@ -1,4 +1,4 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   BillingPlanTier,
   Email,
@@ -21,8 +21,8 @@ import {
   TextMessage,
   TextMessageNotificationRequest,
   TextMessageResponse,
-} from "@timelish/types";
-import { maskify } from "@timelish/utils";
+} from "@hacado/types";
+import { maskify } from "@hacado/utils";
 import { convert } from "html-to-text";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 
@@ -41,14 +41,11 @@ export class NotificationService implements INotificationService {
     private readonly organizationService: IOrganizationService,
   ) {}
 
-  public async sendEmail({
-    email,
-    handledBy,
-    participantType,
-    appointmentId,
-    customerId,
-  }: EmailNotificationRequest): Promise<void> {
+  public async sendEmail(props: EmailNotificationRequest): Promise<void> {
+    const { email, handledBy, participantType, appointmentId, customerId } =
+      props;
     const logger = this.loggerFactory("sendEmail");
+    const memberId = props.memberId;
     const defaultAppsConfiguration =
       await this.configurationService.getConfiguration("defaultApps");
 
@@ -75,7 +72,11 @@ export class NotificationService implements INotificationService {
       }
 
       sendMail = async (email: Email) =>
-        await this.defaultEmailService.sendMail(email, fromName);
+        await this.defaultEmailService.sendMail(
+          email,
+          participantType,
+          fromName,
+        );
     }
 
     logger.info(
@@ -88,6 +89,7 @@ export class NotificationService implements INotificationService {
         emailSubject: email.subject,
         appointmentId,
         customerId,
+        memberId,
       },
       "Sending email",
     );
@@ -101,7 +103,9 @@ export class NotificationService implements INotificationService {
         direction: "outbound",
         channel: "email",
         handledBy,
-        participantType,
+        ...(participantType === "member"
+          ? { participantType, memberId: memberId! }
+          : { participantType, ...(memberId ? { memberId } : {}) }),
         participant: Array.isArray(email.to) ? email.to.join("; ") : email.to,
         text: convert(email.body, { wordwrap: 130 }),
         html: email.body,
@@ -116,16 +120,20 @@ export class NotificationService implements INotificationService {
     }
   }
 
-  public async sendTextMessage({
-    phone,
-    body,
-    sender,
-    handledBy,
-    participantType,
-    webhookData,
-    appointmentId,
-    customerId,
-  }: TextMessageNotificationRequest): Promise<TextMessageResponse> {
+  public async sendTextMessage(
+    props: TextMessageNotificationRequest,
+  ): Promise<TextMessageResponse> {
+    const {
+      phone,
+      body,
+      sender,
+      handledBy,
+      participantType,
+      webhookData,
+      appointmentId,
+      customerId,
+      memberId,
+    } = props;
     const trimmedPhone = phone.replaceAll(/[^+0-9]/gi, "");
     const logger = this.loggerFactory("sendTextMessage");
 
@@ -156,7 +164,7 @@ export class NotificationService implements INotificationService {
       if (planTier === BillingPlanTier.Free) {
         logger.warn("TextBelt app is not available on the Free plan");
         throw new SubscriptionUpgradeRequiredError(
-          "The 3rd party text message sender app requires a Pro subscription.",
+          "The 3rd party text message sender app requires a Solo subscription.",
           { feature: "sms", appSlug: app.name },
         );
       }
@@ -182,7 +190,8 @@ export class NotificationService implements INotificationService {
         );
 
         if (!response.error) {
-          await this.billingService.recordSmsCreditUsage({
+          await this.billingService.consumeSmsCredits({
+            amount: 1,
             direction: "outbound",
             textId: response.textId,
           });
@@ -197,6 +206,7 @@ export class NotificationService implements INotificationService {
         phone: trimmedPhone,
         data: webhookData,
         sender,
+        memberId,
       });
 
       if (response.error) {
@@ -231,7 +241,9 @@ export class NotificationService implements INotificationService {
         direction: "outbound",
         channel: "text-message",
         handledBy,
-        participantType,
+        ...(participantType === "member"
+          ? { participantType, memberId: memberId! }
+          : { participantType, ...(memberId ? { memberId } : {}) }),
         participant: phone,
         text: body,
         appointmentId,
@@ -258,7 +270,7 @@ export class SystemNotificationService implements ISystemNotificationService {
     const logger = this.loggerFactory("sendSystemEmail");
     logger.info({ email }, "Sending system email");
     try {
-      await this.emailService.sendMail(email);
+      await this.emailService.sendMail(email, "member");
       logger.info({ email }, "System email sent");
     } catch (error) {
       logger.error({ error }, "Error sending system email");

@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "../select";
 
-import { FieldOptionsData, WithLabelFieldData } from "@timelish/types";
+import { FieldOptionsData, WithLabelFieldData } from "@hacado/types";
 import { FieldValues } from "react-hook-form";
 import { FormFieldLabel } from "./form-field-label";
 import { getFieldName, IFormFieldProps } from "./form-field.types";

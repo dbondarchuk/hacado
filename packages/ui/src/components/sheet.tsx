@@ -1,7 +1,7 @@
 "use client";
 
+import { useI18n } from "@hacado/i18n/client";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { useI18n } from "@timelish/i18n";
 import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
 import React from "react";

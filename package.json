@@ -1,5 +1,5 @@
 {
-  "name": "timelish",
+  "name": "hacado",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -35,16 +35,19 @@
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "turbo": "^2.3.3"
+    "turbo": "^2.3.3",
+    "typescript": "6.0.2"
   },
   "packageManager": "yarn@1.22.22",
   "engines": {
     "node": ">=21"
   },
   "resolutions": {
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "date-fns": "4.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "zod": "4.3.6",
     "sharp": "0.32.6"
   }

@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -8,7 +8,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IScheduleProvider,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import {
   UrlScheduleProviderConfiguration,
@@ -19,6 +19,10 @@ import {
   UrlScheduleProviderAdminKeys,
   UrlScheduleProviderAdminNamespace,
 } from "./translations/types";
+import {
+  applyUrlPlaceholders,
+  buildHeadersWithPlaceholders,
+} from "./url-placeholders";
 
 export default class UrlScheduleProviderConnectedApp
   implements IConnectedApp<UrlScheduleProviderConfiguration>, IScheduleProvider
@@ -67,7 +71,7 @@ export default class UrlScheduleProviderConnectedApp
 
     try {
       // Test the URL by making a simple request
-      await this.testUrl(data);
+      await this.testUrl(data, appData.memberId);
 
       const status: ConnectedAppStatusWithText<
         UrlScheduleProviderAdminNamespace,
@@ -125,6 +129,7 @@ export default class UrlScheduleProviderConnectedApp
     app: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId: string,
   ): Promise<Record<string, DaySchedule>> {
     const logger = this.loggerFactory("getSchedule");
     logger.debug(
@@ -139,22 +144,42 @@ export default class UrlScheduleProviderConnectedApp
     );
 
     try {
-      const url = new URL(app.data.url);
-      url.searchParams.set("start", start.toISOString());
-      url.searchParams.set("end", end.toISOString());
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
+      if (!member) {
+        logger.error(
+          {
+            appId: app._id,
+            memberId,
+          },
+          "Member not found",
+        );
 
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
-      };
-
-      if (app.data.headers) {
-        app.data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
+        throw new ConnectedAppError<
+          UrlScheduleProviderAdminNamespace,
+          UrlScheduleProviderAdminKeys
+        >(
+          "app_url-schedule-provider_admin.statusText.error_fetching_schedule" satisfies UrlScheduleProviderAdminAllKeys,
+          {
+            message: "Member not found",
+          },
+        );
       }
+
+      const placeholderValues = {
+        memberId,
+        email: member.email,
+        start: start.toISOString(),
+        end: end.toISOString(),
+      };
+      const url = new URL(
+        applyUrlPlaceholders(app.data.url, placeholderValues),
+      );
+
+      const headers = buildHeadersWithPlaceholders(
+        app.data.headers,
+        placeholderValues,
+      );
 
       const response = await fetch(url.toString(), {
         method: "GET",
@@ -220,26 +245,47 @@ export default class UrlScheduleProviderConnectedApp
     }
   }
 
-  private async testUrl(data: UrlScheduleProviderConfiguration): Promise<void> {
+  private async testUrl(
+    data: UrlScheduleProviderConfiguration,
+    memberId: string,
+  ): Promise<void> {
     const logger = this.loggerFactory("testUrl");
 
     try {
-      // Convert headers array to object
-      const headers: Record<string, string> = {
-        "Content-Type": "application/json",
-      };
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
 
-      if (data.headers) {
-        data.headers.forEach((header: { key: string; value: string }) => {
-          if (header.key && header.value) {
-            headers[header.key] = header.value;
-          }
-        });
+      if (!member) {
+        logger.error(
+          {
+            memberId,
+          },
+          "Member not found",
+        );
+
+        throw new ConnectedAppError<
+          UrlScheduleProviderAdminNamespace,
+          UrlScheduleProviderAdminKeys
+        >(
+          "app_url-schedule-provider_admin.statusText.error_fetching_schedule" satisfies UrlScheduleProviderAdminAllKeys,
+          {
+            message: "Member not found",
+          },
+        );
       }
 
-      const url = new URL(data.url);
-      url.searchParams.set("start", DateTime.now().toISO());
-      url.searchParams.set("end", DateTime.now().plus({ days: 7 }).toISO());
+      const placeholderValues = {
+        memberId,
+        email: member.email,
+        start: DateTime.now().toISO()!,
+        end: DateTime.now().plus({ days: 7 }).toISO()!,
+      };
+      const headers = buildHeadersWithPlaceholders(
+        data.headers,
+        placeholderValues,
+      );
+
+      const url = new URL(applyUrlPlaceholders(data.url, placeholderValues));
 
       const response = await fetch(url.toString(), {
         method: "HEAD",

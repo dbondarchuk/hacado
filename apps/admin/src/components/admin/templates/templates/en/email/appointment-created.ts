@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const appointmentCreatedEmailTemplate: TemplatesTemplate = {
   name: "New appointment email",
@@ -135,6 +135,18 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate = {
                   ],
                   id: "4_g5MvqMhk",
                 },
+                {
+                  type: "p",
+                  align: "start",
+                  children: [
+                    {
+                      text: "Specialist: {{member.name}}",
+                      fontSize: "14px",
+                    },
+                  ],
+                  id: "4_g5MvqMhk",
+                },
+                ,
               ],
             },
           },

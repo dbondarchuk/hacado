@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, TextInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import { ConfigurationProps, TextInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import {
   BlogAdminKeys,
@@ -32,15 +32,26 @@ export const BlogPostCommentFormConfiguration = deepMemo(
     );
 
     const props = data.props ?? {};
-    const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(blogAdminNamespace);
+    const tAdmin = useI18n<BlogAdminNamespace, BlogAdminKeys>(
+      blogAdminNamespace,
+    );
 
     const fields = [
       { key: "nameLabel", label: "block.postCommentForm.nameLabel" },
-      { key: "namePlaceholder", label: "block.postCommentForm.namePlaceholder" },
+      {
+        key: "namePlaceholder",
+        label: "block.postCommentForm.namePlaceholder",
+      },
       { key: "emailLabel", label: "block.postCommentForm.emailLabel" },
-      { key: "emailPlaceholder", label: "block.postCommentForm.emailPlaceholder" },
+      {
+        key: "emailPlaceholder",
+        label: "block.postCommentForm.emailPlaceholder",
+      },
       { key: "bodyLabel", label: "block.postCommentForm.bodyLabel" },
-      { key: "bodyPlaceholder", label: "block.postCommentForm.bodyPlaceholder" },
+      {
+        key: "bodyPlaceholder",
+        label: "block.postCommentForm.bodyPlaceholder",
+      },
       { key: "submitLabel", label: "block.postCommentForm.submitLabel" },
       { key: "successMessage", label: "block.postCommentForm.successMessage" },
     ] as const;
@@ -57,7 +68,9 @@ export const BlogPostCommentFormConfiguration = deepMemo(
           <TextInput
             key={key}
             label={tAdmin(label satisfies BlogAdminKeys)}
-            defaultValue={(props as Record<string, string | null | undefined>)[key] ?? ""}
+            defaultValue={
+              (props as Record<string, string | null | undefined>)[key] ?? ""
+            }
             onChange={(value) =>
               updateProps({ ...props, [key]: value || null })
             }

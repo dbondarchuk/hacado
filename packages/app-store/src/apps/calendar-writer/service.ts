@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   APP_UNINSTALLED_EVENT_TYPE,
   Appointment,
@@ -16,7 +16,8 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@timelish/types";
+  SessionUser,
+} from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
@@ -24,7 +25,9 @@ import {
   getArguments,
   getIcsEventUid,
   getWebsiteUrl,
-} from "@timelish/utils";
+  resolveAppointmentEventForMemberId,
+  resolveProcessOtherMembersAppointmentsConfig,
+} from "@hacado/utils";
 import { convert } from "html-to-text";
 import {
   CalendarWriterConfiguration,
@@ -64,56 +67,80 @@ export class CalendarWriterConnectedApp
       return;
     }
 
-    await dispatchAppointmentEventPayload(envelope, {
-      onAppointmentCreated: (appointment, confirmed) =>
-        this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentFullRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        oldTime,
-        oldDuration,
-        doNotNotifyCustomer,
-        source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+    const config = (appData.data ??
+      {}) as Partial<CalendarWriterStoredConfiguration>;
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+    const forMemberId = await resolveAppointmentEventForMemberId(
+      async (memberId) => {
+        const member =
+          await this.props.services.teamService.getMemberById(memberId);
+        return member?.role ?? null;
+      },
+      appData.memberId,
+      config.processOtherMembersAppointments,
+      (organization?.availableUsers ?? 1) > 1,
+    );
+
+    await dispatchAppointmentEventPayload(
+      envelope,
+      {
+        onAppointmentCreated: (appointment, confirmed) =>
+          this.onAppointmentCreated(appData, appointment, confirmed),
+        onAppointmentFullRescheduled: (
           appointment,
           newTime,
           newDuration,
-          source,
           oldTime,
           oldDuration,
           doNotNotifyCustomer,
-        ),
-      onAppointmentSlotRescheduled: (
-        appointment,
-        newTime,
-        newDuration,
-        oldTime,
-        oldDuration,
-        doNotNotifyCustomer,
-        source,
-      ) =>
-        this.onAppointmentRescheduled(
-          appData,
+          source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+            source,
+            oldTime,
+            oldDuration,
+            doNotNotifyCustomer,
+          ),
+        onAppointmentSlotRescheduled: (
           appointment,
           newTime,
           newDuration,
-          source,
           oldTime,
           oldDuration,
           doNotNotifyCustomer,
-        ),
-      onAppointmentStatusChanged: (appointment, newStatus, oldStatus, source) =>
-        this.onAppointmentStatusChanged(
-          appData,
+          source,
+        ) =>
+          this.onAppointmentRescheduled(
+            appData,
+            appointment,
+            newTime,
+            newDuration,
+            source,
+            oldTime,
+            oldDuration,
+            doNotNotifyCustomer,
+          ),
+        onAppointmentStatusChanged: (
           appointment,
           newStatus,
           oldStatus,
           source,
-        ),
-    });
+        ) =>
+          this.onAppointmentStatusChanged(
+            appData,
+            appointment,
+            newStatus,
+            oldStatus,
+            source,
+          ),
+      },
+      forMemberId,
+    );
   }
 
   private async onAppUninstalled(
@@ -147,6 +174,8 @@ export class CalendarWriterConnectedApp
     await this.props.update({
       data: {
         appId: null,
+        processOtherMembersAppointments:
+          data.processOtherMembersAppointments ?? false,
       },
       status: "failed",
       statusText:
@@ -157,6 +186,8 @@ export class CalendarWriterConnectedApp
   public async processRequest(
     appData: ConnectedAppData,
     request: CalendarWriterConfiguration,
+    _apiRequest?: unknown,
+    user?: SessionUser,
   ): Promise<
     ConnectedAppStatusWithText<
       CalendarWriterAdminNamespace,
@@ -181,17 +212,26 @@ export class CalendarWriterConnectedApp
       );
     }
 
+    const savedData: CalendarWriterConfiguration = {
+      ...data,
+      processOtherMembersAppointments:
+        resolveProcessOtherMembersAppointmentsConfig(
+          data.processOtherMembersAppointments,
+          user,
+        ),
+    };
+
     let targetApp: ConnectedApp;
 
     try {
       targetApp = await this.props.services.connectedAppsService.getApp(
-        data.appId,
+        savedData.appId,
       );
 
       logger.debug(
         {
           appId: appData._id,
-          targetAppId: data.appId,
+          targetAppId: savedData.appId,
           targetAppName: targetApp.name,
         },
         "Retrieved target app information",
@@ -203,7 +243,7 @@ export class CalendarWriterConnectedApp
         logger.error(
           {
             appId: appData._id,
-            targetAppId: data.appId,
+            targetAppId: savedData.appId,
             targetAppName: targetApp.name,
             scope: app.scope,
           },
@@ -219,14 +259,14 @@ export class CalendarWriterConnectedApp
       logger.debug(
         {
           appId: appData._id,
-          targetAppId: data.appId,
+          targetAppId: savedData.appId,
           targetAppName: targetApp.name,
         },
         "Target app supports calendar-write scope",
       );
     } catch (error: any) {
       logger.error(
-        { appId: appData._id, targetAppId: data.appId, error },
+        { appId: appData._id, targetAppId: savedData.appId, error },
         "Failed to validate calendar app configuration",
       );
 
@@ -246,7 +286,7 @@ export class CalendarWriterConnectedApp
     };
 
     this.props.update({
-      data,
+      data: savedData,
       ...status,
       account: {
         targetAppName: targetApp.name,
@@ -255,7 +295,11 @@ export class CalendarWriterConnectedApp
     });
 
     logger.info(
-      { appId: appData._id, targetAppId: data.appId, status: status.status },
+      {
+        appId: appData._id,
+        targetAppId: savedData.appId,
+        status: status.status,
+      },
       "Successfully configured calendar writer",
     );
 

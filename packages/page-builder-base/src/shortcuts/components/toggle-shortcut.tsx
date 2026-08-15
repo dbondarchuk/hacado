@@ -1,5 +1,5 @@
-import { useI18n } from "@timelish/i18n";
-import { Toggle } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Toggle } from "@hacado/ui";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutOption, ShortcutWithToggle } from "../types";
 

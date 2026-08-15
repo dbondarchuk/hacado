@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { Mails } from "lucide-react";
 import { CustomerEmailNotificationAppSetup } from "./setup";
 import {
@@ -17,5 +17,6 @@ export const CustomerEmailNotificationMenuItems: AppMenuItem<
     label: "app_customer-email-notification_admin.navigation.title",
     icon: <Mails />,
     Page: (props) => <CustomerEmailNotificationAppSetup appId={props.appId} />,
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

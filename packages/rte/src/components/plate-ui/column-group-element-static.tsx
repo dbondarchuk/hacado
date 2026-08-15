@@ -1,6 +1,6 @@
 import type { SlateElementProps } from "@udecode/plate";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { SlateElement } from "@udecode/plate";
 
 export function ColumnGroupElementStatic({

@@ -1,4 +1,4 @@
-import { AllKeys, BaseAllKeys } from "@timelish/i18n";
+import { AllKeys, BaseAllKeys } from "@hacado/i18n";
 import * as z from "zod";
 import { Customer } from "../customers";
 import { WithDatabaseId, WithOrganizationId } from "../database";

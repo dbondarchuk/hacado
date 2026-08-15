@@ -3,7 +3,7 @@
 import {
   useCurrentPopup,
   useReaderContext,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
 import { ButtonProps } from "./schema";
 
 type Props = Omit<NonNullable<ButtonProps["props"]>, "children"> & {

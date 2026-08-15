@@ -1,10 +1,15 @@
-import { useI18n } from "@timelish/i18n";
-import { Combobox } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { WholeWord } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";
 
-const wordBreakKeys = ["normal", "break-all", "keep-all", "break-word"] as const;
+const wordBreakKeys = [
+  "normal",
+  "break-all",
+  "keep-all",
+  "break-word",
+] as const;
 
 const wordBreakKeyMap = {
   normal: "normal",
@@ -37,9 +42,7 @@ export const wordBreakStyle = {
           ),
         }))}
         value={value}
-        onItemSelect={(val) =>
-          onChange(val as z.infer<typeof WordBreakSchema>)
-        }
+        onItemSelect={(val) => onChange(val as z.infer<typeof WordBreakSchema>)}
         className="w-full"
         size="sm"
       />

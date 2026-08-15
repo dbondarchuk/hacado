@@ -1,12 +1,12 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DateRange,
   HydratedSyncedPayment,
   SyncedPaymentStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,15 +23,18 @@ import {
   Spinner,
   toastPromise,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin";
 import {
   AssignAppointmentDialog,
   EditSyncedPaymentAmountsDialog,
+  RecordSyncedPaymentDialog,
   SyncedPaymentCard,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
+import { canManageSyncedPayments } from "@hacado/utils";
+import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { Check } from "lucide-react";
 
 const NEEDS_REVIEW: SyncedPaymentStatus[] = ["matched", "unmatched"];
 const PAGE_SIZE = 20;
@@ -39,6 +42,8 @@ const PAGE_SIZE = 20;
 export const SyncedPaymentsReview = () => {
   const t = useI18n("admin");
   const timeZone = useTimeZone();
+  const { user } = useAuth();
+  const canManage = canManageSyncedPayments(user);
 
   const searchParams = useSearchParams();
   const externalId = searchParams.get("externalId") || undefined;
@@ -55,6 +60,8 @@ export const SyncedPaymentsReview = () => {
   const [editTarget, setEditTarget] = useState<HydratedSyncedPayment | null>(
     null,
   );
+  const [recordTarget, setRecordTarget] =
+    useState<HydratedSyncedPayment | null>(null);
   const [approvingAll, setApprovingAll] = useState(false);
   const [approveAllOpen, setApproveAllOpen] = useState(false);
 
@@ -175,7 +182,7 @@ export const SyncedPaymentsReview = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {!showAll && (
+          {canManage && !showAll && (
             <Button
               size="sm"
               disabled={loading || approvingAll || pendingId !== null}
@@ -218,36 +225,79 @@ export const SyncedPaymentsReview = () => {
                   key={item._id}
                   payment={item}
                   disabled={pendingId === item._id || approvingAll}
-                  onConfirm={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.confirmSyncedPayment(item._id),
-                    )
-                  }
-                  onReject={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.rejectSyncedPayment(item._id),
-                    )
-                  }
-                  onIgnore={() =>
-                    runAction(item._id, () =>
-                      adminApi.syncedPayments.ignoreSyncedPayment(item._id),
-                    )
-                  }
-                  onAssignSuggestion={(appointmentId) =>
-                    runAction(item._id, () =>
-                      item.appointmentId
-                        ? adminApi.syncedPayments.reassignSyncedPayment(
-                            item._id,
-                            appointmentId,
+                  onConfirm={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.confirmSyncedPayment(
+                              item._id,
+                            ),
                           )
-                        : adminApi.syncedPayments.assignSyncedPayment(
-                            item._id,
-                            appointmentId,
-                          ),
-                    )
+                      : undefined
                   }
-                  onAssignOther={() => setAssignTarget(item)}
-                  onEditAmounts={() => setEditTarget(item)}
+                  onReject={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.rejectSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onIgnore={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.ignoreSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onAssignSuggestion={
+                    canManage
+                      ? (appointmentId) =>
+                          runAction(item._id, () =>
+                            item.appointmentId
+                              ? adminApi.syncedPayments.reassignSyncedPayment(
+                                  item._id,
+                                  appointmentId,
+                                )
+                              : adminApi.syncedPayments.assignSyncedPayment(
+                                  item._id,
+                                  appointmentId,
+                                ),
+                          )
+                      : undefined
+                  }
+                  onAssignOther={
+                    canManage ? () => setAssignTarget(item) : undefined
+                  }
+                  onEditAmounts={
+                    canManage ? () => setEditTarget(item) : undefined
+                  }
+                  onRecord={canManage ? () => setRecordTarget(item) : undefined}
+                  onUnassign={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.unassignSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
+                  onUnrecord={
+                    canManage
+                      ? () =>
+                          runAction(item._id, () =>
+                            adminApi.syncedPayments.unrecordSyncedPayment(
+                              item._id,
+                            ),
+                          )
+                      : undefined
+                  }
                 />
               ))}
         </div>
@@ -312,6 +362,21 @@ export const SyncedPaymentsReview = () => {
           onUpdated={() => load()}
         />
       )}
+
+      <RecordSyncedPaymentDialog
+        open={recordTarget !== null}
+        onOpenChange={(open) => !open && setRecordTarget(null)}
+        onConfirm={async (details) => {
+          if (!recordTarget) {
+            return;
+          }
+          const target = recordTarget;
+          setRecordTarget(null);
+          await runAction(target._id, () =>
+            adminApi.syncedPayments.recordSyncedPayment(target._id, details),
+          );
+        }}
+      />
 
       <AlertDialog
         open={approveAllOpen}

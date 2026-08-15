@@ -1,5 +1,5 @@
-import { ConfigurationProps } from "@timelish/builder";
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
 import { containerShortcuts } from "../shortcuts";
 import { BlogPostContainerProps } from "./schema";
 

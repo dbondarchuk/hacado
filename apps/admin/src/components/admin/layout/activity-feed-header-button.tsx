@@ -3,9 +3,9 @@
 import {} from "@/app/dashboard/notifications-toast-stream";
 import { ActivityActorDisplayView } from "@/components/admin/activity/actor-display";
 import { useActivityFeedStore } from "@/notifications/store";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import type { ActivityFeedPreview, ActivitySeverity } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import type { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
 import {
   Button,
   cn,
@@ -15,8 +15,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@timelish/ui";
-import { ResolvedI18nText } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { ResolvedI18nText } from "@hacado/ui-admin";
 import { Activity, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import NextLink from "next/link";

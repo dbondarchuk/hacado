@@ -1,6 +1,6 @@
-import { Language } from "@timelish/i18n";
-import { SystemServicesContainer } from "@timelish/services";
-import { templateSafeWithError } from "@timelish/utils";
+import { Language } from "@hacado/i18n";
+import { SystemServicesContainer } from "@hacado/services";
+import { templateSafeWithError } from "@hacado/utils";
 import { renderUserEmailTemplate } from "../../../../../packages/email-builder/src/static/user-email-template";
 import { EmailTemplates } from "../../i18n/email";
 import { EmailTemplate } from "../../i18n/email/types";

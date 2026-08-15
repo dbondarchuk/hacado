@@ -4,7 +4,7 @@ import {
   ServiceField,
   ServiceFieldUpdateModel,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   ServiceFieldsSearchParams,
   serviceFieldsSearchParamsSerializer,

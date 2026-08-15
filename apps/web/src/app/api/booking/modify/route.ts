@@ -4,8 +4,8 @@ import {
   requireCustomerSession,
 } from "@/utils/customer-auth/session";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
-import { getLoggerFactory } from "@timelish/logger";
-import { modifyAppointmentInformationRequestSchema } from "@timelish/types";
+import { getLoggerFactory } from "@hacado/logger";
+import { modifyAppointmentInformationRequestSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

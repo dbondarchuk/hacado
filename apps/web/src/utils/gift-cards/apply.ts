@@ -1,8 +1,8 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   ApplyGiftCardsResponse,
   ApplyGiftCardsSuccessResponse,
-} from "@timelish/types";
+} from "@hacado/types";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 
 export const applyGiftCards = async (

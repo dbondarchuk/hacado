@@ -13,10 +13,10 @@ import {
   PAYPAL_APP_NAME,
   SQUARE_APP_NAME,
   STRIPE_APP_NAME,
-} from "@timelish/app-store";
-import { useI18n } from "@timelish/i18n";
-import type { ConnectedApp } from "@timelish/types";
-import { BillingPlanTier } from "@timelish/types";
+} from "@hacado/app-store";
+import { useI18n } from "@hacado/i18n/client";
+import type { ConnectedApp } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types";
 import {
   Button,
   Card,
@@ -28,8 +28,8 @@ import {
   Slider,
   Switch,
   toast,
-} from "@timelish/ui";
-import { ConnectedAppNameAndLogo } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
 import { Unplug } from "lucide-react";
 import { useEffect, useMemo } from "react";
 

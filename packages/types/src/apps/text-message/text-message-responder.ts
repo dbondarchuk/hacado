@@ -1,4 +1,4 @@
-import { AllKeys, I18nNamespaces } from "@timelish/i18n";
+import { AllKeys, I18nNamespaces } from "@hacado/i18n";
 import { Appointment } from "../../booking";
 import { CommunicationParticipantType } from "../../communication";
 import { Customer } from "../../customers";
@@ -11,6 +11,7 @@ export type TextMessageReply = {
   data: TextMessageData;
   appointment: Appointment | null;
   customer: Customer | null;
+  memberId?: string;
   messageId?: string;
 };
 

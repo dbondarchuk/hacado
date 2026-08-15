@@ -1,6 +1,6 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { AllKeys } from "@timelish/i18n";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { AllKeys } from "@hacado/i18n";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   BookingConfiguration,
   BrandConfiguration,
@@ -14,14 +14,14 @@ import {
   IConnectedAppProps,
   IEventSubscriber,
   SocialConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   durationToTime,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import {
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,
@@ -263,6 +263,19 @@ export class WaitlistNotificationsConnectedApp
         "Retrieved configuration for email notification",
       );
 
+      const member = await this.props.services.teamService.getMemberById(
+        appData.memberId,
+      );
+
+      if (!member) {
+        logger.error(
+          { appId: appData._id, entryId: entry._id },
+          "Member not found",
+        );
+
+        throw new Error("Member not found");
+      }
+
       const organization =
         await this.props.services.organizationService.getOrganization();
       if (!organization) {
@@ -286,6 +299,7 @@ export class WaitlistNotificationsConnectedApp
         },
         adminUrl,
         websiteUrl,
+        user: member,
       });
 
       logger.debug(
@@ -314,10 +328,8 @@ export class WaitlistNotificationsConnectedApp
         "Generated email description from template",
       );
 
-      const user = await this.props.services.userService.getUser(
-        appData.userId,
-      );
-      const recipientEmail = data?.email || user?.email || config.general.email;
+      const recipientEmail =
+        data?.email || member?.email || config.general.email;
 
       logger.debug(
         { appId: appData._id, entryId: entry._id, recipientEmail },
@@ -330,7 +342,8 @@ export class WaitlistNotificationsConnectedApp
           subject: subject,
           body: description,
         },
-        participantType: "user",
+        participantType: "member",
+        memberId: appData.memberId,
         handledBy:
           `app_waitlist-notifications_admin.handlers.${initiator}` satisfies AllKeys<
             WaitlistNotificationsAdminNamespace,
@@ -470,6 +483,7 @@ export class WaitlistNotificationsConnectedApp
           body: renderedTemplate,
         },
         participantType: "customer",
+        memberId: entry.memberId,
         handledBy:
           `app_waitlist-notifications_admin.handlers.${initiator}` satisfies AllKeys<
             WaitlistNotificationsAdminNamespace,

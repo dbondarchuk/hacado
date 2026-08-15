@@ -1,4 +1,4 @@
-import type { Payment } from "@timelish/types";
+import type { Payment } from "@hacado/types";
 
 export const dashboardUrls = {
   customer: (id: string) => `/dashboard/customers/${id}`,
@@ -32,6 +32,8 @@ export const dashboardUrls = {
   settings: "/dashboard/settings",
   asset: (id: string) => `/dashboard/assets/${id}`,
   assets: "/dashboard/assets",
+  team: "/dashboard/settings/team",
+  teamMember: (id: string) => `/dashboard/settings/team/${id}/profile`,
   billing: "/dashboard/settings/brand",
   /** Brand settings; opens the SMS top-up purchase dialog (see `SmsTopupPurchaseDialog`). */
   billingPurchaseSmsTopup: "/dashboard/settings/brand?purchase_sms_topup=true",

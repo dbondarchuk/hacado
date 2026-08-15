@@ -1,4 +1,4 @@
-import { zNonEmptyString, zUniqueArray } from "@timelish/types";
+import { zNonEmptyString, zUniqueArray } from "@hacado/types";
 import * as z from "zod";
 
 export const refundPaymentsSchema = z.object({

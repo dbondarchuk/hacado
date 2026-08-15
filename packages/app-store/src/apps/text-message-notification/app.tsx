@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { SendHorizonal } from "lucide-react";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./const";
 import {
@@ -19,6 +19,8 @@ export const TextMessageNotificationApp: App<
   Logo: ({ className }) => <SendHorizonal className={className} />,
   isFeatured: true,
   dontAllowMultiple: true,
+  target: "member",
+  requiredPermission: { resource: "app", action: "installPrivileged" },
   description: {
     text: "app_text-message-notification_admin.app.description",
   },

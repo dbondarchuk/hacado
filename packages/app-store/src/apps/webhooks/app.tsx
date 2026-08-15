@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { WebhooksLogo } from "./logo";
 import {
   WebhooksAdminKeys,
@@ -17,6 +17,11 @@ export const webhooksApp: App<WebhooksAdminNamespace, WebhooksAdminKeys> = {
   Logo: WebhooksLogo,
   isFeatured: false,
   type: "basic",
+  target: "company",
   dontAllowMultiple: false,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
+  requiredPermission: {
+    resource: "app",
+    action: "useCompany",
+  },
 };

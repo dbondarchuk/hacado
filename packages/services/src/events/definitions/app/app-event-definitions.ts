@@ -1,7 +1,7 @@
-import { AvailableApps } from "@timelish/app-store";
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { BaseAllKeys, fallbackLanguage, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { AvailableApps } from "@hacado/app-store";
+import { renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { BaseAllKeys, fallbackLanguage, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   APP_CONNECTED_EVENT_TYPE,
   APP_FAILED_EVENT_TYPE,
@@ -12,8 +12,8 @@ import {
   type AppInstalledPayload,
   type AppUninstalledPayload,
   type EventDefinition,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 
 export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [APP_INSTALLED_EVENT_TYPE]: {
@@ -148,22 +148,22 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
     },
     emailNotifications: async (envelope, services) => {
       const payload = envelope.payload as AppFailedPayload;
-      let ownerUserId = payload.userId;
+      let ownerMemberId = payload.memberId;
 
-      if (!ownerUserId) {
+      if (!ownerMemberId) {
         try {
           const app = await services.connectedAppsService.getApp(payload.appId);
-          ownerUserId = app.userId;
+          ownerMemberId = app.memberId;
         } catch {
           return null;
         }
       }
 
-      if (!ownerUserId) {
+      if (!ownerMemberId) {
         return null;
       }
 
-      const owner = await services.userService.getUser(ownerUserId);
+      const owner = await services.teamService.getMemberById(ownerMemberId);
       if (!owner?.email) {
         return null;
       }
@@ -226,7 +226,8 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
             key: "admin.apps.emails.failed.handledBy" satisfies BaseAllKeys,
             args: { appDisplayName },
           },
-          participantType: "user" as const,
+          participantType: "member" as const,
+          memberId: ownerMemberId,
         },
       ];
     },

@@ -1,4 +1,4 @@
-import { baseSearchParams } from "@timelish/api-sdk";
+import { baseSearchParams } from "@hacado/api-sdk";
 import {
   createSerializer,
   parseAsArrayOf,
@@ -15,6 +15,7 @@ export const searchParams = {
   ]),
   customer: parseAsArrayOf(parseAsString),
   option: parseAsArrayOf(parseAsString),
+  member: parseAsArrayOf(parseAsString),
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
   sort: baseSearchParams.sort.withDefault([

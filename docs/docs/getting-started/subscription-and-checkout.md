@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-description: Compare Timelish Free and Pro plans and complete checkout before setup.
+description: Compare Hacado Free and Pro plans and complete checkout before setup.
 ---
 
 # Choose a plan
@@ -20,11 +20,11 @@ Each plan card shows the **price** (Free is $0) and a short list of what is incl
 
 ## Paying safely
 
-When you pick a plan, Timelish sends you to a **secure Polar checkout page**. For Pro, you enter payment details there. Timelish does not store your card or bank details.
+When you pick a plan, Hacado sends you to a **secure Polar checkout page**. For Pro, you enter payment details there. Hacado does not store your card or bank details.
 
 ![Secure payment screen](/img/getting-started/polar.png)
 
-When checkout succeeds, Timelish takes you to **[Set up your workspace](./workspace-install-wizard)**.
+When checkout succeeds, Hacado takes you to **[Set up your workspace](./workspace-install-wizard)**.
 
 ## Changing your plan later
 

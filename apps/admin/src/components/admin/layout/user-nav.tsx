@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
-import type { AdminKeys } from "@timelish/i18n";
-import { useI18n } from "@timelish/i18n";
+import type { AdminKeys } from "@hacado/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Avatar,
   AvatarFallback,
@@ -17,7 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,8 +25,8 @@ import { useRouter } from "next/navigation";
 const roleLabelKey: Record<string, AdminKeys> = {
   owner: "roles.owner",
   admin: "roles.admin",
+  coordinator: "roles.coordinator",
   staff: "roles.staff",
-  member: "roles.member",
 };
 
 export function UserNav() {
@@ -44,8 +44,8 @@ export function UserNav() {
     return null;
   }
 
-  const role = (session.user as { role?: string })?.role ?? "member";
-  const roleKey: AdminKeys = roleLabelKey[role] ?? "roles.member";
+  const role = (session.user as { role?: string })?.role ?? "staff";
+  const roleKey: AdminKeys = roleLabelKey[role] ?? "roles.staff";
 
   return (
     <SidebarMenu>

@@ -47,6 +47,7 @@ booking:
   description: "Завершіть кроки нижче, щоб запланувати вашу сесію"
   steps:
     option: Послуга
+    specialist: Спеціаліст
     addons: Додатки
     calendar: Дата та час
     form: Деталі
@@ -65,6 +66,11 @@ booking:
         title: Тривалість сесії
         min_max: "Мін: {min} • Макс: {max}"
     price_per_hour: "{price}/год"
+  specialist:
+    title: Виберіть спеціаліста
+    choose: Оберіть, з ким ви хочете забронювати
+    fromPrice: "Від {price}"
+    fromDuration: "Від {duration}"
   addons:
     title: Покращіть ваш досвід
     description: Додаткові опції для максимального використання вашої сесії
@@ -88,6 +94,8 @@ booking:
       confirm: Я розумію і хочу продовжити все одно
       confirmationTitle: Ви впевнені?
       confirmationCheckboxLabel: "Я підтверджую, що розумію та хочу забронювати цей запис"
+    specialist:
+      title: Спеціаліст
     addons:
       title: Додатки
     date:
@@ -170,6 +178,7 @@ booking:
     fetchFailedTitle: Ми не можемо знайти ваш запис
     appointmentDetails: Деталі запису
     duration: "Тривалість: {duration}"
+    specialist: "Спеціаліст: {name}"
     newBookingButton: Забронювати інший запис
   availability:
     fetchFailedTitle: Ой! Щось пішло не так.

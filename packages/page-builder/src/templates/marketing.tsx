@@ -2,9 +2,9 @@ import {
   generateId,
   TEditorBlock,
   TemplatesConfiguration,
-} from "@timelish/builder";
-import type { BaseAllKeys, I18nFn } from "@timelish/i18n";
-import { COLORS } from "@timelish/page-builder-base/style";
+} from "@hacado/builder";
+import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+import { COLORS } from "@hacado/page-builder-base/style";
 import {
   BarChart3,
   CreditCard,

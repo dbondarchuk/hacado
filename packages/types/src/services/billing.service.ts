@@ -30,4 +30,26 @@ export interface IBillingService {
 
   /** Current Polar subscription billing period, when available. */
   getBillingPeriod(): Promise<BillingPeriod | null>;
+
+  /** Set plan-included user seats from Polar product metadata. */
+  setIncludedUserSlots(
+    amount: number,
+    options?: {
+      polarSubscriptionId?: string;
+      allowAdditionalUsers?: boolean;
+    },
+  ): Promise<void>;
+
+  /** Upsert or replace a recurring seat-addon grant and recompute totals. */
+  upsertUserSlotGrant(grant: {
+    polarSubscriptionId: string;
+    usersAmount: number;
+    source: "plan" | "addon";
+  }): Promise<void>;
+
+  /** Remove a seat grant (cancel/revoke) and recompute totals. */
+  removeUserSlotGrant(polarSubscriptionId: string): Promise<void>;
+
+  /** Recompute availableUsers from userSlots + grants. */
+  recomputeAvailableUsers(): Promise<number>;
 }

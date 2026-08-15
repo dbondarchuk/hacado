@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { Mailbox } from "lucide-react";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./const";
 import {
@@ -16,6 +16,7 @@ export const EmailNotificationApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["event-subscriber"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <Mailbox className={className} />,
   isFeatured: false,
   isHidden: false,

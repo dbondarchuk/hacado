@@ -1,8 +1,8 @@
 import { auth } from "@/app/auth";
 import { getServicesContainer } from "@/app/utils";
 import { resolveAppOrigin } from "@/lib/resolve-app-origin";
-import { getLoggerFactory } from "@timelish/logger";
-import { getPolarClient } from "@timelish/services";
+import { getLoggerFactory } from "@hacado/logger";
+import { getPolarClient } from "@hacado/services";
 import { headers } from "next/headers";
 
 export async function createPolarBillingPortalSession(): Promise<

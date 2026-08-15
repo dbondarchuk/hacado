@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps, FileInput, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { Checkbox, deepMemo, Label } from "@timelish/ui";
+import { ConfigurationProps, FileInput, SelectInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { useCallback } from "react";
 import { VideoProps } from "./schema";
 import { videoShortcuts } from "./shortcuts";

@@ -1,5 +1,5 @@
-import { AllKeys, useI18n } from "@timelish/i18n";
-import { Combobox } from "@timelish/ui";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { Type } from "lucide-react";
 import * as z from "zod";
 import {

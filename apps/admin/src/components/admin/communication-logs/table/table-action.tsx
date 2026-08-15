@@ -1,26 +1,29 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   communicationChannels,
   communicationDirectionSchema,
   communicationParticipantTypeSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  MembersDataTableAsyncFilterBox,
+  useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { canFilterCommunicationByMember } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";
@@ -58,9 +61,13 @@ export const CommunicationLogsTableAction: React.FC<{
     setEndValue,
     customerFilter,
     setCustomerFilter,
+    memberFilter,
+    setMemberFilter,
   } = useCommunicationLogsTableFilters();
 
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
+  const showMemberFilter = canFilterCommunicationByMember(user);
   const t = useI18n("admin");
 
   const additionalFilters = (
@@ -99,6 +106,13 @@ export const CommunicationLogsTableAction: React.FC<{
           filterValue={participantTypeFilter}
         />
       )}
+      {showMemberFilter ? (
+        <MembersDataTableAsyncFilterBox
+          title={t("communicationLogs.table.filters.member")}
+          filterValue={memberFilter || []}
+          setFilterValue={setMemberFilter as any}
+        />
+      ) : null}
       {showCustomerFilter && (
         <CustomersDataTableAsyncFilterBox
           filterValue={customerFilter}

@@ -1,4 +1,4 @@
-import { colors } from "@timelish/types";
+import { colors } from "@hacado/types";
 
 export const ReplaceOriginalColors = () => {
   const values = colors

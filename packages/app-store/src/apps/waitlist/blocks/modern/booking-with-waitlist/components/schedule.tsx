@@ -1,7 +1,7 @@
 "use client";
 
-import { clientApi, handleBookingSubmitError } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -12,15 +12,20 @@ import type {
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   FieldSchema,
-} from "@timelish/types";
+  PublicStaffMember,
+} from "@hacado/types";
 import {
   ApplyDiscountResponse,
   Availability,
-  CheckDuplicateAppointmentsResponse,
   BookingRestriction,
+  CheckDuplicateAppointmentsResponse,
+  effectiveAddonDuration,
+  getActiveStaffAcrossAssignments,
+  getActiveStaffForAssignments,
+  isAddonAvailableForMember,
   isBookingLimitRestriction,
-} from "@timelish/types";
-import { toast, useTimeZone } from "@timelish/ui";
+} from "@hacado/types";
+import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
@@ -31,17 +36,19 @@ import {
   waitlistPublicNamespace,
 } from "../../../../translations/types";
 import {
+  FlowOrder,
   FlowType,
   ScheduleContext,
   ScheduleContextProps,
   StepType,
 } from "./context";
 import { BookingWithWaitlistLayout } from "./layout";
-import { BOOKING_STEPS, WAITLIST_STEPS } from "./steps";
 
 export type ScheduleProps = {
   appointmentOptions: AppointmentChoice[];
   areAppointmentOptionsLoading: boolean;
+  members: PublicStaffMember[];
+  flowOrder: FlowOrder;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
@@ -61,6 +68,8 @@ export const Schedule: React.FC<
 > = ({
   appointmentOptions,
   areAppointmentOptionsLoading,
+  members,
+  flowOrder,
   successPage,
   fieldsSchema,
   showPromoCode,
@@ -124,7 +133,47 @@ export const Schedule: React.FC<
     isOnlyWaitlist ? "waitlist" : "booking",
   );
 
-  const steps = flow === "booking" ? BOOKING_STEPS : WAITLIST_STEPS;
+  const staffAcrossOptions = React.useMemo(
+    () =>
+      getActiveStaffAcrossAssignments(
+        appointmentOptions.map((o) => o.staff),
+        members,
+      ),
+    [appointmentOptions, members],
+  );
+
+  const isSpecialistFirst =
+    flowOrder === "specialist-first" && staffAcrossOptions.length > 0;
+
+  const optionBasePrice =
+    selectedAppointmentOption?.durationType === "fixed"
+      ? selectedAppointmentOption?.price
+      : selectedAppointmentOption?.pricePerHour;
+  const optionBaseDuration =
+    selectedAppointmentOption?.durationType === "fixed"
+      ? selectedAppointmentOption?.duration
+      : undefined;
+
+  const activeStaff = React.useMemo(
+    () =>
+      getActiveStaffForAssignments(
+        selectedAppointmentOption?.staff,
+        members,
+        optionBasePrice,
+        optionBaseDuration,
+      ),
+    [
+      selectedAppointmentOption?.staff,
+      members,
+      optionBasePrice,
+      optionBaseDuration,
+    ],
+  );
+
+  const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
+    null,
+  );
+
   const [isBookingConfirmed, setIsBookingConfirmed] = React.useState(false);
 
   const [closestDuplicateAppointment, _setClosestDuplicateAppointment] =
@@ -155,10 +204,29 @@ export const Schedule: React.FC<
     React.useState<CollectPayment | null>();
 
   React.useEffect(() => {
-    setDuration(appointmentOptionDuration);
-  }, [appointmentOptionDuration, setDuration]);
+    if (!selectedAppointmentOption) return;
+    if (selectedAppointmentOption.durationType !== "flexible") return;
+    setDuration(selectedAppointmentOption.durationMin);
+  }, [selectedAppointmentOption?._id, setDuration]);
 
-  const initialStep: StepType = "option";
+  React.useEffect(() => {
+    if (!selectedAppointmentOption) {
+      setDuration(undefined);
+      return;
+    }
+
+    const selectedStaff = selectedMemberId
+      ? activeStaff.find((s) => s.member.id === selectedMemberId)
+      : undefined;
+
+    if (selectedAppointmentOption.durationType === "fixed") {
+      setDuration(
+        selectedStaff?.effectiveDuration ?? selectedAppointmentOption.duration,
+      );
+    }
+  }, [selectedAppointmentOption, selectedMemberId, activeStaff, setDuration]);
+
+  const initialStep: StepType = isSpecialistFirst ? "specialist" : "option";
   const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
@@ -167,6 +235,17 @@ export const Schedule: React.FC<
   const [selectedAddons, setSelectedAddons] = React.useState<
     AppointmentAddon[]
   >([]);
+
+  React.useEffect(() => {
+    if (!selectedAddons.length) return;
+    const filtered = selectedAddons.filter((addon) =>
+      isAddonAvailableForMember(addon.staff, selectedMemberId),
+    );
+    if (filtered.length !== selectedAddons.length) {
+      setSelectedAddons(filtered);
+    }
+    // Only re-filter when the selected specialist changes.
+  }, [selectedMemberId]);
 
   const addonsFields =
     selectedAddons?.flatMap((addon) => addon.fields || []) || [];
@@ -214,18 +293,24 @@ export const Schedule: React.FC<
     return (
       duration +
       (selectedAddons || []).reduce(
-        (sum, addon) => sum + (addon.duration || 0),
+        (sum, addon) =>
+          sum +
+          (effectiveAddonDuration(
+            addon.duration,
+            addon.staff,
+            selectedMemberId,
+          ) || 0),
         0,
       )
     );
-  }, [duration, selectedAddons]);
+  }, [duration, selectedAddons, selectedMemberId]);
 
   const onWaitlistSubmit = useCallback(async () => {
     if (isEditor) return;
     if (!waitlistAppId || !selectedAppointmentOption?._id) return;
 
     const totalDuration = getTotalDuration();
-    if (!totalDuration) return;
+    if (!totalDuration || !selectedMemberId) return;
 
     setIsLoading(true);
 
@@ -240,6 +325,7 @@ export const Schedule: React.FC<
         phone: fields.phone,
         note: fields.note,
         optionId: selectedAppointmentOption._id,
+        memberId: selectedMemberId,
         addonsIds: selectedAddons?.map((addon) => addon._id),
         duration: totalDuration,
       };
@@ -264,6 +350,7 @@ export const Schedule: React.FC<
     selectedAppointmentOption,
     fields,
     selectedAddons,
+    selectedMemberId,
     waitlistTimes,
     isEditor,
   ]);
@@ -287,6 +374,7 @@ export const Schedule: React.FC<
       timeZone: dateTime.timeZone,
       duration: duration,
       optionId: selectedAppointmentOption._id,
+      memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
@@ -306,6 +394,7 @@ export const Schedule: React.FC<
     duration,
     selectedAppointmentOption,
     selectedAddons,
+    selectedMemberId,
     giftCards,
     fields,
     paymentInformation,
@@ -313,32 +402,51 @@ export const Schedule: React.FC<
 
   const router = useRouter();
 
-  const fetchAvailability = useCallback(async () => {
-    const totalDuration = getTotalDuration();
-    if (!totalDuration) return;
-    if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
+  const fetchAvailability = useCallback(
+    async (memberIdOverride?: string | null) => {
+      const totalDuration = getTotalDuration();
+      if (!totalDuration) return;
+      if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
-    setIsLoading(true);
-    setAvailability([]);
-    setDateTime(undefined);
+      const resolvedMemberId =
+        memberIdOverride ??
+        selectedMemberId ??
+        (activeStaff.length === 1 ? activeStaff[0].member.id : null);
 
-    try {
-      const data = await clientApi.availability.getAvailability({
-        duration: totalDuration,
-      });
+      if (resolvedMemberId && resolvedMemberId !== selectedMemberId) {
+        setSelectedMemberId(resolvedMemberId);
+      }
 
-      setAvailability(data);
-    } catch (e) {
-      console.error(e);
-
+      setIsLoading(true);
       setAvailability([]);
-      toast.error(errors.fetchTitle, {
-        description: errors.fetchDescription,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getTotalDuration, errors.fetchTitle, errors.fetchDescription]);
+      setDateTime(undefined);
+
+      try {
+        const data = await clientApi.availability.getAvailability({
+          duration: totalDuration,
+          memberId: resolvedMemberId ?? undefined,
+        });
+
+        setAvailability(data);
+      } catch (e) {
+        console.error(e);
+
+        setAvailability([]);
+        toast.error(errors.fetchTitle, {
+          description: errors.fetchDescription,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [
+      getTotalDuration,
+      errors.fetchTitle,
+      errors.fetchDescription,
+      selectedMemberId,
+      activeStaff,
+    ],
+  );
 
   const checkDuplicateAppointments =
     useCallback(async (): Promise<CheckDuplicateAppointmentsResponse> => {
@@ -394,8 +502,9 @@ export const Schedule: React.FC<
 
   const handleNewBooking = useCallback(() => {
     setFlow(isOnlyWaitlist ? "waitlist" : "booking");
-    setCurrentStep("option");
+    setCurrentStep(isSpecialistFirst ? "specialist" : "option");
     setSelectedAppointmentOption(undefined);
+    setSelectedMemberId(null);
     setSelectedAddons([]);
     setDuration(undefined);
     setDateTime(undefined);
@@ -417,7 +526,7 @@ export const Schedule: React.FC<
       phone: fields.phone || "",
     });
     setGiftCards([]);
-  }, [isOnlyWaitlist]);
+  }, [isOnlyWaitlist, isSpecialistFirst]);
 
   const fetchPaymentInformation =
     useCallback(async (): Promise<CollectPayment | null> => {
@@ -537,6 +646,11 @@ export const Schedule: React.FC<
     () => ({
       appointmentOptions,
       areAppointmentOptionsLoading,
+      members,
+      flowOrder,
+      selectedMemberId,
+      setSelectedMemberId,
+      activeStaff,
       isLoading,
       setIsLoading,
       isBookingConfirmed,
@@ -588,6 +702,10 @@ export const Schedule: React.FC<
     [
       appointmentOptions,
       areAppointmentOptionsLoading,
+      members,
+      flowOrder,
+      selectedMemberId,
+      activeStaff,
       isLoading,
       setIsLoading,
       isBookingConfirmed,

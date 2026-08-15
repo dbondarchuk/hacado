@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { appointmentHistorySearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
+import { appointmentHistorySearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

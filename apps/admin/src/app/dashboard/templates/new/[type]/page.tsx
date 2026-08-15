@@ -1,8 +1,8 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { CommunicationChannel } from "@timelish/types";
-import { Heading, Skeleton } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { CommunicationChannel } from "@hacado/types";
+import { Heading, Skeleton } from "@hacado/ui";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { TemplateFormPage } from "../../form-page";

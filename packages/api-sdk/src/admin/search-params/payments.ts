@@ -10,7 +10,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { paymentMethods, paymentType } from "@timelish/types";
+import { paymentMethods, paymentType } from "@hacado/types";
 import { baseSearchParams } from "./base";
 
 export const paymentsSearchParams = {
@@ -29,17 +29,14 @@ export const paymentsSearchParams = {
   ]),
 };
 
-export const paymentsSearchParamsCache = createSearchParamsCache(
-  paymentsSearchParams,
-);
-export const paymentsSearchParamsSerializer = createSerializer(
-  paymentsSearchParams,
-);
+export const paymentsSearchParamsCache =
+  createSearchParamsCache(paymentsSearchParams);
+export const paymentsSearchParamsSerializer =
+  createSerializer(paymentsSearchParams);
 
 export type PaymentsSearchParams = Partial<
   inferParserType<typeof paymentsSearchParams>
 >;
 export const paymentsSearchParamsLoader = createLoader(paymentsSearchParams);
-export const paymentsSearchParamsSchema = createStandardSchemaV1(
-  paymentsSearchParams,
-);
+export const paymentsSearchParamsSchema =
+  createStandardSchemaV1(paymentsSearchParams);

@@ -1,9 +1,13 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import {
+  getSessionPlanTier,
+  sessionCanUseFeature,
+} from "@/lib/billing/subscription-plan-access";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 import { AppointmentsSettingsForm } from "./form";
 
@@ -21,6 +25,11 @@ export default async function Page() {
   logger.debug("Loading appointments page");
   const session = await getSession();
   const canUsePayments = sessionCanUseFeature(session, "payments");
+  const planTier = getSessionPlanTier(session);
+  const showTeamSettings = meetsMinimumPlanTier(
+    planTier,
+    BillingPlanTier.Studio,
+  );
   const servicesContainer = await getServicesContainer();
   const booking =
     await servicesContainer.configurationService.getConfiguration("booking");
@@ -43,11 +52,11 @@ export default async function Page() {
             title={t("settings.appointments.title")}
             description={t("settings.appointments.description")}
           />
-          {/* <Separator /> */}
         </div>
         <AppointmentsSettingsForm
           values={booking}
           canUsePayments={canUsePayments}
+          showTeamSettings={showTeamSettings}
         />
       </div>
     </PageContainer>

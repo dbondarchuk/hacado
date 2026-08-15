@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate = {
   name: "Новий запис у лист очікування (email)",
@@ -141,6 +141,17 @@ export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate = {
                   children: [
                     {
                       text: "Бажана послуга: {{waitlistEntry.option.name}}",
+                      fontSize: "14px",
+                    },
+                  ],
+                  id: "4_g5MvqMhk",
+                },
+                {
+                  type: "p",
+                  align: "start",
+                  children: [
+                    {
+                      text: "Спеціаліст: {{waitlistEntry.member.name}}",
                       fontSize: "14px",
                     },
                   ],

@@ -13,6 +13,9 @@ form:
   calendarStorage:
     label: Calendar storage
     tooltip: Select calendar that you would like to use as target storage for your appointment events.
+  processOtherMembersAppointments:
+    label: Process other members' appointments
+    description: When enabled, also write calendar events for appointments assigned to other team members.
   update: Update with <app></app>
   add: Add <app></app>
 validation:

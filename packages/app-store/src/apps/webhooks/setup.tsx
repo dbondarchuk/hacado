@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
 import {
   Badge,
   Button,
@@ -19,11 +19,11 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import * as z from "zod";
@@ -185,7 +185,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                           value: eventType,
                           shortLabel: eventType,
                           label: (
-                            <span className="font-mono text-sm">{eventType}</span>
+                            <span className="font-mono text-sm">
+                              {eventType}
+                            </span>
                           ),
                         }))}
                       value={""}

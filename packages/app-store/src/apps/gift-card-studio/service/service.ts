@@ -1,5 +1,5 @@
-import { getLocale } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLocale } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   CollectPayment,
@@ -16,12 +16,13 @@ import {
   IDemoArgumentsProvider,
   IPaymentProcessor,
   IScheduled,
+  memberEventSource,
   PaymentIntentUpdateModel,
+  SessionUser,
   systemEventSource,
   TemplateTemplatesList,
-  userEventSource,
-} from "@timelish/types";
-import { formatAmountWithCurrency } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmountWithCurrency } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
 import { demoPurchasedGiftCard } from "../demo-arguments";
@@ -125,13 +126,13 @@ export class GiftCardStudioConnectedApp
 
   public async getInitialNotifications(
     appData: ConnectedAppData,
-    userId: string,
+    memberId: string,
     _date?: Date,
   ): Promise<DashboardNotification[]> {
     const badges = await getGiftCardStudioUnreadPurchasesBadges(
       appData._id,
       appData.organizationId,
-      userId,
+      memberId,
       this.props.getDbConnection,
       this.props.services,
     );
@@ -148,7 +149,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     request: RequestAction,
     _request?: unknown,
-    userId?: string,
+    user?: SessionUser,
   ): Promise<unknown> {
     const logger = this.loggerFactory("processRequest");
     logger.debug(
@@ -156,6 +157,7 @@ export class GiftCardStudioConnectedApp
       "Processing Gift Card Studio request",
     );
 
+    const memberId = user?.memberId;
     const parsed = requestActionSchema.safeParse(request);
     if (!parsed.success) {
       logger.error({ error: parsed.error }, "Invalid request");
@@ -173,31 +175,31 @@ export class GiftCardStudioConnectedApp
     switch (data.type) {
       case CreateDesignActionType:
         logger.debug({ designName: data.design?.name }, "Create design");
-        return this.processCreateDesign(appData, data, repo, userId);
+        return this.processCreateDesign(appData, data, repo, memberId);
       case UpdateDesignActionType:
         logger.debug(
           { id: data.id, designName: data.design?.name },
           "Update design",
         );
-        return this.processUpdateDesign(appData, data, repo, userId);
+        return this.processUpdateDesign(appData, data, repo, memberId);
       case DeleteDesignActionType:
         logger.debug({ id: data.id }, "Delete design");
-        return this.processDeleteDesign(appData, data, repo, userId);
+        return this.processDeleteDesign(appData, data, repo, memberId);
       case DeleteDesignsActionType:
         logger.debug({ ids: data.ids }, "Delete designs");
-        return this.processDeleteDesigns(appData, data, repo, userId);
+        return this.processDeleteDesigns(appData, data, repo, memberId);
       case SetDesignArchivedActionType:
         logger.debug(
           { id: data.id, isArchived: data.isArchived },
           "Set design public",
         );
-        return this.processSetDesignArchived(appData, data, repo, userId);
+        return this.processSetDesignArchived(appData, data, repo, memberId);
       case SetDesignsArchivedActionType:
         logger.debug(
           { ids: data.ids, isArchived: data.isArchived },
           "Set designs archived",
         );
-        return this.processSetDesignsArchived(appData, data, repo, userId);
+        return this.processSetDesignsArchived(appData, data, repo, memberId);
       case GetDesignsActionType:
         logger.debug("Get designs");
         return repo.getDesigns(data.query);
@@ -224,7 +226,12 @@ export class GiftCardStudioConnectedApp
           },
           "Create purchased gift card",
         );
-        return this.processCreatePurchasedGiftCard(appData, data, repo, userId);
+        return this.processCreatePurchasedGiftCard(
+          appData,
+          data,
+          repo,
+          memberId,
+        );
       case RegenerateGiftCardAssetsActionType:
         logger.debug(
           {
@@ -248,9 +255,14 @@ export class GiftCardStudioConnectedApp
         return this.processUpdateSettings(appData, data);
       case DeletePurchasedGiftCardActionType:
         logger.debug({ id: data.id }, "Delete purchased gift card");
-        return this.processDeletePurchasedGiftCard(appData, data, repo, userId);
+        return this.processDeletePurchasedGiftCard(
+          appData,
+          data,
+          repo,
+          memberId,
+        );
       case MarkGiftCardStudioPurchasesReadActionType:
-        return this.processMarkPurchasesReadRequest(appData, userId);
+        return this.processMarkPurchasesReadRequest(appData, memberId);
       case ResendEmailActionType:
         logger.debug(
           { id: data.id, participantType: data.participantType },
@@ -508,8 +520,8 @@ export class GiftCardStudioConnectedApp
     );
   }
 
-  private adminEventSource(userId?: string): EventSource {
-    return userId ? userEventSource(userId) : { actor: "user" };
+  private adminEventSource(memberId?: string): EventSource {
+    return memberId ? memberEventSource(memberId) : { actor: "member" };
   }
 
   private async emitGiftCardStudioEvent(
@@ -564,9 +576,9 @@ export class GiftCardStudioConnectedApp
 
   private async processMarkPurchasesReadRequest(
     appData: ConnectedAppData,
-    userId?: string,
+    memberId?: string,
   ) {
-    if (!userId) {
+    if (!memberId) {
       throw new ConnectedAppRequestError(
         "invalid_gift_card_studio_request",
         { appId: appData._id },
@@ -578,7 +590,7 @@ export class GiftCardStudioConnectedApp
     await markGiftCardStudioPurchasesRead(
       appData.organizationId,
       appData._id,
-      userId,
+      memberId,
       this.props.services,
     );
 
@@ -589,7 +601,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: { design: any },
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processCreateDesign");
     const isUnique = await repo.checkDesignNameUnique(data.design.name);
@@ -613,7 +625,7 @@ export class GiftCardStudioConnectedApp
         appId: appData._id,
         design: { _id: created._id, name: created.name },
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
     return created;
   }
@@ -622,7 +634,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: { id: string; design: any },
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processUpdateDesign");
     const isUnique = await repo.checkDesignNameUnique(
@@ -658,7 +670,7 @@ export class GiftCardStudioConnectedApp
         appId: appData._id,
         design: { _id: updated._id, name: updated.name },
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
     return updated;
   }
@@ -667,7 +679,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: DeleteDesignAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processDeleteDesign");
     const existing = await repo.getDesignById(data.id);
@@ -689,7 +701,7 @@ export class GiftCardStudioConnectedApp
         designId: data.id,
         designName: existing?.name,
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
     return deleted;
   }
@@ -698,7 +710,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: DeleteDesignsAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processDeleteDesigns");
     const designs = await Promise.all(
@@ -716,7 +728,7 @@ export class GiftCardStudioConnectedApp
     }
 
     logger.info({ ids: data.ids }, "Designs deleted");
-    const source = this.adminEventSource(userId);
+    const source = this.adminEventSource(memberId);
     for (const design of designs) {
       if (!design) continue;
       await this.emitGiftCardStudioEvent(
@@ -736,7 +748,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: SetDesignArchivedAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processSetDesignArchived");
     const ok = await repo.setDesignArchived(data.id, data.isArchived);
@@ -757,7 +769,7 @@ export class GiftCardStudioConnectedApp
           appId: appData._id,
           design: { _id: updated._id, name: updated.name },
         },
-        this.adminEventSource(userId),
+        this.adminEventSource(memberId),
       );
     }
     logger.info(
@@ -771,7 +783,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: SetDesignsArchivedAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processSetDesignsArchived");
     const ok = await repo.setDesignsArchived(data.ids, data.isArchived);
@@ -784,7 +796,7 @@ export class GiftCardStudioConnectedApp
         "Designs not found",
       );
     }
-    const source = this.adminEventSource(userId);
+    const source = this.adminEventSource(memberId);
     for (const id of data.ids) {
       const updated = await repo.getDesignById(id);
       if (!updated) continue;
@@ -808,7 +820,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     { purchase }: CreatePurchasedGiftCardAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processCreatePurchasedGiftCard");
     const settings = (appData.data as GiftCardStudioSettings) ?? {};
@@ -961,7 +973,7 @@ export class GiftCardStudioConnectedApp
         customerName: customer?.name,
         customerEmail: customer?.email,
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
 
     logger.info(
@@ -979,7 +991,7 @@ export class GiftCardStudioConnectedApp
     appData: ConnectedAppData,
     data: DeletePurchasedGiftCardAction,
     repo: GiftCardStudioRepositoryService,
-    userId?: string,
+    memberId?: string,
   ) {
     const logger = this.loggerFactory("processDeletePurchasedGiftCard");
     const deleted = await repo.deletePurchasedGiftCard(data.id);
@@ -1048,7 +1060,7 @@ export class GiftCardStudioConnectedApp
         appId: appData._id,
         purchaseId: data.id,
       },
-      this.adminEventSource(userId),
+      this.adminEventSource(memberId),
     );
     return deleted;
   }

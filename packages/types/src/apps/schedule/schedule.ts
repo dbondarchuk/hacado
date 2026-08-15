@@ -6,5 +6,6 @@ export interface IScheduleProvider {
     appData: ConnectedAppData,
     start: Date,
     end: Date,
+    memberId: string,
   ): Promise<Record<string, DaySchedule>>;
 }

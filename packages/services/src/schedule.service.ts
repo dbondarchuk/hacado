@@ -1,13 +1,17 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   DaySchedule,
   IConfigurationService,
   IConnectedAppsService,
   IScheduleProvider,
   IScheduleService,
-} from "@timelish/types";
-import { eachOfInterval } from "@timelish/utils";
+} from "@hacado/types";
+import { eachOfInterval } from "@hacado/utils";
 
+/**
+ * Resolves open hours from the org default schedule, optionally overridden
+ * day-by-day by the connected schedule app (`booking.scheduleAppId`).
+ */
 export class ScheduleService implements IScheduleService {
   protected readonly loggerFactory = getLoggerFactory("ScheduleService");
 
@@ -19,9 +23,10 @@ export class ScheduleService implements IScheduleService {
   public async getSchedule(
     start: Date,
     end: Date,
+    memberId: string,
   ): Promise<Record<string, DaySchedule>> {
     const logger = this.loggerFactory("getSchedule");
-    logger.debug({ start, end }, "Getting schedule");
+    logger.debug({ start, end, memberId }, "Getting schedule");
 
     const days = eachOfInterval(start, end, "day");
 
@@ -45,9 +50,10 @@ export class ScheduleService implements IScheduleService {
         scheduleApp,
         start,
         end,
+        memberId,
       );
     } else {
-      logger.debug("Using default schedule");
+      logger.debug("Using default schedule only");
     }
 
     const result = days.reduce(

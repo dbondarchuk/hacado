@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
-import { AppsTranslations } from "@timelish/app-store/translations";
-import { getConfig } from "@timelish/i18n/request";
+import { AppsTranslations } from "@hacado/app-store/translations";
+import { getConfig } from "@hacado/i18n/request";
 import { headers } from "next/headers";
 
 const config = getConfig(

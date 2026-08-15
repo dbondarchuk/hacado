@@ -64,7 +64,7 @@ Runtime payment/webhook operations decrypt and refresh merchant tokens as needed
 2. Create Square payment (`/v2/payments`).
 3. Update internal payment intent with processor external ID/status.
 
-This ties internal Timeli payment lifecycle to Square transaction lifecycle.
+This ties internal Hacado payment lifecycle to Square transaction lifecycle.
 
 ---
 

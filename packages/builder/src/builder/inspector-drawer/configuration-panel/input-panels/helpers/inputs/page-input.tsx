@@ -1,7 +1,7 @@
 import React from "react";
 
-import { cn, FormDescription, Label } from "@timelish/ui";
-import { PageSelectorInput, PageSelectorInputProps } from "@timelish/ui-admin";
+import { cn, FormDescription, Label } from "@hacado/ui";
+import { PageSelectorInput, PageSelectorInputProps } from "@hacado/ui-admin";
 import { ResetButton } from "./reset-button";
 
 type Props = Omit<PageSelectorInputProps, "value" | "onChange" | "onBlur"> & {

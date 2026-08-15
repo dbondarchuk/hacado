@@ -4,8 +4,8 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import { useMemo } from "react";
 import { blogPostsListFixtures } from "../fixtures";
 import { BlogPostContainerProps, styles } from "./schema";

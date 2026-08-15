@@ -1,5 +1,5 @@
-import { renderToStaticMarkup } from "@timelish/email-builder/static";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   Appointment,
   AppointmentStatus,
@@ -10,7 +10,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
@@ -19,7 +19,7 @@ import {
   getEventCalendarContent,
   getWebsiteUrl,
   templateSafeWithError,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import {
   CustomerEmailNotificationConfiguration,
   customerEmailNotificationConfigurationSchema,
@@ -511,6 +511,7 @@ export default class CustomerEmailNotificationConnectedApp
         handledBy:
           `app_customer-email-notification_admin.handlers.${initiator}` satisfies CustomerEmailNotificationAdminAllKeys,
         participantType: "customer",
+        memberId: appointment.memberId,
         appointmentId: appointment._id,
       });
 

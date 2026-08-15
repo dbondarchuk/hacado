@@ -1,5 +1,5 @@
 import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-access";
-import { I18nText } from "@timelish/i18n";
+import { I18nText } from "@hacado/i18n/components";
 import Link from "next/link";
 
 export function FeatureUpgradeHint({

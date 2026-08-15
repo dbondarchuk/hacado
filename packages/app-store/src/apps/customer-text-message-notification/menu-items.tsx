@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@timelish/types";
+import { AppMenuItem } from "@hacado/types";
 import { Send } from "lucide-react";
 import { CustomerTextMessageNotificationAppSetup } from "./setup";
 import {
@@ -19,5 +19,6 @@ export const CustomerTextMessageNotificationMenuItems: AppMenuItem<
     Page: (props) => (
       <CustomerTextMessageNotificationAppSetup appId={props.appId} />
     ),
+    requiredPermission: { resource: "settings", action: "update" },
   },
 ];

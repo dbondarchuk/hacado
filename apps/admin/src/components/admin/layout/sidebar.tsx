@@ -1,6 +1,6 @@
 "use client";
-import { useI18n } from "@timelish/i18n";
-import { NavItemGroup } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { NavItemGroup } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -30,7 +30,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronRight, Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -63,7 +63,10 @@ const collectHrefs = (menuItems: NavItemGroup[]): string[] => {
 };
 
 /** Prefer the longest matching href so /apps does not steal /apps/store. */
-const getBestMatchingHref = (path: string, hrefs: string[]): string | undefined => {
+const getBestMatchingHref = (
+  path: string,
+  hrefs: string[],
+): string | undefined => {
   let best: string | undefined;
   for (const href of hrefs) {
     const matches =
@@ -80,6 +83,7 @@ type SidebarProps = {
   className?: string;
   menuItems: NavItemGroup[];
   name: string;
+  domain: string;
   logo?: string;
 };
 
@@ -87,6 +91,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
   className,
   menuItems,
   name,
+  domain,
   logo,
 }) => {
   const path = usePathname();
@@ -120,8 +125,11 @@ export const AppSidebar: React.FC<SidebarProps> = ({
             </Avatar>
           </div>
           <div className="grid flex-1 text-left leading-tight">
-            <span className="truncate font-display text-xl font-semibold tracking-tight text-sidebar-accent-foreground">
+            <span className="truncate font-display text-base font-normal tracking-tight text-sidebar-accent-foreground">
               {name}
+            </span>
+            <span className="truncate font-display text-xs tracking-tight text-muted-foreground">
+              {domain}
             </span>
           </div>
         </SidebarMenuButton>

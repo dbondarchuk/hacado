@@ -1,6 +1,6 @@
 "use client";
 
-import { buttonVariants, cn } from "@timelish/ui";
+import { buttonVariants, cn } from "@hacado/ui";
 import {
   CommentResolveButton as CommentResolveButtonPrimitive,
   useComment,

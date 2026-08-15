@@ -4,8 +4,8 @@ import {
   getWebsiteUrl,
 } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 import { SiteSettingsForm } from "./site-settings-form";
 import type { SiteSettingsFormValues } from "./site-settings-schema";
@@ -75,8 +75,8 @@ export default async function Page() {
           customDomain={organizationDomain}
           organizationSlug={organizationSlug}
           websiteUrl={websiteUrl}
-          timeliBaseHost={baseHost}
-          timeliBaseUrl={baseUrl}
+          baseHost={baseHost}
+          baseUrl={baseUrl}
           customDomainARecordIp={customDomainARecordIp}
           billingSubscriptionDetails={billingSubscriptionDetails}
         />

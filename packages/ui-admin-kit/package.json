@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/ui-admin-kit",
+  "name": "@hacado/ui-admin-kit",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -12,34 +12,34 @@
   "main": "./src/index.ts",
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "19.0.2",
+    "@types/react": "19.2.18",
     "@types/react-big-calendar": "^1.8.10",
-    "@types/react-dom": "19.0.2",
+    "@types/react-dom": "19.2.4",
     "@types/react-window": "^1.8.8",
-    "@timelish/eslint-config": "*",
-    "@timelish/tailwind-config": "*",
-    "@timelish/typescript-config": "*",
-    "typescript": "5.5.4"
+    "@hacado/eslint-config": "*",
+    "@hacado/tailwind-config": "*",
+    "@hacado/typescript-config": "*",
+    "typescript": "6.0.2"
   },
   "dependencies": {
-    "@timelish/ui": "*",
-    "@timelish/ui-admin": "*",
-    "@timelish/api-sdk": "*",
-    "@timelish/builder": "*",
-    "@timelish/email-builder": "*",
-    "@timelish/i18n": "*",
-    "@timelish/rte": "*",
-    "@timelish/page-builder-base": "*",
-    "@timelish/types": "*",
-    "@timelish/utils": "*",
+    "@hacado/ui": "*",
+    "@hacado/ui-admin": "*",
+    "@hacado/api-sdk": "*",
+    "@hacado/builder": "*",
+    "@hacado/email-builder": "*",
+    "@hacado/i18n": "*",
+    "@hacado/rte": "*",
+    "@hacado/page-builder-base": "*",
+    "@hacado/types": "*",
+    "@hacado/utils": "*",
     "@monaco-editor/react": "^4.6.0",
     "@uiw/react-json-view": "2.0.0-alpha.30",
     "lucide-react": "^0.555.0",
-    "react": "19.0.0",
+    "react": "19.2.8",
     "nuqs": "^2.7.1",
     "zustand": "^4.5.5"
   },
   "peerDependencies": {
-    "next": "15.5.9"
+    "next": "16.3.0"
   }
 }

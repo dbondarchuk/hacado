@@ -1,11 +1,11 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
-import { AppointmentHistoryEntry } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AppointmentHistoryEntry } from "@hacado/types";
 import { useInView } from "react-intersection-observer";
 
-import { adminApi } from "@timelish/api-sdk";
-import { AvailableApps } from "@timelish/app-store";
+import { adminApi } from "@hacado/api-sdk";
+import { AvailableApps } from "@hacado/app-store";
 import {
   Badge,
   cn,
@@ -17,7 +17,7 @@ import {
   useCurrencyFormat,
   useIsMobile,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   Banknote,
   BanknoteX,
@@ -109,7 +109,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="outline" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
               {!!entry.data.payment?.appName && (
                 <Badge variant="outline" className="text-sm">
@@ -156,7 +156,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="secondary" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
             </>
           )}
@@ -179,7 +179,7 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
               <Badge variant="secondary" className="text-sm">
                 {entry.data.by === "customer"
                   ? t("admin.appointments.history.byCustomer")
-                  : t("admin.appointments.history.byUser")}
+                  : t("admin.appointments.history.byMember")}
               </Badge>
             </>
           )}

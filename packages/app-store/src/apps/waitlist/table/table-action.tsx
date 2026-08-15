@@ -1,17 +1,20 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
+  MembersDataTableAsyncFilterBox,
   OptionsDataTableAsyncFilterBox,
+  useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
-import { HeaderActionButtonsPortal } from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
+import { canFilterByMember, hasPermission } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { waitlistStatus } from "../models";
@@ -37,6 +40,8 @@ export const WaitlistTableAction: React.FC<{
     setCustomerFilter,
     optionFilter,
     setOptionFilter,
+    memberFilter,
+    setMemberFilter,
     isAnyFilterActive,
     resetFilters,
     searchQuery,
@@ -48,10 +53,14 @@ export const WaitlistTableAction: React.FC<{
     setEndValue,
   } = useWaitlistTableFilters();
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
     waitlistAdminNamespace,
   );
   const tUi = useI18n("ui");
+
+  const showMemberFilter = canFilterByMember(user);
+  const canUpdateSettings = hasPermission(user, "settings", "update");
 
   const additionalFilters = (
     <>
@@ -75,6 +84,13 @@ export const WaitlistTableAction: React.FC<{
         filterValue={optionFilter}
         setFilterValue={setOptionFilter}
       />
+      {showMemberFilter ? (
+        <MembersDataTableAsyncFilterBox
+          title={t("table.columns.member")}
+          filterValue={memberFilter || []}
+          setFilterValue={setMemberFilter as any}
+        />
+      ) : null}
       <DataTableRangeBox
         startValue={start}
         endValue={end}
@@ -120,7 +136,9 @@ export const WaitlistTableAction: React.FC<{
         />
         <HeaderActionButtonsPortal>
           <NewEntryDialog appId={appId} customerIdLock={customerIdLock} />
-          {!customerIdLock && <SettingsDialog appId={appId} />}
+          {!customerIdLock && canUpdateSettings && (
+            <SettingsDialog appId={appId} />
+          )}
         </HeaderActionButtonsPortal>
       </div>
     </div>

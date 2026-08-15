@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Form,
   FormControl,
@@ -10,12 +10,12 @@ import {
   FormMessage,
   InfoTooltip,
   Skeleton,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppStatusMessage,
   SaveButton,
   TemplateSelector,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CustomerEmailNotificationApp } from "./app";
 import {

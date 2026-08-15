@@ -1,4 +1,4 @@
-import { AllKeys, I18nNamespaces } from "@timelish/i18n";
+import { AllKeys, I18nNamespaces } from "@hacado/i18n";
 import type { ReactNode } from "react";
 import { Customer } from "../customers/customer";
 import { IConnectedAppProps } from "./connected-app.props";

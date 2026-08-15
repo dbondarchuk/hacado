@@ -5,15 +5,22 @@ description: Set week-by-week work hours so booking shows real availability.
 
 # Weekly schedule
 
-Weekly schedule is where you set **when you accept bookings** across the days of each week. You can copy a week forward, repeat a pattern, reset to defaults, or set one-off weeks for holidays and special cases. It is the base layer that online booking uses before finer rules apply.
+Weekly schedule controls **when you accept bookings** as an optional app on top of your **default** schedule in settings. Exceptions live only in this app:
+
+1. **Company holidays** — hard closures for everyone (members cannot reopen)
+2. **Company hours** — reduced or different open hours for the week (members may still override)
+3. **Member** exceptions — one staff member’s overrides
+
+Clearing shifts on the company calendar is **not** a holiday. Use **Company holidays** to lock days closed. The booking engine uses the default schedule, then applies days this app returns. Only days that differ from the parent layer are stored.
+
 
 ## Adding the App
 
 1. Open **Apps**, then **Store**, and install **Weekly schedule**.
-2. Open the weekly schedule screens from **Apps** or scheduling (your admin menu may group it under the same area).
-3. Choose the week you are editing, set open hours per day, and save.
+2. Open the weekly schedule screens from **Apps** or scheduling.
+3. Choose **Company (all members)** or a team member, pick the week, set open hours, and save.
 
-If the grid will not save, see **[Apps troubleshooting](/docs/apps/troubleshooting)** (often a network or permission issue).
+If the grid will not save, see **[Apps troubleshooting](/docs/apps/troubleshooting)**.
 
 ### Good to know
 
@@ -25,25 +32,46 @@ Your workspace **time zone** should be correct in settings. Wrong time zones cre
 
 **Use this when:** You open and close at steady times most weeks.
 
-**You need:** Which location or person the row applies to, if your business has more than one.
+**You need:** Edit the **default** schedule in settings for the recurring pattern. Use weekly schedule only for exceptions.
 
-### Handle a holiday week
+### Handle a company holiday
 
-**Use this when:** One week should differ from your default pattern.
+**Use this when:** The whole business is closed and nobody should take bookings.
 
-**You need:** Use the week picker, edit that week only, or reset it later if you copied the wrong pattern.
+**You need:** Select **Company (all members)**, open **Company holidays**, and toggle the closed days (or **Close whole week**). Members cannot reopen holiday days.
+
+### Handle reduced company hours
+
+**Use this when:** Company hours change for a week, but some staff may still work different times (for example evenings).
+
+**You need:** Select **Company (all members)** and edit the grid. Leave holidays unmarked. Then select a member and set their own hours if needed.
+
+### Handle one person’s week
+
+**Use this when:** One staff member differs from the company/default pattern.
+
+**You need:** Select that member in the scope dropdown and edit their week. Shift colors (and badges on mobile) show which layer each day comes from (Default / Company / Member / Holiday).
 
 ### Copy or repeat a week
 
-**Use this when:** Several future weeks should match a template you already built.
+**Use this when:** Several future weeks should match a custom pattern you already built for the current scope.
 
-**You need:** Care with “replace existing” options so you do not overwrite weeks you meant to keep.
+**You need:**
+
+- **Copy** writes a one-off week (even if the source week is part of a series).
+- **Repeat** stores **one** recurring exception (interval + until), not a copy per week. The UI badge shows when the current week is in a series.
+- Editing a week under a series only overrides that week. Other weeks keep the series.
+- A newer Repeat wins where series overlap. “Replace existing” clears one-off week overrides in the new occurrence set only.
+- **Reset this week** removes a one-off override and/or punches the week out of the series. **Remove recurring schedule** deletes the whole series.
+- **Reset all from this week** clears week overrides from that week onward and clips or deletes recurring series accordingly.
+
+Upgrading from the pre-multiuser app converts old `weekly-schedules` weeks into company exceptions (empty days become holidays) and renames the old collection to `_to_remove_weekly-schedules`.
 
 ## Removing the App
 
 1. Open **Apps**, then **Installed apps**.
-2. Remove **Weekly schedule** only if your workspace allows it. Some sites treat it as core; if removal is blocked, ask support.
+2. Remove **Weekly schedule** only if your workspace allows it.
 
 ### What changes afterward
 
-Booking may fall back to a very simple rule or need another way to define hours. Export or screenshot important weeks before you remove it, if your team relies on them.
+Booking falls back to the default schedule only. Export or screenshot important weeks before you remove it if your team relies on them.

@@ -3,8 +3,8 @@ import {
   BrandConfiguration,
   CurrencySymbolMap,
   GeneralConfiguration,
-} from "@timelish/types";
-import { formatAmountWithCurrency } from "@timelish/utils";
+} from "@hacado/types";
+import { formatAmountWithCurrency } from "@hacado/utils";
 import { createContext, useContext } from "react";
 
 export const ConfigContext = createContext<{

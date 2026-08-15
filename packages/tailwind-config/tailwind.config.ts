@@ -18,8 +18,8 @@ const config = {
   prefix: "",
   theme: {
     fontFamily: {
-      sans: ["var(--font-karla)", "ui-sans-serif", "system-ui", "sans-serif"],
-      display: ["var(--font-cormorant)", "ui-serif", "Georgia", "serif"],
+      sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+      display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
       primary: ["var(--font-primary)"],
       secondary: ["var(--font-secondary)"],
       tertiary: ["var(--font-tertiary)"],
@@ -48,8 +48,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-karla)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-cormorant)", "ui-serif", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
         primary: ["var(--font-primary)"],
         secondary: ["var(--font-secondary)"],
         tertiary: ["var(--font-tertiary)"],
@@ -110,11 +110,11 @@ const config = {
       },
       backgroundImage: {
         "gradient-primary":
-          "linear-gradient(135deg, hsl(40, 29%, 33%) 0%, hsl(39.5, 60%, 57.8%) 100%)",
+          "linear-gradient(135deg, hsl(92.3, 14%, 36.5%) 0%, hsl(92.1, 11.2%, 49%) 100%)",
         "gradient-accent":
-          "linear-gradient(135deg, hsl(39.5, 60%, 57.8%) 0%, hsl(39, 39%, 48%) 100%)",
+          "linear-gradient(135deg, hsl(30, 53.8%, 54.1%) 0%, hsl(30, 45%, 42%) 100%)",
         "gradient-dark":
-          "linear-gradient(145deg, hsl(222, 47%, 12%) 0%, hsl(39.5, 60%, 57.8%) 100%)",
+          "linear-gradient(145deg, hsl(26.5, 29.8%, 16%) 0%, hsl(92.1, 11.2%, 49%) 100%)",
       },
       keyframes: {
         "accordion-down": {

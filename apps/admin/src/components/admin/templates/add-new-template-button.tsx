@@ -1,7 +1,7 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { CommunicationChannel, communicationChannels } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { CommunicationChannel, communicationChannels } from "@hacado/types";
 import {
   Button,
   Combobox,
@@ -18,7 +18,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";

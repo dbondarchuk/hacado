@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { CALDAV_APP_NAME } from "./const";
 import { CaldavLogo } from "./logo";
 import { CaldavAdminKeys, CaldavAdminNamespace } from "./translations/types";
@@ -9,6 +9,7 @@ export const CaldavApp: App<CaldavAdminNamespace, CaldavAdminKeys> = {
   category: ["apps.categories.schedule"],
   scope: ["calendar-read", "calendar-write"],
   type: "basic",
+  target: "member",
   Logo: ({ className }) => <CaldavLogo className={className} />,
   isFeatured: true,
   description: {

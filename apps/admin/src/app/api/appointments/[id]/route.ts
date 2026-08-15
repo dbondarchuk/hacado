@@ -1,6 +1,16 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentEvent, appointmentEventSchema } from "@timelish/types";
+import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
+import { getLoggerFactory } from "@hacado/logger";
+import {
+  AppointmentEvent,
+  appointmentEventSchema,
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+  effectiveStaffDuration,
+  effectiveStaffPrice,
+  getUnassignedMemberIssues,
+  isMemberAssignedToOption,
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -50,10 +60,16 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/appointments/[id]")("PUT");
-  const servicesContainer = await getServicesContainer();
-
   const { id } = await params;
+  const auth = await requireCanUpdateAppointment(
+    id,
+    "AdminAPI/appointments/[id]",
+    "PUT",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
+  const servicesContainer = auth.servicesContainer;
 
   logger.debug(
     {
@@ -134,6 +150,36 @@ export async function PUT(
     ? await servicesContainer.servicesService.getAddonsById(data.addonsIds)
     : undefined;
 
+  const memberId = data.memberId ?? auth.appointment.memberId;
+
+  const unassignedIssues = getUnassignedMemberIssues({
+    optionStaff: option.staff,
+    addons,
+    memberId,
+  });
+  if (
+    unassignedIssues.needsAcknowledgement &&
+    !data.acknowledgeUnassignedMember
+  ) {
+    logger.warn(
+      {
+        memberId,
+        optionUnassigned: unassignedIssues.optionUnassigned,
+        unassignedAddonNames: unassignedIssues.unassignedAddonNames,
+      },
+      "Unassigned member acknowledgement required",
+    );
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          "Acknowledgement is required when the selected member is not assigned to the option or one or more addons",
+        code: "acknowledge_unassigned_member_required",
+      },
+      { status: 400 },
+    );
+  }
+
   const discount = data.discount
     ? await servicesContainer.servicesService.getDiscountByCode(
         data.discount.code,
@@ -149,20 +195,45 @@ export async function PUT(
     {} as Record<string, string>,
   );
 
+  const staffAssignment =
+    memberId && isMemberAssignedToOption(option.staff, memberId)
+      ? option.staff?.find((assignment) => assignment.memberId === memberId)
+      : undefined;
+
+  const addonsDuration =
+    addons?.reduce(
+      (sum, addon) =>
+        sum +
+        (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0),
+      0,
+    ) ?? 0;
+  const addonsPrice =
+    addons?.reduce(
+      (sum, addon) =>
+        sum + (effectiveAddonPrice(addon.price, addon.staff, memberId) || 0),
+      0,
+    ) ?? 0;
+
   const optionDuration =
     option.durationType === "fixed"
-      ? option.duration
-      : (data.totalDuration ?? 0) -
-        (addons?.reduce((sum, addon) => sum + (addon.duration || 0), 0) ?? 0);
+      ? (effectiveStaffDuration(option.duration, staffAssignment) ?? 0)
+      : (data.totalDuration ?? 0) - addonsDuration;
 
   const optionPrice =
     option.durationType === "fixed"
-      ? option.price
-      : ((option.pricePerHour || 0) / 60) * (optionDuration || 0) -
-        (addons?.reduce((sum, addon) => sum + (addon.price || 0), 0) ?? 0);
+      ? effectiveStaffPrice(option.price, staffAssignment)
+      : ((effectiveStaffPrice(option.pricePerHour, staffAssignment) || 0) /
+          60) *
+          (optionDuration || 0) -
+        addonsPrice;
+
+  const {
+    acknowledgeUnassignedMember: _acknowledgeUnassignedMember,
+    ...eventData
+  } = data;
 
   const appointmentEvent: AppointmentEvent = {
-    ...data,
+    ...eventData,
     fields: Object.entries(data.fields)
       .filter(([key]) => !(key in (files || {})))
       .reduce(
@@ -182,8 +253,8 @@ export async function PUT(
     addons: addons?.map((addon) => ({
       _id: addon._id,
       name: addon.name,
-      price: addon.price,
-      duration: addon.duration,
+      price: effectiveAddonPrice(addon.price, addon.staff, memberId),
+      duration: effectiveAddonDuration(addon.duration, addon.staff, memberId),
     })),
     discount:
       discount && data.discount

@@ -1,3 +1,4 @@
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import {
   cn,
   DropdownMenu,
@@ -16,13 +17,11 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Sketch } from "@uiw/react-color";
 import { VariantProps } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
 import React from "react";
-import { useI18n } from "../../../../i18n/src/client";
-import { AllKeys } from "../../../../i18n/src/types";
 import { ShortcutWithColor } from "../../shortcuts";
 import { BaseStyleDictionary, COLORS_LIST, getColorStyle } from "../../style";
 

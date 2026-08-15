@@ -1,13 +1,15 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
-import { AppointmentEntity, CustomerListModel } from "@timelish/types";
-import { Checkbox, Link } from "@timelish/ui";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AppointmentEntity, CustomerListModel } from "@hacado/types";
+import { Checkbox, Link } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@timelish/ui-admin";
+  useAuth,
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 // import Image from "next/image";
 import React from "react";
@@ -39,6 +41,13 @@ export const columns: ColumnDef<CustomerListModel>[] = [
     id: "select",
     header: ({ table }) => {
       const t = useI18n("admin");
+      const { user } = useAuth();
+      if (
+        !hasPermission(user, "customer", "delete") &&
+        !hasPermission(user, "customer", "merge")
+      ) {
+        return null;
+      }
       return (
         <Checkbox
           checked={table.getIsAllPageRowsSelected()}
@@ -49,6 +58,13 @@ export const columns: ColumnDef<CustomerListModel>[] = [
     },
     cell: ({ row }) => {
       const t = useI18n("admin");
+      const { user } = useAuth();
+      if (
+        !hasPermission(user, "customer", "delete") &&
+        !hasPermission(user, "customer", "merge")
+      ) {
+        return null;
+      }
       return (
         <Checkbox
           checked={row.getIsSelected()}

@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   Appointment,
@@ -19,13 +19,13 @@ import {
   IMeetingUrlProvider,
   IOAuthConnectedApp,
   WithDatabaseId,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   dispatchAppointmentEventPayload,
   encrypt,
   getAdminUrl,
   stripMarkdown,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import {
   ZOOM_API_BASE_URL,

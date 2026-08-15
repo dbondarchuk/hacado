@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
-import type { Appointment, AppointmentStatus } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { Appointment, AppointmentStatus } from "@hacado/types";
 import {
   Button,
   cn,
@@ -13,8 +13,8 @@ import {
   Skeleton,
   toast,
   useCurrencyFormat,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import {
   Check,

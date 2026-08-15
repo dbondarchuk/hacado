@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AlertModal, Button, Spinner, toastPromise } from "@timelish/ui";
-import { useReload } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { AlertModal, Button, Spinner, toastPromise } from "@hacado/ui";
+import { useReload } from "@hacado/ui-admin";
 import { Archive } from "lucide-react";
 import React from "react";
 import { setDesignsArchived } from "../../actions";

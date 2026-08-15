@@ -1,7 +1,12 @@
-import { languages } from "@timelish/i18n";
+import { languages } from "@hacado/i18n";
 import * as z from "zod";
 import { WithDatabaseId, WithOrganizationId } from "../database";
-import { Prettify, zNonEmptyString } from "../utils";
+import {
+  asOptionalField,
+  Prettify,
+  zAssetName,
+  zNonEmptyString,
+} from "../utils";
 
 export const pageTagSchema = zNonEmptyString(
   "validation.page.tag.min",
@@ -47,6 +52,7 @@ export const pageSchema = z.object({
     1024,
     "validation.page.keywords.max",
   ),
+  featuredImage: asOptionalField(zAssetName),
   published: z.coerce.boolean<boolean>(),
   publishDate: z.coerce.date<Date>({
     error: "validation.page.publishDate.required",

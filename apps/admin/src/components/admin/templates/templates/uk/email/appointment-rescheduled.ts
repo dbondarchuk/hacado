@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@timelish/types";
+import { TemplatesTemplate } from "@hacado/types";
 
 export const appointmentRescheduledEmailTemplate: TemplatesTemplate = {
   name: "Перенесення запису (email)",
@@ -109,7 +109,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate = {
                   align: "start",
                   children: [
                     {
-                      text: "Ваш візит на послугу {{option.name}} було перенесено на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.",
+                      text: "Ваш візит на послугу {{option.name}} з {{member.name}} було перенесено на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.",
                       fontSize: "14px",
                     },
                   ],

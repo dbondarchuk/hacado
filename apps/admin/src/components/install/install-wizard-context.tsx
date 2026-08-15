@@ -1,9 +1,9 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
+import type { ConnectedApp } from "@hacado/types";
 import type { Dispatch, SetStateAction } from "react";
 import { createContext, useContext } from "react";
-import type { ConnectedApp } from "@timelish/types";
 import type {
   InstallPreferencesServerState,
   PersistedState,

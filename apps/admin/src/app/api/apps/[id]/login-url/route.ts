@@ -1,5 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { assertCanAccessConnectedApp } from "@/lib/auth/app-access";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,7 @@ export async function GET(
   );
 
   try {
+    await assertCanAccessConnectedApp(id);
     const loginUrl =
       await servicesContainer.connectedAppsService.requestLoginUrl(id);
 

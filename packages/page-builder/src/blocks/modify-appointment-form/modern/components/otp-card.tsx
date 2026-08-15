@@ -1,12 +1,12 @@
 "use client";
 
-import { clientApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { clientApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
   zEmail,
   zPhone,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   Input,
@@ -18,7 +18,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Mail, Phone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useModifyAppointmentFormContext } from "./context";

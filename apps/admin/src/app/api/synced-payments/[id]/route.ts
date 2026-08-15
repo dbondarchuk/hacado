@@ -1,14 +1,22 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: RouteContext<"/api/synced-payments/[id]">,
 ) {
-  const logger = getLoggerFactory("AdminAPI/synced-payments/[id]")("GET");
+  const auth = await requirePermission(
+    "syncedPayment",
+    "read",
+    "AdminAPI/synced-payments/[id]",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 

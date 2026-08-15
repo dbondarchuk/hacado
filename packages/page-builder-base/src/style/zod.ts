@@ -119,6 +119,7 @@ export const states = [
   "default",
   "hover",
   "focus",
+  "focus-within",
   "active",
   "disabled",
   ...pseudoElementStates,

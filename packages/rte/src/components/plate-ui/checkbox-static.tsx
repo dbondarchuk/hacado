@@ -1,6 +1,6 @@
 import React from "react";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { Check } from "lucide-react";
 
 export function CheckboxStatic({

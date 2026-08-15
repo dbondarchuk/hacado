@@ -1,6 +1,6 @@
 "use client";
 
-import { paymentsSearchParams } from "@timelish/api-sdk";
+import { paymentsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

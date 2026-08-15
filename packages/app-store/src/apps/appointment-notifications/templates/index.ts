@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@timelish/types";
+import { TemplateTemplatesList } from "@hacado/types";
 import { appointmentReminderEmailTemplate as appointmentReminderEmailTemplateEn } from "./en/emailReminder";
 import { appointmentReminderTextMessageTemplate as appointmentReminderTextMessageTemplateEn } from "./en/textMessageReminder";
 import { appointmentReminderEmailTemplate as appointmentReminderEmailTemplateUk } from "./uk/emailReminder";

@@ -8,7 +8,7 @@ import {
 import { useElement } from "@udecode/plate/react";
 import { ChevronRight } from "lucide-react";
 
-import { Button } from "@timelish/ui";
+import { Button } from "@hacado/ui";
 import { PlateElement } from "./plate-element";
 
 export const ToggleElement = withRef<typeof PlateElement>(

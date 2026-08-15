@@ -1,8 +1,8 @@
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentWithDepositCancellationPolicyRow,
   AppointmentWithoutDepositCancellationPolicyRow,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Badge,
   BooleanSelect,
@@ -16,12 +16,12 @@ import {
   FormLabel,
   FormMessage,
   InfoTooltip,
-} from "@timelish/ui";
-import { NonSortable } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { NonSortable } from "@hacado/ui-admin";
 import {
   CancellationPolicyCard,
   CancellationPolicyCardContent,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { TabProps } from "./types";

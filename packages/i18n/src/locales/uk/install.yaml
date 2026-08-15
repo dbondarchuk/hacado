@@ -12,6 +12,7 @@ checkout:
     Оновлюйте, знижуйте або скасовуйте тариф будь-коли в клієнтському порталі
     Polar - без довгострокових зобов’язань і прихованих платежів.
   includedLabel: Що входить
+  everythingInPlus: "Усе з тарифу {tier}, плюс:"
   checkoutError: Не вдалося почати оформлення. Спробуйте пізніше.
   pricePerMonth: / місяць
   pricePerYear: / рік
@@ -32,20 +33,30 @@ checkout:
         calendar: "Синхронізація календаря (Google, Outlook, CalDAV)"
         emailNotifications: Email-сповіщення
         textNotifications: SMS-сповіщення (потрібно окремо купити SMS-кредити)
-    pro:
-      title: Підписка Pro
+    solo:
+      title: Solo
       subtitle: "Усе, щоб масштабуватись"
-      cta: Підписатись на Pro
+      badge: Рекомендовано
+      cta: Підписатись на Solo
       benefits:
+        payments: "Приймайте оплату онлайн - Square, Stripe, PayPal та інші"
+        syncedPayments: Автосинхронізація оплат карткою в закладі - відстежуйте, як вам платять
+        domain: Підключіть свій домен, щоб виділятися серед конкурентів
+        unlimited: Необмежені бронювання, послуги та клієнти завжди
+        promotions: Брендовані подарункові картки, знижки та акції
+        apps: Лист очікування, форми запису, блог
+        clientPortal: Клієнтський кабінет для бронювань і профілів
         smsCredits: 100 SMS-кредитів щомісяця
-        bookings: Необмежені бронювання та клієнти
-        services: Необмежена кількість послуг для бронювання
-        branding: Сторінка бронювання з вашим брендом
-        domain: Використовуйте ваш домен
-        calendar: "Синхронізація календаря (Google, Outlook, CalDAV)"
-        payments: "Інтеграції оплат (PayPal, Square, Stripe)"
-        emailNotifications: Email-сповіщення
-        textNotifications: SMS-сповіщення
+    studio:
+      title: Studio
+      subtitle: Для бізнесів з кількома співробітниками
+      badge: Для бізнесу
+      cta: Підписатись на Studio
+      benefits:
+        teamMembers: 5 співробітників включено
+        additionalSeats: Додаткові місця від 4$/місяць
+        individualCalendars: Окремі календарі та розклади для кожного співробітника
+        smsCredits: 300 SMS-кредитів щомісяця
 wizard:
   progressLabel: Прогрес налаштування
   common:
@@ -94,7 +105,9 @@ wizard:
     slug: Публічна адреса бронювання
     slugPlaceholder: vasha-studiya
     slugHint: "Перегляд: {url}"
-    slugHelp: Цю адресу можна змінити пізніше.
+    slugHelp: Мінімум 3 символи — малі літери, цифри та дефіси. Адресу можна змінити пізніше.
+    slugTooShort: Використовуйте щонайменше 3 символи.
+    slugReserved: Ця адреса зарезервована. Спробуйте іншу.
     slugChecking: Перевіряємо доступність…
     slugAvailable: Адреса вільна.
     slugTaken: Ця адреса вже зайнята.
@@ -272,14 +285,14 @@ wizard:
     cancelPolicy: Дозволити скасування та перенесення
     cancelHelp: Точні вікна та штрафи - у налаштуваннях записів.
     flex: Усе це можна змінити будь-коли - ми лише робимо старт.
-    acceptPaymentsUpgradeHint: Перейдіть на Pro, щоб приймати онлайн-платежі.
+    acceptPaymentsUpgradeHint: Перейдіть на Solo, щоб приймати онлайн-платежі.
   finish:
     taskPage: Створюємо сторінку бронювання
     taskAvailability: Застосовуємо доступність
     taskCalendar: Готуємо календарі
     taskFinalize: Завершуємо налаштування
     buildingExperience: Зараз ми формуємо ваш досвід бронювання.
-    readyTitle: Ваш Timeli.sh готовий
+    readyTitle: Ваш Hacado готовий
     readySubtitle: Керуйте записами в панелі або поділіться публічною сторінкою.
     ctaDashboard: Перейти до панелі
     ctaBooking: Відкрити сторінку бронювання
@@ -319,12 +332,14 @@ wizard:
   errors:
     fixStep: Заповніть обов'язкові поля.
     slugTaken: Ця адреса вже зайнята.
+    slugReserved: Ця адреса зарезервована. Спробуйте іншу.
+    slugInvalid: Ця адреса бронювання недійсна. Спробуйте іншу.
     workspace: Не вдалося створити простір. Спробуйте ще раз.
     service: Не вдалося зберегти послуги. Спробуйте ще раз.
     serviceNeedOne: "Додайте хоча б одну послугу, щоб продовжити."
     serviceDuplicateName: Назви послуг мають бути різними. Змініть одну з назв і спробуйте знову.
     serviceLimitReached: >-
-      Безкоштовний тариф включає одну послугу. Перейдіть на Pro, щоб додати більше,
+      Безкоштовний тариф включає одну послугу. Перейдіть на Solo, щоб додати більше,
       або видаліть зайву послугу і спробуйте знову.
 catalog:
   categories:

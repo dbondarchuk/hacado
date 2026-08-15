@@ -4,7 +4,7 @@ import { useCallback, useSyncExternalStore } from "react";
 import { StyleValue } from "./css-renderer";
 import { BaseStyleDictionary, StyleDictionary } from "./types";
 
-const STORAGE_KEY = "timelish:page-builder-copied-styles";
+const STORAGE_KEY = "hacado:page-builder-copied-styles";
 
 export type CopiedBlockStyles = StyleValue<BaseStyleDictionary>;
 
@@ -100,8 +100,7 @@ export const useStylesClipboard = () => {
   const activeCopiedStyles = useCopiedBlockStyles();
 
   const hasCopiedStyles =
-    activeCopiedStyles !== null &&
-    Object.keys(activeCopiedStyles).length > 0;
+    activeCopiedStyles !== null && Object.keys(activeCopiedStyles).length > 0;
 
   const copyStyles = useCallback(
     (styles: StyleValue<BaseStyleDictionary> | null | undefined) => {

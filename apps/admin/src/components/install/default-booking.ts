@@ -3,7 +3,7 @@ import {
   bookingConfigurationSchema,
   type AppointmentCancellationRescheduleConfiguration,
   type BookingConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 
 /** Customer-friendly defaults when the install wizard enables cancel/reschedule. */
 export function getInstallEnabledCancellationsAndReschedules(): AppointmentCancellationRescheduleConfiguration {
@@ -27,7 +27,7 @@ export function getInstallEnabledCancellationsAndReschedules(): AppointmentCance
 
 export function getDefaultBookingConfiguration(): BookingConfiguration {
   return bookingConfigurationSchema.parse({
-    allowPromoCode: "never",
+    allowPromoCode: "allow-if-has-active",
     payments: { enabled: false },
     cancellationsAndReschedules: {
       cancellations: {

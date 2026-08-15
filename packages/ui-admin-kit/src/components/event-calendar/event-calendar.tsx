@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
   Calendar,
@@ -13,7 +13,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
@@ -78,7 +78,10 @@ function formatDateLabel(
       return `${startLabel} – ${endLabel}`;
     }
     case "monthly": {
-      return date.toLocaleString({ month: "long", year: "numeric" }, { locale });
+      return date.toLocaleString(
+        { month: "long", year: "numeric" },
+        { locale },
+      );
     }
     case "agenda": {
       const end = date.plus({ days: daysToShow - 1 });
@@ -119,6 +122,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
   onEventClick,
   onDateClick,
   renderEvent,
+  controlsAfterViewSwitch,
 }) => {
   const t = useI18n("admin");
   const locale = useLocale();
@@ -253,7 +257,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="h-auto min-w-0 max-w-[16rem] rounded-full px-3 py-1.5 text-base font-medium tracking-tight truncate"
+                    className="h-auto min-w-0 max-w-[16rem] rounded-full px-3 py-1.5 font-display text-lg font-medium tracking-tight truncate"
                     aria-label={dateLabel}
                   >
                     {dateLabel}
@@ -292,7 +296,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
             )}
           </div>
 
-          <div className="justify-self-end">
+          <div className="justify-self-end flex flex-row items-center gap-2 min-w-0">
             {showViewSwitch ? (
               <>
                 <div className="lg:hidden">
@@ -349,6 +353,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                 </div>
               </>
             ) : null}
+            {controlsAfterViewSwitch}
           </div>
         </div>
       )}

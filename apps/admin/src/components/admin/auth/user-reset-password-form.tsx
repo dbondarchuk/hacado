@@ -1,7 +1,6 @@
 "use client";
 import { authClient } from "@/app/auth-client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Form,
@@ -14,7 +13,8 @@ import {
   Link,
   Spinner,
   toast,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

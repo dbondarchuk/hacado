@@ -1,9 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { BillingPlanTier } from "@timelish/types";
-import type { OrganizationBillingSubscriptionDetails } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types";
 import {
   Form,
   IComboboxItem,
@@ -12,8 +11,9 @@ import {
   TabsContent,
   TabsTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -39,8 +39,8 @@ export const SiteSettingsForm: React.FC<{
   customDomain?: string;
   organizationSlug: string;
   websiteUrl: string;
-  timeliBaseHost: string;
-  timeliBaseUrl: string;
+  baseHost: string;
+  baseUrl: string;
   customDomainARecordIp?: string;
   billingSubscriptionDetails: OrganizationBillingSubscriptionDetails;
 }> = ({
@@ -49,8 +49,8 @@ export const SiteSettingsForm: React.FC<{
   customDomain,
   organizationSlug,
   websiteUrl,
-  timeliBaseHost,
-  timeliBaseUrl,
+  baseHost,
+  baseUrl,
   customDomainARecordIp,
   billingSubscriptionDetails,
 }) => {
@@ -126,8 +126,8 @@ export const SiteSettingsForm: React.FC<{
                 customDomain={customDomain}
                 organizationSlug={organizationSlug}
                 websiteUrl={websiteUrl}
-                timeliBaseHost={timeliBaseHost}
-                timeliBaseUrl={timeliBaseUrl}
+                baseHost={baseHost}
+                baseUrl={baseUrl}
                 customDomainARecordIp={customDomainARecordIp}
                 canConnectCustomDomain={
                   billingSubscriptionDetails.planTier !== BillingPlanTier.Free

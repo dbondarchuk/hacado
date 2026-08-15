@@ -1,4 +1,4 @@
-import { TranslationKeys } from "@timelish/i18n";
+import { TranslationKeys } from "@hacado/i18n";
 import {
   Field,
   FieldFileData,
@@ -7,7 +7,7 @@ import {
   WithLabelFieldData,
   zNonEmptyString,
   zPossiblyOptionalMinMaxLengthString,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Control } from "react-hook-form";
 import { z, ZodSchema, ZodTypeAny } from "zod";
 import { CheckboxField } from "./checkbox-field";

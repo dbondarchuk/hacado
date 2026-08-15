@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn } from "@timelish/ui";
+import { Button, cn } from "@hacado/ui";
 import { createPrimitiveComponent, withCn, withVariants } from "@udecode/cn";
 import {
   Caption as CaptionPrimitive,

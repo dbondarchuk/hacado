@@ -1,4 +1,4 @@
-import { AppScope } from "@timelish/types";
+import { AppScope } from "@hacado/types";
 import { BullMQConfig } from "../types";
 
 export type BullMQJobConfig = BullMQConfig & {

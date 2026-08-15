@@ -11,31 +11,31 @@
       "name": "Next.js: debug admin server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "yarn run dev --filter=@timelish/admin"
+      "command": "yarn run dev --filter=@hacado/admin"
     },
     {
       "name": "Next.js: debug web server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "yarn run dev --filter=@timelish/web"
+      "command": "yarn run dev --filter=@hacado/web"
     },
     {
       "name": "Next.js: debug app-external-server server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "yarn run dev --filter=@timelish/app-external-server"
+      "command": "yarn run dev --filter=@hacado/app-external-server"
     },
     {
       "name": "Next.js: debug job processor server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "yarn run dev --filter=@timelish/job-processor"
+      "command": "yarn run dev --filter=@hacado/job-processor"
     },
     {
       "name": "Next.js: debug notification sender server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "yarn run dev --filter=@timelish/notification-sender"
+      "command": "yarn run dev --filter=@hacado/notification-sender"
     },
     {
       "name": "Next.js: debug client-side",

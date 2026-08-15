@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   ComboboxAsync,
@@ -16,8 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
   Slider,
-} from "@timelish/ui";
-import { AssetSelectorInput } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { AssetSelectorInput } from "@hacado/ui-admin";
 import { ArrowDown, ArrowUp, Lock, Unlock } from "lucide-react";
 import { DateTime } from "luxon";
 import {

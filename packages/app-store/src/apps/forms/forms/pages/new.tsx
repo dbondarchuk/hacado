@@ -1,6 +1,6 @@
 "use client";
 
-import { AutoSkeleton } from "@timelish/ui";
+import { AutoSkeleton } from "@hacado/ui";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFormById } from "../../actions";

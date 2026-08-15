@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useI18n } from "@timelish/i18n";
-import { WeekIdentifier } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { WeekIdentifier } from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -38,9 +37,10 @@ import {
   InputGroupInputClasses,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
-import { WeekSelector } from "@timelish/ui-admin";
-import { getWeekIdentifier } from "@timelish/utils";
+} from "@hacado/ui";
+import { WeekSelector } from "@hacado/ui-admin";
+import { getWeekIdentifier } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Repeat2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -57,6 +57,7 @@ import { getWeekDisplay } from "./utils";
 type RepeatScheduleDialogProps = {
   appId: string;
   week: WeekIdentifier;
+  memberId?: string;
   disabled?: boolean;
   className?: string;
 };
@@ -64,6 +65,7 @@ type RepeatScheduleDialogProps = {
 export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
   appId,
   week,
+  memberId,
   disabled,
   className,
 }) => {
@@ -112,6 +114,7 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
           data.interval,
           data.maxWeek,
           data.replaceExisting ?? false,
+          memberId,
         ),
         {
           success: t("dialogs.repeat.success", {

@@ -1,16 +1,16 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
-import { PaymentSummary } from "@timelish/types";
-import { Badge, Button, Link, useCurrencyFormat } from "@timelish/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { PaymentSummary } from "@hacado/types";
+import { Badge, Button, Link, useCurrencyFormat } from "@hacado/ui";
+import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import {
   getPaymentDescription,
   getPaymentMethod,
   getPaymentStatusColor,
   PaymentDetailsDialog,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 

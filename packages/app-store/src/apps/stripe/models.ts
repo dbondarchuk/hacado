@@ -1,4 +1,4 @@
-import { zNonEmptyString } from "@timelish/types";
+import { zNonEmptyString } from "@hacado/types";
 import * as z from "zod";
 import type { StripeAdminAllKeys } from "./translations/types";
 

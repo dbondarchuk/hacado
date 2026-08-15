@@ -1,11 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import { AppSetupProps } from "@hacado/types";
 import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,11 +15,11 @@ import {
   InfoTooltip,
   Input,
   Spinner,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { X } from "lucide-react";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
@@ -76,21 +78,43 @@ export const UrlBusyEventsAppSetup: React.FC<AppSetupProps> = ({
                 <FormItem className="w-full">
                   <FormLabel>
                     {t("form.url.label")}{" "}
-                    <InfoTooltip>{t("form.url.tooltip")}</InfoTooltip>
+                    <InfoTooltip>
+                      <I18nRichText
+                        text="form.url.tooltip"
+                        namespace={urlBusyEventsAdminNamespace}
+                      />
+                    </InfoTooltip>
                   </FormLabel>
                   <FormControl>
                     <Input placeholder={t("form.url.placeholder")} {...field} />
                   </FormControl>
+                  <FormDescription>
+                    <I18nRichText
+                      text="form.url.description"
+                      namespace={urlBusyEventsAdminNamespace}
+                    />
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="w-full">
+            <div className="w-full space-y-2">
               <FormLabel className="flex items-center gap-2">
                 {t("form.headers.label")}{" "}
-                <InfoTooltip>{t("form.headers.tooltip")}</InfoTooltip>
+                <InfoTooltip>
+                  <I18nRichText
+                    text="form.headers.tooltip"
+                    namespace={urlBusyEventsAdminNamespace}
+                  />
+                </InfoTooltip>
               </FormLabel>
+              <FormDescription>
+                <I18nRichText
+                  text="form.headers.description"
+                  namespace={urlBusyEventsAdminNamespace}
+                />
+              </FormDescription>
 
               <div className="space-y-3 mt-2">
                 {fields.map((field, index) => (

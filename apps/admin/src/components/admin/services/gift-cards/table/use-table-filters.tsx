@@ -1,6 +1,6 @@
 "use client";
 
-import { giftCardsSearchParams } from "@timelish/api-sdk";
+import { giftCardsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

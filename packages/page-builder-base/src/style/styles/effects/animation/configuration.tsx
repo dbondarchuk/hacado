@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Combobox } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Combobox } from "@hacado/ui";
 import { Clock, Timer } from "lucide-react";
 import { useState } from "react";
 import * as z from "zod";

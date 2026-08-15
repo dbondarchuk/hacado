@@ -5,7 +5,7 @@ import {
   zNonEmptyString,
   zObjectId,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { BlogAdminAllKeys } from "../translations/types";
 
@@ -14,9 +14,9 @@ export const blogPostTagSchema = zNonEmptyString(
   2,
 ).max(64, "app_blog_admin.validation.post.tag.max" satisfies BlogAdminAllKeys);
 
-export const blogPostAuthorUserSchema = z.object({
-  type: z.literal("user"),
-  id: zObjectId(
+export const blogPostAuthorMemberSchema = z.object({
+  type: z.literal("member"),
+  memberId: zObjectId(
     "app_blog_admin.validation.post.author.required" satisfies BlogAdminAllKeys,
   ),
 });
@@ -32,7 +32,7 @@ export const blogPostAuthorCustomSchema = z.object({
 });
 
 export const blogPostAuthorSchema = z.discriminatedUnion("type", [
-  blogPostAuthorUserSchema,
+  blogPostAuthorMemberSchema,
   blogPostAuthorCustomSchema,
 ]);
 

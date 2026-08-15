@@ -1,6 +1,6 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
@@ -11,8 +11,8 @@ import {
   type IServicesContainer,
   type SmsCreditsThresholdPayload,
   type SmsTopupPurchasedPayload,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 
 import { dashboardUrls } from "../links";
 
@@ -38,7 +38,7 @@ async function buildSmsCreditThresholdEmails(
   envelope: EventEnvelope<SmsCreditsThresholdPayload>,
   services: IServicesContainer,
 ): Promise<EmailNotificationRequest[] | null> {
-  const admins = await services.userService.getOrganizationAdminUsers();
+  const admins = await services.teamService.getOrganizationAdminContacts();
   if (!admins.length) return null;
 
   const organization = await services.organizationService.getOrganization();
@@ -93,7 +93,8 @@ async function buildSmsCreditThresholdEmails(
     notifications.push({
       email: { to: admin.email, subject, body },
       handledBy: `${keyPrefix}.handledBy` as BaseAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

@@ -1,4 +1,4 @@
-import { FieldData } from "@timelish/types";
+import { FieldData } from "@hacado/types";
 import { Control, FieldPath, FieldValues } from "react-hook-form";
 
 export type IFormFieldProps<

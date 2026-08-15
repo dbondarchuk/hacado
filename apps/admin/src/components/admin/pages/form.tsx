@@ -1,15 +1,14 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
+import { adminApi } from "@hacado/api-sdk";
 import {
   AppsBlocksEditors,
   AppsBlocksTemplates,
-} from "@timelish/app-store/blocks/editors";
-import { AppsBlocksReaders } from "@timelish/app-store/blocks/readers";
-import { Language, useI18n } from "@timelish/i18n";
-import { BlockProviderRegistry, PageBuilder } from "@timelish/page-builder";
-import { PageReader } from "@timelish/page-builder/reader";
+} from "@hacado/app-store/blocks/editors";
+import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { Language, useI18n } from "@hacado/i18n/client";
+import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
+import { PageReader } from "@hacado/page-builder/reader";
 import {
   BrandConfiguration,
   GeneralConfiguration,
@@ -18,7 +17,7 @@ import {
   PageHeader,
   PageUpdateModel,
   SocialConfiguration,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Breadcrumbs,
   cn,
@@ -36,9 +35,10 @@ import {
   Link,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { SaveButton, useDemoArguments } from "@timelish/ui-admin";
-import { formatArguments, generateSlugPreview } from "@timelish/utils";
+} from "@hacado/ui";
+import { SaveButton, useDemoArguments } from "@hacado/ui-admin";
+import { formatArguments, generateSlugPreview } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Globe, Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";

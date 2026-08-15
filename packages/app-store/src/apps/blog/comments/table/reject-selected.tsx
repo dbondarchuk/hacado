@@ -1,8 +1,8 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, Spinner, toastPromise } from "@timelish/ui";
-import { useReload } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Spinner, toastPromise } from "@hacado/ui";
+import { useReload } from "@hacado/ui-admin";
 import { X } from "lucide-react";
 import React from "react";
 import { rejectSelectedBlogComments } from "../../actions";
@@ -34,7 +34,9 @@ export const RejectSelectedBlogCommentsButton: React.FC<{
     try {
       setIsLoading(true);
       await toastPromise(rejectSelectedBlogComments(appId, ids), {
-        success: t("comments.table.toast.commentsRejected", { count: ids.length }),
+        success: t("comments.table.toast.commentsRejected", {
+          count: ids.length,
+        }),
         error: tAdmin("common.toasts.error"),
       });
       reload();

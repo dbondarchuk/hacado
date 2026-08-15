@@ -1,9 +1,9 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
 
-import { deepMemo } from "@timelish/ui";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { TextProps } from "./schema";
 import { styles } from "./styles";

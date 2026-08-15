@@ -1,7 +1,6 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
-import { ReplaceOriginalColors } from "@timelish/page-builder-base";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import { MyCabinetBlockComponent } from "./component";
 import { MyCabinetBlockProps } from "./schema";
 

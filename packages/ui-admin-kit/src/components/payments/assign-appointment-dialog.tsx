@@ -1,7 +1,7 @@
 "use client";
 
-import { adminApi, appointmentsSearchParams } from "@timelish/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
+import { adminApi, appointmentsSearchParams } from "@hacado/api-sdk";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentStatus,
@@ -9,7 +9,7 @@ import {
   AppointmentWithReferenceDateDistance,
   DateRange,
   Sort,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   CalendarDateRangePicker,
@@ -21,6 +21,9 @@ import {
   DialogHeader,
   DialogTitle,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   RadioGroup,
   RadioGroupItem,
   ScrollArea,
@@ -33,13 +36,13 @@ import {
   TableRow,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   CustomerName,
   CustomerSelector,
   DataTableFilterBox,
-} from "@timelish/ui-admin";
-import { ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
+} from "@hacado/ui-admin";
+import { ArrowDown, ArrowUp, ChevronsUpDown, Settings2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -299,6 +302,37 @@ export const AssignAppointmentDialog = ({
     }
   };
 
+  const additionalFilters = (
+    <>
+      <div className="grid min-w-0 md:max-w-sm">
+        <CustomerSelector
+          value={customerId}
+          allowClear
+          onItemSelect={(value) => setCustomerId(value)}
+          className="w-full"
+        />
+      </div>
+      <div className="grid min-w-0 md:max-w-sm">
+        <CalendarDateRangePicker
+          range={range}
+          onChange={setRange}
+          timeZone={timeZone}
+          className="md:w-auto md:min-w-56"
+        />
+      </div>
+      <DataTableFilterBox
+        filterKey="status"
+        title={t("appointments.table.filters.status")}
+        options={appointmentStatuses.map((value) => ({
+          value,
+          label: t(`appointments.status.${value}`),
+        }))}
+        setFilterValue={setStatusFilter}
+        filterValue={statusFilter}
+      />
+    </>
+  );
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[80%]">
@@ -309,45 +343,33 @@ export const AssignAppointmentDialog = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex items-center gap-2">
           <Input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder={t("syncedPayments.assignDialog.searchPlaceholder")}
-            className="flex-1"
+            className="min-w-0 flex-1"
           />
-
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <div className="grid sm:max-w-sm min-w-0">
-              <CustomerSelector
-                value={customerId}
-                allowClear
-                onItemSelect={(value) => setCustomerId(value)}
-                className="w-full"
-              />
-            </div>
-            <div className="grid sm:max-w-sm min-w-0">
-              <CalendarDateRangePicker
-                range={range}
-                onChange={setRange}
-                timeZone={timeZone}
-                className="sm:w-auto sm:min-w-56"
-              />
-            </div>
-            <DataTableFilterBox
-              filterKey="status"
-              title={t("appointments.table.filters.status")}
-              options={appointmentStatuses.map((value) => ({
-                value,
-                label: t(`appointments.status.${value}`),
-              }))}
-              setFilterValue={setStatusFilter}
-              filterValue={statusFilter}
-            />
+          <Popover>
+            <PopoverTrigger
+              tooltip={t("common.labels.filters")}
+              asChild
+              className="md:hidden"
+            >
+              <Button variant="outline">
+                <Settings2 size={16} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="flex flex-col gap-2">
+              {additionalFilters}
+            </PopoverContent>
+          </Popover>
+          <div className="hidden md:flex flex-row items-center gap-2">
+            {additionalFilters}
           </div>
         </div>
 
-        <ScrollArea className="h-80 rounded-md border border-border">
+        <ScrollArea className="max-h-[calc(100vh-350px)] rounded-md border border-border">
           <RadioGroup
             value={selected}
             onValueChange={setSelected}

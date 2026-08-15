@@ -1,7 +1,6 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { useI18n, useLocale } from "@timelish/i18n";
-import { AppointmentAddon, IdName } from "@timelish/types";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { AppointmentAddon, IdName } from "@hacado/types";
 import {
   Button,
   Checkbox,
@@ -13,8 +12,9 @@ import {
   DialogTrigger,
   Link,
   ScrollArea,
-} from "@timelish/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 

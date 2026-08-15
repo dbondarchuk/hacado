@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-description: Where everyday business and booking preferences live in Timelish.
+description: Where everyday business and booking preferences live in Hacado.
 ---
 
 # Change settings
@@ -16,7 +16,7 @@ Go to **Settings**  -  **Brand**. Tabs along the top group related items:
 - **Social**  -  links to profiles you want visitors to discover.
 - **Styling**  -  colours and fonts shaping the booking experience beyond what first-time setup already chose.
 
-Tap **Save** at the bottom when you finish edits so Timelish stores the tab you were working on.
+Tap **Save** at the bottom when you finish edits so Hacado stores the tab you were working on.
 
 ![Brand settings tabs](/img/placeholders/daily-settings-brand.svg)
 
@@ -30,13 +30,13 @@ Each sub-section sticks to one topic - take them one at a time.
 
 ## Default weekly calendar
 
-Under the **Schedule** grouping (opened from Appointments-related navigation), edit the **baseline hours** Timelish uses before any special weekly overrides or Apps adjust things further.
+Under the **Schedule** grouping (opened from Appointments-related navigation), edit the **baseline hours** Hacado uses before any special weekly overrides or Apps adjust things further.
 
 ![Default weekly hours](/img/placeholders/daily-settings-schedule.svg)
 
 ## Communications
 
-**Communications** in the Settings area leads to templates (emails/SMS wording) plus history logs showing what Timelish already sent. Tune templates before busy seasons rather than mid-rush.
+**Communications** in the Settings area leads to templates (emails/SMS wording) plus history logs showing what Hacado already sent. Tune templates before busy seasons rather than mid-rush.
 
 ## Profile & password for you personally
 

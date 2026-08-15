@@ -1,6 +1,7 @@
-import { getActor, getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { notFound, redirect } from "next/navigation";
+import { getActor, getServicesContainer, getSession } from "@/app/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { canUpdateAppointment } from "@hacado/utils";
+import { forbidden, notFound, redirect } from "next/navigation";
 
 type Props = PageProps<"/dashboard/appointments/[id]/[status]">;
 
@@ -8,7 +9,10 @@ export default async function Page(props: Props) {
   const logger = getLoggerFactory("AdminPages")("appointment-status-change");
   const params = await props.params;
   const actor = await getActor();
-  const servicesContainer = await getServicesContainer();
+  const [servicesContainer, session] = await Promise.all([
+    getServicesContainer(),
+    getSession(),
+  ]);
   logger.debug(
     {
       appointmentId: params.id,
@@ -16,6 +20,16 @@ export default async function Page(props: Props) {
     },
     "Processing appointment status change",
   );
+
+  const appointment = await servicesContainer.bookingService.getAppointment(
+    params.id,
+  );
+  if (!appointment) {
+    return notFound();
+  }
+  if (!canUpdateAppointment(session.user, appointment.memberId)) {
+    forbidden();
+  }
 
   switch (params.status) {
     case "confirm":

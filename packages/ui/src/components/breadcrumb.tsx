@@ -1,6 +1,6 @@
+import { useI18n } from "@hacado/i18n/client";
 import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Slot } from "@radix-ui/react-slot";
-import { useI18n } from "@timelish/i18n";
 import React from "react";
 
 import { cn } from "../utils";

@@ -7,6 +7,9 @@ form:
     label: Phone number
     tooltip: Optional phone number override to use for notifications. Your phone is used by default
     placeholder: Phone
+  processOtherMembersAppointments:
+    label: Process other members' appointments
+    description: When enabled, also send notifications for appointments assigned to other team members.
   update: Update <app></app>
   add: Add <app></app>
 statusText:

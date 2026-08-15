@@ -4,10 +4,10 @@ import {
   generateId as generateLinkId,
   TEditorBlock,
   TemplatesConfiguration,
-} from "@timelish/builder";
-import { AllKeys, I18nFn } from "@timelish/i18n";
-import { TEXT_SIZE_PRESETS } from "@timelish/page-builder-base";
-import { COLORS } from "@timelish/page-builder-base/style";
+} from "@hacado/builder";
+import { AllKeys, I18nFn } from "@hacado/i18n";
+import { TEXT_SIZE_PRESETS } from "@hacado/page-builder-base";
+import { COLORS } from "@hacado/page-builder-base/style";
 import {
   ArrowLeftRight,
   CalendarClock,

@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -23,13 +23,13 @@ import {
   PaymentFee,
   SyncedPaymentTransaction,
   systemEventSource,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   decrypt,
   encrypt,
-  getAdminUrl,
+  getAppsExternalUrl,
   getWebsiteDomain,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { getApplePayDomainAssociation } from "./apple-pay";
 import { getSquareOrder, getSquarePayment } from "./client";
 import { SQUARE_APP_NAME } from "./const";
@@ -514,7 +514,7 @@ class SquareConnectedApp
       );
     }
 
-    const notificationUrl = `${getAdminUrl()}/apps/webhook/square`;
+    const notificationUrl = `${getAppsExternalUrl()}/api/webhooks/apps/name/square`;
 
     const sig =
       request.headers.get("x-square-hmacsha256-signature") ??

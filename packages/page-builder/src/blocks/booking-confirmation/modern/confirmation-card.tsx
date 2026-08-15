@@ -1,9 +1,9 @@
 "use client";
 
-import { useI18n, useLocale } from "@timelish/i18n";
-import { Appointment } from "@timelish/types";
-import { Link, useCurrencyFormat, useTimeZone } from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
+import { Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { forwardRef } from "react";

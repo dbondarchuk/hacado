@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppError,
@@ -9,13 +9,13 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
   template,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import {
   TextMessageAutoReplyConfiguration,
   textMessageAutoReplyConfigurationSchema,
@@ -186,6 +186,23 @@ export default class TextMessageAutoReplyConnectedApp
       const adminUrl = getAdminUrl();
       const websiteUrl = getWebsiteUrl(organization);
 
+      const memberId =
+        textMessageReply.memberId ?? appointment?.memberId ?? appData.memberId;
+      if (!memberId) {
+        logger.warn(
+          { appId: appData._id, memberId },
+          "Member ID is required in text message reply",
+        );
+        return null;
+      }
+
+      const member =
+        await this.props.services.teamService.getMemberById(memberId);
+      if (!member) {
+        logger.warn({ appId: appData._id, memberId }, "Member not found");
+        return null;
+      }
+
       const args = getArguments({
         appointment,
         config,
@@ -197,6 +214,7 @@ export default class TextMessageAutoReplyConnectedApp
         locale: config.brand.language,
         adminUrl,
         websiteUrl,
+        member,
       });
 
       if (appData.data?.autoReplyTemplateId) {
@@ -243,6 +261,7 @@ export default class TextMessageAutoReplyConnectedApp
             customerId: reply.data?.customerId,
             sender: config.general.name,
             webhookData: reply.data,
+            memberId,
           });
 
           logger.info(

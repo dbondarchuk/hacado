@@ -1,6 +1,8 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { assetUpdateSchema, okStatus, UploadedFile } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
+import { assetUpdateSchema, okStatus, UploadedFile } from "@hacado/types";
+import { canUpdateAppointment } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -96,6 +98,25 @@ export async function PATCH(
     "Updating asset",
   );
 
+  const existing = await servicesContainer.assetsService.getAsset(id);
+  if (!existing) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Asset not found",
+        code: "asset_not_found",
+      },
+      { status: 404 },
+    );
+  }
+
+  const mutateAuth = await assertCanMutateAsset(
+    existing,
+    "AdminAPI/assets/[id]",
+    "PATCH",
+  );
+  if (!mutateAuth.ok) return mutateAuth.response;
+
   const actor = await getActor();
   try {
     await servicesContainer.assetsService.updateAsset(id, data, actor);
@@ -142,6 +163,26 @@ export async function DELETE(
     "Deleting asset",
   );
 
+  const existing = await servicesContainer.assetsService.getAsset(id);
+  if (!existing) {
+    logger.warn({ assetId: id }, "Asset not found for deletion");
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Asset not found",
+        code: "asset_not_found",
+      },
+      { status: 404 },
+    );
+  }
+
+  const mutateAuth = await assertCanMutateAsset(
+    existing,
+    "AdminAPI/assets/[id]",
+    "DELETE",
+  );
+  if (!mutateAuth.ok) return mutateAuth.response;
+
   const actor = await getActor();
   try {
     const asset = await servicesContainer.assetsService.deleteAsset(id, actor);
@@ -184,4 +225,41 @@ export async function DELETE(
       { status: 500 },
     );
   }
+}
+
+async function assertCanMutateAsset(
+  asset: { customerId?: string; appointmentId?: string },
+  logName: string,
+  method: string,
+) {
+  if (asset.customerId) {
+    return requirePermission("customer", "update", logName, method);
+  }
+
+  if (asset.appointmentId) {
+    const auth = await requirePermission(
+      "appointment",
+      "update",
+      logName,
+      method,
+    );
+    if (!auth.ok) return auth;
+
+    const servicesContainer = await getServicesContainer();
+    const appointment = await servicesContainer.bookingService.getAppointment(
+      asset.appointmentId,
+    );
+    if (appointment && !canUpdateAppointment(auth.user, appointment.memberId)) {
+      return {
+        ok: false as const,
+        response: NextResponse.json(
+          { success: false, code: "forbidden", error: "Forbidden" },
+          { status: 403 },
+        ),
+      };
+    }
+    return auth;
+  }
+
+  return { ok: true as const };
 }

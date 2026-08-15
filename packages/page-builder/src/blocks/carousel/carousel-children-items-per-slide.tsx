@@ -1,5 +1,5 @@
-import { StyleDefinition } from "@timelish/page-builder-base/style";
-import { RawNumberInput } from "@timelish/page-builder-base/style-inputs";
+import { StyleDefinition } from "@hacado/page-builder-base/style";
+import { RawNumberInput } from "@hacado/page-builder-base/style-inputs";
 import { Percent } from "lucide-react";
 import * as z from "zod";
 

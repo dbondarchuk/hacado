@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
 import {
   Button,
   Form,
@@ -11,13 +11,15 @@ import {
   FormLabel,
   FormMessage,
   InfoTooltip,
-  PhoneInput,
   Spinner,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+  MemberSelector,
+  useAuth,
+} from "@hacado/ui-admin";
+import { subscriptionAllowsMultipleUsers } from "@hacado/utils";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { TextMessageResenderApp } from "./app";
@@ -33,11 +35,13 @@ import {
 
 export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
   onSuccess,
-
   onError,
-
   appId,
 }) => {
+  const { user } = useAuth();
+  const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
+    user?.availableUsers,
+  );
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextMessageResenderConfiguration>({
       appId,
@@ -57,25 +61,35 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex flex-col items-center gap-2">
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.phone.label")}
-                    <InfoTooltip>{t("form.phone.tooltip")}</InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <PhoneInput
-                      {...field}
-                      label={t("form.phone.placeholder")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {allowsMultipleUsers && (
+              <FormField
+                control={form.control}
+                name="defaultMemberId"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>
+                      {t("form.defaultMemberId.label")}
+                      <InfoTooltip>
+                        {t("form.defaultMemberId.tooltip")}
+                      </InfoTooltip>
+                    </FormLabel>
+                    <FormControl>
+                      <MemberSelector
+                        value={field.value}
+                        disabled={isLoading}
+                        allowClear
+                        placeholder={t("form.defaultMemberId.placeholder")}
+                        onItemSelect={(value) => {
+                          field.onChange(value);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <Button
               disabled={isLoading || !isValid}
               type="submit"

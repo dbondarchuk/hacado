@@ -1,9 +1,10 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getUser } from "@/app/utils";
 import {
   communicationLogsSearchParams,
   communicationLogsSearchParamsCache,
-} from "@timelish/api-sdk";
-import { DataTable } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { DataTable } from "@hacado/ui-admin";
+import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
 import { columns } from "./columns";
 
 export const CommunicationLogsTable: React.FC<{
@@ -21,6 +22,12 @@ export const CommunicationLogsTable: React.FC<{
   const sort = communicationLogsSearchParamsCache.get("sort");
   const customerIds =
     communicationLogsSearchParamsCache.get("customer") || undefined;
+  const user = await getUser();
+  const memberIds = gateMemberIds(
+    user,
+    communicationLogsSearchParamsCache.get("member") ?? undefined,
+    { canFilter: canFilterCommunicationByMember },
+  );
 
   const offset = (page - 1) * limit;
 
@@ -36,6 +43,7 @@ export const CommunicationLogsTable: React.FC<{
       search,
       sort,
       customerId: customerId ?? customerIds,
+      memberId: memberIds ?? undefined,
     });
 
   return (

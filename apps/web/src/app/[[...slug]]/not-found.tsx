@@ -1,8 +1,8 @@
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import { Home } from "lucide-react";
 
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
   Link,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

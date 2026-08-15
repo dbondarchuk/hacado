@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
 import * as z from "zod";
 import { AccordionProps } from "../accordion/schema";
 import { InlineContainerPropsDefaults } from "../inline-container/schema";

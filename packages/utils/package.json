@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/utils",
+  "name": "@hacado/utils",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -7,7 +7,8 @@
     "type-check": "tsc --pretty --noEmit",
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "node --import tsx --test src/schedule-resolve.test.ts"
   },
   "main": "./src/index.ts",
   "devDependencies": {
@@ -17,12 +18,12 @@
     "@types/mustache": "^4.2.5",
     "@types/node": "^20",
     "@types/uuid": "^10.0.0",
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
-    "typescript": "5.5.4"
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
+    "typescript": "6.0.2"
   },
   "dependencies": {
-    "@timelish/types": "*",
+    "@hacado/types": "*",
     "color": "^5.0.0",
     "content-type": "1.0.4",
     "fast-equals": "^5.2.2",
@@ -30,11 +31,11 @@
     "mime-type": "^5.0.0",
     "mustache": "^4.2.0",
     "raw-body": "2.4.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "uuid": "^10.0.0"
   },
   "peerDependencies": {
-    "next": "15.5.9"
+    "next": "16.3.0"
   }
 }

@@ -2,9 +2,9 @@
 
 import { saveInstallSchedule } from "@/components/install/actions/schedule";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
-import { useI18n } from "@timelish/i18n";
-import { Button, Spinner, toast } from "@timelish/ui";
-import { SimpleScheduler } from "@timelish/ui-admin";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Spinner, toast } from "@hacado/ui";
+import { SimpleScheduler } from "@hacado/ui-admin";
 import { useState } from "react";
 
 export function StepSchedule() {
@@ -74,7 +74,11 @@ export function StepSchedule() {
         >
           {t("wizard.common.back")}
         </Button>
-        <Button type="button" onClick={() => void onContinue()} disabled={submitting}>
+        <Button
+          type="button"
+          onClick={() => void onContinue()}
+          disabled={submitting}
+        >
           {submitting ? <Spinner /> : null}
           {t("wizard.common.continue")}
         </Button>

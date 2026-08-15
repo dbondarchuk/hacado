@@ -28,6 +28,11 @@ export function useWaitlistTableFilters() {
     searchParams.option.withOptions({ shallow: false }),
   );
 
+  const [memberFilter, setMemberFilter] = useQueryState(
+    "member",
+    searchParams.member.withOptions({ shallow: false }),
+  );
+
   const [start, setStartValue] = useQueryState(
     "start",
     searchParams.start.withOptions({ shallow: false }),
@@ -45,6 +50,7 @@ export function useWaitlistTableFilters() {
     setStatusFilter(null);
     setCustomerFilter(null);
     setOptionFilter(null);
+    setMemberFilter(null);
     setStartValue(null);
     setEndValue(null);
     setPage(1);
@@ -53,6 +59,7 @@ export function useWaitlistTableFilters() {
     setStatusFilter,
     setCustomerFilter,
     setOptionFilter,
+    setMemberFilter,
     setStartValue,
     setEndValue,
     setPage,
@@ -64,10 +71,19 @@ export function useWaitlistTableFilters() {
       statusFilter !== searchParams.status.defaultValue ||
       !!customerFilter?.length ||
       !!optionFilter?.length ||
+      !!memberFilter?.length ||
       !!start ||
       !!end
     );
-  }, [searchQuery, statusFilter, customerFilter, optionFilter, start, end]);
+  }, [
+    searchQuery,
+    statusFilter,
+    customerFilter,
+    optionFilter,
+    memberFilter,
+    start,
+    end,
+  ]);
 
   return {
     searchQuery,
@@ -82,6 +98,8 @@ export function useWaitlistTableFilters() {
     setCustomerFilter,
     optionFilter,
     setOptionFilter,
+    memberFilter,
+    setMemberFilter,
     start,
     setStartValue,
     end,

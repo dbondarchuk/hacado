@@ -1,17 +1,17 @@
 ---
 sidebar_position: 36
-description: Build intake forms, place them where Timelish allows, and review responses.
+description: Build intake forms, place them where Hacado allows, and review responses.
 ---
 
 # Forms
 
-**Forms** is a builder for questionnaires, intake sheets, consent pages, file uploads **when Timelish supports them**, validations, and branching. Publish each form wherever Timelish offers a hook **often beside booking flows or site blocks**. Answers collect under **Form responses** where staff can read, export, or delete rows according to your retention policy.
+**Forms** is a builder for questionnaires, intake sheets, consent pages, file uploads **when Hacado supports them**, validations, and branching. Publish each form wherever Hacado offers a hook **often beside booking flows or site blocks**. Answers collect under **Form responses** where staff can read, export, or delete rows according to your retention policy.
 
 ## Adding the App
 
 1. Open **Apps**, open **Store**, install **Forms**.
 2. Click **New form** scaffold questions branching files **when your tenant exposes those controls**.
-3. Publish or embed wherever Timelish indicates **booking flows website widgets** wording follows your dashboard.
+3. Publish or embed wherever Hacado indicates **booking flows website widgets** wording follows your dashboard.
 4. Submit answers yourself sanity-check grids.
 
 Discuss sensitive health or legal wording with your adviser before you publish. **[Apps troubleshooting](/docs/apps/troubleshooting)** covers technical save login or permission errors rather than clinical policy.
@@ -53,4 +53,4 @@ Discuss how long raw answers linger export cycles deletion rights with counsel *
 
 ### What changes afterward
 
-Embeds cease collecting new answers archival timelines ask Timelish support if unsure.
+Embeds cease collecting new answers archival timelines ask Hacado support if unsure.

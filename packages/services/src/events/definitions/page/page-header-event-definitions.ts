@@ -1,4 +1,4 @@
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   PAGE_HEADER_CREATED_EVENT_TYPE,
   PAGE_HEADER_DELETED_EVENT_TYPE,
@@ -7,7 +7,7 @@ import {
   type PageHeaderCreatedPayload,
   type PageHeaderDeletedPayload,
   type PageHeaderUpdatedPayload,
-} from "@timelish/types";
+} from "@hacado/types";
 
 import { dashboardUrls } from "../links";
 

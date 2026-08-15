@@ -3,7 +3,7 @@ import type {
   IConnectedAppProps,
   Page,
   SitemapUrlEntry,
-} from "@timelish/types";
+} from "@hacado/types";
 import { BlogRepositoryService } from "./repository-service";
 
 function blogPathPrefixFromPageSlug(slug: string): string | null {
@@ -30,7 +30,7 @@ function visitPageDocumentBlocks(
   }
 }
 
-function pageUsesBlogApp(page: Page, appId: string): boolean {
+export function pageUsesBlogApp(page: Page, appId: string): boolean {
   if (!page.content) return false;
   let found = false;
   visitPageDocumentBlocks(page.content, (block) => {

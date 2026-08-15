@@ -1,7 +1,7 @@
 "use client";
-import { clientApi } from "@timelish/api-sdk";
-import { GetAppointmentOptionsResponse } from "@timelish/types";
-import { Skeleton } from "@timelish/ui";
+import { clientApi } from "@hacado/api-sdk";
+import { GetAppointmentOptionsResponse } from "@hacado/types";
+import { Skeleton } from "@hacado/ui";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
 import { Appointments } from "./appointments";
@@ -12,7 +12,7 @@ export const Booking: React.FC<
     id?: string;
     isEditor?: boolean;
   } & React.HTMLAttributes<HTMLDivElement>
-> = ({ successPage, className, id, isEditor, ...props }) => {
+> = ({ successPage, flowOrder, className, id, isEditor, ...props }) => {
   const [response, setResponse] =
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
@@ -44,6 +44,8 @@ export const Booking: React.FC<
       {...props}
       className={className}
       options={response.options}
+      members={response.members}
+      flowOrder={flowOrder ?? "service-first"}
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}

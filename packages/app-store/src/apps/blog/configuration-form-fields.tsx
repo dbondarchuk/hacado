@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   FormControl,
   FormDescription,
@@ -8,7 +8,7 @@ import {
   FormItem,
   FormLabel,
   Switch,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { UseFormReturn } from "react-hook-form";
 import { BlogConfiguration } from "./models";
 import {

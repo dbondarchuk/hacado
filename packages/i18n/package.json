@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/i18n",
+  "name": "@hacado/i18n",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,
@@ -15,16 +15,18 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./client": "./src/client.tsx",
     "./server": "./src/server.ts",
-    "./request": "./src/request.ts"
+    "./request": "./src/request.ts",
+    "./components": "./src/components.tsx"
   },
   "devDependencies": {
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
-    "typescript": "5.5.4"
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
+    "typescript": "6.0.2"
   },
   "dependencies": {
-    "next-intl": "^4.3.9",
+    "next-intl": "^4.13.5",
     "yaml": "^2.7.0"
   }
 }

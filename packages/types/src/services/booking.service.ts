@@ -11,16 +11,19 @@ import {
   GetAppointmentOptionsResponse,
   GetAppointmentsQuery,
   GetAppointmentsQueryWithReferenceDate,
-  ModifyAppointmentInformationRequest,
   Period,
 } from "../booking";
 import { Query, WithTotal } from "../database";
 import type { EventSource } from "../events/envelope";
 
 export interface IBookingService {
-  getAvailability(duration: number): Promise<Availability>;
-  getBusyEventsInTimeFrame(start: Date, end: Date): Promise<Period[]>;
-  getBusyEvents(): Promise<Period[]>;
+  getAvailability(duration: number, memberId: string): Promise<Availability>;
+  getBusyEventsInTimeFrame(
+    start: Date,
+    end: Date,
+    options?: { memberId?: string },
+  ): Promise<Period[]>;
+  getBusyEvents(options?: { memberId?: string }): Promise<Period[]>;
   createAppointment(args: {
     event: AppointmentEvent;
     confirmed?: boolean;
@@ -29,6 +32,8 @@ export interface IBookingService {
     paymentIntentId?: string;
     eventSource: EventSource;
     giftCards?: ApplyGiftCardsSuccessResponse["giftCards"];
+    /** Assigned staff member. Required going forward; when omitted, resolved server-side (owner fallback) for backward compat during migration. */
+    memberId?: string;
   }): Promise<Appointment>;
   updateAppointment(
     id: string,
@@ -43,12 +48,18 @@ export interface IBookingService {
   getPendingAppointmentsCount(
     minimumDate?: Date,
     createdAfter?: Date,
+    memberId?: string,
   ): Promise<{ totalCount: number; newCount: number }>;
   getPendingAppointments(
     limit?: number,
     after?: Date,
+    memberId?: string,
   ): Promise<WithTotal<Appointment>>;
-  getNextAppointments(date: Date, limit?: number): Promise<Appointment[]>;
+  getNextAppointments(
+    date: Date,
+    limit?: number,
+    memberId?: string,
+  ): Promise<Appointment[]>;
   getAppointments(
     query: Query & GetAppointmentsQueryWithReferenceDate,
   ): Promise<WithTotal<AppointmentWithReferenceDateDistance>>;
@@ -59,6 +70,7 @@ export interface IBookingService {
     start: Date,
     end: Date,
     status: AppointmentStatus[],
+    memberId?: string,
   ): Promise<CalendarEvent[]>;
   getAppointment(id: string): Promise<Appointment | null>;
   findAppointmentByCustomerAndDateTime(
@@ -95,6 +107,10 @@ export interface IBookingService {
     entry: Omit<AppointmentHistoryEntry, "_id" | "dateTime" | "organizationId">,
   ): Promise<string>;
 
-  verifyTimeAvailability(dateTime: Date, duration: number): Promise<boolean>;
+  verifyTimeAvailability(
+    dateTime: Date,
+    duration: number,
+    memberId: string,
+  ): Promise<boolean>;
   getAppointmentOptions(): Promise<GetAppointmentOptionsResponse>;
 }

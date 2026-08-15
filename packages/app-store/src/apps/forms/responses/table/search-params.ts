@@ -1,6 +1,5 @@
-import { baseSearchParams } from "@timelish/api-sdk";
+import { baseSearchParams } from "@hacado/api-sdk";
 import { parseAsArrayOf, parseAsIsoDateTime, parseAsString } from "nuqs";
-import { DateTime } from "luxon";
 
 export const searchParams = {
   ...baseSearchParams,

@@ -1,4 +1,4 @@
-import { PageUpdateModel } from "@timelish/types";
+import { PageUpdateModel } from "@hacado/types";
 import { getBlogPostReadMoreLinkBlock } from "../blocks/read-more-link-block";
 
 export const BLOG_PAGES: (
@@ -973,7 +973,7 @@ export const BLOG_PAGES: (
     footerId,
   },
   {
-    title: "Blog post",
+    title: "{{postTitle}}",
     content: {
       data: {
         fontFamily: "PRIMARY",
@@ -1316,7 +1316,7 @@ export const BLOG_PAGES: (
       type: "PageLayout",
     },
     slug: "blog/[slug]",
-    description: "post",
+    description: "{{postDescription}}",
     keywords: "blog",
     published: true,
     publishDate: new Date(),

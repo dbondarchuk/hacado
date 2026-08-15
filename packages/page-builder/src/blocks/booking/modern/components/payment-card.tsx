@@ -1,7 +1,7 @@
-import { PaymentAppForms } from "@timelish/app-store/payment-forms";
-import { useI18n } from "@timelish/i18n";
-import { cn, useCurrencyFormat } from "@timelish/ui";
-import { formatAmount } from "@timelish/utils";
+import { PaymentAppForms } from "@hacado/app-store/payment-forms";
+import { useI18n } from "@hacado/i18n/client";
+import { cn, useCurrencyFormat } from "@hacado/ui";
+import { formatAmount } from "@hacado/utils";
 import { CreditCard } from "lucide-react";
 import { useScheduleContext } from "./context";
 

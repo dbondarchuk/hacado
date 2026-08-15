@@ -1,7 +1,7 @@
 "use client";
 
 import { useHasDashboardNotifications } from "@/app/dashboard/notifications-toast-stream";
-import { cn, useSidebar } from "@timelish/ui";
+import { cn, useSidebar } from "@hacado/ui";
 import React from "react";
 
 const NavIcon = ({
@@ -33,7 +33,9 @@ export const SidebarNavIcon: React.FC<{
 
   return (
     <span className={cn("relative inline-flex shrink-0", className)}>
-      <NavIcon className="size-[1.125rem] stroke-[1.5] text-primary/80">{icon}</NavIcon>
+      <NavIcon className="size-[1.125rem] stroke-[1.5] text-primary/80">
+        {icon}
+      </NavIcon>
       {showDot ? (
         <span
           className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-primary ring-2 ring-sidebar"

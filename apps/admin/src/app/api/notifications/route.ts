@@ -3,20 +3,30 @@ import {
   getServicesContainer,
   getSession,
 } from "@/app/utils";
-import { BaseAllKeys } from "@timelish/i18n";
-import { getLoggerFactory } from "@timelish/logger";
-import { getDashboardNotificationRealtimeBroker } from "@timelish/services";
-import { DashboardNotification, IDashboardNotifierApp } from "@timelish/types";
+import { BaseAllKeys } from "@hacado/i18n";
+import { getLoggerFactory } from "@hacado/logger";
+import { getDashboardNotificationRealtimeBroker } from "@hacado/services";
+import {
+  DashboardNotification,
+  IDashboardNotifierApp,
+  type SessionUser,
+} from "@hacado/types";
+import {
+  canReadActivity,
+  canReadSyncedPayments,
+  canUpdateAppointments,
+  resolveUpdatableAppointmentMemberId,
+} from "@hacado/utils";
 import { DateTime } from "luxon";
 import { NextRequest } from "next/server";
 import { v4 } from "uuid";
 
-const getActivityFeedNotifications = async (userId: string) => {
+const getActivityFeedNotifications = async (memberId: string) => {
   const servicesContainer = await getServicesContainer();
 
   const [preview, highestSeverity] = await Promise.all([
     servicesContainer.activityService.getActivityPreview(3),
-    servicesContainer.activityService.getHighestSeveritySinceLastRead(userId),
+    servicesContainer.activityService.getHighestSeveritySinceLastRead(memberId),
   ]);
 
   return {
@@ -25,12 +35,29 @@ const getActivityFeedNotifications = async (userId: string) => {
   } satisfies DashboardNotification;
 };
 
-const getPendingAppointmentsNotifications = async (date?: Date) => {
+const getPendingAppointmentsNotifications = async (
+  user: SessionUser,
+  date?: Date,
+) => {
+  if (!canUpdateAppointments(user)) {
+    return {
+      type: "pending-appointments",
+      badges: [
+        {
+          key: "pending_appointments",
+          count: 0,
+        },
+      ],
+    } satisfies DashboardNotification;
+  }
+
   const servicesContainer = await getServicesContainer();
+  const memberId = resolveUpdatableAppointmentMemberId(user);
   const { totalCount, newCount } =
     await servicesContainer.bookingService.getPendingAppointmentsCount(
       new Date(),
       date,
+      memberId,
     );
 
   return {
@@ -90,7 +117,7 @@ export async function GET(request: NextRequest) {
   const organizationId = await getOrganizationId();
 
   const session = await getSession();
-  const userId = session.user.id;
+  const memberId = session.user.memberId;
 
   logger.debug("Starting notifications SSE stream");
 
@@ -109,14 +136,21 @@ export async function GET(request: NextRequest) {
     callback: (notifications: DashboardNotification[]) => void,
   ) => {
     logger.debug("Getting pending appointments notifications");
-    const count = await getPendingAppointmentsNotifications(lastDate);
-    const syncedPaymentsReview = await getSyncedPaymentsReviewNotifications();
-    const activityFeed = await getActivityFeedNotifications(userId);
+    const count = await getPendingAppointmentsNotifications(
+      session.user,
+      lastDate,
+    );
+    const syncedPaymentsReview = canReadSyncedPayments(session.user)
+      ? await getSyncedPaymentsReviewNotifications()
+      : undefined;
+    const activityFeed = canReadActivity(session.user)
+      ? await getActivityFeedNotifications(memberId)
+      : undefined;
 
     let notifications: DashboardNotification[] = [
       count,
-      syncedPaymentsReview,
-      activityFeed,
+      ...(syncedPaymentsReview ? [syncedPaymentsReview] : []),
+      ...(activityFeed ? [activityFeed] : []),
     ];
 
     logger.debug("Invoking dashboard notifier apps");
@@ -127,7 +161,7 @@ export async function GET(request: NextRequest) {
       >(
         "dashboard-notifier",
         async (app, service) => {
-          return await service.getInitialNotifications(app, userId, lastDate);
+          return await service.getInitialNotifications(app, memberId, lastDate);
         },
         {
           concurrencyLimit: 10,

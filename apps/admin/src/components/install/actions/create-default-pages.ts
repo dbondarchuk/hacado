@@ -4,12 +4,12 @@ import {
   GIFT_CARD_STUDIO_APP_NAME,
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
-} from "@timelish/app-store";
-import type { Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { deserializeMarkdown } from "@timelish/rte";
-import { systemEventSource, type IServicesContainer } from "@timelish/types";
+} from "@hacado/app-store";
+import type { Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { deserializeMarkdown } from "@hacado/rte";
+import { systemEventSource, type IServicesContainer } from "@hacado/types";
 import { bookDefaultPage } from "../defaults/book";
 import { footerDefaultPage } from "../defaults/footer";
 import { giftCardsDefaultPage } from "../defaults/gift-cards";

@@ -1,9 +1,9 @@
-import { AvailableApps } from "./apps";
 import {
   BillingPlanTier,
   getMinimumPlanTierForApp,
   meetsMinimumPlanTier,
-} from "@timelish/types";
+} from "@hacado/types";
+import { AvailableApps } from "./apps";
 
 export function getAppMinimumPlanTier(appSlug: string): BillingPlanTier {
   return getMinimumPlanTierForApp(AvailableApps[appSlug]);

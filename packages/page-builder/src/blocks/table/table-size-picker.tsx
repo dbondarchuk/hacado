@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   cn,
   Popover,
   PopoverContent,
   PopoverTrigger,
   ToolbarButton,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Grid3x3 } from "lucide-react";
 import { useCallback, useState } from "react";
 

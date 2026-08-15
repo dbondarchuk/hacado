@@ -1,5 +1,5 @@
-import { zErrorMessageWithParams, zPhone, zUniqueArray } from "@timelish/types";
-import { validateFileType } from "@timelish/utils";
+import { zErrorMessageWithParams, zPhone, zUniqueArray } from "@hacado/types";
+import { validateFileType } from "@hacado/utils";
 import * as z from "zod";
 import { FormsPublicAllKeys } from "../translations/types";
 import type { FormsFieldsSchema } from "./fields";

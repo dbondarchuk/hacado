@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Skeleton, toastPromise } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Skeleton, toastPromise } from "@hacado/ui";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { approveBlogComment } from "../../actions";

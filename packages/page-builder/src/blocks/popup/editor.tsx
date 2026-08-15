@@ -6,9 +6,9 @@ import {
   useBlockChildrenBlockIds,
   useBlockEditor,
   useCurrentBlock,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { cn, DialogFooter, DialogHeader } from "@timelish/ui";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { cn, DialogFooter, DialogHeader } from "@hacado/ui";
 import { X } from "lucide-react";
 import { PopupProps } from "./schema";
 import { styles } from "./styles";

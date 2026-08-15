@@ -5,8 +5,8 @@ import {
   useDispatchAction,
   useIsSelectedBlock,
   usePortalContext,
-} from "@timelish/builder";
-import { PlateEditor, PlateStaticEditor } from "@timelish/rte";
+} from "@hacado/builder";
+import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
 import { TextProps } from "./schema";
 import { getStyles } from "./styles";
 

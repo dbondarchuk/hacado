@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   cn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Blocks, ListTree } from "lucide-react";
 import { memo } from "react";
 import { useShowBlocksPanel } from "../../../documents/editor/context";

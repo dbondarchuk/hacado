@@ -1,13 +1,14 @@
 "use client";
 
-import { I18nRichText, useI18n } from "@timelish/i18n";
-import type { OrganizationBillingSubscriptionDetails } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { I18nRichText } from "@hacado/i18n/components";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
 import {
   countryOptions,
   Currency,
   currencyOptions,
   CurrencySymbolMap,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   BooleanSelect,
   Card,
@@ -24,7 +25,7 @@ import {
   InfoTooltip,
   Input,
   PhoneInput,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { UseFormReturn } from "react-hook-form";
 import { SiteSettingsFormValues } from "../site-settings-schema";
 import { GeneralBillingCard } from "./general-billing-card";

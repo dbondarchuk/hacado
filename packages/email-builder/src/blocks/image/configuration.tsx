@@ -7,8 +7,8 @@ import {
   RadioGroupInputItem,
   TextDoubleNumberInput,
   TextInput,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import { ArrowDownToLine, ArrowUpToLine, FoldVertical } from "lucide-react";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { ImageProps, ImagePropsDefaults } from "./schema";

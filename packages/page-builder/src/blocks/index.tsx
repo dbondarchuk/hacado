@@ -3,7 +3,7 @@ import {
   EditorDocumentBlocksDictionary,
   generateId,
   TEditorBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   AppWindow,
   ArrowBigRightDash,
@@ -69,7 +69,7 @@ import {
   LinkToolbar,
 } from "./link";
 
-import { BaseAllKeys } from "@timelish/i18n";
+import { BaseAllKeys } from "@hacado/i18n";
 import {
   BookingConfirmationConfiguration as BookingConfirmationModernConfiguration,
   BookingConfirmationEditor as BookingConfirmationModernEditor,

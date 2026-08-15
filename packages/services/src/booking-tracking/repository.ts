@@ -3,7 +3,7 @@ import {
   BookingTrackingEvent,
   Query,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { BOOKING_TRACKING_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";

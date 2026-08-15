@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import { BaseContainer } from "./base";
 import { ContainerReaderProps } from "./schema";
 

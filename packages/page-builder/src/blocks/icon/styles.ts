@@ -2,7 +2,7 @@ import {
   fillStyle,
   getAllStylesWithAdditionalStyles,
   getStylesSchema,
-} from "@timelish/page-builder-base/style";
+} from "@hacado/page-builder-base/style";
 
 export const styles = getAllStylesWithAdditionalStyles({
   fill: fillStyle,

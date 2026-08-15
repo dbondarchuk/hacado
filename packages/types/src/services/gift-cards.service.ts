@@ -6,8 +6,8 @@ import {
 } from "../booking/gift-card";
 import { Query } from "../database/query";
 import { WithTotal } from "../database/with-total";
-import { DateRange } from "../general/date";
 import type { EventSource } from "../events/envelope";
+import { DateRange } from "../general/date";
 
 export type IGiftCardsService = {
   createGiftCard(

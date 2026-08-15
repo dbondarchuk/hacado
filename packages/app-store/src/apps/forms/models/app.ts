@@ -1,4 +1,4 @@
-import { zNonEmptyString, zObjectId, zTaggedUnion } from "@timelish/types";
+import { zNonEmptyString, zObjectId, zTaggedUnion } from "@hacado/types";
 import * as z from "zod";
 import {
   formSchemaBase,

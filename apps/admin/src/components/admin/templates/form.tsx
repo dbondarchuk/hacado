@@ -1,15 +1,14 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { EmailBuilder } from "@timelish/email-builder";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { EmailBuilder } from "@hacado/email-builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
   getTemplateSchemaWithUniqueCheck,
   Template,
   TemplatesTemplate,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Form,
   FormControl,
@@ -21,9 +20,10 @@ import {
   Input,
   toastPromise,
   useDebounceCacheFn,
-} from "@timelish/ui";
-import { ArgumentsAutocomplete, SaveButton } from "@timelish/ui-admin";
-import { TextMessageBuilder } from "@timelish/ui-admin-kit";
+} from "@hacado/ui";
+import { ArgumentsAutocomplete, SaveButton } from "@hacado/ui-admin";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";

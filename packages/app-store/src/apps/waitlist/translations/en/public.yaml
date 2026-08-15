@@ -8,6 +8,7 @@ block:
   durationSelectTitle: How much time do you need?
   steps:
     option: Service
+    specialist: Specialist
     addons: Add-ons
     calendar: Date & Time
     form: Details

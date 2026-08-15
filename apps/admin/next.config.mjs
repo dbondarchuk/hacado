@@ -12,16 +12,19 @@ const __dirname = dirname(__filename);
 const nextConfig = {
   output: "standalone",
   outputFileTracingRoot: join(__dirname, "../../"),
+  allowedDevOrigins: ["*.dev.bondarchuk.me", "*.dev.hacado.com"],
   serverExternalPackages: [
     "pino",
     "pino-pretty",
     "bullmq",
     "pdfkit",
     "@resvg/resvg-js",
+    "geoip-lite",
+    "@visulima/disposable-email-domains",
   ],
   experimental: {
+    authInterrupts: true,
     webpackMemoryOptimizations: true,
-    turbopackScopeHoisting: false,
     serverActions: {
       bodySizeLimit: "150mb",
     },

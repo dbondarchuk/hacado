@@ -1,8 +1,14 @@
 "use client";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { GiftCardListModel } from "@timelish/types";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton, useCurrencyFormat } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { GiftCardListModel } from "@hacado/types";
+import {
+  cn,
+  ComboboxAsync,
+  IComboboxItem,
+  Skeleton,
+  useCurrencyFormat,
+} from "@hacado/ui";
 import { Gift } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

@@ -1,12 +1,11 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BookingConfiguration,
   bookingConfigurationSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   cn,
   Form,
@@ -15,8 +14,9 @@ import {
   TabsContent,
   TabsTrigger,
   toastPromise,
-} from "@timelish/ui";
-import { SaveButton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,8 @@ import { ReschedulesTab } from "./tabs/reschedules";
 export const AppointmentsSettingsForm: React.FC<{
   values: BookingConfiguration;
   canUsePayments: boolean;
-}> = ({ values, canUsePayments }) => {
+  showTeamSettings?: boolean;
+}> = ({ values, canUsePayments, showTeamSettings }) => {
   const t = useI18n("admin");
   const form = useForm<BookingConfiguration>({
     resolver: zodResolver(bookingConfigurationSchema),
@@ -146,7 +147,7 @@ export const AppointmentsSettingsForm: React.FC<{
             </TabsTrigger>
           </ResponsiveTabsList>
           <TabsContent value="main">
-            <MainTab form={form} />
+            <MainTab form={form} showTeamSettings={showTeamSettings} />
           </TabsContent>
           <TabsContent value="options">
             <OptionsTab form={form} />

@@ -1,16 +1,19 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback, useMemo } from "react";
 import {
   BlogAdminKeys,
   BlogAdminNamespace,
   blogAdminNamespace,
 } from "../../translations/types";
-import { dateFormatOptions, getFormatPreview } from "../post-publish-date/formats";
+import {
+  dateFormatOptions,
+  getFormatPreview,
+} from "../post-publish-date/formats";
 import { blogTextShortcuts } from "../text-shortcuts";
 import {
   BlogCommentDateProps,

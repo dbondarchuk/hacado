@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
   Dialog,
@@ -13,8 +13,8 @@ import {
   Label,
   Spinner,
   toastPromise,
-} from "@timelish/ui";
-import { CustomerSelector, useReload } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector, useReload } from "@hacado/ui-admin";
 import { UserPlus } from "lucide-react";
 import React from "react";
 import { reassignFormResponses } from "../../actions";

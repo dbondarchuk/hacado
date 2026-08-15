@@ -1,15 +1,15 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { TemplateForm } from "@/components/admin/templates/form";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   CommunicationChannel,
   DemoArguments,
   IDemoArgumentsProvider,
   Template,
   TemplatesTemplate,
-} from "@timelish/types";
-import { Breadcrumbs } from "@timelish/ui";
-import { demoAppointment, getAdminUrl, getArguments } from "@timelish/utils";
+} from "@hacado/types";
+import { Breadcrumbs } from "@hacado/ui";
+import { demoAppointment, getAdminUrl, getArguments } from "@hacado/utils";
 import { notFound } from "next/navigation";
 import React from "react";
 import { getTemplate } from "./cached";

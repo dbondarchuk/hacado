@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Appointment } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
   cn,
-} from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import { forwardRef } from "react";
 

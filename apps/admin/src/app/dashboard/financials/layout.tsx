@@ -1,4 +1,7 @@
+import { getSession } from "@/app/utils";
 import { redirectIfFeatureUnavailable } from "@/lib/billing/subscription-feature-guard";
+import { canAccessFinancialsSection } from "@hacado/utils";
+import { forbidden } from "next/navigation";
 
 export default async function FinancialsLayout({
   children,
@@ -6,5 +9,9 @@ export default async function FinancialsLayout({
   children: React.ReactNode;
 }) {
   await redirectIfFeatureUnavailable("financials");
+  const session = await getSession();
+  if (!canAccessFinancialsSection(session?.user)) {
+    forbidden();
+  }
   return children;
 }

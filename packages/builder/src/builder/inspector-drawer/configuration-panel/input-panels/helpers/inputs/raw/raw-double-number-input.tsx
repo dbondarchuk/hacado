@@ -9,7 +9,7 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   InputProps,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ResetButton } from "../reset-button";
 
 export type RawDoubleNumberInputProps = {

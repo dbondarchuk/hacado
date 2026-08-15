@@ -1,6 +1,7 @@
-import { TReaderBlock, generateId as generateBlockId } from "@timelish/builder";
-import { deserializeMarkdown } from "@timelish/rte";
-import { templateSafeWithError } from "@timelish/utils";
+import { TReaderBlock, generateId as generateBlockId } from "@hacado/builder";
+import { deserializeMarkdown } from "@hacado/rte";
+import { templateSafeWithError } from "@hacado/utils";
+import { EMAIL_BRAND } from "../brand";
 import { renderToStaticMarkup } from "./static";
 
 export type UserEmailTemplateButton = {
@@ -17,6 +18,7 @@ export type UserEmailTemplateContentBlock =
   | {
       type: "text";
       text: string;
+      align?: "left" | "center" | "right";
     }
   | {
       type: "title";
@@ -66,6 +68,7 @@ const contentBlockTypeRenderMap: {
           right: 24,
           left: 24,
         },
+        textAlign: block.align,
       },
       props: {
         value: deserializeMarkdown(
@@ -124,8 +127,8 @@ const contentBlockTypeRenderMap: {
         width: "full",
         size: "large",
         buttonStyle: "rounded",
-        buttonTextColor: button.textColor ?? "#FFFFFF",
-        buttonBackgroundColor: button.backgroundColor ?? "#0066ff",
+        buttonTextColor: button.textColor ?? EMAIL_BRAND.onPrimary,
+        buttonBackgroundColor: button.backgroundColor ?? EMAIL_BRAND.primary,
       },
       style: {
         padding: {
@@ -155,16 +158,16 @@ export const renderUserEmailTemplate = async (
     ),
   );
 
-  const appUrl = `https://${process.env.ADMIN_DOMAIN ?? "app.timelish.com"}`;
+  const appUrl = `https://${process.env.ADMIN_DOMAIN ?? "app.hacado.com"}`;
 
   const userEmailTemplate = {
     type: "EmailLayout",
     id: "block-1740257042800",
     data: {
-      backdropColor: "#F5F5F5",
+      backdropColor: EMAIL_BRAND.cream,
       borderRadius: 0,
-      canvasColor: "#FFFFFF",
-      textColor: "#262626",
+      canvasColor: EMAIL_BRAND.creamLight,
+      textColor: EMAIL_BRAND.ink,
       fontFamily: "MODERN_SANS",
       previewText: previewText,
       maxWidth: 600,
@@ -175,7 +178,7 @@ export const renderUserEmailTemplate = async (
           data: {
             props: {
               url: `${appUrl}/email-logo.png`,
-              alt: "Timeli.sh Logo",
+              alt: "Hacado Logo",
               contentAlignment: "middle",
               linkHref: appUrl,
               x: 50,
@@ -200,8 +203,8 @@ export const renderUserEmailTemplate = async (
           data: {
             props: {
               text: args.config?.name
-                ? `Timeli.sh - ${args.config.name}`
-                : "Timeli.sh",
+                ? `Hacado - ${args.config.name}`
+                : "Hacado",
               level: "h3",
             },
             style: {
@@ -240,12 +243,12 @@ export const renderUserEmailTemplate = async (
                         {
                           fontSize: "11px",
                           color: "#999999",
-                          text: "Timeli.sh",
+                          text: "Hacado",
                         },
                       ],
                       target: "_blank",
                       type: "a",
-                      url: "https://timelish.com",
+                      url: "https://hacado.com",
                       id: "X72UXuZzN_",
                     },
                     {
@@ -263,6 +266,7 @@ export const renderUserEmailTemplate = async (
                 right: 24,
               },
               fontWeight: "normal",
+              textAlign: "center",
             },
           },
         },

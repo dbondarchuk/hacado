@@ -1,12 +1,12 @@
 import { LanguageOptions } from "@/constants/texts";
-import { BaseSidebarPanel } from "@timelish/builder";
-import { languages, useI18n } from "@timelish/i18n";
+import { BaseSidebarPanel } from "@hacado/builder";
+import { languages, useI18n } from "@hacado/i18n/client";
 import {
   PageFooterListModel,
   PageHeaderListModel,
   pageTagSchema,
   zNonEmptyString,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Checkbox,
   Combobox,
@@ -20,7 +20,9 @@ import {
   TagInput,
   Textarea,
   use12HourFormat,
-} from "@timelish/ui";
+} from "@hacado/ui";
+import { AssetPreview, AssetSelectorInput } from "@hacado/ui-admin";
+import { fileNameToMimeType } from "@hacado/utils";
 import { memo, useCallback } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import { FooterSelector } from "./footer-selector";
@@ -254,6 +256,48 @@ export const PageSettingsPanel = memo(
               <FormMessage />
             </FormItem>
           )}
+        />
+        <FormField
+          control={form.control}
+          name="featuredImage"
+          render={({ field }) => {
+            const mimeType = field.value
+              ? fileNameToMimeType(field.value)
+              : undefined;
+
+            return (
+              <FormItem>
+                <FormLabel>
+                  {t("pages.form.featuredImage")}{" "}
+                  <InfoTooltip>
+                    {t("pages.form.featuredImageTooltip")}
+                  </InfoTooltip>
+                </FormLabel>
+                <FormControl>
+                  <div className="flex flex-col gap-3">
+                    <AssetSelectorInput
+                      value={field.value ?? ""}
+                      onChange={(value) => {
+                        field.onChange(value || undefined);
+                        field.onBlur();
+                      }}
+                      disabled={loading}
+                      accept="image/*"
+                      placeholder={t("pages.form.featuredImagePlaceholder")}
+                    />
+                    {field.value && mimeType?.startsWith("image/") && (
+                      <AssetPreview
+                        size="md"
+                        src={field.value}
+                        mimeType={mimeType}
+                      />
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
         <FormField
           control={form.control}

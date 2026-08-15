@@ -1,6 +1,6 @@
-import { ConfigurationProps, ToolbarDropdownMenu } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { ShortcutsToolbar } from "@timelish/page-builder-base";
+import { ConfigurationProps, ToolbarDropdownMenu } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { ShortcutsToolbar } from "@hacado/page-builder-base";
 import {
   Heading1,
   Heading2,

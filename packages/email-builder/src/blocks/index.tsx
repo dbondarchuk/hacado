@@ -2,7 +2,7 @@ import {
   EditorDocumentBlocksDictionary,
   generateId,
   TEditorBlock,
-} from "@timelish/builder";
+} from "@hacado/builder";
 import {
   CircleUserRound,
   Code,

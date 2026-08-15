@@ -1,13 +1,14 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { AppointmentChoice } from "@timelish/types";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentChoice } from "@hacado/types";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
+import { canReassignAppointment } from "@hacado/utils";
 import { Metadata } from "next";
 import { searchParamsCache } from "./search-params";
 
@@ -72,6 +73,10 @@ export default async function NewAppointmentPage(props: Props) {
     ? await servicesContainer.bookingService.getAppointment(searchParams.from)
     : undefined;
 
+  const session = await getSession();
+  const currentMemberId = session.user.memberId;
+  const canAssignMember = canReassignAppointment(session.user);
+
   const from: AppointmentScheduleFormFrom | undefined = appointment
     ? {
         optionId: appointment.option._id,
@@ -85,9 +90,11 @@ export default async function NewAppointmentPage(props: Props) {
         status: appointment.status,
         discount: appointment.discount,
         data: searchParams.data as Record<string, any>,
+        memberId: appointment.memberId,
       }
     : {
         ...(searchParams.fromValue ?? {}),
+        memberId: (searchParams?.fromValue as any)?.memberId ?? currentMemberId,
         data: searchParams.data as Record<string, any>,
       };
 
@@ -166,6 +173,8 @@ export default async function NewAppointmentPage(props: Props) {
           from={from}
           isEdit={false}
           customer={customer}
+          currentMemberId={currentMemberId}
+          canAssignMember={canAssignMember}
         />
       </div>
     </PageContainer>

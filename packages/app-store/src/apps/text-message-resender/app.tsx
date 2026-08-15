@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { MessageCircleReply } from "lucide-react";
 import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./const";
 import {
@@ -15,6 +15,7 @@ export const TextMessageResenderApp: App<
   scope: ["text-message-respond"],
   category: ["apps.categories.communications"],
   type: "basic",
+  target: "company",
   Logo: ({ className }) => <MessageCircleReply className={className} />,
   description: {
     text: "app_text-message-resender_admin.app.description",

@@ -1,6 +1,6 @@
-import { AvailableApps } from "@timelish/app-store";
-import { AllKeys } from "@timelish/i18n";
-import { PaymentMethod } from "@timelish/types";
+import { AvailableApps } from "@hacado/app-store";
+import { AllKeys } from "@hacado/i18n";
+import { PaymentMethod } from "@hacado/types";
 import { CircleDollarSign, CreditCard, Gift } from "lucide-react";
 
 export const getPaymentMethod = (

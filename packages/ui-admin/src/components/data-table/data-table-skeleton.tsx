@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export function DataTableSkeleton({
   columnCount = 1,
@@ -29,12 +29,12 @@ export function DataTableSkeleton({
               : null}
             {filterableColumnCount > 0
               ? Array.from({ length: filterableColumnCount }).map((_, i) => (
-                  <Skeleton key={i} className="h-10 w-[70px] border-dashed" />
+                  <Skeleton key={i} className="h-10 w-[80px] border-dashed" />
                 ))
               : null}
           </div>
           {showViewOptions ? (
-            <Skeleton className="ml-auto hidden h-7 w-[70px] lg:flex" />
+            <Skeleton className="ml-auto hidden h-7 w-[80px] lg:flex" />
           ) : null}
         </div>
       ) : null}
@@ -78,7 +78,7 @@ export function DataTableSkeleton({
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
           <div className="flex items-center space-x-2">
             <Skeleton className="h-8 w-24" />
-            <Skeleton className="h-8 w-[70px]" />
+            <Skeleton className="h-8 w-[80px]" />
           </div>
           <div className="hidden w-[100px] items-center justify-center text-sm font-medium md:flex">
             <Skeleton className="h-8 w-20" />

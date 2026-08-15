@@ -3,8 +3,8 @@ import {
   ConnectedAppError,
   ConnectedAppUpdateModel,
   ConnectedOauthAppTokens,
-} from "@timelish/types";
-import { decrypt, encrypt } from "@timelish/utils";
+} from "@hacado/types";
+import { decrypt, encrypt } from "@hacado/utils";
 import { ZoomAdminAllKeys } from "./translations/types";
 
 export const ZOOM_OAUTH_TOKEN_URL = "https://zoom.us/oauth/token";

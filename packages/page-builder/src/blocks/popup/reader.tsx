@@ -1,12 +1,12 @@
 import { Popup } from "./popup";
 import { PopupReaderProps } from "./schema";
 
-import { ReaderBlock } from "@timelish/builder";
+import { ReaderBlock } from "@hacado/builder";
 import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
+} from "@hacado/page-builder-base/reader";
 import {
   cn,
   DialogDescription,
@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   ScrollArea,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { styles } from "./styles";
 
 export const PopupReader = ({

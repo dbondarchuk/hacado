@@ -5,7 +5,7 @@ import {
   GeneralConfiguration,
   IcalEventMethod,
   ParticipationStatus,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import { getIcsEventUid } from "./ics-uid";
 import { getAdminUrl } from "./website";

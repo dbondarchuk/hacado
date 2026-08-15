@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@timelish/i18n";
+import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Badge,
   Button,
@@ -11,7 +11,7 @@ import {
   DialogTrigger,
   ScrollArea,
   useTimeZone,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { DateTime } from "luxon";
 import { WaitlistEntry } from "../../models";
 import {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@hacado/i18n/client";
 import {
   ColumnDef,
   flexRender,
@@ -7,7 +8,6 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useI18n } from "@timelish/i18n";
 
 import { Button } from "./button";
 import { Input } from "./input";

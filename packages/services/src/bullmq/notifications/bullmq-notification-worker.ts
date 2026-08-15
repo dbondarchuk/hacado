@@ -1,13 +1,12 @@
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Email,
   EmailNotificationRequest,
   IServicesContainer,
   TextMessageNotificationRequest,
-} from "@timelish/types";
+} from "@hacado/types";
 import { Job } from "bullmq";
-import { SmtpService } from "../../email";
-import { getSmtpConfiguration } from "../../email/smtp/utils";
+import { createDefaultEmailService } from "../../email/factory";
 import {
   NotificationService,
   SystemNotificationService,
@@ -141,10 +140,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
 
     const email = jobData.data as Email;
     const notificationService = new SystemNotificationService(
-      new SmtpService(
-        getSmtpConfiguration(),
-        this.getServices("").assetsStorage,
-      ),
+      createDefaultEmailService(this.getServices("").assetsStorage),
     );
 
     try {
@@ -389,10 +385,10 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
 
   private getNotificationService(organizationId: string): NotificationService {
     const services = this.getServices(organizationId);
-    const defaultEmailService = new SmtpService(
-      getSmtpConfiguration(),
+    const defaultEmailService = createDefaultEmailService(
       services.assetsStorage,
     );
+
     const defaultTextMessageSender = new TextBeltService(
       getTextBeltConfiguration(),
     );

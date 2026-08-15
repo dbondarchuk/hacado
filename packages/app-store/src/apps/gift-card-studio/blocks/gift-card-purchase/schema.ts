@@ -1,6 +1,6 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
-import { ALL_STYLES, getStylesSchema } from "@timelish/page-builder-base/style";
-import { Prettify, zObjectId } from "@timelish/types";
+import { BaseReaderBlockProps } from "@hacado/builder";
+import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
+import { Prettify, zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { GiftCardStudioAdminAllKeys } from "../../translations/types";
 

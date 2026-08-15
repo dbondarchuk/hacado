@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getServicesContainer, getSession } from "@/app/utils";
 import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
@@ -11,10 +11,10 @@ import {
   serializeAppointmentsSearchParams,
   serializeAssetsSearchParams,
   serializeCommunicationLogsSearchParams,
-} from "@timelish/api-sdk";
-import { CustomerTabInjectorApps } from "@timelish/app-store/injectors/customer-tab";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
+} from "@hacado/api-sdk";
+import { CustomerTabInjectorApps } from "@hacado/app-store/injectors/customer-tab";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   Breadcrumbs,
   Heading,
@@ -23,15 +23,16 @@ import {
   TabsContent,
   TabsTrigger,
   TabsViaUrl,
-} from "@timelish/ui";
-import { CustomerName, DataTableSkeleton } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsPortal,
   HeaderActionButtonsProvider,
   RecentCommunications,
   SendCommunicationButton,
-} from "@timelish/ui-admin-kit";
+} from "@hacado/ui-admin-kit";
+import { hasPermission } from "@hacado/utils";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -80,7 +81,11 @@ export default async function CustomerPage(props: Props) {
   const logger = getLoggerFactory("AdminPages")("customer-detail");
   const t = await getI18nAsync("admin");
   const tAll = await getI18nAsync();
-  const servicesContainer = await getServicesContainer();
+  const [servicesContainer, session] = await Promise.all([
+    getServicesContainer(),
+    getSession(),
+  ]);
+  const canUpdateCustomer = hasPermission(session.user, "customer", "update");
   const params = await props.params;
   const path = `/dashboard/customers/${params.id}`;
 
@@ -251,7 +256,7 @@ export default async function CustomerPage(props: Props) {
                 >
                   <div className="flex flex-col md:flex-row gap-2 w-full">
                     <CustomerFilesTableAction />
-                    {!customer.isDeleted && (
+                    {!customer.isDeleted && canUpdateCustomer && (
                       <HeaderActionButtonsPortal>
                         <CustomerFileUpload customerId={params.id} />
                       </HeaderActionButtonsPortal>

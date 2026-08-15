@@ -1,4 +1,4 @@
-import { TranslationKeys, useI18n } from "@timelish/i18n";
+import { TranslationKeys, useI18n } from "@hacado/i18n/client";
 import { cn } from "../../utils";
 import { FormLabel } from "../form";
 

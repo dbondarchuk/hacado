@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus, zNonEmptyString } from "@timelish/types";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { okStatus, zNonEmptyString } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
@@ -12,7 +12,15 @@ const mergeCustomersSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/customers/merge")("POST");
+  const auth = await requirePermission(
+    "customer",
+    "merge",
+    "AdminAPI/customers/merge",
+    "POST",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
 

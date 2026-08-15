@@ -1,22 +1,18 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps } from "@timelish/types";
-import {
-  Button,
-  Form,
-  Spinner,
-} from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps } from "@hacado/types";
+import { Button, Form, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import React from "react";
 import { ZodType } from "zod";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { BlogApp } from "./app";
 import { BlogConfigurationFormFields } from "./configuration-form-fields";
-import { blogConfigurationSchema, BlogConfiguration } from "./models";
+import { BlogConfiguration, blogConfigurationSchema } from "./models";
 import {
   BlogAdminKeys,
   BlogAdminNamespace,
@@ -54,7 +50,10 @@ export const BlogAppSetup: React.FC<AppSetupProps> = ({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-6"
+        >
           <BlogConfigurationFormFields form={form} isLoading={isLoading} />
           <Button
             type="submit"

@@ -1,6 +1,6 @@
-import { ConfigurationProps, NumberInputToolbarMenu } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { Leaves } from "@timelish/types";
+import { ConfigurationProps, NumberInputToolbarMenu } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { Leaves } from "@hacado/types";
 
 const fontSizes = [8, 9, 10, 12, 14, 16, 18, 24, 30, 36, 48];
 

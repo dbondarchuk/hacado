@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -9,7 +9,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   readCookieValue,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   MyCabinetAdminAllKeys,
   MyCabinetAdminKeys,

@@ -7,10 +7,10 @@ import {
   useIsCurrentBlockOverlay,
   useIsSelectedBlock,
   usePortalContext,
-} from "@timelish/builder";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { PlateEditor, PlateStaticEditor } from "@timelish/rte";
-import { cn, useDebounceCallback } from "@timelish/ui";
+} from "@hacado/builder";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
+import { cn, useDebounceCallback } from "@hacado/ui";
 import { TextProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

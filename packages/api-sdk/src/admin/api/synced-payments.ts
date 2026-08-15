@@ -2,9 +2,10 @@ import {
   HydratedSyncedPayment,
   SyncedPayment,
   SyncedPaymentAssignablePaymentType,
+  SyncedPaymentStandalonePaymentType,
   SyncedPaymentStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import { fetchAdminApi } from "./utils";
 
 export const listSyncedPayments = async (params?: {
@@ -56,10 +57,14 @@ const action = async (
     | "ignore"
     | "reassign"
     | "assign"
+    | "unassign"
+    | "unrecord"
+    | "record"
     | "update"
     | "revert",
   body?: {
     appointmentId?: string;
+    customerId?: string;
     paymentAmount?: number;
     tip?: number;
     paymentType?: string;
@@ -83,6 +88,18 @@ export const reassignSyncedPayment = (id: string, appointmentId: string) =>
 
 export const assignSyncedPayment = (id: string, appointmentId: string) =>
   action(id, "assign", { appointmentId });
+
+export const unassignSyncedPayment = (id: string) => action(id, "unassign");
+
+export const unrecordSyncedPayment = (id: string) => action(id, "unrecord");
+
+export const recordSyncedPayment = (
+  id: string,
+  details: {
+    customerId: string;
+    paymentType: SyncedPaymentStandalonePaymentType;
+  },
+) => action(id, "record", details);
 
 export const updateSyncedPaymentAmounts = (
   id: string,

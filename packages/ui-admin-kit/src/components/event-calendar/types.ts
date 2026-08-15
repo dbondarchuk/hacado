@@ -1,4 +1,4 @@
-import type { DaySchedule, HourNumbers } from "@timelish/types";
+import type { DaySchedule, HourNumbers } from "@hacado/types";
 import type { ReactNode } from "react";
 
 declare module "react" {
@@ -14,12 +14,30 @@ export type CalendarEventVariant =
   | "destructive"
   | "current";
 
+export type EventCalendarMember = {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+};
+
 export type EventCalendarEvent = {
   id?: string;
   start: Date;
   end: Date;
+  /** Primary label — service name for appointments, event title for external. */
   title: string;
+  /** Customer display name (appointments). */
+  customerName?: string;
+  /** Assigned staff member (appointments / events from calendar apps). */
+  member?: {
+    _id: string;
+    name: string | null;
+    email: string | null;
+    image?: string | null;
+  };
   variant?: CalendarEventVariant;
+  /** Member-derived hex; when set, overrides variant fill with tinted styles. */
+  color?: string;
 };
 
 type BaseEventCalendarProps = {
@@ -104,10 +122,14 @@ export type EventCalendarProps = {
   onEventClick?: (event: EventCalendarEvent) => void;
   onDateClick?: (date: Date) => void;
   renderEvent?: (event: EventCalendarEvent) => ReactNode;
+  /** Rendered in the controls row immediately after the view switch. */
+  controlsAfterViewSwitch?: ReactNode;
 };
 
 /** Fetching wrapper around EventCalendar (admin API + appointment dialog). */
 export type EventsCalendarProps = EventCalendarProps & {
   /** @deprecated Prefer `view`. Kept for backwards compatibility. */
   type?: EventCalendarView;
+  /** Scope fetched events/schedule to this member. Omit for all (server may still gate). */
+  memberId?: string;
 };

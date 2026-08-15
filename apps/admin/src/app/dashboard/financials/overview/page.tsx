@@ -1,6 +1,6 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next";
 import { FinancialsOverviewLoader } from "./loader";
 

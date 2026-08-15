@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n, useLocale } from "@timelish/i18n";
-import { Appointment } from "@timelish/types";
-import { Skeleton, useDebounceCacheFn, useTimeZone } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment } from "@hacado/types";
+import { Skeleton, useDebounceCacheFn, useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { CustomerName } from "./customer-name";
 import {

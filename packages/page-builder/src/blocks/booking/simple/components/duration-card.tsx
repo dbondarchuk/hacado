@@ -1,6 +1,6 @@
-import { useI18n } from "@timelish/i18n";
-import { Button } from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import React from "react";
 import { useScheduleContext } from "./context";
 

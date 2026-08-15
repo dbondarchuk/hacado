@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export type TStyle = {
   backgroundColor?: any;
   borderColor?: any;

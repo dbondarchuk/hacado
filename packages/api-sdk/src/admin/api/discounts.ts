@@ -3,7 +3,7 @@ import {
   DiscountUpdateModel,
   okStatus,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   checkDiscountNameAndCodeParamsSerializer,
   DiscountsSearchParams,

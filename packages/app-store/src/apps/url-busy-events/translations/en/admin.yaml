@@ -4,8 +4,9 @@ app:
 form:
   url:
     label: URL
-    placeholder: https://example.com/api/busy-events
-    tooltip: The URL endpoint that provides busy events data. Start and end times will be passed as query parameters in ISO format.
+    placeholder: "https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'"
+    description: "Use placeholders that are replaced when the URL is called: <code>'{{start}}'</code> and <code>'{{end}}'</code> (ISO datetimes).<br></br>Example: <code>https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'</code>."
+    tooltip: The URL endpoint that provides busy events data. Nothing is appended automatically — include placeholders where needed.
   headers:
     label: Headers
     addButton: Add Header
@@ -14,7 +15,8 @@ form:
     valueLabel: Header Value
     valuePlaceholder: Bearer token
     removeButton: Remove
-    tooltip: Optional HTTP headers to include with requests
+    description: "Header names and values support the same placeholders: <code>'{{start}}'</code> and <code>'{{end}}'</code>."
+    tooltip: Optional HTTP headers. Placeholders are replaced per request when calling.
   connect: Connect with <app></app>
 validation:
   form:
@@ -35,4 +37,3 @@ statusText:
   error_processing_configuration: Error processing configuration
   error_fetching_busy_times: Error fetching busy times from URL
   invalid_response_format: Invalid response format from URL
-

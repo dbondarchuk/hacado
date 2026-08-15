@@ -2,9 +2,9 @@ import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { Appointment } from "@timelish/types";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { Appointment } from "@hacado/types";
+import { cn } from "@hacado/ui";
 import { redirect } from "next/navigation";
 import { ConfirmationCard } from "./confirmation-card";
 import { BookingConfirmationReaderProps } from "./schema";

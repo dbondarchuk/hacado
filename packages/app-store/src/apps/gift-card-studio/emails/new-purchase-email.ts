@@ -1,12 +1,16 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { fallbackLanguage, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
-import type { EmailNotificationRequest } from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+import {
+  EMAIL_BRAND,
+  renderUserEmailTemplate,
+} from "@hacado/email-builder/static";
+import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
+import type { EmailNotificationRequest } from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 import type { GiftCardStudioPurchaseCreatedPayload } from "../models/events";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 
 type AdminRecipient = {
+  memberId: string;
   email: string;
   name: string;
   language?: string | null;
@@ -29,10 +33,9 @@ export const buildNewPurchaseEmailNotifications = async (
       continue;
     }
 
-    const locale: Language =
-      admin.language === "uk" || admin.language === "en"
-        ? admin.language
-        : fallbackLanguage;
+    const locale: Language = languages.includes(admin.language as Language)
+      ? (admin.language as Language)
+      : fallbackLanguage;
 
     const t = await getI18nAsync({ locale });
 
@@ -78,7 +81,7 @@ export const buildNewPurchaseEmailNotifications = async (
                 "app_gift-card-studio_admin.emails.newPurchase.view" satisfies GiftCardStudioAdminAllKeys,
               ),
               url: purchaseUrl,
-              backgroundColor: "#0066ff",
+              backgroundColor: EMAIL_BRAND.primary,
             },
           },
         ],
@@ -94,7 +97,8 @@ export const buildNewPurchaseEmailNotifications = async (
       },
       handledBy:
         "app_gift-card-studio_admin.handlers.newPurchaseEmail" satisfies GiftCardStudioAdminAllKeys,
-      participantType: "user",
+      participantType: "member",
+      memberId: admin.memberId,
     });
   }
 

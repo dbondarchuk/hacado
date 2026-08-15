@@ -1,5 +1,8 @@
-import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { getOwnerMemberIds } from "@/lib/auth/app-access";
+import { withCatalogTarget } from "@hacado/app-store/utils";
+import { getLoggerFactory } from "@hacado/logger";
+import { filterConnectedAppsForUser } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -40,8 +43,17 @@ export async function GET(request: NextRequest) {
   );
 
   try {
-    const apps =
+    const [user, ownerMemberIds] = await Promise.all([
+      getUser(),
+      getOwnerMemberIds(),
+    ]);
+    const installed =
       await servicesContainer.connectedAppsService.getAppsByApp(appName);
+    const apps = filterConnectedAppsForUser(
+      user,
+      installed.map(withCatalogTarget),
+      ownerMemberIds,
+    );
 
     logger.debug(
       {

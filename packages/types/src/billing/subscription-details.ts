@@ -17,6 +17,25 @@ export type BillingPeriod = {
   end: Date;
 };
 
+/** Team seat pools from the plan and recurring seat-addon subscriptions. */
+export type OrganizationBillingSeatsBenefit = {
+  included: number;
+  additional: number;
+  available: number;
+  allowAdditionalUsers: boolean;
+  /** Active recurring seat-addon subscriptions (enriched from Polar when possible). */
+  addons: OrganizationBillingSeatAddonSubscription[];
+};
+
+export type OrganizationBillingSeatAddonSubscription = {
+  subscriptionId: string;
+  name: string | null;
+  usersAmount: number;
+  price: BillingSubscriptionPrice | null;
+  status: OrganizationSubscriptionStatus | null;
+  nextCycleDate: Date | null;
+};
+
 /**
  * Organization billing snapshot for subscription + SMS credits (provider-agnostic shape).
  * Date fields are ISO strings so this type can cross the server/client boundary unchanged.
@@ -32,5 +51,6 @@ export type OrganizationBillingSubscriptionDetails = {
   nextCycleDate: Date | null;
   benefits: {
     sms: OrganizationBillingSmsBenefit | null;
+    seats: OrganizationBillingSeatsBenefit | null;
   };
 };

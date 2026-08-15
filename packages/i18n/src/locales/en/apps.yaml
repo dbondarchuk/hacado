@@ -4,7 +4,7 @@ common:
   featured: Featured
   addApp: Add app
   alreadyInstalled: Already installed
-  upgradeRequired: This app requires a Pro subscription.
+  upgradeRequired: This app requires a Solo subscription.
   upgradeLink: Upgrade in brand settings
   appStore: App store
   addNewApps: Add new apps
@@ -70,6 +70,7 @@ common:
       calendar-read: Calendar sources
       schedule: Schedule provider
       availability-provider: Availability provider
+      meeting-url-provider: Meeting URL provider
     actions:
       skip: Not now
       apply: Apply selected
@@ -99,6 +100,10 @@ scopes:
   dashboard-notifier: Dashboard notifier
   demo-arguments-provider: Demo arguments provider
   sitemap-items-provider: Sitemap items provider
+  page-seo-arguments-provider: Page SEO arguments provider
+target:
+  company: Company
+  member: Member
 status:
   connected: Connected
   failed: Connection failed

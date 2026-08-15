@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { bulkDeleteSchema } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
-import { okStatus } from "@timelish/types";
+import { bulkDeleteSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

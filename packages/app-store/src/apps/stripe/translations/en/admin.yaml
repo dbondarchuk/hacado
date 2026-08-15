@@ -4,7 +4,7 @@ app:
   description: |-
     **Stripe** lets businesses accept **cards**, **wallets**, and other payment methods online.
 
-    **Timeli.sh** connects to your **Stripe** account through **Stripe Connect** so clients can **pay when they book**.
+    **Hacado** connects to your **Stripe** account through **Stripe Connect** so clients can **pay when they book**.
 form:
   connect: Connect <app></app>
   reconnect: Reconnect <app></app>

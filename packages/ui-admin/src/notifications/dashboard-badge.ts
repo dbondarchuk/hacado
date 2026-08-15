@@ -1,7 +1,7 @@
 import {
   DASHBOARD_BADGE_EVENT,
   type DashboardBadgeUpdate,
-} from "@timelish/types";
+} from "@hacado/types";
 
 export function applyDashboardBadgeUpdate(
   badges: Record<string, number>,

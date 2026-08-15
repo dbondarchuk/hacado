@@ -1,5 +1,5 @@
 {
-  "name": "@timelish/job-processor",
+  "name": "@hacado/job-processor",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,20 +11,20 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@timelish/logger": "*",
-    "@timelish/types": "*",
-    "@timelish/services": "*",
+    "@hacado/logger": "*",
+    "@hacado/types": "*",
+    "@hacado/services": "*",
     "bullmq": "^5.0.0",
     "ioredis": "^5.3.2",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@timelish/eslint-config": "*",
-    "@timelish/typescript-config": "*",
+    "@hacado/eslint-config": "*",
+    "@hacado/typescript-config": "*",
     "esbuild": "^0.19.0",
     "eslint": "^9.34.0",
     "tsx": "^4.7.0",
-    "typescript": "^5"
+    "typescript": "6.0.2"
   }
 }

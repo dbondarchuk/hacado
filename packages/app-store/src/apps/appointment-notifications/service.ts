@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   Appointment,
@@ -13,8 +13,8 @@ import {
   IEventSubscriber,
   IScheduled,
   TemplateTemplatesList,
-} from "@timelish/types";
-import { dispatchAppointmentEventPayload } from "@timelish/utils";
+} from "@hacado/types";
+import { dispatchAppointmentEventPayload } from "@hacado/utils";
 import { AppointmentNotificationsJobProcessor } from "./job-processor";
 import {
   AppointmentNotification,
@@ -57,8 +57,12 @@ export default class AppointmentNotificationsConnectedApp
     await dispatchAppointmentEventPayload(envelope, {
       onAppointmentCreated: (appointment, confirmed) =>
         this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentStatusChanged: (appointment, _newStatus, _oldStatus, _source) =>
-        this.onAppointmentStatusChanged(appData, appointment),
+      onAppointmentStatusChanged: (
+        appointment,
+        _newStatus,
+        _oldStatus,
+        _source,
+      ) => this.onAppointmentStatusChanged(appData, appointment),
     });
   }
 

@@ -4,7 +4,7 @@ import React from "react";
 
 import type { DropdownMenuItemProps } from "@radix-ui/react-dropdown-menu";
 
-import { cn } from "@timelish/ui";
+import { cn } from "@hacado/ui";
 import { Check } from "lucide-react";
 
 import {
@@ -14,7 +14,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
 export type TColor = {
   isBrightColor: boolean;

@@ -5,11 +5,13 @@ import {
   createStandardSchemaV1,
   inferParserType,
   parseAsIsoDateTime,
+  parseAsString,
 } from "nuqs/server";
 
 export const scheduleSearchParams = {
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
+  member: parseAsString,
 };
 
 export type ScheduleSearchParams = inferParserType<typeof scheduleSearchParams>;

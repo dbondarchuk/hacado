@@ -1,8 +1,8 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { GiftCardForm } from "@/components/admin/services/gift-cards/form";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory } from "@timelish/logger";
-import { Breadcrumbs, Heading } from "@timelish/ui";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs, Heading } from "@hacado/ui";
 import { Metadata } from "next/types";
 
 type Props = PageProps<"/dashboard/services/gift-cards/new">;

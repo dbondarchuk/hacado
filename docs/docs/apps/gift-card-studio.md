@@ -1,11 +1,11 @@
 ---
 sidebar_position: 37
-description: Sell gift cards on your website and track balances inside Timelish.
+description: Sell gift cards on your website and track balances inside Hacado.
 ---
 
 # Gift Card Studio
 
-Gift Card Studio sells **gift cards** on your public site. Visitors pay online using **Stripe**, **Square**, or **PayPal** (**whichever you already connected**). You manage **designs**, **sold cards**, and **redemptions** inside Timelish screens such as Designs, Purchased gift cards, and Settings.
+Gift Card Studio sells **gift cards** on your public site. Visitors pay online using **Stripe**, **Square**, or **PayPal** (**whichever you already connected**). You manage **designs**, **sold cards**, and **redemptions** inside Hacado screens such as Designs, Purchased gift cards, and Settings.
 
 ## Adding the App
 
@@ -18,7 +18,7 @@ If checkout fails unexpectedly, **[Apps troubleshooting](/docs/apps/troubleshoot
 
 ### Removing Gift Card Studio is blocked while purchases remain
 
-Expect an uninstall error referencing existing purchases honour balances bookkeeping exports refunds until Timelish allows removal.
+Expect an uninstall error referencing existing purchases honour balances bookkeeping exports refunds until Hacado allows removal.
 
 ### Accountants need a say first
 

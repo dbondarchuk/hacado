@@ -1,9 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { AdminKeys, useI18n, useLocale } from "@timelish/i18n";
-import { Appointment, AppointmentStatus, timeZones } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { Appointment, AppointmentStatus, timeZones } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -21,9 +20,10 @@ import {
   use12HourFormat,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
-import { CustomerName } from "@timelish/ui-admin";
-import { durationToTime } from "@timelish/utils";
+} from "@hacado/ui";
+import { CustomerName, useAuth } from "@hacado/ui-admin";
+import { canUpdateAppointment, durationToTime } from "@hacado/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
@@ -57,6 +57,8 @@ export const AppointmentDetails = ({
   const currencyFormat = useCurrencyFormat();
   const uses12HourFormat = use12HourFormat();
   const router = useRouter();
+  const { user } = useAuth();
+  const canUpdate = canUpdateAppointment(user, appointment.memberId);
 
   const { setAppointment, setKey } = useContext(AppointmentViewContext);
   const updateStatus = (newStatus: AppointmentStatus) => {
@@ -116,6 +118,7 @@ export const AppointmentDetails = ({
   });
 
   const onNoteSubmit = async (data: NoteFormSchema) => {
+    if (!canUpdate) return;
     try {
       setLoading(true);
       await toastPromise(
@@ -325,6 +328,45 @@ export const AppointmentDetails = ({
             )}
           </div>
         </div>
+
+        {/* Team member */}
+        {appointment.member && (
+          <div className="px-5 py-4 border-b border-border">
+            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
+              {t("appointments.view.member")}
+            </p>
+            <div className="flex items-center gap-3 min-w-0">
+              <Avatar>
+                <AvatarImage
+                  src={appointment.member.image ?? undefined}
+                  alt={
+                    appointment.member.name ||
+                    appointment.member.email ||
+                    t("appointments.view.member")
+                  }
+                />
+                <AvatarFallback>
+                  {(appointment.member.name || appointment.member.email || "?")
+                    .split(" ")
+                    .map((part) => part[0]?.toUpperCase())
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .join("")}
+                </AvatarFallback>
+              </Avatar>
+              <div className="min-w-0 flex flex-col">
+                <span className="text-sm font-medium text-foreground truncate">
+                  {appointment.member.name || appointment.member.email || "—"}
+                </span>
+                {appointment.member.name && appointment.member.email ? (
+                  <span className="text-xs text-muted-foreground truncate">
+                    {appointment.member.email}
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Service */}
         <div className="px-5 py-4 border-b border-border">
@@ -545,7 +587,7 @@ export const AppointmentDetails = ({
                 <FormItem className="flex flex-col flex-1">
                   <FormControl>
                     <Textarea
-                      disabled={loading}
+                      disabled={loading || !canUpdate}
                       placeholder={t("appointments.view.note")}
                       className="flex-1 min-h-20"
                       autoResize
@@ -576,7 +618,7 @@ export const AppointmentDetails = ({
         {/* Actions */}
         {appointment.status !== "declined" && (
           <div className="px-5 py-4 flex flex-col gap-2">
-            {totalAmountLeft > 0 && (
+            {canUpdate && totalAmountLeft > 0 && (
               <AddUpdatePaymentDialog
                 amount={totalAmountLeft}
                 appointmentId={appointment._id}
@@ -590,29 +632,31 @@ export const AppointmentDetails = ({
                 </Button>
               </AddUpdatePaymentDialog>
             )}
-            <div className="flex flex-row gap-2 justify-between w-full">
-              <AppointmentDeclineDialog
-                appointment={appointment}
-                onSuccess={updateStatus}
-                trigger={
-                  <Button variant="destructive" className="w-full">
-                    <CalendarX2 size={20} /> {t("appointments.view.decline")}
-                  </Button>
-                }
-              />
-              {appointment.status === "pending" && (
-                <AppointmentActionButton
+            {canUpdate ? (
+              <div className="flex flex-row gap-2 justify-between w-full">
+                <AppointmentDeclineDialog
+                  appointment={appointment}
                   onSuccess={updateStatus}
-                  variant="default"
-                  _id={appointment._id}
-                  status="confirmed"
-                  icon={CalendarCheck2}
-                  className="w-full"
-                >
-                  {t("appointments.view.confirm")}
-                </AppointmentActionButton>
-              )}
-            </div>
+                  trigger={
+                    <Button variant="destructive" className="w-full">
+                      <CalendarX2 size={20} /> {t("appointments.view.decline")}
+                    </Button>
+                  }
+                />
+                {appointment.status === "pending" && (
+                  <AppointmentActionButton
+                    onSuccess={updateStatus}
+                    variant="default"
+                    _id={appointment._id}
+                    status="confirmed"
+                    icon={CalendarCheck2}
+                    className="w-full"
+                  >
+                    {t("appointments.view.confirm")}
+                  </AppointmentActionButton>
+                )}
+              </div>
+            ) : null}
           </div>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { App } from "@timelish/types";
+import { App } from "@hacado/types";
 import { Send } from "lucide-react";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./const";
 import {
@@ -15,6 +15,7 @@ export const CustomerTextMessageNotificationApp: App<
   subscribeTo: ["appointment.*"],
   scope: ["event-subscriber"],
   type: "complex",
+  target: "company",
   category: ["apps.categories.notifications"],
   Logo: ({ className }) => <Send className={className} />,
   isFeatured: true,

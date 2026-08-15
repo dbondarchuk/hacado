@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { WeekIdentifier } from "@timelish/types";
+import { useI18n } from "@hacado/i18n/client";
+import { WeekIdentifier } from "@hacado/types";
 import {
   Button,
   Card,
@@ -15,13 +15,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   eachOfInterval,
   getDateFromWeekIdentifier,
   getWeekIdentifier,
   hasSame,
-} from "@timelish/utils";
+} from "@hacado/utils";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";

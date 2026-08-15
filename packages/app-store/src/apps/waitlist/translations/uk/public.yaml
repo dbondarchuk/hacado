@@ -8,6 +8,7 @@ block:
   durationSelectTitle: Скільки часу вам потрібно?
   steps:
     option: Послуга
+    specialist: Спеціаліст
     addons: Додатки
     calendar: Дата та час
     form: Деталі

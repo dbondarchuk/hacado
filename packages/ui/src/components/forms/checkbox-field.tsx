@@ -1,6 +1,6 @@
 import { FormControl, FormField } from "../form";
 
-import { WithLabelFieldData } from "@timelish/types";
+import { WithLabelFieldData } from "@hacado/types";
 import { FieldValues } from "react-hook-form";
 import { Checkbox } from "../checkbox";
 import { FormFieldDescription } from "./form-field-description";

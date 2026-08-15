@@ -1,6 +1,13 @@
-import { useI18n, useLocale } from "@timelish/i18n";
-import { Button, useTimeZone, useCurrencyFormat } from "@timelish/ui";
-import { durationToTime } from "@timelish/utils";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@hacado/ui";
+import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { useScheduleContext } from "./context";
@@ -12,6 +19,7 @@ export const ConfirmationCard: React.FC = () => {
   const {
     fields,
     selectedAppointmentOption,
+    selectedMember,
     dateTime,
     handleNewBooking,
     price,
@@ -47,6 +55,24 @@ export const ConfirmationCard: React.FC = () => {
         <p className="text-sm font-semibold text-foreground">
           {selectedAppointmentOption.name}
         </p>
+        {selectedMember && (
+          <div className="flex items-center gap-2 confirmation-specialist">
+            <Avatar className="w-8 h-8 flex-shrink-0">
+              <AvatarImage
+                src={selectedMember.member.image ?? undefined}
+                alt={selectedMember.member.name}
+              />
+              <AvatarFallback>
+                {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
+              </AvatarFallback>
+            </Avatar>
+            <p className="text-xs text-foreground">
+              {i18n("booking.confirmation.specialist", {
+                name: selectedMember.member.name,
+              })}
+            </p>
+          </div>
+        )}
         {dateTime && (
           <>
             <p className="text-xs text-foreground">

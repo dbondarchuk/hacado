@@ -1,7 +1,7 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Combobox, Label } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import { Combobox, Label } from "@hacado/ui";
 import {
   GiftCardStudioAdminKeys,
   GiftCardStudioAdminNamespace,

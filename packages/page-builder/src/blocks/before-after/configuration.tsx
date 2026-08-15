@@ -1,12 +1,12 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   RawNumberInputWithUnit,
   StylesConfigurationPanel,
-} from "@timelish/page-builder-base";
-import { Checkbox, Label } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { Checkbox, Label } from "@hacado/ui";
 import { Percent } from "lucide-react";
 import { useCallback } from "react";
 import { BeforeAfterProps } from "./schema";

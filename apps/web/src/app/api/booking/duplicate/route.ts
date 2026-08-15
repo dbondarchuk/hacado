@@ -1,11 +1,11 @@
 import { getAppointmentEventFromRequest } from "@/utils/appointments/get-event";
 import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { getServicesContainer } from "@/utils/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { getLoggerFactory } from "@hacado/logger";
 import {
   appointmentRequestSchema,
   CheckDuplicateAppointmentsResponse,
-} from "@timelish/types";
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 

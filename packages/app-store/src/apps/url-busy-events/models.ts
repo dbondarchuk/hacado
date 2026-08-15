@@ -1,12 +1,11 @@
-import { zNonEmptyString, zUniqueArray } from "@timelish/types";
+import { zNonEmptyString, zUniqueArray } from "@hacado/types";
 import * as z from "zod";
 import { UrlBusyEventsAdminAllKeys } from "./translations/types";
+import { isValidUrlWithPlaceholders } from "./url-placeholders";
 
 export const urlBusyEventsConfigurationSchema = z.object({
   url: z
-    .url(
-      "app_url-busy-events_admin.validation.form.url.url" satisfies UrlBusyEventsAdminAllKeys,
-    )
+    .string()
     .min(
       1,
       "app_url-busy-events_admin.validation.form.url.required" satisfies UrlBusyEventsAdminAllKeys,
@@ -14,6 +13,10 @@ export const urlBusyEventsConfigurationSchema = z.object({
     .max(
       2048,
       "app_url-busy-events_admin.validation.form.url.max" satisfies UrlBusyEventsAdminAllKeys,
+    )
+    .refine(
+      isValidUrlWithPlaceholders,
+      "app_url-busy-events_admin.validation.form.url.url" satisfies UrlBusyEventsAdminAllKeys,
     ),
   headers: zUniqueArray(
     z.array(

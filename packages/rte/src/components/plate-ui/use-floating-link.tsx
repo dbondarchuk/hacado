@@ -19,7 +19,7 @@ import {
   usePluginOption,
 } from "@udecode/plate/react";
 
-import { PageListModelWithUrl } from "@timelish/types";
+import { PageListModelWithUrl } from "@hacado/types";
 import {
   encodeUrlIfNeeded,
   safeDecodeUrl,
@@ -139,7 +139,6 @@ export const useFloatingLinkInsert = ({
       setOption("updated", false);
       pageSelector.setIsOpen(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, floating.update]);
 
   useHotkeys(
@@ -301,7 +300,6 @@ export const useFloatingLinkEdit = (
     if (getOptions().mode === "edit") {
       api.floatingLink.hide();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor, versionEditor, floating.update]);
 
   useHotkeys(

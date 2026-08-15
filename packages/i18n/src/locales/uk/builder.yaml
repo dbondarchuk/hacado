@@ -630,6 +630,7 @@ pageBuilder:
       default: Звичайний
       hover: Наведення
       focus: Фокус
+      focus-within: Фокус всередині
       active: Активний
       disabled: Вимкнений
       before: До (::before)
@@ -904,24 +905,24 @@ pageBuilder:
         logoAlt: Логотип
         name: Назва бренду
       planCard:
-        badge: Pro
-        name: Тариф Pro
+        badge: Solo
+        name: Тариф Solo
         price: $29/міс
         footnote: 7-денна проба
         features: "• Необмежені записи\n• Конструктор сайту\n• SMS-нагадування"
         cta: Почати
     announcementBar:
-      message: "7-денна пробна версія Pro - створіть обліковий запис"
+      message: "7-денна пробна версія Solo - створіть обліковий запис"
     scrollingLogos:
       screenReaderText: "Бігучі логотипи: Приклад, Зразок."
       sampleCardName: Назва бренду
     browserCarousel:
       slide1Label: Панель керування
-      slide1Address: app.timelish.com/dashboard
+      slide1Address: app.hacado.com/dashboard
       slide2Label: Сайт для записів
-      slide2Address: yourname.timeli.sh
+      slide2Address: yourname.haca.do
       slide3Label: Конструктор сторінок
-      slide3Address: app.timelish.com/page-builder
+      slide3Address: app.hacado.com/page-builder
     featureItem:
       title: Назва функції
       description: Короткий опис функції на картці.
@@ -1366,6 +1367,10 @@ pageBuilder:
         hideSteps: Приховати кроки
         scrollToTop: Прокрутити вгору при зміні кроку
       confirmationPage: Сторінка підтвердження
+      flowOrder:
+        label: Порядок кроків бронювання
+        serviceFirst: Спочатку послуга
+        specialistFirst: Спочатку спеціаліст
     popup:
       displayName: Попап
       open: Відкрити

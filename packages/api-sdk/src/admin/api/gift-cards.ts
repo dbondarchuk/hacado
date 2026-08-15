@@ -5,7 +5,7 @@ import {
   okStatus,
   PaymentSummary,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   checkGiftCardCodeUniqueParamsSerializer,
   GiftCardsSearchParams,

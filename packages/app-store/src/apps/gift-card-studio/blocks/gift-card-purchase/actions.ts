@@ -1,5 +1,5 @@
-import { clientApi } from "@timelish/api-sdk";
-import { CollectPayment } from "@timelish/types";
+import { clientApi } from "@hacado/api-sdk";
+import { CollectPayment } from "@hacado/types";
 import {
   FetchPreviewPayload,
   FetchPreviewResponse,

@@ -1,8 +1,8 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn, Icon as IconComponent } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn, Icon as IconComponent } from "@hacado/ui";
 import { IconPropsDefaults, IconReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

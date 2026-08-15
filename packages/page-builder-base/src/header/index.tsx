@@ -1,10 +1,10 @@
-import { richTextToString, StaticText } from "@timelish/rte-inline/reader";
+import { richTextToString, StaticText } from "@hacado/rte-inline/reader";
 import {
   ButtonMenuItem,
   LinkMenuItem,
   MenuItem,
   PageHeader,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Accordion,
   AccordionContent,
@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
   Icon,
   Link,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ChevronDown } from "lucide-react";
 import React from "react";
 import { ReplaceOriginalColors } from "../helpers/replace-original-colors";

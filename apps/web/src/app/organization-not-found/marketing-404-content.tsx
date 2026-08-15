@@ -1,4 +1,4 @@
-import { Link } from "@timelish/ui";
+import { Link } from "@hacado/ui";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 type Marketing404ContentProps = {
@@ -22,7 +22,7 @@ function MarketingFooter({
             variant="underline"
             className="text-muted-foreground"
           >
-            timeli<span className="text-primary">.sh</span>
+            Hacado
           </Link>
           . All rights reserved.
         </p>
@@ -43,10 +43,10 @@ function MarketingHeader({
           className="-m-1.5 flex items-center gap-2 p-1.5"
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-lg">
-            <Image src="/logo.png" alt="timeli.sh" width={36} height={36} />
+            <Image src="/logo.png" alt="Hacado" width={36} height={36} />
           </div>
           <span className="text-2xl font-bold tracking-tight sm:text-3xl">
-            timeli<span className="text-primary">.sh</span>
+            Hacado
           </span>
         </a>
         <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
@@ -102,7 +102,7 @@ export function Marketing404Content({
             </h1>
             <p className="text-balance text-muted-foreground sm:text-lg">
               The link may be wrong, or the business may have moved. Build your
-              own booking page with timeli.sh and take appointments online in
+              own booking page with Hacado and take appointments online in
               minutes.
             </p>
           </div>
@@ -124,7 +124,7 @@ export function Marketing404Content({
             <Link size="lg" variant="outline" button href={marketingBaseUrl}>
               <Sparkles className="size-3.5 text-primary" aria-hidden />
               <span className="whitespace-nowrap">
-                Explore timeli<span className="text-primary">.sh</span>
+                Explore <span className="font-display">hacado.com</span>
               </span>
             </Link>
           </div>

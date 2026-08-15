@@ -14,7 +14,7 @@ import {
   communicationChannels,
   communicationDirectionSchema,
   communicationParticipantTypeSchema,
-} from "@timelish/types";
+} from "@hacado/types";
 import { baseSearchParams } from "./base";
 
 export const communicationLogsSearchParams = {
@@ -31,6 +31,7 @@ export const communicationLogsSearchParams = {
     parseAsStringLiteral(communicationChannels),
   ).withDefault([...communicationChannels]),
   customer: parseAsArrayOf(parseAsString),
+  member: parseAsArrayOf(parseAsString),
   appointmentId: parseAsString,
   sort: baseSearchParams.sort.withDefault([
     {

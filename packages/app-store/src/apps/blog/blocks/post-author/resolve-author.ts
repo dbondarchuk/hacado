@@ -1,16 +1,16 @@
 import { BlogPost, BlogPostAuthor } from "../../models/blog-post";
-import { getBlogAuthorUserName } from "./get-blog-author-user-name";
+import { getBlogAuthorMemberName } from "./get-blog-author-member-name";
 
 export const resolveAuthorName = (
   author: BlogPostAuthor | undefined,
-  usersById?: ReadonlyMap<string, string>,
+  membersById?: ReadonlyMap<string, string>,
 ): string | null => {
   if (!author) {
     return null;
   }
 
-  if (author.type === "user") {
-    return usersById?.get(author.id) ?? null;
+  if (author.type === "member") {
+    return membersById?.get(author.memberId) ?? null;
   }
 
   return author.name.trim() || null;
@@ -18,9 +18,9 @@ export const resolveAuthorName = (
 
 export const resolveAuthorNameFromPost = (
   post: Pick<BlogPost, "author"> | null | undefined,
-  usersById?: ReadonlyMap<string, string>,
+  membersById?: ReadonlyMap<string, string>,
 ): string | null => {
-  return resolveAuthorName(post?.author, usersById);
+  return resolveAuthorName(post?.author, membersById);
 };
 
 export const resolveAuthorNameFromPostAsync = async (
@@ -32,8 +32,8 @@ export const resolveAuthorNameFromPostAsync = async (
     return null;
   }
 
-  if (author.type === "user") {
-    return getBlogAuthorUserName(organizationId, author.id);
+  if (author.type === "member") {
+    return getBlogAuthorMemberName(organizationId, author.memberId);
   }
 
   return author.name.trim() || null;

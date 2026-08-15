@@ -5,14 +5,14 @@ description: Connect a CalDAV calendar with a server address and sign-in.
 
 # CalDAV Calendar
 
-**CalDAV** is a standard way to host calendars on a server (some business mail hosts, Nextcloud-style setups, or specialist providers use it). Timelish can connect with a server URL plus sign-in, then read and write appointments like other calendar Apps.
+**CalDAV** is a standard way to host calendars on a server (some business mail hosts, Nextcloud-style setups, or specialist providers use it). Hacado can connect with a server URL plus sign-in, then read and write appointments like other calendar Apps.
 
 ## Adding the App
 
 1. Collect the **CalDAV server URL**, username, and password (or app password) from your provider’s documentation.
 2. Open **Apps**, then **Store**, and install **CalDAV Calendar**.
 3. Enter the fields. Use **Test** or save, then fix any errors about the URL, TLS, or wrong password.
-4. Choose the calendar on that server where Timelish should work, when the picker appears.
+4. Choose the calendar on that server where Hacado should work, when the picker appears.
 
 Connection errors are often wrong port, encryption type, or a host that blocks outside access. Try **[Apps troubleshooting](/docs/apps/troubleshooting)** and your provider’s support article.
 
@@ -26,7 +26,7 @@ Self-signed certificates can fail until the host uses a normal trusted certifica
 
 **Use this when:** Policy says customer data stays on your infrastructure.
 
-**You need:** A CalDAV server that allows Timelish to create and update events, not read-only locks.
+**You need:** A CalDAV server that allows Hacado to create and update events, not read-only locks.
 
 ### Add a mailbox calendar that speaks CalDAV
 
@@ -41,8 +41,8 @@ Self-signed certificates can fail until the host uses a normal trusted certifica
 
 ### What changes afterward
 
-Timelish stops syncing with that server. Timelish clears stored credentials for that connection according to product policy.
+Hacado stops syncing with that server. Hacado clears stored credentials for that connection according to product policy.
 
-### Outside Timelish
+### Outside Hacado
 
 Change or revoke the password you shared so nothing else can use it. Past events stored on your server remain until you delete them there.

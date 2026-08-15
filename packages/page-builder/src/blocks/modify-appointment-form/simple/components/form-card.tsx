@@ -19,11 +19,11 @@ import {
   IComboboxItem,
   use12HourFormat,
   usePrevious,
-} from "@timelish/ui";
+} from "@hacado/ui";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
+import { deepEqual } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
-import { deepEqual } from "@timelish/utils";
 import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";
 
@@ -63,7 +63,9 @@ export const FormCard: React.FC = () => {
   const previousValues = usePrevious(values, values);
   React.useEffect(() => {
     if (!deepEqual(values, previousValues)) {
-      setFields({ dateTime: values.dateTime } satisfies ModifyAppointmentFields);
+      setFields({
+        dateTime: values.dateTime,
+      } satisfies ModifyAppointmentFields);
     }
   }, [values, previousValues, setFields]);
 

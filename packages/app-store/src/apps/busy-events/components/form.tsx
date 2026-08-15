@@ -1,16 +1,10 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Schedule, ScheduleOverride, WeekIdentifier } from "@timelish/types";
-import {
-  Button,
-  Skeleton,
-  toast,
-  toastPromise,
-  useDebounce,
-} from "@timelish/ui";
-import { Scheduler, WeekSelector } from "@timelish/ui-admin";
-import { getDateFromWeekIdentifier, getWeekIdentifier } from "@timelish/utils";
+import { useI18n } from "@hacado/i18n/client";
+import { Schedule, ScheduleOverride, WeekIdentifier } from "@hacado/types";
+import { Button, Skeleton, toast, toastPromise, useDebounce } from "@hacado/ui";
+import { Scheduler, WeekSelector } from "@hacado/ui-admin";
+import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
@@ -34,7 +28,8 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
   );
   const tAdmin = useI18n("admin");
 
-  const weekStr = useSearchParams().get("week");
+  const searchParams = useSearchParams();
+  const weekStr = searchParams.get("week");
   const week =
     (weekStr ? parseInt(weekStr) : null) || getWeekIdentifier(new Date());
 
@@ -71,7 +66,6 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
     if (JSON.stringify(schedule) === JSON.stringify(newSchedule)) return;
 
     try {
-      // setLoading(true);
       await toastPromise(setEvents(appId, week, newSchedule), {
         success: tAdmin("common.toasts.saved"),
         error: tAdmin("common.toasts.error"),
@@ -80,8 +74,6 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
       setSchedule(newSchedule);
     } catch (error: any) {
       console.error(error);
-    } finally {
-      // setLoading(false);
     }
   };
 
@@ -90,13 +82,28 @@ export const BusyEventsForm: React.FC<BusyEventsFormProps> = ({ appId }) => {
     onScheduleChange(delayedSchedule);
   }, [delayedSchedule]);
 
+  const updateQuery = React.useCallback(
+    (updates: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null) {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
+
   const onWeekChange = React.useCallback(
     (newWeek: WeekIdentifier) => {
       if (newWeek !== week) {
-        router.push(`?week=${newWeek}`);
+        updateQuery({ week: String(newWeek) });
       }
     },
-    [router, week],
+    [updateQuery, week],
   );
 
   return (

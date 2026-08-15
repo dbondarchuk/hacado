@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfigurationProps } from "@timelish/builder";
+import { ConfigurationProps } from "@hacado/builder";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { ContainerProps } from "./schema";
 

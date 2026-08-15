@@ -1,12 +1,12 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { cn, Spinner } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn, Spinner } from "@hacado/ui";
 import {
   FormsAdminKeys,
   FormsAdminNamespace,

@@ -1,11 +1,19 @@
 import { getServicesContainer } from "@/app/utils";
-import { getLoggerFactory } from "@timelish/logger";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const logger = getLoggerFactory("AdminAPI/customers/check")("GET");
+  const auth = await requirePermission(
+    "customer",
+    "read",
+    "AdminAPI/customers/check",
+    "GET",
+  );
+  if (!auth.ok) return auth.response;
+
+  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {

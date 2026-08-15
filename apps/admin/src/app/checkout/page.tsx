@@ -3,13 +3,14 @@ import { StepVerify } from "@/components/install/steps/step-verify";
 import {
   getPolarBillingPlansFromEnv,
   POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS,
+  POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER,
 } from "@/config/polar-billing";
 import { ensureBillingOrganizationForUser } from "@/lib/billing/ensure-billing-org";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getPolarClient } from "@hacado/services";
 import type { Product } from "@polar-sh/sdk/models/components/product";
 import type { ProductPriceFixed } from "@polar-sh/sdk/models/components/productpricefixed";
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getPolarClient } from "@timelish/services";
 import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -81,9 +82,9 @@ export default async function CheckoutPage() {
       <div className="flex min-h-screen flex-col bg-muted/30">
         <header className="border-b bg-card px-4 py-4 md:px-8">
           <div className="mx-auto flex w-full max-w-3xl items-center gap-2">
-            <Image src="/logo.png" alt="Timeli.sh" width={28} height={28} />
-            <div className="text-xl font-semibold tracking-tight">
-              timeli<span className="text-primary">.sh</span>
+            <Image src="/logo.png" alt="Hacado" width={28} height={28} />
+            <div className="text-xl font-semibold tracking-tight font-display">
+              hacado
             </div>
           </div>
         </header>
@@ -109,56 +110,70 @@ export default async function CheckoutPage() {
   });
 
   const byId = new Map(list.result.items.map((p) => [p.id, p]));
-  const plans = planDefs.map((def) => {
-    const product = byId.get(def.productId);
-    const benefitKeys =
-      POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS[def.slug] ??
-      POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS.pro ??
-      [];
-    const benefits = benefitKeys.map((key) => t(key as any));
-    const priceParts = product
-      ? formatPriceParts(product, t as (k: string) => string)
-      : null;
+  const tierOrder: Record<string, number> = { free: 0, solo: 1, studio: 2 };
+  const plans = planDefs
+    .slice()
+    .sort((a, b) => (tierOrder[a.slug] ?? 99) - (tierOrder[b.slug] ?? 99))
+    .map((def) => {
+      const product = byId.get(def.productId);
+      const benefitKeys =
+        POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS[def.slug] ??
+        POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS.solo ??
+        [];
+      const benefits = benefitKeys.map((key) => t(key as any));
+      const lowerTierSlug = POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER[def.slug];
+      const includesLowerTierLabel = lowerTierSlug
+        ? t("checkout.everythingInPlus", {
+            tier: t.has(`checkout.plans.${lowerTierSlug}.title`)
+              ? t(`checkout.plans.${lowerTierSlug}.title`)
+              : lowerTierSlug,
+          })
+        : null;
+      const priceParts = product
+        ? formatPriceParts(product, t as (k: string) => string)
+        : null;
 
-    const cardTitle = t.has(`checkout.plans.${def.slug}.title`)
-      ? t(`checkout.plans.${def.slug}.title`)
-      : (product?.name ?? def.slug);
-    const cardSubtitle = t.has(`checkout.plans.${def.slug}.subtitle`)
-      ? t(`checkout.plans.${def.slug}.subtitle`)
-      : (product?.description ?? null);
+      const cardTitle = t.has(`checkout.plans.${def.slug}.title`)
+        ? t(`checkout.plans.${def.slug}.title`)
+        : (product?.name ?? def.slug);
+      const cardSubtitle = t.has(`checkout.plans.${def.slug}.subtitle`)
+        ? t(`checkout.plans.${def.slug}.subtitle`)
+        : (product?.description ?? null);
 
-    if (!product) {
+      if (!product) {
+        return {
+          productId: def.productId,
+          slug: def.slug,
+          name: def.slug,
+          cardTitle,
+          cardSubtitle,
+          priceAmount: priceParts?.amount ?? null,
+          pricePeriod: priceParts?.period ?? null,
+          benefits,
+          includesLowerTierLabel,
+        };
+      }
       return {
-        productId: def.productId,
+        productId: product.id,
         slug: def.slug,
-        name: def.slug,
+        name: product.name,
         cardTitle,
         cardSubtitle,
         priceAmount: priceParts?.amount ?? null,
         pricePeriod: priceParts?.period ?? null,
         benefits,
+        includesLowerTierLabel,
       };
-    }
-    return {
-      productId: product.id,
-      slug: def.slug,
-      name: product.name,
-      cardTitle,
-      cardSubtitle,
-      priceAmount: priceParts?.amount ?? null,
-      pricePeriod: priceParts?.period ?? null,
-      benefits,
-    };
-  });
+    });
 
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="border-b bg-card px-4 py-4 md:px-8">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Timeli.sh" width={28} height={28} />
-            <div className="text-xl font-semibold tracking-tight">
-              timeli<span className="text-primary">.sh</span>
+            {/* <Image src="/logo.png" alt="Hacado" width={28} height={28} /> */}
+            <div className="text-xl font-semibold tracking-tight font-display text-primary">
+              hacado
             </div>
           </div>
           <div className="hidden text-base text-muted-foreground sm:block">
@@ -166,8 +181,8 @@ export default async function CheckoutPage() {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-4 py-8 md:px-8">
-        <div className="mb-8 space-y-2">
+      <main className="container mx-auto px-4 py-8 md:px-8">
+        <div className="mb-8 space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             {t("checkout.title")}
           </h1>

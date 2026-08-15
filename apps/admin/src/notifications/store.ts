@@ -1,4 +1,4 @@
-import { ActivityFeedPreview, ActivitySeverity } from "@timelish/types";
+import { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
 import { DateTime } from "luxon";
 import { create } from "zustand";
 
@@ -24,7 +24,7 @@ type ActivityFeedStore = {
   previews: ActivityFeedPreview[];
   addPreviews: (
     previews: ActivityFeedPreview[],
-    userId: string,
+    memberId: string,
     forceHighestSeverity?: ActivitySeverity | null,
   ) => void;
   highestSeverity: ActivitySeverity | null;
@@ -36,7 +36,7 @@ export const useActivityFeedStore = create<ActivityFeedStore>((set, get) => ({
   highestSeverity: null,
   addPreviews: (
     previews: ActivityFeedPreview[],
-    userId: string,
+    memberId: string,
     forceHighestSeverity?: ActivitySeverity | null,
   ) => {
     const { previews: prevPreviews, highestSeverity: currentHighestSeverity } =
@@ -60,7 +60,7 @@ export const useActivityFeedStore = create<ActivityFeedStore>((set, get) => ({
       typeof forceHighestSeverity !== "undefined"
         ? forceHighestSeverity
         : newPreviews.length > 0
-          ? maxSeverityInPreview(newPreviews, currentHighestSeverity, userId)
+          ? maxSeverityInPreview(newPreviews, currentHighestSeverity, memberId)
           : currentHighestSeverity;
 
     set({
@@ -82,7 +82,7 @@ const SEVERITY_RANK: Record<ActivitySeverity, number> = {
 function maxSeverityInPreview(
   preview: ActivityFeedPreview[],
   currentHighestSeverity: ActivitySeverity | null,
-  userId: string,
+  memberId: string,
 ): ActivitySeverity | null {
   if (preview.length === 0) return currentHighestSeverity;
 
@@ -90,8 +90,8 @@ function maxSeverityInPreview(
   for (let i = 1; i < preview.length; i++) {
     const previewItem = preview[i];
     if (
-      previewItem.actor.kind === "user" &&
-      previewItem.actor.userId === userId
+      previewItem.actor.kind === "member" &&
+      previewItem.actor.memberId === memberId
     )
       continue;
 

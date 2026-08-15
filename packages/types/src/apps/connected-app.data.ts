@@ -1,5 +1,5 @@
-import { AllKeys, I18nNamespaces } from "@timelish/i18n";
-import { WithDatabaseId, WithOrganizationId, WithUserId } from "../database";
+import { AllKeys, I18nNamespaces } from "@hacado/i18n";
+import { WithDatabaseId, WithOrganizationId } from "../database";
 import { Prettify } from "../utils";
 export type ConnectedAppStatus = "pending" | "connected" | "failed";
 
@@ -72,15 +72,15 @@ export type ConnectedAppStatusWithText<
 
 export type ConnectedAppData<TData = any, TToken = any> = Prettify<
   WithOrganizationId<
-    WithUserId<
-      WithDatabaseId<
-        ConnectedAppStatusWithText & {
-          name: string;
-          account?: ConnectedAppAccount;
-          token?: TToken;
-          data?: TData;
-        }
-      >
+    WithDatabaseId<
+      ConnectedAppStatusWithText & {
+        name: string;
+        account?: ConnectedAppAccount;
+        token?: TToken;
+        data?: TData;
+        /** Member who installed / owns this connected app. */
+        memberId: string;
+      }
     >
   >
 >;

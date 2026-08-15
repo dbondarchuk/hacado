@@ -2,8 +2,8 @@ import {
   BlockStyle,
   generateClassName,
   ReplaceOriginalColors,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { Booking } from "./components/booking";
 import { BookingReaderProps } from "./schema";
 import { styles } from "./styles";
@@ -25,6 +25,7 @@ export const BookingReader = ({
       <Booking
         className={cn(className, base?.className)}
         successPage={props.confirmationPage}
+        flowOrder={props.flowOrder}
         id={base?.id}
       />
     </>

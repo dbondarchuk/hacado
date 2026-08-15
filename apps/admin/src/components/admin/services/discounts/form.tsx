@@ -1,14 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DatabaseId,
   discountTypes,
   DiscountUpdateModel,
   getDiscountSchemaWithUniqueCheck,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -45,13 +44,14 @@ import {
   use12HourFormat,
   useCurrencySymbol,
   useDebounceCacheFn,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   AddonSelector,
   NonSortable,
   OptionSelector,
   SaveButton,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

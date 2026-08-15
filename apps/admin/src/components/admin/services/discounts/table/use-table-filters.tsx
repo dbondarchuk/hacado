@@ -1,6 +1,6 @@
 "use client";
 
-import { discountsSearchParams } from "@timelish/api-sdk";
+import { discountsSearchParams } from "@hacado/api-sdk";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

@@ -4,7 +4,7 @@ import {
   zNonEmptyString,
   zObjectId,
   zPhone,
-} from "@timelish/types";
+} from "@hacado/types";
 import { z } from "zod";
 import { GiftCardStudioPublicAllKeys } from "../translations/types";
 

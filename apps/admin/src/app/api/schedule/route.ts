@@ -1,6 +1,7 @@
-import { getServicesContainer } from "@/app/utils";
-import { scheduleSearchParamsLoader } from "@timelish/api-sdk";
-import { getLoggerFactory } from "@timelish/logger";
+import { getServicesContainer, getUser } from "@/app/utils";
+import { scheduleSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
+import { resolveCalendarMemberId } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,6 +9,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/schedule")("GET");
   const servicesContainer = await getServicesContainer();
+  const user = await getUser();
   logger.debug(
     {
       url: request.url,
@@ -18,7 +20,9 @@ export async function GET(request: NextRequest) {
   );
 
   const searchParams = scheduleSearchParamsLoader(request.nextUrl.searchParams);
-  const { start, end } = searchParams;
+  const { start, end, member } = searchParams;
+
+  const memberId = resolveCalendarMemberId(user, member);
 
   if (!start || !end) {
     logger.warn({ start, end }, "Missing required date range parameters");
@@ -31,12 +35,14 @@ export async function GET(request: NextRequest) {
   const response = await servicesContainer.scheduleService.getSchedule(
     start,
     end,
+    memberId ?? user.memberId,
   );
 
   logger.debug(
     {
       start,
       end,
+      memberId: memberId ?? user.memberId,
     },
     "Successfully retrieved schedule",
   );

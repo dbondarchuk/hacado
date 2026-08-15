@@ -8,15 +8,15 @@ import {
   useIsSelectedBlock,
   usePortalContext,
   useSetSelectedBlockId,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@timelish/page-builder-base";
-import { EditableText, RichTextValue } from "@timelish/rte-inline";
-import { cn, useDebounceCallback } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { EditableText, RichTextValue } from "@hacado/rte-inline";
+import { cn, useDebounceCallback } from "@hacado/ui";
 import { useCallback, useRef } from "react";
 import { InlineTextProps } from "./schema";
 import { styles } from "./styles";

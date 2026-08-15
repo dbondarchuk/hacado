@@ -1,11 +1,11 @@
 import {
   useSelectedBlockId,
-  useSelectedSlot,
   useSelectedSidebarTab,
+  useSelectedSlot,
   useSetSidebarTab,
 } from "../../documents/editor/context";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   ResponsiveTabsList,
   Sidebar,
@@ -13,7 +13,7 @@ import {
   Tabs,
   TabsContent,
   TabsTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { Paintbrush, SquareDashedMousePointer } from "lucide-react";
 import React, { memo, useEffect, useMemo } from "react";
 import {

@@ -11,7 +11,7 @@ import {
   INSTALL_CATEGORY_IDS,
   professionMatchesSearch,
 } from "@/components/install/catalog";
-import { Language, useI18n, useLocale } from "@timelish/i18n";
+import { Language, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Badge,
   Button,
@@ -34,8 +34,8 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrency,
-} from "@timelish/ui";
-import { durationToTime, formatAmountWithCurrency } from "@timelish/utils";
+} from "@hacado/ui";
+import { durationToTime, formatAmountWithCurrency } from "@hacado/utils";
 import { ArrowLeft, ChevronDown, Lock, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -145,8 +145,8 @@ export function AddOptionSplitButton({ canAddMore }: { canAddMore: boolean }) {
               <Button
                 type="button"
                 variant="default"
-                size="icon"
-                className="rounded-l-none"
+                size="md"
+                className="rounded-l-none px-2"
                 disabled={!canAddMore}
               >
                 <ChevronDown className="h-4 w-4" />

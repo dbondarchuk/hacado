@@ -4,7 +4,7 @@ import {
   PageFooterListModel,
   PageFooterUpdateModel,
   WithTotal,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   PageFootersSearchParams,
   pageFootersSearchParamsSerializer,

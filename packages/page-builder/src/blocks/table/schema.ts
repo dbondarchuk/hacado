@@ -1,17 +1,13 @@
-import type { TEditorBlock } from "@timelish/builder";
-import {
-  BaseReaderBlockProps,
-  coerceArray,
-  generateId,
-} from "@timelish/builder";
-import type { I18nFn } from "@timelish/i18n";
+import type { TEditorBlock } from "@hacado/builder";
+import { BaseReaderBlockProps, coerceArray, generateId } from "@hacado/builder";
+import type { I18nFn } from "@hacado/i18n";
 import {
   createEmptySlot,
   embeddedSlotSchema,
   migrateContainerSlot,
   type EmbeddedSlotData,
-} from "@timelish/page-builder-base/slots";
-import { Prettify } from "@timelish/types";
+} from "@hacado/page-builder-base/slots";
+import { Prettify } from "@hacado/types";
 import * as z from "zod";
 import { equalColWidthPercents } from "./grid-utils";
 import { zStyles } from "./styles";

@@ -5,8 +5,8 @@ import {
   parseAsStringEnum,
 } from "nuqs";
 
-import { baseSearchParams } from "@timelish/api-sdk";
-import { communicationChannels } from "@timelish/types";
+import { baseSearchParams } from "@hacado/api-sdk";
+import { communicationChannels } from "@hacado/types";
 import { appointmentNotificationTypes } from "../models";
 
 export const searchParams = {

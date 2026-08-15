@@ -1,15 +1,15 @@
 ---
 sidebar_position: 1
-description: Welcome to the Timelish product documentation.
+description: Welcome to the Hacado product documentation.
 ---
 
-# Get started with Timeli.sh
+# Get started with Hacado
 
 Learn how to create your organization, connect a calendar, build your booking website, and accept your first appointment, in under 10 minutes.
 
-This guide walks you through everything you need to go from a fresh Timeli.sh account to a live booking page: setting up your organization, syncing your calendar, adding services, building your website, configuring notifications, and sharing your booking link with clients.
+This guide walks you through everything you need to go from a fresh Hacado account to a live booking page: setting up your organization, syncing your calendar, adding services, building your website, configuring notifications, and sharing your booking link with clients.
 
-If you are new, read [What is Timelish?](./what-is-timelish) first, then follow [Sign up](./sign-up), [Choose a plan](./subscription-and-checkout), and [Set up your workspace](./workspace-install-wizard).
+If you are new, read [What is Hacado?](./what-is-hacado) first, then follow [Sign up](./sign-up), [Choose a plan](./subscription-and-checkout), and [Set up your workspace](./workspace-install-wizard).
 
 ## After setup
 
@@ -22,4 +22,4 @@ Continue with **[First steps](/docs/first-steps)** to go live after setup, then 
 - **Using your workspace** - settings, connecting your domain
 - **Apps** - each optional connection explained in plain language
 
-If you cannot find something, check back later or contact Timelish support the way you usually do.
+If you cannot find something, check back later or contact Hacado support the way you usually do.

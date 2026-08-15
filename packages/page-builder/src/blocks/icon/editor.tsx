@@ -1,12 +1,12 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@timelish/page-builder-base";
-import { cn, Icon } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { cn, Icon } from "@hacado/ui";
 import { Ref } from "react";
 import { IconProps } from "./schema";
 import { styles } from "./styles";

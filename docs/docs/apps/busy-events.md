@@ -1,11 +1,11 @@
 ---
 sidebar_position: 14
-description: Block specific dates and times in Timelish so clients cannot book you then.
+description: Block specific dates and times in Hacado so clients cannot book you then.
 ---
 
 # Busy events
 
-Busy events are simple blocks you create inside Timelish: lunch breaks, transit, holidays, meetings, or any time clients should **not** be able to book you. No outside calendar account is required.
+Busy events are simple blocks you create inside Hacado: lunch breaks, transit, holidays, meetings, or any time clients should **not** be able to book you. No outside calendar account is required.
 
 ## Adding the App
 

@@ -1,4 +1,4 @@
-import { App, BillingPlanTier } from "@timelish/types";
+import { App, BillingPlanTier } from "@hacado/types";
 import { Form } from "lucide-react";
 import { FORMS_APP_NAME } from "./const";
 import {
@@ -13,11 +13,12 @@ export const FormsApp: App<FormsAdminNamespace, FormsAdminKeys> = {
   category: ["apps.categories.content"],
   scope: ["ui-components", "customer-tab", "dashboard-notifier"],
   type: "complex",
+  target: "company",
   Logo: ({ className }) => <Form className={className} />,
   isFeatured: true,
   isHidden: false,
   dontAllowMultiple: true,
-  minimumPlanTier: BillingPlanTier.Pro,
+  minimumPlanTier: BillingPlanTier.Solo,
   description: {
     text: "app_forms_admin.app.description" satisfies FormsAdminAllKeys,
   },

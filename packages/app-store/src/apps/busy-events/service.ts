@@ -1,5 +1,5 @@
-import { getI18nAsync } from "@timelish/i18n/server";
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   CalendarBusyTime,
   ConnectedAppData,
@@ -13,8 +13,8 @@ import {
   ScheduleOverride,
   WeekIdentifier,
   WithDatabaseId,
-} from "@timelish/types";
-import { eachOfInterval, getWeekIdentifier, parseTime } from "@timelish/utils";
+} from "@hacado/types";
+import { eachOfInterval, getWeekIdentifier, parseTime } from "@hacado/utils";
 import { ObjectId } from "mongodb";
 import { RequestAction, requestActionSchema } from "./models";
 import {
@@ -262,7 +262,11 @@ export default class BusyEventsConnectedApp
       );
 
       const updateResult = await events.updateOne(
-        { week, appId, organizationId: this.props.organizationId },
+        {
+          week,
+          appId,
+          organizationId: this.props.organizationId,
+        },
         {
           $set: {
             schedule,
@@ -303,7 +307,11 @@ export default class BusyEventsConnectedApp
       BusyEventsPublicKeys
     >(busyEventsPublicNamespace);
     logger.debug(
-      { appId, start: start.toISOString(), end: end.toISOString() },
+      {
+        appId,
+        start: start.toISOString(),
+        end: end.toISOString(),
+      },
       "Getting busy times",
     );
 

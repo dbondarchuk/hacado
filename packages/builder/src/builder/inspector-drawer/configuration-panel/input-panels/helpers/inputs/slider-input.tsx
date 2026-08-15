@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 
-import { Label } from "@timelish/ui";
+import { Label } from "@hacado/ui";
 import { RawSliderInput } from "./raw/raw-slider-input";
 import { ResetButton } from "./reset-button";
 import { useDebouncedParentCommit } from "./use-debounced-parent-commit";

@@ -3,15 +3,17 @@ import {
   AppointmentEventOption,
   asOptionalField,
   Customer,
+  OrganizationMember,
   Prettify,
   WithDatabaseId,
+  WithEmail,
   WithOrganizationId,
   zEmail,
   zNonEmptyString,
   zObjectId,
   zPhone,
   zUniqueArray,
-} from "@timelish/types";
+} from "@hacado/types";
 import * as z from "zod";
 import { WaitlistPublicAllKeys } from "../translations/types";
 
@@ -99,6 +101,7 @@ export type WaitlistRequestForm = Prettify<
 export const waitlistRequestSchema = waitlistRequestFormSchema.and(
   z.object({
     optionId: zObjectId("appointments.request.optionId.required"),
+    memberId: zObjectId("appointments.request.memberId.required"),
     addonsIds: zUniqueArray(
       z.array(zObjectId("appointments.request.addonsIds.required")),
       (x) => x,
@@ -131,6 +134,7 @@ export type WaitlistEntryEntity = WithOrganizationId<
 export type WaitlistEntry = Prettify<
   WaitlistEntryEntity & {
     customer: Customer;
+    member: WithEmail<OrganizationMember>;
     option: AppointmentEventOption;
     addons?: AppointmentEventAddon[];
   }

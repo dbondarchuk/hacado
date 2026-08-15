@@ -1,6 +1,6 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
-import type { I18nFn } from "@timelish/i18n";
-import { Prettify } from "@timelish/types";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import type { I18nFn } from "@hacado/i18n";
+import { Prettify } from "@hacado/types";
 import * as z from "zod";
 import { zStyles } from "./styles";
 
@@ -22,8 +22,11 @@ export const TypewriterTextPropsSchema = z.object({
   }),
 });
 
-export type TypewriterTextProps = Prettify<z.infer<typeof TypewriterTextPropsSchema>>;
-export type TypewriterTextReaderProps = BaseReaderBlockProps<any> & TypewriterTextProps;
+export type TypewriterTextProps = Prettify<
+  z.infer<typeof TypewriterTextPropsSchema>
+>;
+export type TypewriterTextReaderProps = BaseReaderBlockProps<any> &
+  TypewriterTextProps;
 
 export const TypewriterTextPropsDefaults = (
   _t: I18nFn<undefined, undefined>,

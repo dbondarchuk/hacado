@@ -1,7 +1,7 @@
-import { canInstallApp } from "@timelish/app-store";
-import { ServicesContainer } from "@timelish/services";
-import { canUseFeature, isFreeTier } from "@timelish/services/billing";
-import { BillingPlanTier, type SubscriptionFeature } from "@timelish/types";
+import { canInstallApp } from "@hacado/app-store";
+import { ServicesContainer } from "@hacado/services";
+import { canUseFeature, isFreeTier } from "@hacado/services/billing";
+import { BillingPlanTier, type SubscriptionFeature } from "@hacado/types";
 import { headers } from "next/headers";
 import { cache } from "react";
 
@@ -34,7 +34,11 @@ export { canInstallApp, canUseFeature, isFreeTier };
 export const getPlanTier = cache(async (): Promise<BillingPlanTier | null> => {
   const headersList = await headers();
   const raw = headersList.get("x-subscription-plan-tier");
-  if (raw === BillingPlanTier.Free || raw === BillingPlanTier.Pro) {
+  if (
+    raw === BillingPlanTier.Free ||
+    raw === BillingPlanTier.Solo ||
+    raw === BillingPlanTier.Studio
+  ) {
     return raw;
   }
   return null;

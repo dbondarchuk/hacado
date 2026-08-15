@@ -1,20 +1,26 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from "@timelish/ui";
+import { useI18n } from "@hacado/i18n/client";
+import {
+  Button,
+  cn,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@hacado/ui";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { Settings2 } from "lucide-react";
 import React from "react";
 import { ActivityEventTypeAsyncFilterBox } from "./activity-event-type-async-filter";
 import { useActivityTableFilters } from "./use-activity-table-filters";
 
 const severities = ["info", "success", "warning", "error"] as const;
-const actors = ["system", "user", "customer"] as const;
+const actors = ["system", "member", "customer"] as const;
 
 export const ActivityTableAction: React.FC<{ className?: string }> = ({
   className,

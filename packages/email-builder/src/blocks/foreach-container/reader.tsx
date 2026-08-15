@@ -1,4 +1,4 @@
-import { evaluate, ReaderBlock } from "@timelish/builder";
+import { evaluate, ReaderBlock } from "@hacado/builder";
 import { Fragment } from "react";
 import { ForeachContainerReaderProps } from "./schema";
 import { sliceForeachArray } from "./utils";

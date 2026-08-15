@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { UploadedFile } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { UploadedFile } from "@hacado/types";
 import {
   Button,
   cn,
@@ -16,7 +16,7 @@ import {
   toast,
   useDebounce,
   useUploadFile,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import React from "react";
 import { Accept } from "react-dropzone";
 import { useInView } from "react-intersection-observer";

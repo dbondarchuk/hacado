@@ -1,7 +1,7 @@
-import { TranslationKeys, useI18n, useLocale } from "@timelish/i18n";
-import { Time, timeZones } from "@timelish/types";
-import { useCurrencyFormat } from "@timelish/ui";
-import { durationToTime, formatTimeLocale } from "@timelish/utils";
+import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { Time, timeZones } from "@hacado/types";
+import { useCurrencyFormat } from "@hacado/ui";
+import { durationToTime, formatTimeLocale } from "@hacado/utils";
 import { TimeZone } from "@vvo/tzdb";
 import { Calendar, Clock, DollarSign, Globe2, Timer } from "lucide-react";
 import { HourNumbers, DateTime as Luxon, MinuteNumbers } from "luxon";

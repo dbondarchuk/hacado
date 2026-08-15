@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@timelish/types";
+import { TemplateTemplatesList } from "@hacado/types";
 import { enTemplates } from "./en";
 import { ukTemplates } from "./uk";
 

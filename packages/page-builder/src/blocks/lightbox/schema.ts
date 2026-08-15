@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps } from "@timelish/builder";
-import { Prettify } from "@timelish/types";
+import { BaseReaderBlockProps } from "@hacado/builder";
+import { Prettify } from "@hacado/types";
 import * as z from "zod";
 
 export const overlayType = ["blur", "default"] as const;

@@ -2,8 +2,8 @@ import { getServicesContainer } from "@/app/utils";
 import {
   serviceAddonsSearchParams,
   serviceAddonsSearchParamsCache,
-} from "@timelish/api-sdk";
-import { DataTable } from "@timelish/ui-admin";
+} from "@hacado/api-sdk";
+import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
 export const AddonsTable: React.FC = async () => {

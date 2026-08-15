@@ -1,4 +1,4 @@
-import { CustomerTabInjectorApp } from "@timelish/types";
+import { CustomerTabInjectorApp } from "@hacado/types";
 import { FORMS_APP_NAME } from "../apps/forms/const";
 import { FormsCustomerTabInjector } from "../apps/forms/customer-tab-injector";
 import { WAITLIST_APP_NAME } from "../apps/waitlist/const";

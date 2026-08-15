@@ -1,16 +1,11 @@
-import { useI18n, useLocale } from "@timelish/i18n";
-import { Button, cn, ScrollArea, useTimeZone } from "@timelish/ui";
-import { formatTimeLocale, hasSame, parseTime } from "@timelish/utils";
-import {
-  CalendarIcon,
-  ChevronDown,
-  ChevronRight,
-  Clock,
-} from "lucide-react";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Button, cn, ScrollArea, useTimeZone } from "@hacado/ui";
+import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
+import { CalendarIcon, ChevronDown, ChevronRight, Clock } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
 import { EventPopover } from "./event-popover";
-import { EventVariantClasses } from "./styles";
+import { getEventAppearance } from "./styles";
 import { AgendaEventCalendarProps, EventCalendarEvent } from "./types";
 
 type EventsByDate = {
@@ -43,7 +38,10 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
   React.useEffect(() => {
     onRangeChange?.(
       currentDate.toJSDate(),
-      currentDate.plus({ days: daysToShow - 1 }).endOf("day").toJSDate(),
+      currentDate
+        .plus({ days: daysToShow - 1 })
+        .endOf("day")
+        .toJSDate(),
     );
   }, [currentDate, daysToShow]);
 
@@ -158,8 +156,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                 <span
                   className={cn(
                     "inline-flex size-7 items-center justify-center rounded-full text-base font-medium tabular-nums mr-2",
-                    isToday &&
-                      "bg-primary text-primary-foreground shadow-sm",
+                    isToday && "bg-brand text-brand-foreground shadow-sm",
                     !isToday && "bg-muted text-foreground",
                   )}
                 >
@@ -175,7 +172,7 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                     { locale },
                   )}
                   {isToday && (
-                    <span className="ml-1.5 text-sm text-primary font-medium">
+                    <span className="ml-1.5 text-sm text-brand font-medium">
                       ({t("calendar.today")})
                     </span>
                   )}
@@ -232,14 +229,15 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                         timeZone,
                       );
 
+                      const appearance = getEventAppearance(event);
                       return (
                         <EventPopover key={idx} event={event}>
                           <div
                             className={cn(
                               "flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors shadow-sm",
-                              EventVariantClasses[event.variant || "primary"] ??
-                                EventVariantClasses.primary,
+                              appearance.className,
                             )}
+                            style={appearance.style}
                             onClick={(e) => {
                               onEventClick?.(event);
                               e.stopPropagation();
@@ -250,9 +248,12 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                                 className="text-[12px] opacity-70"
                                 suppressHydrationWarning
                               >
-                                {eventDate.toLocaleString(DateTime.TIME_SIMPLE, {
-                                  locale,
-                                })}{" "}
+                                {eventDate.toLocaleString(
+                                  DateTime.TIME_SIMPLE,
+                                  {
+                                    locale,
+                                  },
+                                )}{" "}
                                 –{" "}
                                 {endDate.toLocaleString(DateTime.TIME_SIMPLE, {
                                   locale,

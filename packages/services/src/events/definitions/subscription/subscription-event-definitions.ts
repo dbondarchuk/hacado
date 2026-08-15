@@ -1,14 +1,14 @@
-import { renderUserEmailTemplate } from "@timelish/email-builder/static";
-import { BaseAllKeys, fallbackLanguage, type Language } from "@timelish/i18n";
-import { getI18nAsync } from "@timelish/i18n/server";
+import { renderUserEmailTemplate } from "@hacado/email-builder/static";
+import { BaseAllKeys, fallbackLanguage, type Language } from "@hacado/i18n";
+import { getI18nAsync } from "@hacado/i18n/server";
 import {
   OrganizationSubscriptionStatus,
   SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
   type EmailNotificationRequest,
   type EventDefinition,
   type SubscriptionStatusChangedPayload,
-} from "@timelish/types";
-import { getAdminUrl } from "@timelish/utils";
+} from "@hacado/types";
+import { getAdminUrl } from "@hacado/utils";
 
 import { dashboardUrls } from "../links";
 
@@ -89,7 +89,7 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         return null;
       }
 
-      const admins = await services.userService.getOrganizationAdminUsers();
+      const admins = await services.teamService.getOrganizationAdminContacts();
       if (!admins.length) {
         return null;
       }
@@ -163,7 +163,8 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           email: { to: admin.email, subject, body },
           handledBy:
             "admin.billing.emails.subscriptionAlert.handledBy" as BaseAllKeys,
-          participantType: "user",
+          participantType: "member",
+          memberId: admin.memberId,
         });
       }
 

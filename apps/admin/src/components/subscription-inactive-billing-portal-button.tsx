@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { Button, Spinner, toast } from "@timelish/ui";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { Button, Spinner, toast } from "@hacado/ui";
 import { useState } from "react";
 
 export function SubscriptionInactiveBillingPortalButton() {

@@ -1,8 +1,8 @@
 import {
   BlockStyle,
   generateClassName,
-} from "@timelish/page-builder-base/reader";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui";
 import { CustomHTMLReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

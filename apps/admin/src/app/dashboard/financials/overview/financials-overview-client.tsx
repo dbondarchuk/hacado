@@ -1,7 +1,7 @@
 "use client";
 
-import { AdminKeys, useI18n } from "@timelish/i18n";
-import type { BookingStep, DateRange, PaymentSummary } from "@timelish/types";
+import { AdminKeys, useI18n } from "@hacado/i18n/client";
+import type { BookingStep, DateRange, PaymentSummary } from "@hacado/types";
 import {
   CalendarDateRangePicker,
   Card,
@@ -16,9 +16,9 @@ import {
   Skeleton,
   useCurrencyFormat,
   useTimeZone,
-} from "@timelish/ui";
-import { useReload } from "@timelish/ui-admin";
-import { PaymentCard } from "@timelish/ui-admin-kit";
+} from "@hacado/ui";
+import { useReload } from "@hacado/ui-admin";
+import { PaymentCard } from "@hacado/ui-admin-kit";
 import { DateTime } from "luxon";
 import { useQueryState } from "nuqs";
 import React from "react";

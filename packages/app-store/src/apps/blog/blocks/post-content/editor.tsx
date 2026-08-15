@@ -4,11 +4,11 @@ import {
   useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { BlockStyle, useClassName } from "@timelish/page-builder-base";
-import { PlateStaticEditor } from "@timelish/rte";
-import { cn } from "@timelish/ui";
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { PlateStaticEditor } from "@hacado/rte";
+import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import {
   BlogPublicKeys,

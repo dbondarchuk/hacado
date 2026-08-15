@@ -1,4 +1,4 @@
-import { CustomerTabInjectorApp } from "@timelish/types";
+import { CustomerTabInjectorApp } from "@hacado/types";
 import { FormsCustomerTab } from "./customer-tab-view";
 import {
   FormsAdminAllKeys,

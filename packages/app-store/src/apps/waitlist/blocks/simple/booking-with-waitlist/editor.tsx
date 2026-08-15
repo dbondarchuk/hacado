@@ -1,12 +1,12 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@timelish/builder";
+import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@timelish/page-builder-base";
-import { cn } from "@timelish/ui";
+} from "@hacado/page-builder-base";
+import { cn } from "@hacado/ui";
 import { BookingWithWaitlist } from "./components/booking";
 import { BookingWithWaitlistProps } from "./schema";
 import { styles } from "./styles";
@@ -31,6 +31,7 @@ export const BookingWithWaitlistEditor = ({
         className={cn(className, base?.className)}
         id={base?.id}
         successPage={props.confirmationPage}
+        flowOrder={props.flowOrder}
         isEditor
         isOnlyWaitlist={false}
         appId={appId}

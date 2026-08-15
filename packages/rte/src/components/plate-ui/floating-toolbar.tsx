@@ -1,6 +1,6 @@
 "use client";
 
-import { Toolbar } from "@timelish/ui";
+import { Toolbar } from "@hacado/ui";
 import { cn, withRef } from "@udecode/cn";
 import {
   type FloatingToolbarState,

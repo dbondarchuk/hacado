@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@timelish/api-sdk";
-import { useI18n } from "@timelish/i18n";
-import { AppSetupProps, ConnectedAppStatusWithText } from "@timelish/types";
+import { adminApi } from "@hacado/api-sdk";
+import { useI18n } from "@hacado/i18n/client";
+import { AppSetupProps, ConnectedAppStatusWithText } from "@hacado/types";
 import {
   Button,
   cn,
@@ -20,11 +20,11 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useClipboard,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
 import { CopyIcon, Dices } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

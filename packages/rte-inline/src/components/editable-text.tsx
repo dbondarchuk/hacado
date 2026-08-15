@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, mergeRefs, useDebounceCallback } from "@timelish/ui";
+import { cn, mergeRefs, useDebounceCallback } from "@hacado/ui";
 import type React from "react";
 import {
   forwardRef,

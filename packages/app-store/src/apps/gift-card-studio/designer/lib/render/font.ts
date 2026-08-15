@@ -1,4 +1,4 @@
-import allFonts from "@timelish/types/fonts";
+import allFonts from "@hacado/types/fonts";
 
 const knownFonts = allFonts.items.reduce(
   (acc, font) => {

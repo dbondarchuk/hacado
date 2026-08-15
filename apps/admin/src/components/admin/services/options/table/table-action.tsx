@@ -3,8 +3,10 @@
 import {
   DataTableResetFilter,
   DataTableSearch,
+  useAuth,
   useSelectedRowsStore,
-} from "@timelish/ui-admin";
+} from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
 import { DeleteSelectedOptionsButton } from "./delete-selected";
 import { useAddonsTableFilters } from "./use-table-filters";
 
@@ -17,6 +19,8 @@ export function OptionsTableAction() {
     setSearchQuery,
   } = useAddonsTableFilters();
   const { rowSelection } = useSelectedRowsStore();
+  const { user } = useAuth();
+  const canDelete = hasPermission(user, "service", "delete");
 
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-2">
@@ -32,9 +36,11 @@ export function OptionsTableAction() {
           onReset={resetFilters}
         />
       </div>
-      <div className="flex flex-wrap items-center gap-4">
-        <DeleteSelectedOptionsButton selected={rowSelection} />
-      </div>
+      {canDelete ? (
+        <div className="flex flex-wrap items-center gap-4">
+          <DeleteSelectedOptionsButton selected={rowSelection} />
+        </div>
+      ) : null}
     </div>
   );
 }

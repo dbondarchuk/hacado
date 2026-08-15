@@ -1,5 +1,5 @@
-import { BaseReaderBlockProps, generateId } from "@timelish/builder";
-import { COLORS } from "@timelish/page-builder-base/style";
+import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import { COLORS } from "@hacado/page-builder-base/style";
 import * as z from "zod";
 import { ButtonPropsDefaults } from "../button";
 import { InlineContainerPropsDefaults } from "../inline-container/schema";

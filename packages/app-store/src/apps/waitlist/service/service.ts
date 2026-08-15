@@ -1,4 +1,4 @@
-import { getLoggerFactory, LoggerFactory } from "@timelish/logger";
+import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
@@ -11,6 +11,7 @@ import {
   ConnectedAppUninstallResult,
   DashboardNotification,
   DemoArguments,
+  effectiveAddonDuration,
   EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
@@ -18,10 +19,16 @@ import {
   IDashboardNotifierApp,
   IDemoArgumentsProvider,
   IEventSubscriber,
+  isAddonAvailableForMember,
+  SessionUser,
   TemplateTemplatesList,
   type EventSource,
-} from "@timelish/types";
-import { dispatchAppointmentEventPayload } from "@timelish/utils";
+} from "@hacado/types";
+import {
+  dispatchAppointmentEventPayload,
+  gateMemberIds,
+  hasPermission,
+} from "@hacado/utils";
 import {
   CreateWaitlistEntryAction,
   CreateWaitlistEntryActionType,
@@ -85,7 +92,7 @@ export class WaitlistConnectedApp
     appData: ConnectedAppData,
     request: RequestAction,
     httpRequest?: ApiRequest,
-    userId?: string,
+    user?: SessionUser,
   ): Promise<any> {
     void httpRequest;
     const logger = this.loggerFactory("processRequest");
@@ -94,7 +101,7 @@ export class WaitlistConnectedApp
       "Processing waitlist notification request",
     );
 
-    if (userId === undefined) {
+    if (!user?.memberId) {
       throw new ConnectedAppRequestError(
         "invalid_waitlist_request",
         { request },
@@ -103,6 +110,7 @@ export class WaitlistConnectedApp
       );
     }
 
+    const memberId = user.memberId;
     const { data, success, error } = requestActionSchema.safeParse(request);
     if (!success) {
       logger.error({ error }, "Invalid waitlist request");
@@ -118,16 +126,24 @@ export class WaitlistConnectedApp
       case GetWaitlistEntryActionType:
         return this.processGetWaitlistEntryRequest(appData, data);
       case GetWaitlistEntriesActionType:
-        return this.processGetWaitlistEntriesRequest(appData, data);
+        return this.processGetWaitlistEntriesRequest(appData, data, user);
       case DismissWaitlistEntriesActionType:
-        return this.processDismissWaitlistEntriesRequest(appData, data, userId);
+        return this.processDismissWaitlistEntriesRequest(
+          appData,
+          data,
+          memberId,
+        );
       case SetConfigurationActionType:
-        return this.processSetConfigurationRequest(appData, data.configuration);
+        return this.processSetConfigurationRequest(
+          appData,
+          data.configuration,
+          user,
+        );
       case CreateWaitlistEntryActionType:
         return this.processCreateWaitlistEntryActionRequest(
           appData,
           data,
-          userId,
+          memberId,
         );
     }
   }
@@ -263,7 +279,7 @@ export class WaitlistConnectedApp
 
   public async getInitialNotifications(
     appData: ConnectedAppData,
-    _userId: string,
+    _memberId: string,
     date?: Date,
   ): Promise<DashboardNotification[]> {
     const logger = this.loggerFactory("getNotifications");
@@ -330,12 +346,22 @@ export class WaitlistConnectedApp
     );
   }
 
+  private async resolveDefaultMemberId(): Promise<string> {
+    const owner = await this.props.services.teamService.getOwnerMember();
+    return owner._id;
+  }
+
   private async processCreateWaitlistEntryRequest(
     appData: ConnectedAppData,
     request: ApiRequest,
   ): Promise<ApiResponse> {
     const logger = this.loggerFactory("processCreateWaitlistEntryRequest");
     const requestParsed = await request.json();
+
+    if (!requestParsed?.memberId) {
+      requestParsed.memberId = await this.resolveDefaultMemberId();
+    }
+
     const { data, success, error } =
       waitlistRequestSchema.safeParse(requestParsed);
     if (!success) {
@@ -422,7 +448,7 @@ export class WaitlistConnectedApp
   private async processCreateWaitlistEntryActionRequest(
     appData: ConnectedAppData,
     data: CreateWaitlistEntryAction,
-    userId: string,
+    memberId: string,
   ): Promise<WaitlistEntry> {
     const logger = this.loggerFactory(
       "processCreateWaitlistEntryActionRequest",
@@ -466,6 +492,27 @@ export class WaitlistConnectedApp
       );
     }
 
+    const memberIdForAddons =
+      data.entry.memberId ?? (await this.resolveDefaultMemberId());
+
+    if (
+      memberIdForAddons &&
+      addons?.some(
+        (addon) => !isAddonAvailableForMember(addon.staff, memberIdForAddons),
+      )
+    ) {
+      logger.error(
+        { memberId: memberIdForAddons, addonsIds: data.entry.addonsIds },
+        "Addons unavailable for member",
+      );
+      throw new ConnectedAppRequestError(
+        "addon_unavailable_for_member",
+        { data },
+        400,
+        "One or more addons are not available for the selected member",
+      );
+    }
+
     const { customerId, ...waitlistRequestData } = data.entry;
 
     const customer =
@@ -486,10 +533,20 @@ export class WaitlistConnectedApp
       : (option.durationType === "fixed"
           ? option.duration
           : option.durationMin) +
-        (addons?.reduce((sum, addon) => sum + (addon.duration || 0), 0) ?? 0);
+        (addons?.reduce(
+          (sum, addon) =>
+            sum +
+            (effectiveAddonDuration(
+              addon.duration,
+              addon.staff,
+              memberIdForAddons,
+            ) || 0),
+          0,
+        ) ?? 0);
 
     const waitlistRequest: WaitlistRequest = {
       ...waitlistRequestData,
+      memberId: memberIdForAddons,
       duration,
       email: customer.email,
       name: customer.name,
@@ -497,7 +554,7 @@ export class WaitlistConnectedApp
     };
 
     logger.debug({ waitlistRequest }, "Creating waitlist entry");
-    const source: EventSource = { actor: "user", actorId: userId };
+    const source: EventSource = { actor: "member", actorId: memberId };
     const result = await repositoryService.createWaitlistEntry(
       waitlistRequest,
       source,
@@ -528,7 +585,7 @@ export class WaitlistConnectedApp
   private async processDismissWaitlistEntriesRequest(
     appData: ConnectedAppData,
     data: DismissWaitlistEntriesAction,
-    userId: string,
+    memberId: string,
   ) {
     const logger = this.loggerFactory("processDismissWaitlistEntriesRequest");
     logger.debug(
@@ -541,7 +598,7 @@ export class WaitlistConnectedApp
         appData._id,
         appData.organizationId,
       );
-      const source: EventSource = { actor: "user", actorId: userId };
+      const source: EventSource = { actor: "member", actorId: memberId };
       const result = await repositoryService.dismissWaitlistEntries(
         data.ids,
         source,
@@ -593,6 +650,7 @@ export class WaitlistConnectedApp
   private async processGetWaitlistEntriesRequest(
     appData: ConnectedAppData,
     data: GetWaitlistEntriesAction,
+    user: SessionUser,
   ) {
     const logger = this.loggerFactory("processGetWaitlistEntriesRequest");
     logger.debug(
@@ -606,7 +664,20 @@ export class WaitlistConnectedApp
         appData.organizationId,
       );
 
-      const result = await repositoryService.getWaitlistEntries(data.query);
+      const requestedMemberId = data.query.memberId;
+      const memberId = gateMemberIds(
+        user,
+        requestedMemberId === undefined
+          ? undefined
+          : Array.isArray(requestedMemberId)
+            ? requestedMemberId
+            : [requestedMemberId],
+      );
+
+      const result = await repositoryService.getWaitlistEntries({
+        ...data.query,
+        memberId,
+      });
       logger.debug(
         { appId: appData._id },
         "Successfully retrieved waitlist entries",
@@ -624,6 +695,7 @@ export class WaitlistConnectedApp
   private async processSetConfigurationRequest(
     appData: ConnectedAppData,
     data: SetConfigurationAction["configuration"],
+    user: SessionUser,
   ): Promise<
     ConnectedAppStatusWithText<WaitlistAdminNamespace, WaitlistAdminKeys>
   > {
@@ -632,6 +704,15 @@ export class WaitlistConnectedApp
       { appId: appData._id },
       "Processing set configuration request",
     );
+
+    if (!hasPermission(user, "settings", "update")) {
+      throw new ConnectedAppRequestError(
+        "forbidden",
+        { appId: appData._id },
+        403,
+        "Missing permission to update waitlist settings",
+      );
+    }
 
     try {
       // Validate configuration
@@ -663,6 +744,10 @@ export class WaitlistConnectedApp
 
       return status;
     } catch (error: any) {
+      if (error instanceof ConnectedAppRequestError) {
+        throw error;
+      }
+
       logger.error(
         { appId: appData._id, error },
         "Error processing waitlist configuration",

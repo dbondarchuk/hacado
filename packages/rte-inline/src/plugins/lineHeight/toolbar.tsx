@@ -1,13 +1,13 @@
 "use client";
 
-import { useI18n } from "@timelish/i18n";
+import { useI18n } from "@hacado/i18n/client";
 import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "@timelish/ui";
+} from "@hacado/ui";
 import { ArrowDownToLine } from "lucide-react";
 import { useRTEContext } from "../../context/rte-context";
 

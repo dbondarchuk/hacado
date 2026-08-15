@@ -1,9 +1,14 @@
 "use client";
 
-import { BooleanInput, ConfigurationProps, PageInput } from "@timelish/builder";
-import { useI18n } from "@timelish/i18n";
-import { StylesConfigurationPanel } from "@timelish/page-builder-base";
-import { deepMemo } from "@timelish/ui";
+import {
+  BooleanInput,
+  ConfigurationProps,
+  PageInput,
+  SelectInput,
+} from "@hacado/builder";
+import { useI18n } from "@hacado/i18n/client";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { BookingProps } from "./schema";
 import { bookingShortcuts } from "./shortcuts";
@@ -55,6 +60,23 @@ export const BookingConfiguration = deepMemo(
           onChange={(value) =>
             updateProps({ ...data.props, confirmationPage: value })
           }
+        />
+        <SelectInput
+          label={t("pageBuilder.blocks.booking.flowOrder.label")}
+          defaultValue={data.props.flowOrder ?? "service-first"}
+          onChange={(value) =>
+            updateProps({ ...data.props, flowOrder: value as any })
+          }
+          options={[
+            {
+              value: "service-first",
+              label: t("pageBuilder.blocks.booking.flowOrder.serviceFirst"),
+            },
+            {
+              value: "specialist-first",
+              label: t("pageBuilder.blocks.booking.flowOrder.specialistFirst"),
+            },
+          ]}
         />
       </StylesConfigurationPanel>
     );

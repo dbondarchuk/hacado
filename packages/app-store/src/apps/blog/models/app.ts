@@ -1,4 +1,4 @@
-import { querySchema, zObjectId, zTaggedUnion } from "@timelish/types";
+import { querySchema, zObjectId, zTaggedUnion } from "@hacado/types";
 import * as z from "zod";
 import { getBlogCommentsQuerySchema } from "./blog-comment";
 import { blogPostSchema } from "./blog-post";
@@ -136,7 +136,9 @@ export const rejectBlogCommentActionSchema = z.object({
   id: zObjectId(),
 });
 
-export type RejectBlogCommentAction = z.infer<typeof rejectBlogCommentActionSchema>;
+export type RejectBlogCommentAction = z.infer<
+  typeof rejectBlogCommentActionSchema
+>;
 export const RejectBlogCommentActionType = "reject-blog-comment" as const;
 
 // Delete Blog Comment Action
@@ -145,7 +147,9 @@ export const deleteBlogCommentActionSchema = z.object({
   id: zObjectId(),
 });
 
-export type DeleteBlogCommentAction = z.infer<typeof deleteBlogCommentActionSchema>;
+export type DeleteBlogCommentAction = z.infer<
+  typeof deleteBlogCommentActionSchema
+>;
 export const DeleteBlogCommentActionType = "delete-blog-comment" as const;
 
 // Delete Selected Blog Comments Action

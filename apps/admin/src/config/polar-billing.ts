@@ -1,10 +1,10 @@
-import { InstallKeys } from "@timelish/i18n";
+import { InstallKeys } from "@hacado/i18n";
 import {
   getPolarBillingPlansFromEnv,
   resolvePlanTierFromProductId,
   type PolarBillingPlanDef,
-} from "@timelish/services/billing";
-import type { BillingPlanTier } from "@timelish/types";
+} from "@hacado/services/billing";
+import type { BillingPlanTier } from "@hacado/types";
 
 export type PolarBillingPlanSlug = BillingPlanTier;
 export type { PolarBillingPlanDef };
@@ -13,6 +13,8 @@ export { getPolarBillingPlansFromEnv, resolvePlanTierFromProductId };
 
 /**
  * App-defined benefits per checkout slug (i18n keys under `install` namespace).
+ * Higher tiers list only incremental benefits; UI prefixes with
+ * “Everything in {lower tier} plus:”.
  */
 export const POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS: Record<
   PolarBillingPlanSlug,
@@ -27,17 +29,30 @@ export const POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS: Record<
     "checkout.plans.free.benefits.emailNotifications",
     "checkout.plans.free.benefits.textNotifications",
   ],
-  pro: [
-    "checkout.plans.pro.benefits.bookings",
-    "checkout.plans.pro.benefits.services",
-    "checkout.plans.pro.benefits.branding",
-    "checkout.plans.pro.benefits.domain",
-    "checkout.plans.pro.benefits.calendar",
-    "checkout.plans.pro.benefits.payments",
-    "checkout.plans.pro.benefits.emailNotifications",
-    "checkout.plans.pro.benefits.textNotifications",
-    "checkout.plans.pro.benefits.smsCredits",
+  solo: [
+    "checkout.plans.solo.benefits.payments",
+    "checkout.plans.solo.benefits.syncedPayments",
+    "checkout.plans.solo.benefits.domain",
+    "checkout.plans.solo.benefits.unlimited",
+    "checkout.plans.solo.benefits.promotions",
+    "checkout.plans.solo.benefits.apps",
+    "checkout.plans.solo.benefits.clientPortal",
+    "checkout.plans.solo.benefits.smsCredits",
   ],
+  studio: [
+    "checkout.plans.studio.benefits.teamMembers",
+    "checkout.plans.studio.benefits.additionalSeats",
+    "checkout.plans.studio.benefits.individualCalendars",
+    "checkout.plans.studio.benefits.smsCredits",
+  ],
+};
+
+/** Lower tier whose features are included when presenting this plan’s “plus” list. */
+export const POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER: Partial<
+  Record<PolarBillingPlanSlug, PolarBillingPlanSlug>
+> = {
+  solo: "free",
+  studio: "solo",
 };
 
 /** Polar benefit id on the subscribed product (`meter_credit`); meter id from `sub.product.benefits`. */

@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { adminApi } from "@timelish/api-sdk";
-import { BaseAllKeys, useI18n } from "@timelish/i18n";
+import { adminApi } from "@hacado/api-sdk";
+import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
   GiftCardListModel,
   giftCardPaymentMethod,
@@ -11,7 +10,7 @@ import {
   inStorePaymentUpdateModelSchema,
   Payment,
   paymentType,
-} from "@timelish/types";
+} from "@hacado/types";
 import {
   Button,
   DateTimePicker,
@@ -45,8 +44,9 @@ import {
   use12HourFormat,
   useCurrencySymbol,
   useTimeZone,
-} from "@timelish/ui";
-import { CustomerSelector, GiftCardSelector } from "@timelish/ui-admin";
+} from "@hacado/ui";
+import { CustomerSelector, GiftCardSelector } from "@hacado/ui-admin";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

@@ -152,6 +152,14 @@ addons:
     id:
       required: Field ID is required
       unique: Field IDs should be unique
+staff:
+  memberId:
+    required: Member is required
+  priceOverride:
+    min: Price override must be at least 0
+  durationOverride:
+    int: Duration override must be an integer
+    min: Duration override must be at least 1 minute
 discount:
   name:
     required: Discount name must be at least 2 characters long

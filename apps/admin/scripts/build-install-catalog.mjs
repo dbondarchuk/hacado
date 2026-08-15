@@ -29,7 +29,9 @@ for (const f of files) {
   en[cat] = {};
   for (const [profKey, prof] of Object.entries(j)) {
     const tags = (prof.tags || []).map((t) =>
-      String(t).toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+      String(t)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_"),
     );
     tags.forEach((t) => tagSet.add(t));
     en[cat][profKey] = { label: prof.label, tags: prof.tags };
