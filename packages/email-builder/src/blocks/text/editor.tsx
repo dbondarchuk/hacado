@@ -37,13 +37,14 @@ export const TextEditor = ({ props, style }: TextProps) => {
   };
 
   return (
-    <div {...overlayProps} style={styles}>
+    <div {...overlayProps} style={styles} className="min-w-0 max-w-full">
       {isSelected ? (
         <PlateEditor
           value={currentBlock?.data?.props?.value}
           onChange={onChange}
+          overlayToolbar
           document={document}
-          className="w-full bg-transparent border-0 focus-visible:ring-0 rounded-none h-auto p-0 sm:px-0 border-none leading-normal md:leading-normal"
+          className="w-full min-w-0 bg-transparent border-0 focus-visible:ring-0 rounded-none h-auto p-0 sm:px-0 border-none leading-normal md:leading-normal"
           usesAbsoluteUrl
         />
       ) : (

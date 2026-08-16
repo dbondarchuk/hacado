@@ -86,7 +86,7 @@ export const useCreateMarkdownEditor = (value?: string) => {
     plugins: [
       // ...copilotPlugins,
       ...editorPlugins,
-      FixedToolbarPlugin(true),
+      FixedToolbarPlugin({ isMarkdown: true }),
       FloatingToolbarPlugin(true),
     ],
     value: (editor: PlateEditor) =>

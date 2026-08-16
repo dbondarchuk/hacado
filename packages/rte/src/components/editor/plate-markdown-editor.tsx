@@ -35,26 +35,28 @@ export const PlateMarkdownEditor: React.FC<PlateMarkdownEditorProps> = ({
   }, [editor]);
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Plate
-        editor={editor}
-        onChange={({}) =>
-          onChange?.(editor.api.markdown.serialize().replaceAll("<br>", "\n"))
-        }
-        readOnly={disabled}
-      >
-        <EditorContainer usesAbsoluteUrl={usesAbsoluteUrl}>
-          <Editor
-            variant="fullWidth"
-            className={className}
-            style={style}
-            disabled={disabled}
-            placeholder={placeholder}
-          />
-        </EditorContainer>
+    <div className="min-w-0 max-w-full">
+      <DndProvider backend={HTML5Backend}>
+        <Plate
+          editor={editor}
+          onChange={({}) =>
+            onChange?.(editor.api.markdown.serialize().replaceAll("<br>", "\n"))
+          }
+          readOnly={disabled}
+        >
+          <EditorContainer usesAbsoluteUrl={usesAbsoluteUrl}>
+            <Editor
+              variant="fullWidth"
+              className={className}
+              style={style}
+              disabled={disabled}
+              placeholder={placeholder}
+            />
+          </EditorContainer>
 
-        {/* <SettingsDialog /> */}
-      </Plate>
-    </DndProvider>
+          {/* <SettingsDialog /> */}
+        </Plate>
+      </DndProvider>
+    </div>
   );
 };

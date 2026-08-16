@@ -132,8 +132,11 @@ export const AddonForm: React.FC<{
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div className="flex flex-col gap-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full min-w-0 space-y-8"
+      >
+        <div className="flex min-w-0 flex-col gap-4">
           <FormField
             control={form.control}
             name="name"
@@ -205,7 +208,7 @@ export const AddonForm: React.FC<{
             control={form.control}
             name="description"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="min-w-0">
                 <FormLabel>
                   {t("services.addons.form.description")}{" "}
                   <InfoTooltip>

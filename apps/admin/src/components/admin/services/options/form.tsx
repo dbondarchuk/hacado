@@ -192,12 +192,12 @@ export const OptionForm: React.FC<{
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-8 relative flex flex-col gap-2 pb-4"
+        className="w-full min-w-0 space-y-8 relative flex flex-col gap-2 pb-4"
       >
         <Tabs
           onValueChange={triggerValidation}
           defaultValue={"general"}
-          className="space-y-4"
+          className="min-w-0 space-y-4"
           orientation="vertical"
         >
           <ResponsiveTabsList className="w-full flex flex-row gap-2">

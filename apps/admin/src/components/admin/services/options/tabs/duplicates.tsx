@@ -153,7 +153,7 @@ export const DuplicatesTab: React.FC<TabProps> = ({ form, disabled }) => {
               control={form.control}
               name="duplicateAppointmentCheck.message"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="min-w-0">
                   <FormLabel>
                     {t(
                       "services.options.form.duplicateAppointmentCheck.message",

@@ -60,7 +60,7 @@ export const TextEditor = ({ props, style }: TextProps) => {
         isEditor
       />
       <div
-        className={cn("w-full", className, base?.className)}
+        className={cn("w-full min-w-0 max-w-full", className, base?.className)}
         id={base?.id}
         {...overlayProps}
       >
@@ -68,8 +68,9 @@ export const TextEditor = ({ props, style }: TextProps) => {
           <PlateEditor
             value={value ?? []}
             onChange={onChange}
+            overlayToolbar
             className={cn(
-              "w-full bg-transparent border-0 focus-visible:ring-0 rounded-none h-auto p-0 border-none leading-normal md:leading-normal",
+              "w-full min-w-0 bg-transparent border-0 focus-visible:ring-0 rounded-none h-auto p-0 border-none leading-normal md:leading-normal",
               className,
               base?.className,
             )}

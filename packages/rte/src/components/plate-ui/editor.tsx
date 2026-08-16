@@ -16,7 +16,7 @@ import { AbsoluteUrlContext } from "./absolute-url-context";
 import { WindowContext } from "./window-context";
 
 const editorContainerVariants = cva(
-  "relative w-full cursor-text overflow-y-visible caret-primary select-text selection:bg-brand/25 focus-visible:outline-none [&_.slate-selection-area]:z-50 [&_.slate-selection-area]:border [&_.slate-selection-area]:border-brand/25 [&_.slate-selection-area]:bg-brand/15",
+  "relative w-full min-w-0 max-w-full cursor-text overflow-y-visible caret-primary select-text selection:bg-brand/25 focus-visible:outline-none [&_.slate-selection-area]:z-50 [&_.slate-selection-area]:border [&_.slate-selection-area]:border-brand/25 [&_.slate-selection-area]:bg-brand/15",
   {
     defaultVariants: {
       variant: "default",

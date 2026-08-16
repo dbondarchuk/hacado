@@ -233,7 +233,7 @@ export default async function DashboardLayout({
                     <SubscriptionStatusListener />
                     <SidebarInset
                       className={cn(
-                        "group/main",
+                        "group/main min-w-0",
                         isSubscriptionPastDueFlag ||
                           showFreeTierUpgradeBanner ||
                           inactiveMemberAppointmentCount > 0

@@ -19,6 +19,7 @@ export type PlateEditorProps = {
   placeholder?: string;
   singleLine?: boolean;
   noToolbar?: boolean;
+  overlayToolbar?: boolean;
   document?: Document;
   id?: string;
   usesAbsoluteUrl?: boolean;
@@ -35,13 +36,18 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
       placeholder,
       singleLine,
       noToolbar,
+      overlayToolbar,
       id,
       document,
       usesAbsoluteUrl,
     },
     ref,
   ) => {
-    const editor = useCreateEditor(value, { singleLine, noToolbar });
+    const editor = useCreateEditor(value, {
+      singleLine,
+      noToolbar,
+      overlayToolbar,
+    });
 
     React.useEffect(() => {
       editor.tf.focus({ edge: "endEditor" });
@@ -53,6 +59,11 @@ export const PlateEditor = forwardRef<HTMLDivElement, PlateEditorProps>(
           <EditorContainer
             context={document?.defaultView}
             usesAbsoluteUrl={usesAbsoluteUrl}
+            className={
+              overlayToolbar
+                ? "grid min-w-0 grid-cols-[minmax(0,1fr)]"
+                : undefined
+            }
           >
             <Editor
               ref={ref}

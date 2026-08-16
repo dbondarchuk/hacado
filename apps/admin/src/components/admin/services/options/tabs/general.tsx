@@ -37,7 +37,7 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
   const durationType = form.watch("durationType");
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex min-w-0 flex-col gap-4">
       <FormField
         control={form.control}
         name="name"
@@ -59,7 +59,7 @@ export const GeneralTab: React.FC<TabProps> = ({ form, disabled }) => {
         control={form.control}
         name="description"
         render={({ field }) => (
-          <FormItem>
+          <FormItem className="min-w-0">
             <FormLabel>
               {t("services.options.form.description")}{" "}
               <InfoTooltip>
