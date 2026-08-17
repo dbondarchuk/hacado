@@ -908,7 +908,7 @@ pageBuilder:
       slide1Label: Dashboard
       slide1Address: app.hacado.com/dashboard
       slide2Label: Booking website
-      slide2Address: yourname.haca.do
+      slide2Address: yourname.hacado.me
       slide3Label: Page builder
       slide3Address: app.hacado.com/page-builder
     featureItem:

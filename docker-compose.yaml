@@ -12,7 +12,9 @@ services:
       - AUTH_SECRET=${AUTH_SECRET:-n6WKAuaUVdOYMRReNYXEd/sHLF/Ddfams+FAGMe7vzk=}
       - AUTH_TRUST_HOST=${ADMIN_DOMAIN:-app.hacado.com}
       - BETTER_AUTH_URL=https://${ADMIN_DOMAIN:-app.hacado.com}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}
+      - SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
@@ -60,7 +62,7 @@ services:
       - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
       - MONGODB_DB=${MONGODB_DB}
       - TZ=${TZ:-America/New_York}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
@@ -113,7 +115,7 @@ services:
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}
       - OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}
@@ -143,6 +145,8 @@ services:
       - RESEND_CUSTOMER_EMAIL=${RESEND_CUSTOMER_EMAIL:-}
       - RESEND_CUSTOMER_FROM_NAME=${RESEND_CUSTOMER_FROM_NAME:-}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}
+      - SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}
     restart: unless-stopped
     networks:
       - hacado-network
@@ -166,7 +170,7 @@ services:
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}
       - OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}
@@ -205,7 +209,7 @@ services:
       - MONGODB_DB=${MONGODB_DB}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}
       - OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}
@@ -250,10 +254,31 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD:-}
       - REDIS_DB=${REDIS_DB:-0}
       - LOG_LEVEL=${LOG_LEVEL:-debug}
-      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-haca.do}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
     restart: unless-stopped
     ports:
       - "5555:5555"
+    networks:
+      - hacado-network
+    depends_on:
+      - mongodb
+
+  link-shortener:
+    build:
+      context: .
+      dockerfile: apps/link-shortener/Dockerfile
+    image: ghcr.io/dbondarchuk/hacado-link-shortener:latest
+    environment:
+      - TZ=${TZ:-America/New_York}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
+      - MONGODB_DB=${MONGODB_DB}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}
+      - PORT=5557
+    restart: unless-stopped
+    ports:
+      - "5557:5557"
     networks:
       - hacado-network
     depends_on:

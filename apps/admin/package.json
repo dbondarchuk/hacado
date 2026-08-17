@@ -51,6 +51,7 @@
     "npm": "^10.8.2",
     "p-limit": "^6.2.0",
     "pino-http": "^10.5.0",
+    "qrcode.react": "^4.2.0",
     "react": "19.2.8",
     "react-window": "^1.8.10",
     "rehype-pretty-code": "^0.14.0",

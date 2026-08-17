@@ -14,6 +14,8 @@ services:
       - AUTH_TRUST_HOST=${AUTH_TRUST_HOST:-localhost:3001}
       - BETTER_AUTH_URL=${BETTER_AUTH_URL:-localhost:3001}
       - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-localhost:3000}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-localhost:5557}
+      - SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}
       - ADMIN_DOMAIN=${ADMIN_DOMAIN:-localhost:3001}
       - APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-localhost:5556}
       - SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}
@@ -146,6 +148,8 @@ services:
       - RESEND_CUSTOMER_EMAIL=${RESEND_CUSTOMER_EMAIL:-}
       - RESEND_CUSTOMER_FROM_NAME=${RESEND_CUSTOMER_FROM_NAME:-}
       - TEXTBELT_API_KEY=${TEXTBELT_API_KEY}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-localhost:5557}
+      - SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}
     restart: unless-stopped
     networks:
       - hacado-network
@@ -258,6 +262,28 @@ services:
     restart: unless-stopped
     ports:
       - "5555:5555"
+    networks:
+      - hacado-network
+    depends_on:
+      - mongodb
+
+  link-shortener:
+    build:
+      context: .
+      dockerfile: apps/link-shortener/Dockerfile
+    image: ghcr.io/dbondarchuk/hacado-link-shortener:latest
+    env_file: ".env"
+    environment:
+      - TZ=${TZ:-America/New_York}
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}
+      - MONGODB_DB=${MONGODB_DB}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-localhost:3000}
+      - SHORT_DOMAIN=${SHORT_DOMAIN:-localhost:5557}
+      - PORT=5557
+    restart: unless-stopped
+    ports:
+      - "5557:5557"
     networks:
       - hacado-network
     depends_on:

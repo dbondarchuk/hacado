@@ -403,6 +403,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       services.billingService,
       services.eventService,
       services.organizationService,
+      services.shortLinksService,
     );
   }
 }

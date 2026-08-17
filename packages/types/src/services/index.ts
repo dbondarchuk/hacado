@@ -16,6 +16,7 @@ export type * from "./pages.service";
 export type * from "./payments.service";
 export type * from "./schedule.service";
 export type * from "./services.service";
+export type * from "./short-links.service";
 export type * from "./synced-payments.service";
 export type * from "./team.service";
 export type * from "./templates.service";

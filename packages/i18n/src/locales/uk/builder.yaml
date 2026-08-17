@@ -920,7 +920,7 @@ pageBuilder:
       slide1Label: Панель керування
       slide1Address: app.hacado.com/dashboard
       slide2Label: Сайт для записів
-      slide2Address: yourname.haca.do
+      slide2Address: yourname.hacado.me
       slide3Label: Конструктор сторінок
       slide3Address: app.hacado.com/page-builder
     featureItem:

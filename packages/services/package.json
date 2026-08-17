@@ -7,13 +7,15 @@
     "type-check": "tsc --pretty --noEmit",
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "node --import tsx --test src/short-links.service.test.ts"
   },
   "exports": {
     ".": "./src/index.ts",
     "./collections": "./src/collections.ts",
     "./database": "./src/database/index.ts",
-    "./billing": "./src/billing/index.ts"
+    "./billing": "./src/billing/index.ts",
+    "./short-links": "./src/short-links.service.ts"
   },
   "devDependencies": {
     "@hacado/eslint-config": "*",

@@ -27,7 +27,7 @@ export default async function InstallPage({
   searchParams: Promise<{ checkout_id?: string }>;
 }) {
   const session = await getSession();
-  const publicDomain = process.env.PUBLIC_DOMAIN ?? "haca.do";
+  const publicDomain = process.env.PUBLIC_DOMAIN ?? "hacado.me";
   const sp = await searchParams;
 
   if (session.user.organizationId && session.user.organizationInstalled) {

@@ -1348,6 +1348,14 @@ pages:
       clone: Клонувати
       copyRelativeUrl: Копіювати відносний url
       copyAbsoluteUrl: Копіювати абсолютний url
+      copyShortUrl: Копіювати короткий url
+      generateQrCode: Згенерувати QR-код
+    qrCode:
+      title: QR-код
+      description: Відскануйте, щоб відкрити цю сторінку
+      copy: Копіювати
+      download: Завантажити
+      alt: QR-код для {url}
     delete:
       title: Ви абсолютно впевнені?
       description: Цю дію неможливо скасувати. Це видалить вибрані сторінки
@@ -1368,6 +1376,13 @@ pages:
     pageDeleted: Сторінку "{title}" було видалено.
     relativeUrlCopied: Відносний url сторінки "{url}" скопійовано в буфер обміну.
     absoluteUrlCopied: Абсолютний url сторінки "{url}" скопійовано в буфер обміну.
+    shortUrlCopied: Короткий url сторінки "{url}" скопійовано в буфер обміну.
+    shortUrlCopyError: Не вдалося створити короткий url.
+    qrCodeCopied: QR-код скопійовано в буфер обміну.
+    qrCodeCopyError: Не вдалося скопіювати QR-код.
+    qrCodeDownloadError: Не вдалося завантажити QR-код.
+    urlCopied: URL скопійовано в буфер обміну.
+    urlCopyError: Не вдалося скопіювати URL.
   headers:
     title: Заголовки сторінок
     managePageHeaders: Керувати заголовками сторінок

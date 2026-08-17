@@ -26,7 +26,7 @@ Check the pages table: a published page shows that status in the list. Your home
 ## Find your booking link
 
 1. Open **Settings** → **Brand**.
-2. On the **Brand** tab, find your **booking website address** - for example `https://yourname.haca.do`.
+2. On the **Brand** tab, find your **booking website address** - for example `https://yourname.hacado.me`.
 3. Use the **copy** button and paste the link somewhere safe.
 
 Open the link in a **private or incognito** browser window. What you see is close to what clients see (without you being logged in as the owner).
@@ -40,7 +40,7 @@ If something looks unfinished on the live link, return to **Website** → **Page
 
 ## Use your own web address (optional)
 
-You can keep the default `yourname.haca.do` address or point a domain you own - like `www.yourbusiness.com` - at your Hacado site. That is optional for launch day.
+You can keep the default `yourname.hacado.me` address or point a domain you own - like `www.yourbusiness.com` - at your Hacado site. That is optional for launch day.
 
 When you are ready, follow **[Connect your own web address](/docs/daily-use/connect-domain)**.
 

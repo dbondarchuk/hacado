@@ -21,23 +21,30 @@ import {
   CopyCheck,
   CopySlash,
   Edit,
+  Link2,
   MoreHorizontal,
+  QrCode,
   Trash,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLinkShorteningEnabled } from "./link-shortening-enabled-context";
+import { PageQrCodeDialog } from "./page-qr-code-dialog";
+import { getShortPageUrl } from "./short-url-actions";
 
 interface CellActionProps {
   page: Page;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ page: page }) => {
+export const CellAction: React.FC<CellActionProps> = ({ page }) => {
   const t = useI18n("admin");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
   const router = useRouter();
   const websiteUrl = useWebsiteUrl();
+  const linkShorteningEnabled = useLinkShorteningEnabled();
 
   const copyRelative = () => {
     const url = `/${page.slug}`;
@@ -57,6 +64,25 @@ export const CellAction: React.FC<CellActionProps> = ({ page: page }) => {
       description: t("pages.toasts.absoluteUrlCopied", { url }),
       icon: <Copy />,
     });
+  };
+
+  const copyShort = async () => {
+    try {
+      setLoading(true);
+      const result = await getShortPageUrl(page.slug);
+      if (!result.ok) {
+        toast.error(t("pages.toasts.shortUrlCopyError"));
+        return;
+      }
+
+      copy(result.url);
+      toast.info(t("assets.toasts.copied"), {
+        description: t("pages.toasts.shortUrlCopied", { url: result.url }),
+        icon: <Copy />,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onConfirm = async () => {
@@ -85,6 +111,13 @@ export const CellAction: React.FC<CellActionProps> = ({ page: page }) => {
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
+      />
+      <PageQrCodeDialog
+        isOpen={qrOpen}
+        onClose={() => setQrOpen(false)}
+        pageSlug={page.slug}
+        websiteUrl={websiteUrl}
+        linkShorteningEnabled={linkShorteningEnabled}
       />
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -131,6 +164,16 @@ export const CellAction: React.FC<CellActionProps> = ({ page: page }) => {
           <DropdownMenuItem onClick={copyAbsolute}>
             <CopyCheck className="size-3.5" />{" "}
             {t("pages.table.actions.copyAbsoluteUrl")}
+          </DropdownMenuItem>
+          {linkShorteningEnabled && (
+            <DropdownMenuItem onClick={copyShort} disabled={loading}>
+              <Link2 className="size-3.5" />{" "}
+              {t("pages.table.actions.copyShortUrl")}
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuItem onClick={() => setQrOpen(true)}>
+            <QrCode className="size-3.5" />{" "}
+            {t("pages.table.actions.generateQrCode")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

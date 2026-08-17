@@ -27,7 +27,7 @@ This guide is your checklist. Work through the steps below in order. Most owners
 | **Your dashboard**       | You set up services, hours, your website, messages, and billing. |
 | **Your booking website** | Clients see your pages and book time with you.                   |
 
-Your booking website address looks like **`https://yourname.haca.do`**. You can find and copy it under **Settings** → **Brand**. You can also use your own web address later - see [Connect your own web address](/docs/daily-use/connect-domain).
+Your booking website address looks like **`https://yourname.hacado.me`**. You can find and copy it under **Settings** → **Brand**. You can also use your own web address later - see [Connect your own web address](/docs/daily-use/connect-domain).
 
 ## Get to know your dashboard
 

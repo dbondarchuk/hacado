@@ -13,6 +13,7 @@ import {
   IMailSenderApp,
   INotificationService,
   IOrganizationService,
+  IShortLinksService,
   ISystemNotificationService,
   ITextMessageSender,
   ITextMessageSenderApp,
@@ -22,7 +23,7 @@ import {
   TextMessageNotificationRequest,
   TextMessageResponse,
 } from "@hacado/types";
-import { maskify } from "@hacado/utils";
+import { isSmsLinkShorteningEnabled, maskify } from "@hacado/utils";
 import { convert } from "html-to-text";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 
@@ -39,6 +40,7 @@ export class NotificationService implements INotificationService {
     private readonly billingService: IBillingService,
     private readonly eventService: IEventService,
     private readonly organizationService: IOrganizationService,
+    private readonly shortLinksService: IShortLinksService,
   ) {}
 
   public async sendEmail(props: EmailNotificationRequest): Promise<void> {
@@ -200,9 +202,14 @@ export class NotificationService implements INotificationService {
       };
     }
 
+    let messageBody = body;
+    if (isSmsLinkShorteningEnabled()) {
+      messageBody = await this.shortLinksService.shortenUrlsInText(body);
+    }
+
     try {
       const response = await sendTextMessage({
-        message: body,
+        message: messageBody,
         phone: trimmedPhone,
         data: webhookData,
         sender,
@@ -245,7 +252,7 @@ export class NotificationService implements INotificationService {
           ? { participantType, memberId: memberId! }
           : { participantType, ...(memberId ? { memberId } : {}) }),
         participant: phone,
-        text: body,
+        text: messageBody,
         appointmentId,
         customerId,
         data: response,

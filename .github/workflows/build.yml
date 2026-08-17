@@ -15,6 +15,7 @@ env:
   NOTIFICATION_SENDER_IMAGE_NAME: ${{ github.repository }}-notification-sender
   JOB_PROCESSOR_IMAGE_NAME: ${{ github.repository }}-job-processor
   DOMAIN_CHECKER_IMAGE_NAME: ${{ github.repository }}-domain-checker
+  LINK_SHORTENER_IMAGE_NAME: ${{ github.repository }}-link-shortener
   APP_EXTERNAL_SERVER_IMAGE_NAME: ${{ github.repository }}-app-external-server
   DOCS_IMAGE_NAME: ${{ github.repository }}-docs
 
@@ -324,6 +325,48 @@ jobs:
           subject-digest: ${{ steps.domain-checker-push.outputs.digest }}
           push-to-registry: true
 
+  build-and-push-link-shortener-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Link Shortener Docker image
+        id: link-shortener-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.LINK_SHORTENER_IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value={{branch}}-latest
+            type=raw,value={{branch}}-{{commit_date 'YYYYMMDD-HHmmss'}}
+            type=sha,format=long
+      - name: Build and push Link Shortener Docker image
+        id: link-shortener-push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          file: apps/link-shortener/Dockerfile
+          push: true
+          tags: ${{ steps.link-shortener-meta.outputs.tags }}
+          labels: ${{ steps.link-shortener-meta.outputs.labels }}
+      - name: Generate artifact attestation for Link Shortener image
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.LINK_SHORTENER_IMAGE_NAME}}
+          subject-digest: ${{ steps.link-shortener-push.outputs.digest }}
+          push-to-registry: true
+
   build-and-push-docs-image:
     runs-on: ubuntu-latest
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
@@ -384,6 +427,7 @@ jobs:
       - build-and-push-job-processor-image
       - build-and-push-app-external-server-image
       - build-and-push-domain-checker-image
+      - build-and-push-link-shortener-image
       - build-and-push-docs-image
     steps:
       - name: Update version on Coolify

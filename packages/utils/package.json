@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/schedule-resolve.test.ts"
+    "test": "node --import tsx --test src/schedule-resolve.test.ts src/short-links.test.ts"
   },
   "main": "./src/index.ts",
   "devDependencies": {

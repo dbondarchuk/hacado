@@ -1,7 +1,9 @@
 import { getServicesContainer } from "@/app/utils";
 import { pagesSearchParams, pagesSearchParamsCache } from "@hacado/api-sdk";
 import { DataTable } from "@hacado/ui-admin";
+import { isSmsLinkShorteningEnabled } from "@hacado/utils";
 import { columns } from "./columns";
+import { LinkShorteningEnabledProvider } from "./link-shortening-enabled-context";
 
 export const PagesTable: React.FC = async () => {
   const page = pagesSearchParamsCache.get("page");
@@ -22,11 +24,13 @@ export const PagesTable: React.FC = async () => {
   });
 
   return (
-    <DataTable
-      columns={columns}
-      data={res.items}
-      totalItems={res.total}
-      sortSchemaDefault={pagesSearchParams.sort.defaultValue}
-    />
+    <LinkShorteningEnabledProvider enabled={isSmsLinkShorteningEnabled()}>
+      <DataTable
+        columns={columns}
+        data={res.items}
+        totalItems={res.total}
+        sortSchemaDefault={pagesSearchParams.sort.defaultValue}
+      />
+    </LinkShorteningEnabledProvider>
   );
 };

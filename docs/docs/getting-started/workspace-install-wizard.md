@@ -17,7 +17,7 @@ What you normally fill:
 
 - **Business name** - displayed on your booking website and in client emails.
 - **Address** - physical office location (optional).
-- **Organization domain** - the unique prefix before `.haca.do` for your website address.
+- **Organization domain** - the unique prefix before `.hacado.me` for your website address.
 - **Time zone** - your personal/office time zone to anchor appointments, reminders.
 - **Language** - controls what language your booking website will use.
 - **Country** - your location's country.

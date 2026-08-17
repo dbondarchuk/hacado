@@ -5,7 +5,7 @@ description: Point your own web address so clients reach your Hacado booking pag
 
 # Connect your own web address
 
-By default Hacado gives you a booking link that includes your workspace name - for example **`https://yourname.haca.do`**. Optional **Own domain** (custom domain) keeps that experience behind a name you buy from a registrar, such as **`www.yourbusiness.com`**.
+By default Hacado gives you a booking link that includes your workspace name - for example **`https://yourname.hacad.meo`**. Optional **Own domain** (custom domain) keeps that experience behind a name you buy from a registrar, such as **`www.yourbusiness.com`**.
 
 ## Before you begin
 

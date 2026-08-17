@@ -1394,6 +1394,14 @@ pages:
       clone: Clone
       copyRelativeUrl: Copy relative url
       copyAbsoluteUrl: Copy absolute url
+      copyShortUrl: Copy short url
+      generateQrCode: Generate QR code
+    qrCode:
+      title: QR code
+      description: Scan to open this page
+      copy: Copy
+      download: Download
+      alt: QR code for {url}
     delete:
       title: Are you absolutely sure?
       description: This action cannot be undone. This will delete selected pages
@@ -1414,6 +1422,13 @@ pages:
     pageDeleted: Page "{title}" was deleted.
     relativeUrlCopied: Page relative url "{url}" was copied to clipboard.
     absoluteUrlCopied: Page absolute url "{url}" was copied to clipboard.
+    shortUrlCopied: Page short url "{url}" was copied to clipboard.
+    shortUrlCopyError: Could not create a short url.
+    qrCodeCopied: QR code copied to clipboard.
+    qrCodeCopyError: Could not copy QR code.
+    qrCodeDownloadError: Could not download QR code.
+    urlCopied: URL copied to clipboard.
+    urlCopyError: Could not copy URL.
   headers:
     title: Page headers
     new: New page header
@@ -2136,8 +2151,7 @@ services:
             When enabled, this member will not be able to offer this add-on
             during booking.
           deleteConfirmTitle: Are you absolutely sure?
-          deleteConfirmDescription:
-            Are you sure you want to remove this member override?
+          deleteConfirmDescription: Are you sure you want to remove this member override?
           cancel: Cancel
           delete: Delete
           overrides:
