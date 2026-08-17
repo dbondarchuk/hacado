@@ -119,7 +119,7 @@ export const getFixedFunctionUnit = (func: string) => {
   }
 };
 
-// Filter value schemas — numbers or number+unit (blur)
+// Filter value schemas - numbers or number+unit (blur)
 export const FilterFunctionValueSchema = z.union([
   z.number(),
   zNumberValueWithUnit,

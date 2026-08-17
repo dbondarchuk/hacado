@@ -26,6 +26,7 @@ import {
   getWebsiteUrl,
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
+  subscriptionAllowsMultipleUsers,
   template,
 } from "@hacado/utils";
 import { TextMessageNotificationMessages } from "./messages";
@@ -66,7 +67,10 @@ export class TextMessageNotificationConnectedApp
       },
       appData.memberId,
       config.processOtherMembersAppointments,
-      (organization?.availableUsers ?? 1) > 1,
+      subscriptionAllowsMultipleUsers(
+        organization?.availableUsers,
+        organization?.feesExempt,
+      ),
     );
 
     await dispatchAppointmentEventPayload(

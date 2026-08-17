@@ -27,6 +27,7 @@ import {
   getWebsiteUrl,
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
+  subscriptionAllowsMultipleUsers,
 } from "@hacado/utils";
 import { convert } from "html-to-text";
 import {
@@ -79,7 +80,10 @@ export class CalendarWriterConnectedApp
       },
       appData.memberId,
       config.processOtherMembersAppointments,
-      (organization?.availableUsers ?? 1) > 1,
+      subscriptionAllowsMultipleUsers(
+        organization?.availableUsers,
+        organization?.feesExempt,
+      ),
     );
 
     await dispatchAppointmentEventPayload(

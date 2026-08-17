@@ -54,7 +54,7 @@ function daySchedulesEqual(a: DaySchedule = [], b: DaySchedule = []): boolean {
   return JSON.stringify(normalize(a)) === JSON.stringify(normalize(b));
 }
 
-/** Match single-week docs only — never upsert into a recurring series. */
+/** Match single-week docs only - never upsert into a recurring series. */
 function singleWeekExceptionFilter(args: {
   appId: string;
   scope: "company" | "member";
@@ -538,7 +538,7 @@ export default class WeeklyScheduleConnectedApp
             ? ([...(existing?.holidays ?? [])] as ScheduleWeekDay[])
             : [];
 
-        // Scheduler omits empty days — treat missing weekdays as [].
+        // Scheduler omits empty days - treat missing weekdays as [].
         const incomingByDay: Partial<Record<ScheduleWeekDay, DaySchedule>> = {};
         for (const day of schedule) {
           incomingByDay[day.weekDay as ScheduleWeekDay] = day.shifts;
@@ -674,7 +674,7 @@ export default class WeeklyScheduleConnectedApp
         ...(existing?.days ?? {}),
       };
 
-      // Drop hour overrides for holiday days — holiday is the source of truth.
+      // Drop hour overrides for holiday days - holiday is the source of truth.
       for (const weekDay of uniqueHolidays) {
         delete days[weekDay];
       }

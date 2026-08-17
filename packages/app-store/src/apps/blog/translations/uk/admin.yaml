@@ -117,7 +117,7 @@ emails:
     reject: Відхилити
     view: Переглянути в панелі
 handlers:
-  newCommentEmail: Блог — сповіщення про новий коментар
+  newCommentEmail: Блог - сповіщення про новий коментар
 events:
   postCreated:
     title: Створено новий запис блогу

@@ -21,6 +21,7 @@ import {
   getWebsiteUrl,
   resolveAppointmentEventForMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
+  subscriptionAllowsMultipleUsers,
 } from "@hacado/utils";
 import {
   EmailNotificationConfiguration,
@@ -61,7 +62,10 @@ export class EmailNotificationConnectedApp
       },
       appData.memberId,
       config.processOtherMembersAppointments,
-      (organization?.availableUsers ?? 1) > 1,
+      subscriptionAllowsMultipleUsers(
+        organization?.availableUsers,
+        organization?.feesExempt,
+      ),
     );
 
     await dispatchAppointmentEventPayload(

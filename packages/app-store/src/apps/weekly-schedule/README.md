@@ -4,9 +4,9 @@ App-contained open-hours exceptions on top of the org **default** schedule (mana
 
 Layers **inside this app** (then returned to core `ScheduleService`):
 
-1. **Company holidays** — hard closures (`holidays` on the exception); members cannot reopen
-2. **Company hours** — sparse day overrides (including empty = no company hours that day)
-3. **Member** exceptions — per-staff overrides
+1. **Company holidays** - hard closures (`holidays` on the exception); members cannot reopen
+2. **Company hours** - sparse day overrides (including empty = no company hours that day)
+3. **Member** exceptions - per-staff overrides
 
 Empty company hours are **not** holidays. Mark holidays explicitly in the company scope UI.
 

@@ -7,7 +7,7 @@ import { PaypalConfiguration } from "./models";
 import { CaptureStatus, OrdersCapture } from "./types";
 
 export type InStoreCaptureInput = {
-  /** PayPal capture id — stored as payment / synced-payment externalId. */
+  /** PayPal capture id - stored as payment / synced-payment externalId. */
   captureId: string;
   /** Checkout order id when present; used for legacy dedup and fee lookup only. */
   orderId?: string;

@@ -236,7 +236,7 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
             </Avatar>
             <div className="min-w-0 flex flex-col">
               <span className="text-sm font-medium text-foreground truncate">
-                {entry.member.name || entry.member.email || "—"}
+                {entry.member.name || entry.member.email || "-"}
               </span>
               {entry.member.name && entry.member.email ? (
                 <span className="text-xs text-muted-foreground truncate">

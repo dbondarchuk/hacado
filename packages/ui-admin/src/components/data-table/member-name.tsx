@@ -22,10 +22,10 @@ export const MemberName: React.FC<{
   className?: string;
   /** Smaller avatar + name only (no email). */
   compact?: boolean;
-}> = ({ member, empty = "—", className, compact = false }) => {
+}> = ({ member, empty = "-", className, compact = false }) => {
   if (!member) return <>{empty}</>;
 
-  const name = member.name || member.email || "—";
+  const name = member.name || member.email || "-";
 
   if (compact) {
     return (

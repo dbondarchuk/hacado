@@ -3,4 +3,5 @@ export * from "./plan-config";
 export * from "./polar-billing.service";
 export * from "./sms-credit-threshold-notify";
 export * from "./subscription-entitlements";
+export * from "./user-slots";
 export * from "./utils";

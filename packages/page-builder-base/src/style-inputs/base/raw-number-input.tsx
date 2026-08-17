@@ -110,7 +110,7 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
         setInputValue("");
         return;
       }
-      // Incomplete draft ("-", ".") or invalid — restore committed value
+      // Incomplete draft ("-", ".") or invalid - restore committed value
       setInputValue(value?.toString() ?? "");
       return;
     }
@@ -161,7 +161,7 @@ export const RawNumberInput: React.FC<RawNumberInputProps> = ({
 
                 setInputValue(next);
 
-                // Intermediate drafts like "-" / "." / "1." — keep local only
+                // Intermediate drafts like "-" / "." / "1." - keep local only
                 if (
                   next === "" ||
                   next === "-" ||

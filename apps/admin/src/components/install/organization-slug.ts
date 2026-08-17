@@ -61,7 +61,7 @@ const BLOCKLIST_ENTRIES = [
   "www1",
   "www2",
 
-  // Technical / infra — containers & orchestration
+  // Technical / infra - containers & orchestration
   "docker",
   "dockerfile",
   "compose",
@@ -79,7 +79,7 @@ const BLOCKLIST_ENTRIES = [
   "nomad",
   "rancher",
 
-  // Technical / infra — CI / DevOps
+  // Technical / infra - CI / DevOps
   "ci",
   "cd",
   "cicd",
@@ -100,7 +100,7 @@ const BLOCKLIST_ENTRIES = [
   "vagrant",
   "packer",
 
-  // Technical / infra — cloud / hosting
+  // Technical / infra - cloud / hosting
   "aws",
   "gcp",
   "azure",
@@ -122,7 +122,7 @@ const BLOCKLIST_ENTRIES = [
   "origin",
   "origin-server",
 
-  // Technical / infra — datastores & queues
+  // Technical / infra - datastores & queues
   "db",
   "database",
   "databases",
@@ -150,7 +150,7 @@ const BLOCKLIST_ENTRIES = [
   "bucket",
   "buckets",
 
-  // Technical / infra — networking / protocols
+  // Technical / infra - networking / protocols
   "http",
   "https",
   "http2",
@@ -175,7 +175,7 @@ const BLOCKLIST_ENTRIES = [
   "etcd",
   "zookeeper",
 
-  // Technical / infra — observability / security tooling
+  // Technical / infra - observability / security tooling
   "grafana",
   "prometheus",
   "jaeger",
@@ -201,7 +201,7 @@ const BLOCKLIST_ENTRIES = [
   "jwt",
   "ldap",
 
-  // Technical / infra — eng / env shorthand
+  // Technical / infra - eng / env shorthand
   "dev",
   "development",
   "prod",
@@ -290,7 +290,7 @@ const BLOCKLIST_ENTRIES = [
   "placeholder",
   "unknown",
 
-  // Abuse — core profanity & variants
+  // Abuse - core profanity & variants
   "fuck",
   "fucker",
   "fuckers",
@@ -394,7 +394,7 @@ const BLOCKLIST_ENTRIES = [
   "bestiality",
   "zoophile",
 
-  // Abuse — hate / discriminatory
+  // Abuse - hate / discriminatory
   "nigger",
   "nigga",
   "niggas",
@@ -421,7 +421,7 @@ const BLOCKLIST_ENTRIES = [
   "bigot",
   "bigots",
 
-  // Abuse — violence / threats tone
+  // Abuse - violence / threats tone
   "kill",
   "killer",
   "murder",
@@ -437,7 +437,7 @@ const BLOCKLIST_ENTRIES = [
   "shooter",
   "massacre",
 
-  // Abuse — scam / phishing-ish
+  // Abuse - scam / phishing-ish
   "scam",
   "scammer",
   "phishing",

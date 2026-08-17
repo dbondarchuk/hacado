@@ -8,7 +8,7 @@ import {
 } from "@hacado/page-builder-base";
 import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 
-/** Same shortcuts as InlineText — for blog blocks that render static text. */
+/** Same shortcuts as InlineText - for blog blocks that render static text. */
 export const blogTextShortcuts: Shortcut<AllStylesSchemas>[] = [
   fontSizeShortcut as Shortcut<AllStylesSchemas>,
   textAlignmentShortcut as Shortcut<AllStylesSchemas>,

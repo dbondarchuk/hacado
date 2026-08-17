@@ -14,10 +14,10 @@
     --card-foreground: 26.5 29.8% 22.4%;
     --popover: 45 50% 96.9%;
     --popover-foreground: 26.5 29.8% 22.4%;
-    /* Ochre — brand highlight / logo accents */
+    /* Ochre - brand highlight / logo accents */
     --brand: 30 53.8% 54.1%;
     --brand-foreground: 45 50% 96.9%;
-    /* Sage — primary CTAs & interactive */
+    /* Sage - primary CTAs & interactive */
     --primary: 92.1 11.2% 49%;
     --primary-foreground: 45 50% 96.9%;
     --secondary: 42 28% 90%;
@@ -38,7 +38,7 @@
     --chart-3: 26.5 29.8% 22.4%;
     --chart-4: 92.3 14% 36.5%;
     --chart-5: 40 30% 70%;
-    /* Sidebar — slightly deeper cream */
+    /* Sidebar - slightly deeper cream */
     --sidebar-background: 42 28% 92%;
     --sidebar-foreground: 26.5 25% 30%;
     --sidebar-primary: 92.1 11.2% 49%;

@@ -16,7 +16,7 @@ export type CheckoutPlanView = {
   priceAmount: string | null;
   pricePeriod: string | null;
   benefits: string[];
-  /** e.g. "Everything in Free plus:" — null for the base Free tier. */
+  /** e.g. "Everything in Free plus:" - null for the base Free tier. */
   includesLowerTierLabel: string | null;
 };
 

@@ -115,7 +115,7 @@ describe("resolveDaySchedule", () => {
     assert.equal(result.source, "member");
   });
 
-  it("empty company hours are not holidays — member may still work", () => {
+  it("empty company hours are not holidays - member may still work", () => {
     const result = resolveDaySchedule({
       date: "2024-06-04",
       weekDay: 2,

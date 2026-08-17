@@ -68,6 +68,7 @@ export default class TextMessageResenderConnectedApp
       await this.props.services.organizationService.getOrganization();
     const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
       organization?.availableUsers,
+      organization?.feesExempt,
     );
     const savedData: TextMessageResenderConfiguration = {
       ...data,
@@ -178,6 +179,7 @@ export default class TextMessageResenderConnectedApp
         await this.props.services.organizationService.getOrganization();
       const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
         organization?.availableUsers,
+        organization?.feesExempt,
       );
       const memberId =
         textMessageReply.memberId ??

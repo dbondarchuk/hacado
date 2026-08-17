@@ -364,7 +364,7 @@ async function migratePayPalExternalIds(
     if (!client) {
       skippedNoCredentials += 1;
       console.warn(
-        "[paypal migration] Skipping record — PayPal credentials not found:",
+        "[paypal migration] Skipping record - PayPal credentials not found:",
         {
           collection: collectionName,
           id: doc._id,

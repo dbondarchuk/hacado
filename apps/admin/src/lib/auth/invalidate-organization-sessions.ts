@@ -28,7 +28,7 @@ async function collectOrganizationUserIds(
  * Polar entitlement changes.
  *
  * Uses `internalAdapter.updateUser`, which also calls `refreshUserSessions` and
- * updates Redis — the approach recommended by Better Auth maintainers when
+ * updates Redis - the approach recommended by Better Auth maintainers when
  * there is no public revalidateSession API:
  * https://github.com/better-auth/better-auth/issues/7513#issuecomment-3888251954
  *

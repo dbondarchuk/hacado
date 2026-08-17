@@ -47,10 +47,11 @@ export default async function TeamSettingsPage(props: Params) {
 
   const services = await getServicesContainer();
   const org = await services.organizationService.getOrganization();
+  const feesExempt = org?.feesExempt === true;
   const availableUsers = org?.availableUsers ?? 1;
   const activeMemberCount = await services.teamService.getActiveMemberCount();
   const allowAdditionalUsers = org?.allowAdditionalUsers ?? false;
-  const atCapacity = activeMemberCount >= availableUsers;
+  const atCapacity = !feesExempt && activeMemberCount >= availableUsers;
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
@@ -71,10 +72,12 @@ export default async function TeamSettingsPage(props: Params) {
                 description={t("team.description")}
               />
               <p className="text-sm text-muted-foreground">
-                {t("team.seats", {
-                  active: activeMemberCount,
-                  available: availableUsers,
-                })}
+                {feesExempt
+                  ? t("team.seatsUnlimited", { active: activeMemberCount })
+                  : t("team.seats", {
+                      active: activeMemberCount,
+                      available: availableUsers,
+                    })}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">

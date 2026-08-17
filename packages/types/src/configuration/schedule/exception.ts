@@ -61,7 +61,7 @@ export type ScheduleException = {
   startDate: string;
   endDate: string;
   days: Partial<Record<ScheduleWeekDay, DaySchedule>>;
-  /** Company hard closures — see schema comment. */
+  /** Company hard closures - see schema comment. */
   holidays?: ScheduleWeekDay[];
   repeatEveryWeeks?: number;
   repeatUntil?: string;

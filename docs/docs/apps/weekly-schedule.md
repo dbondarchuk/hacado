@@ -7,12 +7,11 @@ description: Set week-by-week work hours so booking shows real availability.
 
 Weekly schedule controls **when you accept bookings** as an optional app on top of your **default** schedule in settings. Exceptions live only in this app:
 
-1. **Company holidays** — hard closures for everyone (members cannot reopen)
-2. **Company hours** — reduced or different open hours for the week (members may still override)
-3. **Member** exceptions — one staff member’s overrides
+1. **Company holidays** - hard closures for everyone (members cannot reopen)
+2. **Company hours** - reduced or different open hours for the week (members may still override)
+3. **Member** exceptions - one staff member’s overrides
 
 Clearing shifts on the company calendar is **not** a holiday. Use **Company holidays** to lock days closed. The booking engine uses the default schedule, then applies days this app returns. Only days that differ from the parent layer are stored.
-
 
 ## Adding the App
 

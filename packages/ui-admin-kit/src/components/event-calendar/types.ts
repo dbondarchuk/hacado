@@ -24,7 +24,7 @@ export type EventCalendarEvent = {
   id?: string;
   start: Date;
   end: Date;
-  /** Primary label — service name for appointments, event title for external. */
+  /** Primary label - service name for appointments, event title for external. */
   title: string;
   /** Customer display name (appointments). */
   customerName?: string;

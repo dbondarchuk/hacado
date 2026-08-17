@@ -44,6 +44,15 @@ export async function applyPolarOrderPaidToUserSlots(
     return;
   }
 
+  const org =
+    await ServicesContainer(
+      organizationId,
+    ).organizationService.getOrganization();
+  if (org?.feesExempt === true) {
+    logger.debug({ organizationId }, "Fees exempt; skipping user slots update");
+    return;
+  }
+
   const productId = productIdFromOrder(order);
   if (!productId) {
     logger.debug({ orderId: order.id }, "No product id; skipping");

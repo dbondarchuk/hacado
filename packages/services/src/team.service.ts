@@ -33,6 +33,11 @@ import {
 } from "@hacado/types";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
+import {
+  canInviteWithAvailableUsers,
+  hasUnlimitedUserSlots,
+  resolveAvailableUsers,
+} from "./billing/user-slots";
 import { getRedisClient } from "./bullmq/redis-client";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -265,16 +270,11 @@ export class TeamService extends BaseService implements ITeamService {
       .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
       .findOne(
         { _id: this.organizationId },
-        { projection: { availableUsers: 1, userSlots: 1 } },
+        { projection: { availableUsers: 1, userSlots: 1, feesExempt: 1 } },
       );
 
-    const available =
-      org?.availableUsers ??
-      (org?.userSlots
-        ? (org.userSlots.included ?? 0) + (org.userSlots.additional ?? 0)
-        : 1);
     const active = await this.getActiveMemberCount();
-    return active < available;
+    return canInviteWithAvailableUsers(active, resolveAvailableUsers(org));
   }
 
   public async listUpcomingAppointmentsForMember(memberId: string): Promise<
@@ -453,17 +453,31 @@ export class TeamService extends BaseService implements ITeamService {
       .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
       .findOne({ _id: this.organizationId });
 
-    const availableUsers =
-      org?.availableUsers ??
-      (org?.userSlots
-        ? (org.userSlots.included ?? 0) + (org.userSlots.additional ?? 0)
-        : 1);
+    const availableUsers = resolveAvailableUsers(org);
 
     const active = await this.getMembers({ status: "active" });
     const deactivatedMemberIds: string[] = [];
     const reactivatedMemberIds: string[] = [];
 
-    if (active.length > availableUsers) {
+    if (hasUnlimitedUserSlots(org)) {
+      const candidates = await db
+        .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
+        .find({
+          organizationId: this.organizationId,
+          status: "inactive",
+          inactiveReason: "downgrade",
+        })
+        .sort({ createdAt: 1 })
+        .toArray();
+
+      for (const m of candidates) {
+        const id = normalizeMemberId(m._id);
+        const reactivated = await this.reactivateMember(id, source);
+        if (reactivated?.status === "active") {
+          reactivatedMemberIds.push(id);
+        }
+      }
+    } else if (availableUsers !== null && active.length > availableUsers) {
       const excess = active.length - availableUsers;
       const nonOwners = active
         .filter((m) => m.role !== "owner")
@@ -477,7 +491,7 @@ export class TeamService extends BaseService implements ITeamService {
         await this.deactivateMember(id, "downgrade", source, { force: true });
         deactivatedMemberIds.push(id);
       }
-    } else if (active.length < availableUsers) {
+    } else if (availableUsers !== null && active.length < availableUsers) {
       const slots = availableUsers - active.length;
       const candidates = await db
         .collection<OrganizationMember>(MEMBERS_COLLECTION_NAME)
@@ -500,9 +514,11 @@ export class TeamService extends BaseService implements ITeamService {
     }
 
     const activeMemberCount = await this.getActiveMemberCount();
+    const reportedAvailableUsers = availableUsers ?? activeMemberCount;
     logger.info(
       {
-        availableUsers,
+        availableUsers: reportedAvailableUsers,
+        unlimited: hasUnlimitedUserSlots(org),
         activeMemberCount,
         deactivatedMemberIds,
         reactivatedMemberIds,
@@ -513,7 +529,7 @@ export class TeamService extends BaseService implements ITeamService {
     return {
       deactivatedMemberIds,
       reactivatedMemberIds,
-      availableUsers,
+      availableUsers: reportedAvailableUsers,
       activeMemberCount,
     };
   }

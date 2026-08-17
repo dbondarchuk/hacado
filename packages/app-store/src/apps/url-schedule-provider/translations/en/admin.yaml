@@ -6,7 +6,7 @@ form:
     label: URL
     placeholder: "https://example.com/schedule/'{{memberId}}'?start='{{start}}'&end='{{end}}'"
     description: "Use placeholders that are replaced when the URL is called: <code>'{{memberId}}'</code>, <code>'{{email}}'</code>, <code>'{{start}}'</code>, and <code>'{{end}}'</code> (ISO datetimes).<br></br>Example: <code>https://example.com/schedule/'{{memberId}}'?start='{{start}}'&end='{{end}}'</code>."
-    tooltip: The URL endpoint that provides schedule data. Nothing is appended automatically — include placeholders where needed.
+    tooltip: The URL endpoint that provides schedule data. Nothing is appended automatically - include placeholders where needed.
   headers:
     label: Headers
     addButton: Add Header

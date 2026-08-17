@@ -463,7 +463,7 @@ export const AssignAppointmentDialog = ({
                           {appointment.customer?.name ? (
                             <CustomerName customer={appointment.customer} />
                           ) : (
-                            "—"
+                            "-"
                           )}
                         </TableCell>
                         <TableCell className={DATE_COLUMN_CLASS}>
@@ -485,7 +485,7 @@ export const AssignAppointmentDialog = ({
                         <TableCell className="text-right">
                           {appointment.totalPrice
                             ? currencyFormat(appointment.totalPrice)
-                            : "—"}
+                            : "-"}
                         </TableCell>
                       </TableRow>
                     );

@@ -6,10 +6,10 @@ import type { CSSProperties } from "react";
 import type { CalendarEventVariant, EventCalendarEvent } from "./types";
 
 export const EventVariantClasses: Record<CalendarEventVariant, string> = {
-  /** Confirmed appointments — soft sage */
+  /** Confirmed appointments - soft sage */
   primary:
     "bg-primary/15 text-foreground hover:bg-primary/25 border border-primary/25 dark:bg-primary/20 dark:text-foreground dark:border-primary/30 dark:hover:bg-primary/30",
-  /** Pending appointments — ochre accent stripe */
+  /** Pending appointments - ochre accent stripe */
   secondary:
     "bg-brand/15 text-foreground hover:bg-brand/25 border border-brand/25 border-l-[3px] border-l-brand dark:bg-brand/20 dark:text-foreground dark:border-brand/30 dark:border-l-brand dark:hover:bg-brand/30",
   /** Third-party / external calendar events */

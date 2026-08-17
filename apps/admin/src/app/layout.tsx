@@ -9,13 +9,13 @@ import "./globals.css";
 
 export const dynamic = "force-dynamic";
 
-/** UI / body — Space Grotesk is the geometric sans. */
+/** UI / body - Space Grotesk is the geometric sans. */
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-/** Display headings — Fraunces is the warm editorial serif. */
+/** Display headings - Fraunces is the warm editorial serif. */
 const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],

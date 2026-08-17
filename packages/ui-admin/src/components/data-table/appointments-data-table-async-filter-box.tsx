@@ -32,7 +32,7 @@ const AppointmentShortLabel: React.FC<{
         {appointment.customer?.name ? (
           <CustomerName customer={appointment.customer} />
         ) : (
-          "—"
+          "-"
         )}
         {" · "}
         {formatTime(appointment.dateTime)}

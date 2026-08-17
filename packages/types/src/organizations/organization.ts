@@ -24,6 +24,7 @@ export type Organization = WithDatabaseId<{
   name?: string;
   domain?: string | null;
   isInstalled?: boolean;
+  /** When true, the org skips Polar billing and has no member/seat cap. */
   feesExempt?: boolean;
   /** Polar subscription id (org-level billing via checkout metadata.referenceId). */
   polarSubscriptionId?: string;

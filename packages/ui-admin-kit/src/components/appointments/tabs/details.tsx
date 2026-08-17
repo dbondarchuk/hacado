@@ -356,7 +356,7 @@ export const AppointmentDetails = ({
               </Avatar>
               <div className="min-w-0 flex flex-col">
                 <span className="text-sm font-medium text-foreground truncate">
-                  {appointment.member.name || appointment.member.email || "—"}
+                  {appointment.member.name || appointment.member.email || "-"}
                 </span>
                 {appointment.member.name && appointment.member.email ? (
                   <span className="text-xs text-muted-foreground truncate">

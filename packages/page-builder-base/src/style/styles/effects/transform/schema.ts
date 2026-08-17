@@ -110,7 +110,7 @@ export const getFixedFunctionUnit = (func: string) => {
   }
 };
 
-// Transform value schemas — numbers (scale/rotate/skew) or number+unit (translate*)
+// Transform value schemas - numbers (scale/rotate/skew) or number+unit (translate*)
 export const TransformFunctionValueSchema = z.union([
   z.number(),
   zNumberValueWithUnit,

@@ -21,7 +21,7 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
           height={36}
           className="size-9 rounded-full object-cover"
         />
-        <span className="font-medium">{row.original.name || "—"}</span>
+        <span className="font-medium">{row.original.name || "-"}</span>
       </div>
     ),
     id: "name",
@@ -29,7 +29,7 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) => row.original.email || "—",
+    cell: ({ row }) => row.original.email || "-",
     id: "email",
     header: tableSortHeader("team.table.columns.email", "string", "admin"),
     sortingFn: tableSortNoopFunction,

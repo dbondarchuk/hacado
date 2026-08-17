@@ -97,7 +97,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
     cell: ({ row }) => {
       const { customerName, customerId } = row.original;
       if (!customerName || !customerId) {
-        return "—";
+        return "-";
       }
 
       return (
@@ -118,7 +118,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
     cell: ({ row }) => {
       const { serviceName, appointmentId } = row.original;
       if (!serviceName || !appointmentId) {
-        return "—";
+        return "-";
       }
 
       return (

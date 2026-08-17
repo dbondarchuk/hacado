@@ -75,12 +75,12 @@ export function canUpdateTeamMemberProfile(
   return isRoleStrictlyHigher(actor.role, target.role);
 }
 
-/** Organization activity feed / activity page — admin and owner. */
+/** Organization activity feed / activity page - admin and owner. */
 export function canReadActivity(user: SessionUser | null | undefined): boolean {
   return hasPermission(user, "activity", "read");
 }
 
-/** Financial overview / payment KPIs — requires billing read. */
+/** Financial overview / payment KPIs - requires billing read. */
 export function canViewFinancials(
   user: SessionUser | null | undefined,
 ): boolean {
@@ -157,16 +157,18 @@ export function canProcessOtherMembersAppointments(
   user: SessionUser | null | undefined,
 ): boolean {
   return (
-    subscriptionAllowsMultipleUsers(user?.availableUsers) &&
+    subscriptionAllowsMultipleUsers(user?.availableUsers, user?.feesExempt) &&
     hasPermission(user, "appointment", "readAll") &&
     hasPermission(user, "appointment", "updateAll")
   );
 }
 
-/** True when the org subscription includes more than one user seat. */
+/** True when the org subscription includes more than one user seat (or is fees-exempt). */
 export function subscriptionAllowsMultipleUsers(
   availableUsers: number | null | undefined,
+  feesExempt?: boolean,
 ): boolean {
+  if (feesExempt === true) return true;
   return (availableUsers ?? 1) > 1;
 }
 

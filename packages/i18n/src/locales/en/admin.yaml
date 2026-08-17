@@ -389,6 +389,7 @@ team:
   cancelInvite: Cancel
   members: Members
   seats: "{active} of {available} seats used"
+  seatsUnlimited: "{active} members · no seat limit"
   purchaseSeats: Purchase seats
   purchaseSeatsDescription: Add recurring user seats to your subscription.
   seatsPurchase:

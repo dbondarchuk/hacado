@@ -61,7 +61,7 @@ function changeDetail(
   formatPct: (n: number) => string,
 ): { text: string; tone: KpiTileProps["detailTone"] } {
   if (pct === null) {
-    return { text: "—", tone: "muted" };
+    return { text: "-", tone: "muted" };
   }
   const sign = pct > 0 ? "+" : "";
   return {

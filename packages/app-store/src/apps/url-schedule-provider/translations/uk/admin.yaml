@@ -6,7 +6,7 @@ form:
     label: URL
     placeholder: "https://example.com/schedule/'{{memberId}}'?start='{{start}}'&end='{{end}}'"
     description: "Використовуйте плейсхолдери, які підставляються під час виклику: <code>'{{memberId}}'</code>, <code>'{{email}}'</code>, <code>'{{start}}'</code> та <code>'{{end}}'</code> (дата/час у ISO).<br></br>Приклад: <code>https://example.com/schedule/'{{memberId}}'?start='{{start}}'&end='{{end}}'</code>."
-    tooltip: URL-адреса кінцевої точки з даними розкладу. Нічого не додається автоматично — вкажіть потрібні плейсхолдери в URL.
+    tooltip: URL-адреса кінцевої точки з даними розкладу. Нічого не додається автоматично - вкажіть потрібні плейсхолдери в URL.
   headers:
     label: Заголовки
     addButton: Додати заголовок

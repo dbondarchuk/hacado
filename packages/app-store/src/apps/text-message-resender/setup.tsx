@@ -41,6 +41,7 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
   const { user } = useAuth();
   const allowsMultipleUsers = subscriptionAllowsMultipleUsers(
     user?.availableUsers,
+    user?.feesExempt,
   );
   const { appStatus, form, isLoading, isValid, onSubmit } =
     useConnectedAppSetup<TextMessageResenderConfiguration>({

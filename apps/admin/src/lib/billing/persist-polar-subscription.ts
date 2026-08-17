@@ -128,21 +128,40 @@ export async function persistPolarSubscriptionToOrganization(
   const orgId = organizationIdFromPolarSubscriptionMetadata(
     subscription.metadata,
   );
-  if (!orgId) return;
+
+  const logger = getLoggerFactory("PersistPolarSubscription")(
+    "persistPolarSubscriptionToOrganization",
+  );
+
+  if (!orgId) {
+    logger.debug(
+      { subscription },
+      "No org ID; skipping Polar subscription persist",
+    );
+    return;
+  }
 
   const newStatus = parseOrganizationSubscriptionStatus(subscription.status);
   const db = await getDbConnection();
   const col = db.collection<Organization>(ORGANIZATIONS_COLLECTION_NAME);
 
   const before = await col.findOne({ _id: orgId });
+  if (before?.feesExempt === true) {
+    logger.debug({ orgId }, "Fees exempt; skipping Polar subscription persist");
+    return;
+  }
+
   const oldStatus = before?.polarSubscriptionStatus ?? null;
   const oldTier = resolvePlanTierFromProductId(
     before?.polarSubscriptionProductId,
     { feesExempt: before?.feesExempt },
   );
+
   const newTier = resolvePlanTierFromProductId(subscription.productId, {
     feesExempt: before?.feesExempt,
   });
+
+  logger.debug({ orgId, oldTier, newTier }, "Resolved plan tiers");
 
   const productMetaType = await resolveProductMetaType(subscription);
   const isSubscriptionProduct = productMetaType === SUBSCRIPTION_PRODUCT_TYPE;
@@ -150,6 +169,16 @@ export async function persistPolarSubscriptionToOrganization(
   const previousAvailableUsers = before?.availableUsers ?? null;
   const previousAllowAdditional = before?.allowAdditionalUsers ?? false;
   const previousProductId = before?.polarSubscriptionProductId ?? null;
+
+  logger.debug(
+    {
+      orgId,
+      previousAvailableUsers,
+      previousAllowAdditional,
+      previousProductId,
+    },
+    "Previous values",
+  );
 
   await col.updateOne(
     { _id: orgId },
@@ -167,9 +196,15 @@ export async function persistPolarSubscriptionToOrganization(
     },
   );
 
+  logger.debug({ orgId, isSubscriptionProduct }, "Updated organization fields");
+
   await syncUserSlotsFromSubscription(orgId, subscription);
 
+  logger.debug({ orgId }, "Synced user slots from subscription");
+
   const after = await col.findOne({ _id: orgId });
+  logger.debug({ orgId, after }, "After values");
+
   const entitlementsChanged =
     oldStatus !== (after?.polarSubscriptionStatus ?? null) ||
     previousProductId !== (after?.polarSubscriptionProductId ?? null) ||
@@ -177,7 +212,10 @@ export async function persistPolarSubscriptionToOrganization(
     previousAvailableUsers !== (after?.availableUsers ?? null) ||
     previousAllowAdditional !== (after?.allowAdditionalUsers ?? false);
 
+  logger.debug({ orgId, entitlementsChanged }, "Entitlements changed");
+
   if (before) {
+    logger.debug({ orgId }, "Invalidating organization hostname cache");
     await invalidateOrganizationHostnameCacheForOrganization(before);
   }
 
@@ -187,6 +225,7 @@ export async function persistPolarSubscriptionToOrganization(
     newTier === BillingPlanTier.Free &&
     before?.domain?.trim()
   ) {
+    logger.debug({ orgId }, "Setting domain to undefined");
     const services = ServicesContainer(orgId);
     await services.organizationService.setDomain(undefined, systemEventSource);
     const updatedOrg = await col.findOne({ _id: orgId });
@@ -196,6 +235,10 @@ export async function persistPolarSubscriptionToOrganization(
   }
 
   if (isSubscriptionProduct && newStatus && oldStatus !== newStatus) {
+    logger.debug(
+      { orgId, oldStatus, newStatus },
+      "Emitting subscription status changed event",
+    );
     await emitSubscriptionStatusChangedEvent(orgId, {
       oldStatus,
       newStatus,
@@ -205,6 +248,7 @@ export async function persistPolarSubscriptionToOrganization(
   }
 
   if (entitlementsChanged) {
+    logger.debug({ orgId }, "Invalidating organization sessions");
     await invalidateOrganizationSessions(orgId);
   }
 }
@@ -212,20 +256,32 @@ export async function persistPolarSubscriptionToOrganization(
 async function resolveProductMetaType(
   subscription: Subscription,
 ): Promise<string> {
+  const logger = getLoggerFactory("PersistPolarSubscription")(
+    "resolveProductMetaType",
+  );
+  logger.debug({ subscription }, "Resolving product meta type");
+
   const embedded = String(
     (subscription.product as { metadata?: { type?: string } } | undefined)
       ?.metadata?.type ?? "",
   );
-  if (embedded) return embedded;
+  if (embedded) {
+    logger.debug({ embedded }, "Embedded product meta type");
+    return embedded;
+  }
 
   const productId = subscription.productId?.trim();
+  logger.debug({ productId }, "Product ID");
   const polar = getPolarClient();
   if (!productId || !polar.client) return "";
 
   try {
     const product = await polar.client.products.get({ id: productId });
-    return String(product.metadata?.type ?? "");
+    const type = String(product.metadata?.type ?? "");
+    logger.debug({ productId, type }, "Resolved product meta type");
+    return type;
   } catch {
+    logger.debug({ productId }, "Failed to resolve product meta type");
     return "";
   }
 }

@@ -16,7 +16,7 @@ import {
   UpdateFormResponseModelWithNormalizedAnswers,
 } from "../models";
 
-/** Must match `@hacado/services/collections` — avoid importing services (circular dep). */
+/** Must match `@hacado/services/collections` - avoid importing services (circular dep). */
 const CUSTOMERS_COLLECTION_NAME = "customers";
 
 export class FormsRepositoryService {

@@ -40,10 +40,10 @@ export const buildNewPurchaseEmailNotifications = async (
     const t = await getI18nAsync({ locale });
 
     const interpolation = {
-      customerName: purchase.customerName?.trim() || "—",
-      customerEmail: purchase.customerEmail?.trim() || "—",
-      recipientName: purchase.recipientName?.trim() || "—",
-      recipientEmail: purchase.recipientEmail?.trim() || "—",
+      customerName: purchase.customerName?.trim() || "-",
+      customerEmail: purchase.customerEmail?.trim() || "-",
+      recipientName: purchase.recipientName?.trim() || "-",
+      recipientEmail: purchase.recipientEmail?.trim() || "-",
       designName: purchase.designName,
       giftCardCode: purchase.giftCardCode,
       amount: amountFormatted,

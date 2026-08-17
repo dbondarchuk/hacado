@@ -375,7 +375,7 @@ export class BookingService extends BaseService implements IBookingService {
       if (meetingProviderAppId) {
         logger.debug(
           { appointmentId, meetingProviderAppId, memberId: resolvedMemberId },
-          "Online option — creating meeting link via member meeting URL provider",
+          "Online option - creating meeting link via member meeting URL provider",
         );
 
         try {

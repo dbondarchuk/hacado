@@ -23,7 +23,12 @@ import {
   getRedisClient,
   ServicesContainer,
 } from "@hacado/services";
-import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import {
+  canInviteWithAvailableUsers,
+  membershipLimitFromAvailableUsers,
+  resolveAvailableUsers,
+  resolvePlanTierFromOrganization,
+} from "@hacado/services/billing";
 import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
 import {
   getDbConnection,
@@ -281,12 +286,7 @@ export const auth = betterAuth({
         const org = await db
           .collection<OrganizationDbModel>("organizations")
           .findOne({ _id: organizationDoc.id });
-        return (
-          org?.availableUsers ??
-          (org?.userSlots
-            ? (org.userSlots.included ?? 0) + (org.userSlots.additional ?? 0)
-            : 1)
-        );
+        return membershipLimitFromAvailableUsers(resolveAvailableUsers(org));
       },
       schema: {
         member: {
@@ -324,7 +324,7 @@ export const auth = betterAuth({
         },
         /**
          * Better Auth's acceptInvitation calls createMember directly and skips
-         * beforeAddMember — apply signup profile fields here instead.
+         * beforeAddMember - apply signup profile fields here instead.
          */
         afterAcceptInvitation: async ({ invitation, member, user }) => {
           const profile = await resolveMemberProfileFields(user, {
@@ -430,19 +430,18 @@ export const auth = betterAuth({
           const orgDoc = await db
             .collection<OrganizationDbModel>("organizations")
             .findOne({ _id: org.id });
-          const available =
-            orgDoc?.availableUsers ??
-            (orgDoc?.userSlots
-              ? (orgDoc.userSlots.included ?? 0) +
-                (orgDoc.userSlots.additional ?? 0)
-              : 1);
           const activeCount = await db
             .collection(MEMBERS_COLLECTION_NAME)
             .countDocuments({
               organizationId: org.id,
               status: "active",
             });
-          if (activeCount >= available) {
+          if (
+            !canInviteWithAvailableUsers(
+              activeCount,
+              resolveAvailableUsers(orgDoc),
+            )
+          ) {
             throw new APIError("BAD_REQUEST", {
               message:
                 "No available user slots. Purchase more seats to invite.",
@@ -594,12 +593,7 @@ export const auth = betterAuth({
       const memberId =
         typeof member._id === "string" ? member._id : String(member._id);
 
-      const availableUsers =
-        organization.availableUsers ??
-        (organization.userSlots
-          ? (organization.userSlots.included ?? 0) +
-            (organization.userSlots.additional ?? 0)
-          : 1);
+      const availableUsers = resolveAvailableUsers(organization) ?? 1;
 
       return {
         ...session,

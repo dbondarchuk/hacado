@@ -166,7 +166,7 @@ function getExceptionDayShifts(
  * Resolve effective open hours for one calendar day.
  * Precedence: company holiday → member → company hours → app → default.
  *
- * Empty company hours are NOT holidays — members may still set their own hours.
+ * Empty company hours are NOT holidays - members may still set their own hours.
  * Only `holidays` on a company exception lock the day closed for everyone.
  */
 export function resolveDaySchedule(
