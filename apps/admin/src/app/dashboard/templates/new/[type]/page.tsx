@@ -52,7 +52,7 @@ export default async function NewTemplatePage({ params, searchParams }: Props) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 h-full">
+      <div className="flex flex-1 flex-col gap-4 w-full h-full">
         <div className="flex flex-col gap-4 justify-between">
           <Heading
             title={t("templates.newPage.title", {

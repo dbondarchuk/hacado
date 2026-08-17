@@ -24,7 +24,7 @@ export const NextAppointmentsCards: React.FC<{
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {!nextAppointments.length && (
-        <Card>
+        <Card className="w-full">
           <CardContent className="flex justify-center py-4">
             {t("dashboard.appointments.noAppointments")}
           </CardContent>

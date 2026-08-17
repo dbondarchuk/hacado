@@ -61,7 +61,7 @@ export default async function TeamSettingsPage(props: Params) {
   return (
     <PageContainer scrollable={false}>
       <SeatsPurchaseSuccessToast />
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4 w-full">
         <div className="flex flex-col gap-4 justify-between">
           <Breadcrumbs items={breadcrumbItems} />
           <div className="flex items-center justify-between gap-3">

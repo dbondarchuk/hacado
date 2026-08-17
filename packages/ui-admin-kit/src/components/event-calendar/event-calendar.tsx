@@ -13,6 +13,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  useIsMobile,
 } from "@hacado/ui";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
@@ -65,16 +66,21 @@ function formatDateLabel(
   locale: string,
   daysAround: number,
   daysToShow: number,
+  showShort: boolean,
 ): string {
+  const format: Intl.DateTimeFormatOptions = showShort
+    ? { month: "short", day: "numeric" }
+    : DateTime.DATE_MED;
+
   switch (view) {
     case "daily": {
-      return date.toLocaleString(DateTime.DATE_MED, { locale });
+      return date.toLocaleString(format, { locale });
     }
     case "weekly": {
       const start = date.startOf("week");
       const end = date.endOf("week");
-      const startLabel = start.toLocaleString(DateTime.DATE_MED, { locale });
-      const endLabel = end.toLocaleString(DateTime.DATE_MED, { locale });
+      const startLabel = start.toLocaleString(format, { locale });
+      const endLabel = end.toLocaleString(format, { locale });
       return `${startLabel} – ${endLabel}`;
     }
     case "monthly": {
@@ -85,19 +91,19 @@ function formatDateLabel(
     }
     case "agenda": {
       const end = date.plus({ days: daysToShow - 1 });
-      return `${date.toLocaleString(DateTime.DATE_MED, { locale })} – ${end.toLocaleString(DateTime.DATE_MED, { locale })}`;
+      return `${date.toLocaleString(format, { locale })} – ${end.toLocaleString(format, { locale })}`;
     }
     case "days-around": {
       const start = date.minus({ days: daysAround });
       const end = date.plus({ days: daysAround });
-      const startLabel = start.toLocaleString(DateTime.DATE_MED, { locale });
-      const endLabel = end.toLocaleString(DateTime.DATE_MED, { locale });
+      const startLabel = start.toLocaleString(format, { locale });
+      const endLabel = end.toLocaleString(format, { locale });
       return startLabel === endLabel
         ? startLabel
         : `${startLabel} – ${endLabel}`;
     }
     default:
-      return date.toLocaleString(DateTime.DATE_MED, { locale });
+      return date.toLocaleString(format, { locale });
   }
 }
 
@@ -126,6 +132,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
 }) => {
   const t = useI18n("admin");
   const locale = useLocale();
+  const isMobile = useIsMobile();
 
   const [uncontrolledDate, setUncontrolledDate] = React.useState(
     () => dateProp ?? new Date(),
@@ -163,6 +170,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     onViewChange?.(next);
   };
 
+  const showViewSwitch =
+    showControls && allowViewSwitch && view !== "days-around";
+  const showTimeNav = showControls && allowTimeChange;
+
   const dateTime = DateTime.fromJSDate(date).startOf("day");
   const dateLabel = formatDateLabel(
     dateTime,
@@ -170,6 +181,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     locale,
     daysAround,
     daysToShow,
+    isMobile && showTimeNav,
   );
 
   const goToday = () => setDate(DateTime.now().startOf("day").toJSDate());
@@ -177,10 +189,6 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     setDate(shiftDate(dateTime, view, -1, daysAround, daysToShow).toJSDate());
   const goNext = () =>
     setDate(shiftDate(dateTime, view, 1, daysAround, daysToShow).toJSDate());
-
-  const showViewSwitch =
-    showControls && allowViewSwitch && view !== "days-around";
-  const showTimeNav = showControls && allowTimeChange;
 
   const viewClassName = cn("w-full", className);
 

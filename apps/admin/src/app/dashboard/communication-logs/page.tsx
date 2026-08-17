@@ -40,7 +40,7 @@ export default async function CommunicationLogsPage(props: Params) {
 
   return (
     <PageContainer scrollable={false}>
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4 w-full">
         <div className="flex flex-col gap-4 justify-between">
           <div className="flex flex-col gap-2 justify-between">
             <Breadcrumbs items={breadcrumbItems} />
