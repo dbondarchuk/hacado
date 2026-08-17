@@ -1175,8 +1175,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/install/page.tsx": {
-    "mtime": 1786820408.8022807,
-    "ast_hash": "f3c38a80080bd554bd5447ebfc00d6fc",
+    "mtime": 1787002074.2269921,
+    "ast_hash": "6cc8f71512110acb3102de7c7d2b35de",
     "semantic_hash": ""
   },
   "apps/admin/src/app/layout.tsx": {
@@ -15530,18 +15530,18 @@
     "semantic_hash": ""
   },
   "docker-compose.local.yaml": {
-    "mtime": 1786998046.107701,
-    "ast_hash": "ff7b2b91298359e9bc999c6d3216b7e1",
+    "mtime": 1787009466.0723176,
+    "ast_hash": "f950a21532392cde4af5d59d4cbd89c8",
     "semantic_hash": ""
   },
   "docker-compose.services.yaml": {
-    "mtime": 1786998046.0399916,
-    "ast_hash": "8e4b4948963234044563635824653670",
+    "mtime": 1787009465.2631893,
+    "ast_hash": "a4f7911588cdde49d069c5a782dbe32c",
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1786998045.794175,
-    "ast_hash": "abdb4fd8ad918d40e204439736e7e33e",
+    "mtime": 1787009464.796379,
+    "ast_hash": "5a0d33fb9fef141dd4bb44b678e12cbd",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -15715,8 +15715,8 @@
     "semantic_hash": ""
   },
   "docs/docs/daily-use/connect-domain.md": {
-    "mtime": 1786820409.0386262,
-    "ast_hash": "880018d51aff3fb127a91ab9f386879d",
+    "mtime": 1787002092.8562346,
+    "ast_hash": "4bdae6a708c1eae411b4048ceebe05d5",
     "semantic_hash": ""
   },
   "docs/docs/daily-use/settings.md": {
@@ -15740,8 +15740,8 @@
     "semantic_hash": ""
   },
   "docs/docs/getting-started/workspace-install-wizard.md": {
-    "mtime": 1786820409.047324,
-    "ast_hash": "02fcddcef29952e83ef1b4237026be65",
+    "mtime": 1787002117.574303,
+    "ast_hash": "3106d5fb4cd4f2f7a5cdb8676549359b",
     "semantic_hash": ""
   },
   "docs/static/img/placeholders/README.md": {
@@ -16205,8 +16205,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1787000195.6938913,
-    "ast_hash": "6739ff46e8a370e10ca098c62514f40f",
+    "mtime": 1787001623.0177004,
+    "ast_hash": "91cfe653024070d20ff19163edaa83fe",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16215,8 +16215,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/builder.yaml": {
-    "mtime": 1786820409.570781,
-    "ast_hash": "246b4d8a0e097bd340a44170d659c6d4",
+    "mtime": 1787002131.2556162,
+    "ast_hash": "a809e397d73fb7b270e10f35510e9443",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/install.yaml": {
@@ -16240,8 +16240,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1787000197.1019206,
-    "ast_hash": "26d00c6c9c4cfe39421c1b125e93b608",
+    "mtime": 1787001628.1768665,
+    "ast_hash": "f585b40bfd23ce5d3aff91ae345fb51b",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -16250,8 +16250,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/builder.yaml": {
-    "mtime": 1786820409.5757818,
-    "ast_hash": "893356c95d4a8005318acb319ceace78",
+    "mtime": 1787002139.775702,
+    "ast_hash": "b500a4e37c273da217b88a4f92b3e27f",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/install.yaml": {
@@ -26835,8 +26835,8 @@
     "semantic_hash": ""
   },
   "docs/docs/first-steps/complete-your-business-profile.md": {
-    "mtime": 1786820409.039613,
-    "ast_hash": "3adbdebe1070f2900e1fb509bf3e89ce",
+    "mtime": 1787002151.9133403,
+    "ast_hash": "10f6ee0d0691ba9d804b21bcf628e439",
     "semantic_hash": ""
   },
   "docs/docs/first-steps/connect-essentials.md": {
@@ -26845,8 +26845,8 @@
     "semantic_hash": ""
   },
   "docs/docs/first-steps/index.md": {
-    "mtime": 1786820409.0407076,
-    "ast_hash": "d0650fb96bdf1490d77a9f96cddd41bf",
+    "mtime": 1787002117.6113367,
+    "ast_hash": "bb001cbca9e8e600fb9d4413389a184e",
     "semantic_hash": ""
   },
   "docs/docs/first-steps/manage-bookings-and-customers.md": {
@@ -26855,8 +26855,8 @@
     "semantic_hash": ""
   },
   "docs/docs/first-steps/publish-and-share.md": {
-    "mtime": 1786820409.0411274,
-    "ast_hash": "cb03dc3877684fbc79aae5af14dcca5f",
+    "mtime": 1787002117.5893018,
+    "ast_hash": "f129452dc77e9d82792a3714f6931c2e",
     "semantic_hash": ""
   },
   "docs/docs/first-steps/set-up-your-services.md": {
@@ -28310,8 +28310,8 @@
     "semantic_hash": ""
   },
   "apps/link-shortener/src/index.ts": {
-    "mtime": 1786997429.9237907,
-    "ast_hash": "3ac6e9c46084051985ea93dbe5e97acd",
+    "mtime": 1787009458.3768024,
+    "ast_hash": "6bd7b75ef759e839e41e4a6d167d8a5a",
     "semantic_hash": ""
   },
   "apps/link-shortener/tsconfig.json": {
@@ -28330,8 +28330,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/short-links.service.test.ts": {
-    "mtime": 1786998041.766814,
-    "ast_hash": "f7ab2c25de30b21e7f6daae5e277524d",
+    "mtime": 1787002150.1733203,
+    "ast_hash": "7a795604411e59449e72234147d7f223",
     "semantic_hash": ""
   },
   "packages/services/src/short-links.service.ts": {
@@ -28340,8 +28340,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/short-links.test.ts": {
-    "mtime": 1786996932.0558658,
-    "ast_hash": "8fb05346deb71fe6f383c5f8afc872be",
+    "mtime": 1787002208.3827868,
+    "ast_hash": "02664f9cb0eed63e2982faffa1c9c3ec",
     "semantic_hash": ""
   },
   "packages/utils/src/short-links.ts": {
@@ -28365,8 +28365,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/table/page-qr-code-dialog.tsx": {
-    "mtime": 1787000214.6795895,
-    "ast_hash": "bd8c3452e9c06c1e29ae7332356e40a7",
+    "mtime": 1787001852.9108834,
+    "ast_hash": "66b173921b16e292b83f8287255b0782",
     "semantic_hash": ""
   }
 }

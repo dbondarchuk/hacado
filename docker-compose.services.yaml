@@ -244,6 +244,7 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-debug}
       - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}
+      - MARKETING_URL=${MARKETING_URL:-https://hacado.com}
       - PORT=5557
     restart: unless-stopped
     ports:

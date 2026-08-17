@@ -280,6 +280,7 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-debug}
       - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-localhost:3000}
       - SHORT_DOMAIN=${SHORT_DOMAIN:-localhost:5557}
+      - MARKETING_URL=${MARKETING_URL:-https://hacado.com}
       - PORT=5557
     restart: unless-stopped
     ports:

@@ -25,6 +25,8 @@ async function startServer(): Promise<void> {
   }
 
   const port = process.env.PORT || 5557;
+  const marketingUrl =
+    process.env.MARKETING_URL?.trim() || "https://hacado.com";
   const server = http.createServer(async (req, res) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.writeHead(405, { "Content-Type": "application/json" });
@@ -38,8 +40,9 @@ async function startServer(): Promise<void> {
       logger.debug({ pathname }, "Incoming request");
 
       if (pathname === "/") {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Not found" }));
+        res.writeHead(302, { Location: marketingUrl });
+        res.end();
+        logger.info({ marketingUrl }, "Redirected root to marketing site");
         return;
       }
 
