@@ -1402,6 +1402,7 @@ pages:
       copy: Copy
       download: Download
       alt: QR code for {url}
+      copyUrl: Copy URL
     delete:
       title: Are you absolutely sure?
       description: This action cannot be undone. This will delete selected pages

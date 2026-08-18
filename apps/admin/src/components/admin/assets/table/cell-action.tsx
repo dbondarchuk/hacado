@@ -13,9 +13,9 @@ import {
   DropdownMenuTrigger,
   toast,
   toastPromise,
+  useClipboard,
   useWebsiteUrl,
 } from "@hacado/ui";
-import copy from "copy-text-to-clipboard";
 import {
   Copy,
   CopyCheck,
@@ -39,10 +39,11 @@ export const CellAction: React.FC<CellActionProps> = ({ asset }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const websiteUrl = useWebsiteUrl();
+  const { copyToClipboard } = useClipboard();
 
   const copyRelative = () => {
     const url = `/assets/${asset.filename}`;
-    copy(url);
+    copyToClipboard(url);
 
     toast.info(t("assets.toasts.copied"), {
       icon: <Copy />,
@@ -52,7 +53,7 @@ export const CellAction: React.FC<CellActionProps> = ({ asset }) => {
 
   const copyAbsolute = () => {
     const url = `${websiteUrl}/assets/${asset.filename}`;
-    copy(url);
+    copyToClipboard(url);
 
     toast.info(t("assets.toasts.copied"), {
       description: t("assets.toasts.absoluteUrlCopied", { url }),
@@ -114,11 +115,11 @@ export const CellAction: React.FC<CellActionProps> = ({ asset }) => {
             <Trash className="size-3.5" /> {t("assets.table.actions.delete")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={copyRelative}>
+          <DropdownMenuItem onClick={() => copyRelative()}>
             <CopySlash className="size-3.5" />{" "}
             {t("assets.table.actions.copyRelativeUrl")}
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={copyAbsolute}>
+          <DropdownMenuItem onClick={() => copyAbsolute()}>
             <CopyCheck className="size-3.5" />{" "}
             {t("assets.table.actions.copyAbsoluteUrl")}
           </DropdownMenuItem>

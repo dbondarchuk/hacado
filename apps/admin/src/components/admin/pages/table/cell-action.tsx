@@ -13,9 +13,9 @@ import {
   DropdownMenuTrigger,
   toast,
   toastPromise,
+  useClipboard,
   useWebsiteUrl,
 } from "@hacado/ui";
-import copy from "copy-text-to-clipboard";
 import {
   Copy,
   CopyCheck,
@@ -45,10 +45,11 @@ export const CellAction: React.FC<CellActionProps> = ({ page }) => {
   const router = useRouter();
   const websiteUrl = useWebsiteUrl();
   const linkShorteningEnabled = useLinkShorteningEnabled();
+  const { copyToClipboard } = useClipboard();
 
   const copyRelative = () => {
     const url = `/${page.slug}`;
-    copy(url);
+    copyToClipboard(url);
 
     toast.info(t("assets.toasts.copied"), {
       description: t("pages.toasts.relativeUrlCopied", { url }),
@@ -58,7 +59,7 @@ export const CellAction: React.FC<CellActionProps> = ({ page }) => {
 
   const copyAbsolute = () => {
     const url = `${websiteUrl}/${page.slug}`;
-    copy(url);
+    copyToClipboard(url);
 
     toast.info(t("assets.toasts.copied"), {
       description: t("pages.toasts.absoluteUrlCopied", { url }),
@@ -75,7 +76,7 @@ export const CellAction: React.FC<CellActionProps> = ({ page }) => {
         return;
       }
 
-      copy(result.url);
+      copyToClipboard(result.url);
       toast.info(t("assets.toasts.copied"), {
         description: t("pages.toasts.shortUrlCopied", { url: result.url }),
         icon: <Copy />,
@@ -157,16 +158,16 @@ export const CellAction: React.FC<CellActionProps> = ({ page }) => {
             </>
           )}
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={copyRelative}>
+          <DropdownMenuItem onClick={() => copyRelative()}>
             <CopySlash className="size-3.5" />{" "}
             {t("pages.table.actions.copyRelativeUrl")}
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={copyAbsolute}>
+          <DropdownMenuItem onClick={() => copyAbsolute()}>
             <CopyCheck className="size-3.5" />{" "}
             {t("pages.table.actions.copyAbsoluteUrl")}
           </DropdownMenuItem>
           {linkShorteningEnabled && (
-            <DropdownMenuItem onClick={copyShort} disabled={loading}>
+            <DropdownMenuItem onClick={() => copyShort()} disabled={loading}>
               <Link2 className="size-3.5" />{" "}
               {t("pages.table.actions.copyShortUrl")}
             </DropdownMenuItem>

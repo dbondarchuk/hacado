@@ -13,6 +13,7 @@ import {
   Modal,
   Spinner,
   toast,
+  useClipboard,
 } from "@hacado/ui";
 import { Copy, Download } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
@@ -32,11 +33,60 @@ const canvasToPngBlob = (canvas: HTMLCanvasElement) =>
     }, "image/png");
   });
 
-const downloadCanvasPng = (canvas: HTMLCanvasElement, filename: string) => {
+const pngFileFromCanvas = (canvas: HTMLCanvasElement, filename: string) => {
+  const dataUrl = canvas.toDataURL("image/png");
+  const commaIndex = dataUrl.indexOf(",");
+  const binary = atob(dataUrl.slice(commaIndex + 1));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new File([bytes], filename, { type: "image/png" });
+};
+
+const isIos = () =>
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+const prefersNativeShare = () =>
+  isIos() || window.matchMedia("(pointer: coarse)").matches;
+
+const triggerFileDownload = (file: File) => {
+  const blobUrl = URL.createObjectURL(file);
   const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
-  link.download = filename;
+  link.href = blobUrl;
+  link.rel = "noopener";
+  link.style.display = "none";
+
+  if (isIos()) {
+    link.target = "_blank";
+  } else {
+    link.download = file.name;
+  }
+
+  document.body.append(link);
   link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
+};
+
+const downloadOrSharePng = async (file: File) => {
+  const canShareFile =
+    typeof navigator.canShare === "function" &&
+    navigator.canShare({ files: [file] });
+
+  if (canShareFile && prefersNativeShare()) {
+    try {
+      await navigator.share({ files: [file], title: file.name });
+      return;
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        return;
+      }
+    }
+  }
+
+  triggerFileDownload(file);
 };
 
 export const PageQrCodeDialog = ({
@@ -56,6 +106,7 @@ export const PageQrCodeDialog = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [url, setUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { copyToClipboard } = useClipboard();
 
   useEffect(() => {
     if (!isOpen) {
@@ -112,21 +163,25 @@ export const PageQrCodeDialog = ({
     }
 
     try {
-      await navigator.clipboard.writeText(url);
+      copyToClipboard(url);
       toast.info(t("pages.toasts.urlCopied"));
     } catch (error) {
       toast.error(t("pages.toasts.urlCopyError"));
     }
   };
 
-  const downloadQr = () => {
+  const downloadQr = async () => {
     const canvas = canvasRef.current;
     if (!canvas) {
       toast.error(t("pages.toasts.qrCodeDownloadError"));
       return;
     }
 
-    downloadCanvasPng(canvas, `${pageSlug}-qr.png`);
+    try {
+      await downloadOrSharePng(pngFileFromCanvas(canvas, `${pageSlug}-qr.png`));
+    } catch {
+      toast.error(t("pages.toasts.qrCodeDownloadError"));
+    }
   };
 
   return (
@@ -162,7 +217,7 @@ export const PageQrCodeDialog = ({
                 <Input
                   value={url}
                   readOnly
-                  onClick={copyUrl}
+                  onClick={() => copyUrl()}
                   className={cn(
                     "cursor-pointer text-ellipsis",
                     InputGroupInputClasses(),
@@ -172,23 +227,27 @@ export const PageQrCodeDialog = ({
               <InputGroupAddon>
                 <Button
                   variant="outline"
-                  onClick={copyUrl}
+                  onClick={() => copyUrl()}
                   disabled={loading || !url}
                   className={InputGroupAddonClasses()}
+                  title={t("pages.table.qrCode.copyUrl")}
                 >
                   <Copy />
-                  {t("pages.table.qrCode.copy")}
                 </Button>
               </InputGroupAddon>
             </InputGroup>
           </>
         )}
         <div className="flex w-full items-center justify-end gap-2 pt-2">
-          <Button variant="outline" onClick={copyQr} disabled={loading || !url}>
+          <Button
+            variant="outline"
+            onClick={() => copyQr()}
+            disabled={loading || !url}
+          >
             <Copy />
             {t("pages.table.qrCode.copy")}
           </Button>
-          <Button onClick={downloadQr} disabled={loading || !url}>
+          <Button onClick={() => downloadQr()} disabled={loading || !url}>
             <Download />
             {t("pages.table.qrCode.download")}
           </Button>
