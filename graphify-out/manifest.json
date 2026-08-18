@@ -15365,8 +15365,8 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1786996997.6656926,
-    "ast_hash": "1a9c5b0f433d2449e6f9c9ee1f9ef683",
+    "mtime": 1787009561.5969713,
+    "ast_hash": "cfbdad2af0b2046286ee52288d83c8dd",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.md": {
@@ -15530,18 +15530,18 @@
     "semantic_hash": ""
   },
   "docker-compose.local.yaml": {
-    "mtime": 1787009466.0723176,
-    "ast_hash": "f950a21532392cde4af5d59d4cbd89c8",
+    "mtime": 1787058513.9378216,
+    "ast_hash": "b6318ad2ef2033306ddb7816bcf6946d",
     "semantic_hash": ""
   },
   "docker-compose.services.yaml": {
-    "mtime": 1787009465.2631893,
-    "ast_hash": "a4f7911588cdde49d069c5a782dbe32c",
+    "mtime": 1787058500.7991965,
+    "ast_hash": "fac38c4f62fd812ec501db3dc0aacc52",
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1787009464.796379,
-    "ast_hash": "5a0d33fb9fef141dd4bb44b678e12cbd",
+    "mtime": 1787058500.5177424,
+    "ast_hash": "fd52a2427caa2173863cfec78af480ce",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -28295,8 +28295,8 @@
     "semantic_hash": ""
   },
   "apps/link-shortener/esbuild.config.js": {
-    "mtime": 1786996982.8154452,
-    "ast_hash": "7b71503b0994aa98f49454b701ab485e",
+    "mtime": 1787058494.714814,
+    "ast_hash": "79d8a43a35a15effd4ba57a10d25cb8d",
     "semantic_hash": ""
   },
   "apps/link-shortener/eslint.config.js": {
@@ -28310,8 +28310,8 @@
     "semantic_hash": ""
   },
   "apps/link-shortener/src/index.ts": {
-    "mtime": 1787009458.3768024,
-    "ast_hash": "6bd7b75ef759e839e41e4a6d167d8a5a",
+    "mtime": 1787058499.621653,
+    "ast_hash": "6b1a6544e8c0fd5977b64ad5ffd9b5e0",
     "semantic_hash": ""
   },
   "apps/link-shortener/tsconfig.json": {
@@ -28367,6 +28367,16 @@
   "apps/admin/src/components/admin/pages/table/page-qr-code-dialog.tsx": {
     "mtime": 1787001852.9108834,
     "ast_hash": "66b173921b16e292b83f8287255b0782",
+    "semantic_hash": ""
+  },
+  "apps/link-shortener/src/global.d.ts": {
+    "mtime": 1787058490.3198545,
+    "ast_hash": "69288d8bfdddd00d5c016c09be717fc5",
+    "semantic_hash": ""
+  },
+  "apps/link-shortener/src/404.html": {
+    "mtime": 1787058490.352872,
+    "ast_hash": "884b7397eab470bb38ced922182cd827",
     "semantic_hash": ""
   }
 }

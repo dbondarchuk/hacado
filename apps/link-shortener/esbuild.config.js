@@ -11,6 +11,7 @@ const buildConfig = {
   sourcemap: true,
   logLevel: "info",
   loader: {
+    ".html": "text",
     ".css": "empty",
     ".scss": "empty",
     ".sass": "empty",

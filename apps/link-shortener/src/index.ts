@@ -1,15 +1,50 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ShortLinksService } from "@hacado/services/short-links";
-import { SHORT_CODE_ALPHABET } from "@hacado/utils";
+import { getAdminUrl, SHORT_CODE_ALPHABET } from "@hacado/utils";
 import dotenv from "dotenv";
 import http from "http";
 import { URL } from "url";
+import notFoundHtml from "./404.html";
 
 dotenv.config();
 
 const logger = getLoggerFactory("LinkShortener")("main");
 const shortLinksService = new ShortLinksService();
 const SHORT_CODE_PATTERN = new RegExp(`^[${SHORT_CODE_ALPHABET}]{8,16}$`);
+
+const getAdminBaseUrl = () => {
+  if (!process.env.ADMIN_DOMAIN?.trim()) {
+    return "https://app.hacado.com";
+  }
+  return getAdminUrl();
+};
+
+const renderNotFoundHtml = (marketingUrl: string, adminUrl: string) =>
+  notFoundHtml
+    .replaceAll("{{MARKETING_URL}}", marketingUrl)
+    .replaceAll("{{ADMIN_URL}}", adminUrl)
+    .replaceAll("{{YEAR}}", String(new Date().getFullYear()));
+
+const sendNotFound = (
+  res: http.ServerResponse,
+  method: string | undefined,
+  html: string,
+) => {
+  const headers = {
+    "Content-Type": "text/html; charset=utf-8",
+    "Cache-Control": "no-store",
+  };
+  if (method === "HEAD") {
+    res.writeHead(404, headers);
+    res.end();
+    return;
+  }
+  res.writeHead(404, {
+    ...headers,
+    "Content-Length": Buffer.byteLength(html),
+  });
+  res.end(html);
+};
 
 async function startServer(): Promise<void> {
   logger.info("Starting Link Shortener Server");
@@ -27,6 +62,8 @@ async function startServer(): Promise<void> {
   const port = process.env.PORT || 5557;
   const marketingUrl =
     process.env.MARKETING_URL?.trim() || "https://hacado.com";
+  const adminUrl = getAdminBaseUrl();
+  const notFoundPage = renderNotFoundHtml(marketingUrl, adminUrl);
   const server = http.createServer(async (req, res) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.writeHead(405, { "Content-Type": "application/json" });
@@ -48,15 +85,13 @@ async function startServer(): Promise<void> {
 
       const code = pathname.slice(1);
       if (code.includes("/") || !SHORT_CODE_PATTERN.test(code)) {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Not found" }));
+        sendNotFound(res, req.method, notFoundPage);
         return;
       }
 
       const shortLink = await shortLinksService.getShortLinkByCode(code);
       if (!shortLink) {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Not found" }));
+        sendNotFound(res, req.method, notFoundPage);
         return;
       }
 

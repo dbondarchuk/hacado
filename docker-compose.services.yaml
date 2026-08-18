@@ -245,6 +245,7 @@ services:
       - PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}
       - SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}
       - MARKETING_URL=${MARKETING_URL:-https://hacado.com}
+      - ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}
       - PORT=5557
     restart: unless-stopped
     ports:

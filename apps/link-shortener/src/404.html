@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Page not found | Hacado</title>
+    <meta
+      name="description"
+      content="We could not find this short link. Visit hacado.com to learn more."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath fill='%234a3728' d='M32.999 14.4v47.363q0 1.162.338 1.687.337.525 1.012.788l1.351.375q1.2.488 1.2 1.5 0 1.65-2.101 1.65H20.324q-1.05 0-1.537-.412-.488-.413-.488-1.125 0-.562.319-.957.32-.394 1.069-.656l1.463-.375q.674-.262.993-.788.32-.525.319-1.687V20.7q0-.937-.281-1.35t-.919-.525l-1.987-.15q-.675-.187-.976-.525-.3-.337-.299-.862 0-.6.356-.975t1.369-.75l6.974-2.55q1.425-.525 2.288-.769a6 6 0 0 1 1.65-.244q1.162 0 1.763.657.6.656.599 1.743Zm.375 26.588-1.5 1.312-1.724-1.762 1.462-1.312q4.725-4.238 8.1-6.038t6.412-1.8q4.613 0 7.163 3.094t3.113 8.231l2.1 18.937q.112 1.238.412 1.8t1.012.788l1.313.375q.713.262 1.05.656t.338.957q0 .712-.488 1.125-.488.412-1.575.412H45.937q-2.063 0-2.063-1.65 0-1.012 1.163-1.5l1.425-.375q.712-.263 1.106-.825t.244-1.763l-1.95-17.4q-.375-3.262-1.669-4.912-1.293-1.65-3.806-1.65-1.575 0-3.319.825t-3.694 2.475Z'/%3E%3C/svg%3E"
+    />
+    <style>
+      :root {
+        --background: 45 40% 94.1%;
+        --foreground: 26.5 29.8% 22.4%;
+        --primary: 92.1 11.2% 49%;
+        --primary-foreground: 45 50% 96.9%;
+        --muted: 42 25% 91%;
+        --muted-foreground: 28 18% 40%;
+        --border: 40 20% 86%;
+        --radius: 0.75rem;
+        --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+        --font-display: "Fraunces", ui-serif, Georgia, serif;
+        --gradient-primary: linear-gradient(
+          135deg,
+          hsl(92.3, 14%, 36.5%) 0%,
+          hsl(92.1, 11.2%, 49%) 100%
+        );
+        --gradient-dark: linear-gradient(
+          145deg,
+          hsl(26.5, 29.8%, 16%) 0%,
+          hsl(92.1, 11.2%, 49%) 100%
+        );
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: 26 20% 10%;
+          --foreground: 42 30% 94%;
+          --primary: 92 12% 58%;
+          --primary-foreground: 26 20% 10%;
+          --muted: 26 14% 16%;
+          --muted-foreground: 40 12% 68%;
+          --border: 26 12% 20%;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+        border-color: hsl(var(--border));
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        display: flex;
+        min-height: 100vh;
+        min-height: 100dvh;
+        flex-direction: column;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid hsl(var(--border) / 0.4);
+        background: hsl(var(--background) / 0.95);
+        backdrop-filter: blur(8px);
+      }
+
+      nav,
+      .footer-inner,
+      main {
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+      }
+
+      nav {
+        display: flex;
+        max-width: 80rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-display);
+      }
+
+      .brand svg {
+        width: 36px;
+        height: 36px;
+        display: none;
+      }
+
+      .brand span {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: hsl(var(--primary));
+      }
+
+      .nav-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        border-radius: calc(var(--radius) - 2px);
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+        transition:
+          transform 0.3s,
+          filter 0.2s,
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .btn-ghost {
+        padding: 0.5rem 0.75rem;
+        color: hsl(var(--muted-foreground));
+      }
+
+      .btn-ghost:hover {
+        color: hsl(var(--foreground));
+      }
+
+      .btn-brand {
+        padding: 0.5rem 0.75rem;
+        background-image: var(--gradient-primary);
+        color: hsl(var(--primary-foreground));
+      }
+
+      .btn-brand:hover {
+        filter: brightness(0.92);
+      }
+
+      main {
+        position: relative;
+        display: flex;
+        flex: 1;
+        max-width: 48rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 1.5rem;
+        text-align: center;
+      }
+
+      .wash {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+          to bottom,
+          hsl(var(--primary) / 0.08),
+          transparent
+        );
+      }
+
+      .code {
+        user-select: none;
+        margin: 0;
+        font-size: 6rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: hsl(var(--primary) / 0.1);
+      }
+
+      .copy {
+        margin-top: -1rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid hsl(var(--border) / 0.6);
+        border-radius: 999px;
+        background: hsl(var(--muted) / 0.3);
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: hsl(var(--muted-foreground));
+      }
+
+      .badge svg {
+        width: 14px;
+        height: 14px;
+        color: hsl(var(--primary));
+      }
+
+      h1 {
+        margin: 1rem 0 0;
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+      }
+
+      .lede {
+        margin: 1rem 0 0;
+        max-width: 36rem;
+        color: hsl(var(--muted-foreground));
+        text-wrap: balance;
+      }
+
+      .actions {
+        display: flex;
+        width: 100%;
+        max-width: 28rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 2.5rem;
+      }
+
+      .btn-cta {
+        width: 100%;
+        min-height: 3rem;
+        padding: 0.75rem 2rem;
+        background-image: var(--gradient-dark);
+        color: hsl(var(--primary-foreground));
+        font-size: 1.125rem;
+      }
+
+      .btn-cta:hover {
+        transform: translateY(-4px);
+      }
+
+      .btn-cta svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .or {
+        color: hsl(var(--muted-foreground));
+      }
+
+      .btn-outline {
+        width: 100%;
+        min-height: 2.5rem;
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--background));
+        padding: 0.5rem 1.25rem;
+      }
+
+      .btn-outline:hover {
+        background: hsl(var(--muted));
+      }
+
+      .btn-outline svg {
+        width: 14px;
+        height: 14px;
+        color: hsl(var(--primary));
+      }
+
+      .display {
+        font-family: var(--font-display);
+      }
+
+      footer {
+        border-top: 1px solid hsl(var(--border) / 0.6);
+        background: hsl(var(--muted) / 0.2);
+      }
+
+      .footer-inner {
+        max-width: 80rem;
+        padding: 2.5rem 1.5rem;
+      }
+
+      footer p {
+        margin: 0;
+        text-align: center;
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+      }
+
+      footer p + p {
+        margin-top: 0.35rem;
+      }
+
+      footer a {
+        text-decoration: underline;
+      }
+
+      @media (min-width: 640px) {
+        .brand span {
+          font-size: 1.875rem;
+        }
+
+        .code {
+          font-size: 8rem;
+        }
+
+        .copy {
+          margin-top: -1.5rem;
+        }
+
+        h1 {
+          font-size: 1.875rem;
+        }
+
+        .lede {
+          font-size: 1.125rem;
+        }
+
+        .actions {
+          max-width: none;
+        }
+
+        .btn-cta,
+        .btn-outline {
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <nav>
+          <a class="brand" href="{{MARKETING_URL}}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 80 80"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-linecap="round"
+                d="M32.999 14.4v47.363q0 1.162.338 1.687.337.525 1.012.788l1.351.375q1.2.488 1.2 1.5 0 1.65-2.101 1.65H20.324q-1.05 0-1.537-.412-.488-.413-.488-1.125 0-.562.319-.957.32-.394 1.069-.656l1.463-.375q.674-.262.993-.788.32-.525.319-1.687V20.7q0-.937-.281-1.35t-.919-.525l-1.987-.15q-.675-.187-.976-.525-.3-.337-.299-.862 0-.6.356-.975t1.369-.75l6.974-2.55q1.425-.525 2.288-.769a6 6 0 0 1 1.65-.244q1.162 0 1.763.657.6.656.599 1.743Zm.375 26.588-1.5 1.312-1.724-1.762 1.462-1.312q4.725-4.238 8.1-6.038t6.412-1.8q4.613 0 7.163 3.094t3.113 8.231l2.1 18.937q.112 1.238.412 1.8t1.012.788l1.313.375q.713.262 1.05.656t.338.957q0 .712-.488 1.125-.488.412-1.575.412H45.937q-2.063 0-2.063-1.65 0-1.012 1.163-1.5l1.425-.375q.712-.263 1.106-.825t.244-1.763l-1.95-17.4q-.375-3.262-1.669-4.912-1.293-1.65-3.806-1.65-1.575 0-3.319.825t-3.694 2.475Z"
+              />
+            </svg>
+            <span>hacado</span>
+          </a>
+          <div class="nav-actions">
+            <a class="btn btn-ghost" href="{{ADMIN_URL}}/auth/signin">Log in</a>
+            <a class="btn btn-brand" href="{{ADMIN_URL}}/auth/signup"
+              >Get started</a
+            >
+          </div>
+        </nav>
+      </header>
+      <main>
+        <div class="wash" aria-hidden="true"></div>
+        <p class="code">404</p>
+        <div class="copy">
+          <div class="badge">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+              />
+              <path d="M20 2v4" />
+              <path d="M22 4h-4" />
+              <circle cx="4" cy="20" r="2" />
+            </svg>
+            This short link is unavailable
+          </div>
+          <h1>We couldn&apos;t find this link</h1>
+          <p class="lede">
+            The address may be wrong, or the link may no longer be active. Build
+            your own booking page with Hacado and take appointments online in
+            minutes.
+          </p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-cta" href="{{ADMIN_URL}}/auth/signup">
+            Create your booking website
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+          <span class="or">or</span>
+          <a class="btn btn-outline" href="{{MARKETING_URL}}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+              />
+              <path d="M20 2v4" />
+              <path d="M22 4h-4" />
+              <circle cx="4" cy="20" r="2" />
+            </svg>
+            <span>Explore <span class="display">hacado.com</span></span>
+          </a>
+        </div>
+      </main>
+      <footer>
+        <div class="footer-inner">
+          <p>
+            The all-in-one appointment scheduling platform for modern
+            businesses.
+          </p>
+          <p>
+            © {{YEAR}}
+            <a href="{{MARKETING_URL}}">Hacado</a>. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
