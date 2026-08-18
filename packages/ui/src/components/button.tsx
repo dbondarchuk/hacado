@@ -46,7 +46,7 @@ export const buttonSizes = {
 
 const buttonClasses = cva(
   [
-    "inline-flex gap-1 [&>svg]:size-4 items-center justify-center whitespace-nowrap rounded-md text-base font-normal ring-offset-background transition-colors",
+    "inline-flex gap-1 [&>svg]:size-4 [&>svg]:shrink-0 items-center justify-center whitespace-nowrap rounded-md text-base font-normal ring-offset-background transition-colors",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
     "no-underline",
   ],

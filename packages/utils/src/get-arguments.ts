@@ -33,7 +33,15 @@ const AppointmentStatusTexts: Record<
   },
   declined: {
     en: "Declined",
+    uk: "Відхилено",
+  },
+  canceled: {
+    en: "Canceled",
     uk: "Скасовано",
+  },
+  noShow: {
+    en: "No-show",
+    uk: "Неявка",
   },
 };
 
@@ -64,6 +72,8 @@ type ArgsProps = {
   statusText?: string;
   confirmed: boolean;
   declined: boolean;
+  canceled: boolean;
+  noShow: boolean;
   pending: boolean;
   totalAmountPaid?: number;
   totalAmountLeft?: number;
@@ -233,6 +243,8 @@ export const getArguments = <
       : undefined,
     confirmed: appointment?.status === "confirmed",
     declined: appointment?.status === "declined",
+    canceled: appointment?.status === "canceled",
+    noShow: appointment?.status === "noShow",
     pending: appointment?.status === "pending",
     duration: appointment
       ? durationToTime(appointment.totalDuration)

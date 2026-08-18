@@ -5,6 +5,7 @@ import {
   AppointmentStatus,
   appointmentStatuses,
   CalendarEvent,
+  isClosedAppointmentStatus,
 } from "@hacado/types";
 import { resolveCalendarMemberId } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
   );
 
   const searchParams = calendarSearchParamsLoader(request.nextUrl.searchParams);
-  const { start, end, includeDeclined, member } = searchParams;
+  const { start, end, includeClosed, member } = searchParams;
   const memberId = resolveCalendarMemberId(user, member);
   if (!start || !end) {
     logger.warn("Missing required date range parameters");
@@ -40,14 +41,14 @@ export async function GET(request: NextRequest) {
     {
       start,
       end,
-      includeDeclined,
+      includeClosed,
       memberId,
     },
     "Fetching calendar data",
   );
 
   const statuses: AppointmentStatus[] = appointmentStatuses.filter(
-    (s) => includeDeclined || s !== "declined",
+    (s) => includeClosed || !isClosedAppointmentStatus(s),
   );
 
   const [fullEvents, schedule] = await Promise.all([
@@ -78,7 +79,7 @@ export async function GET(request: NextRequest) {
     {
       start,
       end,
-      includeDeclined,
+      includeClosed,
       memberId,
       eventCount: events.length,
     },

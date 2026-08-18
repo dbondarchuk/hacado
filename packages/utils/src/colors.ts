@@ -118,7 +118,12 @@ export const getColorForName = (name: string): string => {
 const DESTRUCTIVE_ROSE = "#e11d48";
 const PENDING_AMBER = "#f59e0b";
 
-export type CalendarEventColorStatus = "confirmed" | "pending" | "declined";
+export type CalendarEventColorStatus =
+  | "confirmed"
+  | "pending"
+  | "declined"
+  | "canceled"
+  | "noShow";
 
 export type CalendarEventColorStyles = {
   backgroundColor: string;
@@ -143,16 +148,17 @@ function softEventTint(
 
 /**
  * Inline styles for member-colored calendar events.
- * Declined mixes the member color with destructive rose.
+ * Closed statuses mix the member color with destructive rose.
  */
 export const getCalendarEventColorStyles = (
   hex: string,
   status: CalendarEventColorStatus,
 ): CalendarEventColorStyles => {
-  const base =
-    status === "declined"
-      ? Color(hex).mix(Color(DESTRUCTIVE_ROSE), 0.55)
-      : Color(hex);
+  const isClosed =
+    status === "declined" || status === "canceled" || status === "noShow";
+  const base = isClosed
+    ? Color(hex).mix(Color(DESTRUCTIVE_ROSE), 0.55)
+    : Color(hex);
 
   const tint = softEventTint(base);
 
@@ -163,7 +169,7 @@ export const getCalendarEventColorStyles = (
     };
   }
 
-  if (status === "declined") {
+  if (isClosed) {
     return {
       ...tint,
       borderLeftColor: DESTRUCTIVE_ROSE,

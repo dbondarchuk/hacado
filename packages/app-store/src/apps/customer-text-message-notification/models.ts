@@ -1,4 +1,4 @@
-import { appointmentStatuses, zObjectId } from "@hacado/types";
+import { zObjectId } from "@hacado/types";
 import * as z from "zod";
 
 export const textMessagesTemplateSchema = z.object({
@@ -10,16 +10,26 @@ export type TextMessageTemplateConfiguration = z.infer<
 >;
 
 export const textMessagesTemplateKeys = z.enum([
-  ...appointmentStatuses,
+  "pending",
+  "confirmed",
+  "declined",
+  "canceled",
+  "noShow",
   "rescheduled",
 ]);
 
 export type TextMessagesTemplateKeys = z.infer<typeof textMessagesTemplateKeys>;
 
-export const textMessagesTemplatesSchema = z.record(
-  textMessagesTemplateKeys,
-  textMessagesTemplateSchema,
-);
+export const textMessagesTemplatesSchema = z
+  .object({
+    pending: textMessagesTemplateSchema,
+    confirmed: textMessagesTemplateSchema,
+    declined: textMessagesTemplateSchema,
+    canceled: textMessagesTemplateSchema,
+    noShow: textMessagesTemplateSchema,
+    rescheduled: textMessagesTemplateSchema,
+  })
+  .partial();
 
 export const customerTextMessageNotificationConfigurationSchema = z.object({
   templates: textMessagesTemplatesSchema,

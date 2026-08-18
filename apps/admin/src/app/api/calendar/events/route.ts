@@ -1,6 +1,10 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentStatus, appointmentStatuses } from "@hacado/types";
+import {
+  AppointmentStatus,
+  appointmentStatuses,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import { resolveCalendarMemberId } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,8 +27,8 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const startStr = searchParams.get("start");
   const endStr = searchParams.get("end");
-  const includeDeclined =
-    searchParams.get("includeDeclined")?.toLowerCase() === "true";
+  const includeClosed =
+    searchParams.get("includeClosed")?.toLowerCase() === "true";
   const memberId = resolveCalendarMemberId(user, searchParams.get("member"));
 
   if (!startStr || !endStr) {
@@ -46,14 +50,14 @@ export async function GET(request: NextRequest) {
   }
 
   const statuses: AppointmentStatus[] = appointmentStatuses.filter(
-    (s) => includeDeclined || s !== "declined",
+    (s) => includeClosed || !isClosedAppointmentStatus(s),
   );
 
   logger.debug(
     {
       start: start.toISO(),
       end: end.toISO(),
-      includeDeclined,
+      includeClosed,
       statuses,
       memberId,
     },

@@ -92,6 +92,14 @@ export const EnEmailTemplates: EmailTemplates = {
     title: "Appointment for {{option.name}} was cancelled.",
     text: getText("The appointment was cancelled by the customer."),
   },
+  canceled: {
+    title: "Appointment for {{option.name}} was cancelled.",
+    text: getText("The appointment was cancelled by the customer."),
+  },
+  noShow: {
+    title: "Appointment for {{option.name}} was marked as a no-show.",
+    text: getText("The appointment was marked as a no-show."),
+  },
   rescheduledByCustomer: {
     title: "Appointment for {{option.name}} was rescheduled.",
     text: getText(

@@ -12,6 +12,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
+  isClosedAppointmentStatus,
   ITextMessageResponder,
   RespondResult,
   SessionUser,
@@ -483,7 +484,7 @@ export class TextMessageNotificationConnectedApp
         );
       } else if (
         (replyMessage === "n" || replyMessage === "no") &&
-        appointment.status !== "declined"
+        !isClosedAppointmentStatus(appointment.status)
       ) {
         logger.info(
           { appId: appData._id, appointmentId: appointment._id, replyMessage },

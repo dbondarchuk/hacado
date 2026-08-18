@@ -123,6 +123,20 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
+              type={"canceled"}
+              whenText={t("whenText.canceled")}
+            />
+            <TextMessagesTemplateForm
+              form={form}
+              disabled={isLoading}
+              isDataLoading={isDataLoading}
+              type={"noShow"}
+              whenText={t("whenText.noShow")}
+            />
+            <TextMessagesTemplateForm
+              form={form}
+              disabled={isLoading}
+              isDataLoading={isDataLoading}
               type={"rescheduled"}
               whenText={t("whenText.rescheduled")}
             />

@@ -14,9 +14,33 @@ export const appointmentStatuses = [
   "pending",
   "confirmed",
   "declined",
+  "canceled",
+  "noShow",
 ] as const;
 
 export type AppointmentStatus = (typeof appointmentStatuses)[number];
+
+export const closedAppointmentStatuses = [
+  "declined",
+  "canceled",
+  "noShow",
+] as const;
+
+export type ClosedAppointmentStatus =
+  (typeof closedAppointmentStatuses)[number];
+
+export const isClosedAppointmentStatus = (
+  status: AppointmentStatus,
+): status is ClosedAppointmentStatus =>
+  (closedAppointmentStatuses as readonly AppointmentStatus[]).includes(status);
+
+export const openAppointmentStatusMongoFilter = {
+  $nin: closedAppointmentStatuses,
+} as const;
+
+export const closedAppointmentStatusMongoFilter = {
+  $in: closedAppointmentStatuses,
+} as const;
 
 export type AppointmentEntity = Prettify<
   WithOrganizationId<

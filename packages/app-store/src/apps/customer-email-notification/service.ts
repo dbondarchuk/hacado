@@ -90,7 +90,14 @@ export default class CustomerEmailNotificationConnectedApp
         newStatus,
         oldStatus,
         _source,
-      ) => this.onAppointmentStatusChanged(appData, appointment, newStatus),
+        doNotNotifyCustomer,
+      ) =>
+        this.onAppointmentStatusChanged(
+          appData,
+          appointment,
+          newStatus,
+          doNotNotifyCustomer,
+        ),
     });
   }
 
@@ -202,8 +209,22 @@ export default class CustomerEmailNotificationConnectedApp
     appData: ConnectedAppData,
     appointment: Appointment,
     newStatus: AppointmentStatus,
+    doNotNotifyCustomer?: boolean,
   ): Promise<void> {
     const logger = this.loggerFactory("onAppointmentStatusChanged");
+    if (doNotNotifyCustomer) {
+      logger.debug(
+        {
+          appId: appData._id,
+          appointmentId: appointment._id,
+          newStatus,
+          doNotNotifyCustomer,
+        },
+        "Appointment status changed, not sending customer email notification - do not notify customer",
+      );
+      return;
+    }
+
     logger.debug(
       { appId: appData._id, appointmentId: appointment._id, newStatus },
       "Appointment status changed, sending customer email notification",
@@ -372,6 +393,14 @@ export default class CustomerEmailNotificationConnectedApp
       });
 
       const data = appData.data as CustomerEmailNotificationConfiguration;
+      const { templateId } = data.templates[status] ?? {};
+      if (!templateId) {
+        logger.warn(
+          { appId: appData._id, appointmentId: appointment._id, status },
+          "No email template ID configured for status, skipping email notification",
+        );
+        return;
+      }
 
       if (!data.event.templateId) {
         logger.warn(
@@ -440,15 +469,6 @@ export default class CustomerEmailNotificationConnectedApp
         { appId: appData._id, appointmentId: appointment._id, status },
         "Generated event calendar content",
       );
-
-      const { templateId } = data.templates[status];
-      if (!templateId) {
-        logger.warn(
-          { appId: appData._id, appointmentId: appointment._id, status },
-          "No email template ID configured for status, skipping email notification",
-        );
-        return;
-      }
 
       logger.debug(
         {

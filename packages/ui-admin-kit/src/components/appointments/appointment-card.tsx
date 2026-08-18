@@ -2,6 +2,7 @@
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import type { Appointment } from "@hacado/types";
+import { isClosedAppointmentStatus } from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -183,7 +184,7 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
       )}
 
       {/* Actions */}
-      {canUpdate && appointment.status !== "declined" && (
+      {canUpdate && !isClosedAppointmentStatus(appointment.status) && (
         <div className="px-5 py-4 flex flex-col gap-2">
           <AppointmentDeclineDialog
             appointment={appointment}

@@ -1,7 +1,12 @@
 "use client";
 
 import { adminApi } from "@hacado/api-sdk";
-import { Appointment, CalendarEvent, DaySchedule } from "@hacado/types";
+import {
+  Appointment,
+  CalendarEvent,
+  DaySchedule,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import { cn } from "@hacado/ui";
 import { getColorForName } from "@hacado/utils";
 import { DateTime, HourNumbers } from "luxon";
@@ -72,12 +77,11 @@ export const AppointmentCalendar: React.FC<{
         const start = DateTime.fromJSDate(app.dateTime);
         if ("_id" in app) {
           const memberName = app.member?.name || app.member?.email || "";
-          const statusVariant =
-            app.status === "declined"
-              ? "destructive"
-              : app.status === "pending"
-                ? "secondary"
-                : "primary";
+          const statusVariant = isClosedAppointmentStatus(app.status)
+            ? "destructive"
+            : app.status === "pending"
+              ? "secondary"
+              : "primary";
           return {
             start: start.toJSDate(),
             end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
@@ -94,7 +98,8 @@ export const AppointmentCalendar: React.FC<{
               : undefined,
             color: memberName ? getColorForName(memberName) : undefined,
             variant:
-              app._id === appointment._id && app.status !== "declined"
+              app._id === appointment._id &&
+              !isClosedAppointmentStatus(app.status)
                 ? "current"
                 : statusVariant,
           };

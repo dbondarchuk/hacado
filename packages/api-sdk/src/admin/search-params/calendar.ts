@@ -11,7 +11,7 @@ import {
 export const calendarSearchParams = {
   start: parseAsIsoDateTime,
   end: parseAsIsoDateTime,
-  includeDeclined: parseAsBoolean.withDefault(false),
+  includeClosed: parseAsBoolean.withDefault(false),
   member: parseAsString,
 };
 

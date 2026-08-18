@@ -2,7 +2,12 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment, AppointmentStatus, Payment } from "@hacado/types";
+import {
+  Appointment,
+  AppointmentStatus,
+  ClosedAppointmentStatus,
+  Payment,
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +24,8 @@ import {
   CurrencyPercentageInput,
   Label,
   Link,
+  RadioButtonGroup,
+  RadioButtonGroupItem,
   ScrollArea,
   TooltipResponsive,
   TooltipResponsiveContent,
@@ -309,11 +316,15 @@ export const AppointmentDeclineDialog: React.FC<{
 
   const locale = useLocale();
   const [isLoading, setIsLoading] = React.useState(false);
-  const [requestedByCustomer, setRequestedByCustomer] = React.useState(false);
+  const [closeReason, setCloseReason] =
+    React.useState<ClosedAppointmentStatus>("declined");
+  const [doNotNotifyCustomer, setDoNotNotifyCustomer] = React.useState(false);
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
       setPaymentsIdsSelectionState({});
+      setCloseReason("declined");
+      setDoNotNotifyCustomer(false);
       onClose?.();
     }
   };
@@ -413,16 +424,16 @@ export const AppointmentDeclineDialog: React.FC<{
       }}
     >
       {!!trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
-      <AlertDialogContent className="md:max-w-2xl">
+      <AlertDialogContent className="max-w-4xl min-w-0 overflow-x-hidden">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t("admin.appointments.declineDialog.title")}
+            {t(`admin.appointments.declineDialog.title.${closeReason}`)}
           </AlertDialogTitle>
           <AlertDialogDescription>
-            {t("admin.appointments.declineDialog.description")}
+            {t(`admin.appointments.declineDialog.description.${closeReason}`)}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <ScrollArea className="max-h-[60svh]">
+        <ScrollArea className="max-h-[55dvh]">
           <div className="flex flex-col gap-4">
             <div className="bg-muted/30 dark:bg-muted/80 text-foreground font-normal rounded-lg p-4 flex flex-col gap-2">
               <h4 className="font-semibold mb-3">
@@ -458,15 +469,51 @@ export const AppointmentDeclineDialog: React.FC<{
                 </div>
               </div>
             </div>
-            <div className="flex flex-row gap-2 items-center">
-              <Checkbox
-                id="requestedByCustomer"
-                checked={requestedByCustomer}
-                onCheckedChange={(checked) => setRequestedByCustomer(!!checked)}
-              />
-              <Label htmlFor="requestedByCustomer">
-                {t("admin.appointments.declineDialog.requestedByCustomer")}
-              </Label>
+            <div className="flex flex-col gap-2">
+              <Label>{t("admin.appointments.declineDialog.reason")}</Label>
+              <RadioButtonGroup
+                value={closeReason}
+                onValueChange={(value) =>
+                  setCloseReason(value as ClosedAppointmentStatus)
+                }
+                className="md:grid md:grid-cols-3"
+              >
+                {(
+                  [
+                    "declined",
+                    "canceled",
+                    "noShow",
+                  ] as const satisfies ClosedAppointmentStatus[]
+                ).map((reason) => (
+                  <RadioButtonGroupItem
+                    key={reason}
+                    value={reason}
+                    fullWidth
+                    checkedVariant="destructive"
+                  >
+                    {t(`admin.appointments.declineDialog.reasons.${reason}`)}
+                  </RadioButtonGroupItem>
+                ))}
+              </RadioButtonGroup>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="flex flex-row gap-2 items-center">
+                <Checkbox
+                  id="doNotNotifyCustomer"
+                  checked={doNotNotifyCustomer}
+                  onCheckedChange={(checked) =>
+                    setDoNotNotifyCustomer(!!checked)
+                  }
+                />
+                <Label htmlFor="doNotNotifyCustomer">
+                  {t("admin.appointments.declineDialog.doNotNotifyCustomer")}
+                </Label>
+              </div>
+              <p className="text-sm text-muted-foreground pl-6">
+                {t(
+                  "admin.appointments.declineDialog.doNotNotifyCustomerDescription",
+                )}
+              </p>
             </div>
             {!!paymentsAvailableToRefund.length && (
               <div className="flex flex-col gap-2">
@@ -488,18 +535,22 @@ export const AppointmentDeclineDialog: React.FC<{
             )}
           </div>
         </ScrollArea>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="gap-2 sm:flex-wrap sm:space-x-0">
           <AlertDialogCancel disabled={isLoading}>
             {t("admin.appointments.declineDialog.cancel")}
           </AlertDialogCancel>
           {!!paymentsAvailableToRefund.length && (
-            <AlertDialogAction asChild variant="destructive">
+            <AlertDialogAction
+              asChild
+              variant="destructive"
+              className="h-auto whitespace-normal"
+            >
               <AppointmentActionButton
                 _id={appointment._id}
-                status="declined"
-                requestedByCustomer={requestedByCustomer}
+                status={closeReason}
+                doNotNotifyCustomer={doNotNotifyCustomer}
                 disabled={!selectedPayments.length || isLoading}
-                className="mt-2 sm:mt-0"
+                className="mt-2 sm:mt-0 h-auto whitespace-normal text-center max-w-full"
                 beforeRequest={() => refundSelected()}
                 setIsLoading={setIsLoading}
                 onSuccess={handleSuccess}
@@ -511,7 +562,7 @@ export const AppointmentDeclineDialog: React.FC<{
                     0,
                   );
                   return t(
-                    "admin.appointments.declineDialog.declineAndRefund",
+                    `admin.appointments.declineDialog.confirmAndRefund.${closeReason}`,
                     {
                       count: selectedPayments.length,
                       amount,
@@ -525,14 +576,14 @@ export const AppointmentDeclineDialog: React.FC<{
           <AlertDialogAction asChild variant="destructive">
             <AppointmentActionButton
               _id={appointment._id}
-              status="declined"
-              requestedByCustomer={requestedByCustomer}
+              status={closeReason}
+              doNotNotifyCustomer={doNotNotifyCustomer}
               disabled={isLoading}
               setIsLoading={setIsLoading}
               onSuccess={handleSuccess}
               icon={CalendarX2}
             >
-              {t("admin.appointments.declineDialog.decline")}
+              {t(`admin.appointments.declineDialog.confirm.${closeReason}`)}
             </AppointmentActionButton>
           </AlertDialogAction>
         </AlertDialogFooter>

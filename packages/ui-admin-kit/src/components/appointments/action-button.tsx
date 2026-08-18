@@ -19,7 +19,7 @@ export const changeStatus = async (
   refresh: () => void,
   onSuccess?: (newStatus: AppointmentStatus) => void,
   beforeRequest?: () => Promise<void> | void,
-  requestedByCustomer?: boolean,
+  doNotNotifyCustomer?: boolean,
   onPastDue?: () => void,
 ) => {
   setIsLoading(true);
@@ -33,7 +33,7 @@ export const changeStatus = async (
     const res = await adminApi.appointments.changeStatus(
       _id,
       status,
-      requestedByCustomer,
+      doNotNotifyCustomer,
     );
     if (res !== okStatus) throw new Error("Request failed");
   };
@@ -61,7 +61,7 @@ export const AppointmentActionButton = React.forwardRef<
   ButtonProps & {
     _id: string;
     status: AppointmentStatus;
-    requestedByCustomer?: boolean;
+    doNotNotifyCustomer?: boolean;
     onSuccess?: (newStatus: AppointmentStatus) => void;
     beforeRequest?: () => Promise<void> | void;
     setIsLoading?: (isLoading: boolean) => void;
@@ -72,7 +72,7 @@ export const AppointmentActionButton = React.forwardRef<
     {
       _id,
       status,
-      requestedByCustomer,
+      doNotNotifyCustomer,
       onSuccess,
       beforeRequest,
       onClick: originalOnClick,
@@ -105,7 +105,7 @@ export const AppointmentActionButton = React.forwardRef<
           originalOnClick?.(e);
         },
         beforeRequest,
-        requestedByCustomer,
+        doNotNotifyCustomer,
         () => setIsPastDueDialogOpen(true),
       );
     };

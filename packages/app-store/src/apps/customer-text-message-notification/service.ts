@@ -89,7 +89,14 @@ export default class CustomerTextMessageNotificationConnectedApp
         newStatus,
         oldStatus,
         _source,
-      ) => this.onAppointmentStatusChanged(appData, appointment, newStatus),
+        doNotNotifyCustomer,
+      ) =>
+        this.onAppointmentStatusChanged(
+          appData,
+          appointment,
+          newStatus,
+          doNotNotifyCustomer,
+        ),
     });
   }
 
@@ -200,8 +207,22 @@ export default class CustomerTextMessageNotificationConnectedApp
     appData: ConnectedAppData,
     appointment: Appointment,
     newStatus: AppointmentStatus,
+    doNotNotifyCustomer?: boolean,
   ): Promise<void> {
     const logger = this.loggerFactory("onAppointmentStatusChanged");
+    if (doNotNotifyCustomer) {
+      logger.debug(
+        {
+          appId: appData._id,
+          appointmentId: appointment._id,
+          newStatus,
+          doNotNotifyCustomer,
+        },
+        "Appointment status changed, not sending customer text message notification - do not notify customer",
+      );
+      return;
+    }
+
     logger.debug(
       { appId: appData._id, appointmentId: appointment._id, newStatus },
       "Appointment status changed, sending customer text message notification",
@@ -331,7 +352,7 @@ export default class CustomerTextMessageNotificationConnectedApp
 
     try {
       const data = appData.data as CustomerTextMessageNotificationConfiguration;
-      const templateId = data.templates[status].templateId;
+      const templateId = data.templates[status]?.templateId;
 
       if (!templateId) {
         logger.warn(

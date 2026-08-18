@@ -313,6 +313,8 @@ async function ensureInstallCustomerNotificationTemplates(
         "appointment-created-email",
         "appointment-confirmed-email",
         "appointment-declined-email",
+        "appointment-canceled-email",
+        "appointment-no-show-email",
         "appointment-rescheduled-email",
       ] as const;
 
@@ -328,6 +330,7 @@ async function ensureInstallCustomerNotificationTemplates(
         map["appointment-created-email"] &&
         map["appointment-confirmed-email"] &&
         map["appointment-declined-email"] &&
+        map["appointment-canceled-email"] &&
         map["appointment-rescheduled-email"]
       ) {
         logger.debug(
@@ -342,6 +345,7 @@ async function ensureInstallCustomerNotificationTemplates(
               pending: { templateId: map["appointment-created-email"] },
               confirmed: { templateId: map["appointment-confirmed-email"] },
               declined: { templateId: map["appointment-declined-email"] },
+              canceled: { templateId: map["appointment-canceled-email"] },
               rescheduled: { templateId: map["appointment-rescheduled-email"] },
             },
           },
@@ -368,6 +372,8 @@ async function ensureInstallCustomerNotificationTemplates(
         "appointment-created-text-message",
         "appointment-confirmed-text-message",
         "appointment-declined-text-message",
+        "appointment-canceled-text-message",
+        "appointment-no-show-text-message",
         "appointment-rescheduled-text-message",
       ] as const;
 
@@ -383,6 +389,7 @@ async function ensureInstallCustomerNotificationTemplates(
         map["appointment-created-text-message"] &&
         map["appointment-confirmed-text-message"] &&
         map["appointment-declined-text-message"] &&
+        map["appointment-canceled-text-message"] &&
         map["appointment-rescheduled-text-message"]
       ) {
         logger.debug(
@@ -400,6 +407,9 @@ async function ensureInstallCustomerNotificationTemplates(
               },
               declined: {
                 templateId: map["appointment-declined-text-message"],
+              },
+              canceled: {
+                templateId: map["appointment-canceled-text-message"],
               },
               rescheduled: {
                 templateId: map["appointment-rescheduled-text-message"],

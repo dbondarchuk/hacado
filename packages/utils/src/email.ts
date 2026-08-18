@@ -24,6 +24,8 @@ export const AppointmentStatusToICalMethodMap: Record<
   pending: "REQUEST",
   confirmed: "PUBLISH",
   declined: "CANCEL",
+  canceled: "CANCEL",
+  noShow: "CANCEL",
   rescheduled: "REQUEST",
 };
 

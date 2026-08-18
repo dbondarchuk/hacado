@@ -79,11 +79,12 @@ export const getAppointment = async (id: string) => {
 export async function changeStatus(
   id: string,
   newStatus: AppointmentStatus,
-  requestedByCustomer?: boolean,
+  doNotNotifyCustomer?: boolean,
 ) {
   console.debug("Changing appointment status", {
     appointmentId: id,
     newStatus,
+    doNotNotifyCustomer,
   });
 
   try {
@@ -91,7 +92,7 @@ export async function changeStatus(
       method: "PATCH",
       body: JSON.stringify({
         status: newStatus,
-        ...(requestedByCustomer !== undefined ? { requestedByCustomer } : {}),
+        ...(doNotNotifyCustomer !== undefined ? { doNotNotifyCustomer } : {}),
       }),
     });
 

@@ -1,4 +1,4 @@
-import { getNonDeclinedAppointmentsCreatedInBillingCycleCount } from "./billing/free-tier-appointment-usage";
+import { getOpenAppointmentsCreatedInBillingCycleCount } from "./billing/free-tier-appointment-usage";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import { getDbClient, getDbConnection } from "./database";
 
@@ -21,6 +21,7 @@ import {
   BillingPlanTier,
   BookingRestriction,
   BookingRestrictionCode,
+  closedAppointmentStatusMongoFilter,
   Customer,
   DISCOUNT_APPLIED_EVENT_TYPE,
   FieldSchema,
@@ -33,8 +34,10 @@ import {
   IMeetingUrlProvider,
   IOrganizationService,
   IPaymentsService,
+  isClosedAppointmentStatus,
   IServicesService,
   ITeamService,
+  openAppointmentStatusMongoFilter,
   OrganizationMember,
   Payment,
   PaymentHistory,
@@ -140,7 +143,7 @@ export class BookingService extends BaseService implements IBookingService {
       return undefined;
     }
 
-    const count = await getNonDeclinedAppointmentsCreatedInBillingCycleCount(
+    const count = await getOpenAppointmentsCreatedInBillingCycleCount(
       this.organizationId,
       this.billingService,
     );
@@ -509,9 +512,9 @@ export class BookingService extends BaseService implements IBookingService {
       throw new Error("Appointment not found");
     }
 
-    if (appointment.status === "declined") {
-      logger.error({ id: appointmentId }, "Appointment is declined");
-      throw new Error("Appointment is declined");
+    if (isClosedAppointmentStatus(appointment.status)) {
+      logger.error({ id: appointmentId }, "Appointment is closed");
+      throw new Error("Appointment is closed");
     }
 
     const enrichedEventSource = enrichEventSourceWithCustomerId(
@@ -767,9 +770,7 @@ export class BookingService extends BaseService implements IBookingService {
             endAt: {
               $gte: date,
             },
-            status: {
-              $ne: "declined",
-            },
+            status: openAppointmentStatusMongoFilter,
             ...(memberId ? { memberId } : {}),
           },
         },
@@ -1161,10 +1162,11 @@ export class BookingService extends BaseService implements IBookingService {
     id: string,
     newStatus: AppointmentStatus,
     eventSource: EventSource,
+    doNotNotifyCustomer?: boolean,
   ) {
     const logger = this.loggerFactory("changeAppointmentStatus");
     logger.debug(
-      { appointmentId: id, newStatus },
+      { appointmentId: id, newStatus, doNotNotifyCustomer },
       "Changing appointment status",
     );
 
@@ -1230,6 +1232,7 @@ export class BookingService extends BaseService implements IBookingService {
         appointment,
         newStatus,
         oldStatus,
+        doNotNotifyCustomer,
       } satisfies AppointmentStatusChangedPayload,
       enrichedEventSource,
     );
@@ -1779,14 +1782,14 @@ export class BookingService extends BaseService implements IBookingService {
     logger.debug({ start, end, memberId }, "Getting busy times");
 
     const url = getAdminUrl();
-    const declinedAppointments = await this.getDbDeclinedEventIds(start, end);
-    const declinedUids = new Set(
-      declinedAppointments.map((id) => getIcsEventUid(id, url)),
+    const closedAppointments = await this.getDbClosedEventIds(start, end);
+    const closedUids = new Set(
+      closedAppointments.map((id) => getIcsEventUid(id, url)),
     );
 
     logger.debug(
-      { start, end, declinedAppointments, declinedUids },
-      "Declined appointments retrieved",
+      { start, end, closedAppointments, closedUids },
+      "Closed appointments retrieved",
     );
 
     const membersAndCalendarSourceAppIds =
@@ -1839,7 +1842,7 @@ export class BookingService extends BaseService implements IBookingService {
 
     const remoteEvents = appsEvents
       .flat()
-      .filter((event) => !declinedUids.has(event.uid))
+      .filter((event) => !closedUids.has(event.uid))
       .map(
         (event) =>
           ({
@@ -1970,9 +1973,7 @@ export class BookingService extends BaseService implements IBookingService {
           $gte: start.minus({ days: 1 }).toJSDate(),
           $lte: end.plus({ days: 1 }).toJSDate(),
         },
-        status: {
-          $ne: "declined",
-        },
+        status: openAppointmentStatusMongoFilter,
         ...(memberId ? { memberId } : {}),
       })
       .map(({ totalDuration: duration, dateTime }) => {
@@ -1998,14 +1999,14 @@ export class BookingService extends BaseService implements IBookingService {
     }));
   }
 
-  private async getDbDeclinedEventIds(
+  private async getDbClosedEventIds(
     start: DateTime,
     end: DateTime,
   ): Promise<string[]> {
-    const logger = this.loggerFactory("getDbDeclinedEventIds");
+    const logger = this.loggerFactory("getDbClosedEventIds");
 
     const db = await getDbConnection();
-    logger.debug({ start, end }, "Getting declined event ids from db");
+    logger.debug({ start, end }, "Getting closed event ids from db");
 
     const ids = await db
       .collection<AppointmentEntity>(APPOINTMENTS_COLLECTION_NAME)
@@ -2015,16 +2016,14 @@ export class BookingService extends BaseService implements IBookingService {
           $gte: start.minus({ days: 1 }).toJSDate(),
           $lte: end.plus({ days: 1 }).toJSDate(),
         },
-        status: {
-          $eq: "declined",
-        },
+        status: closedAppointmentStatusMongoFilter,
       })
       .map(({ _id }) => _id)
       .toArray();
 
     logger.debug(
       { start, end, ids: ids.length },
-      "Declined event ids retrieved from db",
+      "Closed event ids retrieved from db",
     );
 
     return ids;

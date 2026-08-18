@@ -289,7 +289,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
         </div>
 
         {/* Financial Metrics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-medium">
@@ -361,15 +361,32 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-base font-medium">
-                {t("financialOverview.view.declinedAppointments")}
+                {t("financialOverview.view.canceledAppointments")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               {loading ? (
                 <Skeleton className="w-full h-10" />
               ) : (
-                <div className="text-2xl font-bold text-red-600">
-                  {financialMetrics.declinedAppointments}
+                <div className="text-2xl font-bold text-orange-600">
+                  {financialMetrics.canceledAppointments}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-base font-medium">
+                {t("financialOverview.view.noShowAppointments")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <Skeleton className="w-full h-10" />
+              ) : (
+                <div className="text-2xl font-bold text-muted-foreground">
+                  {financialMetrics.noShowAppointments}
                 </div>
               )}
             </CardContent>
@@ -473,22 +490,44 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
                       contentStyle={tooltipContentStyle}
                       formatter={(value, name) => [
                         value,
-                        name === "activeAppointments"
-                          ? t("financialOverview.view.activeAppointments")
-                          : name === "declinedAppointments"
-                            ? t("financialOverview.view.declinedAppointments")
-                            : name,
+                        name === "confirmedAppointments"
+                          ? t("financialOverview.view.confirmedAppointments")
+                          : name === "noShowAppointments"
+                            ? t("financialOverview.view.noShowAppointments")
+                            : name === "canceledAppointments"
+                              ? t("financialOverview.view.canceledAppointments")
+                              : name === "declinedAppointments"
+                                ? t(
+                                    "financialOverview.view.declinedAppointments",
+                                  )
+                                : name,
                       ]}
                       labelFormatter={(label) => `Date: ${label}`}
                     />
                     <Legend />
                     <Line
                       type="monotone"
-                      dataKey="activeAppointments"
+                      dataKey="confirmedAppointments"
                       stroke="#10b981"
                       strokeWidth={3}
                       dot={{ fill: "#10b981", strokeWidth: 2, r: 5 }}
-                      name={t("financialOverview.view.activeAppointments")}
+                      name={t("financialOverview.view.confirmedAppointments")}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="noShowAppointments"
+                      stroke="#6b7280"
+                      strokeWidth={3}
+                      dot={{ fill: "#6b7280", strokeWidth: 2, r: 5 }}
+                      name={t("financialOverview.view.noShowAppointments")}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="canceledAppointments"
+                      stroke="#f97316"
+                      strokeWidth={3}
+                      dot={{ fill: "#f97316", strokeWidth: 2, r: 5 }}
+                      name={t("financialOverview.view.canceledAppointments")}
                     />
                     <Line
                       type="monotone"

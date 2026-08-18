@@ -30,6 +30,7 @@ import {
   MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   MEMBER_REACTIVATED_EVENT_TYPE,
   MEMBER_ROLE_CHANGED_EVENT_TYPE,
+  openAppointmentStatusMongoFilter,
 } from "@hacado/types";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
@@ -292,7 +293,7 @@ export class TeamService extends BaseService implements ITeamService {
         organizationId: this.organizationId,
         memberId,
         dateTime: { $gte: now },
-        status: { $ne: "declined" },
+        status: openAppointmentStatusMongoFilter,
       })
       .project({ _id: 1, dateTime: 1, "fields.name": 1 })
       .sort({ dateTime: 1 })

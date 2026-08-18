@@ -92,6 +92,14 @@ export const UkEmailTemplates: EmailTemplates = {
     title: "Запис на {{option.name}} був скасований.",
     text: getText("Запис був скасований клієнтом."),
   },
+  canceled: {
+    title: "Запис на {{option.name}} був скасований.",
+    text: getText("Запис був скасований клієнтом."),
+  },
+  noShow: {
+    title: "Запис на {{option.name}} позначено як неявку.",
+    text: getText("Запис був позначений як неявка клієнта."),
+  },
   rescheduledByCustomer: {
     title: "Запис на {{option.name}} був перенесений.",
     text: getText(

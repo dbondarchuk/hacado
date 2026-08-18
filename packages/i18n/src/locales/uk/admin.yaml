@@ -489,7 +489,10 @@ financialOverview:
     totalPayments: Загальні платежі
     netPayments: Чисті платежі
     activeAppointments: Активні записи
+    confirmedAppointments: Підтверджені записи
     declinedAppointments: Відхилені записи
+    canceledAppointments: Скасовані записи
+    noShowAppointments: Неявки
     recentPayments: Останні платежі
     paymentMethods: Способи оплати
     noPayments: Платежі не знайдено
@@ -753,6 +756,8 @@ appointments:
     pending: Очікує підтвердження
     confirmed: Підтверджено
     declined: Відхилено
+    canceled: Скасовано
+    noShow: Неявка
     rescheduled: Перенесено
   table:
     filters:
@@ -802,12 +807,25 @@ appointments:
     addons: Додатки
     member: Співробітник
   declineDialog:
-    title: Відхилити запис
-    description: Цю дію неможливо скасувати. Це назавжди відхилить цей запис.
+    title:
+      declined: Відхилити запис
+      canceled: Скасувати запис
+      noShow: Зафіксувати неявку
+    description:
+      declined: Цю дію неможливо скасувати. Це назавжди відхилить цей запис.
+      canceled: Цю дію неможливо скасувати. Це зафіксує запис як скасований клієнтом.
+      noShow: Цю дію неможливо скасувати. Це зафіксує неявку клієнта та закриє запис.
     appointmentDetails: Деталі запису
     customer: Клієнт
     service: Послуга
     dateTime: Дата та час
+    reason: Причина
+    reasons:
+      declined: Відхилено вами
+      canceled: Скасовано клієнтом
+      noShow: Неявка клієнта
+    doNotNotifyCustomer: Не повідомляти клієнта
+    doNotNotifyCustomerDescription: Якщо ввімкнено, клієнт не буде повідомлений про цю зміну
     refundPayments: Повернути платежі
     amount: Сума
     transactionId: ID транзакції
@@ -816,13 +834,18 @@ appointments:
     timePaid: Час оплати
     fees: Комісії
     cancel: Скасувати
-    declineAndRefund: Відхилити та повернути {count, plural, =1 {платіж} few {# платежі} many {# платежів} other {# платежів}}{amount, plural, =0 {} other { на суму {amountFormatted}}}
-    decline: Відхилити
+    confirmAndRefund:
+      declined: Відхилити та повернути {count, plural, =1 {платіж} few {# платежі} many {# платежів} other {# платежів}}{amount, plural, =0 {} other { на суму {amountFormatted}}}
+      canceled: Скасувати та повернути {count, plural, =1 {платіж} few {# платежі} many {# платежів} other {# платежів}}{amount, plural, =0 {} other { на суму {amountFormatted}}}
+      noShow: Неявка та повернути {count, plural, =1 {платіж} few {# платежі} many {# платежів} other {# платежів}}{amount, plural, =0 {} other { на суму {amountFormatted}}}
+    confirm:
+      declined: Відхилити
+      canceled: Скасувати
+      noShow: Зафіксувати неявку
     refunded: Повернено
     refundableAmount: Сума, що може бути повернена
     refundAmount: Сума повернення
     refundError: Один або більше запитів на повернення не вдалися.
-    requestedByCustomer: Затребувано клієнтом
     giftCardCode: Код подарункової картки
     paymentDescription: Опис
     refundFees: Повертати комісії

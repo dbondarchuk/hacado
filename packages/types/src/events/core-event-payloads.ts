@@ -127,6 +127,7 @@ export type AppointmentStatusChangedPayload = {
   appointment: Appointment;
   newStatus: AppointmentStatus;
   oldStatus?: AppointmentStatus;
+  doNotNotifyCustomer?: boolean;
 };
 
 /** Emitted with {@link DISCOUNT_APPLIED_EVENT_TYPE}. */

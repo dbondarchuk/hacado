@@ -67,6 +67,8 @@ const evetStatusToGoogleEventStatus: Record<
 > = {
   confirmed: "confirmed",
   declined: "cancelled",
+  canceled: "cancelled",
+  noShow: "cancelled",
   pending: "tentative",
 };
 

@@ -57,6 +57,8 @@ block:
       pending: Очікує
       confirmed: Підтверджено
       declined: Відхилено
+      canceled: Скасовано
+      noShow: Скасовано
   modify:
     title: Змінити запис
     step:

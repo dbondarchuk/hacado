@@ -10,7 +10,7 @@ import {
 } from "@hacado/types";
 import { getAdminUrl } from "@hacado/utils";
 
-import { getNonDeclinedAppointmentsCreatedInBillingCycleCount } from "../../../billing/free-tier-appointment-usage";
+import { getOpenAppointmentsCreatedInBillingCycleCount } from "../../../billing/free-tier-appointment-usage";
 import { resolvePlanTierFromOrganization } from "../../../billing/subscription-entitlements";
 import { dashboardUrls } from "../links";
 
@@ -27,7 +27,7 @@ export async function buildAppointmentLimitReachedEmails(
     return null;
   }
 
-  const count = await getNonDeclinedAppointmentsCreatedInBillingCycleCount(
+  const count = await getOpenAppointmentsCreatedInBillingCycleCount(
     envelope.organizationId,
     services.billingService,
   );

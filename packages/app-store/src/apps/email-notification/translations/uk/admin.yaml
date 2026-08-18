@@ -25,5 +25,7 @@ handlers:
   pending: Email повідомлення - Очікує
   confirmed: Email повідомлення - Підтверджено
   declined: Email повідомлення - Відхилено
+  canceled: Email повідомлення - Скасовано
+  noShow: Email повідомлення - Неявка
   rescheduled: Email повідомлення - Перенесено
 

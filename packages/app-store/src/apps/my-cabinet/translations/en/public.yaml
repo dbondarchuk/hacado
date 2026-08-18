@@ -57,6 +57,8 @@ block:
       pending: Pending
       confirmed: Confirmed
       declined: Declined
+      canceled: Canceled
+      noShow: Canceled
   modify:
     title: Modify appointment
     step:

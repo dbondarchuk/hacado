@@ -5,6 +5,7 @@ import {
   CANCELLATION_NOT_ALLOWED_BY_POLICY_REASON,
   CANCELLATION_NOT_ALLOWED_REASON,
   CustomerSession,
+  isClosedAppointmentStatus,
   MAX_RESCHEDULES_REACHED_REASON,
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
@@ -55,10 +56,10 @@ async function resolveAppointmentForModify(
       return null;
     }
 
-    if (appointment.status === "declined") {
+    if (isClosedAppointmentStatus(appointment.status)) {
       logger.warn(
         { appointmentId: request.appointmentId },
-        "Appointment is declined",
+        "Appointment is closed",
       );
       return null;
     }
@@ -124,7 +125,7 @@ export const getModifyAppointmentInformationRequestResult = async (
   const appointment = await resolveAppointmentForModify(session, request);
   if (
     !appointment ||
-    appointment.status === "declined" ||
+    isClosedAppointmentStatus(appointment.status) ||
     appointment.dateTime < new Date()
   ) {
     logger.warn({ request }, "Appointment not found");

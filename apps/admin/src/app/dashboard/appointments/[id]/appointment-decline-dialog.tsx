@@ -1,6 +1,10 @@
 "use client";
 
-import { Appointment, AppointmentStatus } from "@hacado/types";
+import {
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import { useReload } from "@hacado/ui-admin";
 import { AppointmentDeclineDialog } from "@hacado/ui-admin-kit";
 
@@ -19,7 +23,7 @@ export const AppointmentDeclineDialogWrapper: React.FC<{
   return (
     <AppointmentDeclineDialog
       appointment={appointment}
-      open={appointment.status !== "declined"}
+      open={!isClosedAppointmentStatus(appointment.status)}
       onClose={onClose}
       onSuccess={handleSuccess}
     />

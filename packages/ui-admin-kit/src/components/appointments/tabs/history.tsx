@@ -1,7 +1,10 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { AppointmentHistoryEntry } from "@hacado/types";
+import {
+  AppointmentHistoryEntry,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import { useInView } from "react-intersection-observer";
 
 import { adminApi } from "@hacado/api-sdk";
@@ -50,6 +53,8 @@ const HistoryEntryTypeIcon: React.FC<{
         case "confirmed":
           return <CalendarCheck className={className} />;
         case "declined":
+        case "canceled":
+        case "noShow":
           return <CalendarX className={className} />;
       }
     default:
@@ -130,7 +135,8 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
                 className={cn(
                   "text-sm",
                   entry.data.oldStatus === "confirmed" && "bg-green-500",
-                  entry.data.oldStatus === "declined" && "bg-destructive",
+                  isClosedAppointmentStatus(entry.data.oldStatus) &&
+                    "bg-destructive",
                 )}
               >
                 {t("admin.appointments.history.oldStatus", {
@@ -144,7 +150,8 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
                 className={cn(
                   "text-sm",
                   entry.data.newStatus === "confirmed" && "bg-green-500",
-                  entry.data.newStatus === "declined" && "bg-destructive",
+                  isClosedAppointmentStatus(entry.data.newStatus) &&
+                    "bg-destructive",
                 )}
               >
                 {t("admin.appointments.history.newStatus", {

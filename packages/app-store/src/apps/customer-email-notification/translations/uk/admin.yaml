@@ -19,7 +19,15 @@ form:
   declined:
     templateId:
       label: Шаблон email коли відхилено
-      description: Шаблон email, який побачать ваші клієнти, коли їхній запис був відхилений
+      description: Надсилається, коли ви відхиляєте запит на бронювання
+  canceled:
+    templateId:
+      label: Шаблон email коли скасовано
+      description: Надсилається, коли клієнт скасовує запис, або коли ви фіксуєте скасування клієнтом
+  noShow:
+    templateId:
+      label: Шаблон email для неявки
+      description: Необов'язково. Надсилається, коли ви позначаєте клієнта як неявку. Залиште порожнім, щоб нічого не надсилати, або позначте «Не повідомляти клієнта» на записі.
   rescheduled:
     templateId:
       label: Шаблон email коли перенесено
@@ -40,6 +48,8 @@ handlers:
   pending: Email повідомлення клієнту - Очікує
   confirmed: Email повідомлення клієнту - Підтверджено
   declined: Email повідомлення клієнту - Відхилено
+  canceled: Email повідомлення клієнту - Скасовано
+  noShow: Email повідомлення клієнту - Неявка
   rescheduled: Email повідомлення клієнту - Перенесено
 validation:
   eventTemplate:

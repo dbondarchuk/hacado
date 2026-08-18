@@ -1,10 +1,11 @@
 import { getDbConnection } from "@hacado/services/database";
-import type {
-  BookingStep,
-  BookingTrackingEvent,
-  DateRange,
-  Payment,
-  PaymentSummary,
+import {
+  type BookingStep,
+  type BookingTrackingEvent,
+  closedAppointmentStatuses,
+  type DateRange,
+  type Payment,
+  type PaymentSummary,
 } from "@hacado/types";
 import { Filter } from "mongodb";
 import type {
@@ -24,6 +25,33 @@ const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";
 
 /** Collection name for gift cards; payments linked as giftCard.paymentId are excluded (gift card purchases, not service revenue). */
 const GIFT_CARDS_COLLECTION_NAME = "gift-cards";
+
+const closedStatuses = [...closedAppointmentStatuses];
+
+function estimatedRevenueAddFields() {
+  return {
+    $addFields: {
+      estimatedRevenue: {
+        $cond: [
+          { $in: ["$status", ["confirmed", "pending"]] },
+          "$totalPrice",
+          {
+            $cond: [
+              {
+                $and: [
+                  { $in: ["$status", closedStatuses] },
+                  { $gt: ["$netPaymentAmount", 0] },
+                ],
+              },
+              "$netPaymentAmount",
+              0,
+            ],
+          },
+        ],
+      },
+    },
+  };
+}
 
 function getTimeGroupingFormat(timeGrouping: TimeGrouping): string {
   switch (timeGrouping) {
@@ -173,30 +201,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         },
       },
-      {
-        $addFields: {
-          estimatedRevenue: {
-            $cond: [
-              // If appointment is confirmed or pending, use totalPrice
-              { $in: ["$status", ["confirmed", "pending"]] },
-              "$totalPrice",
-              // If appointment is declined but has non-fully refunded payments
-              {
-                $cond: [
-                  {
-                    $and: [
-                      { $eq: ["$status", "declined"] },
-                      { $gt: ["$netPaymentAmount", 0] },
-                    ],
-                  },
-                  "$netPaymentAmount",
-                  0,
-                ],
-              },
-            ],
-          },
-        },
-      },
+      estimatedRevenueAddFields(),
       {
         $group: {
           _id: null,
@@ -208,8 +213,11 @@ export function createFinancialOverviewQueries(organizationId: string) {
               $cond: [{ $in: ["$status", ["confirmed", "pending"]] }, 1, 0],
             },
           },
-          declinedAppointments: {
-            $sum: { $cond: [{ $eq: ["$status", "declined"] }, 1, 0] },
+          canceledAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "canceled"] }, 1, 0] },
+          },
+          noShowAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "noShow"] }, 1, 0] },
           },
         },
       },
@@ -221,7 +229,8 @@ export function createFinancialOverviewQueries(organizationId: string) {
       totalPayments: 0,
       netPayments: 0,
       activeAppointments: 0,
-      declinedAppointments: 0,
+      canceledAppointments: 0,
+      noShowAppointments: 0,
     };
 
     const financialMetrics: FinancialMetrics = {
@@ -229,7 +238,8 @@ export function createFinancialOverviewQueries(organizationId: string) {
       totalPayments: metrics.totalPayments || 0,
       netPayments: metrics.netPayments || 0,
       activeAppointments: metrics.activeAppointments || 0,
-      declinedAppointments: metrics.declinedAppointments || 0,
+      canceledAppointments: metrics.canceledAppointments || 0,
+      noShowAppointments: metrics.noShowAppointments || 0,
     };
 
     return financialMetrics;
@@ -442,30 +452,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         },
       },
-      {
-        $addFields: {
-          estimatedRevenue: {
-            $cond: [
-              // If appointment is confirmed or pending, use totalPrice
-              { $in: ["$status", ["confirmed", "pending"]] },
-              "$totalPrice",
-              // If appointment is declined but has non-fully refunded payments
-              {
-                $cond: [
-                  {
-                    $and: [
-                      { $eq: ["$status", "declined"] },
-                      { $gt: ["$netPaymentAmount", 0] },
-                    ],
-                  },
-                  "$netPaymentAmount",
-                  0,
-                ],
-              },
-            ],
-          },
-        },
-      },
+      estimatedRevenueAddFields(),
       {
         $group: {
           _id: {
@@ -477,10 +464,14 @@ export function createFinancialOverviewQueries(organizationId: string) {
           estimatedRevenue: { $sum: "$estimatedRevenue" },
           totalPayments: { $sum: "$totalPaidAmount" },
           netPayments: { $sum: "$netPaymentAmount" },
-          activeAppointments: {
-            $sum: {
-              $cond: [{ $in: ["$status", ["confirmed", "pending"]] }, 1, 0],
-            },
+          confirmedAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "confirmed"] }, 1, 0] },
+          },
+          noShowAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "noShow"] }, 1, 0] },
+          },
+          canceledAppointments: {
+            $sum: { $cond: [{ $eq: ["$status", "canceled"] }, 1, 0] },
           },
           declinedAppointments: {
             $sum: { $cond: [{ $eq: ["$status", "declined"] }, 1, 0] },
@@ -497,7 +488,9 @@ export function createFinancialOverviewQueries(organizationId: string) {
           estimatedRevenue: 1,
           totalPayments: 1,
           netPayments: 1,
-          activeAppointments: 1,
+          confirmedAppointments: 1,
+          noShowAppointments: 1,
+          canceledAppointments: 1,
           declinedAppointments: 1,
         },
       },
@@ -630,30 +623,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
           },
         },
       },
-      {
-        $addFields: {
-          estimatedRevenue: {
-            $cond: [
-              // If appointment is confirmed or pending, use totalPrice
-              { $in: ["$status", ["confirmed", "pending"]] },
-              "$totalPrice",
-              // If appointment is declined but has non-fully refunded payments
-              {
-                $cond: [
-                  {
-                    $and: [
-                      { $eq: ["$status", "declined"] },
-                      { $gt: ["$netPaymentAmount", 0] },
-                    ],
-                  },
-                  "$netPaymentAmount",
-                  0,
-                ],
-              },
-            ],
-          },
-        },
-      },
+      estimatedRevenueAddFields(),
       {
         $group: {
           _id: "$option.name",

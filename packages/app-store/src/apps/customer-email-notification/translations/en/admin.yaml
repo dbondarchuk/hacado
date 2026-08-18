@@ -19,7 +19,15 @@ form:
   declined:
     templateId:
       label: Declined email template
-      description: Email template that will be used to send to customers when their appointment was declined
+      description: Sent when you decline a booking request
+  canceled:
+    templateId:
+      label: Canceled email template
+      description: Sent when the customer cancels, or when you record the appointment as canceled by the customer
+  noShow:
+    templateId:
+      label: No-show email template
+      description: Optional. Sent when you mark the customer as a no-show. Leave empty to send nothing, or check “Do not notify customer” on the appointment.
   rescheduled:
     templateId:
       label: Rescheduled email template
@@ -40,6 +48,8 @@ handlers:
   pending: Customer Email Notification - Pending
   confirmed: Customer Email Notification - Confirmed
   declined: Customer Email Notification - Declined
+  canceled: Customer Email Notification - Canceled
+  noShow: Customer Email Notification - No-show
   rescheduled: Customer Email Notification - Rescheduled
 validation:
   eventTemplate:

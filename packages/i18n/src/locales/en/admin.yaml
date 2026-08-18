@@ -493,7 +493,10 @@ financialOverview:
     totalPayments: Total Payments
     netPayments: Net Payments
     activeAppointments: Active Appointments
+    confirmedAppointments: Confirmed Appointments
     declinedAppointments: Declined Appointments
+    canceledAppointments: Canceled Appointments
+    noShowAppointments: No-shows
     recentPayments: Recent Payments
     paymentMethods: Payment Methods
     noPayments: No payments found
@@ -757,6 +760,8 @@ appointments:
     pending: Pending
     confirmed: Confirmed
     declined: Declined
+    canceled: Canceled
+    noShow: No-show
     rescheduled: Rescheduled
   table:
     filters:
@@ -806,14 +811,32 @@ appointments:
     addons: Add-ons
     member: Team member
   declineDialog:
-    title: Decline appointment
+    title:
+      declined: Decline appointment
+      canceled: Cancel appointment
+      noShow: Record no-show
     description:
-      This action cannot be undone. This will permanently decline this
-      appointment.
+      declined:
+        This action cannot be undone. This will permanently decline this
+        appointment.
+      canceled:
+        This action cannot be undone. This will record the appointment as
+        canceled by the customer.
+      noShow:
+        This action cannot be undone. This will record the customer as a
+        no-show and close the appointment.
     appointmentDetails: Appointment details
     customer: Customer
     service: Service
     dateTime: Date & Time
+    reason: Reason
+    reasons:
+      declined: Declined by you
+      canceled: Canceled by customer
+      noShow: Customer no-show
+    doNotNotifyCustomer: Do not notify customer
+    doNotNotifyCustomerDescription:
+      If checked, the customer will not be notified about this change
     refundPayments: Refund payments
     amount: Amount
     transactionId: Transaction ID
@@ -822,15 +845,24 @@ appointments:
     timePaid: Time paid
     fees: Fees
     cancel: Cancel
-    declineAndRefund:
-      Decline and refund {count, plural, =1 {payment} other {# payments}}{amount,
-      plural, =0 {} other { for {amountFormatted}}}
-    decline: Decline
+    confirmAndRefund:
+      declined:
+        Decline and refund {count, plural, =1 {payment} other {# payments}}{amount,
+        plural, =0 {} other { for {amountFormatted}}}
+      canceled:
+        Cancel and refund {count, plural, =1 {payment} other {# payments}}{amount,
+        plural, =0 {} other { for {amountFormatted}}}
+      noShow:
+        No-show and refund {count, plural, =1 {payment} other {# payments}}{amount,
+        plural, =0 {} other { for {amountFormatted}}}
+    confirm:
+      declined: Decline
+      canceled: Cancel
+      noShow: Record no-show
     refunded: Refunded
     refundableAmount: Refundable amount
     refundAmount: Refund amount
     refundError: One or more refund requests have failed.
-    requestedByCustomer: Requested by customer
     giftCardCode: Gift card code
     paymentDescription: Description
     refundFees: Refund fees

@@ -8,6 +8,7 @@ import {
   CustomerUpdateModel,
   IEventService,
   Leaves,
+  openAppointmentStatusMongoFilter,
   Query,
   WithTotal,
   type CustomerCreatedPayload,
@@ -207,7 +208,7 @@ export class CustomersService extends BaseService implements ICustomersService {
             pipeline: [
               {
                 $match: {
-                  status: { $ne: "declined" },
+                  status: openAppointmentStatusMongoFilter,
                   organizationId: this.organizationId,
                 },
               },

@@ -47,6 +47,8 @@ const evetStatusToIcsEventStatus: Record<
 > = {
   confirmed: "CONFIRMED",
   declined: "CANCELLED",
+  canceled: "CANCELLED",
+  noShow: "CANCELLED",
   pending: "TENTATIVE",
 };
 

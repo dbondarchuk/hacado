@@ -131,6 +131,61 @@ export const CustomerEmailNotificationAppSetup: React.FC<{ appId: string }> = ({
             />
             <FormField
               control={form.control}
+              name={`templates.canceled.templateId`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("form.canceled.templateId.label")}
+                    <InfoTooltip>
+                      {t("form.canceled.templateId.description")}
+                    </InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    {isDataLoading ? (
+                      <Skeleton className="w-full h-10" />
+                    ) : (
+                      <TemplateSelector
+                        type="email"
+                        disabled={isLoading}
+                        value={field.value}
+                        onItemSelect={(value) => field.onChange(value)}
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={`templates.noShow.templateId`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("form.noShow.templateId.label")}
+                    <InfoTooltip>
+                      {t("form.noShow.templateId.description")}
+                    </InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    {isDataLoading ? (
+                      <Skeleton className="w-full h-10" />
+                    ) : (
+                      <TemplateSelector
+                        type="email"
+                        disabled={isLoading}
+                        value={field.value}
+                        onItemSelect={(value) => field.onChange(value)}
+                        allowClear
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name={`templates.rescheduled.templateId`}
               render={({ field }) => (
                 <FormItem>

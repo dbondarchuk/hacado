@@ -2,7 +2,12 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment, CalendarEvent, DaySchedule } from "@hacado/types";
+import {
+  Appointment,
+  CalendarEvent,
+  DaySchedule,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import { getColorForName } from "@hacado/utils";
 import {
   CheckCircle,
@@ -116,12 +121,11 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
               }
             : undefined,
           color: memberName ? getColorForName(memberName) : undefined,
-          variant:
-            app.status === "declined"
-              ? "destructive"
-              : app.status === "pending"
-                ? "secondary"
-                : "primary",
+          variant: isClosedAppointmentStatus(app.status)
+            ? "destructive"
+            : app.status === "pending"
+              ? "secondary"
+              : "primary",
         };
       } else {
         return {

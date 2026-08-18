@@ -3,7 +3,7 @@ import {
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
 import { Language } from "@hacado/i18n";
-import { Appointment } from "@hacado/types";
+import { Appointment, isClosedAppointmentStatus } from "@hacado/types";
 import { AppointmentStatusToICalMethodMap, template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 
@@ -62,7 +62,7 @@ export const getEmailTemplate = async (
           },
         },
         ...[
-          appointment.status != "declined"
+          !isClosedAppointmentStatus(appointment.status)
             ? {
                 text: buttonTexts.decline,
                 url: `${url}/dashboard/appointments/${appointment._id}/decline`,

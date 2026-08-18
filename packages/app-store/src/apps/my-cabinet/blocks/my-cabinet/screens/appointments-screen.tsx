@@ -2,6 +2,7 @@
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import type { Appointment, AppointmentStatus } from "@hacado/types";
+import { isClosedAppointmentStatus } from "@hacado/types";
 import {
   Button,
   cn,
@@ -90,6 +91,8 @@ const STATUS_STYLES: Record<string, string> = {
   confirmed: "bg-green-500/15 text-green-600 dark:text-green-400",
   pending: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
   declined: "bg-destructive/15 text-destructive",
+  canceled: "bg-destructive/15 text-destructive",
+  noShow: "bg-muted text-muted-foreground",
 };
 
 const StatusBadge = ({ status }: { status?: AppointmentStatus }) => {
@@ -234,7 +237,7 @@ const AppointmentItem = ({
               )}
             </div>
 
-            {isUpcoming && item.status !== "declined" && (
+            {isUpcoming && !isClosedAppointmentStatus(item.status) && (
               <div className="flex gap-2 shrink-0 flex-wrap w-full md:w-auto justify-end appointment-item-actions">
                 <Button
                   variant="outline"
@@ -261,72 +264,73 @@ const AppointmentItem = ({
               </div>
             )}
           </div>
-          {item.meetingInformation && item.status !== "declined" && (
-            <div className="w-full rounded-lg bg-muted/50 border border-border/50 px-4 py-3 space-y-2 appointment-item-meeting">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground appointment-item-meeting-label">
-                {t("block.appointments.meetingDetails")}
-              </p>
-              <div className="flex flex-wrap gap-x-6 gap-y-2 flex-1">
-                <div className="appointment-item-meeting-id">
-                  <p className="text-[10px] text-muted-foreground">
-                    {t("block.appointments.meetingId")}
-                  </p>
-                  <p className="text-sm font-mono text-foreground flex items-center">
-                    {item.meetingInformation.meetingId}
-                    <CopyButton
-                      value={item.meetingInformation.meetingId}
-                      label={t("block.appointments.meetingId")}
-                    />
-                  </p>
-                </div>
-                {item.meetingInformation.meetingPassword && (
-                  <div className="appointment-item-meeting-password">
+          {item.meetingInformation &&
+            !isClosedAppointmentStatus(item.status) && (
+              <div className="w-full rounded-lg bg-muted/50 border border-border/50 px-4 py-3 space-y-2 appointment-item-meeting">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground appointment-item-meeting-label">
+                  {t("block.appointments.meetingDetails")}
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 flex-1">
+                  <div className="appointment-item-meeting-id">
                     <p className="text-[10px] text-muted-foreground">
-                      {t("block.appointments.meetingPassword")}
+                      {t("block.appointments.meetingId")}
                     </p>
                     <p className="text-sm font-mono text-foreground flex items-center">
-                      {item.meetingInformation.meetingPassword}
+                      {item.meetingInformation.meetingId}
                       <CopyButton
-                        value={item.meetingInformation.meetingPassword}
-                        label={t("block.appointments.meetingPassword")}
+                        value={item.meetingInformation.meetingId}
+                        label={t("block.appointments.meetingId")}
                       />
                     </p>
                   </div>
-                )}
-                <div className="appointment-item-meeting-url min-w-0">
-                  <p className="text-[10px] text-muted-foreground">
-                    {t("block.appointments.meetingUrl")}
-                  </p>
-                  <a
-                    href={item.meetingInformation.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-sm text-primary underline underline-offset-2 truncate block max-w-xs"
-                  >
-                    {item.meetingInformation.url}
-                  </a>
-                </div>
-                {item.meetingInformation?.url && (
-                  <Button
-                    size="sm"
-                    className="appointment-item-join-meeting gap-1.5 w-full"
-                    asChild
-                  >
+                  {item.meetingInformation.meetingPassword && (
+                    <div className="appointment-item-meeting-password">
+                      <p className="text-[10px] text-muted-foreground">
+                        {t("block.appointments.meetingPassword")}
+                      </p>
+                      <p className="text-sm font-mono text-foreground flex items-center">
+                        {item.meetingInformation.meetingPassword}
+                        <CopyButton
+                          value={item.meetingInformation.meetingPassword}
+                          label={t("block.appointments.meetingPassword")}
+                        />
+                      </p>
+                    </div>
+                  )}
+                  <div className="appointment-item-meeting-url min-w-0">
+                    <p className="text-[10px] text-muted-foreground">
+                      {t("block.appointments.meetingUrl")}
+                    </p>
                     <a
                       href={item.meetingInformation.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
+                      className="text-sm text-primary underline underline-offset-2 truncate block max-w-xs"
                     >
-                      <Video className="size-3.5" />
-                      {t("block.appointments.joinMeeting")}
+                      {item.meetingInformation.url}
                     </a>
-                  </Button>
-                )}
+                  </div>
+                  {item.meetingInformation?.url && (
+                    <Button
+                      size="sm"
+                      className="appointment-item-join-meeting gap-1.5 w-full"
+                      asChild
+                    >
+                      <a
+                        href={item.meetingInformation.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Video className="size-3.5" />
+                        {t("block.appointments.joinMeeting")}
+                      </a>
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </CollapsibleContent>
     </Collapsible>

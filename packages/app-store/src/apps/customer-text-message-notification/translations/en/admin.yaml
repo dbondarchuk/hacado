@@ -16,6 +16,8 @@ whenText:
   pending: they book new appointment
   confirmed: the appointment was confirmed
   declined: the appointment was declined
+  canceled: the customer canceled the appointment
+  noShow: you marked the appointment as a no-show
   rescheduled: the appointment was rescheduled
 statusText:
   text_message_app_not_configured: Text message sender default app is not configured
@@ -29,4 +31,6 @@ handlers:
   pending: Customer Text Message Notification - Pending
   confirmed: Customer Text Message Notification - Confirmed
   declined: Customer Text Message Notification - Declined
+  canceled: Customer Text Message Notification - Canceled
+  noShow: Customer Text Message Notification - No-show
   rescheduled: Customer Text Message Notification - Rescheduled

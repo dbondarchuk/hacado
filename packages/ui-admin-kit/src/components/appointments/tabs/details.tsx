@@ -2,7 +2,12 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment, AppointmentStatus, timeZones } from "@hacado/types";
+import {
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+  timeZones,
+} from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -264,7 +269,7 @@ export const AppointmentDetails = ({
                   {currencyFormat(totalPaid)}
                 </p>
               </div>
-              {appointment.status !== "declined" && (
+              {!isClosedAppointmentStatus(appointment.status) && (
                 <div className="bg-background rounded-lg flex-1 p-3 border border-border">
                   <p className="text-sm text-muted-foreground mb-0.5">
                     {t("appointments.view.payment.due")}
@@ -616,7 +621,7 @@ export const AppointmentDetails = ({
         </div>
 
         {/* Actions */}
-        {appointment.status !== "declined" && (
+        {!isClosedAppointmentStatus(appointment.status) && (
           <div className="px-5 py-4 flex flex-col gap-2">
             {canUpdate && totalAmountLeft > 0 && (
               <AddUpdatePaymentDialog

@@ -261,10 +261,7 @@ export class EmailNotificationConnectedApp
       "Appointment status changed, sending email notification",
     );
 
-    const status =
-      source.actor === "customer" && newStatus === "declined"
-        ? "cancelledByCustomer"
-        : newStatus;
+    const status = newStatus === "canceled" ? "cancelledByCustomer" : newStatus;
     try {
       await this.sendNotification(appData, appointment, status, newStatus);
 
@@ -464,7 +461,7 @@ export class EmailNotificationConnectedApp
       if (status === "rescheduledByCustomer") {
         newStatus = "rescheduled";
       } else if (status === "cancelledByCustomer") {
-        newStatus = "declined";
+        newStatus = "canceled";
       } else if (status === "auto-confirmed") {
         newStatus = "confirmed";
       } else {

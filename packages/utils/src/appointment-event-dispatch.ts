@@ -45,6 +45,7 @@ export type AppointmentEventDispatchHandlers = {
     newStatus: AppointmentStatus,
     oldStatus: AppointmentStatus | undefined,
     source: EventSource,
+    doNotNotifyCustomer: boolean | undefined,
   ) => Promise<void>;
 };
 
@@ -157,6 +158,7 @@ export async function dispatchAppointmentEventPayload(
         p.newStatus,
         p.oldStatus,
         envelope.source,
+        p.doNotNotifyCustomer,
       );
       return true;
     }

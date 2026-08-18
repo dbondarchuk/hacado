@@ -24,6 +24,7 @@ import {
   CalendarClock,
   CalendarX,
   LucideProps,
+  UserX,
 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
@@ -40,7 +41,11 @@ const StatusCell: React.FC<{ appointment: Appointment } & LucideProps> = ({
       break;
 
     case "declined":
+    case "canceled":
       child = <CalendarX {...rest} />;
+      break;
+    case "noShow":
+      child = <UserX {...rest} />;
       break;
 
     case "pending":

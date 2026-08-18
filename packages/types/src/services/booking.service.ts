@@ -82,6 +82,7 @@ export interface IBookingService {
     id: string,
     newStatus: AppointmentStatus,
     eventSource: EventSource,
+    doNotNotifyCustomer?: boolean,
   ): Promise<void>;
   updateAppointmentNote(id: string, note?: string): Promise<void>;
   addAppointmentFiles(

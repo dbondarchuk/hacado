@@ -519,7 +519,7 @@ const processCancelRequest = async (
 
   await servicesContainer.bookingService.changeAppointmentStatus(
     appointmentId,
-    "declined",
+    "canceled",
     { actor: "customer" },
   );
 

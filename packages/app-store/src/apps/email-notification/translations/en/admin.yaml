@@ -25,4 +25,6 @@ handlers:
   pending: Email Notification - Pending
   confirmed: Email Notification - Confirmed
   declined: Email Notification - Declined
+  canceled: Email Notification - Canceled
+  noShow: Email Notification - No-show
   rescheduled: Email Notification - Rescheduled

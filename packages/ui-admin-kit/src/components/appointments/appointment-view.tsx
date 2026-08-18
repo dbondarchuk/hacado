@@ -2,7 +2,11 @@
 
 import { useI18n } from "@hacado/i18n/client";
 
-import { Appointment, AppointmentStatus } from "@hacado/types";
+import {
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import {
   Button,
   ButtonGroup,
@@ -128,7 +132,7 @@ export const AppointmentViewButtons: React.FC = () => {
             onOpenChange={(open) => setIsRescheduleDialogOpen(open)}
           />
 
-          {appointment.status !== "declined" ? (
+          {!isClosedAppointmentStatus(appointment.status) ? (
             <ButtonGroup>
               {appointment.status === "pending" ? (
                 <AppointmentActionButton
@@ -202,7 +206,7 @@ export const AppointmentViewButtons: React.FC = () => {
             </ButtonGroup>
           ) : null}
         </>
-      ) : appointment.status !== "declined" ? (
+      ) : !isClosedAppointmentStatus(appointment.status) ? (
         <Button variant="outline" asChild>
           <NextLink
             className="inline-flex flex-row gap-2 items-center"

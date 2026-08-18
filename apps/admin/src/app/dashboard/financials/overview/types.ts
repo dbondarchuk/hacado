@@ -3,7 +3,8 @@ export type FinancialMetrics = {
   totalPayments: number;
   netPayments: number;
   activeAppointments: number;
-  declinedAppointments: number;
+  canceledAppointments: number;
+  noShowAppointments: number;
 };
 
 export type RevenueDataPoint = {
@@ -11,7 +12,9 @@ export type RevenueDataPoint = {
   estimatedRevenue: number;
   totalPayments: number;
   netPayments: number;
-  activeAppointments: number;
+  confirmedAppointments: number;
+  noShowAppointments: number;
+  canceledAppointments: number;
   declinedAppointments: number;
 };
 

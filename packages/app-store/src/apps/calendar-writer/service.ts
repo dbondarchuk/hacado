@@ -16,6 +16,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
+  isClosedAppointmentStatus,
   SessionUser,
 } from "@hacado/types";
 import {
@@ -370,9 +371,7 @@ export class CalendarWriterConnectedApp
 
     try {
       const status =
-        source.actor === "customer" && newStatus === "declined"
-          ? "cancelledByCustomer"
-          : newStatus;
+        newStatus === "canceled" ? "cancelledByCustomer" : newStatus;
       await this.makeEvent(appData, appointment, status, newStatus);
 
       logger.info(
@@ -557,7 +556,7 @@ export class CalendarWriterConnectedApp
       } else if (status === "auto-confirmed") {
         newStatus = "confirmed";
       } else if (status === "cancelledByCustomer") {
-        newStatus = "declined";
+        newStatus = "canceled";
       } else {
         newStatus = status;
       }
@@ -623,7 +622,10 @@ export class CalendarWriterConnectedApp
           "Creating new calendar event",
         );
         await service.createEvent(app, event);
-      } else if (status === "declined") {
+      } else if (
+        isClosedAppointmentStatus(appointment.status) ||
+        status === "cancelledByCustomer"
+      ) {
         logger.debug(
           { appId: appData._id, appointmentId: appointment._id, status },
           "Deleting calendar event",

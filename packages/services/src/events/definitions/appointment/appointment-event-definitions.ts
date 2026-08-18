@@ -172,12 +172,12 @@ export const APPOINTMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
       const payload = envelope.payload as AppointmentStatusChangedPayload;
       const pendingAppointments =
         await services.bookingService.getPendingAppointmentsCount(new Date());
-      const isDeclined = payload.newStatus === "declined";
+      const isCanceledByCustomer = payload.newStatus === "canceled";
       return {
         type: "appointment-status-changed",
         badges: pendingAppointmentsBadges(pendingAppointments.totalCount),
         toast:
-          envelope.source.actor === "customer" && isDeclined
+          envelope.source.actor === "customer" && isCanceledByCustomer
             ? {
                 type: "warning",
                 title: {

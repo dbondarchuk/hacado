@@ -7,8 +7,7 @@ import * as z from "zod";
 
 const schema = z.object({
   status: z.enum(appointmentStatuses).exclude(["pending"]),
-  /** When true, attributes the change to the customer (e.g. cancel link). Otherwise the signed-in admin user. */
-  requestedByCustomer: z.boolean().optional(),
+  doNotNotifyCustomer: z.boolean().optional(),
 });
 
 export async function PATCH(
@@ -52,21 +51,20 @@ export async function PATCH(
     );
   }
 
-  const eventSource = data.requestedByCustomer
-    ? ({ actor: "customer" } as const)
-    : await getActor();
+  const eventSource = await getActor();
 
   await servicesContainer.bookingService.changeAppointmentStatus(
     id,
     data.status,
     eventSource,
+    data.doNotNotifyCustomer,
   );
 
   logger.debug(
     {
       appointmentId: id,
       newStatus: data.status,
-      requestedByCustomer: data.requestedByCustomer ?? false,
+      doNotNotifyCustomer: data.doNotNotifyCustomer ?? false,
     },
     "Appointment status changed successfully",
   );

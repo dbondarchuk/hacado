@@ -18,6 +18,7 @@ import {
   IEventSubscriber,
   IMeetingUrlProvider,
   IOAuthConnectedApp,
+  isClosedAppointmentStatus,
   WithDatabaseId,
 } from "@hacado/types";
 import {
@@ -582,10 +583,10 @@ export class ZoomConnectedApp
       return;
     }
 
-    if (newStatus !== "declined") {
+    if (!isClosedAppointmentStatus(newStatus)) {
       logger.debug(
         { appId: appData._id, appointmentId: appointment._id },
-        "Appointment status is not declined, skipping",
+        "Appointment status is not closed, skipping",
       );
       return;
     }

@@ -1,10 +1,11 @@
 import type { IBillingService } from "@hacado/types";
+import { openAppointmentStatusMongoFilter } from "@hacado/types";
 import { DateTime } from "luxon";
 
 import { APPOINTMENTS_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";
 
-export async function getNonDeclinedAppointmentsCreatedInBillingCycleCount(
+export async function getOpenAppointmentsCreatedInBillingCycleCount(
   organizationId: string,
   billingService: IBillingService,
 ): Promise<number> {
@@ -18,6 +19,6 @@ export async function getNonDeclinedAppointmentsCreatedInBillingCycleCount(
   return db.collection(APPOINTMENTS_COLLECTION_NAME).countDocuments({
     organizationId,
     createdAt: { $gte: periodStart, $lt: periodEnd },
-    status: { $ne: "declined" },
+    status: openAppointmentStatusMongoFilter,
   });
 }
