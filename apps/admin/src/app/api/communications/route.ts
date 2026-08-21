@@ -48,11 +48,7 @@ export async function POST(request: NextRequest) {
   let appointment: Appointment | null = null;
 
   if ("appointmentId" in data) {
-    const auth = await requireCanUpdateAppointment(
-      data.appointmentId,
-      "AdminAPI/communications",
-      "POST",
-    );
+    const auth = await requireCanUpdateAppointment(data.appointmentId, logger);
     if (!auth.ok) return auth.response;
 
     appointment = auth.appointment;

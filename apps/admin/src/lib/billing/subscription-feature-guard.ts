@@ -3,6 +3,7 @@ import {
   BRAND_SETTINGS_UPGRADE_URL,
   sessionCanUseFeature,
 } from "@/lib/billing/subscription-plan-access";
+import type { AppLogger } from "@hacado/logger";
 import type { SubscriptionFeature } from "@hacado/types";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
@@ -24,6 +25,20 @@ export async function getSubscriptionFeatureBlockedResponse(
     },
     { status: 402 },
   );
+}
+
+export async function requireSubscriptionFeature(
+  feature: SubscriptionFeature,
+  logger: AppLogger,
+) {
+  const blocked = await getSubscriptionFeatureBlockedResponse(feature);
+  if (blocked) {
+    logger.warn({ feature }, "Subscription upgrade required");
+    return { ok: false as const, response: blocked };
+  }
+
+  logger.debug({ feature }, "Subscription feature allowed");
+  return { ok: true as const, response: null };
 }
 
 export async function redirectIfFeatureUnavailable(

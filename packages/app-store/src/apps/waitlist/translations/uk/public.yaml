@@ -14,6 +14,7 @@ block:
     form: Деталі
     payment: Оплата
     review: Підсумок
+    otp: Підтвердження
     waitlist-form: Деталі
     waitlist-review: Перевірка
   layout:

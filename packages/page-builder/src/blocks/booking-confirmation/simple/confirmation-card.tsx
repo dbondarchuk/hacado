@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
+import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
 import {
   Card,
   CardContent,
@@ -46,12 +46,18 @@ export const ConfirmationCard = forwardRef<
                   )}
                 </div>
               )}
-              {appointment.totalPrice && (
+              {isAppointmentCoveredByPackage(appointment) ? (
+                <div className="flex flex-row items-center">
+                  {i18n("booking.confirmation.package", {
+                    name: appointment.packageUsage!.name,
+                  })}
+                </div>
+              ) : appointment.totalPrice ? (
                 <div className="flex flex-row items-center">
                   <DollarSign className="mr-1" />
                   {appointment.totalPrice.toFixed(2).replace(/\.00$/, "")}
                 </div>
-              )}
+              ) : null}
             </CardDescription>
           </CardHeader>
           <CardContent>

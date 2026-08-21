@@ -1,5 +1,6 @@
 import { getActor } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,15 +9,11 @@ export async function POST(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/files">,
 ) {
+  const logger = getLoggerFactory("AdminAPI/appointments/[id]/files")("POST");
   const { id } = await params;
-  const auth = await requireCanUpdateAppointment(
-    id,
-    "AdminAPI/appointments/[id]/files",
-    "POST",
-  );
+  const auth = await requireCanUpdateAppointment(id, logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = auth.servicesContainer;
 
   logger.debug(

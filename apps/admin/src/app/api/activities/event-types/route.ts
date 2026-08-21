@@ -1,16 +1,13 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const auth = await requirePermission(
-    "activity",
-    "read",
-    "AdminAPI/activities/event-types",
-    "GET",
-  );
+  const logger = getLoggerFactory("AdminAPI/activities/event-types")("GET");
+  const auth = await requirePermission("activity", "read", logger);
   if (!auth.ok) return auth.response;
 
   const servicesContainer = await getServicesContainer();

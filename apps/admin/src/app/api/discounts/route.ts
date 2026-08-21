@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { discountsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { discountSchema } from "@hacado/types";
@@ -8,6 +10,15 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/discounts")("GET");
+  const featureAccess = await requireSubscriptionFeature("discounts", logger);
+
+  if (!featureAccess.ok) {
+    return featureAccess.response;
+  }
+
+  const auth = await requirePermission("discount", "read", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -59,6 +70,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/discounts")("POST");
+  const featureAccess = await requireSubscriptionFeature("discounts", logger);
+  if (!featureAccess.ok) {
+    return featureAccess.response;
+  }
+
+  const auth = await requirePermission("discount", "create", logger);
+  if (!auth.ok) {
+    return auth.response;
+  }
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   logger.debug(

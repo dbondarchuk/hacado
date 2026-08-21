@@ -49,6 +49,7 @@ import {
   AddonSelector,
   NonSortable,
   OptionSelector,
+  PackageSelector,
   SaveButton,
 } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -74,6 +75,11 @@ const DiscountLimitCard: React.FC<{
   const addons = useFieldArray({
     control: form.control,
     name: `limitTo.${index}.addons`,
+  });
+
+  const packages = useFieldArray({
+    control: form.control,
+    name: `limitTo.${index}.packages`,
   });
 
   return (
@@ -122,19 +128,138 @@ const DiscountLimitCard: React.FC<{
           </AlertDialogContent>
         </AlertDialog>
       </CardHeader>
-      <CardContent className="py-6 flex flex-col gap-4 md:items-center md:grid md:grid-cols-[minmax(0,_1fr),50px,minmax(0,_1fr)]">
+      <CardContent className="py-6 flex flex-col gap-6">
+        <div className="flex flex-col gap-4 md:items-center md:grid md:grid-cols-[minmax(0,_1fr),50px,minmax(0,_1fr)]">
+          <div className="flex flex-col gap-4">
+            <Label>{t("services.discounts.form.optionsLabel")}</Label>
+            {(options.fields || []).map((option, optionsIndex) => (
+              <FormField
+                key={optionsIndex}
+                control={form.control}
+                name={`limitTo.${index}.options.${optionsIndex}`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <InputGroup>
+                        <OptionSelector
+                          className={cn(
+                            InputGroupInputClasses(),
+                            "[&>button]:rounded-r-none [&>button]:border-r-0  w-full flex-1",
+                          )}
+                          onItemSelect={(id) => {
+                            field.onChange({ id });
+                            field.onBlur();
+                          }}
+                          value={field.value?.id}
+                          disabled={disabled}
+                        />
+                        <InputGroupAddon>
+                          <Button
+                            variant="ghost-destructive"
+                            size="icon"
+                            className={cn(InputGroupAddonClasses(), "px-2")}
+                            onClick={() => options.remove(optionsIndex)}
+                          >
+                            <Trash />
+                          </Button>
+                        </InputGroupAddon>
+                      </InputGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+            {!options.fields?.length && (
+              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+                {t("services.discounts.form.anyOption")}
+              </div>
+            )}
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => options.append({ id: null as any })}
+            >
+              <PlusCircle /> {t("services.discounts.form.addNew")}
+            </Button>
+          </div>
+          <Label className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+            {t("services.discounts.form.withLabel")}
+          </Label>
+          <div className="flex flex-col gap-4">
+            <Label>{t("services.discounts.form.addonsLabel")}</Label>
+            {(addons.fields || []).map((addon, addonsIndex) => (
+              <FormField
+                key={addonsIndex}
+                control={form.control}
+                name={`limitTo.${index}.addons.${addonsIndex}`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-row gap-2">
+                        <InputGroup className="w-full">
+                          <AddonSelector
+                            multi
+                            onItemSelect={(ids) => {
+                              field.onChange({
+                                ids: ids.map((id) => ({ id })),
+                              });
+                              field.onBlur();
+                            }}
+                            value={field.value?.ids?.map((v) => v.id) ?? []}
+                            disabled={disabled}
+                            className={cn(
+                              InputGroupInputClasses(),
+                              "[&>button]:rounded-r-none [&>button]:border-r-0  w-full flex-1",
+                            )}
+                          />
+                          <InputGroupAddon>
+                            <Button
+                              variant="ghost-destructive"
+                              size="icon"
+                              onClick={() => addons.remove(addonsIndex)}
+                              className={cn(InputGroupAddonClasses(), "px-2")}
+                            >
+                              <Trash />
+                            </Button>
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+            {!addons.fields?.length && (
+              <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+                {t("services.discounts.form.anyAddon")}
+              </div>
+            )}
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => addons.append({ ids: [] })}
+            >
+              <PlusCircle /> {t("services.discounts.form.addNew")}
+            </Button>
+          </div>
+        </div>
+        <Label className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
+          {t("services.discounts.form.orLabel")}
+        </Label>
         <div className="flex flex-col gap-4">
-          <Label>{t("services.discounts.form.optionsLabel")}</Label>
-          {(options.fields || []).map((option, optionsIndex) => (
+          <Label>{t("services.discounts.form.packagesLabel")}</Label>
+          {(packages.fields || []).map((pkg, packagesIndex) => (
             <FormField
-              key={optionsIndex}
+              key={packagesIndex}
               control={form.control}
-              name={`limitTo.${index}.options.${optionsIndex}`}
+              name={`limitTo.${index}.packages.${packagesIndex}`}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <InputGroup>
-                      <OptionSelector
+                      <PackageSelector
                         className={cn(
                           InputGroupInputClasses(),
                           "[&>button]:rounded-r-none [&>button]:border-r-0  w-full flex-1",
@@ -151,7 +276,7 @@ const DiscountLimitCard: React.FC<{
                           variant="ghost-destructive"
                           size="icon"
                           className={cn(InputGroupAddonClasses(), "px-2")}
-                          onClick={() => options.remove(optionsIndex)}
+                          onClick={() => packages.remove(packagesIndex)}
                         >
                           <Trash />
                         </Button>
@@ -163,78 +288,15 @@ const DiscountLimitCard: React.FC<{
               )}
             />
           ))}
-          {!options.fields?.length && (
+          {!packages.fields?.length && (
             <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
-              {t("services.discounts.form.anyOption")}
+              {t("services.discounts.form.anyPackage")}
             </div>
           )}
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => options.append({ id: null as any })}
-          >
-            <PlusCircle /> {t("services.discounts.form.addNew")}
-          </Button>
-        </div>
-        <Label className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
-          {t("services.discounts.form.withLabel")}
-        </Label>
-        <div className="flex flex-col gap-4">
-          <Label>{t("services.discounts.form.addonsLabel")}</Label>
-          {(addons.fields || []).map((addon, addonsIndex) => (
-            <FormField
-              key={addonsIndex}
-              control={form.control}
-              name={`limitTo.${index}.addons.${addonsIndex}`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className="flex flex-row gap-2">
-                      <InputGroup className="w-full">
-                        <AddonSelector
-                          multi
-                          // className={cn(
-                          //   InputGroupInputClasses(),
-                          //   "[&>button]:rounded-r-none [&>button]:border-r-0  w-full flex-1"
-                          // )}
-                          onItemSelect={(ids) => {
-                            field.onChange({ ids: ids.map((id) => ({ id })) });
-                            field.onBlur();
-                          }}
-                          value={field.value?.ids?.map((v) => v.id) ?? []}
-                          disabled={disabled}
-                          className={cn(
-                            InputGroupInputClasses(),
-                            "[&>button]:rounded-r-none [&>button]:border-r-0  w-full flex-1",
-                          )}
-                        />
-                        <InputGroupAddon>
-                          <Button
-                            variant="ghost-destructive"
-                            size="icon"
-                            onClick={() => addons.remove(addonsIndex)}
-                            className={cn(InputGroupAddonClasses(), "px-2")}
-                          >
-                            <Trash />
-                          </Button>
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          {!addons.fields?.length && (
-            <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-center">
-              {t("services.discounts.form.anyAddon")}
-            </div>
-          )}
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => addons.append({ ids: [] })}
+            onClick={() => packages.append({ id: null as any })}
           >
             <PlusCircle /> {t("services.discounts.form.addNew")}
           </Button>

@@ -141,6 +141,12 @@ export const demoAppointment: Appointment = {
     discountAmount: 5.5,
     name: "Demo Discount",
   },
+  packageUsage: {
+    customerPackageId: "customer-package-1234",
+    name: "10x Massage",
+    itemId: "package-item-1",
+    credits: 1,
+  },
   payments: [
     {
       _id: "payment-1234",

@@ -27,7 +27,7 @@ export type SortableProps = {
   title: string;
   ids: string[];
   onSort: (activeId: string, overId: string) => void;
-  onAdd: () => void;
+  onAdd?: () => void;
   children: React.ReactNode | React.ReactNode[];
   disabled?: boolean;
   allCollapsed?: boolean;
@@ -113,16 +113,18 @@ export function Sortable({
                 <ChevronsUpDown />
               </Button>
             )}
-            <Button
-              type="button"
-              disabled={disabled}
-              variant="ghost"
-              onClick={onAdd}
-              size="icon"
-              aria-label="Add a new item"
-            >
-              <Plus />
-            </Button>
+            {onAdd ? (
+              <Button
+                type="button"
+                disabled={disabled}
+                variant="ghost"
+                onClick={onAdd}
+                size="icon"
+                aria-label="Add a new item"
+              >
+                <Plus />
+              </Button>
+            ) : null}
           </div>
         </CardTitle>
       </CardHeader>

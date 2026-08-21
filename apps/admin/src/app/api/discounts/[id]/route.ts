@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
 import { discountSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,6 +12,12 @@ export async function GET(
   { params }: RouteContext<"/api/discounts/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/discounts/[id]")("GET");
+  const featureAccess = await requireSubscriptionFeature("discounts", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("discount", "read", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 
@@ -49,6 +57,16 @@ export async function PUT(
   { params }: RouteContext<"/api/discounts/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/discounts/[id]")("PUT");
+  const featureAccess = await requireSubscriptionFeature("discounts", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const { ok, response } = await requirePermission(
+    "discount",
+    "update",
+    logger,
+  );
+  if (!ok) return response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
@@ -92,6 +110,16 @@ export async function DELETE(
   { params }: RouteContext<"/api/discounts/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/discounts/[id]")("DELETE");
+  const featureAccess = await requireSubscriptionFeature("discounts", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const { ok, response } = await requirePermission(
+    "discount",
+    "delete",
+    logger,
+  );
+  if (!ok) return response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;

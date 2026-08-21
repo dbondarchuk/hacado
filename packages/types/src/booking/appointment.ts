@@ -8,6 +8,7 @@ import {
   AppointmentEvent,
   AppointmentOnlineMeetingInformation,
 } from "./appointment-event";
+import { CustomerPackage } from "./appointment-package";
 import { Payment } from "./payment";
 
 export const appointmentStatuses = [
@@ -63,6 +64,8 @@ export type Appointment = Prettify<
     member: OrganizationMember;
     files?: AssetEntity[];
     payments?: Payment[];
+    /** Joined from customer-packages when packageUsage is present. */
+    customerPackage?: CustomerPackage;
     endAt: Date;
   }
 >;
@@ -82,6 +85,10 @@ export type GetAppointmentsQueryBase = {
   customerId?: string | string[];
   discountId?: string | string[];
   memberId?: string | string[];
+  /** Catalog package id(s) — matches joined customerPackage.packageId. */
+  packageId?: string | string[];
+  /** Specific sold (customer) package id. */
+  customerPackageId?: string;
 };
 
 export type GetAppointmentsQueryWithReferenceDate = GetAppointmentsQueryBase & {

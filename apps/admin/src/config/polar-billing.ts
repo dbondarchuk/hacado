@@ -1,10 +1,10 @@
 import { InstallKeys } from "@hacado/i18n";
 import {
   getPolarBillingPlansFromEnv,
+  PolarBillingPlanDef,
   resolvePlanTierFromProductId,
-  type PolarBillingPlanDef,
 } from "@hacado/services/billing";
-import type { BillingPlanTier } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types";
 
 export type PolarBillingPlanSlug = BillingPlanTier;
 export type { PolarBillingPlanDef };
@@ -35,6 +35,7 @@ export const POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS: Record<
     "checkout.plans.solo.benefits.domain",
     "checkout.plans.solo.benefits.unlimited",
     "checkout.plans.solo.benefits.promotions",
+    "checkout.plans.solo.benefits.packages",
     "checkout.plans.solo.benefits.apps",
     "checkout.plans.solo.benefits.clientPortal",
     "checkout.plans.solo.benefits.smsCredits",

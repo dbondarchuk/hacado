@@ -376,7 +376,12 @@ export const getAppointmentEventFromRequest = async (
     );
   }
 
-  if (request.promoCode) {
+  const isPackageCovered = !!(
+    request.customerPackageId || request.purchasePackageId
+  );
+
+  // Credits redemption has no billable amount; package purchase can use promo.
+  if (request.promoCode && !request.customerPackageId) {
     const organization =
       await servicesContainer.organizationService.getOrganization();
     const planTier = resolvePlanTierFromOrganization(organization);
@@ -395,6 +400,7 @@ export const getAppointmentEventFromRequest = async (
         promoCode: request.promoCode,
         customerId: customer?._id,
         dateTime: request.dateTime,
+        purchasePackageId: request.purchasePackageId,
       },
       "Applying promo code discount",
     );
@@ -402,8 +408,9 @@ export const getAppointmentEventFromRequest = async (
     const discount = await servicesContainer.servicesService.applyDiscount({
       code: request.promoCode,
       dateTime: request.dateTime,
-      optionId: request.optionId,
-      addons: request.addonsIds,
+      optionId: request.purchasePackageId ? undefined : request.optionId,
+      packageId: request.purchasePackageId,
+      addons: request.purchasePackageId ? undefined : request.addonsIds,
       customerId: customer?._id,
     });
 
@@ -419,7 +426,28 @@ export const getAppointmentEventFromRequest = async (
       };
     }
 
-    const discountAmount = getDiscountAmount(totalPrice, discount);
+    let discountBasePrice = totalPrice ?? 0;
+    if (request.purchasePackageId) {
+      const pkg = await servicesContainer.packagesService.getPackage(
+        request.purchasePackageId,
+      );
+      if (!pkg || pkg.status !== "active") {
+        logger.warn(
+          { packageId: request.purchasePackageId, status: pkg?.status },
+          "Package not found or not active",
+        );
+        return {
+          error: {
+            code: "package_not_found",
+            message: "Package not found",
+            status: 400,
+          },
+        };
+      }
+      discountBasePrice = pkg.price;
+    }
+
+    const discountAmount = getDiscountAmount(discountBasePrice, discount);
     appointmentDiscount = {
       code: request.promoCode,
       discountAmount,
@@ -427,21 +455,25 @@ export const getAppointmentEventFromRequest = async (
       name: discount.name,
     };
 
-    totalPrice = Math.max(0, formatAmount(totalPrice - discountAmount));
+    if (!request.purchasePackageId) {
+      totalPrice = Math.max(0, formatAmount(totalPrice! - discountAmount));
+    }
 
     logger.debug(
       {
         promoCode: request.promoCode,
         discountName: discount.name,
         discountAmount,
-        originalPrice: totalPrice + discountAmount,
-        finalPrice: totalPrice,
+        originalPrice: discountBasePrice,
+        finalPrice: request.purchasePackageId
+          ? Math.max(0, formatAmount(discountBasePrice - discountAmount))
+          : totalPrice,
       },
       "Successfully applied promo code discount",
     );
   }
 
-  if (totalPrice === 0) totalPrice = undefined;
+  if (isPackageCovered || totalPrice === 0) totalPrice = undefined;
 
   const event: AppointmentEvent = {
     dateTime: request.dateTime,
@@ -450,7 +482,7 @@ export const getAppointmentEventFromRequest = async (
       name: selectedOption.name,
       durationType: selectedOption.durationType,
       duration: optionDuration,
-      price: optionPrice,
+      price: isPackageCovered ? undefined : optionPrice,
       isOnline: selectedOption.isOnline,
     },
     timeZone: request.timeZone,
@@ -459,7 +491,9 @@ export const getAppointmentEventFromRequest = async (
     addons: selectedAddons?.map((addon) => ({
       _id: addon._id,
       name: addon.name,
-      price: effectiveAddonPrice(addon.price, addon.staff, request.memberId),
+      price: isPackageCovered
+        ? undefined
+        : effectiveAddonPrice(addon.price, addon.staff, request.memberId),
       duration: effectiveAddonDuration(
         addon.duration,
         addon.staff,

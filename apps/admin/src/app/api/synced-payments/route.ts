@@ -1,20 +1,15 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
 import { syncedPaymentStatus, SyncedPaymentStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const auth = await requirePermission(
-    "syncedPayment",
-    "read",
-    "AdminAPI/synced-payments",
-    "GET",
-  );
+  const logger = getLoggerFactory("AdminAPI/synced-payments")("GET");
+  const auth = await requirePermission("syncedPayment", "read", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
 
   const searchParams = request.nextUrl.searchParams;

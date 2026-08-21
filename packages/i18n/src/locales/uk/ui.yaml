@@ -34,6 +34,13 @@ templateSelector:
 optionSelector:
   placeholder: Вибрати опцію
   requestFailed: Запит на отримання опцій не вдався
+packageSelector:
+  placeholder: Вибрати пакет
+  requestFailed: Запит на отримання пакетів не вдався
+customerPackageSelector:
+  placeholder: Вибрати пакет клієнта
+  needCustomerAndService: Спочатку виберіть клієнта, послугу та спеціаліста
+  remaining: "{remaining} з {total} залишилось"
 assetSelector:
   title: Вибрати ресурс
   upload: Завантажити
@@ -116,6 +123,9 @@ durationInput:
   sec: сек
   weeks: тижнів
   days: днів
+monthsInput:
+  years: роки
+  months: місяці
 dataTable:
   searchPlaceholder: Пошук...
   selectedRows: "Вибрано {selected} з {total} рядка(ів)."

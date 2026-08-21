@@ -44,6 +44,7 @@ checkout:
         domain: Підключіть свій домен, щоб виділятися серед конкурентів
         unlimited: Необмежені бронювання, послуги та клієнти завжди
         promotions: Брендовані подарункові картки, знижки та акції
+        packages: Передплачені пакети записів, які клієнти можуть купувати і бронювати
         apps: Лист очікування, форми запису, блог
         clientPortal: Клієнтський кабінет для бронювань і профілів
         smsCredits: 100 SMS-кредитів щомісяця
@@ -239,6 +240,8 @@ wizard:
     optionalApps: Додаткові додатки
     customerEmailNotifications: Email-сповіщення для клієнтів
     customerEmailNotificationsDesc: Надсилайте клієнтам підтвердження та оновлення записів email-ом.
+    customerPackageEmailNotifications: Email-сповіщення про пакети клієнта
+    customerPackageEmailNotificationsDesc: Надсилайте клієнтам листи про купівлю пакета та коли пакет вичерпано, скасовано або прострочено.
     customerTextNotifications: SMS-сповіщення для клієнтів
     customerTextNotificationsDesc: Надсилайте клієнтам підтвердження та оновлення записів SMS-ами.
     appointmentNotifications: Сповіщення про нагадування та follow-up про записи

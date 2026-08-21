@@ -51,6 +51,8 @@ export const FormCard: React.FC = () => {
     giftCards,
     applyGiftCards,
     setGiftCards,
+    purchasePackageId,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   if (!dateTime) return null;
@@ -63,6 +65,7 @@ export const FormCard: React.FC = () => {
   const [isLoadingGiftCards, setIsLoadingGiftCards] = React.useState(false);
 
   const fields = getFields(formFields);
+  const lockContact = !!isCustomerPackageLocked;
 
   const formSchema = useMemo(
     () =>
@@ -109,8 +112,12 @@ export const FormCard: React.FC = () => {
     try {
       const request = {
         code: promoCode,
-        optionId: appointmentOption._id,
-        addons: selectedAddons?.map((addon) => addon._id),
+        ...(purchasePackageId
+          ? { packageId: purchasePackageId }
+          : {
+              optionId: appointmentOption._id,
+              addons: selectedAddons?.map((addon) => addon._id),
+            }),
         dateTime: Luxon.fromObject(
           {
             year: dateTime.date.getFullYear(),
@@ -229,11 +236,18 @@ export const FormCard: React.FC = () => {
           <div className="flex flex-col gap-2">
             {fields.map((field) => (
               <React.Fragment key={field.name}>
-                {fieldsMap[field.type](field, form.control)}
+                {fieldsMap[field.type](
+                  field,
+                  form.control,
+                  lockContact &&
+                    (field.name === "name" ||
+                      field.name === "email" ||
+                      field.name === "phone"),
+                )}
               </React.Fragment>
             ))}
 
-            {showPromoCode && !!basePrice && (
+            {showPromoCode && !!basePrice && !isCustomerPackageLocked && (
               <FormItem>
                 <Label htmlFor="promo-code" className="text-sm font-medium">
                   {i18n("common.labels.formPromoCode")}

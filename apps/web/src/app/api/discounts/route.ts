@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
       code: data.code,
       customerEmail: data.email,
       optionId: data.optionId,
+      packageId: data.packageId,
       addonsCount: data.addons?.length || 0,
     },
     "Applying discount",
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
   const discount = await servicesContainer.servicesService.applyDiscount({
     code: data.code,
     optionId: data.optionId,
+    packageId: data.packageId,
     addons: data.addons,
     customerId: customer?._id,
     dateTime: data.dateTime,

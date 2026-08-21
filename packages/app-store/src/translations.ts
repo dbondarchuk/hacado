@@ -12,6 +12,8 @@ import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { CarddavTranslations } from "./apps/carddav/translations";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
 import { CustomerEmailNotificationTranslations } from "./apps/customer-email-notification/translations";
+import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
+import { CustomerPackageEmailNotificationTranslations } from "./apps/customer-package-email-notification/translations";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { CustomerTextMessageNotificationTranslations } from "./apps/customer-text-message-notification/translations";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
@@ -77,6 +79,8 @@ export const AppsTranslations: Record<
   [CARDDAV_APP_NAME]: CarddavTranslations,
   [CALENDAR_WRITER_APP_NAME]: CalendarWriterTranslations,
   [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: CustomerEmailNotificationTranslations,
+  [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]:
+    CustomerPackageEmailNotificationTranslations,
   [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
     CustomerTextMessageNotificationTranslations,
   [EMAIL_NOTIFICATION_APP_NAME]: EmailNotificationTranslations,

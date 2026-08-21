@@ -9,6 +9,8 @@ import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   appointmentAddonSchema,
   canCreateMoreServices,
+  catalogFromFlatOptions,
+  flattenCatalogOptionIds,
   FREE_TIER_LIMITS,
   ServiceLimitReachedError,
   type AppointmentAddonUpdateModel,
@@ -96,9 +98,7 @@ export async function replaceServices(
     booking = getDefaultBookingConfiguration();
   }
 
-  const oldIds = (booking.options ?? [])
-    .map((o) => o.id)
-    .filter((id): id is string => Boolean(id));
+  const oldIds = [...new Set(flattenCatalogOptionIds(booking.catalog))];
 
   for (const id of oldIds) {
     const opt = await services.servicesService.getOption(id);
@@ -200,7 +200,7 @@ export async function replaceServices(
     "booking",
     {
       ...base,
-      options: newIds.map((id) => ({ id })),
+      catalog: catalogFromFlatOptions(newIds.map((id) => ({ id }))),
     },
     source,
   );
@@ -316,9 +316,7 @@ export async function getInstallServicesSnapshot(): Promise<
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const ids = (booking?.options ?? [])
-    .map((o) => o.id)
-    .filter((id): id is string => Boolean(id));
+  const ids = flattenCatalogOptionIds(booking?.catalog);
 
   const rows: InstallServiceServerSnapshot[] = [];
   for (const id of ids) {

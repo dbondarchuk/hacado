@@ -1,19 +1,14 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { bulkDeleteSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const auth = await requirePermission(
-    "service",
-    "delete",
-    "AdminAPI/services/addons/delete",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/services/addons/delete")("POST");
+  const auth = await requirePermission("service", "delete", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const body = await request.json();

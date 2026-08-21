@@ -72,6 +72,7 @@ export function emptyPersisted(
     inviteMode: "none",
     inviteCalendarWriterAppId: "",
     optCustomerEmailNotifications: false,
+    optCustomerPackageEmailNotifications: false,
     optCustomerTextMessageNotifications: false,
     optAppointmentNotifications: false,
     optWaitlist: false,

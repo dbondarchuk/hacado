@@ -10,7 +10,8 @@ export type AppointmentResponse = {
 
 export type HashState =
   | { screen: "list" }
-  | { screen: "modify"; action: ModifyAppointmentType; appointmentId: string };
+  | { screen: "modify"; action: ModifyAppointmentType; appointmentId: string }
+  | { screen: "book"; customerPackageId?: string };
 
 export type RequestOtpResponse = {
   success: boolean;
@@ -52,7 +53,7 @@ export type AppointmentListResponse = {
 };
 
 export type AuthOptionsResponse = {
-  allowPhoneOtp: boolean;
+  otpChannels: import("@hacado/types").CustomerOtpChannels;
 };
 
 export type ModifyInformation = ModifyAppointmentInformation;

@@ -16,6 +16,14 @@ form:
     templateId:
       label: Confirmed email template
       description: Email template that will be used to send to customers when their appointment was confirmed
+  pendingPackage:
+    templateId:
+      label: Pending package appointment email (optional)
+      description: Optional. Used instead of the pending template when the appointment is covered by a package. Leave empty to use the regular pending template.
+  confirmedPackage:
+    templateId:
+      label: Confirmed package appointment email (optional)
+      description: Optional. Used instead of the confirmed template when the appointment is covered by a package. Leave empty to use the regular confirmed template.
   declined:
     templateId:
       label: Declined email template

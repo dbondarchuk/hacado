@@ -49,19 +49,13 @@ export default async function NewAppointmentPage(props: Props) {
     },
   ];
 
-  const config =
-    await servicesContainer.configurationService.getConfiguration("booking");
   const [fields, addons, options] = await Promise.all([
     servicesContainer.servicesService.getFields({}),
     servicesContainer.servicesService.getAddons({}),
     servicesContainer.servicesService.getOptions({}),
   ]);
 
-  const optionsChoices = (config.options || [])
-    .map((o) => options.items?.find(({ _id }) => o.id == _id))
-    .filter((o) => !!o);
-
-  const choices: AppointmentChoice[] = optionsChoices.map((option) => ({
+  const choices: AppointmentChoice[] = (options.items ?? []).map((option) => ({
     ...option,
     addons:
       option.addons
@@ -77,7 +71,7 @@ export default async function NewAppointmentPage(props: Props) {
   const currentMemberId = session.user.memberId;
   const canAssignMember = canReassignAppointment(session.user);
 
-  const from: AppointmentScheduleFormFrom | undefined = appointment
+  let from: AppointmentScheduleFormFrom | undefined = appointment
     ? {
         optionId: appointment.option._id,
         addonsIds: appointment.addons?.map((addon) => addon._id),
@@ -97,6 +91,17 @@ export default async function NewAppointmentPage(props: Props) {
         memberId: (searchParams?.fromValue as any)?.memberId ?? currentMemberId,
         data: searchParams.data as Record<string, any>,
       };
+
+  // Ensure package prefill always has the package's service selected.
+  if (from?.customerPackageId && !from.optionId) {
+    const soldPackage =
+      await servicesContainer.packagesService.getCustomerPackage(
+        from.customerPackageId,
+      );
+    if (soldPackage?.items[0]?.optionId) {
+      from = { ...from, optionId: soldPackage.items[0].optionId };
+    }
+  }
 
   const customer =
     !from?.customerId && searchParams.customer
@@ -128,44 +133,6 @@ export default async function NewAppointmentPage(props: Props) {
             title={t("appointments.new.title")}
             description={t("appointments.new.description")}
           />
-          {/* {waitlist && (
-            <Dialog>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <DialogTrigger asChild>
-                      <Button variant="ghost">
-                        <CalendarClock className="size-4" />
-                      </Button>
-                    </DialogTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {t("appointments.new.waitlistEntry")}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <DialogContent className="@container">
-                <DialogHeader>
-                  <DialogTitle>
-                    {t("appointments.new.waitlistEntry")}
-                  </DialogTitle>
-                  <DialogDescription>
-                    {t("appointments.new.waitlistEntryDescription")}
-                  </DialogDescription>
-                </DialogHeader>
-                <ScrollArea className="max-h-[60vh]">
-                  <WaitlistCardContent entry={waitlist} />
-                </ScrollArea>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant="secondary">
-                      {t("common.buttons.close")}
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          )} */}
         </div>
         <AppointmentScheduleForm
           options={choices}

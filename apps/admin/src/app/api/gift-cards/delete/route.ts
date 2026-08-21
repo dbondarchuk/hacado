@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { bulkDeleteSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
@@ -6,6 +8,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/delete")("POST");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "delete", logger);
+  if (!auth.ok) return auth.response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   logger.debug(

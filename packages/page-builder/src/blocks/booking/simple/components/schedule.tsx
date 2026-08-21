@@ -7,6 +7,7 @@ import type {
   AppointmentAddon,
   AppointmentChoice,
   AppointmentFields,
+  AppointmentPackage,
   AppointmentRequest,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
@@ -29,6 +30,7 @@ import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";
+import { BookingOtpDialog } from "../../components/otp-dialog";
 import { FlowOrder, ScheduleContext, StepType } from "./context";
 import { StepCard } from "./step-card";
 
@@ -46,6 +48,13 @@ export type ScheduleProps = {
   flowOrder: FlowOrder;
   /** Set when a specialist was already chosen before the service (specialist-first flow). */
   preselectedMemberId?: string | null;
+  purchasePackageId?: string;
+  customerPackageId?: string;
+  isCustomerPackageLocked?: boolean;
+  initialFields?: AppointmentFields;
+  initialOtpVerified?: boolean;
+  packages?: AppointmentPackage[];
+  requireCustomerOtp?: boolean;
 };
 
 export const Schedule: React.FC<
@@ -63,6 +72,13 @@ export const Schedule: React.FC<
   members,
   flowOrder,
   preselectedMemberId,
+  purchasePackageId,
+  customerPackageId,
+  isCustomerPackageLocked,
+  initialFields,
+  initialOtpVerified,
+  packages,
+  requireCustomerOtp,
   ...props
 }) => {
   const i18n = useI18n("translation");
@@ -101,6 +117,8 @@ export const Schedule: React.FC<
   const [duration, setDuration] = React.useState<number | undefined>(
     appointmentOptionDuration,
   );
+  const [otpVerified, setOtpVerified] = React.useState(!!initialOtpVerified);
+  const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
   const [closestDuplicateAppointment, _setClosestDuplicateAppointment] =
     React.useState<LuxonDateTime | undefined>(undefined);
@@ -188,7 +206,12 @@ export const Schedule: React.FC<
   let initialStep: StepType = "duration";
   if (appointmentOption.durationType === "fixed" && showSpecialistStep) {
     initialStep = "specialist";
-  } else if (appointmentOption.addons && appointmentOption.addons.length) {
+  } else if (
+    appointmentOption.addons &&
+    appointmentOption.addons.length &&
+    !purchasePackageId &&
+    !customerPackageId
+  ) {
     initialStep = "addons";
   } else if (appointmentOption.durationType === "fixed")
     initialStep = "calendar";
@@ -233,11 +256,18 @@ export const Schedule: React.FC<
 
   const [availability, setAvailability] = React.useState<Availability>([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [fields, setFields] = React.useState<AppointmentFields>({
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const [fields, setFields] = React.useState<AppointmentFields>(
+    initialFields ?? {
+      name: "",
+      email: "",
+      phone: "",
+    },
+  );
+
+  React.useEffect(() => {
+    if (customerPackageId) return;
+    setOtpVerified(false);
+  }, [fields.email, fields.phone, customerPackageId]);
 
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [confirmDuplicateAppointment, setConfirmDuplicateAppointment] =
@@ -346,6 +376,8 @@ export const Schedule: React.FC<
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
       giftCards: giftCards?.map((giftCard) => giftCard.code),
+      purchasePackageId,
+      customerPackageId,
       fields: Object.entries(fields)
         .filter(([_, value]) => !((value as any) instanceof File))
         .reduce(
@@ -531,6 +563,15 @@ export const Schedule: React.FC<
           className,
           isEditor,
           isBookingRestricted,
+          purchasePackageId,
+          customerPackageId,
+          isCustomerPackageLocked,
+          packages,
+          requireCustomerOtp,
+          otpVerified,
+          setOtpVerified,
+          otpDialogOpen,
+          setOtpDialogOpen,
         }}
       >
         {isBookingRestricted ? (
@@ -538,6 +579,27 @@ export const Schedule: React.FC<
         ) : (
           <StepCard />
         )}
+        <BookingOtpDialog
+          open={otpDialogOpen}
+          onOpenChange={setOtpDialogOpen}
+          fields={fields}
+          onVerified={async (result) => {
+            setOtpVerified(true);
+            setFields({
+              ...fields,
+              name: result.name || fields.name,
+              email: result.email || fields.email,
+              phone: result.phone || fields.phone,
+            });
+            const payment = await fetchPaymentInformation();
+            setPaymentInformation(payment);
+            if (!payment || payment.intent?.status === "paid") {
+              onSubmit();
+            } else {
+              setStep("payment");
+            }
+          }}
+        />
       </ScheduleContext.Provider>
 
       {isLoading && (

@@ -1,3 +1,4 @@
+import { clientApi } from "@hacado/api-sdk";
 import { AddonsCard } from "./addons-card";
 import { CalendarCard } from "./calendar-card";
 import { ConfirmationCard } from "./confirmation-card";
@@ -5,11 +6,25 @@ import { ScheduleContextProps, Step, StepType } from "./context";
 import { DuplicateAppointmentConfirmationCard } from "./duplicate-appointment-confirmation-card";
 import { DurationCard } from "./duration-card";
 import { FormCard } from "./form-card";
+import { OtpCard } from "./otp-card";
 import { PaymentCard } from "./payment-card";
 import { SpecialistCard } from "./specialist-card";
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
+    if (
+      (ctx.requireCustomerOtp ||
+        ctx.purchasePackageId ||
+        ctx.customerPackageId) &&
+      !ctx.otpVerified
+    ) {
+      const sessionMatches =
+        await clientApi.customerAuth.sessionMatchesBookingFields(ctx.fields);
+      if (!sessionMatches) {
+        ctx.setOtpDialogOpen(true);
+        return;
+      }
+    }
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
@@ -62,7 +77,11 @@ const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
 
 /** Resolves the assigned staff (if needed) then proceeds to addons/calendar. */
 const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
-  if (ctx.appointmentOption.addons?.length) {
+  if (
+    ctx.appointmentOption.addons?.length &&
+    !ctx.purchasePackageId &&
+    !ctx.customerPackageId
+  ) {
     resolveMemberIdForFetch(ctx);
     ctx.setStep("addons");
     return;
@@ -128,7 +147,15 @@ export const ScheduleSteps: Record<StepType, Step> = {
       show: () => true,
       isEnabled: () => true,
       action: (ctx) => {
-        if (ctx.appointmentOption.addons?.length) {
+        if (ctx.isCustomerPackageLocked) {
+          ctx.goBack?.();
+          return;
+        }
+        if (
+          ctx.appointmentOption.addons?.length &&
+          !ctx.purchasePackageId &&
+          !ctx.customerPackageId
+        ) {
           ctx.setStep("addons");
           return;
         }
@@ -173,6 +200,19 @@ export const ScheduleSteps: Record<StepType, Step> = {
       },
     },
     Content: FormCard,
+  },
+  otp: {
+    prev: {
+      show: () => true,
+      isEnabled: () => true,
+      action: ({ setStep }) => setStep("form"),
+    },
+    next: {
+      show: () => false,
+      isEnabled: () => false,
+      action: () => {},
+    },
+    Content: OtpCard,
   },
   payment: {
     prev: {

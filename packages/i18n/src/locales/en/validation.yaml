@@ -179,6 +179,9 @@ discount:
     options:
       required: Option ID is required
       unique: Option IDs should be unique
+    packages:
+      required: Package ID is required
+      unique: Package IDs should be unique
   value:
     required: Promo code value should be positive number
     max: Value can not be greater than 100
@@ -193,6 +196,8 @@ discount:
   applyRequest:
     optionId:
       required: Option ID is required
+    packageId:
+      required: Package ID is required
     dateTime:
       required: Valid date and time are required
     addons:
@@ -272,6 +277,8 @@ configuration:
       required: OTP email template is required
     otpTextTemplateId:
       required: OTP text message template is required when phone OTP is enabled
+    otpChannels:
+      required: OTP verification channel is required
   apps:
     email:
       required: Email sender APP is required
@@ -297,9 +304,19 @@ configuration:
       integer: Break duration must be an integer
     slotStart:
       unknown: Unknown option
-    options:
-      id:
-        required: Option is required
+    catalog:
+      unique: Each service and package can appear only once in the catalog
+      groupName:
+        required: Group name is required
+        max: Group name must be no more than 256 characters
+      groupDescription:
+        max: Group description must be no more than 1024 characters
+      optionId:
+        required: Service is required
+        unique: This service is already in the catalog
+      packageId:
+        required: Package is required
+        unique: This package is already in the catalog
     customSlotTimes:
       required: Custom time slots are required
     payments:
@@ -514,3 +531,42 @@ cancellation:
     increasing: Each policy's time must be strictly larger than the previous one.
     maxReschedules:
       required: Max reschedules must be a positive integer
+package:
+  name:
+    required: Package name is required
+    max: Package name must be no more than 256 characters
+  description:
+    required: Package description is required
+    max: Package description must be no more than 1024 characters
+  price:
+    min: Package price must be at least 0
+  items:
+    min: At least one service is required
+    optionId:
+      required: Service is required
+    credits:
+      integer: Credits must be an integer
+      min: Credits must be at least 1
+    creditsPerRedemption:
+      integer: Credits per visit must be an integer
+      min: Credits per visit must be at least 1
+  validityMonths:
+    integer: Validity months must be an integer
+    min: Validity must be at least 1 month
+    max: Validity must be at most 120 months
+  maxPurchasesPerCustomer:
+    integer: Max purchases must be an integer
+    min: Max purchases must be at least 1
+  eligibleMemberIds:
+    required: Staff member is required
+    unique: Staff members must be unique
+  sell:
+    packageId:
+      required: Package is required
+    customerId:
+      required: Customer is required
+    paymentMethod:
+      required: Payment method is required
+    price:
+      min: Sale price must be at least 0
+

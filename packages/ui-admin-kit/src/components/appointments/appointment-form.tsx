@@ -12,6 +12,7 @@ import {
   CalendarEvent,
   Customer,
   CustomerListModel,
+  CustomerPackage,
   Discount,
   effectiveAddonDuration,
   effectiveAddonPrice,
@@ -65,6 +66,7 @@ import {
   useTimeZone,
 } from "@hacado/ui";
 import {
+  CustomerPackageSelector,
   CustomerSelector,
   MemberSelector,
   PromoCodeSelector,
@@ -99,6 +101,7 @@ export const appointmentFromSchema = z.object({
       code: z.string(),
     })
     .optional(),
+  customerPackageId: z.string().optional(),
   data: z.record(z.string(), z.any()).optional(),
 });
 
@@ -217,6 +220,7 @@ export const AppointmentScheduleForm: React.FC<
       confirmed: z.coerce.boolean<boolean>().optional(),
       customerId: z.string().optional(),
       promoCode: z.string().optional().nullable(),
+      customerPackageId: z.string().optional().nullable(),
       doNotNotifyCustomer: z.coerce.boolean<boolean>().optional(),
       memberId: z.string().optional(),
       acknowledgeUnassignedMember: z.coerce.boolean<boolean>().optional(),
@@ -343,6 +347,9 @@ export const AppointmentScheduleForm: React.FC<
       confirmed: true,
       note: isEdit ? from?.note || "" : "",
       promoCode: isEdit ? from?.discount?.code : undefined,
+      customerPackageId: isEdit
+        ? undefined
+        : (from?.customerPackageId ?? undefined),
       doNotNotifyCustomer: false,
       memberId: canAssignMember
         ? (from?.memberId ?? currentMemberId ?? undefined)
@@ -367,6 +374,9 @@ export const AppointmentScheduleForm: React.FC<
   const [discount, setDiscount] = React.useState<
     (Discount & { code: string }) | undefined
   >();
+  const [customerPackage, setCustomerPackage] = React.useState<
+    CustomerPackage | undefined
+  >();
   const [isPastDueDialogOpen, setIsPastDueDialogOpen] = React.useState(false);
 
   const [disabledFields, setDisabledFields] = React.useState<Set<String>>(
@@ -383,6 +393,12 @@ export const AppointmentScheduleForm: React.FC<
   const selectedAddonIds = form.watch("addons");
   const selectedMemberId = form.watch("memberId");
   const acknowledgeUnassignedMember = form.watch("acknowledgeUnassignedMember");
+  const customerPackageId = form.watch("customerPackageId");
+  const packagePrefillId = !isEdit ? from?.customerPackageId : undefined;
+  /** Keep customer + package locked only while the prefilled package is still selected. */
+  const packageLocked =
+    !!packagePrefillId && customerPackageId === packagePrefillId;
+  const usingPackage = !!customerPackageId;
 
   const selectedOption = React.useMemo(
     () => options.find((x) => x._id === selectedOptionId),
@@ -460,12 +476,14 @@ export const AppointmentScheduleForm: React.FC<
 
       let appointmentDiscount: AppointmentEventRequest["discount"] | undefined =
         undefined;
-      if (data.promoCode && !discount) return;
-      if (data.promoCode && discount && data.totalPrice) {
-        appointmentDiscount = {
-          code: data.promoCode,
-          discountAmount: getDiscountAmount(data.totalPrice, discount),
-        };
+      if (!data.customerPackageId) {
+        if (data.promoCode && !discount) return;
+        if (data.promoCode && discount && data.totalPrice) {
+          appointmentDiscount = {
+            code: data.promoCode,
+            discountAmount: getDiscountAmount(data.totalPrice, discount),
+          };
+        }
       }
 
       const appointmentEvent: AppointmentEventRequest = {
@@ -473,14 +491,17 @@ export const AppointmentScheduleForm: React.FC<
         optionId: eventOption._id,
         fields,
         totalDuration: data.totalDuration,
-        totalPrice: data.totalPrice,
-        addonsIds: addons.map((addon) => addon._id),
+        totalPrice: data.customerPackageId ? 0 : data.totalPrice,
+        addonsIds: data.customerPackageId
+          ? []
+          : addons.map((addon) => addon._id),
         note: data.note,
         discount: appointmentDiscount,
         data: from?.data,
         memberId: !isEdit ? data.memberId : undefined,
         acknowledgeUnassignedMember:
           data.acknowledgeUnassignedMember || undefined,
+        customerPackageId: data.customerPackageId || undefined,
       };
 
       let appointmentId = id;
@@ -699,7 +720,7 @@ export const AppointmentScheduleForm: React.FC<
       );
 
     let priceDiscount = 0;
-    if (discount) {
+    if (discount && !usingPackage) {
       priceDiscount = getDiscountAmount(price, discount);
     }
 
@@ -708,11 +729,35 @@ export const AppointmentScheduleForm: React.FC<
     form.setValue("totalDuration", duration);
     form.setValue(
       "totalPrice",
-      Math.max(formatAmount(price || 0), 0) || undefined,
+      usingPackage ? 0 : Math.max(formatAmount(price || 0), 0) || undefined,
     );
 
     form.trigger("totalDuration");
-  }, [selectedOption, selectedAddons, selectedMemberId, discount, form]);
+  }, [
+    selectedOption,
+    selectedAddons,
+    selectedMemberId,
+    discount,
+    form,
+    usingPackage,
+  ]);
+
+  React.useEffect(() => {
+    if (!usingPackage) return;
+    form.setValue("addons", []);
+    form.setValue("promoCode", null);
+    setDiscount(undefined);
+  }, [usingPackage, form]);
+
+  React.useEffect(() => {
+    if (!customerPackageId || !customerPackage) return;
+    if (
+      !customerPackage.items.some((item) => item.optionId === selectedOptionId)
+    ) {
+      form.setValue("customerPackageId", null);
+      setCustomerPackage(undefined);
+    }
+  }, [selectedOptionId, customerPackage, customerPackageId, form]);
 
   React.useEffect(() => {
     setDisabledFields((prev) => {
@@ -725,6 +770,10 @@ export const AppointmentScheduleForm: React.FC<
 
   const onCustomerChange = (c?: CustomerListModel) => {
     setCustomer(c);
+    if (!packageLocked) {
+      form.setValue("customerPackageId", null);
+      setCustomerPackage(undefined);
+    }
     if (!!c) {
       form.setValue("fields.name", c.name);
       form.setValue("fields.email", c.email);
@@ -754,7 +803,7 @@ export const AppointmentScheduleForm: React.FC<
                     </FormLabel>
                     <FormControl>
                       <Combobox
-                        disabled={loading}
+                        disabled={loading || packageLocked}
                         className="flex w-full font-normal text-lg"
                         searchLabel={t("appointments.form.selectOption")}
                         value={field.value}
@@ -835,6 +884,7 @@ export const AppointmentScheduleForm: React.FC<
                         onChange={(value) =>
                           field.onChange(value.map((id) => ({ id })))
                         }
+                        disabled={loading || usingPackage}
                         options={
                           selectedOption?.addons.map((addon) => ({
                             value: addon._id,
@@ -877,16 +927,57 @@ export const AppointmentScheduleForm: React.FC<
                         onItemSelect={field.onChange}
                         value={field.value}
                         disabled={
-                          loading || !!from?.customerId || !!propsCustomer
+                          loading ||
+                          !!from?.customerId ||
+                          !!propsCustomer ||
+                          packageLocked
                         }
                         onValueChange={onCustomerChange}
-                        allowClear={!from?.customerId && !propsCustomer}
+                        allowClear={
+                          !from?.customerId && !propsCustomer && !packageLocked
+                        }
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              {!isEdit ? (
+                <FormField
+                  control={form.control}
+                  name="customerPackageId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("appointments.form.package")}</FormLabel>
+                      <FormControl>
+                        <CustomerPackageSelector
+                          value={field.value ?? undefined}
+                          customerId={customerId || undefined}
+                          optionId={selectedOptionId || undefined}
+                          memberId={selectedMemberId || undefined}
+                          dateTime={dateTime}
+                          disabled={loading || packageLocked}
+                          allowClear={!packageLocked}
+                          onItemSelect={(val) => {
+                            field.onChange(val ?? null);
+                            field.onBlur();
+                          }}
+                          onValueChange={setCustomerPackage}
+                        />
+                      </FormControl>
+                      {customerPackage ? (
+                        <FormDescription>
+                          {t("appointments.form.packageRemaining", {
+                            remaining: customerPackage.remainingCredits,
+                            total: customerPackage.totalCredits,
+                          })}
+                        </FormDescription>
+                      ) : null}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : null}
               {selectedFields.map((field) => (
                 <React.Fragment key={field.name}>
                   {fieldsComponentMap("fields")[field.type](
@@ -910,7 +1001,7 @@ export const AppointmentScheduleForm: React.FC<
                           field.onBlur();
                         }}
                         value={field.value as string | undefined}
-                        disabled={loading}
+                        disabled={loading || usingPackage}
                         onValueChange={(val) => {
                           setDiscount(val);
                         }}
@@ -951,7 +1042,7 @@ export const AppointmentScheduleForm: React.FC<
                         </InputGroupAddon>
                         <InputGroupInput>
                           <Input
-                            disabled={loading}
+                            disabled={loading || usingPackage}
                             placeholder="30.00"
                             type="number"
                             className={cn(
@@ -967,6 +1058,7 @@ export const AppointmentScheduleForm: React.FC<
                         <Button
                           variant="outline"
                           className="rounded-l-none border-l-0"
+                          disabled={loading || usingPackage}
                           onClick={() => {
                             field.onChange("");
                             field.onBlur();
@@ -976,6 +1068,11 @@ export const AppointmentScheduleForm: React.FC<
                         </Button>
                       </InputGroup>
                     </FormControl>
+                    {usingPackage ? (
+                      <FormDescription>
+                        {t("appointments.form.packageCoversPrice")}
+                      </FormDescription>
+                    ) : null}
                     <FormMessage />
                   </FormItem>
                 )}

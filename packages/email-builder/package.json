@@ -30,6 +30,7 @@
     "@hacado/rte": "*",
     "@hacado/ui": "*",
     "@hacado/ui-admin": "*",
+    "@hacado/utils": "*",
     "juice": "^11.0.3",
     "lucide-react": "^0.555.0",
     "react-dom": "19.2.8",

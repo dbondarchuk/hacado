@@ -42,6 +42,8 @@ export const emailTemplatesSchema = z.object({
   canceled: emailTemplateSchema,
   noShow: optionalEmailTemplateSchema.optional(),
   rescheduled: emailTemplateSchema,
+  pendingPackage: optionalEmailTemplateSchema.optional(),
+  confirmedPackage: optionalEmailTemplateSchema.optional(),
 });
 
 export type EmailTemplates = z.infer<typeof emailTemplatesSchema>;

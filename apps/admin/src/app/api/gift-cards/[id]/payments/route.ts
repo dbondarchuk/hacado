@@ -1,4 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,6 +11,12 @@ export async function GET(
   { params }: RouteContext<"/api/gift-cards/[id]/payments">,
 ) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/[id]/payments")("GET");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "read", logger);
+  if (!auth.ok) return auth.response;
+
   const { id } = await params;
   logger.debug(
     {

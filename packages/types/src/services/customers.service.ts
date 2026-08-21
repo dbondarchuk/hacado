@@ -41,7 +41,7 @@ export interface ICustomersService {
 
   getOrUpsertCustomer(
     fields: {
-      name: string;
+      name?: string;
       email: string;
       phone: string;
     },

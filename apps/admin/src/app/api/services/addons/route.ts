@@ -64,15 +64,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const auth = await requirePermission(
-    "service",
-    "create",
-    "AdminAPI/services/addons",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/services/addons")("POST");
+  const auth = await requirePermission("service", "create", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const body = await request.json();

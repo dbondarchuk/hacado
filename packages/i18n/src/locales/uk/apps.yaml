@@ -99,6 +99,7 @@ scopes:
   meeting-url-provider: Постачальник URL зустрічі
   dashboard-notifier: Сповіщувач панелі керування
   demo-arguments-provider: Постачальник демонстраційних аргументів
+  communication-templates-provider: Постачальник шаблонів комунікацій
   sitemap-items-provider: Постачальник елементів sitemap
   page-seo-arguments-provider: Постачальник аргументів SEO сторінки
 target:

@@ -7,6 +7,7 @@ block:
   title: My Cabinet
   auth:
     descriptionEmailOnly: Enter your email to check and manage your appointments.
+    descriptionPhoneOnly: Enter your phone to check and manage your appointments.
     descriptionEmailOrPhone: Enter your email or phone to check and manage your appointments.
     type:
       email: Email
@@ -81,3 +82,12 @@ block:
     back: Back to appointments
     backToAppointments: Back to my appointments
     completed: Done
+  book:
+    backToAppointments: Back to my appointments
+  packages:
+    title: Packages
+    remaining: "{remaining} of {total} remaining"
+    book: Book appointment
+    empty: No packages yet
+    used: "Part of {name}"
+    view: View package

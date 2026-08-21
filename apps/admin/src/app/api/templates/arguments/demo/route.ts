@@ -1,5 +1,6 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
+import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types";
 import { demoAppointment, getAdminUrl, getArguments } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -33,6 +34,20 @@ export async function GET(request: NextRequest) {
   const adminUrl = getAdminUrl();
   const websiteUrl = await getWebsiteUrl();
 
+  const demoEmailArgumentsArray =
+    await servicesContainer.connectedAppsService.invokeAppsByScope<
+      IDemoArgumentsProvider,
+      DemoArguments
+    >("demo-arguments-provider", async (app, service) => {
+      return (await service.getDemoEmailArguments?.(app.data)) ?? {};
+    });
+
+  const demoEmailArguments = demoEmailArgumentsArray
+    .filter((val) => !!val)
+    .reduce((acc, curr) => {
+      return { ...acc, ...curr };
+    }, {});
+
   const demoArguments = getArguments({
     appointment:
       searchParams.get("noAppointment") !== "true"
@@ -41,7 +56,7 @@ export async function GET(request: NextRequest) {
     config,
     customer: demoAppointment.customer,
     locale: config.brand.language,
-    additionalProperties: { otp: "123456" },
+    additionalProperties: { otp: "123456", ...demoEmailArguments },
     adminUrl,
     websiteUrl,
   });

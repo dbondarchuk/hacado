@@ -142,4 +142,5 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       image: null,
     },
   ],
+  hasActiveCustomerPackages: true,
 };

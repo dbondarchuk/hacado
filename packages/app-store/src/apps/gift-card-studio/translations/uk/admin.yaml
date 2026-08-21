@@ -353,8 +353,6 @@ settings:
   minAmount: Мінімальна сума карти
   maxAmount: Максимальна сума карти
   expirationMonths: Термін дії
-  months: міс.
-  years: р.
   toasts:
     saved: Налаштування збережено
     error: Не вдалося зберегти налаштування

@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
+import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
 import { Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";
@@ -71,31 +71,41 @@ export const ConfirmationCard = forwardRef<
                   ),
                 })}
               </p>
-              {!!appointment.discount && (
-                <>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {i18n("booking.confirmation.price.original", {
-                      original: currencyFormat(
-                        (appointment.totalPrice || 0) +
-                          (appointment.discount.discountAmount || 0),
-                      ),
-                    })}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {i18n("booking.confirmation.price.discount", {
-                      discount: currencyFormat(
-                        appointment.discount.discountAmount,
-                      ),
-                    })}
-                  </p>
-                </>
-              )}
-              {(!!appointment.totalPrice || !!appointment.discount) && (
+              {isAppointmentCoveredByPackage(appointment) ? (
                 <p className="text-sm font-semibold text-foreground mt-1">
-                  {i18n("booking.confirmation.price.total", {
-                    total: currencyFormat(appointment.totalPrice || 0),
+                  {i18n("booking.confirmation.package", {
+                    name: appointment.packageUsage!.name,
                   })}
                 </p>
+              ) : (
+                <>
+                  {!!appointment.discount && (
+                    <>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {i18n("booking.confirmation.price.original", {
+                          original: currencyFormat(
+                            (appointment.totalPrice || 0) +
+                              (appointment.discount.discountAmount || 0),
+                          ),
+                        })}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {i18n("booking.confirmation.price.discount", {
+                          discount: currencyFormat(
+                            appointment.discount.discountAmount,
+                          ),
+                        })}
+                      </p>
+                    </>
+                  )}
+                  {(!!appointment.totalPrice || !!appointment.discount) && (
+                    <p className="text-sm font-semibold text-foreground mt-1">
+                      {i18n("booking.confirmation.price.total", {
+                        total: currencyFormat(appointment.totalPrice || 0),
+                      })}
+                    </p>
+                  )}
+                </>
               )}
             </div>
             {newBookingPage && (

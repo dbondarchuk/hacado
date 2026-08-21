@@ -32,6 +32,27 @@ export const GIFT_CARD_STATUS_CHANGED_EVENT_TYPE =
   "giftCard.statusChanged" as const;
 export const GIFT_CARD_DELETED_EVENT_TYPE = "giftCard.deleted" as const;
 
+export const APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE =
+  "appointmentPackage.created" as const;
+export const APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE =
+  "appointmentPackage.updated" as const;
+export const APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE =
+  "appointmentPackage.deleted" as const;
+export const CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE =
+  "customerPackage.issued" as const;
+export const CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE =
+  "customerPackage.redeemed" as const;
+export const CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE =
+  "customerPackage.restored" as const;
+export const CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE =
+  "customerPackage.adjusted" as const;
+export const CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE =
+  "customerPackage.exhausted" as const;
+export const CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE =
+  "customerPackage.cancelled" as const;
+export const CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE =
+  "customerPackage.expired" as const;
+
 export const FIELD_CREATED_EVENT_TYPE = "field.created" as const;
 export const FIELD_UPDATED_EVENT_TYPE = "field.updated" as const;
 export const FIELD_DELETED_EVENT_TYPE = "field.deleted" as const;

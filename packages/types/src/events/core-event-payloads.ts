@@ -7,6 +7,12 @@ import type {
   AppointmentOption,
   AppointmentOptionUpdateModel,
 } from "../booking/appointment-option";
+import type {
+  AppointmentPackage,
+  AppointmentPackageUsage,
+  CustomerPackage,
+  PackageAdjustRequest,
+} from "../booking/appointment-package";
 import type { Discount, DiscountUpdateModel } from "../booking/discount";
 import type { ServiceField, ServiceFieldUpdateModel } from "../booking/field";
 import type {
@@ -37,6 +43,9 @@ import {
   APPOINTMENT_OPTION_CREATED_EVENT_TYPE,
   APPOINTMENT_OPTION_DELETED_EVENT_TYPE,
   APPOINTMENT_OPTION_UPDATED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
@@ -45,6 +54,13 @@ import {
   ASSET_UPDATED_EVENT_TYPE,
   CUSTOMER_CREATED_EVENT_TYPE,
   CUSTOMER_DELETED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
   CUSTOMER_UPDATED_EVENT_TYPE,
   DISCOUNT_APPLIED_EVENT_TYPE,
   DISCOUNT_CREATED_EVENT_TYPE,
@@ -209,6 +225,41 @@ export type GiftCardStatusChangedPayload = {
 };
 
 export type GiftCardDeletedPayload = { giftCardIds: string[] };
+
+export type AppointmentPackageCreatedPayload = {
+  package: AppointmentPackage;
+};
+export type AppointmentPackageUpdatedPayload = {
+  package: AppointmentPackage;
+  previous: AppointmentPackage;
+};
+export type AppointmentPackageDeletedPayload = { packageIds: string[] };
+export type CustomerPackageIssuedPayload = {
+  customerPackage: CustomerPackage;
+};
+export type CustomerPackageRedeemedPayload = {
+  customerPackage: CustomerPackage;
+  usage: AppointmentPackageUsage;
+  appointmentId: string;
+};
+export type CustomerPackageRestoredPayload = {
+  customerPackage: CustomerPackage;
+  appointmentId: string;
+  credits: number;
+};
+export type CustomerPackageAdjustedPayload = {
+  customerPackage: CustomerPackage;
+  request: PackageAdjustRequest;
+};
+export type CustomerPackageExhaustedPayload = {
+  customerPackage: CustomerPackage;
+};
+export type CustomerPackageCancelledPayload = {
+  customerPackage: CustomerPackage;
+};
+export type CustomerPackageExpiredPayload = {
+  customerPackage: CustomerPackage;
+};
 
 export type FieldCreatedPayload = { field: ServiceField };
 
@@ -383,6 +434,16 @@ export type CoreEventPayloadByType = {
   [GIFT_CARD_UPDATED_EVENT_TYPE]: GiftCardUpdatedPayload;
   [GIFT_CARD_STATUS_CHANGED_EVENT_TYPE]: GiftCardStatusChangedPayload;
   [GIFT_CARD_DELETED_EVENT_TYPE]: GiftCardDeletedPayload;
+  [APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE]: AppointmentPackageCreatedPayload;
+  [APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE]: AppointmentPackageUpdatedPayload;
+  [APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE]: AppointmentPackageDeletedPayload;
+  [CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE]: CustomerPackageIssuedPayload;
+  [CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE]: CustomerPackageRedeemedPayload;
+  [CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE]: CustomerPackageRestoredPayload;
+  [CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE]: CustomerPackageAdjustedPayload;
+  [CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE]: CustomerPackageExhaustedPayload;
+  [CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE]: CustomerPackageCancelledPayload;
+  [CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE]: CustomerPackageExpiredPayload;
   [FIELD_CREATED_EVENT_TYPE]: FieldCreatedPayload;
   [FIELD_UPDATED_EVENT_TYPE]: FieldUpdatedPayload;
   [FIELD_DELETED_EVENT_TYPE]: FieldDeletedPayload;

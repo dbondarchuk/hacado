@@ -17,6 +17,7 @@ import type {
   INotificationService,
 } from "./notification.service";
 import type { IOrganizationService } from "./organization.service";
+import type { IPackagesService } from "./packages.service";
 import type { IPagesService } from "./pages.service";
 import type { IPaymentsService } from "./payments.service";
 import type { IScheduleService } from "./schedule.service";
@@ -48,6 +49,7 @@ export type IServicesContainer = {
   teamService: ITeamService;
   dashboardNotificationsService: IDashboardNotificationsService;
   giftCardsService: IGiftCardsService;
+  packagesService: IPackagesService;
   billingService: IBillingService;
   customerAuthService: ICustomerAuthService;
   shortLinksService: IShortLinksService;

@@ -151,6 +151,27 @@ export const MainTab: React.FC<TabProps> = ({
       />
       <FormField
         control={form.control}
+        name="requireCustomerOtp"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              {t("settings.appointments.form.main.requireCustomerOtp")}{" "}
+              <InfoTooltip>
+                {t("settings.appointments.form.main.requireCustomerOtpTooltip")}
+              </InfoTooltip>
+            </FormLabel>
+            <FormControl>
+              <BooleanSelect
+                value={!!field.value}
+                onValueChange={field.onChange}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="autoConfirm"
         render={({ field }) => (
           <FormItem>

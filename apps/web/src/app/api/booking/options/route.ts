@@ -1,5 +1,10 @@
 import { trackBookingStep } from "@/utils/booking-tracking";
-import { getPlanTier, getServicesContainer } from "@/utils/utils";
+import { getCustomerSessionFromRequest } from "@/utils/customer-auth/session";
+import {
+  getPlanTier,
+  getServicesContainer,
+  sessionCanUseFeature,
+} from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import { BillingPlanTier, FREE_TIER_LIMITS } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -20,7 +25,13 @@ export async function GET(request: NextRequest) {
   // Track booking started
   await trackBookingStep(request, "OPTIONS_REQUESTED");
 
-  let response = await servicesContainer.bookingService.getAppointmentOptions();
+  const [session, canUsePackages] = await Promise.all([
+    getCustomerSessionFromRequest(),
+    sessionCanUseFeature("packages"),
+  ]);
+  let response = await servicesContainer.bookingService.getAppointmentOptions({
+    customerId: canUsePackages ? session?.customerId : undefined,
+  });
 
   const planTier = await getPlanTier();
   if (
@@ -40,6 +51,38 @@ export async function GET(request: NextRequest) {
     response = {
       ...response,
       options,
+    };
+  }
+
+  const canUseDiscounts = await sessionCanUseFeature("discounts");
+
+  if (!canUseDiscounts || !canUsePackages) {
+    const filterCatalog = (
+      nodes: NonNullable<typeof response.catalog>,
+    ): NonNullable<typeof response.catalog> =>
+      nodes
+        .map((node) => {
+          if (node.type === "group") {
+            const children = filterCatalog(node.children);
+            return children.length ? { ...node, children } : null;
+          }
+          if (node.type === "package") {
+            return canUsePackages ? node : null;
+          }
+          return node;
+        })
+        .filter((node): node is NonNullable<typeof node> => node !== null);
+
+    response = {
+      ...response,
+      showPromoCode: canUseDiscounts ? response.showPromoCode : false,
+      packages: canUsePackages ? response.packages : [],
+      hasActiveCustomerPackages: canUsePackages
+        ? response.hasActiveCustomerPackages
+        : false,
+      catalog: response.catalog
+        ? filterCatalog(response.catalog)
+        : response.catalog,
     };
   }
 

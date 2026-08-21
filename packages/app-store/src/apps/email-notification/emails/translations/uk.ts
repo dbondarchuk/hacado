@@ -115,13 +115,13 @@ export const UkEmailTemplates: EmailTemplates = {
   "auto-confirmed": {
     title: "Запис на {{option.name}} був запитаний і автоматично підтверджений",
     text: getText(
-      "Новий запис був запитаний на веб-сайті і автоматично підтверджений.",
+      "Новий запис був запитаний на веб-сайті і автоматично підтверджений.{{#packageUsage.isPackageAppointment}} Заброньовано з пакетом {{packageUsage.name}} ({{packageUsage.credits}} кредитів).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   pending: {
     title: "Запит на запис для {{option.name}}",
     text: getText(
-      "Новий запис був запитаний на веб-сайті для {{option.name}}.",
+      "Новий запис був запитаний на веб-сайті для {{option.name}}.{{#packageUsage.isPackageAppointment}} Заброньовано з пакетом {{packageUsage.name}} ({{packageUsage.credits}} кредитів).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   subject: "{{fields.name}} на {{option.name}} на {{dateTime.full}}",

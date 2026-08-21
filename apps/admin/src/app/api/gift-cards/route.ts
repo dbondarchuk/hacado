@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { giftCardsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { giftCardSchema } from "@hacado/types";
@@ -8,6 +10,12 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/gift-cards")("GET");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "read", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -59,6 +67,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("AdminAPI/gift-cards")("POST");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const { ok, response } = await requirePermission(
+    "giftCard",
+    "create",
+    logger,
+  );
+  if (!ok) return response;
+
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   logger.debug(

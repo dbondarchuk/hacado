@@ -34,6 +34,13 @@ templateSelector:
 optionSelector:
   placeholder: Select option
   requestFailed: Request to fetch options has failed
+packageSelector:
+  placeholder: Select package
+  requestFailed: Request to fetch packages has failed
+customerPackageSelector:
+  placeholder: Select customer package
+  needCustomerAndService: Select customer, service, and staff first
+  remaining: "{remaining} of {total} remaining"
 assetSelector:
   title: Select asset
   upload: Upload
@@ -116,6 +123,9 @@ durationInput:
   sec: sec
   weeks: weeks
   days: days
+monthsInput:
+  years: years
+  months: months
 dataTable:
   searchPlaceholder: Search...
   selectedRows: "{selected} of {total} row(s) selected."

@@ -187,6 +187,9 @@ discount:
     options:
       required: Потрібен ID опції
       unique: ID опцій повинні бути унікальними
+    packages:
+      required: Потрібен ID пакету
+      unique: ID пакетів повинні бути унікальними
   value:
     required: Значення промо-коду повинно бути позитивним числом
     max: Значення не може бути більше 100
@@ -201,6 +204,8 @@ discount:
   applyRequest:
     optionId:
       required: Потрібен ID опції
+    packageId:
+      required: Потрібен ID пакету
     dateTime:
       required: Потрібна дійсна дата та час
     addons:
@@ -280,6 +285,8 @@ configuration:
       required: Потрібно обрати шаблон email для OTP
     otpTextTemplateId:
       required: Потрібно обрати шаблон SMS для OTP, якщо увімкнено OTP за телефоном
+    otpChannels:
+      required: Потрібно обрати канал підтвердження OTP
   apps:
     email:
       required: Потрібен додаток відправника email
@@ -305,9 +312,19 @@ configuration:
       integer: Тривалість перерви повинна бути цілим числом
     slotStart:
       unknown: Невідома опція
-    options:
-      id:
-        required: Потрібна опція
+    catalog:
+      unique: Кожна послуга і кожен пакет можуть бути в каталозі лише один раз
+      groupName:
+        required: Потрібна назва групи
+        max: Назва групи має бути не довшою за 256 символів
+      groupDescription:
+        max: Опис групи має бути не довшим за 1024 символи
+      optionId:
+        required: Потрібна послуга
+        unique: Ця послуга вже є в каталозі
+      packageId:
+        required: Потрібен пакет
+        unique: Цей пакет вже є в каталозі
     customSlotTimes:
       required: Потрібні власні часові слоти
     payments:
@@ -522,3 +539,42 @@ cancellation:
     increasing: Час кожної політики повинен бути строго більшим за попередню.
     maxReschedules:
       required: Максимальна кількість перенесень повинна бути позитивним цілим числом
+package:
+  name:
+    required: Потрібна назва пакета
+    max: Назва пакета має бути не довшою за 256 символів
+  description:
+    required: Потрібен опис пакета
+    max: Опис пакета має бути не довшим за 1024 символи
+  price:
+    min: Ціна пакета має бути щонайменше 0
+  items:
+    min: Потрібна щонайменше одна послуга
+    optionId:
+      required: Потрібна послуга
+    credits:
+      integer: Кількість кредитів має бути цілим числом
+      min: Кількість кредитів має бути щонайменше 1
+    creditsPerRedemption:
+      integer: Кредити за візит мають бути цілим числом
+      min: Кредити за візит мають бути щонайменше 1
+  validityMonths:
+    integer: Термін дії має бути цілим числом
+    min: Термін дії має бути щонайменше 1 місяць
+    max: Термін дії має бути не більше 120 місяців
+  maxPurchasesPerCustomer:
+    integer: Максимум покупок має бути цілим числом
+    min: Максимум покупок має бути щонайменше 1
+  eligibleMemberIds:
+    required: Потрібен спеціаліст
+    unique: Спеціалісти мають бути унікальними
+  sell:
+    packageId:
+      required: Потрібен пакет
+    customerId:
+      required: Потрібен клієнт
+    paymentMethod:
+      required: Потрібен спосіб оплати
+    price:
+      min: Ціна продажу має бути щонайменше 0
+

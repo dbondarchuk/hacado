@@ -5,41 +5,71 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerAuthConfiguration,
   customerAuthConfigurationSchema,
+  customerOtpAllowsEmail,
+  customerOtpAllowsPhone,
+  customerOtpChannels,
+  type CustomerOtpChannels,
 } from "@hacado/types";
 import {
-  BooleanSelect,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   toastPromise,
 } from "@hacado/ui";
 import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
+
+type CustomerAuthFormValues = {
+  otpChannels: CustomerOtpChannels;
+  otpEmailTemplateId?: string;
+  otpTextTemplateId?: string;
+};
 
 export const CustomerAccessSettingsForm: React.FC<{
   values: CustomerAuthConfiguration;
 }> = ({ values }) => {
   const t = useI18n("admin");
-  const form = useForm<CustomerAuthConfiguration>({
-    resolver: zodResolver(customerAuthConfigurationSchema),
+  const form = useForm<CustomerAuthFormValues>({
+    resolver: zodResolver(
+      customerAuthConfigurationSchema,
+    ) as Resolver<CustomerAuthFormValues>,
     mode: "all",
-    values,
+    values: {
+      otpChannels: values.otpChannels,
+      otpEmailTemplateId: values.otpEmailTemplateId,
+      otpTextTemplateId: values.otpTextTemplateId,
+    },
   });
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
-  const allowPhoneOtp = form.watch("allowPhoneOtp");
+  const otpChannels = form.watch("otpChannels");
 
-  const onSubmit = async (data: CustomerAuthConfiguration) => {
+  const onSubmit = async (data: CustomerAuthFormValues) => {
     try {
       setLoading(true);
+      const channels = data.otpChannels;
+      const payload: CustomerAuthConfiguration = {
+        otpChannels: channels,
+        otpEmailTemplateId: customerOtpAllowsEmail(channels)
+          ? data.otpEmailTemplateId
+          : undefined,
+        otpTextTemplateId: customerOtpAllowsPhone(channels)
+          ? data.otpTextTemplateId
+          : undefined,
+      };
       await toastPromise(
-        adminApi.configuration.setConfiguration("customerAuth", data),
+        adminApi.configuration.setConfiguration("customerAuth", payload),
         {
           success: t("settings.customerAccess.form.toasts.changesSaved"),
           error: t("settings.customerAccess.form.toasts.requestError"),
@@ -56,44 +86,62 @@ export const CustomerAccessSettingsForm: React.FC<{
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="otpEmailTemplateId"
+          name="otpChannels"
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                {t("settings.customerAccess.form.otpEmailTemplateId.label")}
+                {t("settings.customerAccess.form.otpChannels.label")}
               </FormLabel>
               <FormControl>
-                <TemplateSelector
-                  type="email"
-                  disabled={loading}
+                <Select
                   value={field.value}
-                  onItemSelect={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="allowPhoneOtp"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {t("settings.customerAccess.form.allowPhoneOtp.label")}
-              </FormLabel>
-              <FormControl>
-                <BooleanSelect
-                  value={!!field.value}
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value as CustomerOtpChannels);
+                    field.onBlur();
+                  }}
                   disabled={loading}
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {customerOtpChannels.map((channel) => (
+                      <SelectItem key={channel} value={channel}>
+                        {t(
+                          `settings.customerAccess.form.otpChannels.options.${channel}`,
+                        )}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {allowPhoneOtp && (
+        {customerOtpAllowsEmail(otpChannels) && (
+          <FormField
+            control={form.control}
+            name="otpEmailTemplateId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t("settings.customerAccess.form.otpEmailTemplateId.label")}
+                </FormLabel>
+                <FormControl>
+                  <TemplateSelector
+                    type="email"
+                    disabled={loading}
+                    value={field.value}
+                    onItemSelect={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+        {customerOtpAllowsPhone(otpChannels) && (
           <FormField
             control={form.control}
             name="otpTextTemplateId"

@@ -3,6 +3,7 @@ import { HourNumbers, MinuteNumbers, Time } from "@hacado/types";
 import {
   Button,
   Calendar,
+  cn,
   Combobox,
   IComboboxItem,
   Skeleton,
@@ -70,6 +71,8 @@ export const CalendarCard: React.FC = () => {
     setDiscount: setPromoCode,
     availability,
     isLoading,
+    purchasePackageId,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   const configTimeZone = useTimeZone();
@@ -203,11 +206,30 @@ export const CalendarCard: React.FC = () => {
   return (
     <div className="space-y-6 calendar-card card-container">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-foreground calendar-card-title card-title">
-          {t("booking.calendar.title")}
+        <h2
+          className={cn(
+            "text-lg font-semibold text-foreground calendar-card-title card-title",
+            purchasePackageId && "calendar-first-appointment-title",
+            isCustomerPackageLocked && "calendar-package-appointment-title",
+          )}
+        >
+          {purchasePackageId
+            ? t("booking.calendar.firstAppointmentTitle")
+            : isCustomerPackageLocked
+              ? t("booking.calendar.nextPackageAppointmentTitle")
+              : t("booking.calendar.title")}
         </h2>
-        <p className="text-xs text-muted-foreground calendar-card-description card-description">
-          {t("booking.calendar.description")}
+        <p
+          className={cn(
+            "text-xs text-muted-foreground calendar-card-description card-description",
+            purchasePackageId && "calendar-first-appointment-description",
+          )}
+        >
+          {purchasePackageId
+            ? t("booking.calendar.firstAppointmentDescription")
+            : isCustomerPackageLocked
+              ? t("booking.calendar.nextPackageAppointmentDescription")
+              : t("booking.calendar.description")}
         </p>
       </div>
 

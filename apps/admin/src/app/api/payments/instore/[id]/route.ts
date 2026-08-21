@@ -49,8 +49,7 @@ export async function PUT(
   if (payment.appointmentId) {
     const auth = await requireCanUpdateAppointment(
       payment.appointmentId,
-      "AdminAPI/payments/instore/[id]",
-      "PUT",
+      logger,
     );
     if (!auth.ok) return auth.response;
   }
@@ -123,8 +122,7 @@ export async function DELETE(
   if (payment.appointmentId) {
     const auth = await requireCanUpdateAppointment(
       payment.appointmentId,
-      "AdminAPI/payments/instore/[id]",
-      "DELETE",
+      logger,
     );
     if (!auth.ok) return auth.response;
   }

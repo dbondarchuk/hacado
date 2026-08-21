@@ -10,6 +10,7 @@ import {
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
+  isAppointmentCoveredByPackage,
 } from "@hacado/types";
 import {
   AppointmentStatusToICalMethodMap,
@@ -23,6 +24,7 @@ import {
 import {
   CustomerEmailNotificationConfiguration,
   customerEmailNotificationConfigurationSchema,
+  EmailTemplateKeys,
 } from "./models";
 import {
   CustomerEmailNotificationAdminAllKeys,
@@ -340,10 +342,8 @@ export default class CustomerEmailNotificationConnectedApp
   private async sendNotification(
     appData: ConnectedAppData,
     appointment: Appointment,
-    status: keyof CustomerEmailNotificationConfiguration["templates"],
-    initiator:
-      | keyof CustomerEmailNotificationConfiguration["templates"]
-      | "newRequest",
+    status: EmailTemplateKeys,
+    initiator: EmailTemplateKeys | "newRequest",
     forceRequest?: boolean,
   ) {
     const logger = this.loggerFactory("sendNotification");
@@ -393,7 +393,20 @@ export default class CustomerEmailNotificationConnectedApp
       });
 
       const data = appData.data as CustomerEmailNotificationConfiguration;
-      const { templateId } = data.templates[status] ?? {};
+      const packageTemplateKey =
+        status === "pending"
+          ? "pendingPackage"
+          : status === "confirmed"
+            ? "confirmedPackage"
+            : null;
+      const packageTemplateId =
+        packageTemplateKey &&
+        isAppointmentCoveredByPackage(appointment) &&
+        data.templates[packageTemplateKey]?.templateId
+          ? data.templates[packageTemplateKey]?.templateId
+          : undefined;
+      const { templateId: statusTemplateId } = data.templates[status] ?? {};
+      const templateId = packageTemplateId ?? statusTemplateId;
       if (!templateId) {
         logger.warn(
           { appId: appData._id, appointmentId: appointment._id, status },
