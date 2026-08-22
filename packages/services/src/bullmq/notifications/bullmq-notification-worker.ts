@@ -141,6 +141,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const email = jobData.data as Email;
     const notificationService = new SystemNotificationService(
       createDefaultEmailService(this.getServices("").assetsStorage),
+      new TextBeltService(getTextBeltConfiguration()),
     );
 
     try {

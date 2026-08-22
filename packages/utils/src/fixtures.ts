@@ -10,6 +10,8 @@ const proxyHandler = {
   },
 };
 
+export const demoOtp = "123456";
+
 const appointmentId = "hjsjrlklfsdnx";
 const customerId = "customer-1234";
 export const demoAppointment: Appointment = {

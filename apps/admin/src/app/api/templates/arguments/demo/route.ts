@@ -1,7 +1,12 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types";
-import { demoAppointment, getAdminUrl, getArguments } from "@hacado/utils";
+import {
+  demoAppointment,
+  demoOtp,
+  getAdminUrl,
+  getArguments,
+} from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +61,7 @@ export async function GET(request: NextRequest) {
     config,
     customer: demoAppointment.customer,
     locale: config.brand.language,
-    additionalProperties: { otp: "123456", ...demoEmailArguments },
+    additionalProperties: { otp: demoOtp, ...demoEmailArguments },
     adminUrl,
     websiteUrl,
   });
