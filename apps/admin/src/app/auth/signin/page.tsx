@@ -28,6 +28,9 @@ export default async function AuthenticationPage() {
   }
 
   const t = await getI18nAsync("admin");
+  const googleAuthEnabled = Boolean(
+    process.env.GOOGLE_AUTH_CLIENT_ID && process.env.GOOGLE_AUTH_CLIENT_SECRET,
+  );
 
   logger.debug("Signin page loaded");
 
@@ -36,7 +39,7 @@ export default async function AuthenticationPage() {
       title={t("auth.signIn")}
       description={t("auth.signInDescription")}
     >
-      <UserAuthForm />
+      <UserAuthForm googleAuthEnabled={googleAuthEnabled} />
     </AuthLayout>
   );
 }

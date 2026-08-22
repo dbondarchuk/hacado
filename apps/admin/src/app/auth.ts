@@ -1,15 +1,7 @@
+import { assertPublicSignupAllowed } from "@/lib/auth/assert-public-signup-allowed";
 import { getMemberLanguageForUser } from "@/lib/auth/member-language";
-import { hasPendingInvitationForEmail } from "@/lib/auth/pending-invitation";
 import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
-import {
-  getSignupEmailBlockReason,
-  isSignupEmailBlockingEnabled,
-} from "@/lib/auth/signup-email";
-import {
-  isPublicSignupAllowedFromHeaders,
-  isSignupGeoBlockingEnabled,
-} from "@/lib/auth/signup-geo";
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
 import {
   applyPolarOrderPaidToSmsBalances,
@@ -17,7 +9,6 @@ import {
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { languages, type Language } from "@hacado/i18n";
-import { getLoggerFactory } from "@hacado/logger";
 import {
   getPolarClient,
   getRedisClient,
@@ -48,7 +39,12 @@ import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError, createAuthMiddleware } from "better-auth/api";
-import { captcha, customSession, organization } from "better-auth/plugins";
+import {
+  captcha,
+  customSession,
+  lastLoginMethod,
+  organization,
+} from "better-auth/plugins";
 import { ObjectId } from "mongodb";
 import { ApiError } from "next/dist/server/api-utils";
 
@@ -161,53 +157,11 @@ export const auth = betterAuth({
       if (ctx.path !== "/sign-up/email") return;
 
       const email = typeof ctx.body?.email === "string" ? ctx.body.email : "";
-      const emailLogger = getLoggerFactory("SignupEmail")("signUpEmail");
-      const geoLogger = getLoggerFactory("SignupGeo")("signUpEmail");
-
-      emailLogger.debug({ path: ctx.path }, "Signup request received");
-
-      if (email && (await hasPendingInvitationForEmail(email))) {
-        emailLogger.info(
-          { email },
-          "Signup allowed: pending invitation for email, skipping email and region checks",
-        );
-        return;
-      }
-
-      if (isSignupEmailBlockingEnabled()) {
-        const reason = getSignupEmailBlockReason(email);
-        if (reason) {
-          emailLogger.warn(
-            { email, reason },
-            "Signup rejected: SIGNUP_EMAIL_BLOCKED",
-          );
-          throw new APIError("FORBIDDEN", {
-            message: "We cannot accept this email address",
-            code: "SIGNUP_EMAIL_BLOCKED",
-          });
-        }
-      } else {
-        emailLogger.debug({ path: ctx.path }, "Signup email blocking disabled");
-      }
-
-      if (!isSignupGeoBlockingEnabled()) {
-        geoLogger.debug({ path: ctx.path }, "Signup geo blocking disabled");
-        return;
-      }
-
-      const requestHeaders = ctx.headers ?? new Headers();
-      const allowed = isPublicSignupAllowedFromHeaders(
-        requestHeaders,
-        "sign-up/email",
-      );
-
-      if (!allowed) {
-        geoLogger.warn({ email }, "Signup rejected: SIGNUP_REGION_BLOCKED");
-        throw new APIError("FORBIDDEN", {
-          message: "Sign-up is not available in your region",
-          code: "SIGNUP_REGION_BLOCKED",
-        });
-      }
+      await assertPublicSignupAllowed({
+        email,
+        headers: ctx.headers ?? new Headers(),
+        logContext: "sign-up/email",
+      });
     }),
   },
   emailAndPassword: {
@@ -249,8 +203,44 @@ export const auth = betterAuth({
       },
     },
   },
+  ...(process.env.GOOGLE_AUTH_CLIENT_ID && process.env.GOOGLE_AUTH_CLIENT_SECRET
+    ? {
+        socialProviders: {
+          google: {
+            clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+            scope: ["email", "profile"],
+          },
+        },
+      }
+    : {}),
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google"],
+      // allowDifferentEmails: false,
+      allowDifferentEmails: true,
+    },
+  },
   databaseHooks: {
     user: {
+      create: {
+        before: async (user, ctx) => {
+          const email = typeof user.email === "string" ? user.email : "";
+          if (!email || !ctx) return;
+
+          const path = typeof ctx.path === "string" ? ctx.path : "";
+          const isOAuthSignup =
+            path.includes("/callback/") || path.includes("/oauth2/callback/");
+          if (!isOAuthSignup && path !== "/sign-up/email") return;
+
+          await assertPublicSignupAllowed({
+            email,
+            headers: ctx.headers ?? new Headers(),
+            logContext: isOAuthSignup ? "oauth-sign-up" : "sign-up/email",
+          });
+        },
+      },
       update: {
         after: async (user) => {
           if (!user.email || !user.id) return;
@@ -625,6 +615,7 @@ export const auth = betterAuth({
         } as SessionUser,
       };
     }),
+    lastLoginMethod(),
   ],
 });
 

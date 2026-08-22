@@ -3142,6 +3142,21 @@ auth:
   quote: Я люблю це!
   quoteAuthor: Олеся Бондарчук
   forgotPasswordLink: <link>Забули пароль?</link>
+  social:
+    continueWithGoogle: Продовжити з Google
+    orContinueWithEmail: Або продовжити з email
+    lastUsed: Останній раз
+    errors:
+      emailMismatch: Email облікового запису Google не збігається з email вашого облікового запису
+      linkFailed: Не вдалося підключити обліковий запис Google
+      regionBlocked: Реєстрація недоступна у вашому регіоні
+  completeProfile:
+    title: Завершіть профіль
+    description: Додайте номер телефону, щоб завершити налаштування облікового запису
+    submit: Продовжити
+    toasts:
+      success: Профіль збережено
+      error: Не вдалося зберегти профіль. Будь ласка, спробуйте знову.
   captcha:
     error: Не вдалося підтвердити, що ви не робот. Будь ласка, спробуйте знову.
   forgotPassword:
@@ -3582,6 +3597,27 @@ users:
       password: Пароль
       passwordDescription: Оновіть ваш пароль для використання в акаунті
       changePassword: Змінити пароль
+      setPassword: Встановити пароль
+      setPasswordDescription: Додайте пароль, щоб входити через email
+      connectedAccounts: Підключені облікові записи
+      connectGoogle: Підключити Google
+      googleConnected: Google підключено
+      googleNotConnected: Google не підключено
+      unlinkGoogle: Відключити Google
+      linkGoogleSuccess: Обліковий запис Google успішно підключено
+      unlinkGoogleSuccess: Обліковий запис Google відключено
+      unlinkGoogleError: Не вдалося відключити обліковий запис Google
+    unlinkGoogle:
+      title: Відключити Google
+      description: Введіть пароль, щоб підтвердити відключення облікового запису Google
+      form:
+        password: Пароль
+      confirm: Відключити Google
+      toasts:
+        invalidPassword: Невірний пароль
+      validation:
+        password:
+          required: Пароль обов'язковий
     emailChange:
       title: Зміна email
       description: Оновіть вашу email адресу для використання в акаунті
@@ -3620,6 +3656,24 @@ users:
           maxLength: Новий пароль повинен містити не більше 128 символів
         confirmPassword:
           required: Підтвердження пароля не збігається з новим паролем
+    setPassword:
+      title: Встановити пароль
+      submit: Зберегти пароль
+      form:
+        newPassword: Новий пароль
+        confirmPassword: Підтвердіть пароль
+      toasts:
+        success: Пароль успішно встановлено
+        error: Не вдалося встановити пароль. Будь ласка, спробуйте знову.
+        credentialExists: У вас уже встановлено пароль
+      validation:
+        newPassword:
+          required: Новий пароль є обов'язковим
+          minLength: Новий пароль повинен містити не менше 8 символів
+          maxLength: Новий пароль повинен містити не більше 128 символів
+        confirmPassword:
+          required: Підтвердження пароля є обов'язковим
+          mismatch: Паролі не збігаються
     toasts:
       changesSaved: Ваші зміни були збережені.
       requestError: Виникла проблема з вашим запитом.

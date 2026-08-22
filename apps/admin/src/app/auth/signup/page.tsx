@@ -109,6 +109,10 @@ export default async function SignupPage(props: {
         publicDomain={publicDomain}
         invitation={invitation}
         turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
+        googleAuthEnabled={Boolean(
+          process.env.GOOGLE_AUTH_CLIENT_ID &&
+            process.env.GOOGLE_AUTH_CLIENT_SECRET,
+        )}
       />
     </AuthLayout>
   );

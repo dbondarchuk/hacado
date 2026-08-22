@@ -2,11 +2,16 @@
 import { authClient } from "@/app/auth-client";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
 import {
+  GoogleAuthButton,
+  SocialAuthDivider,
+} from "@/components/admin/auth/social-auth-buttons";
+import {
   captchaFetchOptions,
   isCaptchaError,
   TurnstileField,
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
+import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types";
 import {
@@ -33,6 +38,7 @@ export const UserSignupForm = ({
   publicDomain,
   invitation,
   turnstileSiteKey,
+  googleAuthEnabled = false,
 }: {
   publicDomain: string;
   invitation?: {
@@ -41,6 +47,7 @@ export const UserSignupForm = ({
     organizationName: string;
   } | null;
   turnstileSiteKey: string;
+  googleAuthEnabled?: boolean;
 }) => {
   const formSchema = useMemo(
     () =>
@@ -100,7 +107,10 @@ export const UserSignupForm = ({
   const [loading, setLoading] = useState(false);
   const t = useI18n("admin");
 
-  const postAuthPath = invitation ? "/dashboard" : (callbackUrl ?? "/checkout");
+  const postAuthPath = invitation
+    ? `/accept-invitation?invitationId=${encodeURIComponent(invitation.id)}`
+    : (callbackUrl ?? "/checkout");
+  const googleCallbackURL = buildCompleteProfileCallbackUrl(postAuthPath);
 
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -183,6 +193,15 @@ export const UserSignupForm = ({
 
   return (
     <div className="w-full flex flex-col gap-4">
+      {googleAuthEnabled ? (
+        <>
+          <GoogleAuthButton
+            callbackURL={googleCallbackURL}
+            invitationId={invitation?.id}
+          />
+          <SocialAuthDivider />
+        </>
+      ) : null}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

@@ -635,13 +635,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth-client.ts": {
-    "mtime": 1786820408.7290044,
-    "ast_hash": "1e754d4082223e7c1dc9ec0880b38879",
+    "mtime": 1787381037.007222,
+    "ast_hash": "e68a82b8d66a43ccdff41def46b9e2d4",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth.ts": {
-    "mtime": 1786987902.1118996,
-    "ast_hash": "e0073847d300ad3faec1d669f7837bff",
+    "mtime": 1787381145.039862,
+    "ast_hash": "0fba11d87967253b131f28881bf07e1f",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/email/verified/route.ts": {
@@ -660,13 +660,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signin/page.tsx": {
-    "mtime": 1786820408.7334886,
-    "ast_hash": "b9df5a5cac1624d437fa01eeeb7b96a8",
+    "mtime": 1787381160.5115235,
+    "ast_hash": "1b2883368cd19a8b34d112b39bfb8cbc",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signup/page.tsx": {
-    "mtime": 1786820408.734488,
-    "ast_hash": "6b90f486c90d3496f6d7ecd44e8d8819",
+    "mtime": 1787381161.0639665,
+    "ast_hash": "73e54558ee0bfa5f6d12d517574c3cf5",
     "semantic_hash": ""
   },
   "apps/admin/src/app/checkout/layout.tsx": {
@@ -675,8 +675,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/checkout/page.tsx": {
-    "mtime": 1786820408.7354887,
-    "ast_hash": "2da4dd65503c71ba43d4062e392d82f4",
+    "mtime": 1787381163.9579217,
+    "ast_hash": "793361b2e5eb354fe43af09453e7ec2c",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/[...slug]/page.tsx": {
@@ -1320,13 +1320,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/layout.tsx": {
-    "mtime": 1787380074.134508,
-    "ast_hash": "9ade806e37f8376ee4628ae51f3a07ce",
+    "mtime": 1787382474.621388,
+    "ast_hash": "a3a0db356444519257d5e1e6b35ddf8f",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-auth-form.tsx": {
-    "mtime": 1786820408.8198318,
-    "ast_hash": "545145e46a3bcb5905555fbc9d039e49",
+    "mtime": 1787383108.6177516,
+    "ast_hash": "601045bca9d9e6ebb1ae0d17c7cd1bec",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-forgot-password-form.tsx": {
@@ -1340,8 +1340,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-signup-form.tsx": {
-    "mtime": 1786820408.8208146,
-    "ast_hash": "37be6f1baef3d8694041d65bd4db7a53",
+    "mtime": 1787381291.088058,
+    "ast_hash": "5cc2ded46156896f2191d59c803a251e",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/charts/area-graph.tsx": {
@@ -15345,8 +15345,8 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1787009561.5969713,
-    "ast_hash": "cfbdad2af0b2046286ee52288d83c8dd",
+    "mtime": 1787381040.6128647,
+    "ast_hash": "5127abce53cf4e1c24d03bebe5aa989e",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.md": {
@@ -16185,8 +16185,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1787364795.2392921,
-    "ast_hash": "412575850068fd2b0a810bd7e5f5222e",
+    "mtime": 1787381911.2123215,
+    "ast_hash": "6d8a9ddf25f5637afd2cbe36f9b55154",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16220,8 +16220,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1787364795.2423925,
-    "ast_hash": "53d7d0a6a1fb1718b0c77ea2a7640ae5",
+    "mtime": 1787381911.776959,
+    "ast_hash": "5af7637f61630e1a50ddac71090b2c62",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -27965,8 +27965,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/profile-form.tsx": {
-    "mtime": 1786820408.9007106,
-    "ast_hash": "38a7b495e9adc22cc21319443d149b5b",
+    "mtime": 1787381452.5018296,
+    "ast_hash": "34f70e6b370881061d7e6b51a3f1e095",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/organization-slug.ts": {
@@ -28932,6 +28932,61 @@
   "apps/web/src/utils/payments/create-intent.ts": {
     "mtime": 1787364795.1551986,
     "ast_hash": "5f2bb65bf992b2f70a7362d3de1df204",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/auth/complete-profile/page.tsx": {
+    "mtime": 1787381204.7879412,
+    "ast_hash": "66bfa9557c9e9b1858e634fc89c3ff28",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/users/me/profile/set-password-action.ts": {
+    "mtime": 1787381067.8940868,
+    "ast_hash": "25b6515347e7f051e8f3759ca0f21dca",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/auth/complete-profile-form.tsx": {
+    "mtime": 1787381204.7879412,
+    "ast_hash": "fc69c119eb106f5473598e468f875ca4",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/auth/social-auth-buttons.tsx": {
+    "mtime": 1787383112.706258,
+    "ast_hash": "cbad7977fd1862a655c5fbb658b710db",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/users/profile-security-section.tsx": {
+    "mtime": 1787381908.812128,
+    "ast_hash": "53df9cfd3167cef540407c871cc9f07b",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/users/set-password-dialog.tsx": {
+    "mtime": 1787381204.7879412,
+    "ast_hash": "1ddbc68f4508e655733be1d73ab96482",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/lib/auth/assert-public-signup-allowed.ts": {
+    "mtime": 1787381204.7879412,
+    "ast_hash": "a6a2607c5d75707d35fa6bce82d440a8",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/lib/auth/complete-profile-callback.ts": {
+    "mtime": 1787381040.7452993,
+    "ast_hash": "07dc8255357e0aa8ecd9dee70d10d8d2",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/lib/auth/requires-profile-completion.ts": {
+    "mtime": 1787381204.7884586,
+    "ast_hash": "9e40b6ed9c5f5eef125ad6ecc87464c0",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/users/me/profile/unlink-google-action.ts": {
+    "mtime": 1787381905.1554027,
+    "ast_hash": "0072d277b72501e2c67ae1c02b7795e5",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/users/unlink-google-dialog.tsx": {
+    "mtime": 1787381907.5188787,
+    "ast_hash": "cf431de27aa4dfc62798b196d58b63e0",
     "semantic_hash": ""
   }
 }
