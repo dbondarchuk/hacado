@@ -23,6 +23,8 @@ export const customerOtpEmailTemplate: TemplatesTemplate =
       {
         type: "title",
         text: "{{otp}}",
+        backgroundColor: "#f0f0f0",
+        textColor: "#000000",
       },
       {
         type: "text",

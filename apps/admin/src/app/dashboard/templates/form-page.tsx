@@ -9,7 +9,12 @@ import {
   TemplatesTemplate,
 } from "@hacado/types";
 import { Breadcrumbs } from "@hacado/ui";
-import { demoAppointment, getAdminUrl, getArguments } from "@hacado/utils";
+import {
+  demoAppointment,
+  demoOtp,
+  getAdminUrl,
+  getArguments,
+} from "@hacado/utils";
 import { notFound } from "next/navigation";
 import React from "react";
 import { getTemplate } from "./cached";
@@ -62,7 +67,7 @@ export const TemplateFormPage: React.FC<
     websiteUrl,
     customer: demoAppointment.customer,
     locale: config.brand.language,
-    additionalProperties: demoEmailArguments,
+    additionalProperties: { otp: demoOtp, ...demoEmailArguments },
   });
 
   let initialData: Template | undefined;

@@ -17,8 +17,8 @@ export const AuthLayout = ({
   description: string;
 }) => {
   return (
-    <div className="min-h-screen overflow-y-auto bg-muted">
-      <div className="flex min-h-screen flex-col items-center justify-center p-4 py-8 lg:p-8">
+    <div className="h-screen overflow-y-auto overflow-x-hidden bg-muted overscroll-y-contain">
+      <div className="flex min-h-full flex-col items-center justify-center p-4 py-8 lg:p-8">
         <Card className="w-full max-w-md shrink-0 shadow-lg">
           <CardHeader className="space-y-2 text-center">
             <div className="flex gap-2 items-center justify-center mb-4 mx-auto">

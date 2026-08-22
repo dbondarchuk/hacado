@@ -3376,6 +3376,23 @@ auth:
   quote: I love it!
   quoteAuthor: Olesia Bondarchuk
   forgotPasswordLink: "<link>Forgot your password?</link>"
+  social:
+    continueWithGoogle: Continue with Google
+    continueWithMicrosoft: Continue with Microsoft
+    continueWithZoom: Continue with Zoom
+    orContinueWithEmail: Or continue with email
+    lastUsed: Last used
+    errors:
+      emailMismatch: Social account email does not match your account email
+      linkFailed: Could not link social account
+      regionBlocked: Sign up is not available in your region
+  completeProfile:
+    title: Complete your profile
+    description: Add your phone number to finish setting up your account
+    submit: Continue
+    toasts:
+      success: Profile saved
+      error: Could not save profile. Please try again.
   captcha:
     error: Captcha verification failed. Please try again.
   verification:
@@ -3881,6 +3898,67 @@ users:
       password: Password
       passwordDescription: Update your password you use for your account
       changePassword: Change password
+      setPassword: Set password
+      setPasswordDescription: Add a password so you can sign in with email
+      connectedAccounts: Connected accounts
+      connectGoogle: Connect Google
+      googleConnected: Google is connected
+      googleNotConnected: Google is not connected
+      unlinkGoogle: Unlink Google
+      linkGoogleSuccess: Google account linked successfully
+      unlinkGoogleSuccess: Google account unlinked
+      unlinkGoogleError: Could not unlink Google account
+      connectMicrosoft: Connect Microsoft
+      microsoftConnected: Microsoft is connected
+      microsoftNotConnected: Microsoft is not connected
+      unlinkMicrosoft: Unlink Microsoft
+      linkMicrosoftSuccess: Microsoft account linked successfully
+      unlinkMicrosoftSuccess: Microsoft account unlinked
+      unlinkMicrosoftError: Could not unlink Microsoft account
+      connectZoom: Connect Zoom
+      zoomConnected: Zoom is connected
+      zoomNotConnected: Zoom is not connected
+      unlinkZoom: Unlink Zoom
+      linkZoomSuccess: Zoom account linked successfully
+      unlinkZoomSuccess: Zoom account unlinked
+      unlinkZoomError: Could not unlink Zoom account
+    unlinkGoogle:
+      title: Unlink Google
+      description: Enter your password to confirm unlinking your Google account
+      form:
+        password: Password
+      confirm: Unlink Google
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkMicrosoft:
+      title: Unlink Microsoft
+      description: Enter your password to confirm unlinking your Microsoft account
+      form:
+        password: Password
+      confirm: Unlink Microsoft
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkZoom:
+      title: Unlink Zoom
+      description: Enter your password to confirm unlinking your Zoom account
+      form:
+        password: Password
+      confirm: Unlink Zoom
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkSocial:
+      validation:
+        password:
+          required: Password is required
     emailChange:
       title: Change email
       description: Update your email address to use for your account
@@ -3923,6 +4001,24 @@ users:
           maxLength: New password must be no more than 128 characters long
         confirmPassword:
           required: Confirm password does not match new password
+    setPassword:
+      title: Set password
+      submit: Save password
+      form:
+        newPassword: New password
+        confirmPassword: Confirm password
+      toasts:
+        success: Password set successfully
+        error: Could not set password. Please try again.
+        credentialExists: You already have a password set
+      validation:
+        newPassword:
+          required: New password is required
+          minLength: New password must be at least 8 characters long
+          maxLength: New password must be no more than 128 characters long
+        confirmPassword:
+          required: Confirm password is required
+          mismatch: Passwords do not match
     toasts:
       changesSaved: Profile changes were saved
       requestError: Failed to save profile changes

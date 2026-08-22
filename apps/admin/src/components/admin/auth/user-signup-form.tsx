@@ -1,12 +1,15 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
+import { SocialAuthButtons } from "@/components/admin/auth/social-auth-buttons";
 import {
   captchaFetchOptions,
   isCaptchaError,
   TurnstileField,
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
+import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types";
 import {
@@ -33,6 +36,7 @@ export const UserSignupForm = ({
   publicDomain,
   invitation,
   turnstileSiteKey,
+  enabledSocialProviders = [],
 }: {
   publicDomain: string;
   invitation?: {
@@ -41,6 +45,7 @@ export const UserSignupForm = ({
     organizationName: string;
   } | null;
   turnstileSiteKey: string;
+  enabledSocialProviders?: SocialAuthProvider[];
 }) => {
   const formSchema = useMemo(
     () =>
@@ -100,7 +105,10 @@ export const UserSignupForm = ({
   const [loading, setLoading] = useState(false);
   const t = useI18n("admin");
 
-  const postAuthPath = invitation ? "/dashboard" : (callbackUrl ?? "/checkout");
+  const postAuthPath = invitation
+    ? `/accept-invitation?invitationId=${encodeURIComponent(invitation.id)}`
+    : (callbackUrl ?? "/checkout");
+  const googleCallbackURL = buildCompleteProfileCallbackUrl(postAuthPath);
 
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -183,6 +191,13 @@ export const UserSignupForm = ({
 
   return (
     <div className="w-full flex flex-col gap-4">
+      {enabledSocialProviders.length > 0 ? (
+        <SocialAuthButtons
+          enabledProviders={enabledSocialProviders}
+          callbackURL={googleCallbackURL}
+          invitationId={invitation?.id}
+        />
+      ) : null}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

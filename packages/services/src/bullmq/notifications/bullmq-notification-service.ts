@@ -4,6 +4,7 @@ import {
   EmailNotificationRequest,
   INotificationService,
   ISystemNotificationService,
+  TextMessage,
   TextMessageNotificationRequest,
   TextMessageResponse,
   WithOrganizationId,
@@ -27,10 +28,16 @@ export type SystemEmailJobData = {
   data: Email;
 };
 
+export type SystemTextMessageJobData = {
+  type: "system-text-message";
+  data: TextMessage;
+};
+
 export type NotificationJobData =
   | EmailJobData
   | TextMessageJobData
-  | SystemEmailJobData;
+  | SystemEmailJobData
+  | SystemTextMessageJobData;
 
 export class BullMQNotificationService
   extends BaseBullMQClient
@@ -291,6 +298,11 @@ export class BullMQSystemNotificationService
     const emailQueue = this.createQueue(this.config.queues.email.name);
     // this.createQueueEvents(this.config.queues.email.name);
 
+    // Create text message queue
+    const textMessageQueue = this.createQueue(
+      this.config.queues.textMessage.name,
+    );
+
     logger.info("BullMQ notification queues initialized");
   }
 
@@ -321,6 +333,38 @@ export class BullMQSystemNotificationService
       logger.error(
         { error, data },
         "Failed to add system email notification to queue",
+      );
+      throw error;
+    }
+  }
+
+  public async sendSystemTextMessage(data: TextMessage): Promise<void> {
+    const logger = this.loggerFactory("sendSystemTextMessage");
+
+    const jobData: SystemTextMessageJobData = {
+      type: "system-text-message",
+      data,
+    };
+
+    try {
+      const queue = this.getQueue(this.config.queues.textMessage.name);
+      const job = await queue.add("system-text-message-notification", jobData, {
+        priority: 0,
+        delay: 0,
+      });
+
+      logger.info(
+        {
+          jobId: job.id,
+          phone: data.phone,
+          sender: data.sender,
+        },
+        "System text message notification job added to queue",
+      );
+    } catch (error) {
+      logger.error(
+        { error, data },
+        "Failed to add system text message notification to queue",
       );
       throw error;
     }

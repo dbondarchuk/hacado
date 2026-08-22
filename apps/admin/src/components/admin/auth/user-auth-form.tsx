@@ -1,5 +1,11 @@
 "use client";
 import { authClient } from "@/app/auth-client";
+import {
+  LastUsedInlineBadge,
+  SocialAuthButtons,
+} from "@/components/admin/auth/social-auth-buttons";
+import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
@@ -27,7 +33,11 @@ const formSchema = z.object({
 
 type UserFormValue = z.infer<typeof formSchema>;
 
-export const UserAuthForm = () => {
+export const UserAuthForm = ({
+  enabledSocialProviders = [],
+}: {
+  enabledSocialProviders?: SocialAuthProvider[];
+}) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const paramError = searchParams.get("error");
@@ -49,6 +59,7 @@ export const UserAuthForm = () => {
   const [verificationError, setVerificationError] = useState(false);
   const [verificationLoading, setVerificationLoading] = useState(false);
   const router = useRouter();
+  const isEmailLastUsed = authClient.getLastUsedLoginMethod() === "email";
 
   const onSubmit = async (data: UserFormValue) => {
     setLoading(true);
@@ -118,6 +129,15 @@ export const UserAuthForm = () => {
 
   return (
     <div className="w-full flex flex-col gap-4">
+      {enabledSocialProviders.length > 0 ? (
+        <SocialAuthButtons
+          enabledProviders={enabledSocialProviders}
+          callbackURL={buildCompleteProfileCallbackUrl(
+            callbackUrl ?? "/dashboard",
+          )}
+          showLastUsed
+        />
+      ) : null}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -128,7 +148,10 @@ export const UserAuthForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("auth.email")}</FormLabel>
+                <div className="flex items-center gap-2">
+                  <FormLabel>{t("auth.email")}</FormLabel>
+                  {isEmailLastUsed ? <LastUsedInlineBadge /> : null}
+                </div>
                 <FormControl>
                   <Input
                     type="email"

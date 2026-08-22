@@ -187,8 +187,8 @@ export class NotificationService implements INotificationService {
 
       sendTextMessage = async (message: TextMessage) => {
         const response = await this.defaultTextMessageSender.sendTextMessage(
-          this.organizationId,
           message,
+          this.organizationId,
         );
 
         if (!response.error) {
@@ -271,7 +271,10 @@ export class SystemNotificationService implements ISystemNotificationService {
     "SystemNotificationService",
   );
 
-  public constructor(private readonly emailService: IMailSender) {}
+  public constructor(
+    private readonly emailService: IMailSender,
+    private readonly textMessageSender: ITextMessageSender,
+  ) {}
 
   public async sendSystemEmail(email: Email): Promise<void> {
     const logger = this.loggerFactory("sendSystemEmail");
@@ -281,6 +284,18 @@ export class SystemNotificationService implements ISystemNotificationService {
       logger.info({ email }, "System email sent");
     } catch (error) {
       logger.error({ error }, "Error sending system email");
+      throw error;
+    }
+  }
+
+  public async sendSystemTextMessage(text: TextMessage): Promise<void> {
+    const logger = this.loggerFactory("sendSystemTextMessage");
+    logger.info({ text }, "Sending system text message");
+    try {
+      await this.textMessageSender.sendTextMessage(text);
+      logger.info({ text }, "System text message sent");
+    } catch (error) {
+      logger.error({ error }, "Error sending system text message");
       throw error;
     }
   }

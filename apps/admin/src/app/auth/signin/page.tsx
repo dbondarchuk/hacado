@@ -1,5 +1,6 @@
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserAuthForm } from "@/components/admin/auth/user-auth-form";
+import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Metadata } from "next";
@@ -28,6 +29,7 @@ export default async function AuthenticationPage() {
   }
 
   const t = await getI18nAsync("admin");
+  const enabledSocialProviders = getEnabledSocialAuthProviders();
 
   logger.debug("Signin page loaded");
 
@@ -36,7 +38,7 @@ export default async function AuthenticationPage() {
       title={t("auth.signIn")}
       description={t("auth.signInDescription")}
     >
-      <UserAuthForm />
+      <UserAuthForm enabledSocialProviders={enabledSocialProviders} />
     </AuthLayout>
   );
 }

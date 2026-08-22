@@ -2,6 +2,7 @@
 
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
@@ -33,19 +34,18 @@ import {
   SaveButton,
 } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Lock, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { CalendarSourceCard } from "./calendar-source-card";
-import { EmailChangeDialog } from "./email-change-dialog";
-import { PasswordChangeDialog } from "./password-change-dialog";
+import { ProfileSecuritySection } from "./profile-security-section";
 
 export type ProfileFormProps = {
   values: UserUpdate & { email: string };
   canManageCalendarSources?: boolean;
   canManageMeetingUrlProvider?: boolean;
   showSecuritySection?: boolean;
+  enabledSocialProviders?: SocialAuthProvider[];
   /** When true, language change reloads the page and session is refetched. */
   isSelfProfile?: boolean;
   onSave: (data: UserUpdate) => Promise<void>;
@@ -56,13 +56,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   canManageCalendarSources = true,
   canManageMeetingUrlProvider = true,
   showSecuritySection = true,
+  enabledSocialProviders = [],
   isSelfProfile = false,
   onSave,
 }) => {
   const searchParams = useSearchParams();
   const emailChanged = searchParams.get("emailChanged");
-  const [avatarDialogOpen, setAvatarDialogOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [avatarDialogOpen, setAvatarDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const session = authClient.useSession();
 
   const t = useI18n("admin");
@@ -132,7 +133,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 
   const image = form.watch("image");
   const name = form.watch("name");
-  const calendarSourceIds = React.useMemo(
+  const calendarSourceIds = useMemo(
     () => calendarSourceFields.map((x) => x.fields_id),
     [calendarSourceFields],
   );
@@ -421,39 +422,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6 space-y-4">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center">
-                    <Mail className="h-5 w-5 text-muted-foreground" />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-medium">
-                      {t("users.profile.security.email")}
-                    </p>
-                    <p className="text-base text-muted-foreground">
-                      {values.email}
-                    </p>
-                  </div>
-                </div>
-                <EmailChangeDialog currentEmail={values.email} />
-              </div>
-              <div className="h-px w-full bg-border" />
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center">
-                    <Lock className="h-5 w-5 text-muted-foreground" />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-medium">
-                      {t("users.profile.security.password")}
-                    </p>
-                    <p className="text-base text-muted-foreground">
-                      {t("users.profile.security.passwordDescription")}
-                    </p>
-                  </div>
-                </div>
-                <PasswordChangeDialog />
-              </div>
+              <Suspense fallback={null}>
+                <ProfileSecuritySection
+                  email={values.email}
+                  enabledSocialProviders={enabledSocialProviders}
+                />
+              </Suspense>
             </CardContent>
           </Card>
         ) : null}
