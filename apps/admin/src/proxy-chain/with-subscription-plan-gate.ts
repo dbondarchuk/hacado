@@ -40,6 +40,8 @@ const API_FEATURE_RULES: Array<{
   { prefix: "/api/synced-payments", feature: "financials" },
   { prefix: "/api/discounts", feature: "discounts" },
   { prefix: "/api/gift-cards", feature: "giftCards" },
+  { prefix: "/api/packages", feature: "packages" },
+  { prefix: "/api/customer-packages", feature: "packages" },
   {
     prefix: "/api/organization/custom-domain",
     feature: "customDomain",

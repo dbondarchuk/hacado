@@ -15,6 +15,7 @@ import {
   CALDAV_APP_NAME,
   canInstallApp,
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+  CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   FORMS_APP_NAME,
   GIFT_CARD_STUDIO_APP_NAME,
@@ -165,6 +166,10 @@ const OPTIONAL_INTEGRATIONS = [
     appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
   },
   {
+    key: "optCustomerPackageEmailNotifications" as const,
+    appName: CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
+  },
+  {
     key: "optCustomerTextMessageNotifications" as const,
     appName: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   },
@@ -275,6 +280,8 @@ export function StepIntegrations() {
       inviteMode: p.inviteMode,
       inviteCalendarWriterAppId: p.inviteCalendarWriterAppId,
       optCustomerEmailNotifications: p.optCustomerEmailNotifications,
+      optCustomerPackageEmailNotifications:
+        p.optCustomerPackageEmailNotifications,
       optCustomerTextMessageNotifications:
         p.optCustomerTextMessageNotifications,
       optAppointmentNotifications: p.optAppointmentNotifications,
@@ -414,6 +421,14 @@ export function StepIntegrations() {
             appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
             label: t("wizard.integrations.customerEmailNotifications"),
             desc: t("wizard.integrations.customerEmailNotificationsDesc"),
+          },
+          {
+            key: "optCustomerPackageEmailNotifications" as const,
+            appName: CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
+            label: t("wizard.integrations.customerPackageEmailNotifications"),
+            desc: t(
+              "wizard.integrations.customerPackageEmailNotificationsDesc",
+            ),
           },
           {
             key: "optCustomerTextMessageNotifications" as const,

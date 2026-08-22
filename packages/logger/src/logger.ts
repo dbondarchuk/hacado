@@ -36,6 +36,7 @@ const promiseHandler: ProxyHandler<any> = {
 };
 
 export type LoggerFactory = (functionName?: string) => pino.Logger;
+export type AppLogger = ReturnType<LoggerFactory>;
 
 export const getLoggerFactory = cache(
   (moduleName: string, organizationId?: string | null): LoggerFactory => {

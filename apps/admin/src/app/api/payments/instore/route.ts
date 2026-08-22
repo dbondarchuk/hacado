@@ -1,5 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
+import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   inStorePaymentUpdateModelSchema,
@@ -40,8 +41,7 @@ export async function POST(request: NextRequest) {
   if (payment.appointmentId) {
     const auth = await requireCanUpdateAppointment(
       payment.appointmentId,
-      "AdminAPI/payments/instore",
-      "POST",
+      logger,
     );
     if (!auth.ok) return auth.response;
 
@@ -85,6 +85,9 @@ export async function POST(request: NextRequest) {
   let paymentUpdateModel: PaymentUpdateModel;
 
   if (payment.method === "gift-card") {
+    const payAuth = await requirePermission("giftCard", "pay", logger);
+    if (!payAuth.ok) return payAuth.response;
+
     const giftCard = await servicesContainer.giftCardsService.getGiftCard(
       payment.giftCardId,
     );

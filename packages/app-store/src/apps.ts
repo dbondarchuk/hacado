@@ -13,6 +13,8 @@ import { CarddavApp } from "./apps/carddav/app";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { CustomerEmailNotificationApp } from "./apps/customer-email-notification/app";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
+import { CustomerPackageEmailNotificationApp } from "./apps/customer-package-email-notification/app";
+import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
 import { CustomerTextMessageNotificationApp } from "./apps/customer-text-message-notification/app";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { EmailNotificationApp } from "./apps/email-notification/app";
@@ -73,6 +75,8 @@ export const AvailableApps: Record<string, App> = {
   [BUSY_EVENTS_APP_NAME]: BusyEventsApp,
   [TEXTBELT_APP_NAME]: TextBeltApp,
   [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: CustomerEmailNotificationApp,
+  [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]:
+    CustomerPackageEmailNotificationApp,
   [EMAIL_NOTIFICATION_APP_NAME]: EmailNotificationApp,
   [CALENDAR_WRITER_APP_NAME]: CalendarWriterApp,
   [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
@@ -105,6 +109,7 @@ export { CALDAV_APP_NAME } from "./apps/caldav/const";
 export { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 export { CARDDAV_APP_NAME } from "./apps/carddav/const";
 export { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
+export { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
 export { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 export { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 // export { FILE_SYSTEM_ASSETS_STORAGE_APP_NAME } from "./apps/file-system-assets-storage/const";

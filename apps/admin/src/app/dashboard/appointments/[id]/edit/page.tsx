@@ -33,19 +33,13 @@ export default async function NewAssetsPage(props: Props) {
     "Loading edit appointment page",
   );
 
-  const config =
-    await servicesContainer.configurationService.getConfiguration("booking");
   const [fields, addons, options] = await Promise.all([
     servicesContainer.servicesService.getFields({}),
     servicesContainer.servicesService.getAddons({}),
     servicesContainer.servicesService.getOptions({}),
   ]);
 
-  const optionsChoices = (config.options || [])
-    .map((o) => options.items?.find(({ _id }) => o.id == _id))
-    .filter((o) => !!o);
-
-  const choices: AppointmentChoice[] = optionsChoices.map((option) => ({
+  const choices: AppointmentChoice[] = (options.items ?? []).map((option) => ({
     ...option,
     addons:
       option.addons

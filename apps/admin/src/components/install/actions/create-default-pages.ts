@@ -9,7 +9,11 @@ import type { Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { deserializeMarkdown } from "@hacado/rte";
-import { systemEventSource, type IServicesContainer } from "@hacado/types";
+import {
+  flattenCatalogOptionIds,
+  IServicesContainer,
+  systemEventSource,
+} from "@hacado/types";
 import { bookDefaultPage } from "../defaults/book";
 import { footerDefaultPage } from "../defaults/footer";
 import { giftCardsDefaultPage } from "../defaults/gift-cards";
@@ -127,9 +131,7 @@ async function getTemplateServices(
   logger.debug("Building template services payload");
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const optionIds = (booking?.options ?? [])
-    .map((o) => o.id)
-    .filter((id): id is string => Boolean(id));
+  const optionIds = flattenCatalogOptionIds(booking?.catalog);
 
   const output: TemplateServiceArg[] = [];
   for (const optionId of optionIds) {

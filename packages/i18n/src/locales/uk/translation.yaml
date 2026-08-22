@@ -52,6 +52,7 @@ booking:
     calendar: Дата та час
     form: Деталі
     payment: Оплата
+    otp: Підтвердження
     review: Підсумок
   summary:
     estimates:
@@ -79,11 +80,17 @@ booking:
   calendar:
     title: Виберіть дату та час
     description: Виберіть бажаний часовий слот для запису
+    firstAppointmentTitle: Виберіть дату та час для першого запису
+    firstAppointmentDescription: Оберіть слот для першої сесії, яка входить до пакета
+    packageAppointmentTitle: Виберіть дату та час для запису на {serviceName}
+    nextPackageAppointmentTitle: Виберіть дату та час для наступного запису
+    nextPackageAppointmentDescription: Оберіть слот, використовуючи кредити з вашого пакета
     loading: Завантаження доступного часу...
     no_available_times: Немає доступного часу на цю дату
   form:
     title: Ваші дані
     description: "Будь ласка, надайте вашу контактну інформацію"
+    namePlaceholder: Ваше ім'я
   review:
     title: Перевірте ваше бронювання
     description: "Будь ласка, підтвердіть, що всі деталі правильні"
@@ -114,6 +121,57 @@ booking:
       discount: Знижка
       original: Підсумок
       giftCards: Подарункові картки
+      package: Пакет
+  otp:
+    title: Підтвердіть контактні дані
+    description: Введіть код, який ми надіслали, щоб підтвердити цей запис
+    descriptionEmailOnly: Ми надішлемо код підтвердження на ваш email
+    descriptionPhoneOnly: Ми надішлемо код підтвердження на ваш телефон
+    descriptionEmailOrPhone: Оберіть email або телефон, щоб отримати код підтвердження
+    email: Email
+    phone: Телефон
+    emailPlaceholder: you@example.com
+    phonePlaceholder: Телефон
+    emailInvalid: Будь ласка, введіть коректну email-адресу.
+    phoneInvalid: Будь ласка, введіть коректний номер телефону.
+    send: Надіслати код
+    request: Надіслати код
+    verify: Підтвердити код
+    hint: Введіть 6-значний код, який ми надіслали
+    sent: Ми надіслали код підтвердження
+    sentIfMatch: Якщо ми знайшли збіг, ми надіслали код
+    invalid: Невірний код
+    requestError: Не вдалося надіслати код. Спробуйте ще раз.
+    verifyError: Підтвердження OTP не вдалося. Перевірте ваш код і спробуйте ще раз.
+    resendBlocked: Повторний код можна запросити через {minutes, plural, =0 {{seconds} с} other {#:{seconds}}}
+    changeContact: Контактні дані змінено. Підтвердіть ще раз.
+    skip: Вже підтверджено
+    name: Ім'я
+    nameRequired: Введіть ім'я, щоб продовжити
+    namePlaceholder: Ваше ім'я
+  package:
+    useCredits: Використати кредити пакета
+    verifyToUseCredits: Підтвердіть особу, щоб використати кредити пакета
+    verifyToUseCreditsDescription: Увійдіть за допомогою одноразового коду, щоб застосувати кредити з пакета, який ви вже маєте.
+    bookWithPackage: Хочу записатись за пакетом
+    bookWithPackageDescription: Підтвердіть особу, щоб використати кредити з уже купленого пакета.
+    selectPackage: Виберіть пакет
+    selectPackageDescription: Оберіть пакет, кредити якого використати для цього запису
+    noPackages: Для вашого акаунту не знайдено пакетів із залишками кредитів.
+    buyPackage: Купити пакет
+    remaining: "Залишилось {remaining}"
+    purchaseAndBook: Купити пакет і записатись
+    payFull: Оплатити без кредитів пакета
+    bookIndependently: Записатись без використання пакета
+    purchaseTitle: Ви купуєте пакет
+    firstAppointmentNote: Цей запис використовує першу сесію з пакета.
+    included: Що входить
+    includedItem: "{count}× {name}"
+  catalog:
+    group: Категорія
+    package: Пакет
+    packages: Пакети
+    empty: У цій категорії немає послуг
   payment:
     amount:
       full: Сума повної оплати
@@ -179,6 +237,7 @@ booking:
     appointmentDetails: Деталі запису
     duration: "Тривалість: {duration}"
     specialist: "Спеціаліст: {name}"
+    package: "Частина пакета: {name}"
     newBookingButton: Забронювати інший запис
   availability:
     fetchFailedTitle: Ой! Щось пішло не так.
@@ -211,6 +270,7 @@ modification:
     payment: Оплата
   otp:
     descriptionEmailOnly: Введіть email, щоб отримати код підтвердження
+    descriptionPhoneOnly: Введіть телефон, щоб отримати код підтвердження
     descriptionEmailOrPhone: Введіть email або телефон, щоб отримати код підтвердження
     email: Email
     phone: Телефон

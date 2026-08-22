@@ -6,6 +6,7 @@ import {
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
   zEmail,
   zPhone,
+  type CustomerOtpChannels,
 } from "@hacado/types";
 import {
   Button,
@@ -28,7 +29,7 @@ export const OtpCard: React.FC = () => {
   const { setCurrentStep, setIsOtpVerified } =
     useModifyAppointmentFormContext();
 
-  const [allowPhoneOtp, setAllowPhoneOtp] = useState(false);
+  const [otpChannels, setOtpChannels] = useState<CustomerOtpChannels>("email");
   const [authType, setAuthType] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,12 +42,26 @@ export const OtpCard: React.FC = () => {
 
   const emailValid = useMemo(() => zEmail.safeParse(email).success, [email]);
   const phoneValid = useMemo(() => zPhone.safeParse(phone).success, [phone]);
+  const showChannelToggle = otpChannels === "email_or_phone";
+  const description =
+    otpChannels === "phone"
+      ? t("modification.otp.descriptionPhoneOnly")
+      : otpChannels === "email_or_phone"
+        ? t("modification.otp.descriptionEmailOrPhone")
+        : t("modification.otp.descriptionEmailOnly");
 
   useEffect(() => {
     clientApi.customerAuth
       .getAuthOptions()
-      .then((res) => setAllowPhoneOtp(res.allowPhoneOtp))
-      .catch(() => setAllowPhoneOtp(false));
+      .then((res) => {
+        const channels = res.otpChannels ?? "email";
+        setOtpChannels(channels);
+        setAuthType(channels === "phone" ? "phone" : "email");
+      })
+      .catch(() => {
+        setOtpChannels("email");
+        setAuthType("email");
+      });
   }, []);
 
   useEffect(() => {
@@ -108,13 +123,16 @@ export const OtpCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-sm text-muted-foreground">
-        {allowPhoneOtp
-          ? t("modification.otp.descriptionEmailOrPhone")
-          : t("modification.otp.descriptionEmailOnly")}
-      </p>
-      {allowPhoneOtp && (
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (isRequestDisabled) return;
+        void requestOtp();
+      }}
+    >
+      <p className="text-sm text-muted-foreground">{description}</p>
+      {showChannelToggle && (
         <ToggleGroup
           type="single"
           value={authType}
@@ -145,11 +163,7 @@ export const OtpCard: React.FC = () => {
           label={t("modification.otp.phone")}
         />
       )}
-      <Button
-        className="w-full"
-        onClick={requestOtp}
-        disabled={isRequestDisabled}
-      >
+      <Button type="submit" className="w-full" disabled={isRequestDisabled}>
         {isRequestOtpLoading && <Spinner />}
         {isResendBlocked
           ? t("modification.otp.resendBlocked", {
@@ -171,6 +185,7 @@ export const OtpCard: React.FC = () => {
             </InputOTPGroup>
           </InputOTP>
           <Button
+            type="button"
             className="w-full"
             onClick={verifyOtp}
             disabled={
@@ -182,6 +197,6 @@ export const OtpCard: React.FC = () => {
           </Button>
         </div>
       )}
-    </div>
+    </form>
   );
 };

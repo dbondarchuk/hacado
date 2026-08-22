@@ -9,11 +9,15 @@ export const MyCabinetBlockEditor = () => {
   const overlayProps = useBlockEditor(block?.id);
   const appId = (block?.metadata as { myCabinetAppId?: string } | undefined)
     ?.myCabinetAppId;
+  const waitlistAppId = (
+    block?.metadata as { waitlistAppId?: string } | undefined
+  )?.waitlistAppId;
 
   return (
     <div {...overlayProps}>
       <MyCabinetBlockComponent
         appId={appId}
+        waitlistAppId={waitlistAppId}
         style={block?.data?.style ?? {}}
         blockBase={block?.base}
         isEditor

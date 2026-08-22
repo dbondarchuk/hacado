@@ -6,7 +6,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import { ServicesContainer } from "@hacado/services";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import { type Organization } from "@hacado/types";
+import { Organization } from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { runCompleteInstallSetupSteps } from "./complete-setup";
@@ -17,6 +17,7 @@ const installPreferencesSchema = z.object({
   inviteMode: installInviteModeSchema,
   inviteCalendarWriterAppId: z.string().trim().optional().default(""),
   optCustomerEmailNotifications: z.boolean().default(false),
+  optCustomerPackageEmailNotifications: z.boolean().default(false),
   optCustomerTextMessageNotifications: z.boolean().default(false),
   optAppointmentNotifications: z.boolean().default(false),
   optWaitlist: z.boolean().default(false),

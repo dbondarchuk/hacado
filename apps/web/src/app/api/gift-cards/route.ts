@@ -1,4 +1,5 @@
 import { applyGiftCards } from "@/utils/gift-cards/apply";
+import { sessionCanUseFeature } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   applyGiftCardsRequestSchema,
@@ -16,6 +17,18 @@ export async function POST(request: NextRequest) {
     },
     "Processing gift cards API request",
   );
+
+  if (!(await sessionCanUseFeature("giftCards"))) {
+    logger.warn("Gift cards are not available on this plan.");
+    return NextResponse.json(
+      {
+        success: false,
+        code: "subscription_upgrade_required",
+        error: "Gift cards are not available on this plan.",
+      } satisfies ApplyGiftCardsResponse,
+      { status: 402 },
+    );
+  }
 
   const body = await request.json();
 

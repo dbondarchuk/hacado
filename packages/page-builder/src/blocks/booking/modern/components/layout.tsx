@@ -12,6 +12,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";
+import { BookingOtpDialog } from "../../components/otp-dialog";
 import { ConfirmationCard } from "./confirmation-card";
 import { useScheduleContext } from "./context";
 import { ScheduleSteps } from "./steps";
@@ -45,6 +46,18 @@ export const BookingLayout = ({
     isBookingRestricted,
     activeStaff,
     flowOrder,
+    fields,
+    setFields,
+    setOtpVerified,
+    setCurrentStep,
+    fetchPaymentInformation,
+    setPaymentInformation,
+    onSubmit,
+    otpReturnStep,
+    otpDialogOpen,
+    setOtpDialogOpen,
+    setPackageBookingFlow,
+    refreshBookingOptions,
   } = ctx;
 
   const locale = useLocale();
@@ -59,6 +72,7 @@ export const BookingLayout = ({
   const t = useI18n("translation");
 
   const StepContent = step.Content;
+  const otpVerifiedInDialogRef = useRef(false);
 
   const previousStep = usePrevious(step, step);
   useEffect(() => {
@@ -73,7 +87,24 @@ export const BookingLayout = ({
         return false;
       }
 
-      if (step === "addons" && !selectedAppointmentOption?.addons?.length) {
+      if (
+        ctx.isCustomerPackageLocked &&
+        (step === "option" || step === "specialist" || step === "addons")
+      ) {
+        return false;
+      }
+
+      if (
+        step === "addons" &&
+        (!selectedAppointmentOption?.addons?.length ||
+          ctx.purchasePackageId ||
+          ctx.customerPackageId)
+      ) {
+        return false;
+      }
+
+      // OTP is a dialog, never a stepper step.
+      if (step === "otp") {
         return false;
       }
 
@@ -98,6 +129,9 @@ export const BookingLayout = ({
     (s) => s.id === currentStep,
   );
 
+  const packageVerifyFlow =
+    otpReturnStep === "packages" || otpReturnStep === "review";
+
   return (
     <div className={className} {...props}>
       <div ref={topRef} />
@@ -113,7 +147,6 @@ export const BookingLayout = ({
           </div>
         )}
 
-        {/* Progress Steps */}
         {!hideSteps && (
           <Stepper
             steps={filteredSteps}
@@ -125,7 +158,6 @@ export const BookingLayout = ({
           />
         )}
 
-        {/* <StepCard /> */}
         {isBookingConfirmed ? (
           <ConfirmationCard />
         ) : isBookingRestricted ? (
@@ -146,7 +178,6 @@ export const BookingLayout = ({
           </div>
         )}
 
-        {/* Summary & Navigation - Hide when booking is confirmed */}
         {!isBookingConfirmed &&
           !areAppointmentOptionsLoading &&
           !isBookingRestricted && (
@@ -241,6 +272,59 @@ export const BookingLayout = ({
             </div>
           )}
       </div>
+
+      <BookingOtpDialog
+        open={otpDialogOpen}
+        onOpenChange={(open) => {
+          if (open) otpVerifiedInDialogRef.current = false;
+          setOtpDialogOpen(open);
+          if (
+            !open &&
+            otpReturnStep === "packages" &&
+            !otpVerifiedInDialogRef.current
+          ) {
+            setPackageBookingFlow(false);
+          }
+        }}
+        fields={fields}
+        hideContactFields={!packageVerifyFlow}
+        existingCustomerOnly={packageVerifyFlow}
+        description={
+          packageVerifyFlow
+            ? t("booking.package.verifyToUseCreditsDescription")
+            : undefined
+        }
+        onVerified={async (result) => {
+          otpVerifiedInDialogRef.current = true;
+          if (otpReturnStep === "packages") {
+            setPackageBookingFlow(true);
+          }
+          // Set fields before marking verified so contact updates don't clear OTP state.
+          setFields({
+            ...fields,
+            name: result.name || fields.name,
+            email: result.email || fields.email,
+            phone: result.phone || fields.phone,
+          });
+          setOtpVerified(true);
+
+          if (otpReturnStep === "packages" || otpReturnStep === "review") {
+            await refreshBookingOptions?.();
+            if (otpReturnStep === "packages") {
+              setCurrentStep("option");
+            }
+            return;
+          }
+
+          const payment = await fetchPaymentInformation();
+          setPaymentInformation(payment);
+          if (!payment || payment.intent?.status === "paid") {
+            onSubmit();
+          } else {
+            setCurrentStep("payment");
+          }
+        }}
+      />
     </div>
   );
 };

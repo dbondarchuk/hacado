@@ -1,3 +1,4 @@
+import { getServicesContainer } from "@/app/utils";
 import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import PageContainer from "@/components/admin/layout/page-container";
@@ -28,6 +29,16 @@ export default async function AppointmentsPage(props: Params) {
   const searchParams = await props.searchParams;
   const parsed = appointmentsSearchParamsCache.parse(searchParams);
   const key = serializeAppointmentsSearchParams({ ...parsed });
+
+  let soldPackageFilterName: string | null = null;
+  if (parsed.customerPackageId) {
+    const servicesContainer = await getServicesContainer();
+    const soldPackage =
+      await servicesContainer.packagesService.getCustomerPackage(
+        parsed.customerPackageId,
+      );
+    soldPackageFilterName = soldPackage?.name ?? null;
+  }
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
@@ -68,7 +79,10 @@ export default async function AppointmentsPage(props: Params) {
             </div>
           </div>
         </div>
-        <AppointmentsTableAction showCustomerFilter />
+        <AppointmentsTableAction
+          showCustomerFilter
+          soldPackageFilterName={soldPackageFilterName}
+        />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={9} rowCount={10} />}

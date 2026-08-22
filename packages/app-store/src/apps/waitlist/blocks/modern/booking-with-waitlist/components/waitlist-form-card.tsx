@@ -125,7 +125,7 @@ export const WaitlistFormCard: React.FC = () => {
 
       <Form {...form}>
         <form onSubmit={() => {}} className="space-y-2 waitlist-form-card-form">
-          <div className="flex flex-col gap-2 waitlist-form-card-form-fields">
+          <div className="flex flex-col gap-4 waitlist-form-card-form-fields">
             <NameField
               control={form.control}
               name="name"

@@ -1,7 +1,7 @@
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest } from "next/server";
-import { createOrUpdateIntent } from "../../../../utils/payments/createIntent";
+import { createOrUpdateIntent } from "../../../../utils/payments/create-intent";
 
 export async function PUT(
   request: NextRequest,

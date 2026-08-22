@@ -7,6 +7,8 @@ import { BUSY_EVENTS_APP_NAME } from "./apps/busy-events/const";
 import { BusyEventsMenuItems } from "./apps/busy-events/menu-items";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
 import { CustomerEmailNotificationMenuItems } from "./apps/customer-email-notification/menu-items";
+import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
+import { CustomerPackageEmailNotificationMenuItems } from "./apps/customer-package-email-notification/menu-items";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { CustomerTextMessageNotificationMenuItems } from "./apps/customer-text-message-notification/menu-items";
 import { FORMS_APP_NAME } from "./apps/forms/const";
@@ -24,6 +26,8 @@ export const AppMenuItems: Record<string, AppMenuItem[]> = {
   [BLOG_APP_NAME]: BlogMenuItems,
   [BUSY_EVENTS_APP_NAME]: BusyEventsMenuItems,
   [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: CustomerEmailNotificationMenuItems,
+  [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]:
+    CustomerPackageEmailNotificationMenuItems,
   [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
     CustomerTextMessageNotificationMenuItems,
   [WAITLIST_APP_NAME]: WaitlistMenuItems,

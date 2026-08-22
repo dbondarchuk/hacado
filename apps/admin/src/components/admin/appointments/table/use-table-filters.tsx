@@ -34,6 +34,18 @@ export function useAppointmentsTableFilters() {
     appointmentsSearchParams.member.withOptions({ shallow: false }),
   );
 
+  const [packageFilter, setPackageFilter] = useQueryState(
+    "package",
+    appointmentsSearchParams.package.withOptions({ shallow: false }),
+  );
+
+  const [customerPackageId, setCustomerPackageId] = useQueryState(
+    "customerPackageId",
+    appointmentsSearchParams.customerPackageId.withOptions({
+      shallow: false,
+    }),
+  );
+
   const [page, setPage] = useQueryState("page", appointmentsSearchParams.page);
 
   const [start, setStartValue] = useQueryState(
@@ -54,6 +66,8 @@ export function useAppointmentsTableFilters() {
     setCustomerFilter(null);
     setDiscountFilter(null);
     setMemberFilter(null);
+    setPackageFilter(null);
+    setCustomerPackageId(null);
 
     setPage(1);
   }, [
@@ -64,6 +78,8 @@ export function useAppointmentsTableFilters() {
     setCustomerFilter,
     setDiscountFilter,
     setMemberFilter,
+    setPackageFilter,
+    setCustomerPackageId,
     setPage,
   ]);
 
@@ -75,7 +91,9 @@ export function useAppointmentsTableFilters() {
       !!end ||
       !!customerFilter ||
       !!discountFilter ||
-      !!memberFilter
+      !!memberFilter ||
+      !!packageFilter ||
+      !!customerPackageId
     );
   }, [
     searchQuery,
@@ -85,6 +103,8 @@ export function useAppointmentsTableFilters() {
     customerFilter,
     discountFilter,
     memberFilter,
+    packageFilter,
+    customerPackageId,
   ]);
 
   return {
@@ -106,5 +126,9 @@ export function useAppointmentsTableFilters() {
     setDiscountFilter,
     memberFilter,
     setMemberFilter,
+    packageFilter,
+    setPackageFilter,
+    customerPackageId,
+    setCustomerPackageId,
   };
 }

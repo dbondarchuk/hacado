@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
 import { giftCardSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,6 +12,12 @@ export async function GET(
   { params }: RouteContext<"/api/gift-cards/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/[id]")("GET");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "read", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 
@@ -49,6 +57,12 @@ export async function PUT(
   { params }: RouteContext<"/api/gift-cards/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/[id]")("PUT");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "update", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id } = await params;
@@ -92,6 +106,12 @@ export async function DELETE(
   { params }: RouteContext<"/api/gift-cards/[id]">,
 ) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/[id]")("DELETE");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "delete", logger);
+  if (!auth.ok) return auth.response;
+
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;

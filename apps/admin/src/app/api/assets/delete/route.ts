@@ -36,23 +36,13 @@ export async function POST(request: NextRequest) {
   );
 
   if (found.some((asset) => asset.customerId)) {
-    const auth = await requirePermission(
-      "customer",
-      "update",
-      "AdminAPI/assets/delete",
-      "POST",
-    );
+    const auth = await requirePermission("customer", "update", logger);
     if (!auth.ok) return auth.response;
   }
 
   const appointmentAssets = found.filter((asset) => asset.appointmentId);
   if (appointmentAssets.length) {
-    const auth = await requirePermission(
-      "appointment",
-      "update",
-      "AdminAPI/assets/delete",
-      "POST",
-    );
+    const auth = await requirePermission("appointment", "update", logger);
     if (!auth.ok) return auth.response;
 
     for (const asset of appointmentAssets) {

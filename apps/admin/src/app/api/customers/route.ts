@@ -1,21 +1,16 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { customersSearchParamsLoader } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
 import { customerSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const auth = await requirePermission(
-    "customer",
-    "read",
-    "AdminAPI/customers",
-    "GET",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers")("GET");
+  const auth = await requirePermission("customer", "read", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   logger.debug(
     {
@@ -74,15 +69,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const auth = await requirePermission(
-    "customer",
-    "create",
-    "AdminAPI/customers",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers")("POST");
+  const auth = await requirePermission("customer", "create", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const body = await request.json();

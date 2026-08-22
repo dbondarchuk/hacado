@@ -13,6 +13,7 @@ import {
 import { Extandable, Prettify } from "../utils/helpers";
 import { zTimeZone } from "../utils/zTimeZone";
 import { AppointmentAddon, AppointmentOption } from "./appointment-option";
+import type { AppointmentPackageUsage } from "./appointment-package";
 import type { ApplyGiftCardsSuccessResponse } from "./gift-card";
 
 export type AppointmentFields = {
@@ -60,6 +61,7 @@ export type AppointmentEvent = {
   note?: string;
   discount?: AppointmentDiscount;
   data?: Record<string, any>;
+  packageUsage?: AppointmentPackageUsage;
 };
 
 export const appointmentEventSchema = z.object({
@@ -97,6 +99,8 @@ export const appointmentEventSchema = z.object({
     .optional()
     .nullable()
     .transform((data) => data ?? undefined),
+  /** Redeem an existing sold customer package for this appointment (admin create). */
+  customerPackageId: zObjectId().optional(),
 });
 
 export type AppointmentEventRequest = z.infer<typeof appointmentEventSchema>;
@@ -145,6 +149,8 @@ export const appointmentRequestSchema = z.object({
     1,
     "appointments.request.paymentIntentId.min",
   ),
+  customerPackageId: zObjectId().optional(),
+  purchasePackageId: zObjectId().optional(),
 });
 
 export type AppointmentRequest = z.infer<typeof appointmentRequestSchema>;

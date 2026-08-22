@@ -1,37 +1,33 @@
 import { useI18n } from "@hacado/i18n/client";
+import React from "react";
+import { Input } from "./input";
 import {
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@hacado/ui";
-import {
-  GiftCardStudioAdminKeys,
-  GiftCardStudioAdminNamespace,
-  giftCardStudioAdminNamespace,
-} from "../translations/types";
+} from "./input-group";
 
-export const MonthsInput: React.FC<{
-  value: number;
-  onChange: (value: number) => void;
-}> = ({ value, onChange }) => {
-  const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
-    giftCardStudioAdminNamespace,
-  );
+export type MonthsInputProps = {
+  value?: number;
+  disabled?: boolean;
+  onChange: (value: number | undefined) => void;
+};
 
-  const years = Math.floor(value / 12);
-  const months = value % 12;
+export const MonthsInput: React.FC<MonthsInputProps> = ({
+  value,
+  disabled,
+  onChange,
+}) => {
+  const t = useI18n("ui");
+  const total = value ?? 0;
+  const years = Math.floor(total / 12);
+  const months = total % 12;
 
-  const handleYearsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.floor(parseInt(e.target.value) || 0);
-    onChange(value * 12 + months);
-  };
-
-  const handleMonthsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.floor(parseInt(e.target.value) || 0);
-    onChange(years * 12 + value);
+  const emit = (nextYears: number, nextMonths: number) => {
+    const next = nextYears * 12 + nextMonths;
+    onChange(next > 0 ? next : undefined);
   };
 
   return (
@@ -42,13 +38,16 @@ export const MonthsInput: React.FC<{
             type="number"
             step={1}
             min={0}
+            disabled={disabled}
             value={years}
-            onChange={(e) => handleYearsChange(e)}
+            onChange={(e) =>
+              emit(Math.floor(parseInt(e.target.value) || 0), months)
+            }
             className={InputGroupInputClasses()}
           />
         </InputGroupInput>
         <InputGroupAddon className={InputGroupAddonClasses()}>
-          {t("settings.years")}
+          {t("monthsInput.years")}
         </InputGroupAddon>
       </InputGroup>
       <InputGroup className="flex-1">
@@ -57,13 +56,16 @@ export const MonthsInput: React.FC<{
             type="number"
             step={1}
             min={0}
+            disabled={disabled}
             value={months}
-            onChange={(e) => handleMonthsChange(e)}
+            onChange={(e) =>
+              emit(years, Math.floor(parseInt(e.target.value) || 0))
+            }
             className={InputGroupInputClasses()}
           />
         </InputGroupInput>
         <InputGroupAddon className={InputGroupAddonClasses()}>
-          {t("settings.months")}
+          {t("monthsInput.months")}
         </InputGroupAddon>
       </InputGroup>
     </div>

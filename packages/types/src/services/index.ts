@@ -12,6 +12,7 @@ export type * from "./gift-cards.service";
 export type * from "./job.service";
 export type * from "./notification.service";
 export type * from "./organization.service";
+export type * from "./packages.service";
 export type * from "./pages.service";
 export type * from "./payments.service";
 export type * from "./schedule.service";

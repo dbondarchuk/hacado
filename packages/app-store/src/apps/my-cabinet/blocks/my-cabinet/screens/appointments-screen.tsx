@@ -1,8 +1,15 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import type { Appointment, AppointmentStatus } from "@hacado/types";
-import { isClosedAppointmentStatus } from "@hacado/types";
+import type {
+  Appointment,
+  AppointmentStatus,
+  CustomerPackage,
+} from "@hacado/types";
+import {
+  isAppointmentCoveredByPackage,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import {
   Button,
   cn,
@@ -34,6 +41,7 @@ import {
 } from "../../../translations/types";
 import {
   getAppointmentsSummaryAction,
+  getMyPackagesAction,
   getPastAppointmentsAction,
   getUpcomingAppointmentsAction,
   SessionExpiredError,
@@ -115,10 +123,12 @@ const AppointmentItem = ({
   item,
   isUpcoming,
   timeZone,
+  onViewPackage,
 }: {
   item: Appointment;
   isUpcoming: boolean;
   timeZone: string;
+  onViewPackage?: (customerPackageId: string) => void;
 }) => {
   const t = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
@@ -140,11 +150,14 @@ const AppointmentItem = ({
     "common.formats.durationHourMin",
     durationToTime(item.totalDuration),
   );
+  const coveredByPackage = isAppointmentCoveredByPackage(item);
   const priceLabel =
-    item.totalPrice != null ? formatCurrency(item.totalPrice) : null;
+    !coveredByPackage && item.totalPrice != null
+      ? formatCurrency(item.totalPrice)
+      : null;
 
   const amountLeftToPay = useMemo(() => {
-    if (item.totalPrice == null) return null;
+    if (coveredByPackage || item.totalPrice == null) return null;
     const paid = (item.payments ?? [])
       .filter((p) => p.type === "deposit" || p.type === "payment")
       .reduce((sum, p) => {
@@ -153,7 +166,7 @@ const AppointmentItem = ({
       }, 0);
     const left = item.totalPrice - paid;
     return left > 0 ? left : null;
-  }, [item.totalPrice, item.payments]);
+  }, [coveredByPackage, item.totalPrice, item.payments]);
 
   return (
     <Collapsible
@@ -235,6 +248,31 @@ const AppointmentItem = ({
                   </p>
                 </div>
               )}
+              {coveredByPackage && item.packageUsage ? (
+                <div className="appointment-item-package">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground appointment-item-package-label">
+                    {t("block.packages.title")}
+                  </p>
+                  <p className="text-sm text-foreground mt-1 appointment-item-package-text">
+                    {t("block.packages.used", {
+                      name: item.packageUsage.name,
+                    })}
+                  </p>
+                  {onViewPackage ? (
+                    <Button
+                      variant="link"
+                      size="sm"
+                      className="h-auto px-0 mt-1 appointment-item-package-view"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onViewPackage(item.packageUsage!.customerPackageId);
+                      }}
+                    >
+                      {t("block.packages.view")}
+                    </Button>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
 
             {isUpcoming && !isClosedAppointmentStatus(item.status) && (
@@ -369,21 +407,25 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
   const [pastPage, setPastPage] = useState(1);
   const [hasPastNextPage, setHasPastNextPage] = useState(false);
   const [isPastPageLoading, setIsPastPageLoading] = useState(false);
+  const [packages, setPackages] = useState<CustomerPackage[]>([]);
 
   useEffect(() => {
     let mounted = true;
     const load = async () => {
       try {
-        const [summaryRes, upcomingRes, pastRes] = await Promise.all([
-          getAppointmentsSummaryAction(appId),
-          getUpcomingAppointmentsAction(appId),
-          getPastAppointmentsAction(appId, 1, 10),
-        ]);
+        const [summaryRes, upcomingRes, pastRes, packagesRes] =
+          await Promise.all([
+            getAppointmentsSummaryAction(appId),
+            getUpcomingAppointmentsAction(appId),
+            getPastAppointmentsAction(appId, 1, 10),
+            getMyPackagesAction(),
+          ]);
         if (!mounted) return;
         setUpcomingCount(summaryRes.upcomingCount ?? 0);
         setPastCount(summaryRes.pastCount ?? 0);
         setUpcoming(upcomingRes.items ?? []);
         setPast(pastRes.items ?? []);
+        setPackages(packagesRes.items ?? []);
         setPastPage(1);
         setHasPastNextPage(!!pastRes.hasNextPage);
       } catch (error) {
@@ -443,8 +485,8 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
             )}
           </div>
         </div>
-        <div className="shrink-0 pt-1 appointments-timezone-selector">
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+        <div className="flex flex-col gap-2 shrink-0 pt-1 selector-button-container">
+          <div className="flex items-center gap-1 text-xs text-muted-foreground appointments-timezone-selector">
             <Globe2 className="size-3.5 shrink-0" />
             <Combobox
               values={tzOptions}
@@ -462,7 +504,64 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
               size="xs"
             />
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              window.location.hash = "book";
+            }}
+            className="w-full md:w-auto shrink-0 book-appointment-button"
+          >
+            {t("block.packages.book")}
+          </Button>
         </div>
+      </div>
+
+      <div className="space-y-3">
+        <div className="flex items-center justify-between package-items-header">
+          <div className="text-xs uppercase tracking-wider text-muted-foreground package-items-label">
+            {t("block.packages.title")}
+          </div>
+        </div>
+        {isLoading ? (
+          <Skeleton className="h-16 w-full" />
+        ) : packages.length === 0 ? (
+          <p className="text-sm text-muted-foreground package-item-empty">
+            {t("block.packages.empty")}
+          </p>
+        ) : (
+          packages.map((pkg) => (
+            <div
+              key={pkg._id}
+              id={`package-${pkg._id}`}
+              className="flex items-center justify-between rounded-lg border p-3 package-item"
+            >
+              <div>
+                <div className="text-sm font-medium package-item-name">
+                  {pkg.name}
+                </div>
+                <div className="text-xs text-muted-foreground package-item-remaining">
+                  {t("block.packages.remaining", {
+                    remaining: pkg.remainingCredits,
+                    total: pkg.totalCredits,
+                  })}
+                </div>
+              </div>
+              {pkg.status === "active" && pkg.remainingCredits > 0 ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    window.location.hash = `book:${pkg._id}`;
+                  }}
+                  className="book-package-button"
+                >
+                  {t("block.packages.book")}
+                </Button>
+              ) : null}
+            </div>
+          ))
+        )}
       </div>
 
       <div className="space-y-3 appointments-upcoming-section">
@@ -482,6 +581,11 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
               item={item}
               isUpcoming
               timeZone={timezone}
+              onViewPackage={(customerPackageId) => {
+                document
+                  .getElementById(`package-${customerPackageId}`)
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
             />
           ))
         )}
@@ -505,6 +609,11 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
                 item={item}
                 isUpcoming={false}
                 timeZone={timezone}
+                onViewPackage={(customerPackageId) => {
+                  document
+                    .getElementById(`package-${customerPackageId}`)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
               />
             ))}
             <div className="flex items-center justify-center gap-2 pt-2 appointments-pagination">

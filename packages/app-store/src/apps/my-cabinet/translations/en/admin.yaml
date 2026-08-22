@@ -16,3 +16,6 @@ block:
   myCabinetAppId:
     label: My Cabinet app
     helperText: Select which My Cabinet app instance this block should use.
+  waitlistAppId:
+    label: Waitlist app
+    helperText: Optional. Enables joining the waitlist from in-cabinet booking.

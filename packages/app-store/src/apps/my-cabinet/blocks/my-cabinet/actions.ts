@@ -163,6 +163,10 @@ export const getModifyInformationAction = async (args: {
   });
 };
 
+export const getMyPackagesAction = async () => {
+  return cabinetCall(() => clientApi.customerAuth.getMyPackages());
+};
+
 export const submitModifyAction = async (
   appointmentId: string,
 

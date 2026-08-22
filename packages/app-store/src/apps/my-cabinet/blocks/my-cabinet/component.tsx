@@ -25,6 +25,7 @@ import { CustomerProfileContext } from "./customer-profile-context";
 import { MyCabinetBlockReaderProps, styles } from "./schema";
 import { AppointmentsScreen } from "./screens/appointments-screen";
 import { AuthScreen } from "./screens/auth-screen";
+import { BookScreen } from "./screens/book-screen";
 import { ModifyScreen } from "./screens/modify-screen";
 import { SessionExpiredContext } from "./session-expired-context";
 import { CustomerProfile, HashState } from "./types";
@@ -33,6 +34,12 @@ const parseHash = (hash: string): HashState => {
   if (!hash) return { screen: "list" };
   const normalized = hash.replace(/^#/, "");
   const [action, appointmentId] = normalized.split(":");
+  if (action === "book") {
+    return {
+      screen: "book",
+      customerPackageId: appointmentId?.trim() || undefined,
+    };
+  }
   if (
     (action === "cancel" || action === "reschedule") &&
     appointmentId &&
@@ -49,6 +56,7 @@ const parseHash = (hash: string): HashState => {
 
 export const MyCabinetBlockComponent = ({
   appId,
+  waitlistAppId,
   style,
   blockBase,
   isEditor,
@@ -56,6 +64,7 @@ export const MyCabinetBlockComponent = ({
   scrollToTop = true,
 }: {
   appId?: string;
+  waitlistAppId?: string;
   style: MyCabinetBlockReaderProps["style"];
   blockBase?: { className?: string; id?: string };
   isEditor?: boolean;
@@ -181,6 +190,13 @@ export const MyCabinetBlockComponent = ({
               <AuthScreen appId={appId} onAuthenticated={handleAuthenticated} />
             ) : hashState.screen === "list" ? (
               <AppointmentsScreen appId={appId} />
+            ) : hashState.screen === "book" ? (
+              <BookScreen
+                waitlistAppId={waitlistAppId}
+                lockCustomerPackageId={hashState.customerPackageId}
+                scrollToTop={scrollToTop ?? true}
+                isEditor={isEditor}
+              />
             ) : (
               <ModifyScreen
                 appId={appId}

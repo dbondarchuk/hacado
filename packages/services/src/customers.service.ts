@@ -536,7 +536,7 @@ export class CustomersService extends BaseService implements ICustomersService {
       email,
       phone,
     }: {
-      name: string;
+      name?: string;
       email: string;
       phone: string;
     },
@@ -566,7 +566,7 @@ export class CustomersService extends BaseService implements ICustomersService {
       await this.updateCustomerIfNeeded(
         existingCustomer,
         {
-          name,
+          name: name?.trim() || existingCustomer.name,
           email,
           phone,
         },
@@ -576,14 +576,23 @@ export class CustomersService extends BaseService implements ICustomersService {
       return existingCustomer;
     }
 
+    const fallbackName =
+      (email.includes("@") ? email.split("@")[0] : "") || phone || "Customer";
+    const resolvedName =
+      name?.trim() && name.trim().length >= 2
+        ? name.trim()
+        : fallbackName.trim().length >= 2
+          ? fallbackName.trim()
+          : "Customer";
+
     logger.debug(
-      { customerName: name, customerEmail: email },
+      { customerName: resolvedName, customerEmail: email },
       "Creating new customer",
     );
 
     const customer: CustomerUpdateModel = {
       email: email.trim(),
-      name: name.trim(),
+      name: resolvedName,
       phone: phone.trim(),
       knownEmails: [],
       knownNames: [],
@@ -615,7 +624,11 @@ export class CustomersService extends BaseService implements ICustomersService {
 
     let needsUpdate = false;
     const name = updatedFields.name.trim();
-    if (customer.name !== name && !customer.knownNames.includes(name)) {
+    if (
+      name.length >= 2 &&
+      customer.name !== name &&
+      !customer.knownNames.includes(name)
+    ) {
       customer.knownNames.push(name);
       needsUpdate = true;
     }

@@ -1,0 +1,50 @@
+app:
+  displayName: Email-сповіщення про пакети клієнта
+  description: Надсилайте клієнтам листи про купівлю пакета та коли пакет вичерпано, скасовано, прострочено або скоро закінчиться
+navigation:
+  title: Email пакети клієнта
+form:
+  purchased:
+    templateId:
+      label: Шаблон листа про покупку
+      description: Надсилається коли клієнту видано пакет
+  exhausted:
+    templateId:
+      label: Шаблон листа про вичерпання
+      description: Надсилається коли всі кредити пакета використано
+  cancelled:
+    templateId:
+      label: Шаблон листа про скасування
+      description: Надсилається коли активний пакет скасовано
+  expired:
+    templateId:
+      label: Шаблон листа про закінчення терміну
+      description: Надсилається коли настав термін дії пакета
+  expiringSoon:
+    enabled:
+      label: Надсилати лист про швидке закінчення
+      description: Повідомляти клієнтів до закінчення терміну дії пакета
+    thresholdMinutes:
+      label: Сповістити до закінчення
+      description: За який час до закінчення терміну надіслати нагадування
+    templateId:
+      label: Шаблон листа про швидке закінчення
+      description: Надсилається коли термін дії пакета скоро закінчиться
+statusText:
+  successfully_set_up: Успішно налаштовано
+  error_processing_configuration: Помилка обробки конфігурації
+  error_sending_package_email: Помилка надсилання email про пакет
+handlers:
+  purchased: Email пакета клієнта - Придбано
+  exhausted: Email пакета клієнта - Вичерпано
+  cancelled: Email пакета клієнта - Скасовано
+  expired: Email пакета клієнта - Прострочено
+  expiringSoon: Email пакета клієнта - Скоро закінчиться
+validation:
+  emailTemplate:
+    templateId:
+      required: Шаблон email обовʼязковий
+      min: Шаблон email обовʼязковий
+  expiringSoon:
+    thresholdMinutes:
+      min: Вкажіть, за який час до закінчення надсилати нагадування

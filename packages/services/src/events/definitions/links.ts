@@ -13,6 +13,8 @@ export const dashboardUrls = {
   syncedPayments: "/dashboard/financials/inbox",
   giftCard: (id: string) => `/dashboard/services/gift-cards/${id}`,
   giftCards: "/dashboard/services/gift-cards",
+  appointmentPackage: (id: string) => `/dashboard/services/packages/${id}`,
+  appointmentPackages: "/dashboard/services/packages",
   field: (id: string) => `/dashboard/services/fields/${id}`,
   fields: "/dashboard/services/fields",
   addon: (id: string) => `/dashboard/services/addons/${id}`,

@@ -19,12 +19,15 @@ import {
   AppointmentTimeNotAvaialbleError,
   AppointmentWithReferenceDateDistance,
   BillingPlanTier,
+  BookingCatalogNode,
   BookingRestriction,
   BookingRestrictionCode,
   closedAppointmentStatusMongoFilter,
   Customer,
   DISCOUNT_APPLIED_EVENT_TYPE,
   FieldSchema,
+  flattenCatalogOptionIds,
+  flattenCatalogPackageIds,
   FREE_TIER_LIMITS,
   getActiveStaffForAssignments,
   GetAppointmentOptionsResponse,
@@ -33,6 +36,7 @@ import {
   IEventService,
   IMeetingUrlProvider,
   IOrganizationService,
+  IPackagesService,
   IPaymentsService,
   isClosedAppointmentStatus,
   IServicesService,
@@ -89,6 +93,7 @@ import {
   APPOINTMENTS_COLLECTION_NAME,
   APPOINTMENTS_HISTORY_COLLECTION_NAME,
   ASSETS_COLLECTION_NAME,
+  CUSTOMER_PACKAGES_COLLECTION_NAME,
   CUSTOMERS_COLLECTION_NAME,
   MEMBERS_COLLECTION_NAME,
   PAYMENTS_COLLECTION_NAME,
@@ -130,6 +135,7 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly organizationService: IOrganizationService,
     private readonly billingService: IBillingService,
     private readonly teamService: ITeamService,
+    private readonly packagesService: IPackagesService,
   ) {
     super("bookingService", organizationId);
   }
@@ -258,6 +264,8 @@ export class BookingService extends BaseService implements IBookingService {
     eventSource,
     giftCards,
     memberId,
+    customerPackageId,
+    purchasePackageId,
   }: {
     event: AppointmentEvent;
     confirmed?: boolean;
@@ -267,6 +275,8 @@ export class BookingService extends BaseService implements IBookingService {
     eventSource: EventSource;
     giftCards?: ApplyGiftCardsSuccessResponse["giftCards"];
     memberId?: string;
+    customerPackageId?: string;
+    purchasePackageId?: string;
   }): Promise<Appointment> {
     const logger = this.loggerFactory("createAppointment");
     logger.debug(
@@ -353,20 +363,40 @@ export class BookingService extends BaseService implements IBookingService {
     }
 
     const option = await this.servicesService.getOption(event.option._id);
-    const isAutoConfirm = option?.isAutoConfirm ?? config.autoConfirm;
+
+    let autoConfirmSetting = option?.isAutoConfirm;
+    if (customerPackageId || purchasePackageId) {
+      let catalogPackageId = purchasePackageId;
+      if (!catalogPackageId && customerPackageId) {
+        const sold =
+          await this.packagesService.getCustomerPackage(customerPackageId);
+        catalogPackageId = sold?.packageId;
+      }
+      if (catalogPackageId) {
+        const pkg = await this.packagesService.getPackage(catalogPackageId);
+        if (pkg) {
+          autoConfirmSetting = pkg.isAutoConfirm ?? "inherit";
+        }
+      }
+    }
+
+    const isAutoConfirm = autoConfirmSetting ?? config.autoConfirm;
     logger.debug(
       {
         isAutoConfirm,
         isOptionAutoConfirm: option?.isAutoConfirm,
+        packageAutoConfirm: autoConfirmSetting,
         autoConfirm: config.autoConfirm,
+        customerPackageId,
+        purchasePackageId,
       },
       "Service option auto confirm",
     );
 
     const confirmed =
       propsConfirmed ??
-      (option?.isAutoConfirm === "always" ||
-        (option?.isAutoConfirm === "inherit" && config.autoConfirm)) ??
+      (autoConfirmSetting === "always" ||
+        (autoConfirmSetting === "inherit" && config.autoConfirm)) ??
       false;
 
     let meetingInformation: AppointmentOnlineMeetingInformation | undefined =
@@ -441,6 +471,8 @@ export class BookingService extends BaseService implements IBookingService {
       confirmed ? "confirmed" : "pending",
       force,
       giftCards,
+      customerPackageId,
+      purchasePackageId,
     );
 
     logger.debug(
@@ -874,6 +906,18 @@ export class BookingService extends BaseService implements IBookingService {
       };
     }
 
+    if (query.customerPackageId) {
+      filter["packageUsage.customerPackageId"] = query.customerPackageId;
+    }
+
+    if (query.packageId) {
+      filter["customerPackage.packageId"] = {
+        $in: Array.isArray(query.packageId)
+          ? query.packageId
+          : [query.packageId],
+      };
+    }
+
     if (query.search) {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       const queries = buildSearchQuery<Appointment>(
@@ -1215,6 +1259,16 @@ export class BookingService extends BaseService implements IBookingService {
     );
 
     appointment.status = newStatus;
+
+    if (
+      (newStatus === "canceled" || newStatus === "declined") &&
+      (oldStatus === "pending" || oldStatus === "confirmed")
+    ) {
+      await this.packagesService.restoreForAppointment({
+        appointmentId: id,
+        source: enrichedEventSource,
+      });
+    }
 
     await this.addAppointmentHistory({
       appointmentId: id,
@@ -1592,7 +1646,9 @@ export class BookingService extends BaseService implements IBookingService {
     return true;
   }
 
-  public async getAppointmentOptions(): Promise<GetAppointmentOptionsResponse> {
+  public async getAppointmentOptions(opts?: {
+    customerId?: string;
+  }): Promise<GetAppointmentOptionsResponse> {
     const logger = this.loggerFactory("getAppointmentOptions");
 
     logger.debug("Processing getting booking options API request");
@@ -1601,11 +1657,14 @@ export class BookingService extends BaseService implements IBookingService {
 
     logger.debug({ config }, "Booking configuration");
 
-    const [fields, addons, options] = await Promise.all([
-      this.servicesService.getFields({}),
-      this.servicesService.getAddons({}),
-      this.servicesService.getOptions({}),
-    ]);
+    const [fields, addons, options, publicPackages, hasActiveCustomerPackages] =
+      await Promise.all([
+        this.servicesService.getFields({}),
+        this.servicesService.getAddons({}),
+        this.servicesService.getOptions({}),
+        this.packagesService.getPublicPackages(),
+        this.packagesService.hasActiveCustomerPackages(),
+      ]);
 
     const configFields = (fields?.items || []).reduce(
       (map, field) => ({
@@ -1615,8 +1674,41 @@ export class BookingService extends BaseService implements IBookingService {
       {} as Record<string, FieldSchema>,
     );
 
-    const optionsChoices = (config.options || [])
-      .map((o) => options.items?.find(({ _id }) => o.id == _id))
+    const catalogOptionIds = flattenCatalogOptionIds(config.catalog);
+    const catalogPackageIds = new Set(flattenCatalogPackageIds(config.catalog));
+    const packageItemOptionIds = publicPackages
+      .filter((pkg) => catalogPackageIds.has(pkg._id))
+      .flatMap((pkg) => pkg.items.map((item) => item.optionId));
+
+    let customerPackageOptionIds: string[] = [];
+    if (opts?.customerId) {
+      const { items: customerPackages } =
+        await this.packagesService.getCustomerPackages({
+          customerId: opts.customerId,
+          status: ["active"],
+          offset: 0,
+          limit: 100,
+        });
+      customerPackageOptionIds = [
+        ...new Set(
+          customerPackages.flatMap((pkg) =>
+            pkg.items
+              .filter((item) => (pkg.remainingByItem[item._id] ?? 0) > 0)
+              .map((item) => item.optionId),
+          ),
+        ),
+      ];
+    }
+
+    const optionIds = [
+      ...new Set([
+        ...catalogOptionIds,
+        ...packageItemOptionIds,
+        ...customerPackageOptionIds,
+      ]),
+    ];
+    const optionsChoices = optionIds
+      .map((id) => options.items?.find(({ _id }) => id == _id))
       .filter((o) => !!o);
 
     const activeMembers = await this.teamService.getActiveMembers();
@@ -1685,6 +1777,23 @@ export class BookingService extends BaseService implements IBookingService {
     }
 
     const bookingRestriction = await this.getFreeTierBookingRestriction();
+    const bookableOptionIds = new Set(choices.map((choice) => choice._id));
+    const publicPackageIds = new Set(publicPackages.map((pkg) => pkg._id));
+    const catalogSource = config.catalog ?? [];
+
+    const filterCatalog = (nodes: BookingCatalogNode[]): BookingCatalogNode[] =>
+      nodes
+        .map((node) => {
+          if (node.type === "group") {
+            const children = filterCatalog(node.children);
+            return children.length ? { ...node, children } : null;
+          }
+          if (node.type === "option") {
+            return bookableOptionIds.has(node.optionId) ? node : null;
+          }
+          return publicPackageIds.has(node.packageId) ? node : null;
+        })
+        .filter((node): node is BookingCatalogNode => node !== null);
 
     const response: GetAppointmentOptionsResponse = {
       options: choices,
@@ -1692,6 +1801,12 @@ export class BookingService extends BaseService implements IBookingService {
       showPromoCode: showPromoCode,
       bookingRestriction,
       members,
+      catalog: filterCatalog(catalogSource),
+      packages: publicPackages.filter((pkg) =>
+        pkg.items.some((item) => bookableOptionIds.has(item.optionId)),
+      ),
+      requireCustomerOtp: !!config.requireCustomerOtp,
+      hasActiveCustomerPackages,
     };
 
     return response;
@@ -2041,6 +2156,8 @@ export class BookingService extends BaseService implements IBookingService {
     status: AppointmentStatus = "pending",
     force?: boolean,
     giftCards?: ApplyGiftCardsSuccessResponse["giftCards"],
+    customerPackageId?: string,
+    purchasePackageId?: string,
   ): Promise<Appointment> {
     const logger = this.loggerFactory("saveEvent");
 
@@ -2062,39 +2179,39 @@ export class BookingService extends BaseService implements IBookingService {
     const client = await getDbClient();
     const session = client.startSession();
     try {
-      return await session.withTransaction(async () => {
-        const member = await this.teamService.getMemberById(memberId);
+      // return await session.withTransaction(async () => {
+      const member = await this.teamService.getMemberById(memberId);
 
-        if (!member) {
-          logger.error({ memberId }, "Member not found");
-          throw new Error(`Member ${memberId} was not found`);
-        }
+      if (!member) {
+        logger.error({ memberId }, "Member not found");
+        throw new Error(`Member ${memberId} was not found`);
+      }
 
-        const appointments = db.collection<AppointmentEntity>(
-          APPOINTMENTS_COLLECTION_NAME,
-        );
+      const appointments = db.collection<AppointmentEntity>(
+        APPOINTMENTS_COLLECTION_NAME,
+      );
 
-        const dbEvent: AppointmentEntity = {
-          _id: id,
-          organizationId: this.organizationId,
-          ...event,
-          memberId,
-          meetingInformation,
-          dateTime: DateTime.fromJSDate(event.dateTime)
-            .startOf("minute")
-            .toJSDate(),
-          status,
-          createdAt: DateTime.now().toJSDate(),
-          customerId: customer._id,
-        };
+      const dbEvent: AppointmentEntity = {
+        _id: id,
+        organizationId: this.organizationId,
+        ...event,
+        memberId,
+        meetingInformation,
+        dateTime: DateTime.fromJSDate(event.dateTime)
+          .startOf("minute")
+          .toJSDate(),
+        status,
+        createdAt: DateTime.now().toJSDate(),
+        customerId: customer._id,
+      };
 
-        await appointments.insertOne(dbEvent);
-
-        let payments: Payment[] = [];
+      let redeemPackageId = customerPackageId;
+      if (purchasePackageId) {
+        let packagePaymentId: string | undefined;
         if (paymentIntentId) {
           logger.debug(
-            { appointmentId: id, paymentIntentId },
-            "Processing payment for appointment",
+            { appointmentId: id, paymentIntentId, purchasePackageId },
+            "Recording package purchase payment",
           );
 
           const {
@@ -2108,16 +2225,12 @@ export class BookingService extends BaseService implements IBookingService {
             status,
             fees,
           } = await this.paymentsService.updateIntent(paymentIntentId, {
-            appointmentId: id,
             customerId: customer._id,
           });
 
           if (status === "paid") {
-            logger.debug(
-              { appointmentId: id, paymentIntentId, amount },
-              "Payment intent is paid, adding to payments",
-            );
-
+            const pkg =
+              await this.packagesService.getPackage(purchasePackageId);
             const payment = await this.paymentsService.createPayment(
               {
                 appId,
@@ -2125,135 +2238,234 @@ export class BookingService extends BaseService implements IBookingService {
                 amount,
                 intentId,
                 paidAt: paidAt ?? new Date(),
-                appointmentId: id,
                 customerId: customer._id,
-                description:
-                  amount === event.totalPrice ? "full_payment" : "deposit",
+                description: pkg?.name ?? "package",
                 status: "paid",
                 method: "online",
-                type: "deposit",
+                type: "payment",
                 externalId: externalId,
                 data: data,
                 fees,
               },
               eventSource,
             );
-
-            payments.push(payment);
+            packagePaymentId = payment._id;
           } else {
             logger.warn(
               { appointmentId: id, paymentIntentId, amount, status },
-              "Payment intent is not paid. Skipping it",
+              "Package payment intent is not paid. Skipping it",
             );
-          }
-
-          logger.debug(
-            {
-              appointmentId: id,
-              paymentAmount: amount,
-              paymentType:
-                amount === event.totalPrice ? "full_payment" : "deposit",
-            },
-            "Payment processed for appointment",
-          );
-        }
-
-        if (giftCards) {
-          for (const giftCard of giftCards) {
-            const payment = await this.paymentsService.createPayment(
-              {
-                amount: giftCard.appliedAmount,
-                status: "paid",
-                paidAt: new Date(),
-                customerId: customer._id,
-                description: "giftCard",
-                appointmentId: id,
-                type: "payment",
-                method: "gift-card",
-                giftCardCode: giftCard.code,
-                giftCardId: giftCard.id,
-              },
-              eventSource,
-            );
-
-            payments.push(payment);
           }
         }
 
-        const result = {
-          ...dbEvent,
-          customer,
-          member,
-          files,
-          payments,
-          endAt: DateTime.fromJSDate(event.dateTime)
-            .plus({
-              minutes: dbEvent.totalDuration,
+        const issued = paymentIntentId
+          ? await this.packagesService.issueFromPayment({
+              paymentIntentId,
+              packageId: purchasePackageId,
+              customerId: customer._id,
+              channel: "customer",
+              source: eventSource,
+              paymentId: packagePaymentId,
+              session,
             })
-            .toJSDate(),
-        };
+          : await this.packagesService.issue({
+              packageId: purchasePackageId,
+              customerId: customer._id,
+              channel: "customer",
+              source: eventSource,
+              session,
+            });
+        redeemPackageId = issued._id;
+      }
 
-        const historyPayment: PaymentHistory | undefined = payments?.[0]
-          ? {
-              id: payments[0]._id,
-              amount: payments[0].amount,
-              status: payments[0].status,
-              method: payments[0].method,
-              type: payments[0].type,
-              intentId:
-                "intentId" in payments[0] ? payments[0].intentId : undefined,
-              externalId:
-                "externalId" in payments[0]
-                  ? payments[0].externalId
-                  : undefined,
-              appName:
-                "appName" in payments[0] ? payments[0].appName : undefined,
-              appId: "appId" in payments[0] ? payments[0].appId : undefined,
-            }
-          : undefined;
-
-        await this.addAppointmentHistory({
+      if (redeemPackageId) {
+        const option = await this.servicesService.getOption(event.option._id);
+        const optionStaffMemberIds = (option?.staff ?? []).map(
+          (assignment) => assignment.memberId,
+        );
+        dbEvent.packageUsage = await this.packagesService.redeem({
+          customerPackageId: redeemPackageId,
           appointmentId: id,
-          type: "created",
-          data: {
-            ...historyActorFields(eventSource),
-            confirmed: status === "confirmed",
-            payment: historyPayment,
-          },
+          optionId: event.option._id,
+          memberId,
+          appointmentDate: event.dateTime,
+          optionStaffMemberIds,
+          source: eventSource,
+          session,
+        });
+      }
+
+      await appointments.insertOne(dbEvent);
+
+      let payments: Payment[] = [];
+      if (paymentIntentId && !purchasePackageId && !customerPackageId) {
+        logger.debug(
+          { appointmentId: id, paymentIntentId },
+          "Processing payment for appointment",
+        );
+
+        const {
+          amount,
+          appId,
+          appName,
+          _id: intentId,
+          paidAt,
+          externalId,
+          data,
+          status,
+          fees,
+        } = await this.paymentsService.updateIntent(paymentIntentId, {
+          appointmentId: id,
+          customerId: customer._id,
         });
 
-        if (dbEvent.discount) {
-          await this.eventService.emit(
-            DISCOUNT_APPLIED_EVENT_TYPE,
+        if (status === "paid") {
+          logger.debug(
+            { appointmentId: id, paymentIntentId, amount },
+            "Payment intent is paid, adding to payments",
+          );
+
+          const payment = await this.paymentsService.createPayment(
             {
-              customer,
-              discount: {
-                id: dbEvent.discount.id,
-                name: dbEvent.discount.name,
-                value: dbEvent.discount.discountAmount,
-                code: dbEvent.discount.code,
-                dateTime: new Date(),
-                appointmentId: id,
-                appointmentOptionId: dbEvent.option?._id,
-                appointmentAddonIds: dbEvent.addons?.map((addon) => addon._id),
-                appointmentTotalPrice: dbEvent.totalPrice ?? 0,
-                appointmentDateTime: dbEvent.dateTime,
-              },
-            } satisfies DiscountAppliedPayload,
+              appId,
+              appName,
+              amount,
+              intentId,
+              paidAt: paidAt ?? new Date(),
+              appointmentId: id,
+              customerId: customer._id,
+              description:
+                amount === event.totalPrice ? "full_payment" : "deposit",
+              status: "paid",
+              method: "online",
+              type: "deposit",
+              externalId: externalId,
+              data: data,
+              fees,
+            },
             eventSource,
+          );
+
+          payments.push(payment);
+        } else {
+          logger.warn(
+            { appointmentId: id, paymentIntentId, amount, status },
+            "Payment intent is not paid. Skipping it",
           );
         }
 
         logger.debug(
-          { appointmentId: id, customerName: customer.name, status },
-          "Event saved successfully",
+          {
+            appointmentId: id,
+            paymentAmount: amount,
+            paymentType:
+              amount === event.totalPrice ? "full_payment" : "deposit",
+          },
+          "Payment processed for appointment",
         );
+      }
 
-        return result;
+      if (giftCards) {
+        for (const giftCard of giftCards) {
+          const payment = await this.paymentsService.createPayment(
+            {
+              amount: giftCard.appliedAmount,
+              status: "paid",
+              paidAt: new Date(),
+              customerId: customer._id,
+              description: "giftCard",
+              ...(purchasePackageId || customerPackageId
+                ? {}
+                : { appointmentId: id }),
+              type: "payment",
+              method: "gift-card",
+              giftCardCode: giftCard.code,
+              giftCardId: giftCard.id,
+            },
+            eventSource,
+          );
+
+          if (!purchasePackageId && !customerPackageId) {
+            payments.push(payment);
+          }
+        }
+      }
+
+      const result = {
+        ...dbEvent,
+        customer,
+        member,
+        files,
+        payments,
+        endAt: DateTime.fromJSDate(event.dateTime)
+          .plus({
+            minutes: dbEvent.totalDuration,
+          })
+          .toJSDate(),
+      };
+
+      const historyPayment: PaymentHistory | undefined = payments?.[0]
+        ? {
+            id: payments[0]._id,
+            amount: payments[0].amount,
+            status: payments[0].status,
+            method: payments[0].method,
+            type: payments[0].type,
+            intentId:
+              "intentId" in payments[0] ? payments[0].intentId : undefined,
+            externalId:
+              "externalId" in payments[0] ? payments[0].externalId : undefined,
+            appName: "appName" in payments[0] ? payments[0].appName : undefined,
+            appId: "appId" in payments[0] ? payments[0].appId : undefined,
+          }
+        : undefined;
+
+      await this.addAppointmentHistory({
+        appointmentId: id,
+        type: "created",
+        data: {
+          ...historyActorFields(eventSource),
+          confirmed: status === "confirmed",
+          payment: historyPayment,
+        },
       });
-    } finally {
-      await session.endSession();
+
+      if (dbEvent.discount) {
+        await this.eventService.emit(
+          DISCOUNT_APPLIED_EVENT_TYPE,
+          {
+            customer,
+            discount: {
+              id: dbEvent.discount.id,
+              name: dbEvent.discount.name,
+              value: dbEvent.discount.discountAmount,
+              code: dbEvent.discount.code,
+              dateTime: new Date(),
+              appointmentId: id,
+              appointmentOptionId: dbEvent.option?._id,
+              appointmentAddonIds: dbEvent.addons?.map((addon) => addon._id),
+              appointmentTotalPrice: dbEvent.totalPrice ?? 0,
+              appointmentDateTime: dbEvent.dateTime,
+            },
+          } satisfies DiscountAppliedPayload,
+          eventSource,
+        );
+      }
+
+      logger.debug(
+        { appointmentId: id, customerName: customer.name, status },
+        "Event saved successfully",
+      );
+
+      return result;
+    } catch (error) {
+      logger.error({ error }, "Error saving event");
+      throw error;
     }
+    //   });
+    // } finally {
+    //   await session.endSession();
+    // }
   }
 
   private async updateEventInDatabase(
@@ -2385,12 +2597,23 @@ export class BookingService extends BaseService implements IBookingService {
         },
       },
       {
+        $lookup: {
+          from: CUSTOMER_PACKAGES_COLLECTION_NAME,
+          localField: "packageUsage.customerPackageId",
+          foreignField: "_id",
+          as: "customerPackage",
+        },
+      },
+      {
         $set: {
           customer: {
             $first: "$customer",
           },
           member: {
             $first: "$member",
+          },
+          customerPackage: {
+            $first: "$customerPackage",
           },
         },
       },

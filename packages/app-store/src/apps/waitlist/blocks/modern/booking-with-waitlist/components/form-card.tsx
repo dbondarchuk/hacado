@@ -22,6 +22,7 @@ export const FormCard: React.FC = () => {
     formFields,
     setDiscount,
     setIsFormValid,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   const fields = getFields(formFields);
@@ -68,6 +69,8 @@ export const FormCard: React.FC = () => {
     [setDiscount],
   );
 
+  const lockContact = isCustomerPackageLocked;
+
   return (
     <div className="space-y-6 form-card card-container">
       <div className="mb-6">
@@ -84,10 +87,17 @@ export const FormCard: React.FC = () => {
           onSubmit={() => {}}
           className="space-y-2 form-card-form form-card-form-fields"
         >
-          <div className="flex flex-col gap-2 form-card-form-fields">
+          <div className="flex flex-col gap-4 form-card-form-fields">
             {fields.map((field) => (
               <React.Fragment key={field.name}>
-                {fieldsMap[field.type](field, form.control)}
+                {fieldsMap[field.type](
+                  field,
+                  form.control,
+                  lockContact &&
+                    (field.name === "name" ||
+                      field.name === "email" ||
+                      field.name === "phone"),
+                )}
               </React.Fragment>
             ))}
           </div>

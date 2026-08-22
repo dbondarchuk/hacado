@@ -1,6 +1,7 @@
 import { getActor } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
+import { getLoggerFactory } from "@hacado/logger";
 import { appointmentStatuses, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -14,15 +15,11 @@ export async function PATCH(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/status">,
 ) {
+  const logger = getLoggerFactory("AdminAPI/appointments/[id]/status")("PATCH");
   const { id } = await params;
-  const auth = await requireCanUpdateAppointment(
-    id,
-    "AdminAPI/appointments/[id]/status",
-    "PATCH",
-  );
+  const auth = await requireCanUpdateAppointment(id, logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = auth.servicesContainer;
 
   logger.debug(

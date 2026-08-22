@@ -7,7 +7,9 @@ import type {
   AppointmentAddon,
   AppointmentChoice,
   AppointmentFields,
+  AppointmentPackage,
   AppointmentRequest,
+  BookingCatalogNode,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
@@ -61,6 +63,13 @@ export type ScheduleProps = {
   hideTitle?: boolean;
   hideSteps?: boolean;
   bookingRestriction?: BookingRestriction;
+  catalog?: BookingCatalogNode[];
+  packages?: AppointmentPackage[];
+  requireCustomerOtp?: boolean;
+  hasActiveCustomerPackages?: boolean;
+  lockPurchasePackageId?: string;
+  lockCustomerPackageId?: string;
+  refreshBookingOptions?: () => Promise<void>;
 };
 
 export const Schedule: React.FC<
@@ -82,6 +91,13 @@ export const Schedule: React.FC<
   hideTitle,
   hideSteps,
   bookingRestriction,
+  catalog,
+  packages,
+  requireCustomerOtp,
+  hasActiveCustomerPackages,
+  lockPurchasePackageId,
+  lockCustomerPackageId,
+  refreshBookingOptions,
   ...props
 }) => {
   const i18n = useI18n("translation");
@@ -226,8 +242,26 @@ export const Schedule: React.FC<
     }
   }, [selectedAppointmentOption, selectedMemberId, activeStaff, setDuration]);
 
+  const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
+  const [purchasePackageId, setPurchasePackageId] = React.useState<
+    string | undefined
+  >(lockPurchasePackageId);
+  const [customerPackageId, setCustomerPackageId] = React.useState<
+    string | undefined
+  >(lockCustomerPackageId);
+  const [packageBookingFlow, setPackageBookingFlow] = React.useState(
+    !!lockCustomerPackageId,
+  );
+  const [otpVerified, setOtpVerified] = React.useState(false);
+  const [otpReturnStep, setOtpReturnStep] = React.useState<
+    "packages" | "review" | "payment"
+  >("payment");
+  const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
+
   const initialStep: StepType = isSpecialistFirst ? "specialist" : "option";
-  const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
+  const [currentStep, setCurrentStep] = React.useState<StepType>(
+    lockCustomerPackageId ? "calendar" : initialStep,
+  );
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
   );
@@ -275,6 +309,11 @@ export const Schedule: React.FC<
     email: "",
     phone: "",
   });
+
+  React.useEffect(() => {
+    if (packageBookingFlow) return;
+    setOtpVerified(false);
+  }, [fields.email, fields.phone, packageBookingFlow]);
 
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [confirmDuplicateAppointment, setConfirmDuplicateAppointment] =
@@ -379,6 +418,8 @@ export const Schedule: React.FC<
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
       giftCards: giftCards?.map((giftCard) => giftCard.code),
+      customerPackageId,
+      purchasePackageId,
       fields: Object.entries(fields)
         .filter(([_, value]) => !((value as any) instanceof File))
         .reduce(
@@ -398,13 +439,15 @@ export const Schedule: React.FC<
     giftCards,
     fields,
     paymentInformation,
+    customerPackageId,
+    purchasePackageId,
   ]);
 
   const router = useRouter();
 
   const fetchAvailability = useCallback(
-    async (memberIdOverride?: string | null) => {
-      const totalDuration = getTotalDuration();
+    async (memberIdOverride?: string | null, durationOverride?: number) => {
+      const totalDuration = durationOverride ?? getTotalDuration();
       if (!totalDuration) return;
       if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
@@ -698,6 +741,26 @@ export const Schedule: React.FC<
       setWaitlistTimes,
       isOnlyWaitlist,
       handleNewBooking,
+      catalog,
+      catalogPath,
+      setCatalogPath,
+      packages,
+      purchasePackageId,
+      setPurchasePackageId,
+      customerPackageId,
+      setCustomerPackageId,
+      packageBookingFlow,
+      setPackageBookingFlow,
+      isCustomerPackageLocked: packageBookingFlow && !!customerPackageId,
+      requireCustomerOtp,
+      hasActiveCustomerPackages,
+      otpVerified,
+      setOtpVerified,
+      otpReturnStep,
+      setOtpReturnStep,
+      otpDialogOpen,
+      setOtpDialogOpen,
+      refreshBookingOptions,
     }),
     [
       appointmentOptions,
@@ -753,6 +816,17 @@ export const Schedule: React.FC<
       setWaitlistTimes,
       isOnlyWaitlist,
       handleNewBooking,
+      catalog,
+      catalogPath,
+      packages,
+      purchasePackageId,
+      customerPackageId,
+      packageBookingFlow,
+      requireCustomerOtp,
+      otpVerified,
+      otpReturnStep,
+      otpDialogOpen,
+      refreshBookingOptions,
     ],
   );
   return (

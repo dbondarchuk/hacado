@@ -69,6 +69,8 @@ export const CalendarCard: React.FC = () => {
     availability,
     setStep,
     waitlistAppId,
+    purchasePackageId,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
@@ -206,7 +208,19 @@ export const CalendarCard: React.FC = () => {
   return (
     <div className="relative text-center">
       <div className="mb-3">
-        <h2 className="text-xl">{i18n("common.labels.selectDateTime")}</h2>
+        <h2
+          className={
+            purchasePackageId || isCustomerPackageLocked
+              ? "text-xl calendar-first-appointment-title"
+              : "text-xl"
+          }
+        >
+          {purchasePackageId
+            ? i18n("booking.calendar.firstAppointmentTitle")
+            : isCustomerPackageLocked
+              ? i18n("booking.calendar.nextPackageAppointmentTitle")
+              : i18n("common.labels.selectDateTime")}
+        </h2>
       </div>
       <div className="mb-3 flex flex-col gap-4">
         <div className="flex flex-col md:flex-row gap-4 md:gap-10 not-prose">
@@ -261,7 +275,7 @@ export const CalendarCard: React.FC = () => {
             )}
           </div>
         </div>
-        {!!waitlistAppId && (
+        {!!waitlistAppId && !purchasePackageId && !isCustomerPackageLocked && (
           <div data-identifier="waitlist-link">
             {t.rich("block.calendar.waitlist.link", {
               link: (chunks: any) => (

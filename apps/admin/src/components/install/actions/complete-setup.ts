@@ -7,6 +7,7 @@ import {
   CALENDAR_WRITER_APP_NAME,
   canInstallApp,
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
+  CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   EMAIL_NOTIFICATION_APP_NAME,
   FORMS_APP_NAME,
@@ -49,6 +50,7 @@ type InstallPreferences = {
   inviteMode: "none" | "email" | "calendar_writer";
   inviteCalendarWriterAppId?: string;
   optCustomerEmailNotifications: boolean;
+  optCustomerPackageEmailNotifications: boolean;
   optCustomerTextMessageNotifications: boolean;
   optAppointmentNotifications: boolean;
   optWaitlist: boolean;
@@ -69,6 +71,7 @@ function sanitizeInstallPreferencesForPlanTier(
     acceptPayments: false,
     depositEnabled: false,
     optCustomerTextMessageNotifications: false,
+    optCustomerPackageEmailNotifications: false,
     optWaitlist: false,
     optWaitlistNotifications: false,
     optBlog: false,
@@ -267,7 +270,7 @@ async function ensureInstallCustomerOtpTemplates(
     {
       otpEmailTemplateId,
       otpTextTemplateId,
-      allowPhoneOtp: false,
+      otpChannels: "email",
     },
     systemEventSource,
   );
@@ -761,6 +764,13 @@ export async function runCompleteInstallSetupSteps(args: {
       "Adding customer email notification app",
     );
     installSet.add(CUSTOMER_EMAIL_NOTIFICATION_APP_NAME);
+  }
+  if (prefs.optCustomerPackageEmailNotifications) {
+    logger.debug(
+      { appName: CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME },
+      "Adding customer package email notification app",
+    );
+    installSet.add(CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME);
   }
   if (prefs.optCustomerTextMessageNotifications) {
     logger.debug(

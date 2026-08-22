@@ -113,12 +113,7 @@ export async function POST(request: NextRequest) {
   const customerId = (formData.get("customerId") as string) ?? undefined;
 
   if (customerId) {
-    const auth = await requirePermission(
-      "customer",
-      "update",
-      "AdminAPI/assets",
-      "POST",
-    );
+    const auth = await requirePermission("customer", "update", logger);
     if (!auth.ok) return auth.response;
   }
 

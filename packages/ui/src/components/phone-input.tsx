@@ -18,6 +18,7 @@ export type PhoneInputProps = {
   value?: string;
   onChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   className?: string;
   inputClassName?: string;

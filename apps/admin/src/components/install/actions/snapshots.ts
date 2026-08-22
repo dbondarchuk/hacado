@@ -51,6 +51,7 @@ const installPreferencesSchema = z.object({
   inviteMode: installInviteModeSchema,
   inviteCalendarWriterAppId: z.string().trim().optional().default(""),
   optCustomerEmailNotifications: z.boolean().default(false),
+  optCustomerPackageEmailNotifications: z.boolean().default(false),
   optCustomerTextMessageNotifications: z.boolean().default(false),
   optAppointmentNotifications: z.boolean().default(false),
   optWaitlist: z.boolean().default(false),

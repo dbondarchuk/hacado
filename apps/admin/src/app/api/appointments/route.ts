@@ -12,6 +12,7 @@ import {
   effectiveStaffPrice,
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
+  PackageError,
 } from "@hacado/types";
 import { gateMemberIds } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
@@ -44,6 +45,9 @@ export async function GET(request: NextRequest) {
   const referenceDate = params.referenceDate ?? undefined;
   const customerIds = params.customer ?? undefined;
   const memberIds = gateMemberIds(user, params.member ?? undefined);
+  const packageIds = params.package ?? undefined;
+  const customerPackageId = params.customerPackageId ?? undefined;
+  const discountIds = params.discount ?? undefined;
 
   const offset = (page - 1) * limit;
 
@@ -58,6 +62,8 @@ export async function GET(request: NextRequest) {
       end,
       referenceDate,
       offset,
+      customerPackageId,
+      packageIds,
     },
     "Fetching appointments with parameters",
   );
@@ -72,6 +78,9 @@ export async function GET(request: NextRequest) {
     referenceDate,
     customerId: customerIds ?? undefined,
     memberId: memberIds ?? undefined,
+    discountId: discountIds ?? undefined,
+    packageId: packageIds ?? undefined,
+    customerPackageId,
   });
 
   logger.debug(
@@ -253,6 +262,7 @@ export async function POST(request: NextRequest) {
 
   const {
     acknowledgeUnassignedMember: _acknowledgeUnassignedMember,
+    customerPackageId,
     ...eventData
   } = data;
 
@@ -274,25 +284,28 @@ export async function POST(request: NextRequest) {
       durationType: option.durationType,
       isOnline: option.isOnline,
     },
-    addons: addons?.map((addon) => ({
-      _id: addon._id,
-      name: addon.name,
-      price: effectiveAddonPrice(addon.price, addon.staff, data.memberId),
-      duration: effectiveAddonDuration(
-        addon.duration,
-        addon.staff,
-        data.memberId,
-      ),
-    })),
+    addons: customerPackageId
+      ? undefined
+      : addons?.map((addon) => ({
+          _id: addon._id,
+          name: addon.name,
+          price: effectiveAddonPrice(addon.price, addon.staff, data.memberId),
+          duration: effectiveAddonDuration(
+            addon.duration,
+            addon.staff,
+            data.memberId,
+          ),
+        })),
     discount:
-      discount && data.discount
-        ? {
+      customerPackageId || !discount || !data.discount
+        ? undefined
+        : {
             id: discount._id,
             name: discount.name,
             code: data.discount.code,
             discountAmount: data.discount.discountAmount,
-          }
-        : undefined,
+          },
+    totalPrice: customerPackageId ? 0 : eventData.totalPrice,
   };
 
   let appointment;
@@ -304,6 +317,7 @@ export async function POST(request: NextRequest) {
       files,
       eventSource,
       memberId: data.memberId,
+      customerPackageId,
     });
   } catch (error) {
     if (error instanceof AppointmentLimitReachedError) {
@@ -316,6 +330,16 @@ export async function POST(request: NextRequest) {
           settingsUrl: "/dashboard/settings/brand?activeTab=general",
         },
         { status: 402 },
+      );
+    }
+    if (error instanceof PackageError) {
+      return NextResponse.json(
+        {
+          success: false,
+          code: error.code,
+          message: error.message,
+        },
+        { status: 400 },
       );
     }
     throw error;

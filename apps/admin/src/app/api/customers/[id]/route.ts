@@ -1,5 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
 import { customerSchema, okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,15 +10,10 @@ export async function GET(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const auth = await requirePermission(
-    "customer",
-    "read",
-    "AdminAPI/customers/[id]",
-    "GET",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers/[id]")("GET");
+  const auth = await requirePermission("customer", "read", logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 
@@ -78,15 +74,10 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const auth = await requirePermission(
-    "customer",
-    "update",
-    "AdminAPI/customers/[id]",
-    "PUT",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers/[id]")("PUT");
+  const auth = await requirePermission("customer", "update", logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id } = await params;
@@ -151,15 +142,10 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext<"/api/customers/[id]">,
 ) {
-  const auth = await requirePermission(
-    "customer",
-    "delete",
-    "AdminAPI/customers/[id]",
-    "DELETE",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers/[id]")("DELETE");
+  const auth = await requirePermission("customer", "delete", logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const actor = await getActor();
   const { id } = await params;

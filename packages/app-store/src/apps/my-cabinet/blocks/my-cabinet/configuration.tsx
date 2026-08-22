@@ -9,6 +9,7 @@ import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
 import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
+import { WAITLIST_APP_NAME } from "../../../waitlist/const";
 import { MY_CABINET_APP_NAME } from "../../const";
 import {
   MyCabinetAdminKeys,
@@ -65,6 +66,16 @@ export const MyCabinetBlockConfiguration = deepMemo(
           defaultValue={appId}
           onChange={(value) =>
             updateMetadata({ ...metadata, myCabinetAppId: value ?? "" })
+          }
+        />
+        <AppSelectorInput
+          label={t("block.waitlistAppId.label")}
+          helperText={t("block.waitlistAppId.helperText")}
+          appName={WAITLIST_APP_NAME}
+          nullable
+          defaultValue={(metadata?.waitlistAppId as string) ?? ""}
+          onChange={(value) =>
+            updateMetadata({ ...metadata, waitlistAppId: value ?? "" })
           }
         />
         <BooleanInput

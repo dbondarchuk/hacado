@@ -145,6 +145,38 @@ platformEvents:
     deleted:
       title: Подарункові карти видалено
       description: "{count, plural, =1 {# карта} few {# карти} other {# карт}}"
+  appointmentPackage:
+    created:
+      title: Пакет створено
+      description: "{name}"
+    updated:
+      title: Пакет оновлено
+      description: "{name}"
+    deleted:
+      title: Пакети видалено
+      description: "{count, plural, =1 {# пакет} few {# пакети} other {# пакетів}}"
+  customerPackage:
+    issued:
+      title: Пакет придбано
+      description: "{name}"
+    redeemed:
+      title: Кредит пакета використано
+      description: "{name}"
+    restored:
+      title: Кредит пакета повернуто
+      description: "{name}"
+    adjusted:
+      title: Баланс пакета змінено
+      description: "{name}"
+    exhausted:
+      title: Пакет вичерпано
+      description: "{name}"
+    cancelled:
+      title: Пакет скасовано
+      description: "{name}"
+    expired:
+      title: Пакет прострочено
+      description: "{name}"
   field:
     created:
       title: Поле створено
@@ -346,6 +378,8 @@ navigation:
   options: Опції
   discounts: Знижки
   giftCards: Подарункові картки
+  packages: Пакети
+  soldPackages: Продані пакети
   syncedPayments: Синхронізовані платежі
   customers: Клієнти
   website: Веб-сайт
@@ -764,6 +798,10 @@ appointments:
       status: Статус
       tooltip: Фільтри
       member: Співробітник
+      package: Пакет
+      soldPackageActive: Показано записи для проданого пакета "{name}"
+      soldPackageFallback: вибраний пакет
+      clearSoldPackage: Очистити
     columns:
       status: Статус
       statusAriaLabel: "Статус: {status}"
@@ -774,6 +812,8 @@ appointments:
       requestedAt: Затребувано
       duration: Тривалість
       discount: Знижка
+      package: Пакет
+      packageRestored: відновлено
       price: Ціна
       optionName: Назва опції
       optionPrice: Ціна опції
@@ -785,6 +825,10 @@ appointments:
       customerPhone: Телефон
       online: Онлайн
       meetingLink: Приєднатися до зустрічі
+    packageDialog:
+      purchasedAt: Придбано {date}
+      viewCatalog: Переглянути шаблон пакета
+      creditsRestored: "{credits, plural, =1 {# кредит відновлено} other {# кредитів відновлено}}"
   dialog:
     viewFullInfo: Переглянути повну інформацію про запис
     by: Від
@@ -982,6 +1026,9 @@ appointments:
     addons: Додатки
     selectAddons: Вибрати додатки...
     customer: Клієнт
+    package: Пакет
+    packageRemaining: "{remaining} з {total} кредитів залишилось"
+    packageCoversPrice: Ціну покриває вибраний пакет
     assignTo: Призначити
     discount: Знижка
     duration: Тривалість
@@ -1884,19 +1931,22 @@ services:
       maxUsagePerCustomer: Максимальна кількість використань на клієнта
       maxUsagePerCustomerTooltip: Максимальна кількість разів, яку окремий клієнт може використати цю знижку. Подальші спроби використання знижки цим клієнтом будуть відхилені після досягнення цього ліміту.
       limitTo: Обмежити до
-      limitToTooltip: Обмежити знижку до конкретних опцій та додатків
+      limitToTooltip: Обмежити знижку до конкретних опцій, додатків та пакетів
       addLimit: Додати обмеження
       removeLimit: Видалити обмеження
       anyOption: Будь-яка опція
       anyAddon: Будь-який додаток
+      anyPackage: Будь-який пакет
       anyOptionOrAddon: Будь-яка опція або додаток
       addNew: Додати нове
       optionsLabel: "Будь-яка з наступних опцій:"
       addonsLabel: "Будь-який з наступних пакетів додатків:"
+      packagesLabel: "Будь-який з наступних пакетів:"
       withLabel: З
+      orLabel: Або
       removeLimitTitle: Ви абсолютно впевнені?
       removeLimitDescription: Ви впевнені, що хочете видалити це обмеження?
-      limitToDescription: Ви можете обмежити цю знижку до конкретних опцій та додатків
+      limitToDescription: Ви можете обмежити цю знижку до конкретних опцій, додатків та пакетів
       cancel: Скасувати
       delete: Видалити
       validation:
@@ -1932,6 +1982,169 @@ services:
       confirmDescription2: Це не вплине на існуючі записи, які використовують ці знижки
       cancel: Скасувати
       deleteSelected: Видалити вибрані
+  packages:
+    title: Пакети
+    description: Передплачені пакети записів
+    addNew: Додати новий
+    new: Новий
+    newTitle: Новий пакет
+    newDescription: Додати передплачений пакет записів
+    editDescription: Редагувати пакет
+    sell: Продати пакет
+    sellTitle: Продати пакет
+    sellDescription: Видати цей пакет клієнту та записати оплату в салоні
+    sellForm:
+      package: Пакет
+      customer: Клієнт
+      price: Ціна
+      paymentMethod: Спосіб оплати
+    sold:
+      title: Продані пакети
+      description: Пакети, видані клієнтам
+      statusBadges:
+        active: Активний
+        exhausted: Вичерпаний
+        expired: Прострочений
+        cancelled: Скасований
+      table:
+        columns:
+          name: Пакет
+          customer: Клієнт
+          price: Ціна
+          remaining: Залишок
+          used: Використано
+          status: Статус
+          purchasedAt: Куплено
+          expiresAt: Дійсний до
+        cellAction:
+          viewCustomer: Переглянути клієнта
+          viewAppointments: Переглянути записи
+          scheduleAppointment: Запланувати запис
+        filters:
+          package: Пакет
+    table:
+      columns:
+        name: Назва
+        price: Ціна
+        credits: Кредити
+        soldCount: Продано
+        status: Статус
+        isPublic: Публічний
+        updatedAt: Оновлено
+      statusBadges:
+        active: Активний
+        inactive: Неактивний
+      cellAction:
+        packageDeleted: Пакет {name} було видалено.
+        deleteError: Виникла проблема з вашим запитом.
+        hasPurchases: Цей пакет має покупки і не може бути видалений.
+        actions: Дії
+        update: Оновити
+        delete: Видалити
+        sell: Продати
+        setActive: Активувати
+        setInactive: Деактивувати
+    deleteSelected:
+      success: Вибрані пакети були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибраний пакет} few {вибрані # пакети} other {вибраних # пакетів}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Буде видалено вибрані пакети без покупок.
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+    form:
+      name:
+        label: Назва
+        placeholder: 10 масажів
+        tooltip: Назва, яку бачать співробітники та клієнти
+      description:
+        label: Короткий опис
+        tooltip: Короткий текст, який буде видно під час запису
+      price:
+        label: Ціна
+        placeholder: "200"
+        tooltip: Передоплата за пакет
+      credits:
+        label: Сеанси
+        suffix: сеанси
+        tooltip: Скільки візитів входить до пакета
+      option:
+        label: Послуга
+        tooltip: Послуга, яку можна записати за цим пакетом
+      validityMonths:
+        label: Термін дії
+        tooltip: Як довго кредити дійсні після покупки. Залиште 0 років і 0 місяців, щоб пакет не закінчувався.
+      maxPurchasesPerCustomer:
+        label: Максимум покупок на клієнта
+        suffix: покупки
+        tooltip: Залиште порожнім, щоб не обмежувати, скільки разів клієнт може купити цей пакет
+      isAutoConfirm:
+        label: Автопідтвердження записів
+        tooltip: Коли візит бронюється з цим пакетом, це налаштування має пріоритет над автопідтвердженням послуги
+        always: Завжди
+        never: Ніколи
+        inherit: Успадкувати з налаштувань бронювання
+      eligibleStaff:
+        title: Доступний персонал
+        hint: За замовчуванням будь-який спеціаліст послуги може проводити візити, оплачені цим пакетом. Додайте спеціалістів, лише якщо хочете обмежити, хто може проводити візити.
+        add: Додати спеціаліста
+        tooltip: Обмежте, хто з персоналу може проводити візити, оплачені цим пакетом
+        member: Спеціаліст
+        deleteConfirmTitle: Ви абсолютно впевнені?
+        deleteConfirmDescription: Ви впевнені, що хочете прибрати цього спеціаліста?
+        cancel: Скасувати
+        delete: Видалити
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        created: Пакет створено.
+        sold: Пакет продано.
+        requestError: Виникла проблема з вашим запитом.
+    customer:
+      title: Пакети
+      remaining: "{remaining} з {total} залишилось"
+      used: "{used} з {total} використано"
+      expires: Дійсний до {date}
+      noPackages: Немає пакетів
+      scheduleAppointment: Запланувати запис
+      viewAppointments: Переглянути записи
+      cancel:
+        button: Скасувати пакет
+        confirmTitle: Скасувати цей пакет?
+        confirmDescription: Це скасує {name}. Залишок кредитів збережеться і може бути відновлений реактивацією.
+        success: Пакет скасовано.
+      reactivate:
+        button: Реактивувати пакет
+        confirmTitle: Реактивувати цей пакет?
+        confirmDescription: Це реактивує {name}. Залишок кредитів залишиться без змін.
+        success: Пакет реактивовано.
+    appointment:
+      used: "Пакет: {name}"
+      label: Пакет
+      view: Переглянути пакет
+      creditsUsed: "{credits, plural, =1 {# кредит використано} few {# кредити використано} many {# кредитів використано} other {# кредиту використано}}"
+    adjust:
+      title: Змінити використані кредити
+      description: Вкажіть, скільки кредитів з {name} використано (0–{total}).
+      usedLabel: Використані кредити
+      reason: Причина
+      reasonPlaceholder: Необовʼязкова примітка
+      save: Зберегти
+      decrease: Зменшити використані кредити
+      increase: Збільшити використані кредити
+      ofTotal: з {total}
+    notifications:
+      issued:
+        title: Пакет видано
+        message: "{name} видано клієнту"
+        action: Переглянути клієнта
+    emails:
+      purchasedOwner:
+        subject: "Нова покупка пакета — {packageName}"
+        preview: "{customerName} придбав(ла) {packageName}"
+        title: Нова покупка пакета
+        body: "{customerName} придбав(ла) {packageName} за {price}."
+        button: Переглянути пакети клієнта
+        handledBy: Пакети (покупка клієнта)
   giftCards:
     title: Подарункові картки
     description: Керувати подарунковими картками
@@ -2510,6 +2723,8 @@ settings:
         availabilityProviderApp: Додаток постачальника доступності
         availabilityProviderAppTooltip: Вибрати додатковий додаток для надання вашої доступності.<br></br>Якщо додаток не вибрано, буде застосовано базовий додаток доступності.
         autoConfirmAppointments: Автоматично підтверджувати записи
+        requireCustomerOtp: Вимагати підтвердження клієнта
+        requireCustomerOtpTooltip: Якщо увімкнено, клієнти мають підтвердити email або телефон одноразовим кодом перед оплатою чи підтвердженням запису. Використання передплаченого пакета завжди потребує підтвердженої сесії.
         autoConfirmTooltip: Виберіть цю опцію, якщо хочете автоматично підтверджувати всі записи, створені клієнтами.<br></br>За замовчуванням вам потрібно буде вручну підтверджувати кожен запис.
         allowStaffCalendarSources: Дозволити персоналу керувати джерелами календаря
         allowStaffCalendarSourcesTooltip: Якщо увімкнено, учасники з роллю «персонал» можуть підключати особисті джерела календаря у профілі, і ці календарі використовуються під час перевірки доступності. Якщо вимкнено, персонал не може керувати джерелами календаря, а їхні особисті календарі ігноруються при перевірці зайнятості.
@@ -2541,7 +2756,14 @@ settings:
           twenty: Кожну годину о XX:00, XX:20, XX:40
           thirty: Кожну годину о XX:00, XX:30
       options:
-        title: Опції
+        title: Каталог
+        addGroup: Додати групу
+        addService: Додати послугу
+        addPackage: Додати пакет
+        groupName: Назва групи
+        groupDescription: Короткий опис
+        emptyGroup: Ця група порожня
+        package: Пакет
       payments:
         enableDeposits: Увімкнути завдатки
         enableDepositsTooltip: Увімкнути можливість просити завдаток для бронювання запису. Платіжний додаток за замовчуванням повинен бути налаштований.
@@ -2724,12 +2946,16 @@ settings:
         requestError: Виникла проблема з вашим запитом.
   customerAccess:
     title: Доступ клієнтів
-    description: Шаблони OTP та підтвердження телефону для клієнтських сценаріїв
+    description: Шаблони OTP та канали підтвердження для клієнтських сценаріїв
     form:
       otpEmailTemplateId:
         label: Шаблон email для OTP
-      allowPhoneOtp:
-        label: Дозволити OTP за телефоном
+      otpChannels:
+        label: Канал підтвердження OTP
+        options:
+          email: Лише email
+          phone: Лише телефон
+          email_or_phone: Email або телефон
       otpTextTemplateId:
         label: Шаблон SMS для OTP
       toasts:

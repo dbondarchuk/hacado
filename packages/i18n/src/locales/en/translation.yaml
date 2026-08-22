@@ -47,6 +47,7 @@ booking:
     calendar: Date & Time
     form: Details
     payment: Payment
+    otp: Verify
     review: Summary
   summary:
     estimates:
@@ -74,11 +75,17 @@ booking:
   calendar:
     title: Select Date & Time
     description: Choose your preferred appointment slot
+    firstAppointmentTitle: Select Date & Time for your first appointment
+    firstAppointmentDescription: Choose a slot for the first session included in your package
+    packageAppointmentTitle: Select Date & Time for your {serviceName} appointment
+    nextPackageAppointmentTitle: Select date & time for your next appointment
+    nextPackageAppointmentDescription: Choose a slot using credits from your package
     loading: Loading available times...
     no_available_times: No available times for this date
   form:
     title: Your Details
     description: Please provide your contact information
+    namePlaceholder: Your name
   review:
     title: Review Your Booking
     description: Please confirm all details are correct
@@ -109,6 +116,57 @@ booking:
       discount: Discount
       original: Subtotal
       giftCards: Gift cards
+      package: Package
+  otp:
+    title: Verify your contact details
+    description: Enter the code we sent to confirm this booking
+    descriptionEmailOnly: We'll send a verification code to your email
+    descriptionPhoneOnly: We'll send a verification code to your phone
+    descriptionEmailOrPhone: Choose email or phone to receive a verification code
+    email: Email
+    phone: Phone
+    emailPlaceholder: you@example.com
+    phonePlaceholder: Phone
+    emailInvalid: Please enter a valid email address.
+    phoneInvalid: Please enter a valid phone number.
+    send: Send code
+    request: Send code
+    verify: Verify code
+    hint: Enter the 6-digit code we sent you
+    sent: We sent a verification code
+    sentIfMatch: If we found a match, we sent the code
+    invalid: Invalid code
+    requestError: Could not send code. Please try again.
+    verifyError: OTP verification failed. Please check your code and try again.
+    resendBlocked: Request new code in {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    changeContact: Contact details changed. Please verify again.
+    skip: Already verified
+    name: Name
+    nameRequired: Enter your name to continue
+    namePlaceholder: Your name
+  package:
+    useCredits: Use package credits
+    verifyToUseCredits: Verify to use package credits
+    verifyToUseCreditsDescription: Sign in with a one-time code to apply credits from a package you already own.
+    bookWithPackage: I want to book an appointment for my package
+    bookWithPackageDescription: Verify your identity to use credits from a package you already purchased.
+    selectPackage: Select a package
+    selectPackageDescription: Choose which package credits to use for this appointment
+    noPackages: No packages with remaining credits were found for your account.
+    buyPackage: Buy package
+    remaining: "{remaining} remaining"
+    purchaseAndBook: Buy package and book
+    payFull: Pay without package credits
+    bookIndependently: Book without using a package
+    purchaseTitle: You're buying a package
+    firstAppointmentNote: This books the first appointment included in the package.
+    included: What's included
+    includedItem: "{count}× {name}"
+  catalog:
+    group: Category
+    package: Package
+    packages: Packages
+    empty: No services in this category
   payment:
     amount:
       full: Full payment amount
@@ -176,6 +234,7 @@ booking:
     appointmentDetails: Appointment details
     duration: "Duration: {duration}"
     specialist: "Specialist: {name}"
+    package: "Part of package: {name}"
     newBookingButton: Book Another Appointment
   availability:
     fetchFailedTitle: Uh oh! Something went wrong.
@@ -210,6 +269,7 @@ modification:
     payment: Payment
   otp:
     descriptionEmailOnly: Enter your email to receive a verification code
+    descriptionPhoneOnly: Enter your phone to receive a verification code
     descriptionEmailOrPhone: Enter your email or phone to receive a verification code
     email: Email
     phone: Phone

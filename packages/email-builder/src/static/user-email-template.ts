@@ -1,44 +1,17 @@
-import { TReaderBlock, generateId as generateBlockId } from "@hacado/builder";
-import { deserializeMarkdown } from "@hacado/rte";
 import { templateSafeWithError } from "@hacado/utils";
 import { EMAIL_BRAND } from "../brand";
+import {
+  buildEmailContentBlocks,
+  type EmailContentBlock,
+  type EmailTemplateButton,
+} from "./content-blocks";
 import { renderToStaticMarkup } from "./static";
 
-export type UserEmailTemplateButton = {
-  text: string;
-  url: string;
-  textColor?: string;
-  backgroundColor?: string;
-  fontSize?: number;
-  fontWeight?: "normal" | "bold";
-  textAlign?: "left" | "center" | "right";
-};
+/** @deprecated Prefer EmailContentBlock / EmailTemplateButton from content-blocks */
+export type UserEmailTemplateButton = EmailTemplateButton;
 
-export type UserEmailTemplateContentBlock =
-  | {
-      type: "text";
-      text: string;
-      align?: "left" | "center" | "right";
-    }
-  | {
-      type: "title";
-      text: string;
-      level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-    }
-  | {
-      type: "image";
-      url: string;
-      alt: string;
-      linkHref?: string;
-      x?: number;
-      y?: number;
-      width?: number;
-      height?: number;
-    }
-  | {
-      type: "button";
-      button: UserEmailTemplateButton;
-    };
+/** @deprecated Prefer EmailContentBlock from content-blocks */
+export type UserEmailTemplateContentBlock = EmailContentBlock;
 
 export type UserEmailTemplateContentBlockType =
   UserEmailTemplateContentBlock["type"];
@@ -48,115 +21,14 @@ export type UserEmailTemplateProps = {
   content: Array<UserEmailTemplateContentBlock>;
 };
 
-const contentBlockTypeRenderMap: {
-  [key in UserEmailTemplateContentBlockType]: (
-    block: Extract<UserEmailTemplateContentBlock, { type: key }>,
-    args: Record<string, any>,
-    nextBlock: UserEmailTemplateContentBlock | undefined,
-    previousBlock: UserEmailTemplateContentBlock | undefined,
-  ) => TReaderBlock;
-} = {
-  text: (block, args) => ({
-    type: "Text",
-    id: generateBlockId(),
-    data: {
-      style: {
-        fontWeight: "normal",
-        padding: {
-          top: 16,
-          bottom: 0,
-          right: 24,
-          left: 24,
-        },
-        textAlign: block.align,
-      },
-      props: {
-        value: deserializeMarkdown(
-          templateSafeWithError(block.text, args, true),
-          {
-            allowHtml: true,
-          },
-        ),
-      },
-    },
-  }),
-  title: (block, args) => ({
-    type: "Heading",
-    id: generateBlockId(),
-    data: {
-      props: {
-        text: templateSafeWithError(block.text, args),
-        level: block.level,
-      },
-      style: {
-        textAlign: "center",
-        padding: {
-          top: 16,
-          bottom: 16,
-          right: 24,
-          left: 24,
-        },
-      },
-    },
-  }),
-  image: (block, args) => ({
-    type: "Image",
-    id: generateBlockId(),
-    data: {
-      props: {
-        url: templateSafeWithError(block.url, args, true),
-        alt: templateSafeWithError(block.alt, args, true),
-        contentAlignment: "middle",
-        linkHref: block.linkHref
-          ? templateSafeWithError(block.linkHref, args, true)
-          : undefined,
-        x: block.x,
-        y: block.y,
-        width: block.width,
-        height: block.height,
-      },
-    },
-  }),
-  button: ({ button }, args, nextBlock, previousBlock) => ({
-    type: "Button",
-    id: generateBlockId(),
-    data: {
-      props: {
-        text: templateSafeWithError(button.text, args),
-        url: templateSafeWithError(button.url, args, true),
-        width: "full",
-        size: "large",
-        buttonStyle: "rounded",
-        buttonTextColor: button.textColor ?? EMAIL_BRAND.onPrimary,
-        buttonBackgroundColor: button.backgroundColor ?? EMAIL_BRAND.primary,
-      },
-      style: {
-        padding: {
-          top: previousBlock?.type === "button" ? 0 : 16,
-          bottom: nextBlock?.type === "button" ? 4 : 16,
-          left: 24,
-          right: 24,
-        },
-        fontWeight: button.fontWeight ?? "normal",
-        fontSize: button.fontSize ?? 16,
-        textAlign: button.textAlign ?? "center",
-      },
-    },
-  }),
-};
-
 export const renderUserEmailTemplate = async (
   { content, previewText }: UserEmailTemplateProps,
   args: Record<string, any> = {},
 ) => {
-  const contentBlocks = content.map((block, index, array) =>
-    contentBlockTypeRenderMap[block.type](
-      block as any,
-      args,
-      array[index + 1],
-      array[index - 1],
-    ),
-  );
+  const contentBlocks = buildEmailContentBlocks(content, {
+    transformText: (text, allowHtml) =>
+      templateSafeWithError(text, args, allowHtml),
+  });
 
   const appUrl = `https://${process.env.ADMIN_DOMAIN ?? "app.hacado.com"}`;
 

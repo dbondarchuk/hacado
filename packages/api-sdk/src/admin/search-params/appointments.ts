@@ -23,6 +23,8 @@ export const appointmentsSearchParams = {
   customer: parseAsArrayOf(parseAsString),
   discount: parseAsArrayOf(parseAsString),
   member: parseAsArrayOf(parseAsString),
+  package: parseAsArrayOf(parseAsString),
+  customerPackageId: parseAsString,
   sort: baseSearchParams.sort.withDefault([
     {
       id: "createdAt",

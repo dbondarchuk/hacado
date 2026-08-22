@@ -1,15 +1,12 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const auth = await requirePermission(
-    "activity",
-    "read",
-    "AdminAPI/activities/read",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/activities/read")("POST");
+  const auth = await requirePermission("activity", "read", logger);
   if (!auth.ok) return auth.response;
 
   const servicesContainer = await getServicesContainer();

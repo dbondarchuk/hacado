@@ -13,6 +13,8 @@ export type BookingProps = {
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
   flowOrder?: FlowOrder | null;
+  lockPurchasePackageId?: string;
+  lockCustomerPackageId?: string;
 };
 
 export const Booking: React.FC<
@@ -29,23 +31,25 @@ export const Booking: React.FC<
   hideTitle,
   hideSteps,
   flowOrder,
+  lockPurchasePackageId,
+  lockCustomerPackageId,
   ...props
 }) => {
   const [response, setResponse] =
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
-  React.useEffect(() => {
-    const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
-      setResponse(data);
-    };
+  const loadOptions = React.useCallback(async () => {
+    const data = await clientApi.booking.getBookingOptions();
+    setResponse(data);
+  }, []);
 
+  React.useEffect(() => {
     if (!isEditor) {
-      loadOptions();
+      void loadOptions();
     } else {
       setResponse(demoBookingOptionsResponse);
     }
-  }, [isEditor]);
+  }, [isEditor, loadOptions]);
 
   return (
     <Schedule
@@ -58,6 +62,13 @@ export const Booking: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      catalog={response?.catalog}
+      packages={response?.packages}
+      requireCustomerOtp={response?.requireCustomerOtp}
+      hasActiveCustomerPackages={response?.hasActiveCustomerPackages}
+      lockPurchasePackageId={lockPurchasePackageId}
+      lockCustomerPackageId={lockCustomerPackageId}
+      refreshBookingOptions={isEditor ? undefined : loadOptions}
       isEditor={isEditor}
       className={className}
       scrollToTop={scrollToTop ?? false}

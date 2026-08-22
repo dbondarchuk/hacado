@@ -25,6 +25,8 @@ import {
   FIELD_UPDATED_EVENT_TYPE,
   FieldsType,
   FieldType,
+  filterCatalogNodes,
+  flattenCatalogOptionIds,
   FREE_TIER_LIMITS,
   IConfigurationService,
   IEventService,
@@ -1139,25 +1141,27 @@ export class ServicesService extends BaseService implements IServicesService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
-    if (
-      bookingConfiguration &&
-      bookingConfiguration.options &&
-      Array.isArray(bookingConfiguration.options) &&
-      bookingConfiguration.options.some((option) => option.id === id)
-    ) {
-      logger.debug({ optionId: id }, "Option found in booking configuration");
+    const catalogOptionIds = flattenCatalogOptionIds(
+      bookingConfiguration?.catalog,
+    );
+    if (catalogOptionIds.includes(id)) {
+      logger.debug({ optionId: id }, "Option found in booking catalog");
 
-      bookingConfiguration.options = bookingConfiguration.options.filter(
-        (option) => option.id !== id,
+      const remainingIds = catalogOptionIds.filter(
+        (optionId) => optionId !== id,
       );
-
       await this.configurationService.setConfiguration(
         "booking",
-        bookingConfiguration,
+        {
+          ...bookingConfiguration,
+          catalog: filterCatalogNodes(bookingConfiguration.catalog, {
+            optionIds: remainingIds,
+          }),
+        },
         source,
       );
 
-      logger.debug({ optionId: id }, "Booking configuration updated");
+      logger.debug({ optionId: id }, "Booking catalog updated");
     }
 
     await this.eventService.emit(
@@ -1192,25 +1196,27 @@ export class ServicesService extends BaseService implements IServicesService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
-
-    if (
-      bookingConfiguration &&
-      bookingConfiguration.options &&
-      Array.isArray(bookingConfiguration.options) &&
-      bookingConfiguration.options.some((option) => ids.includes(option.id))
-    ) {
-      logger.debug({ ids }, "Options found in booking configuration");
-      bookingConfiguration.options = bookingConfiguration.options.filter(
-        (option) => !ids.includes(option.id),
+    const catalogOptionIds = flattenCatalogOptionIds(
+      bookingConfiguration?.catalog,
+    );
+    if (catalogOptionIds.some((optionId) => ids.includes(optionId))) {
+      logger.debug({ ids }, "Options found in booking catalog");
+      const remainingIds = catalogOptionIds.filter(
+        (optionId) => !ids.includes(optionId),
       );
 
       await this.configurationService.setConfiguration(
         "booking",
-        bookingConfiguration,
+        {
+          ...bookingConfiguration,
+          catalog: filterCatalogNodes(bookingConfiguration.catalog, {
+            optionIds: remainingIds,
+          }),
+        },
         source,
       );
 
-      logger.debug({ ids }, "Booking configuration updated");
+      logger.debug({ ids }, "Booking catalog updated");
     }
 
     await this.eventService.emit(
@@ -1790,31 +1796,76 @@ export class ServicesService extends BaseService implements IServicesService {
 
     if (discount.limitTo?.length) {
       const hasAny = discount.limitTo.some((limit) => {
-        if (
-          limit.options?.length &&
-          !limit.options.some((o) => o.id === request.optionId)
-        ) {
-          logger.debug(
-            { request, discount },
-            "Discount limit to option not found",
-          );
-          return false;
-        }
+        const hasPackageLimits = !!limit.packages?.length;
+        const hasServiceLimits =
+          !!limit.options?.length || !!limit.addons?.length;
 
-        if (limit.addons?.length) {
-          const hasAddonIntersection = limit.addons.some((bundle) =>
-            bundle.ids.every(({ id: bId }) =>
-              request.addons?.some((aId) => aId === bId),
-            ),
-          );
+        // Package purchases only match package limits (or unrestricted cards).
+        // Service/option limits must not apply just because a package contains
+        // that service.
+        if (request.packageId) {
+          if (hasPackageLimits) {
+            const matchesPackage = limit.packages!.some(
+              (pkg) => pkg.id === request.packageId,
+            );
+            if (!matchesPackage) {
+              logger.debug(
+                { request, discount },
+                "Discount limit to package not found",
+              );
+            }
+            return matchesPackage;
+          }
 
-          if (!hasAddonIntersection) {
+          if (hasServiceLimits) {
             logger.debug(
               { request, discount },
-              "Discount limit to addon not found",
+              "Discount limited to services cannot apply to package purchase",
             );
             return false;
           }
+
+          return true;
+        }
+
+        // Service bookings only match option/addon limits (or unrestricted).
+        if (hasServiceLimits) {
+          if (
+            limit.options?.length &&
+            !limit.options.some((o) => o.id === request.optionId)
+          ) {
+            logger.debug(
+              { request, discount },
+              "Discount limit to option not found",
+            );
+            return false;
+          }
+
+          if (limit.addons?.length) {
+            const hasAddonIntersection = limit.addons.some((bundle) =>
+              bundle.ids.every(({ id: bId }) =>
+                request.addons?.some((aId) => aId === bId),
+              ),
+            );
+
+            if (!hasAddonIntersection) {
+              logger.debug(
+                { request, discount },
+                "Discount limit to addon not found",
+              );
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+        if (hasPackageLimits) {
+          logger.debug(
+            { request, discount },
+            "Discount limited to packages cannot apply to service booking",
+          );
+          return false;
         }
 
         return true;
