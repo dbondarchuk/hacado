@@ -3144,11 +3144,13 @@ auth:
   forgotPasswordLink: <link>Забули пароль?</link>
   social:
     continueWithGoogle: Продовжити з Google
+    continueWithMicrosoft: Продовжити з Microsoft
+    continueWithZoom: Продовжити з Zoom
     orContinueWithEmail: Або продовжити з email
     lastUsed: Останній раз
     errors:
-      emailMismatch: Email облікового запису Google не збігається з email вашого облікового запису
-      linkFailed: Не вдалося підключити обліковий запис Google
+      emailMismatch: Email соціального облікового запису не збігається з email вашого облікового запису
+      linkFailed: Не вдалося підключити соціальний обліковий запис
       regionBlocked: Реєстрація недоступна у вашому регіоні
   completeProfile:
     title: Завершіть профіль
@@ -3607,6 +3609,20 @@ users:
       linkGoogleSuccess: Обліковий запис Google успішно підключено
       unlinkGoogleSuccess: Обліковий запис Google відключено
       unlinkGoogleError: Не вдалося відключити обліковий запис Google
+      connectMicrosoft: Підключити Microsoft
+      microsoftConnected: Microsoft підключено
+      microsoftNotConnected: Microsoft не підключено
+      unlinkMicrosoft: Відключити Microsoft
+      linkMicrosoftSuccess: Обліковий запис Microsoft успішно підключено
+      unlinkMicrosoftSuccess: Обліковий запис Microsoft відключено
+      unlinkMicrosoftError: Не вдалося відключити обліковий запис Microsoft
+      connectZoom: Підключити Zoom
+      zoomConnected: Zoom підключено
+      zoomNotConnected: Zoom не підключено
+      unlinkZoom: Відключити Zoom
+      linkZoomSuccess: Обліковий запис Zoom успішно підключено
+      unlinkZoomSuccess: Обліковий запис Zoom відключено
+      unlinkZoomError: Не вдалося відключити обліковий запис Zoom
     unlinkGoogle:
       title: Відключити Google
       description: Введіть пароль, щоб підтвердити відключення облікового запису Google
@@ -3615,6 +3631,32 @@ users:
       confirm: Відключити Google
       toasts:
         invalidPassword: Невірний пароль
+      validation:
+        password:
+          required: Пароль обов'язковий
+    unlinkMicrosoft:
+      title: Відключити Microsoft
+      description: Введіть пароль, щоб підтвердити відключення облікового запису Microsoft
+      form:
+        password: Пароль
+      confirm: Відключити Microsoft
+      toasts:
+        invalidPassword: Невірний пароль
+      validation:
+        password:
+          required: Пароль обов'язковий
+    unlinkZoom:
+      title: Відключити Zoom
+      description: Введіть пароль, щоб підтвердити відключення облікового запису Zoom
+      form:
+        password: Пароль
+      confirm: Відключити Zoom
+      toasts:
+        invalidPassword: Невірний пароль
+      validation:
+        password:
+          required: Пароль обов'язковий
+    unlinkSocial:
       validation:
         password:
           required: Пароль обов'язковий

@@ -2,6 +2,7 @@
 
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
@@ -44,6 +45,7 @@ export type ProfileFormProps = {
   canManageCalendarSources?: boolean;
   canManageMeetingUrlProvider?: boolean;
   showSecuritySection?: boolean;
+  enabledSocialProviders?: SocialAuthProvider[];
   /** When true, language change reloads the page and session is refetched. */
   isSelfProfile?: boolean;
   onSave: (data: UserUpdate) => Promise<void>;
@@ -54,6 +56,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   canManageCalendarSources = true,
   canManageMeetingUrlProvider = true,
   showSecuritySection = true,
+  enabledSocialProviders = [],
   isSelfProfile = false,
   onSave,
 }) => {
@@ -420,7 +423,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             </CardHeader>
             <CardContent className="pt-6 space-y-4">
               <Suspense fallback={null}>
-                <ProfileSecuritySection email={values.email} />
+                <ProfileSecuritySection
+                  email={values.email}
+                  enabledSocialProviders={enabledSocialProviders}
+                />
               </Suspense>
             </CardContent>
           </Card>

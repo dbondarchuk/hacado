@@ -1,5 +1,6 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
+import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import type { SessionUser } from "@hacado/types";
@@ -50,6 +51,8 @@ export default async function Page() {
     },
   ];
 
+  const enabledSocialProviders = getEnabledSocialAuthProviders();
+
   return (
     <PageContainer scrollable>
       <div className="flex flex-1 flex-col gap-4 w-full">
@@ -63,6 +66,7 @@ export default async function Page() {
         <ProfileForm
           values={user}
           canManageCalendarSources={canManageSources}
+          enabledSocialProviders={enabledSocialProviders}
         />
       </div>
     </PageContainer>

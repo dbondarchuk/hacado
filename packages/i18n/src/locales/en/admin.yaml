@@ -3378,11 +3378,13 @@ auth:
   forgotPasswordLink: "<link>Forgot your password?</link>"
   social:
     continueWithGoogle: Continue with Google
+    continueWithMicrosoft: Continue with Microsoft
+    continueWithZoom: Continue with Zoom
     orContinueWithEmail: Or continue with email
     lastUsed: Last used
     errors:
-      emailMismatch: Google account email does not match your account email
-      linkFailed: Could not link Google account
+      emailMismatch: Social account email does not match your account email
+      linkFailed: Could not link social account
       regionBlocked: Sign up is not available in your region
   completeProfile:
     title: Complete your profile
@@ -3906,6 +3908,20 @@ users:
       linkGoogleSuccess: Google account linked successfully
       unlinkGoogleSuccess: Google account unlinked
       unlinkGoogleError: Could not unlink Google account
+      connectMicrosoft: Connect Microsoft
+      microsoftConnected: Microsoft is connected
+      microsoftNotConnected: Microsoft is not connected
+      unlinkMicrosoft: Unlink Microsoft
+      linkMicrosoftSuccess: Microsoft account linked successfully
+      unlinkMicrosoftSuccess: Microsoft account unlinked
+      unlinkMicrosoftError: Could not unlink Microsoft account
+      connectZoom: Connect Zoom
+      zoomConnected: Zoom is connected
+      zoomNotConnected: Zoom is not connected
+      unlinkZoom: Unlink Zoom
+      linkZoomSuccess: Zoom account linked successfully
+      unlinkZoomSuccess: Zoom account unlinked
+      unlinkZoomError: Could not unlink Zoom account
     unlinkGoogle:
       title: Unlink Google
       description: Enter your password to confirm unlinking your Google account
@@ -3914,6 +3930,32 @@ users:
       confirm: Unlink Google
       toasts:
         invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkMicrosoft:
+      title: Unlink Microsoft
+      description: Enter your password to confirm unlinking your Microsoft account
+      form:
+        password: Password
+      confirm: Unlink Microsoft
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkZoom:
+      title: Unlink Zoom
+      description: Enter your password to confirm unlinking your Zoom account
+      form:
+        password: Password
+      confirm: Unlink Zoom
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkSocial:
       validation:
         password:
           required: Password is required

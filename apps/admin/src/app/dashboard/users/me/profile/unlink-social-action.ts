@@ -1,12 +1,21 @@
 "use server";
 
 import { auth } from "@/app/auth";
+import {
+  isSocialAuthProvider,
+  type SocialAuthProvider,
+} from "@/lib/auth/social-auth-providers";
 import { getDbConnection } from "@hacado/services/database";
 import { headers } from "next/headers";
 
-export async function unlinkGoogleAccount(
+export async function unlinkSocialAccount(
+  providerId: SocialAuthProvider,
   password: string,
 ): Promise<{ ok: true } | { ok: false; code: string }> {
+  if (!isSocialAuthProvider(providerId)) {
+    return { ok: false, code: "invalid_provider" };
+  }
+
   const headersList = await headers();
   const session = await auth.api.getSession({
     headers: headersList,
@@ -21,11 +30,11 @@ export async function unlinkGoogleAccount(
   const hasCredential = accounts?.some(
     (account) => account.providerId === "credential",
   );
-  const googleAccount = accounts?.find(
-    (account) => account.providerId === "google",
+  const socialAccount = accounts?.find(
+    (account) => account.providerId === providerId,
   );
 
-  if (!googleAccount) {
+  if (!socialAccount) {
     return { ok: false, code: "not_linked" };
   }
 
@@ -49,7 +58,7 @@ export async function unlinkGoogleAccount(
   const db = await getDbConnection();
   const result = await db.collection("accounts").deleteOne({
     userId: session.user.id,
-    providerId: "google",
+    providerId,
   });
 
   if (result.deletedCount === 0) {

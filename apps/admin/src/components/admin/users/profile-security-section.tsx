@@ -4,7 +4,11 @@ import { authClient } from "@/app/auth-client";
 import { EmailChangeDialog } from "@/components/admin/users/email-change-dialog";
 import { PasswordChangeDialog } from "@/components/admin/users/password-change-dialog";
 import { SetPasswordDialog } from "@/components/admin/users/set-password-dialog";
-import { UnlinkGoogleDialog } from "@/components/admin/users/unlink-google-dialog";
+import { UnlinkSocialDialog } from "@/components/admin/users/unlink-social-dialog";
+import {
+  isSocialAuthProvider,
+  type SocialAuthProvider,
+} from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
 import { Button, toast } from "@hacado/ui";
 import { Link2, Lock, Mail } from "lucide-react";
@@ -16,13 +20,53 @@ type LinkedAccount = {
   providerId: string;
 };
 
-export function ProfileSecuritySection({ email }: { email: string }) {
+type ProviderSecurityKeys = {
+  connected: string;
+  notConnected: string;
+  connect: string;
+  unlink: string;
+  linkSuccess: string;
+};
+
+const PROVIDER_SECURITY_KEYS: Record<SocialAuthProvider, ProviderSecurityKeys> =
+  {
+    google: {
+      connected: "users.profile.security.googleConnected",
+      notConnected: "users.profile.security.googleNotConnected",
+      connect: "users.profile.security.connectGoogle",
+      unlink: "users.profile.security.unlinkGoogle",
+      linkSuccess: "users.profile.security.linkGoogleSuccess",
+    },
+    microsoft: {
+      connected: "users.profile.security.microsoftConnected",
+      notConnected: "users.profile.security.microsoftNotConnected",
+      connect: "users.profile.security.connectMicrosoft",
+      unlink: "users.profile.security.unlinkMicrosoft",
+      linkSuccess: "users.profile.security.linkMicrosoftSuccess",
+    },
+    zoom: {
+      connected: "users.profile.security.zoomConnected",
+      notConnected: "users.profile.security.zoomNotConnected",
+      connect: "users.profile.security.connectZoom",
+      unlink: "users.profile.security.unlinkZoom",
+      linkSuccess: "users.profile.security.linkZoomSuccess",
+    },
+  };
+
+export function ProfileSecuritySection({
+  email,
+  enabledSocialProviders = [],
+}: {
+  email: string;
+  enabledSocialProviders?: SocialAuthProvider[];
+}) {
   const t = useI18n("admin");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [accounts, setAccounts] = useState<LinkedAccount[]>([]);
   const [loadingAccounts, setLoadingAccounts] = useState(true);
-  const [linking, setLinking] = useState(false);
+  const [linkingProvider, setLinkingProvider] =
+    useState<SocialAuthProvider | null>(null);
 
   const loadAccounts = useCallback(async () => {
     setLoadingAccounts(true);
@@ -58,8 +102,12 @@ export function ProfileSecuritySection({ email }: { email: string }) {
       error === "unable_to_link_account"
     ) {
       toast.error(t("auth.social.errors.linkFailed"));
-    } else if (linked === "google") {
-      toast.success(t("users.profile.security.linkGoogleSuccess"));
+    } else if (linked && isSocialAuthProvider(linked)) {
+      toast.success(
+        t(
+          PROVIDER_SECURITY_KEYS[linked].linkSuccess as Parameters<typeof t>[0],
+        ),
+      );
       void loadAccounts();
       router.refresh();
 
@@ -79,19 +127,15 @@ export function ProfileSecuritySection({ email }: { email: string }) {
     (account) => account.providerId === "credential",
   );
 
-  const googleAccount = accounts.find(
-    (account) => account.providerId === "google",
-  );
-
-  const onLinkGoogle = async () => {
-    setLinking(true);
+  const onLinkProvider = async (provider: SocialAuthProvider) => {
+    setLinkingProvider(provider);
     try {
       await authClient.linkSocial({
-        provider: "google",
-        callbackURL: "/dashboard/users/me/profile?linked=google",
+        provider,
+        callbackURL: `/dashboard/users/me/profile?linked=${provider}`,
       });
     } finally {
-      setLinking(false);
+      setLinkingProvider(null);
     }
   };
 
@@ -133,38 +177,59 @@ export function ProfileSecuritySection({ email }: { email: string }) {
             <SetPasswordDialog onSuccess={loadAccounts} />
           ))}
       </div>
-      <div className="h-px w-full bg-border" />
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
-            <Link2 className="h-5 w-5 text-muted-foreground" />
-          </div>
-          <div className="flex flex-col min-w-0">
+      {enabledSocialProviders.length > 0 ? (
+        <>
+          <div className="h-px w-full bg-border" />
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
+              <Link2 className="h-5 w-5 text-muted-foreground" />
+            </div>
             <p className="font-medium">
               {t("users.profile.security.connectedAccounts")}
             </p>
-            <p className="text-base text-muted-foreground truncate">
-              {googleAccount
-                ? t("users.profile.security.googleConnected")
-                : t("users.profile.security.googleNotConnected")}
-            </p>
           </div>
-        </div>
-        {!loadingAccounts &&
-          (googleAccount ? (
-            hasCredential ? (
-              <UnlinkGoogleDialog onSuccess={loadAccounts} />
-            ) : (
-              <Button variant="outline" disabled>
-                {t("users.profile.security.unlinkGoogle")}
-              </Button>
-            )
-          ) : (
-            <Button variant="outline" disabled={linking} onClick={onLinkGoogle}>
-              {t("users.profile.security.connectGoogle")}
-            </Button>
-          ))}
-      </div>
+          {enabledSocialProviders.map((provider) => {
+            const keys = PROVIDER_SECURITY_KEYS[provider];
+            const linkedAccount = accounts.find(
+              (account) => account.providerId === provider,
+            );
+
+            return (
+              <div
+                key={provider}
+                className="flex items-center justify-between gap-4 pl-[52px]"
+              >
+                <p className="text-base text-muted-foreground truncate">
+                  {linkedAccount
+                    ? t(keys.connected as Parameters<typeof t>[0])
+                    : t(keys.notConnected as Parameters<typeof t>[0])}
+                </p>
+                {!loadingAccounts &&
+                  (linkedAccount ? (
+                    hasCredential ? (
+                      <UnlinkSocialDialog
+                        provider={provider}
+                        onSuccess={loadAccounts}
+                      />
+                    ) : (
+                      <Button variant="outline" disabled>
+                        {t(keys.unlink as Parameters<typeof t>[0])}
+                      </Button>
+                    )
+                  ) : (
+                    <Button
+                      variant="outline"
+                      disabled={linkingProvider === provider}
+                      onClick={() => void onLinkProvider(provider)}
+                    >
+                      {t(keys.connect as Parameters<typeof t>[0])}
+                    </Button>
+                  ))}
+              </div>
+            );
+          })}
+        </>
+      ) : null}
     </>
   );
 }

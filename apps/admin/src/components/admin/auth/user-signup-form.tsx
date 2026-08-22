@@ -1,10 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
-import {
-  GoogleAuthButton,
-  SocialAuthDivider,
-} from "@/components/admin/auth/social-auth-buttons";
+import { SocialAuthButtons } from "@/components/admin/auth/social-auth-buttons";
 import {
   captchaFetchOptions,
   isCaptchaError,
@@ -12,6 +9,7 @@ import {
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types";
 import {
@@ -38,7 +36,7 @@ export const UserSignupForm = ({
   publicDomain,
   invitation,
   turnstileSiteKey,
-  googleAuthEnabled = false,
+  enabledSocialProviders = [],
 }: {
   publicDomain: string;
   invitation?: {
@@ -47,7 +45,7 @@ export const UserSignupForm = ({
     organizationName: string;
   } | null;
   turnstileSiteKey: string;
-  googleAuthEnabled?: boolean;
+  enabledSocialProviders?: SocialAuthProvider[];
 }) => {
   const formSchema = useMemo(
     () =>
@@ -193,14 +191,12 @@ export const UserSignupForm = ({
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {googleAuthEnabled ? (
-        <>
-          <GoogleAuthButton
-            callbackURL={googleCallbackURL}
-            invitationId={invitation?.id}
-          />
-          <SocialAuthDivider />
-        </>
+      {enabledSocialProviders.length > 0 ? (
+        <SocialAuthButtons
+          enabledProviders={enabledSocialProviders}
+          callbackURL={googleCallbackURL}
+          invitationId={invitation?.id}
+        />
       ) : null}
       <Form {...form}>
         <form

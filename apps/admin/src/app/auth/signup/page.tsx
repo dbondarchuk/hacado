@@ -2,6 +2,7 @@ import { getPublicInvitation } from "@/app/accept-invitation/actions";
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserSignupForm } from "@/components/admin/auth/user-signup-form";
 import { isPublicSignupAllowedFromHeaders } from "@/lib/auth/signup-geo";
+import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Link } from "@hacado/ui";
@@ -43,6 +44,7 @@ export default async function SignupPage(props: {
   }
 
   const t = await getI18nAsync("admin");
+  const enabledSocialProviders = getEnabledSocialAuthProviders();
 
   let invitation: {
     id: string;
@@ -109,10 +111,7 @@ export default async function SignupPage(props: {
         publicDomain={publicDomain}
         invitation={invitation}
         turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
-        googleAuthEnabled={Boolean(
-          process.env.GOOGLE_AUTH_CLIENT_ID &&
-            process.env.GOOGLE_AUTH_CLIENT_SECRET,
-        )}
+        enabledSocialProviders={enabledSocialProviders}
       />
     </AuthLayout>
   );

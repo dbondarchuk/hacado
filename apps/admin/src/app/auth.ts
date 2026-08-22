@@ -2,6 +2,7 @@ import { assertPublicSignupAllowed } from "@/lib/auth/assert-public-signup-allow
 import { getMemberLanguageForUser } from "@/lib/auth/member-language";
 import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
+import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
 import {
   applyPolarOrderPaidToSmsBalances,
@@ -97,6 +98,45 @@ const memberProfileAdditionalFields = {
     input: false,
   },
 };
+
+function buildSocialProviders() {
+  const providers: Record<string, Record<string, unknown>> = {};
+
+  if (
+    process.env.GOOGLE_AUTH_CLIENT_ID &&
+    process.env.GOOGLE_AUTH_CLIENT_SECRET
+  ) {
+    providers.google = {
+      clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+      scope: ["email", "profile"],
+    };
+  }
+
+  if (
+    process.env.MICROSOFT_AUTH_CLIENT_ID &&
+    process.env.MICROSOFT_AUTH_CLIENT_SECRET
+  ) {
+    providers.microsoft = {
+      clientId: process.env.MICROSOFT_AUTH_CLIENT_ID,
+      clientSecret: process.env.MICROSOFT_AUTH_CLIENT_SECRET,
+      tenantId: process.env.MICROSOFT_AUTH_TENANT_ID ?? "common",
+      prompt: "select_account",
+    };
+  }
+
+  if (process.env.ZOOM_AUTH_CLIENT_ID && process.env.ZOOM_AUTH_CLIENT_SECRET) {
+    providers.zoom = {
+      clientId: process.env.ZOOM_AUTH_CLIENT_ID,
+      clientSecret: process.env.ZOOM_AUTH_CLIENT_SECRET,
+    };
+  }
+
+  return providers;
+}
+
+const socialProviders = buildSocialProviders();
+const trustedSocialProviders = getEnabledSocialAuthProviders();
 
 export const auth = betterAuth({
   trustedOrigins: async (request) => {
@@ -203,21 +243,11 @@ export const auth = betterAuth({
       },
     },
   },
-  ...(process.env.GOOGLE_AUTH_CLIENT_ID && process.env.GOOGLE_AUTH_CLIENT_SECRET
-    ? {
-        socialProviders: {
-          google: {
-            clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
-            scope: ["email", "profile"],
-          },
-        },
-      }
-    : {}),
+  ...(Object.keys(socialProviders).length > 0 ? { socialProviders } : {}),
   account: {
     accountLinking: {
       enabled: true,
-      trustedProviders: ["google"],
+      trustedProviders: trustedSocialProviders,
       // allowDifferentEmails: false,
       allowDifferentEmails: true,
     },

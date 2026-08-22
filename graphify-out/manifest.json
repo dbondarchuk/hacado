@@ -640,8 +640,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth.ts": {
-    "mtime": 1787381145.039862,
-    "ast_hash": "0fba11d87967253b131f28881bf07e1f",
+    "mtime": 1787383899.8337862,
+    "ast_hash": "543b6eb5b982c52fee37c90b1730f4e5",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/email/verified/route.ts": {
@@ -660,13 +660,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signin/page.tsx": {
-    "mtime": 1787381160.5115235,
-    "ast_hash": "1b2883368cd19a8b34d112b39bfb8cbc",
+    "mtime": 1787383835.0424008,
+    "ast_hash": "02210753489f7b1511d58859733e9d75",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signup/page.tsx": {
-    "mtime": 1787381161.0639665,
-    "ast_hash": "73e54558ee0bfa5f6d12d517574c3cf5",
+    "mtime": 1787383836.0840895,
+    "ast_hash": "65eb33552e9ab23d9050666e37b7e905",
     "semantic_hash": ""
   },
   "apps/admin/src/app/checkout/layout.tsx": {
@@ -1145,13 +1145,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/users/me/profile/form.tsx": {
-    "mtime": 1786820408.7997553,
-    "ast_hash": "3cf09147cc4fbd8834a5d838e9fa14f5",
+    "mtime": 1787383872.5604002,
+    "ast_hash": "78a300ccc910254574213bfe427a0f12",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/users/me/profile/page.tsx": {
-    "mtime": 1786985102.1185293,
-    "ast_hash": "398bf8f8a102c1aeec9e9be751e093d9",
+    "mtime": 1787383879.882783,
+    "ast_hash": "c8d32e99ed569cd3840c14a03786a222",
     "semantic_hash": ""
   },
   "apps/admin/src/app/files/[[...slug]]/route.ts": {
@@ -1325,8 +1325,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-auth-form.tsx": {
-    "mtime": 1787383108.6177516,
-    "ast_hash": "601045bca9d9e6ebb1ae0d17c7cd1bec",
+    "mtime": 1787383825.0634923,
+    "ast_hash": "fc39deead17f1a32d320181506264b17",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-forgot-password-form.tsx": {
@@ -1340,8 +1340,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-signup-form.tsx": {
-    "mtime": 1787381291.088058,
-    "ast_hash": "5cc2ded46156896f2191d59c803a251e",
+    "mtime": 1787383827.7463264,
+    "ast_hash": "e87d6fbe69acc02cec3d37b8da4a1782",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/charts/area-graph.tsx": {
@@ -15345,8 +15345,8 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1787381040.6128647,
-    "ast_hash": "5127abce53cf4e1c24d03bebe5aa989e",
+    "mtime": 1787383804.6733932,
+    "ast_hash": "6efacde579f0417d9a999ea8c139ffe2",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.md": {
@@ -16185,8 +16185,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1787381911.2123215,
-    "ast_hash": "6d8a9ddf25f5637afd2cbe36f9b55154",
+    "mtime": 1787383891.999261,
+    "ast_hash": "102228f00342413195c57da2d4fbf69f",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16220,8 +16220,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1787381911.776959,
-    "ast_hash": "5af7637f61630e1a50ddac71090b2c62",
+    "mtime": 1787383896.489942,
+    "ast_hash": "00381bd87994660290cda571990356f9",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -27965,8 +27965,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/profile-form.tsx": {
-    "mtime": 1787381452.5018296,
-    "ast_hash": "34f70e6b370881061d7e6b51a3f1e095",
+    "mtime": 1787383872.3592167,
+    "ast_hash": "fa31085807b84325d2025d25c2aea921",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/organization-slug.ts": {
@@ -28950,13 +28950,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/social-auth-buttons.tsx": {
-    "mtime": 1787383112.706258,
-    "ast_hash": "cbad7977fd1862a655c5fbb658b710db",
+    "mtime": 1787383822.531613,
+    "ast_hash": "348aab6907306a24e4ba5e35adc29071",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/profile-security-section.tsx": {
-    "mtime": 1787381908.812128,
-    "ast_hash": "53df9cfd3167cef540407c871cc9f07b",
+    "mtime": 1787383866.4082017,
+    "ast_hash": "8fb7af2e06a90c7148fd6ce0d64468de",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/set-password-dialog.tsx": {
@@ -28979,14 +28979,19 @@
     "ast_hash": "9e40b6ed9c5f5eef125ad6ecc87464c0",
     "semantic_hash": ""
   },
-  "apps/admin/src/app/dashboard/users/me/profile/unlink-google-action.ts": {
-    "mtime": 1787381905.1554027,
-    "ast_hash": "0072d277b72501e2c67ae1c02b7795e5",
+  "apps/admin/src/app/dashboard/users/me/profile/unlink-social-action.ts": {
+    "mtime": 1787383841.6727643,
+    "ast_hash": "e88ec5a119b91151565442b5ba82dd23",
     "semantic_hash": ""
   },
-  "apps/admin/src/components/admin/users/unlink-google-dialog.tsx": {
-    "mtime": 1787381907.5188787,
-    "ast_hash": "cf431de27aa4dfc62798b196d58b63e0",
+  "apps/admin/src/components/admin/users/unlink-social-dialog.tsx": {
+    "mtime": 1787383859.3619049,
+    "ast_hash": "124a056d8ce814b02d4a6c41b3661c39",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/lib/auth/social-auth-providers.ts": {
+    "mtime": 1787383801.1192553,
+    "ast_hash": "d7d0b4f3a559318969c383f5130882a8",
     "semantic_hash": ""
   }
 }

@@ -1,11 +1,11 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import {
-  GoogleAuthButton,
   LastUsedInlineBadge,
-  SocialAuthDivider,
+  SocialAuthButtons,
 } from "@/components/admin/auth/social-auth-buttons";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
+import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
@@ -34,9 +34,9 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export const UserAuthForm = ({
-  googleAuthEnabled = false,
+  enabledSocialProviders = [],
 }: {
-  googleAuthEnabled?: boolean;
+  enabledSocialProviders?: SocialAuthProvider[];
 }) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -129,16 +129,14 @@ export const UserAuthForm = ({
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {googleAuthEnabled ? (
-        <>
-          <GoogleAuthButton
-            callbackURL={buildCompleteProfileCallbackUrl(
-              callbackUrl ?? "/dashboard",
-            )}
-            showLastUsed
-          />
-          <SocialAuthDivider />
-        </>
+      {enabledSocialProviders.length > 0 ? (
+        <SocialAuthButtons
+          enabledProviders={enabledSocialProviders}
+          callbackURL={buildCompleteProfileCallbackUrl(
+            callbackUrl ?? "/dashboard",
+          )}
+          showLastUsed
+        />
       ) : null}
       <Form {...form}>
         <form
