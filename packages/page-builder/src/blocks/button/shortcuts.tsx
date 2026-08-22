@@ -26,6 +26,8 @@ export const buttonShortcuts: Shortcut<AllStylesSchemas>[] = [
           backgroundColor: COLORS["primary"].value,
           color: COLORS["primary-foreground"].value,
           borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
           filter: {
             variants: [
               {
@@ -47,10 +49,118 @@ export const buttonShortcuts: Shortcut<AllStylesSchemas>[] = [
           backgroundColor: COLORS["secondary"].value,
           color: COLORS["secondary-foreground"].value,
           borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
           filter: {
             variants: [
               {
                 value: "brightness(0.9)",
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+        },
+      },
+      {
+        label: "builder.pageBuilder.blocks.button.variants.outline",
+        value: "outline",
+        targetStyles: {
+          backgroundColor: {
+            variants: [
+              {
+                value: COLORS["background"].value,
+              },
+              {
+                value: COLORS["accent"].value,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          color: {
+            variants: [
+              {
+                value: COLORS["foreground"].value,
+              },
+              {
+                value: COLORS["accent-foreground"].value,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          borderStyle: "solid",
+          borderWidth: { value: 1, unit: "px" },
+          borderColor: COLORS["border"].value,
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
+          filter: {
+            variants: [
+              {
+                value: "none",
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+        },
+      },
+      {
+        label: "builder.pageBuilder.blocks.button.variants.outlineDestructive",
+        value: "outline-destructive",
+        targetStyles: {
+          backgroundColor: {
+            variants: [
+              {
+                value: "transparent",
+              },
+              {
+                value: COLORS["destructive"].value,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          backgroundColorOpacity: {
+            variants: [
+              {
+                value: 100,
+              },
+              {
+                value: 10,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          color: COLORS["destructive"].value,
+          borderStyle: "solid",
+          borderWidth: { value: 1, unit: "px" },
+          borderColor: COLORS["destructive"].value,
+          textDecoration: "none",
+          filter: {
+            variants: [
+              {
+                value: "none",
                 state: [
                   { state: "hover", target: { type: "self" } },
                   { state: "focus", target: { type: "self" } },
@@ -68,6 +178,8 @@ export const buttonShortcuts: Shortcut<AllStylesSchemas>[] = [
           backgroundColor: COLORS["destructive"].value,
           color: COLORS["destructive-foreground"].value,
           borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
           filter: {
             variants: [
               {
@@ -89,6 +201,8 @@ export const buttonShortcuts: Shortcut<AllStylesSchemas>[] = [
           backgroundColor: COLORS["muted"].value,
           color: COLORS["muted-foreground"].value,
           borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
           filter: {
             variants: [
               {
@@ -150,6 +264,95 @@ export const buttonShortcuts: Shortcut<AllStylesSchemas>[] = [
             ],
           },
           borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
+        },
+      },
+      {
+        label: "builder.pageBuilder.blocks.button.variants.ghostDestructive",
+        value: "ghost-destructive",
+        targetStyles: {
+          backgroundColor: {
+            variants: [
+              {
+                value: "transparent",
+              },
+              {
+                value: COLORS["destructive"].value,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          color: {
+            variants: [
+              {
+                value: COLORS["destructive"].value,
+              },
+              {
+                value: COLORS["destructive-foreground"].value,
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          borderStyle: "none",
+          textDecoration: "none",
+          backgroundColorOpacity: 100,
+          filter: {
+            variants: [
+              {
+                value: "none",
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+        },
+      },
+      {
+        label: "builder.pageBuilder.blocks.button.variants.link",
+        value: "link",
+        targetStyles: {
+          backgroundColor: "transparent",
+          color: COLORS["primary"].value,
+          borderStyle: "none",
+          backgroundColorOpacity: 100,
+          textDecoration: {
+            variants: [
+              {
+                value: "none",
+              },
+              {
+                value: "underline",
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
+          filter: {
+            variants: [
+              {
+                value: "none",
+                state: [
+                  { state: "hover", target: { type: "self" } },
+                  { state: "focus", target: { type: "self" } },
+                  { state: "active", target: { type: "self" } },
+                ],
+              },
+            ],
+          },
         },
       },
     ],

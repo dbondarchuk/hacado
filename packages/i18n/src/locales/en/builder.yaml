@@ -1040,9 +1040,13 @@ pageBuilder:
       variants:
         primary: Primary
         secondary: Secondary
+        outline: Outline
+        outlineDestructive: Outline destructive
         destructive: Destructive
         muted: Muted
         ghost: Ghost
+        ghostDestructive: Ghost destructive
+        link: Link
       disabled: Disabled
       borderRadius: Border Radius
     link:

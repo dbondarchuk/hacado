@@ -71,6 +71,7 @@ export const ReviewCard: React.FC = () => {
     setOtpReturnStep,
     setOtpDialogOpen,
     isCustomerPackageLocked,
+    hasActiveCustomerPackages,
   } = useScheduleContext();
 
   const locale = useLocale();
@@ -245,6 +246,11 @@ export const ReviewCard: React.FC = () => {
       setNeedsPackageVerify(false);
       return;
     }
+    if (!hasActiveCustomerPackages) {
+      setEligiblePackages([]);
+      setNeedsPackageVerify(false);
+      return;
+    }
     if (!selectedAppointmentOption?._id || !selectedMemberId) return;
     clientApi.customerAuth
       .getEligiblePackages({
@@ -266,6 +272,7 @@ export const ReviewCard: React.FC = () => {
     selectedMemberId,
     purchasePackageId,
     otpVerified,
+    hasActiveCustomerPackages,
   ]);
 
   const { name, email, phone, ...restFields } = fields;
@@ -491,7 +498,7 @@ export const ReviewCard: React.FC = () => {
             })()}
           </p>
         </div>
-      ) : needsPackageVerify ? (
+      ) : needsPackageVerify && hasActiveCustomerPackages ? (
         <div className="border rounded-lg p-4 space-y-3 review-package-credits">
           <h3 className="text-sm font-semibold review-package-credits-title">
             {i18n("booking.package.useCredits")}

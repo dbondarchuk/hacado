@@ -1052,9 +1052,13 @@ pageBuilder:
       variants:
         primary: Основний
         secondary: Додатковий
+        outline: Контурний
+        outlineDestructive: Контурний руйнівний
         destructive: Руйнівний
         muted: Приглушений
         ghost: Привид
+        ghostDestructive: Привид руйнівний
+        link: Посилання
       disabled: Вимкнено
       borderRadius: Радіус рамки
     link:
