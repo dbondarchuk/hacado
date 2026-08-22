@@ -61,15 +61,9 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const auth = await requirePermission(
-    "service",
-    "create",
-    "AdminAPI/services/fields",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/services/fields")("POST");
+  const auth = await requirePermission("service", "create", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const actor = await getActor();
   const body = await request.json();
   const servicesContainer = await getServicesContainer();

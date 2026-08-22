@@ -115,13 +115,13 @@ export const EnEmailTemplates: EmailTemplates = {
   "auto-confirmed": {
     title: "Appointment for {{option.name}} was requested and auto-confirmed",
     text: getText(
-      "A new appointment was requested on the website and was auto-confirmed.",
+      "A new appointment was requested on the website and was auto-confirmed.{{#packageUsage.isPackageAppointment}} Booked with package {{packageUsage.name}} ({{packageUsage.credits}} credits).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   pending: {
     title: "Appointment for {{option.name}} was requested",
     text: getText(
-      "A new appointment was requested on the website for {{option.name}}.",
+      "A new appointment was requested on the website for {{option.name}}.{{#packageUsage.isPackageAppointment}} Booked with package {{packageUsage.name}} ({{packageUsage.credits}} credits).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   subject: "{{fields.name}} for {{option.name}} on {{dateTime.full}}",

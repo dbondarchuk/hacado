@@ -18,6 +18,8 @@ import {
   CUSTOMER_SESSION_COOKIE,
   CUSTOMER_SESSION_TTL_SECONDS,
   CustomerAuthError,
+  customerOtpAllowsEmail,
+  customerOtpAllowsPhone,
 } from "@hacado/types";
 import {
   getAdminUrl,
@@ -67,12 +69,10 @@ export class CustomerAuthService
     logger.debug({}, "Loading customer auth options");
 
     const config = await this.getCustomerAuthConfig();
-    const options = { allowPhoneOtp: config.allowPhoneOtp ?? false };
+    const otpChannels = config.otpChannels ?? "email";
+    const options = { otpChannels };
 
-    logger.debug(
-      { allowPhoneOtp: options.allowPhoneOtp },
-      "Customer auth options loaded",
-    );
+    logger.debug({ otpChannels }, "Customer auth options loaded");
     return options;
   }
 
@@ -90,6 +90,19 @@ export class CustomerAuthService
     if (!channel) {
       logger.warn({ ip }, "OTP request missing email and phone");
       throw new CustomerAuthError("email_or_phone_required", 400);
+    }
+
+    const config = await this.getCustomerAuthConfig();
+    const otpChannels = config.otpChannels ?? "email";
+
+    if (channel === "email" && !customerOtpAllowsEmail(otpChannels)) {
+      logger.warn({ otpChannels, ip }, "Email OTP not enabled");
+      throw new CustomerAuthError("email_otp_not_enabled", 400);
+    }
+
+    if (channel === "phone" && !customerOtpAllowsPhone(otpChannels)) {
+      logger.warn({ otpChannels, ip }, "Phone OTP not enabled");
+      throw new CustomerAuthError("phone_otp_not_enabled", 400);
     }
 
     const destination = channel === "email" ? email! : phone!;
@@ -130,7 +143,6 @@ export class CustomerAuthService
       "Customer found, preparing OTP delivery",
     );
 
-    const config = await this.getCustomerAuthConfig();
     const code = randomInt(100000, 999999).toString();
     const otpState: OtpState = {
       customerId: customer._id,
@@ -189,13 +201,6 @@ export class CustomerAuthService
     if (channel === "email") {
       await this.sendOtpEmail(email!, customer._id, config, args);
     } else if (channel === "phone") {
-      if (!config.allowPhoneOtp) {
-        logger.warn(
-          { customerId: customer._id },
-          "Phone OTP requested but not enabled in configuration",
-        );
-        throw new CustomerAuthError("phone_otp_not_enabled", 400);
-      }
       await this.sendOtpText(phone!, customer._id, config, args);
     } else {
       logger.warn(
@@ -386,7 +391,7 @@ export class CustomerAuthService
     logger.debug(
       {
         hasEmailTemplate: !!config.otpEmailTemplateId,
-        allowPhoneOtp: config.allowPhoneOtp ?? false,
+        otpChannels: config.otpChannels ?? "email",
         hasTextTemplate: !!config.otpTextTemplateId,
       },
       "Customer auth configuration loaded",

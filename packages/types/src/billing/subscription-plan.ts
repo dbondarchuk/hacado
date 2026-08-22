@@ -62,6 +62,7 @@ export type SubscriptionFeature =
   | "financials"
   | "discounts"
   | "giftCards"
+  | "packages"
   | "customDomain"
   | "sms"
   | "waitlist"
@@ -73,6 +74,7 @@ export const FREE_TIER_DISABLED_FEATURES: ReadonlySet<SubscriptionFeature> =
     "financials",
     "discounts",
     "giftCards",
+    "packages",
     "customDomain",
     "waitlist",
     "scripts",

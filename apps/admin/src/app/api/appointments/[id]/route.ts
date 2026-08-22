@@ -60,15 +60,11 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]">,
 ) {
+  const logger = getLoggerFactory("AdminAPI/appointments/[id]")("PUT");
   const { id } = await params;
-  const auth = await requireCanUpdateAppointment(
-    id,
-    "AdminAPI/appointments/[id]",
-    "PUT",
-  );
+  const auth = await requireCanUpdateAppointment(id, logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = auth.servicesContainer;
 
   logger.debug(

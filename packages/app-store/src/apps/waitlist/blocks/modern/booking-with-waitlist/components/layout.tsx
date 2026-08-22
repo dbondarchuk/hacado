@@ -12,6 +12,7 @@ import { durationToTime } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
+import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
 import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
 import {
   WaitlistPublicKeys,
@@ -52,6 +53,18 @@ export const BookingWithWaitlistLayout = ({
     isBookingRestricted,
     activeStaff,
     flowOrder,
+    fields,
+    setFields,
+    setOtpVerified,
+    setCurrentStep,
+    fetchPaymentInformation,
+    setPaymentInformation,
+    onSubmit,
+    otpReturnStep,
+    otpDialogOpen,
+    setOtpDialogOpen,
+    setPackageBookingFlow,
+    refreshBookingOptions,
   } = ctx;
 
   const showBookingRestriction = flow === "booking" && isBookingRestricted;
@@ -60,6 +73,7 @@ export const BookingWithWaitlistLayout = ({
   const currencyFormat = useCurrencyFormat();
 
   const topRef = useRef<HTMLDivElement>(null);
+  const otpVerifiedInDialogRef = useRef(false);
   const scrollToTopRef = useRef(!!scrollToTop);
   useEffect(() => {
     scrollToTopRef.current = !!scrollToTop;
@@ -90,7 +104,23 @@ export const BookingWithWaitlistLayout = ({
         return false;
       }
 
-      if (step === "addons" && !selectedAppointmentOption?.addons?.length) {
+      if (
+        ctx.isCustomerPackageLocked &&
+        (step === "option" || step === "specialist" || step === "addons")
+      ) {
+        return false;
+      }
+
+      if (
+        step === "addons" &&
+        (!selectedAppointmentOption?.addons?.length ||
+          ctx.purchasePackageId ||
+          ctx.customerPackageId)
+      ) {
+        return false;
+      }
+
+      if (step === "otp") {
         return false;
       }
 
@@ -114,6 +144,8 @@ export const BookingWithWaitlistLayout = ({
   const filteredCurrentStepIndex = filteredSteps.findIndex(
     (s) => s.id === currentStep,
   );
+  const packageVerifyFlow =
+    otpReturnStep === "packages" || otpReturnStep === "review";
 
   return (
     <div className={className} {...props}>
@@ -258,6 +290,53 @@ export const BookingWithWaitlistLayout = ({
             </div>
           )}
       </div>
+      <BookingOtpDialog
+        open={otpDialogOpen}
+        onOpenChange={(open) => {
+          if (open) otpVerifiedInDialogRef.current = false;
+          setOtpDialogOpen(open);
+          if (
+            !open &&
+            otpReturnStep === "packages" &&
+            !otpVerifiedInDialogRef.current
+          ) {
+            setPackageBookingFlow(false);
+          }
+        }}
+        fields={fields}
+        hideContactFields={!packageVerifyFlow}
+        existingCustomerOnly={packageVerifyFlow}
+        description={
+          packageVerifyFlow
+            ? i18n("booking.package.verifyToUseCreditsDescription")
+            : undefined
+        }
+        onVerified={async (result) => {
+          otpVerifiedInDialogRef.current = true;
+          if (otpReturnStep === "packages") {
+            setPackageBookingFlow(true);
+          }
+          setFields({
+            ...fields,
+            name: result.name || fields.name,
+            email: result.email || fields.email,
+            phone: result.phone || fields.phone,
+          });
+          setOtpVerified(true);
+          if (otpReturnStep === "packages" || otpReturnStep === "review") {
+            await refreshBookingOptions?.();
+            if (otpReturnStep === "packages") setCurrentStep("option");
+            return;
+          }
+          const payment = await fetchPaymentInformation();
+          setPaymentInformation(payment);
+          if (!payment || payment.intent?.status === "paid") {
+            onSubmit();
+          } else {
+            setCurrentStep("payment");
+          }
+        }}
+      />
     </div>
   );
 };

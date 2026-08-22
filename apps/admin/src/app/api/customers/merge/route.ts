@@ -1,5 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { getLoggerFactory } from "@hacado/logger";
 import { okStatus, zNonEmptyString } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -12,15 +13,9 @@ const mergeCustomersSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const auth = await requirePermission(
-    "customer",
-    "merge",
-    "AdminAPI/customers/merge",
-    "POST",
-  );
+  const logger = getLoggerFactory("AdminAPI/customers/merge")("POST");
+  const auth = await requirePermission("customer", "merge", logger);
   if (!auth.ok) return auth.response;
-
-  const logger = auth.logger;
   const servicesContainer = await getServicesContainer();
   const body = await request.json();
 

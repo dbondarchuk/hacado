@@ -1,0 +1,50 @@
+app:
+  displayName: Customer package email notification
+  description: Email customers when they purchase a package and when their package is exhausted, cancelled, expired, or about to expire
+navigation:
+  title: Customer package emails
+form:
+  purchased:
+    templateId:
+      label: Purchased email template
+      description: Sent when a package is issued to a customer
+  exhausted:
+    templateId:
+      label: Exhausted email template
+      description: Sent when all package credits are used
+  cancelled:
+    templateId:
+      label: Cancelled email template
+      description: Sent when an active package is cancelled
+  expired:
+    templateId:
+      label: Expired email template
+      description: Sent when a package reaches its expiration date
+  expiringSoon:
+    enabled:
+      label: Send expiring soon email
+      description: Notify customers before their package expires
+    thresholdMinutes:
+      label: Notify before expiration
+      description: How long before the package expires to send the reminder
+    templateId:
+      label: Expiring soon email template
+      description: Sent when a package is approaching its expiration date
+statusText:
+  successfully_set_up: Successfully set up
+  error_processing_configuration: Error processing configuration
+  error_sending_package_email: Error sending customer package email
+handlers:
+  purchased: Customer Package Email - Purchased
+  exhausted: Customer Package Email - Exhausted
+  cancelled: Customer Package Email - Cancelled
+  expired: Customer Package Email - Expired
+  expiringSoon: Customer Package Email - Expiring soon
+validation:
+  emailTemplate:
+    templateId:
+      required: Email template is required
+      min: Email template is required
+  expiringSoon:
+    thresholdMinutes:
+      min: Choose how long before expiration to send the reminder

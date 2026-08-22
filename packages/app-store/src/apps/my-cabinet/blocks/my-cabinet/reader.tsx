@@ -7,10 +7,14 @@ export const MyCabinetBlockReader = ({
 }: MyCabinetBlockReaderProps) => {
   const appId = (block?.metadata as { myCabinetAppId?: string } | undefined)
     ?.myCabinetAppId;
+  const waitlistAppId = (
+    block?.metadata as { waitlistAppId?: string } | undefined
+  )?.waitlistAppId;
 
   return (
     <MyCabinetBlockComponent
       appId={appId}
+      waitlistAppId={waitlistAppId}
       style={style}
       blockBase={block?.base}
       isEditor={false}

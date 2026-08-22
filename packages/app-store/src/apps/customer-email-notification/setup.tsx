@@ -104,6 +104,62 @@ export const CustomerEmailNotificationAppSetup: React.FC<{ appId: string }> = ({
             />
             <FormField
               control={form.control}
+              name={`templates.pendingPackage.templateId`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("form.pendingPackage.templateId.label")}
+                    <InfoTooltip>
+                      {t("form.pendingPackage.templateId.description")}
+                    </InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    {isDataLoading ? (
+                      <Skeleton className="w-full h-10" />
+                    ) : (
+                      <TemplateSelector
+                        type="email"
+                        disabled={isLoading}
+                        value={field.value}
+                        onItemSelect={(value) => field.onChange(value)}
+                        allowClear
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={`templates.confirmedPackage.templateId`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("form.confirmedPackage.templateId.label")}
+                    <InfoTooltip>
+                      {t("form.confirmedPackage.templateId.description")}
+                    </InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    {isDataLoading ? (
+                      <Skeleton className="w-full h-10" />
+                    ) : (
+                      <TemplateSelector
+                        type="email"
+                        disabled={isLoading}
+                        value={field.value}
+                        onItemSelect={(value) => field.onChange(value)}
+                        allowClear
+                      />
+                    )}
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name={`templates.declined.templateId`}
               render={({ field }) => (
                 <FormItem>

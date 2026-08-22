@@ -91,10 +91,69 @@ export const getAppointmentEventAndIsPaymentRequired = async (
     "Successfully created appointment event, checking payment requirement",
   );
 
-  if (!event.totalPrice) {
+  const servicesContainer = await getServicesContainer();
+
+  if (
+    appointmentRequest.purchasePackageId ||
+    appointmentRequest.customerPackageId
+  ) {
+    if (!(await sessionCanUseFeature("packages"))) {
+      logger.warn("Packages are not available on this plan.");
+      return {
+        error: {
+          code: "subscription_upgrade_required",
+          status: 402,
+          message: "Packages are not available on this plan.",
+        },
+      };
+    }
+  }
+
+  let billableTotal = event.totalPrice ?? 0;
+  if (appointmentRequest.purchasePackageId) {
+    const pkg = await servicesContainer.packagesService.getPackage(
+      appointmentRequest.purchasePackageId,
+    );
+    if (!pkg || pkg.status !== "active") {
+      logger.warn(
+        {
+          packageId: appointmentRequest.purchasePackageId,
+          status: pkg?.status,
+        },
+        "Package not found or not active",
+      );
+
+      return {
+        error: {
+          code: "package_not_found",
+          status: 400,
+          message: "Package not found",
+        },
+      };
+    }
+
+    logger.debug(
+      { packageId: appointmentRequest.purchasePackageId, price: pkg.price },
+      "Package found, setting billable total",
+    );
+
+    billableTotal = Math.max(
+      0,
+      formatAmount(pkg.price - (event.discount?.discountAmount ?? 0)),
+    );
+  } else if (appointmentRequest.customerPackageId) {
+    logger.debug(
+      { customerPackageId: appointmentRequest.customerPackageId },
+      "Customer package ID provided, setting billable total to 0",
+    );
+
+    billableTotal = 0;
+  }
+
+  if (!billableTotal) {
     logger.debug(
       { optionId: option._id, optionName: option.name },
-      "No total price, payment not required",
+      "No billable total, payment not required",
     );
 
     return {
@@ -128,7 +187,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
 
     const giftCardsResponse = await applyGiftCards(
       appointmentRequest.giftCards,
-      event.totalPrice,
+      billableTotal,
     );
 
     if (giftCardsResponse.success) {
@@ -178,12 +237,12 @@ export const getAppointmentEventAndIsPaymentRequired = async (
     };
   }
 
-  const servicesContainer = await getServicesContainer();
   const { booking: config, defaultApps } =
     await servicesContainer.configurationService.getConfigurations(
       "booking",
       "defaultApps",
     );
+
   const paymentAppId = defaultApps?.paymentAppId;
 
   const customersPriorAppointmentsCount =
@@ -215,6 +274,39 @@ export const getAppointmentEventAndIsPaymentRequired = async (
       { paymentAppId },
       "Payments enabled, determining deposit requirement",
     );
+
+    if (appointmentRequest.purchasePackageId && billableTotal > 0) {
+      const amount = Math.max(0, billableTotal - totalPaid);
+      if (amount === 0) {
+        logger.debug({ amount }, "Amount is 0, payment not required");
+        return { event, giftCards, customer, isPaymentRequired: false };
+      }
+
+      logger.debug({ amount }, "Amount is greater than 0, payment required");
+
+      return {
+        event,
+        amount,
+        amountPaid: totalPaid,
+        amountTotal: billableTotal,
+        percentage: 100,
+        appId: paymentAppId,
+        isFixedAmount: true,
+        giftCards,
+        option,
+        customer,
+        isPaymentRequired: true,
+      };
+    }
+
+    if (!billableTotal) {
+      logger.debug(
+        { optionId: option._id, optionName: option.name },
+        "No billable total, payment not required",
+      );
+
+      return { event, giftCards, customer, isPaymentRequired: false };
+    }
 
     let percentage: number | null = null;
     let isFixedAmount: boolean = false;
@@ -277,19 +369,19 @@ export const getAppointmentEventAndIsPaymentRequired = async (
       } else {
         let amount = option.depositAmount;
         isFixedAmount = true;
-        if (amount > event.totalPrice) {
+        if (amount > billableTotal) {
           logger.debug(
             {
               amount,
-              totalPrice: event.totalPrice,
+              totalPrice: billableTotal,
               reason: "option_amount_greater_than_total_price",
             },
             "Option amount is greater than total price, setting to total price",
           );
-          amount = event.totalPrice;
+          amount = billableTotal;
           percentage = 100;
         } else {
-          percentage = formatAmount((amount / event.totalPrice) * 100);
+          percentage = formatAmount((amount / billableTotal) * 100);
         }
       }
 
@@ -329,7 +421,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
     }
 
     if (percentage !== null) {
-      let totalAmount = formatAmount((event.totalPrice * percentage) / 100);
+      let totalAmount = formatAmount((billableTotal * percentage) / 100);
       if (
         config.payments.fullPaymentAmountThreshold &&
         totalAmount < config.payments.fullPaymentAmountThreshold
@@ -344,7 +436,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
           "Amount is less than full payment amount threshold, setting to full payment",
         );
 
-        totalAmount = event.totalPrice;
+        totalAmount = billableTotal;
         percentage = 100;
       }
 
@@ -352,7 +444,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
         {
           optionId: option._id,
           optionName: option.name,
-          totalPrice: event.totalPrice,
+          totalPrice: billableTotal,
           depositPercentage: percentage,
           depositAmount: totalAmount,
           paymentAppId,
@@ -361,16 +453,16 @@ export const getAppointmentEventAndIsPaymentRequired = async (
         "Payment required with deposit",
       );
 
-      if (totalAmount > event.totalPrice) {
+      if (totalAmount > billableTotal) {
         logger.debug(
           {
             amount: totalAmount,
-            totalPrice: event.totalPrice,
+            totalPrice: billableTotal,
             reason: "amount_greater_than_total_price",
           },
           "Amount is greater than total price, setting to total price",
         );
-        totalAmount = event.totalPrice;
+        totalAmount = billableTotal;
         percentage = 100;
       }
 

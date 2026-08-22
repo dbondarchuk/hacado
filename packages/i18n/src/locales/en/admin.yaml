@@ -145,6 +145,38 @@ platformEvents:
     deleted:
       title: Gift cards removed
       description: "{count, plural, =1 {# card} other {# cards}}"
+  appointmentPackage:
+    created:
+      title: Package created
+      description: "{name}"
+    updated:
+      title: Package updated
+      description: "{name}"
+    deleted:
+      title: Packages removed
+      description: "{count, plural, =1 {# package} other {# packages}}"
+  customerPackage:
+    issued:
+      title: Package purchased
+      description: "{name}"
+    redeemed:
+      title: Package credit used
+      description: "{name}"
+    restored:
+      title: Package credit restored
+      description: "{name}"
+    adjusted:
+      title: Package balance adjusted
+      description: "{name}"
+    exhausted:
+      title: Package exhausted
+      description: "{name}"
+    cancelled:
+      title: Package cancelled
+      description: "{name}"
+    expired:
+      title: Package expired
+      description: "{name}"
   field:
     created:
       title: Field created
@@ -349,6 +381,8 @@ navigation:
   options: Options
   discounts: Discounts
   giftCards: Gift cards
+  packages: Packages
+  soldPackages: Sold packages
   syncedPayments: Synced payments
   customers: Customers
   website: Website
@@ -768,6 +802,10 @@ appointments:
       status: Status
       tooltip: Filters
       member: Team member
+      package: Package
+      soldPackageActive: Showing appointments for sold package "{name}"
+      soldPackageFallback: selected package
+      clearSoldPackage: Clear
     columns:
       status: Status
       statusAriaLabel: "Status: {status}"
@@ -778,6 +816,8 @@ appointments:
       requestedAt: Requested at
       duration: Duration
       discount: Discount
+      package: Package
+      packageRestored: restored
       price: Price
       optionName: Option name
       optionPrice: Option price
@@ -789,6 +829,10 @@ appointments:
       customerPhone: Phone
       online: Online
       meetingLink: Join meeting
+    packageDialog:
+      purchasedAt: Purchased {date}
+      viewCatalog: View package template
+      creditsRestored: "{credits, plural, =1 {# credit restored} other {# credits restored}}"
   dialog:
     viewFullInfo: View full appointment information
     by: By
@@ -816,14 +860,12 @@ appointments:
       canceled: Cancel appointment
       noShow: Record no-show
     description:
-      declined:
-        This action cannot be undone. This will permanently decline this
+      declined: This action cannot be undone. This will permanently decline this
         appointment.
       canceled:
         This action cannot be undone. This will record the appointment as
         canceled by the customer.
-      noShow:
-        This action cannot be undone. This will record the customer as a
+      noShow: This action cannot be undone. This will record the customer as a
         no-show and close the appointment.
     appointmentDetails: Appointment details
     customer: Customer
@@ -835,8 +877,7 @@ appointments:
       canceled: Canceled by customer
       noShow: Customer no-show
     doNotNotifyCustomer: Do not notify customer
-    doNotNotifyCustomerDescription:
-      If checked, the customer will not be notified about this change
+    doNotNotifyCustomerDescription: If checked, the customer will not be notified about this change
     refundPayments: Refund payments
     amount: Amount
     transactionId: Transaction ID
@@ -1013,6 +1054,9 @@ appointments:
     addons: Addons
     selectAddons: Select addons...
     customer: Customer
+    package: Package
+    packageRemaining: "{remaining} of {total} credits remaining"
+    packageCoversPrice: Price is covered by the selected package
     assignTo: Assign to
     discount: Discount
     duration: Duration
@@ -2004,19 +2048,22 @@ services:
         can use this discount. Further attempts to use the discount by that customer
         will be rejected after this limit is reached.
       limitTo: Limit to
-      limitToTooltip: Restrict discount to specific options and add-ons
+      limitToTooltip: Restrict discount to specific options, add-ons, and packages
       addLimit: Add limit
       removeLimit: Remove limit
       anyOption: Any option
       anyAddon: Any add-on
+      anyPackage: Any package
       anyOptionOrAddon: Any option or add-on
       addNew: Add new
       optionsLabel: "Any of following options:"
       addonsLabel: "Any of following add-on bundles:"
+      packagesLabel: "Any of following packages:"
       withLabel: With
+      orLabel: Or
       removeLimitTitle: Are you absolutely sure?
       removeLimitDescription: Are you sure you want to remove this limit?
-      limitToDescription: You can limit this discount to specific options and add-ons
+      limitToDescription: You can limit this discount to specific options, add-ons, and packages
       cancel: Cancel
       delete: Delete
       validation:
@@ -2056,6 +2103,169 @@ services:
         discounts
       cancel: Cancel
       deleteSelected: Delete selected
+  packages:
+    title: Packages
+    description: Prepaid appointment packages
+    addNew: Add New
+    new: New
+    newTitle: New package
+    newDescription: Add a prepaid appointment package
+    editDescription: Edit package
+    sell: Sell package
+    sellTitle: Sell package
+    sellDescription: Issue this package to a customer and record an in-store payment
+    sellForm:
+      package: Package
+      customer: Customer
+      price: Price
+      paymentMethod: Payment method
+    sold:
+      title: Sold packages
+      description: Packages issued to customers
+      statusBadges:
+        active: Active
+        exhausted: Exhausted
+        expired: Expired
+        cancelled: Cancelled
+      table:
+        columns:
+          name: Package
+          customer: Customer
+          price: Price
+          remaining: Remaining
+          used: Used
+          status: Status
+          purchasedAt: Purchased
+          expiresAt: Expires
+        cellAction:
+          viewCustomer: View customer
+          viewAppointments: View appointments
+          scheduleAppointment: Schedule appointment
+        filters:
+          package: Package
+    table:
+      columns:
+        name: Name
+        price: Price
+        credits: Credits
+        soldCount: Sold
+        status: Status
+        isPublic: Public
+        updatedAt: Updated at
+      statusBadges:
+        active: Active
+        inactive: Inactive
+      cellAction:
+        packageDeleted: Package {name} was deleted.
+        deleteError: There was a problem with your request.
+        hasPurchases: This package has purchases and cannot be deleted.
+        actions: Actions
+        update: Update
+        delete: Delete
+        sell: Sell
+        setActive: Activate
+        setInactive: Deactivate
+    deleteSelected:
+      success: Selected packages have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {package} other {# packages}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription: This will delete selected packages that have no purchases.
+      cancel: Cancel
+      deleteSelected: Delete selected
+    form:
+      name:
+        label: Name
+        placeholder: 10x Massage
+        tooltip: Internal name shown to staff and customers
+      description:
+        label: Short description
+        tooltip: Short text that will be visible during booking
+      price:
+        label: Price
+        placeholder: "200"
+        tooltip: Prepaid price of the package
+      credits:
+        label: Sessions
+        suffix: sessions
+        tooltip: How many visits are included
+      option:
+        label: Service
+        tooltip: Service that can be booked with this package
+      validityMonths:
+        label: Validity
+        tooltip: How long credits stay valid after purchase. Leave at 0 years and 0 months for no expiration.
+      maxPurchasesPerCustomer:
+        label: Max purchases per customer
+        suffix: purchases
+        tooltip: Leave empty for no limit on how many times a customer can buy this package
+      isAutoConfirm:
+        label: Auto-confirm appointments
+        tooltip: When a visit is booked with this package, this setting overrides the service option auto-confirm rule
+        always: Always
+        never: Never
+        inherit: Inherit from booking settings
+      eligibleStaff:
+        title: Eligible staff
+        hint: By default, any member assigned to the service can perform this package. Add members only if you want to restrict who can perform visits.
+        add: Add member
+        tooltip: Restrict which staff can perform visits paid with this package
+        member: Member
+        deleteConfirmTitle: Are you absolutely sure?
+        deleteConfirmDescription: Are you sure you want to remove this staff member?
+        cancel: Cancel
+        delete: Delete
+      toasts:
+        changesSaved: Your changes were saved.
+        created: Package created.
+        sold: Package sold.
+        requestError: There was a problem with your request.
+    customer:
+      title: Packages
+      remaining: "{remaining} of {total} remaining"
+      used: "{used} of {total} used"
+      expires: Expires {date}
+      noPackages: No packages
+      scheduleAppointment: Schedule appointment
+      viewAppointments: View appointments
+      cancel:
+        button: Cancel package
+        confirmTitle: Cancel this package?
+        confirmDescription: This will cancel {name}. Remaining credits are kept and can be restored by reactivating.
+        success: Package cancelled.
+      reactivate:
+        button: Reactivate package
+        confirmTitle: Reactivate this package?
+        confirmDescription: This will reactivate {name}. Remaining credits stay as they are.
+        success: Package reactivated.
+    appointment:
+      used: "Package: {name}"
+      label: Package
+      view: View package
+      creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
+    adjust:
+      title: Adjust used credits
+      description: Set how many credits of {name} have been used (0–{total}).
+      usedLabel: Used credits
+      reason: Reason
+      reasonPlaceholder: Optional note
+      save: Save
+      decrease: Decrease used credits
+      increase: Increase used credits
+      ofTotal: of {total}
+    notifications:
+      issued:
+        title: Package issued
+        message: "{name} was issued to a customer"
+        action: View customer
+    emails:
+      purchasedOwner:
+        subject: "New package purchase — {packageName}"
+        preview: "{customerName} purchased {packageName}"
+        title: New package purchase
+        body: "{customerName} purchased {packageName} for {price}."
+        button: View customer packages
+        handledBy: Packages (customer purchase)
   giftCards:
     title: Gift cards
     description: Manage gift cards
@@ -2657,6 +2867,8 @@ settings:
           Select optional app to provide your availability.<br></br>If
           no app is selected, base availability app will be applied.
         autoConfirmAppointments: Auto confirm appointments
+        requireCustomerOtp: Require customer verification
+        requireCustomerOtpTooltip: When enabled, customers must verify their email or phone with a one-time code before paying or confirming a booking. Using a prepaid package always requires a verified session.
         autoConfirmTooltip:
           Select this option if you want to auto confirm all appointments
           created by customers.<br></br>By default, you will need to manually confirm
@@ -2718,7 +2930,14 @@ settings:
           twenty: Every hour at XX:00, XX:20, XX:40
           thirty: Every hour at XX:00, XX:30
       options:
-        title: Options
+        title: Catalog
+        addGroup: Add group
+        addService: Add service
+        addPackage: Add package
+        groupName: Group name
+        groupDescription: Short description
+        emptyGroup: This group is empty
+        package: Package
       payments:
         enableDeposits: Enable Deposits
         enableDepositsTooltip:
@@ -2960,12 +3179,16 @@ settings:
         requestError: There was a problem with your request.
   customerAccess:
     title: Customer access
-    description: OTP templates and phone verification for customer-facing flows
+    description: OTP templates and verification channels for customer-facing flows
     form:
       otpEmailTemplateId:
         label: OTP email template
-      allowPhoneOtp:
-        label: Allow OTP via phone
+      otpChannels:
+        label: OTP verification channel
+        options:
+          email: Email only
+          phone: Phone only
+          email_or_phone: Email or phone
       otpTextTemplateId:
         label: OTP text message template
       toasts:

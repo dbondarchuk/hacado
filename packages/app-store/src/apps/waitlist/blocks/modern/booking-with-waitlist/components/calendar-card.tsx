@@ -3,6 +3,7 @@ import { HourNumbers, MinuteNumbers, Time } from "@hacado/types";
 import {
   Button,
   Calendar,
+  cn,
   Combobox,
   IComboboxItem,
   Skeleton,
@@ -77,6 +78,8 @@ export const CalendarCard: React.FC = () => {
     isLoading,
     setFlow,
     waitlistAppId,
+    purchasePackageId,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
@@ -219,11 +222,30 @@ export const CalendarCard: React.FC = () => {
   return (
     <div className="space-y-6 calendar-card card-container">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-foreground calendar-card-title card-title">
-          {i18n("booking.calendar.title")}
+        <h2
+          className={cn(
+            "text-lg font-semibold text-foreground calendar-card-title card-title",
+            purchasePackageId && "calendar-first-appointment-title",
+            isCustomerPackageLocked && "calendar-package-appointment-title",
+          )}
+        >
+          {purchasePackageId
+            ? i18n("booking.calendar.firstAppointmentTitle")
+            : isCustomerPackageLocked
+              ? i18n("booking.calendar.nextPackageAppointmentTitle")
+              : i18n("booking.calendar.title")}
         </h2>
-        <p className="text-xs text-muted-foreground calendar-card-description card-description">
-          {i18n("booking.calendar.description")}
+        <p
+          className={cn(
+            "text-xs text-muted-foreground calendar-card-description card-description",
+            purchasePackageId && "calendar-first-appointment-description",
+          )}
+        >
+          {purchasePackageId
+            ? i18n("booking.calendar.firstAppointmentDescription")
+            : isCustomerPackageLocked
+              ? i18n("booking.calendar.nextPackageAppointmentDescription")
+              : i18n("booking.calendar.description")}
         </p>
       </div>
 
@@ -290,7 +312,7 @@ export const CalendarCard: React.FC = () => {
         </div>
       </div>
 
-      {!!waitlistAppId && (
+      {!!waitlistAppId && !purchasePackageId && (
         <div className="border-t pt-6">
           <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg waitlist-card">
             <ListPlus className="w-5 h-5 text-muted-foreground mt-0.5" />

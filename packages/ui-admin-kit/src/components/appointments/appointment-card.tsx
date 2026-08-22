@@ -2,7 +2,10 @@
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import type { Appointment } from "@hacado/types";
-import { isClosedAppointmentStatus } from "@hacado/types";
+import {
+  isAppointmentCoveredByPackage,
+  isClosedAppointmentStatus,
+} from "@hacado/types";
 import {
   Avatar,
   AvatarFallback,
@@ -65,6 +68,13 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                 {appointment.option.name}
               </Link>
             </p>
+            {isAppointmentCoveredByPackage(appointment) ? (
+              <p className="text-xs text-muted-foreground truncate">
+                {t("services.packages.appointment.used", {
+                  name: appointment.packageUsage!.name,
+                })}
+              </p>
+            ) : null}
             <p className="text-sm text-muted-foreground truncate">
               {t.rich("appointments.card.by", {
                 name: appointment.customer?.name ?? appointment.fields.name,
@@ -172,16 +182,17 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
       <div className="flex-1" />
 
       {/* Price */}
-      {!!appointment.totalPrice && (
-        <div className="px-5 py-3.5 border-b border-border flex items-center justify-between bg-muted">
-          <p className="text-base text-muted-foreground">
-            {t("appointments.card.price")}
-          </p>
-          <p className="font-display text-2xl font-medium tracking-tight text-foreground">
-            {currencyFormat(appointment.totalPrice)}
-          </p>
-        </div>
-      )}
+      {!!appointment.totalPrice &&
+        !isAppointmentCoveredByPackage(appointment) && (
+          <div className="px-5 py-3.5 border-b border-border flex items-center justify-between bg-muted">
+            <p className="text-base text-muted-foreground">
+              {t("appointments.card.price")}
+            </p>
+            <p className="font-display text-2xl font-medium tracking-tight text-foreground">
+              {currencyFormat(appointment.totalPrice)}
+            </p>
+          </div>
+        )}
 
       {/* Actions */}
       {canUpdate && !isClosedAppointmentStatus(appointment.status) && (

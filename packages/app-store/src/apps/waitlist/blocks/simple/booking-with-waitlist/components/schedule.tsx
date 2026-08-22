@@ -7,6 +7,7 @@ import type {
   AppointmentAddon,
   AppointmentChoice,
   AppointmentFields,
+  AppointmentPackage,
   AppointmentRequest,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
@@ -28,6 +29,7 @@ import { Spinner, toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
+import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
 import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
 import { WaitlistDate, WaitlistRequest } from "../../../../models/waitlist";
 import {
@@ -59,6 +61,13 @@ export type ScheduleProps = {
   isEditor?: boolean;
   waitlistAppId?: string;
   isOnlyWaitlist: boolean;
+  purchasePackageId?: string;
+  customerPackageId?: string;
+  isCustomerPackageLocked?: boolean;
+  initialFields?: AppointmentFields;
+  initialOtpVerified?: boolean;
+  packages?: AppointmentPackage[];
+  requireCustomerOtp?: boolean;
 };
 
 export const Schedule: React.FC<
@@ -78,6 +87,13 @@ export const Schedule: React.FC<
   isEditor,
   waitlistAppId,
   isOnlyWaitlist,
+  purchasePackageId,
+  customerPackageId,
+  isCustomerPackageLocked,
+  initialFields,
+  initialOtpVerified,
+  packages,
+  requireCustomerOtp,
   ...props
 }) => {
   const i18n = useI18n("translation");
@@ -123,6 +139,8 @@ export const Schedule: React.FC<
   const [duration, setDuration] = React.useState<number | undefined>(
     appointmentOptionDuration,
   );
+  const [otpVerified, setOtpVerified] = React.useState(!!initialOtpVerified);
+  const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
   const [closestDuplicateAppointment, _setClosestDuplicateAppointment] =
     React.useState<LuxonDateTime | undefined>(undefined);
@@ -210,8 +228,15 @@ export const Schedule: React.FC<
   let initialStep: StepType = "duration";
   if (appointmentOption.durationType === "fixed" && showSpecialistStep) {
     initialStep = "specialist";
-  } else if (appointmentOption.addons && appointmentOption.addons.length) {
+  } else if (
+    appointmentOption.addons &&
+    appointmentOption.addons.length &&
+    !purchasePackageId &&
+    !customerPackageId
+  ) {
     initialStep = "addons";
+  } else if (isOnlyWaitlist) {
+    initialStep = "waitlist-form";
   } else if (appointmentOption.durationType === "fixed")
     initialStep = "calendar";
 
@@ -255,11 +280,18 @@ export const Schedule: React.FC<
 
   const [availability, setAvailability] = React.useState<Availability>([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [fields, setFields] = React.useState<AppointmentFields>({
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const [fields, setFields] = React.useState<AppointmentFields>(
+    initialFields ?? {
+      name: "",
+      email: "",
+      phone: "",
+    },
+  );
+
+  React.useEffect(() => {
+    if (customerPackageId) return;
+    setOtpVerified(false);
+  }, [fields.email, fields.phone, customerPackageId]);
 
   const [isFormValid, setIsFormValid] = React.useState(false);
   const [confirmDuplicateAppointment, setConfirmDuplicateAppointment] =
@@ -363,6 +395,8 @@ export const Schedule: React.FC<
       promoCode: promoCode?.code,
       paymentIntentId: paymentInformation?.intent?._id,
       giftCards: giftCards?.map((giftCard) => giftCard.code),
+      purchasePackageId,
+      customerPackageId,
       fields: Object.entries(fields)
         .filter(([_, value]) => !((value as any) instanceof File))
         .reduce(
@@ -381,6 +415,8 @@ export const Schedule: React.FC<
     selectedMemberId,
     promoCode,
     paymentInformation,
+    purchasePackageId,
+    customerPackageId,
     fields,
   ]);
   const router = useRouter();
@@ -652,6 +688,15 @@ export const Schedule: React.FC<
       waitlistTimes,
       setWaitlistTimes,
       isOnlyWaitlist,
+      purchasePackageId,
+      customerPackageId,
+      isCustomerPackageLocked,
+      packages,
+      requireCustomerOtp,
+      otpVerified,
+      setOtpVerified,
+      otpDialogOpen,
+      setOtpDialogOpen,
     }),
     [
       selectedAddons,
@@ -702,6 +747,13 @@ export const Schedule: React.FC<
       waitlistTimes,
       setWaitlistTimes,
       isOnlyWaitlist,
+      purchasePackageId,
+      customerPackageId,
+      isCustomerPackageLocked,
+      packages,
+      requireCustomerOtp,
+      otpVerified,
+      otpDialogOpen,
     ],
   );
   return (
@@ -713,6 +765,27 @@ export const Schedule: React.FC<
         ) : (
           <StepCard />
         )}
+        <BookingOtpDialog
+          open={otpDialogOpen}
+          onOpenChange={setOtpDialogOpen}
+          fields={fields}
+          onVerified={async (result) => {
+            setOtpVerified(true);
+            setFields({
+              ...fields,
+              name: result.name || fields.name,
+              email: result.email || fields.email,
+              phone: result.phone || fields.phone,
+            });
+            const payment = await fetchPaymentInformation();
+            setPaymentInformation(payment);
+            if (!payment || payment.intent?.status === "paid") {
+              onSubmit();
+            } else {
+              setStep("payment");
+            }
+          }}
+        />
       </ScheduleContext.Provider>
 
       {isLoading && (

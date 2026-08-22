@@ -7,7 +7,7 @@ import {
   CreateOrUpdatePaymentIntentRequest,
 } from "@hacado/types";
 import { NextRequest } from "next/server";
-import { createOrUpdateIntent } from "../../../utils/payments/createIntent";
+import { createOrUpdateIntent } from "../../../utils/payments/create-intent";
 
 export async function POST(request: NextRequest) {
   const logger = getLoggerFactory("API/payments")("PUT");

@@ -1,8 +1,8 @@
 import {
+  AppointmentCancellationRescheduleConfiguration,
   appointmentCancellationRescheduleSchema,
+  BookingConfiguration,
   bookingConfigurationSchema,
-  type AppointmentCancellationRescheduleConfiguration,
-  type BookingConfiguration,
 } from "@hacado/types";
 
 /** Customer-friendly defaults when the install wizard enables cancel/reschedule. */
@@ -36,7 +36,7 @@ export function getDefaultBookingConfiguration(): BookingConfiguration {
       },
       reschedules: { enabled: false },
     },
-    options: [],
+    catalog: [],
     slotStart: 15,
     maxWeeksInFuture: 8,
     minHoursBeforeBooking: 24,

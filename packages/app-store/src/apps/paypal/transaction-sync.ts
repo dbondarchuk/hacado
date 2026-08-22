@@ -1,4 +1,4 @@
-import { LoggerFactory } from "@hacado/logger";
+import { AppLogger } from "@hacado/logger";
 import { ConnectedAppData, PaymentFee } from "@hacado/types";
 import { round2 } from "@hacado/utils";
 import { PaypalClient, PaypalTransactionDetail } from "./client";
@@ -29,7 +29,7 @@ export type PaypalTransactionSyncDeps = {
   appData: ConnectedAppData<PaypalConfiguration>;
   client: PaypalClient;
   ingest: (capture: InStoreCaptureInput) => Promise<InStoreCaptureIngestResult>;
-  logger: ReturnType<LoggerFactory>;
+  logger: AppLogger;
 };
 
 export function computeSyncWindow(now: Date): { start: Date; end: Date } {

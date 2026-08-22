@@ -1,4 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { requirePermission } from "@/lib/auth/require-permission";
+import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { setGiftCardStatusSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
@@ -11,6 +13,12 @@ export async function PUT(
   { params }: RouteContext<"/api/gift-cards/[id]/status">,
 ) {
   const logger = getLoggerFactory("AdminAPI/gift-cards/[id]/status")("PUT");
+  const featureAccess = await requireSubscriptionFeature("giftCards", logger);
+  if (!featureAccess.ok) return featureAccess.response;
+
+  const auth = await requirePermission("giftCard", "update", logger);
+  if (!auth.ok) return auth.response;
+
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
 

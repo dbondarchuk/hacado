@@ -1,9 +1,11 @@
-import { clientApi } from "@hacado/api-sdk";
+import { clientApi, ClientApiError } from "@hacado/api-sdk";
 import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   ApplyDiscountRequest,
+  CustomerPackage,
   effectiveAddonDuration,
   effectiveAddonPrice,
+  summarizePackageItems,
   timeZones,
 } from "@hacado/types";
 import {
@@ -12,13 +14,13 @@ import {
   AvatarImage,
   Button,
   Checkbox,
+  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
   Input,
   Markdown,
   Spinner,
-  cn,
   useCurrencyFormat,
 } from "@hacado/ui";
 import { durationToTime, template } from "@hacado/utils";
@@ -58,6 +60,18 @@ export const ReviewCard: React.FC = () => {
     giftCards,
     setGiftCards,
     applyGiftCards,
+    customerPackageId,
+    setCustomerPackageId,
+    purchasePackageId,
+    setPurchasePackageId,
+    packages,
+    appointmentOptions,
+    selectedMemberId,
+    otpVerified,
+    setOtpReturnStep,
+    setOtpDialogOpen,
+    setCurrentStep,
+    isCustomerPackageLocked,
   } = useScheduleContext();
 
   const locale = useLocale();
@@ -76,6 +90,10 @@ export const ReviewCard: React.FC = () => {
   const [promoCode, setPromoCode] = useState(discount?.code ?? "");
   const [promoCodeError, setPromoCodeError] = useState<TranslationKeys>();
   const [isLoadingPromoCode, setIsLoadingPromoCode] = useState(false);
+  const [eligiblePackages, setEligiblePackages] = useState<CustomerPackage[]>(
+    [],
+  );
+  const [needsPackageVerify, setNeedsPackageVerify] = useState(false);
 
   const totalGiftCardsApplied =
     giftCards?.reduce((sum, giftCard) => sum + giftCard.appliedAmount, 0) || 0;
@@ -93,8 +111,12 @@ export const ReviewCard: React.FC = () => {
     try {
       const request = {
         code: promoCode,
-        optionId: selectedAppointmentOption._id,
-        addons: selectedAddons?.map((addon) => addon._id),
+        ...(purchasePackageId
+          ? { packageId: purchasePackageId }
+          : {
+              optionId: selectedAppointmentOption._id,
+              addons: selectedAddons?.map((addon) => addon._id),
+            }),
         dateTime: DateTime.fromObject(
           {
             year: dateTime.date.getFullYear(),
@@ -202,6 +224,35 @@ export const ReviewCard: React.FC = () => {
     fn();
   }, [price]);
 
+  useEffect(() => {
+    if (purchasePackageId) {
+      setEligiblePackages([]);
+      setNeedsPackageVerify(false);
+      return;
+    }
+    if (!selectedAppointmentOption?._id || !selectedMemberId) return;
+    clientApi.customerAuth
+      .getEligiblePackages({
+        optionId: selectedAppointmentOption._id,
+        memberId: selectedMemberId,
+      })
+      .then((response) => {
+        setEligiblePackages(response.items ?? []);
+        setNeedsPackageVerify(false);
+      })
+      .catch((error) => {
+        setEligiblePackages([]);
+        setNeedsPackageVerify(
+          error instanceof ClientApiError && error.status === 403,
+        );
+      });
+  }, [
+    selectedAppointmentOption?._id,
+    selectedMemberId,
+    purchasePackageId,
+    otpVerified,
+  ]);
+
   let timeZone: TimeZone | undefined = timeZones.find((tz) => {
     return (
       dateTime.timeZone === tz.name || tz.group.includes(dateTime.timeZone)
@@ -226,6 +277,13 @@ export const ReviewCard: React.FC = () => {
       ? (selectedMember?.effectiveDuration ??
         selectedAppointmentOption.duration)
       : undefined;
+  const purchasingPackage = packages?.find(
+    (pkg) => pkg._id === purchasePackageId,
+  );
+  const purchasingIncluded = summarizePackageItems(
+    purchasingPackage?.items,
+    appointmentOptions,
+  );
   return (
     <div className="space-y-6 review-card card-container">
       <div className="mb-6">
@@ -320,6 +378,139 @@ export const ReviewCard: React.FC = () => {
           </div>
         )}
 
+      {purchasingPackage ? (
+        <div className="border rounded-lg p-4 space-y-2 review-package-purchase">
+          <h3 className="text-sm font-semibold review-package-purchase-title">
+            {t("booking.package.purchaseTitle")}
+          </h3>
+          <div className="flex items-start justify-between gap-2">
+            <p className="text-sm font-medium review-package-purchase-name">
+              {purchasingPackage.name}
+            </p>
+            {!!purchasingPackage.price && (
+              <p className="text-xs font-semibold text-foreground shrink-0 review-package-purchase-price">
+                {currencyFormat(purchasingPackage.price)}
+              </p>
+            )}
+          </div>
+          {purchasingPackage.description ? (
+            <Markdown
+              markdown={purchasingPackage.description}
+              prose="simple"
+              className="text-xs text-muted-foreground [&_p]:my-0.5 [&_p]:leading-6 review-package-purchase-description"
+            />
+          ) : null}
+          {purchasingIncluded.length ? (
+            <div className="space-y-1 review-package-included">
+              <p className="text-xs font-medium text-muted-foreground review-package-included-title">
+                {t("booking.package.included")}
+              </p>
+              <ul className="space-y-0.5 text-xs text-muted-foreground review-package-included-list">
+                {purchasingIncluded.map((item) => (
+                  <li
+                    key={item.optionId}
+                    className="flex items-center justify-between gap-2 review-package-included-item"
+                  >
+                    <span className="review-package-included-item-name">
+                      {t("booking.package.includedItem", {
+                        name: item.name,
+                        count: item.credits,
+                      })}
+                    </span>
+                    {item.duration ? (
+                      <span className="shrink-0 flex items-center gap-1 review-package-included-item-duration">
+                        <Clock className="w-3 h-3" />
+                        {t(
+                          "common.formats.durationHourMin",
+                          durationToTime(item.duration),
+                        )}
+                      </span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          <p className="text-xs text-muted-foreground review-package-first-appointment-note">
+            {t("booking.package.firstAppointmentNote")}
+          </p>
+        </div>
+      ) : eligiblePackages.length > 0 && !isCustomerPackageLocked ? (
+        <div className="border rounded-lg p-4 space-y-2 review-package-credits">
+          <h3 className="text-sm font-semibold review-package-credits-title">
+            {t("booking.package.useCredits")}
+          </h3>
+          <label className="flex items-center gap-2 text-sm review-package-credits-independent">
+            <input
+              type="radio"
+              name="package-payment"
+              checked={!customerPackageId}
+              onChange={() => setCustomerPackageId(undefined)}
+            />
+            {t("booking.package.bookIndependently")}
+          </label>
+          {eligiblePackages.map((pkg) => (
+            <label
+              key={pkg._id}
+              className="flex items-center gap-2 text-sm review-package-credits-option"
+            >
+              <input
+                type="radio"
+                name="package-payment"
+                checked={customerPackageId === pkg._id}
+                onChange={() => {
+                  setCustomerPackageId(pkg._id);
+                  setPurchasePackageId(undefined);
+                }}
+              />
+              {pkg.name} (
+              {t("booking.package.remaining", {
+                remaining: pkg.remainingCredits,
+              })}
+              )
+            </label>
+          ))}
+        </div>
+      ) : isCustomerPackageLocked && customerPackageId ? (
+        <div className="border rounded-lg p-4 space-y-1 review-package-credits">
+          <h3 className="text-sm font-semibold review-package-credits-title">
+            {t("booking.package.useCredits")}
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            {(() => {
+              const lockedPkg = eligiblePackages.find(
+                (pkg) => pkg._id === customerPackageId,
+              );
+              if (!lockedPkg) return null;
+              return `${lockedPkg.name} (${t("booking.package.remaining", {
+                remaining: lockedPkg.remainingCredits,
+              })})`;
+            })()}
+          </p>
+        </div>
+      ) : needsPackageVerify ? (
+        <div className="border rounded-lg p-4 space-y-3 review-package-credits">
+          <h3 className="text-sm font-semibold review-package-credits-title">
+            {t("booking.package.useCredits")}
+          </h3>
+          <p className="text-xs text-muted-foreground">
+            {t("booking.package.verifyToUseCreditsDescription")}
+          </p>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="review-package-verify-button"
+            onClick={() => {
+              setOtpReturnStep("review");
+              setOtpDialogOpen(true);
+            }}
+          >
+            {t("booking.package.verifyToUseCredits")}
+          </Button>
+        </div>
+      ) : null}
+
       {/* Service Summary */}
       <div className="border rounded-lg p-4 space-y-4 review-service-summary">
         <div className="flex items-start justify-between review-service-summary-content">
@@ -334,9 +525,10 @@ export const ReviewCard: React.FC = () => {
             />
           </div>
           {selectedAppointmentOption.durationType === "fixed" &&
-            (!!servicePrice || !!serviceDuration) && (
+            ((!purchasePackageId && !customerPackageId && !!servicePrice) ||
+              !!serviceDuration) && (
               <div className="text-right shrink-0 review-service-summary-price">
-                {!!servicePrice && (
+                {!purchasePackageId && !customerPackageId && !!servicePrice && (
                   <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
                     {currencyFormat(servicePrice)}
                   </p>
@@ -353,6 +545,8 @@ export const ReviewCard: React.FC = () => {
               </div>
             )}
           {selectedAppointmentOption.durationType === "flexible" &&
+            !purchasePackageId &&
+            !customerPackageId &&
             !!servicePrice && (
               <div className="text-right shrink-0 review-service-summary-price">
                 <p className="text-xs font-semibold text-foreground review-service-summary-price-amount">
@@ -387,7 +581,7 @@ export const ReviewCard: React.FC = () => {
         )}
 
         {/* Add-ons */}
-        {selectedAddons.length > 0 && (
+        {selectedAddons.length > 0 && !purchasePackageId && (
           <div className="border-t pt-4 review-addons">
             <h4 className="text-sm font-medium text-muted-foreground mb-2 review-addons-title">
               {t("booking.review.addons.title")}

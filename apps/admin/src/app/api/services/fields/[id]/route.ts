@@ -69,15 +69,10 @@ export async function PUT(
   request: NextRequest,
   { params }: RouteContext<"/api/services/fields/[id]">,
 ) {
-  const auth = await requirePermission(
-    "service",
-    "update",
-    "AdminAPI/services/fields/[id]",
-    "PUT",
-  );
+  const logger = getLoggerFactory("AdminAPI/services/fields/[id]")("PUT");
+  const auth = await requirePermission("service", "update", logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;
@@ -142,15 +137,10 @@ export async function DELETE(
   request: NextRequest,
   { params }: RouteContext<"/api/services/fields/[id]">,
 ) {
-  const auth = await requirePermission(
-    "service",
-    "delete",
-    "AdminAPI/services/fields/[id]",
-    "DELETE",
-  );
+  const logger = getLoggerFactory("AdminAPI/services/fields/[id]")("DELETE");
+  const auth = await requirePermission("service", "delete", logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const actor = await getActor();
   const servicesContainer = await getServicesContainer();
   const { id } = await params;

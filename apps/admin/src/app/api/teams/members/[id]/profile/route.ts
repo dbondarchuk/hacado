@@ -1,6 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { userUpdateSchema } from "@hacado/api-sdk";
+import { getLoggerFactory } from "@hacado/logger";
 import type { SessionUser } from "@hacado/types";
 import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
@@ -41,12 +42,8 @@ async function loadTargetAndAuthorize(memberId: string, user: SessionUser) {
 }
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
-  const auth = await requirePermission(
-    "team",
-    "update",
-    "AdminAPI/teams/members/[id]/profile",
-    "GET",
-  );
+  const logger = getLoggerFactory("AdminAPI/teams/members/[id]/profile")("GET");
+  const auth = await requirePermission("team", "update", logger);
   if (!auth.ok) return auth.response;
 
   const { id } = await params;
@@ -57,12 +54,10 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteContext) {
-  const auth = await requirePermission(
-    "team",
-    "update",
-    "AdminAPI/teams/members/[id]/profile",
+  const logger = getLoggerFactory("AdminAPI/teams/members/[id]/profile")(
     "PATCH",
   );
+  const auth = await requirePermission("team", "update", logger);
   if (!auth.ok) return auth.response;
 
   const { id } = await params;

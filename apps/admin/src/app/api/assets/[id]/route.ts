@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { getLoggerFactory } from "@hacado/logger";
+import { AppLogger, getLoggerFactory } from "@hacado/logger";
 import { assetUpdateSchema, okStatus, UploadedFile } from "@hacado/types";
 import { canUpdateAppointment } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
@@ -110,11 +110,7 @@ export async function PATCH(
     );
   }
 
-  const mutateAuth = await assertCanMutateAsset(
-    existing,
-    "AdminAPI/assets/[id]",
-    "PATCH",
-  );
+  const mutateAuth = await assertCanMutateAsset(existing, logger);
   if (!mutateAuth.ok) return mutateAuth.response;
 
   const actor = await getActor();
@@ -176,11 +172,7 @@ export async function DELETE(
     );
   }
 
-  const mutateAuth = await assertCanMutateAsset(
-    existing,
-    "AdminAPI/assets/[id]",
-    "DELETE",
-  );
+  const mutateAuth = await assertCanMutateAsset(existing, logger);
   if (!mutateAuth.ok) return mutateAuth.response;
 
   const actor = await getActor();
@@ -229,20 +221,14 @@ export async function DELETE(
 
 async function assertCanMutateAsset(
   asset: { customerId?: string; appointmentId?: string },
-  logName: string,
-  method: string,
+  logger: AppLogger,
 ) {
   if (asset.customerId) {
-    return requirePermission("customer", "update", logName, method);
+    return requirePermission("customer", "update", logger);
   }
 
   if (asset.appointmentId) {
-    const auth = await requirePermission(
-      "appointment",
-      "update",
-      logName,
-      method,
-    );
+    const auth = await requirePermission("appointment", "update", logger);
     if (!auth.ok) return auth;
 
     const servicesContainer = await getServicesContainer();
@@ -250,6 +236,7 @@ async function assertCanMutateAsset(
       asset.appointmentId,
     );
     if (appointment && !canUpdateAppointment(auth.user, appointment.memberId)) {
+      logger.warn({ appointmentId: asset.appointmentId }, "Forbidden");
       return {
         ok: false as const,
         response: NextResponse.json(
@@ -261,5 +248,6 @@ async function assertCanMutateAsset(
     return auth;
   }
 
-  return { ok: true as const };
+  logger.debug("Asset can be mutated");
+  return { ok: true as const, response: null };
 }

@@ -74,6 +74,15 @@ export const discountSchema = z
             (option) => option.id,
             "validation.discount.limitTo.options.unique",
           ).optional(),
+          packages: zUniqueArray(
+            z.array(
+              z.object({
+                id: zObjectId("validation.discount.limitTo.packages.required"),
+              }),
+            ),
+            (pkg) => pkg.id,
+            "validation.discount.limitTo.packages.unique",
+          ).optional(),
         }),
       )
       .optional(),
@@ -159,21 +168,36 @@ export const getDiscountSchemaWithUniqueCheck = (
   });
 };
 
-export const applyDiscountRequestSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  optionId: zObjectId("validation.discount.applyRequest.optionId.required"),
-  dateTime: z.coerce.date<Date>({
-    error: "validation.discount.applyRequest.dateTime.required",
-  }),
-  addons: zUniqueArray(
-    z.array(zObjectId("validation.discount.applyRequest.addons.required")),
-    (id) => id,
-    "validation.discount.applyRequest.addons.unique",
-  ).optional(),
-  code: zNonEmptyString("discount.applyRequest.code.required"),
-});
+export const applyDiscountRequestSchema = z
+  .object({
+    name: z.string(),
+    email: z.string(),
+    phone: z.string(),
+    optionId: zObjectId(
+      "validation.discount.applyRequest.optionId.required",
+    ).optional(),
+    packageId: zObjectId(
+      "validation.discount.applyRequest.packageId.required",
+    ).optional(),
+    dateTime: z.coerce.date<Date>({
+      error: "validation.discount.applyRequest.dateTime.required",
+    }),
+    addons: zUniqueArray(
+      z.array(zObjectId("validation.discount.applyRequest.addons.required")),
+      (id) => id,
+      "validation.discount.applyRequest.addons.unique",
+    ).optional(),
+    code: zNonEmptyString("discount.applyRequest.code.required"),
+  })
+  .superRefine((arg, ctx) => {
+    if (!arg.packageId && !arg.optionId) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["optionId"],
+        message: "validation.discount.applyRequest.optionId.required",
+      });
+    }
+  });
 
 export type ApplyDiscountRequest = z.infer<typeof applyDiscountRequestSchema>;
 export type ApplyCustomerDiscountRequest = Prettify<

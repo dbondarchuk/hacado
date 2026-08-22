@@ -26,5 +26,5 @@ export type VerifyOtpPayload = {
 };
 
 export type CustomerAuthOptions = {
-  allowPhoneOtp: boolean;
+  otpChannels: import("../configuration/customer-auth").CustomerOtpChannels;
 };

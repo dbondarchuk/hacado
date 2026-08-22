@@ -5,6 +5,7 @@ import {
   AppointmentAddon,
   AppointmentChoice,
   AppointmentFields,
+  AppointmentPackage,
   Availability,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
@@ -27,6 +28,7 @@ export type StepType =
   | "addons"
   | "calendar"
   | "form"
+  | "otp"
   | "payment"
   | "confirmation"
   | "duplicate-appointments-confirmation"
@@ -133,6 +135,16 @@ export type ScheduleContextProps = {
   isBookingRestricted?: boolean;
 
   isEditor?: boolean;
+
+  purchasePackageId?: string;
+  customerPackageId?: string;
+  isCustomerPackageLocked?: boolean;
+  packages?: AppointmentPackage[];
+  requireCustomerOtp?: boolean;
+  otpVerified: boolean;
+  setOtpVerified: (verified: boolean) => void;
+  otpDialogOpen: boolean;
+  setOtpDialogOpen: (open: boolean) => void;
 };
 
 export const ScheduleContext = createContext<ScheduleContextProps>(null as any);
@@ -183,7 +195,26 @@ const getAppointmentBasePrice = ({
   duration,
   selectedMemberId,
   activeStaff,
+  purchasePackageId,
+  customerPackageId,
+  packages,
 }: ScheduleContextProps) => {
+  const addonsPrice = (selectedAddons || []).reduce(
+    (sum, addon) =>
+      sum +
+      (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
+    0,
+  );
+
+  if (purchasePackageId) {
+    const pkg = packages?.find((item) => item._id === purchasePackageId);
+    return (pkg?.price ?? 0) + addonsPrice;
+  }
+
+  if (customerPackageId) {
+    return addonsPrice;
+  }
+
   let basePrice = 0;
   if (appointmentOption) {
     const selectedStaff = selectedMemberId
@@ -199,15 +230,7 @@ const getAppointmentBasePrice = ({
     }
   }
 
-  return (
-    basePrice +
-    (selectedAddons || []).reduce(
-      (sum, addon) =>
-        sum +
-        (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
-      0,
-    )
-  );
+  return basePrice + addonsPrice;
 };
 
 const getAppointmentDiscountAmount = ({

@@ -1,5 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import type { AppLogger } from "@hacado/logger";
 import { canUpdateAppointment } from "@hacado/utils";
 import { NextResponse } from "next/server";
 
@@ -9,15 +10,9 @@ import { NextResponse } from "next/server";
  */
 export async function requireCanUpdateAppointment(
   appointmentId: string,
-  logName: string,
-  method: string,
+  logger: AppLogger,
 ) {
-  const auth = await requirePermission(
-    "appointment",
-    "update",
-    logName,
-    method,
-  );
+  const auth = await requirePermission("appointment", "update", logger);
   if (!auth.ok) return auth;
 
   const servicesContainer = await getServicesContainer();

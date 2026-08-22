@@ -19,6 +19,8 @@ export type BookingWithWaitlistProps = {
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
+  lockPurchasePackageId?: string;
+  lockCustomerPackageId?: string;
 };
 
 export const BookingWithWaitlist: React.FC<
@@ -39,6 +41,8 @@ export const BookingWithWaitlist: React.FC<
   scrollToTop,
   hideTitle,
   hideSteps,
+  lockPurchasePackageId,
+  lockCustomerPackageId,
   ...props
 }) => {
   const [response, setResponse] =
@@ -48,18 +52,18 @@ export const BookingWithWaitlist: React.FC<
     waitlistPublicNamespace,
   );
 
-  React.useEffect(() => {
-    const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
-      setResponse(data);
-    };
+  const loadOptions = React.useCallback(async () => {
+    const data = await clientApi.booking.getBookingOptions();
+    setResponse(data);
+  }, []);
 
+  React.useEffect(() => {
     if (!isEditor) {
-      loadOptions();
+      void loadOptions();
     } else {
       setResponse(demoBookingOptionsResponse);
     }
-  }, [isEditor]);
+  }, [isEditor, loadOptions]);
 
   if (!appId && isOnlyWaitlist) {
     return (
@@ -93,6 +97,13 @@ export const BookingWithWaitlist: React.FC<
       hideTitle={hideTitle ?? false}
       hideSteps={hideSteps ?? false}
       bookingRestriction={response?.bookingRestriction}
+      catalog={response?.catalog}
+      packages={response?.packages}
+      requireCustomerOtp={response?.requireCustomerOtp}
+      hasActiveCustomerPackages={response?.hasActiveCustomerPackages}
+      lockPurchasePackageId={lockPurchasePackageId}
+      lockCustomerPackageId={lockCustomerPackageId}
+      refreshBookingOptions={isEditor ? undefined : loadOptions}
     />
   );
 };

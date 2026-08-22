@@ -67,6 +67,7 @@ export type PersistedState = {
   inviteMode: "none" | "email" | "calendar_writer";
   inviteCalendarWriterAppId: string;
   optCustomerEmailNotifications: boolean;
+  optCustomerPackageEmailNotifications: boolean;
   optCustomerTextMessageNotifications: boolean;
   optAppointmentNotifications: boolean;
   optWaitlist: boolean;
@@ -115,6 +116,7 @@ export type InstallPreferencesServerState = Partial<
     | "inviteMode"
     | "inviteCalendarWriterAppId"
     | "optCustomerEmailNotifications"
+    | "optCustomerPackageEmailNotifications"
     | "optCustomerTextMessageNotifications"
     | "optAppointmentNotifications"
     | "optWaitlist"

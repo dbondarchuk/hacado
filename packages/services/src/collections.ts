@@ -22,5 +22,7 @@ export const DISCOUNTS_COLLECTION_NAME = "discounts";
 export const TEMPLATES_COLLECTION_NAME = "templates";
 export const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";
 export const GIFT_CARDS_COLLECTION_NAME = "gift-cards";
+export const APPOINTMENT_PACKAGES_COLLECTION_NAME = "appointment-packages";
+export const CUSTOMER_PACKAGES_COLLECTION_NAME = "customer-packages";
 export const ACTIVITIES_COLLECTION_NAME = "activities";
 export const SHORT_LINKS_COLLECTION_NAME = "short-links";

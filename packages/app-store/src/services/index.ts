@@ -13,6 +13,8 @@ import { CARDDAV_APP_NAME } from "../apps/carddav/const";
 import CarddavConnectedApp from "../apps/carddav/service";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-email-notification/const";
 import CustomerEmailNotificationConnectedApp from "../apps/customer-email-notification/service";
+import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-package-email-notification/const";
+import CustomerPackageEmailNotificationConnectedApp from "../apps/customer-package-email-notification/service";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../apps/customer-text-message-notification/const";
 import CustomerTextMessageNotificationConnectedApp from "../apps/customer-text-message-notification/service";
 import { EMAIL_NOTIFICATION_APP_NAME } from "../apps/email-notification/const";
@@ -77,6 +79,8 @@ export const AvailableAppServices: Record<
   [TEXTBELT_APP_NAME]: (props) => new TextBeltConnectedApp(props),
   [CUSTOMER_EMAIL_NOTIFICATION_APP_NAME]: (props) =>
     new CustomerEmailNotificationConnectedApp(props),
+  [CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME]: (props) =>
+    new CustomerPackageEmailNotificationConnectedApp(props),
   [EMAIL_NOTIFICATION_APP_NAME]: (props) =>
     new EmailNotificationConnectedApp(props),
   [CALENDAR_WRITER_APP_NAME]: (props) => new CalendarWriterConnectedApp(props),

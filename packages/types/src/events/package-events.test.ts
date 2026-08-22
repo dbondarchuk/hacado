@@ -1,0 +1,30 @@
+import assert from "node:assert/strict";
+import { describe, it } from "node:test";
+import { ALL_CORE_EVENT_TYPES } from "./all-core-event-types";
+import {
+  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
+} from "./core-events";
+
+describe("package core events", () => {
+  it("registers package catalog and ledger event types", () => {
+    for (const type of [
+      APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
+      CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
+    ]) {
+      assert.equal(ALL_CORE_EVENT_TYPES.includes(type), true);
+    }
+  });
+});

@@ -16,18 +16,18 @@ export const Booking: React.FC<
   const [response, setResponse] =
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
-  React.useEffect(() => {
-    const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
-      setResponse(data);
-    };
+  const loadOptions = React.useCallback(async () => {
+    const data = await clientApi.booking.getBookingOptions();
+    setResponse(data);
+  }, []);
 
+  React.useEffect(() => {
     if (!isEditor) {
-      loadOptions();
+      void loadOptions();
     } else {
       setResponse(demoBookingOptionsResponse);
     }
-  }, [isEditor]);
+  }, [isEditor, loadOptions]);
 
   if (!response)
     return (
@@ -50,6 +50,11 @@ export const Booking: React.FC<
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}
       bookingRestriction={response.bookingRestriction}
+      catalog={response.catalog}
+      packages={response.packages}
+      requireCustomerOtp={response.requireCustomerOtp}
+      hasActiveCustomerPackages={response.hasActiveCustomerPackages}
+      refreshBookingOptions={isEditor ? undefined : loadOptions}
       isEditor={isEditor}
     />
   );

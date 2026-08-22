@@ -7,6 +7,7 @@ block:
   title: Мій кабінет
   auth:
     descriptionEmailOnly: Введіть email, щоб переглядати та керувати своїми записами.
+    descriptionPhoneOnly: Введіть телефон, щоб переглядати та керувати своїми записами.
     descriptionEmailOrPhone: Введіть email або телефон, щоб переглядати та керувати своїми записами.
     type:
       email: Email
@@ -81,3 +82,12 @@ block:
     back: Назад до записів
     backToAppointments: До моїх записів
     completed: Готово
+  book:
+    backToAppointments: До моїх записів
+  packages:
+    title: Пакети
+    remaining: "{remaining} з {total} залишилось"
+    book: Записатись
+    empty: Поки немає пакетів
+    used: "Частина пакета {name}"
+    view: Переглянути пакет

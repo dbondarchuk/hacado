@@ -1,211 +1,31 @@
+import {
+  buildCustomerEmailTemplate,
+  businessFooterBlock,
+} from "@hacado/email-builder/static";
 import { TemplatesTemplate } from "@hacado/types";
 
-export const appointmentReminderEmailTemplate: TemplatesTemplate = {
-  name: "Нагадування про запис (email)",
-  subject: "Нагадування про ваш запис",
-  type: "email",
-  value: {
-    type: "EmailLayout",
-    id: "block-1740257042800",
-    data: {
-      backdropColor: "#F5F5F5",
-      borderRadius: 0,
-      canvasColor: "#FFFFFF",
-      textColor: "#262626",
-      fontFamily: "BOOK_SANS",
-      maxWidth: 600,
-      padding: {
-        top: 24,
-        bottom: 24,
-        left: 16,
-        right: 16,
+export const appointmentReminderEmailTemplate: TemplatesTemplate =
+  buildCustomerEmailTemplate({
+    id: "appointment-reminder-email",
+    name: "Нагадування про запис (email)",
+    subject: "Нагадування про ваш запис",
+    content: [
+      {
+        type: "title",
+        text: "Нагадування про ваш візит на послугу {{option.name}} {{dateTime.full}}",
       },
-      children: [
-        {
-          type: "Avatar",
-          id: "block-1740257042821",
-          data: {
-            style: {
-              textAlign: "center",
-              padding: {
-                top: 16,
-                bottom: 16,
-                right: 24,
-                left: 24,
-              },
-            },
-            props: {
-              size: 83,
-              shape: "circle",
-              imageUrl: "{{websiteUrl}}{{config.logo}}",
-            },
-          },
-        },
-        {
-          type: "Heading",
-          id: "block-1740257133963",
-          data: {
-            props: {
-              text: "{{config.name}}",
-              level: "h3",
-            },
-            style: {
-              textAlign: "center",
-              padding: {
-                top: 16,
-                bottom: 16,
-                right: 24,
-                left: 24,
-              },
-            },
-          },
-        },
-        {
-          type: "Heading",
-          id: "block-1740076839739",
-          data: {
-            props: {
-              text: "Нагадування про ваш візит на послугу {{option.name}} {{dateTime.full}}",
-            },
-            style: {
-              textAlign: "center",
-              padding: {
-                top: 16,
-                bottom: 16,
-                right: 24,
-                left: 24,
-              },
-            },
-          },
-        },
-        {
-          type: "Text",
-          id: "block-1740076857419",
-          data: {
-            props: {
-              value: [
-                {
-                  children: [
-                    {
-                      text: "Привіт, {{fields.name}}!",
-                      fontSize: "14px",
-                    },
-                  ],
-                  type: "p",
-                  id: "q9weWOHL6n",
-                },
-                {
-                  children: [
-                    {
-                      text: "Це дружнє нагадування про ваш майбутній візит {{dateTime.full}} з {{member.name}}.",
-                      fontSize: "14px",
-                    },
-                  ],
-                  type: "p",
-                  id: "CWH7vJW1Cr",
-                },
-                {
-                  type: "p",
-                  align: "start",
-                  children: [
-                    {
-                      text: "З нетерпінням чекаємо на зустріч!",
-                      fontSize: "14px",
-                    },
-                  ],
-                  id: "J8VSfpARyf",
-                },
-                {
-                  type: "p",
-                  align: "start",
-                  children: [
-                    {
-                      text: "З повагою,",
-                      fontSize: "14px",
-                    },
-                  ],
-                  id: "mm3cqL0LZx",
-                },
-                {
-                  type: "p",
-                  align: "start",
-                  id: "OdM5ZTAyoj",
-                  children: [
-                    {
-                      fontSize: "14px",
-                      text: "{{config.name}}",
-                    },
-                  ],
-                },
-              ],
-            },
-            style: {
-              padding: {
-                top: 16,
-                bottom: 16,
-                left: 24,
-                right: 24,
-              },
-              fontWeight: "normal",
-            },
-          },
-        },
-        {
-          type: "Text",
-          id: "block-1740258119442",
-          data: {
-            props: {
-              value: [
-                {
-                  children: [
-                    {
-                      text: "{{config.name}}",
-                      fontSize: "11px",
-                      color: "#999999",
-                    },
-                  ],
-                  type: "p",
-                  id: "_ZckO-whgq",
-                  align: "center",
-                },
-                {
-                  type: "p",
-                  id: "GgAnNok00v",
-                  align: "center",
-                  children: [
-                    {
-                      text: "{{config.address}}",
-                      fontSize: "11px",
-                      color: "#999999",
-                    },
-                  ],
-                },
-                {
-                  type: "p",
-                  align: "center",
-                  children: [
-                    {
-                      text: "{{config.phone}}",
-                      fontSize: "11px",
-                      color: "#999999",
-                    },
-                  ],
-                  id: "Nb_oLeI107",
-                },
-              ],
-            },
-            style: {
-              padding: {
-                top: 16,
-                bottom: 16,
-                left: 24,
-                right: 24,
-              },
-              fontWeight: "normal",
-            },
-          },
-        },
-      ],
-    },
-  },
-};
+      {
+        type: "text",
+        text: `Привіт, {{fields.name}}!
+
+Це дружнє нагадування про ваш майбутній візит {{dateTime.full}} з {{member.name}}.
+
+З нетерпінням чекаємо на зустріч!
+
+З повагою,
+
+{{config.name}}`,
+      },
+      businessFooterBlock,
+    ],
+  });

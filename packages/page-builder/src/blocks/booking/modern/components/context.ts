@@ -6,7 +6,9 @@ import {
   AppointmentAddon,
   AppointmentChoice,
   AppointmentFields,
+  AppointmentPackage,
   Availability,
+  BookingCatalogNode,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
@@ -29,6 +31,7 @@ export type StepType =
   | "addons"
   | "calendar"
   | "form"
+  | "otp"
   | "payment"
   | "review";
 
@@ -81,7 +84,10 @@ export type ScheduleContextProps = {
 
   availability: Availability;
   /** Optional memberId override avoids stale state right after setSelectedMemberId. */
-  fetchAvailability: (memberId?: string | null) => Promise<void>;
+  fetchAvailability: (
+    memberId?: string | null,
+    durationOverride?: number,
+  ) => Promise<void>;
 
   checkDuplicateAppointments: () => Promise<CheckDuplicateAppointmentsResponse>;
   closestDuplicateAppointment?: LuxonDateTime;
@@ -123,6 +129,30 @@ export type ScheduleContextProps = {
   isBookingRestricted?: boolean;
 
   isEditor?: boolean;
+
+  catalog?: BookingCatalogNode[];
+  catalogPath: string[];
+  setCatalogPath: (path: string[]) => void;
+  packages?: AppointmentPackage[];
+  purchasePackageId?: string;
+  setPurchasePackageId: (id?: string) => void;
+  customerPackageId?: string;
+  setCustomerPackageId: (id?: string) => void;
+  /** User chose “book with my package” on the service step. */
+  packageBookingFlow: boolean;
+  setPackageBookingFlow: (enabled: boolean) => void;
+  /** Package redeem path is locked (skip option/addon UI after package pick). */
+  isCustomerPackageLocked: boolean;
+  requireCustomerOtp?: boolean;
+  hasActiveCustomerPackages?: boolean;
+  otpVerified: boolean;
+  setOtpVerified: (verified: boolean) => void;
+  /** Where OTP should return after verify. */
+  otpReturnStep: "packages" | "review" | "payment";
+  setOtpReturnStep: (step: "packages" | "review" | "payment") => void;
+  otpDialogOpen: boolean;
+  setOtpDialogOpen: (open: boolean) => void;
+  refreshBookingOptions?: () => Promise<void>;
 };
 
 export const ScheduleContext = createContext<ScheduleContextProps>(null as any);
@@ -173,7 +203,26 @@ const getAppointmentBasePrice = ({
   duration,
   selectedMemberId,
   activeStaff,
+  purchasePackageId,
+  customerPackageId,
+  packages,
 }: ScheduleContextProps) => {
+  const addonsPrice = (selectedAddons || []).reduce(
+    (sum, addon) =>
+      sum +
+      (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
+    0,
+  );
+
+  if (purchasePackageId) {
+    const pkg = packages?.find((item) => item._id === purchasePackageId);
+    return (pkg?.price ?? 0) + addonsPrice;
+  }
+
+  if (customerPackageId) {
+    return addonsPrice;
+  }
+
   let basePrice = 0;
   if (selectedAppointmentOption) {
     const selectedStaff = selectedMemberId
@@ -192,15 +241,7 @@ const getAppointmentBasePrice = ({
     }
   }
 
-  return (
-    basePrice +
-    (selectedAddons || []).reduce(
-      (sum, addon) =>
-        sum +
-        (effectiveAddonPrice(addon.price, addon.staff, selectedMemberId) || 0),
-      0,
-    )
-  );
+  return basePrice + addonsPrice;
 };
 
 const getAppointmentDiscountAmount = ({

@@ -37,18 +37,18 @@ export const BookingWithWaitlist: React.FC<
     waitlistPublicNamespace,
   );
 
-  React.useEffect(() => {
-    const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
-      setResponse(data);
-    };
+  const loadOptions = React.useCallback(async () => {
+    const data = await clientApi.booking.getBookingOptions();
+    setResponse(data);
+  }, []);
 
+  React.useEffect(() => {
     if (!isEditor) {
-      loadOptions();
+      void loadOptions();
     } else {
       setResponse(demoBookingOptionsResponse);
     }
-  }, [isEditor]);
+  }, [isEditor, loadOptions]);
 
   if (!appId && isOnlyWaitlist) {
     return (
@@ -84,9 +84,14 @@ export const BookingWithWaitlist: React.FC<
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}
       bookingRestriction={response.bookingRestriction}
+      catalog={response.catalog}
+      packages={response.packages}
       isEditor={isEditor}
       appId={appId}
       isOnlyWaitlist={isOnlyWaitlist ?? false}
+      requireCustomerOtp={response.requireCustomerOtp}
+      hasActiveCustomerPackages={response.hasActiveCustomerPackages}
+      refreshBookingOptions={isEditor ? undefined : loadOptions}
     />
   );
 };

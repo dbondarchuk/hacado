@@ -4,6 +4,7 @@ import { AppointmentsTableAction } from "@/components/admin/appointments/table/t
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
 import { CustomerForm } from "@/components/admin/customers/form";
 import PageContainer from "@/components/admin/layout/page-container";
+import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import {
   appointmentsSearchParamsCache,
   assetsSearchParamsCache,
@@ -35,13 +36,14 @@ import {
 import { hasPermission } from "@hacado/utils";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { cache, Suspense } from "react";
 import {
   CustomerFiles,
   CustomerFilesTableAction,
   CustomerFileUpload,
 } from "./files";
+import { CustomerPackagesList } from "./packages";
 
 type Props = PageProps<"/dashboard/customers/[id]/[tab]">;
 
@@ -50,14 +52,21 @@ const appointmentsTab = "appointments";
 const filesTab = "files";
 const communicationsTab = "communications";
 
+const packagesTab = "packages";
 const staticTabs = [
   detailsTab,
   appointmentsTab,
+  packagesTab,
   filesTab,
   communicationsTab,
 ] as const;
 
-const baseScrollableTabs = [detailsTab, communicationsTab, filesTab];
+const baseScrollableTabs = [
+  detailsTab,
+  communicationsTab,
+  filesTab,
+  packagesTab,
+];
 
 type StaticTab = (typeof staticTabs)[number];
 
@@ -86,6 +95,7 @@ export default async function CustomerPage(props: Props) {
     getSession(),
   ]);
   const canUpdateCustomer = hasPermission(session.user, "customer", "update");
+  const canUsePackages = sessionCanUseFeature(session, "packages");
   const params = await props.params;
   const path = `/dashboard/customers/${params.id}`;
 
@@ -105,9 +115,20 @@ export default async function CustomerPage(props: Props) {
   const dynamicTabScrollable = customerTabItems
     .filter((item) => item.scrollable)
     .map((item) => item.href);
-  const allTabValues = [...staticTabs, ...dynamicTabHrefs];
-  const scrollableTabs = [...baseScrollableTabs, ...dynamicTabScrollable];
+  const visibleStaticTabs = staticTabs.filter(
+    (tab) => tab !== packagesTab || canUsePackages,
+  );
+  const allTabValues = [...visibleStaticTabs, ...dynamicTabHrefs];
+  const scrollableTabs = [
+    ...baseScrollableTabs.filter(
+      (tab) => tab !== packagesTab || canUsePackages,
+    ),
+    ...dynamicTabScrollable,
+  ];
   const activeTab = params.tab as string;
+  if (activeTab === packagesTab && !canUsePackages) {
+    redirect(`/dashboard/customers/${params.id}/${detailsTab}`);
+  }
   if (!allTabValues.includes(activeTab)) {
     logger.warn(
       {
@@ -167,6 +188,7 @@ export default async function CustomerPage(props: Props) {
   const tabTitle: Record<StaticTab, string> = {
     [detailsTab]: t("customers.details"),
     [appointmentsTab]: t("customers.appointments"),
+    [packagesTab]: t("services.packages.customer.title"),
     [filesTab]: t("customers.files"),
     [communicationsTab]: t("customers.communications"),
   };
@@ -247,6 +269,14 @@ export default async function CustomerPage(props: Props) {
                   >
                     <AppointmentsTable customerId={params.id} />
                   </Suspense>
+                </TabsContent>
+              )}
+              {activeTab === packagesTab && canUsePackages && (
+                <TabsContent
+                  value={packagesTab}
+                  className="flex flex-1 flex-col gap-4"
+                >
+                  <CustomerPackagesList customerId={params.id} />
                 </TabsContent>
               )}
               {activeTab === filesTab && (

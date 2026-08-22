@@ -3,6 +3,11 @@ import { Button, cn, Spinner, Stepper, usePrevious } from "@hacado/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
+import {
+  MyCabinetPublicKeys,
+  MyCabinetPublicNamespace,
+  myCabinetPublicNamespace,
+} from "../../../../translations/types";
 import { ConfirmationCard } from "./confirmation-card";
 import { useCabinetModifyContext } from "./context";
 import { CabinetModifySteps } from "./steps";
@@ -37,6 +42,9 @@ export const CabinetModifyLayout = ({
     scrollToTopRef.current = !!scrollToTop;
   }, [scrollToTop]);
   const t = useI18n("translation");
+  const tc = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
+    myCabinetPublicNamespace,
+  );
 
   const StepContent = step.Content;
 
@@ -63,6 +71,22 @@ export const CabinetModifyLayout = ({
     <div className={className} {...props}>
       <div ref={topRef} />
       <div className="max-w-3xl mx-auto modify-container booking-container">
+        {!isModificationConfirmed && (
+          <div className="mb-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-0 h-auto text-muted-foreground hover:text-foreground back-to-appointments-button"
+              onClick={() => {
+                window.location.hash = "";
+              }}
+            >
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              {tc("block.modify.backToAppointments")}
+            </Button>
+          </div>
+        )}
+
         <Stepper
           steps={filteredSteps}
           currentStepId={currentStep}

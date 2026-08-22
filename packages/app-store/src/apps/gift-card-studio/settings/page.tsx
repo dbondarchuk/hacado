@@ -16,6 +16,7 @@ import {
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+  MonthsInput,
   Switch,
   toastPromise,
   useCurrencySymbol,
@@ -34,7 +35,6 @@ import {
   GiftCardStudioAdminNamespace,
   giftCardStudioAdminNamespace,
 } from "../translations/types";
-import { MonthsInput } from "./months-input";
 
 export const GiftCardStudioSettingsPage: React.FC<{ appId: string }> = ({
   appId,
@@ -160,7 +160,7 @@ export const GiftCardStudioSettingsPage: React.FC<{ appId: string }> = ({
                 <FormLabel>{t("settings.expirationMonths")}</FormLabel>
                 <FormControl>
                   <MonthsInput
-                    value={field.value ?? 0}
+                    value={field.value}
                     onChange={(value) => {
                       field.onChange(value);
                       form.trigger("expirationMonths");

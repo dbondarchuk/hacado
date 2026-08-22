@@ -9,6 +9,7 @@ import {
   Currency,
   Customer,
   GeneralConfiguration,
+  isAppointmentCoveredByPackage,
   OrganizationMember,
   Payment,
   SocialConfiguration,
@@ -114,6 +115,14 @@ type ArgsProps = {
   websiteUrl: string;
   adminUrl: string;
   user?: OrganizationMember;
+  packageUsage?: {
+    customerPackageId: string;
+    name: string;
+    itemId: string;
+    credits: number;
+    restored?: boolean;
+    isPackageAppointment: boolean;
+  };
 };
 
 type BaseArgs<TAppointment extends Appointment | null | undefined> =
@@ -267,6 +276,12 @@ export const getArguments = <
       ) || [],
     locale,
     currency,
+    packageUsage: appointment?.packageUsage
+      ? {
+          ...appointment.packageUsage,
+          isPackageAppointment: isAppointmentCoveredByPackage(appointment),
+        }
+      : undefined,
   };
 
   const baseArgs: BaseArgs<TAppointment> = {

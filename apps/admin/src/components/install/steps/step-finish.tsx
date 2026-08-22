@@ -39,6 +39,8 @@ export function StepFinish() {
         inviteMode: p.inviteMode,
         inviteCalendarWriterAppId: p.inviteCalendarWriterAppId,
         optCustomerEmailNotifications: p.optCustomerEmailNotifications,
+        optCustomerPackageEmailNotifications:
+          p.optCustomerPackageEmailNotifications,
         optCustomerTextMessageNotifications:
           p.optCustomerTextMessageNotifications,
         optAppointmentNotifications: p.optAppointmentNotifications,

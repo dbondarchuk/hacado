@@ -1,3 +1,4 @@
+import { assertBookingCustomerAccess } from "@/utils/appointments/assert-booking-customer-access";
 import { getAppointmentEventAndIsPaymentRequired } from "@/utils/appointments/get-payment-required";
 import { getLoggerFactory } from "@hacado/logger";
 import {
@@ -26,9 +27,13 @@ const createOrUpdateAppointmentRequestIntent = async (
   const logger = getLoggerFactory("PaymentsUtils")(
     "createOrUpdateAppointmentRequestIntent",
   );
+
   const servicesContainer = await getServicesContainer();
 
   logger.debug({ type }, "Creating or updating appointment request intent");
+
+  const otpGate = await assertBookingCustomerAccess(appointmentRequest, logger);
+  if (otpGate) return otpGate;
 
   const isPaymentRequired = await getAppointmentEventAndIsPaymentRequired(
     appointmentRequest,

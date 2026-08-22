@@ -1,3 +1,4 @@
+import { assertBookingCustomerAccess } from "@/utils/appointments/assert-booking-customer-access";
 import { getAppointmentEventAndIsPaymentRequired } from "@/utils/appointments/get-payment-required";
 import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
@@ -59,6 +60,9 @@ export async function POST(request: NextRequest) {
     logger.warn({ parseError }, "Invalid appointment request format");
     return NextResponse.json(parseError, { status: 400 });
   }
+
+  const otpGate = await assertBookingCustomerAccess(appointmentRequest, logger);
+  if (otpGate) return otpGate;
 
   logger.debug(
     {
@@ -224,6 +228,8 @@ export async function POST(request: NextRequest) {
       eventSource: { actor: "customer" },
       giftCards: eventOrError.giftCards,
       memberId: appointmentRequest.memberId,
+      customerPackageId: appointmentRequest.customerPackageId,
+      purchasePackageId: appointmentRequest.purchasePackageId,
     });
 
     await trackBookingStepWithCustomer(

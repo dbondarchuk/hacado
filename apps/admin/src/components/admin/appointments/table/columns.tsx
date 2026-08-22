@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
+import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
 import {
   Button,
   Link,
@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";
+import { CustomerPackageDialog } from "./customer-package-dialog";
 
 const StatusCell: React.FC<{ appointment: Appointment } & LucideProps> = ({
   appointment,
@@ -359,6 +360,19 @@ export const columns: ColumnDef<Appointment>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
+    cell: ({ row }) =>
+      row.original.customerPackage || row.original.packageUsage ? (
+        <PackageCell appointment={row.original} />
+      ) : null,
+    id: "customerPackage.name",
+    header: tableSortHeader(
+      "appointments.table.columns.package",
+      "string",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
     cell: ({ row }) => <TotalPriceCell appointment={row.original} />,
     id: "totalPrice",
     header: tableSortHeader(
@@ -369,6 +383,41 @@ export const columns: ColumnDef<Appointment>[] = [
     sortingFn: tableSortNoopFunction,
   },
 ];
+
+function PackageCell({ appointment }: { appointment: Appointment }) {
+  const t = useI18n("admin");
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const customerPackage = appointment.customerPackage;
+  const usage = appointment.packageUsage;
+  const name = customerPackage?.name ?? usage?.name;
+  if (!name) return null;
+
+  return (
+    <>
+      {isDialogOpen ? (
+        <CustomerPackageDialog
+          appointment={appointment}
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
+      ) : null}
+      <Button variant="link-dashed" onClick={() => setIsDialogOpen(true)}>
+        {name}
+        {usage && !isAppointmentCoveredByPackage(appointment) ? (
+          <span className="text-sm text-muted-foreground">
+            {" "}
+            ({t("appointments.table.columns.packageRestored")})
+          </span>
+        ) : usage ? (
+          <span className="text-sm text-muted-foreground">
+            {" "}
+            (−{usage.credits})
+          </span>
+        ) : null}
+      </Button>
+    </>
+  );
+}
 
 function DiscountCell({ appointment }: { appointment: Appointment }) {
   const currencyFormat = useCurrencyFormat();
@@ -399,5 +448,8 @@ function DiscountCell({ appointment }: { appointment: Appointment }) {
 
 function TotalPriceCell({ appointment }: { appointment: Appointment }) {
   const currencyFormat = useCurrencyFormat();
-  return appointment.totalPrice ? currencyFormat(appointment.totalPrice) : null;
+  if (!appointment.totalPrice || isAppointmentCoveredByPackage(appointment)) {
+    return null;
+  }
+  return currencyFormat(appointment.totalPrice);
 }

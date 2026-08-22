@@ -43,6 +43,7 @@ checkout:
         domain: Connect your own domain to stand out above your competition
         unlimited: Unlimited bookings, services, and clients, always
         promotions: Branded gift cards, discounts & promotions
+        packages: Prepaid appointment packages customers can buy and book
         apps: Appointment waitlist, intake forms, blog
         clientPortal: Client self-service portal for bookings and profiles
         smsCredits: 100 SMS credits included every month
@@ -240,6 +241,8 @@ wizard:
     optionalApps: Optional apps
     customerEmailNotifications: Customer email notifications
     customerEmailNotificationsDesc: Send booking confirmations and updates to customers by email.
+    customerPackageEmailNotifications: Customer package emails
+    customerPackageEmailNotificationsDesc: Email customers when packages are purchased, exhausted, cancelled, or expired.
     customerTextNotifications: Customer text message notifications
     customerTextNotificationsDesc: Send booking confirmation and updates to customers by SMS.
     appointmentNotifications: Appointment reminders and follow-ups

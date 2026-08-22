@@ -5,6 +5,7 @@ import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentStatus,
+  isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
   timeZones,
 } from "@hacado/types";
@@ -179,6 +180,13 @@ export const AppointmentDetails = ({
                   {appointment.option.name}
                 </Link>
               </p>
+              {isAppointmentCoveredByPackage(appointment) ? (
+                <p className="text-xs text-muted-foreground">
+                  {t("services.packages.appointment.used", {
+                    name: appointment.packageUsage!.name,
+                  })}
+                </p>
+              ) : null}
             </div>
           </div>
           <span
@@ -224,66 +232,94 @@ export const AppointmentDetails = ({
           </div>
         </div>
 
-        {/* Payment */}
-        {!!appointment.totalPrice && (
+        {isAppointmentCoveredByPackage(appointment) ? (
           <div className="px-5 py-4 border-b border-border">
-            <div className="flex items-center justify-between gap-2 mb-2.5">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
-                {t("appointments.view.payment.label")}
-              </p>
-              {syncedProvider && (
-                <Badge variant="secondary" className="shrink-0">
-                  {t("syncedPayments.badge.synced", {
-                    provider: syncedProvider,
+            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
+              {t("services.packages.appointment.label")}
+            </p>
+            <div className="flex justify-between items-start gap-3">
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-foreground truncate">
+                  {appointment.packageUsage!.name}
+                </p>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  {t("services.packages.appointment.creditsUsed", {
+                    credits: appointment.packageUsage!.credits,
                   })}
-                </Badge>
-              )}
-            </div>
-            <div className="flex flex-row flex-wrap gap-2">
-              <div className="bg-background rounded-lg flex-1 p-3 border border-border">
-                <p className="text-sm text-muted-foreground mb-0.5">
-                  {t("appointments.view.payment.total")}
-                </p>
-                <p className="text-lg font-medium text-foreground">
-                  {currencyFormat(
-                    appointment.totalPrice +
-                      (appointment.discount?.discountAmount || 0),
-                  )}
                 </p>
               </div>
-              {appointment.discount && (
-                <div className="bg-background rounded-lg flex-1 p-3 border border-border">
-                  <p className="text-sm text-muted-foreground mb-0.5">
-                    {t("appointments.view.payment.discount")}
-                  </p>
-                  <p className="text-lg font-medium text-foreground">
-                    {currencyFormat(-1 * appointment.discount.discountAmount)}
-                  </p>
-                </div>
-              )}
-              <div className="bg-background rounded-lg flex-1 p-3 border border-border">
-                <p className="text-sm text-muted-foreground mb-0.5">
-                  {t("appointments.view.payment.paid")}
-                </p>
-                <p className="text-lg font-medium text-green-600">
-                  {currencyFormat(totalPaid)}
-                </p>
-              </div>
-              {!isClosedAppointmentStatus(appointment.status) && (
-                <div className="bg-background rounded-lg flex-1 p-3 border border-border">
-                  <p className="text-sm text-muted-foreground mb-0.5">
-                    {t("appointments.view.payment.due")}
-                  </p>
-                  <p
-                    className={`text-lg font-medium ${totalAmountLeft > 0 ? "text-destructive" : "text-foreground"}`}
-                  >
-                    {currencyFormat(totalAmountLeft)}
-                  </p>
-                </div>
-              )}
+              <Link
+                href={`/dashboard/customers/${appointment.customerId}/packages#package-${appointment.packageUsage!.customerPackageId}`}
+                variant="underline"
+                className="text-sm shrink-0"
+              >
+                {t("services.packages.appointment.view")}
+              </Link>
             </div>
           </div>
-        )}
+        ) : null}
+
+        {/* Payment */}
+        {!!appointment.totalPrice &&
+          !isAppointmentCoveredByPackage(appointment) && (
+            <div className="px-5 py-4 border-b border-border">
+              <div className="flex items-center justify-between gap-2 mb-2.5">
+                <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                  {t("appointments.view.payment.label")}
+                </p>
+                {syncedProvider && (
+                  <Badge variant="secondary" className="shrink-0">
+                    {t("syncedPayments.badge.synced", {
+                      provider: syncedProvider,
+                    })}
+                  </Badge>
+                )}
+              </div>
+              <div className="flex flex-row flex-wrap gap-2">
+                <div className="bg-background rounded-lg flex-1 p-3 border border-border">
+                  <p className="text-sm text-muted-foreground mb-0.5">
+                    {t("appointments.view.payment.total")}
+                  </p>
+                  <p className="text-lg font-medium text-foreground">
+                    {currencyFormat(
+                      appointment.totalPrice +
+                        (appointment.discount?.discountAmount || 0),
+                    )}
+                  </p>
+                </div>
+                {appointment.discount && (
+                  <div className="bg-background rounded-lg flex-1 p-3 border border-border">
+                    <p className="text-sm text-muted-foreground mb-0.5">
+                      {t("appointments.view.payment.discount")}
+                    </p>
+                    <p className="text-lg font-medium text-foreground">
+                      {currencyFormat(-1 * appointment.discount.discountAmount)}
+                    </p>
+                  </div>
+                )}
+                <div className="bg-background rounded-lg flex-1 p-3 border border-border">
+                  <p className="text-sm text-muted-foreground mb-0.5">
+                    {t("appointments.view.payment.paid")}
+                  </p>
+                  <p className="text-lg font-medium text-green-600">
+                    {currencyFormat(totalPaid)}
+                  </p>
+                </div>
+                {!isClosedAppointmentStatus(appointment.status) && (
+                  <div className="bg-background rounded-lg flex-1 p-3 border border-border">
+                    <p className="text-sm text-muted-foreground mb-0.5">
+                      {t("appointments.view.payment.due")}
+                    </p>
+                    <p
+                      className={`text-lg font-medium ${totalAmountLeft > 0 ? "text-destructive" : "text-foreground"}`}
+                    >
+                      {currencyFormat(totalAmountLeft)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
         {/* Customer */}
         <div className="px-5 py-4 border-b border-border">
@@ -394,11 +430,12 @@ export const AppointmentDetails = ({
                 )}
               </p>
             </div>
-            {!!appointment.option.price && (
-              <span className="text-base font-medium text-foreground shrink-0 ml-3">
-                {currencyFormat(appointment.option.price)}
-              </span>
-            )}
+            {!!appointment.option.price &&
+              !isAppointmentCoveredByPackage(appointment) && (
+                <span className="text-base font-medium text-foreground shrink-0 ml-3">
+                  {currencyFormat(appointment.option.price)}
+                </span>
+              )}
           </div>
         </div>
 
@@ -429,11 +466,12 @@ export const AppointmentDetails = ({
                       )}
                     </p>
                   </div>
-                  {!!addon.price && (
-                    <span className="text-base font-medium text-foreground shrink-0 ml-3">
-                      {currencyFormat(addon.price)}
-                    </span>
-                  )}
+                  {!!addon.price &&
+                    !isAppointmentCoveredByPackage(appointment) && (
+                      <span className="text-base font-medium text-foreground shrink-0 ml-3">
+                        {currencyFormat(addon.price)}
+                      </span>
+                    )}
                 </div>
               ))}
             </div>
@@ -441,37 +479,38 @@ export const AppointmentDetails = ({
         )}
 
         {/** Discount */}
-        {appointment.discount && (
-          <div className="px-5 py-4 border-b border-border">
-            <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
-              {t("appointments.view.discount.label")}
-            </p>
-            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <div className="flex justify-between items-center">
-                <span>{t("appointments.view.discount.name")}</span>
-                <Link
-                  href={`/dashboard/services/discounts/${appointment.discount.id}`}
-                  variant="underline"
-                  className="truncate text-ellipsis text-sm text-right"
-                >
-                  {appointment.discount.name}
-                </Link>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>{t("appointments.view.discount.code")}</span>
-                <span className="text-sm font-medium text-foreground shrink-0 ml-3">
-                  {appointment.discount.code}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>{t("appointments.view.discount.amount")}</span>
-                <span className="text-base font-medium text-foreground shrink-0 ml-3">
-                  {currencyFormat(-1 * appointment.discount.discountAmount)}
-                </span>
+        {appointment.discount &&
+          !isAppointmentCoveredByPackage(appointment) && (
+            <div className="px-5 py-4 border-b border-border">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
+                {t("appointments.view.discount.label")}
+              </p>
+              <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <div className="flex justify-between items-center">
+                  <span>{t("appointments.view.discount.name")}</span>
+                  <Link
+                    href={`/dashboard/services/discounts/${appointment.discount.id}`}
+                    variant="underline"
+                    className="truncate text-ellipsis text-sm text-right"
+                  >
+                    {appointment.discount.name}
+                  </Link>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>{t("appointments.view.discount.code")}</span>
+                  <span className="text-sm font-medium text-foreground shrink-0 ml-3">
+                    {appointment.discount.code}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>{t("appointments.view.discount.amount")}</span>
+                  <span className="text-base font-medium text-foreground shrink-0 ml-3">
+                    {currencyFormat(-1 * appointment.discount.discountAmount)}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/** Fields */}
         {appointment.fields && Object.keys(appointment.fields).length > 0 && (
@@ -623,20 +662,22 @@ export const AppointmentDetails = ({
         {/* Actions */}
         {!isClosedAppointmentStatus(appointment.status) && (
           <div className="px-5 py-4 flex flex-col gap-2">
-            {canUpdate && totalAmountLeft > 0 && (
-              <AddUpdatePaymentDialog
-                amount={totalAmountLeft}
-                appointmentId={appointment._id}
-                customerId={appointment.customerId}
-              >
-                <Button variant="brand-dark" size="md" className="w-full">
-                  <Wallet size={20} />
-                  {t("appointments.view.collectPayment", {
-                    amount: currencyFormat(totalAmountLeft),
-                  })}
-                </Button>
-              </AddUpdatePaymentDialog>
-            )}
+            {canUpdate &&
+              totalAmountLeft > 0 &&
+              !isAppointmentCoveredByPackage(appointment) && (
+                <AddUpdatePaymentDialog
+                  amount={totalAmountLeft}
+                  appointmentId={appointment._id}
+                  customerId={appointment.customerId}
+                >
+                  <Button variant="brand-dark" size="md" className="w-full">
+                    <Wallet size={20} />
+                    {t("appointments.view.collectPayment", {
+                      amount: currencyFormat(totalAmountLeft),
+                    })}
+                  </Button>
+                </AddUpdatePaymentDialog>
+              )}
             {canUpdate ? (
               <div className="flex flex-row gap-2 justify-between w-full">
                 <AppointmentDeclineDialog

@@ -1,8 +1,13 @@
-import { getActor, getServicesContainer } from "@/app/utils";
+import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { getDefaultBookingConfiguration } from "@/components/install/default-booking";
+import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { bookingConfigurationSchema, zObjectId } from "@hacado/types";
+import {
+  bookingConfigurationSchema,
+  flattenCatalogOptionIds,
+  zObjectId,
+} from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
@@ -19,8 +24,43 @@ export async function GET(request: NextRequest) {
     "Processing booking options API request",
   );
 
-  const response =
-    await servicesContainer.bookingService.getAppointmentOptions();
+  let response = await servicesContainer.bookingService.getAppointmentOptions();
+
+  const session = await getSession();
+  const canUseDiscounts = sessionCanUseFeature(session, "discounts");
+  const canUsePackages = sessionCanUseFeature(session, "packages");
+
+  if (!canUseDiscounts || !canUsePackages) {
+    logger.debug({ canUseDiscounts, canUsePackages }, "Filtering catalog");
+
+    const filterCatalog = (
+      nodes: NonNullable<typeof response.catalog>,
+    ): NonNullable<typeof response.catalog> =>
+      nodes
+        .map((node) => {
+          if (node.type === "group") {
+            const children = filterCatalog(node.children);
+            return children.length ? { ...node, children } : null;
+          }
+          if (node.type === "package") {
+            return canUsePackages ? node : null;
+          }
+          return node;
+        })
+        .filter((node): node is NonNullable<typeof node> => node !== null);
+
+    response = {
+      ...response,
+      showPromoCode: canUseDiscounts ? response.showPromoCode : false,
+      packages: canUsePackages ? response.packages : [],
+      hasActiveCustomerPackages: canUsePackages
+        ? response.hasActiveCustomerPackages
+        : false,
+      catalog: response.catalog
+        ? filterCatalog(response.catalog)
+        : response.catalog,
+    };
+  }
 
   logger.debug(
     {
@@ -35,7 +75,7 @@ export async function GET(request: NextRequest) {
 
 const addBookingAvailableOptionRequestSchema = z.object({
   optionId: zObjectId(
-    "validation.configuration.booking.options.id.required" satisfies BaseAllKeys,
+    "validation.configuration.booking.catalog.optionId.required" satisfies BaseAllKeys,
   ),
 });
 
@@ -85,17 +125,22 @@ export async function POST(request: NextRequest) {
       ? existingBooking
       : getDefaultBookingConfiguration();
 
-  const alreadyPresent = booking.options.some((item) => item.id === optionId);
+  const catalog = booking.catalog ?? [];
+  const alreadyPresent = flattenCatalogOptionIds(catalog).includes(optionId);
   if (alreadyPresent) {
-    logger.debug({ optionId }, "Option already present in booking options");
+    logger.debug({ optionId }, "Option already present in booking catalog");
     return NextResponse.json({ success: true, alreadyPresent: true });
   }
 
-  logger.debug({ optionId }, "Adding option to booking options");
+  logger.debug({ optionId }, "Adding option to booking catalog");
 
+  const nextCatalog = [
+    ...catalog,
+    { type: "option" as const, id: optionId, optionId },
+  ];
   const updatedBooking = bookingConfigurationSchema.parse({
     ...booking,
-    options: [...booking.options, { id: optionId }],
+    catalog: nextCatalog,
   });
 
   await servicesContainer.configurationService.setConfiguration(

@@ -13,6 +13,7 @@ import { GIFT_CARD_EVENT_DEFINITIONS } from "./gift-card/gift-card-event-definit
 import { INVITATION_EVENT_DEFINITIONS } from "./invitation/invitation-event-definitions";
 import { MEMBER_EVENT_DEFINITIONS } from "./member/member-event-definitions";
 import { ORGANIZATION_EVENT_DEFINITIONS } from "./organization/organization-event-definitions";
+import { PACKAGE_EVENT_DEFINITIONS } from "./package/package-event-definitions";
 import { PAGE_EVENT_DEFINITIONS } from "./page/page-event-definitions";
 import { PAGE_FOOTER_EVENT_DEFINITIONS } from "./page/page-footer-event-definitions";
 import { PAGE_HEADER_EVENT_DEFINITIONS } from "./page/page-header-event-definitions";
@@ -30,6 +31,7 @@ export const DOMAIN_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   ...PAYMENT_EVENT_DEFINITIONS,
   ...SYNCED_PAYMENT_EVENT_DEFINITIONS,
   ...GIFT_CARD_EVENT_DEFINITIONS,
+  ...PACKAGE_EVENT_DEFINITIONS,
   ...ORGANIZATION_EVENT_DEFINITIONS,
   ...FIELD_EVENT_DEFINITIONS,
   ...ADDON_EVENT_DEFINITIONS,

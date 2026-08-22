@@ -14,6 +14,7 @@ block:
     form: Details
     payment: Payment
     review: Summary
+    otp: Verify
     waitlist-form: Details
     waitlist-review: Review
   layout:

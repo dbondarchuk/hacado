@@ -127,6 +127,10 @@ export function sanitizePersisted(
     if (typeof s.optCustomerEmailNotifications === "boolean") {
       fromDb.optCustomerEmailNotifications = s.optCustomerEmailNotifications;
     }
+    if (typeof s.optCustomerPackageEmailNotifications === "boolean") {
+      fromDb.optCustomerPackageEmailNotifications =
+        s.optCustomerPackageEmailNotifications;
+    }
     if (typeof s.optCustomerTextMessageNotifications === "boolean") {
       fromDb.optCustomerTextMessageNotifications =
         s.optCustomerTextMessageNotifications;

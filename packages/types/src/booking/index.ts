@@ -2,6 +2,7 @@ export * from "./appointment";
 export * from "./appointment-event";
 export * from "./appointment-history";
 export * from "./appointment-option";
+export * from "./appointment-package";
 export * from "./availability";
 export * from "./booking-tracking";
 export * from "./calendar-event";

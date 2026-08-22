@@ -1,4 +1,5 @@
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
+import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -11,15 +12,11 @@ export async function PATCH(
   request: NextRequest,
   { params }: RouteContext<"/api/appointments/[id]/note">,
 ) {
+  const logger = getLoggerFactory("AdminAPI/appointments/[id]/note")("PATCH");
   const { id } = await params;
-  const auth = await requireCanUpdateAppointment(
-    id,
-    "AdminAPI/appointments/[id]/note",
-    "PATCH",
-  );
+  const auth = await requireCanUpdateAppointment(id, logger);
   if (!auth.ok) return auth.response;
 
-  const logger = auth.logger;
   const servicesContainer = auth.servicesContainer;
 
   logger.debug(

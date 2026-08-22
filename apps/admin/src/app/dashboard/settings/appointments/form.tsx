@@ -5,6 +5,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   BookingConfiguration,
   bookingConfigurationSchema,
+  normalizeCatalogNodes,
 } from "@hacado/types";
 import {
   cn,
@@ -18,11 +19,11 @@ import {
 import { SaveButton } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useCallback } from "react";
-import { useForm } from "react-hook-form";
+import React, { useCallback, useMemo } from "react";
+import { Resolver, useForm } from "react-hook-form";
 import { CancellationsTab } from "./tabs/cancellations";
+import { CatalogTab } from "./tabs/catalog";
 import { MainTab } from "./tabs/main";
-import { OptionsTab } from "./tabs/options";
 import { PaymentsTab } from "./tabs/payments";
 import { ReschedulesTab } from "./tabs/reschedules";
 
@@ -32,11 +33,20 @@ export const AppointmentsSettingsForm: React.FC<{
   showTeamSettings?: boolean;
 }> = ({ values, canUsePayments, showTeamSettings }) => {
   const t = useI18n("admin");
+  const formValues = useMemo(
+    () => ({
+      ...values,
+      catalog: normalizeCatalogNodes(values.catalog),
+    }),
+    [values],
+  );
   const form = useForm<BookingConfiguration>({
-    resolver: zodResolver(bookingConfigurationSchema),
+    resolver: zodResolver(
+      bookingConfigurationSchema,
+    ) as Resolver<BookingConfiguration>,
     mode: "all",
     reValidateMode: "onChange",
-    values,
+    values: formValues,
   });
 
   const [loading, setLoading] = React.useState(false);
@@ -73,7 +83,7 @@ export const AppointmentsSettingsForm: React.FC<{
 
   const triggerValidation = useCallback(() => {
     form.trigger();
-    form.trigger("options");
+    form.trigger("catalog");
     form.trigger("payments");
     form.trigger("cancellationsAndReschedules");
   }, [form]);
@@ -108,7 +118,7 @@ export const AppointmentsSettingsForm: React.FC<{
             <TabsTrigger
               value="options"
               className={cn(
-                form.getFieldState("options").invalid ? "text-destructive" : "",
+                form.getFieldState("catalog").invalid ? "text-destructive" : "",
               )}
             >
               {t("settings.appointments.form.tabs.options")}
@@ -150,7 +160,7 @@ export const AppointmentsSettingsForm: React.FC<{
             <MainTab form={form} showTeamSettings={showTeamSettings} />
           </TabsContent>
           <TabsContent value="options">
-            <OptionsTab form={form} />
+            <CatalogTab form={form} />
           </TabsContent>
           <TabsContent value="payments">
             <PaymentsTab form={form} canUsePayments={canUsePayments} />

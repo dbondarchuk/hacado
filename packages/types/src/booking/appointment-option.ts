@@ -13,6 +13,7 @@ import {
   zUniqueArray,
 } from "../utils";
 import { DistributiveOmit, Prettify } from "../utils/helpers";
+import type { AppointmentPackage } from "./appointment-package";
 import { FieldSchema } from "./field";
 import {
   addonStaffOverridesSchema,
@@ -432,4 +433,9 @@ export type GetAppointmentOptionsResponse = {
   bookingRestriction?: BookingRestriction;
   /** Active staff members, for resolving `AppointmentOption.staff` assignments in the public booking UI. */
   members: PublicStaffMember[];
+  catalog?: import("../configuration/booking").BookingCatalogNode[];
+  packages?: AppointmentPackage[];
+  requireCustomerOtp?: boolean;
+  /** True when this organization has at least one redeemable customer package. */
+  hasActiveCustomerPackages?: boolean;
 };

@@ -34,6 +34,8 @@ export interface IBookingService {
     giftCards?: ApplyGiftCardsSuccessResponse["giftCards"];
     /** Assigned staff member. Required going forward; when omitted, resolved server-side (owner fallback) for backward compat during migration. */
     memberId?: string;
+    customerPackageId?: string;
+    purchasePackageId?: string;
   }): Promise<Appointment>;
   updateAppointment(
     id: string,
@@ -113,5 +115,7 @@ export interface IBookingService {
     duration: number,
     memberId: string,
   ): Promise<boolean>;
-  getAppointmentOptions(): Promise<GetAppointmentOptionsResponse>;
+  getAppointmentOptions(opts?: {
+    customerId?: string;
+  }): Promise<GetAppointmentOptionsResponse>;
 }

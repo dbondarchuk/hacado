@@ -1,8 +1,10 @@
+import { clientApi } from "@hacado/api-sdk";
 import {
   Calendar,
   CheckCircle2,
   CreditCard,
   HeartPlus,
+  ShieldCheck,
   Sparkles,
   User,
   Users,
@@ -28,7 +30,7 @@ export function getSteps(flow: FlowType, flowOrder: FlowOrder): StepType[] {
   const tail: StepType[] =
     flow === "waitlist"
       ? ["addons", "waitlist-form", "waitlist-review"]
-      : ["addons", "calendar", "form", "review", "payment"];
+      : ["addons", "calendar", "form", "review", "otp", "payment"];
 
   if (flowOrder === "specialist-first") {
     return ["specialist", "option", ...tail];
@@ -39,6 +41,20 @@ export function getSteps(flow: FlowType, flowOrder: FlowOrder): StepType[] {
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
+    if (
+      (ctx.requireCustomerOtp ||
+        ctx.customerPackageId ||
+        ctx.purchasePackageId) &&
+      !ctx.otpVerified
+    ) {
+      const sessionMatches =
+        await clientApi.customerAuth.sessionMatchesBookingFields(ctx.fields);
+      if (!sessionMatches) {
+        ctx.setOtpReturnStep("payment");
+        ctx.setOtpDialogOpen(true);
+        return;
+      }
+    }
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
@@ -65,13 +81,17 @@ const resolveMemberIdForFetch = (ctx: ScheduleContextProps): string | null => {
 
 /** Goes to "addons" (if any), or fetches availability and goes to "calendar"/"waitlist-form". */
 const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
-  if (ctx.selectedAppointmentOption?.addons?.length) {
+  if (
+    ctx.selectedAppointmentOption?.addons?.length &&
+    !ctx.purchasePackageId &&
+    !ctx.customerPackageId
+  ) {
     resolveMemberIdForFetch(ctx);
     ctx.setCurrentStep("addons");
     return;
   }
 
-  if (ctx.flow === "waitlist") {
+  if (ctx.flow === "waitlist" && !ctx.purchasePackageId) {
     resolveMemberIdForFetch(ctx);
     ctx.setCurrentStep("waitlist-form");
     return;
@@ -96,12 +116,26 @@ export const ScheduleSteps: Record<StepType, Step> = {
   option: {
     icon: Sparkles,
     prev: {
-      show: (ctx) => ctx.flowOrder === "specialist-first",
+      show: (ctx) =>
+        (ctx.packageBookingFlow && ctx.otpVerified) ||
+        ctx.flowOrder === "specialist-first" ||
+        (ctx.catalogPath?.length ?? 0) > 0,
       isEnabled: () => true,
-      action: ({ setCurrentStep }) => setCurrentStep("specialist"),
+      action: (ctx) => {
+        if (ctx.packageBookingFlow && ctx.otpVerified) {
+          ctx.setPackageBookingFlow(false);
+          ctx.setCustomerPackageId(undefined);
+          return;
+        }
+        if (ctx.catalogPath.length) {
+          ctx.setCatalogPath(ctx.catalogPath.slice(0, -1));
+          return;
+        }
+        ctx.setCurrentStep("specialist");
+      },
     },
     next: {
-      show: () => true,
+      show: (ctx) => !(ctx.packageBookingFlow && ctx.otpVerified),
       isEnabled: (ctx) => !!ctx.selectedAppointmentOption && !!ctx.duration,
       action: async (ctx) => {
         if (ctx.flowOrder !== "specialist-first") {
@@ -145,8 +179,13 @@ export const ScheduleSteps: Record<StepType, Step> = {
     next: {
       show: () => true,
       isEnabled: () => true,
-      action: async ({ fetchAvailability, setCurrentStep, flow }) => {
-        if (flow === "waitlist") {
+      action: async ({
+        fetchAvailability,
+        setCurrentStep,
+        flow,
+        purchasePackageId,
+      }) => {
+        if (flow === "waitlist" && !purchasePackageId) {
           setCurrentStep("waitlist-form");
           return;
         }
@@ -163,7 +202,18 @@ export const ScheduleSteps: Record<StepType, Step> = {
       show: () => true,
       isEnabled: () => true,
       action: (ctx) => {
-        if (ctx.selectedAppointmentOption?.addons?.length) {
+        if (ctx.isCustomerPackageLocked) {
+          ctx.setCustomerPackageId(undefined);
+          ctx.setSelectedAppointmentOption(undefined);
+          ctx.setCurrentStep("option");
+          return;
+        }
+
+        if (
+          ctx.selectedAppointmentOption?.addons?.length &&
+          !ctx.purchasePackageId &&
+          !ctx.customerPackageId
+        ) {
           ctx.setCurrentStep("addons");
           return;
         }
@@ -208,6 +258,20 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     Content: FormCard,
   },
+  otp: {
+    icon: ShieldCheck,
+    prev: {
+      show: () => false,
+      isEnabled: () => false,
+      action: () => {},
+    },
+    next: {
+      show: () => false,
+      isEnabled: () => false,
+      action: () => {},
+    },
+    Content: () => null,
+  },
   payment: {
     icon: CreditCard,
     prev: {
@@ -250,7 +314,11 @@ export const ScheduleSteps: Record<StepType, Step> = {
       show: () => true,
       isEnabled: () => true,
       action: (ctx) => {
-        if (ctx.selectedAppointmentOption?.addons?.length) {
+        if (
+          ctx.selectedAppointmentOption?.addons?.length &&
+          !ctx.purchasePackageId &&
+          !ctx.customerPackageId
+        ) {
           ctx.setCurrentStep("addons");
           return;
         }

@@ -23,6 +23,7 @@ import { CustomersService } from "./customers.service";
 import { BullMQEventService, getBullMQEventConfig } from "./events";
 import { GiftCardsService } from "./gift-cards.service";
 import { OrganizationService } from "./organization.service";
+import { PackagesService } from "./packages.service";
 import { CachedPagesService } from "./pages-cached.service";
 import { PaymentsService } from "./payments.service";
 import { S3AssetsStorageService } from "./s3-assets-storage";
@@ -55,6 +56,7 @@ export * from "./email";
 export * from "./gift-cards.service";
 export * from "./organization-hostname-cache";
 export * from "./organization.service";
+export * from "./packages.service";
 export * from "./pages-cached.service";
 export * from "./pages.service";
 export * from "./payments.service";
@@ -158,6 +160,13 @@ export const ServicesContainer: (
       getPolarClient(),
     );
 
+    const packagesService = new PackagesService(
+      organizationId,
+      servicesService,
+      paymentsService,
+      eventService,
+    );
+
     const bookingService = new BookingService(
       organizationId,
       configurationService,
@@ -171,6 +180,7 @@ export const ServicesContainer: (
       organizationService,
       billingService,
       teamService,
+      packagesService,
     );
 
     const syncedPaymentsService = new SyncedPaymentsService(
@@ -238,6 +248,7 @@ export const ServicesContainer: (
       teamService,
       dashboardNotificationsService,
       giftCardsService,
+      packagesService,
       billingService,
       customerAuthService,
       shortLinksService,
