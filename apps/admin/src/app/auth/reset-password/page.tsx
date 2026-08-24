@@ -36,7 +36,9 @@ export default async function AuthenticationPage() {
       title={t("auth.resetPassword.title")}
       description={t("auth.resetPassword.description")}
     >
-      <UserResetPasswordForm />
+      <UserResetPasswordForm
+        turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
+      />
     </AuthLayout>
   );
 }

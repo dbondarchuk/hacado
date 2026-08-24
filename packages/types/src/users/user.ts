@@ -23,6 +23,8 @@ export type User = {
   email: string;
   /** Better Auth account display name (not the org profile source of truth). */
   name: string;
+  /** OAuth/social avatar URL from Better Auth (copied to member on org join). */
+  image?: string | null;
   createdAt: Date;
   updatedAt: Date;
   lastLoginAt?: Date;

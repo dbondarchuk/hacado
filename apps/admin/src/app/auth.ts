@@ -21,7 +21,10 @@ import {
   resolveAvailableUsers,
   resolvePlanTierFromOrganization,
 } from "@hacado/services/billing";
-import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
+import {
+  MEMBERS_COLLECTION_NAME,
+  USERS_COLLECTION_NAME,
+} from "@hacado/services/collections";
 import {
   getDbConnection,
   getDbConnectionSync,
@@ -30,6 +33,7 @@ import {
   memberEventSource,
   OrganizationSubscriptionStatus,
   systemEventSource,
+  type User as AuthUser,
   type Organization as OrganizationDbModel,
   type OrganizationMember,
   type SessionUser,
@@ -43,6 +47,7 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import {
   captcha,
   customSession,
+  emailOTP,
   lastLoginMethod,
   organization,
 } from "better-auth/plugins";
@@ -192,6 +197,9 @@ export const auth = betterAuth({
       ipAddressHeaders: ["x-forwarded-for", "x-real-ip"],
     },
   },
+  onAPIError: {
+    errorURL: "/auth/error",
+  },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       if (ctx.path !== "/sign-up/email") return;
@@ -208,6 +216,7 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true,
     requireEmailVerification: true,
+    // Link-based reset kept as fallback; primary UX uses emailOTP.requestPasswordReset
     sendResetPassword: async ({ user, url, token }) => {
       const language = await getMemberLanguageForUser(user.id);
       await sendEmail("resetPassword", user.email, language, {
@@ -218,20 +227,18 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
-    sendVerificationEmail: async ({ user, url, token }) => {
-      const language = await getMemberLanguageForUser(user.id);
-      await sendEmail("emailVerification", user.email, language, {
-        url,
-        token,
-        name: user.name,
-      });
-    },
+    // Multi-step signup sends OTP from the email-OTP step only.
+    // Explicit false wins over requireEmailVerification (??), so sign-up
+    // does not also fire sendVerificationEmail / OTP.
+    sendOnSignUp: false,
+    sendVerificationEmail: async () => {},
     autoSignInAfterVerification: true,
-    expiresIn: 60 * 60 * 24, // 24 hours
+    expiresIn: 60 * 5,
   },
   user: {
     changeEmail: {
       enabled: true,
+      // Link-based change kept as fallback; primary UX uses emailOTP change-email flow
       sendChangeEmailConfirmation: async ({ user, newEmail, url, token }) => {
         const language = await getMemberLanguageForUser(user.id);
         await sendEmail("changeEmail", user.email, language, {
@@ -291,10 +298,47 @@ export const auth = betterAuth({
           captcha({
             provider: "cloudflare-turnstile",
             secretKey: process.env.TURNSTILE_SECRET_KEY!,
-            endpoints: ["/sign-up/email", "/request-password-reset"],
+            endpoints: [
+              "/sign-up/email",
+              "/request-password-reset",
+              "/email-otp/request-password-reset",
+            ],
           }),
         ]
       : []),
+    emailOTP({
+      otpLength: 6,
+      expiresIn: 300,
+      allowedAttempts: 5,
+      // Prefer client-controlled send on the email-OTP signup step so we never
+      // race a link-based sendVerificationEmail. Override still routes any
+      // internal verification triggers through OTP.
+      overrideDefaultEmailVerification: true,
+      sendVerificationOnSignUp: false,
+      changeEmail: {
+        enabled: true,
+        verifyCurrentEmail: true,
+      },
+      async sendVerificationOTP({ email, otp, type }) {
+        const db = await getDbConnection();
+        const user = await db
+          .collection<AuthUser>(USERS_COLLECTION_NAME)
+          .findOne({ email: email.toLowerCase() });
+
+        const userId = user?._id ? String(user._id) : undefined;
+        const language = userId
+          ? await getMemberLanguageForUser(userId)
+          : ("en" as Language);
+        const name = user?.name || email;
+        const template =
+          type === "forget-password"
+            ? "emailOtpPasswordReset"
+            : type === "change-email"
+              ? "emailOtpChangeEmail"
+              : "emailOtpVerification";
+        await sendEmail(template, email, language, { otp, name });
+      },
+    }),
     organization({
       organizationLimit: 1,
       ac: teamAc,
@@ -334,6 +378,7 @@ export const auth = betterAuth({
             name: (member as { name?: string }).name,
             phone: (member as { phone?: string }).phone,
             language: (member as { language?: Language }).language,
+            image: (member as { image?: string | null }).image,
           });
           return {
             data: {
@@ -351,6 +396,7 @@ export const auth = betterAuth({
             name: (member as { name?: string }).name,
             phone: (member as { phone?: string }).phone,
             language: (member as { language?: Language }).language,
+            image: (member as { image?: string | null }).image,
           });
           const db = await getDbConnection();
           await db.collection(MEMBERS_COLLECTION_NAME).updateOne(

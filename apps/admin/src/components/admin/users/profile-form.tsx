@@ -23,7 +23,6 @@ import {
   FormMessage,
   InfoTooltip,
   Input,
-  PhoneInput,
   toast,
   toastPromise,
 } from "@hacado/ui";
@@ -90,8 +89,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   const onSubmit = async (data: UserUpdate) => {
     try {
       setLoading(true);
+      const { phone: _phone, ...rest } = data;
       const payload: UserUpdate = {
-        ...data,
+        ...rest,
+        phone: values.phone,
         calendarSources: canManageCalendarSources
           ? data.calendarSources
           : values.calendarSources,
@@ -240,24 +241,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           disabled={loading}
                           placeholder={t("users.profile.form.namePlaceholder")}
                           {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("users.profile.form.phone")}</FormLabel>
-                      <FormControl>
-                        <PhoneInput
-                          {...field}
-                          disabled={loading}
-                          label={t("users.profile.form.phone")}
                         />
                       </FormControl>
                       <FormMessage />
@@ -425,6 +408,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               <Suspense fallback={null}>
                 <ProfileSecuritySection
                   email={values.email}
+                  phone={values.phone ?? ""}
                   enabledSocialProviders={enabledSocialProviders}
                 />
               </Suspense>

@@ -1,27 +1,30 @@
 "use client";
 
-import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
-import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
-import { zPhone } from "@hacado/types";
+import { AuthFormProgress } from "@/components/admin/auth/auth-form-progress";
+import { CompleteProfilePhoneStep } from "@/components/admin/auth/complete-profile-phone-step";
 import {
-  Button,
-  Combobox,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  PhoneInput,
-  Spinner,
-  toast,
-} from "@hacado/ui";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+  CompleteProfileProfileStep,
+  type CompleteProfileProfileValues,
+} from "@/components/admin/auth/complete-profile-profile-step";
+import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
+import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
+import { AdminKeys, useI18n } from "@hacado/i18n/client";
+import { toast } from "@hacado/ui";
+import { useMemo, useState, type ReactNode } from "react";
+
+type CompleteProfileStep = "profile" | "phone" | "phone-otp";
+
+const COMPLETE_PROFILE_STEP_IDS: CompleteProfileStep[] = [
+  "profile",
+  "phone",
+  "phone-otp",
+];
+
+const COMPLETE_PROFILE_STEP_LABELS: Record<CompleteProfileStep, AdminKeys> = {
+  profile: "auth.completeProfile.progress.steps.profile",
+  phone: "auth.completeProfile.progress.steps.phone",
+  "phone-otp": "auth.completeProfile.progress.steps.phoneOtp",
+};
 
 export function CompleteProfileForm({
   defaultName,
@@ -31,133 +34,89 @@ export function CompleteProfileForm({
   nextPath: string;
 }) {
   const t = useI18n("admin");
-  const router = useRouter();
+  const [step, setStep] = useState<CompleteProfileStep>("profile");
   const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState<CompleteProfileProfileValues | null>(
+    null,
+  );
+  const [phone, setPhone] = useState("");
 
-  const formSchema = useMemo(
+  const progressSteps = useMemo(
     () =>
-      z.object({
-        name: z
-          .string({
-            error: "admin.auth.validation.name.required" satisfies BaseAllKeys,
-          })
-          .min(1, {
-            error: "admin.auth.validation.name.required" satisfies BaseAllKeys,
-          })
-          .max(256, {
-            error: "admin.auth.validation.name.max" satisfies BaseAllKeys,
-          }),
-        phone: zPhone,
-        language: z.enum(languages, {
-          error: "admin.auth.validation.language.invalid" satisfies BaseAllKeys,
-        }),
-      }),
-    [],
+      COMPLETE_PROFILE_STEP_IDS.map((id) => ({
+        id,
+        label: t(COMPLETE_PROFILE_STEP_LABELS[id]),
+      })),
+    [t],
   );
 
-  type FormValues = z.infer<typeof formSchema>;
+  const finish = async () => {
+    if (!profile || !phone) return;
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: defaultName,
-      phone: "",
-      language: "en",
-    },
-  });
-
-  const onSubmit = async (data: FormValues) => {
     setLoading(true);
     try {
       const result = await saveSignupMemberProfile({
-        name: data.name,
-        phone: data.phone,
-        language: data.language,
+        name: profile.name,
+        phone,
+        language: profile.language,
       });
 
       if (!result.ok) {
-        toast.error(t("auth.completeProfile.toasts.error"));
+        toast.error(
+          result.code === "phone_in_use"
+            ? t("auth.phoneOtp.errors.phoneInUse")
+            : t("auth.completeProfile.toasts.error"),
+        );
         return;
       }
 
       toast.success(t("auth.completeProfile.toasts.success"));
-      router.push(nextPath);
+      window.location.assign(nextPath);
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-2">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("auth.signUp.name")}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t("auth.signUp.namePlaceholder")}
-                  disabled={loading}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+  const withProgress = (content: ReactNode) => (
+    <div className="flex w-full flex-col gap-4">
+      <AuthFormProgress steps={progressSteps} currentStepId={step} />
+      {content}
+    </div>
+  );
 
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("auth.signUp.phone")}</FormLabel>
-              <FormControl>
-                <PhoneInput
-                  label={t("auth.signUp.phone")}
-                  disabled={loading}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+  if (step === "phone-otp") {
+    return withProgress(
+      <PhoneOtpStep
+        phone={phone}
+        kind="complete-profile"
+        onVerified={async () => {
+          await finish();
+        }}
+      />,
+    );
+  }
 
-        <FormField
-          control={form.control}
-          name="language"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("auth.signUp.language")}</FormLabel>
-              <FormControl>
-                <Combobox
-                  className="w-full"
-                  placeholder={t("auth.signUp.languagePlaceholder")}
-                  values={languages.map((language) => ({
-                    label: t(`common.labels.languages.${language}`),
-                    value: language,
-                  }))}
-                  value={field.value}
-                  onItemSelect={(value) => {
-                    field.onChange(value);
-                    field.onBlur();
-                  }}
-                  disabled={loading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+  if (step === "phone") {
+    return withProgress(
+      <CompleteProfilePhoneStep
+        disabled={loading}
+        onBack={() => setStep("profile")}
+        onContinue={(data) => {
+          setPhone(data.phone);
+          setStep("phone-otp");
+        }}
+      />,
+    );
+  }
 
-        <Button disabled={loading} className="ml-auto w-full" type="submit">
-          {loading && <Spinner />}
-          {t("auth.completeProfile.submit")}
-        </Button>
-      </form>
-    </Form>
+  return withProgress(
+    <CompleteProfileProfileStep
+      defaultName={defaultName}
+      disabled={loading}
+      onContinue={(data) => {
+        setProfile(data);
+        setStep("phone");
+      }}
+    />,
   );
 }

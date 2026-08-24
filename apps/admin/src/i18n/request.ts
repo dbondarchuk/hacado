@@ -30,7 +30,7 @@ const config = getConfig(
     });
 
     if (!session) {
-      return { locale: "en", includeAdmin: true };
+      return { locale: "en", includeAdmin: true, includeInstall: true };
     }
 
     let locale = (session.user as { language?: string }).language || "en";

@@ -77,12 +77,16 @@ wizard:
     title: Confirm your email to continue
     description: >-
       We need a verified email before we can finish setting up your Hacado
-      workspace. This keeps your account secure.
-    resend: Resend verification email
-    resendSuccess: Verification email sent
-    resendError: Could not send the email. Try again shortly.
+      workspace. Enter the code we sent to your email.
+    otpLabel: Verification code
+    submit: Verify email
+    resend: Resend code
+    resendSuccess: Verification code sent
+    resendError: Could not send the code. Try again shortly.
+    invalidCode: Invalid verification code
+    verified: Email verified
     spamHint: Did not receive it? Check your spam or promotions folder.
-    polling: We check automatically every few seconds once you have verified.
+    polling: After verifying, this page continues automatically.
   categories:
     beauty: Beauty & personal care
     health: Health & wellness

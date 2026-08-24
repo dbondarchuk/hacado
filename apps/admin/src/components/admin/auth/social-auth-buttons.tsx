@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
+import { AUTH_ERROR_PATH } from "@/lib/auth/auth-error";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
 import { Badge, Button, cn, Spinner } from "@hacado/ui";
@@ -87,6 +88,7 @@ function SocialAuthButton({
       await authClient.signIn.social({
         provider,
         callbackURL,
+        errorCallbackURL: AUTH_ERROR_PATH,
         ...(invitationId ? { additionalData: { invitationId } } : undefined),
       });
     } finally {

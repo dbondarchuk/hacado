@@ -3,6 +3,7 @@ import {
   Email,
   EmailNotificationRequest,
   IServicesContainer,
+  TextMessage,
   TextMessageNotificationRequest,
 } from "@hacado/types";
 import { Job } from "bullmq";
@@ -47,7 +48,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     // Create text message worker
     const textMessageWorker = this.createWorker(
       this.config.queues.textMessage.name,
-      this.processTextMessageJob.bind(this),
+      this.processTextMessageJobs.bind(this),
       {
         concurrency: this.config.queues.textMessage.concurrency,
       },
@@ -72,6 +73,24 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         break;
       default:
         throw new Error("Invalid job type for notification processor");
+    }
+  }
+
+  private async processTextMessageJobs(
+    job: Job<NotificationJobData>,
+  ): Promise<void> {
+    const jobData = job.data;
+
+    switch (jobData.type) {
+      case "text-message":
+        await this.processTextMessageJob(job);
+        break;
+      case "system-text-message":
+        await this.processSystemTextMessageJob(job);
+        break;
+
+      default:
+        throw new Error("Invalid job type for text message processor");
     }
   }
 
@@ -225,6 +244,56 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
         },
         "Text message notification job failed",
       );
+      throw error; // Re-throw to trigger retry mechanism
+    }
+  }
+
+  private async processSystemTextMessageJob(
+    job: Job<NotificationJobData>,
+  ): Promise<void> {
+    const logger = this.loggerFactory("processSystemTextMessageJob");
+    const jobData = job.data;
+
+    if (jobData.type !== "system-text-message") {
+      throw new Error("Invalid job type for system text message processor");
+    }
+
+    const textMessage = jobData.data as TextMessage;
+    const notificationService = new SystemNotificationService(
+      createDefaultEmailService(this.getServices("").assetsStorage),
+      new TextBeltService(getTextBeltConfiguration()),
+    );
+
+    try {
+      logger.info(
+        {
+          jobId: job.id,
+          attempt: job.attemptsMade + 1,
+          maxAttempts: job.opts.attempts,
+          phone: textMessage.phone,
+          sender: textMessage.sender,
+          message: textMessage.message,
+        },
+        "Processing system text message notification job",
+      );
+
+      await notificationService.sendSystemTextMessage(textMessage);
+
+      logger.info(
+        { jobId: job.id },
+        "System text message notification job completed successfully",
+      );
+    } catch (error) {
+      logger.error(
+        {
+          error,
+          jobId: job.id,
+          attempt: job.attemptsMade + 1,
+          maxAttempts: job.opts.attempts,
+        },
+        "System text message notification job failed",
+      );
+
       throw error; // Re-throw to trigger retry mechanism
     }
   }

@@ -1,6 +1,7 @@
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
 import { polarClient } from "@polar-sh/better-auth/client";
 import {
+  emailOTPClient,
   inferAdditionalFields,
   lastLoginMethodClient,
   organizationClient,
@@ -17,5 +18,6 @@ export const authClient = createAuthClient({
     }),
     polarClient(),
     lastLoginMethodClient(),
+    emailOTPClient(),
   ],
 });

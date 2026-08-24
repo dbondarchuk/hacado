@@ -84,10 +84,10 @@ export function UserNav() {
           >
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-base font-medium leading-none">
+                <p className="text-base font-medium leading-none truncate">
                   {session.user?.name}
                 </p>
-                <p className="text-sm leading-none text-muted-foreground">
+                <p className="text-sm leading-none text-muted-foreground truncate">
                   {session.user?.email}
                 </p>
               </div>

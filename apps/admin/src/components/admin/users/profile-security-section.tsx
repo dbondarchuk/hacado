@@ -3,15 +3,17 @@
 import { authClient } from "@/app/auth-client";
 import { EmailChangeDialog } from "@/components/admin/users/email-change-dialog";
 import { PasswordChangeDialog } from "@/components/admin/users/password-change-dialog";
+import { PhoneChangeDialog } from "@/components/admin/users/phone-change-dialog";
 import { SetPasswordDialog } from "@/components/admin/users/set-password-dialog";
 import { UnlinkSocialDialog } from "@/components/admin/users/unlink-social-dialog";
+import { AUTH_ERROR_PATH } from "@/lib/auth/auth-error";
 import {
   isSocialAuthProvider,
   type SocialAuthProvider,
 } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
 import { Button, toast } from "@hacado/ui";
-import { Link2, Lock, Mail } from "lucide-react";
+import { Link2, Lock, Mail, Phone } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -53,13 +55,15 @@ const PROVIDER_SECURITY_KEYS: Record<SocialAuthProvider, ProviderSecurityKeys> =
     },
   };
 
-export function ProfileSecuritySection({
+export const ProfileSecuritySection = ({
   email,
+  phone,
   enabledSocialProviders = [],
 }: {
   email: string;
+  phone: string;
   enabledSocialProviders?: SocialAuthProvider[];
-}) {
+}) => {
   const t = useI18n("admin");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -133,6 +137,7 @@ export function ProfileSecuritySection({
       await authClient.linkSocial({
         provider,
         callbackURL: `/dashboard/users/me/profile?linked=${provider}`,
+        errorCallbackURL: AUTH_ERROR_PATH,
       });
     } finally {
       setLinkingProvider(null);
@@ -152,6 +157,21 @@ export function ProfileSecuritySection({
           </div>
         </div>
         <EmailChangeDialog currentEmail={email} />
+      </div>
+      <div className="h-px w-full bg-border" />
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
+            <Phone className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <p className="font-medium">{t("users.profile.security.phone")}</p>
+            <p className="text-base text-muted-foreground truncate">
+              {phone || "—"}
+            </p>
+          </div>
+        </div>
+        <PhoneChangeDialog currentPhone={phone || ""} />
       </div>
       <div className="h-px w-full bg-border" />
       <div className="flex items-center justify-between gap-4">
@@ -232,4 +252,4 @@ export function ProfileSecuritySection({
       ) : null}
     </>
   );
-}
+};

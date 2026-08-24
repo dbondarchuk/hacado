@@ -16,6 +16,9 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
   Link,
   Spinner,
   toast,
@@ -55,9 +58,10 @@ export const UserAuthForm = ({
   });
 
   const [error, setError] = useState<string | null>(null);
-  const [verificationSent, setVerificationSent] = useState(false);
-  const [verificationError, setVerificationError] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [otp, setOtp] = useState("");
   const [verificationLoading, setVerificationLoading] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
   const router = useRouter();
   const isEmailLastUsed = authClient.getLastUsedLoginMethod() === "email";
 
@@ -72,8 +76,11 @@ export const UserAuthForm = ({
       });
 
       if (response.error?.code === "EMAIL_NOT_VERIFIED") {
-        setVerificationError(true);
+        setNeedsVerification(true);
         setError(null);
+        setOtp("");
+        // Auto-send verification OTP
+        void sendVerificationOtp(data.email);
         return;
       }
 
@@ -89,26 +96,55 @@ export const UserAuthForm = ({
     }
   };
 
-  const onResendVerificationEmail = async () => {
-    setVerificationLoading(true);
-    setError(null);
-
+  const sendVerificationOtp = async (email: string) => {
+    setSendingOtp(true);
     try {
-      const response = await authClient.sendVerificationEmail({
-        email: form.getValues("email"),
-        callbackURL: "/auth/email/verified",
+      const response = await authClient.emailOtp.sendVerificationOtp({
+        email,
+        type: "email-verification",
       });
-
       if (response.error?.message) {
         throw new Error(response.error.message);
       }
-
-      setVerificationLoading(false);
-      setVerificationSent(true);
-
       toast.success(t("auth.verification.success"));
-    } catch (error: any) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      toast.error(t("auth.verification.error"));
+    } finally {
+      setSendingOtp(false);
+    }
+  };
+
+  const onVerifyEmail = async () => {
+    const email = form.getValues("email");
+    if (otp.length !== 6) {
+      toast.error(t("auth.verification.invalidCode"));
+      return;
+    }
+    setVerificationLoading(true);
+    try {
+      const response = await authClient.emailOtp.verifyEmail({
+        email,
+        otp,
+      });
+      if (response.error?.message) {
+        toast.error(t("auth.verification.invalidCode"));
+        return;
+      }
+      toast.success(t("auth.verification.verified"));
+      setNeedsVerification(false);
+      // Retry sign-in with stored password
+      const password = form.getValues("password");
+      const signIn = await authClient.signIn.email({
+        email,
+        password,
+        callbackURL: callbackUrl ?? "/dashboard",
+      });
+      if (signIn.data?.user) {
+        router.push(callbackUrl ?? "/dashboard");
+      }
+    } catch (err) {
+      console.error(err);
       toast.error(t("auth.verification.error"));
     } finally {
       setVerificationLoading(false);
@@ -156,7 +192,7 @@ export const UserAuthForm = ({
                   <Input
                     type="email"
                     placeholder={t("auth.email")}
-                    disabled={loading}
+                    disabled={loading || needsVerification}
                     {...field}
                   />
                 </FormControl>
@@ -175,7 +211,7 @@ export const UserAuthForm = ({
                   <Input
                     type="password"
                     placeholder={t("auth.password")}
-                    disabled={loading}
+                    disabled={loading || needsVerification}
                     {...field}
                   />
                 </FormControl>
@@ -184,19 +220,51 @@ export const UserAuthForm = ({
             )}
           />
 
-          {verificationError && (
-            <div className="flex flex-col gap-2">
+          {needsVerification && (
+            <div className="flex flex-col gap-3">
               <p className="text-base font-medium text-destructive">
                 {t("auth.verification.notVerified")}
               </p>
+              <div className="flex flex-col gap-2 w-full">
+                <FormLabel>{t("auth.verification.otpLabel")}</FormLabel>
+                <InputOTP
+                  maxLength={6}
+                  value={otp}
+                  onChange={setOtp}
+                  disabled={verificationLoading}
+                  containerClassName="justify-center"
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter") return;
+                    e.preventDefault();
+                    if (otp.length === 6 && !verificationLoading)
+                      void onVerifyEmail();
+                  }}
+                >
+                  <InputOTPGroup>
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <InputOTPSlot key={i} index={i} />
+                    ))}
+                  </InputOTPGroup>
+                </InputOTP>
+              </div>
               <Button
-                disabled={verificationLoading}
+                disabled={verificationLoading || otp.length !== 6}
                 className="ml-auto w-full"
                 type="button"
-                onClick={onResendVerificationEmail}
+                onClick={onVerifyEmail}
                 variant="primary"
               >
                 {verificationLoading && <Spinner />}
+                {t("auth.verification.verify")}
+              </Button>
+              <Button
+                disabled={sendingOtp || verificationLoading}
+                className="ml-auto w-full"
+                type="button"
+                onClick={() => sendVerificationOtp(form.getValues("email"))}
+                variant="outline"
+              >
+                {sendingOtp && <Spinner />}
                 {t("auth.verification.resendVerificationEmail")}
               </Button>
             </div>
@@ -208,15 +276,17 @@ export const UserAuthForm = ({
             </p>
           )}
 
-          <Button
-            disabled={loading}
-            className="ml-auto w-full"
-            type="submit"
-            variant="brand-dark"
-          >
-            {loading && <Spinner />}
-            {t("auth.signIn")}
-          </Button>
+          {!needsVerification && (
+            <Button
+              disabled={loading}
+              className="ml-auto w-full"
+              type="submit"
+              variant="brand-dark"
+            >
+              {loading && <Spinner />}
+              {t("auth.signIn")}
+            </Button>
+          )}
         </form>
       </Form>
 
