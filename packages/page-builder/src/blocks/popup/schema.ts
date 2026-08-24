@@ -94,12 +94,38 @@ export const PopupPropsDefaults = () =>
                     type: "InlineText",
                     data: {
                       props: { text: "Popup title" },
+                      style: {
+                        display: [
+                          {
+                            value: "inline-block",
+                          },
+                        ],
+                        width: [
+                          {
+                            value: { value: 100, unit: "%" },
+                          },
+                        ],
+                      },
                     },
                     id: generateId(),
                   },
                 ],
               },
-              style: {},
+              style: {
+                display: [
+                  {
+                    value: "block",
+                  },
+                ],
+                width: [
+                  {
+                    value: {
+                      value: 100,
+                      unit: "%",
+                    },
+                  },
+                ],
+              },
             },
             id: generateId(),
           },
@@ -174,12 +200,35 @@ export const PopupPropsDefaults = () =>
                     type: "InlineText",
                     data: {
                       props: { text: "Popup subtitle" },
+                      style: {
+                        display: [
+                          {
+                            value: "inline-block",
+                          },
+                        ],
+                        width: [
+                          {
+                            value: { value: 100, unit: "%" },
+                          },
+                        ],
+                      },
                     },
                     id: generateId(),
                   },
                 ],
               },
-              style: {},
+              style: {
+                display: [
+                  {
+                    value: "block",
+                  },
+                ],
+                width: [
+                  {
+                    value: { value: 100, unit: "%" },
+                  },
+                ],
+              },
             },
             id: generateId(),
           },
