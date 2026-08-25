@@ -126,7 +126,14 @@ export const PasswordChangeDialog = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              void form.handleSubmit(onSubmit)(event);
+            }}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="currentPassword"
@@ -190,21 +197,19 @@ export const PasswordChangeDialog = () => {
                 </FormItem>
               )}
             />
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  {t("common.buttons.close")}
+                </Button>
+              </DialogClose>
+              <Button type="submit" variant="primary" disabled={loading}>
+                {loading ? <Spinner /> : <Save />}{" "}
+                {t("users.profile.passwordChange.confirm")}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="secondary">{t("common.buttons.close")}</Button>
-          </DialogClose>
-          <Button
-            variant="primary"
-            onClick={form.handleSubmit(onSubmit)}
-            disabled={loading}
-          >
-            {loading ? <Spinner /> : <Save />}{" "}
-            {t("users.profile.passwordChange.confirm")}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

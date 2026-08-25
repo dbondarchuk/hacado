@@ -62,12 +62,17 @@ export async function PATCH(request: Request) {
     },
   );
 
-  const updatePayload = mayManageSources
-    ? data
-    : (() => {
-        const { calendarSources: _calendarSources, ...rest } = data;
-        return rest;
-      })();
+  const updatePayload = (() => {
+    const withoutPhone = mayManageSources
+      ? data
+      : (() => {
+          const { calendarSources: _calendarSources, ...rest } = data;
+          return rest;
+        })();
+    // Phone changes require OTP via updateMyPhone — ignore phone on generic PATCH
+    const { phone: _phone, ...rest } = withoutPhone;
+    return rest;
+  })();
 
   logger.debug({ data: updatePayload }, "Updating member profile fields");
   const actor = await getActor();

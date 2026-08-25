@@ -30,6 +30,7 @@ export async function ensureBillingOrganizationForUser(): Promise<string> {
       name: session.user.name,
       phone: (session.user as { phone?: string }).phone,
       language: (session.user as { language?: Language }).language,
+      image: session.user.image,
     });
     await setActiveOrganizationIfNeeded(existing, headersList);
     return existing;
@@ -56,6 +57,7 @@ export async function ensureBillingOrganizationForUser(): Promise<string> {
     name: session.user.name,
     phone: (session.user as { phone?: string }).phone,
     language: (session.user as { language?: Language }).language,
+    image: session.user.image,
   });
 
   await setActiveOrganizationIfNeeded(orgId, headersList);
@@ -108,19 +110,21 @@ async function ensureOwnerMemberForOrganization(
     name?: string;
     phone?: string;
     language?: Language;
+    image?: string | null;
   },
 ): Promise<void> {
   const db = await getDbConnection();
   const authUser = await db
     .collection<User>("users")
-    .findOne({ _id: userId }, { projection: { email: 1 } });
-  const email = (authUser as { email?: string } | null)?.email?.toLowerCase();
+    .findOne({ _id: userId }, { projection: { email: 1, image: 1 } });
+  const email = authUser?.email?.toLowerCase();
   const pending = await takePendingMemberProfile(userId, email);
   const profile = {
     name: pending?.name || fallbackProfile?.name || "",
     phone: pending?.phone || fallbackProfile?.phone || "",
     language: pending?.language || fallbackProfile?.language || "en",
     email: email || "",
+    image: fallbackProfile?.image || authUser?.image || null,
   };
 
   const existing = await db
@@ -134,6 +138,7 @@ async function ensureOwnerMemberForOrganization(
     if (!existing.language && profile.language)
       $set.language = profile.language;
     if (!existing.email && profile.email) $set.email = profile.email;
+    if (!existing.image && profile.image) $set.image = profile.image;
     if (Object.keys($set).length) {
       await db
         .collection(MEMBERS_COLLECTION_NAME)
@@ -154,6 +159,7 @@ async function ensureOwnerMemberForOrganization(
     name: profile.name,
     phone: profile.phone,
     language: profile.language,
+    image: profile.image,
     bio: null,
     calendarSources: [],
   } as any);

@@ -13,6 +13,18 @@ export type EmailTemplate = {
     subject: string;
     body: UserEmailTemplateProps;
   };
+  emailOtpVerification: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
+  emailOtpPasswordReset: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
+  emailOtpChangeEmail: {
+    subject: string;
+    body: UserEmailTemplateProps;
+  };
   teamInvitation: {
     subject: string;
     body: UserEmailTemplateProps;

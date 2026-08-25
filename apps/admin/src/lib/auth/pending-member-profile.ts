@@ -11,6 +11,8 @@ export type ResolvedMemberProfileFields = {
   name: string;
   phone: string;
   language: Language;
+  /** Copied from social/OAuth user avatar when the member row is created. */
+  image: string | null;
 };
 
 async function setPendingMemberProfile(
@@ -93,8 +95,18 @@ export async function takePendingMemberProfile(
  * on the organization member row.
  */
 export async function resolveMemberProfileFields(
-  user: { id: string; email: string; name?: string | null },
-  member?: { name?: string; phone?: string; language?: Language },
+  user: {
+    id: string;
+    email: string;
+    name?: string | null;
+    image?: string | null;
+  },
+  member?: {
+    name?: string;
+    phone?: string;
+    language?: Language;
+    image?: string | null;
+  },
 ): Promise<ResolvedMemberProfileFields> {
   const pending = await takePendingMemberProfile(user.id, user.email);
   return {
@@ -103,5 +115,6 @@ export async function resolveMemberProfileFields(
     name: pending?.name || member?.name || user.name || "",
     phone: pending?.phone || member?.phone || "",
     language: pending?.language || member?.language || "en",
+    image: member?.image || user.image || null,
   };
 }

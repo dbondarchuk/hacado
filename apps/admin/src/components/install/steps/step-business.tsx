@@ -143,9 +143,17 @@ export function StepBusiness() {
           <Label>{t("wizard.business.name")}</Label>
           <Input
             value={p.businessName}
-            onChange={(e) =>
-              setP((prev) => ({ ...prev, businessName: e.target.value }))
-            }
+            onChange={(e) => {
+              const businessName = e.target.value;
+              const derivedSlug = normalizeSlug(businessName);
+              const slugStillSynced =
+                !p.slug || p.slug === normalizeSlug(p.businessName);
+              const slug = slugStillSynced ? derivedSlug : p.slug;
+              setP((prev) => ({ ...prev, businessName, slug }));
+              if (slugStillSynced) {
+                wrappedScheduleSlugCheck(slug);
+              }
+            }}
             placeholder={t("wizard.business.namePlaceholder")}
           />
         </div>

@@ -17,7 +17,11 @@ import {
   getServiceTemplate,
   INSTALL_CATALOG_DATA,
 } from "./catalog";
-import { emptyPersisted, newInstallServiceClientId } from "./constants";
+import {
+  emptyPersisted,
+  newInstallServiceClientId,
+  normalizeSlug,
+} from "./constants";
 import { getDefaultInstallSchedule } from "./default-schedule";
 import type {
   InstallPreferencesServerState,
@@ -312,6 +316,12 @@ export function sanitizePersisted(
     );
   } else {
     merged.installSchedule = getDefaultInstallSchedule();
+  }
+
+  // Preloaded org name (e.g. billing placeholder "Default") with no real slug yet.
+  // Keep an existing saved slug from localStorage / server as-is.
+  if (merged.businessName && !merged.slug) {
+    merged.slug = normalizeSlug(merged.businessName);
   }
 
   return merged;

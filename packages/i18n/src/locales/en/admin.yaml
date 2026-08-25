@@ -3376,38 +3376,122 @@ auth:
   quote: I love it!
   quoteAuthor: Olesia Bondarchuk
   forgotPasswordLink: "<link>Forgot your password?</link>"
+  social:
+    continueWithGoogle: Continue with Google
+    continueWithMicrosoft: Continue with Microsoft
+    continueWithZoom: Continue with Zoom
+    orContinueWithEmail: Or continue with email
+    lastUsed: Last used
+    errors:
+      emailMismatch: Social account email does not match your account email
+      linkFailed: Could not link social account
+      regionBlocked: Sign up is not available in your region
+  error:
+    title: Something went wrong
+    description: We could not complete the sign-in request
+    genericDescription: There was a problem with authentication. Please try again.
+    backToSignIn: Back to sign in
+    backToSignUp: Back to sign up
+    backToProfile: Back to profile
+    codes:
+      accountAlreadyLinked:
+        This social account is already connected to a different user. Sign in
+        with that account, or unlink it there first.
+      unableToLink: Could not link this social account. Please try again.
+      emailMismatch: Social account email does not match your account email
+      emailNotVerified: Please verify your email before continuing
+      emailNotFound: The social provider did not return an email address
+      signupDisabled: Sign up is not available right now
+      userAlreadyExists: An account with this email already exists. Please sign in instead.
+      accessDenied: Access was denied by the social provider
+      stateMismatch: The sign-in session expired. Please try again.
+      providerError: Could not get account details from the social provider
+      invalidToken: Invalid or expired authentication token
+  completeProfile:
+    title: Complete your profile
+    description: Add your name and phone number to finish setting up your account
+    submit: Continue
+    progress:
+      steps:
+        profile: About you
+        phone: Phone
+        phoneOtp: Verify phone
+    toasts:
+      success: Profile saved
+      error: Could not save profile. Please try again.
   captcha:
     error: Captcha verification failed. Please try again.
   verification:
     notVerified:
-      Your email has not been verified. Please check your email for a verification
-      link.
-    resendVerificationEmail: Resend verification email
-    success: Verification email sent. Please check your email for a verification link.
+      Your email has not been verified. Enter the code we sent to your email.
+    resendVerificationEmail: Resend code
+    sendCode: Send verification code
+    verify: Verify email
+    otpLabel: Verification code
+    otpSent: We sent a verification code to your email.
+    success: Verification code sent. Please check your email.
     error: There was a problem with your request. Please try again.
-    invalidToken: Invalid token. Please request a new verification email.
+    invalidToken: Invalid or expired code. Please request a new one.
+    invalidCode: Invalid verification code
     verified: Your email has been verified. You can now sign in to your account.
+  phoneOtp:
+    title: Verify your phone
+    description: Enter the code we sent to your phone
+    sendCode: Send code
+    resendCode: Resend code
+    verify: Verify
+    otpLabel: Verification code
+    cooldown: Resend in {seconds}s
+    smsBody: Your Hacado verification code is {otp}. Valid for 5 minutes. Do not share this code.
+    errors:
+      phoneInUse: This phone number is already in use
+      rateLimited: Too many requests. Please try again later.
+      cooldown: Please wait before requesting another code
+      invalidCode: Invalid verification code
+      expired: Code expired. Please request a new one.
+      tooManyAttempts: Too many attempts. Please request a new code.
+      smsFailed: Could not send SMS. Please try again.
+      notVerified: Phone number has not been verified
+      invalidPhone: Invalid phone number
+  emailOtp:
+    title: Verify your email
+    description: Enter the code we sent to your email
+    otpLabel: Verification code
+    sendCode: Send code
+    resendCode: Resend code
+    verify: Verify
+    errors:
+      invalidCode: Invalid verification code
+      tooManyAttempts: Too many attempts. Please request a new code.
+      error: There was a problem with your request. Please try again.
   forgotPassword:
     title: Forgot password
-    description: Enter your email below to reset your password
+    description: Enter your email to receive a reset code
     email: Email
     emailPlaceholder: Your email
-    submit: Submit
+    submit: Send code
     error: There was a problem with your request. Please try again.
-    success:
-      Password reset email sent. Please check your email for a password reset
-      link.
+    success: If an account exists for this email, a reset code has been sent.
     rememberPassword: Remember your password? <link>Sign in</link>
+    progress:
+      steps:
+        email: Email
+        otp: Verify email
+        password: New password
   resetPassword:
     title: Reset password
-    description: Enter your new password below to reset your password
+    description: Enter the code from your email and choose a new password
+    email: Email
+    emailPlaceholder: Your email
+    otpLabel: Reset code
     password: New password
     passwordPlaceholder: Your new password
     confirmPassword: Confirm password
     confirmPasswordPlaceholder: Confirm your new password
-    submit: Submit
+    submit: Reset password
     error: There was a problem with your request. Please try again.
     success: Password reset successfully. You can now sign in to your account.
+    invalidCode: Invalid or expired code
   signUp:
     title: Sign up
     description: Create an account to get started
@@ -3424,6 +3508,16 @@ auth:
     confirmPassword: Confirm password
     confirmPasswordPlaceholder: Confirm your password
     submit: Sign up
+    continue: Continue
+    back: Back
+    progress:
+      stepOf: Step {step} of {total}
+      steps:
+        profile: About you
+        credentials: Account
+        emailOtp: Verify email
+        phone: Phone
+        phoneOtp: Verify phone
     regionBlocked:
       title: Sign up is not available in your region
       description:
@@ -3432,8 +3526,9 @@ auth:
       toast: Sign up is not available in your region
     toasts:
       success:
-        We sent you an email with a verification link. Please check your email
-        and click the link to verify your account.
+        We sent a verification code to your email. Please check your email
+        and enter the code to verify your account.
+      accountReady: Your account is ready. Continuing…
       error: There was a problem with your request. Please try again.
       userAlreadyExists:
         A user with this email already exists. Please use another
@@ -3878,27 +3973,107 @@ users:
       title: Account & security
       email: Email address
       changeEmail: Change email
+      phone: Phone number
+      changePhone: Change phone
       password: Password
       passwordDescription: Update your password you use for your account
       changePassword: Change password
+      setPassword: Set password
+      setPasswordDescription: Add a password so you can sign in with email
+      connectedAccounts: Connected accounts
+      connectGoogle: Connect Google
+      googleConnected: Google is connected
+      googleNotConnected: Google is not connected
+      unlinkGoogle: Unlink Google
+      linkGoogleSuccess: Google account linked successfully
+      unlinkGoogleSuccess: Google account unlinked
+      unlinkGoogleError: Could not unlink Google account
+      connectMicrosoft: Connect Microsoft
+      microsoftConnected: Microsoft is connected
+      microsoftNotConnected: Microsoft is not connected
+      unlinkMicrosoft: Unlink Microsoft
+      linkMicrosoftSuccess: Microsoft account linked successfully
+      unlinkMicrosoftSuccess: Microsoft account unlinked
+      unlinkMicrosoftError: Could not unlink Microsoft account
+      connectZoom: Connect Zoom
+      zoomConnected: Zoom is connected
+      zoomNotConnected: Zoom is not connected
+      unlinkZoom: Unlink Zoom
+      linkZoomSuccess: Zoom account linked successfully
+      unlinkZoomSuccess: Zoom account unlinked
+      unlinkZoomError: Could not unlink Zoom account
+    unlinkGoogle:
+      title: Unlink Google
+      description: Enter your password to confirm unlinking your Google account
+      form:
+        password: Password
+      confirm: Unlink Google
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkMicrosoft:
+      title: Unlink Microsoft
+      description: Enter your password to confirm unlinking your Microsoft account
+      form:
+        password: Password
+      confirm: Unlink Microsoft
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkZoom:
+      title: Unlink Zoom
+      description: Enter your password to confirm unlinking your Zoom account
+      form:
+        password: Password
+      confirm: Unlink Zoom
+      toasts:
+        invalidPassword: Password is incorrect
+      validation:
+        password:
+          required: Password is required
+    unlinkSocial:
+      validation:
+        password:
+          required: Password is required
     emailChange:
       title: Change email
-      description: Update your email address to use for your account
+      description: Verify with a code sent to your email to update your address
       form:
-        email: Email
+        email: New email
         emailPlaceholder: Enter your new email
-        helpText: You are currently using {currentEmail} email address
-      confirm: Confirm
+        helpText: You are currently using {currentEmail}
+        currentOtp: Code sent to your current email
+        newOtp: Code sent to your new email
+      sendCurrentCode: Send code to current email
+      sendNewCode: Send code to new email
+      confirm: Change email
       toasts:
-        emailSent:
-          An email verification link has been sent to your current email
-          address. Please check your email and click the link to confirm the change.
-        emailChangedSuccessfully:
-          Your email address has been changed successfully.
-          You will receive a new email verification link to your new email address.
+        currentCodeSent: Check your current email for a verification code
+        newCodeSent: Check your new email for a verification code
+        emailChangedSuccessfully: Your email address has been changed successfully
         error: There was a problem with your request. Please try again.
         emailAlreadyInUse: The email address is already in use
         emailIsTheSame: The email address is the same as the current email address
+        invalidCode: Invalid verification code
+    phoneChange:
+      title: Change phone
+      description: Enter your new phone number and verify with an SMS code
+      form:
+        phone: New phone number
+        otp: Verification code
+        helpText: You are currently using {currentPhone}
+      sendCode: Send code
+      confirm: Change phone
+      toasts:
+        codeSent: We sent a verification code to your phone
+        success: Your phone number has been updated
+        error: There was a problem with your request. Please try again.
+        phoneInUse: This phone number is already in use
+        invalidCode: Invalid verification code
     passwordChange:
       title: Change password
       description: Update your password to use for your account
@@ -3923,6 +4098,24 @@ users:
           maxLength: New password must be no more than 128 characters long
         confirmPassword:
           required: Confirm password does not match new password
+    setPassword:
+      title: Set password
+      submit: Save password
+      form:
+        newPassword: New password
+        confirmPassword: Confirm password
+      toasts:
+        success: Password set successfully
+        error: Could not set password. Please try again.
+        credentialExists: You already have a password set
+      validation:
+        newPassword:
+          required: New password is required
+          minLength: New password must be at least 8 characters long
+          maxLength: New password must be no more than 128 characters long
+        confirmPassword:
+          required: Confirm password is required
+          mismatch: Passwords do not match
     toasts:
       changesSaved: Profile changes were saved
       requestError: Failed to save profile changes

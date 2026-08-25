@@ -1,15 +1,8 @@
+import { assertPublicSignupAllowed } from "@/lib/auth/assert-public-signup-allowed";
 import { getMemberLanguageForUser } from "@/lib/auth/member-language";
-import { hasPendingInvitationForEmail } from "@/lib/auth/pending-invitation";
 import { resolveMemberProfileFields } from "@/lib/auth/pending-member-profile";
 import { teamAc, teamOrganizationRoles } from "@/lib/auth/permissions";
-import {
-  getSignupEmailBlockReason,
-  isSignupEmailBlockingEnabled,
-} from "@/lib/auth/signup-email";
-import {
-  isPublicSignupAllowedFromHeaders,
-  isSignupGeoBlockingEnabled,
-} from "@/lib/auth/signup-geo";
+import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { persistPolarSubscriptionToOrganization } from "@/lib/billing/persist-polar-subscription";
 import {
   applyPolarOrderPaidToSmsBalances,
@@ -17,7 +10,6 @@ import {
 } from "@/lib/billing/polar-order-paid";
 import { sendEmail } from "@/utils/email/send-email";
 import { languages, type Language } from "@hacado/i18n";
-import { getLoggerFactory } from "@hacado/logger";
 import {
   getPolarClient,
   getRedisClient,
@@ -29,7 +21,10 @@ import {
   resolveAvailableUsers,
   resolvePlanTierFromOrganization,
 } from "@hacado/services/billing";
-import { MEMBERS_COLLECTION_NAME } from "@hacado/services/collections";
+import {
+  MEMBERS_COLLECTION_NAME,
+  USERS_COLLECTION_NAME,
+} from "@hacado/services/collections";
 import {
   getDbConnection,
   getDbConnectionSync,
@@ -38,6 +33,7 @@ import {
   memberEventSource,
   OrganizationSubscriptionStatus,
   systemEventSource,
+  type User as AuthUser,
   type Organization as OrganizationDbModel,
   type OrganizationMember,
   type SessionUser,
@@ -48,7 +44,13 @@ import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError, createAuthMiddleware } from "better-auth/api";
-import { captcha, customSession, organization } from "better-auth/plugins";
+import {
+  captcha,
+  customSession,
+  emailOTP,
+  lastLoginMethod,
+  organization,
+} from "better-auth/plugins";
 import { ObjectId } from "mongodb";
 import { ApiError } from "next/dist/server/api-utils";
 
@@ -101,6 +103,45 @@ const memberProfileAdditionalFields = {
     input: false,
   },
 };
+
+function buildSocialProviders() {
+  const providers: Record<string, Record<string, unknown>> = {};
+
+  if (
+    process.env.GOOGLE_AUTH_CLIENT_ID &&
+    process.env.GOOGLE_AUTH_CLIENT_SECRET
+  ) {
+    providers.google = {
+      clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+      scope: ["email", "profile"],
+    };
+  }
+
+  if (
+    process.env.MICROSOFT_AUTH_CLIENT_ID &&
+    process.env.MICROSOFT_AUTH_CLIENT_SECRET
+  ) {
+    providers.microsoft = {
+      clientId: process.env.MICROSOFT_AUTH_CLIENT_ID,
+      clientSecret: process.env.MICROSOFT_AUTH_CLIENT_SECRET,
+      tenantId: process.env.MICROSOFT_AUTH_TENANT_ID ?? "common",
+      prompt: "select_account",
+    };
+  }
+
+  if (process.env.ZOOM_AUTH_CLIENT_ID && process.env.ZOOM_AUTH_CLIENT_SECRET) {
+    providers.zoom = {
+      clientId: process.env.ZOOM_AUTH_CLIENT_ID,
+      clientSecret: process.env.ZOOM_AUTH_CLIENT_SECRET,
+    };
+  }
+
+  return providers;
+}
+
+const socialProviders = buildSocialProviders();
+const trustedSocialProviders = getEnabledSocialAuthProviders();
 
 export const auth = betterAuth({
   trustedOrigins: async (request) => {
@@ -156,64 +197,26 @@ export const auth = betterAuth({
       ipAddressHeaders: ["x-forwarded-for", "x-real-ip"],
     },
   },
+  onAPIError: {
+    errorURL: "/auth/error",
+  },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       if (ctx.path !== "/sign-up/email") return;
 
       const email = typeof ctx.body?.email === "string" ? ctx.body.email : "";
-      const emailLogger = getLoggerFactory("SignupEmail")("signUpEmail");
-      const geoLogger = getLoggerFactory("SignupGeo")("signUpEmail");
-
-      emailLogger.debug({ path: ctx.path }, "Signup request received");
-
-      if (email && (await hasPendingInvitationForEmail(email))) {
-        emailLogger.info(
-          { email },
-          "Signup allowed: pending invitation for email, skipping email and region checks",
-        );
-        return;
-      }
-
-      if (isSignupEmailBlockingEnabled()) {
-        const reason = getSignupEmailBlockReason(email);
-        if (reason) {
-          emailLogger.warn(
-            { email, reason },
-            "Signup rejected: SIGNUP_EMAIL_BLOCKED",
-          );
-          throw new APIError("FORBIDDEN", {
-            message: "We cannot accept this email address",
-            code: "SIGNUP_EMAIL_BLOCKED",
-          });
-        }
-      } else {
-        emailLogger.debug({ path: ctx.path }, "Signup email blocking disabled");
-      }
-
-      if (!isSignupGeoBlockingEnabled()) {
-        geoLogger.debug({ path: ctx.path }, "Signup geo blocking disabled");
-        return;
-      }
-
-      const requestHeaders = ctx.headers ?? new Headers();
-      const allowed = isPublicSignupAllowedFromHeaders(
-        requestHeaders,
-        "sign-up/email",
-      );
-
-      if (!allowed) {
-        geoLogger.warn({ email }, "Signup rejected: SIGNUP_REGION_BLOCKED");
-        throw new APIError("FORBIDDEN", {
-          message: "Sign-up is not available in your region",
-          code: "SIGNUP_REGION_BLOCKED",
-        });
-      }
+      await assertPublicSignupAllowed({
+        email,
+        headers: ctx.headers ?? new Headers(),
+        logContext: "sign-up/email",
+      });
     }),
   },
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
     requireEmailVerification: true,
+    // Link-based reset kept as fallback; primary UX uses emailOTP.requestPasswordReset
     sendResetPassword: async ({ user, url, token }) => {
       const language = await getMemberLanguageForUser(user.id);
       await sendEmail("resetPassword", user.email, language, {
@@ -224,20 +227,18 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
-    sendVerificationEmail: async ({ user, url, token }) => {
-      const language = await getMemberLanguageForUser(user.id);
-      await sendEmail("emailVerification", user.email, language, {
-        url,
-        token,
-        name: user.name,
-      });
-    },
+    // Multi-step signup sends OTP from the email-OTP step only.
+    // Explicit false wins over requireEmailVerification (??), so sign-up
+    // does not also fire sendVerificationEmail / OTP.
+    sendOnSignUp: false,
+    sendVerificationEmail: async () => {},
     autoSignInAfterVerification: true,
-    expiresIn: 60 * 60 * 24, // 24 hours
+    expiresIn: 60 * 5,
   },
   user: {
     changeEmail: {
       enabled: true,
+      // Link-based change kept as fallback; primary UX uses emailOTP change-email flow
       sendChangeEmailConfirmation: async ({ user, newEmail, url, token }) => {
         const language = await getMemberLanguageForUser(user.id);
         await sendEmail("changeEmail", user.email, language, {
@@ -249,8 +250,34 @@ export const auth = betterAuth({
       },
     },
   },
+  ...(Object.keys(socialProviders).length > 0 ? { socialProviders } : {}),
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: trustedSocialProviders,
+      // allowDifferentEmails: false,
+      allowDifferentEmails: true,
+    },
+  },
   databaseHooks: {
     user: {
+      create: {
+        before: async (user, ctx) => {
+          const email = typeof user.email === "string" ? user.email : "";
+          if (!email || !ctx) return;
+
+          const path = typeof ctx.path === "string" ? ctx.path : "";
+          const isOAuthSignup =
+            path.includes("/callback/") || path.includes("/oauth2/callback/");
+          if (!isOAuthSignup && path !== "/sign-up/email") return;
+
+          await assertPublicSignupAllowed({
+            email,
+            headers: ctx.headers ?? new Headers(),
+            logContext: isOAuthSignup ? "oauth-sign-up" : "sign-up/email",
+          });
+        },
+      },
       update: {
         after: async (user) => {
           if (!user.email || !user.id) return;
@@ -271,10 +298,47 @@ export const auth = betterAuth({
           captcha({
             provider: "cloudflare-turnstile",
             secretKey: process.env.TURNSTILE_SECRET_KEY!,
-            endpoints: ["/sign-up/email", "/request-password-reset"],
+            endpoints: [
+              "/sign-up/email",
+              "/request-password-reset",
+              "/email-otp/request-password-reset",
+            ],
           }),
         ]
       : []),
+    emailOTP({
+      otpLength: 6,
+      expiresIn: 300,
+      allowedAttempts: 5,
+      // Prefer client-controlled send on the email-OTP signup step so we never
+      // race a link-based sendVerificationEmail. Override still routes any
+      // internal verification triggers through OTP.
+      overrideDefaultEmailVerification: true,
+      sendVerificationOnSignUp: false,
+      changeEmail: {
+        enabled: true,
+        verifyCurrentEmail: true,
+      },
+      async sendVerificationOTP({ email, otp, type }) {
+        const db = await getDbConnection();
+        const user = await db
+          .collection<AuthUser>(USERS_COLLECTION_NAME)
+          .findOne({ email: email.toLowerCase() });
+
+        const userId = user?._id ? String(user._id) : undefined;
+        const language = userId
+          ? await getMemberLanguageForUser(userId)
+          : ("en" as Language);
+        const name = user?.name || email;
+        const template =
+          type === "forget-password"
+            ? "emailOtpPasswordReset"
+            : type === "change-email"
+              ? "emailOtpChangeEmail"
+              : "emailOtpVerification";
+        await sendEmail(template, email, language, { otp, name });
+      },
+    }),
     organization({
       organizationLimit: 1,
       ac: teamAc,
@@ -314,6 +378,7 @@ export const auth = betterAuth({
             name: (member as { name?: string }).name,
             phone: (member as { phone?: string }).phone,
             language: (member as { language?: Language }).language,
+            image: (member as { image?: string | null }).image,
           });
           return {
             data: {
@@ -331,6 +396,7 @@ export const auth = betterAuth({
             name: (member as { name?: string }).name,
             phone: (member as { phone?: string }).phone,
             language: (member as { language?: Language }).language,
+            image: (member as { image?: string | null }).image,
           });
           const db = await getDbConnection();
           await db.collection(MEMBERS_COLLECTION_NAME).updateOne(
@@ -625,6 +691,7 @@ export const auth = betterAuth({
         } as SessionUser,
       };
     }),
+    lastLoginMethod(),
   ],
 });
 

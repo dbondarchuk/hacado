@@ -22,6 +22,9 @@ export type EmailContentBlock =
       type: "title";
       text: string;
       level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+      align?: "left" | "center" | "right";
+      backgroundColor?: string;
+      textColor?: string;
     }
   | {
       type: "image";
@@ -166,6 +169,8 @@ export function buildEmailContentBlock(
               right: 24,
               left: 24,
             },
+            backgroundColor: block.backgroundColor,
+            color: block.textColor,
           },
         },
       };

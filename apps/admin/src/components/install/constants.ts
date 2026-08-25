@@ -44,7 +44,7 @@ export function emptyPersisted(
   >,
 ): PersistedState {
   return {
-    step: "verify",
+    step: 1,
     businessName: "",
     address: "",
     slug: "",

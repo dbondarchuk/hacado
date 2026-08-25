@@ -2,7 +2,10 @@ import { AllKeys, I18nNamespaces } from "@hacado/i18n";
 import { Email } from "../apps/mail";
 import { DashboardNotification } from "../apps/notifications/dashboard";
 import { TextMessageData } from "../apps/text-message";
-import { TextMessageResponse } from "../apps/text-message/text-message-sender";
+import {
+  TextMessage,
+  TextMessageResponse,
+} from "../apps/text-message/text-message-sender";
 import { CommunicationParticipantType } from "../communication";
 
 export type EmailNotificationRequest<
@@ -68,6 +71,7 @@ export interface INotificationService {
 
 export interface ISystemNotificationService {
   sendSystemEmail(email: Email): Promise<void>;
+  sendSystemTextMessage(text: TextMessage): Promise<void>;
 }
 
 export interface IDashboardNotificationsService {

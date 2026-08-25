@@ -5,6 +5,8 @@ import {
   POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS,
   POLAR_CHECKOUT_PLAN_INCLUDES_LOWER_TIER,
 } from "@/config/polar-billing";
+import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
+import { userRequiresProfileCompletion } from "@/lib/auth/requires-profile-completion";
 import { ensureBillingOrganizationForUser } from "@/lib/billing/ensure-billing-org";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
 import { getI18nAsync } from "@hacado/i18n/server";
@@ -63,6 +65,10 @@ export default async function CheckoutPage() {
   );
   if (organizationInstalled) {
     redirect("/dashboard");
+  }
+
+  if (await userRequiresProfileCompletion(session.user)) {
+    redirect(buildCompleteProfileCallbackUrl("/checkout"));
   }
 
   const emailVerified = Boolean(
