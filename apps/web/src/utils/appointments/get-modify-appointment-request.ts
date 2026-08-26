@@ -9,6 +9,7 @@ import {
   MAX_RESCHEDULES_REACHED_REASON,
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
+  ONLINE_PAYMENT_UNAVAILABLE_REASON,
   RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON,
   RESCHEDULE_NOT_ALLOWED_REASON,
   RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON,
@@ -16,7 +17,7 @@ import {
 import { formatAmount, getPolicyForRequest } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { applyGiftCards } from "../gift-cards/apply";
-import { getServicesContainer } from "../utils";
+import { getServicesContainer, sessionCanUseFeature } from "../utils";
 
 async function resolveAppointmentForModify(
   session: CustomerSession,
@@ -140,8 +141,17 @@ export const getModifyAppointmentInformationRequestResult = async (
 
   logger.debug({ request }, "Appointment found");
 
-  const config =
-    await servicesContainer.configurationService.getConfiguration("booking");
+  const [{ booking: config, defaultApps }, canUsePayments] = await Promise.all([
+    servicesContainer.configurationService.getConfigurations(
+      "booking",
+      "defaultApps",
+    ),
+    sessionCanUseFeature("payments"),
+  ]);
+
+  const canCollectOnlinePayment = Boolean(
+    canUsePayments && config.payments?.enabled && defaultApps?.paymentAppId,
+  );
 
   const option = await servicesContainer.servicesService.getOption(
     appointment.option._id,
@@ -158,6 +168,15 @@ export const getModifyAppointmentInformationRequestResult = async (
     duration: appointment.totalDuration,
     price: appointment.totalPrice,
   };
+
+  const onlinePaymentUnavailable = () => ({
+    information: {
+      ...appointmentInformation,
+      allowed: false as const,
+      reason: ONLINE_PAYMENT_UNAVAILABLE_REASON,
+    },
+    customerId: appointment.customerId,
+  });
 
   if (request.type === "cancel") {
     const hasDeposit = appointment.payments?.some(
@@ -338,7 +357,11 @@ export const getModifyAppointmentInformationRequestResult = async (
         paymentAmount,
         request.giftCards,
       );
+
       if ("error" in giftCardResult) return giftCardResult;
+      if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
+        return onlinePaymentUnavailable();
+      }
 
       return {
         information: {
@@ -362,6 +385,9 @@ export const getModifyAppointmentInformationRequestResult = async (
           request.giftCards,
         );
         if ("error" in giftCardResult) return giftCardResult;
+        if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
+          return onlinePaymentUnavailable();
+        }
 
         return {
           information: {
@@ -403,6 +429,10 @@ export const getModifyAppointmentInformationRequestResult = async (
         request.giftCards,
       );
       if ("error" in giftCardResult) return giftCardResult;
+
+      if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
+        return onlinePaymentUnavailable();
+      }
 
       return {
         information: {
@@ -522,7 +552,11 @@ export const getModifyAppointmentInformationRequestResult = async (
           policy.paymentAmount,
           request.giftCards,
         );
+
         if ("error" in giftCardResult) return giftCardResult;
+        if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
+          return onlinePaymentUnavailable();
+        }
 
         return {
           information: {
@@ -563,7 +597,11 @@ export const getModifyAppointmentInformationRequestResult = async (
         paymentAmount,
         request.giftCards,
       );
+
       if ("error" in giftCardResult) return giftCardResult;
+      if (giftCardResult.paymentAmount > 0 && !canCollectOnlinePayment) {
+        return onlinePaymentUnavailable();
+      }
 
       return {
         information: {

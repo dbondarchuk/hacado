@@ -205,6 +205,12 @@ export const AppointmentOptionCard: React.FC = () => {
 
     setIsLoading(true);
     setCurrentStep("calendar");
+    clientApi.booking.trackAdvanceFromUiStep("option", {
+      optionId: option._id,
+      memberId: memberId ?? undefined,
+      duration: nextDuration,
+    });
+
     try {
       await fetchAvailability(memberId, nextDuration);
     } finally {

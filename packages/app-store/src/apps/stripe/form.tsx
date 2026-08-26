@@ -26,12 +26,14 @@ import {
 function StripePayButton({
   intentId,
   appId,
+  intentAmount,
   onSuccess,
   label,
   disabled,
 }: {
   intentId: string;
   appId: string;
+  intentAmount: number;
   onSuccess: () => void;
   label: string;
   disabled: boolean;
@@ -60,6 +62,7 @@ function StripePayButton({
       redirect: "if_required",
     });
     if (error) {
+      clientApi.booking.trackPaymentFailed(intentAmount);
       setIsPaying(false);
       return;
     }
@@ -76,9 +79,11 @@ function StripePayButton({
       if (!data?.success) {
         throw new Error(data?.error ?? "payment_failed");
       }
+      clientApi.booking.trackPaymentSucceeded(intentAmount);
       onSuccess();
     } catch (e) {
       console.error(e);
+      clientApi.booking.trackPaymentFailed(intentAmount);
       setIsPaying(false);
       return;
     }
@@ -163,7 +168,13 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
       return;
     }
     const p = new URLSearchParams(window.location.search);
-    if (p.get("redirect_status") !== "succeeded") {
+    const redirectStatus = p.get("redirect_status");
+    if (redirectStatus === "failed") {
+      returnFrom3dsRef.current = true;
+      clientApi.booking.trackPaymentFailed(intent.amount);
+      return;
+    }
+    if (redirectStatus !== "succeeded") {
       return;
     }
     if (!p.get("payment_intent") || !intent._id) {
@@ -181,13 +192,18 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
           body: { paymentIntentId: intent._id },
         });
         if (data?.success) {
+          clientApi.booking.trackPaymentSucceeded(intent.amount);
           onSubmit();
           const url = new URL(window.location.href);
           url.search = "";
           window.history.replaceState({}, "", url.toString());
+        } else {
+          clientApi.booking.trackPaymentFailed(intent.amount);
+          returnFrom3dsRef.current = false;
         }
       } catch (e) {
         console.error(e);
+        clientApi.booking.trackPaymentFailed(intent.amount);
         returnFrom3dsRef.current = false;
       }
     })();
@@ -247,6 +263,7 @@ export const StripeForm: React.FC<PaymentAppFormProps<StripeFormProps>> = ({
           <StripePayButton
             intentId={intent._id}
             appId={intent.appId}
+            intentAmount={intent.amount}
             label={t("form.payButton")}
             disabled={!clientSecret}
             onSuccess={onSubmit}

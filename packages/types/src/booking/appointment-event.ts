@@ -235,6 +235,7 @@ export const RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON =
   "reschedule_not_allowed_by_policy";
 export const RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON =
   "rescheduled_appointment_not_allowed";
+export const ONLINE_PAYMENT_UNAVAILABLE_REASON = "online_payment_unavailable";
 
 export type ModifyAppointmentReason = Extandable<
   | typeof MAX_RESCHEDULES_REACHED_REASON
@@ -246,6 +247,7 @@ export type ModifyAppointmentReason = Extandable<
   | typeof CANCELLATION_NOT_ALLOWED_BY_POLICY_REASON
   | typeof RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON
   | typeof RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON
+  | typeof ONLINE_PAYMENT_UNAVAILABLE_REASON
 >;
 
 export type ModifyAppointmentInformation = {

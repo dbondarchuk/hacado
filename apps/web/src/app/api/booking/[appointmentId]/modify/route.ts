@@ -124,10 +124,16 @@ const processRescheduleRequest = async (
 
   if (
     information.action === "paymentRequired" &&
-    information.paymentAmount > 0 &&
-    config.payments?.enabled &&
-    paymentAppId
+    information.paymentAmount > 0
   ) {
+    if (!config.payments?.enabled || !paymentAppId) {
+      logger.warn("Payment required but online payments are not available");
+      return NextResponse.json(
+        { success: false, error: "online_payment_unavailable" },
+        { status: 402 },
+      );
+    }
+
     if (!paymentIntentId) {
       logger.warn("Payment required but no payment intent provided");
       return NextResponse.json(
@@ -407,12 +413,15 @@ const processCancelRequest = async (
     }
   }
 
-  if (
-    information.action === "payment" &&
-    config.payments?.enabled &&
-    paymentAppId &&
-    information.paymentAmount > 0
-  ) {
+  if (information.action === "payment" && information.paymentAmount > 0) {
+    if (!config.payments?.enabled || !paymentAppId) {
+      logger.warn("Payment required but online payments are not available");
+      return NextResponse.json(
+        { success: false, error: "online_payment_unavailable" },
+        { status: 402 },
+      );
+    }
+
     if (!paymentIntentId) {
       logger.warn("Payment required but no payment intent provided");
       return NextResponse.json(

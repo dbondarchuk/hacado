@@ -40,7 +40,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(error, { status: 400 });
   }
 
-  // Track duplicate check
   await trackBookingStepWithCustomer(
     request,
     "DUPLICATE_CHECKED",

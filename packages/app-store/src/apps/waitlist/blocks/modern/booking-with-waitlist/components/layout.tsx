@@ -1,3 +1,4 @@
+import { clientApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
@@ -14,6 +15,7 @@ import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
 import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
 import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
+import { trackWaitlistBookingUiStep } from "../../../../track-booking-ui-step";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
@@ -275,7 +277,14 @@ export const BookingWithWaitlistLayout = ({
                 {step.next.show(ctx) && (
                   <Button
                     className="next-button"
-                    onClick={() => step.next.action(ctx)}
+                    onClick={() => {
+                      trackWaitlistBookingUiStep(currentStep, {
+                        optionId: selectedAppointmentOption?._id,
+                        memberId: ctx.selectedMemberId ?? undefined,
+                        duration,
+                      });
+                      step.next.action(ctx);
+                    }}
                     disabled={
                       !step.next.isEnabled(ctx) ||
                       isLoading ||
@@ -333,6 +342,7 @@ export const BookingWithWaitlistLayout = ({
           if (!payment || payment.intent?.status === "paid") {
             onSubmit();
           } else {
+            clientApi.booking.trackPaymentReached(payment.intent?.amount);
             setCurrentStep("payment");
           }
         }}

@@ -53,6 +53,10 @@ const getConvertedToLabelKey = (convertedTo: string): AdminKeys => {
   return `financialOverview.view.bookingTracking.convertedTo.${convertedTo}` as AdminKeys;
 };
 
+const getConvertedToRootLabelKey = (convertedTo: string): AdminKeys => {
+  return `bookingTracking.convertedTo.${convertedTo}` as AdminKeys;
+};
+
 const dateRangeOptions = [
   "thisMonth",
   "lastMonth",
@@ -146,14 +150,29 @@ const tooltipContentStyle = {
 const bookingStepLabels: Record<BookingStep, AdminKeys> = {
   OPTIONS_REQUESTED:
     "financialOverview.view.bookingTracking.bookingSteps.optionsRequested",
+  SERVICE_SELECTED:
+    "financialOverview.view.bookingTracking.bookingSteps.serviceSelected",
+  SPECIALIST_SELECTED:
+    "financialOverview.view.bookingTracking.bookingSteps.specialistSelected",
+  ADDON_SELECTED:
+    "financialOverview.view.bookingTracking.bookingSteps.addonSelected",
   AVAILABILITY_CHECKED:
     "financialOverview.view.bookingTracking.bookingSteps.availabilityChecked",
+  AVAILABILITY_SELECTED:
+    "financialOverview.view.bookingTracking.bookingSteps.availabilitySelected",
   DUPLICATE_CHECKED:
     "financialOverview.view.bookingTracking.bookingSteps.duplicateChecked",
+  OTP_REQUESTED:
+    "financialOverview.view.bookingTracking.bookingSteps.otpRequested",
+  OTP_VERIFIED:
+    "financialOverview.view.bookingTracking.bookingSteps.otpVerified",
   PAYMENT_CHECKED:
     "financialOverview.view.bookingTracking.bookingSteps.paymentChecked",
-  FORM_SUBMITTED:
-    "financialOverview.view.bookingTracking.bookingSteps.formSubmitted",
+  PAYMENT_SUCCESS:
+    "financialOverview.view.bookingTracking.bookingSteps.paymentSuccess",
+  PAYMENT_FAILED:
+    "financialOverview.view.bookingTracking.bookingSteps.paymentFailed",
+  FORM_FILLED: "financialOverview.view.bookingTracking.bookingSteps.formFilled",
   BOOKING_CONVERTED:
     "financialOverview.view.bookingTracking.bookingSteps.bookingConverted",
 };
@@ -173,6 +192,11 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   const t = useI18n("admin");
 
   const tAdmin = useI18n("admin");
+
+  const bookingStepLabel = (step: string) => {
+    const key = bookingStepLabels[step as BookingStep];
+    return key ? t(key) : step;
+  };
 
   const currencyFormat = useCurrencyFormat();
 
@@ -232,9 +256,11 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   const timeZone = useTimeZone();
 
   const getConvertedToLabel = (convertedTo: string) => {
-    return tAdmin.has(getConvertedToLabelKey(convertedTo))
-      ? tAdmin(getConvertedToLabelKey(convertedTo))
-      : convertedTo;
+    const nestedKey = getConvertedToLabelKey(convertedTo);
+    if (tAdmin.has(nestedKey)) return tAdmin(nestedKey);
+    const rootKey = getConvertedToRootLabelKey(convertedTo);
+    if (tAdmin.has(rootKey)) return tAdmin(rootKey);
+    return convertedTo;
   };
 
   return (
@@ -868,16 +894,14 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
                         cy="50%"
                         outerRadius={100}
                         label={({ step, count, percentage }) =>
-                          `${t(bookingStepLabels[step as BookingStep])}: ${count} (${percentage.toFixed(1)}%)`
+                          `${bookingStepLabel(step)}: ${count} (${percentage.toFixed(1)}%)`
                         }
                       >
                         {abandonmentBookingStepBreakdown.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={`hsl(${(index * 137.5 + 50) % 360}, 70%, 50%)`}
-                            name={t(
-                              bookingStepLabels[entry.step as BookingStep],
-                            )}
+                            name={bookingStepLabel(entry.step)}
                           />
                         ))}
                       </Pie>
@@ -904,11 +928,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
                                 )}
                               </span>
                             </div>,
-                            t(
-                              bookingStepLabels[
-                                props.payload.step as BookingStep
-                              ],
-                            ),
+                            bookingStepLabel(props.payload.step),
                           ];
                         }}
                         labelFormatter={(label) => `${label}`}

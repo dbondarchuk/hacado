@@ -64,6 +64,7 @@ export const BookingOtpDialog: React.FC<BookingOtpDialogProps> = ({
             )
           }
           onVerified={async (result) => {
+            clientApi.booking.trackOtpVerified();
             await onVerified(result);
             onOpenChange(false);
           }}

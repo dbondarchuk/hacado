@@ -12,6 +12,7 @@ import {
 import { durationToTime, formatAmountString } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
+import { trackWaitlistBookingUiStep } from "../../../../track-booking-ui-step";
 import { useScheduleContext } from "./context";
 import { ScheduleSteps } from "./steps";
 
@@ -35,6 +36,13 @@ export const StepCard: React.FC = () => {
 
       setIsLoadingFn(true);
       try {
+        if (dir === "next") {
+          trackWaitlistBookingUiStep(stepType, {
+            optionId: appointmentOption._id,
+            memberId: ctx.selectedMemberId ?? undefined,
+            duration,
+          });
+        }
         await action(ctx);
       } finally {
         setIsLoadingFn(false);

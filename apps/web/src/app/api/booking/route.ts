@@ -198,19 +198,6 @@ export async function POST(request: NextRequest) {
   // Get session ID for tracking
   const sessionId = request.headers.get("x-session-id");
 
-  // Track form submission attempt
-  await trackBookingStepWithCustomer(
-    request,
-    "FORM_SUBMITTED",
-    appointmentRequest,
-    {
-      isPaymentRequired: eventOrError.isPaymentRequired,
-      paymentAmount: eventOrError.isPaymentRequired
-        ? eventOrError.amount
-        : undefined,
-    },
-  );
-
   try {
     // Store sessionId in event data for later tracking
     const eventWithSessionId = {
@@ -237,7 +224,9 @@ export async function POST(request: NextRequest) {
       "BOOKING_CONVERTED",
       appointmentRequest,
       {
-        convertedTo: "appointment",
+        convertedTo: appointmentRequest.purchasePackageId
+          ? "package"
+          : "appointment",
         convertedId: result._id,
         appointmentId: result._id,
         optionId: eventOrError.event.option._id,
@@ -267,23 +256,6 @@ export async function POST(request: NextRequest) {
       { status: 201 },
     );
   } catch (e: any) {
-    // Track failure
-    await trackBookingStepWithCustomer(
-      request,
-      "FORM_SUBMITTED",
-      appointmentRequest,
-      {
-        error:
-          e instanceof AppointmentTimeNotAvaialbleError
-            ? "time_not_available"
-            : "unknown_error",
-        isPaymentRequired: eventOrError.isPaymentRequired,
-        paymentAmount: eventOrError.isPaymentRequired
-          ? eventOrError.amount
-          : undefined,
-      },
-    );
-
     if (e instanceof AppointmentTimeNotAvaialbleError) {
       logger.warn({ error: e?.message }, "Appointment time not available");
       return NextResponse.json(

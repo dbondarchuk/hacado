@@ -585,13 +585,22 @@ financialOverview:
         noData: No conversion data available
       bookingSteps:
         optionsRequested: Options Requested
+        serviceSelected: Service Selected
+        specialistSelected: Specialist Selected
+        addonSelected: Add-on Selected
         availabilityChecked: Availability Checked
+        availabilitySelected: Time Selected
         duplicateChecked: Duplicate Checked
-        paymentChecked: Payment Checked
-        formSubmitted: Form Submitted
+        otpRequested: OTP Requested
+        otpVerified: OTP Verification
+        paymentChecked: Payment
+        paymentSuccess: Payment Succeeded
+        paymentFailed: Payment Failed
+        formFilled: Form Filled
         bookingConverted: Booking Converted
       convertedTo:
         appointment: Appointment
+        package: Package
 paymentsList:
   title: Payments
   description: Browse all recorded payments across appointments and customers.
@@ -3911,6 +3920,7 @@ cancellationsAndReschedules:
 bookingTracking:
   convertedTo:
     appointment: Appointment
+    package: Package
 customerSelector:
   placeholder: Select customer
   requestFailed: Request to fetch customers has failed

@@ -1,3 +1,4 @@
+import { clientApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Button,
@@ -257,7 +258,14 @@ export const BookingLayout = ({
                 {step.next.show(ctx) && (
                   <Button
                     className="next-button"
-                    onClick={() => step.next.action(ctx)}
+                    onClick={() => {
+                      clientApi.booking.trackAdvanceFromUiStep(currentStep, {
+                        optionId: selectedAppointmentOption?._id,
+                        memberId: ctx.selectedMemberId ?? undefined,
+                        duration,
+                      });
+                      step.next.action(ctx);
+                    }}
                     disabled={
                       !step.next.isEnabled(ctx) ||
                       isLoading ||
@@ -321,6 +329,7 @@ export const BookingLayout = ({
           if (!payment || payment.intent?.status === "paid") {
             onSubmit();
           } else {
+            clientApi.booking.trackPaymentReached(payment.intent?.amount);
             setCurrentStep("payment");
           }
         }}

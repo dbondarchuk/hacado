@@ -79,8 +79,8 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
     const data = envelope.payload as BookingTrackingEventData;
 
     try {
-      const { sessionId, step, metadata } = data;
-      await this.trackBookingStep(sessionId, step, metadata);
+      const { sessionId, step, metadata, createIfMissing } = data;
+      await this.trackBookingStep(sessionId, step, metadata, createIfMissing);
 
       await this.scheduleAbandonedBookingsJobIfNeeded();
 
@@ -371,6 +371,7 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
     sessionId: string,
     step: BookingStep,
     metadata?: BookingTrackingMetadata,
+    createIfMissing: boolean = true,
   ): Promise<void> {
     const logger = this.loggerFactory("trackBookingStep");
     const redisKey = getRedisKey(this.organizationId, sessionId);
@@ -388,19 +389,35 @@ export class BuiltInBookingTrackingApp implements IEventSubscriber, IScheduled {
         DateTime.fromISO(existingSession.lastSeenAt).diffNow("seconds")
           .seconds < ABANDON_AFTER_SECONDS;
 
-      const session: BookingSession = isExistingSessionActive
-        ? existingSession
-        : {
-            startedAt: now,
-            lastSeenAt: now,
-            lastStep: step,
-            steps: {} as Record<BookingStep, string>,
-            status: "active",
-          };
+      if (!isExistingSessionActive && createIfMissing === false) {
+        logger.debug(
+          { sessionId, step },
+          "No active booking session, skipping step",
+        );
+        return;
+      }
 
-      // Update lastSeenAt always
+      const session: BookingSession =
+        isExistingSessionActive && existingSession
+          ? existingSession
+          : {
+              startedAt: now,
+              lastSeenAt: now,
+              lastStep: step,
+              steps: {} as Record<BookingStep, string>,
+              status: "active",
+            };
+
+      // Update lastSeenAt always. Do not rewind lastStep when OPTIONS_REQUESTED
+      // is replayed (e.g. options refresh after the customer already advanced).
       session.lastSeenAt = now;
-      session.lastStep = step;
+      const shouldUpdateLastStep =
+        step !== "OPTIONS_REQUESTED" ||
+        !isExistingSessionActive ||
+        existingSession?.lastStep === "OPTIONS_REQUESTED";
+      if (shouldUpdateLastStep) {
+        session.lastStep = step;
+      }
 
       // Only add step to steps object if it's new (handles back-and-forth navigation)
       if (!session.steps[step]) {

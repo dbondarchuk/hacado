@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
 import { BookingRestrictionBanner } from "../../../../../waitlist/components/booking-restriction-banner";
+import { trackWaitlistBookingUiStep } from "../../../../../waitlist/track-booking-ui-step";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
@@ -280,7 +281,14 @@ export const BookingWithWaitlistLayout = ({
                 {step.next.show(ctx) && (
                   <Button
                     className="next-button"
-                    onClick={() => step.next.action(ctx)}
+                    onClick={() => {
+                      trackWaitlistBookingUiStep(currentStep, {
+                        optionId: selectedAppointmentOption?._id,
+                        memberId: ctx.selectedMemberId ?? undefined,
+                        duration,
+                      });
+                      step.next.action(ctx);
+                    }}
                     disabled={
                       !step.next.isEnabled(ctx) ||
                       isLoading ||

@@ -1,3 +1,4 @@
+import { trackBookingStep } from "@/utils/booking-tracking";
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import { CustomerAuthError } from "@hacado/types";
@@ -91,6 +92,10 @@ export async function POST(request: NextRequest) {
       otpPayload,
       ip,
     );
+    await trackBookingStep(request, "OTP_REQUESTED", {
+      customerEmail: email,
+      customerName: name || undefined,
+    });
     logger.debug("OTP request processed successfully");
     return NextResponse.json(result);
   } catch (error) {
