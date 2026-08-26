@@ -20,7 +20,8 @@ export const ADDONS_COLLECTION_NAME = "addons";
 export const OPTIONS_COLLECTION_NAME = "options";
 export const DISCOUNTS_COLLECTION_NAME = "discounts";
 export const TEMPLATES_COLLECTION_NAME = "templates";
-export const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";
+export const BOOKING_PROGRESS_ANALYTICS_DAILY_COLLECTION_NAME =
+  "booking-progress-analytics-daily";
 export const GIFT_CARDS_COLLECTION_NAME = "gift-cards";
 export const APPOINTMENT_PACKAGES_COLLECTION_NAME = "appointment-packages";
 export const CUSTOMER_PACKAGES_COLLECTION_NAME = "customer-packages";

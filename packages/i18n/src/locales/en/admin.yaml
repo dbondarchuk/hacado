@@ -576,6 +576,10 @@ financialOverview:
         count: "{count, plural, =1 {1 abandoned} other {# abandoned}}"
         percentage: "{percentage}% of all abandonments"
         noData: No abandonment data available
+      enteredByStep:
+        title: Reached by Step
+        count: "{count, plural, =1 {1 session} other {# sessions}}"
+        noData: No step-reach data available
       converted: Converted
       conversionRate: Conversion Rate
       conversionByType:

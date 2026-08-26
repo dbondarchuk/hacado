@@ -25,6 +25,8 @@ import React from "react";
 import {
   Area,
   AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Cell,
   Legend,
@@ -123,6 +125,7 @@ type FinancialsTabProps =
       customerData: CustomerDataPoint[];
       bookingStats: BookingStats;
       abandonmentBookingStepBreakdown: BookingStepBreakdown;
+      enteredBookingStepBreakdown: BookingStepBreakdown;
       bookingStatsOverTime: BookingStatsOverTime;
       bookingConversionStats: BookingConversionStats;
       loading?: false;
@@ -136,6 +139,7 @@ type FinancialsTabProps =
       customerData?: never;
       bookingStats?: never;
       abandonmentBookingStepBreakdown?: never;
+      enteredBookingStepBreakdown?: never;
       bookingStatsOverTime?: never;
       bookingConversionStats?: never;
     };
@@ -185,6 +189,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   customerData,
   bookingStats,
   abandonmentBookingStepBreakdown,
+  enteredBookingStepBreakdown,
   bookingStatsOverTime,
   bookingConversionStats,
   loading,
@@ -865,6 +870,68 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
                         )}
                       />
                     </LineChart>
+                  )}
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Reached / entered by Step */}
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  {t(
+                    "financialOverview.view.bookingTracking.enteredByStep.title",
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={400}>
+                  {loading ? (
+                    <Skeleton className="w-full h-full" />
+                  ) : enteredBookingStepBreakdown &&
+                    enteredBookingStepBreakdown.length > 0 ? (
+                    <BarChart
+                      data={enteredBookingStepBreakdown.map((item) => ({
+                        ...item,
+                        label: bookingStepLabel(item.step),
+                      }))}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="label"
+                        tick={{ fontSize: 12 }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={80}
+                      />
+                      <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
+                      <Tooltip
+                        contentStyle={tooltipContentStyle}
+                        formatter={(value) => [
+                          t(
+                            "financialOverview.view.bookingTracking.enteredByStep.count",
+                            { count: value },
+                          ),
+                          t(
+                            "financialOverview.view.bookingTracking.enteredByStep.title",
+                          ),
+                        ]}
+                      />
+                      <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                        {enteredBookingStepBreakdown.map((entry, index) => (
+                          <Cell
+                            key={`entered-${entry.step}`}
+                            fill={`hsl(${(index * 137.5 + 50) % 360}, 70%, 50%)`}
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                      {t(
+                        "financialOverview.view.bookingTracking.enteredByStep.noData",
+                      )}
+                    </div>
                   )}
                 </ResponsiveContainer>
               </CardContent>

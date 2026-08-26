@@ -572,6 +572,10 @@ financialOverview:
         count: "{count, plural, =1 {1 покинуто} few {# покинуто} many {# покинуто} other {# покинуто}}"
         percentage: "{percentage}% від усіх відмов"
         noData: Немає даних про відмови
+      enteredByStep:
+        title: Досягнуто етапу
+        count: "{count, plural, =1 {1 сесія} few {# сесії} many {# сесій} other {# сесій}}"
+        noData: Немає даних про досягнуті етапи
       converted: Конвертовано
       conversionRate: Відсоток конвертації
       conversionByType:

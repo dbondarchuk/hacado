@@ -89,6 +89,7 @@ export function MarketingFeaturesShowcaseClient({
                         isExpanded
                           ? "border-primary bg-primary/5 shadow-lg"
                           : "border-border bg-card hover:border-primary/50 hover:shadow-md",
+                        "feature-card-container",
                       )}
                     >
                       <div className="flex flex-col items-center gap-3">

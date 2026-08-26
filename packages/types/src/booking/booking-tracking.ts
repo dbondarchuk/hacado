@@ -87,30 +87,57 @@ export type BookingTrackingEventData = {
 };
 
 /**
- * Booking tracking event stored in MongoDB
+ * Active booking progress session stored in Redis.
+ * `currentStep` is the last tracked BookingStep (not a separate wizard id).
  */
-export type BookingTrackingEvent = {
-  _id: string;
+export type BookingProgressSession = {
   sessionId: string;
   organizationId: string;
-  startedAt: Date;
-  lastSeenAt: Date;
-  abandonedAt?: Date | null;
-  convertedAt?: Date | null;
-  lastStep: BookingStep;
-  steps: Record<BookingStep, Date>;
-  optionId?: string | null;
-  duration?: number | null;
+  startedAt: string;
+  lastActivityAt: string;
+  currentStep: BookingStep;
+  enteredSteps: BookingStep[];
+  status: "active" | "completed" | "abandoned";
+  convertedTo?: string;
+  optionId?: string;
+  duration?: number;
   isPaymentRequired?: boolean;
-  paymentAmount?: number | null;
-  customerId?: string | null;
-  customerEmail?: string | null;
-  customerName?: string | null;
-  status: "abandoned" | "converted";
-  appointmentId?: string | null;
-  convertedTo?: string | null;
-  convertedId?: string | null;
-  convertedAppName?: string | null;
+  paymentAmount?: number;
+  customerId?: string;
+  customerEmail?: string;
+  customerName?: string;
+  appointmentId?: string;
+};
+
+export type BookingProgressAnalyticsMetrics = {
+  started: number;
+  completed: number;
+  /** Unique sessions that entered/reached each step. */
+  entered: Record<string, number>;
+  /** Sessions that became inactive while currentStep was this step. */
+  stoppedAt: Record<string, number>;
+  /** Completed sessions grouped by convertedTo (appointment, package, …). */
+  convertedTo: Record<string, number>;
+};
+
+/**
+ * One MongoDB document per organization + analytics day.
+ * All counters for a session land on the day of that session's startedAt
+ * in the organization's business timezone.
+ */
+export type BookingProgressAnalyticsDaily = {
+  _id?: string;
+  organizationId: string;
+  date: Date;
+  metrics: BookingProgressAnalyticsMetrics;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type BookingProgressMetricsDelta = {
+  started?: number;
+  completed?: number;
+  entered?: Record<string, number>;
+  stoppedAt?: Record<string, number>;
+  convertedTo?: Record<string, number>;
 };

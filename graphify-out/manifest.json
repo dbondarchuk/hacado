@@ -2590,8 +2590,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/[appointmentId]/modify/route.ts": {
-    "mtime": 1787767815.9815638,
-    "ast_hash": "2c649911c488f4a8cd9ead73c3e17f73",
+    "mtime": 1787768272.8174186,
+    "ast_hash": "162b9ab7dba974e8b36a7ea990d3ae43",
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/duplicate/route.ts": {
@@ -2720,8 +2720,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/utils/appointments/get-modify-appointment-request.ts": {
-    "mtime": 1787767811.1019151,
-    "ast_hash": "72c97e5eab283efd67ebbe53cbcc1b9d",
+    "mtime": 1787768111.4376893,
+    "ast_hash": "1c2f8def0087956a8226c20632cb2018",
     "semantic_hash": ""
   },
   "apps/web/src/utils/appointments/get-payment-required.ts": {
@@ -5715,8 +5715,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/service.ts": {
-    "mtime": 1787767244.0251596,
-    "ast_hash": "a603940cf38a393edd5d38a7318170f7",
+    "mtime": 1787768264.834868,
+    "ast_hash": "612aeb36e70eea068450328837afc116",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/utils.ts": {
@@ -10620,8 +10620,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/marketing-features-showcase/marketing-features-showcase.client.tsx": {
-    "mtime": 1787682054.4017317,
-    "ast_hash": "b49a43bce0fe16f500a053e43062ecbb",
+    "mtime": 1787772553.8179884,
+    "ast_hash": "5ce12d109323891c9b0be1b023991184",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/marketing-features-showcase/reader.tsx": {
@@ -12635,8 +12635,8 @@
     "semantic_hash": ""
   },
   "packages/services/package.json": {
-    "mtime": 1786996971.7447908,
-    "ast_hash": "e07e99163a174845cd294dc361edd0b6",
+    "mtime": 1787770945.6524906,
+    "ast_hash": "86a4ebe393c74ff4248bfab43e0bc916",
     "semantic_hash": ""
   },
   "packages/services/src/activity.service.ts": {
@@ -12685,18 +12685,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/booking-tracking/app.ts": {
-    "mtime": 1787758815.2454991,
-    "ast_hash": "3307b555c9b10a24fef20d9e24f759aa",
+    "mtime": 1787770306.8821115,
+    "ast_hash": "0379d581a13e6e14d3f91105f5f3db16",
     "semantic_hash": ""
   },
   "packages/services/src/booking-tracking/const.ts": {
-    "mtime": 1775859245.7494583,
-    "ast_hash": "997e454dd757a54806ef3714af490332",
-    "semantic_hash": ""
-  },
-  "packages/services/src/booking-tracking/repository.ts": {
-    "mtime": 1786821260.8976161,
-    "ast_hash": "2bd78d65ffaf564c0fd049f66964cb16",
+    "mtime": 1787774557.1712887,
+    "ast_hash": "590210bda63e1e8139bf2b88b57bdd77",
     "semantic_hash": ""
   },
   "packages/services/src/booking.service.ts": {
@@ -12805,8 +12800,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/collections.ts": {
-    "mtime": 1787364795.257909,
-    "ast_hash": "b11483058c2f572fdf3df411a7f625fb",
+    "mtime": 1787773645.4105885,
+    "ast_hash": "d09adbe44fd350caf1f6631c2ad536db",
     "semantic_hash": ""
   },
   "packages/services/src/communication-logs.service.ts": {
@@ -13450,8 +13445,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/booking/booking-tracking.ts": {
-    "mtime": 1787759033.9105363,
-    "ast_hash": "744545865828746bd8f4bf1e888f7cb4",
+    "mtime": 1787773648.5515628,
+    "ast_hash": "52ff46e1e24aa97e9052a25e6093c550",
     "semantic_hash": ""
   },
   "packages/types/src/booking/calendar-event.ts": {
@@ -16185,8 +16180,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1787758756.8872461,
-    "ast_hash": "bfe17c6e58fb0376d8716f51f5e61843",
+    "mtime": 1787769986.9313517,
+    "ast_hash": "919190bc502bbbf4c855b596a81ed028",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16220,8 +16215,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1787758757.5496616,
-    "ast_hash": "18275c87bb37e48446a1af79d33488b6",
+    "mtime": 1787769987.418002,
+    "ast_hash": "29f6ac741acd1ce9cb1569c8acc84977",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -27070,18 +27065,18 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/data.ts": {
-    "mtime": 1787065710.830641,
-    "ast_hash": "c16207afbbe2fcd25a75ed42f127d9bb",
+    "mtime": 1787770165.9143069,
+    "ast_hash": "83174d831202b7a6b592f14cfc5387ae",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/financials-overview-client.tsx": {
-    "mtime": 1787759314.0320382,
-    "ast_hash": "ce6a3643870e3304a8ee3af185e38087",
+    "mtime": 1787773290.5191755,
+    "ast_hash": "695b7c762bd89f533b404ce9328d1e67",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/financials-overview.tsx": {
-    "mtime": 1786820408.7581348,
-    "ast_hash": "e1fc9521642b2596277bbcb86f634374",
+    "mtime": 1787769962.8175354,
+    "ast_hash": "f1a34656f451ec141eca0de74241b8a4",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/loader.tsx": {
@@ -29142,6 +29137,51 @@
   "packages/app-store/src/apps/waitlist/track-booking-ui-step.ts": {
     "mtime": 1787759035.3300467,
     "ast_hash": "5915b1b303b375d622dd8f3e1d9870b4",
+    "semantic_hash": ""
+  },
+  "migrations/20260826143000-booking_progress_analytics_daily.js": {
+    "mtime": 1787773135.9143178,
+    "ast_hash": "c4547e9a88d3cf103cd980c19d95d434",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/analytics-repository.ts": {
+    "mtime": 1787773648.5515628,
+    "ast_hash": "7ad66cbb960fe2437183b7f1ab79163c",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/date.ts": {
+    "mtime": 1787769742.6537294,
+    "ast_hash": "64ce75f38c7b7ba1bf98f3c29fb3c03f",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/index.ts": {
+    "mtime": 1787770945.612851,
+    "ast_hash": "5c87d3833ac6448dccaa62e9571ffc49",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/metrics-delta.ts": {
+    "mtime": 1787770306.8821115,
+    "ast_hash": "3149f85e96208ddb453effd68004b36e",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/summarize.test.ts": {
+    "mtime": 1787770306.8821115,
+    "ast_hash": "c34b9b3d7d5fcf3e4718dff2ebb421db",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/summarize.ts": {
+    "mtime": 1787769800.811981,
+    "ast_hash": "e546586348542f17b197a3654a473c5f",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/tracker.test.ts": {
+    "mtime": 1787774579.043074,
+    "ast_hash": "27f82b093c92539d4559516e16615f9d",
+    "semantic_hash": ""
+  },
+  "packages/services/src/booking-tracking/tracker.ts": {
+    "mtime": 1787774624.4669256,
+    "ast_hash": "a5121c6e327346a10085774b8b919005",
     "semantic_hash": ""
   }
 }

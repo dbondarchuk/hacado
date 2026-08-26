@@ -1,9 +1,14 @@
+import { summarizeBookingProgress } from "@hacado/services/booking-tracking";
+import {
+  BOOKING_PROGRESS_ANALYTICS_DAILY_COLLECTION_NAME,
+  CONFIGURATION_COLLECTION_NAME,
+} from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
 import {
-  type BookingStep,
-  type BookingTrackingEvent,
+  type BookingProgressAnalyticsDaily,
   closedAppointmentStatuses,
   type DateRange,
+  type GeneralConfiguration,
   type Payment,
   type PaymentSummary,
 } from "@hacado/types";
@@ -21,7 +26,6 @@ import type {
 } from "./types";
 
 const PAYMENTS_COLLECTION_NAME = "payments";
-const BOOKING_TRACKING_COLLECTION_NAME = "booking-tracking";
 
 /** Collection name for gift cards; payments linked as giftCard.paymentId are excluded (gift card purchases, not service revenue). */
 const GIFT_CARDS_COLLECTION_NAME = "gift-cards";
@@ -756,309 +760,56 @@ export function createFinancialOverviewQueries(organizationId: string) {
     return customerData;
   }
 
-  /**
-   * Get booking completion statistics
-   * Aggregates data directly from MongoDB
-   */
-  async function getBookingCompletionStats(
-    dateRange?: DateRange,
-  ): Promise<BookingStats> {
+  async function getOrgTimeZone(): Promise<string> {
     const db = await getDbConnection();
-    const collection = db.collection<BookingTrackingEvent>(
-      BOOKING_TRACKING_COLLECTION_NAME,
-    );
-
-    // Build match filter
-    const matchFilter: Filter<BookingTrackingEvent> = {
-      organizationId: organizationId,
-      // Exclude entries that only requested options
-      lastStep: { $ne: "OPTIONS_REQUESTED" },
-    };
-
-    if (dateRange?.start || dateRange?.end) {
-      matchFilter.startedAt = {};
-      if (dateRange.start) {
-        matchFilter.startedAt.$gte = dateRange.start;
-      }
-      if (dateRange.end) {
-        matchFilter.startedAt.$lte = dateRange.end;
-      }
-    }
-
-    // Aggregate statistics using MongoDB aggregation
-    const pipeline = [
-      { $match: matchFilter },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: 1 },
-          abandoned: {
-            $sum: { $cond: [{ $eq: ["$status", "abandoned"] }, 1, 0] },
-          },
-          converted: {
-            $sum: { $cond: [{ $eq: ["$status", "converted"] }, 1, 0] },
-          },
-        },
-      },
-    ];
-
-    const result = await collection.aggregate(pipeline).toArray();
-    const stats = result[0] || { total: 0, abandoned: 0, converted: 0 };
-
-    const total = stats.total || 0;
-    const abandoned = stats.abandoned || 0;
-    const converted = stats.converted || 0;
-    const abandonmentRate = total > 0 ? (abandoned / total) * 100 : 0;
-    const conversionRate = total > 0 ? (converted / total) * 100 : 0;
-
-    return {
-      total,
-      abandoned,
-      converted,
-      abandonmentRate,
-      conversionRate,
-    };
+    const general = await db
+      .collection<{
+        key: string;
+        organizationId: string;
+        value: GeneralConfiguration;
+      }>(CONFIGURATION_COLLECTION_NAME)
+      .findOne({ organizationId, key: "general" });
+    return general?.value?.timeZone || "UTC";
   }
 
-  /**
-   * Get step-by-step breakdown of where users abandon
-   * Aggregates data directly from MongoDB
-   */
-  async function getAbandonmentBookingStepBreakdown(
-    dateRange?: DateRange,
-  ): Promise<BookingStepBreakdown> {
-    const db = await getDbConnection();
-    const collection = db.collection<BookingTrackingEvent>(
-      BOOKING_TRACKING_COLLECTION_NAME,
-    );
-
-    // Build match filter
-    const matchFilter: Filter<BookingTrackingEvent> = {
-      organizationId: organizationId,
-      status: "abandoned",
-      // Exclude entries that only requested options
-      lastStep: { $ne: "OPTIONS_REQUESTED" },
-    };
-
-    if (dateRange?.start || dateRange?.end) {
-      matchFilter.startedAt = {};
-      if (dateRange.start) {
-        matchFilter.startedAt.$gte = dateRange.start;
-      }
-      if (dateRange.end) {
-        matchFilter.startedAt.$lte = dateRange.end;
-      }
-    }
-
-    // Aggregate by lastStep
-    const pipeline = [
-      { $match: matchFilter },
-      {
-        $group: {
-          _id: "$lastStep",
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          step: "$_id",
-          count: 1,
-        },
-      },
-      { $sort: { count: -1 } },
-    ];
-
-    const result = await collection
-      .aggregate<{ step: BookingStep; count: number }>(pipeline)
-      .toArray();
-
-    // Calculate total for percentage calculation
-    const total = result.reduce((sum, item) => sum + item.count, 0);
-
-    const breakdown: BookingStepBreakdown = result.map((item) => ({
-      step: item.step,
-      count: item.count,
-      percentage: total > 0 ? (item.count / total) * 100 : 0,
-    }));
-
-    return breakdown;
-  }
-
-  /**
-   * Get booking stats over time
-   * Aggregates data directly from MongoDB
-   */
-  async function getBookingStatsOverTime(
+  async function getBookingProgressAnalytics(
     dateRange?: DateRange,
     timeGrouping: TimeGrouping = "day",
-  ): Promise<BookingStatsOverTime> {
+  ): Promise<{
+    bookingStats: BookingStats;
+    abandonmentBookingStepBreakdown: BookingStepBreakdown;
+    enteredBookingStepBreakdown: BookingStepBreakdown;
+    bookingStatsOverTime: BookingStatsOverTime;
+    bookingConversionStats: BookingConversionStats;
+  }> {
     const db = await getDbConnection();
-    const collection = db.collection<BookingTrackingEvent>(
-      BOOKING_TRACKING_COLLECTION_NAME,
+    const collection = db.collection<BookingProgressAnalyticsDaily>(
+      BOOKING_PROGRESS_ANALYTICS_DAILY_COLLECTION_NAME,
     );
 
-    // Build match filter
-    const matchFilter: Filter<BookingTrackingEvent> = {
-      organizationId: organizationId,
-      // Exclude entries that only requested options
-      lastStep: { $ne: "OPTIONS_REQUESTED" },
+    const matchFilter: Filter<BookingProgressAnalyticsDaily> = {
+      organizationId,
     };
-
     if (dateRange?.start || dateRange?.end) {
-      matchFilter.startedAt = {};
-      if (dateRange.start) {
-        matchFilter.startedAt.$gte = dateRange.start;
-      }
-      if (dateRange.end) {
-        matchFilter.startedAt.$lte = dateRange.end;
-      }
+      matchFilter.date = {};
+      if (dateRange.start) matchFilter.date.$gte = dateRange.start;
+      if (dateRange.end) matchFilter.date.$lte = dateRange.end;
     }
 
-    // Get date format string for MongoDB
-    const dateFormatMap = {
-      day: "%Y-%m-%d",
-      week: "%Y-W%U",
-      month: "%Y-%m",
-    };
-
-    const dateFormat = dateFormatMap[timeGrouping];
-
-    // Aggregate by time period
-    const pipeline = [
-      { $match: matchFilter },
-      {
-        $group: {
-          _id: {
-            $dateToString: {
-              format: dateFormat,
-              date: "$startedAt",
-            },
-          },
-          total: { $sum: 1 },
-          abandoned: {
-            $sum: { $cond: [{ $eq: ["$status", "abandoned"] }, 1, 0] },
-          },
-          converted: {
-            $sum: { $cond: [{ $eq: ["$status", "converted"] }, 1, 0] },
-          },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          date: "$_id",
-          total: 1,
-          abandoned: 1,
-          converted: 1,
-        },
-      },
-      { $sort: { date: 1 } },
-    ];
-
-    const statsOverTime = await collection
-      .aggregate<BookingStatsOverTime[0]>(pipeline)
-      .toArray();
-
-    return statsOverTime;
-  }
-
-  /**
-   * Get conversion statistics
-   * Aggregates data directly from MongoDB
-   */
-  async function getBookingConversionStats(
-    dateRange?: DateRange,
-  ): Promise<BookingConversionStats> {
-    const db = await getDbConnection();
-    const collection = db.collection<BookingTrackingEvent>(
-      BOOKING_TRACKING_COLLECTION_NAME,
-    );
-
-    // Build match filter
-    const matchFilter: Filter<BookingTrackingEvent> = {
-      organizationId: organizationId,
-      status: "converted",
-    };
-
-    if (dateRange?.start || dateRange?.end) {
-      matchFilter.startedAt = {};
-      if (dateRange.start) {
-        matchFilter.startedAt.$gte = dateRange.start;
-      }
-      if (dateRange.end) {
-        matchFilter.startedAt.$lte = dateRange.end;
-      }
-    }
-
-    // Get total count first
-    const totalConverted = await collection.countDocuments(matchFilter);
-
-    // Aggregate by convertedTo
-    const byTypePipeline = [
-      { $match: matchFilter },
-      {
-        $group: {
-          _id: { $ifNull: ["$convertedTo", "unknown"] },
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          convertedTo: "$_id",
-          count: 1,
-        },
-      },
-      { $sort: { count: -1 } },
-    ];
-
-    const byTypeResult = await collection
-      .aggregate<{ convertedTo: string; count: number }>(byTypePipeline)
-      .toArray();
-
-    const byType = byTypeResult.map((item) => ({
-      convertedTo: item.convertedTo,
-      count: item.count,
-      percentage: totalConverted > 0 ? (item.count / totalConverted) * 100 : 0,
-    }));
-
-    // Aggregate by convertedAppName
-    const byAppPipeline = [
-      { $match: matchFilter },
-      {
-        $group: {
-          _id: { $ifNull: ["$convertedAppName", null] },
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          convertedAppName: "$_id",
-          count: 1,
-        },
-      },
-      { $sort: { count: -1 } },
-    ];
-
-    const byAppResult = await collection
-      .aggregate<{
-        convertedAppName: string | null;
-        count: number;
-      }>(byAppPipeline)
-      .toArray();
-
-    const byApp = byAppResult.map((item) => ({
-      convertedAppName: item.convertedAppName,
-      count: item.count,
-      percentage: totalConverted > 0 ? (item.count / totalConverted) * 100 : 0,
-    }));
+    const docs = await collection.find(matchFilter).sort({ date: 1 }).toArray();
+    const timeZone = await getOrgTimeZone();
+    const summary = summarizeBookingProgress(docs, timeGrouping, timeZone);
 
     return {
-      totalConverted,
-      byType,
-      byApp,
+      bookingStats: summary.stats,
+      abandonmentBookingStepBreakdown: summary.stoppedAt,
+      enteredBookingStepBreakdown: summary.entered,
+      bookingStatsOverTime: summary.overTime,
+      bookingConversionStats: {
+        totalConverted: summary.stats.converted,
+        byType: summary.convertedTo,
+        byApp: [],
+      },
     };
   }
 
@@ -1068,9 +819,6 @@ export function createFinancialOverviewQueries(organizationId: string) {
     getRevenueOverTime,
     getServiceDistribution,
     getCustomerData,
-    getBookingCompletionStats,
-    getAbandonmentBookingStepBreakdown,
-    getBookingStatsOverTime,
-    getBookingConversionStats,
+    getBookingProgressAnalytics,
   };
 }
