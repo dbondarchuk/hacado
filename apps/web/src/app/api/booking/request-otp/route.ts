@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Package redeem verification is for existing customers only — never create/update.
+  // Package redeem verification is for existing customers only - never create/update.
   // Payment OTP may still upsert so first-time bookers can verify contact details.
   if (!existingOnly) {
     if (!name.trim()) {

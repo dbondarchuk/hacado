@@ -22,7 +22,7 @@ export const MarketingScrollingLogosReader = ({
     <>
       <BlockStyle name={className} styleDefinitions={styles} styles={style} />
       <section className={cn(className, base?.className)} id={base?.id}>
-        <div className="mx-auto max-w-7xl">
+        <div className="overflow-hidden scroll-logos-container">
           {screenReaderText ? (
             <p className="sr-only">{screenReaderText}</p>
           ) : null}

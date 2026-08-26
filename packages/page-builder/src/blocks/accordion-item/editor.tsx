@@ -10,15 +10,8 @@ import {
 } from "@hacado/builder";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import { cn } from "@hacado/ui";
-import {
-  ArrowDown,
-  ArrowRight,
-  ChevronDown,
-  ChevronRight,
-  Minus,
-  Plus,
-} from "lucide-react";
-import { useState } from "react";
+import { useAccordion } from "../accordion/context";
+import { ItemIcon } from "./icon";
 import { AccordionItemProps } from "./schema";
 import { styles } from "./styles";
 
@@ -33,57 +26,27 @@ const allowOnly: BlockFilterRule = {
   capabilities: ["inline"],
 };
 
-export const AccordionItemEditor = ({
-  props,
-  style,
-  ...additionalProps
-}: AccordionItemProps & {
-  animation?: "slide" | "fade" | "none";
-  iconPosition?: "left" | "right";
-  iconStyle?: "plus" | "arrow" | "chevron";
-}) => {
+export const AccordionItemEditor = ({ props, style }: AccordionItemProps) => {
   const currentBlock = useCurrentBlock<AccordionItemProps>();
   const overlayProps = useBlockEditor(currentBlock.id);
+  const accordion = useAccordion();
 
   const titleId = useBlockChildrenBlockIds(currentBlock.id, "props.title")?.[0];
   const className = useClassName();
   const base = currentBlock.base;
 
-  // Extract animation properties from additionalProps
-  const animation = additionalProps.animation ?? "slide";
-  const iconPosition = additionalProps.iconPosition ?? "right";
-  const iconStyle = additionalProps.iconStyle ?? "chevron";
+  const animation = accordion?.animation ?? "slide";
+  const iconPosition = accordion?.iconPosition ?? "right";
+  const iconStyle = accordion?.iconStyle ?? "chevron";
+  const isOpen =
+    accordion?.isItemOpen(currentBlock.id) ??
+    currentBlock.data?.props?.isOpen ??
+    false;
 
-  // Use local state for accordion item open/close
-  const [isOpen, setIsOpen] = useState(
-    currentBlock.data?.props?.isOpen ?? false,
-  );
-
-  // Get the appropriate icon based on iconStyle and state
-  const getIcon = () => {
-    if (iconStyle === "plus") {
-      return isOpen ? (
-        <Minus className="w-4 h-4" />
-      ) : (
-        <Plus className="w-4 h-4" />
-      );
-    } else if (iconStyle === "arrow") {
-      return isOpen ? (
-        <ArrowDown className="w-4 h-4" />
-      ) : (
-        <ArrowRight className="w-4 h-4" />
-      );
-    } else {
-      // chevron (default)
-      return isOpen ? (
-        <ChevronDown className="w-4 h-4" />
-      ) : (
-        <ChevronRight className="w-4 h-4" />
-      );
-    }
+  const toggleAccordion = () => {
+    accordion?.onToggleItem(currentBlock.id);
   };
 
-  // Get animation classes based on animation type
   const getAnimationClasses = () => {
     if (animation === "fade") {
       return isOpen
@@ -93,14 +56,8 @@ export const AccordionItemEditor = ({
       return isOpen
         ? "max-h-screen opacity-100 transition-all duration-300 ease-in-out"
         : "max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out";
-    } else {
-      // none
-      return isOpen ? "block" : "hidden";
     }
-  };
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
+    return isOpen ? "block" : "hidden";
   };
 
   return (
@@ -132,11 +89,15 @@ export const AccordionItemEditor = ({
           </div>
           <div
             className={cn(
-              "flex items-center justify-center transition-transform duration-200",
+              "flex items-center justify-center",
               iconPosition === "left" ? "order-first mr-3" : "ml-3",
             )}
           >
-            {getIcon()}
+            <ItemIcon
+              iconStyle={iconStyle}
+              isOpen={isOpen}
+              className="transition-transform duration-200"
+            />
           </div>
         </div>
         <div className={getAnimationClasses()}>

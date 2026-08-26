@@ -69,7 +69,7 @@ export async function PATCH(request: Request) {
           const { calendarSources: _calendarSources, ...rest } = data;
           return rest;
         })();
-    // Phone changes require OTP via updateMyPhone — ignore phone on generic PATCH
+    // Phone changes require OTP via updateMyPhone - ignore phone on generic PATCH
     const { phone: _phone, ...rest } = withoutPhone;
     return rest;
   })();

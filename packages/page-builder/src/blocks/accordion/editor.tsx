@@ -3,12 +3,15 @@
 import {
   BlockFilterRule,
   EditorChildren,
+  useBlockChildrenBlockIds,
   useBlockEditor,
   useCurrentBlock,
 } from "@hacado/builder";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base";
 import { cn } from "@hacado/ui";
 import { useMemo } from "react";
+import { AccordionProvider } from "./context";
+import { getInitialOpenItemIds, type AccordionOpenChild } from "./open-state";
 import { AccordionProps } from "./schema";
 import { styles } from "./styles";
 
@@ -25,15 +28,21 @@ export const AccordionEditor = ({ props, style }: AccordionProps) => {
   const animation = currentBlock.data?.props?.animation;
   const iconPosition = currentBlock.data?.props?.iconPosition;
   const iconStyle = currentBlock.data?.props?.iconStyle;
+  const allowMultipleOpen =
+    currentBlock.data?.props?.allowMultipleOpen ?? false;
+  const defaultOpenFirst = currentBlock.data?.props?.defaultOpenFirst ?? false;
+  const childIds = useBlockChildrenBlockIds(currentBlock.id, "props");
+  const children = (currentBlock.data?.props?.children ??
+    []) as AccordionOpenChild[];
 
-  // Pass animation properties to accordion items
-  const additionalProps = useMemo(
-    () => ({
-      animation,
-      iconPosition,
-      iconStyle,
-    }),
-    [animation, iconPosition, iconStyle],
+  const initialOpenItemIds = useMemo(
+    () =>
+      getInitialOpenItemIds(
+        children.length ? children : childIds.map((id) => ({ id })),
+        allowMultipleOpen,
+        defaultOpenFirst,
+      ),
+    [allowMultipleOpen, childIds, children, defaultOpenFirst],
   );
 
   return (
@@ -43,18 +52,25 @@ export const AccordionEditor = ({ props, style }: AccordionProps) => {
         styleDefinitions={styles}
         styles={currentBlock.data?.style}
       />
-      <div
-        className={cn(className, base?.className)}
-        id={base?.id}
-        {...overlayProps}
+      <AccordionProvider
+        allowMultipleOpen={allowMultipleOpen}
+        initialOpenItemIds={initialOpenItemIds}
+        animation={animation}
+        iconPosition={iconPosition}
+        iconStyle={iconStyle}
       >
-        <EditorChildren
-          blockId={currentBlock.id}
-          property="props"
-          allow={allowOnly}
-          additionalProps={additionalProps}
-        />
-      </div>
+        <div
+          className={cn(className, base?.className)}
+          id={base?.id}
+          {...overlayProps}
+        >
+          <EditorChildren
+            blockId={currentBlock.id}
+            property="props"
+            allow={allowOnly}
+          />
+        </div>
+      </AccordionProvider>
     </>
   );
 };

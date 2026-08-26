@@ -67,7 +67,11 @@ const HeaderBase: React.FC<HeaderProps> = ({
   className,
   headerId,
 }) => {
-  const getLink = (item: MenuItem, isSidebar: boolean) => {
+  const getLink = (
+    item: MenuItem,
+    isSidebar: boolean,
+    extraClassName?: string,
+  ) => {
     switch (item.type) {
       case "spacer":
         return <div className="flex-1" />;
@@ -76,7 +80,11 @@ const HeaderBase: React.FC<HeaderProps> = ({
         return (
           <Link
             href={item.url}
-            className={cn("no-underline inline-flex gap-2", item.className)}
+            className={cn(
+              "no-underline inline-flex gap-2 text-foreground hover:text-foreground/80",
+              item.className,
+              extraClassName,
+            )}
             key={item.url}
           >
             <Icon
@@ -103,7 +111,7 @@ const HeaderBase: React.FC<HeaderProps> = ({
             font={item.font}
             fontSize={item.fontSize}
             fontWeight={item.fontWeight}
-            className={cn("", item.className)}
+            className={cn("", item.className, extraClassName)}
           >
             <LinkRender item={item} />
           </Link>
@@ -120,8 +128,9 @@ const HeaderBase: React.FC<HeaderProps> = ({
             fontSize={item.fontSize}
             fontWeight={item.fontWeight}
             className={cn(
-              "hover:text-gray-600 transition-colors inline-flex items-center gap-1",
+              "text-foreground hover:text-foreground/80 transition-colors inline-flex items-center gap-1",
               item.className,
+              extraClassName,
             )}
             href={item.url}
           >
@@ -134,7 +143,10 @@ const HeaderBase: React.FC<HeaderProps> = ({
   return (
     <header
       className={cn(
-        "font-light text-[hsl(var(--value-foreground-color))] font-[family-name:--font-primary-value] w-full bg-[hsl(var(--value-background-color))] z-20 transition-all duration-300 header-container",
+        "font-light text-[hsl(var(--value-foreground-color))] font-[family-name:--font-primary-value] w-full z-20 transition-all duration-300 header-container",
+        config?.sticky && config?.backdropBlur
+          ? "bg-[hsl(var(--value-background-color)/0.9)] backdrop-blur"
+          : "bg-[hsl(var(--value-background-color))]",
         config?.sticky && "sticky top-0",
         config?.shadow === "static" && "drop-shadow-md",
         headerId && `header-${headerId}-container`,
@@ -162,21 +174,41 @@ const HeaderBase: React.FC<HeaderProps> = ({
                   getLink(item, false)
                 ) : (
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="inline-flex gap-1 items-center group cursor-pointer">
+                    <DropdownMenuTrigger
+                      className={cn(
+                        "inline-flex gap-1 items-center group cursor-pointer",
+                        item.className,
+                      )}
+                    >
                       <LinkRender item={item} />
-                      <ChevronDown
-                        size={16}
-                        className="group-data-[state=open]:rotate-180 transition-transform"
-                      />
+                      {!item.hideChevron && (
+                        <ChevronDown
+                          size={16}
+                          className="group-data-[state=open]:rotate-180 transition-transform"
+                        />
+                      )}
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="flex flex-col gap-1">
+                    <DropdownMenuContent
+                      align="start"
+                      sideOffset={8}
+                      className={cn(
+                        "rounded-xl border border-border bg-card p-2 text-foreground shadow-lg",
+                        item.twoColumns
+                          ? "min-w-[28rem] grid grid-cols-2"
+                          : "min-w-56 flex flex-col",
+                      )}
+                    >
                       {item.children.map((subItem, jndex) => (
                         <DropdownMenuItem
                           key={jndex}
                           asChild
-                          className="text-base"
+                          className="mx-0 cursor-pointer rounded-lg px-3 py-2 text-sm focus:bg-accent focus:text-accent-foreground"
                         >
-                          {getLink(subItem, false)}
+                          {getLink(
+                            subItem,
+                            false,
+                            "w-full justify-start text-foreground hover:text-foreground",
+                          )}
                         </DropdownMenuItem>
                       ))}
                     </DropdownMenuContent>
@@ -189,7 +221,7 @@ const HeaderBase: React.FC<HeaderProps> = ({
         <div className="flex ml-auto md:hidden header-mobile-menu">
           <Drawer direction="right">
             <HeaderDrawerTrigger />
-            <PortalDrawerContent className="bg-background flex flex-col  h-full min-w-[100px] max-w-fit mt-24 fixed bottom-0 right-0 left-auto rounded-none header-mobile-menu-content">
+            <PortalDrawerContent className="bg-background flex flex-col  h-full min-w-[80vw] max-w-[80vw] mt-24 fixed bottom-0 right-0 left-auto rounded-none header-mobile-menu-content">
               <ReplaceOriginalColors />
               <HeaderDrawerHeader />
               <div className="w-full py-6 px-4">
@@ -202,12 +234,23 @@ const HeaderBase: React.FC<HeaderProps> = ({
                     ) : (
                       <Accordion type="single" collapsible key={index}>
                         <AccordionItem value="item-1" className="border-none">
-                          <AccordionTrigger>
+                          <AccordionTrigger
+                            className={cn(
+                              "justify-end",
+                              item.className,
+                              item.hideChevron && "[&>svg]:hidden",
+                            )}
+                          >
                             <LinkRender item={item} />
                           </AccordionTrigger>
                           <AccordionContent className="flex flex-col gap-2 pl-2">
                             {item.children.map((subItem, jndex) => (
-                              <div key={jndex}>{getLink(subItem, true)}</div>
+                              <div
+                                key={jndex}
+                                className="inline-flex justify-end"
+                              >
+                                {getLink(subItem, true)}
+                              </div>
                             ))}
                           </AccordionContent>
                         </AccordionItem>

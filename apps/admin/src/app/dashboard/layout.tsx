@@ -287,7 +287,7 @@ export default async function DashboardLayout({
                             aria-hidden
                           />
                           <div className="flex flex-1 flex-col items-stretch justify-center gap-3 p-3 pl-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pr-4">
-                            <div className="flex min-w-0 items-start gap-3 sm:items-center">
+                            <div className="hidden md:flex min-w-0 items-start gap-3 sm:items-center">
                               <Sparkles
                                 className="mt-0.5 size-5 shrink-0 text-primary sm:mt-0"
                                 strokeWidth={2}

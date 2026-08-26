@@ -325,7 +325,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     if (resolveCustomerPackageStatus(customerPackage) === "exhausted") {
       await this.cancelPackageJobs(customerPackage._id);
     } else if (request.delta !== undefined) {
-      // Credits changed while still active — keep expire job, refresh reminder.
+      // Credits changed while still active - keep expire job, refresh reminder.
       await this.scheduleExpiringSoonJob(appData, customerPackage);
     }
   }

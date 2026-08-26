@@ -39,6 +39,7 @@ export const pageHeaderSchema = z.object({
   logoNameFontWeight: z.enum(pageHeaderLogoNameFontWeight).optional(),
   customLogoText: asOptionalField(z.union([z.string(), z.array(z.any())])),
   sticky: z.coerce.boolean<boolean>().default(false).optional(),
+  backdropBlur: z.coerce.boolean<boolean>().optional(),
   shadow: z.enum(pageHeaderShadowType).optional(),
 });
 

@@ -49,7 +49,7 @@ export const MarketingFeaturesShowcaseReader = (
       ),
       expandedTitleRow: (
         <div className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground feature-card-icon-container-expanded">
             {cardIconBlock ? (
               <ReaderBlock {...rest} block={cardIconBlock} />
             ) : null}

@@ -5,7 +5,7 @@ export const packageExpiringSoonEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-expiring-soon-email",
     name: "Пакет скоро закінчиться",
-    subject: "Термін дії пакета скоро закінчиться — {{package.name}}",
+    subject: "Термін дії пакета скоро закінчиться - {{package.name}}",
     previewText: "Термін дії вашого пакета скоро закінчиться",
     content: [
       {
@@ -14,7 +14,7 @@ export const packageExpiringSoonEmailTemplate: TemplatesTemplate =
       },
       {
         type: "text",
-        text: "Вітаємо, {{customer.name}}!\n\nТермін дії пакета **{{package.name}}** закінчується **{{package.expiresAt.full}}**. У вас залишилось **{{package.remainingCredits}}** з **{{package.totalCredits}}** кредитів — забронюйте візит, щоб їх не втратити.\n\nЗ повагою,\n\n{{config.name}}",
+        text: "Вітаємо, {{customer.name}}!\n\nТермін дії пакета **{{package.name}}** закінчується **{{package.expiresAt.full}}**. У вас залишилось **{{package.remainingCredits}}** з **{{package.totalCredits}}** кредитів - забронюйте візит, щоб їх не втратити.\n\nЗ повагою,\n\n{{config.name}}",
       },
       {
         type: "text",

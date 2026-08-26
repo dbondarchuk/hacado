@@ -5,7 +5,7 @@ export const packagePurchasedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-purchased-email",
     name: "Пакет придбано",
-    subject: "Ваш пакет придбано — {{package.name}}",
+    subject: "Ваш пакет придбано - {{package.name}}",
     previewText: "Ваш пакет готовий до використання",
     content: [
       {

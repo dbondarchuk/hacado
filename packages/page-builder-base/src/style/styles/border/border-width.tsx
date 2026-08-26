@@ -1,10 +1,27 @@
-import { Square } from "lucide-react";
+import { cn } from "@hacado/ui";
+import { Square, SquareDashedTopSolid } from "lucide-react";
+import { AllOrSidesInput } from "../../../style-inputs/all-or-sides-input";
 import { RawNumberInputWithUnit } from "../../../style-inputs/base/raw-number-input-with-units";
 import { StyleDefinition } from "../../types";
-import { renderRawNumberWithUnitCss } from "../../utils";
-import { zNumberValueWithUnit } from "../../zod";
+import { renderAllOrPerSideCss, renderRawNumberWithUnitCss } from "../../utils";
+import {
+  type NumberValueWithUnit,
+  PerSideKey,
+  zAllOrPerSide,
+  zNumberValueWithUnit,
+} from "../../zod";
 
-const BorderWidthSchema = zNumberValueWithUnit;
+const BorderWidthItemSchema = zNumberValueWithUnit;
+const BorderWidthSchema = zAllOrPerSide(BorderWidthItemSchema);
+
+const defaultBorderWidth: NumberValueWithUnit = { value: 1, unit: "px" };
+
+const turn: Record<PerSideKey, string> = {
+  top: "rotate-0",
+  right: "rotate-90",
+  bottom: "rotate-180",
+  left: "-rotate-90",
+};
 
 export const borderWidthStyle = {
   name: "borderWidth",
@@ -12,16 +29,48 @@ export const borderWidthStyle = {
   icon: ({ className }) => <Square className={className} />,
   category: "border",
   schema: BorderWidthSchema,
-  defaultValue: { value: 1, unit: "px" },
-  renderToCSS: (value) => {
-    if (!value) return null;
-    return `border-width: ${renderRawNumberWithUnitCss(value)};`;
-  },
+  defaultValue: defaultBorderWidth,
+  renderToCSS: (value) =>
+    renderAllOrPerSideCss(value, "border-width", renderRawNumberWithUnitCss),
   component: ({ value, onChange }) => (
-    <RawNumberInputWithUnit
-      icon={<Square className="size-4" />}
-      defaultValue={value}
+    <AllOrSidesInput
+      layout="sides"
+      value={value}
       onChange={onChange}
+      defaultAllValue={defaultBorderWidth}
+      renderInput={({
+        value: slotValue,
+        side,
+        onChange: onSlotChange,
+        nullable,
+      }) =>
+        nullable ? (
+          <RawNumberInputWithUnit
+            icon={
+              side === "all" ? (
+                <Square className="size-4" />
+              ) : (
+                <SquareDashedTopSolid className={cn("size-4", turn[side])} />
+              )
+            }
+            nullable
+            defaultValue={slotValue}
+            onChange={onSlotChange}
+          />
+        ) : (
+          <RawNumberInputWithUnit
+            icon={
+              side === "all" ? (
+                <Square className="size-4" />
+              ) : (
+                <SquareDashedTopSolid className={cn("size-4", turn[side])} />
+              )
+            }
+            defaultValue={slotValue ?? defaultBorderWidth}
+            onChange={onSlotChange}
+          />
+        )
+      }
     />
   ),
 } as const satisfies StyleDefinition<typeof BorderWidthSchema>;

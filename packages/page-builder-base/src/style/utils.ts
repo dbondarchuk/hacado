@@ -7,9 +7,17 @@ import {
   StyleSupport,
 } from "./types";
 import {
+  AllOrPerCorner,
+  AllOrPerSide,
   FourSideValues,
+  isPerCornerValue,
+  isPerSideValue,
   NumberValueWithUnit,
   NumberValueWithUnitOrKeyword,
+  PerCornerKey,
+  perCornerKeys,
+  PerSideKey,
+  perSideKeys,
   zBreakpoint,
   zStateWithTarget,
 } from "./zod";
@@ -147,4 +155,71 @@ export const renderFourSideValuesCss = (
       return `${prefix ? `${prefix}-` : ""}${key}: ${renderRawNumberWithUnitOrKeywordCss(val)};`;
     })
     .join("\n");
+};
+
+const cornerToCss: Record<PerCornerKey, string> = {
+  topLeft: "top-left",
+  topRight: "top-right",
+  bottomRight: "bottom-right",
+  bottomLeft: "bottom-left",
+};
+
+const defaultSideLonghand = (shorthand: string, side: PerSideKey) => {
+  const separator = shorthand.lastIndexOf("-");
+  if (separator === -1) {
+    return `${shorthand}-${side}`;
+  }
+  return `${shorthand.slice(0, separator)}-${side}${shorthand.slice(separator)}`;
+};
+
+export const renderAllOrPerSideCss = <T>(
+  value: AllOrPerSide<T> | null | undefined,
+  shorthand: string,
+  renderValue: (v: T) => string | null | undefined,
+  longhand: (side: PerSideKey) => string = (side) =>
+    defaultSideLonghand(shorthand, side),
+): string | null => {
+  if (value == null) return null;
+
+  if (!isPerSideValue(value)) {
+    const css = renderValue(value);
+    if (!css) return null;
+    return `${shorthand}: ${css};`;
+  }
+
+  const lines = perSideKeys.flatMap((side) => {
+    const slot = value[side];
+    if (slot == null) return [];
+    const css = renderValue(slot);
+    if (!css) return [];
+    return [`${longhand(side)}: ${css};`];
+  });
+
+  return lines.length ? lines.join("\n") : null;
+};
+
+export const renderAllOrPerCornerCss = <T>(
+  value: AllOrPerCorner<T> | null | undefined,
+  shorthand: string,
+  renderValue: (v: T) => string | null | undefined,
+  longhand: (corner: PerCornerKey) => string = (corner) =>
+    `border-${cornerToCss[corner]}-radius`,
+): string | null => {
+  if (value == null) return null;
+
+  if (!isPerCornerValue(value)) {
+    const css = renderValue(value);
+    if (!css) return null;
+    return `${shorthand}: ${css};`;
+  }
+
+  const lines = perCornerKeys.flatMap((corner) => {
+    const slot = value[corner];
+    if (slot == null) return [];
+    const css = renderValue(slot);
+    if (!css) return [];
+    return [`${longhand(corner)}: ${css};`];
+  });
+
+  return lines.length ? lines.join("\n") : null;
 };

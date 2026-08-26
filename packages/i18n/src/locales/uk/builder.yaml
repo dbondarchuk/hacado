@@ -100,6 +100,18 @@ pageBuilder:
     moveVariantDown: Перемістити варіант вниз
     reorderVariant: Змінити порядок варіантів
     cloneVariant: Клонувати варіант
+    allSides: Усі
+    individualSides: Окремо
+    sides:
+      top: Зверху
+      right: Справа
+      bottom: Знизу
+      left: Зліва
+    corners:
+      topLeft: Зверху зліва
+      topRight: Зверху справа
+      bottomRight: Знизу справа
+      bottomLeft: Знизу зліва
     categories:
       typography: Типографіка
       layout: Макет
@@ -1442,6 +1454,7 @@ pageBuilder:
         right: Праворуч
       iconStyles:
         plus: Плюс/Мінус
+        plusX: Плюс/X
         arrow: Стрілка
         chevron: Шеврон
     accordionItem:

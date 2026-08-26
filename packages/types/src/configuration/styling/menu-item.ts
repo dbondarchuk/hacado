@@ -167,6 +167,8 @@ export const subMenuMenuItemSchema = z.object({
   children: subMenuItemSchema
     .array()
     .min(1, "configuration.styling.menuItem.submenu.min"),
+  twoColumns: z.coerce.boolean<boolean>().optional(),
+  hideChevron: z.coerce.boolean<boolean>().optional(),
   type: menuItemTypesEnum.extract(["submenu"]),
 });
 

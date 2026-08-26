@@ -11,7 +11,7 @@ type BookingOtpFormProps = {
   /** When false, show email/phone inputs (package booking entry). Default true. */
   hideContactFields?: boolean;
   /**
-   * Package redeem: verify an existing customer only — do not upsert.
+   * Package redeem: verify an existing customer only - do not upsert.
    * Also skips sending name (not required for this path).
    */
   existingCustomerOnly?: boolean;

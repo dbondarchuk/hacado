@@ -136,7 +136,7 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
         ? DateTime.fromJSDate(new Date(row.original.expiresAt)).toLocaleString(
             DateTime.DATE_MED,
           )
-        : "—",
+        : "-",
     id: "expiresAt",
     header: tableSortHeader(
       "services.packages.sold.table.columns.expiresAt",

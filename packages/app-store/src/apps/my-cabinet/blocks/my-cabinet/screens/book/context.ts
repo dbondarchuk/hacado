@@ -153,7 +153,7 @@ export type ScheduleContextProps = {
   setPurchasePackageId: (id?: string) => void;
   customerPackageId?: string;
   setCustomerPackageId: (id?: string) => void;
-  /** When true, booking was started from a sold package — skip option/addon selection. */
+  /** When true, booking was started from a sold package - skip option/addon selection. */
   isCustomerPackageLocked?: boolean;
   requireCustomerOtp?: boolean;
   otpVerified: boolean;

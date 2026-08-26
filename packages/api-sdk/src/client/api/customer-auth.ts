@@ -112,7 +112,7 @@ export const requestBookingOtp = async (payload: {
   email?: string;
   phone?: string;
   channel?: "email" | "phone";
-  /** When true, never create/update a customer — OTP only if they already exist. */
+  /** When true, never create/update a customer - OTP only if they already exist. */
   existingOnly?: boolean;
 }) => {
   const response = await fetchClientApi("/booking/request-otp", {

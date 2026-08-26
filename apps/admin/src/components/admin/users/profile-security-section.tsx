@@ -146,20 +146,20 @@ export const ProfileSecuritySection = ({
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Mail className="h-5 w-5 text-muted-foreground" />
           </div>
-          <div className="flex flex-col">
-            <p className="font-medium">{t("users.profile.security.email")}</p>
-            <p className="text-base text-muted-foreground">{email}</p>
+          <div className="flex flex-col min-w-0">
+            <p className="font-medium">{t("users.profile.security.phone")}</p>
+            <p className="text-base text-muted-foreground truncate">{email}</p>
           </div>
         </div>
         <EmailChangeDialog currentEmail={email} />
       </div>
       <div className="h-px w-full bg-border" />
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Phone className="h-5 w-5 text-muted-foreground" />
@@ -167,19 +167,19 @@ export const ProfileSecuritySection = ({
           <div className="flex flex-col min-w-0">
             <p className="font-medium">{t("users.profile.security.phone")}</p>
             <p className="text-base text-muted-foreground truncate">
-              {phone || "—"}
+              {phone || "-"}
             </p>
           </div>
         </div>
         <PhoneChangeDialog currentPhone={phone || ""} />
       </div>
       <div className="h-px w-full bg-border" />
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="h-10 w-10 shrink-0 rounded-md bg-muted flex items-center justify-center">
             <Lock className="h-5 w-5 text-muted-foreground" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col min-w-0">
             <p className="font-medium">
               {t("users.profile.security.password")}
             </p>
@@ -208,46 +208,48 @@ export const ProfileSecuritySection = ({
               {t("users.profile.security.connectedAccounts")}
             </p>
           </div>
-          {enabledSocialProviders.map((provider) => {
-            const keys = PROVIDER_SECURITY_KEYS[provider];
-            const linkedAccount = accounts.find(
-              (account) => account.providerId === provider,
-            );
+          <div className="flex flex-col gap-2 md:pl-[52px] max-sm:divide-y">
+            {enabledSocialProviders.map((provider) => {
+              const keys = PROVIDER_SECURITY_KEYS[provider];
+              const linkedAccount = accounts.find(
+                (account) => account.providerId === provider,
+              );
 
-            return (
-              <div
-                key={provider}
-                className="flex items-center justify-between gap-4 pl-[52px]"
-              >
-                <p className="text-base text-muted-foreground truncate">
-                  {linkedAccount
-                    ? t(keys.connected as Parameters<typeof t>[0])
-                    : t(keys.notConnected as Parameters<typeof t>[0])}
-                </p>
-                {!loadingAccounts &&
-                  (linkedAccount ? (
-                    hasCredential ? (
-                      <UnlinkSocialDialog
-                        provider={provider}
-                        onSuccess={loadAccounts}
-                      />
+              return (
+                <div
+                  key={provider}
+                  className="flex flex-col py-2 sm:flex-row sm:items-center justify-between gap-4"
+                >
+                  <p className="text-base text-muted-foreground truncate">
+                    {linkedAccount
+                      ? t(keys.connected as Parameters<typeof t>[0])
+                      : t(keys.notConnected as Parameters<typeof t>[0])}
+                  </p>
+                  {!loadingAccounts &&
+                    (linkedAccount ? (
+                      hasCredential ? (
+                        <UnlinkSocialDialog
+                          provider={provider}
+                          onSuccess={loadAccounts}
+                        />
+                      ) : (
+                        <Button variant="outline" disabled>
+                          {t(keys.unlink as Parameters<typeof t>[0])}
+                        </Button>
+                      )
                     ) : (
-                      <Button variant="outline" disabled>
-                        {t(keys.unlink as Parameters<typeof t>[0])}
+                      <Button
+                        variant="outline"
+                        disabled={linkingProvider === provider}
+                        onClick={() => void onLinkProvider(provider)}
+                      >
+                        {t(keys.connect as Parameters<typeof t>[0])}
                       </Button>
-                    )
-                  ) : (
-                    <Button
-                      variant="outline"
-                      disabled={linkingProvider === provider}
-                      onClick={() => void onLinkProvider(provider)}
-                    >
-                      {t(keys.connect as Parameters<typeof t>[0])}
-                    </Button>
-                  ))}
-              </div>
-            );
-          })}
+                    ))}
+                </div>
+              );
+            })}
+          </div>
         </>
       ) : null}
     </>

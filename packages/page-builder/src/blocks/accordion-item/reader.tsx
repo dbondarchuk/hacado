@@ -12,9 +12,6 @@ export const AccordionItem = ({
   props,
   style,
   block,
-  animation,
-  iconPosition,
-  iconStyle,
   ...rest
 }: AccordionItemReaderProps) => {
   const title = props?.title?.children || [];
@@ -34,6 +31,7 @@ export const AccordionItem = ({
         id={base?.id}
       >
         <AccordionItemInternal
+          itemId={block.id}
           title={
             <>
               {title.map((child) => (
@@ -48,10 +46,6 @@ export const AccordionItem = ({
               ))}
             </>
           }
-          isOpen={props?.isOpen ?? false}
-          animation={animation}
-          iconPosition={iconPosition}
-          iconStyle={iconStyle}
         />
       </div>
     </>

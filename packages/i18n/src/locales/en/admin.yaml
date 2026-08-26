@@ -1554,6 +1554,8 @@ pages:
         tooltip: Custom text to be shown instead of the business brand name
       stickyHeader: Sticky header
       stickyHeaderDescription: Should header move with the page scroll
+      backdropBlur: Backdrop blur
+      backdropBlurDescription: Frost the header so page content shows through while scrolling
       headerShadow: Header shadow
       selectShadowType: Select shadow type
       menu: Menu
@@ -2260,7 +2262,7 @@ services:
         action: View customer
     emails:
       purchasedOwner:
-        subject: "New package purchase — {packageName}"
+        subject: "New package purchase - {packageName}"
         preview: "{customerName} purchased {packageName}"
         title: New package purchase
         body: "{customerName} purchased {packageName} for {price}."
@@ -3422,8 +3424,7 @@ auth:
   captcha:
     error: Captcha verification failed. Please try again.
   verification:
-    notVerified:
-      Your email has not been verified. Enter the code we sent to your email.
+    notVerified: Your email has not been verified. Enter the code we sent to your email.
     resendVerificationEmail: Resend code
     sendCode: Send verification code
     verify: Verify email
@@ -3633,6 +3634,10 @@ menuItem:
     title: Sub Menu
     moveMenuItem: Move menu item
     invalid: Invalid
+    twoColumns: Split into two columns
+    twoColumnsDescription: Show submenu links in a two-column dropdown
+    hideChevron: Hide chevron
+    hideChevronDescription: Do not show the dropdown arrow next to the submenu label
   iconSelect:
     selectIcon: Select icon
   types:

@@ -27,7 +27,7 @@ export const MarketingScrollingLogosEditor = ({
         id={base?.id}
         {...overlayProps}
       >
-        <div className="mx-auto max-w-7xl">
+        <div className="overflow-hidden scroll-logos-container">
           <div className="flex gap-4 overflow-x-auto border border-dashed border-muted rounded-lg p-4">
             <EditorChildren blockId={currentBlock.id} property="props.items" />
           </div>

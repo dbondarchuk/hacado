@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 /**
  * Deep-link entry (`/auth/reset-password?email=…`) after an OTP was already
- * requested — continues the same multi-step flow at the OTP step.
+ * requested - continues the same multi-step flow at the OTP step.
  */
 export const UserResetPasswordForm = ({
   turnstileSiteKey,

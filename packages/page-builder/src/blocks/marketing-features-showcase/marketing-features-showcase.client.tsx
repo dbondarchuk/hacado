@@ -96,8 +96,8 @@ export function MarketingFeaturesShowcaseClient({
                           className={cn(
                             "flex h-14 w-14 items-center justify-center rounded-xl transition-colors",
                             isExpanded
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground",
+                              ? "bg-primary text-primary-foreground feature-card-icon-container feature-card-icon-container-expanded"
+                              : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground feature-card-icon-container",
                           )}
                         >
                           {feature.cardIcon}

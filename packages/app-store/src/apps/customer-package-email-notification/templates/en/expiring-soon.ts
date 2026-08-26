@@ -5,7 +5,7 @@ export const packageExpiringSoonEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-expiring-soon-email",
     name: "Package expiring soon",
-    subject: "Your package expires soon — {{package.name}}",
+    subject: "Your package expires soon - {{package.name}}",
     previewText: "Your package is expiring soon",
     content: [
       {
@@ -14,7 +14,7 @@ export const packageExpiringSoonEmailTemplate: TemplatesTemplate =
       },
       {
         type: "text",
-        text: "Hi {{customer.name}},\n\nYour package **{{package.name}}** expires on **{{package.expiresAt.full}}**. You still have **{{package.remainingCredits}}** of **{{package.totalCredits}}** credits left — book soon so they do not go unused.\n\nBest regards,\n\n{{config.name}}",
+        text: "Hi {{customer.name}},\n\nYour package **{{package.name}}** expires on **{{package.expiresAt.full}}**. You still have **{{package.remainingCredits}}** of **{{package.totalCredits}}** credits left - book soon so they do not go unused.\n\nBest regards,\n\n{{config.name}}",
       },
       {
         type: "text",

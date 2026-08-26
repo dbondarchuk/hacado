@@ -98,6 +98,18 @@ pageBuilder:
     moveVariantDown: Move variant down
     reorderVariant: Reorder variant
     cloneVariant: Clone variant
+    allSides: All
+    individualSides: Individual
+    sides:
+      top: Top
+      right: Right
+      bottom: Bottom
+      left: Left
+    corners:
+      topLeft: Top left
+      topRight: Top right
+      bottomRight: Bottom right
+      bottomLeft: Bottom left
     categories:
       typography: Typography
       layout: Layout
@@ -1427,6 +1439,7 @@ pageBuilder:
         right: Right
       iconStyles:
         plus: Plus/Minus
+        plusX: Plus/X
         arrow: Arrow
         chevron: Chevron
     accordionItem:

@@ -9,7 +9,10 @@ export const AccordionPropsSchema = z.object({
     defaultOpenFirst: z.boolean().optional().nullable(),
     animation: z.enum(["slide", "fade", "none"]).optional().nullable(),
     iconPosition: z.enum(["left", "right"]).optional().nullable(),
-    iconStyle: z.enum(["plus", "arrow", "chevron"]).optional().nullable(),
+    iconStyle: z
+      .enum(["plus", "plus-x", "arrow", "chevron"])
+      .optional()
+      .nullable(),
     children: z.array(z.any()),
   }),
 });

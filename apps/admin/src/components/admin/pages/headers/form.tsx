@@ -393,6 +393,38 @@ export const PageHeaderForm: React.FC<{
                   </FormItem>
                 )}
               />
+              {form.watch("sticky") && (
+                <FormField
+                  control={form.control}
+                  name="backdropBlur"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex flex-row items-start gap-2">
+                        <FormControl>
+                          <Checkbox
+                            id="backdropBlur"
+                            disabled={loading}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="flex flex-col gap-1">
+                          <FormLabel
+                            htmlFor="backdropBlur"
+                            className="cursor-pointer"
+                          >
+                            {t("pages.headers.form.backdropBlur")}
+                          </FormLabel>
+                          <FormDescription>
+                            {t("pages.headers.form.backdropBlurDescription")}
+                          </FormDescription>
+                        </div>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               <FormField
                 control={form.control}
                 name="shadow"

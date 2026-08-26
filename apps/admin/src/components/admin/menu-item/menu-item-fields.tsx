@@ -15,8 +15,10 @@ import {
   TextWeights,
 } from "@hacado/types";
 import {
+  Checkbox,
   Combobox,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -531,27 +533,91 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
         />
       </div>
       {type === "submenu" && (
-        <Sortable
-          title={t("menuItem.subMenu.title")}
-          ids={subMenusIds}
-          onSort={sortSubMenus}
-          onAdd={addNewSubMenu}
-        >
-          <div className="flex flex-grow flex-col gap-4">
-            {subMenuItems.map((item, index) => {
-              return (
-                <SubMenuItemCard
-                  form={form}
-                  item={item as SubMenuItemWithId}
-                  key={item.id}
-                  name={`${name}.children.${index}`}
-                  disabled={disabled}
-                  remove={() => removeSubMenu(index)}
-                />
-              );
-            })}
+        <>
+          <div className="grid md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name={`${name}.twoColumns`}
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex flex-row items-start gap-2">
+                    <FormControl>
+                      <Checkbox
+                        id={`${name}.twoColumns`}
+                        disabled={disabled}
+                        checked={Boolean(field.value)}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="flex flex-col gap-1">
+                      <FormLabel
+                        htmlFor={`${name}.twoColumns`}
+                        className="cursor-pointer"
+                      >
+                        {t("menuItem.subMenu.twoColumns")}
+                      </FormLabel>
+                      <FormDescription>
+                        {t("menuItem.subMenu.twoColumnsDescription")}
+                      </FormDescription>
+                    </div>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name={`${name}.hideChevron`}
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex flex-row items-start gap-2">
+                    <FormControl>
+                      <Checkbox
+                        id={`${name}.hideChevron`}
+                        disabled={disabled}
+                        checked={Boolean(field.value)}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="flex flex-col gap-1">
+                      <FormLabel
+                        htmlFor={`${name}.hideChevron`}
+                        className="cursor-pointer"
+                      >
+                        {t("menuItem.subMenu.hideChevron")}
+                      </FormLabel>
+                      <FormDescription>
+                        {t("menuItem.subMenu.hideChevronDescription")}
+                      </FormDescription>
+                    </div>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-        </Sortable>
+          <Sortable
+            title={t("menuItem.subMenu.title")}
+            ids={subMenusIds}
+            onSort={sortSubMenus}
+            onAdd={addNewSubMenu}
+          >
+            <div className="flex flex-grow flex-col gap-4">
+              {subMenuItems.map((item, index) => {
+                return (
+                  <SubMenuItemCard
+                    form={form}
+                    item={item as SubMenuItemWithId}
+                    key={item.id}
+                    name={`${name}.children.${index}`}
+                    disabled={disabled}
+                    remove={() => removeSubMenu(index)}
+                  />
+                );
+              })}
+            </div>
+          </Sortable>
+        </>
       )}
     </>
   );

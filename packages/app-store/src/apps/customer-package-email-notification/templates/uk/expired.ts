@@ -5,7 +5,7 @@ export const packageExpiredEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-expired-email",
     name: "Пакет прострочено",
-    subject: "Термін дії пакета закінчився — {{package.name}}",
+    subject: "Термін дії пакета закінчився - {{package.name}}",
     previewText: "Термін дії пакета закінчився",
     content: [
       {

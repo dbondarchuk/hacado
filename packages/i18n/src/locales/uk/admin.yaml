@@ -1493,6 +1493,8 @@ pages:
       stickyTooltip: Чи повинен заголовок рухатися з прокруткою сторінки
       stickyHeader: Закріплений заголовок
       stickyHeaderDescription: Чи повинен заголовок рухатися з прокруткою сторінки
+      backdropBlur: Розмиття фону
+      backdropBlurDescription: Заморозити заголовок, щоб вміст сторінки просвічувався під час прокрутки
       showLogo: Показати логотип
       showLogoDescription: Чи повинен логотип показуватися в заголовку
       logoSize:
@@ -2139,7 +2141,7 @@ services:
         action: Переглянути клієнта
     emails:
       purchasedOwner:
-        subject: "Нова покупка пакета — {packageName}"
+        subject: "Нова покупка пакета - {packageName}"
         preview: "{customerName} придбав(ла) {packageName}"
         title: Нова покупка пакета
         body: "{customerName} придбав(ла) {packageName} за {price}."
@@ -3200,7 +3202,7 @@ auth:
     verify: Підтвердити
     otpLabel: Код підтвердження
     cooldown: Повторне надсилання через {seconds} с
-    smsBody: Ваш код підтвердження Hacado — {otp}. Дійсний 5 хвилин. Нікому не повідомляйте цей код.
+    smsBody: Ваш код підтвердження Hacado - {otp}. Дійсний 5 хвилин. Нікому не повідомляйте цей код.
     errors:
       phoneInUse: Цей номер телефону вже використовується
       rateLimited: Забагато запитів. Будь ласка, спробуйте пізніше.
@@ -3385,6 +3387,10 @@ menuItem:
     title: Підменю
     moveMenuItem: Перемістити пункт меню
     invalid: Недійсний
+    twoColumns: Розділити на дві колонки
+    twoColumnsDescription: Показати посилання підменю у дві колонки
+    hideChevron: Сховати стрілку
+    hideChevronDescription: Не показувати стрілку розкриття біля назви підменю
   iconSelect:
     selectIcon: Вибрати іконку
   types:

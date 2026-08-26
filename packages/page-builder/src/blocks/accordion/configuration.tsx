@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfigurationProps, SelectInput } from "@hacado/builder";
+import { BooleanInput, ConfigurationProps, SelectInput } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
 import { deepMemo } from "@hacado/ui";
@@ -33,6 +33,20 @@ export const AccordionConfiguration = deepMemo(
         base={base}
         onBaseChange={onBaseChange}
       >
+        <BooleanInput
+          label={t("pageBuilder.blocks.accordion.allowMultipleOpen")}
+          defaultValue={data.props.allowMultipleOpen ?? false}
+          onChange={(allowMultipleOpen) =>
+            updateProps({ ...data.props, allowMultipleOpen })
+          }
+        />
+        <BooleanInput
+          label={t("pageBuilder.blocks.accordion.defaultOpenFirst")}
+          defaultValue={data.props.defaultOpenFirst ?? false}
+          onChange={(defaultOpenFirst) =>
+            updateProps({ ...data.props, defaultOpenFirst })
+          }
+        />
         <SelectInput
           label={t("pageBuilder.blocks.accordion.animation")}
           size="sm"
@@ -80,6 +94,10 @@ export const AccordionConfiguration = deepMemo(
             {
               value: "plus",
               label: t("pageBuilder.blocks.accordion.iconStyles.plus"),
+            },
+            {
+              value: "plus-x",
+              label: t("pageBuilder.blocks.accordion.iconStyles.plusX"),
             },
             {
               value: "arrow",

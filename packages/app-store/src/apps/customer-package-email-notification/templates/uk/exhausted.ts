@@ -5,7 +5,7 @@ export const packageExhaustedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-exhausted-email",
     name: "Пакет вичерпано",
-    subject: "Кредити пакета використано — {{package.name}}",
+    subject: "Кредити пакета використано - {{package.name}}",
     previewText: "Кредити пакета використано",
     content: [
       {

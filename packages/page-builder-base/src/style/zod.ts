@@ -92,6 +92,115 @@ export const zFourSideValues = z.object({
 
 export type FourSideValues = z.infer<typeof zFourSideValues>;
 
+export const perSideKeys = ["top", "right", "bottom", "left"] as const;
+export type PerSideKey = (typeof perSideKeys)[number];
+
+export const perCornerKeys = [
+  "topLeft",
+  "topRight",
+  "bottomRight",
+  "bottomLeft",
+] as const;
+export type PerCornerKey = (typeof perCornerKeys)[number];
+
+export const zPerSide = <T extends z.ZodType>(item: T) =>
+  z
+    .object({
+      top: item.nullable().optional(),
+      right: item.nullable().optional(),
+      bottom: item.nullable().optional(),
+      left: item.nullable().optional(),
+    })
+    .refine((value) => perSideKeys.some((key) => value[key] !== undefined), {
+      message: "At least one side is required",
+    });
+
+export type PerSideValues<T> = {
+  top?: T | null;
+  right?: T | null;
+  bottom?: T | null;
+  left?: T | null;
+};
+
+export const zAllOrPerSide = <T extends z.ZodType>(item: T) =>
+  z.union([item, zPerSide(item)]);
+
+export type AllOrPerSide<T> = T | PerSideValues<T>;
+
+export const zPerCorner = <T extends z.ZodType>(item: T) =>
+  z
+    .object({
+      topLeft: item.nullable().optional(),
+      topRight: item.nullable().optional(),
+      bottomRight: item.nullable().optional(),
+      bottomLeft: item.nullable().optional(),
+    })
+    .refine((value) => perCornerKeys.some((key) => value[key] !== undefined), {
+      message: "At least one corner is required",
+    });
+
+export type PerCornerValues<T> = {
+  topLeft?: T | null;
+  topRight?: T | null;
+  bottomRight?: T | null;
+  bottomLeft?: T | null;
+};
+
+export const zAllOrPerCorner = <T extends z.ZodType>(item: T) =>
+  z.union([item, zPerCorner(item)]);
+
+export type AllOrPerCorner<T> = T | PerCornerValues<T>;
+
+export const isPerSideValue = <T>(
+  value: AllOrPerSide<T> | null | undefined,
+): value is PerSideValues<T> =>
+  typeof value === "object" &&
+  value !== null &&
+  perSideKeys.some((key) => key in value);
+
+export const isPerCornerValue = <T>(
+  value: AllOrPerCorner<T> | null | undefined,
+): value is PerCornerValues<T> =>
+  typeof value === "object" &&
+  value !== null &&
+  perCornerKeys.some((key) => key in value);
+
+export const expandAllToSides = <T>(value: T): PerSideValues<T> => ({
+  top: value,
+  right: value,
+  bottom: value,
+  left: value,
+});
+
+export const expandAllToCorners = <T>(value: T): PerCornerValues<T> => ({
+  topLeft: value,
+  topRight: value,
+  bottomRight: value,
+  bottomLeft: value,
+});
+
+export const collapseSidesToAll = <T>(
+  value: PerSideValues<T>,
+  fallback: T,
+): T => {
+  for (const key of perSideKeys) {
+    const slot = value[key];
+    if (slot != null) return slot;
+  }
+  return fallback;
+};
+
+export const collapseCornersToAll = <T>(
+  value: PerCornerValues<T>,
+  fallback: T,
+): T => {
+  for (const key of perCornerKeys) {
+    const slot = value[key];
+    if (slot != null) return slot;
+  }
+  return fallback;
+};
+
 export const breakpoints = [
   "sm", // >= 40rem (640px)
   "max-sm", // < 40rem (640px)

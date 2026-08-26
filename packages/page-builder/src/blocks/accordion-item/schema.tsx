@@ -1,6 +1,5 @@
 import { BaseReaderBlockProps, generateId } from "@hacado/builder";
 import * as z from "zod";
-import { AccordionProps } from "../accordion/schema";
 import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";
 
@@ -19,11 +18,7 @@ export const AccordionItemPropsSchema = z.object({
 
 export type AccordionItemProps = z.infer<typeof AccordionItemPropsSchema>;
 export type AccordionItemReaderProps = BaseReaderBlockProps<any> &
-  AccordionItemProps & {
-    animation?: AccordionProps["props"]["animation"];
-    iconPosition?: AccordionProps["props"]["iconPosition"];
-    iconStyle?: AccordionProps["props"]["iconStyle"];
-  };
+  AccordionItemProps;
 
 export const AccordionItemPropsDefaults = () =>
   ({

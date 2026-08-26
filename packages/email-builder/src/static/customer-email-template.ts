@@ -21,7 +21,7 @@ export type BuiltCustomerEmailTemplate = {
 };
 
 /**
- * Builds a customer-facing email template document (structure only — not rendered HTML).
+ * Builds a customer-facing email template document (structure only - not rendered HTML).
  * Text blocks are stored as Plate markdown. Mustache placeholders are kept as literals.
  */
 export function buildCustomerEmailTemplate({

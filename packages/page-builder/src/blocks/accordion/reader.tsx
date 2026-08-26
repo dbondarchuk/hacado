@@ -4,6 +4,8 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui";
+import { AccordionClient } from "./accordion.client";
+import { getInitialOpenItemIds } from "./open-state";
 import { AccordionReaderProps } from "./schema";
 import { styles } from "./styles";
 
@@ -18,22 +20,30 @@ export const Accordion = ({
   const base = block.base;
 
   const { animation, iconPosition, iconStyle } = props;
+  const allowMultipleOpen = props?.allowMultipleOpen ?? false;
+  const defaultOpenFirst = props?.defaultOpenFirst ?? false;
+  const initialOpenItemIds = getInitialOpenItemIds(
+    children,
+    allowMultipleOpen,
+    defaultOpenFirst,
+  );
 
   return (
     <>
       <BlockStyle name={className} styleDefinitions={styles} styles={style} />
-      <div className={cn(className, base?.className)} id={base?.id}>
+      <AccordionClient
+        className={cn(className, base?.className)}
+        id={base?.id}
+        allowMultipleOpen={allowMultipleOpen}
+        initialOpenItemIds={initialOpenItemIds}
+        animation={animation}
+        iconPosition={iconPosition}
+        iconStyle={iconStyle}
+      >
         {children.map((child: any) => (
-          <ReaderBlock
-            key={child.id}
-            block={child}
-            {...rest}
-            animation={animation}
-            iconPosition={iconPosition}
-            iconStyle={iconStyle}
-          />
+          <ReaderBlock key={child.id} block={child} {...rest} />
         ))}
-      </div>
+      </AccordionClient>
     </>
   );
 };

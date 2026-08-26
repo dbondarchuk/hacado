@@ -85,7 +85,7 @@ export type GetAppointmentsQueryBase = {
   customerId?: string | string[];
   discountId?: string | string[];
   memberId?: string | string[];
-  /** Catalog package id(s) — matches joined customerPackage.packageId. */
+  /** Catalog package id(s) - matches joined customerPackage.packageId. */
   packageId?: string | string[];
   /** Specific sold (customer) package id. */
   customerPackageId?: string;

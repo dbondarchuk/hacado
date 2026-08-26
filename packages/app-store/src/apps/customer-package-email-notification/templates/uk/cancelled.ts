@@ -5,7 +5,7 @@ export const packageCancelledEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "customer-package-cancelled-email",
     name: "Пакет скасовано",
-    subject: "Ваш пакет скасовано — {{package.name}}",
+    subject: "Ваш пакет скасовано - {{package.name}}",
     previewText: "Ваш пакет скасовано",
     content: [
       {
