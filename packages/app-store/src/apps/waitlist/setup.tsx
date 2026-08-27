@@ -7,12 +7,14 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
   InfoTooltip,
   Spinner,
+  Switch,
 } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
@@ -40,7 +42,10 @@ export const WaitlistAppSetup: React.FC<AppSetupProps> = ({
       schema: waitlistConfigurationSchema,
       onSuccess,
       onError,
-      initialData: {},
+      initialData: {
+        notifyMemberOnNewEntry: true,
+        notifyCoordinatorsOnNewEntry: false,
+      },
       processDataForSubmit: (data) => ({
         type: "set-configuration",
         configuration: data,
@@ -56,6 +61,52 @@ export const WaitlistAppSetup: React.FC<AppSetupProps> = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex flex-col items-center gap-4 w-full">
+            <FormField
+              control={form.control}
+              name="notifyMemberOnNewEntry"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 w-full">
+                  <div className="space-y-0.5">
+                    <FormLabel>
+                      {t("setup.form.notifyMemberOnNewEntry.label")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("setup.form.notifyMemberOnNewEntry.description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="notifyCoordinatorsOnNewEntry"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 w-full">
+                  <div className="space-y-0.5">
+                    <FormLabel>
+                      {t("setup.form.notifyCoordinatorsOnNewEntry.label")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("setup.form.notifyCoordinatorsOnNewEntry.description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="dontDismissWaitlistOnAppointmentCreate"

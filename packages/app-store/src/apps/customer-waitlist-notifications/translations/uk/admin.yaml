@@ -1,0 +1,18 @@
+app:
+  displayName: Сповіщення клієнтів про список очікування
+  description: Надсилайте клієнтам email, коли вони приєднуються до списку очікування. Оберіть шаблон або залиште поле порожнім, щоб не надсилати.
+setup:
+  update: Оновити <app></app>
+  add: Додати <app></app>
+  form:
+    customerNewEntryTemplateId:
+      label: Шаблон email клієнту про новий запис
+      tooltip: Необов'язковий шаблон email, який клієнти отримають, коли приєднаються до списку очікування. Залиште порожнім, щоб не надсилати.
+      placeholder: ID шаблону
+handlers:
+  newWaitlistEntry: Сповіщення клієнта про чергу - Новий запис
+statusText:
+  successfully_set_up: Успішно налаштовано сповіщення клієнтів про список очікування
+  error_sending_email_notification_for_new_waitlist_entry: Помилка надсилання email сповіщення про новий запис черги
+  email_app_not_configured: Додаток відправника email за замовчуванням не налаштований
+  error_processing_configuration: Помилка обробки конфігурації

@@ -1,0 +1,18 @@
+app:
+  displayName: Customer Waitlist Notifications
+  description: Send an email to customers when they join your waitlist. Choose a template or leave it empty to skip sending.
+setup:
+  update: Update <app></app>
+  add: Add <app></app>
+  form:
+    customerNewEntryTemplateId:
+      label: Customer new entry email template
+      tooltip: Optional template for the email customers receive when they join the waitlist. Leave empty to skip sending.
+      placeholder: Template ID
+handlers:
+  newWaitlistEntry: Customer Waitlist Notification - New Entry
+statusText:
+  successfully_set_up: Successfully set up customer waitlist notifications
+  error_sending_email_notification_for_new_waitlist_entry: Error sending email notification for new waitlist entry
+  email_app_not_configured: Email sender default app is not configured
+  error_processing_configuration: Error processing configuration

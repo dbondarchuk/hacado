@@ -2055,8 +2055,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/complete-setup.ts": {
-    "mtime": 1787364795.1163485,
-    "ast_hash": "c3dc292a822747ab207bfe0e82133025",
+    "mtime": 1787857597.6809096,
+    "ast_hash": "a298146a18d16791f162d7e0ca4152e9",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/create-default-pages.ts": {
@@ -2200,8 +2200,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-integrations.tsx": {
-    "mtime": 1787364795.1194003,
-    "ast_hash": "14e92204fb7168c86e3ae9b87d21c0a8",
+    "mtime": 1787857599.1567988,
+    "ast_hash": "33d1f86db99ffa7eda75ea44f46bc399",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-payments.tsx": {
@@ -3130,8 +3130,8 @@
     "semantic_hash": ""
   },
   "docs/sidebars.ts": {
-    "mtime": 1786820409.049153,
-    "ast_hash": "3b5f2398bb3172837e23f0916465760a",
+    "mtime": 1787857419.6030307,
+    "ast_hash": "0d0940fa7cb15e3aeaa8262b16935140",
     "semantic_hash": ""
   },
   "docs/src/pages/index.tsx": {
@@ -3680,8 +3680,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps.ts": {
-    "mtime": 1787364795.1996255,
-    "ast_hash": "bf1e7a217d408c52070cf5c02852629c",
+    "mtime": 1787857587.4305148,
+    "ast_hash": "eff6a01ba42a65e12705f8c7ed06dfdc",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/appointment-notifications/actions.ts": {
@@ -6624,74 +6624,14 @@
     "ast_hash": "8713eeab6ac4901beeb231088679b7f3",
     "semantic_hash": ""
   },
-  "packages/app-store/src/apps/waitlist-notifications/app.tsx": {
-    "mtime": 1786820409.4126434,
-    "ast_hash": "e18e64e1b60811828d79fc143f597b02",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/const.ts": {
-    "mtime": 1773675371.190995,
-    "ast_hash": "58420e1dabf58ee945ef2955130f90f7",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/emails/index.ts": {
-    "mtime": 1786820409.4126434,
-    "ast_hash": "2d05a2e7b569b615a101b3fdfa71da53",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/emails/translations/en.ts": {
-    "mtime": 1786820409.4136431,
-    "ast_hash": "afe529cc28d4d588dda37d3c48c7b7f6",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/emails/translations/uk.ts": {
-    "mtime": 1786820409.4136431,
-    "ast_hash": "3f6fb6b94f353092a9937055bef7ce60",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/emails/types.ts": {
-    "mtime": 1773675371.191995,
-    "ast_hash": "ab4c01fe144d637715806cfd7ef28cc2",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/emails/utils.ts": {
-    "mtime": 1786820409.4146445,
-    "ast_hash": "895effeb919de038eddddc5f63a5d91b",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/models.ts": {
-    "mtime": 1786820409.4146445,
-    "ast_hash": "85605a07d576d5bd72a273bb153dc4a7",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/service.ts": {
-    "mtime": 1786820409.4156435,
-    "ast_hash": "0e8d505b8628aa705fb0dc16b08b96e9",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/setup.tsx": {
-    "mtime": 1786820409.4166436,
-    "ast_hash": "0e67311a4589c4e0ecbfca3c61ddc662",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/translations/index.ts": {
-    "mtime": 1776878779.1734047,
-    "ast_hash": "87427bcbf845dc0f1ad723d0c50ca7f8",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/translations/types.ts": {
-    "mtime": 1786820409.4166436,
-    "ast_hash": "8c1992d0fb73ac430433b2d07554c262",
-    "semantic_hash": ""
-  },
   "packages/app-store/src/apps/waitlist/actions.ts": {
     "mtime": 1786820409.4176428,
     "ast_hash": "9f525bbe341992cbcbd191705bf9d340",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/app-events.ts": {
-    "mtime": 1787851996.798228,
-    "ast_hash": "467a12762e727f11f021a12d6925d0e6",
+    "mtime": 1787857309.2842436,
+    "ast_hash": "56a6125fd56d1cabbd05ab564aacaab2",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/app.tsx": {
@@ -7075,8 +7015,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/models/app.ts": {
-    "mtime": 1786820409.4577136,
-    "ast_hash": "2b7b8b4c1926936c61d33680c900303d",
+    "mtime": 1787857116.9171507,
+    "ast_hash": "67d1fe775a3f039211b40e7562efb067",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/models/events.ts": {
@@ -7130,13 +7070,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/service/service.ts": {
-    "mtime": 1786820409.4612606,
-    "ast_hash": "1a28ceeb6128e175ef8928614c6277ae",
+    "mtime": 1787857572.4087968,
+    "ast_hash": "76bb33090c78db359236b57e640010f2",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/setup.tsx": {
-    "mtime": 1786820409.4612606,
-    "ast_hash": "3f5a92698019b3e06fcdb4371a4d7326",
+    "mtime": 1787857179.462805,
+    "ast_hash": "f3118eb0f8efd55911a36edd11f1d973",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/table/cell-action.tsx": {
@@ -7480,18 +7420,18 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/services/index.ts": {
-    "mtime": 1787364795.2361546,
-    "ast_hash": "9635e4772a1768ad4e4df5b80ae799fe",
+    "mtime": 1787857316.8780653,
+    "ast_hash": "7743c1879cb7bfff6fd2fc33b235eba1",
     "semantic_hash": ""
   },
   "packages/app-store/src/setup.tsx": {
-    "mtime": 1786820409.493847,
-    "ast_hash": "22fab81334ce005801195462176b2716",
+    "mtime": 1787857320.337392,
+    "ast_hash": "9f0d86a9abe8f43c6da23938c368b1e4",
     "semantic_hash": ""
   },
   "packages/app-store/src/translations.ts": {
-    "mtime": 1787364795.236685,
-    "ast_hash": "7d93eb34a952b47f20c25e09a8cadf94",
+    "mtime": 1787857317.6920292,
+    "ast_hash": "61e393d0fb15dc3a381c89874a81b037",
     "semantic_hash": ""
   },
   "packages/app-store/tailwind.config.ts": {
@@ -15360,8 +15300,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1786820408.646015,
-    "ast_hash": "aa233fbfd8b2cb5140f69d5353f890f3",
+    "mtime": 1787857423.366269,
+    "ast_hash": "0abef217e0bae4b087f393eb3c38b300",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/data/beauty.yaml": {
@@ -15664,14 +15604,9 @@
     "ast_hash": "b13e50ab618a85e3517d3e29b8b891f5",
     "semantic_hash": ""
   },
-  "docs/docs/apps/waitlist-notifications.md": {
-    "mtime": 1786820409.0351005,
-    "ast_hash": "7f6ddbca648a7fd6fb43ed8afae8520c",
-    "semantic_hash": ""
-  },
   "docs/docs/apps/waitlist.md": {
-    "mtime": 1786820409.0360994,
-    "ast_hash": "76470ccf3887bfc13b46d281b3b6f997",
+    "mtime": 1787857423.0639422,
+    "ast_hash": "efb615d2c1cabff9886c1f1fbe436e34",
     "semantic_hash": ""
   },
   "docs/docs/apps/webhooks.md": {
@@ -16099,19 +16034,9 @@
     "ast_hash": "a5a67cd65aba5825c2e805ffb9ba07c2",
     "semantic_hash": ""
   },
-  "packages/app-store/src/apps/waitlist-notifications/translations/en/admin.yaml": {
-    "mtime": 1776878322.3444595,
-    "ast_hash": "4387865e497f92dcf48d08c2b03f4f66",
-    "semantic_hash": ""
-  },
-  "packages/app-store/src/apps/waitlist-notifications/translations/uk/admin.yaml": {
-    "mtime": 1776878322.3449738,
-    "ast_hash": "a103c22135fe948faf4dc03fd5948a32",
-    "semantic_hash": ""
-  },
   "packages/app-store/src/apps/waitlist/translations/en/admin.yaml": {
-    "mtime": 1786820409.4682608,
-    "ast_hash": "2ca890437ff3a60f04cddb743e766fbe",
+    "mtime": 1787857202.2768402,
+    "ast_hash": "3d74dbacfb2c951fd430c82ea09b3c44",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/translations/en/overrides.yaml": {
@@ -16125,8 +16050,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/translations/uk/admin.yaml": {
-    "mtime": 1786820409.470262,
-    "ast_hash": "98072ed0b8234c2dd8d976c39f4db5b4",
+    "mtime": 1787857202.34484,
+    "ast_hash": "b4171162adfc96ba529957b8c40b8b0e",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/translations/uk/overrides.yaml": {
@@ -16180,8 +16105,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1787855943.8779671,
-    "ast_hash": "919190bc502bbbf4c855b596a81ed028",
+    "mtime": 1787856020.044593,
+    "ast_hash": "98b3bc30c8ed4eb71a01fd40e6c315d0",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16195,8 +16120,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/install.yaml": {
-    "mtime": 1787855963.202672,
-    "ast_hash": "5964288672811aeb6c1e9c0284f8ffc9",
+    "mtime": 1787857379.0811064,
+    "ast_hash": "f6eead01685d5b54ea40cfcc08577302",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/translation.yaml": {
@@ -16215,8 +16140,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1787855940.6757944,
-    "ast_hash": "29f6ac741acd1ce9cb1569c8acc84977",
+    "mtime": 1787856021.2661688,
+    "ast_hash": "b6508134f1fc0070dfa131f2ff74ec40",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -16230,8 +16155,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/install.yaml": {
-    "mtime": 1787855955.0854943,
-    "ast_hash": "957eaff7f6343f5411f780e5b479383a",
+    "mtime": 1787857379.205863,
+    "ast_hash": "6bfa916678f99da62469fe2ddde802ff",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/translation.yaml": {
@@ -27395,8 +27320,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/team.service.ts": {
-    "mtime": 1787065990.2360876,
-    "ast_hash": "483f0ba9c6980c9efb3044387bca655c",
+    "mtime": 1787857117.1883416,
+    "ast_hash": "a38e7d9518f89c1629a40351d6a5826e",
     "semantic_hash": ""
   },
   "packages/types/src/apps/app-target.ts": {
@@ -27410,8 +27335,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/services/team.service.ts": {
-    "mtime": 1786820409.9730554,
-    "ast_hash": "342024b478b5a2900b008def8fe76476",
+    "mtime": 1787857115.6609805,
+    "ast_hash": "ba9aa035034ffd97a34c12c3f7867d46",
     "semantic_hash": ""
   },
   "packages/types/src/users/member.ts": {
@@ -29192,6 +29117,66 @@
   "packages/services/src/activity.service.test.ts": {
     "mtime": 1787852627.1567779,
     "ast_hash": "d912a3482f8f12fd5b23da5e33f76c9d",
+    "semantic_hash": ""
+  },
+  "migrations/20260827150000-rename_waitlist_notifications_to_customer_waitlist_notifications.js": {
+    "mtime": 1787857407.6083393,
+    "ast_hash": "828f1e8eeda651d1c41f51b2f42b8e7a",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/app.tsx": {
+    "mtime": 1787857245.086539,
+    "ast_hash": "d68cf7312f7cce005b3ec49ea80d05ac",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/const.ts": {
+    "mtime": 1787857239.146124,
+    "ast_hash": "129419f217c2b89b3bff63ebe20cad57",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/models.ts": {
+    "mtime": 1787857242.8462656,
+    "ast_hash": "2911e38bdb16aa7125b7401a1df158af",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/service.ts": {
+    "mtime": 1787857580.150462,
+    "ast_hash": "3d0f7734a66f5b75f4fc2d19571ba883",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/setup.tsx": {
+    "mtime": 1787857288.222193,
+    "ast_hash": "d1bdebd79e8a130c863e77471ff754d9",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/translations/index.ts": {
+    "mtime": 1787857249.383962,
+    "ast_hash": "d63f1ab5625ec29f8001693bad720f5b",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/translations/types.ts": {
+    "mtime": 1787857246.5504434,
+    "ast_hash": "7fa31fa0f65a79d51676d5cee52adb93",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/waitlist/emails/new-entry-email.ts": {
+    "mtime": 1787857555.2190008,
+    "ast_hash": "6b89cf5546ae07fff7c26fa210c99976",
+    "semantic_hash": ""
+  },
+  "docs/docs/apps/customer-waitlist-notifications.md": {
+    "mtime": 1787857418.698362,
+    "ast_hash": "79d017a28ce10701f7d449ea9c0d7e02",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/translations/en/admin.yaml": {
+    "mtime": 1787857253.9818473,
+    "ast_hash": "98cb2b5bcf7363422159471f5a865667",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/customer-waitlist-notifications/translations/uk/admin.yaml": {
+    "mtime": 1787857254.074344,
+    "ast_hash": "0fa953b7ad40b907f8fc2d5e353a2122",
     "semantic_hash": ""
   }
 }

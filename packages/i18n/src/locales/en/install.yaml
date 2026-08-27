@@ -256,8 +256,8 @@ wizard:
     appointmentNotificationsDesc: Send reminders and follow-ups to customers by email and SMS.
     waitlist: Waitlist
     waitlistDesc: Let customers join a waitlist for unavailable times.
-    waitlistNotifications: Waitlist notifications
-    waitlistNotificationsDesc: Notify yourself and customers when there is a new waitlist entry request.
+    waitlistNotifications: Customer waitlist notifications
+    waitlistNotificationsDesc: Email customers when they join your waitlist.
     blog: Blog
     blogDesc: Share updates and stories on your site.
     forms: Forms

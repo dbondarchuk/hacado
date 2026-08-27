@@ -159,6 +159,13 @@ export class WaitlistConnectedApp
 
     await repositoryService.installWaitlistApp();
 
+    await this.props.update({
+      data: {
+        notifyMemberOnNewEntry: true,
+        notifyCoordinatorsOnNewEntry: false,
+      } satisfies WaitlistConfiguration,
+    });
+
     logger.debug({ appId: appData._id }, "Waitlist app installed successfully");
   }
 

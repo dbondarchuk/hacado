@@ -63,7 +63,7 @@ view:
 settings:
   tooltip: Налаштування
   title: Налаштування
-  description: Налаштувати параметри сповіщень списку очікування
+  description: Налаштувати параметри списку очікування та сповіщень
 tab:
   title: Список очікування
   subtitle: Переглядайте запити зі списку очікування та перетворюйте їх на записи.
@@ -87,6 +87,12 @@ setup:
     dontDismissWaitlistOnAppointmentCreate:
       label: Не відхиляти список очікування при створенні запису
       tooltip: Чи відхиляти список очікування при створенні запису з нього
+    notifyMemberOnNewEntry:
+      label: Надіслати email призначеному члену команди
+      description: Надсилати призначеному члену команди email, коли клієнт приєднується до його списку очікування
+    notifyCoordinatorsOnNewEntry:
+      label: Надіслати email координаторам і вище
+      description: Надсилати координаторам, адміністраторам і власнику email, коли клієнт приєднується до списку очікування
 newEntry:
   trigger: Новий запис
   title: Новий запис списку очікування
@@ -119,6 +125,27 @@ handlers:
 statusText:
   successfully_set_up: Сповіщення списку очікування успішно налаштовано
   error_processing_configuration: Помилка обробки конфігурації сповіщень списку очікування
+emails:
+  newEntry:
+    subject: 'Новий запис у список очікування від {customerName} на {serviceName}'
+    title: Новий запит списку очікування
+    body: |
+      Вітаємо, {userName}!
+
+      Клієнт приєднався до списку очікування.
+
+      **Клієнт:** {customerName} ({customerEmail})
+      **Телефон:** {customerPhone}
+      **Послуга:** {serviceName}
+      **Член команди:** {memberName}
+      **Додатки:** {addons}
+      **Коли:** {when}
+      **Тривалість:** {duration}
+      **Примітка:** {note}
+    none: Немає
+    view: Переглянути список очікування
+    createAppointment: Створити запис
+    dismiss: Відхилити
 notifications:
   newEntries: Нові записи списку очікування
   viewWaitlist: Переглянути

@@ -28,24 +28,23 @@ import {
   type WaitlistEntryCreatedEvent,
 } from "../waitlist/models/events";
 import { WaitlistEntry, waitlistTime } from "../waitlist/models/waitlist";
-import { getEmailTemplate } from "./emails/utils";
 import {
-  WaitlistNotificationsConfiguration,
-  waitlistNotificationsConfigurationSchema,
+  CustomerWaitlistNotificationsConfiguration,
+  customerWaitlistNotificationsConfigurationSchema,
 } from "./models";
 import {
-  WaitlistNotificationsAdminKeys,
-  WaitlistNotificationsAdminNamespace,
+  CustomerWaitlistNotificationsAdminKeys,
+  CustomerWaitlistNotificationsAdminNamespace,
 } from "./translations/types";
 
-export class WaitlistNotificationsConnectedApp
+export class CustomerWaitlistNotificationsConnectedApp
   implements IConnectedApp, IEventSubscriber
 {
   protected readonly loggerFactory: LoggerFactory;
 
   public constructor(protected readonly props: IConnectedAppProps) {
     this.loggerFactory = getLoggerFactory(
-      "WaitlistNotificationsConnectedApp",
+      "CustomerWaitlistNotificationsConnectedApp",
       props.organizationId,
     );
   }
@@ -63,23 +62,23 @@ export class WaitlistNotificationsConnectedApp
 
   public async processRequest(
     appData: ConnectedAppData,
-    request: WaitlistNotificationsConfiguration,
+    request: CustomerWaitlistNotificationsConfiguration,
   ): Promise<ConnectedAppStatusWithText> {
     const logger = this.loggerFactory("processRequest");
     logger.debug(
       { appId: appData._id },
-      "Processing waitlist notifications configuration request",
+      "Processing customer waitlist notifications configuration request",
     );
 
     const { data, success, error } =
-      waitlistNotificationsConfigurationSchema.safeParse(request);
+      customerWaitlistNotificationsConfigurationSchema.safeParse(request);
     if (!success) {
       logger.error(
         { error },
-        "Invalid waitlist notifications configuration request",
+        "Invalid customer waitlist notifications configuration request",
       );
       throw new ConnectedAppRequestError(
-        "invalid_waitlist-notifications_configuration_request",
+        "invalid_customer-waitlist-notifications_configuration_request",
         { request, error },
         400,
         error.message,
@@ -87,43 +86,41 @@ export class WaitlistNotificationsConnectedApp
     }
 
     try {
-      // Validate configuration
       const validatedConfig =
-        waitlistNotificationsConfigurationSchema.parse(data);
+        customerWaitlistNotificationsConfigurationSchema.parse(data);
 
       logger.debug(
         { appId: appData._id },
         "Configuration validated successfully",
       );
 
-      // Update the app data with the new configuration
       await this.props.update({
         data: validatedConfig,
         status: "connected",
         statusText:
-          "app_waitlist-notifications_admin.statusText.successfully_set_up",
+          "app_customer-waitlist-notifications_admin.statusText.successfully_set_up",
       });
 
       logger.info(
         { appId: appData._id },
-        "Successfully updated waitlist notifications configuration",
+        "Successfully updated customer waitlist notifications configuration",
       );
 
       return {
         status: "connected",
         statusText:
-          "app_waitlist-notifications_admin.statusText.successfully_set_up",
+          "app_customer-waitlist-notifications_admin.statusText.successfully_set_up",
       };
     } catch (error: any) {
       logger.error(
         { appId: appData._id, error },
-        "Error processing waitlist notifications configuration",
+        "Error processing customer waitlist notifications configuration",
       );
 
       await this.props.update({
         status: "failed",
         statusText:
-          "app_waitlist-notifications_admin.statusText.error_processing_configuration",
+          "app_customer-waitlist-notifications_admin.statusText.error_processing_configuration",
       });
 
       throw error;
@@ -134,14 +131,11 @@ export class WaitlistNotificationsConnectedApp
     const logger = this.loggerFactory("install");
     logger.debug(
       { appId: appData._id },
-      "Installing waitlist notifications app",
+      "Installing customer waitlist notifications app",
     );
 
-    this.props.update({
-      data: {
-        notifyOnNewEntry: true,
-        notifyCustomerOnNewEntry: false,
-      } satisfies WaitlistNotificationsConfiguration,
+    await this.props.update({
+      data: {} satisfies CustomerWaitlistNotificationsConfiguration,
     });
   }
 
@@ -151,12 +145,12 @@ export class WaitlistNotificationsConnectedApp
     const logger = this.loggerFactory("unInstall");
     logger.debug(
       { appId: appData._id },
-      "Uninstalling waitlist notifications app",
+      "Uninstalling customer waitlist notifications app",
     );
 
     logger.info(
       { appId: appData._id },
-      "Successfully uninstalled waitlist notifications app",
+      "Successfully uninstalled customer waitlist notifications app",
     );
     return { success: true, code: "ok" };
   }
@@ -172,33 +166,21 @@ export class WaitlistNotificationsConnectedApp
         appId: appData._id,
         entryId: entry._id,
       },
-      "Waitlist entry created, checking notification settings",
+      "Waitlist entry created, checking customer notification settings",
     );
 
-    const data = appData.data as WaitlistNotificationsConfiguration;
+    const data = appData.data as CustomerWaitlistNotificationsConfiguration;
 
-    if (!data?.notifyOnNewEntry && !data?.notifyCustomerOnNewEntry) {
+    if (!data?.customerNewEntryTemplateId) {
       logger.debug(
         {
           appId: appData._id,
           entryId: entry._id,
-          newEntryNotify: data?.notifyOnNewEntry,
-          customerEntryNotify: data?.notifyCustomerOnNewEntry,
         },
-        "Waitlist entry created, but notifications are not enabled",
+        "No customer new entry template configured, skipping",
       );
       return;
     }
-
-    logger.debug(
-      {
-        appId: appData._id,
-        entryId: entry._id,
-        newEntryNotify: data.notifyOnNewEntry,
-        customerEntryNotify: data.notifyCustomerOnNewEntry,
-      },
-      "Waitlist entry created, sending email notifications",
-    );
 
     try {
       const config =
@@ -209,171 +191,23 @@ export class WaitlistNotificationsConnectedApp
           "social",
         );
 
-      if (data.notifyOnNewEntry) {
-        await this.sendUserNotification(
-          appData,
-          entry,
-          "newWaitlistEntry",
-          config,
-        );
-      }
-
-      if (data.notifyCustomerOnNewEntry) {
-        await this.sendCustomerNotification(
-          appData,
-          entry,
-          "newWaitlistEntry",
-          config,
-        );
-      }
+      await this.sendCustomerNotification(appData, entry, config);
 
       logger.info(
         { appId: appData._id, entryId: entry._id },
-        "Successfully sent waitlist notifications",
+        "Successfully sent customer waitlist notification",
       );
     } catch (error: any) {
       logger.error(
         { appId: appData._id, entryId: entry._id, error },
-        "Error sending waitlist notifications",
+        "Error sending customer waitlist notification",
       );
-      // Don't throw error to avoid breaking waitlist entry creation
-    }
-  }
-
-  public async sendUserNotification(
-    appData: ConnectedAppData,
-    entry: WaitlistEntry,
-    initiator: "newWaitlistEntry",
-    config: {
-      booking: BookingConfiguration;
-      general: GeneralConfiguration;
-      brand: BrandConfiguration;
-      social: SocialConfiguration;
-    },
-  ) {
-    const logger = this.loggerFactory("sendUserNotification");
-    logger.debug(
-      { appId: appData._id, entryId: entry._id, initiator },
-      "Sending waitlist email notification to user",
-    );
-
-    try {
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "Retrieved configuration for email notification",
-      );
-
-      const member = await this.props.services.teamService.getMemberById(
-        appData.memberId,
-      );
-
-      if (!member) {
-        logger.error(
-          { appId: appData._id, entryId: entry._id },
-          "Member not found",
-        );
-
-        throw new Error("Member not found");
-      }
-
-      const organization =
-        await this.props.services.organizationService.getOrganization();
-      if (!organization) {
-        logger.error(
-          { appId: appData._id, entryId: entry._id },
-          "Organization not found",
-        );
-        throw new Error("Organization not found");
-      }
-
-      const adminUrl = getAdminUrl();
-      const websiteUrl = getWebsiteUrl(organization);
-      const args = getArguments({
-        appointment: null,
-        config,
-        customer: entry.customer,
-        useAppointmentTimezone: true,
-        locale: config.brand.language,
-        additionalProperties: {
-          waitlistEntry: getWaitlistEntryArgs(entry),
-        },
-        adminUrl,
-        websiteUrl,
-        user: member,
-      });
-
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "Generated template arguments",
-      );
-
-      const data = appData.data as WaitlistNotificationsConfiguration;
-
-      const url = getAdminUrl();
-      const { template: description, subject } = await getEmailTemplate(
-        initiator,
-        config.brand.language,
-        url,
-        entry,
-        args,
-      );
-
-      logger.debug(
-        {
-          appId: appData._id,
-          entryId: entry._id,
-          initiator,
-          descriptionLength: description.length,
-        },
-        "Generated email description from template",
-      );
-
-      const recipientEmail =
-        data?.email || member?.email || config.general.email;
-
-      logger.debug(
-        { appId: appData._id, entryId: entry._id, recipientEmail },
-        "Sending email notification",
-      );
-
-      await this.props.services.notificationService.sendEmail({
-        email: {
-          to: recipientEmail,
-          subject: subject,
-          body: description,
-        },
-        participantType: "member",
-        memberId: appData.memberId,
-        handledBy:
-          `app_waitlist-notifications_admin.handlers.${initiator}` satisfies AllKeys<
-            WaitlistNotificationsAdminNamespace,
-            WaitlistNotificationsAdminKeys
-          >,
-        customerId: entry.customer._id,
-      });
-
-      logger.info(
-        {
-          appId: appData._id,
-          entryId: entry._id,
-          initiator,
-          recipientEmail,
-        },
-        "Successfully sent email notification",
-      );
-    } catch (error: any) {
-      logger.error(
-        { appId: appData._id, entryId: entry._id, initiator, error },
-        "Error sending email notification",
-      );
-      throw error;
     }
   }
 
   public async sendCustomerNotification(
     appData: ConnectedAppData,
     entry: WaitlistEntry,
-    initiator: "newWaitlistEntry",
     config: {
       booking: BookingConfiguration;
       general: GeneralConfiguration;
@@ -383,16 +217,11 @@ export class WaitlistNotificationsConnectedApp
   ) {
     const logger = this.loggerFactory("sendCustomerNotification");
     logger.debug(
-      { appId: appData._id, entryId: entry._id, initiator },
+      { appId: appData._id, entryId: entry._id },
       "Sending waitlist email notification to customer",
     );
 
     try {
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "Retrieved configuration for email notification",
-      );
-
       const organization =
         await this.props.services.organizationService.getOrganization();
       if (!organization) {
@@ -418,15 +247,7 @@ export class WaitlistNotificationsConnectedApp
         websiteUrl,
       });
 
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "Generated template arguments",
-      );
-
-      const data = appData.data as Extract<
-        WaitlistNotificationsConfiguration,
-        { notifyCustomerOnNewEntry: true }
-      >;
+      const data = appData.data as CustomerWaitlistNotificationsConfiguration;
 
       if (!data.customerNewEntryTemplateId) {
         logger.warn(
@@ -445,7 +266,6 @@ export class WaitlistNotificationsConnectedApp
           { appId: appData._id, entryId: entry._id },
           "No customer new entry template found, skipping email notification",
         );
-
         return;
       }
 
@@ -459,22 +279,12 @@ export class WaitlistNotificationsConnectedApp
 
       const subject = templateSafeWithError(template.subject, args);
 
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "Rendering email template",
-      );
-
       const renderedTemplate = await renderToStaticMarkup({
         args: args,
         document: template.value,
       });
 
       const recipientEmail = entry.email;
-
-      logger.debug(
-        { appId: appData._id, entryId: entry._id, recipientEmail },
-        "Sending email notification",
-      );
 
       await this.props.services.notificationService.sendEmail({
         email: {
@@ -485,9 +295,9 @@ export class WaitlistNotificationsConnectedApp
         participantType: "customer",
         memberId: entry.memberId,
         handledBy:
-          `app_waitlist-notifications_admin.handlers.${initiator}` satisfies AllKeys<
-            WaitlistNotificationsAdminNamespace,
-            WaitlistNotificationsAdminKeys
+          "app_customer-waitlist-notifications_admin.handlers.newWaitlistEntry" satisfies AllKeys<
+            CustomerWaitlistNotificationsAdminNamespace,
+            CustomerWaitlistNotificationsAdminKeys
           >,
         customerId: entry.customer._id,
       });
@@ -496,14 +306,13 @@ export class WaitlistNotificationsConnectedApp
         {
           appId: appData._id,
           entryId: entry._id,
-          initiator,
           recipientEmail,
         },
         "Successfully sent email notification to customer",
       );
     } catch (error: any) {
       logger.error(
-        { appId: appData._id, entryId: entry._id, initiator, error },
+        { appId: appData._id, entryId: entry._id, error },
         "Error sending email notification to customer",
       );
       throw error;

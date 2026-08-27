@@ -17,6 +17,8 @@ import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "../apps/customer-p
 import CustomerPackageEmailNotificationConnectedApp from "../apps/customer-package-email-notification/service";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../apps/customer-text-message-notification/const";
 import CustomerTextMessageNotificationConnectedApp from "../apps/customer-text-message-notification/service";
+import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "../apps/customer-waitlist-notifications/const";
+import { CustomerWaitlistNotificationsConnectedApp } from "../apps/customer-waitlist-notifications/service";
 import { EMAIL_NOTIFICATION_APP_NAME } from "../apps/email-notification/const";
 import { EmailNotificationConnectedApp } from "../apps/email-notification/service";
 import { FORMS_APP_NAME } from "../apps/forms/const";
@@ -53,8 +55,6 @@ import { URL_BUSY_EVENTS_APP_NAME } from "../apps/url-busy-events/const";
 import UrlBusyEventsConnectedApp from "../apps/url-busy-events/service";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "../apps/url-schedule-provider/const";
 import UrlScheduleProviderConnectedApp from "../apps/url-schedule-provider/service";
-import { WAITLIST_NOTIFICATIONS_APP_NAME } from "../apps/waitlist-notifications/const";
-import { WaitlistNotificationsConnectedApp } from "../apps/waitlist-notifications/service";
 import { WAITLIST_APP_NAME } from "../apps/waitlist/const";
 import { WaitlistConnectedApp } from "../apps/waitlist/service/service";
 import { WEBHOOKS_APP_NAME } from "../apps/webhooks/const";
@@ -99,8 +99,8 @@ export const AvailableAppServices: Record<
   [STRIPE_APP_NAME]: (props) => new StripeConnectedApp(props),
   [BLOG_APP_NAME]: (props) => new BlogConnectedApp(props),
   [WAITLIST_APP_NAME]: (props) => new WaitlistConnectedApp(props),
-  [WAITLIST_NOTIFICATIONS_APP_NAME]: (props) =>
-    new WaitlistNotificationsConnectedApp(props),
+  [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]: (props) =>
+    new CustomerWaitlistNotificationsConnectedApp(props),
   [WEBHOOKS_APP_NAME]: (props) => new WebhooksConnectedApp(props),
   [SMART_SCHEDULE_APP_NAME]: (props) => new SmartScheduleConnectedApp(props),
   [URL_BUSY_EVENTS_APP_NAME]: (props) => new UrlBusyEventsConnectedApp(props),

@@ -16,6 +16,8 @@ import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-pa
 import { CustomerPackageEmailNotificationTranslations } from "./apps/customer-package-email-notification/translations";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { CustomerTextMessageNotificationTranslations } from "./apps/customer-text-message-notification/translations";
+import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
+import { CustomerWaitlistNotificationsTranslations } from "./apps/customer-waitlist-notifications/translations";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 import { EmailNotificationTranslations } from "./apps/email-notification/translations";
 import { FORMS_APP_NAME } from "./apps/forms/const";
@@ -52,8 +54,6 @@ import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlBusyEventsTranslations } from "./apps/url-busy-events/translations";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
 import { UrlScheduleProviderTranslations } from "./apps/url-schedule-provider/translations";
-import { WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/waitlist-notifications/const";
-import { WaitlistNotificationsTranslations } from "./apps/waitlist-notifications/translations";
 import { WAITLIST_APP_NAME } from "./apps/waitlist/const";
 import { WaitlistTranslations } from "./apps/waitlist/translations";
 import { WEBHOOKS_APP_NAME } from "./apps/webhooks/const";
@@ -72,7 +72,8 @@ export const AppsTranslations: Record<
   }
 > = {
   [WAITLIST_APP_NAME]: WaitlistTranslations,
-  [WAITLIST_NOTIFICATIONS_APP_NAME]: WaitlistNotificationsTranslations,
+  [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]:
+    CustomerWaitlistNotificationsTranslations,
   [BLOG_APP_NAME]: BlogTranslations,
   [BUSY_EVENTS_APP_NAME]: BusyEventsTranslations,
   [CALDAV_APP_NAME]: CaldavTranslations,

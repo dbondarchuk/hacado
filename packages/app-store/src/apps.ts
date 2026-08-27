@@ -17,6 +17,8 @@ import { CustomerPackageEmailNotificationApp } from "./apps/customer-package-ema
 import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
 import { CustomerTextMessageNotificationApp } from "./apps/customer-text-message-notification/app";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
+import { CustomerWaitlistNotificationsApp } from "./apps/customer-waitlist-notifications/app";
+import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
 import { EmailNotificationApp } from "./apps/email-notification/app";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 import { FormsApp } from "./apps/forms/app";
@@ -53,8 +55,6 @@ import { UrlBusyEventsApp } from "./apps/url-busy-events/app";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { UrlScheduleProviderApp } from "./apps/url-schedule-provider/app";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
-import { WaitlistNotificationsApp } from "./apps/waitlist-notifications/app";
-import { WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/waitlist-notifications/const";
 import { WaitlistApp } from "./apps/waitlist/app";
 import { WAITLIST_APP_NAME } from "./apps/waitlist/const";
 import { webhooksApp } from "./apps/webhooks/app";
@@ -92,7 +92,7 @@ export const AvailableApps: Record<string, App> = {
   [STRIPE_APP_NAME]: StripeApp,
   [BLOG_APP_NAME]: BlogApp,
   [WAITLIST_APP_NAME]: WaitlistApp,
-  [WAITLIST_NOTIFICATIONS_APP_NAME]: WaitlistNotificationsApp,
+  [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]: CustomerWaitlistNotificationsApp,
   [WEBHOOKS_APP_NAME]: webhooksApp,
   [SMART_SCHEDULE_APP_NAME]: SmartScheduleApp,
   [URL_BUSY_EVENTS_APP_NAME]: UrlBusyEventsApp,
@@ -111,6 +111,7 @@ export { CARDDAV_APP_NAME } from "./apps/carddav/const";
 export { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-email-notification/const";
 export { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-package-email-notification/const";
 export { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
+export { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
 export { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 // export { FILE_SYSTEM_ASSETS_STORAGE_APP_NAME } from "./apps/file-system-assets-storage/const";
 export { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
@@ -132,7 +133,6 @@ export { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notifica
 export { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
 export { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 export { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
-export { WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/waitlist-notifications/const";
 export { WAITLIST_APP_NAME } from "./apps/waitlist/const";
 export { WEBHOOKS_APP_NAME } from "./apps/webhooks/const";
 export { WEEKLY_SCHEDULE_APP_NAME } from "./apps/weekly-schedule/const";

@@ -14,6 +14,8 @@ export const waitlistConfigurationSchema = z.object({
   dontDismissWaitlistOnAppointmentCreate: z.coerce
     .boolean<boolean>()
     .optional(),
+  notifyMemberOnNewEntry: z.coerce.boolean<boolean>().optional(),
+  notifyCoordinatorsOnNewEntry: z.coerce.boolean<boolean>().optional(),
 });
 
 export type WaitlistConfiguration = z.infer<typeof waitlistConfigurationSchema>;

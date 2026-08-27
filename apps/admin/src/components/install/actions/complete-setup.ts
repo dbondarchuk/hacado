@@ -9,12 +9,12 @@ import {
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
+  CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME,
   EMAIL_NOTIFICATION_APP_NAME,
   FORMS_APP_NAME,
   GIFT_CARD_STUDIO_APP_NAME,
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
-  WAITLIST_NOTIFICATIONS_APP_NAME,
 } from "@hacado/app-store";
 import { AppointmentNotificationsTemplates } from "@hacado/app-store/exports";
 import { languages } from "@hacado/i18n";
@@ -791,10 +791,10 @@ export async function runCompleteInstallSetupSteps(args: {
     installSet.add(WAITLIST_APP_NAME);
     if (prefs.optWaitlistNotifications) {
       logger.debug(
-        { appName: WAITLIST_NOTIFICATIONS_APP_NAME },
-        "Adding waitlist notifications app",
+        { appName: CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME },
+        "Adding customer waitlist notifications app",
       );
-      installSet.add(WAITLIST_NOTIFICATIONS_APP_NAME);
+      installSet.add(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME);
     }
   }
   if (prefs.optBlog) {
