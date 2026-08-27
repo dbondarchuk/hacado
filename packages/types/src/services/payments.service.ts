@@ -27,6 +27,16 @@ export interface IPaymentsService {
     request: AppointmentRequest;
   }): Promise<PaymentIntent | null>;
 
+  matchesAppointmentRequestPaidIntent(
+    intent: PaymentIntent,
+    args: {
+      appId: string;
+      amount: number;
+      type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
+      request: AppointmentRequest;
+    },
+  ): boolean;
+
   updateIntent(
     id: string,
     update: Partial<PaymentIntentUpdateModel>,

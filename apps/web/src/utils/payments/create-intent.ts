@@ -10,7 +10,6 @@ import {
   PaymentIntentUpdateModel,
   PaymentType,
 } from "@hacado/types";
-import { deepEqual } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { getModifyAppointmentInformationRequestResult } from "../appointments/get-modify-appointment-request";
 import {
@@ -108,11 +107,15 @@ const createOrUpdateAppointmentRequestIntent = async (
       logger.debug({ intentId }, "Intent is already paid");
 
       if (
-        intent.amount !== amount ||
-        intent.appId !== appId ||
-        intent.customerId !== customer?._id ||
-        intent.type !== type ||
-        !deepEqual(intent.request, appointmentRequest)
+        !servicesContainer.paymentsService.matchesAppointmentRequestPaidIntent(
+          intent,
+          {
+            appId,
+            amount,
+            type,
+            request: appointmentRequest,
+          },
+        )
       ) {
         logger.warn({ intentId }, "Intent does not match the request");
         return NextResponse.json(
