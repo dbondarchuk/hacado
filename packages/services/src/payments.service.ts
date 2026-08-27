@@ -213,7 +213,8 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       return false;
     }
 
-    if (intent.type === "rescheduleFee" || intent.type === "cancellationFee") {
+    const intentType = intent.type as PaymentType;
+    if (intentType === "rescheduleFee" || intentType === "cancellationFee") {
       return false;
     }
 
@@ -240,6 +241,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         amount,
         type,
         optionId: request.optionId,
+        purchasePackageId: request.purchasePackageId,
         customerEmail: request.fields.email,
         customerPhone: request.fields.phone,
         dateTime: request.dateTime,
@@ -272,6 +274,10 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       return null;
     }
 
+    const purchasePackageMatcher = request.purchasePackageId
+      ? { "request.purchasePackageId": request.purchasePackageId }
+      : { "request.purchasePackageId": { $exists: false } };
+
     const candidates = await intents
       .find({
         organizationId: this.organizationId,
@@ -283,6 +289,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         "request.optionId": request.optionId,
         "request.dateTime": request.dateTime,
         $or: contactMatchers,
+        ...(purchasePackageMatcher ? { purchasePackageMatcher } : {}),
       })
       .sort({ updatedAt: -1 })
       .limit(20)
@@ -351,7 +358,15 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       new Date(intentRequest.dateTime).getTime() ===
       new Date(request.dateTime).getTime();
 
-    return sameDateTime && intentRequest.optionId === request.optionId;
+    const samePurchasePackage =
+      (intentRequest.purchasePackageId || undefined) ===
+      (request.purchasePackageId || undefined);
+
+    return (
+      sameDateTime &&
+      intentRequest.optionId === request.optionId &&
+      samePurchasePackage
+    );
   }
 
   public async updateIntent(

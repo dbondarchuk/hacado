@@ -55,11 +55,12 @@ const handleGoToPayment = async (ctx: ScheduleContextProps) => {
         return;
       }
     }
+
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
     if (!payment || payment.intent?.status === "paid") {
-      ctx.onSubmit();
+      ctx.onSubmit(payment?.intent?._id);
     } else {
       clientApi.booking.trackPaymentReached(payment.intent?.amount);
       ctx.setCurrentStep("payment");

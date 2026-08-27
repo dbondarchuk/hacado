@@ -76,7 +76,7 @@ export const OtpCard: React.FC = () => {
             const payment = await fetchPaymentInformation();
             setPaymentInformation(payment);
             if (!payment || payment.intent?.status === "paid") {
-              onSubmit();
+              onSubmit(payment?.intent?._id);
             } else {
               clientApi.booking.trackPaymentReached(payment.intent?.amount);
               setCurrentStep("payment");

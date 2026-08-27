@@ -60,7 +60,8 @@ export type CabinetModifyContextProps = {
     amount: number,
   ) => Promise<ApplyGiftCardsSuccessResponse["giftCards"] | undefined>;
 
-  onSubmit: () => void;
+  /** Optional paymentIntentId avoids stale state right after a paid intent is reused. */
+  onSubmit: (paymentIntentId?: string) => void;
   isModificationConfirmed: boolean;
 
   className?: string;

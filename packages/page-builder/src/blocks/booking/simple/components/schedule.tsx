@@ -352,7 +352,9 @@ export const Schedule: React.FC<
       }
     };
 
-  const getAppointmentRequest = (): AppointmentRequest | null => {
+  const getAppointmentRequest = (
+    paymentIntentIdOverride?: string,
+  ): AppointmentRequest | null => {
     if (!dateTime || !duration) return null;
     return {
       dateTime: LuxonDateTime.fromObject(
@@ -374,7 +376,8 @@ export const Schedule: React.FC<
       memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
-      paymentIntentId: paymentInformation?.intent?._id,
+      paymentIntentId:
+        paymentIntentIdOverride ?? paymentInformation?.intent?._id,
       giftCards: giftCards?.map((giftCard) => giftCard.code),
       purchasePackageId,
       customerPackageId,
@@ -443,7 +446,7 @@ export const Schedule: React.FC<
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (paymentIntentId?: string) => {
     if (isEditor) return;
     if (isBookingRestricted) {
       toast.error(errors.limitReachedTitle, {
@@ -454,7 +457,7 @@ export const Schedule: React.FC<
     setIsLoading(true);
 
     try {
-      const eventBody = getAppointmentRequest();
+      const eventBody = getAppointmentRequest(paymentIntentId);
       if (!eventBody) return;
 
       const files = Object.fromEntries(
@@ -594,7 +597,7 @@ export const Schedule: React.FC<
             const payment = await fetchPaymentInformation();
             setPaymentInformation(payment);
             if (!payment || payment.intent?.status === "paid") {
-              onSubmit();
+              onSubmit(payment?.intent?._id);
             } else {
               clientApi.booking.trackPaymentReached(payment.intent?.amount);
               setStep("payment");

@@ -136,11 +136,29 @@ export async function POST(request: NextRequest) {
   let paymentIntentId = appointmentRequest.paymentIntentId;
   if (eventOrError.isPaymentRequired) {
     if (!paymentIntentId) {
-      logger.warn("Payment required but no payment intent provided");
-      return NextResponse.json(
-        { success: false, error: "payment_required" },
-        { status: 402 },
-      ); // Payment required
+      const reusablePaidIntent =
+        await servicesContainer.paymentsService.findReusablePaidIntentForAppointmentRequest(
+          {
+            appId: eventOrError.appId,
+            amount: eventOrError.amount,
+            type: "deposit",
+            request: appointmentRequest,
+          },
+        );
+
+      if (reusablePaidIntent) {
+        logger.info(
+          { paymentIntentId: reusablePaidIntent._id },
+          "Using reusable paid payment intent that was not sent by the client",
+        );
+        paymentIntentId = reusablePaidIntent._id;
+      } else {
+        logger.warn("Payment required but no payment intent provided");
+        return NextResponse.json(
+          { success: false, error: "payment_required" },
+          { status: 402 },
+        ); // Payment required
+      }
     }
 
     const paymentIntent =

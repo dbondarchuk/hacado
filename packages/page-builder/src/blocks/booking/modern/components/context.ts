@@ -118,7 +118,8 @@ export type ScheduleContextProps = {
 
   isBookingConfirmed: boolean;
 
-  onSubmit: () => void;
+  /** Optional paymentIntentId avoids stale state right after a paid intent is reused. */
+  onSubmit: (paymentIntentId?: string) => void;
 
   paymentInformation?: CollectPayment | null;
   setPaymentInformation: (form?: CollectPayment | null) => void;
