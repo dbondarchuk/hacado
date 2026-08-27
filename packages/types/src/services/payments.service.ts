@@ -1,4 +1,5 @@
 import {
+  AppointmentRequest,
   Payment,
   PaymentExportRow,
   PaymentIntent,
@@ -19,6 +20,12 @@ export interface IPaymentsService {
 
   getIntent(id: string): Promise<PaymentIntent | null>;
   getIntentByExternalId(externalId: string): Promise<PaymentIntent | null>;
+  findReusablePaidIntentForAppointmentRequest(args: {
+    appId: string;
+    amount: number;
+    type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
+    request: AppointmentRequest;
+  }): Promise<PaymentIntent | null>;
 
   updateIntent(
     id: string,

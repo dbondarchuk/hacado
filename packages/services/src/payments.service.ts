@@ -1,4 +1,5 @@
 import {
+  AppointmentRequest,
   IConnectedAppsService,
   IEventService,
   IPaymentProcessor,
@@ -26,7 +27,7 @@ import {
   type PaymentRefundedPayload,
   type PaymentUpdatedPayload,
 } from "@hacado/types";
-import { escapeRegex } from "@hacado/utils";
+import { deepEqual, escapeRegex } from "@hacado/utils";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -184,6 +185,84 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     }
 
     return intent;
+  }
+
+  public async findReusablePaidIntentForAppointmentRequest({
+    appId,
+    amount,
+    type,
+    request,
+  }: {
+    appId: string;
+    amount: number;
+    type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
+    request: AppointmentRequest;
+  }): Promise<PaymentIntent | null> {
+    const logger = this.loggerFactory("findReusablePaidIntentForAppointmentRequest");
+    logger.debug(
+      {
+        appId,
+        amount,
+        type,
+        optionId: request.optionId,
+        customerEmail: request.fields.email,
+        dateTime: request.dateTime,
+      },
+      "Looking for reusable paid payment intent",
+    );
+
+    const db = await getDbConnection();
+    const intents = db.collection<PaymentIntent>(PAYMENT_INTENTS_COLLECTION_NAME);
+    const payments = db.collection<Payment & { intentId?: string }>(
+      PAYMENTS_COLLECTION_NAME,
+    );
+
+    const candidates = await intents
+      .find({
+        organizationId: this.organizationId,
+        status: "paid",
+        appId,
+        amount,
+        type,
+        appointmentId: { $exists: false },
+        "request.optionId": request.optionId,
+        "request.fields.email": request.fields.email,
+        "request.dateTime": request.dateTime,
+      })
+      .sort({ updatedAt: -1 })
+      .limit(20)
+      .toArray();
+
+    for (const candidate of candidates) {
+      if (!deepEqual(candidate.request, request)) {
+        continue;
+      }
+
+      const existingPayment = await payments.findOne({
+        organizationId: this.organizationId,
+        intentId: candidate._id,
+      });
+
+      if (existingPayment) {
+        logger.debug(
+          { intentId: candidate._id, paymentId: existingPayment._id },
+          "Skipping candidate intent because payment row already exists",
+        );
+        continue;
+      }
+
+      logger.info(
+        { intentId: candidate._id, appId, amount, type },
+        "Found reusable paid payment intent",
+      );
+      return candidate;
+    }
+
+    logger.debug(
+      { candidateCount: candidates.length, appId, amount, type },
+      "No reusable paid payment intent found",
+    );
+    return null;
   }
 
   public async updateIntent(

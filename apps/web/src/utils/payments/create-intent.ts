@@ -141,6 +141,37 @@ const createOrUpdateAppointmentRequestIntent = async (
     }
   }
 
+  const reusablePaidIntent =
+    await servicesContainer.paymentsService.findReusablePaidIntentForAppointmentRequest(
+      {
+        appId: app._id,
+        amount,
+        type,
+        request: appointmentRequest,
+      },
+    );
+
+  if (reusablePaidIntent) {
+    logger.info(
+      { intentId: reusablePaidIntent._id, amount, appId: app._id, type },
+      "Reusing previously paid intent that has no recorded payment row yet",
+    );
+
+    const { request: _, ...intent } = reusablePaidIntent;
+    return NextResponse.json({
+      formProps,
+      intent,
+      amount,
+      amountPaid,
+      amountTotal,
+      giftCards: giftCards?.map((giftCard) => ({
+        code: giftCard.code,
+        amountApplied: giftCard.appliedAmount,
+      })),
+      isFixedAmount,
+    } satisfies CollectPayment);
+  }
+
   const intentUpdate = {
     amount,
     appId: app._id,
