@@ -131,7 +131,8 @@ export type ScheduleContextProps = {
 
   isBookingConfirmed: boolean;
 
-  onSubmit: () => void;
+  /** Optional paymentIntentId avoids stale state right after a paid intent is reused. */
+  onSubmit: (paymentIntentId?: string) => void;
 
   waitlistAppId?: string;
 

@@ -1,4 +1,5 @@
 import {
+  AppointmentRequest,
   IConnectedAppsService,
   IEventService,
   IPaymentProcessor,
@@ -184,6 +185,188 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     }
 
     return intent;
+  }
+
+  public matchesAppointmentRequestPaidIntent(
+    intent: PaymentIntent,
+    {
+      appId,
+      amount,
+      type,
+      request,
+    }: {
+      appId: string;
+      amount: number;
+      type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
+      request: AppointmentRequest;
+    },
+  ): boolean {
+    if (intent.status !== "paid") {
+      return false;
+    }
+
+    if (
+      intent.amount !== amount ||
+      intent.appId !== appId ||
+      intent.type !== type
+    ) {
+      return false;
+    }
+
+    const intentType = intent.type as PaymentType;
+    if (intentType === "rescheduleFee" || intentType === "cancellationFee") {
+      return false;
+    }
+
+    return this.isSameAppointmentBookingRequest(intent.request, request);
+  }
+
+  public async findReusablePaidIntentForAppointmentRequest({
+    appId,
+    amount,
+    type,
+    request,
+  }: {
+    appId: string;
+    amount: number;
+    type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
+    request: AppointmentRequest;
+  }): Promise<PaymentIntent | null> {
+    const logger = this.loggerFactory(
+      "findReusablePaidIntentForAppointmentRequest",
+    );
+    logger.debug(
+      {
+        appId,
+        amount,
+        type,
+        optionId: request.optionId,
+        purchasePackageId: request.purchasePackageId,
+        customerEmail: request.fields.email,
+        customerPhone: request.fields.phone,
+        dateTime: request.dateTime,
+      },
+      "Looking for reusable paid payment intent",
+    );
+
+    const db = await getDbConnection();
+    const intents = db.collection<PaymentIntent>(
+      PAYMENT_INTENTS_COLLECTION_NAME,
+    );
+    const payments = db.collection<Payment & { intentId?: string }>(
+      PAYMENTS_COLLECTION_NAME,
+    );
+
+    const contactMatchers = [
+      request.fields.email
+        ? { "request.fields.email": request.fields.email }
+        : undefined,
+      request.fields.phone
+        ? { "request.fields.phone": request.fields.phone }
+        : undefined,
+    ].filter(Boolean) as Filter<PaymentIntent>[];
+
+    if (!contactMatchers.length) {
+      logger.warn(
+        { optionId: request.optionId },
+        "Cannot look up reusable paid intent without email or phone",
+      );
+      return null;
+    }
+
+    const purchasePackageMatcher = request.purchasePackageId
+      ? { "request.purchasePackageId": request.purchasePackageId }
+      : { "request.purchasePackageId": { $exists: false } };
+
+    const candidates = await intents
+      .find({
+        organizationId: this.organizationId,
+        status: "paid",
+        appId,
+        amount,
+        type,
+        appointmentId: { $exists: false },
+        "request.optionId": request.optionId,
+        "request.dateTime": request.dateTime,
+        $or: contactMatchers,
+        ...(purchasePackageMatcher ? { purchasePackageMatcher } : {}),
+      })
+      .sort({ updatedAt: -1 })
+      .limit(20)
+      .toArray();
+
+    for (const candidate of candidates) {
+      if (
+        !this.matchesAppointmentRequestPaidIntent(candidate, {
+          appId,
+          amount,
+          type,
+          request,
+        })
+      ) {
+        continue;
+      }
+
+      const existingPayment = await payments.findOne({
+        organizationId: this.organizationId,
+        intentId: candidate._id,
+      });
+
+      if (existingPayment) {
+        logger.debug(
+          { intentId: candidate._id, paymentId: existingPayment._id },
+          "Skipping candidate intent because payment row already exists",
+        );
+        continue;
+      }
+
+      logger.info(
+        { intentId: candidate._id, appId, amount, type },
+        "Found reusable paid payment intent",
+      );
+      return candidate;
+    }
+
+    logger.debug(
+      { candidateCount: candidates.length, appId, amount, type },
+      "No reusable paid payment intent found",
+    );
+    return null;
+  }
+
+  private isSameAppointmentBookingRequest(
+    intentRequest: AppointmentRequest,
+    request: AppointmentRequest,
+  ): boolean {
+    // Contact: either email or phone is enough (customers often mistype one).
+    // Do not require other form fields (name, custom fields, etc.) to match.
+    const emailMatches =
+      !!intentRequest.fields.email &&
+      !!request.fields.email &&
+      intentRequest.fields.email.trim().toLowerCase() ===
+        request.fields.email.trim().toLowerCase();
+    const phoneMatches =
+      !!intentRequest.fields.phone &&
+      !!request.fields.phone &&
+      intentRequest.fields.phone === request.fields.phone;
+
+    if (!emailMatches && !phoneMatches) {
+      return false;
+    }
+
+    const sameDateTime =
+      new Date(intentRequest.dateTime).getTime() ===
+      new Date(request.dateTime).getTime();
+
+    const samePurchasePackage =
+      (intentRequest.purchasePackageId || undefined) ===
+      (request.purchasePackageId || undefined);
+
+    return (
+      sameDateTime &&
+      intentRequest.optionId === request.optionId &&
+      samePurchasePackage
+    );
   }
 
   public async updateIntent(

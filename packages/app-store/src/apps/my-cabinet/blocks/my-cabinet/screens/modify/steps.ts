@@ -13,7 +13,7 @@ const handleGoToPayment = async (ctx: CabinetModifyContextProps) => {
     ctx.setPaymentInformation(payment);
 
     if (!payment || payment.intent?.status === "paid") {
-      ctx.onSubmit();
+      ctx.onSubmit(payment?.intent?._id);
     } else {
       ctx.setCurrentStep("payment");
     }

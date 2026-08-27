@@ -10,7 +10,6 @@ import {
   PaymentIntentUpdateModel,
   PaymentType,
 } from "@hacado/types";
-import { deepEqual } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { getModifyAppointmentInformationRequestResult } from "../appointments/get-modify-appointment-request";
 import {
@@ -108,11 +107,15 @@ const createOrUpdateAppointmentRequestIntent = async (
       logger.debug({ intentId }, "Intent is already paid");
 
       if (
-        intent.amount !== amount ||
-        intent.appId !== appId ||
-        intent.customerId !== customer?._id ||
-        intent.type !== type ||
-        !deepEqual(intent.request, appointmentRequest)
+        !servicesContainer.paymentsService.matchesAppointmentRequestPaidIntent(
+          intent,
+          {
+            appId,
+            amount,
+            type,
+            request: appointmentRequest,
+          },
+        )
       ) {
         logger.warn({ intentId }, "Intent does not match the request");
         return NextResponse.json(
@@ -139,6 +142,37 @@ const createOrUpdateAppointmentRequestIntent = async (
         isFixedAmount,
       } satisfies CollectPayment);
     }
+  }
+
+  const reusablePaidIntent =
+    await servicesContainer.paymentsService.findReusablePaidIntentForAppointmentRequest(
+      {
+        appId: app._id,
+        amount,
+        type,
+        request: appointmentRequest,
+      },
+    );
+
+  if (reusablePaidIntent) {
+    logger.info(
+      { intentId: reusablePaidIntent._id, amount, appId: app._id, type },
+      "Reusing previously paid intent that has no recorded payment row yet",
+    );
+
+    const { request: _, ...intent } = reusablePaidIntent;
+    return NextResponse.json({
+      formProps,
+      intent,
+      amount,
+      amountPaid,
+      amountTotal,
+      giftCards: giftCards?.map((giftCard) => ({
+        code: giftCard.code,
+        amountApplied: giftCard.appliedAmount,
+      })),
+      isFixedAmount,
+    } satisfies CollectPayment);
   }
 
   const intentUpdate = {

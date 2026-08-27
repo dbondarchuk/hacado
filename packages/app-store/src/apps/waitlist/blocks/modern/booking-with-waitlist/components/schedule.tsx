@@ -394,54 +394,59 @@ export const Schedule: React.FC<
     isEditor,
   ]);
 
-  const getAppointmentRequest = useCallback((): AppointmentRequest | null => {
-    if (!dateTime || !duration || !selectedAppointmentOption?._id) return null;
-    return {
-      dateTime: LuxonDateTime.fromObject(
-        {
-          year: dateTime.date.getFullYear(),
-          month: dateTime.date.getMonth() + 1,
-          day: dateTime.date.getDate(),
-          hour: dateTime.time.hour,
-          minute: dateTime.time.minute,
-          second: 0,
-        },
-        { zone: dateTime.timeZone },
-      )
-        .toUTC()
-        .toJSDate(),
-      timeZone: dateTime.timeZone,
-      duration: duration,
-      optionId: selectedAppointmentOption._id,
-      memberId: selectedMemberId ?? undefined,
-      addonsIds: selectedAddons?.map((addon) => addon._id),
-      promoCode: promoCode?.code,
-      paymentIntentId: paymentInformation?.intent?._id,
-      giftCards: giftCards?.map((giftCard) => giftCard.code),
+  const getAppointmentRequest = useCallback(
+    (paymentIntentIdOverride?: string): AppointmentRequest | null => {
+      if (!dateTime || !duration || !selectedAppointmentOption?._id)
+        return null;
+      return {
+        dateTime: LuxonDateTime.fromObject(
+          {
+            year: dateTime.date.getFullYear(),
+            month: dateTime.date.getMonth() + 1,
+            day: dateTime.date.getDate(),
+            hour: dateTime.time.hour,
+            minute: dateTime.time.minute,
+            second: 0,
+          },
+          { zone: dateTime.timeZone },
+        )
+          .toUTC()
+          .toJSDate(),
+        timeZone: dateTime.timeZone,
+        duration: duration,
+        optionId: selectedAppointmentOption._id,
+        memberId: selectedMemberId ?? undefined,
+        addonsIds: selectedAddons?.map((addon) => addon._id),
+        promoCode: promoCode?.code,
+        paymentIntentId:
+          paymentIntentIdOverride ?? paymentInformation?.intent?._id,
+        giftCards: giftCards?.map((giftCard) => giftCard.code),
+        customerPackageId,
+        purchasePackageId,
+        fields: Object.entries(fields)
+          .filter(([_, value]) => !((value as any) instanceof File))
+          .reduce(
+            (obj, cur) => ({
+              ...obj,
+              [cur[0]]: cur[1],
+            }),
+            {} as AppointmentFields,
+          ),
+      };
+    },
+    [
+      dateTime,
+      duration,
+      selectedAppointmentOption,
+      selectedAddons,
+      selectedMemberId,
+      giftCards,
+      fields,
+      paymentInformation,
       customerPackageId,
       purchasePackageId,
-      fields: Object.entries(fields)
-        .filter(([_, value]) => !((value as any) instanceof File))
-        .reduce(
-          (obj, cur) => ({
-            ...obj,
-            [cur[0]]: cur[1],
-          }),
-          {} as AppointmentFields,
-        ),
-    };
-  }, [
-    dateTime,
-    duration,
-    selectedAppointmentOption,
-    selectedAddons,
-    selectedMemberId,
-    giftCards,
-    fields,
-    paymentInformation,
-    customerPackageId,
-    purchasePackageId,
-  ]);
+    ],
+  );
 
   const router = useRouter();
 
@@ -605,85 +610,88 @@ export const Schedule: React.FC<
       errors.fetchPaymentInformationDescription,
     ]);
 
-  const onSubmit = useCallback(async () => {
-    if (isEditor) return;
-    if (isBookingRestricted) {
-      toast.error(errors.limitReachedTitle, {
-        description: errors.limitReachedDescription,
-      });
-      return;
-    }
-    setIsLoading(true);
-
-    try {
-      const eventBody = getAppointmentRequest();
-      if (!eventBody) return;
-
-      const files = Object.fromEntries(
-        Object.entries(fields).filter(
-          ([_, value]) => (value as any) instanceof File,
-        ),
-      );
-
-      const { id } = await clientApi.booking.createAppointment(
-        eventBody,
-        files,
-      );
-
-      if (successPage) {
-        const expireDate = LuxonDateTime.now().plus({ minutes: 1 });
-
-        document.cookie = `appointment_id=${encodeURIComponent(
-          id,
-        )}; expires=${expireDate.toJSDate().toUTCString()};`;
-
-        router.push(successPage);
-      } else {
-        setIsBookingConfirmed(true);
-      }
-    } catch (e: any) {
-      const { handled, kind } = await handleBookingSubmitError(
-        e,
-        errors,
-        (title, description) => {
-          toast.error(title, { description });
-        },
-      );
-
-      if (handled) {
-        if (kind === "time_not_available") {
-          setDateTime(undefined);
-          setCurrentStep("calendar");
-          await fetchAvailability();
-        }
+  const onSubmit = useCallback(
+    async (paymentIntentId?: string) => {
+      if (isEditor) return;
+      if (isBookingRestricted) {
+        toast.error(errors.limitReachedTitle, {
+          description: errors.limitReachedDescription,
+        });
         return;
       }
+      setIsLoading(true);
 
-      if (currentStep === "payment") {
-        setCurrentStep("form");
+      try {
+        const eventBody = getAppointmentRequest(paymentIntentId);
+        if (!eventBody) return;
+
+        const files = Object.fromEntries(
+          Object.entries(fields).filter(
+            ([_, value]) => (value as any) instanceof File,
+          ),
+        );
+
+        const { id } = await clientApi.booking.createAppointment(
+          eventBody,
+          files,
+        );
+
+        if (successPage) {
+          const expireDate = LuxonDateTime.now().plus({ minutes: 1 });
+
+          document.cookie = `appointment_id=${encodeURIComponent(
+            id,
+          )}; expires=${expireDate.toJSDate().toUTCString()};`;
+
+          router.push(successPage);
+        } else {
+          setIsBookingConfirmed(true);
+        }
+      } catch (e: any) {
+        const { handled, kind } = await handleBookingSubmitError(
+          e,
+          errors,
+          (title, description) => {
+            toast.error(title, { description });
+          },
+        );
+
+        if (handled) {
+          if (kind === "time_not_available") {
+            setDateTime(undefined);
+            setCurrentStep("calendar");
+            await fetchAvailability();
+          }
+          return;
+        }
+
+        if (currentStep === "payment") {
+          setCurrentStep("form");
+        }
+
+        toast.error(errors.submitTitle, {
+          description: errors.submitDescription,
+        });
+      } finally {
+        setIsLoading(false);
       }
-
-      toast.error(errors.submitTitle, {
-        description: errors.submitDescription,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [
-    getAppointmentRequest,
-    errors.submitTitle,
-    errors.submitDescription,
-    errors.timeNotAvailableDescription,
-    errors.limitReachedTitle,
-    errors.limitReachedDescription,
-    successPage,
-    isEditor,
-    isBookingRestricted,
-    router,
-    currentStep,
-    fetchAvailability,
-    fields,
-  ]);
+    },
+    [
+      getAppointmentRequest,
+      errors.submitTitle,
+      errors.submitDescription,
+      errors.timeNotAvailableDescription,
+      errors.limitReachedTitle,
+      errors.limitReachedDescription,
+      successPage,
+      isEditor,
+      isBookingRestricted,
+      router,
+      currentStep,
+      fetchAvailability,
+      fields,
+    ],
+  );
 
   const contextValue: ScheduleContextProps = useMemo(
     () => ({

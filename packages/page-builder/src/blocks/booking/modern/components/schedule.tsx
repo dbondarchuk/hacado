@@ -395,7 +395,9 @@ export const Schedule: React.FC<
     }
   };
 
-  const getAppointmentRequest = (): AppointmentRequest | null => {
+  const getAppointmentRequest = (
+    paymentIntentIdOverride?: string,
+  ): AppointmentRequest | null => {
     if (!dateTime || !duration || !selectedAppointmentOption?._id) return null;
     return {
       dateTime: LuxonDateTime.fromObject(
@@ -417,7 +419,8 @@ export const Schedule: React.FC<
       memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,
-      paymentIntentId: paymentInformation?.intent?._id,
+      paymentIntentId:
+        paymentIntentIdOverride ?? paymentInformation?.intent?._id,
       giftCards: giftCards?.map((giftCard) => giftCard.code),
       customerPackageId,
       purchasePackageId,
@@ -490,7 +493,7 @@ export const Schedule: React.FC<
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (paymentIntentId?: string) => {
     if (isEditor) return;
     if (isBookingRestricted) {
       toast.error(errors.limitReachedTitle, {
@@ -501,7 +504,7 @@ export const Schedule: React.FC<
     setIsLoading(true);
 
     try {
-      const eventBody = getAppointmentRequest();
+      const eventBody = getAppointmentRequest(paymentIntentId);
       if (!eventBody) return;
 
       const files = Object.fromEntries(

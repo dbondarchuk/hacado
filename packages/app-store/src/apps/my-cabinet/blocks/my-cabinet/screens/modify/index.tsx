@@ -240,7 +240,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (paymentIntentId?: string) => {
     if (!appointment || !appointment.allowed) return;
 
     setIsLoading(true);
@@ -248,7 +248,7 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
       await clientApi.booking.modifyAppointment(appointment.id, {
         type: action,
         dateTime: newDateTime?.toUTC().toJSDate() as Date,
-        paymentIntentId: paymentInformation?.intent?._id,
+        paymentIntentId: paymentIntentId ?? paymentInformation?.intent?._id,
         giftCards: giftCards?.map((g) => g.code),
       } satisfies ModifyAppointmentRequest);
 

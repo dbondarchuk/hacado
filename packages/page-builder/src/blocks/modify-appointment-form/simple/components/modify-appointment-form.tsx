@@ -247,7 +247,7 @@ export const ModifyAppointmentForm: React.FC<
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (paymentIntentId?: string) => {
     setIsLoading(true);
     if (!appointment || !appointment.allowed) return;
 
@@ -263,7 +263,7 @@ export const ModifyAppointmentForm: React.FC<
       await clientApi.booking.modifyAppointment(appointment.id, {
         type,
         dateTime: newDateTime?.toUTC().toJSDate() as Date,
-        paymentIntentId: paymentInformation?.intent?._id,
+        paymentIntentId: paymentIntentId ?? paymentInformation?.intent?._id,
         giftCards: giftCards?.map((g) => g.code),
       } satisfies ModifyAppointmentRequest);
 
