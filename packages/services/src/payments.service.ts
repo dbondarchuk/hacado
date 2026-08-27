@@ -198,7 +198,9 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
     request: AppointmentRequest;
   }): Promise<PaymentIntent | null> {
-    const logger = this.loggerFactory("findReusablePaidIntentForAppointmentRequest");
+    const logger = this.loggerFactory(
+      "findReusablePaidIntentForAppointmentRequest",
+    );
     logger.debug(
       {
         appId,
@@ -212,7 +214,9 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     );
 
     const db = await getDbConnection();
-    const intents = db.collection<PaymentIntent>(PAYMENT_INTENTS_COLLECTION_NAME);
+    const intents = db.collection<PaymentIntent>(
+      PAYMENT_INTENTS_COLLECTION_NAME,
+    );
     const payments = db.collection<Payment & { intentId?: string }>(
       PAYMENTS_COLLECTION_NAME,
     );
