@@ -49,6 +49,7 @@ export const SUBSCRIPTION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.billing,
         severity: isConcerningSubscriptionStatus(newStatus)
           ? "warning"

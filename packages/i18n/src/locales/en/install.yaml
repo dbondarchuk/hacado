@@ -32,6 +32,7 @@ checkout:
         calendar: "Calendar sync (Google, Outlook, CalDAV)"
         emailNotifications: Email notifications
         textNotifications: Text message notifications (SMS credits purchased separately)
+        activityHistory: 30 days of activity history. Payments, permissions, and other important records never expire.
     solo:
       title: Solo
       subtitle: Everything you need to scale
@@ -47,6 +48,7 @@ checkout:
         apps: Appointment waitlist, intake forms, blog
         clientPortal: Client self-service portal for bookings and profiles
         smsCredits: 100 SMS credits included every month
+        activityHistory: 90 days of activity history (instead of 30)
     studio:
       title: Studio
       subtitle: For businesses with multiple employees
@@ -57,6 +59,7 @@ checkout:
         additionalSeats: Additional seats starting at $4/month each
         individualCalendars: Individual calendars and schedules per team member
         smsCredits: 300 SMS credits included every month
+        activityHistory: 365 days of activity history (instead of 90)
   checkoutError: Could not start checkout. Try again shortly.
 wizard:
   progressLabel: Your setup progress

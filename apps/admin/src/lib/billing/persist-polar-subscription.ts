@@ -21,6 +21,22 @@ import { notifyOwnerOfMemberReactivations } from "./notify-member-reactivations"
 
 const USER_SLOTS_PRODUCT_TYPE = "users_amount";
 const SUBSCRIPTION_PRODUCT_TYPE = "subscription";
+export const ACTIVITY_RETENTION_DAYS_METADATA_KEY = "activity_retention_days";
+
+/**
+ * Reads Polar product metadata `activity_retention_days` only.
+ * Positive finite numbers become whole days; anything else is unlimited (`null`).
+ */
+export function parseActivityRetentionDaysFromProductMetadata(
+  metadata: Record<string, unknown> | null | undefined,
+): number | null {
+  if (!metadata) return null;
+  const raw = metadata[ACTIVITY_RETENTION_DAYS_METADATA_KEY];
+  if (raw === undefined || raw === null || raw === "") return null;
+  const n = typeof raw === "number" ? raw : Number(raw);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return Math.trunc(n);
+}
 
 export function organizationIdFromPolarSubscriptionMetadata(
   metadata: Subscription["metadata"],
@@ -163,7 +179,8 @@ export async function persistPolarSubscriptionToOrganization(
 
   logger.debug({ orgId, oldTier, newTier }, "Resolved plan tiers");
 
-  const productMetaType = await resolveProductMetaType(subscription);
+  const productMetadata = await resolveProductMetadata(subscription);
+  const productMetaType = String(productMetadata?.type ?? "");
   const isSubscriptionProduct = productMetaType === SUBSCRIPTION_PRODUCT_TYPE;
 
   const previousAvailableUsers = before?.availableUsers ?? null;
@@ -190,6 +207,14 @@ export async function persistPolarSubscriptionToOrganization(
               polarSubscriptionId: subscription.id,
               ...(newStatus ? { polarSubscriptionStatus: newStatus } : {}),
               polarSubscriptionProductId: subscription.productId,
+              ...(productMetadata
+                ? {
+                    activityRetentionDays:
+                      parseActivityRetentionDaysFromProductMetadata(
+                        productMetadata,
+                      ),
+                  }
+                : {}),
             }
           : {}),
       },
@@ -253,35 +278,37 @@ export async function persistPolarSubscriptionToOrganization(
   }
 }
 
-async function resolveProductMetaType(
+async function resolveProductMetadata(
   subscription: Subscription,
-): Promise<string> {
+): Promise<Record<string, unknown> | null> {
   const logger = getLoggerFactory("PersistPolarSubscription")(
-    "resolveProductMetaType",
+    "resolveProductMetadata",
   );
-  logger.debug({ subscription }, "Resolving product meta type");
+  logger.debug({ subscription }, "Resolving product metadata");
 
-  const embedded = String(
-    (subscription.product as { metadata?: { type?: string } } | undefined)
-      ?.metadata?.type ?? "",
-  );
-  if (embedded) {
-    logger.debug({ embedded }, "Embedded product meta type");
+  const embedded = (
+    subscription.product as { metadata?: Record<string, unknown> } | undefined
+  )?.metadata;
+  if (embedded && typeof embedded === "object" && String(embedded.type ?? "")) {
+    logger.debug({ embedded }, "Embedded product metadata");
     return embedded;
   }
 
   const productId = subscription.productId?.trim();
   logger.debug({ productId }, "Product ID");
   const polar = getPolarClient();
-  if (!productId || !polar.client) return "";
+  if (!productId || !polar.client) return null;
 
   try {
-    const product = await polar.client.products.get({ id: productId });
-    const type = String(product.metadata?.type ?? "");
-    logger.debug({ productId, type }, "Resolved product meta type");
-    return type;
+    const product = await polar.getProduct(productId);
+    const metadata = (product.metadata ?? null) as Record<
+      string,
+      unknown
+    > | null;
+    logger.debug({ productId, metadata }, "Resolved product metadata");
+    return metadata;
   } catch {
-    logger.debug({ productId }, "Failed to resolve product meta type");
-    return "";
+    logger.debug({ productId }, "Failed to resolve product metadata");
+    return null;
   }
 }

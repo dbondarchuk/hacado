@@ -39,4 +39,9 @@ export type Organization = WithDatabaseId<{
   userSlotGrants?: OrganizationUserSlotGrant[];
   /** Whether the current plan allows purchasing additional seat products. */
   allowAdditionalUsers?: boolean;
+  /**
+   * Cached Polar product metadata `activity_retention_days`.
+   * `null` means unlimited; omit the field when it has not been resolved yet.
+   */
+  activityRetentionDays?: number | null;
 }>;

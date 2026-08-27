@@ -26,4 +26,9 @@ export type ActivityRecord = {
   metadata?: Record<string, unknown>;
   /** Dashboard deep link, e.g. `/dashboard/appointments/xyz` */
   link?: string;
+  /**
+   * Permanent audit history: skip organization retention and never set
+   * `expiresAt`. Omit to apply Polar `activity_retention_days`.
+   */
+  noExpiry?: true;
 };

@@ -105,6 +105,7 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
           },
           link: `/dashboard/gift-card-studio/purchases?purchaseId=${purchase._id}`,
           source: envelope.source,
+          noExpiry: true,
         };
       },
       dashboardNotification: (envelope) => {
@@ -200,6 +201,7 @@ export const GIFT_CARD_STUDIO_APP_EVENTS: AppEventConfig = {
         },
         link: "/dashboard/gift-card-studio/purchases",
         source: envelope.source,
+        noExpiry: true,
       }),
       emailNotifications: false,
       smsNotifications: false,

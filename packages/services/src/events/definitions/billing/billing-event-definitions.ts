@@ -5,6 +5,7 @@ import {
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
+  type ActivityRecord,
   type EmailNotificationRequest,
   type EventDefinition,
   type EventEnvelope,
@@ -103,15 +104,7 @@ async function buildSmsCreditThresholdEmails(
 
 function buildSmsCreditThresholdActivity(
   envelope: EventEnvelope<SmsCreditsThresholdPayload>,
-): {
-  eventId: string;
-  eventType: string;
-  title: { key: BaseAllKeys };
-  description: { key: BaseAllKeys; args: { balance: number } };
-  source: EventEnvelope["source"];
-  severity: "warning" | "error";
-  link: string;
-} {
+): ActivityRecord {
   const balance = envelope.payload.balance;
   const exhausted = envelope.type === SMS_CREDITS_EXHAUSTED_EVENT_TYPE;
   const keyPrefix = smsCreditsActivityKeyPrefix(envelope.type);
@@ -126,6 +119,7 @@ function buildSmsCreditThresholdActivity(
       args: { balance },
     },
     source: envelope.source,
+    noExpiry: true,
     severity: exhausted ? "error" : "warning",
     link: dashboardUrls.billing,
   };
@@ -213,6 +207,7 @@ export const BILLING_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { credits },
         },
         source: envelope.source,
+        noExpiry: true,
         severity: "success",
         link: dashboardUrls.billing,
       };

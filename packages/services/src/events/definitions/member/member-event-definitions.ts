@@ -42,6 +42,7 @@ export const MEMBER_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.teamMember(member._id.toString()),
       };
     },
@@ -67,6 +68,7 @@ export const MEMBER_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.teamMember(member._id.toString()),
       };
     },
@@ -89,6 +91,7 @@ export const MEMBER_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { memberName: memberDisplayName(member) },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.teamMember(member._id.toString()),
       };
     },
@@ -116,6 +119,7 @@ export const MEMBER_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.teamMember(member._id.toString()),
       };
     },

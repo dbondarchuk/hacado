@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/short-links.service.test.ts src/booking-tracking/tracker.test.ts src/booking-tracking/summarize.test.ts"
+    "test": "node --import tsx --test src/short-links.service.test.ts src/booking-tracking/tracker.test.ts src/booking-tracking/summarize.test.ts src/activity.service.test.ts"
   },
   "exports": {
     ".": "./src/index.ts",

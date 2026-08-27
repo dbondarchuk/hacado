@@ -32,6 +32,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.payment(payment),
       };
     },
@@ -57,6 +58,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.payment(payment),
       };
     },
@@ -79,6 +81,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { amount: payment.amount },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.payment(payment),
       };
     },
@@ -101,6 +104,7 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { refundAmount: amount, amount: payment.amount },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.payment(payment),
       };
     },

@@ -28,6 +28,7 @@ export const POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS: Record<
     "checkout.plans.free.benefits.calendar",
     "checkout.plans.free.benefits.emailNotifications",
     "checkout.plans.free.benefits.textNotifications",
+    "checkout.plans.free.benefits.activityHistory",
   ],
   solo: [
     "checkout.plans.solo.benefits.payments",
@@ -39,12 +40,14 @@ export const POLAR_CHECKOUT_PLAN_BENEFIT_I18N_KEYS: Record<
     "checkout.plans.solo.benefits.apps",
     "checkout.plans.solo.benefits.clientPortal",
     "checkout.plans.solo.benefits.smsCredits",
+    "checkout.plans.solo.benefits.activityHistory",
   ],
   studio: [
     "checkout.plans.studio.benefits.teamMembers",
     "checkout.plans.studio.benefits.additionalSeats",
     "checkout.plans.studio.benefits.individualCalendars",
     "checkout.plans.studio.benefits.smsCredits",
+    "checkout.plans.studio.benefits.activityHistory",
   ],
 };
 

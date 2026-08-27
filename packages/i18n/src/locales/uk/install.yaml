@@ -33,6 +33,7 @@ checkout:
         calendar: "Синхронізація календаря (Google, Outlook, CalDAV)"
         emailNotifications: Email-сповіщення
         textNotifications: SMS-сповіщення (потрібно окремо купити SMS-кредити)
+        activityHistory: 30 днів історії активності. Платежі, зміни прав і інші важливі записи не мають терміну дії.
     solo:
       title: Solo
       subtitle: "Усе, щоб масштабуватись"
@@ -48,6 +49,7 @@ checkout:
         apps: Лист очікування, форми запису, блог
         clientPortal: Клієнтський кабінет для бронювань і профілів
         smsCredits: 100 SMS-кредитів щомісяця
+        activityHistory: 90 днів історії активності (замість 30)
     studio:
       title: Studio
       subtitle: Для бізнесів з кількома співробітниками
@@ -58,6 +60,7 @@ checkout:
         additionalSeats: Додаткові місця від 4$/місяць
         individualCalendars: Окремі календарі та розклади для кожного співробітника
         smsCredits: 300 SMS-кредитів щомісяця
+        activityHistory: 365 днів історії активності (замість 90)
 wizard:
   progressLabel: Прогрес налаштування
   common:

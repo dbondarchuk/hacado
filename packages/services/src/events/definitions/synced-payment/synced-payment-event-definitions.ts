@@ -59,6 +59,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayment(syncedPayment),
         };
       },
@@ -122,6 +123,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             args: { amount: syncedPayment.amount },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayment(syncedPayment),
         };
       },
@@ -148,6 +150,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             args: { amount: syncedPayment.amount },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayments,
         };
       },
@@ -181,6 +184,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             },
           },
           source: envelope.source,
+          noExpiry: true,
           link: syncedPayment.appointmentId
             ? dashboardUrls.appointment(syncedPayment.appointmentId)
             : dashboardUrls.syncedPayment(syncedPayment),
@@ -209,6 +213,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             args: { amount: syncedPayment.amount },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayment(syncedPayment),
         };
       },
@@ -235,6 +240,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             args: { amount: syncedPayment.amount },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayment(syncedPayment),
         };
       },
@@ -261,6 +267,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             args: { amount: syncedPayment.amount },
           },
           source: envelope.source,
+          noExpiry: true,
           link: dashboardUrls.syncedPayments,
         };
       },
@@ -292,6 +299,7 @@ export const SYNCED_PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> =
             },
           },
           source: envelope.source,
+          noExpiry: true,
           link: syncedPayment.appointmentId
             ? dashboardUrls.appointment(syncedPayment.appointmentId)
             : dashboardUrls.syncedPayment(syncedPayment),

@@ -1,5 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
 import type { Polar } from "@polar-sh/sdk";
+import type { Product } from "@polar-sh/sdk/models/components/product";
 import type { Subscription } from "@polar-sh/sdk/models/components/subscription";
 import { getPolarClient } from "./polar-client";
 import { PolarConfig } from "./types";
@@ -48,6 +49,10 @@ export class PolarClientWrapper {
 
   async getSubscriptionById(subscriptionId: string): Promise<Subscription> {
     return this.polar.subscriptions.get({ id: subscriptionId });
+  }
+
+  async getProduct(productId: string): Promise<Product> {
+    return this.polar.products.get({ id: productId });
   }
 
   async getCustomerMeterRow(params: {

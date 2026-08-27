@@ -25,6 +25,7 @@ export const ORGANIZATION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.settings,
       };
     },

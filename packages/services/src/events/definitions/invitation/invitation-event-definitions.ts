@@ -25,6 +25,7 @@ export const INVITATION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { email, role },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.team,
       };
     },
@@ -47,6 +48,7 @@ export const INVITATION_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           args: { email, role },
         },
         source: envelope.source,
+        noExpiry: true,
         link: dashboardUrls.team,
       };
     },

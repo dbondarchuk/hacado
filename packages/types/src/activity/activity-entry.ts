@@ -5,8 +5,10 @@ import type { ActivityRecord } from "./activity-record";
 export type ActivityEntry = Prettify<
   WithOrganizationId<
     WithDatabaseId<
-      ActivityRecord & {
+      Omit<ActivityRecord, "noExpiry"> & {
         createdAt: Date;
+        /** Set at insert unless `noExpiry` is set. Omitted for permanent audit history. */
+        expiresAt?: Date;
       }
     >
   >

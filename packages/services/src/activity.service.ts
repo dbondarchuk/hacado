@@ -7,6 +7,7 @@ import type {
   ActivitySeverity,
   IActivityService,
   IDashboardNotificationsService,
+  Organization,
   WithTotal,
 } from "@hacado/types";
 import { escapeRegex } from "@hacado/utils";
@@ -17,6 +18,7 @@ import {
   ACTIVITIES_COLLECTION_NAME,
   CUSTOMERS_COLLECTION_NAME,
   MEMBERS_COLLECTION_NAME,
+  ORGANIZATIONS_COLLECTION_NAME,
 } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
@@ -28,6 +30,58 @@ export class ActivityService extends BaseService implements IActivityService {
     private readonly redisClient: Redis,
   ) {
     super("ActivityService", organizationId);
+  }
+
+  public static calculateExpiresAt(
+    createdAt: Date,
+    retentionDays: number | null,
+  ): Date | undefined {
+    if (
+      retentionDays == null ||
+      !Number.isFinite(retentionDays) ||
+      retentionDays <= 0
+    ) {
+      return undefined;
+    }
+    return new Date(createdAt.getTime() + retentionDays * 24 * 60 * 60 * 1000);
+  }
+
+  public static organizationRetentionDays(
+    organization: Pick<
+      Organization,
+      "feesExempt" | "activityRetentionDays"
+    > | null,
+  ): number | null {
+    if (!organization || organization.feesExempt === true) {
+      return null;
+    }
+    return organization.activityRetentionDays ?? null;
+  }
+
+  public static buildPersistedEntry(params: {
+    organizationId: string;
+    activity: ActivityRecord;
+    organizationRetentionDays: number | null;
+    createdAt?: Date;
+    id?: string;
+  }): ActivityEntry {
+    const { noExpiry, ...rest } = params.activity;
+    const createdAt = params.createdAt ?? new Date();
+    const expiresAt = noExpiry
+      ? undefined
+      : ActivityService.calculateExpiresAt(
+          createdAt,
+          params.organizationRetentionDays,
+        );
+
+    return {
+      _id: params.id ?? new ObjectId().toString(),
+      organizationId: params.organizationId,
+      ...rest,
+      severity: rest.severity ?? "info",
+      createdAt,
+      ...(expiresAt ? { expiresAt } : {}),
+    };
   }
 
   private lastReadRedisKey(memberId: string): string {
@@ -164,13 +218,19 @@ export class ActivityService extends BaseService implements IActivityService {
     const db = await getDbConnection();
     const collection = db.collection<ActivityEntry>(ACTIVITIES_COLLECTION_NAME);
 
-    const entry: ActivityEntry = {
-      _id: new ObjectId().toString(),
+    const organization = await db
+      .collection<Organization>(ORGANIZATIONS_COLLECTION_NAME)
+      .findOne(
+        { _id: this.organizationId },
+        { projection: { feesExempt: 1, activityRetentionDays: 1 } },
+      );
+
+    const entry = ActivityService.buildPersistedEntry({
       organizationId: this.organizationId,
-      ...activity,
-      severity: activity.severity ?? "info",
-      createdAt: new Date(),
-    };
+      activity,
+      organizationRetentionDays:
+        ActivityService.organizationRetentionDays(organization),
+    });
 
     await collection.insertOne(entry);
     logger.debug(

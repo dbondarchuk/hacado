@@ -1209,7 +1209,7 @@ activity:
     visitor: "Visitor: {name}"
     customer: "Customer: <link></link>"
   page:
-    description: Organization-wide timeline of notable events.
+    description: Organization-wide timeline of notable events. Everyday history is kept 30 days on Free, 90 on Solo, and 365 on Studio. Payments, permissions, and other important records never expire.
   header:
     openFeed: Open activity feed
     recent: Recent activity

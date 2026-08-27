@@ -36,6 +36,7 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         },
         severity: "success",
         source: envelope.source,
+        noExpiry: true,
         link: "/dashboard/apps",
       };
     },
@@ -62,6 +63,7 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         severity: "success",
         link: "/dashboard/apps",
       };
@@ -89,6 +91,7 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         severity: "warning",
         link: "/dashboard/apps",
       };
@@ -116,6 +119,7 @@ export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
           },
         },
         source: envelope.source,
+        noExpiry: true,
         severity: "error",
         link: "/dashboard/apps",
       };
