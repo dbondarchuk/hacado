@@ -30,20 +30,14 @@ export async function FinancialsOverview({
     revenueOverTime,
     serviceDistribution,
     customerData,
-    bookingStats,
-    abandonmentBookingStepBreakdown,
-    bookingStatsOverTime,
-    bookingConversionStats,
+    bookingProgress,
   ] = await Promise.all([
     queries.getFinancialMetrics(dateRange),
     queries.getRecentPayments(12),
     queries.getRevenueOverTime(dateRange, timeGrouping),
     queries.getServiceDistribution(dateRange),
     queries.getCustomerData(dateRange, timeGrouping),
-    queries.getBookingCompletionStats(dateRange),
-    queries.getAbandonmentBookingStepBreakdown(dateRange),
-    queries.getBookingStatsOverTime(dateRange, timeGrouping),
-    queries.getBookingConversionStats(dateRange),
+    queries.getBookingProgressAnalytics(dateRange, timeGrouping),
   ]);
 
   return (
@@ -53,10 +47,13 @@ export async function FinancialsOverview({
       revenueOverTime={revenueOverTime}
       serviceDistribution={serviceDistribution}
       customerData={customerData}
-      bookingStats={bookingStats}
-      abandonmentBookingStepBreakdown={abandonmentBookingStepBreakdown}
-      bookingStatsOverTime={bookingStatsOverTime}
-      bookingConversionStats={bookingConversionStats}
+      bookingStats={bookingProgress.bookingStats}
+      abandonmentBookingStepBreakdown={
+        bookingProgress.abandonmentBookingStepBreakdown
+      }
+      enteredBookingStepBreakdown={bookingProgress.enteredBookingStepBreakdown}
+      bookingStatsOverTime={bookingProgress.bookingStatsOverTime}
+      bookingConversionStats={bookingProgress.bookingConversionStats}
       loading={false}
     />
   );

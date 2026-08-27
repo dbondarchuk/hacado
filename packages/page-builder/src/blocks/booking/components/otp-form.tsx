@@ -52,7 +52,10 @@ export const BookingOtpForm: React.FC<BookingOtpFormProps> = ({
           channel === "phone" ? { phone, otp } : { email, otp },
         )
       }
-      onVerified={(result) => onVerified(result)}
+      onVerified={(result) => {
+        clientApi.booking.trackOtpVerified();
+        return onVerified(result);
+      }}
       labels={{
         descriptionEmailOnly: t("booking.otp.descriptionEmailOnly"),
         descriptionPhoneOnly: t("booking.otp.descriptionPhoneOnly"),

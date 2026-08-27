@@ -105,6 +105,7 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
+        clientApi.booking.trackPaymentFailed(intent.amount);
         return;
       }
       setIsPaying(true);
@@ -126,9 +127,11 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
           throw new Error(data?.error ?? "payment_failed");
         }
 
+        clientApi.booking.trackPaymentSucceeded(intent.amount);
         onSubmit();
       } catch (e: unknown) {
         console.error(e);
+        clientApi.booking.trackPaymentFailed(intent.amount);
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });

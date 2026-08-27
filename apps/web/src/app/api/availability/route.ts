@@ -77,12 +77,12 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Track availability check
+  logger.debug({ duration, memberId }, "Fetching availability");
+
   await trackBookingStep(request, "AVAILABILITY_CHECKED", {
     duration,
+    memberId,
   });
-
-  logger.debug({ duration, memberId }, "Fetching availability");
 
   const availability = await servicesContainer.bookingService.getAvailability(
     duration,

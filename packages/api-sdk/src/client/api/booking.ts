@@ -1,7 +1,11 @@
 import {
   AppointmentRequest,
+  BOOKING_UI_STEP_TRACKING,
+  BookingTrackingMetadata,
   CheckDuplicateAppointmentsResponse,
+  ClientTrackableBookingStep,
   GetAppointmentOptionsResponse,
+  isClientTrackableBookingStep,
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
   ModifyAppointmentRequest,
@@ -45,6 +49,55 @@ export const createAppointment = async (
   const data = await response.json<{ success: boolean; id: string }>();
   console.debug("Appointment created successfully", { data });
   return data;
+};
+
+export const trackStep = async (
+  step: ClientTrackableBookingStep,
+  metadata?: BookingTrackingMetadata,
+) => {
+  try {
+    await fetchClientApi("/booking/tracking", {
+      method: "POST",
+      body: JSON.stringify({ step, metadata }),
+    });
+  } catch (error) {
+    console.debug("Failed to track booking step", { step, error });
+  }
+};
+
+/** Records a funnel step when the customer clicks Next on a wizard screen. */
+export const trackAdvanceFromUiStep = (
+  uiStep: string,
+  metadata?: BookingTrackingMetadata,
+) => {
+  const step = BOOKING_UI_STEP_TRACKING[uiStep];
+  if (!step || !isClientTrackableBookingStep(step)) return;
+  void trackStep(step, metadata);
+};
+
+export const trackOtpVerified = () => {
+  void trackStep("OTP_VERIFIED");
+};
+
+export const trackPaymentReached = (paymentAmount?: number) => {
+  void trackStep("PAYMENT_CHECKED", {
+    isPaymentRequired: true,
+    paymentAmount,
+  });
+};
+
+export const trackPaymentSucceeded = (paymentAmount?: number) => {
+  void trackStep("PAYMENT_SUCCESS", {
+    isPaymentRequired: true,
+    paymentAmount,
+  });
+};
+
+export const trackPaymentFailed = (paymentAmount?: number) => {
+  void trackStep("PAYMENT_FAILED", {
+    isPaymentRequired: true,
+    paymentAmount,
+  });
 };
 
 export const checkDuplicateAppointments = async (

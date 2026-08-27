@@ -33,6 +33,12 @@ class NotFoundError extends Error {
 
 const getSource = cache(async (slug?: string, preview = false) => {
   const logger = getLoggerFactory("PageComponent")("getSource");
+
+  if (slug?.startsWith("_next/")) {
+    logger.warn({ slug }, "Skipping _next/ route");
+    throw new NotFoundError("Cannot access _next/ route");
+  }
+
   const organizationId = await getOrganizationId();
   if (!organizationId) {
     logger.warn(
@@ -55,11 +61,6 @@ const getSource = cache(async (slug?: string, preview = false) => {
   }
 
   logger.debug({ slug, preview }, "Retrieving page by slug");
-
-  if (slug.startsWith("_next/")) {
-    logger.warn({ slug }, "Skipping _next/ route");
-    throw new NotFoundError("Cannot access _next/ route");
-  }
 
   const result = await servicesContainer.pagesService.resolvePage(slug);
   if (!result) {
@@ -196,10 +197,19 @@ export async function generateMetadata(
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
 
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    if (errorMessage === "NEXT_REDIRECT") {
+      return {
+        title: "Error",
+        description: "An error occurred while loading the page",
+      };
+    }
+
     loggerFn(
       {
         slug: (await props.params).slug,
-        error: error instanceof Error ? error.message : String(error),
+        error: errorMessage,
       },
       "Error generating page metadata",
     );
@@ -366,13 +376,17 @@ export default async function Page(props: Props) {
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
 
-    loggerFn(
-      {
-        slug: (await props.params).slug,
-        error: error instanceof Error ? error.message : String(error),
-      },
-      "Error rendering page",
-    );
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    if (errorMessage !== "NEXT_REDIRECT") {
+      loggerFn(
+        {
+          slug: (await props.params).slug,
+          error: errorMessage,
+        },
+        "Error rendering page",
+      );
+    }
 
     if (error instanceof NotFoundError) {
       notFound();

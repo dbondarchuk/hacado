@@ -142,5 +142,10 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       image: null,
     },
   ],
+  catalog: [
+    { type: "option", id: "option-1", optionId: "option-1" },
+    { type: "option", id: "option-2", optionId: "option-2" },
+    { type: "option", id: "option-3", optionId: "option-3" },
+  ],
   hasActiveCustomerPackages: true,
 };

@@ -47,6 +47,7 @@ export const OtpCard: React.FC = () => {
           )
         }
         onVerified={async (result) => {
+          clientApi.booking.trackOtpVerified();
           setOtpVerified(true);
           setFields({
             ...fields,
@@ -59,6 +60,7 @@ export const OtpCard: React.FC = () => {
           if (!payment || payment.intent?.status === "paid") {
             onSubmit();
           } else {
+            clientApi.booking.trackPaymentReached(payment.intent?.amount);
             setStep("payment");
           }
         }}

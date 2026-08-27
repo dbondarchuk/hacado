@@ -15,6 +15,7 @@ export async function trackBookingStep(
   request: NextRequest,
   step: BookingStep,
   metadata?: BookingTrackingMetadata,
+  options?: { createIfMissing?: boolean },
 ): Promise<void> {
   const logger = getLoggerFactory("BookingTracking")("trackBookingStep");
 
@@ -30,6 +31,7 @@ export async function trackBookingStep(
       sessionId,
       step,
       metadata,
+      createIfMissing: options?.createIfMissing,
     };
 
     await servicesContainer.eventService.emit(

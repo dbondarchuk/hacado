@@ -1,6 +1,10 @@
 import { getLocale } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
+  canUseFeature,
+  resolvePlanTierFromOrganization,
+} from "@hacado/services/billing";
+import {
   AppJobRequest,
   CollectPayment,
   ConnectedAppData,
@@ -1519,6 +1523,20 @@ export class GiftCardStudioConnectedApp
     }
     const { amount, intentId, email, phone, name } = data;
     const settings = (appData.data as GiftCardStudioSettings) ?? {};
+
+    const organization =
+      await this.props.services.organizationService.getOrganization();
+    const planTier = resolvePlanTierFromOrganization(organization);
+    if (!canUseFeature(planTier, "payments")) {
+      logger.debug(
+        { planTier },
+        "Intent rejected: payments feature unavailable",
+      );
+      return Response.json(
+        { success: false, code: "subscription_upgrade_required" },
+        { status: 402 },
+      );
+    }
 
     if (amount < settings.minAmount || amount > settings.maxAmount) {
       logger.debug(

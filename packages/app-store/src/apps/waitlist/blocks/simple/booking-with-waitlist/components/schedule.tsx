@@ -782,6 +782,7 @@ export const Schedule: React.FC<
             if (!payment || payment.intent?.status === "paid") {
               onSubmit();
             } else {
+              clientApi.booking.trackPaymentReached(payment.intent?.amount);
               setStep("payment");
             }
           }}

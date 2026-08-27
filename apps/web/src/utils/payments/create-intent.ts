@@ -302,17 +302,6 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
   );
 
   const canUsePayments = await sessionCanUseFeature("payments");
-  if (!canUsePayments) {
-    logger.debug(
-      { modifyAppointmentRequestResult },
-      "Payments are not available on this plan, payment not required",
-    );
-    return NextResponse.json(null);
-  }
-
-  const paymentAmount = information.paymentAmount ?? 0;
-  const giftCards = information.giftCards;
-
   const { booking: config, defaultApps } =
     await servicesContainer.configurationService.getConfigurations(
       "booking",
@@ -320,10 +309,23 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
     );
   const paymentAppId = defaultApps?.paymentAppId;
 
-  if (!config.payments?.enabled || !paymentAppId) {
-    logger.debug({ config }, "Payments are not enabled");
-    return NextResponse.json(null);
+  if (!canUsePayments || !config.payments?.enabled || !paymentAppId) {
+    logger.warn(
+      { modifyAppointmentRequestResult },
+      "Payment required but online payments are not available",
+    );
+    return NextResponse.json(
+      {
+        success: false,
+        error: "online_payment_unavailable",
+        message: "Online payments are not available.",
+      },
+      { status: 402 },
+    );
   }
+
+  const paymentAmount = information.paymentAmount ?? 0;
+  const giftCards = information.giftCards;
 
   const { app, service } =
     await servicesContainer.connectedAppsService.getAppService<IPaymentProcessor>(

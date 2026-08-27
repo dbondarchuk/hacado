@@ -363,6 +363,9 @@ modification:
           rescheduled_appointment_not_allowed: >-
             Cancellation is not allowed for this appointment because it has been
             rescheduled.
+          online_payment_unavailable: >-
+            This change requires a fee, but online payments are not available.
+            Please contact us.
           unknown: Unknown reason
   calendar:
     title: Select New Date & Time

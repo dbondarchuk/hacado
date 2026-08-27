@@ -22,7 +22,6 @@ export async function GET(request: NextRequest) {
     "Processing booking options API request",
   );
 
-  // Track booking started
   await trackBookingStep(request, "OPTIONS_REQUESTED");
 
   const [session, canUsePackages] = await Promise.all([

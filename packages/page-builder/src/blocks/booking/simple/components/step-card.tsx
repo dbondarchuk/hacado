@@ -1,3 +1,4 @@
+import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Button,
@@ -35,6 +36,13 @@ export const StepCard: React.FC = () => {
 
       setIsLoadingFn(true);
       try {
+        if (dir === "next") {
+          clientApi.booking.trackAdvanceFromUiStep(stepType, {
+            optionId: appointmentOption._id,
+            memberId: ctx.selectedMemberId ?? undefined,
+            duration,
+          });
+        }
         await action(ctx);
       } finally {
         setIsLoadingFn(false);

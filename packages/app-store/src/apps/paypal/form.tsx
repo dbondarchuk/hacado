@@ -69,8 +69,9 @@ declare module "@paypal/paypal-js" {
 const ApplePaySection: React.FC<{
   intent: PaymentAppFormProps<PaypalFormProps>["intent"];
   onSubmit: () => void;
+  onFailed: () => void;
   t: ReturnType<typeof useI18n<PaypalPublicNamespace, PaypalPublicKeys>>;
-}> = ({ intent, onSubmit, t }) => {
+}> = ({ intent, onSubmit, onFailed, t }) => {
   const [{ isResolved }] = usePayPalScriptReducer();
   const [isAvailable, setIsAvailable] = React.useState(false);
   const [applePayConfig, setApplePayConfig] =
@@ -186,6 +187,7 @@ const ApplePaySection: React.FC<{
         onSubmit();
       } catch (err) {
         console.error("Apple Pay payment failed", err);
+        onFailed();
         if (!sheetCompleted) {
           session.completePayment(ApplePaySession.STATUS_FAILURE);
         }
@@ -196,7 +198,7 @@ const ApplePaySection: React.FC<{
     };
 
     session.begin();
-  }, [applePayConfig, currency, orgConfig, intent, onSubmit, t]);
+  }, [applePayConfig, currency, orgConfig, intent, onSubmit, onFailed, t]);
 
   if (!isAvailable) return null;
 
@@ -227,9 +229,10 @@ const ApplePaySection: React.FC<{
 const GooglePaySection: React.FC<{
   intent: PaymentAppFormProps<PaypalFormProps>["intent"];
   onSubmit: () => void;
+  onFailed: () => void;
   isSandbox: boolean;
   t: ReturnType<typeof useI18n<PaypalPublicNamespace, PaypalPublicKeys>>;
-}> = ({ intent, onSubmit, isSandbox, t }) => {
+}> = ({ intent, onSubmit, onFailed, isSandbox, t }) => {
   const [{ isResolved }] = usePayPalScriptReducer();
   const [googlePayConfig, setGooglePayConfig] =
     React.useState<PaypalGooglePayConfig | null>(null);
@@ -303,6 +306,7 @@ const GooglePaySection: React.FC<{
         return { transactionState: "SUCCESS" };
       } catch (error) {
         console.error("Google Pay payment failed", error);
+        onFailed();
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
@@ -316,7 +320,7 @@ const GooglePaySection: React.FC<{
         };
       }
     },
-    [intent, onSubmit, t],
+    [intent, onSubmit, onFailed, t],
   );
 
   if (!googlePayConfig) return null;
@@ -417,6 +421,15 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
     paypalPublicNamespace,
   );
 
+  const handleSuccess = React.useCallback(() => {
+    clientApi.booking.trackPaymentSucceeded(intent.amount);
+    onSubmit();
+  }, [intent.amount, onSubmit]);
+
+  const handleFailed = React.useCallback(() => {
+    clientApi.booking.trackPaymentFailed(intent.amount);
+  }, [intent.amount]);
+
   const [isPaying, setIsPaying] = React.useState(false);
   const currency = useCurrency();
 
@@ -486,6 +499,7 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
       }
     } catch (error) {
       console.error(error);
+      handleFailed();
       return `Could not initiate PayPal Checkout...${error}`;
     }
   };
@@ -524,10 +538,11 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
       ) {
         throw new Error(JSON.stringify(orderData));
       } else {
-        onSubmit();
+        handleSuccess();
       }
     } catch (error) {
       console.error(`Payment has failed`, error);
+      handleFailed();
       toast.error(t("toast.payment_failed"), {
         description: t("toast.payment_failed_description"),
       });
@@ -536,6 +551,7 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
 
   function onError(error: any) {
     console.error(`Payment has failed`, error);
+    handleFailed();
     toast.error(t("toast.payment_failed"), {
       description: t("toast.payment_failed_description"),
     });
@@ -556,13 +572,19 @@ export const PaypalForm: React.FC<PaymentAppFormProps<PaypalFormProps>> = ({
         />
 
         {enableApplePay && (
-          <ApplePaySection intent={intent} onSubmit={onSubmit} t={t} />
+          <ApplePaySection
+            intent={intent}
+            onSubmit={handleSuccess}
+            onFailed={handleFailed}
+            t={t}
+          />
         )}
 
         {enableGooglePay && (
           <GooglePaySection
             intent={intent}
-            onSubmit={onSubmit}
+            onSubmit={handleSuccess}
+            onFailed={handleFailed}
             isSandbox={isSandbox}
             t={t}
           />

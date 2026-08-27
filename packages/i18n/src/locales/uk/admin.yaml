@@ -572,6 +572,10 @@ financialOverview:
         count: "{count, plural, =1 {1 покинуто} few {# покинуто} many {# покинуто} other {# покинуто}}"
         percentage: "{percentage}% від усіх відмов"
         noData: Немає даних про відмови
+      enteredByStep:
+        title: Досягнуто етапу
+        count: "{count, plural, =1 {1 сесія} few {# сесії} many {# сесій} other {# сесій}}"
+        noData: Немає даних про досягнуті етапи
       converted: Конвертовано
       conversionRate: Відсоток конвертації
       conversionByType:
@@ -581,13 +585,22 @@ financialOverview:
         noData: Немає даних про конвертацію
       bookingSteps:
         optionsRequested: Запит опцій
+        serviceSelected: Вибір послуги
+        specialistSelected: Вибір спеціаліста
+        addonSelected: Вибір додаткових опцій
         availabilityChecked: Перевірка доступності
+        availabilitySelected: Вибір часу
         duplicateChecked: Перевірка дублікатів
-        paymentChecked: Перевірка оплати
-        formSubmitted: Форма відправлена
+        otpRequested: Запит OTP
+        otpVerified: Підтвердження OTP
+        paymentChecked: Оплата
+        paymentSuccess: Оплата успішна
+        paymentFailed: Оплата не вдалася
+        formFilled: Форма заповнена
         bookingConverted: Бронювання конвертовано
       convertedTo:
         appointment: Запис
+        package: Пакет
 paymentsList:
   title: Платежі
   description: Переглядайте всі записані платежі за записами та клієнтами.
@@ -3626,6 +3639,7 @@ cancellationsAndReschedules:
 bookingTracking:
   convertedTo:
     appointment: Запис
+    package: Пакет
 customerSelector:
   addNew: Створити нового
   placeholder: Вибрати клієнта
