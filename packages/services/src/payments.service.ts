@@ -27,7 +27,7 @@ import {
   type PaymentRefundedPayload,
   type PaymentUpdatedPayload,
 } from "@hacado/types";
-import { deepEqual, escapeRegex } from "@hacado/utils";
+import { escapeRegex } from "@hacado/utils";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -331,6 +331,8 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     intentRequest: AppointmentRequest,
     request: AppointmentRequest,
   ): boolean {
+    // Contact: either email or phone is enough (customers often mistype one).
+    // Do not require other form fields (name, custom fields, etc.) to match.
     const emailMatches =
       !!intentRequest.fields.email &&
       !!request.fields.email &&
@@ -349,24 +351,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       new Date(intentRequest.dateTime).getTime() ===
       new Date(request.dateTime).getTime();
 
-    return (
-      sameDateTime &&
-      intentRequest.optionId === request.optionId &&
-      intentRequest.memberId === request.memberId &&
-      intentRequest.duration === request.duration &&
-      intentRequest.timeZone === request.timeZone &&
-      intentRequest.promoCode === request.promoCode &&
-      intentRequest.customerPackageId === request.customerPackageId &&
-      intentRequest.purchasePackageId === request.purchasePackageId &&
-      deepEqual(
-        [...(intentRequest.addonsIds ?? [])].sort(),
-        [...(request.addonsIds ?? [])].sort(),
-      ) &&
-      deepEqual(
-        [...(intentRequest.giftCards ?? [])].sort(),
-        [...(request.giftCards ?? [])].sort(),
-      )
-    );
+    return sameDateTime && intentRequest.optionId === request.optionId;
   }
 
   public async updateIntent(
