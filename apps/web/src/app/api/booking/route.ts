@@ -222,6 +222,7 @@ export async function POST(request: NextRequest) {
       ...eventOrError.event,
       data: {
         ...eventOrError.event.data,
+        ...appointmentRequest.data,
         sessionId, // Store for onAppointmentCreated hook
       },
     };

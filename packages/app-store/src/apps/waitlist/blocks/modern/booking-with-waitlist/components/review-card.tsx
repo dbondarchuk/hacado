@@ -647,10 +647,16 @@ export const ReviewCard: React.FC = () => {
           <div className="mb-2 flex items-center gap-2 text-foreground text-xs review-date-content">
             <Calendar className="w-4 h-4 text-muted-foreground" />
             <span className="review-date-date">
-              {DateTime.fromJSDate(dateTime.date)
-                .set({ hour: dateTime.time.hour, minute: dateTime.time.minute })
-                .setZone(dateTime.timeZone)
-                .toLocaleString(DateTime.DATETIME_FULL, { locale })}
+              {DateTime.fromObject(
+                {
+                  year: dateTime.date.getFullYear(),
+                  month: dateTime.date.getMonth() + 1,
+                  day: dateTime.date.getDate(),
+                  hour: dateTime.time.hour,
+                  minute: dateTime.time.minute,
+                },
+                { zone: dateTime.timeZone },
+              ).toLocaleString(DateTime.DATETIME_FULL, { locale })}
             </span>
           </div>
           <div className="mb-2 flex items-center gap-2 text-foreground text-xs review-timezone-content">

@@ -5,7 +5,6 @@ import { BlogAppSetup } from "./apps/blog/setup";
 import { CaldavAppSetup } from "./apps/caldav/setup";
 import { CalendarWriterAppSetup } from "./apps/calendar-writer/setup";
 import { CarddavAppSetup } from "./apps/carddav/setup";
-import { CustomerWaitlistNotificationsAppSetup } from "./apps/customer-waitlist-notifications/setup";
 import { EmailNotificationAppSetup } from "./apps/email-notification/setup";
 import { GoogleAppSetup } from "./apps/google-calendar/setup";
 import { IcsAppSetup } from "./apps/ics/setup";
@@ -29,7 +28,6 @@ import { BLOG_APP_NAME } from "./apps/blog/const";
 import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
-import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { ICS_APP_NAME } from "./apps/ics/const";
@@ -77,9 +75,6 @@ export const AppSetups: Record<string, BasicAppSetup> = {
     <UrlScheduleProviderAppSetup {...props} />
   ),
   [BLOG_APP_NAME]: (props) => <BlogAppSetup {...props} />,
-  [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]: (props) => (
-    <CustomerWaitlistNotificationsAppSetup {...props} />
-  ),
   [WEBHOOKS_APP_NAME]: (props) => <WebhooksAppSetup {...props} />,
   [ZOOM_APP_NAME]: (props) => <ZoomAppSetup {...props} />,
   [MY_CABINET_APP_NAME]: (props) => <MyCabinetAppSetup {...props} />,

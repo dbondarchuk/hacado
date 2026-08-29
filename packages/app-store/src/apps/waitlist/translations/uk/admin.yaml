@@ -84,9 +84,6 @@ app:
 setup:
   update: Оновити <app></app>
   form:
-    dontDismissWaitlistOnAppointmentCreate:
-      label: Не відхиляти список очікування при створенні запису
-      tooltip: Чи відхиляти список очікування при створенні запису з нього
     notifyMemberOnNewEntry:
       label: Надіслати email призначеному члену команди
       description: Надсилати призначеному члену команди email, коли клієнт приєднується до його списку очікування

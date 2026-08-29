@@ -59,3 +59,17 @@ export type AuthOptionsResponse = {
 export type ModifyInformation = ModifyAppointmentInformation;
 
 export type CustomerMeResponse = CustomerProfile;
+
+export type CustomerWaitlistEntry = {
+  _id: string;
+  optionName: string;
+  memberName: string;
+  asSoonAsPossible: boolean;
+  dates?: { date: string; time: Array<"morning" | "afternoon" | "evening"> }[];
+  duration?: number;
+  createdAt: string | Date;
+};
+
+export type CustomerWaitlistEntriesResponse = {
+  items: CustomerWaitlistEntry[];
+};

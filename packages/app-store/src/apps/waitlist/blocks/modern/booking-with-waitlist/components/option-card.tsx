@@ -98,10 +98,13 @@ export const AppointmentOptionCard: React.FC = () => {
     );
 
   const onClick = (option: AppointmentChoice): void => {
+    const isSameOption = option._id === selectedAppointmentOption?._id;
     setSelectedAppointmentOption(option);
     setSelectedAddons([]);
     setDiscount(undefined);
-    setDateTime(undefined);
+    if (!isSameOption) {
+      setDateTime(undefined);
+    }
     if (flowOrder !== "specialist-first") {
       setSelectedMemberId(null);
     }
@@ -468,6 +471,7 @@ export const AppointmentOptionCard: React.FC = () => {
             type="button"
             variant="outline"
             size="sm"
+            className="min-h-9 h-auto text-wrap py-2"
             onClick={() => void startPackageBooking()}
           >
             {i18n("booking.package.bookWithPackage")}

@@ -18,13 +18,17 @@ export const CardWithAppointmentInformation: React.FC<
 
   if (!dateTime) return children;
 
-  const date = Luxon.fromJSDate(dateTime.date);
-  const timeEndLuxon = date
-    .set({
+  const date = Luxon.fromObject(
+    {
+      year: dateTime.date.getFullYear(),
+      month: dateTime.date.getMonth() + 1,
+      day: dateTime.date.getDate(),
       hour: dateTime.time.hour,
       minute: dateTime.time.minute,
-    })
-    .plus({ minutes: duration });
+    },
+    { zone: dateTime.timeZone },
+  );
+  const timeEndLuxon = date.plus({ minutes: duration });
 
   const timeEnd: Time = {
     hour: timeEndLuxon.hour as HourNumbers,

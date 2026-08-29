@@ -91,3 +91,15 @@ block:
     empty: Поки немає пакетів
     used: "Частина пакета {name}"
     view: Переглянути пакет
+  waitlist:
+    heading: Лист очікування
+    empty: Вас немає в листі очікування
+    asSoonAsPossible: Щойно з’явиться час
+    dismiss: Вийти
+    dismissAll: Вийти з усіх
+    dismissError: Не вдалося оновити лист очікування
+    loadError: Не вдалося завантажити лист очікування.
+    dismissed: Вас видалено з листа очікування
+    morning: Ранок
+    afternoon: День
+    evening: Вечір

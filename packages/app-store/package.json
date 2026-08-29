@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/subscription-plan-access.test.ts"
+    "test": "node --import tsx --test src/subscription-plan-access.test.ts src/apps/customer-waitlist-notifications/slot-match.test.ts src/apps/waitlist/waitlist-offer-token.test.ts src/apps/waitlist/waitlist-offer-prefill.test.ts"
   },
   "main": "./src/index.ts",
   "exports": {

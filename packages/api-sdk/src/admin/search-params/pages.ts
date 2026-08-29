@@ -15,6 +15,7 @@ export const pagesSearchParams = {
   ...baseSearchParams,
   published: parseAsArrayOf(parseAsBoolean).withDefault([true, false]),
   tags: parseAsArrayOf(parseAsString),
+  priorityId: parseAsArrayOf(parseAsString),
   sort: baseSearchParams.sort.withDefault([
     {
       id: "updatedAt",

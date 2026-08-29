@@ -470,6 +470,7 @@ export const AppointmentOptionCard: React.FC = () => {
             type="button"
             variant="outline"
             size="sm"
+            className="min-h-9 h-auto text-wrap py-2"
             onClick={() => void startPackageBooking()}
           >
             {t("booking.package.bookWithPackage")}

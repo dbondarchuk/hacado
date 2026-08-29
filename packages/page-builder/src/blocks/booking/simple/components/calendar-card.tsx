@@ -9,6 +9,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
+  useCalendarDisplayedMonth,
   useTimeZone,
   useUseClientTimezone,
 } from "@hacado/ui";
@@ -156,6 +157,10 @@ export const CalendarCard: React.FC = () => {
 
   const minDate = React.useMemo(() => dates[0], [dates]);
   const maxDate = React.useMemo(() => dates[dates.length - 1], [dates]);
+  const [displayedMonth, setDisplayedMonth] = useCalendarDisplayedMonth(
+    date,
+    minDate,
+  );
 
   React.useEffect(() => {
     if (
@@ -226,7 +231,13 @@ export const CalendarCard: React.FC = () => {
                 //   .startOf("month")
                 //   .toJSDate()}
                 startMonth={new Date()}
-                endMonth={Luxon.fromJSDate(maxDate).endOf("month").toJSDate()}
+                month={displayedMonth}
+                onMonthChange={setDisplayedMonth}
+                endMonth={Luxon.fromJSDate(
+                  maxDate || date || minDate || new Date(),
+                )
+                  .endOf("month")
+                  .toJSDate()}
                 onSelect={changeDate}
                 className="rounded-md border"
                 disabled={(day: Date) => isDisabledDay(day)}

@@ -181,6 +181,29 @@ export function catalogNodesAtPath(
   return { nodes, group };
 }
 
+/** Group ids to drill into so `optionId` is visible (empty if the option is at the root). */
+export function catalogPathForOption(
+  catalog: BookingCatalogNode[] | undefined,
+  optionId: string,
+): string[] | undefined {
+  const walk = (
+    nodes: BookingCatalogNode[],
+    path: string[],
+  ): string[] | undefined => {
+    for (const node of nodes) {
+      if (node.type === "option" && node.optionId === optionId) {
+        return path;
+      }
+      if (node.type === "group") {
+        const found = walk(node.children ?? [], [...path, node.id]);
+        if (found) return found;
+      }
+    }
+    return undefined;
+  };
+  return walk(catalog ?? [], []);
+}
+
 export function filterCatalogNodes(
   nodes: BookingCatalogNode[] | undefined,
   options?: {

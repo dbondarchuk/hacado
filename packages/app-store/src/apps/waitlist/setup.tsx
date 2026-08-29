@@ -3,7 +3,6 @@
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types";
 import {
-  BooleanSelect,
   Button,
   Form,
   FormControl,
@@ -11,8 +10,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-  InfoTooltip,
   Spinner,
   Switch,
 } from "@hacado/ui";
@@ -104,32 +101,6 @@ export const WaitlistAppSetup: React.FC<AppSetupProps> = ({
                       disabled={isLoading}
                     />
                   </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="dontDismissWaitlistOnAppointmentCreate"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>
-                    {t(
-                      "setup.form.dontDismissWaitlistOnAppointmentCreate.label",
-                    )}
-                    <InfoTooltip>
-                      {t(
-                        "setup.form.dontDismissWaitlistOnAppointmentCreate.tooltip",
-                      )}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      disabled={isLoading}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />

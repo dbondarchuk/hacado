@@ -84,9 +84,6 @@ app:
 setup:
   update: Update <app></app>
   form:
-    dontDismissWaitlistOnAppointmentCreate:
-      label: Don't dismiss waitlist on appointment creation
-      tooltip: Whether to disable dismissing waitlist entry when appointment was created from it
     notifyMemberOnNewEntry:
       label: Email assigned team member
       description: Send the assigned team member an email when a customer joins their waitlist

@@ -46,6 +46,8 @@ assetSelector:
   upload: Завантажити
 pageSelector:
   title: Вибрати сторінку
+  placeholder: Вибрати сторінку
+  requestFailed: Запит на отримання сторінок не вдався
 promoCodeSelector:
   placeholder: Вибрати промо-код
   notActive: Не активний

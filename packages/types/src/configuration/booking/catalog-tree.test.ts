@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   bookingCatalogNodeSchema,
+  catalogPathForOption,
   filterCatalogNodes,
   flattenCatalogOptionIds,
   flattenCatalogPackageIds,
@@ -44,6 +45,28 @@ describe("moveCatalogNode", () => {
   it("does not nest groups", () => {
     const next = moveCatalogNode(tree(), "group-1", "svc-a");
     assert.equal(next.find((node) => node.id === "group-1")?.type, "group");
+  });
+});
+
+describe("catalogPathForOption", () => {
+  it("returns empty path for a root service", () => {
+    assert.deepEqual(catalogPathForOption(tree(), "aaa"), []);
+  });
+
+  it("returns group ids to a nested service", () => {
+    const catalog: BookingCatalogNode[] = [
+      {
+        type: "group",
+        id: "group-1",
+        name: "Massage",
+        children: [{ type: "option", id: "svc-b", optionId: "bbb" }],
+      },
+    ];
+    assert.deepEqual(catalogPathForOption(catalog, "bbb"), ["group-1"]);
+  });
+
+  it("returns undefined when the service is missing", () => {
+    assert.equal(catalogPathForOption(tree(), "missing"), undefined);
   });
 });
 

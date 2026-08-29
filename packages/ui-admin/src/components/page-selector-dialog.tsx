@@ -18,7 +18,7 @@ import {
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-export type PageSelectorProps = {
+export type PageSelectorDialogProps = {
   onSelected: (page: PageListModelWithUrl) => void;
   isOpen: boolean;
   close: () => void;
@@ -52,7 +52,7 @@ const Loaders = () => (
 
 const toLoad = 24; // divisible by 1, 2, 3
 
-export const PageSelectorDialog: React.FC<PageSelectorProps> = ({
+export const PageSelectorDialog: React.FC<PageSelectorDialogProps> = ({
   onSelected,
   close,
   isOpen,

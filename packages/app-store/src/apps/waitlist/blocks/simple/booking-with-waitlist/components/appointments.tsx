@@ -8,6 +8,7 @@ import {
   BookingCatalogNode,
   BookingRestriction,
   catalogNodesAtPath,
+  catalogPathForOption,
   creditsPerRedemptionForItem,
   CustomerPackage,
   FieldSchema,
@@ -21,6 +22,8 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
 import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
+import type { WaitlistOfferPrefill } from "../../../../models/waitlist-offer";
+import { fetchWaitlistOffer } from "../../../fetch-waitlist-offer";
 import { AppointmentsCard, CatalogCards } from "./appointments-card";
 import { FlowOrder } from "./context";
 import { Schedule } from "./schedule";
@@ -71,8 +74,12 @@ export const Appointments: React.FC<
   ...props
 }) => {
   const i18n = useI18n("translation");
-  const fromQuery = useSearchParams().get("option");
+  const searchParams = useSearchParams();
+  const fromQuery = searchParams.get("option");
+  const waitlistTokenParam = searchParams.get("w");
   const [option, setOption] = React.useState<string | null>(fromQuery);
+  const [waitlistOffer, setWaitlistOffer] =
+    React.useState<WaitlistOfferPrefill | null>(null);
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
   const [purchasePackageId, setPurchasePackageId] = React.useState<string>();
   const [customerPackageId, setCustomerPackageId] = React.useState<string>();
@@ -108,6 +115,24 @@ export const Appointments: React.FC<
     string | null
   >(null);
 
+  React.useEffect(() => {
+    if (!waitlistTokenParam || isEditor || !appId) return;
+    let cancelled = false;
+    void fetchWaitlistOffer(appId, waitlistTokenParam).then((offer) => {
+      if (cancelled || !offer) return;
+      setWaitlistOffer(offer);
+      setOption(offer.optionId);
+      setBookingFields((current) => ({ ...current, ...offer.fields }));
+      if (offer.memberId) {
+        setSpecialistFirstMemberId(offer.memberId);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [waitlistTokenParam, isEditor, appId]);
+
   const availableOptions =
     isSpecialistFirst && specialistFirstMemberId
       ? options.filter(
@@ -128,6 +153,16 @@ export const Appointments: React.FC<
       }),
     [catalog, isOnlyWaitlist, availableOptions, packages],
   );
+
+  const appliedOfferCatalogPath = React.useRef<string | null>(null);
+  React.useEffect(() => {
+    const optionId = waitlistOffer?.optionId ?? fromQuery;
+    if (!optionId || appliedOfferCatalogPath.current === optionId) return;
+    const path = catalogPathForOption(displayCatalog, optionId);
+    if (path === undefined) return;
+    setCatalogPath(path);
+    appliedOfferCatalogPath.current = optionId;
+  }, [waitlistOffer?.optionId, fromQuery, displayCatalog]);
 
   const startPackageBooking = async () => {
     if (isOnlyWaitlist) return;
@@ -248,10 +283,16 @@ export const Appointments: React.FC<
         purchasePackageId={purchasePackageId}
         customerPackageId={customerPackageId}
         isCustomerPackageLocked={isCustomerPackageLocked}
-        initialFields={isCustomerPackageLocked ? bookingFields : undefined}
+        initialFields={
+          isCustomerPackageLocked
+            ? bookingFields
+            : (waitlistOffer?.fields ?? undefined)
+        }
         initialOtpVerified={isCustomerPackageLocked ? otpVerified : undefined}
         packages={packages}
         requireCustomerOtp={requireCustomerOtp}
+        waitlistOffer={waitlistOffer}
+        waitlistToken={waitlistTokenParam ?? undefined}
         {...props}
       />
     );
@@ -403,6 +444,7 @@ export const Appointments: React.FC<
                 type="button"
                 variant="outline"
                 size="sm"
+                className="min-h-9 h-auto text-wrap py-2"
                 onClick={() => void startPackageBooking()}
               >
                 {i18n("booking.package.bookWithPackage")}

@@ -4,8 +4,10 @@ import {
   ConfigurationOption,
   IConfigurationService,
   IEventService,
+  SCHEDULE_CHANGED_EVENT_TYPE,
   SETTINGS_UPDATED_EVENT_TYPE,
   type EventSource,
+  type ScheduleChangedPayload,
   type SettingsUpdatedPayload,
 } from "@hacado/types";
 import { CONFIGURATION_COLLECTION_NAME } from "./collections";
@@ -127,5 +129,13 @@ export class ConfigurationService
       { key } satisfies SettingsUpdatedPayload,
       source,
     );
+
+    if (key === "schedule") {
+      await this.eventService.emit(
+        SCHEDULE_CHANGED_EVENT_TYPE,
+        {} satisfies ScheduleChangedPayload,
+        source,
+      );
+    }
   }
 }

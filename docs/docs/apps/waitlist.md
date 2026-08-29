@@ -5,12 +5,12 @@ description: Capture visitors who still want appointments when calendars look bu
 
 # Waitlist
 
-Waitlist gathers people who showed interest **even though** no ideal slot existed right away. Inside Hacado you review each row, dismiss entries that faded, or invite someone straight into booking **when your admin screens expose those actions**. Waitlist settings can email the assigned team member and coordinators when someone joins. Optionally add **[Customer waitlist notifications](/docs/apps/customer-waitlist-notifications)** so customers receive a confirmation email.
+Waitlist gathers people who showed interest **even though** no ideal slot existed right away. Inside Hacado you review each row, dismiss entries that faded, or invite someone straight into booking **when your admin screens expose those actions**. Booking from a waitlist entry dismisses that request. Waitlist settings can email the assigned team member and coordinators when someone joins. Optionally add **[Customer waitlist notifications](/docs/apps/customer-waitlist-notifications)** so customers receive a confirmation email.
 
 ## Adding the App
 
 1. Open **Apps**, open **Store**, and install **Waitlist**.
-2. Visit your booking page, join the wait path yourself, verify a matching row arrives in admin.
+2. Visit your booking page (use the **Waitlist** booking block), join the wait path yourself, verify a matching row arrives in admin.
 3. Turn on staff emails in **Waitlist** settings if you want inbox alerts for the assigned member or coordinators. Add **[Customer waitlist notifications](/docs/apps/customer-waitlist-notifications)** if customers should get a confirmation. Troubleshooting lives in **[Apps troubleshooting](/docs/apps/troubleshooting)**.
 
 ### Be transparent publicly

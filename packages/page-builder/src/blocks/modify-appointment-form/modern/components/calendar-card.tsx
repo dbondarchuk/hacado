@@ -9,6 +9,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
+  useCalendarDisplayedMonth,
 } from "@hacado/ui";
 import { areTimesEqual, formatTimeLocale } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
@@ -137,6 +138,10 @@ export const CalendarCard: React.FC = () => {
 
   const minDate = React.useMemo(() => dates[0], [dates]);
   const maxDate = React.useMemo(() => dates[dates.length - 1], [dates]);
+  const [displayedMonth, setDisplayedMonth] = useCalendarDisplayedMonth(
+    date,
+    minDate,
+  );
 
   const changeTimeZone = (tz: string) => {
     setTimeZone(tz);
@@ -207,7 +212,9 @@ export const CalendarCard: React.FC = () => {
         //   .startOf("month")
         //   .toJSDate()}
         startMonth={new Date()}
-        endMonth={DateTime.fromJSDate(maxDate || new Date())
+        month={displayedMonth}
+        onMonthChange={setDisplayedMonth}
+        endMonth={DateTime.fromJSDate(maxDate || date || minDate || new Date())
           .endOf("month")
           .toJSDate()}
         onSelect={changeDate}

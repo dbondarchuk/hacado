@@ -129,6 +129,8 @@ export type WaitlistEntryEntity = WithOrganizationId<
   updatedAt: Date;
   customerId: string;
   status: WaitlistStatus;
+  lastSlotOpenedNotifiedAt?: Date;
+  slotOpenedNotifiedStarts?: Date[];
 };
 
 export type WaitlistEntry = Prettify<

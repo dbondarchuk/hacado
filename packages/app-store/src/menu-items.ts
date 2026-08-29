@@ -11,6 +11,8 @@ import { CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME } from "./apps/customer-pa
 import { CustomerPackageEmailNotificationMenuItems } from "./apps/customer-package-email-notification/menu-items";
 import { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-text-message-notification/const";
 import { CustomerTextMessageNotificationMenuItems } from "./apps/customer-text-message-notification/menu-items";
+import { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
+import { CustomerWaitlistNotificationsMenuItems } from "./apps/customer-waitlist-notifications/menu-items";
 import { FORMS_APP_NAME } from "./apps/forms/const";
 import { FormsMenuItems } from "./apps/forms/menu-items";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
@@ -30,6 +32,8 @@ export const AppMenuItems: Record<string, AppMenuItem[]> = {
     CustomerPackageEmailNotificationMenuItems,
   [CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME]:
     CustomerTextMessageNotificationMenuItems,
+  [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]:
+    CustomerWaitlistNotificationsMenuItems,
   [WAITLIST_APP_NAME]: WaitlistMenuItems,
   [SMTP_APP_NAME]: SmtpMenuItems,
   [WEEKLY_SCHEDULE_APP_NAME]: WeeklyScheduleMenuItems,

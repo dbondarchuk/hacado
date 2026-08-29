@@ -11,6 +11,7 @@ import type {
   AppointmentSummaryResponse,
   CheckSessionResponse,
   CustomerMeResponse,
+  CustomerWaitlistEntriesResponse,
   GetAppointmentsResponse,
   ModifyInformation,
 } from "./types";
@@ -165,6 +166,31 @@ export const getModifyInformationAction = async (args: {
 
 export const getMyPackagesAction = async () => {
   return cabinetCall(() => clientApi.customerAuth.getMyPackages());
+};
+
+export const getCustomerWaitlistEntriesAction = async (
+  waitlistAppId: string,
+): Promise<CustomerWaitlistEntriesResponse> =>
+  cabinetCall(() =>
+    clientApi.apps.callAppApi<CustomerWaitlistEntriesResponse>({
+      appId: waitlistAppId,
+      path: "customer-waitlist-entries",
+      method: "GET",
+    }),
+  );
+
+export const dismissCustomerWaitlistEntryAction = async (
+  waitlistAppId: string,
+  payload: { id?: string; all?: boolean },
+): Promise<void> => {
+  await cabinetCall(() =>
+    clientApi.apps.callAppApi({
+      appId: waitlistAppId,
+      path: "dismiss-customer-waitlist-entry",
+      method: "POST",
+      body: payload,
+    }),
+  );
 };
 
 export const submitModifyAction = async (

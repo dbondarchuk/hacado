@@ -17,7 +17,11 @@ import { Query, WithTotal } from "../database";
 import type { EventSource } from "../events/envelope";
 
 export interface IBookingService {
-  getAvailability(duration: number, memberId: string): Promise<Availability>;
+  getAvailability(
+    duration: number,
+    memberId: string,
+    options?: { from?: Date; to?: Date },
+  ): Promise<Availability>;
   getBusyEventsInTimeFrame(
     start: Date,
     end: Date,

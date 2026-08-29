@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
   const sort = params.sort;
   const publishStatus = params.published;
   const tags = params.tags || undefined;
+  const priorityIds = params.priorityId ?? undefined;
 
   const offset = (page - 1) * limit;
 
@@ -40,6 +41,7 @@ export async function GET(request: NextRequest) {
       limit,
       sort,
       offset,
+      priorityIds,
     },
     "Fetching pages with parameters",
   );
@@ -51,6 +53,7 @@ export async function GET(request: NextRequest) {
     offset,
     publishStatus,
     tags,
+    priorityIds,
   });
 
   logger.debug(

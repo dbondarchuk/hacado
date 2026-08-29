@@ -57,12 +57,12 @@ export default class AppointmentNotificationsConnectedApp
     await dispatchAppointmentEventPayload(envelope, {
       onAppointmentCreated: (appointment, confirmed) =>
         this.onAppointmentCreated(appData, appointment, confirmed),
-      onAppointmentStatusChanged: (
-        appointment,
-        _newStatus,
-        _oldStatus,
-        _source,
-      ) => this.onAppointmentStatusChanged(appData, appointment),
+      onAppointmentStatusChanged: (appointment) =>
+        this.onAppointmentUpdated(appData, appointment),
+      onAppointmentFullRescheduled: (appointment) =>
+        this.onAppointmentUpdated(appData, appointment),
+      onAppointmentSlotRescheduled: (appointment) =>
+        this.onAppointmentUpdated(appData, appointment),
     });
   }
 
@@ -282,7 +282,7 @@ export default class AppointmentNotificationsConnectedApp
     });
   }
 
-  public async onAppointmentStatusChanged(
+  public async onAppointmentUpdated(
     appData: ConnectedAppData,
     appointment: Appointment,
   ): Promise<void> {
@@ -301,7 +301,7 @@ export default class AppointmentNotificationsConnectedApp
 
     logger.info(
       { appId: appData._id, appointment },
-      "Successfully appointment appointment notifications update appointment job",
+      "Successfully scheduled appointment notifications update appointment job",
     );
   }
 

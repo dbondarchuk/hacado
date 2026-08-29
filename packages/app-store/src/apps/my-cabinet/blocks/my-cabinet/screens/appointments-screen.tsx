@@ -40,7 +40,9 @@ import {
   myCabinetPublicNamespace,
 } from "../../../translations/types";
 import {
+  dismissCustomerWaitlistEntryAction,
   getAppointmentsSummaryAction,
+  getCustomerWaitlistEntriesAction,
   getMyPackagesAction,
   getPastAppointmentsAction,
   getUpcomingAppointmentsAction,
@@ -48,6 +50,7 @@ import {
 } from "../actions";
 import { useCustomerProfile } from "../customer-profile-context";
 import { useOnSessionExpired } from "../session-expired-context";
+import type { CustomerWaitlistEntry } from "../types";
 
 const tzOptions: IComboboxItem[] = getTimeZones().map((zone) => ({
   label: `GMT${zone.currentTimeFormat}`,
@@ -57,6 +60,7 @@ const tzOptions: IComboboxItem[] = getTimeZones().map((zone) => ({
 
 type AppointmentsScreenProps = {
   appId: string;
+  waitlistAppId?: string;
 };
 
 const CopyButton = ({ value, label }: { value: string; label: string }) => {
@@ -387,7 +391,10 @@ const AppointmentItemSkeletons = ({ length }: { length: number }) => {
   return <>{skeletons}</>;
 };
 
-export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
+export const AppointmentsScreen = ({
+  appId,
+  waitlistAppId,
+}: AppointmentsScreenProps) => {
   const t = useI18n<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
     myCabinetPublicNamespace,
   );
@@ -408,6 +415,11 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
   const [hasPastNextPage, setHasPastNextPage] = useState(false);
   const [isPastPageLoading, setIsPastPageLoading] = useState(false);
   const [packages, setPackages] = useState<CustomerPackage[]>([]);
+  const [waitlistEntries, setWaitlistEntries] = useState<
+    CustomerWaitlistEntry[]
+  >([]);
+
+  const [isWaitlistLoading, setIsWaitlistLoading] = useState(!!waitlistAppId);
 
   useEffect(() => {
     let mounted = true;
@@ -443,6 +455,64 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
       mounted = false;
     };
   }, [appId]);
+
+  useEffect(() => {
+    if (!waitlistAppId) {
+      setWaitlistEntries([]);
+      setIsWaitlistLoading(false);
+      return;
+    }
+    let mounted = true;
+    setIsWaitlistLoading(true);
+    const loadWaitlist = async () => {
+      try {
+        const response = await getCustomerWaitlistEntriesAction(waitlistAppId);
+        if (mounted) setWaitlistEntries(response.items ?? []);
+      } catch (error) {
+        if (error instanceof SessionExpiredError) {
+          onSessionExpired();
+          return;
+        }
+        if (mounted) toast.error(t("block.waitlist.loadError"));
+      } finally {
+        if (mounted) setIsWaitlistLoading(false);
+      }
+    };
+    void loadWaitlist();
+    return () => {
+      mounted = false;
+    };
+  }, [waitlistAppId]);
+
+  const dismissWaitlistEntry = async (id: string) => {
+    if (!waitlistAppId) return;
+    try {
+      await dismissCustomerWaitlistEntryAction(waitlistAppId, { id });
+      setWaitlistEntries((items) => items.filter((item) => item._id !== id));
+      toast.success(t("block.waitlist.dismissed"));
+    } catch (error) {
+      if (error instanceof SessionExpiredError) {
+        onSessionExpired();
+        return;
+      }
+      toast.error(t("block.waitlist.dismissError"));
+    }
+  };
+
+  const dismissAllWaitlistEntries = async () => {
+    if (!waitlistAppId) return;
+    try {
+      await dismissCustomerWaitlistEntryAction(waitlistAppId, { all: true });
+      setWaitlistEntries([]);
+      toast.success(t("block.waitlist.dismissed"));
+    } catch (error) {
+      if (error instanceof SessionExpiredError) {
+        onSessionExpired();
+        return;
+      }
+      toast.error(t("block.waitlist.dismissError"));
+    }
+  };
 
   const loadPastPage = async (page: number) => {
     setIsPastPageLoading(true);
@@ -563,6 +633,71 @@ export const AppointmentsScreen = ({ appId }: AppointmentsScreenProps) => {
           ))
         )}
       </div>
+
+      {waitlistAppId ? (
+        <div className="space-y-3 waitlist-section">
+          <div className="flex items-center justify-between waitlist-header">
+            <div className="text-xs uppercase tracking-wider text-muted-foreground waitlist-label">
+              {t("block.waitlist.heading")}
+            </div>
+            {waitlistEntries.length > 1 ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => void dismissAllWaitlistEntries()}
+              >
+                {t("block.waitlist.dismissAll")}
+              </Button>
+            ) : null}
+          </div>
+          {isWaitlistLoading ? (
+            <Skeleton className="h-16 w-full" />
+          ) : waitlistEntries.length === 0 ? (
+            <p className="text-sm text-muted-foreground waitlist-empty">
+              {t("block.waitlist.empty")}
+            </p>
+          ) : (
+            waitlistEntries.map((entry) => {
+              const preference = entry.asSoonAsPossible
+                ? t("block.waitlist.asSoonAsPossible")
+                : (entry.dates ?? [])
+                    .map((date) => {
+                      const bands = date.time
+                        .map((band) => t(`block.waitlist.${band}`))
+                        .join(", ");
+                      return `${date.date}${bands ? ` · ${bands}` : ""}`;
+                    })
+                    .join("; ");
+              return (
+                <div
+                  key={entry._id}
+                  className="flex items-center justify-between rounded-lg border p-3 waitlist-item"
+                >
+                  <div className="min-w-0">
+                    <div className="text-sm font-medium waitlist-item-service">
+                      {entry.optionName}
+                    </div>
+                    <div className="text-xs text-muted-foreground waitlist-item-member">
+                      {entry.memberName}
+                    </div>
+                    <div className="text-xs text-muted-foreground waitlist-item-dates">
+                      {preference}
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => void dismissWaitlistEntry(entry._id)}
+                    className="shrink-0"
+                  >
+                    {t("block.waitlist.dismiss")}
+                  </Button>
+                </div>
+              );
+            })
+          )}
+        </div>
+      ) : null}
 
       <div className="space-y-3 appointments-upcoming-section">
         <div className="text-xs uppercase tracking-wider text-muted-foreground appointments-upcoming-label">

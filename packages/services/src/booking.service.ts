@@ -171,24 +171,48 @@ export class BookingService extends BaseService implements IBookingService {
   public async getAvailability(
     duration: number,
     memberId: string,
+    options?: { from?: Date; to?: Date },
   ): Promise<Availability> {
     const logger = this.loggerFactory("getAvailability");
-    logger.debug({ duration, memberId }, "Getting availability");
+    logger.debug({ duration, memberId, options }, "Getting availability");
 
     const { booking: config, general: generalConfig } =
       await this.configurationService.getConfigurations("booking", "general");
 
-    const events = await this.getBusyEvents({ memberId });
-
-    const start = DateTime.now().plus({
+    const earliestBookable = DateTime.now().plus({
       hours: config.minHoursBeforeBooking || 0,
     });
+    const defaultEnd = earliestBookable.plus({
+      weeks: config.maxWeeksInFuture ?? 8,
+    });
 
-    const end = start.plus({ weeks: config.maxWeeksInFuture ?? 8 });
+    const requestedFrom = options?.from
+      ? DateTime.fromJSDate(options.from)
+      : earliestBookable;
+    const requestedTo = options?.to
+      ? DateTime.fromJSDate(options.to)
+      : defaultEnd;
+
+    let start =
+      requestedFrom < earliestBookable ? earliestBookable : requestedFrom;
+    let end = requestedTo > defaultEnd ? defaultEnd : requestedTo;
+
+    if (start >= end) {
+      logger.debug(
+        { duration, memberId, start, end },
+        "Availability range is empty after minHoursBeforeBooking clamp",
+      );
+      return [];
+    }
+
+    const scoped = options?.from != null || options?.to != null;
+    const events = scoped
+      ? await this.getBusyTimes(requestedFrom, requestedTo, config, memberId)
+      : await this.getBusyEvents({ memberId });
 
     const schedule = await this.scheduleService.getSchedule(
-      start.toJSDate(),
-      end.toJSDate(),
+      (scoped ? requestedFrom : start).toJSDate(),
+      (scoped ? requestedTo : end).toJSDate(),
       memberId,
     );
 
@@ -1604,10 +1628,14 @@ export class BookingService extends BaseService implements IBookingService {
       zone: "utc",
     }).setZone(generalConfig.timeZone);
 
-    if (eventTime < DateTime.now()) {
+    const earliestBookable = DateTime.now().plus({
+      hours: config.minHoursBeforeBooking || 0,
+    });
+
+    if (eventTime < earliestBookable) {
       logger.warn(
-        { eventTime, now: DateTime.now() },
-        "Event time is in the past",
+        { eventTime, earliestBookable },
+        "Event time is before minHoursBeforeBooking",
       );
 
       return false;

@@ -1,6 +1,8 @@
 app:
   displayName: Customer Waitlist Notifications
-  description: Send an email to customers when they join your waitlist. Choose a template or leave it empty to skip sending.
+  description: Email customers when they join your waitlist, and notify them when a matching time opens so they can book or leave.
+navigation:
+  title: Customer waitlist
 setup:
   update: Update <app></app>
   add: Add <app></app>
@@ -9,8 +11,41 @@ setup:
       label: Customer new entry email template
       tooltip: Optional template for the email customers receive when they join the waitlist. Leave empty to skip sending.
       placeholder: Template ID
+    notifyOnSlotOpened:
+      label: Notify when a desired slot opens
+      tooltip: Email and/or SMS customers on the waitlist when a matching time becomes free. Oldest request is offered first.
+    slotOpenedEmailTemplateId:
+      label: Slot opened email template
+      tooltip: Email sent when a matching time opens. At least one of email or SMS is required when slot notifications are on.
+    slotOpenedSmsTemplateId:
+      label: Slot opened SMS template
+      tooltip: SMS sent when a matching time opens. Include booking and leave links. Replies with the remove keyword leave this waitlist request.
+    leaveWaitlistSmsTemplateId:
+      label: Leave confirmation SMS template
+      tooltip: Sent after the customer leaves via the link or the SMS keyword. Required when slot-opened SMS is set.
+    bookingPageId:
+      label: Booking page
+      tooltip: Page used for book-from-link URLs. Stored by page ID so renaming the slug does not break links.
+      required: Select a booking page
+    cooldownMinutes:
+      label: Cooldown between offers
+      tooltip: Minimum time before the same waitlist request can be offered another opened slot.
+      required: Choose a cooldown between 15 minutes and 30 days
+    exclusiveAccessMinutes:
+      label: Exclusive access window
+      tooltip: How long the current person has to book before the next person on the list is offered the same slot. Zero offers the next person immediately.
+      required: Choose 0 to 60 minutes
+    smsRemoveKeyword:
+      label: SMS leave keyword
+      tooltip: Customers reply with this word (any case) to leave that waitlist request. Required when slot-opened SMS is set.
+      placeholder: REMOVE
+      required: Enter a keyword customers can text to leave
+    slotOpenedChannel:
+      required: Choose an email template, an SMS template, or both
 handlers:
   newWaitlistEntry: Customer Waitlist Notification - New Entry
+  slotOpened: Customer Waitlist Notification - Slot opened
+  leaveWaitlist: Customer Waitlist Notification - Left waitlist
 statusText:
   successfully_set_up: Successfully set up customer waitlist notifications
   error_sending_email_notification_for_new_waitlist_entry: Error sending email notification for new waitlist entry

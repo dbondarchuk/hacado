@@ -20,6 +20,7 @@ import {
   ApplyDiscountResponse,
   Availability,
   BookingRestriction,
+  catalogPathForOption,
   CheckDuplicateAppointmentsResponse,
   effectiveAddonDuration,
   getActiveStaffAcrossAssignments,
@@ -29,14 +30,20 @@ import {
 } from "@hacado/types";
 import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { WaitlistDate, WaitlistRequest } from "../../../../models/waitlist";
+import type { WaitlistOfferPrefill } from "../../../../models/waitlist-offer";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
   waitlistPublicNamespace,
 } from "../../../../translations/types";
+import {
+  isWaitlistOfferSlotAvailable,
+  waitlistOfferSlotToDateTime,
+} from "../../../../waitlist-offer-prefill";
+import { fetchWaitlistOffer } from "../../../fetch-waitlist-offer";
 import {
   FlowOrder,
   FlowType,
@@ -135,6 +142,27 @@ export const Schedule: React.FC<
 
   const [selectedAppointmentOption, setSelectedAppointmentOption] =
     React.useState<AppointmentChoice | undefined>(undefined);
+  const searchParams = useSearchParams();
+  const waitlistTokenParam = searchParams.get("w");
+  const [waitlistOffer, setWaitlistOffer] =
+    React.useState<WaitlistOfferPrefill | null>(null);
+
+  React.useEffect(() => {
+    if (!waitlistTokenParam || isEditor || !waitlistAppId) return;
+    let cancelled = false;
+    void fetchWaitlistOffer(waitlistAppId, waitlistTokenParam).then((offer) => {
+      if (cancelled || !offer) return;
+      setWaitlistOffer(offer);
+      const selected = appointmentOptions.find((o) => o._id === offer.optionId);
+      if (selected) {
+        setSelectedAppointmentOption(selected);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [waitlistTokenParam, isEditor, waitlistAppId, appointmentOptions]);
 
   const appointmentOptionDuration =
     selectedAppointmentOption?.durationType === "fixed"
@@ -220,12 +248,14 @@ export const Schedule: React.FC<
     React.useState<CollectPayment | null>();
 
   React.useEffect(() => {
+    if (waitlistOffer) return;
     if (!selectedAppointmentOption) return;
     if (selectedAppointmentOption.durationType !== "flexible") return;
     setDuration(selectedAppointmentOption.durationMin);
-  }, [selectedAppointmentOption?._id, setDuration]);
+  }, [selectedAppointmentOption?._id, setDuration, waitlistOffer]);
 
   React.useEffect(() => {
+    if (waitlistOffer) return;
     if (!selectedAppointmentOption) {
       setDuration(undefined);
       return;
@@ -240,9 +270,25 @@ export const Schedule: React.FC<
         selectedStaff?.effectiveDuration ?? selectedAppointmentOption.duration,
       );
     }
-  }, [selectedAppointmentOption, selectedMemberId, activeStaff, setDuration]);
+  }, [
+    selectedAppointmentOption,
+    selectedMemberId,
+    activeStaff,
+    setDuration,
+    waitlistOffer,
+  ]);
 
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
+  const appliedOfferCatalogPath = React.useRef(false);
+
+  React.useEffect(() => {
+    if (!waitlistOffer || appliedOfferCatalogPath.current) return;
+    const path = catalogPathForOption(catalog, waitlistOffer.optionId);
+    if (path === undefined) return;
+    setCatalogPath(path);
+    appliedOfferCatalogPath.current = true;
+  }, [waitlistOffer, catalog]);
+
   const [purchasePackageId, setPurchasePackageId] = React.useState<
     string | undefined
   >(lockPurchasePackageId);
@@ -309,6 +355,33 @@ export const Schedule: React.FC<
     email: "",
     phone: "",
   });
+
+  React.useEffect(() => {
+    if (!waitlistOffer) return;
+    if (waitlistOffer.memberId) {
+      setSelectedMemberId(waitlistOffer.memberId);
+    }
+
+    if (waitlistOffer.duration) {
+      setDuration(waitlistOffer.duration);
+    }
+
+    setFields((current) => ({ ...current, ...waitlistOffer.fields }));
+    const addons = selectedAppointmentOption?.addons?.filter((addon) =>
+      waitlistOffer.addonsIds?.includes(addon._id),
+    );
+
+    if (addons?.length) {
+      setSelectedAddons(addons);
+    }
+
+    setDateTime(waitlistOfferSlotToDateTime(waitlistOffer.dateTime, timeZone));
+  }, [
+    waitlistOffer,
+    selectedAppointmentOption?._id,
+    selectedAppointmentOption?.addons,
+    timeZone,
+  ]);
 
   React.useEffect(() => {
     if (packageBookingFlow) return;
@@ -432,6 +505,9 @@ export const Schedule: React.FC<
             }),
             {} as AppointmentFields,
           ),
+        data: waitlistTokenParam
+          ? { waitlistToken: waitlistTokenParam }
+          : undefined,
       };
     },
     [
@@ -445,6 +521,7 @@ export const Schedule: React.FC<
       paymentInformation,
       customerPackageId,
       purchasePackageId,
+      waitlistTokenParam,
     ],
   );
 
@@ -467,7 +544,9 @@ export const Schedule: React.FC<
 
       setIsLoading(true);
       setAvailability([]);
-      setDateTime(undefined);
+      if (!waitlistOffer) {
+        setDateTime(undefined);
+      }
 
       try {
         const data = await clientApi.availability.getAvailability({
@@ -476,6 +555,12 @@ export const Schedule: React.FC<
         });
 
         setAvailability(data);
+        if (
+          waitlistOffer &&
+          !isWaitlistOfferSlotAvailable(data, waitlistOffer.dateTime)
+        ) {
+          setDateTime(undefined);
+        }
       } catch (e) {
         console.error(e);
 
@@ -493,6 +578,7 @@ export const Schedule: React.FC<
       errors.fetchDescription,
       selectedMemberId,
       activeStaff,
+      waitlistOffer,
     ],
   );
 

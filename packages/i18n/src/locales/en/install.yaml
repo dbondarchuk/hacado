@@ -257,7 +257,7 @@ wizard:
     waitlist: Waitlist
     waitlistDesc: Let customers join a waitlist for unavailable times.
     waitlistNotifications: Customer waitlist notifications
-    waitlistNotificationsDesc: Email customers when they join your waitlist.
+    waitlistNotificationsDesc: Email customers when they join your waitlist, and notify them when a matching time opens.
     blog: Blog
     blogDesc: Share updates and stories on your site.
     forms: Forms

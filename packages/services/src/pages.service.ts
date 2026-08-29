@@ -292,6 +292,7 @@ export class PagesService extends BaseService implements IPagesService {
       publishStatus?: boolean[];
       maxPublishDate?: Date;
       tags?: string[];
+      priorityIds?: string[];
     },
   ): Promise<WithTotal<PageListModel>> {
     const logger = this.loggerFactory("getPages");
@@ -342,15 +343,71 @@ export class PagesService extends BaseService implements IPagesService {
       filter.$or = queries;
     }
 
+    const priorityStages = query.priorityIds
+      ? [
+          {
+            $facet: {
+              priority: [
+                {
+                  $match: {
+                    _id: {
+                      $in: query.priorityIds,
+                    },
+                    organizationId: this.organizationId,
+                  },
+                },
+              ],
+              other: [
+                {
+                  $match: {
+                    ...filter,
+                    _id: {
+                      $nin: query.priorityIds,
+                    },
+                  },
+                },
+                {
+                  $sort: sort,
+                },
+              ],
+            },
+          },
+          {
+            $project: {
+              values: {
+                $concatArrays: ["$priority", "$other"],
+              },
+            },
+          },
+          {
+            $unwind: {
+              path: "$values",
+            },
+          },
+          {
+            $replaceRoot: {
+              newRoot: "$values",
+            },
+          },
+        ]
+      : [
+          {
+            $match: filter,
+          },
+          {
+            $sort: sort,
+          },
+        ];
+
     const [result] = await db
       .collection<Page>(PAGES_COLLECTION_NAME)
       .aggregate([
         {
-          $match: filter,
+          $match: {
+            organizationId: this.organizationId,
+          },
         },
-        {
-          $sort: sort,
-        },
+        ...priorityStages,
         {
           $project: {
             content: 0,

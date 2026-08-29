@@ -11,9 +11,6 @@ import { WaitlistAdminAllKeys } from "../translations/types";
 import { waitlistRequestDates, waitlistStatus } from "./waitlist";
 
 export const waitlistConfigurationSchema = z.object({
-  dontDismissWaitlistOnAppointmentCreate: z.coerce
-    .boolean<boolean>()
-    .optional(),
   notifyMemberOnNewEntry: z.coerce.boolean<boolean>().optional(),
   notifyCoordinatorsOnNewEntry: z.coerce.boolean<boolean>().optional(),
 });

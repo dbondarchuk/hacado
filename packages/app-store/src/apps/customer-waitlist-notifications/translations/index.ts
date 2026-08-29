@@ -9,4 +9,9 @@ export const CustomerWaitlistNotificationsTranslations = {
     const { namespaceLoaders } = await localeNamespaceLoaders[l]();
     return (await namespaceLoaders.admin()).default;
   },
+  public: async (locale: string) => {
+    const l = resolveMessageLocale(locale);
+    const { namespaceLoaders } = await localeNamespaceLoaders[l]();
+    return (await namespaceLoaders.public()).default;
+  },
 };

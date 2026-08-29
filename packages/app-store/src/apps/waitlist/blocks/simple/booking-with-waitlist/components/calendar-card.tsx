@@ -9,6 +9,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
+  useCalendarDisplayedMonth,
   useTimeZone,
   useUseClientTimezone,
 } from "@hacado/ui";
@@ -90,11 +91,6 @@ export const CalendarCard: React.FC = () => {
     dateTime?.timeZone || defaultTimeZone,
   );
 
-  const changeDate = (date: Date | undefined) => {
-    setDate(date);
-    setTime(undefined);
-  };
-
   const adjustedAvailability = React.useMemo(
     () =>
       availability.map((time) =>
@@ -111,10 +107,29 @@ export const CalendarCard: React.FC = () => {
     [adjustedAvailability],
   );
 
+  const changeDate = (next: Date | undefined) => {
+    if (!next) {
+      if (dates.length === 0) return;
+      setDate(undefined);
+      setTime(undefined);
+      return;
+    }
+    if (date && formatDate(date) === formatDate(next)) {
+      setDate(next);
+      return;
+    }
+    setDate(next);
+    setTime(undefined);
+  };
+
   const isDisabledDay = React.useCallback(
-    (day: Date) =>
-      dates.map((date) => formatDate(date)).indexOf(formatDate(day)) < 0,
-    [dates],
+    (day: Date) => {
+      if (date && formatDate(day) === formatDate(date) && dates.length === 0) {
+        return false;
+      }
+      return dates.map((d) => formatDate(d)).indexOf(formatDate(day)) < 0;
+    },
+    [dates, date],
   );
 
   const times = React.useMemo(
@@ -145,6 +160,32 @@ export const CalendarCard: React.FC = () => {
   );
 
   React.useEffect(() => {
+    if (dates.length === 0) {
+      if (date && time) {
+        setDateTime({ date, time, timeZone });
+      }
+      return;
+    }
+
+    if (date && isDisabledDay(date)) {
+      setDate(undefined);
+      setTime(undefined);
+      setDateTime(undefined);
+      setPromoCode(undefined);
+      return;
+    }
+
+    if (
+      date &&
+      time &&
+      !(times[formatDate(date)] || []).some((slot) => areTimesEqual(slot, time))
+    ) {
+      setTime(undefined);
+      setDateTime(undefined);
+      setPromoCode(undefined);
+      return;
+    }
+
     setDateTime(
       !date || !time
         ? undefined
@@ -154,27 +195,30 @@ export const CalendarCard: React.FC = () => {
             timeZone,
           },
     );
-
     setPromoCode(undefined);
-  }, [date, time, timeZone, setDateTime, setPromoCode]);
+  }, [
+    date,
+    time,
+    timeZone,
+    dates.length,
+    times,
+    isDisabledDay,
+    setDateTime,
+    setPromoCode,
+  ]);
 
   const minDate = React.useMemo(() => dates[0], [dates]);
   const maxDate = React.useMemo(() => dates[dates.length - 1], [dates]);
+  const [displayedMonth, setDisplayedMonth] = useCalendarDisplayedMonth(
+    date,
+    minDate,
+  );
 
   const changeTimeZone = (timeZone: string) => {
     setTimeZone(timeZone);
     setDate(undefined);
     setTime(undefined);
   };
-
-  React.useEffect(() => {
-    if (
-      date &&
-      (isDisabledDay(date) ||
-        Luxon.fromJSDate(date) < Luxon.fromJSDate(minDate))
-    )
-      setDate(minDate);
-  }, [minDate, dateTime, date, isDisabledDay]);
 
   const isTimeSelected = React.useCallback(
     (t: Time) => areTimesEqual(t, time),
@@ -236,7 +280,13 @@ export const CalendarCard: React.FC = () => {
                 //   .startOf("month")
                 //   .toJSDate()}
                 startMonth={new Date()}
-                endMonth={Luxon.fromJSDate(maxDate).endOf("month").toJSDate()}
+                month={displayedMonth}
+                onMonthChange={setDisplayedMonth}
+                endMonth={Luxon.fromJSDate(
+                  maxDate || date || minDate || new Date(),
+                )
+                  .endOf("month")
+                  .toJSDate()}
                 onSelect={changeDate}
                 className="rounded-md border"
                 disabled={(day: Date) => isDisabledDay(day)}
