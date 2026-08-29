@@ -46,6 +46,8 @@ assetSelector:
   upload: Upload
 pageSelector:
   title: Select page
+  placeholder: Select page
+  requestFailed: Request to fetch pages has failed
 promoCodeSelector:
   placeholder: Select promo code
   notActive: Not active

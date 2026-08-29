@@ -473,6 +473,112 @@ export class WaitlistRepositoryService {
     logger.debug("Waitlist app installed");
   }
 
+  public async findNextActiveMatchingEntry(params: {
+    memberId: string;
+    afterCreatedAt?: Date;
+  }): Promise<WaitlistEntry | null> {
+    const logger = this.loggerFactory("findNextActiveMatchingEntry");
+    logger.debug(params, "Finding next active waitlist entry for opened slot");
+
+    const db = await this.getDbConnection();
+    const filter: Filter<WaitlistEntryEntity> = {
+      organizationId: this.organizationId,
+      appId: this.appId,
+      status: "active",
+      memberId: params.memberId,
+      ...(params.afterCreatedAt
+        ? { createdAt: { $gt: params.afterCreatedAt } }
+        : {}),
+    };
+
+    const entity = await db
+      .collection<WaitlistEntryEntity>(WAITLIST_COLLECTION_NAME)
+      .find(filter)
+      .sort({ createdAt: 1 })
+      .limit(1)
+      .next();
+
+    if (!entity) {
+      return null;
+    }
+
+    return this.getWaitlistEntry(entity._id);
+  }
+
+  public async setLastSlotOpenedNotifiedAt(
+    id: string,
+    at: Date,
+    slotStart: Date,
+  ): Promise<void> {
+    const db = await this.getDbConnection();
+    await db
+      .collection<WaitlistEntryEntity>(WAITLIST_COLLECTION_NAME)
+      .updateOne(
+        {
+          _id: id,
+          organizationId: this.organizationId,
+          appId: this.appId,
+        },
+        {
+          $set: { lastSlotOpenedNotifiedAt: at, updatedAt: new Date() },
+          $addToSet: { slotOpenedNotifiedStarts: slotStart },
+        },
+      );
+  }
+
+  public async customerHasNotifiedSlotStart(params: {
+    customerId: string;
+    memberId: string;
+    slotStart: Date;
+  }): Promise<boolean> {
+    const db = await this.getDbConnection();
+    const found = await db
+      .collection<WaitlistEntryEntity>(WAITLIST_COLLECTION_NAME)
+      .findOne(
+        {
+          organizationId: this.organizationId,
+          appId: this.appId,
+          status: "active",
+          customerId: params.customerId,
+          memberId: params.memberId,
+          slotOpenedNotifiedStarts: params.slotStart,
+        },
+        { projection: { _id: 1 } },
+      );
+    return found != null;
+  }
+
+  public async getDistinctActiveWaitlistMemberIds(): Promise<string[]> {
+    const db = await this.getDbConnection();
+    const ids = await db
+      .collection<WaitlistEntryEntity>(WAITLIST_COLLECTION_NAME)
+      .distinct("memberId", {
+        organizationId: this.organizationId,
+        appId: this.appId,
+        status: "active",
+      });
+
+    return ids.filter((id): id is string => typeof id === "string" && !!id);
+  }
+
+  public async getActiveWaitlistEntities(
+    memberIds?: string[],
+  ): Promise<WaitlistEntryEntity[]> {
+    const db = await this.getDbConnection();
+    const filter: Filter<WaitlistEntryEntity> = {
+      organizationId: this.organizationId,
+      appId: this.appId,
+      status: "active",
+      ...(memberIds?.length ? { memberId: { $in: memberIds } } : {}),
+    };
+
+    return db
+      .collection<WaitlistEntryEntity>(WAITLIST_COLLECTION_NAME)
+      .find(filter)
+      .sort({ createdAt: 1 })
+      .toArray();
+  }
+
   private get waitlistAggregateJoin() {
     return [
       {

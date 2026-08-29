@@ -1,4 +1,6 @@
 import { type AppEventConfig, type EventDefinition } from "@hacado/types";
+import { buildNewWaitlistEntryEmailNotifications } from "./emails/new-entry-email";
+import type { WaitlistConfiguration } from "./models";
 import {
   WAITLIST_ENTRIES_DISMISSED_EVENT_TYPE,
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,
@@ -7,6 +9,8 @@ import {
 } from "./models/events";
 import { WaitlistRepositoryService } from "./service/repository-service";
 import { WaitlistAdminAllKeys } from "./translations/types";
+
+const COORDINATOR_AND_ABOVE = ["owner", "admin", "coordinator"] as const;
 
 export const WAITLIST_APP_EVENTS: AppEventConfig = {
   events: [
@@ -63,7 +67,71 @@ export const WAITLIST_APP_EVENTS: AppEventConfig = {
           },
         };
       },
-      emailNotifications: false,
+      emailNotifications: async (envelope, services) => {
+        const { entry } = envelope.payload;
+        let app;
+        try {
+          app = await services.connectedAppsService.getApp(entry.appId);
+        } catch {
+          return null;
+        }
+
+        const settings = (app.data ?? {}) as Partial<WaitlistConfiguration>;
+        const notifyMember = Boolean(settings.notifyMemberOnNewEntry);
+        const notifyCoordinators = Boolean(
+          settings.notifyCoordinatorsOnNewEntry,
+        );
+
+        if (!notifyMember && !notifyCoordinators) {
+          return null;
+        }
+
+        const recipientsById = new Map<
+          string,
+          {
+            memberId: string;
+            email: string;
+            name: string;
+            language?: string | null;
+          }
+        >();
+
+        if (notifyMember && entry.member?.email) {
+          recipientsById.set(entry.member._id, {
+            memberId: entry.member._id,
+            email: entry.member.email,
+            name: entry.member.name || entry.member.email,
+            language: entry.member.language,
+          });
+        }
+
+        if (notifyCoordinators) {
+          const coordinators =
+            await services.teamService.getOrganizationMemberContacts([
+              ...COORDINATOR_AND_ABOVE,
+            ]);
+
+          for (const contact of coordinators) {
+            recipientsById.set(contact.memberId, contact);
+          }
+        }
+
+        const recipients = [...recipientsById.values()];
+        if (!recipients.length) {
+          return null;
+        }
+
+        const organization =
+          await services.organizationService.getOrganization();
+        const organizationLabel =
+          organization?.name?.trim() || organization?.slug || "";
+
+        return buildNewWaitlistEntryEmailNotifications(
+          entry,
+          recipients,
+          organizationLabel ? { config: { name: organizationLabel } } : {},
+        );
+      },
       smsNotifications: false,
     } as EventDefinition<WaitlistEntryCreatedEvent["payload"]>,
     {

@@ -108,6 +108,9 @@ export const PAGE_FOOTER_DELETED_EVENT_TYPE = "pageFooter.deleted" as const;
 
 export const SETTINGS_UPDATED_EVENT_TYPE = "settings.updated" as const;
 
+/** Default weekly hours or a schedule-provider app (e.g. weekly-schedule) changed. */
+export const SCHEDULE_CHANGED_EVENT_TYPE = "schedule.changed" as const;
+
 export const ASSET_CREATED_EVENT_TYPE = "asset.created" as const;
 export const ASSET_UPDATED_EVENT_TYPE = "asset.updated" as const;
 export const ASSET_DELETED_EVENT_TYPE = "asset.deleted" as const;

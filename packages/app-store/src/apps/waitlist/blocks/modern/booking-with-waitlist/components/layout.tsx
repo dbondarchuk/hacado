@@ -239,13 +239,16 @@ export const BookingWithWaitlistLayout = ({
                         {i18n("booking.summary.estimates.dateTime")}
                       </p>
                       <p className="text-sm font-bold text-foreground flex items-center gap-2 duration-value">
-                        {DateTime.fromJSDate(dateTime.date)
-                          .set({
+                        {DateTime.fromObject(
+                          {
+                            year: dateTime.date.getFullYear(),
+                            month: dateTime.date.getMonth() + 1,
+                            day: dateTime.date.getDate(),
                             hour: dateTime.time.hour,
                             minute: dateTime.time.minute,
-                          })
-                          .setZone(dateTime.timeZone)
-                          .toLocaleString(DateTime.DATETIME_FULL, { locale })}
+                          },
+                          { zone: dateTime.timeZone },
+                        ).toLocaleString(DateTime.DATETIME_FULL, { locale })}
                       </p>
                     </div>
                   )}

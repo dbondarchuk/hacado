@@ -18,6 +18,7 @@ import { PAGE_EVENT_DEFINITIONS } from "./page/page-event-definitions";
 import { PAGE_FOOTER_EVENT_DEFINITIONS } from "./page/page-footer-event-definitions";
 import { PAGE_HEADER_EVENT_DEFINITIONS } from "./page/page-header-event-definitions";
 import { PAYMENT_EVENT_DEFINITIONS } from "./payment/payment-event-definitions";
+import { SCHEDULE_EVENT_DEFINITIONS } from "./schedule/schedule-event-definitions";
 import { SETTINGS_EVENT_DEFINITIONS } from "./settings/settings-event-definitions";
 import { SUBSCRIPTION_EVENT_DEFINITIONS } from "./subscription/subscription-event-definitions";
 import { SYNCED_PAYMENT_EVENT_DEFINITIONS } from "./synced-payment/synced-payment-event-definitions";
@@ -44,6 +45,7 @@ export const DOMAIN_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   ...PAGE_HEADER_EVENT_DEFINITIONS,
   ...PAGE_FOOTER_EVENT_DEFINITIONS,
   ...SETTINGS_EVENT_DEFINITIONS,
+  ...SCHEDULE_EVENT_DEFINITIONS,
   ...ASSET_EVENT_DEFINITIONS,
   ...MEMBER_EVENT_DEFINITIONS,
   ...INVITATION_EVENT_DEFINITIONS,

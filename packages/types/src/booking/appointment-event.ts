@@ -151,6 +151,8 @@ export const appointmentRequestSchema = z.object({
   ),
   customerPackageId: zObjectId().optional(),
   purchasePackageId: zObjectId().optional(),
+  /** App-specific appointment data (copied onto the created appointment). */
+  data: z.record(z.string(), z.any()).optional().nullable(),
 });
 
 export type AppointmentRequest = z.infer<typeof appointmentRequestSchema>;

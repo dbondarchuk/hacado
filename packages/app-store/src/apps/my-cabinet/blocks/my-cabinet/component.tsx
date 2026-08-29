@@ -189,7 +189,7 @@ export const MyCabinetBlockComponent = ({
             {!isAuthenticated ? (
               <AuthScreen appId={appId} onAuthenticated={handleAuthenticated} />
             ) : hashState.screen === "list" ? (
-              <AppointmentsScreen appId={appId} />
+              <AppointmentsScreen appId={appId} waitlistAppId={waitlistAppId} />
             ) : hashState.screen === "book" ? (
               <BookScreen
                 waitlistAppId={waitlistAppId}

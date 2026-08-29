@@ -147,4 +147,9 @@ export interface ITeamService {
   ): Promise<void>;
 
   getOrganizationAdminContacts(): Promise<OrganizationAdminContact[]>;
+
+  /** Active members in the given roles, with email (for org emails). */
+  getOrganizationMemberContacts(
+    roles: UserRole[],
+  ): Promise<OrganizationAdminContact[]>;
 }

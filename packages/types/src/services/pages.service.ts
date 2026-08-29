@@ -24,6 +24,7 @@ export interface IPagesService {
       publishStatus?: boolean[];
       maxPublishDate?: Date;
       tags?: string[];
+      priorityIds?: string[];
     },
   ): Promise<WithTotal<PageListModel>>;
   createPage(page: PageUpdateModel, source: EventSource): Promise<Page>;

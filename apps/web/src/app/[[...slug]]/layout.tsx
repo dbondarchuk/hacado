@@ -21,6 +21,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import NextScript from "next/script";
+import { Suspense } from "react";
+import { ToastFromQuery } from "./toast-from-query";
 
 import "../globals.css";
 
@@ -187,6 +189,9 @@ export default async function RootLayout({
                 ))}
               <Toaster />
               <SonnerToaster />
+              <Suspense>
+                <ToastFromQuery />
+              </Suspense>
             </NextIntlClientProvider>
           </ConfigProvider>
         </body>

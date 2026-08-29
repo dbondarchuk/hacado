@@ -17,6 +17,7 @@ import {
   CUSTOMER_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME,
   CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
+  CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME,
   FORMS_APP_NAME,
   GIFT_CARD_STUDIO_APP_NAME,
   GOOGLE_CALENDAR_APP_NAME,
@@ -24,7 +25,6 @@ import {
   MY_CABINET_APP_NAME,
   OUTLOOK_APP_NAME,
   WAITLIST_APP_NAME,
-  WAITLIST_NOTIFICATIONS_APP_NAME,
 } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import type { ConnectedApp } from "@hacado/types";
@@ -225,7 +225,7 @@ export function StepIntegrations() {
 
       if (
         prev.optWaitlistNotifications &&
-        !canInstallApp(planTier, WAITLIST_NOTIFICATIONS_APP_NAME)
+        !canInstallApp(planTier, CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME)
       ) {
         updates.optWaitlistNotifications = false;
       }
@@ -508,16 +508,19 @@ export function StepIntegrations() {
           <label
             className={cn(
               "flex items-start gap-3 rounded-lg border p-3",
-              canConnectApp(WAITLIST_NOTIFICATIONS_APP_NAME)
+              canConnectApp(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME)
                 ? "cursor-pointer"
                 : "cursor-not-allowed opacity-70",
             )}
           >
             <Switch
               checked={p.optWaitlistNotifications}
-              disabled={!canConnectApp(WAITLIST_NOTIFICATIONS_APP_NAME)}
+              disabled={
+                !canConnectApp(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME)
+              }
               onCheckedChange={(c) => {
-                if (!canConnectApp(WAITLIST_NOTIFICATIONS_APP_NAME)) return;
+                if (!canConnectApp(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME))
+                  return;
                 setP((prev) => ({
                   ...prev,
                   optWaitlistNotifications: Boolean(c),
@@ -531,7 +534,7 @@ export function StepIntegrations() {
               <span className="mt-1 block text-sm text-muted-foreground">
                 {t("wizard.integrations.waitlistNotificationsDesc")}
               </span>
-              {!canConnectApp(WAITLIST_NOTIFICATIONS_APP_NAME) ? (
+              {!canConnectApp(CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME) ? (
                 <span className="mt-2 block">
                   <FeatureUpgradeHint showLink={false} />
                 </span>

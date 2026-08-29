@@ -264,6 +264,10 @@ platformEvents:
     updated:
       title: Налаштування оновлено
       description: "{ключ}"
+  schedule:
+    changed:
+      title: Розклад оновлено
+      description: Робочі години було змінено
   organization:
     domainChanged:
       title: Домен організації змінено

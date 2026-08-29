@@ -22,7 +22,7 @@ const email = [
   "apps/email-notification",
   "apps/customer-email-notification",
   "apps/appointment-notifications",
-  "apps/waitlist-notifications",
+  "apps/customer-waitlist-notifications",
 ];
 
 const sms = [

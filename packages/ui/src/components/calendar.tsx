@@ -151,4 +151,28 @@ function Calendar({
 }
 Calendar.displayName = "Calendar";
 
+function isSameCalendarMonth(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+}
+
+/** Selected date's month, or the first available month once slots load. */
+export function useCalendarDisplayedMonth(
+  selected?: Date,
+  firstAvailable?: Date,
+) {
+  const [month, setMonth] = React.useState<Date>(
+    () => selected ?? firstAvailable ?? new Date(),
+  );
+
+  React.useEffect(() => {
+    const target = selected ?? firstAvailable;
+    if (!target) return;
+    setMonth((current) =>
+      isSameCalendarMonth(current, target) ? current : target,
+    );
+  }, [selected, firstAvailable]);
+
+  return [month, setMonth] as const;
+}
+
 export { Calendar };

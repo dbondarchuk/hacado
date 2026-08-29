@@ -264,6 +264,10 @@ platformEvents:
     updated:
       title: Settings updated
       description: "{key}"
+  schedule:
+    changed:
+      title: Schedule updated
+      description: Working hours were updated
   organization:
     domainChanged:
       title: Organization domain changed

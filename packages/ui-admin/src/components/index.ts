@@ -17,6 +17,7 @@ export * from "./member-selector";
 export * from "./non-sortable";
 export * from "./option-selector";
 export * from "./package-selector";
+export * from "./page-selector";
 export * from "./page-selector-dialog";
 export * from "./page-selector-input";
 export * from "./promo-code-selector";

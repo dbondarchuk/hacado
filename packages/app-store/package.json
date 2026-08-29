@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/subscription-plan-access.test.ts"
+    "test": "node --import tsx --test src/subscription-plan-access.test.ts src/apps/customer-waitlist-notifications/slot-match.test.ts src/apps/waitlist/waitlist-offer-token.test.ts src/apps/waitlist/waitlist-offer-prefill.test.ts"
   },
   "main": "./src/index.ts",
   "exports": {
@@ -65,6 +65,7 @@
     "ics": "^3.7.6",
     "lucide-react": "^0.555.0",
     "nodemailer": "^6.9.14",
+    "p-limit": "^6.2.0",
     "pdfkit": "^0.17.2",
     "react": "19.2.8",
     "@stripe/react-stripe-js": "^3.1.0",

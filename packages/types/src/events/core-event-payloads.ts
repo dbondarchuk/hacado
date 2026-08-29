@@ -94,6 +94,7 @@ import {
   PAYMENT_DELETED_EVENT_TYPE,
   PAYMENT_REFUNDED_EVENT_TYPE,
   PAYMENT_UPDATED_EVENT_TYPE,
+  SCHEDULE_CHANGED_EVENT_TYPE,
   SETTINGS_UPDATED_EVENT_TYPE,
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
@@ -342,6 +343,12 @@ export type PageFooterDeletedPayload = { pageFooterIds: string[] };
 
 export type SettingsUpdatedPayload = { key: ConfigurationKey };
 
+/** Emitted with {@link SCHEDULE_CHANGED_EVENT_TYPE}. */
+export type ScheduleChangedPayload = {
+  /** Omit or empty = company-wide. Otherwise only these members. */
+  memberIds?: string[];
+};
+
 export type AssetCreatedPayload = { asset: AssetEntity };
 export type AssetUpdatedPayload = {
   asset: Asset;
@@ -479,6 +486,7 @@ export type CoreEventPayloadByType = {
   [PAGE_FOOTER_UPDATED_EVENT_TYPE]: PageFooterUpdatedPayload;
   [PAGE_FOOTER_DELETED_EVENT_TYPE]: PageFooterDeletedPayload;
   [SETTINGS_UPDATED_EVENT_TYPE]: SettingsUpdatedPayload;
+  [SCHEDULE_CHANGED_EVENT_TYPE]: ScheduleChangedPayload;
   [ASSET_CREATED_EVENT_TYPE]: AssetCreatedPayload;
   [ASSET_UPDATED_EVENT_TYPE]: AssetUpdatedPayload;
   [ASSET_DELETED_EVENT_TYPE]: AssetDeletedPayload;

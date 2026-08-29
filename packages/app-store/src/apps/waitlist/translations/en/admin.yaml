@@ -63,7 +63,7 @@ view:
 settings:
   tooltip: Settings
   title: Settings
-  description: Configure waitlist notification settings
+  description: Configure waitlist and notification settings
 tab:
   title: Waitlist
   subtitle: Review waitlist requests and convert them into appointments.
@@ -84,9 +84,12 @@ app:
 setup:
   update: Update <app></app>
   form:
-    dontDismissWaitlistOnAppointmentCreate:
-      label: Don't dismiss waitlist on appointment creation
-      tooltip: Whether to disable dismissing waitlist entry when appointment was created from it
+    notifyMemberOnNewEntry:
+      label: Email assigned team member
+      description: Send the assigned team member an email when a customer joins their waitlist
+    notifyCoordinatorsOnNewEntry:
+      label: Email coordinators and above
+      description: Send coordinators, admins, and the owner an email when a customer joins the waitlist
 newEntry:
   trigger: New entry
   title: New waitlist entry
@@ -132,6 +135,27 @@ handlers:
 statusText:
   successfully_set_up: Successfully set up waitlist
   error_processing_configuration: Error processing waitlist configuration
+emails:
+  newEntry:
+    subject: 'New waitlist entry by {customerName} for {serviceName}'
+    title: New waitlist request
+    body: |
+      Hi {userName},
+
+      A customer joined the waitlist.
+
+      **Customer:** {customerName} ({customerEmail})
+      **Phone:** {customerPhone}
+      **Service:** {serviceName}
+      **Team member:** {memberName}
+      **Addons:** {addons}
+      **When:** {when}
+      **Duration:** {duration}
+      **Note:** {note}
+    none: None
+    view: View waitlist
+    createAppointment: Create appointment
+    dismiss: Dismiss
 block:
   simple:
     waitlist:

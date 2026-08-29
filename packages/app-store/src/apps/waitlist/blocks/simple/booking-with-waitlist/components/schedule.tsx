@@ -32,11 +32,16 @@ import React, { useCallback, useMemo } from "react";
 import { BookingOtpDialog } from "../../../../components/booking-otp-dialog";
 import { BookingRestrictionBanner } from "../../../../components/booking-restriction-banner";
 import { WaitlistDate, WaitlistRequest } from "../../../../models/waitlist";
+import type { WaitlistOfferPrefill } from "../../../../models/waitlist-offer";
 import {
   WaitlistPublicKeys,
   WaitlistPublicNamespace,
   waitlistPublicNamespace,
 } from "../../../../translations/types";
+import {
+  isWaitlistOfferSlotAvailable,
+  waitlistOfferSlotToDateTime,
+} from "../../../../waitlist-offer-prefill";
 import {
   FlowOrder,
   ScheduleContext,
@@ -68,6 +73,8 @@ export type ScheduleProps = {
   initialOtpVerified?: boolean;
   packages?: AppointmentPackage[];
   requireCustomerOtp?: boolean;
+  waitlistOffer?: WaitlistOfferPrefill | null;
+  waitlistToken?: string;
 };
 
 export const Schedule: React.FC<
@@ -94,6 +101,8 @@ export const Schedule: React.FC<
   initialOtpVerified,
   packages,
   requireCustomerOtp,
+  waitlistOffer,
+  waitlistToken,
   ...props
 }) => {
   const i18n = useI18n("translation");
@@ -205,11 +214,13 @@ export const Schedule: React.FC<
       : undefined;
 
   React.useEffect(() => {
+    if (waitlistOffer) return;
     if (flexibleDurationMin == null) return;
     setDuration(flexibleDurationMin);
-  }, [appointmentOption._id, flexibleDurationMin, setDuration]);
+  }, [appointmentOption._id, flexibleDurationMin, setDuration, waitlistOffer]);
 
   React.useEffect(() => {
+    if (waitlistOffer) return;
     if (appointmentOption.durationType !== "fixed") return;
 
     const selectedStaff = selectedMemberId
@@ -223,6 +234,7 @@ export const Schedule: React.FC<
     selectedMemberId,
     activeStaff,
     setDuration,
+    waitlistOffer,
   ]);
 
   let initialStep: StepType = "duration";
@@ -281,12 +293,40 @@ export const Schedule: React.FC<
   const [availability, setAvailability] = React.useState<Availability>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>(
-    initialFields ?? {
-      name: "",
-      email: "",
-      phone: "",
-    },
+    initialFields ??
+      waitlistOffer?.fields ?? {
+        name: "",
+        email: "",
+        phone: "",
+      },
   );
+
+  React.useEffect(() => {
+    if (!waitlistOffer) return;
+    if (waitlistOffer.memberId) {
+      setSelectedMemberId(waitlistOffer.memberId);
+    }
+
+    if (waitlistOffer.duration) {
+      setDuration(waitlistOffer.duration);
+    }
+
+    setFields((current) => ({ ...current, ...waitlistOffer.fields }));
+    const addons = appointmentOption.addons?.filter((addon) =>
+      waitlistOffer.addonsIds?.includes(addon._id),
+    );
+
+    if (addons?.length) {
+      setSelectedAddons(addons);
+    }
+
+    setDateTime(waitlistOfferSlotToDateTime(waitlistOffer.dateTime, timeZone));
+  }, [
+    waitlistOffer,
+    appointmentOption._id,
+    appointmentOption.addons,
+    timeZone,
+  ]);
 
   React.useEffect(() => {
     if (customerPackageId) return;
@@ -408,6 +448,7 @@ export const Schedule: React.FC<
             }),
             {} as AppointmentFields,
           ),
+        data: waitlistToken ? { waitlistToken } : undefined,
       };
     },
     [
@@ -421,6 +462,7 @@ export const Schedule: React.FC<
       purchasePackageId,
       customerPackageId,
       fields,
+      waitlistToken,
     ],
   );
   const router = useRouter();
@@ -450,6 +492,12 @@ export const Schedule: React.FC<
         });
 
         setAvailability(data);
+        if (
+          waitlistOffer &&
+          !isWaitlistOfferSlotAvailable(data, waitlistOffer.dateTime)
+        ) {
+          setDateTime(undefined);
+        }
       } catch (e) {
         console.error(e);
 
@@ -468,6 +516,7 @@ export const Schedule: React.FC<
       selectedMemberId,
       preselectedMemberId,
       activeStaff,
+      waitlistOffer,
     ],
   );
 

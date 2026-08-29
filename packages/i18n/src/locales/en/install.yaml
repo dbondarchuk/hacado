@@ -45,7 +45,7 @@ checkout:
         unlimited: Unlimited bookings, services, and clients, always
         promotions: Branded gift cards, discounts & promotions
         packages: Prepaid appointment packages customers can buy and book
-        apps: Appointment waitlist, intake forms, blog
+        apps: Appointment waitlist that offers opened slots, intake forms, blog
         clientPortal: Client self-service portal for bookings and profiles
         smsCredits: 100 SMS credits included every month
         activityHistory: 90 days of activity history (instead of 30)
@@ -256,8 +256,8 @@ wizard:
     appointmentNotificationsDesc: Send reminders and follow-ups to customers by email and SMS.
     waitlist: Waitlist
     waitlistDesc: Let customers join a waitlist for unavailable times.
-    waitlistNotifications: Waitlist notifications
-    waitlistNotificationsDesc: Notify yourself and customers when there is a new waitlist entry request.
+    waitlistNotifications: Customer waitlist notifications
+    waitlistNotificationsDesc: Email customers when they join your waitlist, and notify them when a matching time opens.
     blog: Blog
     blogDesc: Share updates and stories on your site.
     forms: Forms

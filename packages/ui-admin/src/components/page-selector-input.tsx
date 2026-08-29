@@ -61,7 +61,9 @@ export const PageSelectorInput: React.FC<PageSelectorInputProps> = ({
           {...rest}
           className={InputGroupInputClasses()}
           value={value ?? undefined}
-          onChange={(e) => onChange?.(e.target.value)}
+          onChange={(e) => {
+            onChange?.(e.target.value);
+          }}
           onBlur={onBlur}
         />
       </InputGroupInput>

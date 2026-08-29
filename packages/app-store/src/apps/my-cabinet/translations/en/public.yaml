@@ -91,3 +91,15 @@ block:
     empty: No packages yet
     used: "Part of {name}"
     view: View package
+  waitlist:
+    heading: Waitlist
+    empty: You are not on the waitlist
+    asSoonAsPossible: As soon as possible
+    dismiss: Leave
+    dismissAll: Leave all
+    dismissError: Could not update your waitlist
+    loadError: Something went wrong loading your waitlist.
+    dismissed: Removed from the waitlist
+    morning: Morning
+    afternoon: Afternoon
+    evening: Evening

@@ -471,7 +471,7 @@ export class AppointmentNotificationsJobProcessor {
                 );
                 logger.debug(
                   { appointmentNotificationId, appointmentId: appointment._id },
-                  "Successfully appointment appointment notification",
+                  "Successfully scheduled appointment notification",
                 );
               } catch (error: any) {
                 logger.error(
@@ -639,7 +639,7 @@ export class AppointmentNotificationsJobProcessor {
     appData: ConnectedAppData,
     appointmentId: string,
   ): Promise<void> {
-    const logger = this.loggerFactory("updateAppointmentNotification");
+    const logger = this.loggerFactory("updateAppointment");
     logger.debug({ appId: appData._id, appointmentId }, "Updating appointment");
 
     try {
@@ -661,6 +661,7 @@ export class AppointmentNotificationsJobProcessor {
             offset,
             BATCH_SIZE,
           );
+
         if (appointmentNotifications.length === 0) {
           break;
         }
@@ -674,6 +675,7 @@ export class AppointmentNotificationsJobProcessor {
           },
           "Processing appointment notifications batch",
         );
+
         await Promise.all(
           appointmentNotifications.map((appointmentNotification) =>
             limit(async () => {
@@ -685,10 +687,12 @@ export class AppointmentNotificationsJobProcessor {
                   },
                   "Deleting existing job",
                 );
+
                 await this.deleteExistingJob(
                   appointmentNotification._id,
                   appointmentId,
                 );
+
                 logger.debug(
                   {
                     appId: appData._id,
@@ -713,12 +717,13 @@ export class AppointmentNotificationsJobProcessor {
                   appointment,
                   appointmentNotification,
                 );
+
                 logger.debug(
                   {
                     appId: appData._id,
                     appointmentNotificationId: appointmentNotification._id,
                   },
-                  "Successfully appointment appointment notification",
+                  "Successfully scheduled appointment notification",
                 );
               } catch (error: any) {
                 logger.error(
@@ -881,7 +886,7 @@ export class AppointmentNotificationsJobProcessor {
         jobKey,
         executeAt,
       },
-      "Successfully appointment appointment notification",
+      "Successfully scheduled appointment notification",
     );
   }
 }

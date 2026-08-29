@@ -657,11 +657,22 @@ export class TeamService extends BaseService implements ITeamService {
   public async getOrganizationAdminContacts(): Promise<
     OrganizationAdminContact[]
   > {
-    const logger = this.loggerFactory("getOrganizationAdminContacts");
+    return this.getOrganizationMemberContacts(["owner", "admin"]);
+  }
+
+  public async getOrganizationMemberContacts(
+    roles: UserRole[],
+  ): Promise<OrganizationAdminContact[]> {
+    const logger = this.loggerFactory("getOrganizationMemberContacts");
     logger.debug(
-      { organizationId: this.organizationId },
-      "Getting organization admin contacts",
+      { organizationId: this.organizationId, roles },
+      "Getting organization member contacts",
     );
+
+    if (!roles.length) {
+      return [];
+    }
+
     const db = await getDbConnection();
 
     const members = await db
@@ -669,16 +680,17 @@ export class TeamService extends BaseService implements ITeamService {
       .find({
         organizationId: this.organizationId,
         status: "active",
-        role: { $in: ["owner", "admin"] satisfies UserRole[] },
+        role: { $in: roles },
       })
       .sort({ createdAt: 1 })
       .toArray();
 
     if (!members.length) {
-      logger.warn(
-        { organizationId: this.organizationId },
-        "Organization admin members not found",
+      logger.debug(
+        { organizationId: this.organizationId, roles },
+        "No organization members found for roles",
       );
+
       return [];
     }
 
@@ -694,8 +706,12 @@ export class TeamService extends BaseService implements ITeamService {
     }
 
     logger.debug(
-      { organizationId: this.organizationId, count: contacts.length },
-      "Organization admin contacts loaded from members",
+      {
+        organizationId: this.organizationId,
+        roles,
+        count: contacts.length,
+      },
+      "Organization member contacts loaded",
     );
     return contacts;
   }

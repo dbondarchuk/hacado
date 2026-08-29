@@ -100,10 +100,16 @@ export const ConfirmationCard: React.FC = () => {
         {flow === "booking" && dateTime && (
           <>
             <p className="text-xs text-foreground">
-              {DateTime.fromJSDate(dateTime.date)
-                .set({ hour: dateTime.time.hour, minute: dateTime.time.minute })
-                .setZone(dateTime.timeZone)
-                .toLocaleString(DateTime.DATETIME_HUGE, { locale })}
+              {DateTime.fromObject(
+                {
+                  year: dateTime.date.getFullYear(),
+                  month: dateTime.date.getMonth() + 1,
+                  day: dateTime.date.getDate(),
+                  hour: dateTime.time.hour,
+                  minute: dateTime.time.minute,
+                },
+                { zone: dateTime.timeZone },
+              ).toLocaleString(DateTime.DATETIME_HUGE, { locale })}
             </p>
           </>
         )}

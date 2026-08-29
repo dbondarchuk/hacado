@@ -20,7 +20,6 @@ import { TextMessageNotificationAppSetup } from "./apps/text-message-notificatio
 import { TextMessageResenderAppSetup } from "./apps/text-message-resender/setup";
 import { UrlBusyEventsAppSetup } from "./apps/url-busy-events/setup";
 import { UrlScheduleProviderAppSetup } from "./apps/url-schedule-provider/setup";
-import { WaitlistNotificationsAppSetup } from "./apps/waitlist-notifications/setup";
 import { WebhooksAppSetup } from "./apps/webhooks/setup";
 import { ZoomAppSetup } from "./apps/zoom/setup";
 
@@ -44,7 +43,6 @@ import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/text-message-notifica
 import { TEXT_MESSAGE_RESENDER_APP_NAME } from "./apps/text-message-resender/const";
 import { URL_BUSY_EVENTS_APP_NAME } from "./apps/url-busy-events/const";
 import { URL_SCHEDULE_PROVIDER_APP_NAME } from "./apps/url-schedule-provider/const";
-import { WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/waitlist-notifications/const";
 import { WEBHOOKS_APP_NAME } from "./apps/webhooks/const";
 import { ZOOM_APP_NAME } from "./apps/zoom/const";
 
@@ -77,9 +75,6 @@ export const AppSetups: Record<string, BasicAppSetup> = {
     <UrlScheduleProviderAppSetup {...props} />
   ),
   [BLOG_APP_NAME]: (props) => <BlogAppSetup {...props} />,
-  [WAITLIST_NOTIFICATIONS_APP_NAME]: (props) => (
-    <WaitlistNotificationsAppSetup {...props} />
-  ),
   [WEBHOOKS_APP_NAME]: (props) => <WebhooksAppSetup {...props} />,
   [ZOOM_APP_NAME]: (props) => <ZoomAppSetup {...props} />,
   [MY_CABINET_APP_NAME]: (props) => <MyCabinetAppSetup {...props} />,

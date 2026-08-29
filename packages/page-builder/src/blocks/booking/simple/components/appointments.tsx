@@ -67,7 +67,8 @@ export const Appointments: React.FC<
   ...props
 }) => {
   const i18n = useI18n("translation");
-  const fromQuery = useSearchParams().get("option");
+  const searchParams = useSearchParams();
+  const fromQuery = searchParams.get("option");
   const [option, setOption] = React.useState<string | null>(fromQuery);
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
   const [purchasePackageId, setPurchasePackageId] = React.useState<string>();
@@ -392,6 +393,7 @@ export const Appointments: React.FC<
                 type="button"
                 variant="outline"
                 size="sm"
+                className="min-h-9 h-auto text-wrap py-2"
                 onClick={() => void startPackageBooking()}
               >
                 {i18n("booking.package.bookWithPackage")}

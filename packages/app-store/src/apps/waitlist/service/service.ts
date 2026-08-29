@@ -9,6 +9,7 @@ import {
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
+  CUSTOMER_SESSION_COOKIE,
   DashboardNotification,
   DemoArguments,
   effectiveAddonDuration,
@@ -20,6 +21,7 @@ import {
   IDemoArgumentsProvider,
   IEventSubscriber,
   isAddonAvailableForMember,
+  readCookieValue,
   SessionUser,
   TemplateTemplatesList,
   type EventSource,
@@ -45,6 +47,7 @@ import {
   WaitlistConfiguration,
   waitlistConfigurationSchema,
   WaitlistEntry,
+  WaitlistOfferPrefill,
   WaitlistRequest,
   waitlistRequestSchema,
 } from "../models";
@@ -56,6 +59,7 @@ import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,
 } from "../translations/types";
+import { verifyWaitlistOfferToken } from "../waitlist-offer-token";
 import {
   WAITLIST_COLLECTION_NAME,
   WaitlistRepositoryService,
@@ -159,6 +163,13 @@ export class WaitlistConnectedApp
 
     await repositoryService.installWaitlistApp();
 
+    await this.props.update({
+      data: {
+        notifyMemberOnNewEntry: true,
+        notifyCoordinatorsOnNewEntry: false,
+      } satisfies WaitlistConfiguration,
+    });
+
     logger.debug({ appId: appData._id }, "Waitlist app installed successfully");
   }
 
@@ -208,6 +219,25 @@ export class WaitlistConnectedApp
       return this.processCreateWaitlistEntryRequest(appData, request);
     }
 
+    const action = slug.join("/");
+    if (
+      request.method.toUpperCase() === "GET" &&
+      action === "customer-waitlist-entries"
+    ) {
+      return this.getCustomerWaitlistEntries(appData, request);
+    }
+
+    if (
+      request.method.toUpperCase() === "POST" &&
+      action === "dismiss-customer-waitlist-entry"
+    ) {
+      return this.dismissCustomerWaitlistEntry(appData, request);
+    }
+
+    if (request.method.toUpperCase() === "GET" && action === "waitlist-offer") {
+      return this.getWaitlistOfferPrefill(appData, request);
+    }
+
     return Response.json(
       { success: false, error: "Unknown request" },
       { status: 404 },
@@ -220,19 +250,14 @@ export class WaitlistConnectedApp
     confirmed: boolean,
   ): Promise<void> {
     const logger = this.loggerFactory("onAppointmentCreated");
-    if (appData.data?.dontDismissWaitlistOnAppointmentCreate) {
+    const waitlistId = this.resolveWaitlistIdFromAppointmentData(
+      appointment.data,
+    );
+
+    if (!waitlistId) {
       logger.debug(
         { appId: appData._id },
-        "Don't dismiss waitlist on appointment create is enabled, skipping appointment created hook",
-      );
-
-      return;
-    }
-
-    if (!appointment.data?.waitlistId) {
-      logger.debug(
-        { appId: appData._id },
-        "Waitlist ID not found in app data, skipping appointment created hook",
+        "Waitlist ID not found in appointment data, skipping appointment created hook",
       );
 
       return;
@@ -242,28 +267,26 @@ export class WaitlistConnectedApp
       {
         appId: appData._id,
         appointmentId: appointment._id,
-        waitlistId: appointment.data.waitlistId,
+        waitlistId,
       },
-      "Appointment created, creating waitlist entry",
+      "Appointment created from waitlist, dismissing waitlist entry",
     );
 
     const repositoryService = this.getRepositoryService(
       appData._id,
       appData.organizationId,
     );
-    const result = await repositoryService.getWaitlistEntry(
-      appointment.data.waitlistId,
-    );
+    const result = await repositoryService.getWaitlistEntry(waitlistId);
     if (!result) {
       logger.debug(
-        { appId: appData._id, waitlistId: appointment.data.waitlistId },
+        { appId: appData._id, waitlistId },
         "Waitlist entry not found, skipping appointment created hook",
       );
       return;
     }
 
     logger.debug(
-      { appId: appData._id, waitlistId: appointment.data.waitlistId },
+      { appId: appData._id, waitlistId },
       "Waitlist entry found, dismissing waitlist entry",
     );
 
@@ -272,7 +295,7 @@ export class WaitlistConnectedApp
     });
 
     logger.debug(
-      { appId: appData._id, waitlistId: appointment.data.waitlistId },
+      { appId: appData._id, waitlistId },
       "Waitlist entry dismissed",
     );
   }
@@ -344,6 +367,189 @@ export class WaitlistConnectedApp
       this.props.getDbConnection,
       this.props.services,
     );
+  }
+
+  private resolveWaitlistIdFromAppointmentData(
+    data?: Record<string, any>,
+  ): string | undefined {
+    if (typeof data?.waitlistId === "string" && data.waitlistId) {
+      return data.waitlistId;
+    }
+
+    if (typeof data?.waitlistToken === "string" && data.waitlistToken) {
+      return verifyWaitlistOfferToken(data.waitlistToken)?.entryId;
+    }
+
+    return undefined;
+  }
+
+  private async getWaitlistOfferPrefill(
+    appData: ConnectedAppData,
+    request: Request,
+  ): Promise<Response> {
+    const token = new URL(request.url).searchParams.get("w");
+    const decoded = token ? verifyWaitlistOfferToken(token) : null;
+    if (!decoded) {
+      return Response.json({ error: "invalid_token" }, { status: 400 });
+    }
+
+    const repositoryService = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+
+    const entry = await repositoryService.getWaitlistEntry(decoded.entryId);
+    if (!entry || entry.status !== "active") {
+      return Response.json({ error: "not_found" }, { status: 404 });
+    }
+
+    const duration = entry.duration ?? entry.option?.duration;
+    if (!duration) {
+      return Response.json({ error: "not_found" }, { status: 404 });
+    }
+
+    const body: WaitlistOfferPrefill = {
+      optionId: entry.optionId,
+      addonsIds: entry.addonsIds,
+      memberId: entry.memberId,
+      dateTime: decoded.slot.toISOString(),
+      duration,
+      fields: {
+        name: entry.name,
+        email: entry.email,
+        phone: entry.phone ?? "",
+      },
+    };
+
+    return Response.json(body);
+  }
+
+  private async authorizeCustomerSession(
+    appData: ConnectedAppData,
+    request: Request,
+  ): Promise<Response | { customerId: string }> {
+    const sessionToken = readCookieValue(
+      request.headers.get("cookie"),
+      CUSTOMER_SESSION_COOKIE,
+    );
+
+    const session =
+      await this.props.services.customerAuthService.authorizeSession(
+        sessionToken,
+      );
+
+    if (!session || session.organizationId !== appData.organizationId) {
+      return Response.json(
+        { success: false, error: "unauthorized" },
+        { status: 401 },
+      );
+    }
+
+    return { customerId: session.customerId };
+  }
+
+  private toCustomerWaitlistItem(entry: {
+    _id: string;
+    option?: { name?: string };
+    member?: { name?: string };
+    asSoonAsPossible: boolean;
+    dates?: { date: string; time: string[] }[];
+    duration?: number;
+    createdAt: Date;
+  }) {
+    return {
+      _id: entry._id,
+      optionName: entry.option?.name ?? "",
+      memberName: entry.member?.name ?? "",
+      asSoonAsPossible: entry.asSoonAsPossible,
+      dates: entry.dates,
+      duration: entry.duration,
+      createdAt: entry.createdAt,
+    };
+  }
+
+  private async getCustomerWaitlistEntries(
+    appData: ConnectedAppData,
+    request: Request,
+  ): Promise<Response> {
+    const auth = await this.authorizeCustomerSession(appData, request);
+    if (auth instanceof Response) {
+      return auth;
+    }
+
+    const repositoryService = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+
+    const result = await repositoryService.getWaitlistEntries({
+      customerId: auth.customerId,
+      status: ["active"],
+    });
+
+    return Response.json({
+      items: result.items.map((entry) => this.toCustomerWaitlistItem(entry)),
+    });
+  }
+
+  private async dismissCustomerWaitlistEntry(
+    appData: ConnectedAppData,
+    request: Request,
+  ): Promise<Response> {
+    const auth = await this.authorizeCustomerSession(appData, request);
+    if (auth instanceof Response) {
+      return auth;
+    }
+
+    const body = (await request.json().catch(() => ({}))) as {
+      id?: string;
+      all?: boolean;
+    };
+
+    const repositoryService = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+
+    if (body.all) {
+      const result = await repositoryService.getWaitlistEntries({
+        customerId: auth.customerId,
+        status: ["active"],
+      });
+
+      const ids = result.items.map((entry) => entry._id);
+      if (ids.length > 0) {
+        await repositoryService.dismissWaitlistEntries(ids, {
+          actor: "customer",
+          actorId: auth.customerId,
+        });
+      }
+
+      return Response.json({ success: true });
+    }
+
+    if (!body.id) {
+      return Response.json(
+        { success: false, error: "id_required" },
+        { status: 400 },
+      );
+    }
+
+    const entry = await repositoryService.getWaitlistEntry(body.id);
+    if (!entry || entry.customerId !== auth.customerId) {
+      return Response.json(
+        { success: false, error: "not_found" },
+        { status: 404 },
+      );
+    }
+    if (entry.status === "active") {
+      await repositoryService.dismissWaitlistEntry(entry._id, {
+        actor: "customer",
+        actorId: auth.customerId,
+      });
+    }
+
+    return Response.json({ success: true });
   }
 
   private async resolveDefaultMemberId(): Promise<string> {

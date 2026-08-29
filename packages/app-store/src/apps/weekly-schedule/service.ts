@@ -9,11 +9,14 @@ import {
   IConnectedAppProps,
   IScheduleProvider,
   Schedule,
+  SCHEDULE_CHANGED_EVENT_TYPE,
   ScheduleDaySource,
   ScheduleExceptionEntity,
   ScheduleRecurrenceInfo,
   ScheduleWeekDay,
+  systemEventSource,
   WeekIdentifier,
+  type ScheduleChangedPayload,
 } from "@hacado/types";
 import {
   coveringExceptions,
@@ -112,6 +115,16 @@ export default class WeeklyScheduleConnectedApp
     this.loggerFactory = getLoggerFactory(
       "WeeklyScheduleConnectedApp",
       props.organizationId,
+    );
+  }
+
+  private async emitScheduleChanged(memberId?: string): Promise<void> {
+    await this.props.services.eventService.emit(
+      SCHEDULE_CHANGED_EVENT_TYPE,
+      {
+        memberIds: memberId ? [memberId] : undefined,
+      } satisfies ScheduleChangedPayload,
+      systemEventSource,
     );
   }
 
@@ -632,6 +645,8 @@ export default class WeeklyScheduleConnectedApp
         { appId, weekCount: Object.keys(schedules).length, memberId, scope },
         "Successfully set schedule exceptions",
       );
+
+      await this.emitScheduleChanged(memberId);
     } catch (error: any) {
       logger.error(
         { appId, weekCount: Object.keys(schedules).length, memberId, error },
@@ -685,6 +700,8 @@ export default class WeeklyScheduleConnectedApp
           { appId, week: weekIdentifier },
           "Removed empty company exception after clearing holidays",
         );
+
+        await this.emitScheduleChanged();
         return;
       }
 
@@ -716,6 +733,7 @@ export default class WeeklyScheduleConnectedApp
         },
         "Successfully set company holidays",
       );
+      await this.emitScheduleChanged();
     } catch (error: any) {
       logger.error(
         { appId, week: weekIdentifier, holidays: uniqueHolidays, error },
@@ -785,6 +803,8 @@ export default class WeeklyScheduleConnectedApp
         },
         "Successfully removed schedule exception for week",
       );
+
+      await this.emitScheduleChanged(memberId);
     } catch (error: any) {
       logger.error(
         { appId, week: weekIdentifier, memberId, error },
@@ -866,6 +886,8 @@ export default class WeeklyScheduleConnectedApp
         },
         "Successfully removed schedule exceptions from week onwards",
       );
+
+      await this.emitScheduleChanged(memberId);
     } catch (error: any) {
       logger.error(
         { appId, week: weekIdentifier, memberId, error },
@@ -992,6 +1014,8 @@ export default class WeeklyScheduleConnectedApp
         },
         "Successfully created recurring schedule",
       );
+
+      await this.emitScheduleChanged(memberId);
     } catch (error: any) {
       logger.error(
         {
@@ -1045,6 +1069,8 @@ export default class WeeklyScheduleConnectedApp
         { appId, exceptionId, memberId },
         "Successfully removed recurring schedule",
       );
+
+      await this.emitScheduleChanged(memberId);
     } catch (error: any) {
       logger.error(
         { appId, exceptionId, memberId, error },
