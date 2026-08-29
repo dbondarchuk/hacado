@@ -42,6 +42,7 @@ import {
   templateSafeWithError,
 } from "@hacado/utils";
 import { DateTime } from "luxon";
+import { ObjectId } from "mongodb";
 import { demoWaitlistEntry } from "../waitlist/demo-arguments";
 import {
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,
@@ -442,7 +443,7 @@ export class CustomerWaitlistNotificationsConnectedApp
         appData,
         config,
         websiteUrl,
-        demoWaitlistEntry._id,
+        new ObjectId().toString(),
         slotDateTime,
       );
 
@@ -502,6 +503,7 @@ export class CustomerWaitlistNotificationsConnectedApp
       const page = await this.props.services.pagesService.getPage(
         config.bookingPageId,
       );
+
       slug = page?.slug ?? "";
 
       logger.debug(

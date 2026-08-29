@@ -51,7 +51,7 @@ export const TemplateFormPage: React.FC<
       IDemoArgumentsProvider,
       DemoArguments
     >("demo-arguments-provider", async (app, service) => {
-      return (await service.getDemoEmailArguments?.(app.data)) ?? {};
+      return (await service.getDemoEmailArguments?.(app)) ?? {};
     });
 
   const demoEmailArguments = demoEmailArgumentsArray

@@ -895,6 +895,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
       const page = await this.props.services.pagesService.getPage(
         config.bookingPageId,
       );
+
       slug = page?.slug ?? "";
     }
 
