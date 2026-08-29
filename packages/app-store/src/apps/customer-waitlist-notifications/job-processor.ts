@@ -20,6 +20,7 @@ import {
   getWebsiteUrl,
   templateSafeWithError,
 } from "@hacado/utils";
+import pLimit from "p-limit";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
 import { WaitlistEntry } from "../waitlist/models/waitlist";
 import { WaitlistRepositoryService } from "../waitlist/service/repository-service";
@@ -46,27 +47,6 @@ import {
 import { getWaitlistEntryArgs, loadSlotTimeOfDayArgs } from "./waitlist-args";
 
 const SCAN_MEMBER_CONCURRENCY = 3;
-
-async function mapLimit<T>(
-  items: readonly T[],
-  limit: number,
-  fn: (item: T) => Promise<void>,
-): Promise<void> {
-  if (items.length === 0 || limit < 1) return;
-
-  const executing = new Set<Promise<void>>();
-  for (const item of items) {
-    const run = fn(item);
-    executing.add(run);
-    void run.finally(() => {
-      executing.delete(run);
-    });
-    if (executing.size >= limit) {
-      await Promise.race(executing);
-    }
-  }
-  await Promise.all(executing);
-}
 
 export class CustomerWaitlistNotificationsJobProcessor {
   protected readonly loggerFactory: LoggerFactory;
@@ -485,12 +465,27 @@ export class CustomerWaitlistNotificationsJobProcessor {
   ): Promise<void> {
     const logger = this.loggerFactory("processScanScheduleOpenedSlots");
     const config = appData.data as CustomerWaitlistNotificationsConfiguration;
+    logger.debug(
+      { appId: appData._id, config },
+      "Processing scan schedule opened slots",
+    );
+
     if (!config?.notifyOnSlotOpened) {
+      logger.debug(
+        { appId: appData._id, config },
+        "Notify on slot opened is disabled, skipping",
+      );
+
       return;
     }
 
     const repo = await this.getWaitlistRepository();
     if (!repo) {
+      logger.debug(
+        { appId: appData._id },
+        "Waitlist app not installed, skipping",
+      );
+
       return;
     }
 
@@ -506,9 +501,18 @@ export class CustomerWaitlistNotificationsJobProcessor {
       ),
     ];
 
+    logger.debug(
+      { appId: appData._id, scopedMemberIds },
+      "Found scoped member IDs",
+    );
+
     const entries = await repo.getActiveWaitlistEntities(scopedMemberIds);
+    logger.debug({ appId: appData._id, entries }, "Found entries");
+
     const { options } =
       await this.props.services.bookingService.getAppointmentOptions();
+    logger.debug({ appId: appData._id, options }, "Found options");
+
     const optionDurationById = new Map(
       options.map(
         (option) =>
@@ -516,60 +520,94 @@ export class CustomerWaitlistNotificationsJobProcessor {
       ),
     );
 
-    await mapLimit(
-      scopedMemberIds,
-      SCAN_MEMBER_CONCURRENCY,
-      async (memberId) => {
-        const offeredSlots = new Set<number>();
-        const memberEntries = entries.filter((e) => e.memberId === memberId);
-        const durations = [
-          ...new Set(
-            memberEntries
-              .map((e) =>
-                waitlistDurationMinutes(e, optionDurationById.get(e.optionId)),
-              )
-              .filter((d): d is number => typeof d === "number" && d > 0),
-          ),
-        ];
-
-        const availabilityByDuration = new Map<number, Date[]>();
-        for (const duration of durations) {
-          availabilityByDuration.set(
-            duration,
-            await this.props.services.bookingService.getAvailability(
-              duration,
-              memberId,
+    const limit = pLimit(SCAN_MEMBER_CONCURRENCY);
+    await Promise.all(
+      scopedMemberIds.map((memberId) =>
+        limit(async () => {
+          const offeredSlots = new Set<number>();
+          const memberEntries = entries.filter((e) => e.memberId === memberId);
+          const durations = [
+            ...new Set(
+              memberEntries
+                .map((e) =>
+                  waitlistDurationMinutes(
+                    e,
+                    optionDurationById.get(e.optionId),
+                  ),
+                )
+                .filter((d): d is number => typeof d === "number" && d > 0),
             ),
-          );
-        }
+          ];
 
-        for (const entry of memberEntries) {
-          const duration = waitlistDurationMinutes(
-            entry,
-            optionDurationById.get(entry.optionId),
+          logger.debug(
+            { appId: appData._id, memberId, durations },
+            "Found durations",
           );
 
-          if (duration == null) continue;
-          const slots = availabilityByDuration.get(duration) ?? [];
-          for (const slot of slots) {
-            if (!waitlistEntryMatchesSlot(entry, slot, timeZone)) {
-              continue;
-            }
-
-            const slotTime = slot.getTime();
-            if (offeredSlots.has(slotTime)) {
-              continue;
-            }
-
-            offeredSlots.add(slotTime);
-            await this.scheduleOfferOpenedSlot(appData, {
-              memberId,
-              windowStart: slot,
-              windowEnd: new Date(slot.getTime() + duration * 60_000),
-            });
+          const availabilityByDuration = new Map<number, Date[]>();
+          for (const duration of durations) {
+            availabilityByDuration.set(
+              duration,
+              await this.props.services.bookingService.getAvailability(
+                duration,
+                memberId,
+              ),
+            );
           }
-        }
-      },
+
+          logger.debug(
+            { appId: appData._id, memberId, availabilityByDuration },
+            "Found availability by duration",
+          );
+
+          for (const entry of memberEntries) {
+            const duration = waitlistDurationMinutes(
+              entry,
+              optionDurationById.get(entry.optionId),
+            );
+
+            if (duration == null) continue;
+            const slots = availabilityByDuration.get(duration) ?? [];
+            for (const slot of slots) {
+              logger.debug(
+                { appId: appData._id, memberId, entryId: entry._id, slot },
+                "Checking if entry matches slot",
+              );
+
+              if (!waitlistEntryMatchesSlot(entry, slot, timeZone)) {
+                logger.debug(
+                  { appId: appData._id, memberId, entryId: entry._id, slot },
+                  "Entry does not match slot, skipping",
+                );
+
+                continue;
+              }
+
+              const slotTime = slot.getTime();
+              if (offeredSlots.has(slotTime)) {
+                logger.debug(
+                  { appId: appData._id, memberId, entryId: entry._id, slot },
+                  "Slot already offered, skipping",
+                );
+
+                continue;
+              }
+
+              offeredSlots.add(slotTime);
+              await this.scheduleOfferOpenedSlot(appData, {
+                memberId,
+                windowStart: slot,
+                windowEnd: new Date(slot.getTime() + duration * 60_000),
+              });
+
+              logger.debug(
+                { appId: appData._id, memberId, entryId: entry._id, slot },
+                "Scheduled offer opened slot",
+              );
+            }
+          }
+        }),
+      ),
     );
 
     logger.debug(

@@ -45,7 +45,7 @@ checkout:
         unlimited: Unlimited bookings, services, and clients, always
         promotions: Branded gift cards, discounts & promotions
         packages: Prepaid appointment packages customers can buy and book
-        apps: Appointment waitlist, intake forms, blog
+        apps: Appointment waitlist that offers opened slots, intake forms, blog
         clientPortal: Client self-service portal for bookings and profiles
         smsCredits: 100 SMS credits included every month
         activityHistory: 90 days of activity history (instead of 30)

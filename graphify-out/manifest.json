@@ -3665,8 +3665,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1787939970.163438,
-    "ast_hash": "55a86a989203d496f949f7fd69674851",
+    "mtime": 1787983373.927552,
+    "ast_hash": "df574a0991e151e225d1770858a5cbfe",
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/index.ts": {
@@ -16120,8 +16120,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/install.yaml": {
-    "mtime": 1787870046.2270157,
-    "ast_hash": "210aa6d95a0c87c7da972fc11cf9a03c",
+    "mtime": 1787982743.4903011,
+    "ast_hash": "7de267c03c072a8ad6d4ca860fa9b16c",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/translation.yaml": {
@@ -16155,8 +16155,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/install.yaml": {
-    "mtime": 1787870046.4999268,
-    "ast_hash": "35605fd539c99dc8cce704423fb74960",
+    "mtime": 1787982750.6792247,
+    "ast_hash": "7cd06a597c925c49379f648148bf10ce",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/translation.yaml": {
@@ -29185,8 +29185,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/customer-waitlist-notifications/job-processor.ts": {
-    "mtime": 1787982187.260549,
-    "ast_hash": "76e7149caee1200d25bb22770dca6d96",
+    "mtime": 1787983403.870182,
+    "ast_hash": "f1158c6b54e0abdaf57846dd75ef98b9",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/customer-waitlist-notifications/slot-match.test.ts": {
