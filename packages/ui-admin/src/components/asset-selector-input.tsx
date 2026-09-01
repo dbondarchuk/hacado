@@ -21,11 +21,14 @@ export type AssetSelectorInputProps = {
   onBlur?: () => void;
   accept?: string;
   fullUrl?: boolean;
+  onlyAssets?: boolean;
   disabled?: boolean;
   disabledInput?: boolean;
   placeholder?: string;
   className?: string;
 } & VariantProps<typeof inputVariants>;
+
+const isAbsoluteUrl = (url: string) => /^https?:\/\//i.test(url);
 
 export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
   value,
@@ -36,6 +39,7 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
   disabled,
   disabledInput,
   fullUrl,
+  onlyAssets,
   className,
   ...rest
 }) => {
@@ -43,7 +47,11 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
   const [open, setIsOpen] = React.useState(false);
 
   const select = (asset: UploadedFile) => {
-    onChange?.(fullUrl ? asset.url : `/assets/${asset.filename}`);
+    onChange?.(
+      fullUrl || isAbsoluteUrl(asset.url)
+        ? asset.url
+        : `/assets/${asset.filename}`,
+    );
     onBlur?.();
   };
 
@@ -55,6 +63,7 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
     <InputGroup className={className}>
       <AssetSelectorDialog
         accept={accept ? [accept] : undefined}
+        onlyAssets={onlyAssets}
         isOpen={open}
         close={() => setIsOpen(false)}
         onSelected={select}

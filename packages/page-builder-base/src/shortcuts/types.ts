@@ -141,6 +141,7 @@ export type ShortcutWithAssetSelector<
   assetSelectorConfig?: {
     accept?: string;
     fullUrl?: boolean;
+    onlyAssets?: boolean;
     placeholder?: string;
   };
 };

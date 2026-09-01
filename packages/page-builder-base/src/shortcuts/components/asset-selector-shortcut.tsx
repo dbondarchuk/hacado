@@ -109,6 +109,7 @@ export const AssetSelectorShortcut = <T extends BaseStyleDictionary>({
       onChange={handleValueChange}
       accept={config?.accept}
       fullUrl={config?.fullUrl}
+      onlyAssets={config?.onlyAssets}
       placeholder={config?.placeholder}
       h="sm"
     />

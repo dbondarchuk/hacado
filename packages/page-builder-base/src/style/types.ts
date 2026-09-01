@@ -18,8 +18,11 @@ export type BaseStyleDictionary = {
 };
 
 // Style definition interface
-export interface StyleDefinition<T extends z.ZodType<any, any>> {
-  name: string;
+export interface StyleDefinition<
+  T extends z.ZodType<any, any>,
+  TName extends string = any,
+> {
+  name: TName;
   label: AllKeys;
   icon: (props: { className?: string }) => React.ReactNode;
   category: StyleCategory;
@@ -45,7 +48,7 @@ export interface StyleVariant<T extends z.ZodType> {
 }
 
 export type StyleDictionary<T extends BaseStyleDictionary> = {
-  [name in keyof T]: StyleDefinition<T[name]>;
+  [name in keyof T]: StyleDefinition<T[name], Extract<name, string>>;
 };
 
 // Style support configuration

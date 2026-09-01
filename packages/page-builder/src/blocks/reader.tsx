@@ -11,6 +11,7 @@ import { CarouselReader } from "./carousel/reader";
 import { ConditionalContainerReader } from "./conditional-container/reader";
 import { ContainerReader } from "./container/reader";
 import { CustomHTML } from "./custom-html/reader";
+import { FluidLayoutReader } from "./fluid-layout/reader";
 import { ForeachContainerReader } from "./foreach-container/reader";
 import { GridContainerReader } from "./grid-container/reader";
 import { Heading } from "./heading/reader";
@@ -76,6 +77,9 @@ export const ReaderBlocks: ReaderDocumentBlocksDictionary<
   },
   GridContainer: {
     Reader: GridContainerReader,
+  },
+  FluidLayout: {
+    Reader: FluidLayoutReader,
   },
   PageHero: {
     Reader: PageHeroReader,

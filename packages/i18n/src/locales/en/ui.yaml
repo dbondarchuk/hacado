@@ -44,6 +44,18 @@ customerPackageSelector:
 assetSelector:
   title: Select asset
   upload: Upload
+  assets: Assets
+  unsplash: Unsplash
+  pexels: Pexels
+  photos: Photos
+  videos: Videos
+  unsplashSearch: Search Unsplash
+  pexelsSearch: Search Pexels
+  photoBy: Photo by
+  videoBy: Video by
+  on: on
+  unsplashEmpty: No photos found
+  pexelsEmpty: No media found
 pageSelector:
   title: Select page
   placeholder: Select page

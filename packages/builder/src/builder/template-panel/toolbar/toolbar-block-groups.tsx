@@ -31,9 +31,7 @@ export const ToolbarBlockGroups = () => {
     parentData?.parentBlockId ?? null,
   );
   const canMoveOut =
-    !!canDoBlockActions &&
-    !disable?.move &&
-    !!parentInGrandparent?.parentBlockId;
+    !!canDoBlockActions && !!parentInGrandparent?.parentBlockId;
 
   const isMac = useMemo(() => {
     return navigator.userAgent?.toLocaleLowerCase().includes("mac");

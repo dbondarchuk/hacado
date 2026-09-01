@@ -199,6 +199,7 @@ export const CustomerForm: React.FC<{
                       <div className="w-full flex gap-2">
                         <AssetSelectorDialog
                           accept={["image/*"]}
+                          onlyAssets
                           isOpen={avatarDialogOpen}
                           addTo={{
                             customerId: initialData._id,

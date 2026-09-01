@@ -26,6 +26,10 @@ export * from "./documents/reader/block";
 export * from "./documents/reader/core";
 export * from "./documents/reader/static-render";
 
+export { getMoveBlockOutTarget } from "./documents/helpers/blocks";
 export * from "./documents/types";
+export { matchesRule, mergeBlockFilterRules } from "./documents/utils";
 
+export { useFluidDropCollisionPriority } from "./builder/dnd/fluid-drop-collision";
+export { useDragHandle } from "./builder/dnd/use-drag-handle";
 export { useBlockEditor as useBlockEditor } from "./builder/overlay/context";

@@ -7,7 +7,11 @@ import {
   useBlockEditor,
   useCurrentBlock,
 } from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import {
+  BackgroundVideoLayer,
+  BlockStyle,
+  useClassName,
+} from "@hacado/page-builder-base";
 import { cn } from "@hacado/ui";
 import { PageHeroProps } from "./schema";
 import { styles } from "./styles";
@@ -47,6 +51,7 @@ export const PageHeroEditor = ({ props, style }: PageHeroProps) => {
         id={base?.id}
         {...overlayProps}
       >
+        <BackgroundVideoLayer style={style} />
         {!!titleId && (
           <EditorBlock
             blockId={titleId}

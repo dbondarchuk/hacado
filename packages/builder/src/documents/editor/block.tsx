@@ -32,6 +32,7 @@ const EditorBlockContext = createContext<{
     delete: false,
     clone: false,
     drag: false,
+    resize: false,
   },
 });
 
@@ -58,6 +59,9 @@ type EditorBlockProps = {
   disableDelete?: boolean;
   disableClone?: boolean;
   disableDrag?: boolean;
+  disableResize?: boolean;
+  disableOverlay?: boolean;
+  disableNavMenu?: boolean;
   additionalProps?: Record<string, any>;
   index: number;
   parentBlockId: string;
@@ -73,6 +77,9 @@ export const EditorBlock = memo(
     disableDelete,
     disableClone,
     disableDrag,
+    disableResize,
+    disableOverlay,
+    disableNavMenu,
     additionalProps,
     index,
     parentBlockId,
@@ -92,8 +99,19 @@ export const EditorBlock = memo(
         delete: disableDelete,
         clone: disableClone,
         drag: disableDrag,
+        resize: disableResize,
+        overlay: disableOverlay,
+        navMenu: disableNavMenu,
       };
-    }, [disableMove, disableDelete, disableClone, disableDrag]);
+    }, [
+      disableMove,
+      disableDelete,
+      disableClone,
+      disableDrag,
+      disableResize,
+      disableOverlay,
+      disableNavMenu,
+    ]);
 
     useEffect(() => {
       if (isOvelayBlock) return;

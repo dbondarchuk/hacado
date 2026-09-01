@@ -42,7 +42,7 @@ export const SelectedBlockOverlay = memo(
           <NavMenu blockId={id} disable={disable} />
         </div>
 
-        {!!onResize && (
+        {!!onResize && !disable?.resize && (
           <>
             <div
               className="absolute right-0 bottom-0 size-2 translate-x-1/2 translate-y-1/2 cursor-nwse-resize pointer-events-auto"

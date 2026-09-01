@@ -26,12 +26,19 @@ const VIEWPORT_SIZES = {
 export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
   ({ children, viewportSize, className }) => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
+    const hintHostRef = useRef<HTMLDivElement>(null);
     const [iframeReady, setIframeReady] = useState(false);
     const prevViewportSizeRef = useRef<ViewportSize>(viewportSize);
+    const { setViewportHintHost } = usePortalContext();
 
     const currentSize = VIEWPORT_SIZES[viewportSize];
 
     const t = useI18n("builder");
+
+    useEffect(() => {
+      setViewportHintHost(hintHostRef.current);
+      return () => setViewportHintHost(null);
+    }, [setViewportHintHost]);
 
     //   // Reset iframe ready state only when switching from original to other viewport sizes
     //   useEffect(() => {
@@ -229,6 +236,10 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
                   </IframePortal>
                 )}
               </div>
+              <div
+                ref={hintHostRef}
+                className="viewport-hint-host flex w-full max-w-full justify-center px-4"
+              />
             </div>
           </div>
           <ScrollBar orientation="horizontal" />

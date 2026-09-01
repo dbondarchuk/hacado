@@ -116,6 +116,12 @@ import {
 } from "./custom-html";
 import { CustomHTMLPropsDefaults } from "./custom-html/schema";
 import {
+  FluidLayoutConfiguration,
+  FluidLayoutEditor,
+  FluidLayoutPropsDefaults,
+  FluidLayoutToolbar,
+} from "./fluid-layout";
+import {
   ForeachContainerConfiguration,
   ForeachContainerEditor,
   ForeachContainerPropsDefaults,
@@ -408,6 +414,22 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["grid", "layout", "block", "container"],
     tags: ["grid", "container"],
+  },
+  FluidLayout: {
+    displayName:
+      "builder.pageBuilder.blocks.fluidLayout.displayName" satisfies BaseAllKeys,
+    icon: <Layers />,
+    Configuration: FluidLayoutConfiguration,
+    Editor: FluidLayoutEditor,
+    Toolbar: FluidLayoutToolbar,
+    defaultValue: FluidLayoutPropsDefaults,
+    category:
+      "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
+    capabilities: ["layout", "block", "fluid"],
+    tags: ["fluid", "layout", "grid"],
+    allowedIn: {
+      type: ["PageLayout"],
+    },
   },
   PageHero: {
     displayName:

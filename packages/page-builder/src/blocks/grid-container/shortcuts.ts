@@ -1,6 +1,7 @@
 import {
   backgroundColorShortcut,
   backgroundImageShortcut,
+  backgroundVideoShortcut,
   colorShortcut,
   fontFamilyShortcut,
   Shortcut,
@@ -408,6 +409,7 @@ export const gridContainerShortcuts: Shortcut<AllStylesSchemas>[] = [
   },
   backgroundColorShortcut,
   backgroundImageShortcut as Shortcut<AllStylesSchemas>,
+  backgroundVideoShortcut as unknown as Shortcut<AllStylesSchemas>,
   colorShortcut,
   fontFamilyShortcut as Shortcut<AllStylesSchemas>,
 ];

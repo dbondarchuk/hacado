@@ -8,12 +8,16 @@ import {
   AccordionTrigger,
   cn,
 } from "@hacado/ui";
-import { Blocks, ListTree } from "lucide-react";
+import { Blocks, Layers, ListTree } from "lucide-react";
 import { memo } from "react";
-import { useShowBlocksPanel } from "../../../documents/editor/context";
+import {
+  useShowBlocksPanel,
+  useTemplates,
+} from "../../../documents/editor/context";
 import { BaseZodDictionary } from "../../../documents/types";
 import { BlocksPanel } from "./blocks-panel";
 import { OutlinePanel } from "./outline-panel";
+import { TemplatesPanel } from "./templates-panel";
 
 type BlocksPanelProps<T extends BaseZodDictionary = any> = {
   className?: string;
@@ -27,6 +31,9 @@ export const BlocksSidebar = memo(
   }: BlocksPanelProps<T>) => {
     const t = useI18n("builder");
     const show = useShowBlocksPanel();
+    const templates = useTemplates();
+    const showTemplates =
+      templates != null && Object.keys(templates).length > 0;
 
     return (
       <div
@@ -56,6 +63,22 @@ export const BlocksSidebar = memo(
               <BlocksPanel allowOnly={allowOnly} />
             </AccordionContent>
           </AccordionItem>
+
+          {showTemplates ? (
+            <AccordionItem value="templates" className="border-none">
+              <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                <div className="flex items-center gap-2">
+                  <Layers className="h-4 w-4" />
+                  <span className="text-sm font-medium">
+                    {t("baseBuilder.blocks.templates.title")}
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-2">
+                <TemplatesPanel />
+              </AccordionContent>
+            </AccordionItem>
+          ) : null}
 
           {/* Document Outline Section */}
           <AccordionItem value="outline" className="border-none">

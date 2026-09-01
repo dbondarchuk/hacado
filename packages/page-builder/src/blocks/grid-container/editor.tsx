@@ -3,7 +3,11 @@ import {
   useBlockEditor,
   useCurrentBlock,
 } from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import {
+  BackgroundVideoLayer,
+  BlockStyle,
+  useClassName,
+} from "@hacado/page-builder-base";
 import { GridContainerProps, styles } from "./schema";
 
 export const GridContainerEditor = ({ style, props }: GridContainerProps) => {
@@ -11,15 +15,17 @@ export const GridContainerEditor = ({ style, props }: GridContainerProps) => {
   const overlayProps = useBlockEditor(currentBlock.id);
   const className = useClassName();
   const base = currentBlock.base;
+  const blockStyle = currentBlock.data?.style;
 
   return (
     <>
       <BlockStyle
         name={className}
         styleDefinitions={styles}
-        styles={currentBlock.data?.style}
+        styles={blockStyle}
       />
       <div className={className} id={base?.id} {...overlayProps}>
+        <BackgroundVideoLayer style={blockStyle} />
         <EditorChildren blockId={currentBlock.id} property="props" />
       </div>
     </>

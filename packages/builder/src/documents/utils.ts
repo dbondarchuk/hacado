@@ -13,12 +13,16 @@ export function matchesRule<
     matches(rule.tags, block.tags) &&
     matches(rule.capabilities, block.capabilities);
 
+  // Only evaluate `not` fields that are explicitly set. Treating undefined as
+  // "match all" (like allow fields) would exclude every block whenever `not`
+  // is partially specified.
   const matchesNot =
     !rule.not ||
     !(
-      matches(rule.not.type, [block.type]) ||
-      matches(rule.not.tags, block.tags) ||
-      matches(rule.not.capabilities, block.capabilities)
+      (!!rule.not.type && matches(rule.not.type, [block.type])) ||
+      (!!rule.not.tags && matches(rule.not.tags, block.tags)) ||
+      (!!rule.not.capabilities &&
+        matches(rule.not.capabilities, block.capabilities))
     );
 
   return matchesAll && matchesNot;

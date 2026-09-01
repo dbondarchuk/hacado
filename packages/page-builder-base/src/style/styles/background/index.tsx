@@ -15,6 +15,7 @@ export * from "./background-image";
 export * from "./background-position";
 export * from "./background-repeat";
 export * from "./background-size";
+export * from "./background-video";
 
 export const backgroundStyles = [
   backgroundBlendModeStyle,

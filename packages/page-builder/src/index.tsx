@@ -20,7 +20,7 @@ import { EditorBlocks, RootBlock } from "./blocks";
 import { ImagePropsDefaults } from "./blocks/image";
 import { ReaderBlocks } from "./blocks/reader";
 import { EditorBlocksSchema } from "./blocks/schema";
-import { marketingEditorTemplates } from "./templates/marketing";
+import { pageBuilderEditorTemplates } from "./templates";
 
 export * from "./block-providers/editor";
 
@@ -99,9 +99,9 @@ export const PageBuilder = deepMemo(
     }, [blockRegistry]);
 
     const editorTemplates = useMemo(() => {
-      if (!notAllowedBlocks?.length) return marketingEditorTemplates;
+      if (!notAllowedBlocks?.length) return pageBuilderEditorTemplates;
       return Object.fromEntries(
-        Object.entries(marketingEditorTemplates).filter(([, def]) => {
+        Object.entries(pageBuilderEditorTemplates).filter(([, def]) => {
           try {
             const rootType = def.getBlock(t).type as string;
             return !notAllowedBlocks.includes(rootType);

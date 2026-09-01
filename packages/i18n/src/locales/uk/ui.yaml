@@ -44,6 +44,18 @@ customerPackageSelector:
 assetSelector:
   title: Вибрати ресурс
   upload: Завантажити
+  assets: Ресурси
+  unsplash: Unsplash
+  pexels: Pexels
+  photos: Фото
+  videos: Відео
+  unsplashSearch: Пошук на Unsplash
+  pexelsSearch: Пошук на Pexels
+  photoBy: Фото
+  videoBy: Відео
+  on: на
+  unsplashEmpty: Фото не знайдено
+  pexelsEmpty: Медіа не знайдено
 pageSelector:
   title: Вибрати сторінку
   placeholder: Вибрати сторінку

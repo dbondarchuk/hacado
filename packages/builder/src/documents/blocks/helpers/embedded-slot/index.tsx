@@ -13,6 +13,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { useFluidDropCollisionPriority } from "../../../../builder/dnd/fluid-drop-collision";
 import { DndContext } from "../../../../types/dndContext";
 import { EditorBlock, useIsCurrentBlockOverlay } from "../../../editor/block";
 import {
@@ -49,9 +50,14 @@ const SlotPlaceholder = ({
   const hasActiveDragBlock = useHasActiveDragBlock();
   const isOverlay = useIsCurrentBlockOverlay();
   const blocksDefinitions = useBlocksDefinitions();
+  const collisionPriority = useFluidDropCollisionPriority(
+    depth,
+    "nested",
+    parentBlockId,
+  );
   const { ref } = useDroppable({
     id: `${parentBlockId}/${childrenProperty}/${index}-placeholder`,
-    collisionPriority: depth,
+    collisionPriority,
     accept: (draggable) => {
       if (!draggable.type) return false;
       const type = draggable.type as string;

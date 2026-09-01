@@ -60,6 +60,9 @@ baseBuilder:
       title: Blocks
       subtitle: Add a new block
       template: Template
+    templates:
+      title: Templates
+      subtitle: Drag a section template onto the page
     outline:
       title: Document structure
       subtitle: Block hierarchy
@@ -126,6 +129,7 @@ pageBuilder:
       color: Text Color
       backgroundColor: Background Color
       backgroundImage: Background Image
+      backgroundVideo: Background Video
       fontSize: Font Size
       fontFamily: Font Family
       fontStyle: Font Style
@@ -751,6 +755,11 @@ pageBuilder:
       colors: Colors
       addColor: Add Color
       removeColor: Remove Color
+    backgroundVideo:
+      src: Video
+      srcPlaceholder: Select a video...
+      poster: Poster image
+      posterPlaceholder: Select a poster image...
     colors:
       default: Default
       transparent: Transparent
@@ -940,6 +949,26 @@ pageBuilder:
       banner: Banner
       logoCard: Logo card
       planCard: Plan card
+    heroes:
+      centeredImage: Centered image hero
+      splitImage: Split image hero
+      videoBackground: Video background hero
+      minimal: Minimal hero
+      leftOverlay: Left overlay hero
+  heroDefaults:
+    title: Build something people love
+    subtitle: A short supporting line that explains your value proposition.
+    primaryCta: Get started
+    split:
+      title: Grow your team with confidence
+      subtitle: Pair a strong visual with clear messaging to convert visitors into customers.
+      imageAlt: Team collaborating in an office
+    minimal:
+      title: Ship faster. Iterate smarter.
+      subtitle: A clean, typography-first hero for product and developer brands.
+    leftOverlay:
+      title: Stories worth sharing
+      subtitle: Editorial layout with full-bleed imagery and left-aligned copy.
   blocks:
     categories:
       text: Text
@@ -950,6 +979,7 @@ pageBuilder:
       content: Content
       navigation: Navigation
       marketing: Marketing
+      heroes: Heroes
     heading:
       displayName: Heading
       content: Content
@@ -1357,6 +1387,48 @@ pageBuilder:
         end: End
         stretch: Stretch
         baseline: Baseline
+    fluidLayout:
+      displayName: Fluid Layout
+      emptyHint: Drop blocks here
+      move: Move on grid
+      moveOut: Move out of fluid layout
+      sortableDrag: Drag to move or drop into another block
+      rotate: Rotate (hold Alt to disable snap)
+      rotateFree: Rotate freely (Alt held)
+      clone: Clone
+      delete: Delete
+      resetRotate: Reset rotation
+      moveWithArrows: Arrow keys move 1 cell (Shift for 2). Hold Alt to disable snap.
+      helpBar:
+        title: Fluid layout hint
+        tierDesktop: Desktop
+        tierTablet: Tablet
+        tierMobile: Mobile
+        tierMobileLandscape: Mobile landscape
+        tierAuto: "{tier} layout — auto from larger viewport"
+        tierCustom: "{tier} layout — custom."
+        resetLayout: Reset layout
+        dragDrop: "Hold {modKey} while dragging to drop into blocks inside the layout; release {modKey} to place on the grid."
+        keyboard: "Arrow keys move 1 cell (Shift+arrows 2). Alt disables snap while moving or rotating."
+      chrome:
+        resetPosition: Reset position to default
+      shortcuts:
+        padding: Padding
+        width: Width
+      paddings:
+        none: None
+        small: Small
+        medium: Medium
+        large: Large
+        x-large: X-Large
+      widths:
+        full: Full width
+        contained: Contained
+      zOrder:
+        bringForward: Bring forward
+        sendBackward: Send backward
+        bringToFront: Bring to front
+        sendToBack: Send to back
     pageHero:
       displayName: Page Hero
     booking:
@@ -1562,6 +1634,7 @@ pageBuilder:
   shortcuts:
     backgroundColor: Background Color
     backgroundImage: Background Image
+    backgroundVideo: Background Video
     color: Text Color
     fill: Fill
     fontFamily: Font Family

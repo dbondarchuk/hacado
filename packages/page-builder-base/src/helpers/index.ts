@@ -1,3 +1,4 @@
+export * from "./background-video-layer";
 export * from "./class-name-generator";
 export * from "./replace-original-colors";
 export * from "./state-manager";

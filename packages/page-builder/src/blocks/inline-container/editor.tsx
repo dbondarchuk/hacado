@@ -5,6 +5,7 @@ import {
   useCurrentBlock,
 } from "@hacado/builder";
 import {
+  BackgroundVideoLayer,
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
@@ -25,15 +26,17 @@ export const InlineContainerEditor = ({
 
   const className = useClassName();
   const base = currentBlock.base;
+  const blockStyle = currentBlock.data?.style;
 
   return (
     <>
       <BlockStyle
         name={className}
         styleDefinitions={styles}
-        styles={currentBlock.data?.style}
+        styles={blockStyle}
       />
       <span className={className} id={base?.id} {...overlayProps}>
+        <BackgroundVideoLayer style={blockStyle} />
         <EditorChildren
           blockId={currentBlock.id}
           property="props"

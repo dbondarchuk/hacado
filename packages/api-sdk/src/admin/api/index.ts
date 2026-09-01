@@ -17,6 +17,7 @@ import * as pageFooters from "./page-footers";
 import * as pageHeaders from "./page-headers";
 import * as pages from "./pages";
 import * as payments from "./payments";
+import * as pexels from "./pexels";
 import * as schedule from "./schedule";
 import * as serviceAddons from "./service-addons";
 import * as serviceFields from "./service-fields";
@@ -24,6 +25,7 @@ import * as serviceOptions from "./service-options";
 import * as syncedPayments from "./synced-payments";
 import * as teams from "./teams";
 import * as templates from "./templates";
+import * as unsplash from "./unsplash";
 import * as users from "./users";
 export { PaymentsExportError } from "./payments";
 export type { ListPaymentsParams } from "./payments";
@@ -56,6 +58,8 @@ export const adminApi = {
   users,
   booking,
   syncedPayments,
+  unsplash,
+  pexels,
 };
 
 export * from "./utils";

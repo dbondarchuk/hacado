@@ -12,7 +12,9 @@ export * from "./general";
 export * from "./jobs";
 export * from "./organizations";
 export * from "./pages";
+export * from "./pexels";
 export * from "./templates";
+export * from "./unsplash";
 export * from "./users";
 
 export * from "./configuration";

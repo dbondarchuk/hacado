@@ -62,6 +62,9 @@ baseBuilder:
       title: Блоки
       subtitle: Додати новий блок
       template: Шаблон
+    templates:
+      title: Шаблони
+      subtitle: Перетягніть шаблон секції на сторінку
     outline:
       title: Структура документа
       subtitle: Ієрархія блоків
@@ -128,6 +131,7 @@ pageBuilder:
       color: Колір тексту
       backgroundColor: Колір фону
       backgroundImage: Фонове зображення
+      backgroundVideo: Фонове відео
       fontSize: Розмір шрифту
       fontFamily: Шрифт
       fontStyle: Стиль шрифту
@@ -763,6 +767,11 @@ pageBuilder:
       colors: Кольори
       addColor: Додати колір
       removeColor: Видалити колір
+    backgroundVideo:
+      src: Відео
+      srcPlaceholder: Виберіть відео...
+      poster: Постер
+      posterPlaceholder: Виберіть зображення постера...
     colors:
       default: За замовчуванням
       transparent: Прозорий
@@ -952,6 +961,26 @@ pageBuilder:
       banner: Банер
       logoCard: Картка з логотипом
       planCard: Тарифний план
+    heroes:
+      centeredImage: Герой з центрованим зображенням
+      splitImage: Герой з розділеним зображенням
+      videoBackground: Герой з відеофоном
+      minimal: Мінімалістичний герой
+      leftOverlay: Герой з текстом зліва
+  heroDefaults:
+    title: Створіть те, що полюблять люди
+    subtitle: Короткий рядок, який пояснює вашу ціннісну пропозицію.
+    primaryCta: Почати
+    split:
+      title: Розвивайте команду з впевненістю
+      subtitle: Поєднайте сильний візуал із чітким повідомленням, щоб перетворити відвідувачів на клієнтів.
+      imageAlt: Команда працює в офісі
+    minimal:
+      title: Випускайте швидше. Ітеруйте розумніше.
+      subtitle: Чистий герой із акцентом на типографіку для продуктових брендів.
+    leftOverlay:
+      title: Історії, якими варто ділитися
+      subtitle: Редакційний макет із повноекранним зображенням і текстом зліва.
   blocks:
     categories:
       text: Текст
@@ -962,6 +991,7 @@ pageBuilder:
       content: Контент
       navigation: Навігація
       marketing: Маркетинг
+      heroes: Герої
     heading:
       displayName: Заголовок
       content: Контент
@@ -1372,6 +1402,48 @@ pageBuilder:
         end: Кінець
         stretch: Розтягнути
         baseline: Базова лінія
+    fluidLayout:
+      displayName: Вільний макет
+      emptyHint: Перетягніть блоки сюди
+      move: Перемістити на сітці
+      moveOut: Винести з вільного макету
+      sortableDrag: Перетягніть, щоб перемістити або вкласти в інший блок
+      rotate: Обернути (утримуйте Alt, щоб вимкнути прив’язку)
+      rotateFree: Вільне обертання (утримується Alt)
+      clone: Клонувати
+      delete: Видалити
+      resetRotate: Скинути обертання
+      moveWithArrows: Стрілки — 1 клітинка (Shift — 2). Alt вимикає прив’язку.
+      helpBar:
+        title: Підказка для вільного макету
+        tierDesktop: Десктоп
+        tierTablet: Планшет
+        tierMobile: Мобільний
+        tierMobileLandscape: Мобільний альбомний
+        tierAuto: "{tier} — автоматично з більшого екрану"
+        tierCustom: "{tier} — власний макет."
+        resetLayout: Скинути макет
+        dragDrop: "Утримуйте {modKey} під час перетягування, щоб вкласти в блоки всередині макету; відпустіть {modKey}, щоб розмістити на сітці."
+        keyboard: "Стрілки — 1 клітинка (Shift+стрілки — 2). Alt вимикає прив’язку під час переміщення або обертання."
+      chrome:
+        resetPosition: Скинути позицію до типової
+      shortcuts:
+        padding: Внутрішній відступ
+        width: Ширина
+      paddings:
+        none: Немає
+        small: Малий
+        medium: Середній
+        large: Великий
+        x-large: Дуже великий
+      widths:
+        full: Повна ширина
+        contained: Обмежена
+      zOrder:
+        bringForward: Наперед
+        sendBackward: Назад
+        bringToFront: На передній план
+        sendToBack: На задній план
     pageHero:
       displayName: Hero секція
     booking:
@@ -1577,6 +1649,7 @@ pageBuilder:
   shortcuts:
     backgroundColor: Колір фону
     backgroundImage: Фонове зображення
+    backgroundVideo: Фонове відео
     color: Колір тексту
     fill: Заливка
     fontFamily: Шрифт

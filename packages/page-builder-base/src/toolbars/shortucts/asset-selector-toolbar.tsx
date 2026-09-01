@@ -22,9 +22,11 @@ export const AssetSelectorShortcutToolbar = ({
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleAssetSelected = (asset: UploadedFile) => {
-    const value = shortcut.shortcut.assetSelectorConfig?.fullUrl
-      ? asset.url
-      : `/assets/${asset.filename}`;
+    const value =
+      shortcut.shortcut.assetSelectorConfig?.fullUrl ||
+      /^https?:\/\//i.test(asset.url)
+        ? asset.url
+        : `/assets/${asset.filename}`;
     shortcut.onValueChange(value);
     setIsOpen(false);
   };
@@ -44,6 +46,7 @@ export const AssetSelectorShortcutToolbar = ({
             ? [shortcut.shortcut.assetSelectorConfig.accept]
             : undefined
         }
+        onlyAssets={shortcut.shortcut.assetSelectorConfig?.onlyAssets}
         isOpen={isOpen}
         close={() => setIsOpen(false)}
         onSelected={handleAssetSelected}

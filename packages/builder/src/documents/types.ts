@@ -56,6 +56,8 @@ export type TemplateDefinition = {
   displayName: AllKeys;
   icon: React.ReactNode;
   category: AllKeys;
+  /** Optional thumbnail URL shown in the templates panel. */
+  previewImage?: string;
   getBlock: (t: I18nFn<undefined, undefined>) => TEditorBlock;
 };
 

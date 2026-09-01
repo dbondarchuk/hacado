@@ -7,6 +7,7 @@ import { TEditorBlock } from "../../../editor/core";
 
 import { useDroppable } from "@dnd-kit/react";
 import { cn, deepMemo } from "@hacado/ui";
+import { useFluidDropCollisionPriority } from "../../../../builder/dnd/fluid-drop-collision";
 import { DndContext } from "../../../../types/dndContext";
 import {
   useBlockChildrenBlockIds,
@@ -45,9 +46,14 @@ const Placeholder = ({
   const hasActiveDragBlock = useHasActiveDragBlock();
   const isOverlay = useIsCurrentBlockOverlay();
   const blocksDefinitions = useBlocksDefinitions();
+  const collisionPriority = useFluidDropCollisionPriority(
+    depth,
+    "nested",
+    blockId,
+  );
   const { ref } = useDroppable({
     id: `${blockId}/${property}/${index}-placeholder`,
-    collisionPriority: depth,
+    collisionPriority,
     accept: (draggable) => {
       if (!draggable.type) return false;
       const type = draggable.type as string;

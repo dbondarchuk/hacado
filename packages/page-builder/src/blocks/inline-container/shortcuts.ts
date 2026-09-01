@@ -1,6 +1,7 @@
 import {
   backgroundColorShortcut,
   backgroundImageShortcut,
+  backgroundVideoShortcut,
   colorShortcut,
   fontFamilyShortcut,
   fontSizeShortcut,
@@ -231,6 +232,7 @@ export const inlineContainerShortcuts: Shortcut<AllStylesSchemas>[] = [
   textAlignmentShortcut as Shortcut<AllStylesSchemas>,
   backgroundColorShortcut,
   backgroundImageShortcut as Shortcut<AllStylesSchemas>,
+  backgroundVideoShortcut as unknown as Shortcut<AllStylesSchemas>,
   fontFamilyShortcut as Shortcut<AllStylesSchemas>,
   colorShortcut,
 ];

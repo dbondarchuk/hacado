@@ -16,10 +16,12 @@ import { createPortal } from "react-dom";
 import { useIsCurrentBlockOverlay } from "../../documents/editor/block";
 import {
   useAllowedRule,
+  useBlockChildrenIds,
   useBlockDefinition,
   useBlockDisableOptions,
   useBlockParentData,
   useBlocks,
+  useBlocksDefinitions,
   useDisableAnimation,
   useHasActiveDragBlock,
   useIsActiveDragBlock,
@@ -32,6 +34,10 @@ import {
 import { matchesRule } from "../../documents/utils";
 import { DndContext } from "../../types/dndContext";
 import { createDynamicCollisionDetector } from "../dnd/collision/dynamic";
+import {
+  FLUID_LAYOUT_BLOCK_TYPE,
+  useFluidDropCollisionPriority,
+} from "../dnd/fluid-drop-collision";
 import { usePortalContext } from "../template-panel/portal-context";
 import { SelectedBlockOverlay } from "./selected-block-overlay";
 import { ResizeDirection } from "./types";
@@ -317,20 +323,41 @@ export function useBlockEditor(
 
   const disable = useBlockDisableOptions(id);
   const allowOnly = useAllowedRule(parentBlockId, parentProperty);
+  const ownChildrenAllow = useAllowedRule(id, parentProperty);
+  const childrenBlockIds = useBlockChildrenIds(id);
+  const hasChildBlocks = useMemo(
+    () =>
+      Object.values(childrenBlockIds ?? {}).some(
+        (childIds) => childIds.length > 0,
+      ),
+    [childrenBlockIds],
+  );
   const parentBlockDefinition = useBlockDefinition(parentBlockId);
   const blocks = useBlocks();
+  const blocksDefinitions = useBlocksDefinitions();
   const isActiveDragBlock = useIsActiveDragBlock(id);
+
+  const sortableCollisionPriority = useFluidDropCollisionPriority(
+    depth,
+    "nested",
+    parentBlockDefinition?.type === FLUID_LAYOUT_BLOCK_TYPE
+      ? id
+      : parentBlockId!,
+  );
 
   const { handleRef } = useSortable({
     id: isOverlay ? `${id}-overlay` : id,
     index,
     group: `${parentBlockId}/${parentProperty}`,
-    collisionPriority: depth,
+    collisionPriority: sortableCollisionPriority,
     feedback: "default",
     element: ref,
     accept: (draggable) => {
       if (!draggable.type || isOverlay) return false;
       const type = draggable.type as string;
+      const dragBlockDefinition = blocksDefinitions.find(
+        (b) => b.type === type,
+      );
 
       if (allowOnly === "impossible") return false;
       if (
@@ -347,6 +374,19 @@ export function useBlockEditor(
         !matchesRule(parentBlockDefinition, allowedParents)
       )
         return false;
+
+      // Direct fluid children (e.g. button) expose the fluid parent in DnD context.
+      // Reject nestable drags on the shell so inner targets handle insertion.
+      if (
+        parentBlockDefinition?.type === FLUID_LAYOUT_BLOCK_TYPE &&
+        hasChildBlocks &&
+        ownChildrenAllow &&
+        ownChildrenAllow !== "impossible" &&
+        dragBlockDefinition &&
+        matchesRule(dragBlockDefinition, ownChildrenAllow)
+      ) {
+        return false;
+      }
 
       return true;
     },
@@ -380,7 +420,12 @@ export function useBlockEditor(
     ref.dataset.blockDepth = depth.toString();
     ref.dataset.blockIsOverlay = isOverlay.toString();
 
-    const cleanup = register(id, ref, handleRef, onResize);
+    const cleanup = register(
+      id,
+      ref,
+      handleRef,
+      disable?.resize ? undefined : onResize,
+    );
     return cleanup;
   }, [
     id,
@@ -395,6 +440,7 @@ export function useBlockEditor(
     index,
     blockType,
     isActiveDragBlock,
+    disable?.resize,
   ]);
 
   const onClick = useCallback(
@@ -441,6 +487,7 @@ const OverlayLayer = () => {
     selectedBlockMeta,
     selectedBlockElement,
   } = ctx;
+  const disable = useBlockDisableOptions(selectedId);
 
   // Resize handler
   const startResize = useCallback(
@@ -534,7 +581,8 @@ const OverlayLayer = () => {
         selectedBlock &&
         selectedId &&
         rootBlockId !== selectedId &&
-        selectedBlockMeta && (
+        selectedBlockMeta &&
+        !disable?.overlay && (
           <SelectedBlockOverlay
             top={selectedBlock.top}
             left={selectedBlock.left}

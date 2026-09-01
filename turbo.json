@@ -103,7 +103,9 @@
     "SIGNUP_EMAIL_BLOCKING_ENABLED",
     "SHORT_DOMAIN",
     "SMS_LINK_SHORTENING_ENABLED",
-    "MARKETING_URL"
+    "MARKETING_URL",
+    "UNSPLASH_ACCESS_KEY",
+    "PEXELS_API_KEY"
   ],
   "tasks": {
     "build": {

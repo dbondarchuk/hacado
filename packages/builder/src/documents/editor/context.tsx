@@ -99,6 +99,8 @@ type EditorState = {
   activeOverBlockContextId: string | null;
   activeDragBlockId: string | null;
   activeDragBlockTemplate: TEditorBlock | null;
+  /** Ctrl/Cmd held during drag — prefer nested drop targets inside FluidLayout */
+  dragIntoNestedModifier: boolean;
   blockDisableOptions: Record<string, BlockDisableOptions | undefined>;
   // Key: blockId|property
   allowedRules: Record<string, BlockFilterRuleResult>;
@@ -128,6 +130,7 @@ type EditorState = {
       activeDragBlockId: string | null,
       activeDragBlockTemplate?: TEditorBlock | null,
     ) => void;
+    setDragIntoNestedModifier: (dragIntoNestedModifier: boolean) => void;
     setActiveOverBlockContextId: (
       activerOverBlock: {
         blockId: string;
@@ -226,6 +229,7 @@ const createEditorStateStore = ({
     toggleInspectorDrawer: () => {},
     activeDragBlockId: null,
     activeDragBlockTemplate: null,
+    dragIntoNestedModifier: false,
     activeOverBlockContextId: null,
     blockDisableOptions: {},
     allowedRules: {},
@@ -276,11 +280,17 @@ const createEditorStateStore = ({
         set({
           activeDragBlockId,
           activeDragBlockTemplate: activeDragBlockTemplate || null,
+          dragIntoNestedModifier: activeDragBlockId
+            ? get().dragIntoNestedModifier
+            : false,
           templateBlockIndexes:
             activeDragBlockId && activeDragBlockTemplate
               ? buildIndexes(activeDragBlockTemplate, get().schemas)
               : null,
         });
+      },
+      setDragIntoNestedModifier: (dragIntoNestedModifier: boolean) => {
+        set({ dragIntoNestedModifier });
       },
       setActiveOverBlockContextId: (
         activeOverBlock: {
@@ -1003,6 +1013,16 @@ export function useFullScreen() {
 export function useHasActiveDragBlock() {
   const store = useEditorStateStore();
   return useStore(store, (s) => s.activeDragBlockId !== null);
+}
+
+export function useDragIntoNestedModifier() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.dragIntoNestedModifier);
+}
+
+export function useSetDragIntoNestedModifier() {
+  const store = useEditorStateStore();
+  return useStore(store, (s) => s.actions.setDragIntoNestedModifier);
 }
 
 export function useIsActiveDragBlock(blockId: string) {

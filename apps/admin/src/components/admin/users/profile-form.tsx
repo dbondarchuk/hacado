@@ -178,6 +178,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           <div className="w-full">
                             <AssetSelectorDialog
                               accept={["image/*"]}
+                              onlyAssets
                               isOpen={avatarDialogOpen}
                               addTo={{
                                 description: `${values.name} - Profile Photo`,

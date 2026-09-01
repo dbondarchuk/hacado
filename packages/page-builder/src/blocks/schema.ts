@@ -10,6 +10,7 @@ import { CarouselPropsSchema } from "./carousel/schema";
 import { ConditionalContainerPropsSchema } from "./conditional-container/schema";
 import { ContainerPropsSchema } from "./container/schema";
 import { CustomHTMLPropsSchema } from "./custom-html/schema";
+import { FluidLayoutPropsSchema } from "./fluid-layout/schema";
 import { ForeachContainerPropsSchema } from "./foreach-container/schema";
 import { GridContainerPropsSchema } from "./grid-container/schema";
 import { HeadingPropsSchema } from "./heading/schema";
@@ -46,6 +47,7 @@ export const EditorBlocksSchema = {
   PageLayout: PageLayoutPropsSchema,
   Container: ContainerPropsSchema,
   GridContainer: GridContainerPropsSchema,
+  FluidLayout: FluidLayoutPropsSchema,
   PageHero: PageHeroPropsSchema,
   // // Columns: ColumnsContainerPropsSchema,
   ConditionalContainer: ConditionalContainerPropsSchema,
@@ -85,6 +87,7 @@ export const EditorBlocksSchema = {
   PageLayout: typeof PageLayoutPropsSchema;
   Container: typeof ContainerPropsSchema;
   GridContainer: typeof GridContainerPropsSchema;
+  FluidLayout: typeof FluidLayoutPropsSchema;
   PageHero: typeof PageHeroPropsSchema;
   ConditionalContainer: typeof ConditionalContainerPropsSchema;
   ForeachContainer: typeof ForeachContainerPropsSchema;

@@ -1,4 +1,8 @@
-import { BaseStyleDictionary, StyleDictionary } from "../types";
+import {
+  BaseStyleDictionary,
+  StyleDefinition,
+  StyleDictionary,
+} from "../types";
 
 // Import styles by category
 import { backgroundStyles } from "./background";
@@ -62,6 +66,10 @@ export const ALL_STYLES = Object.values(allStyles).reduce((map, style) => {
   map[style.name] = style;
   return map;
 }, {} as any) as StyleDictionary<AllStylesSchemas>;
+
+export type WithStyle<T extends StyleDefinition<any, any>> = StyleDictionary<
+  AllStylesSchemas & { [key in T["name"]]: T }
+>;
 
 export const getAllStylesWithAdditionalStyles = <T extends BaseStyleDictionary>(
   additionalStyles: StyleDictionary<T>,

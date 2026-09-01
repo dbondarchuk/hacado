@@ -19,12 +19,17 @@ import {
   useSetActiveDragBlockId,
   useSetActiveOverBlockContextId,
   useSetDisableAnimation,
+  useSetDragIntoNestedModifier,
   useTemplates,
 } from "../../documents/editor/context";
 import { TEditorBlock } from "../../documents/editor/core";
 import { generateId } from "../../documents/helpers/block-id";
 import { ReaderDocumentBlocksDictionary } from "../../documents/reader/core";
 import { DndContext } from "../../types/dndContext";
+import {
+  DragIntoNestedModifierTracker,
+  syncDragIntoNestedModifier,
+} from "../dnd/drag-modifier-tracker";
 import { BlocksSidebar } from "./blocks-sidebar";
 import { BlockDragOverlay, Editor } from "./editor";
 import { Preview } from "./preview";
@@ -88,6 +93,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
     const selectedView = useSelectedView();
 
     const setDisableAnimation = useSetDisableAnimation();
+    const setDragIntoNestedModifier = useSetDragIntoNestedModifier();
 
     const store = useEditorStateStore();
 
@@ -96,6 +102,10 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
     >["onDragStart"] = (event) => {
       const blockId = event.operation.source?.id as string;
       setDisableAnimation(true);
+      syncDragIntoNestedModifier(
+        event.nativeEvent as PointerEvent | MouseEvent | undefined,
+        setDragIntoNestedModifier,
+      );
 
       // Handle block template drag (from blocks panel)
       if (blockId.startsWith("template-")) {
@@ -126,6 +136,15 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
       }
 
       setActiveDragBlock(blockId);
+    };
+
+    const onDragMove: ComponentProps<typeof DragDropProvider>["onDragMove"] = (
+      event,
+    ) => {
+      syncDragIntoNestedModifier(
+        event.nativeEvent as PointerEvent | MouseEvent | undefined,
+        setDragIntoNestedModifier,
+      );
     };
 
     const onDragOver: ComponentProps<typeof DragDropProvider>["onDragOver"] =
@@ -185,6 +204,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
 
       setActiveDragBlock(null);
       setActiveOverBlock(null);
+      setDragIntoNestedModifier(false);
 
       // Delay insert until animation has finished
       let dispose: () => void | undefined;
@@ -265,12 +285,14 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
           <DragDropProvider
             sensors={sensors}
             onDragStart={onDragStart}
+            onDragMove={onDragMove}
             onDragEnd={onDragEnd}
             onDragOver={(...args) => {
               args[0].preventDefault();
               onDragOver(...args);
             }}
           >
+            <DragIntoNestedModifierTracker />
             <div className="relative flex h-full">
               {selectedView === "editor" && (
                 <>

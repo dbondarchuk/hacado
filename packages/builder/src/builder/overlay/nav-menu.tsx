@@ -50,9 +50,7 @@ export const NavMenu: React.FC<Props> = memo(({ blockId, disable }) => {
     parentData?.parentBlockId ?? null,
   );
   const canMoveOut =
-    blockId !== rootBlockId &&
-    !disable?.move &&
-    !!parentInGrandparent?.parentBlockId;
+    blockId !== rootBlockId && !!parentInGrandparent?.parentBlockId;
 
   const { document: documentElement } = usePortalContext();
   const isMobile = useIsMobile(documentElement?.defaultView);

@@ -1,6 +1,12 @@
-import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
+import {
+  backgroundVideoStyle,
+  getAllStylesWithAdditionalStyles,
+  getStylesSchema,
+} from "@hacado/page-builder-base/style";
 
-export const styles = ALL_STYLES;
+export const styles = getAllStylesWithAdditionalStyles({
+  backgroundVideo: backgroundVideoStyle,
+});
 export const zStyles = getStylesSchema(styles);
 
 export const getDefaults = (

@@ -312,6 +312,7 @@ const FileField: React.FC<AnswerFieldProps<"file">> = ({
             }}
             disabled={disabled}
             disabledInput
+            onlyAssets
             accept={fieldDef.data?.accept?.join(",")}
           />
           {field.value && mimeType && (

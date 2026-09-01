@@ -1,6 +1,7 @@
 export * from "./context/popupContext";
 export * from "./context/readerContext";
 export * from "./header";
+export * from "./helpers/background-video-layer";
 export * from "./helpers/class-name-generator";
 export * from "./helpers/replace-original-colors";
 export * from "./helpers/styling";
