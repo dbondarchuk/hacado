@@ -42,7 +42,27 @@ const config = getConfig(
       headers: headersList,
     });
 
+    const allApps = Object.keys(AppsTranslations);
+
     if (!session) {
+      if (headersList.get("x-is-preview-generation-path") === "true") {
+        return {
+          public: async (locale: string) => {
+            const promises = allApps
+              .filter((app) => AppsTranslations[app]?.public)
+              .map(async (app) => [
+                `app_${app}_public`,
+                await AppsTranslations[app]?.public?.(locale),
+              ]);
+
+            const entries = await Promise.all(promises);
+            return Object.fromEntries(entries);
+          },
+          admin: async (locale: string) => ({}),
+          overrides: async (locale: string) => [],
+        };
+      }
+
       return {
         public: async (locale: string) => ({}),
         admin: async (locale: string) => ({}),
@@ -58,8 +78,6 @@ const config = getConfig(
         ).map((app) => app.name),
       ),
     );
-
-    const allApps = Object.keys(AppsTranslations);
 
     const messages = {
       public: async (locale: string) => {

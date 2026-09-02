@@ -11,7 +11,8 @@
   },
   "exports": {
     ".": "./src/index.tsx",
-    "./reader": "./src/reader.tsx"
+    "./reader": "./src/reader.tsx",
+    "./templates": "./src/templates/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "generate-font-previews": "node scripts/generate-font-previews.mjs",
+    "generate-template-previews": "node scripts/generate-template-previews.mjs",
     "purge-organization": "node scripts/purge-organization.mjs",
     "build": "next build",
     "typegen": "next typegen",
@@ -70,6 +71,7 @@
     "@types/react": "19.2.18",
     "@types/react-file-icon": "^1.0.4",
     "eslint": "^9.34.0",
+    "playwright": "^1.55.0",
     "postcss": "^8",
     "raw-loader": "^4.0.2",
     "satori": "^0.25.0",

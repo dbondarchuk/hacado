@@ -2,7 +2,7 @@ import { BuilderKeys } from "@hacado/i18n";
 import { RawNumberInputWithUnit } from "../../style-inputs/base/raw-number-input-with-units";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";
-import { NumberValueWithUnit } from "../../style/zod";
+import { NumberValueWithUnitOrUnitless, UnitOrUnitless } from "../../style/zod";
 import { ShortcutWithNumberWithUnit } from "../types";
 
 /**
@@ -37,17 +37,17 @@ export const NumberWithUnitShortcut = <T extends BaseStyleDictionary>({
     (s) => !s.breakpoint?.length && !s.state?.length,
   );
 
-  const currentNumericValue: NumberValueWithUnit | null =
+  const currentNumericValue: NumberValueWithUnitOrUnitless | null =
     currentStyle?.value &&
     typeof currentStyle.value === "object" &&
     "value" in currentStyle.value &&
     "unit" in currentStyle.value
-      ? (currentStyle.value as NumberValueWithUnit)
+      ? (currentStyle.value as NumberValueWithUnitOrUnitless)
       : null;
 
   const config = shortcut.numberWithUnitConfig;
 
-  const handleValueChange = (value: NumberValueWithUnit | null) => {
+  const handleValueChange = (value: NumberValueWithUnitOrUnitless | null) => {
     if (value) {
       const newStyles = { ...styles };
 
@@ -78,7 +78,7 @@ export const NumberWithUnitShortcut = <T extends BaseStyleDictionary>({
   };
 
   return (
-    <RawNumberInputWithUnit
+    <RawNumberInputWithUnit<UnitOrUnitless>
       icon={<div className="w-4 h-4" />}
       defaultValue={currentNumericValue || { value: 0, unit: "rem" }}
       onChange={handleValueChange}

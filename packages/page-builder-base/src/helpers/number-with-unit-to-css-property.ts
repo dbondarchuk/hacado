@@ -1,7 +1,7 @@
-import { NumberValueWithUnit } from "../style/zod";
+import { NumberValueWithUnitOrUnitless } from "../style/zod";
 
 export const numberWithUnitToCssProperty = (
-  value?: NumberValueWithUnit | null,
+  value?: NumberValueWithUnitOrUnitless | null,
 ) => {
   if (!value) return undefined;
   return `${value.value}${value.unit}`;

@@ -33,6 +33,16 @@ export const zUnit = z.enum(units, {
 });
 export type Unit = z.infer<typeof zUnit>;
 
+/** CSS unitless multiplier (e.g. `line-height: 1.1`). */
+export const UNITLESS_UNIT = "" as const;
+export type UnitlessUnit = typeof UNITLESS_UNIT;
+
+export const unitsWithUnitless = [UNITLESS_UNIT, ...units] as const;
+export const zUnitOrUnitless = z.union([z.literal(UNITLESS_UNIT), zUnit], {
+  message: "builder.pageBuilder.styleInputs.unit.unknownType",
+});
+export type UnitOrUnitless = z.infer<typeof zUnitOrUnitless>;
+
 export const zFontFamily = z.enum(FONT_FAMILY_NAMES, {
   message: "builder.pageBuilder.styleInputs.fontFamily.unknownType",
 });
@@ -44,6 +54,15 @@ export const zNumberValueWithUnit = z.object({
 });
 
 export type NumberValueWithUnit = z.infer<typeof zNumberValueWithUnit>;
+
+export const zNumberValueWithUnitOrUnitless = z.object({
+  value: z.coerce.number<number>(),
+  unit: zUnitOrUnitless,
+});
+
+export type NumberValueWithUnitOrUnitless = z.infer<
+  typeof zNumberValueWithUnitOrUnitless
+>;
 
 const globalKeywords = [
   "auto",

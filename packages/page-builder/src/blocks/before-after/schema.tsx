@@ -354,4 +354,4 @@ export const BeforeAfterPropsDefaults = () =>
         },
       ],
     },
-  }) as const satisfies BeforeAfterProps;
+  }) satisfies BeforeAfterProps;

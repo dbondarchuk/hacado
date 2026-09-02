@@ -9,8 +9,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@hacado/ui";
-import { NumberValueWithUnit, Unit, units } from "../../style/zod";
+import { UNITLESS_UNIT, Unit, UnitOrUnitless, units } from "../../style/zod";
 import { RawNumberInput } from "./raw-number-input";
+
+/** Radix Select cannot use an empty string as an item value. */
+export const UNITLESS_SELECT_VALUE = "unitless";
+
+export const formatUnitLabel = (unit: string) =>
+  unit === UNITLESS_UNIT ? "—" : unit;
+
+export const unitToSelectValue = (unit: UnitOrUnitless) =>
+  unit === UNITLESS_UNIT ? UNITLESS_SELECT_VALUE : unit;
+
+export const selectValueToUnit = (value: string): UnitOrUnitless =>
+  value === UNITLESS_SELECT_VALUE ? UNITLESS_UNIT : (value as Unit);
+
+export const unitAllowsDecimals = (unit: string) =>
+  unit === "rem" || unit === UNITLESS_UNIT;
+
+type NumberValueForUnit<U extends UnitOrUnitless> = {
+  value: number;
+  unit: U;
+};
+
+type UnitConfigMap<U extends UnitOrUnitless, T> = Partial<Record<U, T>> & {
+  base?: T;
+};
 
 // Base configurations for different units
 export const baseUnitConfigs = {
@@ -21,6 +45,7 @@ export const baseUnitConfigs = {
     "%": 1,
     vh: 1,
     vw: 1,
+    [UNITLESS_UNIT]: 0.1,
   },
   min: {
     base: 0,
@@ -29,14 +54,16 @@ export const baseUnitConfigs = {
     "%": 0,
     vh: 0,
     vw: 0,
+    [UNITLESS_UNIT]: 0,
   },
   max: {
-    base: undefined,
-    px: undefined,
+    base: undefined as number | undefined,
+    px: undefined as number | undefined,
     rem: 100,
     "%": 100,
     vh: 100,
     vw: 100,
+    [UNITLESS_UNIT]: undefined as number | undefined,
   },
   options: {
     base: [
@@ -47,34 +74,36 @@ export const baseUnitConfigs = {
     "%": [0, 25, 50, 75, 100],
     vh: [0, 25, 50, 75, 100],
     vw: [0, 25, 50, 75, 100],
+    [UNITLESS_UNIT]: [1, 1.1, 1.2, 1.25, 1.5, 1.75, 2],
   },
 } as const;
 
-export type RawNumberInputWithUnitsProps = {
+export type RawNumberInputWithUnitsProps<U extends UnitOrUnitless = Unit> = {
   icon: React.JSX.Element;
-  min?: Partial<Record<Unit, number>> & { base?: number };
-  max?: Partial<Record<Unit, number>> & { base?: number };
+  min?: UnitConfigMap<U, number>;
+  max?: UnitConfigMap<U, number>;
   noMax?: boolean;
   noMin?: boolean;
   allowNegative?: boolean;
-  step?: Partial<Record<Unit, number>> & { base?: number };
-  options?: Partial<Record<Unit, number[]>> & { base?: number[] };
-  forceUnit?: Unit;
+  step?: UnitConfigMap<U, number>;
+  options?: UnitConfigMap<U, number[]>;
+  allowedUnits?: readonly U[];
+  forceUnit?: U;
   id?: string;
 } & (
   | {
       nullable?: false;
-      defaultValue: NumberValueWithUnit;
-      onChange: (v: NumberValueWithUnit) => void;
+      defaultValue: NumberValueForUnit<U>;
+      onChange: (v: NumberValueForUnit<U>) => void;
     }
   | {
       nullable: true;
-      defaultValue?: NumberValueWithUnit | null;
-      onChange: (v: NumberValueWithUnit | null) => void;
+      defaultValue?: NumberValueForUnit<U> | null;
+      onChange: (v: NumberValueForUnit<U> | null) => void;
     }
 );
 
-export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
+export function RawNumberInputWithUnit<U extends UnitOrUnitless = Unit>({
   icon,
   defaultValue,
   onChange,
@@ -85,27 +114,31 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
   allowNegative,
   options,
   step = {},
+  allowedUnits,
   nullable,
   forceUnit,
   id,
-}) => {
+}: RawNumberInputWithUnitsProps<U>) {
+  const availableUnits = (allowedUnits ?? units) as readonly U[];
   const [value, setValue] = React.useState(defaultValue?.value ?? null);
   React.useEffect(() => {
     setValue(defaultValue?.value ?? null);
   }, [defaultValue, setValue]);
 
-  const [unit, setUnit] = React.useState(
-    defaultValue?.unit ?? forceUnit ?? "px",
+  const [unit, setUnit] = React.useState<U>(
+    defaultValue?.unit ?? forceUnit ?? ("px" as U),
   );
   React.useEffect(() => {
-    setUnit(defaultValue?.unit ?? forceUnit ?? "px");
-  }, [defaultValue, setUnit]);
+    setUnit(defaultValue?.unit ?? forceUnit ?? ("px" as U));
+  }, [defaultValue, forceUnit]);
+
+  const unitKey = unit as UnitOrUnitless;
 
   // Get current unit values with fallbacks to base configs
   const currentStep =
     step[unit] ??
     step.base ??
-    baseUnitConfigs.step[unit] ??
+    baseUnitConfigs.step[unitKey] ??
     baseUnitConfigs.step.base;
   const currentMin = noMin
     ? allowNegative
@@ -113,24 +146,24 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
       : 0
     : (min?.[unit] ??
       min?.base ??
-      baseUnitConfigs.min[unit] ??
+      baseUnitConfigs.min[unitKey] ??
       baseUnitConfigs.min.base);
   const currentMax = noMax
     ? undefined
     : (max?.[unit] ??
       max?.base ??
-      baseUnitConfigs.max[unit] ??
+      baseUnitConfigs.max[unitKey] ??
       baseUnitConfigs.max.base);
   const currentOptions = [
     ...(options?.[unit] ??
       options?.base ??
-      baseUnitConfigs.options[unit] ??
+      baseUnitConfigs.options[unitKey] ??
       baseUnitConfigs.options.base),
   ];
 
   const handleValueChange = useCallback(
     (value: number | null) => {
-      const val: NumberValueWithUnit | null =
+      const val: NumberValueForUnit<U> | null =
         value === null
           ? null
           : {
@@ -139,23 +172,23 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
             };
 
       setValue(value);
-      onChange(val as NumberValueWithUnit);
+      onChange(val as NumberValueForUnit<U>);
     },
     [onChange, unit],
   );
 
   const handleUnitChange = useCallback(
-    (unit: Unit) => {
-      const val: NumberValueWithUnit | null =
+    (nextUnit: U) => {
+      const val: NumberValueForUnit<U> | null =
         value === null
           ? null
           : {
-              unit,
+              unit: nextUnit,
               value,
             };
 
-      setUnit(unit);
-      onChange(val as NumberValueWithUnit);
+      setUnit(nextUnit);
+      onChange(val as NumberValueForUnit<U>);
     },
     [onChange, value],
   );
@@ -169,13 +202,16 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
         min={currentMin}
         max={currentMax}
         options={currentOptions}
-        float={unit === "rem"}
+        float={unitAllowsDecimals(unit)}
         nullable={nullable}
         step={currentStep}
         disableNegative={!allowNegative}
         id={id}
       />
-      <Select value={unit} onValueChange={handleUnitChange}>
+      <Select
+        value={unitToSelectValue(unit)}
+        onValueChange={(next) => handleUnitChange(selectValueToUnit(next) as U)}
+      >
         <SelectTrigger
           className="w-min"
           size="sm"
@@ -184,9 +220,9 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
           <SelectValue placeholder="Select unit" />
         </SelectTrigger>
         <SelectContent>
-          {units.map((u) => (
-            <SelectItem key={u} value={u}>
-              {u}
+          {availableUnits.map((u) => (
+            <SelectItem key={unitToSelectValue(u)} value={unitToSelectValue(u)}>
+              {formatUnitLabel(u)}
             </SelectItem>
           ))}
         </SelectContent>
@@ -194,4 +230,4 @@ export const RawNumberInputWithUnit: React.FC<RawNumberInputWithUnitsProps> = ({
       {/* <ResetButton onClick={handleChange} /> */}
     </div>
   );
-};
+}

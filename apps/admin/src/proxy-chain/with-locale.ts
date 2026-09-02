@@ -20,9 +20,16 @@ export const withLocale: MiddlewareProxy = (next) => {
       request.nextUrl.pathname.startsWith("/install") ||
       request.nextUrl.pathname.startsWith("/checkout");
 
+    const isPreviewGenerationPath =
+      request.nextUrl.pathname.startsWith("/template-previews");
+
     request.headers.set("x-is-admin-path", "true");
     request.headers.set("x-pathname", nextUrl.pathname);
     request.headers.set("x-is-install-path", isInstallPath ? "true" : "false");
+    request.headers.set(
+      "x-is-preview-generation-path",
+      isPreviewGenerationPath ? "true" : "false",
+    );
 
     return next(request, event);
   };

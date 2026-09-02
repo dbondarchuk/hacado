@@ -172,4 +172,4 @@ export const AccordionItemPropsDefaults = () =>
         },
       ],
     },
-  }) as const satisfies AccordionItemProps;
+  }) satisfies AccordionItemProps;

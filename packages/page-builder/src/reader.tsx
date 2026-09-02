@@ -12,10 +12,12 @@ export const PageReader = ({
   document,
   args,
   blockRegistry,
+  isEditor,
 }: {
   document: any;
   args?: any;
   blockRegistry?: BlockProviderRegistry<any>;
+  isEditor?: boolean;
 }) => {
   return (
     <Reader
@@ -27,6 +29,7 @@ export const PageReader = ({
         } as any
       }
       args={args}
+      isEditor={isEditor}
     />
   );
 };

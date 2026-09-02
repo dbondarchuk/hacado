@@ -955,6 +955,147 @@ pageBuilder:
       videoBackground: Video background hero
       minimal: Minimal hero
       leftOverlay: Left overlay hero
+    socialProof:
+      logoMarquee: Logo marquee section
+      statsRow: Stats row section
+      testimonialsGrid: Testimonials grid
+      logoCloudGrid: Logo cloud grid
+    features:
+      featuresShowcase: Features showcase section
+      featuresBento: Features bento grid
+      zigzagFeature: Zigzag feature rows
+      featureListWithImage: Feature list with image
+    conversion:
+      pricingThreeColumn: Pricing three column
+      ctaBandSection: CTA band section
+      announcementBar: Announcement bar
+    content:
+      faqSection: FAQ section
+      howItWorksSection: How it works section
+      comparisonTableSection: Comparison table section
+      beforeAfterSection: Before & after section
+    media:
+      browserCarouselSection: Browser carousel section
+      videoEmbedSection: Video embed section
+      galleryGrid: Gallery grid
+      galleryCarousel: Gallery carousel
+    booking:
+      bookingSection: Booking section
+  sectionDefaults:
+    socialProof:
+      logoMarquee:
+        title: Trusted by salons like yours
+        body: Join independent salons and spas that fill their chairs with Hacado.
+      statsRow:
+        title: Results salon owners see
+        body: Real outcomes from businesses running on Hacado every day.
+        stat1Value: "40%"
+        stat1Label: fewer no-shows
+        stat1Supporting: with automated SMS reminders
+        stat2Value: "2×"
+        stat2Label: more online bookings
+        stat2Supporting: when clients can book 24/7
+        stat3Value: "15 min"
+        stat3Label: saved per appointment
+        stat3Supporting: with confirmations handled for you
+        stat4Value: "98%"
+        stat4Label: client satisfaction
+        stat4Supporting: from salons using branded booking pages
+      testimonialsGrid:
+        title: Loved by salon owners
+        body: Hear from stylists and spa owners who switched to online booking.
+      logoCloudGrid:
+        title: Salons powered by Hacado
+        body: Independent beauty businesses growing with our platform.
+    features:
+      featuresShowcase:
+        eyebrow: Features
+        title: Everything you need to grow
+        body: Explore the tools that help you launch faster and scale with confidence.
+      featuresBento:
+        title: Built for salon owners
+        body: Run your chair, not your inbox — bookings, payments, and reminders in one place.
+        tile1Title: Online booking
+        tile1Body: Clients pick a service, stylist, and time — even after hours.
+        tile2Title: Smart reminders
+        tile2Body: Cut no-shows with automatic SMS and email before every visit.
+        tile3Title: Deposits & checkout
+        tile3Body: Secure chair time with deposits or take payment when they book.
+        tile4Title: Run it from your phone
+        tile4Body: Check your day, message clients, and block time between appointments.
+      zigzagFeature:
+        image1Alt: Salon interior
+        image2Alt: Stylist working with a client
+        row1Title: A polished first impression
+        row1Body: Showcase your space, services, and team with a beautiful booking website that matches your brand.
+        row2Title: Less admin, more chair time
+        row2Body: Automate confirmations, reminders, and reschedules so you can focus on clients in the chair.
+      featureListWithImage:
+        title: Why salon owners choose us
+        list: "• Fill your calendar with 24/7 online booking\n• Reduce no-shows with automated SMS reminders\n• Look professional with a branded client experience\n• Get paid upfront with deposits and card payments"
+        imageAlt: Modern salon styling station
+    conversion:
+      pricingThreeColumn:
+        title: Simple, transparent pricing
+        body: Choose the plan that fits your salon. Upgrade anytime.
+    content:
+      faqSection:
+        eyebrow: FAQ
+        title: Frequently asked questions
+        body: Everything you need to know about getting started.
+        q1: How do I get started?
+        a1: Create an account, pick a template, and publish your first page in minutes.
+        q2: Can I change plans later?
+        a2: Yes. Upgrade or downgrade anytime from your account settings.
+        q3: Do you offer a free trial?
+        a3: Every plan includes a trial period so you can explore before committing.
+        q4: How do I contact support?
+        a4: Reach our team via chat or email — we typically respond within one business day.
+      howItWorksSection:
+        title: How it works
+        body: Four simple steps to launch your salon booking page.
+        step1Number: "1"
+        step1Title: Add your salon
+        step1Bullets: "• List services, prices, and duration\n• Upload photos of your space\n• Set your team and working hours"
+        step2Number: "2"
+        step2Title: Share your booking link
+        step2Bullets: "• Add it to Instagram and Google\n• Drop it in your bio and email signature\n• Embed it on your existing website"
+        step3Number: "3"
+        step3Title: Clients book themselves
+        step3Bullets: "• They pick a service and time slot\n• Confirmations go out automatically\n• You get notified instantly"
+        step4Number: "4"
+        step4Title: Show up and do what you love
+        step4Bullets: "• Reminders reduce no-shows\n• Deposits protect your schedule\n• Client history stays in one place"
+      comparisonTableSection:
+        title: Compare plans
+        body: See how our tiers stack up side by side.
+      beforeAfterSection:
+        title: See the difference
+        body: Drag the slider to compare before and after results.
+        beforeAlt: Before treatment
+        afterAlt: After treatment
+    media:
+      browserCarouselSection:
+        eyebrow: Salon software tour
+        title: See your booking flow
+        body: A peek at the tools your clients and team use every day.
+        slide1Label: Branded booking page
+        slide1Address: glowstudio.hacado.me/book
+        slide2Label: Salon calendar
+        slide2Address: app.hacado.com/calendar
+        slide3Label: Client reminders
+        slide3Address: app.hacado.com/reminders
+      videoEmbedSection:
+        title: Watch how salons use Hacado
+        body: A quick walkthrough of online booking for your salon.
+      galleryGrid:
+        title: Inside the salon
+        body: Spaces, services, and results from salons on Hacado.
+        imageAlt: Salon photo
+    booking:
+      bookingSection:
+        title: Book your appointment
+        body: Pick a service, choose a time, and confirm in seconds.
   heroDefaults:
     title: Build something people love
     subtitle: A short supporting line that explains your value proposition.
@@ -980,6 +1121,10 @@ pageBuilder:
       navigation: Navigation
       marketing: Marketing
       heroes: Heroes
+      socialProof: Social proof
+      features: Features
+      conversion: Conversion
+      media: Media
     heading:
       displayName: Heading
       content: Content

@@ -30,6 +30,7 @@ export const BookingReader = ({
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}
         flowOrder={props.flowOrder}
+        isEditor={isEditor}
       />
     </>
   );

@@ -20,14 +20,24 @@ import {
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { ShortcutWithNumberWithUnit } from "../../shortcuts";
-import { baseUnitConfigs } from "../../style-inputs/base/raw-number-input-with-units";
+import {
+  baseUnitConfigs,
+  formatUnitLabel,
+  selectValueToUnit,
+  unitAllowsDecimals,
+  unitToSelectValue,
+} from "../../style-inputs/base/raw-number-input-with-units";
 import { BaseStyleDictionary } from "../../style/types";
-import { NumberValueWithUnit, Unit, units } from "../../style/zod";
+import {
+  NumberValueWithUnitOrUnitless,
+  UnitOrUnitless,
+  units,
+} from "../../style/zod";
 
 export interface NumberWithUnitShortcutToolbarItem {
   shortcut: ShortcutWithNumberWithUnit<BaseStyleDictionary>;
-  currentNumericValue: NumberValueWithUnit | null;
-  onValueChange: (value: NumberValueWithUnit) => void;
+  currentNumericValue: NumberValueWithUnitOrUnitless | null;
+  onValueChange: (value: NumberValueWithUnitOrUnitless) => void;
   tooltip: AllKeys;
 }
 
@@ -37,47 +47,50 @@ export const NumberInputWithUnitsToolbarMenu = ({
   setData,
 }: {
   shortcut: NumberWithUnitShortcutToolbarItem;
-  data: NumberValueWithUnit | null;
-  setData: (value: NumberValueWithUnit) => void;
+  data: NumberValueWithUnitOrUnitless | null;
+  setData: (value: NumberValueWithUnitOrUnitless) => void;
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const openState = useOpenState();
   const t = useI18n();
 
   const config = shortcut.shortcut.numberWithUnitConfig;
+  const availableUnits = (config?.allowedUnits ??
+    units) as readonly UnitOrUnitless[];
+  const activeUnit = currentNumericValue?.unit ?? "rem";
 
-  const handleValueChange = (value: NumberValueWithUnit | null) => {
+  const handleValueChange = (value: NumberValueWithUnitOrUnitless | null) => {
     if (value) {
       setData(value);
     }
   };
 
   const currentStep =
-    config?.step?.[currentNumericValue?.unit ?? "rem"] ??
+    config?.step?.[activeUnit] ??
     config?.step?.base ??
-    baseUnitConfigs.step[currentNumericValue?.unit ?? "rem"] ??
+    baseUnitConfigs.step[activeUnit] ??
     baseUnitConfigs.step.base;
   const currentMin =
-    config?.min?.[currentNumericValue?.unit ?? "rem"] ??
+    config?.min?.[activeUnit] ??
     config?.min?.base ??
-    baseUnitConfigs.min[currentNumericValue?.unit ?? "rem"] ??
+    baseUnitConfigs.min[activeUnit] ??
     baseUnitConfigs.min.base;
   const currentMax =
-    config?.max?.[currentNumericValue?.unit ?? "rem"] ??
+    config?.max?.[activeUnit] ??
     config?.max?.base ??
-    baseUnitConfigs.max[currentNumericValue?.unit ?? "rem"] ??
+    baseUnitConfigs.max[activeUnit] ??
     baseUnitConfigs.max.base;
   const currentOptions = [
-    ...(config?.options?.[currentNumericValue?.unit ?? "rem"] ??
+    ...(config?.options?.[activeUnit] ??
       config?.options?.base ??
-      baseUnitConfigs.options[currentNumericValue?.unit ?? "rem"] ??
+      baseUnitConfigs.options[activeUnit] ??
       baseUnitConfigs.options.base),
   ];
 
   const parseFn = (val: string) =>
     val.length === 0
       ? null
-      : currentNumericValue?.unit === "rem"
+      : unitAllowsDecimals(activeUnit)
         ? parseFloat(val)
         : parseInt(val);
 
@@ -86,15 +99,15 @@ export const NumberInputWithUnitsToolbarMenu = ({
     if (typeof currentMin !== "undefined" && value < currentMin) {
       handleValueChange({
         value: currentMin,
-        unit: currentNumericValue?.unit ?? "rem",
+        unit: activeUnit,
       });
     } else if (typeof currentMax !== "undefined" && value > currentMax) {
       handleValueChange({
         value: currentMax,
-        unit: currentNumericValue?.unit ?? "rem",
+        unit: activeUnit,
       });
     } else {
-      handleValueChange({ value, unit: currentNumericValue?.unit ?? "rem" });
+      handleValueChange({ value, unit: activeUnit });
     }
   };
 
@@ -105,7 +118,7 @@ export const NumberInputWithUnitsToolbarMenu = ({
     handleInputChange(newSize);
   };
 
-  const handleUnitChange = (unit: Unit) => {
+  const handleUnitChange = (unit: UnitOrUnitless) => {
     handleValueChange({ value: currentNumericValue?.value ?? 0, unit });
   };
 
@@ -175,22 +188,24 @@ export const NumberInputWithUnitsToolbarMenu = ({
                 isDropdown
                 className="text-xs"
               >
-                {currentNumericValue?.unit ?? "rem"}
+                {formatUnitLabel(activeUnit)}
               </ToolbarButton>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="min-w-0" align="start">
               <DropdownMenuRadioGroup
-                value={currentNumericValue?.unit ?? "rem"}
-                onValueChange={(unit) => handleUnitChange(unit as Unit)}
+                value={unitToSelectValue(activeUnit)}
+                onValueChange={(unit) =>
+                  handleUnitChange(selectValueToUnit(unit))
+                }
               >
-                {units.map((unit) => (
+                {availableUnits.map((unit) => (
                   <DropdownMenuRadioItem
-                    key={unit}
-                    value={unit}
+                    key={unitToSelectValue(unit)}
+                    value={unitToSelectValue(unit)}
                     className="min-w-[20px] text-xs"
                   >
-                    {unit}
+                    {formatUnitLabel(unit)}
                   </DropdownMenuRadioItem>
                 ))}
               </DropdownMenuRadioGroup>
@@ -219,16 +234,16 @@ export const createNumberWithUnitToolbarItem = <T extends BaseStyleDictionary>(
     (s: any) => !s.breakpoint?.length && !s.state?.length,
   );
 
-  const currentNumericValue: NumberValueWithUnit | null =
+  const currentNumericValue: NumberValueWithUnitOrUnitless | null =
     currentStyle?.value &&
     typeof currentStyle.value === "object" &&
     "value" in currentStyle.value &&
     "unit" in currentStyle.value
-      ? (currentStyle.value as NumberValueWithUnit)
+      ? (currentStyle.value as NumberValueWithUnitOrUnitless)
       : null;
 
   // Apply number-with-unit value change
-  const applyNumberWithUnitValue = (value: NumberValueWithUnit) => {
+  const applyNumberWithUnitValue = (value: NumberValueWithUnitOrUnitless) => {
     const newData = { ...data };
     const newStyles = { ...newData.style };
 

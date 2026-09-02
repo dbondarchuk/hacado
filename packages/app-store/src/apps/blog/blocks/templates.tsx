@@ -43,6 +43,7 @@ import { BlogPostReadTimePropsDefaults } from "./post-read-time/schema";
 import { BlogPostTagPropsDefaults } from "./post-tag/schema";
 import { BlogPostTitlePropsDefaults } from "./post-title/schema";
 import { BlogPostsContainerPropsDefaults } from "./posts-container/schema";
+import { blogTemplatePreviewPath } from "./preview-manifest";
 import { getBlogPostReadMoreLinkBlock } from "./read-more-link-block";
 
 // Define InlineContainerPropsDefaults inline to avoid import issues
@@ -116,6 +117,14 @@ const BlogPostFeaturedImagePropsDefaults = (withLink: boolean = false) =>
         },
       ],
       maxWidth: [
+        {
+          value: {
+            value: 100,
+            unit: "%",
+          },
+        },
+      ],
+      width: [
         {
           value: {
             value: 100,
@@ -592,6 +601,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("post-featured-image.png"),
     getBlock: (): TEditorBlock => getBlogPostFeaturedImageBlock(true),
   },
   PostReadMore: {
@@ -605,6 +615,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("post-read-more.png"),
     getBlock: (t): TEditorBlock =>
       getBlogPostReadMoreLinkBlock(
         t("app_blog_public.readMore" satisfies BlogPublicAllKeys),
@@ -621,6 +632,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("post-title-header.png"),
     getBlock: (): TEditorBlock => {
       const titleId = generateId();
       return {
@@ -653,6 +665,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("post-tags.png"),
     getBlock: (): TEditorBlock => {
       const foreachId = generateId();
       const tagId = generateId();
@@ -700,6 +713,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("post-meta.png"),
     getBlock: (): TEditorBlock => getPostMetaBlock(),
   },
   BlogPost: {
@@ -713,6 +727,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("blog-post.png"),
     getBlock: (t): TEditorBlock => {
       const containerId = generateId();
       const titleHeaderId = generateId();
@@ -827,6 +842,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("comments-list-navigation.png"),
     getBlock: (): TEditorBlock => {
       const containerId = generateId();
       const prevButtonId = generateId();
@@ -887,6 +903,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("blog-comments-list.png"),
     getBlock: (): TEditorBlock =>
       buildBlogCommentsContainerBlock(appName, appId),
   },
@@ -901,6 +918,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("posts-list-navigation.png"),
     getBlock: (): TEditorBlock => {
       const containerId = generateId();
       const prevButtonId = generateId();
@@ -981,6 +999,7 @@ export const BlogTemplates: (
       BlogAdminNamespace,
       BlogAdminKeys
     >,
+    previewImage: blogTemplatePreviewPath("blog-posts-list.png"),
     getBlock: (t): TEditorBlock => {
       const postsContainerId = generateId();
       const foreachId = generateId();

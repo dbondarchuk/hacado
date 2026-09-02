@@ -32,6 +32,7 @@ export const getConfig = (
       namespaceLoaders.ui(),
       namespaceLoaders.validation(),
     ]);
+
     let messages: Record<string, any> = {
       translation: translation.default,
       ui: ui.default,

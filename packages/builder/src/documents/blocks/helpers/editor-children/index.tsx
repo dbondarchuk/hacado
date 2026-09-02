@@ -22,6 +22,7 @@ import {
   BlockFilterRuleResult,
 } from "../../../types";
 import { matchesRule } from "../../../utils";
+import { getDropTargetOrientation, LiveDropTarget } from "./live-drop-target";
 import { OverlayBlock } from "./overlay-block";
 
 export type EditorChildrenChange = {
@@ -69,6 +70,7 @@ const Placeholder = ({
         parentProperty: property,
         index,
         type: "",
+        isInsertSlot: true,
       } satisfies DndContext,
     },
   });
@@ -159,17 +161,37 @@ const EditorChildrenRender = deepMemo(
       setAllowedRule(currentBlockId, property, allow ?? {});
     }, [allow, currentBlockId, property, setAllowedRule, isCurrentOverlay]);
 
+    const orientation = getDropTargetOrientation(allow);
+    const showLiveDropTargets = ChildWrapper === Fragment;
+
     return (
       <>
         {childrenIds
           ?.filter((blockId) => !!blockId)
           .map((childId, i) => (
             <Fragment key={childId}>
-              <OverlayBlock
-                blockId={currentBlockId}
-                property={property}
-                index={i}
-              />
+              {showLiveDropTargets ? (
+                <LiveDropTarget
+                  blockId={currentBlockId}
+                  property={property}
+                  index={i}
+                  depth={depth + 1}
+                  allow={allow}
+                  orientation={orientation}
+                >
+                  <OverlayBlock
+                    blockId={currentBlockId}
+                    property={property}
+                    index={i}
+                  />
+                </LiveDropTarget>
+              ) : (
+                <OverlayBlock
+                  blockId={currentBlockId}
+                  property={property}
+                  index={i}
+                />
+              )}
               <ChildWrapper>
                 <EditorBlock
                   blockId={childId}
@@ -190,6 +212,21 @@ const EditorChildrenRender = deepMemo(
             depth={depth + 1}
             allow={allow}
           />
+        ) : showLiveDropTargets ? (
+          <LiveDropTarget
+            blockId={currentBlockId}
+            property={property}
+            index={childrenIds.length}
+            depth={depth + 1}
+            allow={allow}
+            orientation={orientation}
+          >
+            <OverlayBlock
+              blockId={currentBlockId}
+              property={property}
+              index={childrenIds.length}
+            />
+          </LiveDropTarget>
         ) : (
           <OverlayBlock
             blockId={currentBlockId}

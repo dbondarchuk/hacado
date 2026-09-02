@@ -2,7 +2,7 @@ import { AllKeys } from "@hacado/i18n";
 import * as z from "zod";
 import { RawNumberInputWithUnitsProps } from "../style-inputs/base/raw-number-input-with-units";
 import { BaseStyleDictionary } from "../style/types";
-import { StateWithTarget } from "../style/zod";
+import { StateWithTarget, UnitOrUnitless } from "../style/zod";
 
 type ShortcutTargetValue<T extends BaseStyleDictionary, K extends keyof T> =
   | z.infer<T[K]>
@@ -94,8 +94,8 @@ export type ShortcutWithNumberWithUnit<T extends BaseStyleDictionary> =
     targetStyle: keyof T; // Required singular target style
     numberWithUnitConfig?: Partial<
       Pick<
-        RawNumberInputWithUnitsProps,
-        "min" | "max" | "step" | "options" | "forceUnit"
+        RawNumberInputWithUnitsProps<UnitOrUnitless>,
+        "min" | "max" | "step" | "options" | "forceUnit" | "allowedUnits"
       >
     >;
   };

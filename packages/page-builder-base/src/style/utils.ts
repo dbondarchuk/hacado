@@ -14,6 +14,7 @@ import {
   isPerSideValue,
   NumberValueWithUnit,
   NumberValueWithUnitOrKeyword,
+  NumberValueWithUnitOrUnitless,
   PerCornerKey,
   perCornerKeys,
   PerSideKey,
@@ -127,7 +128,9 @@ export function getStylesSchema<T extends BaseStyleDictionary>(
   return z.object(baseSchema).optional().nullable();
 }
 
-export const renderRawNumberWithUnitCss = (value: NumberValueWithUnit) => {
+export const renderRawNumberWithUnitCss = (
+  value: NumberValueWithUnit | NumberValueWithUnitOrUnitless,
+) => {
   if (!value) return null;
   return `${value.value}${value.unit}`;
 };

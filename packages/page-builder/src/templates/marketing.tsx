@@ -24,6 +24,7 @@ import { ImagePropsDefaults } from "../blocks/image/schema";
 import { InlineContainerPropsDefaults } from "../blocks/inline-container";
 import { InlineTextPropsDefaults } from "../blocks/inline-text";
 import { TextPropsDefaults } from "../blocks/text/schema";
+import { marketingTemplatePreviewPath } from "./preview-manifest";
 
 const category =
   "builder.pageBuilder.blocks.categories.marketing" satisfies BaseAllKeys;
@@ -156,6 +157,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.sectionIntro" satisfies BaseAllKeys,
     icon: <LayoutTemplate />,
     category,
+    previewImage: marketingTemplatePreviewPath("section-intro.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -175,6 +177,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
                     display: [{ value: "flex" }],
                     flexDirection: [{ value: "column" }],
                     alignItems: [{ value: "center" }],
+                    justifySelf: [{ value: "center" }],
                     gap: [
                       {
                         value: { value: 0.5, unit: "rem" },
@@ -208,6 +211,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.statCell" satisfies BaseAllKeys,
     icon: <BarChart3 />,
     category,
+    previewImage: marketingTemplatePreviewPath("stat-cell.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -269,6 +273,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.step" satisfies BaseAllKeys,
     icon: <ListOrdered />,
     category,
+    previewImage: marketingTemplatePreviewPath("step.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -316,6 +321,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.testimonialCard" satisfies BaseAllKeys,
     icon: <MessageSquareQuote />,
     category,
+    previewImage: marketingTemplatePreviewPath("testimonial-card.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -383,6 +389,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.ctaBand" satisfies BaseAllKeys,
     icon: <Megaphone />,
     category,
+    previewImage: marketingTemplatePreviewPath("cta-band.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const btn = ButtonPropsDefaults();
@@ -496,6 +503,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.planCard" satisfies BaseAllKeys,
     icon: <CreditCard />,
     category,
+    previewImage: marketingTemplatePreviewPath("plan-card.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const btn = planCtaButton(t, ButtonPropsDefaults());
@@ -508,7 +516,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
             ...ContainerPropsDefaults.style,
             display: [{ value: "flex" }],
             flexDirection: [{ value: "column" }],
-            alignItems: [{ value: "stretch" }],
+            alignItems: [{ value: "center" }],
             gap: [{ value: { value: 1, unit: "rem" } }],
             padding: [
               {
@@ -595,6 +603,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.badge" satisfies BaseAllKeys,
     icon: <Sparkles />,
     category,
+    previewImage: marketingTemplatePreviewPath("badge.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const iconDefaults = IconPropsDefaults;
@@ -656,7 +665,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
                   style: {
                     fontSize: [{ value: { value: 0.875, unit: "rem" } }],
                     fontWeight: [{ value: "600" }],
-                    color: [{ value: "inherit" }],
+                    color: [{ value: "currentColor" }],
                   },
                 },
               },
@@ -671,6 +680,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.banner" satisfies BaseAllKeys,
     icon: <Flag />,
     category,
+    previewImage: marketingTemplatePreviewPath("banner.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const iconDefaults = IconPropsDefaults;
@@ -746,6 +756,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
       "builder.pageBuilder.templates.marketing.logoCard" satisfies BaseAllKeys,
     icon: <Puzzle />,
     category,
+    previewImage: marketingTemplatePreviewPath("logo-card.png"),
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const imgDefaults = ImagePropsDefaults;

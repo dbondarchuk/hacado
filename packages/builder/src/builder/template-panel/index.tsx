@@ -165,23 +165,25 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
 
           let modifier = 0;
 
-          const collisionData = manager.collisionObserver.collisions[0]?.data;
-          if (collisionData) {
-            const collisionPosition =
-              collisionData?.direction === "up" ||
-              collisionData?.direction === "left"
-                ? "before"
-                : "after";
-            modifier = collisionPosition === "after" ? 1 : 0;
-          } else {
-            const position =
-              dragOperation.shape?.current.center ??
-              dragOperation.position.current;
-            const target = event.operation.target;
-            const isBelowTarget =
-              target?.shape &&
-              Math.round(position.y) > Math.round(target.shape.center.y);
-            modifier = isBelowTarget ? 1 : 0;
+          if (!targetContext.isInsertSlot) {
+            const collisionData = manager.collisionObserver.collisions[0]?.data;
+            if (collisionData) {
+              const collisionPosition =
+                collisionData?.direction === "up" ||
+                collisionData?.direction === "left"
+                  ? "before"
+                  : "after";
+              modifier = collisionPosition === "after" ? 1 : 0;
+            } else {
+              const position =
+                dragOperation.shape?.current.center ??
+                dragOperation.position.current;
+              const target = event.operation.target;
+              const isBelowTarget =
+                target?.shape &&
+                Math.round(position.y) > Math.round(target.shape.center.y);
+              modifier = isBelowTarget ? 1 : 0;
+            }
           }
 
           const index = targetContext.index + modifier;

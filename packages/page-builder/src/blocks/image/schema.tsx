@@ -64,4 +64,4 @@ export const ImagePropsDefaults = {
       },
     ],
   },
-} as const satisfies ImageProps;
+} satisfies ImageProps;
