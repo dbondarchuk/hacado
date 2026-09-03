@@ -36,6 +36,7 @@ export const socialProofEditorTemplates: TemplatesConfiguration = {
     icon: <Building2 />,
     category,
     previewImage: sectionTemplatePreviewPath("logo-marquee.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell([
         buildSectionIntro(t, {
@@ -52,6 +53,7 @@ export const socialProofEditorTemplates: TemplatesConfiguration = {
     icon: <BarChart3 />,
     category,
     previewImage: sectionTemplatePreviewPath("stats-row.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell(
         [
@@ -86,6 +88,7 @@ export const socialProofEditorTemplates: TemplatesConfiguration = {
     icon: <MessageSquareQuote />,
     category,
     previewImage: sectionTemplatePreviewPath("testimonials-grid.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell([
         buildSectionIntro(t, {

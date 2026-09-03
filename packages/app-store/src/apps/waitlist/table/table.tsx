@@ -1,21 +1,20 @@
 "use client";
 
-import { useQueryStates } from "nuqs";
-import React from "react";
-import { searchParams } from "./search-params";
-
 import { useI18n } from "@hacado/i18n/client";
 import { WithTotal } from "@hacado/types";
 import { toast, useDebounce } from "@hacado/ui";
 import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
+import { useQueryStates } from "nuqs";
+import React from "react";
 import { getWaitlistEntries } from "../actions";
-import { WaitlistEntry } from "../models";
+import { WaitlistEntry, WaitlistStatus } from "../models";
 import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,
   waitlistAdminNamespace,
 } from "../translations/types";
 import { columns } from "./columns";
+import { searchParams } from "./search-params";
 
 export const WaitlistTable: React.FC<{
   appId: string;
@@ -48,7 +47,7 @@ export const WaitlistTable: React.FC<{
       const optionId = query.option;
       const customerId = customerIdLock ? [customerIdLock] : query.customer;
       const memberId = query.member;
-      const status = query.status;
+      const status = query.status as (WaitlistStatus | "expired")[];
       const start = query.start;
       const end = query.end;
       const sort = query.sort;

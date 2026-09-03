@@ -1,4 +1,8 @@
-export type TemplatePreviewGroup = "marketing" | "heroes" | "sections";
+export type TemplatePreviewGroup =
+  | "marketing"
+  | "heroes"
+  | "sections"
+  | "layouts";
 
 export type TemplatePreviewEntry = {
   key: string;
@@ -104,10 +108,38 @@ export const SECTION_TEMPLATE_PREVIEWS = [
   },
 ] as const satisfies readonly TemplatePreviewEntry[];
 
+const LAYOUT_PACKS = [
+  "salon",
+  "tattoo",
+  "spa",
+  "coach",
+  "fitness",
+  "photography",
+  "clinic",
+  "pet",
+  "home_services",
+  "professional",
+] as const;
+
+const LAYOUT_KINDS = ["home", "booking", "service", "about", "terms"] as const;
+
+export const LAYOUT_TEMPLATE_PREVIEWS = LAYOUT_PACKS.flatMap((packId) =>
+  LAYOUT_KINDS.map(
+    (layoutKind) =>
+      ({
+        key: `Layout_${packId}_${layoutKind}`,
+        group: "layouts" as const,
+        file: `${packId}-${layoutKind}.png`,
+        delayMs: layoutKind === "booking" ? 5_000 : 3_000,
+      }) satisfies TemplatePreviewEntry,
+  ),
+);
+
 export const TEMPLATE_PREVIEWS = [
   ...MARKETING_TEMPLATE_PREVIEWS,
   ...HERO_TEMPLATE_PREVIEWS,
   ...SECTION_TEMPLATE_PREVIEWS,
+  ...LAYOUT_TEMPLATE_PREVIEWS,
 ] as const;
 
 export type TemplatePreviewKey = (typeof TEMPLATE_PREVIEWS)[number]["key"];
@@ -134,6 +166,10 @@ export function heroTemplatePreviewPath(file: string): string {
 
 export function sectionTemplatePreviewPath(file: string): string {
   return templatePreviewPath("sections", file);
+}
+
+export function layoutTemplatePreviewPath(file: string): string {
+  return templatePreviewPath("layouts", file);
 }
 
 const previewByKey = new Map(

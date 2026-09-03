@@ -16,7 +16,7 @@ import { RawNumberInput } from "./raw-number-input";
 export const UNITLESS_SELECT_VALUE = "unitless";
 
 export const formatUnitLabel = (unit: string) =>
-  unit === UNITLESS_UNIT ? "—" : unit;
+  unit === UNITLESS_UNIT ? "-" : unit;
 
 export const unitToSelectValue = (unit: UnitOrUnitless) =>
   unit === UNITLESS_UNIT ? UNITLESS_SELECT_VALUE : unit;

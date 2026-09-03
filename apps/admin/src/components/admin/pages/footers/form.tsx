@@ -36,14 +36,6 @@ import {
   useIsDirty,
 } from "../../navigation-guard/dialog";
 
-const baseNotAllowedBlocks = [
-  "Booking",
-  "Popup",
-  "ModifyAppointmentForm",
-  "BookingConfirmation",
-  "Redirect",
-];
-
 export const PageFooterForm: React.FC<{
   initialData?: PageFooterUpdateModel & { _id?: string };
   args: Record<string, any>;
@@ -221,7 +213,7 @@ export const PageFooterForm: React.FC<{
                 <FormControl>
                   <PageBuilder
                     args={args}
-                    notAllowedBlocks={baseNotAllowedBlocks}
+                    type="footer"
                     value={field.value}
                     onIsValidChange={onPageBuilderValidChange}
                     onChange={field.onChange}

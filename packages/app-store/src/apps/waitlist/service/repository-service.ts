@@ -169,7 +169,7 @@ export class WaitlistRepositoryService {
       customerId?: string | string[];
       memberId?: string | string[];
       range?: DateRange;
-      status?: WaitlistStatus[];
+      status?: (WaitlistStatus | "expired")[];
       ids?: string[];
     },
   ): Promise<WithTotal<WaitlistEntry>> {
@@ -192,6 +192,7 @@ export class WaitlistRepositoryService {
         appId: this.appId,
       },
     ];
+
     if (query.range?.start || query.range?.end) {
       const dateConditions: Record<string, any> = {};
 
@@ -251,9 +252,28 @@ export class WaitlistRepositoryService {
     }
 
     if (query.status) {
+      const compatibleStatuses = query.status.filter(
+        (status) => status !== "expired",
+      );
       $and.push({
-        status: { $in: query.status },
+        status: { $in: compatibleStatuses },
       });
+
+      // If we are not fetching expired entries, we need to add the date range filter to the query.
+      if (!query.status.includes("expired")) {
+        const dateConditions: Record<string, any> = {};
+
+        // Since dates.date is stored as a string (ISO YYYY-MM-DD), comparing lexicographically works correctly for date ordering.
+
+        const $or: Filter<WaitlistEntry>[] = [];
+        $or.push({ asSoonAsPossible: { $eq: true } });
+
+        dateConditions.$exists = true;
+        dateConditions.$gte = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+        $or.push({ "dates.date": dateConditions });
+        $and.push({ $or });
+      }
     }
 
     if (query.search) {

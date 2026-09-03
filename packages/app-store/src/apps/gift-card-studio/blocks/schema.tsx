@@ -37,6 +37,7 @@ export const GiftCardStudioEditors: EditorDocumentBlocksDictionary<
       "app_gift-card-studio_admin.block.giftCardPurchase.category" satisfies GiftCardStudioAdminAllKeys,
     capabilities: ["block"],
     tags: ["gift-card"],
+    allowedBuilderTypes: ["page"],
   },
 };
 

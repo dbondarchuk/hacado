@@ -36,6 +36,7 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
     icon: <CreditCard />,
     category,
     previewImage: sectionTemplatePreviewPath("pricing-three-column.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const plans = [1, 2, 3].map(() => marketingBlock("PlanCard", t));
       const highlighted = withBlockStyle(plans[1], {
@@ -84,6 +85,7 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
     icon: <Megaphone />,
     category,
     previewImage: sectionTemplatePreviewPath("cta-band-section.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const cta = withBlockStyle(marketingBlock("CtaBand", t), {
         backgroundColor: [{ value: "transparent" }],
@@ -114,6 +116,7 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
     icon: <Flag />,
     category,
     previewImage: sectionTemplatePreviewPath("announcement-bar.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       compositeContainer([marketingBlock("Banner", t)], 0, {
         padding: [

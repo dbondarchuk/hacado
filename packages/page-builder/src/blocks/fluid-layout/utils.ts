@@ -56,7 +56,7 @@ export function placementsForChildIds(
   return next;
 }
 
-/** Row tracks to render — content rows plus buffer for drop/resize. */
+/** Row tracks to render - content rows plus buffer for drop/resize. */
 export function getGridRowCount(
   placements: Record<string, FluidPlacement>,
   buffer = 2,

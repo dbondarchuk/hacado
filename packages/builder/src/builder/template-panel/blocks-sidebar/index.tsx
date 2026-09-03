@@ -8,16 +8,20 @@ import {
   AccordionTrigger,
   cn,
 } from "@hacado/ui";
-import { Blocks, Layers, ListTree } from "lucide-react";
-import { memo } from "react";
+import { Blocks, Layers, LayoutTemplate, ListTree } from "lucide-react";
+import { memo, useMemo } from "react";
 import {
   useShowBlocksPanel,
   useTemplates,
 } from "../../../documents/editor/context";
-import { BaseZodDictionary } from "../../../documents/types";
+import {
+  BaseZodDictionary,
+  isLayoutTemplate,
+  isSectionTemplate,
+} from "../../../documents/types";
 import { BlocksPanel } from "./blocks-panel";
 import { OutlinePanel } from "./outline-panel";
-import { TemplatesPanel } from "./templates-panel";
+import { LayoutsPanel, TemplatesPanel } from "./templates-panel";
 
 type BlocksPanelProps<T extends BaseZodDictionary = any> = {
   className?: string;
@@ -32,8 +36,14 @@ export const BlocksSidebar = memo(
     const t = useI18n("builder");
     const show = useShowBlocksPanel();
     const templates = useTemplates();
-    const showTemplates =
-      templates != null && Object.keys(templates).length > 0;
+
+    const { showSectionTemplates, showLayoutTemplates } = useMemo(() => {
+      const entries = Object.values(templates || {});
+      return {
+        showSectionTemplates: entries.some(isSectionTemplate),
+        showLayoutTemplates: entries.some(isLayoutTemplate),
+      };
+    }, [templates]);
 
     return (
       <div
@@ -49,7 +59,6 @@ export const BlocksSidebar = memo(
           defaultValue="blocks"
           className="flex-1 h-full flex flex-col justify-between"
         >
-          {/* Blocks Section */}
           <AccordionItem value="blocks" className="border-none">
             <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
               <div className="flex items-center gap-2">
@@ -64,7 +73,7 @@ export const BlocksSidebar = memo(
             </AccordionContent>
           </AccordionItem>
 
-          {showTemplates ? (
+          {showSectionTemplates ? (
             <AccordionItem value="templates" className="border-none">
               <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
                 <div className="flex items-center gap-2">
@@ -80,7 +89,22 @@ export const BlocksSidebar = memo(
             </AccordionItem>
           ) : null}
 
-          {/* Document Outline Section */}
+          {showLayoutTemplates ? (
+            <AccordionItem value="layouts" className="border-none">
+              <AccordionTrigger className="px-4 py-2 hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                <div className="flex items-center gap-2">
+                  <LayoutTemplate className="h-4 w-4" />
+                  <span className="text-sm font-medium">
+                    {t("baseBuilder.blocks.layouts.title")}
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-2">
+                <LayoutsPanel />
+              </AccordionContent>
+            </AccordionItem>
+          ) : null}
+
           <AccordionItem value="outline" className="border-none">
             <AccordionContent className="px-4 pb-2">
               <OutlinePanel />

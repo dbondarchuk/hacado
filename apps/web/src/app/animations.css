@@ -458,3 +458,18 @@
     opacity: 1;
   }
 }
+
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+@keyframes countUp {
+  from {
+    --num: 0;
+  }
+  to {
+    --num: var(--number);
+  }
+}

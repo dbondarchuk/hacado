@@ -5,7 +5,7 @@ description: Email customers when they join your waitlist, and notify them when 
 
 # Customer waitlist notifications
 
-Works together with **[Waitlist](/docs/apps/waitlist)**. After you turn it on, Hacado can email **the customer** who joined, and — when a matching time frees up — email and/or SMS them a signed book link and a leave link.
+Works together with **[Waitlist](/docs/apps/waitlist)**. After you turn it on, Hacado can email **the customer** who joined, and - when a matching time frees up - email and/or SMS them a signed book link and a leave link.
 
 Staff emails (assigned team member, coordinators and above) live on **[Waitlist](/docs/apps/waitlist)** settings.
 

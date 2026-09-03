@@ -458,3 +458,44 @@
     opacity: 1;
   }
 }
+
+@property --value {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --int {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --dec {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: true;
+}
+
+.counter {
+  animation: countUp 2s forwards ease-in-out;
+
+  /* Split into integer and two-decimal precision */
+  --int: calc(var(--value) - 0.5);
+  --dec: calc((var(--value) - var(--int)) * 100);
+
+  counter-reset: whole var(--int) decimal-part var(--dec);
+}
+
+.counter::before {
+  content: counter(whole) "." counter(decimal-part, decimal-leading-zero);
+}
+
+@keyframes countUp {
+  from {
+    --value: 0;
+  }
+  to {
+    --value: var(--number); /* Ending value with decimals */
+  }
+}

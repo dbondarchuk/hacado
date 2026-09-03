@@ -443,6 +443,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.layout" satisfies BaseAllKeys,
     capabilities: ["layout", "block"],
     tags: ["page-hero"],
+    allowedBuilderTypes: ["page"],
   },
   // Columns: {
   //   displayName: "Columns",
@@ -490,6 +491,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block"],
     tags: ["booking"],
+    allowedBuilderTypes: ["page"],
   },
   BookingModern: {
     displayName:
@@ -503,6 +505,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block"],
     tags: ["booking"],
+    allowedBuilderTypes: ["page"],
   },
   Carousel: {
     displayName:
@@ -558,6 +561,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     allowedIn: {
       type: ["PageLayout"],
     },
+    allowedBuilderTypes: ["page"],
   },
   InlineText: {
     displayName:
@@ -690,6 +694,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.navigation" satisfies BaseAllKeys,
     capabilities: ["redirect", "invisible"],
     tags: ["redirect"],
+    allowedBuilderTypes: ["page"],
   },
   ModifyAppointmentFormSimple: {
     displayName:
@@ -702,6 +707,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block", "modify-booking"],
     tags: ["booking", "modify-booking"],
+    allowedBuilderTypes: ["page"],
   },
   ModifyAppointmentFormModern: {
     displayName:
@@ -714,6 +720,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block", "modify-booking"],
     tags: ["booking", "modify-booking"],
+    allowedBuilderTypes: ["page"],
   },
   BookingConfirmationSimple: {
     displayName:
@@ -726,6 +733,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block"],
     tags: ["booking", "confirmation"],
+    allowedBuilderTypes: ["page"],
   },
   BookingConfirmationModern: {
     displayName:
@@ -738,6 +746,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       "builder.pageBuilder.blocks.categories.booking" satisfies BaseAllKeys,
     capabilities: ["booking", "block"],
     tags: ["booking", "confirmation"],
+    allowedBuilderTypes: ["page"],
   },
   MarketingScrollingLogos: {
     displayName:

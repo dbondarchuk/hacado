@@ -10,7 +10,7 @@
  * Options:
  *   --base-url=http://localhost:3001
  *   --only=HeroCenteredImage,BookingSection
- *   --group=marketing|heroes|sections|blog
+ *   --group=marketing|heroes|sections|layouts|blog
  *   --no-skip   Re-render even when PNG already exists
  */
 
@@ -45,6 +45,30 @@ function loadManifest() {
         file: match[3],
         delayMs: match[4] ? Number(match[4].replaceAll("_", "")) : undefined,
       });
+    }
+
+    // Synthesize layout pack previews from LAYOUT_PACKS / LAYOUT_KINDS arrays.
+    const packsMatch = source.match(
+      /const LAYOUT_PACKS = \[([\s\S]*?)\] as const/,
+    );
+    const kindsMatch = source.match(
+      /const LAYOUT_KINDS = \[([\s\S]*?)\] as const/,
+    );
+    if (packsMatch && kindsMatch) {
+      const packs = [...packsMatch[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+      const kinds = [...kindsMatch[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+      for (const packId of packs) {
+        for (const layoutKind of kinds) {
+          const key = `Layout_${packId}_${layoutKind}`;
+          if (entries.some((e) => e.key === key)) continue;
+          entries.push({
+            key,
+            group: "layouts",
+            file: `${packId}-${layoutKind}.png`,
+            delayMs: layoutKind === "booking" ? 5000 : 3000,
+          });
+        }
+      }
     }
   }
 
@@ -173,7 +197,7 @@ async function main() {
       console.log("Waiting for template preview...");
       await page.waitForTimeout(delayMs);
 
-      const locator = page.locator("[data-template-preview]");
+      const locator = page.locator(".page-layout-reader");
       console.log("Taking screenshot...");
       await locator.screenshot({
         path: outfile,

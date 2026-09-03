@@ -56,13 +56,15 @@ export const MarketingScrollingLogosReader = ({
               {items.map((child: any) => (
                 <ReaderBlock key={child.id} {...rest} block={child} />
               ))}
-              {items.map((child: any) => (
-                <ReaderBlock
-                  key={`${child.id}-marquee-dup`}
-                  {...rest}
-                  block={child}
-                />
-              ))}
+              {Array.from({ length: 10 }).flatMap((_, index) =>
+                items.map((child: any) => (
+                  <ReaderBlock
+                    key={`${child.id}-marquee-dup-${index}`}
+                    {...rest}
+                    block={child}
+                  />
+                )),
+              )}
             </div>
           </div>
         </div>

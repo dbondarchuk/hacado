@@ -105,7 +105,7 @@ function resolvePreferNestedDrop(
   const dragFluidId = getFluidLayoutAncestorId(activeDrag.blockId, indexes);
   if (dragFluidId !== fluidAncestorId) return false;
 
-  // Same fluid layout, different parent — e.g. icon on grid → button children.
+  // Same fluid layout, different parent - e.g. icon on grid → button children.
   return activeDrag.parentBlockId !== targetParentBlockId;
 }
 

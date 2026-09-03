@@ -23,7 +23,7 @@ export type WaitlistConfiguration = z.infer<typeof waitlistConfigurationSchema>;
 
 export const getWaitlistEntriesActionSchema = z.object({
   query: querySchema.extend({
-    status: z.array(z.enum(waitlistStatus)).optional(),
+    status: z.array(z.enum([...waitlistStatus, "expired"])).optional(),
     optionId: z.array(zObjectId()).or(zObjectId()).optional(),
     customerId: z.array(zObjectId()).or(zObjectId()).optional(),
     memberId: z.array(zObjectId()).or(zObjectId()).optional(),

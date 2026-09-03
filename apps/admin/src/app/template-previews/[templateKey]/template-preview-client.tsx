@@ -3,7 +3,7 @@
 import {
   getTemplatePreviewArgs,
   getTemplatePreviewBlockRegistry,
-  resolveTemplatePreviewBlock,
+  resolveTemplatePreviewBlocks,
 } from "@/template-previews/registry";
 import { generateId } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
@@ -19,8 +19,8 @@ export function TemplatePreviewClient({ templateKey, previewDelayMs }: Props) {
   const t = useI18n();
 
   const document = useMemo(() => {
-    const block = resolveTemplatePreviewBlock(templateKey, t);
-    if (!block) return null;
+    const children = resolveTemplatePreviewBlocks(templateKey, t);
+    if (!children?.length) return null;
 
     return {
       id: generateId(),
@@ -28,7 +28,7 @@ export function TemplatePreviewClient({ templateKey, previewDelayMs }: Props) {
       data: {
         fontFamily: "PRIMARY" as const,
         fullWidth: true,
-        children: [block],
+        children,
       },
     };
   }, [templateKey, t]);
@@ -83,20 +83,14 @@ export function TemplatePreviewClient({ templateKey, previewDelayMs }: Props) {
   }
 
   return (
-    <>
+    <div data-template-preview className="min-h-screen bg-background">
       <Styling />
-      <div
-        data-template-preview
-        className="bg-background text-foreground"
-        style={{ width: 1280, minHeight: 360 }}
-      >
-        <PageReader
-          document={document}
-          args={previewArgs}
-          blockRegistry={blockRegistry}
-          isEditor
-        />
-      </div>
-    </>
+      <PageReader
+        document={document}
+        args={previewArgs}
+        blockRegistry={blockRegistry}
+        isEditor
+      />
+    </div>
   );
 }

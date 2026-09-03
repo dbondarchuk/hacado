@@ -140,12 +140,42 @@ export function flexRow(
   };
 }
 
+export function gridRow(
+  children: TEditorBlock[],
+  options: {
+    gapRem?: number;
+    justify?: "center" | "flex-start" | "space-between";
+    align?: "stretch" | "flex-start" | "center";
+  } = {},
+): TEditorBlock {
+  const { gapRem = 1.25, justify = "center", align = "stretch" } = options;
+  return {
+    type: "Container",
+    id: generateId(),
+    data: {
+      ...ContainerPropsDefaults,
+      style: {
+        ...ContainerPropsDefaults.style,
+        display: [{ value: "grid" }],
+        gridTemplateColumns: [
+          { value: "repeat(auto-fit, minmax(250px, 1fr))" },
+        ],
+        justifyContent: [{ value: justify }],
+        alignItems: [{ value: align }],
+        gap: [{ value: { value: gapRem, unit: "rem" } }],
+        width: [{ value: { value: 100, unit: "%" } }],
+      },
+      props: { children },
+    },
+  };
+}
+
 export function splitColumns(
   left: TEditorBlock,
   right: TEditorBlock,
   gapRem = 2,
 ): TEditorBlock {
-  return flexRow(
+  return gridRow(
     [withBlockStyle(left, flexFill(18)), withBlockStyle(right, flexFill(18))],
     { gapRem, align: "center" },
   );
@@ -216,7 +246,9 @@ export function styledStatCell(
   const label = cell.data?.props?.children?.[1];
   const supporting = cell.data?.props?.children?.[2];
   if (
-    heading?.data?.props?.children?.[0]?.data?.props?.children?.[0]?.data?.props
+    heading?.data?.props?.children?.[0]?.data?.props?.children?.[0]?.data
+      ?.props &&
+    keys.value
   ) {
     heading.data.props.children[0].data.props.children[0].data.props.text = t(
       keys.value,
@@ -629,5 +661,9 @@ export function marketingBlock<K extends keyof typeof marketingEditorTemplates>(
   key: K,
   t: I18nFn<undefined, undefined>,
 ): TEditorBlock {
-  return marketingEditorTemplates[key].getBlock(t);
+  const template = marketingEditorTemplates[key];
+  if (!("getBlock" in template)) {
+    throw new Error(`Marketing template ${String(key)} is not a section`);
+  }
+  return template.getBlock(t);
 }

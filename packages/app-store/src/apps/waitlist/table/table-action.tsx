@@ -17,7 +17,7 @@ import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
 import { canFilterByMember, hasPermission } from "@hacado/utils";
 import { Settings2 } from "lucide-react";
 import React from "react";
-import { waitlistStatus } from "../models";
+import { WaitlistStatus, waitlistStatus } from "../models";
 import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,
@@ -67,9 +67,9 @@ export const WaitlistTableAction: React.FC<{
       <DataTableFilterBox
         filterKey="status"
         title={t("table.columns.status")}
-        options={waitlistStatus.map((status) => ({
+        options={[...waitlistStatus, "expired"].map((status) => ({
           value: status,
-          label: t(`statuses.${status}`),
+          label: t(`statuses.${status as WaitlistStatus | "expired"}`),
         }))}
         setFilterValue={setStatusFilter as any}
         filterValue={statusFilter}

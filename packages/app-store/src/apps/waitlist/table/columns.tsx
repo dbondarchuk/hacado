@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
   Link,
+  useTimeZone,
 } from "@hacado/ui";
 import {
   CustomerName,
@@ -21,7 +22,7 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import { CalendarPlus } from "lucide-react";
 import { DateTime } from "luxon";
-import { WaitlistEntry } from "../models";
+import { WaitlistEntry, WaitlistStatus } from "../models";
 import {
   WaitlistAdminKeys,
   WaitlistAdminNamespace,
@@ -107,6 +108,20 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
       const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
         "app_waitlist_admin",
       );
+
+      let status = row.original.status as WaitlistStatus | "expired";
+      const timeZone = useTimeZone();
+      const now = DateTime.now().setZone(timeZone).startOf("day");
+      if (
+        row.original.status === "active" &&
+        row.original.dates?.length &&
+        row.original.dates.every(
+          (date) => DateTime.fromISO(date.date).setZone(timeZone) < now,
+        )
+      ) {
+        status = "expired";
+      }
+
       return t(`statuses.${row.original.status}`);
     },
     id: "status",

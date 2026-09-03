@@ -65,6 +65,7 @@ export const contentEditorTemplates: TemplatesConfiguration = {
     icon: <ListOrdered />,
     category,
     previewImage: sectionTemplatePreviewPath("how-it-works-section.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell([
         buildSectionIntro(t, {

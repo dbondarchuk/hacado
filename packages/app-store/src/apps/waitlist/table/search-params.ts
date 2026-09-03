@@ -10,9 +10,9 @@ import { waitlistStatus } from "../models";
 
 export const searchParams = {
   ...baseSearchParams,
-  status: parseAsArrayOf(parseAsStringEnum(waitlistStatus.flat())).withDefault([
-    "active",
-  ]),
+  status: parseAsArrayOf(
+    parseAsStringEnum([...waitlistStatus, "expired"]),
+  ).withDefault(["active"]),
   customer: parseAsArrayOf(parseAsString),
   option: parseAsArrayOf(parseAsString),
   member: parseAsArrayOf(parseAsString),

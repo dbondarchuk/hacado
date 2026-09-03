@@ -448,6 +448,7 @@ export const PageForm: React.FC<{
                       footer={pageFooter}
                       extraTabs={extraTabs}
                       blockRegistry={blockRegistry}
+                      type="page"
                     />
                   </FormControl>
                   <FormMessage />

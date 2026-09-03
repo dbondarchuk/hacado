@@ -61,6 +61,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
     icon: <Presentation />,
     category,
     previewImage: sectionTemplatePreviewPath("browser-carousel-section.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       compositeContainer([
         buildSectionIntro(t, {
@@ -106,6 +107,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
     icon: <MonitorPlay />,
     category,
     previewImage: sectionTemplatePreviewPath("video-embed-section.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell([
         buildSectionIntro(t, {
@@ -132,6 +134,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
     icon: <GalleryHorizontal />,
     category,
     previewImage: sectionTemplatePreviewPath("gallery-grid.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const images = GALLERY_IMAGES.map((src) =>
         galleryImage(src, t(`${prefix}.galleryGrid.imageAlt` as BaseAllKeys)),
@@ -171,6 +174,7 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
     icon: <GalleryHorizontalEnd />,
     category,
     previewImage: sectionTemplatePreviewPath("gallery-carousel.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const images = GALLERY_IMAGES.map((src) =>
         galleryImage(src, t(`${prefix}.galleryGrid.imageAlt` as BaseAllKeys)),

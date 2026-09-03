@@ -86,6 +86,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
     icon: <Sparkles />,
     category,
     previewImage: sectionTemplatePreviewPath("features-showcase.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       compositeContainer([
         buildSectionIntro(t, {
@@ -118,6 +119,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
     icon: <Grid2x2 />,
     category,
     previewImage: sectionTemplatePreviewPath("features-bento.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) =>
       sectionShell(
         [
@@ -164,6 +166,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
     icon: <LayoutGrid />,
     category,
     previewImage: sectionTemplatePreviewPath("zigzag-feature.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const image1 = {
         type: "Image" as const,
@@ -278,6 +281,7 @@ export const featuresEditorTemplates: TemplatesConfiguration = {
     icon: <List />,
     category,
     previewImage: sectionTemplatePreviewPath("feature-list-with-image.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const heading = titleHeading(
         t,

@@ -203,6 +203,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["container", "post-provider"],
     tags: ["container", "blog", "post-container"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostTitle: {
     displayName: "app_blog_admin.block.postTitle.displayName" satisfies AllKeys<
@@ -220,6 +221,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-title"],
     tags: ["blog", "blog-post-title"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostContent: {
     displayName: "app_blog_admin.block.postContent.displayName" as any,
@@ -234,6 +236,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["block", "blog-post-content"],
     tags: ["blog", "blog-post-content"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostTag: {
     displayName: "app_blog_admin.block.postTag.displayName" satisfies AllKeys<
@@ -251,6 +254,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-tag", "link"],
     tags: ["blog", "blog-post-tag", "link"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostPublishDate: {
     displayName:
@@ -269,6 +273,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-publish-date"],
     tags: ["blog", "blog-post-publish-date"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostReadTime: {
     displayName:
@@ -287,6 +292,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-read-time"],
     tags: ["blog", "blog-post-read-time"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostAuthor: {
     displayName:
@@ -305,6 +311,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-author"],
     tags: ["blog", "blog-post-author"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostsContainer: {
     displayName:
@@ -323,6 +330,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["container", "blog-posts-provider"],
     tags: ["container", "blog", "blog-posts-container"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostNavigationButton: {
     displayName:
@@ -341,6 +349,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["button", "action", "link", "blog-post-navigation-button"],
     tags: ["blog", "blog-post-navigation-button"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostCommentCount: {
     displayName:
@@ -359,6 +368,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-post-comment-count"],
     tags: ["blog", "blog-post-comment-count"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentsContainer: {
     displayName:
@@ -376,6 +386,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["container", "blog-comments-provider"],
     tags: ["container", "blog", "blog-comments-container"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentContainer: {
     displayName:
@@ -393,6 +404,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["container"],
     tags: ["blog", "blog-comment-container"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentAuthor: {
     displayName:
@@ -411,6 +423,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-comment-author"],
     tags: ["blog", "blog-comment-author"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentDate: {
     displayName:
@@ -429,6 +442,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["inline", "blog-comment-date"],
     tags: ["blog", "blog-comment-date"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentBody: {
     displayName:
@@ -447,6 +461,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["block", "blog-comment-body"],
     tags: ["blog", "blog-comment-body"],
+    allowedBuilderTypes: ["page"],
   },
   BlogCommentNavigationButton: {
     displayName:
@@ -464,6 +479,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["button", "action", "blog-comment-navigation-button"],
     tags: ["blog", "blog-comment-navigation-button"],
+    allowedBuilderTypes: ["page"],
   },
   BlogPostCommentForm: {
     displayName:
@@ -481,6 +497,7 @@ export const BlogEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["block", "blog-post-comment-form"],
     tags: ["blog", "blog-post-comment-form"],
+    allowedBuilderTypes: ["page"],
   },
 };
 

@@ -1,4 +1,4 @@
-/** Curated assets for section templates — local logos + verified remote images. */
+/** Curated assets for section templates - local logos + verified remote images. */
 
 export const TEMPLATE_LOGOS = [
   { src: "/pages/templates/logos/bench-svgrepo-com.svg", name: "Bench Salon" },

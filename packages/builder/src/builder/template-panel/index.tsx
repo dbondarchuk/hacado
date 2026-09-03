@@ -25,6 +25,7 @@ import {
 import { TEditorBlock } from "../../documents/editor/core";
 import { generateId } from "../../documents/helpers/block-id";
 import { ReaderDocumentBlocksDictionary } from "../../documents/reader/core";
+import { isSectionTemplate } from "../../documents/types";
 import { DndContext } from "../../types/dndContext";
 import {
   DragIntoNestedModifierTracker,
@@ -127,7 +128,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
           return;
         } else if (blockData?.type === "composite-template") {
           const template = templates?.[blockData.blockType];
-          if (template) {
+          if (template && isSectionTemplate(template)) {
             const newBlock = template.getBlock(t);
             setActiveDragBlock(newBlock.id, newBlock);
             return;
@@ -253,7 +254,7 @@ export const TemplatePanel: React.FC<TemplatePanelProps> = memo(
           return;
         } else if (blockData?.type === "composite-template") {
           const template = templates?.[blockData.blockType];
-          if (template) {
+          if (template && isSectionTemplate(template)) {
             const newBlock = template.getBlock(t);
             dispatchAction({
               type: "add-block",

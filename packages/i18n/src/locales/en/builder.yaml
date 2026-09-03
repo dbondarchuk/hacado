@@ -60,9 +60,17 @@ baseBuilder:
       title: Blocks
       subtitle: Add a new block
       template: Template
+      layoutTemplate: Page layout
     templates:
       title: Templates
       subtitle: Drag a section template onto the page
+    layouts:
+      title: Layouts
+      subtitle: Click a layout to replace this page's body
+      replaceTitle: Replace this page's content?
+      replaceDescription: Applying a layout replaces the current page body. Header and footer stay unchanged.
+      replaceCancel: Cancel
+      replaceConfirm: Replace content
     outline:
       title: Document structure
       subtitle: Block hierarchy
@@ -1014,9 +1022,9 @@ pageBuilder:
         body: Explore the tools that help you launch faster and scale with confidence.
       featuresBento:
         title: Built for salon owners
-        body: Run your chair, not your inbox — bookings, payments, and reminders in one place.
+        body: Run your chair, not your inbox - bookings, payments, and reminders in one place.
         tile1Title: Online booking
-        tile1Body: Clients pick a service, stylist, and time — even after hours.
+        tile1Body: Clients pick a service, stylist, and time - even after hours.
         tile2Title: Smart reminders
         tile2Body: Cut no-shows with automatic SMS and email before every visit.
         tile3Title: Deposits & checkout
@@ -1050,7 +1058,7 @@ pageBuilder:
         q3: Do you offer a free trial?
         a3: Every plan includes a trial period so you can explore before committing.
         q4: How do I contact support?
-        a4: Reach our team via chat or email — we typically respond within one business day.
+        a4: Reach our team via chat or email - we typically respond within one business day.
       howItWorksSection:
         title: How it works
         body: Four simple steps to launch your salon booking page.
@@ -1096,6 +1104,810 @@ pageBuilder:
       bookingSection:
         title: Book your appointment
         body: Pick a service, choose a time, and confirm in seconds.
+  pageTemplates:
+    packs:
+      salon:
+        name: Bench Salon
+        category: Salon layouts
+        tagline: "Hair, nails & glow - booked in minutes"
+        installHint: Beauty
+      tattoo:
+        name: "Ink & Thorn Studio"
+        category: Tattoo layouts
+        tagline: Custom tattoos with clean lines and lasting stories
+        installHint: Creative
+      spa:
+        name: "Palm & Stone Spa"
+        category: Spa layouts
+        tagline: "Restorative rituals for skin, body, and calm"
+        installHint: Wellness
+      coach:
+        name: North Star Coaching
+        category: Coaching layouts
+        tagline: "Clarity, accountability, and growth for ambitious leaders"
+        installHint: Coaching
+      fitness:
+        name: Forge Strength Studio
+        category: Fitness layouts
+        tagline: Personal training that builds strength for real life
+        installHint: Fitness
+      photography:
+        name: "Lens & Light Studio"
+        category: Photography layouts
+        tagline: Portraits and brand stories captured with intention
+        installHint: Creative
+      clinic:
+        name: Harbor Family Clinic
+        category: Clinic layouts
+        tagline: Compassionate care with same-week appointments
+        installHint: Medical
+      pet:
+        name: Happy Paws Care
+        category: Pet care layouts
+        tagline: Grooming and walks your pets actually look forward to
+        installHint: Pet
+      home_services:
+        name: Reliable Home Co.
+        category: Home services layouts
+        tagline: Cleaners and handymen who show up on time
+        installHint: Home services
+      professional:
+        name: ClearPath Advisors
+        category: Professional layouts
+        tagline: Consulting and accounting that keeps businesses moving
+        installHint: Professional
+    layouts:
+      salon:
+        home: Bench Salon - Home
+        booking: Bench Salon - Booking
+        service: Bench Salon - Service
+        about: Bench Salon - About
+        terms: Bench Salon - Policies
+      tattoo:
+        home: "Ink & Thorn Studio - Home"
+        booking: "Ink & Thorn Studio - Booking"
+        service: "Ink & Thorn Studio - Service"
+        about: "Ink & Thorn Studio - About"
+        terms: "Ink & Thorn Studio - Policies"
+      spa:
+        home: "Palm & Stone Spa - Home"
+        booking: "Palm & Stone Spa - Booking"
+        service: "Palm & Stone Spa - Service"
+        about: "Palm & Stone Spa - About"
+        terms: "Palm & Stone Spa - Policies"
+      coach:
+        home: North Star Coaching - Home
+        booking: North Star Coaching - Booking
+        service: North Star Coaching - Service
+        about: North Star Coaching - About
+        terms: North Star Coaching - Policies
+      fitness:
+        home: Forge Strength Studio - Home
+        booking: Forge Strength Studio - Booking
+        service: Forge Strength Studio - Service
+        about: Forge Strength Studio - About
+        terms: Forge Strength Studio - Policies
+      photography:
+        home: "Lens & Light Studio - Home"
+        booking: "Lens & Light Studio - Booking"
+        service: "Lens & Light Studio - Service"
+        about: "Lens & Light Studio - About"
+        terms: "Lens & Light Studio - Policies"
+      clinic:
+        home: Harbor Family Clinic - Home
+        booking: Harbor Family Clinic - Booking
+        service: Harbor Family Clinic - Service
+        about: Harbor Family Clinic - About
+        terms: Harbor Family Clinic - Policies
+      pet:
+        home: Happy Paws Care - Home
+        booking: Happy Paws Care - Booking
+        service: Happy Paws Care - Service
+        about: Happy Paws Care - About
+        terms: Happy Paws Care - Policies
+      home_services:
+        home: Reliable Home Co. - Home
+        booking: Reliable Home Co. - Booking
+        service: Reliable Home Co. - Service
+        about: Reliable Home Co. - About
+        terms: Reliable Home Co. - Policies
+      professional:
+        home: ClearPath Advisors - Home
+        booking: ClearPath Advisors - Booking
+        service: ClearPath Advisors - Service
+        about: ClearPath Advisors - About
+        terms: ClearPath Advisors - Policies
+    shared:
+      learnMore: Learn more
+      bookService: Book this service
+      beforeAfter:
+        title: Before & after
+        body: Drag to compare results from a recent visit.
+        beforeAlt: Before
+        afterAlt: After
+      carousel:
+        slide1Label: Space
+        slide1Address: studio.example/space
+        slide2Label: Craft
+        slide2Address: studio.example/craft
+        slide3Label: Details
+        slide3Address: studio.example/details
+        slide4Label: Finish
+        slide4Address: studio.example/finish
+      stats:
+        title: By the numbers
+        body: Proof that people trust us with their time.
+        stat1Value: 2.4k+
+        stat1Label: Happy clients
+        stat1Supporting: And counting
+        stat2Value: 98%
+        stat2Label: On-time starts
+        stat2Supporting: Tracked weekly
+        stat3Value: "4.9"
+        stat3Label: Average rating
+        stat3Supporting: Across reviews
+        stat4Value: "12+"
+        stat4Label: Years experience
+        stat4Supporting: In the craft
+      logos:
+        title: As featured in
+        body: Local partners and publications who know our work.
+      how:
+        step1Number: "01"
+        step1Title: Choose a service
+        step1Bullets: Pick what you need and add any extras.
+        step2Number: "02"
+        step2Title: Select a time
+        step2Bullets: See real availability and book instantly.
+        step3Number: "03"
+        step3Title: Show up ready
+        step3Bullets: We confirm details and take care of the rest.
+        step4Number: "04"
+        step4Title: Leave happy
+        step4Bullets: You leave feeling taken care of.
+      video:
+        title: See it in action
+        body: A short look at how a visit with us typically goes.
+    salon:
+      home:
+        heroTitle: "Hair, nails & glow - booked in minutes"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Bench Salon.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Bench Salon is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Bench Salon
+        body1: "We started Bench Salon to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Hair, nails & glow - booked in minutes. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Bench Salon, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Bench Salon is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        cut:
+          name: "Signature Cut & Style"
+          description: "Consultation, precision cut, and blow-dry finish tailored to your face shape."
+        color:
+          name: Color Refresh
+          description: Single-process color or gloss to revive shine and cover roots.
+        nails:
+          name: Gel Manicure
+          description: Long-wear gel polish with cuticle care and a glossy seal.
+        blowout:
+          name: Express Blowout
+          description: "Wash, style, and set - ready for dinner or a photoshoot."
+    tattoo:
+      home:
+        heroTitle: Custom tattoos with clean lines and lasting stories
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Ink & Thorn Studio."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Ink & Thorn Studio is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Ink & Thorn Studio"
+        body1: "We started Ink & Thorn Studio to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Custom tattoos with clean lines and lasting stories. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Ink & Thorn Studio, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Ink & Thorn Studio is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        fineLine:
+          name: Fine Line Tattoo
+          description: "Delicate single-needle work for florals, script, and minimal symbols."
+        blackwork:
+          name: Blackwork Session
+          description: Bold solid black pieces with strong silhouettes and contrast.
+        coverUp:
+          name: Cover-Up Consult
+          description: Design planning to transform older ink into something you love.
+        touchUp:
+          name: Touch-Up Visit
+          description: Refresh faded areas from a previous piece done in our studio.
+    spa:
+      home:
+        heroTitle: "Restorative rituals for skin, body, and calm"
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Palm & Stone Spa."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Palm & Stone Spa is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Palm & Stone Spa"
+        body1: "We started Palm & Stone Spa to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Restorative rituals for skin, body, and calm. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Palm & Stone Spa, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Palm & Stone Spa is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        massage:
+          name: Deep Tissue Massage
+          description: "Targeted pressure to release tension in shoulders, back, and hips."
+        facial:
+          name: Hydrating Facial
+          description: "Cleanse, extract, mask, and moisture seal for tired skin."
+        stone:
+          name: Hot Stone Ritual
+          description: "Warm basalt stones paired with long, flowing massage strokes."
+        couples:
+          name: Couples Escape
+          description: Side-by-side massage in a private suite with herbal tea.
+    coach:
+      home:
+        heroTitle: "Clarity, accountability, and growth for ambitious leaders"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at North Star Coaching.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: North Star Coaching is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind North Star Coaching
+        body1: "We started North Star Coaching to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Clarity, accountability, and growth for ambitious leaders. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with North Star Coaching, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, North Star Coaching is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        leadership:
+          name: "1:1 Leadership Session"
+          description: "Focused coaching on decisions, team dynamics, and executive presence."
+        career:
+          name: Career Pivot Package
+          description: Six sessions to map your next role and negotiate with confidence.
+        team:
+          name: Team Offsite Facilitation
+          description: Half-day workshop to align priorities and rebuild trust.
+        checkIn:
+          name: Accountability Check-In
+          description: Bi-weekly progress review with clear next actions.
+    fitness:
+      home:
+        heroTitle: Personal training that builds strength for real life
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Forge Strength Studio.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Forge Strength Studio is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Forge Strength Studio
+        body1: "We started Forge Strength Studio to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Personal training that builds strength for real life. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Forge Strength Studio, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Forge Strength Studio is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        pt:
+          name: Personal Training
+          description: Custom programming with form coaching and progressive overload.
+        hiit:
+          name: Small Group HIIT
+          description: High-intensity circuits capped at six athletes for coaching quality.
+        mobility:
+          name: Mobility Reset
+          description: Joint-friendly flow to improve range of motion and recover faster.
+        nutrition:
+          name: Nutrition Kickstart
+          description: Two-week meal structure with macros that match your training.
+    photography:
+      home:
+        heroTitle: Portraits and brand stories captured with intention
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Lens & Light Studio."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Lens & Light Studio is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Lens & Light Studio"
+        body1: "We started Lens & Light Studio to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Portraits and brand stories captured with intention. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Lens & Light Studio, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Lens & Light Studio is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        portrait:
+          name: Portrait Session
+          description: One-hour studio or outdoor portraits with edited gallery delivery.
+        brand:
+          name: Brand Story Day
+          description: "Half-day shoot for product, team, and lifestyle assets."
+        event:
+          name: Event Coverage
+          description: "Candids and key moments for launches, weddings, and conferences."
+        product:
+          name: Product Pack
+          description: Clean ecommerce imagery with consistent lighting and retouching.
+    clinic:
+      home:
+        heroTitle: Compassionate care with same-week appointments
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Harbor Family Clinic.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Harbor Family Clinic is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Harbor Family Clinic
+        body1: "We started Harbor Family Clinic to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Compassionate care with same-week appointments. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Harbor Family Clinic, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Harbor Family Clinic is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        checkup:
+          name: Annual Checkup
+          description: Comprehensive wellness exam with labs review and care plan.
+        urgent:
+          name: Urgent Care Visit
+          description: "Same-day evaluation for colds, sprains, and minor injuries."
+        vaccine:
+          name: Vaccination Appointment
+          description: Seasonal and travel vaccines administered by our nursing team.
+        telehealth:
+          name: Telehealth Follow-Up
+          description: Video visit to review results or adjust prescriptions.
+    pet:
+      home:
+        heroTitle: Grooming and walks your pets actually look forward to
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Happy Paws Care.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Happy Paws Care is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Happy Paws Care
+        body1: "We started Happy Paws Care to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Grooming and walks your pets actually look forward to. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Happy Paws Care, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Happy Paws Care is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        groom:
+          name: Full Groom Package
+          description: "Bath, brush, trim, nails, and ears for dogs of all coat types."
+        walk:
+          name: Neighborhood Walk
+          description: 30-minute leash walk with photo updates sent to your phone.
+        puppy:
+          name: Puppy Social Hour
+          description: Supervised play for puppies under one year - great for manners.
+        nails:
+          name: Nail Trim Express
+          description: Quick nail care without the full spa treatment.
+    home_services:
+      home:
+        heroTitle: Cleaners and handymen who show up on time
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Reliable Home Co..
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Reliable Home Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Reliable Home Co.
+        body1: "We started Reliable Home Co. to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Cleaners and handymen who show up on time. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Reliable Home Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Reliable Home Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        clean:
+          name: Deep Clean
+          description: "Kitchen, baths, floors, and dusting - move-in ready results."
+        handyman:
+          name: Handyman Hour
+          description: "Mounting, minor repairs, and punch lists billed hourly."
+        install:
+          name: Appliance Install
+          description: "Safe install of dishwashers, washers, and wall mounts."
+        maintenance:
+          name: Seasonal Maintenance
+          description: "Gutter checks, filter swaps, and exterior tidy-ups."
+    professional:
+      home:
+        heroTitle: Consulting and accounting that keeps businesses moving
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at ClearPath Advisors.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: ClearPath Advisors is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind ClearPath Advisors
+        body1: "We started ClearPath Advisors to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Consulting and accounting that keeps businesses moving. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with ClearPath Advisors, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, ClearPath Advisors is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        strategy:
+          name: Strategy Consult
+          description: 90-minute session to prioritize growth levers and next hires.
+        books:
+          name: Monthly Bookkeeping
+          description: "Reconciliations, reports, and clean books every month."
+        tax:
+          name: Tax Planning Review
+          description: Quarterly check-in to reduce surprises before filing season.
+        ops:
+          name: Ops Audit
+          description: Process map of your tools and handoffs with fix recommendations.
   heroDefaults:
     title: Build something people love
     subtitle: A short supporting line that explains your value proposition.
@@ -1550,8 +2362,8 @@ pageBuilder:
         tierTablet: Tablet
         tierMobile: Mobile
         tierMobileLandscape: Mobile landscape
-        tierAuto: "{tier} layout — auto from larger viewport"
-        tierCustom: "{tier} layout — custom."
+        tierAuto: "{tier} layout - auto from larger viewport"
+        tierCustom: "{tier} layout - custom."
         resetLayout: Reset layout
         dragDrop: "Hold {modKey} while dragging to drop into blocks inside the layout; release {modKey} to place on the grid."
         keyboard: "Arrow keys move 1 cell (Shift+arrows 2). Alt disables snap while moving or rotating."

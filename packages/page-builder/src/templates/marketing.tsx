@@ -158,6 +158,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <LayoutTemplate />,
     category,
     previewImage: marketingTemplatePreviewPath("section-intro.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -212,6 +213,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <BarChart3 />,
     category,
     previewImage: marketingTemplatePreviewPath("stat-cell.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -274,6 +276,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <ListOrdered />,
     category,
     previewImage: marketingTemplatePreviewPath("step.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -322,6 +325,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <MessageSquareQuote />,
     category,
     previewImage: marketingTemplatePreviewPath("testimonial-card.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       return {
@@ -390,6 +394,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <Megaphone />,
     category,
     previewImage: marketingTemplatePreviewPath("cta-band.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const btn = ButtonPropsDefaults();
@@ -504,6 +509,7 @@ export const marketingEditorTemplates: TemplatesConfiguration = {
     icon: <CreditCard />,
     category,
     previewImage: marketingTemplatePreviewPath("plan-card.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t: I18nFn<undefined, undefined>): TEditorBlock => {
       const id = generateId();
       const btn = planCtaButton(t, ButtonPropsDefaults());

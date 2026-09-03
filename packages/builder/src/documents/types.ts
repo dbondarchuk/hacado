@@ -52,16 +52,68 @@ export type BlockEditorDisableOptions = {
   };
 };
 
-export type TemplateDefinition = {
+export type LayoutTemplateService = {
+  id: string;
+  name: string;
+  /** Plain-text description for layout composers. */
+  description: string;
+  slug: string;
+  pageSlug: string;
+  imageUrl?: string;
+};
+
+export type LayoutTemplateContext = {
+  services?: LayoutTemplateService[];
+};
+
+type TemplateDefinitionBase = {
   displayName: AllKeys;
   icon: React.ReactNode;
   category: AllKeys;
   /** Optional thumbnail URL shown in the templates panel. */
   previewImage?: string;
+  // Optional list of builder targets (eg. 'page', 'footer') where this template can be used.
+  allowedBuilderTypes?: string[];
+};
+
+/** Single-root section composite (drag onto the canvas). */
+export type SectionTemplateDefinition = TemplateDefinitionBase & {
+  kind?: "section";
   getBlock: (t: I18nFn<undefined, undefined>) => TEditorBlock;
 };
 
+/**
+ * Multi-block layout template (click to replace root children).
+ * Lives in the base builder so non-page editors can reuse it.
+ * `layoutKind` is an opaque string - domain-specific values live in consumers.
+ */
+export type LayoutTemplateDefinition = TemplateDefinitionBase & {
+  kind: "layout";
+  layoutKind: string;
+  packId: string;
+  getBlocks: (
+    t: I18nFn<undefined, undefined>,
+    ctx?: LayoutTemplateContext,
+  ) => TEditorBlock[];
+};
+
+export type TemplateDefinition =
+  | SectionTemplateDefinition
+  | LayoutTemplateDefinition;
+
 export type TemplatesConfiguration = Record<string, TemplateDefinition>;
+
+export function isLayoutTemplate(
+  template: TemplateDefinition,
+): template is LayoutTemplateDefinition {
+  return template.kind === "layout";
+}
+
+export function isSectionTemplate(
+  template: TemplateDefinition,
+): template is SectionTemplateDefinition {
+  return template.kind !== "layout";
+}
 
 export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
   [K in keyof T]: {
@@ -82,6 +134,8 @@ export type EditorDocumentBlocksDictionary<T extends BuilderSchema = any> = {
     capabilities?: string[];
     disable?: BlockEditorDisableOptions;
     defaultMetadata?: Record<string, any>;
+    /** Optional list of builder targets (eg. 'page', 'footer') where this block can be used. */
+    allowedBuilderTypes?: string[];
   };
 };
 

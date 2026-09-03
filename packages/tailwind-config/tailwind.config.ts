@@ -176,7 +176,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "bounce-horizontal": "bounce-horizontal 1s infinite",
         shimmer: "shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "marquee-scroll": "marquee-scroll 40s linear infinite",
+        "marquee-scroll": "marquee-scroll 200s linear infinite",
         blink: "blink 1s infinite",
       },
       typography: {

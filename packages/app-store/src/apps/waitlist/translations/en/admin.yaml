@@ -30,6 +30,7 @@ table:
 statuses:
   active: Active
   dismissed: Dismissed
+  expired: Expired
 view:
   asSoonAsPossible: As soon as possible
   dateTimeTitle: Date and time
@@ -137,7 +138,7 @@ statusText:
   error_processing_configuration: Error processing waitlist configuration
 emails:
   newEntry:
-    subject: 'New waitlist entry by {customerName} for {serviceName}'
+    subject: "New waitlist entry by {customerName} for {serviceName}"
     title: New waitlist request
     body: |
       Hi {userName},
@@ -190,4 +191,3 @@ validation:
     dates:
       required: Dates are required
       max: Dates must be no more than 30 dates
-

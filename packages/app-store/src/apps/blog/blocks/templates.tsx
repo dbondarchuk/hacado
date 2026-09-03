@@ -602,6 +602,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("post-featured-image.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => getBlogPostFeaturedImageBlock(true),
   },
   PostReadMore: {
@@ -616,6 +617,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("post-read-more.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t): TEditorBlock =>
       getBlogPostReadMoreLinkBlock(
         t("app_blog_public.readMore" satisfies BlogPublicAllKeys),
@@ -633,6 +635,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("post-title-header.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => {
       const titleId = generateId();
       return {
@@ -666,6 +669,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("post-tags.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => {
       const foreachId = generateId();
       const tagId = generateId();
@@ -714,6 +718,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("post-meta.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => getPostMetaBlock(),
   },
   BlogPost: {
@@ -728,6 +733,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("blog-post.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t): TEditorBlock => {
       const containerId = generateId();
       const titleHeaderId = generateId();
@@ -843,6 +849,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("comments-list-navigation.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => {
       const containerId = generateId();
       const prevButtonId = generateId();
@@ -904,6 +911,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("blog-comments-list.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock =>
       buildBlogCommentsContainerBlock(appName, appId),
   },
@@ -919,6 +927,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("posts-list-navigation.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (): TEditorBlock => {
       const containerId = generateId();
       const prevButtonId = generateId();
@@ -1000,6 +1009,7 @@ export const BlogTemplates: (
       BlogAdminKeys
     >,
     previewImage: blogTemplatePreviewPath("blog-posts-list.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t): TEditorBlock => {
       const postsContainerId = generateId();
       const foreachId = generateId();

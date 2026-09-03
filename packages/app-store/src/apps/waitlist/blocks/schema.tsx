@@ -75,6 +75,7 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["booking", "waitlist", "block"],
     tags: ["booking", "waitlist"],
+    allowedBuilderTypes: ["page"],
   },
   BookingModern: {
     displayName:
@@ -93,6 +94,7 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["booking", "waitlist", "block"],
     tags: ["booking", "waitlist"],
+    allowedBuilderTypes: ["page"],
   },
   WaitlistSimple: {
     displayName:
@@ -111,6 +113,7 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["booking", "waitlist", "block"],
     tags: ["booking", "waitlist"],
+    allowedBuilderTypes: ["page"],
   },
   BookingSimple: {
     displayName:
@@ -129,6 +132,7 @@ export const WaitlistEditors: EditorDocumentBlocksDictionary<
     >,
     capabilities: ["booking", "waitlist", "block"],
     tags: ["booking", "waitlist"],
+    allowedBuilderTypes: ["page"],
   },
 };
 

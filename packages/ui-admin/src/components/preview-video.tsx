@@ -32,7 +32,7 @@ export const PreviewVideo: React.FC<PreviewVideoProps> = ({
       const playPromise = video.play();
       if (playPromise) {
         playPromise.catch(() => {
-          // Autoplay can be blocked; ignore — hover/select will retry.
+          // Autoplay can be blocked; ignore - hover/select will retry.
         });
       }
     } else {

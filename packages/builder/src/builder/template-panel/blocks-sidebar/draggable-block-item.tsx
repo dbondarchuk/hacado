@@ -8,10 +8,14 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui";
-import { GripVertical, Layers } from "lucide-react";
+import { GripVertical, Layers, LayoutTemplate } from "lucide-react";
 import { memo, useMemo } from "react";
 import { useTemplates } from "../../../documents/editor/context";
-import type { TemplateDefinition } from "../../../documents/types";
+import {
+  isLayoutTemplate,
+  isSectionTemplate,
+  type TemplateDefinition,
+} from "../../../documents/types";
 
 export type DraggableBlockItemProps = {
   blockType: string;
@@ -23,6 +27,8 @@ export type DraggableBlockItemProps = {
   };
   isTemplate: boolean;
   variant?: "list" | "card";
+  /** Layout templates apply on click instead of drag. */
+  onApplyLayout?: () => void;
 };
 
 export const DraggableBlockItem = memo(
@@ -31,23 +37,24 @@ export const DraggableBlockItem = memo(
     blockConfig,
     isTemplate,
     variant = "list",
+    onApplyLayout,
   }: DraggableBlockItemProps) => {
     const templates = useTemplates();
     const t = useI18n();
 
+    const template = templates?.[blockType] as TemplateDefinition | undefined;
+    const isLayout = Boolean(template && isLayoutTemplate(template));
+
     const templateBlock = useMemo(() => {
-      if (!isTemplate) return null;
-      const template = templates?.[blockType];
-      if (template) {
-        return template.getBlock(t);
-      }
-      return null;
-    }, [blockType, templates, isTemplate, t]);
+      if (!isTemplate || !template || !isSectionTemplate(template)) return null;
+      return template.getBlock(t);
+    }, [template, isTemplate, t]);
 
     const { isDragging, ref } = useDraggable({
       id: `template-${blockType}`,
       type: templateBlock?.type ?? blockType,
       feedback: "clone",
+      disabled: isLayout,
       data: {
         type: isTemplate ? "composite-template" : "block-template",
         blockType,
@@ -57,19 +64,38 @@ export const DraggableBlockItem = memo(
 
     const previewImage =
       blockConfig.previewImage ??
-      (isTemplate
-        ? (templates?.[blockType] as TemplateDefinition | undefined)
-            ?.previewImage
-        : undefined);
+      (isTemplate ? template?.previewImage : undefined);
+
+    const cardClass = cn(
+      "overflow-hidden rounded-lg border border-border bg-background transition-colors hover:border-primary/40 hover:bg-accent/50",
+      isLayout ? "cursor-pointer" : "cursor-grab active:cursor-grabbing",
+      isDragging ? "opacity-50" : "opacity-100",
+    );
+
+    const listClass = cn(
+      "flex items-center gap-2 rounded-lg border border-border bg-background p-3 transition-colors hover:bg-accent hover:text-accent-foreground",
+      isLayout ? "cursor-pointer" : "cursor-grab active:cursor-grabbing",
+      isDragging ? "opacity-50" : "!opacity-100",
+    );
 
     if (variant === "card" && previewImage) {
       return (
         <div
-          ref={ref}
-          className={cn(
-            "overflow-hidden rounded-lg border border-border bg-background cursor-grab active:cursor-grabbing transition-colors hover:border-primary/40 hover:bg-accent/50",
-            isDragging ? "opacity-50" : "opacity-100",
-          )}
+          ref={isLayout ? undefined : ref}
+          role={isLayout ? "button" : undefined}
+          tabIndex={isLayout ? 0 : undefined}
+          onClick={isLayout ? onApplyLayout : undefined}
+          onKeyDown={
+            isLayout
+              ? (e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onApplyLayout?.();
+                  }
+                }
+              : undefined
+          }
+          className={cardClass}
         >
           <div className="relative aspect-video w-full overflow-hidden bg-muted">
             <img
@@ -79,7 +105,11 @@ export const DraggableBlockItem = memo(
               draggable={false}
             />
             <div className="absolute right-2 top-2 rounded bg-background/80 p-1 text-muted-foreground">
-              <GripVertical className="size-3.5" />
+              {isLayout ? (
+                <LayoutTemplate className="size-3.5" />
+              ) : (
+                <GripVertical className="size-3.5" />
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2 px-2.5 py-2">
@@ -93,10 +123,18 @@ export const DraggableBlockItem = memo(
             </div>
             <TooltipResponsive>
               <TooltipResponsiveTrigger>
-                <Layers className="size-3 shrink-0 text-muted-foreground" />
+                {isLayout ? (
+                  <LayoutTemplate className="size-3 shrink-0 text-muted-foreground" />
+                ) : (
+                  <Layers className="size-3 shrink-0 text-muted-foreground" />
+                )}
               </TooltipResponsiveTrigger>
               <TooltipResponsiveContent>
-                {t("builder.baseBuilder.blocks.panel.template")}
+                {t(
+                  isLayout
+                    ? "builder.baseBuilder.blocks.panel.layoutTemplate"
+                    : "builder.baseBuilder.blocks.panel.template",
+                )}
               </TooltipResponsiveContent>
             </TooltipResponsive>
           </div>
@@ -106,11 +144,21 @@ export const DraggableBlockItem = memo(
 
     return (
       <div
-        ref={ref}
-        className={cn(
-          "flex items-center gap-2 rounded-lg border border-border bg-background p-3 transition-colors hover:bg-accent hover:text-accent-foreground cursor-grab active:cursor-grabbing",
-          isDragging ? "opacity-50" : "!opacity-100",
-        )}
+        ref={isLayout ? undefined : ref}
+        role={isLayout ? "button" : undefined}
+        tabIndex={isLayout ? 0 : undefined}
+        onClick={isLayout ? onApplyLayout : undefined}
+        onKeyDown={
+          isLayout
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onApplyLayout?.();
+                }
+              }
+            : undefined
+        }
+        className={listClass}
       >
         <div className="flex-shrink-0 text-muted-foreground">
           {blockConfig.icon}
@@ -123,10 +171,18 @@ export const DraggableBlockItem = memo(
             {isTemplate ? (
               <TooltipResponsive>
                 <TooltipResponsiveTrigger>
-                  <Layers className="size-3" />
+                  {isLayout ? (
+                    <LayoutTemplate className="size-3" />
+                  ) : (
+                    <Layers className="size-3" />
+                  )}
                 </TooltipResponsiveTrigger>
                 <TooltipResponsiveContent>
-                  {t("builder.baseBuilder.blocks.panel.template")}
+                  {t(
+                    isLayout
+                      ? "builder.baseBuilder.blocks.panel.layoutTemplate"
+                      : "builder.baseBuilder.blocks.panel.template",
+                  )}
                 </TooltipResponsiveContent>
               </TooltipResponsive>
             ) : null}
@@ -135,9 +191,11 @@ export const DraggableBlockItem = memo(
             {t(blockConfig.category as any)}
           </div>
         </div>
-        <div className="flex-shrink-0 text-muted-foreground">
-          <GripVertical className="size-4" />
-        </div>
+        {!isLayout ? (
+          <div className="flex-shrink-0 text-muted-foreground">
+            <GripVertical className="size-4" />
+          </div>
+        ) : null}
       </div>
     );
   },

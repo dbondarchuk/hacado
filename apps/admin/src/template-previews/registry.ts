@@ -5,7 +5,7 @@ import {
   findPreviewProvider,
   type TemplatePreviewProvider,
 } from "@hacado/app-store/template-previews";
-import type { TEditorBlock } from "@hacado/builder";
+import { isLayoutTemplate, type TEditorBlock } from "@hacado/builder";
 import type { I18nFn } from "@hacado/i18n";
 import type { BlockProviderRegistry } from "@hacado/page-builder";
 import {
@@ -21,8 +21,16 @@ const pageBuilderPreviewProvider: TemplatePreviewProvider = {
       pageBuilderEditorTemplates[
         key as keyof typeof pageBuilderEditorTemplates
       ];
-    if (!template) return null;
+    if (!template || isLayoutTemplate(template)) return null;
     return template.getBlock(t);
+  },
+  resolveBlocks: (key: string, t: I18nFn<undefined, undefined>) => {
+    const template =
+      pageBuilderEditorTemplates[
+        key as keyof typeof pageBuilderEditorTemplates
+      ];
+    if (!template || !isLayoutTemplate(template)) return null;
+    return template.getBlocks(t);
   },
 };
 
@@ -42,6 +50,20 @@ export function resolveTemplatePreviewBlock(
   t: I18nFn<undefined, undefined>,
 ): TEditorBlock | null {
   return resolveTemplatePreviewProvider(key)?.resolveBlock(key, t) ?? null;
+}
+
+export function resolveTemplatePreviewBlocks(
+  key: string,
+  t: I18nFn<undefined, undefined>,
+): TEditorBlock[] | null {
+  const provider = resolveTemplatePreviewProvider(key);
+  if (!provider) return null;
+  if (provider.resolveBlocks) {
+    const blocks = provider.resolveBlocks(key, t);
+    if (blocks) return blocks;
+  }
+  const block = provider.resolveBlock(key, t);
+  return block ? [block] : null;
 }
 
 export function getTemplatePreviewArgs(key: string): Record<string, unknown> {

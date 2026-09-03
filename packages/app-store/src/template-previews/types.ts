@@ -17,6 +17,11 @@ export type TemplatePreviewProvider = {
     key: string,
     t: I18nFn<undefined, undefined>,
   ) => TEditorBlock | null;
+  /** Multi-block layout templates (optional). */
+  resolveBlocks?: (
+    key: string,
+    t: I18nFn<undefined, undefined>,
+  ) => TEditorBlock[] | null;
   getPreviewArgs?: () => Record<string, unknown>;
   getBlockRegistry?: () => Record<string, unknown>;
   getTranslations?: (language: Language) => Promise<Record<string, any>>;

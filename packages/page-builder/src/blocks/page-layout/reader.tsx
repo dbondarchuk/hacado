@@ -33,6 +33,7 @@ export const PageLayoutReader = ({
           display: "flex",
           flexDirection: "column",
         }}
+        className="page-layout-reader"
       >
         <ReplaceOriginalColors />
         <div

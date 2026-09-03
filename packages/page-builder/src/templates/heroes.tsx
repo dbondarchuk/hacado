@@ -199,6 +199,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
     icon: <LayoutTemplate />,
     category: heroesCategory,
     previewImage: heroTemplatePreviewPath("centered-image.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const { heading, text, button } = heroCopyBlocks(
         t,
@@ -221,6 +222,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
     icon: <SplitSquareHorizontal />,
     category: heroesCategory,
     previewImage: heroTemplatePreviewPath("split-image.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const imageId = generateId();
       const { heading, text, button } = heroCopyBlocks(
@@ -274,6 +276,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
     icon: <MonitorPlay />,
     category: heroesCategory,
     previewImage: heroTemplatePreviewPath("video-background.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const { heading, text, button } = heroCopyBlocks(
         t,
@@ -296,6 +299,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
     icon: <Sparkles />,
     category: heroesCategory,
     previewImage: heroTemplatePreviewPath("minimal.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const { heading, text, button } = heroCopyBlocks(
         t,
@@ -322,6 +326,7 @@ export const heroEditorTemplates: TemplatesConfiguration = {
     icon: <PanelLeft />,
     category: heroesCategory,
     previewImage: heroTemplatePreviewPath("left-overlay.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const { heading, text, button } = heroCopyBlocks(
         t,

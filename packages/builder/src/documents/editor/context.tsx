@@ -99,7 +99,7 @@ type EditorState = {
   activeOverBlockContextId: string | null;
   activeDragBlockId: string | null;
   activeDragBlockTemplate: TEditorBlock | null;
-  /** Ctrl/Cmd held during drag — prefer nested drop targets inside FluidLayout */
+  /** Ctrl/Cmd held during drag - prefer nested drop targets inside FluidLayout */
   dragIntoNestedModifier: boolean;
   blockDisableOptions: Record<string, BlockDisableOptions | undefined>;
   // Key: blockId|property

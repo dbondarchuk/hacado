@@ -22,6 +22,7 @@ export const bookingSectionEditorTemplates: TemplatesConfiguration = {
     icon: <CalendarCheck />,
     category,
     previewImage: sectionTemplatePreviewPath("booking-section.png"),
+    allowedBuilderTypes: ["page"],
     getBlock: (t) => {
       const copy = compositeContainer(
         [

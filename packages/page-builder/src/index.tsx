@@ -36,8 +36,8 @@ type PageBuilderProps = {
     logo?: string;
   };
   footer?: React.ReactNode;
-  notAllowedBlocks?: (keyof typeof EditorBlocks | string)[];
   blockRegistry?: BlockProviderRegistry<typeof EditorBlocksSchema>;
+  type: "page" | "footer";
 };
 
 const getImageBlock = (file: UploadedFile) => {
@@ -64,8 +64,8 @@ export const PageBuilder = deepMemo(
     extraTabs,
     header,
     footer,
-    notAllowedBlocks,
     blockRegistry,
+    type,
   }: PageBuilderProps) => {
     const t = useI18n();
     const headerComponent = useMemo(
@@ -83,34 +83,52 @@ export const PageBuilder = deepMemo(
     );
 
     const editorBlocks = useMemo(() => {
-      if (notAllowedBlocks) {
-        return Object.fromEntries(
-          Object.entries(EditorBlocks).filter(
-            ([key]) =>
-              !notAllowedBlocks.includes(key as keyof typeof EditorBlocks),
-          ),
-        );
-      }
-      return EditorBlocks;
-    }, [notAllowedBlocks]);
+      return Object.fromEntries(
+        Object.entries(EditorBlocks).filter(([key]) => {
+          const block = EditorBlocks[key as keyof typeof EditorBlocks];
+          return (
+            !block.allowedBuilderTypes ||
+            block.allowedBuilderTypes.includes(type)
+          );
+        }),
+      );
+    }, [type]);
 
     const resolvedBlocks = useMemo(() => {
       return resolveProviders(blockRegistry || { providers: [] });
     }, [blockRegistry]);
 
     const editorTemplates = useMemo(() => {
-      if (!notAllowedBlocks?.length) return pageBuilderEditorTemplates;
       return Object.fromEntries(
         Object.entries(pageBuilderEditorTemplates).filter(([, def]) => {
           try {
+            if (def.kind === "layout") {
+              if (
+                def.allowedBuilderTypes &&
+                !def.allowedBuilderTypes.includes(type)
+              ) {
+                return false;
+              }
+
+              const types = def.getBlocks(t).map((b) => b.type as string);
+              return !types.some(
+                (type) =>
+                  !def.allowedBuilderTypes ||
+                  def.allowedBuilderTypes.includes(type),
+              );
+            }
+
             const rootType = def.getBlock(t).type as string;
-            return !notAllowedBlocks.includes(rootType);
+            return (
+              !def.allowedBuilderTypes ||
+              def.allowedBuilderTypes.includes(rootType)
+            );
           } catch {
             return true;
           }
         }),
       );
-    }, [notAllowedBlocks, t]);
+    }, [type, t]);
 
     return (
       <Builder

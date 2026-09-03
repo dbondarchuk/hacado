@@ -30,6 +30,7 @@ table:
 statuses:
   active: Активний
   dismissed: Відхилено
+  expired: Прострочений
 view:
   asSoonAsPossible: Якнайшвидше
   dateTimeTitle: Дата та час
@@ -124,7 +125,7 @@ statusText:
   error_processing_configuration: Помилка обробки конфігурації сповіщень списку очікування
 emails:
   newEntry:
-    subject: 'Новий запис у список очікування від {customerName} на {serviceName}'
+    subject: "Новий запис у список очікування від {customerName} на {serviceName}"
     title: Новий запит списку очікування
     body: |
       Вітаємо, {userName}!
@@ -190,4 +191,3 @@ validation:
     dates:
       required: Дати обов'язкові
       max: Максимум 30 дат
-

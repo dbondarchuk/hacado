@@ -298,7 +298,7 @@ export function centeredCopyPlacements(
     [headingId]: {
       colStart: 5,
       colEnd: 21,
-      rowStart: 4,
+      rowStart: 2,
       rowEnd: 6,
       zIndex: 1,
     },
