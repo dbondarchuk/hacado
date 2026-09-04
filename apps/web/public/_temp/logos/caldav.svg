@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect x="6" y="10" width="36" height="32" rx="4" fill="#F6F3EA" stroke="#4A3728" stroke-width="1.5"/>
+  <rect x="6" y="10" width="36" height="10" rx="4" fill="#7C8B6F"/>
+  <rect x="6" y="16" width="36" height="4" fill="#7C8B6F"/>
+  <circle cx="16" cy="12" r="2" fill="#4A3728"/>
+  <circle cx="32" cy="12" r="2" fill="#4A3728"/>
+  <text x="24" y="36" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#4A3728">CalDAV</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect x="9" y="6" width="30" height="36" rx="4" fill="#F6F3EA" stroke="#4A3728" stroke-width="1.5"/>
+  <circle cx="24" cy="17" r="5" fill="#7C8B6F"/>
+  <path d="M15 30c1.6-4.5 5-7 9-7s7.4 2.5 9 7" stroke="#4A3728" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <text x="24" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="6" font-weight="700" fill="#4A3728">CardDAV</text>
+</svg>
