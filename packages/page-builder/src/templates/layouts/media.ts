@@ -105,6 +105,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1570172619644-dfd03ed5d881"),
         keywords: ["treatment", "body"],
       },
+      {
+        src: u("photo-1540555700478-4be289fbecef"),
+        keywords: ["spa", "relax", "calm"],
+      },
+      {
+        src: u("photo-1544161515-4ab6ce6db874"),
+        keywords: ["massage", "deep", "tissue"],
+      },
     ],
   },
   coach: {
@@ -192,8 +200,8 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         keywords: ["brand", "story", "lifestyle"],
       },
       {
-        src: u("photo-1471344170871-43e5a3f0d4b5"),
-        keywords: ["event", "coverage", "wedding"],
+        src: u("photo-1542038784456-1ea8e935640e"),
+        keywords: ["gallery", "lens"],
       },
       {
         src: u("photo-1452587925148-ce544e77e70d"),

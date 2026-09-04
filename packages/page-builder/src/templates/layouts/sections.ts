@@ -428,20 +428,28 @@ function withCtaCopy(
   const button = buttonHost?.data?.props?.children?.find(
     (c: TEditorBlock) => c.type === "Button",
   );
+
   if (heading) {
     const inline =
       heading.data?.props?.children?.[0]?.data?.props?.children?.[0];
     if (inline?.data?.props) inline.data.props.text = title;
   }
+
   if (text?.data?.props) {
     text.data.props.value = [{ type: "p", children: [{ text: body }] }];
+    text.data.style.color = [{ value: COLORS["primary-foreground"].value }];
   }
+
   if (button) {
     const inlineText =
       button.data?.props?.children?.[0]?.data?.props?.children?.[0];
     if (inlineText?.data?.props) inlineText.data.props.text = ctaLabel;
     if (button.data?.props) button.data.props.url = "/book";
+
+    button.data.style.backgroundColor = [{ value: COLORS["secondary"].value }];
+    button.data.style.color = [{ value: COLORS["secondary-foreground"].value }];
   }
+
   return block;
 }
 

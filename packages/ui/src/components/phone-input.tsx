@@ -2,6 +2,7 @@ import countries from "countries-phone-masks";
 import React from "react";
 import { Mask, MaskedInput } from "./masked-input";
 
+import { countryOptions } from "@hacado/types";
 import { cn } from "../utils";
 import { Combobox } from "./combobox";
 import "./css/flags.css";
@@ -59,6 +60,14 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
 
   React.useEffect(() => onCountryChange(defaultCountry), [defaultCountry]);
 
+  const allowedCountries = React.useMemo(
+    () =>
+      countries.filter((c) =>
+        countryOptions.some((co) => co.toLowerCase() === c.iso.toLowerCase()),
+      ),
+    [],
+  );
+
   const countryTransform = (country: (typeof countries)[number]) => ({
     value: country.iso,
     shortLabel: (
@@ -83,7 +92,10 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
     ),
   });
 
-  const countryList = React.useMemo(() => countries.map(countryTransform), []);
+  const countryList = React.useMemo(
+    () => allowedCountries.map(countryTransform),
+    [allowedCountries],
+  );
 
   return (
     <InputGroup className={className}>
@@ -101,7 +113,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
           searchLabel={label}
           customSearch={(search) => {
             const lowerSearch = search.toLocaleLowerCase();
-            return countries
+            return allowedCountries
               .filter(
                 (c) =>
                   c.name.toLocaleLowerCase().indexOf(lowerSearch) >= 0 ||
