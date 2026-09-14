@@ -2,6 +2,7 @@
 
 import {
   AppSelectorInput,
+  BooleanInput,
   ConfigurationProps,
   PageInput,
   SelectInput,
@@ -91,6 +92,13 @@ export const BookingWithWaitlistConfiguration = deepMemo(
               label: t("pageBuilder.blocks.booking.flowOrder.specialistFirst"),
             },
           ]}
+        />
+        <BooleanInput
+          label={t("pageBuilder.blocks.booking.dontAllowAnySpecialist")}
+          defaultValue={data.props.dontAllowAnySpecialist ?? false}
+          onChange={(value) =>
+            updateProps({ ...data.props, dontAllowAnySpecialist: value })
+          }
         />
       </StylesConfigurationPanel>
     );

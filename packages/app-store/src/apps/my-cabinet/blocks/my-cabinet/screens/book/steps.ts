@@ -150,7 +150,10 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ selectedMemberId }) => !!selectedMemberId,
+      isEnabled: ({ selectedMemberId, isAnySpecialist, flow }) =>
+        flow === "waitlist"
+          ? !!selectedMemberId
+          : !!selectedMemberId || isAnySpecialist,
       action: async (ctx) => {
         if (ctx.flowOrder === "specialist-first") {
           ctx.setCurrentStep("option");
@@ -213,7 +216,8 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ dateTime }) => !!dateTime,
+      isEnabled: ({ dateTime, selectedMemberId }) =>
+        !!dateTime && !!selectedMemberId,
       action: ({ setCurrentStep }) => setCurrentStep("form"),
     },
     Content: CalendarCard,

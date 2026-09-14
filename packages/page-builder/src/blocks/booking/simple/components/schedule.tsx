@@ -17,7 +17,7 @@ import type {
 } from "@hacado/types";
 import {
   ApplyDiscountResponse,
-  Availability,
+  AvailabilityByMember,
   BookingRestriction,
   CheckDuplicateAppointmentsResponse,
   effectiveAddonDuration,
@@ -46,8 +46,11 @@ export type ScheduleProps = {
   isEditor?: boolean;
   members: PublicStaffMember[];
   flowOrder: FlowOrder;
+  dontAllowAnySpecialist?: boolean;
   /** Set when a specialist was already chosen before the service (specialist-first flow). */
   preselectedMemberId?: string | null;
+  /** Specialist-first flow chose "Any" before the service. */
+  initialIsAnySpecialist?: boolean;
   purchasePackageId?: string;
   customerPackageId?: string;
   isCustomerPackageLocked?: boolean;
@@ -71,7 +74,9 @@ export const Schedule: React.FC<
   isEditor,
   members,
   flowOrder,
+  dontAllowAnySpecialist = false,
   preselectedMemberId,
+  initialIsAnySpecialist = false,
   purchasePackageId,
   customerPackageId,
   isCustomerPackageLocked,
@@ -166,11 +171,15 @@ export const Schedule: React.FC<
     [appointmentOption.staff, members, optionBasePrice, optionBaseDuration],
   );
 
-  const showSpecialistStep = activeStaff.length > 1 && !preselectedMemberId;
+  const showSpecialistStep =
+    activeStaff.length > 1 && !preselectedMemberId && !initialIsAnySpecialist;
 
   const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
     preselectedMemberId ??
       (activeStaff.length === 1 ? activeStaff[0].member.id : null),
+  );
+  const [isAnySpecialist, setIsAnySpecialist] = React.useState(
+    initialIsAnySpecialist,
   );
 
   const flexibleDurationMin =
@@ -226,7 +235,7 @@ export const Schedule: React.FC<
   >([]);
 
   React.useEffect(() => {
-    if (!selectedAddons.length) return;
+    if (!selectedAddons.length || !selectedMemberId) return;
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
@@ -254,7 +263,8 @@ export const Schedule: React.FC<
       required: !!fieldsSchema[id].required || required,
     }));
 
-  const [availability, setAvailability] = React.useState<Availability>([]);
+  const [availabilityByMember, setAvailabilityByMember] =
+    React.useState<AvailabilityByMember>({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>(
     initialFields ?? {
@@ -275,27 +285,37 @@ export const Schedule: React.FC<
 
   const router = useRouter();
 
-  const getTotalDuration = () => {
-    if (!duration) return undefined;
+  const getTotalDurationForMember = (memberId: string | null) => {
+    const selectedStaff = memberId
+      ? activeStaff.find((s) => s.member.id === memberId)
+      : undefined;
 
-    return (
-      duration +
-      (selectedAddons || []).reduce(
-        (sum, addon) =>
-          sum +
-          (effectiveAddonDuration(
-            addon.duration,
-            addon.staff,
-            selectedMemberId,
-          ) || 0),
-        0,
-      )
-    );
+    let baseDuration =
+      appointmentOption.durationType === "fixed"
+        ? (selectedStaff?.effectiveDuration ?? appointmentOption.duration)
+        : duration;
+    if (!baseDuration) {
+      baseDuration =
+        appointmentOption.durationType === "fixed"
+          ? appointmentOption.duration
+          : appointmentOption.durationMin;
+    }
+    if (!baseDuration) return undefined;
+
+    const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
+      if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+      return (
+        sum +
+        (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
+      );
+    }, 0);
+
+    return baseDuration + addonsDuration;
   };
 
+  const getTotalDuration = () => getTotalDurationForMember(selectedMemberId);
+
   const fetchAvailability = async (memberIdOverride?: string | null) => {
-    const totalDuration = getTotalDuration();
-    if (!totalDuration) return;
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
     const resolvedMemberId =
@@ -308,19 +328,58 @@ export const Schedule: React.FC<
       setSelectedMemberId(resolvedMemberId);
     }
 
+    // Keep multi-member fetch whenever Any is selected, even if a concrete
+    // member was picked on the calendar (back→forward must show the picker again).
+    const fetchMulti = isAnySpecialist && activeStaff.length > 1;
+
     setIsLoading(true);
+    setAvailabilityByMember({});
+    setDateTime(undefined);
 
     try {
-      const data = await clientApi.availability.getAvailability({
-        duration: totalDuration,
-        memberId: resolvedMemberId ?? undefined,
-      });
+      if (fetchMulti) {
+        const requests = activeStaff
+          .map((staff) => {
+            const memberId = staff.member.id;
+            const canFulfillAddons = (selectedAddons || []).every((addon) =>
+              isAddonAvailableForMember(addon.staff, memberId),
+            );
 
-      setAvailability(data);
+            if (!canFulfillAddons) return null;
+
+            const memberDuration = getTotalDurationForMember(memberId);
+            if (!memberDuration) return null;
+
+            return { memberId, duration: memberDuration };
+          })
+          .filter((r): r is { memberId: string; duration: number } => !!r);
+
+        if (!requests.length) {
+          setAvailabilityByMember({});
+          return;
+        }
+
+        const data = await clientApi.availability.getAvailability({
+          memberIds: requests.map((r) => r.memberId),
+          durations: requests.map((r) => r.duration),
+        });
+
+        setAvailabilityByMember(data);
+        return;
+      }
+
+      const totalDuration = getTotalDurationForMember(resolvedMemberId);
+      if (!totalDuration || !resolvedMemberId) return;
+
+      const data = await clientApi.availability.getAvailability({
+        memberIds: [resolvedMemberId],
+        durations: [totalDuration],
+      });
+      setAvailabilityByMember(data);
     } catch (e) {
       console.error(e);
 
-      setAvailability([]);
+      setAvailabilityByMember({});
       toast.error(errors.fetchTitle, {
         description: errors.fetchDescription,
       });
@@ -525,6 +584,9 @@ export const Schedule: React.FC<
           appointmentOption,
           members,
           flowOrder,
+          dontAllowAnySpecialist,
+          isAnySpecialist,
+          setIsAnySpecialist,
           selectedMemberId,
           setSelectedMemberId,
           preselectedMemberId,
@@ -547,7 +609,8 @@ export const Schedule: React.FC<
           showPromoCode,
           formFields,
           timeZone,
-          availability,
+          availabilityByMember,
+          isLoading,
           giftCards,
           setGiftCards,
           applyGiftCards,

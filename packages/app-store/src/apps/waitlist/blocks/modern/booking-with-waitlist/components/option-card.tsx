@@ -36,6 +36,8 @@ export const AppointmentOptionCard: React.FC = () => {
     isOnlyWaitlist,
     selectedMemberId,
     setSelectedMemberId,
+    isAnySpecialist,
+    setIsAnySpecialist,
     catalog,
     catalogPath,
     setCatalogPath,
@@ -71,7 +73,7 @@ export const AppointmentOptionCard: React.FC = () => {
   );
 
   const visibleOptions =
-    flowOrder === "specialist-first" && selectedMemberId
+    flowOrder === "specialist-first" && selectedMemberId && !isAnySpecialist
       ? appointmentOptions.filter(
           (o) =>
             !!o.staff?.length &&
@@ -107,6 +109,7 @@ export const AppointmentOptionCard: React.FC = () => {
     }
     if (flowOrder !== "specialist-first") {
       setSelectedMemberId(null);
+      setIsAnySpecialist(false);
     }
   };
 

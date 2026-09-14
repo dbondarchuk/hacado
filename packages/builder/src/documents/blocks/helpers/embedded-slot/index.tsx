@@ -32,10 +32,6 @@ import {
 } from "../../../embedded-slot";
 import { BlockFilterRule, BlockFilterRuleResult } from "../../../types";
 import { matchesRule } from "../../../utils";
-import {
-  getDropTargetOrientation,
-  LiveDropTarget,
-} from "../editor-children/live-drop-target";
 import { OverlayBlock } from "../editor-children/overlay-block";
 
 const SlotPlaceholder = ({
@@ -231,26 +227,16 @@ const EmbeddedSlotChildren = deepMemo(
   }) => {
     const atCapacity =
       maxChildren !== undefined && childrenIds.length >= maxChildren;
-    const orientation = getDropTargetOrientation(allow);
 
     return (
       <>
         {childrenIds.map((childId, i) => (
           <Fragment key={childId}>
-            <LiveDropTarget
+            <OverlayBlock
               blockId={parentBlockId}
               property={childrenProperty}
               index={i}
-              depth={depth + 1}
-              allow={allow}
-              orientation={orientation}
-            >
-              <OverlayBlock
-                blockId={parentBlockId}
-                property={childrenProperty}
-                index={i}
-              />
-            </LiveDropTarget>
+            />
             <EditorBlock
               blockId={childId}
               index={i}
@@ -269,20 +255,11 @@ const EmbeddedSlotChildren = deepMemo(
             allow={allow}
           />
         ) : !atCapacity ? (
-          <LiveDropTarget
+          <OverlayBlock
             blockId={parentBlockId}
             property={childrenProperty}
             index={childrenIds.length}
-            depth={depth + 1}
-            allow={allow}
-            orientation={orientation}
-          >
-            <OverlayBlock
-              blockId={parentBlockId}
-              property={childrenProperty}
-              index={childrenIds.length}
-            />
-          </LiveDropTarget>
+          />
         ) : null}
       </>
     );

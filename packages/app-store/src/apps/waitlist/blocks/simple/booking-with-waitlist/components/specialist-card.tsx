@@ -13,7 +13,7 @@ import {
   useCurrencyFormat,
 } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
-import { Clock } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
 
@@ -26,7 +26,10 @@ export type SpecialistListOption = {
 export type SpecialistListProps = {
   staff: SpecialistListOption[];
   selectedMemberId?: string | null;
+  isAnySpecialist?: boolean;
+  showAny?: boolean;
   onSelect: (memberId: string) => void;
+  onSelectAny?: () => void;
   /** When flexible, price overrides are hourly rates. */
   durationType?: "fixed" | "flexible";
   className?: string;
@@ -36,7 +39,10 @@ export type SpecialistListProps = {
 export const SpecialistList: React.FC<SpecialistListProps> = ({
   staff,
   selectedMemberId,
+  isAnySpecialist,
+  showAny,
   onSelect,
+  onSelectAny,
   durationType = "fixed",
   className,
 }) => {
@@ -45,8 +51,39 @@ export const SpecialistList: React.FC<SpecialistListProps> = ({
 
   return (
     <div className={cn("grid gap-3", className)}>
+      {showAny && onSelectAny && (
+        <Card
+          onClick={onSelectAny}
+          className={cn(
+            "cursor-pointer flex flex-row items-center gap-4 p-4",
+            isAnySpecialist ? "border-primary bg-primary/5" : "",
+          )}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              onSelectAny();
+              e.preventDefault();
+            }
+          }}
+        >
+          <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+            <Users className="w-5 h-5 text-muted-foreground" />
+          </div>
+          <CardHeader className="p-0 flex-1">
+            <CardTitle className="mt-0 text-base">
+              {i18n("booking.specialist.any.title")}
+            </CardTitle>
+            <CardContent className="p-0">
+              <p className="text-xs text-muted-foreground">
+                {i18n("booking.specialist.any.description")}
+              </p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      )}
       {staff.map(({ member, effectivePrice, effectiveDuration }) => {
-        const isSelected = selectedMemberId === member.id;
+        const isSelected = !isAnySpecialist && selectedMemberId === member.id;
 
         return (
           <Card
@@ -78,7 +115,7 @@ export const SpecialistList: React.FC<SpecialistListProps> = ({
                   <Markdown
                     markdown={member.bio}
                     prose="simple"
-                    className="text-xs text-muted-foreground [&_p]:my-0.5"
+                    className="text-xs text-muted-foreground [&_p]:my-0.5 [&_p]:leading-6"
                   />
                 </CardContent>
               )}
@@ -121,6 +158,10 @@ export const SpecialistCard: React.FC = () => {
     selectedMemberId,
     setSelectedMemberId,
     appointmentOption,
+    dontAllowAnySpecialist,
+    isAnySpecialist,
+    setIsAnySpecialist,
+    isOnlyWaitlist,
   } = useScheduleContext();
 
   return (
@@ -134,7 +175,18 @@ export const SpecialistCard: React.FC = () => {
       <SpecialistList
         staff={activeStaff}
         selectedMemberId={selectedMemberId}
-        onSelect={setSelectedMemberId}
+        isAnySpecialist={isAnySpecialist}
+        showAny={
+          !isOnlyWaitlist && !dontAllowAnySpecialist && activeStaff.length > 1
+        }
+        onSelect={(memberId) => {
+          setIsAnySpecialist(false);
+          setSelectedMemberId(memberId);
+        }}
+        onSelectAny={() => {
+          setIsAnySpecialist(true);
+          setSelectedMemberId(null);
+        }}
         durationType={appointmentOption.durationType}
       />
     </div>

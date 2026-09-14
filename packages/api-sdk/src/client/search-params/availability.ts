@@ -4,13 +4,14 @@ import {
   createSerializer,
   createStandardSchemaV1,
   inferParserType,
+  parseAsArrayOf,
   parseAsInteger,
   parseAsString,
 } from "nuqs/server";
 
 export const availabilitySearchParams = {
-  duration: parseAsInteger,
-  memberId: parseAsString,
+  memberIds: parseAsArrayOf(parseAsString),
+  durations: parseAsArrayOf(parseAsInteger),
 };
 
 export const availabilitySearchParamsCache = createSearchParamsCache(

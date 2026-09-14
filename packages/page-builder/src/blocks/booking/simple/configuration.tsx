@@ -1,6 +1,11 @@
 "use client";
 
-import { ConfigurationProps, PageInput, SelectInput } from "@hacado/builder";
+import {
+  BooleanInput,
+  ConfigurationProps,
+  PageInput,
+  SelectInput,
+} from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
 import { deepMemo } from "@hacado/ui";
@@ -54,6 +59,13 @@ export const BookingConfiguration = deepMemo(
               label: t("pageBuilder.blocks.booking.flowOrder.specialistFirst"),
             },
           ]}
+        />
+        <BooleanInput
+          label={t("pageBuilder.blocks.booking.dontAllowAnySpecialist")}
+          defaultValue={data.props.dontAllowAnySpecialist ?? false}
+          onChange={(value) =>
+            updateProps({ ...data.props, dontAllowAnySpecialist: value })
+          }
         />
       </StylesConfigurationPanel>
     );

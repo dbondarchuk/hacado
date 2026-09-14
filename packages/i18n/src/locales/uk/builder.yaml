@@ -1609,6 +1609,7 @@ pageBuilder:
         label: Порядок кроків бронювання
         serviceFirst: Спочатку послуга
         specialistFirst: Спочатку спеціаліст
+      dontAllowAnySpecialist: Вимкнути опцію «Будь-який спеціаліст»
     popup:
       displayName: Попап
       open: Відкрити

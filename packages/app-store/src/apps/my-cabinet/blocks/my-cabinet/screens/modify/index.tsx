@@ -120,13 +120,14 @@ export const CabinetModifyScreen: React.FC<CabinetModifyScreenProps> = ({
   const fetchAvailability = async (
     appt: ModifyAppointmentInformation | undefined,
   ) => {
-    if (!appt || !appt.allowed || !appt.duration) return;
+    if (!appt || !appt.allowed || !appt.duration || !appt.memberId) return;
     setIsLoading(true);
     try {
       const data = await clientApi.availability.getAvailability({
-        duration: appt.duration,
+        memberIds: [appt.memberId],
+        durations: [appt.duration],
       });
-      setAvailability(data);
+      setAvailability(data[appt.memberId] ?? []);
     } catch (e) {
       console.error(e);
       setAvailability([]);

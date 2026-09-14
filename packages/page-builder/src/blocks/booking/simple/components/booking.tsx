@@ -12,7 +12,15 @@ export const Booking: React.FC<
     id?: string;
     isEditor?: boolean;
   } & React.HTMLAttributes<HTMLDivElement>
-> = ({ successPage, flowOrder, className, id, isEditor, ...props }) => {
+> = ({
+  successPage,
+  flowOrder,
+  dontAllowAnySpecialist,
+  className,
+  id,
+  isEditor,
+  ...props
+}) => {
   const [response, setResponse] =
     React.useState<GetAppointmentOptionsResponse | null>(null);
 
@@ -46,6 +54,7 @@ export const Booking: React.FC<
       options={response.options}
       members={response.members}
       flowOrder={flowOrder ?? "service-first"}
+      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}

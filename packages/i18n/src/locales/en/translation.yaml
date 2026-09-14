@@ -23,6 +23,7 @@ common:
     durationCustom: Custom
     selectDateTime: Select date & time
     selectDateFirst: Please select date first
+    selectTimeFirst: Please select time first
     availableTimes: Available times
     loadingAvailableTimes: Loading available times...
     noAvailableTimeSlots: No available time slots on this day
@@ -67,6 +68,9 @@ booking:
     choose: Choose who you'd like to book with
     fromPrice: "From {price}"
     fromDuration: "From {duration}"
+    any:
+      title: Any specialist
+      description: See availability across all specialists and pick what works best
   addons:
     title: Enhance Your Experience
     description: Optional add-ons to make the most of your session

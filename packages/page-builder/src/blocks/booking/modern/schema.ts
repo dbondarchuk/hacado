@@ -17,6 +17,7 @@ export const BookingPropsSchema = z.object({
     hideSteps: z.boolean().optional().nullable(),
     scrollToTop: z.boolean().optional().nullable(),
     flowOrder: flowOrderSchema,
+    dontAllowAnySpecialist: z.boolean().optional(),
   }),
 });
 

@@ -17,6 +17,8 @@ export const AddonsCard: React.FC = () => {
     selectedAddons,
     setDiscount,
     selectedMemberId,
+    isAnySpecialist,
+    activeStaff,
   } = useScheduleContext();
 
   const t = useI18n("translation");
@@ -25,7 +27,14 @@ export const AddonsCard: React.FC = () => {
   if (!selectedAppointmentOption) return null;
 
   const availableAddons = (selectedAppointmentOption.addons || []).filter(
-    (addon) => isAddonAvailableForMember(addon.staff, selectedMemberId),
+    (addon) => {
+      if (isAnySpecialist && !selectedMemberId) {
+        return activeStaff.some((staff) =>
+          isAddonAvailableForMember(addon.staff, staff.member.id),
+        );
+      }
+      return isAddonAvailableForMember(addon.staff, selectedMemberId);
+    },
   );
 
   const onClick = (option: AppointmentAddon): void => {

@@ -6,7 +6,7 @@ import {
   AppointmentChoice,
   AppointmentFields,
   AppointmentPackage,
-  Availability,
+  AvailabilityByMember,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
   DateTime,
@@ -51,6 +51,9 @@ export type ScheduleContextProps = {
   /** Active org staff members, for resolving `appointmentOption.staff` assignments. */
   members: PublicStaffMember[];
   flowOrder: FlowOrder;
+  dontAllowAnySpecialist: boolean;
+  isAnySpecialist: boolean;
+  setIsAnySpecialist: (value: boolean) => void;
 
   selectedMemberId: string | null;
   setSelectedMemberId: (memberId: string | null) => void;
@@ -78,7 +81,9 @@ export type ScheduleContextProps = {
   isFormValid: boolean;
   setIsFormValid: (isValid: boolean) => void;
 
-  availability: Availability;
+  isLoading: boolean;
+
+  availabilityByMember: AvailabilityByMember;
   /** Optional memberId override avoids stale state right after setSelectedMemberId. */
   fetchAvailability: (memberId?: string | null) => Promise<void>;
 

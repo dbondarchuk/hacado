@@ -18,7 +18,7 @@ import type {
 } from "@hacado/types";
 import {
   ApplyDiscountResponse,
-  Availability,
+  AvailabilityByMember,
   BookingRestriction,
   catalogPathForOption,
   CheckDuplicateAppointmentsResponse,
@@ -58,6 +58,7 @@ export type ScheduleProps = {
   areAppointmentOptionsLoading: boolean;
   members: PublicStaffMember[];
   flowOrder: FlowOrder;
+  dontAllowAnySpecialist?: boolean;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
@@ -86,6 +87,7 @@ export const Schedule: React.FC<
   areAppointmentOptionsLoading,
   members,
   flowOrder,
+  dontAllowAnySpecialist = false,
   successPage,
   fieldsSchema,
   showPromoCode,
@@ -217,6 +219,7 @@ export const Schedule: React.FC<
   const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
     null,
   );
+  const [isAnySpecialist, setIsAnySpecialist] = React.useState(false);
 
   const [isBookingConfirmed, setIsBookingConfirmed] = React.useState(false);
 
@@ -317,7 +320,7 @@ export const Schedule: React.FC<
   >([]);
 
   React.useEffect(() => {
-    if (!selectedAddons.length) return;
+    if (!selectedAddons.length || !selectedMemberId) return;
     const filtered = selectedAddons.filter((addon) =>
       isAddonAvailableForMember(addon.staff, selectedMemberId),
     );
@@ -348,7 +351,8 @@ export const Schedule: React.FC<
       required: !!fieldsSchema[id].required || required,
     }));
 
-  const [availability, setAvailability] = React.useState<Availability>([]);
+  const [availabilityByMember, setAvailabilityByMember] =
+    React.useState<AvailabilityByMember>({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [fields, setFields] = React.useState<AppointmentFields>({
     name: "",
@@ -399,23 +403,44 @@ export const Schedule: React.FC<
     dates: [],
   });
 
-  const getTotalDuration = useCallback(() => {
-    if (!duration) return undefined;
+  const getTotalDurationForMember = useCallback(
+    (memberId: string | null) => {
+      if (!selectedAppointmentOption) return undefined;
 
-    return (
-      duration +
-      (selectedAddons || []).reduce(
-        (sum, addon) =>
+      const selectedStaff = memberId
+        ? activeStaff.find((s) => s.member.id === memberId)
+        : undefined;
+
+      let baseDuration =
+        selectedAppointmentOption.durationType === "fixed"
+          ? (selectedStaff?.effectiveDuration ??
+            selectedAppointmentOption.duration)
+          : duration;
+      if (!baseDuration) {
+        baseDuration =
+          selectedAppointmentOption.durationType === "fixed"
+            ? selectedAppointmentOption.duration
+            : selectedAppointmentOption.durationMin;
+      }
+      if (!baseDuration) return undefined;
+
+      const addonsDuration = (selectedAddons || []).reduce((sum, addon) => {
+        if (!isAddonAvailableForMember(addon.staff, memberId)) return sum;
+        return (
           sum +
-          (effectiveAddonDuration(
-            addon.duration,
-            addon.staff,
-            selectedMemberId,
-          ) || 0),
-        0,
-      )
-    );
-  }, [duration, selectedAddons, selectedMemberId]);
+          (effectiveAddonDuration(addon.duration, addon.staff, memberId) || 0)
+        );
+      }, 0);
+
+      return baseDuration + addonsDuration;
+    },
+    [selectedAppointmentOption, activeStaff, duration, selectedAddons],
+  );
+
+  const getTotalDuration = useCallback(
+    () => getTotalDurationForMember(selectedMemberId),
+    [getTotalDurationForMember, selectedMemberId],
+  );
 
   const onWaitlistSubmit = useCallback(async () => {
     if (isEditor) return;
@@ -465,6 +490,9 @@ export const Schedule: React.FC<
     selectedMemberId,
     waitlistTimes,
     isEditor,
+    getTotalDuration,
+    errors.submitWaitlistTitle,
+    errors.submitWaitlistDescription,
   ]);
 
   const getAppointmentRequest = useCallback(
@@ -529,8 +557,6 @@ export const Schedule: React.FC<
 
   const fetchAvailability = useCallback(
     async (memberIdOverride?: string | null, durationOverride?: number) => {
-      const totalDuration = durationOverride ?? getTotalDuration();
-      if (!totalDuration) return;
       if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
       const resolvedMemberId =
@@ -542,29 +568,65 @@ export const Schedule: React.FC<
         setSelectedMemberId(resolvedMemberId);
       }
 
+      // Keep multi-member fetch whenever Any is selected, even if a concrete
+      // member was picked on the calendar (back→forward must show the picker again).
+      const fetchMulti = isAnySpecialist && activeStaff.length > 1;
+
       setIsLoading(true);
-      setAvailability([]);
+      setAvailabilityByMember({});
       if (!waitlistOffer) {
         setDateTime(undefined);
       }
 
       try {
+        if (fetchMulti) {
+          const requests = activeStaff
+            .map((staff) => {
+              const memberId = staff.member.id;
+              const canFulfillAddons = (selectedAddons || []).every((addon) =>
+                isAddonAvailableForMember(addon.staff, memberId),
+              );
+              if (!canFulfillAddons) return null;
+              const memberDuration = getTotalDurationForMember(memberId);
+              if (!memberDuration) return null;
+              return { memberId, duration: memberDuration };
+            })
+            .filter((r): r is { memberId: string; duration: number } => !!r);
+
+          if (!requests.length) {
+            setAvailabilityByMember({});
+            return;
+          }
+
+          const data = await clientApi.availability.getAvailability({
+            memberIds: requests.map((r) => r.memberId),
+            durations: requests.map((r) => r.duration),
+          });
+          setAvailabilityByMember(data);
+          return;
+        }
+
+        const totalDuration =
+          durationOverride ?? getTotalDurationForMember(resolvedMemberId);
+        if (!totalDuration || !resolvedMemberId) return;
+
         const data = await clientApi.availability.getAvailability({
-          duration: totalDuration,
-          memberId: resolvedMemberId ?? undefined,
+          memberIds: [resolvedMemberId],
+          durations: [totalDuration],
         });
 
-        setAvailability(data);
+        setAvailabilityByMember(data);
+        const slots = data[resolvedMemberId] ?? [];
         if (
           waitlistOffer &&
-          !isWaitlistOfferSlotAvailable(data, waitlistOffer.dateTime)
+          !isWaitlistOfferSlotAvailable(slots, waitlistOffer.dateTime)
         ) {
           setDateTime(undefined);
         }
       } catch (e) {
         console.error(e);
 
-        setAvailability([]);
+        setAvailabilityByMember({});
         toast.error(errors.fetchTitle, {
           description: errors.fetchDescription,
         });
@@ -573,12 +635,14 @@ export const Schedule: React.FC<
       }
     },
     [
-      getTotalDuration,
+      getTotalDurationForMember,
       errors.fetchTitle,
       errors.fetchDescription,
       selectedMemberId,
       activeStaff,
       waitlistOffer,
+      isAnySpecialist,
+      selectedAddons,
     ],
   );
 
@@ -639,6 +703,7 @@ export const Schedule: React.FC<
     setCurrentStep(isSpecialistFirst ? "specialist" : "option");
     setSelectedAppointmentOption(undefined);
     setSelectedMemberId(null);
+    setIsAnySpecialist(false);
     setSelectedAddons([]);
     setDuration(undefined);
     setDateTime(undefined);
@@ -646,7 +711,7 @@ export const Schedule: React.FC<
       asSoonAsPossible: false,
       dates: [],
     });
-    setAvailability([]);
+    setAvailabilityByMember({});
     setIsBookingConfirmed(false);
     setClosestDuplicateAppointment(undefined);
     setDuplicateAppointmentDoNotAllowScheduling(undefined);
@@ -785,6 +850,9 @@ export const Schedule: React.FC<
       areAppointmentOptionsLoading,
       members,
       flowOrder,
+      dontAllowAnySpecialist,
+      isAnySpecialist,
+      setIsAnySpecialist,
       selectedMemberId,
       setSelectedMemberId,
       activeStaff,
@@ -814,7 +882,7 @@ export const Schedule: React.FC<
       setFlow,
       showPromoCode,
       formFields,
-      availability,
+      availabilityByMember,
       paymentInformation,
       setPaymentInformation,
       fetchPaymentInformation,
@@ -861,6 +929,9 @@ export const Schedule: React.FC<
       areAppointmentOptionsLoading,
       members,
       flowOrder,
+      dontAllowAnySpecialist,
+      isAnySpecialist,
+      setIsAnySpecialist,
       selectedMemberId,
       activeStaff,
       isLoading,
@@ -889,7 +960,7 @@ export const Schedule: React.FC<
       setFlow,
       showPromoCode,
       formFields,
-      availability,
+      availabilityByMember,
       paymentInformation,
       setPaymentInformation,
       fetchPaymentInformation,

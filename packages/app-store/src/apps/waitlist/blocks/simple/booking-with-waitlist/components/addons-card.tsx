@@ -29,13 +29,20 @@ export const AddonsCard: React.FC = () => {
     setDiscount,
     className,
     selectedMemberId,
+    isAnySpecialist,
+    activeStaff,
   } = useScheduleContext();
 
   const currencyFormat = useCurrencyFormat();
 
-  const availableAddons = (appointmentOption.addons || []).filter((addon) =>
-    isAddonAvailableForMember(addon.staff, selectedMemberId),
-  );
+  const availableAddons = (appointmentOption.addons || []).filter((addon) => {
+    if (isAnySpecialist && !selectedMemberId) {
+      return activeStaff.some((staff) =>
+        isAddonAvailableForMember(addon.staff, staff.member.id),
+      );
+    }
+    return isAddonAvailableForMember(addon.staff, selectedMemberId);
+  });
 
   const onClick = (option: AppointmentAddon): void => {
     const index = (selectedAddons || []).findIndex(

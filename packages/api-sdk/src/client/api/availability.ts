@@ -1,4 +1,4 @@
-import { Availability } from "@hacado/types";
+import { AvailabilityByMember } from "@hacado/types";
 import {
   AvailabilitySearchParams,
   serializeAvailabilitySearchParams,
@@ -15,7 +15,7 @@ export const getAvailability = async (params: AvailabilitySearchParams) => {
     method: "GET",
   });
 
-  const data = await response.json<Availability>();
+  const data = await response.json<AvailabilityByMember>();
   console.debug("Availability retrieved successfully", {
     data,
   });

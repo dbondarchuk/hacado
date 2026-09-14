@@ -1,0 +1,320 @@
+---
+description: Code formatting and whitespace conventions
+globs: "**/*.{ts,tsx,js,jsx}"
+alwaysApply: true
+---
+
+---
+
+# Code Style
+
+Use blank lines to separate meaningful logical units of code, but prefer compact code by default.
+
+Do NOT add blank lines between ordinary sequential statements that belong to the same logical operation.
+
+Prefer:
+
+```ts
+const customer = await getCustomer(customerId);
+const appointment = await getAppointment(appointmentId);
+```
+
+over:
+
+```ts
+const customer = await getCustomer(customerId);
+
+const appointment = await getAppointment(appointmentId);
+```
+
+The main case where a blank line should be added is when a control-flow block or multi-line statement is followed by an independent statement.
+
+## Control-flow blocks followed by independent statements
+
+When a control-flow block is followed by an independent statement, add a blank line after the closing `}`.
+
+Prefer:
+
+```ts
+if (isAnySpecialist && !selectedMemberId) {
+  return activeStaff.some((staff) =>
+    isAddonAvailableForMember(addon.staff, staff.member.id),
+  );
+}
+
+return isAddonAvailableForMember(addon.staff, selectedMemberId);
+```
+
+over:
+
+```ts
+if (isAnySpecialist && !selectedMemberId) {
+  return activeStaff.some((staff) =>
+    isAddonAvailableForMember(addon.staff, staff.member.id),
+  );
+}
+return isAddonAvailableForMember(addon.staff, selectedMemberId);
+```
+
+Another example:
+
+```ts
+if (!customer) {
+  return null;
+}
+
+const appointments = await getAppointments(customer.id);
+```
+
+Another:
+
+```ts
+if (hasChanges) {
+  await saveChanges();
+}
+
+await invalidateCache();
+```
+
+The blank line communicates that the control-flow branch is complete and the following statement is a separate logical step.
+
+## Early returns
+
+Use a blank line between a guard/early-return block and the main logic that follows.
+
+Prefer:
+
+```ts
+if (!user) {
+  return null;
+}
+
+const company = await getCompany(user.companyId);
+return company;
+```
+
+For multiple closely related guard clauses, keep them compact:
+
+```ts
+if (!user) {
+  return null;
+}
+if (!user.companyId) {
+  return null;
+}
+
+const company = await getCompany(user.companyId);
+return company;
+```
+
+Do not add blank lines between ordinary sequential statements:
+
+```ts
+const customer = await getCustomer(customerId);
+const service = await getService(serviceId);
+const duration = service.duration;
+
+return buildAppointment(customer, service, duration);
+```
+
+## If / else / switch / try-catch
+
+Do NOT add blank lines between parts of the same control-flow construct.
+
+Prefer:
+
+```ts
+if (condition) {
+  doSomething();
+} else {
+  doSomethingElse();
+}
+```
+
+```ts
+if (status === "pending") {
+  handlePending();
+} else if (status === "confirmed") {
+  handleConfirmed();
+} else {
+  handleOther();
+}
+
+sendNotification();
+```
+
+```ts
+try {
+  await operation();
+} catch (error) {
+  handleError(error);
+}
+
+await continueProcessing();
+```
+
+Do not put blank lines between `try`, `catch`, or `finally`.
+
+## Multi-line statements
+
+A multi-line statement followed by an independent statement should have a blank line.
+
+Prefer:
+
+```ts
+const availableSlots = slots.filter(
+  (slot) => slot.start >= startTime && slot.end <= endTime,
+);
+
+const firstAvailableSlot = availableSlots[0];
+```
+
+Prefer:
+
+```ts
+const hasAvailableMember = activeStaff.some((staff) =>
+  isAddonAvailableForMember(addon.staff, staff.member.id),
+);
+
+return hasAvailableMember;
+```
+
+However, ordinary consecutive statements should remain compact:
+
+```ts
+const activeStaff = staff.filter((staff) => staff.active);
+const availableStaff = activeStaff.filter((staff) =>
+  isStaffAvailable(staff, date),
+);
+const firstAvailableStaff = availableStaff[0];
+```
+
+Do not insert blank lines just because a statement spans multiple lines.
+
+## Function declarations
+
+Separate function declarations with a blank line.
+
+Prefer:
+
+```ts
+function getCustomer(id: string) {
+  return customers.get(id);
+}
+
+function getAppointment(id: string) {
+  return appointments.get(id);
+}
+```
+
+Inside a function, use blank lines only when they communicate a meaningful logical boundary.
+
+Prefer:
+
+```ts
+async function createAppointment(input: CreateAppointmentInput) {
+  const customer = await findCustomer(input.customerId);
+  const service = await getService(input.serviceId);
+
+  const appointment = buildAppointment(customer, service, input);
+
+  await saveAppointment(appointment);
+
+  return appointment;
+}
+```
+
+Here blank lines separate meaningful stages, but related setup statements remain together.
+
+## Variables and sequential operations
+
+Keep related sequential statements together.
+
+Prefer:
+
+```ts
+const customer = await getCustomer(customerId);
+const service = await getService(serviceId);
+const duration = service.duration;
+const price = service.price;
+
+const appointment = buildAppointment({
+  customer,
+  service,
+  duration,
+  price,
+});
+```
+
+Do NOT turn every variable or operation into its own paragraph.
+
+Avoid:
+
+```ts
+const customer = await getCustomer(customerId);
+
+const service = await getService(serviceId);
+
+const duration = service.duration;
+
+const price = service.price;
+```
+
+## Nested blocks
+
+Do not add a blank line merely because a nested block ends.
+
+Prefer:
+
+```ts
+if (customer) {
+  if (customer.isActive) {
+    processCustomer(customer);
+  }
+
+  updateCustomerMetadata(customer);
+}
+
+sendNotification();
+```
+
+The blank line after the outer control-flow block separates it from the independent `sendNotification()` operation.
+
+## Array callbacks
+
+Keep short callbacks compact.
+
+Prefer:
+
+```ts
+const activeStaff = staff.filter((staff) => staff.active);
+const availableStaff = activeStaff.filter((staff) =>
+  isStaffAvailable(staff, date),
+);
+```
+
+Do not add blank lines between the callback and the surrounding operation unless there is a meaningful logical boundary.
+
+## General rule
+
+Default to compact code.
+
+Add a blank line when it communicates one of these boundaries:
+
+1. A control-flow block has finished and independent code follows.
+2. An early-return/guard section has finished and the main logic follows.
+3. A multi-line operation has finished and an independent operation follows.
+4. A function or other top-level declaration ends and another declaration begins.
+5. There is a clear transition between meaningful stages of a larger operation.
+
+Do NOT add blank lines:
+
+- Between ordinary sequential statements.
+- Between related variable declarations.
+- Between related API calls or setup operations.
+- Between `if` and `else`.
+- Between `try` and `catch`.
+- Merely because a statement or expression spans multiple lines.
+- Mechanically after every closing `}`.
+
+When uncertain, prefer fewer blank lines.

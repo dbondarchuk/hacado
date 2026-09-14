@@ -261,6 +261,8 @@ export type ModifyAppointmentInformation = {
   timeZone: string;
   duration: number;
   price?: number;
+  /** Assigned staff member for the appointment. */
+  memberId: string;
 } & (
   | ({
       allowed: true;

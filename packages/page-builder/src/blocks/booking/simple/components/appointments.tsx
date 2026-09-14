@@ -30,6 +30,7 @@ export type AppointmentsProps = {
   options: AppointmentChoice[];
   members?: PublicStaffMember[];
   flowOrder?: FlowOrder;
+  dontAllowAnySpecialist?: boolean;
   optionsClassName?: string;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
@@ -51,6 +52,7 @@ export const Appointments: React.FC<
   options,
   members = [],
   flowOrder = "service-first",
+  dontAllowAnySpecialist = false,
   optionsClassName,
   successPage,
   fieldsSchema,
@@ -102,13 +104,14 @@ export const Appointments: React.FC<
   const [specialistFirstMemberId, setSpecialistFirstMemberId] = React.useState<
     string | null
   >(null);
+  const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
 
   const selected = options.find((m) => m._id === option);
   const isCustomerPackageLocked =
     packageBookingFlow && !!customerPackageId && !!selected;
 
   const availableOptions =
-    isSpecialistFirst && specialistFirstMemberId
+    isSpecialistFirst && specialistFirstMemberId && !specialistFirstAny
       ? options.filter(
           (o) =>
             !!o.staff?.length &&
@@ -233,8 +236,14 @@ export const Appointments: React.FC<
         isEditor={isEditor}
         members={members}
         flowOrder={flowOrder}
+        dontAllowAnySpecialist={dontAllowAnySpecialist}
         preselectedMemberId={
-          isSpecialistFirst ? specialistFirstMemberId : undefined
+          isSpecialistFirst && !specialistFirstAny
+            ? specialistFirstMemberId
+            : undefined
+        }
+        initialIsAnySpecialist={
+          isSpecialistFirst ? specialistFirstAny : undefined
         }
         purchasePackageId={purchasePackageId}
         customerPackageId={customerPackageId}
@@ -304,7 +313,7 @@ export const Appointments: React.FC<
     );
   }
 
-  if (isSpecialistFirst && !specialistFirstMemberId) {
+  if (isSpecialistFirst && !specialistFirstMemberId && !specialistFirstAny) {
     return (
       <div className="flex flex-col gap-2" id={id}>
         {isBookingRestricted && <BookingRestrictionBanner className="mb-4" />}
@@ -317,11 +326,20 @@ export const Appointments: React.FC<
         <SpecialistList
           className={cn(className, optionsClassName)}
           staff={staffAcrossOptions.map((member) => ({ member }))}
+          selectedMemberId={specialistFirstMemberId}
+          isAnySpecialist={specialistFirstAny}
+          showAny={!dontAllowAnySpecialist && staffAcrossOptions.length > 1}
           onSelect={(memberId) => {
+            setSpecialistFirstAny(false);
             setSpecialistFirstMemberId(memberId);
             clientApi.booking.trackAdvanceFromUiStep("specialist", {
               memberId,
             });
+          }}
+          onSelectAny={() => {
+            setSpecialistFirstAny(true);
+            setSpecialistFirstMemberId(null);
+            clientApi.booking.trackAdvanceFromUiStep("specialist", {});
           }}
         />
       </div>
@@ -469,12 +487,15 @@ export const Appointments: React.FC<
           />
         </div>
       )}
-      {isSpecialistFirst && specialistFirstMemberId && (
+      {isSpecialistFirst && (specialistFirstMemberId || specialistFirstAny) && (
         <div className="mt-4 text-center">
           <button
             type="button"
             className="text-sm text-muted-foreground underline"
-            onClick={() => setSpecialistFirstMemberId(null)}
+            onClick={() => {
+              setSpecialistFirstMemberId(null);
+              setSpecialistFirstAny(false);
+            }}
           >
             {i18n("common.buttons.back")}
           </button>

@@ -223,7 +223,13 @@ export const ModifyAppointmentForm: React.FC<
   const fetchAvailability = async (
     appointment: ModifyAppointmentInformation | undefined,
   ) => {
-    if (!appointment || !appointment.allowed || !appointment.duration) return;
+    if (
+      !appointment ||
+      !appointment.allowed ||
+      !appointment.duration ||
+      !appointment.memberId
+    )
+      return;
 
     if (errors.fetchTitle === "booking.availability.fetchFailedTitle") return;
 
@@ -231,10 +237,11 @@ export const ModifyAppointmentForm: React.FC<
 
     try {
       const data = await clientApi.availability.getAvailability({
-        duration: appointment.duration,
+        memberIds: [appointment.memberId],
+        durations: [appointment.duration],
       });
 
-      setAvailability(data);
+      setAvailability(data[appointment.memberId] ?? []);
     } catch (e) {
       console.error(e);
 

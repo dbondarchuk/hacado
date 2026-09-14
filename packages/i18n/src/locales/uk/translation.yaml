@@ -28,6 +28,7 @@ common:
     durationCustom: Власний
     selectDateTime: Виберіть дату та час
     selectDateFirst: "Будь ласка, спочатку виберіть дату"
+    selectTimeFirst: "Будь ласка, спочатку виберіть час"
     availableTimes: Доступний час
     loadingAvailableTimes: Завантаження доступного часу...
     noAvailableTimeSlots: Цього дня не має вільного часу
@@ -72,6 +73,9 @@ booking:
     choose: Оберіть, з ким ви хочете забронювати
     fromPrice: "Від {price}"
     fromDuration: "Від {duration}"
+    any:
+      title: Будь-який спеціаліст
+      description: Перегляньте доступність усіх спеціалістів і оберіть зручний час
   addons:
     title: Покращіть ваш досвід
     description: Додаткові опції для максимального використання вашої сесії

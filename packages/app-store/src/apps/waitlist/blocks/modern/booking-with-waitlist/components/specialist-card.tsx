@@ -9,7 +9,7 @@ import {
   useCurrencyFormat,
 } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
-import { Clock } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
 
@@ -22,6 +22,10 @@ export const SpecialistCard: React.FC = () => {
     staffAcrossOptions,
     selectedMemberId,
     setSelectedMemberId,
+    dontAllowAnySpecialist,
+    isAnySpecialist,
+    setIsAnySpecialist,
+    flow,
   } = useScheduleContext();
 
   const candidates: {
@@ -31,6 +35,19 @@ export const SpecialistCard: React.FC = () => {
   }[] = selectedAppointmentOption
     ? activeStaff
     : staffAcrossOptions.map((member) => ({ member }));
+
+  const showAny =
+    flow === "booking" && !dontAllowAnySpecialist && candidates.length > 1;
+
+  const selectMember = (memberId: string) => {
+    setIsAnySpecialist(false);
+    setSelectedMemberId(memberId);
+  };
+
+  const selectAny = () => {
+    setIsAnySpecialist(true);
+    setSelectedMemberId(null);
+  };
 
   return (
     <div className="space-y-4 specialist-card card-container">
@@ -43,13 +60,38 @@ export const SpecialistCard: React.FC = () => {
         </p>
       </div>
       <div className="grid gap-3 specialist-list">
+        {showAny && (
+          <button
+            type="button"
+            onClick={selectAny}
+            className={cn(
+              "w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center gap-4 text-left cursor-pointer",
+              isAnySpecialist
+                ? "border-primary bg-primary/5"
+                : "border-border hover:border-primary/50 hover:bg-accent/50",
+            )}
+          >
+            <div className="w-12 h-12 flex-shrink-0 rounded-full bg-muted flex items-center justify-center">
+              <Users className="w-5 h-5 text-muted-foreground" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-medium text-foreground">
+                {i18n("booking.specialist.any.title")}
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                {i18n("booking.specialist.any.description")}
+              </p>
+            </div>
+          </button>
+        )}
         {candidates.map(({ member, effectivePrice, effectiveDuration }) => {
-          const isSelected = selectedMemberId === member.id;
+          const isSelected = !isAnySpecialist && selectedMemberId === member.id;
 
           return (
             <button
               key={member.id}
-              onClick={() => setSelectedMemberId(member.id)}
+              type="button"
+              onClick={() => selectMember(member.id)}
               className={cn(
                 "w-full p-4 rounded-lg border-2 transition-all duration-200 flex items-center gap-4 text-left cursor-pointer",
                 isSelected

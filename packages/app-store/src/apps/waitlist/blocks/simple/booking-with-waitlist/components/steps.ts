@@ -129,7 +129,10 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ selectedMemberId }) => !!selectedMemberId,
+      isEnabled: ({ selectedMemberId, isAnySpecialist, isOnlyWaitlist }) =>
+        isOnlyWaitlist
+          ? !!selectedMemberId
+          : !!selectedMemberId || isAnySpecialist,
       action: async (ctx) => goToStepAfterSpecialist(ctx),
     },
     Content: SpecialistCard,
@@ -183,7 +186,8 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ dateTime }) => !!dateTime,
+      isEnabled: ({ dateTime, selectedMemberId }) =>
+        !!dateTime && !!selectedMemberId,
       action: ({ setStep }) => setStep("form"),
     },
     Content: CalendarCard,

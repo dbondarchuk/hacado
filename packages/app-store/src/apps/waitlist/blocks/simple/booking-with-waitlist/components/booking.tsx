@@ -23,6 +23,7 @@ export const BookingWithWaitlist: React.FC<
 > = ({
   successPage,
   flowOrder,
+  dontAllowAnySpecialist,
   className,
   id,
   isEditor,
@@ -80,6 +81,7 @@ export const BookingWithWaitlist: React.FC<
       options={response.options}
       members={response.members}
       flowOrder={flowOrder ?? "service-first"}
+      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}

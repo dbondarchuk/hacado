@@ -241,3 +241,70 @@ export function getActiveStaffAcrossAssignments(
 
   return result;
 }
+
+export type StaffBookingTotalsAddon = {
+  price?: number | null;
+  duration?: number | null;
+  staff?: AddonStaffOverride[];
+};
+
+/**
+ * Total price and duration a customer would pay/book for a given staff member,
+ * including selected addons. Flexible services use the effective hourly rate ×
+ * total minutes (service + addons), not a "per hour" display amount.
+ */
+export function getStaffBookingTotals(args: {
+  memberId: string;
+  staff?: Pick<ActiveStaffOption, "effectivePrice" | "effectiveDuration">;
+  durationType: "fixed" | "flexible";
+  optionPrice?: number | null;
+  optionPricePerHour?: number | null;
+  /** Service duration in minutes, without addons. */
+  serviceDuration?: number | null;
+  selectedAddons?: StaffBookingTotalsAddon[];
+  purchasePackagePrice?: number | null;
+  isCustomerPackage?: boolean;
+}): { price: number; duration: number } {
+  const addons = args.selectedAddons || [];
+  const addonsPrice = addons.reduce(
+    (sum, addon) =>
+      sum + (effectiveAddonPrice(addon.price, addon.staff, args.memberId) || 0),
+    0,
+  );
+
+  const addonsDuration = addons.reduce(
+    (sum, addon) =>
+      sum +
+      (effectiveAddonDuration(addon.duration, addon.staff, args.memberId) || 0),
+    0,
+  );
+
+  const serviceDuration =
+    args.durationType === "fixed"
+      ? (args.staff?.effectiveDuration ?? args.serviceDuration ?? 0)
+      : (args.serviceDuration ?? 0);
+
+  const totalDuration = serviceDuration + addonsDuration;
+
+  if (args.purchasePackagePrice != null) {
+    return {
+      price: args.purchasePackagePrice + addonsPrice,
+      duration: totalDuration,
+    };
+  }
+
+  if (args.isCustomerPackage) {
+    return { price: addonsPrice, duration: totalDuration };
+  }
+
+  let basePrice = 0;
+  if (args.durationType === "fixed") {
+    basePrice = args.staff?.effectivePrice ?? args.optionPrice ?? 0;
+  } else {
+    const pricePerHour =
+      args.staff?.effectivePrice ?? args.optionPricePerHour ?? 0;
+    basePrice = (pricePerHour / 60) * totalDuration;
+  }
+
+  return { price: basePrice + addonsPrice, duration: totalDuration };
+}

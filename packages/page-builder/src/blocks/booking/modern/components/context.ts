@@ -7,7 +7,7 @@ import {
   AppointmentChoice,
   AppointmentFields,
   AppointmentPackage,
-  Availability,
+  AvailabilityByMember,
   BookingCatalogNode,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
@@ -58,6 +58,11 @@ export type ScheduleContextProps = {
   /** Active org staff members, for resolving `appointmentOption.staff` assignments. */
   members: PublicStaffMember[];
   flowOrder: FlowOrder;
+  /** When true, hide the "Any specialist" option. */
+  dontAllowAnySpecialist: boolean;
+  /** Customer chose Any on the specialist step. */
+  isAnySpecialist: boolean;
+  setIsAnySpecialist: (value: boolean) => void;
 
   selectedMemberId: string | null;
   setSelectedMemberId: (memberId: string | null) => void;
@@ -82,7 +87,7 @@ export type ScheduleContextProps = {
   isFormValid: boolean;
   setIsFormValid: (isValid: boolean) => void;
 
-  availability: Availability;
+  availabilityByMember: AvailabilityByMember;
   /** Optional memberId override avoids stale state right after setSelectedMemberId. */
   fetchAvailability: (
     memberId?: string | null,

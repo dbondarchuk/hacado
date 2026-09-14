@@ -14,6 +14,7 @@ export const BookingPropsSchema = z.object({
   props: z.object({
     confirmationPage: z.string().optional().nullable(),
     flowOrder: flowOrderSchema,
+    dontAllowAnySpecialist: z.boolean().optional(),
   }),
 });
 

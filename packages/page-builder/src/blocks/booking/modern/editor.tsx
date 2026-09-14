@@ -31,6 +31,7 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}
         flowOrder={props.flowOrder}
+        dontAllowAnySpecialist={props.dontAllowAnySpecialist}
         {...overlayProps}
       />
     </>

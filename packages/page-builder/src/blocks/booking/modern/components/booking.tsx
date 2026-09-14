@@ -13,6 +13,7 @@ export type BookingProps = {
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
   flowOrder?: FlowOrder | null;
+  dontAllowAnySpecialist?: boolean | null;
   lockPurchasePackageId?: string;
   lockCustomerPackageId?: string;
 };
@@ -31,6 +32,7 @@ export const Booking: React.FC<
   hideTitle,
   hideSteps,
   flowOrder,
+  dontAllowAnySpecialist,
   lockPurchasePackageId,
   lockCustomerPackageId,
   ...props
@@ -59,6 +61,7 @@ export const Booking: React.FC<
       areAppointmentOptionsLoading={!response}
       members={response?.members ?? []}
       flowOrder={flowOrder ?? "service-first"}
+      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}

@@ -15,6 +15,7 @@ import { Schedule } from "./schedule";
 export type BookingWithWaitlistProps = {
   successPage?: string | null;
   flowOrder?: FlowOrder | null;
+  dontAllowAnySpecialist?: boolean | null;
   className?: string;
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
@@ -33,6 +34,7 @@ export const BookingWithWaitlist: React.FC<
 > = ({
   successPage,
   flowOrder,
+  dontAllowAnySpecialist,
   className,
   id,
   isEditor,
@@ -86,6 +88,7 @@ export const BookingWithWaitlist: React.FC<
       areAppointmentOptionsLoading={!response}
       members={response?.members ?? []}
       flowOrder={flowOrder ?? "service-first"}
+      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}

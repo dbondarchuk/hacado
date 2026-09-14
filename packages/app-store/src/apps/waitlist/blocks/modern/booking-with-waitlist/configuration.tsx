@@ -112,6 +112,13 @@ export const BookingWithWaitlistConfiguration = deepMemo(
             },
           ]}
         />
+        <BooleanInput
+          label={t("pageBuilder.blocks.booking.dontAllowAnySpecialist")}
+          defaultValue={data.props.dontAllowAnySpecialist ?? false}
+          onChange={(value) =>
+            updateProps({ ...data.props, dontAllowAnySpecialist: value })
+          }
+        />
       </StylesConfigurationPanel>
     );
   },

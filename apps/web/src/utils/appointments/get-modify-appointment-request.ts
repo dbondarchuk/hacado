@@ -167,6 +167,7 @@ export const getModifyAppointmentInformationRequestResult = async (
     timeZone: appointment.timeZone,
     duration: appointment.totalDuration,
     price: appointment.totalPrice,
+    memberId: appointment.memberId,
   };
 
   const onlinePaymentUnavailable = () => ({
