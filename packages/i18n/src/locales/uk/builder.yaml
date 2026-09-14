@@ -1052,6 +1052,7 @@ pageBuilder:
       cookieAcknowledgmentBanner:
         message: Ми використовуємо файли cookie та подібні технології, щоб зрозуміти, як відвідувачі користуються нашим сайтом.
         button: Зрозуміло
+        privacyPolicy: Політика конфіденційності
     content:
       faqSection:
         eyebrow: FAQ

@@ -1050,6 +1050,7 @@ pageBuilder:
       cookieAcknowledgmentBanner:
         message: We use cookies and similar technologies to understand how visitors use our website.
         button: Got it
+        privacyPolicy: Privacy policy
     content:
       faqSection:
         eyebrow: FAQ

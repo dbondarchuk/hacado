@@ -1,10 +1,7 @@
 import { BaseReaderBlockProps, generateId } from "@hacado/builder";
 import { COLORS } from "@hacado/page-builder-base/style";
 import * as z from "zod";
-import {
-  FLUID_DEFAULT_GAP,
-  FLUID_DEFAULT_ROW_HEIGHT,
-} from "../fluid-layout/schema";
+import { ContainerPropsDefaults } from "../container/schema";
 import { zStyles } from "./styles";
 
 export const showStickyBannerType = ["always", "one-time", "on-click"] as const;
@@ -45,10 +42,10 @@ export const StickyBannerPropsDefaults = () =>
       padding: [
         {
           value: {
-            top: { value: 0.75, unit: "rem" },
-            right: { value: 2.5, unit: "rem" },
-            bottom: { value: 0.75, unit: "rem" },
-            left: { value: 1.5, unit: "rem" },
+            top: { value: 0, unit: "rem" },
+            right: { value: 0, unit: "rem" },
+            bottom: { value: 0, unit: "rem" },
+            left: { value: 0, unit: "rem" },
           },
         },
       ],
@@ -72,23 +69,20 @@ export const StickyBannerPropsDefaults = () =>
       content: {
         children: [
           {
-            type: "FluidLayout",
+            type: "Container",
             id: generateId(),
             data: {
+              ...ContainerPropsDefaults,
               style: {
+                ...ContainerPropsDefaults.style,
                 padding: [
                   {
                     value: {
-                      top: { value: 0, unit: "rem" },
-                      right: { value: 0, unit: "rem" },
-                      bottom: { value: 0, unit: "rem" },
-                      left: { value: 0, unit: "rem" },
+                      top: { value: 1, unit: "rem" },
+                      right: { value: 1.5, unit: "rem" },
+                      bottom: { value: 1, unit: "rem" },
+                      left: { value: 1.5, unit: "rem" },
                     },
-                  },
-                ],
-                width: [
-                  {
-                    value: { value: 100, unit: "%" },
                   },
                 ],
                 minHeight: [
@@ -96,13 +90,6 @@ export const StickyBannerPropsDefaults = () =>
                     value: { value: 3, unit: "rem" },
                   },
                 ],
-              },
-              props: {
-                children: [],
-                placements: {},
-                placementOverrides: {},
-                rowHeight: FLUID_DEFAULT_ROW_HEIGHT,
-                gap: FLUID_DEFAULT_GAP,
               },
             },
           },

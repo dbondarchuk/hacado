@@ -435,7 +435,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     capabilities: ["layout", "block", "fluid"],
     tags: ["fluid", "layout", "grid"],
     allowedIn: {
-      type: ["PageLayout", "StickyBanner"],
+      type: ["PageLayout"],
     },
   },
   PageHero: {
