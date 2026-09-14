@@ -71,6 +71,11 @@ export const SECTION_TEMPLATE_PREVIEWS = [
     group: "sections",
     file: "announcement-bar.png",
   },
+  {
+    key: "CookieAcknowledgmentBanner",
+    group: "sections",
+    file: "cookie-acknowledgment-banner.png",
+  },
   { key: "FaqSection", group: "sections", file: "faq-section.png" },
   {
     key: "HowItWorksSection",

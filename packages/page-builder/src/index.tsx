@@ -101,34 +101,12 @@ export const PageBuilder = deepMemo(
     const editorTemplates = useMemo(() => {
       return Object.fromEntries(
         Object.entries(pageBuilderEditorTemplates).filter(([, def]) => {
-          try {
-            if (def.kind === "layout") {
-              if (
-                def.allowedBuilderTypes &&
-                !def.allowedBuilderTypes.includes(type)
-              ) {
-                return false;
-              }
-
-              const types = def.getBlocks(t).map((b) => b.type as string);
-              return !types.some(
-                (type) =>
-                  !def.allowedBuilderTypes ||
-                  def.allowedBuilderTypes.includes(type),
-              );
-            }
-
-            const rootType = def.getBlock(t).type as string;
-            return (
-              !def.allowedBuilderTypes ||
-              def.allowedBuilderTypes.includes(rootType)
-            );
-          } catch {
-            return true;
-          }
+          return (
+            !def.allowedBuilderTypes || def.allowedBuilderTypes.includes(type)
+          );
         }),
       );
-    }, [type, t]);
+    }, [type]);
 
     return (
       <Builder

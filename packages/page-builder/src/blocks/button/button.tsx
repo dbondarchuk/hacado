@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useCurrentBanner,
   useCurrentPopup,
   useReaderContext,
 } from "@hacado/page-builder-base/reader";
@@ -15,6 +16,7 @@ type Props = Omit<NonNullable<ButtonProps["props"]>, "children"> & {
 export const Button = ({ children, type, ...props }: Props) => {
   const readerContext = useReaderContext();
   const currentPopup = useCurrentPopup();
+  const currentBanner = useCurrentBanner();
 
   if (type === "action") {
     const { action, actionData, ...rest } = props as ButtonProps["props"] & {
@@ -29,6 +31,15 @@ export const Button = ({ children, type, ...props }: Props) => {
       } else if (action === "close-current-popup") {
         if (currentPopup) {
           currentPopup.setIsOpen(false);
+        }
+      } else if (action === "open-banner") {
+        const bannerId = actionData?.bannerId;
+        if (bannerId && readerContext) {
+          readerContext.banner.openBanner(bannerId);
+        }
+      } else if (action === "close-current-banner") {
+        if (currentBanner) {
+          currentBanner.setIsOpen(false);
         }
       }
     };

@@ -79,7 +79,7 @@ import {
 
 export const FLUID_CHILD_ALLOW: BlockFilterRule = {
   not: {
-    type: ["FluidLayout", "PageLayout"],
+    type: ["FluidLayout", "PageLayout", "StickyBanner", "Popup"],
   },
 };
 

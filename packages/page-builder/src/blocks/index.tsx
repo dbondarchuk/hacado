@@ -27,6 +27,7 @@ import {
   LayoutGrid,
   LetterText,
   Link,
+  PanelBottom,
   RectangleHorizontal,
   Repeat2,
   ShieldQuestion,
@@ -234,6 +235,12 @@ import {
 } from "./spacer";
 import { SpacerEditor } from "./spacer/editor";
 import {
+  StickyBannerConfiguration,
+  StickyBannerEditor,
+  StickyBannerPropsDefaults,
+  StickyBannerToolbar,
+} from "./sticky-banner";
+import {
   TableConfiguration,
   TableEditor,
   TablePropsDefaults,
@@ -428,7 +435,7 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     capabilities: ["layout", "block", "fluid"],
     tags: ["fluid", "layout", "grid"],
     allowedIn: {
-      type: ["PageLayout"],
+      type: ["PageLayout", "StickyBanner"],
     },
   },
   PageHero: {
@@ -562,6 +569,23 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
       type: ["PageLayout"],
     },
     allowedBuilderTypes: ["page"],
+  },
+  StickyBanner: {
+    displayName:
+      "builder.pageBuilder.blocks.stickyBanner.displayName" satisfies BaseAllKeys,
+    icon: <PanelBottom />,
+    Editor: StickyBannerEditor,
+    Configuration: StickyBannerConfiguration,
+    Toolbar: StickyBannerToolbar,
+    defaultValue: StickyBannerPropsDefaults,
+    category:
+      "builder.pageBuilder.blocks.categories.objects" satisfies BaseAllKeys,
+    capabilities: ["banner", "block"],
+    tags: ["banner", "sticky"],
+    allowedIn: {
+      type: ["PageLayout"],
+    },
+    allowedBuilderTypes: ["page", "footer"],
   },
   InlineText: {
     displayName:

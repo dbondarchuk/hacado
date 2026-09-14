@@ -977,6 +977,7 @@ pageBuilder:
       pricingThreeColumn: Pricing three column
       ctaBandSection: CTA band section
       announcementBar: Announcement bar
+      cookieAcknowledgmentBanner: Cookie acknowledgment banner
     content:
       faqSection: FAQ section
       howItWorksSection: How it works section
@@ -1046,6 +1047,9 @@ pageBuilder:
       pricingThreeColumn:
         title: Simple, transparent pricing
         body: Choose the plan that fits your salon. Upgrade anytime.
+      cookieAcknowledgmentBanner:
+        message: We use cookies and similar technologies to understand how visitors use our website.
+        button: Got it
     content:
       faqSection:
         eyebrow: FAQ
@@ -2003,6 +2007,12 @@ pageBuilder:
           helperText: Use base ID of popup block
         closeCurrentPopup:
           label: Close Current Popup
+        openBanner:
+          label: Open Banner
+          bannerId: Banner ID
+          helperText: Use base ID of sticky banner block
+        closeCurrentBanner:
+          label: Close Current Banner
       url: URL
       width: Width
       size: Size
@@ -2424,6 +2434,19 @@ pageBuilder:
             medium: Medium
             large: Large
             full: Full
+    stickyBanner:
+      displayName: Sticky banner
+      show:
+        label: Show
+        always: Always
+        one-time: One time
+        on-click: On click
+      position:
+        label: Position
+        top: Top
+        bottom: Bottom
+      showCloseButton:
+        label: Show close button
     lightbox:
       displayName: Lightbox
       overlay:

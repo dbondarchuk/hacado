@@ -6650,8 +6650,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/modern/booking-with-waitlist/components/calendar-card.tsx": {
-    "mtime": 1789395383.1084652,
-    "ast_hash": "319416cdd4d5bd98521bf951d05bd600",
+    "mtime": 1789396230.1785872,
+    "ast_hash": "107b6b1a342c326ac64be18a3fb0bf6d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/modern/booking-with-waitlist/components/confirmation-card.tsx": {
@@ -6820,8 +6820,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/calendar-card.tsx": {
-    "mtime": 1789395388.8795276,
-    "ast_hash": "77fa76f9b20de97fcd0735c126e62d76",
+    "mtime": 1789396230.1785872,
+    "ast_hash": "7e2a879eb7477555c17d69337d888e08",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/card-with-info.tsx": {
@@ -8700,8 +8700,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/context/index.ts": {
-    "mtime": 1773675371.288996,
-    "ast_hash": "7de4ff3ec8d6ff218f6e78f714743229",
+    "mtime": 1789399019.7362027,
+    "ast_hash": "3d48c14d5f619d4d15e1f27c3b8724c2",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/context/popupContext.tsx": {
@@ -8710,8 +8710,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/context/readerContext.tsx": {
-    "mtime": 1773675371.288996,
-    "ast_hash": "7816879f8230eb336978d79888f1ae65",
+    "mtime": 1789399018.912099,
+    "ast_hash": "5eccef306db32f523e12c59e85836361",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/header/drawer-content.tsx": {
@@ -8775,8 +8775,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/reader.ts": {
-    "mtime": 1788206456.563331,
-    "ast_hash": "e8768fe6905d75608a6bee165b98f22c",
+    "mtime": 1789399019.8345344,
+    "ast_hash": "3b39470a5b22a301964e7cb2172e3565",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/common/background-color.ts": {
@@ -9660,8 +9660,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/calendar-card.tsx": {
-    "mtime": 1789395380.4688144,
-    "ast_hash": "48342cacf81ad426cb5c08724d6ee2ed",
+    "mtime": 1789396214.807413,
+    "ast_hash": "e0cd484ad683c9da112a0228473db4e7",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/confirmation-card.tsx": {
@@ -9770,8 +9770,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/calendar-card.tsx": {
-    "mtime": 1789395388.8795276,
-    "ast_hash": "32e54e4b8536bf9049b3e1bb8b1d5d20",
+    "mtime": 1789396214.807413,
+    "ast_hash": "5f7ec8b7350a445635fc3bf490998c9a",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/card-with-info.tsx": {
@@ -9875,13 +9875,13 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/button/button.tsx": {
-    "mtime": 1788202946.914885,
-    "ast_hash": "cfe6b737d3795c5adee56ec2396ae71d",
+    "mtime": 1789399122.4802594,
+    "ast_hash": "cedf6ba38f4a64942f05c373f05f7b6e",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/button/configuration.tsx": {
-    "mtime": 1786820409.6913235,
-    "ast_hash": "f870044f6bf112b371b8bfc0c144bdb2",
+    "mtime": 1789399122.8999584,
+    "ast_hash": "d75939b2cecb2d5fd635e9d4b5b184a6",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/button/editor.tsx": {
@@ -10295,8 +10295,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/index.tsx": {
-    "mtime": 1788453896.0843503,
-    "ast_hash": "d3b31dc496136859523967a1c70ce551",
+    "mtime": 1789399857.1133213,
+    "ast_hash": "f78e3d0982937ede824b33a8a353da8a",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/inline-container/configuration.tsx": {
@@ -10930,8 +10930,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/reader.tsx": {
-    "mtime": 1788277557.4272387,
-    "ast_hash": "6c340d24ca538b7ee27ff88fbe392ade",
+    "mtime": 1789399090.6182375,
+    "ast_hash": "9f0681cb73de13b52196f01e73fdac28",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/redirect/configuration.tsx": {
@@ -10970,8 +10970,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/schema.ts": {
-    "mtime": 1788277557.4272387,
-    "ast_hash": "bf29db578933f5dcbae3ff07639a4064",
+    "mtime": 1789399088.4573998,
+    "ast_hash": "2d7ab56a4e09a813bdf1e9f5695b5bf0",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/spacer/configuration.tsx": {
@@ -11265,8 +11265,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/index.tsx": {
-    "mtime": 1788455114.3127933,
-    "ast_hash": "0eec3ef78e30cc84786eaa73bdb19650",
+    "mtime": 1789399812.5682998,
+    "ast_hash": "a2037fb1dbd1b018d1b0e5736215facc",
     "semantic_hash": ""
   },
   "packages/page-builder/src/reader.tsx": {
@@ -16105,8 +16105,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/builder.yaml": {
-    "mtime": 1789322526.4854932,
-    "ast_hash": "f878520c031bd3c0d52437a8bfbbe583",
+    "mtime": 1789399217.9918332,
+    "ast_hash": "bc49cd2bd781f786ebd17466077a1d6d",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/install.yaml": {
@@ -16140,8 +16140,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/builder.yaml": {
-    "mtime": 1789322526.5105755,
-    "ast_hash": "18e6aef816f26153e2947d9f7eed9b18",
+    "mtime": 1789399218.0705507,
+    "ast_hash": "a6eb2d8d0456227ea988ee0baca238e5",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/install.yaml": {
@@ -27320,8 +27320,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/booking/staff-assignment.ts": {
-    "mtime": 1789395255.828205,
-    "ast_hash": "e674b885d260e764279afbe374d0e015",
+    "mtime": 1789395481.5989,
+    "ast_hash": "69070b78fddfdac01a6f36ac0316112a",
     "semantic_hash": ""
   },
   "packages/types/src/services/team.service.ts": {
@@ -28555,8 +28555,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/calendar-card.tsx": {
-    "mtime": 1789395385.7715232,
-    "ast_hash": "319416cdd4d5bd98521bf951d05bd600",
+    "mtime": 1789395502.3371158,
+    "ast_hash": "f16ad41c5cc712317838a388456179ae",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/confirmation-card.tsx": {
@@ -29345,8 +29345,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/fluid-layout/editor.tsx": {
-    "mtime": 1788277199.6579306,
-    "ast_hash": "0238a42fe7371bc7a49a74023b1c56e2",
+    "mtime": 1789399237.2047014,
+    "ast_hash": "9f77e0cce2631ceed35c4cf3bbd3a274",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/fluid-layout/fluid-child-chrome.tsx": {
@@ -29485,8 +29485,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/conversion.tsx": {
-    "mtime": 1788454184.8683443,
-    "ast_hash": "7ed69d1210c450ee52d20e2c7c8c4a56",
+    "mtime": 1789399878.7685735,
+    "ast_hash": "62ff7c7aec030ed613855333833f09fc",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/features.tsx": {
@@ -29530,8 +29530,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/preview-manifest.ts": {
-    "mtime": 1788379415.84596,
-    "ast_hash": "b6dfdf12b03f7470ec3debfd57286ecc",
+    "mtime": 1789399200.2843864,
+    "ast_hash": "7c342e332dab7483601b11c556ba9f82",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/sections/announcement-bar.png": {
@@ -30247,6 +30247,56 @@
   "packages/utils/src/server/index.ts": {
     "mtime": 1789232542.2694511,
     "ast_hash": "b5e6e6aec336810e94ac4d46c5027dae",
+    "semantic_hash": ""
+  },
+  "packages/page-builder-base/src/context/bannerContext.tsx": {
+    "mtime": 1789399018.2153842,
+    "ast_hash": "76d57a5f369c74a47e32c7bba7b13b31",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/configuration.tsx": {
+    "mtime": 1789399065.1275356,
+    "ast_hash": "8754a94a4094832535764167f1881517",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/editor.tsx": {
+    "mtime": 1789399063.8317168,
+    "ast_hash": "15625d47baf4a61805a72ffb13233e43",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/index.ts": {
+    "mtime": 1789399066.6182098,
+    "ast_hash": "97665997d81aaa33a275cda6f58fbf0b",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/reader.tsx": {
+    "mtime": 1789399237.579657,
+    "ast_hash": "8c2ad2b2b9c9d0f206e14e8f664f84af",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/schema.ts": {
+    "mtime": 1789399080.6508317,
+    "ast_hash": "c29dd2c3078ab6de51bfeb7bca58fa7e",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/shortcuts.ts": {
+    "mtime": 1789399039.2165203,
+    "ast_hash": "64117820fec9a96c285ceb80a3f860fb",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/sticky-banner.tsx": {
+    "mtime": 1789399358.8395636,
+    "ast_hash": "d6c25b899637bb4c11ae8c4c711ff3f1",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/styles.ts": {
+    "mtime": 1789399030.6408956,
+    "ast_hash": "14d0ce645f2e0891461fb1e960b428b6",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/sticky-banner/toolbar.tsx": {
+    "mtime": 1789399066.6182098,
+    "ast_hash": "8f6accb563d75448f329984d373a803a",
     "semantic_hash": ""
   }
 }

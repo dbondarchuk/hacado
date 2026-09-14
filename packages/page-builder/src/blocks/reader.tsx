@@ -33,6 +33,7 @@ import { PopupReader } from "./popup/reader";
 import { RedirectReader } from "./redirect/reader";
 import { EditorBlocksSchema } from "./schema";
 import { SpacerReader } from "./spacer/reader";
+import { StickyBannerReader } from "./sticky-banner/reader";
 import { TableReader } from "./table/reader";
 import { TextReader } from "./text/reader";
 import { TypewriterTextReader } from "./typewriter-text/reader";
@@ -104,6 +105,9 @@ export const ReaderBlocks: ReaderDocumentBlocksDictionary<
   },
   Popup: {
     Reader: PopupReader,
+  },
+  StickyBanner: {
+    Reader: StickyBannerReader,
   },
   InlineText: {
     Reader: InlineText,

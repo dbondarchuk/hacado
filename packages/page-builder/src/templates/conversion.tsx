@@ -1,7 +1,21 @@
-import { TemplatesConfiguration } from "@hacado/builder";
-import type { BaseAllKeys } from "@hacado/i18n";
+import {
+  generateId,
+  TEditorBlock,
+  TemplatesConfiguration,
+} from "@hacado/builder";
+import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { COLORS } from "@hacado/page-builder-base/style";
-import { CreditCard, Flag, Megaphone } from "lucide-react";
+import { Cookie, CreditCard, Flag, Megaphone } from "lucide-react";
+import { ButtonPropsDefaults } from "../blocks/button";
+import {
+  FLUID_DEFAULT_GAP,
+  FLUID_DEFAULT_ROW_HEIGHT,
+  FLUID_MOBILE_COLUMNS,
+  FLUID_TABLET_COLUMNS,
+} from "../blocks/fluid-layout/schema";
+import { InlineContainerPropsDefaults } from "../blocks/inline-container";
+import { InlineTextPropsDefaults } from "../blocks/inline-text";
+import { StickyBannerPropsDefaults } from "../blocks/sticky-banner";
 import {
   fluidSection,
   fullWidthPlacement,
@@ -28,6 +42,199 @@ const prefix = "builder.pageBuilder.sectionDefaults.conversion";
 
 const CTA_BACKGROUND =
   "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80";
+
+function cookieAcknowledgmentBanner(
+  t: I18nFn<undefined, undefined>,
+): TEditorBlock {
+  const defaults = StickyBannerPropsDefaults();
+  const messageId = generateId();
+  const buttonId = generateId();
+  const fluidId = generateId();
+
+  const btn = structuredClone(ButtonPropsDefaults());
+  const label = t(`${prefix}.cookieAcknowledgmentBanner.button` as BaseAllKeys);
+  const inlineText = (btn as any).props?.children?.[0]?.data?.props
+    ?.children?.[0];
+  if (inlineText?.data?.props) {
+    inlineText.data.props.text = label;
+  }
+
+  return {
+    type: "StickyBanner",
+    id: generateId(),
+    data: {
+      ...defaults,
+      style: {
+        ...defaults.style,
+        backgroundColor: [{ value: COLORS.muted.value }],
+        boxShadow: boxShadowValue(0, 8, 0, COLORS.foreground.value),
+        padding: [
+          {
+            value: {
+              top: { value: 0, unit: "rem" },
+              right: { value: 2.5, unit: "rem" },
+              bottom: { value: 0, unit: "rem" },
+              left: { value: 0, unit: "rem" },
+            },
+          },
+        ],
+      },
+      props: {
+        show: "one-time",
+        position: "bottom",
+        showCloseButton: true,
+        content: {
+          children: [
+            {
+              type: "FluidLayout",
+              id: fluidId,
+              data: {
+                style: {
+                  padding: [
+                    {
+                      value: {
+                        top: { value: 1, unit: "rem" },
+                        right: { value: 1.5, unit: "rem" },
+                        bottom: { value: 1, unit: "rem" },
+                        left: { value: 1.5, unit: "rem" },
+                      },
+                    },
+                  ],
+                  width: [{ value: { value: 100, unit: "%" } }],
+                  minHeight: [{ value: { value: 3.5, unit: "rem" } }],
+                  alignItems: [{ value: "center" }],
+                },
+                props: {
+                  children: [
+                    {
+                      type: "InlineText",
+                      id: messageId,
+                      data: {
+                        ...InlineTextPropsDefaults,
+                        props: {
+                          text: t(
+                            `${prefix}.cookieAcknowledgmentBanner.message` as BaseAllKeys,
+                          ),
+                        },
+                        style: {
+                          fontSize: [{ value: { value: 0.875, unit: "rem" } }],
+                          fontWeight: [{ value: "500" }],
+                          display: [{ value: "block" }],
+                          width: [{ value: { value: 100, unit: "%" } }],
+                          alignContent: [{ value: "center" }],
+                          textAlign: [{ value: "center" }],
+                        },
+                      },
+                    },
+                    {
+                      type: "Button",
+                      id: buttonId,
+                      data: {
+                        ...btn,
+                        props: {
+                          type: "action",
+                          action: "close-current-banner",
+                          children: btn.props?.children ?? [
+                            {
+                              type: "InlineContainer",
+                              id: generateId(),
+                              data: {
+                                style: InlineContainerPropsDefaults.style,
+                                props: {
+                                  children: [
+                                    {
+                                      type: "InlineText",
+                                      id: generateId(),
+                                      data: {
+                                        props: { text: label },
+                                      },
+                                    },
+                                  ],
+                                },
+                              },
+                            },
+                          ],
+                        },
+                        style: {
+                          ...btn.style,
+                          fontSize: [{ value: { value: 0.875, unit: "rem" } }],
+                          padding: [
+                            {
+                              value: {
+                                top: { value: 0.5, unit: "rem" },
+                                right: { value: 1, unit: "rem" },
+                                bottom: { value: 0.5, unit: "rem" },
+                                left: { value: 1, unit: "rem" },
+                              },
+                            },
+                          ],
+                          justifySelf: [{ value: "end" }],
+                          alignSelf: [{ value: "center" }],
+                        },
+                      },
+                    },
+                  ],
+                  placements: {
+                    [messageId]: {
+                      colStart: 1,
+                      colEnd: 20,
+                      rowStart: 1,
+                      rowEnd: 2,
+                      zIndex: 0,
+                    },
+                    [buttonId]: {
+                      colStart: 20,
+                      colEnd: 25,
+                      rowStart: 1,
+                      rowEnd: 2,
+                      zIndex: 1,
+                    },
+                  },
+                  placementOverrides: {
+                    tablet: {
+                      [messageId]: {
+                        colStart: 1,
+                        colEnd: 9,
+                        rowStart: 1,
+                        rowEnd: 2,
+                        zIndex: 0,
+                      },
+                      [buttonId]: {
+                        colStart: 9,
+                        colEnd: FLUID_TABLET_COLUMNS + 1,
+                        rowStart: 1,
+                        rowEnd: 2,
+                        zIndex: 1,
+                      },
+                    },
+                    mobile: {
+                      [messageId]: {
+                        colStart: 1,
+                        colEnd: FLUID_MOBILE_COLUMNS + 1,
+                        rowStart: 1,
+                        rowEnd: 3,
+                        zIndex: 0,
+                      },
+                      [buttonId]: {
+                        colStart: 1,
+                        colEnd: FLUID_MOBILE_COLUMNS + 1,
+                        rowStart: 3,
+                        rowEnd: 4,
+                        zIndex: 1,
+                      },
+                    },
+                  },
+                  rowHeight: FLUID_DEFAULT_ROW_HEIGHT,
+                  gap: FLUID_DEFAULT_GAP,
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+  };
+}
 
 export const conversionEditorTemplates: TemplatesConfiguration = {
   PricingThreeColumn: {
@@ -130,5 +337,17 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
           },
         ],
       }),
+  },
+
+  CookieAcknowledgmentBanner: {
+    displayName:
+      "builder.pageBuilder.templates.conversion.cookieAcknowledgmentBanner" satisfies BaseAllKeys,
+    icon: <Cookie />,
+    category,
+    previewImage: sectionTemplatePreviewPath(
+      "cookie-acknowledgment-banner.png",
+    ),
+    allowedBuilderTypes: ["page", "footer"],
+    getBlock: (t) => cookieAcknowledgmentBanner(t),
   },
 };

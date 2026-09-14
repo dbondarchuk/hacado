@@ -130,6 +130,18 @@ export const ButtonConfiguration = deepMemo(
                       "pageBuilder.blocks.button.actions.closeCurrentPopup.label",
                     ),
                   },
+                  {
+                    value: "open-banner",
+                    label: t(
+                      "pageBuilder.blocks.button.actions.openBanner.label",
+                    ),
+                  },
+                  {
+                    value: "close-current-banner",
+                    label: t(
+                      "pageBuilder.blocks.button.actions.closeCurrentBanner.label",
+                    ),
+                  },
                 ]}
                 defaultValue={action ?? ButtonDefaultAction}
                 onChange={(action) => updateProps({ ...data.props, action })}
@@ -145,6 +157,20 @@ export const ButtonConfiguration = deepMemo(
                   )}
                   onChange={(popupId) =>
                     updateProps({ ...data.props, actionData: { popupId } })
+                  }
+                />
+              )}
+              {action === "open-banner" && (
+                <TextInput
+                  label={t(
+                    "pageBuilder.blocks.button.actions.openBanner.bannerId",
+                  )}
+                  defaultValue={actionData?.bannerId}
+                  helperText={t(
+                    "pageBuilder.blocks.button.actions.openBanner.helperText",
+                  )}
+                  onChange={(bannerId) =>
+                    updateProps({ ...data.props, actionData: { bannerId } })
                   }
                 />
               )}

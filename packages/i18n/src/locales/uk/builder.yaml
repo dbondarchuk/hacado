@@ -975,6 +975,7 @@ pageBuilder:
       pricingThreeColumn: Три тарифні колонки
       ctaBandSection: Секція заклику до дії
       announcementBar: Промо-смуга
+      cookieAcknowledgmentBanner: Банер підтвердження cookies
     content:
       faqSection: Секція FAQ
       howItWorksSection: Секція «Як це працює»
@@ -1048,6 +1049,9 @@ pageBuilder:
       pricingThreeColumn:
         title: Просте та прозоре ціноутворення
         body: Оберіть план для вашого салону. Змінюйте тариф у будь-який час.
+      cookieAcknowledgmentBanner:
+        message: Ми використовуємо файли cookie та подібні технології, щоб зрозуміти, як відвідувачі користуються нашим сайтом.
+        button: Зрозуміло
     content:
       faqSection:
         eyebrow: FAQ
@@ -1221,6 +1225,12 @@ pageBuilder:
           helperText: Використовуйте базовий ID блоку попапа
         closeCurrentPopup:
           label: Закрити поточний попап
+        openBanner:
+          label: Відкрити банер
+          bannerId: ID банера
+          helperText: Використовуйте базовий ID блоку sticky-банера
+        closeCurrentBanner:
+          label: Закрити поточний банер
       types:
         link: Посилання
         action: Дія
@@ -1632,6 +1642,19 @@ pageBuilder:
             medium: Середній
             large: Великий
             full: Повна
+    stickyBanner:
+      displayName: Sticky-банер
+      show:
+        label: Показувати
+        always: Завжди
+        one-time: Одноразово
+        on-click: При кліку
+      position:
+        label: Позиція
+        top: Зверху
+        bottom: Знизу
+      showCloseButton:
+        label: Показати кнопку закриття
     lightbox:
       displayName: Лайтбокс
       overlay:

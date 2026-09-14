@@ -1,3 +1,5 @@
+import { CookiesProvider } from "@/components/cookies-provider";
+
 /** Hide Next.js dev overlays during template preview screenshots. */
 export default function TemplatePreviewsLayout({
   children,
@@ -5,7 +7,7 @@ export default function TemplatePreviewsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <CookiesProvider>
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -26,6 +28,6 @@ export default function TemplatePreviewsLayout({
         }}
       />
       {children}
-    </>
+    </CookiesProvider>
   );
 }

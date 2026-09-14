@@ -31,6 +31,7 @@ import { PageLayoutPropsSchema } from "./page-layout/schema";
 import { PopupPropsSchema } from "./popup/schema";
 import { RedirectPropsSchema } from "./redirect/schema";
 import { SpacerPropsSchema } from "./spacer/schema";
+import { StickyBannerPropsSchema } from "./sticky-banner/schema";
 import { TablePropsSchema } from "./table/schema";
 import { TextPropsSchema } from "./text/schema";
 import { TypewriterTextPropsSchema } from "./typewriter-text/schema";
@@ -58,6 +59,7 @@ export const EditorBlocksSchema = {
   Video: VideoPropsSchema,
   YouTubeVideo: YouTubeVideoPropsSchema,
   Popup: PopupPropsSchema,
+  StickyBanner: StickyBannerPropsSchema,
   InlineText: InlineTextPropsSchema,
   TypewriterText: TypewriterTextPropsSchema,
   Accordion: AccordionPropsSchema,
@@ -97,6 +99,7 @@ export const EditorBlocksSchema = {
   Video: typeof VideoPropsSchema;
   YouTubeVideo: typeof YouTubeVideoPropsSchema;
   Popup: typeof PopupPropsSchema;
+  StickyBanner: typeof StickyBannerPropsSchema;
   InlineText: typeof InlineTextPropsSchema;
   TypewriterText: typeof TypewriterTextPropsSchema;
   Accordion: typeof AccordionPropsSchema;
