@@ -8720,8 +8720,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/header/index.tsx": {
-    "mtime": 1789485583.7582805,
-    "ast_hash": "ecb987e63507aadfafd17ed3d935edc3",
+    "mtime": 1789486234.0130973,
+    "ast_hash": "1406b2047813e853b6e2cac73fe623bd",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/header/logo.tsx": {
@@ -10930,8 +10930,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/reader.tsx": {
-    "mtime": 1789403086.5217912,
-    "ast_hash": "784566ce1a6599bd7f14115db6b058fc",
+    "mtime": 1789488905.806045,
+    "ast_hash": "8b34126682348642f0e7b76d1d618304",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/redirect/configuration.tsx": {
@@ -11175,8 +11175,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/video/editor.tsx": {
-    "mtime": 1786820409.8033152,
-    "ast_hash": "f1fe4f961172dcbdbbc28ef6c3403795",
+    "mtime": 1789489533.1960797,
+    "ast_hash": "4606b3ed684be25c7647f1c3d7086c55",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/video/index.ts": {
@@ -11185,8 +11185,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/video/reader.tsx": {
-    "mtime": 1786820409.8033152,
-    "ast_hash": "6fde20bf9561b9a82e6a0a5668a8c248",
+    "mtime": 1789489533.0535533,
+    "ast_hash": "327f1d80c75231719ddded2c78ec65d4",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/video/schema.tsx": {
@@ -30317,6 +30317,11 @@
   "packages/page-builder-base/src/header/preview-navigation.ts": {
     "mtime": 1789414864.8229046,
     "ast_hash": "418293e80a8c6804b40e74a8361f8f2f",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/video/video.tsx": {
+    "mtime": 1789489528.6178627,
+    "ast_hash": "6cc78dcd8f028358204a72951d5dd409",
     "semantic_hash": ""
   }
 }

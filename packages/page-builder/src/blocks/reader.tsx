@@ -37,7 +37,7 @@ import { StickyBannerReader } from "./sticky-banner/reader";
 import { TableReader } from "./table/reader";
 import { TextReader } from "./text/reader";
 import { TypewriterTextReader } from "./typewriter-text/reader";
-import { Video } from "./video";
+import { VideoReader } from "./video/reader";
 import { YouTubeVideoReader } from "./youtube-video/reader";
 
 export const ReaderBlocks: ReaderDocumentBlocksDictionary<
@@ -101,7 +101,7 @@ export const ReaderBlocks: ReaderDocumentBlocksDictionary<
     Reader: CarouselReader,
   },
   Video: {
-    Reader: Video,
+    Reader: VideoReader,
   },
   Popup: {
     Reader: PopupReader,
