@@ -15,12 +15,18 @@ import { Plus } from "lucide-react";
 import React from "react";
 import { COLORS_LIST } from "../../style/helpers/colors";
 
-type Props = DistributiveOmit<React.ComponentProps<typeof ColorInput>, "label">;
+type Props = DistributiveOmit<
+  React.ComponentProps<typeof ColorInput>,
+  "label"
+> & {
+  allowTransparent?: boolean;
+};
 
 export const ColorExtendedInput: React.FC<Props> = ({
   defaultValue,
   onChange,
   nullable,
+  allowTransparent = true,
 }) => {
   const [value, setValue] = React.useState(defaultValue);
   const t = useI18n("builder");
@@ -28,7 +34,7 @@ export const ColorExtendedInput: React.FC<Props> = ({
     !value && nullable
       ? "default"
       : value?.startsWith("var") ||
-          value === "transparent" ||
+          (allowTransparent && value === "transparent") ||
           value === "currentColor"
         ? value
         : "custom";
@@ -54,6 +60,10 @@ export const ColorExtendedInput: React.FC<Props> = ({
       onChange(newValue as any as string);
     },
     [onChange],
+  );
+
+  const colorOptions = COLORS_LIST.filter(
+    (c) => allowTransparent || c.value !== "transparent",
   );
 
   const renderOpenButton = () => {
@@ -97,7 +107,7 @@ export const ColorExtendedInput: React.FC<Props> = ({
                     },
                   ]
                 : []),
-              ...COLORS_LIST.map((c) => ({
+              ...colorOptions.map((c) => ({
                 value: c.value,
                 label: t(`pageBuilder.styles.colors.${c.key}` as BuilderKeys),
               })),

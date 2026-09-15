@@ -4,7 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import { SubMenuItem } from "@hacado/types";
 import { Button, Card, CardContent, CardHeader, cn } from "@hacado/ui";
 import { cva } from "class-variance-authority";
-import { GripVertical, Trash } from "lucide-react";
+import { ChevronDown, GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import { MenuItemFields } from "./menu-item-fields";
 
@@ -18,6 +18,10 @@ export type SubMenuItemProps = {
   form: UseFormReturn<any>;
   disabled?: boolean;
   isOverlay?: boolean;
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+  enableScrolledOverrides?: boolean;
+  enableMobileOverrides?: boolean;
   remove: () => void;
 };
 
@@ -34,6 +38,10 @@ export function SubMenuItemCard({
   name,
   disabled,
   isOverlay,
+  collapsed = false,
+  onCollapsedChange,
+  enableScrolledOverrides,
+  enableMobileOverrides,
   remove,
 }: SubMenuItemProps) {
   const t = useI18n("admin");
@@ -82,7 +90,7 @@ export function SubMenuItemCard({
       })}
     >
       <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 min-w-0">
           <Button
             type="button"
             variant={"ghost"}
@@ -95,9 +103,26 @@ export function SubMenuItemCard({
             </span>
             <GripVertical />
           </Button>
+          {onCollapsedChange && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 shrink-0"
+              onClick={() => onCollapsedChange(!collapsed)}
+              aria-expanded={!collapsed}
+            >
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 transition-transform",
+                  collapsed && "-rotate-90",
+                )}
+              />
+            </Button>
+          )}
           <span
             className={cn(
-              "text-sm font-semibold uppercase tracking-wide text-muted-foreground",
+              "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
               !label || invalid ? "text-destructive" : "",
             )}
           >
@@ -114,14 +139,18 @@ export function SubMenuItemCard({
           <Trash />
         </Button>
       </CardHeader>
-      <CardContent className="px-3 pb-6 pt-3 text-left relative flex flex-col gap-4">
-        <MenuItemFields
-          type="link"
-          form={form}
-          name={name}
-          disabled={disabled}
-        />
-      </CardContent>
+      {!collapsed && (
+        <CardContent className="px-3 pb-6 pt-3 text-left relative flex flex-col gap-4">
+          <MenuItemFields
+            type="link"
+            form={form}
+            name={name}
+            disabled={disabled}
+            enableScrolledOverrides={enableScrolledOverrides}
+            enableMobileOverrides={enableMobileOverrides}
+          />
+        </CardContent>
+      )}
     </Card>
   );
 }

@@ -1514,6 +1514,10 @@ pages:
       backdropBlurDescription: Заморозити заголовок, щоб вміст сторінки просвічувався під час прокрутки
       showLogo: Показати логотип
       showLogoDescription: Чи повинен логотип показуватися в заголовку
+      hideName: Приховати назву
+      hideNameDescription: Приховати назву бізнесу поруч із логотипом
+      fullWidth: На всю ширину
+      fullWidthDescription: Розтягнути вміст заголовка на всю ширину екрана замість контейнера сторінки
       logoSize:
         label: Розмір логотипу
         tooltip: Розмір логотипу
@@ -1543,12 +1547,47 @@ pages:
         label: Власний текст логотипу
         tooltip: Власний текст, який буде показаний замість назви бренду
       headerShadow: Тінь заголовка
-      selectShadowType: Вибрати тип тіні
+      headerShadowDescription: Показувати тінь під заголовком
       menu: Меню
-    shadowType:
-      none: Немає
+      tabs:
+        style: Стиль
+        items: Елементи
+      preview:
+        label: Попередній перегляд
+        desktop: Десктоп
+        mobile: Мобільний
+        rest: Зверху
+        scrolled: Прокручено
+      position:
+        label: Позиція
+        tooltip: Як заголовок розташовується на сторінці
+        values:
+          static: Статичний
+          sticky: Закріплений
+          fixed: Фіксований
+        descriptions:
+          static: "<b>Статичний:</b> Прокручується разом із вмістом сторінки"
+          sticky: "<b>Закріплений:</b> Залишається зверху під час прокрутки, але займає місце в макеті"
+          fixed: "<b>Фіксований:</b> Накладається поверх вмісту і залишається закріпленим у вікні"
+      backgroundColor:
+        label: Фон
+        tooltip: Колір фону заголовка
+      textColor:
+        label: Колір тексту
+        tooltip: Колір назви логотипу та меню
+      defaultColumn: За замовчуванням
+      onScrollColumn: При прокрутці
+      onScrollSection: Вигляд при прокрутці
+      onScrollSectionDescription: Необов'язкові перевизначення після прокрутки сторінки
+      mobileSection: Вигляд на мобільному
+      mobileSectionDescription: Необов'язкові перевизначення на мобільних екранах
+      overrideYes: Так
+      overrideNo: Ні
+      inheritDefault: Як за замовчуванням
+    positionType:
       static: Статичний
-      on-scroll: При прокрутці
+      sticky: Закріплений
+      fixed: Фіксований
     toasts:
       pageHeaderDeleted: Заголовок сторінки "{name}" було видалено.
       changesSaved: Ваші зміни були збережені.
@@ -3395,6 +3434,12 @@ menuItem:
     suffixIcon: Суфікс іконка
     additionalClasses: Додаткові класи
     additionalClassesPlaceholder: жирний шрифт
+    doNotCombineClassName: Не поєднувати з типовими
+    doNotCombineClassNameDescription: Якщо увімкнено, застосовуються лише ваші додаткові класи (типові класи пропускаються)
+    textColor: Колір тексту
+    textColorDescription: Перевизначити колір тексту пункту меню
+    showOnMobileHeader: Показувати в мобільному заголовку
+    showOnMobileHeaderDescription: Залишити цей пункт видимим у заголовку на мобільному (поруч із кнопкою меню). Можна увімкнути лише для одного пункту; він також залишається в меню-шухляді.
   card:
     moveMenuItem: Перемістити пункт меню
     itemType: Тип елемента

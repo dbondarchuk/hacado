@@ -82,6 +82,30 @@ export const colorsEnum = z.enum(colors, {
   error: "configuration.styling.colors.invalid",
 });
 
+const themeColorPresetVars = colors.map((c) => `var(--value-${c}-color)`);
+const [firstThemeColorPreset, ...restThemeColorPresets] = themeColorPresetVars;
+
+/** Custom HSL `"H S% L%"`. */
+export const zThemeColorCustom = z
+  .string()
+  .regex(/^(\d+)\s+([\d.]+)%\s+([\d.]+)%$/);
+
+/** System theme color CSS var. */
+export const zThemeColorPreset = z.enum([
+  firstThemeColorPreset,
+  ...restThemeColorPresets,
+]);
+
+/** System color or custom HSL (no transparent). */
+export const zThemeColor = z.union([zThemeColorCustom, zThemeColorPreset]);
+
+/** System color, transparent, or custom HSL. */
+export const zThemeColorWithTransparent = z.union([
+  zThemeColorCustom,
+  zThemeColorPreset,
+  z.literal("transparent"),
+]);
+
 export const colorOverrideSchema = z.object({
   type: colorsEnum,
   value: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {

@@ -68,19 +68,20 @@ export const PageBuilder = deepMemo(
     type,
   }: PageBuilderProps) => {
     const t = useI18n();
-    const headerComponent = useMemo(
-      () =>
-        header ? (
-          <Header
-            name={header.name}
-            logo={header.logo}
-            config={header.config}
-            headerId={header.config._id}
-            className="-top-8"
-          />
-        ) : null,
-      [header],
-    );
+    const headerComponent = useMemo(() => {
+      if (!header) return null;
+      const position =
+        header.config.position ?? (header.config.sticky ? "sticky" : "static");
+      return (
+        <Header
+          name={header.name}
+          logo={header.logo}
+          config={header.config}
+          headerId={header.config._id}
+          className={position === "sticky" ? "-top-8" : undefined}
+        />
+      );
+    }, [header]);
 
     const editorBlocks = useMemo(() => {
       return Object.fromEntries(

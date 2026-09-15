@@ -7,6 +7,8 @@ const config = {
     // {
     //   // pattern: /./, // the "." means "everything"
     // },
+    "text-primary-foreground/80",
+    "hover:text-primary-foreground/80",
   ],
   content: [
     "./pages/**/*.{ts,tsx}",

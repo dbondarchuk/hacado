@@ -22,8 +22,12 @@ export default async function NewPageHeaderPage(props: Props) {
   const { from: fromParam } = await props.searchParams;
   const from = fromParam as string;
   const servicesContainer = await getServicesContainer();
-  const styling =
-    await servicesContainer.configurationService.getConfiguration("styling");
+  const { styling, general, brand } =
+    await servicesContainer.configurationService.getConfigurations(
+      "styling",
+      "general",
+      "brand",
+    );
 
   logger.debug(
     {
@@ -35,7 +39,6 @@ export default async function NewPageHeaderPage(props: Props) {
   let initialData: PageHeaderUpdateModel | undefined = undefined;
   if (from) {
     logger.debug({ from }, "Cloning page header");
-    const servicesContainer = await getServicesContainer();
     const pageHeader = await servicesContainer.pagesService.getPageHeader(from);
     if (!pageHeader) {
       logger.warn({ from }, "Source page header not found");
@@ -56,7 +59,11 @@ export default async function NewPageHeaderPage(props: Props) {
   return (
     <PageContainer scrollable>
       <Styling styling={styling} />
-      <PageHeaderForm initialData={initialData} />
+      <PageHeaderForm
+        initialData={initialData}
+        brandName={general.name}
+        brandLogo={brand.logo}
+      />
     </PageContainer>
   );
 }

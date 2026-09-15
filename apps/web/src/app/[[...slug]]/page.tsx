@@ -6,6 +6,7 @@ import {
 } from "@/utils/utils";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { getLoggerFactory } from "@hacado/logger";
+import { ReplaceOriginalColors } from "@hacado/page-builder-base/reader";
 import {
   BlockProviderRegistry,
   Header,
@@ -355,6 +356,7 @@ export default async function Page(props: Props) {
     return (
       <>
         <Styling styling={styling} />
+        <ReplaceOriginalColors />
         {header && (
           <Header name={general.name} logo={brand.logo} config={header} />
         )}

@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { zThemeColor } from "./styling";
 
 // import { icons } from "lucide-react";
 
@@ -89,15 +90,55 @@ export const baseMenuItemSchema = z.object({
     z.array(z.any()).optional(),
   ]),
   className: z.string().optional(),
+  doNotCombineClassName: z.coerce.boolean<boolean>().optional(),
+  textColor: zThemeColor.optional().nullable(),
+  /** Show this item in the mobile header bar (beside the menu button). Only one non-submenu item should use this. */
+  showOnMobileHeader: z.coerce.boolean<boolean>().optional(),
 });
 
 export type BaseMenuItem = z.infer<typeof baseMenuItemSchema>;
+
+/** Appearance-only overrides (scrolled or mobile). */
+export const menuItemAppearanceOverrideSchema = z.object({
+  className: z.string().optional().nullable(),
+  doNotCombineClassName: z.coerce.boolean<boolean>().optional(),
+  textColor: zThemeColor.optional().nullable(),
+  variant: z.string().nullable().optional(),
+  size: z.string().nullable().optional(),
+  font: z
+    .enum([firstFont, ...restFonts])
+    .nullable()
+    .optional(),
+  fontSize: z
+    .enum([firstTextSize, ...restTextSizes])
+    .nullable()
+    .optional(),
+  fontWeight: z
+    .enum([firstTextWeight, ...restTextWeights])
+    .nullable()
+    .optional(),
+  prefixIcon: z.string().optional().nullable(),
+  suffixIcon: z.string().optional().nullable(),
+  icon: z.string().optional().nullable(),
+  hideChevron: z.coerce.boolean<boolean>().optional(),
+});
+
+export type MenuItemAppearanceOverride = z.infer<
+  typeof menuItemAppearanceOverrideSchema
+>;
+
+/** @deprecated Prefer {@link menuItemAppearanceOverrideSchema} */
+export const menuItemScrolledAppearanceSchema =
+  menuItemAppearanceOverrideSchema;
+export type MenuItemScrolledAppearance = MenuItemAppearanceOverride;
 
 export const iconMenuItemSchema = z.object({
   ...baseMenuItemSchema.shape,
   // icon: iconsEnum,
   icon: z.string(),
   type: menuItemTypesEnum.extract(["icon"]),
+  scrolled: menuItemAppearanceOverrideSchema.optional(),
+  mobile: menuItemAppearanceOverrideSchema.optional(),
 });
 
 export type IconMenuItem = z.infer<typeof iconMenuItemSchema>;
@@ -133,6 +174,8 @@ export const linkMenuItemSchema = z.object({
     .nullable()
     .optional(),
   type: menuItemTypesEnum.extract(["link"]),
+  scrolled: menuItemAppearanceOverrideSchema.optional(),
+  mobile: menuItemAppearanceOverrideSchema.optional(),
 });
 
 export type LinkMenuItem = z.infer<typeof linkMenuItemSchema>;
@@ -148,6 +191,8 @@ export const buttonMenuItemSchema = z.object({
     .nullable()
     .optional(),
   type: menuItemTypesEnum.extract(["button"]),
+  scrolled: menuItemAppearanceOverrideSchema.optional(),
+  mobile: menuItemAppearanceOverrideSchema.optional(),
 });
 
 export type ButtonMenuItem = z.infer<typeof buttonMenuItemSchema>;
@@ -158,18 +203,22 @@ export const spacerMenuItemSchema = z.object({
 
 export type SpacerMenuItem = z.infer<typeof spacerMenuItemSchema>;
 
-export const subMenuItemSchema = linkMenuItemSchema;
+export const subMenuItemSchema = linkMenuItemSchema.omit({
+  showOnMobileHeader: true,
+});
 
 export type SubMenuItem = z.infer<typeof subMenuItemSchema>;
 
 export const subMenuMenuItemSchema = z.object({
-  ...linkMenuItemSchema.omit({ url: true }).shape,
+  ...linkMenuItemSchema.omit({ url: true, showOnMobileHeader: true }).shape,
   children: subMenuItemSchema
     .array()
     .min(1, "configuration.styling.menuItem.submenu.min"),
   twoColumns: z.coerce.boolean<boolean>().optional(),
   hideChevron: z.coerce.boolean<boolean>().optional(),
   type: menuItemTypesEnum.extract(["submenu"]),
+  scrolled: menuItemAppearanceOverrideSchema.optional(),
+  mobile: menuItemAppearanceOverrideSchema.optional(),
 });
 
 export type SubMenuMenuItem = z.infer<typeof subMenuMenuItemSchema>;

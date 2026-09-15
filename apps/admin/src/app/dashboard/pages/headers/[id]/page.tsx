@@ -44,8 +44,12 @@ export default async function EditPageHeaderPage(props: Props) {
   }
 
   const servicesContainer = await getServicesContainer();
-  const styling =
-    await servicesContainer.configurationService.getConfiguration("styling");
+  const { styling, general, brand } =
+    await servicesContainer.configurationService.getConfigurations(
+      "styling",
+      "general",
+      "brand",
+    );
 
   logger.debug(
     {
@@ -58,7 +62,11 @@ export default async function EditPageHeaderPage(props: Props) {
   return (
     <PageContainer scrollable>
       <Styling styling={styling} />
-      <PageHeaderForm initialData={pageHeader} />
+      <PageHeaderForm
+        initialData={pageHeader}
+        brandName={general.name}
+        brandLogo={brand.logo}
+      />
     </PageContainer>
   );
 }

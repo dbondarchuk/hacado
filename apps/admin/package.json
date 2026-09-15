@@ -20,6 +20,7 @@
     "@hacado/i18n": "*",
     "@hacado/logger": "*",
     "@hacado/page-builder": "*",
+    "@hacado/page-builder-base": "*",
     "@hacado/rte": "*",
     "@hacado/services": "*",
     "@hacado/types": "*",

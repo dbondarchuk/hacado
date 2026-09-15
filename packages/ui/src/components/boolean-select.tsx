@@ -10,13 +10,23 @@ import {
 
 export type BooleanSelectProps = {
   value?: boolean;
-  onValueChange: (value: boolean) => void;
   disabled?: boolean;
   trueLabel?: React.ReactNode;
   falseLabel?: React.ReactNode;
   className?: string;
   placeholder?: string;
-};
+} & (
+  | {
+      nullable?: false;
+      onValueChange: (value: boolean) => void;
+      nullableText?: never;
+    }
+  | {
+      nullable: true;
+      nullableText?: string;
+      onValueChange: (value: boolean | undefined) => void;
+    }
+);
 
 export const BooleanSelect: React.FC<BooleanSelectProps> = ({
   value,
@@ -26,6 +36,8 @@ export const BooleanSelect: React.FC<BooleanSelectProps> = ({
   falseLabel,
   className,
   placeholder,
+  nullable,
+  nullableText,
 }) => {
   const t = useI18n("ui");
 
@@ -36,13 +48,24 @@ export const BooleanSelect: React.FC<BooleanSelectProps> = ({
   return (
     <Select
       value={value?.toString()}
-      onValueChange={(value) => onValueChange(value === "true")}
+      onValueChange={(value) => {
+        if (value === "undefined" && nullable) {
+          onValueChange(undefined);
+        } else {
+          onValueChange(value === "true");
+        }
+      }}
       disabled={disabled}
     >
       <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder || defaultPlaceholder} />
       </SelectTrigger>
       <SelectContent>
+        {nullable && (
+          <SelectItem value="undefined">
+            {nullableText || placeholder || defaultPlaceholder}
+          </SelectItem>
+        )}
         <SelectItem value="false">{falseLabel || defaultFalseLabel}</SelectItem>
         <SelectItem value="true">{trueLabel || defaultTrueLabel}</SelectItem>
       </SelectContent>

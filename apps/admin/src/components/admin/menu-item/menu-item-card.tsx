@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@hacado/ui";
 import { cva } from "class-variance-authority";
-import { GripVertical, Trash } from "lucide-react";
+import { ChevronDown, GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import { MenuItemFields } from "./menu-item-fields";
 
@@ -39,6 +39,10 @@ type BaseMenuItemProps = {
   form: UseFormReturn<any>;
   disabled?: boolean;
   isOverlay?: boolean;
+  enableScrolledOverrides?: boolean;
+  enableMobileOverrides?: boolean;
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
   remove: () => void;
   update: (newValue: MenuItemWithId) => void;
 };
@@ -69,6 +73,10 @@ export function MenuItemCard({
   disabled,
   isOverlay,
   supportsSubmenus,
+  enableScrolledOverrides,
+  enableMobileOverrides,
+  collapsed = false,
+  onCollapsedChange,
   remove,
   update,
 }: MenuItemProps) {
@@ -114,6 +122,9 @@ export function MenuItemCard({
       type: value,
       variant: undefined,
       size: undefined,
+      ...(value === "submenu" || value === "spacer"
+        ? { showOnMobileHeader: undefined }
+        : {}),
     } as unknown as MenuItemWithId;
 
     update(newValue);
@@ -128,7 +139,7 @@ export function MenuItemCard({
       })}
     >
       <CardHeader className="justify-between relative flex flex-row border-b px-3 py-3 w-full items-center">
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 min-w-0">
           <Button
             type="button"
             variant={"ghost"}
@@ -139,18 +150,48 @@ export function MenuItemCard({
             <span className="sr-only">{t("menuItem.card.moveMenuItem")}</span>
             <GripVertical />
           </Button>
-          <span
-            className={cn(
-              "text-sm font-semibold uppercase tracking-wide text-muted-foreground",
-              !itemType ? "text-destructive" : "",
-            )}
-          >
-            {itemLabel ? (
-              <StaticText value={itemLabel ?? ""} inline />
-            ) : (
-              t(`menuItem.labels.${itemType}`) || t("menuItem.card.invalid")
-            )}
-          </span>
+          {onCollapsedChange ? (
+            <Button
+              type="button"
+              variant="ghost"
+              // size="icon"
+              className="shrink-0"
+              onClick={() => onCollapsedChange(!collapsed)}
+              aria-expanded={!collapsed}
+            >
+              <span
+                className={cn(
+                  "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
+                  !itemType ? "text-destructive" : "",
+                )}
+              >
+                {itemLabel ? (
+                  <StaticText value={itemLabel ?? ""} inline />
+                ) : (
+                  t(`menuItem.labels.${itemType}`) || t("menuItem.card.invalid")
+                )}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 transition-transform",
+                  collapsed && "-rotate-90",
+                )}
+              />
+            </Button>
+          ) : (
+            <span
+              className={cn(
+                "text-sm font-semibold uppercase tracking-wide text-muted-foreground truncate",
+                !itemType ? "text-destructive" : "",
+              )}
+            >
+              {itemLabel ? (
+                <StaticText value={itemLabel ?? ""} inline />
+              ) : (
+                t(`menuItem.labels.${itemType}`) || t("menuItem.card.invalid")
+              )}
+            </span>
+          )}
         </div>
         <Button
           disabled={disabled}
@@ -162,43 +203,48 @@ export function MenuItemCard({
           <Trash />
         </Button>
       </CardHeader>
-      <CardContent className="px-3 pb-6 pt-3 text-left relative flex flex-col gap-4">
-        <FormField
-          control={form.control}
-          name={`${name}.type`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("menuItem.card.itemType")}</FormLabel>
+      {!collapsed && (
+        <CardContent className="px-3 pb-6 pt-3 text-left relative flex flex-col gap-4">
+          <FormField
+            control={form.control}
+            name={`${name}.type`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("menuItem.card.itemType")}</FormLabel>
 
-              <FormControl>
-                <Combobox
-                  disabled={disabled}
-                  className="flex w-full font-normal text-lg"
-                  values={menuItemTypes
-                    .filter((x) => !!supportsSubmenus || x !== "submenu")
-                    .map((x) => ({
-                      value: x,
-                      label: t(`menuItem.labels.${x}`),
-                    }))}
-                  searchLabel={t("menuItem.card.selectType")}
-                  value={field.value}
-                  onItemSelect={(value) => {
-                    field.onChange(value);
-                    changeType(value as any);
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <MenuItemFields
-          type={itemType}
-          form={form}
-          name={name}
-          disabled={disabled}
-        />
-      </CardContent>
+                <FormControl>
+                  <Combobox
+                    disabled={disabled}
+                    className="flex w-full font-normal text-lg"
+                    values={menuItemTypes
+                      .filter((x) => !!supportsSubmenus || x !== "submenu")
+                      .map((x) => ({
+                        value: x,
+                        label: t(`menuItem.labels.${x}`),
+                      }))}
+                    searchLabel={t("menuItem.card.selectType")}
+                    value={field.value}
+                    onItemSelect={(value) => {
+                      field.onChange(value);
+                      changeType(value as any);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <MenuItemFields
+            type={itemType}
+            form={form}
+            name={name}
+            disabled={disabled}
+            enableScrolledOverrides={enableScrolledOverrides}
+            enableMobileOverrides={enableMobileOverrides}
+            enableMobileHeaderPin={supportsSubmenus}
+          />
+        </CardContent>
+      )}
     </Card>
   );
 }

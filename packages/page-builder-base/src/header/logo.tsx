@@ -31,20 +31,23 @@ const logoNameFontWeightClassNames: Record<
   semibold: "font-semibold",
   bold: "font-bold",
 };
+
 export const Logo: React.FC<{
   customLogoText?: string | any[];
   showLogo?: boolean;
+  hideName?: boolean;
   logo?: string;
   name: string;
   className?: string;
   imageClassName?: string;
-  logoSize?: PageHeaderLogoSize;
-  logoNameFontSize?: PageHeaderLogoNameFontSize;
-  logoNameFontWeight?: PageHeaderLogoNameFontWeight;
+  logoSize?: PageHeaderLogoSize | null;
+  logoNameFontSize?: PageHeaderLogoNameFontSize | null;
+  logoNameFontWeight?: PageHeaderLogoNameFontWeight | null;
   headerId?: string;
 }> = ({
   logo,
   showLogo,
+  hideName,
   name,
   className,
   imageClassName,
@@ -77,24 +80,26 @@ export const Logo: React.FC<{
           alt={name}
         />
       )}
-      <span
-        className={cn(
-          "font-primary header-logo-text",
-          logoNameFontSize
-            ? logoNameFontSizeClassNames[logoNameFontSize]
-            : "text-xl",
-          logoNameFontWeight
-            ? logoNameFontWeightClassNames[logoNameFontWeight]
-            : "font-medium",
-          headerId && `header-${headerId}-logo-text`,
-        )}
-      >
-        {customLogoText && richTextToString(customLogoText).trim() ? (
-          <StaticText value={customLogoText} inline />
-        ) : (
-          name
-        )}
-      </span>
+      {!hideName && (
+        <span
+          className={cn(
+            "font-primary header-logo-text",
+            logoNameFontSize
+              ? logoNameFontSizeClassNames[logoNameFontSize]
+              : "text-xl",
+            logoNameFontWeight
+              ? logoNameFontWeightClassNames[logoNameFontWeight]
+              : "font-medium",
+            headerId && `header-${headerId}-logo-text`,
+          )}
+        >
+          {customLogoText && richTextToString(customLogoText).trim() ? (
+            <StaticText value={customLogoText} inline />
+          ) : (
+            name
+          )}
+        </span>
+      )}
     </Link>
   );
 };

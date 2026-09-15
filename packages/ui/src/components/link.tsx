@@ -68,7 +68,7 @@ type ButtonLinkProps = BaseProps & {
 export type LinkProps = BaseLinkProps | ButtonLinkProps;
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => {
+  ({ href, ...props }, ref) => {
     let passProps = props;
     let classes: string = "";
     const textClasses = textVariants({
@@ -97,6 +97,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <Component
         ref={ref}
+        href={href || ""}
         {...passProps}
         className={cn(classes, textClasses, props.className)}
       />

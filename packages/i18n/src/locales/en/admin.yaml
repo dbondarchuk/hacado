@@ -1541,6 +1541,10 @@ pages:
       stickyTooltip: Whether to make the page header sticky
       showLogo: Show logo
       showLogoDescription: Should be logo showed in header
+      hideName: Hide name
+      hideNameDescription: Hide the business name next to the logo
+      fullWidth: Full width
+      fullWidthDescription: Stretch header content across the full viewport instead of the page container
       logoSize:
         label: Logo size
         tooltip: Size of the logo
@@ -1574,12 +1578,47 @@ pages:
       backdropBlur: Backdrop blur
       backdropBlurDescription: Frost the header so page content shows through while scrolling
       headerShadow: Header shadow
-      selectShadowType: Select shadow type
+      headerShadowDescription: Show a drop shadow on the header
       menu: Menu
-    shadowType:
-      none: None
+      tabs:
+        style: Style
+        items: Items
+      preview:
+        label: Preview
+        desktop: Desktop
+        mobile: Mobile
+        rest: At top
+        scrolled: Scrolled
+      position:
+        label: Position
+        tooltip: How the header sits on the page
+        values:
+          static: Static
+          sticky: Sticky
+          fixed: Fixed
+        descriptions:
+          static: "<b>Static:</b> Scrolls away with the page content"
+          sticky: "<b>Sticky:</b> Stays at the top while scrolling, still takes up space in the layout"
+          fixed: "<b>Fixed:</b> Overlays page content and stays pinned to the viewport"
+      backgroundColor:
+        label: Background
+        tooltip: Header background color
+      textColor:
+        label: Text color
+        tooltip: Color for logo name and menu text
+      defaultColumn: Default
+      onScrollColumn: On scroll
+      onScrollSection: On scroll appearance
+      onScrollSectionDescription: Optional overrides applied after the page is scrolled
+      mobileSection: Mobile appearance
+      mobileSectionDescription: Optional overrides applied on mobile viewports
+      overrideYes: Yes
+      overrideNo: No
+      inheritDefault: Inherit default
+    positionType:
       static: Static
-      on-scroll: On scroll
+      sticky: Sticky
+      fixed: Fixed
     table:
       columns:
         name: Name
@@ -3642,6 +3681,12 @@ menuItem:
     suffixIcon: Suffix Icon
     additionalClasses: Additional classes
     additionalClassesPlaceholder: font-bold
+    doNotCombineClassName: Do not combine with defaults
+    doNotCombineClassNameDescription: When enabled, only your additional classes are applied (default classes are skipped)
+    textColor: Text color
+    textColorDescription: Override the menu item text color
+    showOnMobileHeader: Show on mobile header
+    showOnMobileHeaderDescription: Keep this item visible in the header on mobile (next to the menu button). Only one item can use this; it still appears in the drawer.
   card:
     moveMenuItem: Move menu item
     itemType: Item type

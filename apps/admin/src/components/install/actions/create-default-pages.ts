@@ -182,7 +182,7 @@ async function upsertDefaultHeader(
     name: DEFAULT_HEADER_NAME,
     showLogo: true,
     sticky: false,
-    shadow: "none" as const,
+    shadow: false as const,
     menu: [
       ...(isBlogEnabled
         ? [
