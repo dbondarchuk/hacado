@@ -43,8 +43,168 @@ const generateSlug = (title: string): string => {
 };
 
 const DEFAULT_HEADER_NAME = "Default Header";
+const OVERLAY_HEADER_NAME = "Overlay Header";
 const DEFAULT_FOOTER_NAME = "Default Footer";
 const DEFAULT_HOME_TITLE = "Home";
+
+type HeaderMenuArgs = {
+  isBlogEnabled: boolean;
+  isMyCabinetEnabled: boolean;
+  isCancelRescheduleEnabled: boolean;
+  bookLabel: string;
+  blogLabel: string;
+  myCabinetLabel: string;
+  manageAppointmentLabel: string;
+};
+
+function buildDefaultHeaderMenu(args: HeaderMenuArgs) {
+  return [
+    ...(args.isBlogEnabled
+      ? [
+          {
+            type: "button" as const,
+            label: args.blogLabel,
+            url: "/blog",
+            variant: "ghost" as const,
+            size: "default" as const,
+          },
+        ]
+      : []),
+    ...(args.isMyCabinetEnabled
+      ? [
+          {
+            type: "button" as const,
+            label: args.myCabinetLabel,
+            url: "/my-cabinet",
+            variant: "ghost" as const,
+            size: "default" as const,
+          },
+        ]
+      : args.isCancelRescheduleEnabled
+        ? [
+            {
+              type: "button" as const,
+              label: args.manageAppointmentLabel,
+              url: "/book/modify",
+              variant: "ghost" as const,
+              size: "default" as const,
+            },
+          ]
+        : []),
+    {
+      type: "button" as const,
+      label: args.bookLabel,
+      url: "/book",
+      variant: "primary" as const,
+      size: "default" as const,
+    },
+  ];
+}
+
+function buildOverlayHeaderMenu(args: HeaderMenuArgs) {
+  const lightText = "0 0% 100%";
+  const scrolledText = "var(--value-foreground-color)";
+  const ghostLink = (label: string, url: string) => ({
+    type: "button" as const,
+    label,
+    url,
+    variant: "ghost" as const,
+    size: "default" as const,
+    textColor: lightText,
+    scrolled: { textColor: scrolledText },
+  });
+
+  return [
+    ...(args.isBlogEnabled ? [ghostLink(args.blogLabel, "/blog")] : []),
+    ...(args.isMyCabinetEnabled
+      ? [ghostLink(args.myCabinetLabel, "/my-cabinet")]
+      : args.isCancelRescheduleEnabled
+        ? [ghostLink(args.manageAppointmentLabel, "/book/modify")]
+        : []),
+    {
+      type: "button" as const,
+      label: args.bookLabel,
+      url: "/book",
+      variant: "primary" as const,
+      size: "default" as const,
+    },
+  ];
+}
+
+async function upsertHeaderByName(
+  services: IServicesContainer,
+  name: string,
+  headerData: Record<string, unknown>,
+): Promise<string> {
+  const pagesService = services.pagesService;
+  const headers = await pagesService.getPageHeaders({
+    search: name,
+    limit: 50,
+    offset: 0,
+  });
+  const existing = headers.items.find((item) => item.name === name);
+  if (existing) {
+    await pagesService.updatePageHeader(
+      existing._id,
+      headerData as any,
+      systemEventSource,
+    );
+    return existing._id;
+  }
+
+  const created = await pagesService.createPageHeader(
+    headerData as any,
+    systemEventSource,
+  );
+  return created._id;
+}
+
+async function upsertDefaultHeader(
+  services: IServicesContainer,
+  menuArgs: HeaderMenuArgs,
+): Promise<string> {
+  const logger = getLoggerFactory("InstallActions")("upsertDefaultHeader");
+  logger.debug("Upserting default header");
+  const headerId = await upsertHeaderByName(services, DEFAULT_HEADER_NAME, {
+    name: DEFAULT_HEADER_NAME,
+    showLogo: true,
+    sticky: false,
+    shadow: false,
+    menu: buildDefaultHeaderMenu(menuArgs),
+  });
+  logger.debug({ headerId }, "Upserted default header");
+  return headerId;
+}
+
+async function upsertOverlayHeader(
+  services: IServicesContainer,
+  menuArgs: HeaderMenuArgs,
+): Promise<string> {
+  const logger = getLoggerFactory("InstallActions")("upsertOverlayHeader");
+  logger.debug("Upserting overlay header");
+  const lightText = "0 0% 100%";
+  const scrolledText = "var(--value-foreground-color)";
+  const headerId = await upsertHeaderByName(services, OVERLAY_HEADER_NAME, {
+    name: OVERLAY_HEADER_NAME,
+    showLogo: true,
+    position: "fixed",
+    sticky: false,
+    shadow: false,
+    backdropBlur: false,
+    backgroundColor: "transparent",
+    textColor: lightText,
+    fullWidth: true,
+    scrolled: {
+      backgroundColor: "var(--value-background-color)",
+      textColor: scrolledText,
+      shadow: true,
+      backdropBlur: true,
+    },
+    menu: buildOverlayHeaderMenu(menuArgs),
+  });
+  logger.debug({ headerId }, "Upserted overlay header");
+  return headerId;
+}
 
 function getByPath(
   value: Record<string, unknown>,
@@ -154,94 +314,6 @@ async function getTemplateServices(
 
   logger.debug({ count: output.length }, "Built template services payload");
   return output;
-}
-
-async function upsertDefaultHeader(
-  services: IServicesContainer,
-  isBlogEnabled: boolean,
-  isMyCabinetEnabled: boolean,
-  isCancelRescheduleEnabled: boolean,
-  bookLabel: string,
-  blogLabel: string,
-  myCabinetLabel: string,
-  manageAppointmentLabel: string,
-): Promise<string> {
-  const logger = getLoggerFactory("InstallActions")("upsertDefaultHeader");
-  logger.debug("Upserting default header");
-  const pagesService = services.pagesService;
-  const headers = await pagesService.getPageHeaders({
-    search: DEFAULT_HEADER_NAME,
-    limit: 50,
-    offset: 0,
-  });
-  const existing = headers.items.find(
-    (item) => item.name === DEFAULT_HEADER_NAME,
-  );
-
-  const headerData = {
-    name: DEFAULT_HEADER_NAME,
-    showLogo: true,
-    sticky: false,
-    shadow: false as const,
-    menu: [
-      ...(isBlogEnabled
-        ? [
-            {
-              type: "button" as const,
-              label: blogLabel,
-              url: "/blog",
-              variant: "ghost" as const,
-              size: "default" as const,
-            },
-          ]
-        : []),
-      ...(isMyCabinetEnabled
-        ? [
-            {
-              type: "button" as const,
-              label: myCabinetLabel,
-              url: "/my-cabinet",
-              variant: "ghost" as const,
-              size: "default" as const,
-            },
-          ]
-        : isCancelRescheduleEnabled
-          ? [
-              {
-                type: "button" as const,
-                label: manageAppointmentLabel,
-                url: "/book/modify",
-                variant: "ghost" as const,
-                size: "default" as const,
-              },
-            ]
-          : []),
-      {
-        type: "button" as const,
-        label: bookLabel,
-        url: "/book",
-        variant: "primary" as const,
-        size: "default" as const,
-      },
-    ],
-  };
-
-  if (existing) {
-    await pagesService.updatePageHeader(
-      existing._id,
-      headerData,
-      systemEventSource,
-    );
-    logger.debug({ headerId: existing._id }, "Updated default header");
-    return existing._id;
-  }
-
-  const created = await pagesService.createPageHeader(
-    headerData,
-    systemEventSource,
-  );
-  logger.debug({ headerId: created._id }, "Created default header");
-  return created._id;
 }
 
 async function upsertDefaultFooter(
@@ -631,6 +703,7 @@ export async function createInstallDefaultPages(
   input: CompleteInstallPagesInput,
 ): Promise<{
   headerId: string;
+  overlayHeaderId: string;
   footerId: string;
   labels: Awaited<ReturnType<typeof getInstallPageDefaultsLabels>>;
 }> {
@@ -643,16 +716,20 @@ export async function createInstallDefaultPages(
   const templateServices = await getTemplateServices(input.services);
   const myCabinetLabel = labels.headerMyCabinetLabel;
   const manageAppointmentLabel = labels.bookLabels.manageYourAppointment;
-  const headerId = await upsertDefaultHeader(
-    input.services,
-    input.isBlogEnabled,
-    input.isMyCabinetEnabled,
-    input.isCancelRescheduleEnabled,
-    labels.headerBookLabel,
-    labels.headerBlogLabel,
+  const menuArgs: HeaderMenuArgs = {
+    isBlogEnabled: input.isBlogEnabled,
+    isMyCabinetEnabled: input.isMyCabinetEnabled,
+    isCancelRescheduleEnabled: input.isCancelRescheduleEnabled,
+    bookLabel: labels.headerBookLabel,
+    blogLabel: labels.headerBlogLabel,
     myCabinetLabel,
     manageAppointmentLabel,
-  );
+  };
+
+  // Static default for most pages; overlay (fixed transparent → solid on scroll)
+  // is created for image/video hero pages to opt into.
+  const headerId = await upsertDefaultHeader(input.services, menuArgs);
+  const overlayHeaderId = await upsertOverlayHeader(input.services, menuArgs);
 
   const footerId = await upsertDefaultFooter(
     input.services,
@@ -715,5 +792,5 @@ export async function createInstallDefaultPages(
   });
 
   logger.debug({ language: input.language }, "Created install default pages");
-  return { headerId, footerId, labels };
+  return { headerId, overlayHeaderId, footerId, labels };
 }

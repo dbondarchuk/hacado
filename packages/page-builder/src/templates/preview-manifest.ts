@@ -124,6 +124,16 @@ const LAYOUT_PACKS = [
   "pet",
   "home_services",
   "professional",
+  "salon_b",
+  "tattoo_b",
+  "spa_b",
+  "coach_b",
+  "fitness_b",
+  "photography_b",
+  "clinic_b",
+  "pet_b",
+  "home_services_b",
+  "professional_b",
 ] as const;
 
 const LAYOUT_KINDS = ["home", "booking", "service", "about", "terms"] as const;

@@ -379,12 +379,15 @@ function sleep(ms) {
 
 async function translateText(text, options) {
   const trimmed = String(text).trim();
+  console.log("Translating text:", trimmed);
   if (!trimmed) {
+    console.log("No text to translate");
     return text;
   }
 
   const cacheKey = `en|${options.language}|${options.provider}|${trimmed}`;
   if (options.cache[cacheKey]) {
+    console.log("Cache hit for:", cacheKey);
     return options.cache[cacheKey];
   }
 
@@ -396,10 +399,13 @@ async function translateText(text, options) {
         ? await fetchFromMyMemory(chunk, options.language)
         : await fetchFromGoogle(chunk, options.language);
 
+    console.log("Translated chunk:", chunk, "->", part);
+
     translated += part;
     await sleep(options.provider === "mymemory" ? 550 : 150);
   }
 
+  console.log("Final translated text:", translated);
   options.cache[cacheKey] = translated;
   saveCache(options.cachePath, options.cache);
   return translated;
@@ -408,15 +414,23 @@ async function translateText(text, options) {
 async function fetchFromGoogle(text, language) {
   const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(language)}&dt=t&q=${encodeURIComponent(text)}`;
   return retryingFetch(url, (data) => {
+    console.log("Fetching from Google:", text, "->", language);
     if (!Array.isArray(data) || !Array.isArray(data[0])) {
+      console.log("Bad response shape:", data);
       throw new Error("Bad response shape");
     }
+
+    console.log("Good response shape:", data);
     const translated = data[0]
       .map((row) => (Array.isArray(row) ? row[0] : ""))
       .join("");
+
     if (!translated) {
+      console.log("Empty translation:", translated);
       throw new Error("Empty translation");
     }
+
+    console.log("Good translation:", translated);
     return translated;
   });
 }
@@ -424,10 +438,14 @@ async function fetchFromGoogle(text, language) {
 async function fetchFromMyMemory(text, language) {
   const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${encodeURIComponent(language)}`;
   return retryingFetch(url, (data) => {
+    console.log("Fetching from MyMemory:", text, "->", language);
     const translated = data?.responseData?.translatedText;
     if (typeof translated !== "string" || !translated) {
+      console.log("Empty translation:", translated);
       throw new Error("Empty translation");
     }
+
+    console.log("Good translation:", translated);
     return translated;
   });
 }

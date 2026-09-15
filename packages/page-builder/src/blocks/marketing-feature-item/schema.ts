@@ -161,6 +161,9 @@ export const MarketingFeatureItemPropsDefaults = (
           id: generateId(),
           data: {
             ...TextPropsDefaults,
+            style: {
+              ...TextPropsDefaults.style,
+            },
             props: {
               value: [
                 {

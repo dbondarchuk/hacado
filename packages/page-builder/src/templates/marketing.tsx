@@ -101,6 +101,9 @@ const bodyText = (
   id: generateId(),
   data: {
     ...TextPropsDefaults,
+    style: {
+      ...TextPropsDefaults.style,
+    },
     props: {
       value: [{ type: "p", children: [{ text: t(textKey) }] }],
     },

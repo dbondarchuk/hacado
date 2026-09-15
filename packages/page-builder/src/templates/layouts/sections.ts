@@ -5,6 +5,7 @@ import {
 } from "@hacado/builder";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { BookingPropsDefaults } from "../../blocks/booking/modern/schema";
+import { CarouselPropsDefaults } from "../../blocks/carousel/schema";
 import {
   FLUID_COLUMNS,
   FLUID_TABLET_COLUMNS,
@@ -26,6 +27,7 @@ import {
   fluidSection,
   heroSectionStyle,
   imageBackgroundStyle,
+  videoBackgroundStyle,
 } from "../fluid-helpers";
 import {
   bentoGrid,
@@ -317,7 +319,7 @@ function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   return fluidSection(
     [heading, text, button],
     centeredCopyPlacements(heading.id, text.id, button.id),
-    imageBackgroundStyle(heroImageUrl(pack), 45),
+    imageBackgroundStyle(heroImageUrl(pack), 45, true),
     centeredCopyOverrides(heading.id, text.id, button.id),
   );
 }
@@ -330,8 +332,30 @@ function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   return fluidSection(
     [heading, text, button],
     leftOverlayPlacements(heading.id, text.id, button.id),
-    imageBackgroundStyle(heroImageUrl(pack), 50),
+    imageBackgroundStyle(heroImageUrl(pack), 50, true),
     leftOverlayOverrides(heading.id, text.id, button.id),
+  );
+}
+
+const HERO_VIDEO_POSTER =
+  "https://images.unsplash.com/photo-1468931467769-06a09c69aad3?auto=format&fit=crop&w=1920&q=80";
+const HERO_VIDEO_SRC =
+  "https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4";
+
+function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
+  const { heading, text, button } = packHeroCopy(pack, t, {
+    lightText: true,
+  });
+  return fluidSection(
+    [heading, text, button],
+    centeredCopyPlacements(heading.id, text.id, button.id),
+    videoBackgroundStyle(
+      pack.media.generic || HERO_VIDEO_POSTER,
+      HERO_VIDEO_SRC,
+      40,
+      true,
+    ),
+    centeredCopyOverrides(heading.id, text.id, button.id),
   );
 }
 
@@ -437,7 +461,10 @@ function withCtaCopy(
 
   if (text?.data?.props) {
     text.data.props.value = [{ type: "p", children: [{ text: body }] }];
-    text.data.style.color = [{ value: COLORS["primary-foreground"].value }];
+    text.data.style = {
+      ...text.data.style,
+      color: [{ value: COLORS["primary-foreground"].value }],
+    };
   }
 
   if (button) {
@@ -446,8 +473,11 @@ function withCtaCopy(
     if (inlineText?.data?.props) inlineText.data.props.text = ctaLabel;
     if (button.data?.props) button.data.props.url = "/book";
 
-    button.data.style.backgroundColor = [{ value: COLORS["secondary"].value }];
-    button.data.style.color = [{ value: COLORS["secondary-foreground"].value }];
+    button.data.style = {
+      ...button.data.style,
+      backgroundColor: [{ value: COLORS["secondary"].value }],
+      color: [{ value: COLORS["secondary-foreground"].value }],
+    };
   }
 
   return block;
@@ -483,6 +513,8 @@ export function buildPackHero(
     case "overlay":
     case "leftOverlay":
       return [buildOverlayHero(pack, t)];
+    case "video":
+      return [buildVideoHero(pack, t)];
     case "minimal":
       return [buildMinimalHero(pack, t)];
     case "galleryFirst":
@@ -669,6 +701,49 @@ function buildGallery(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
               data: {
                 ...GridContainerPropsDefaults,
                 props: { children: images },
+              },
+            },
+          ],
+        },
+      },
+    },
+  ]);
+}
+
+function buildGalleryCarousel(
+  pack: WebsitePackDefinition,
+  t: TFn,
+): TEditorBlock {
+  const images = pack.media.items
+    .slice(0, 8)
+    .map((item) =>
+      galleryImage(item.src, t(k(pack.id, "home", "galleryTitle")), 18),
+    );
+  const carouselDefaults = CarouselPropsDefaults();
+  return sectionShell([
+    buildSectionIntro(t, {
+      title: k(pack.id, "home", "galleryTitle"),
+      body: k(pack.id, "home", "servicesBody"),
+    }),
+    {
+      type: "Lightbox",
+      id: generateId(),
+      data: {
+        ...LightboxPropsDefaults,
+        props: {
+          ...LightboxPropsDefaults.props,
+          children: [
+            {
+              type: "Carousel",
+              id: generateId(),
+              data: {
+                ...carouselDefaults,
+                props: {
+                  ...carouselDefaults.props,
+                  autoPlay: 5,
+                  loop: true,
+                  children: images,
+                },
               },
             },
           ],
@@ -982,6 +1057,8 @@ export function buildHomeSection(
       return buildFeatureList(pack, t, services);
     case "gallery":
       return buildGallery(pack, t);
+    case "galleryCarousel":
+      return buildGalleryCarousel(pack, t);
     case "carousel":
       return buildCarousel(pack, t);
     case "beforeAfter":
@@ -1061,6 +1138,8 @@ function buildServiceExtra(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
       return buildBeforeAfterSection(pack, t);
     case "gallery":
       return buildGallery(pack, t);
+    case "galleryCarousel":
+      return buildGalleryCarousel(pack, t);
     case "video":
       return sectionShell([
         buildSectionIntro(t, {

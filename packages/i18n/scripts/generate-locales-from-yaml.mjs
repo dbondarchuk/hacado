@@ -61,7 +61,10 @@ function getStemsInLocaleDir(localeDir) {
   const stems = new Set();
   for (const f of fs.readdirSync(localeDir)) {
     if (f.endsWith(".generated.ts") || f.startsWith(".")) continue;
-    const m = f.match(/^(.*)\.(json|yaml|yml)$/);
+    // Skip draft/helper fragments (e.g. `_pageTemplates.fragment.yaml`) -
+    // dots in the stem break namespace-loaders object keys.
+    if (f.startsWith("_")) continue;
+    const m = f.match(/^([a-zA-Z][a-zA-Z0-9_-]*)\.(json|yaml|yml)$/);
     if (!m) continue;
     stems.add(m[1]);
   }

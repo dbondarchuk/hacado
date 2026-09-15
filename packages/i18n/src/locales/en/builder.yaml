@@ -1161,6 +1161,56 @@ pageBuilder:
         category: Professional layouts
         tagline: Consulting and accounting that keeps businesses moving
         installHint: Professional
+      salon_b:
+        name: Atelier North
+        category: Salon layouts
+        tagline: Editorial cuts and quiet luxury in the chair
+        installHint: Beauty
+      tattoo_b:
+        name: "Needle & Oak"
+        category: Tattoo layouts
+        tagline: "Blackwork and fine line with a calm, private studio"
+        installHint: Creative
+      spa_b:
+        name: Cedar Rest
+        category: Spa layouts
+        tagline: "Slow spa days with steam, stone, and silence"
+        installHint: Wellness
+      coach_b:
+        name: Summit Path
+        category: Coaching layouts
+        tagline: Executive coaching for leaders who want sharper decisions
+        installHint: Coaching
+      fitness_b:
+        name: Iron Hour
+        category: Fitness layouts
+        tagline: Strength training with coaching that sticks
+        installHint: Fitness
+      photography_b:
+        name: "Frame & Field"
+        category: Photography layouts
+        tagline: Natural light portraits and brand stories
+        installHint: Creative
+      clinic_b:
+        name: Riverbend Care
+        category: Clinic layouts
+        tagline: Primary care that books around your week
+        installHint: Medical
+      pet_b:
+        name: Trail Tail Co.
+        category: Pet care layouts
+        tagline: Grooming and adventures your dog looks forward to
+        installHint: Pet
+      home_services_b:
+        name: Steady Home Pros
+        category: Home services layouts
+        tagline: Cleaning and repairs with calendar-first booking
+        installHint: Home services
+      professional_b:
+        name: "Ledger & Line"
+        category: Professional layouts
+        tagline: Accounting and ops clarity for growing teams
+        installHint: Professional
     layouts:
       salon:
         home: Bench Salon - Home
@@ -1222,6 +1272,66 @@ pageBuilder:
         service: ClearPath Advisors - Service
         about: ClearPath Advisors - About
         terms: ClearPath Advisors - Policies
+      salon_b:
+        home: Atelier North - Home
+        booking: Atelier North - Booking
+        service: Atelier North - Service
+        about: Atelier North - About
+        terms: Atelier North - Policies
+      tattoo_b:
+        home: "Needle & Oak - Home"
+        booking: "Needle & Oak - Booking"
+        service: "Needle & Oak - Service"
+        about: "Needle & Oak - About"
+        terms: "Needle & Oak - Policies"
+      spa_b:
+        home: Cedar Rest - Home
+        booking: Cedar Rest - Booking
+        service: Cedar Rest - Service
+        about: Cedar Rest - About
+        terms: Cedar Rest - Policies
+      coach_b:
+        home: Summit Path - Home
+        booking: Summit Path - Booking
+        service: Summit Path - Service
+        about: Summit Path - About
+        terms: Summit Path - Policies
+      fitness_b:
+        home: Iron Hour - Home
+        booking: Iron Hour - Booking
+        service: Iron Hour - Service
+        about: Iron Hour - About
+        terms: Iron Hour - Policies
+      photography_b:
+        home: "Frame & Field - Home"
+        booking: "Frame & Field - Booking"
+        service: "Frame & Field - Service"
+        about: "Frame & Field - About"
+        terms: "Frame & Field - Policies"
+      clinic_b:
+        home: Riverbend Care - Home
+        booking: Riverbend Care - Booking
+        service: Riverbend Care - Service
+        about: Riverbend Care - About
+        terms: Riverbend Care - Policies
+      pet_b:
+        home: Trail Tail Co. - Home
+        booking: Trail Tail Co. - Booking
+        service: Trail Tail Co. - Service
+        about: Trail Tail Co. - About
+        terms: Trail Tail Co. - Policies
+      home_services_b:
+        home: Steady Home Pros - Home
+        booking: Steady Home Pros - Booking
+        service: Steady Home Pros - Service
+        about: Steady Home Pros - About
+        terms: Steady Home Pros - Policies
+      professional_b:
+        home: "Ledger & Line - Home"
+        booking: "Ledger & Line - Booking"
+        service: "Ledger & Line - Service"
+        about: "Ledger & Line - About"
+        terms: "Ledger & Line - Policies"
     shared:
       learnMore: Learn more
       bookService: Book this service
@@ -1251,7 +1361,7 @@ pageBuilder:
         stat3Value: "4.9"
         stat3Label: Average rating
         stat3Supporting: Across reviews
-        stat4Value: "12+"
+        stat4Value: 12+
         stat4Label: Years experience
         stat4Supporting: In the craft
       logos:
@@ -1268,8 +1378,8 @@ pageBuilder:
         step3Title: Show up ready
         step3Bullets: We confirm details and take care of the rest.
         step4Number: "04"
-        step4Title: Leave happy
-        step4Bullets: You leave feeling taken care of.
+        step4Title: See it in action
+        step4Bullets: A short look at how a visit with us typically goes.
       video:
         title: See it in action
         body: A short look at how a visit with us typically goes.
@@ -1913,6 +2023,646 @@ pageBuilder:
         ops:
           name: Ops Audit
           description: Process map of your tools and handoffs with fix recommendations.
+    salon_b:
+      home:
+        heroTitle: Editorial cuts and quiet luxury in the chair
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Atelier North.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Atelier North is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Atelier North
+        body1: "We started Atelier North to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Editorial cuts and quiet luxury in the chair. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Atelier North, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Atelier North is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        cut:
+          name: Precision Cut
+          description: "Shape, texture, and finish designed for how you actually wear your hair."
+        color:
+          name: Balayage Session
+          description: Hand-painted dimension with a gloss seal for soft movement.
+        nails:
+          name: Luxury Mani
+          description: "Detailed cuticle work, strength layer, and couture polish."
+        styling:
+          name: Event Styling
+          description: "Updos and polished blowouts for weddings, shoots, and nights out."
+    tattoo_b:
+      home:
+        heroTitle: "Blackwork and fine line with a calm, private studio"
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Needle & Oak."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Needle & Oak is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Needle & Oak"
+        body1: "We started Needle & Oak to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Blackwork and fine line with a calm, private studio. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Needle & Oak, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Needle & Oak is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        custom:
+          name: Custom Design Session
+          description: Collaborative sketching until the piece feels unmistakably yours.
+        fineLine:
+          name: Fine Line Half-Day
+          description: Focused single-needle work for botanical and script compositions.
+        blackwork:
+          name: Large Blackwork
+          description: "Multi-hour sessions for sleeves, backs, and geometric fields."
+        touchUp:
+          name: Healed Touch-Up
+          description: Refresh lines and fill after full healing from our studio.
+    spa_b:
+      home:
+        heroTitle: "Slow spa days with steam, stone, and silence"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Cedar Rest.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Cedar Rest is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Cedar Rest
+        body1: "We started Cedar Rest to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Slow spa days with steam, stone, and silence. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Cedar Rest, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Cedar Rest is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        massage:
+          name: Signature Massage
+          description: Ninety minutes of flowing pressure tailored to your tension map.
+        facial:
+          name: Glow Facial
+          description: "Cleanse, peel, LED, and seal for skin that looks rested."
+        scrub:
+          name: "Steam & Scrub"
+          description: Body polish with herbal steam to soften and reset.
+        soak:
+          name: Private Soak
+          description: "Solo suite with mineral soak, tea, and unhurried time."
+    coach_b:
+      home:
+        heroTitle: Executive coaching for leaders who want sharper decisions
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Summit Path.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Summit Path is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Summit Path
+        body1: "We started Summit Path to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Executive coaching for leaders who want sharper decisions. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Summit Path, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Summit Path is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        intensive:
+          name: Executive Intensive
+          description: Deep-dive session on a live decision with follow-up notes.
+        retainer:
+          name: Quarterly Retainer
+          description: Bi-weekly coaching with async Slack support between calls.
+        manager:
+          name: New Manager Launch
+          description: "Four sessions to set rhythms, feedback, and priorities."
+        board:
+          name: Board Prep Hour
+          description: "Tight rehearsal for narrative, numbers, and hard questions."
+    fitness_b:
+      home:
+        heroTitle: Strength training with coaching that sticks
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Iron Hour.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Iron Hour is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Iron Hour
+        body1: "We started Iron Hour to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Strength training with coaching that sticks. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Iron Hour, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Iron Hour is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        strength:
+          name: "1:1 Strength Block"
+          description: Eight weeks of progressive lifts with form video reviews.
+        conditioning:
+          name: Engine Conditioning
+          description: Mixed modalities to build work capacity without junk volume.
+        recovery:
+          name: Recovery Flow
+          description: Guided mobility and soft-tissue work after hard training weeks.
+        team:
+          name: Team Challenge
+          description: Six-athlete pods with shared programming and weekly check-ins.
+    photography_b:
+      home:
+        heroTitle: Natural light portraits and brand stories
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Frame & Field."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Frame & Field is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Frame & Field"
+        body1: "We started Frame & Field to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Natural light portraits and brand stories. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Frame & Field, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Frame & Field is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        portrait:
+          name: Golden Hour Portrait
+          description: Outdoor portraits with wardrobe guidance and a curated gallery.
+        brand:
+          name: Founder Day
+          description: "Half-day brand shoot for site, press, and social assets."
+        product:
+          name: Product Still Set
+          description: Clean tabletop images with consistent lighting for ecommerce.
+        event:
+          name: Documentary Event
+          description: "Quiet coverage of launches, dinners, and milestone days."
+    clinic_b:
+      home:
+        heroTitle: Primary care that books around your week
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Riverbend Care.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Riverbend Care is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Riverbend Care
+        body1: "We started Riverbend Care to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Primary care that books around your week. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Riverbend Care, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Riverbend Care is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        wellness:
+          name: Wellness Visit
+          description: Prevention-focused exam with labs review and clear next steps.
+        sick:
+          name: Same-Day Sick Visit
+          description: "Acute care for colds, rashes, and minor injuries."
+        travel:
+          name: Travel Clinic
+          description: Vaccines and destination advice before you fly.
+        video:
+          name: Video Follow-Up
+          description: Short telehealth visits to review results or adjust plans.
+    pet_b:
+      home:
+        heroTitle: Grooming and adventures your dog looks forward to
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Trail Tail Co..
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Trail Tail Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Trail Tail Co.
+        body1: "We started Trail Tail Co. to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Grooming and adventures your dog looks forward to. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Trail Tail Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Trail Tail Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        groom:
+          name: Trail Groom
+          description: "Bath, trim, and brush-out sized for active coats."
+        walk:
+          name: Adventure Walk
+          description: Sixty-minute enrichment walk with photo updates.
+        puppy:
+          name: Puppy Primer
+          description: Gentle intro to grooming tools and calm handling.
+        deshed:
+          name: Deshed Express
+          description: Focused undercoat removal without the full spa package.
+    home_services_b:
+      home:
+        heroTitle: Cleaning and repairs with calendar-first booking
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Steady Home Pros.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Steady Home Pros is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Steady Home Pros
+        body1: "We started Steady Home Pros to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Cleaning and repairs with calendar-first booking. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Steady Home Pros, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Steady Home Pros is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        clean:
+          name: Weekly Clean
+          description: "Recurring tidy with kitchens, baths, and floors done right."
+        handyman:
+          name: Punch-List Hour
+          description: "Mounts, swaps, and small fixes billed by the hour."
+        move:
+          name: Move-Ready Detail
+          description: "Deep clean for listings, move-outs, and new keys."
+        fixture:
+          name: "Filter & Fixture"
+          description: "Seasonal HVAC filters, bulbs, and minor fixture swaps."
+    professional_b:
+      home:
+        heroTitle: Accounting and ops clarity for growing teams
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Ledger & Line."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Ledger & Line is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Ledger & Line"
+        body1: "We started Ledger & Line to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Accounting and ops clarity for growing teams. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Ledger & Line, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Ledger & Line is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        books:
+          name: Books Cleanup
+          description: Catch-up reconciliations so your ledger matches reality.
+        controller:
+          name: Fractional Controller
+          description: "Monthly close, cash forecast, and board-ready reports."
+        process:
+          name: Process Map
+          description: Document handoffs across tools and ownership gaps.
+        tax:
+          name: Tax Season Brief
+          description: Pre-file review with action items for your CPA.
   heroDefaults:
     title: Build something people love
     subtitle: A short supporting line that explains your value proposition.

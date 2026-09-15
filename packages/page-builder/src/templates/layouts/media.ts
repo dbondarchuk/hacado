@@ -47,7 +47,7 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
   },
   tattoo: {
     generic: u("photo-1611501275019-9b5cda994e8d"),
-    before: u("photo-1590246814883-57c511f0e2a9"),
+    before: u("photo-1542727365-19732a80dcfd"),
     after: u("photo-1611501275019-9b5cda994e8d"),
     logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
     items: [
@@ -56,7 +56,7 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         keywords: ["tattoo", "ink", "studio"],
       },
       {
-        src: u("photo-1590246814883-57c511f0e2a9"),
+        src: u("photo-1542727365-19732a80dcfd"),
         keywords: ["fine", "line", "delicate"],
       },
       {
@@ -246,7 +246,7 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         keywords: ["telehealth", "video", "follow"],
       },
       {
-        src: u("photo-1551076805-e1869033fa41"),
+        src: u("photo-1519494026892-80bbd2d6fd0d"),
         keywords: ["family", "patient"],
       },
     ],
@@ -342,6 +342,312 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1554224155-6726b3ff858f"),
         keywords: ["ops", "audit", "process"],
+      },
+      {
+        src: u("photo-1521791136064-7986c2920216"),
+        keywords: ["advisors", "handshake"],
+      },
+    ],
+  },
+  salon_b: {
+    generic: u("photo-1560066984-138dadb4c035"),
+    before: u("photo-1562322140-8baeececf3df"),
+    after: u("photo-1560066984-138dadb4c035"),
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["cut", "precision", "editorial"],
+      },
+      {
+        src: u("photo-1562322140-8baeececf3df"),
+        keywords: ["balayage", "color"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["mani", "nails"],
+      },
+      {
+        src: u("photo-1516975080664-ed2fc6a32937"),
+        keywords: ["styling", "event"],
+      },
+      {
+        src: u("photo-1521590832167-7bcbfaa6381f"),
+        keywords: ["salon", "interior"],
+      },
+      {
+        src: u("photo-1492106087820-71f1a00d2b11"),
+        keywords: ["hair", "finish"],
+      },
+    ],
+  },
+  tattoo_b: {
+    generic: u("photo-1542727365-19732a80dcfd"),
+    before: u("photo-1542051841857-5f90071e7989"),
+    after: u("photo-1611501275019-9b5cda994e8d"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1542727365-19732a80dcfd"),
+        keywords: ["fine", "line", "custom"],
+      },
+      {
+        src: u("photo-1611501275019-9b5cda994e8d"),
+        keywords: ["tattoo", "ink"],
+      },
+      {
+        src: u("photo-1611501275019-9b5cda994e8d"),
+        keywords: ["blackwork"],
+      },
+      {
+        src: u("photo-1605497788044-5a32c7078486"),
+        keywords: ["artist", "studio"],
+      },
+      {
+        src: u("photo-1542051841857-5f90071e7989"),
+        keywords: ["cover", "touch"],
+      },
+      {
+        src: u("photo-1614850715649-1d0106293bd1"),
+        keywords: ["touch", "refresh"],
+      },
+    ],
+  },
+  spa_b: {
+    generic: u("photo-1544161515-4ab6ce6db874"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1544161515-4ab6ce6db874"),
+        keywords: ["massage"],
+      },
+      {
+        src: u("photo-1540555700478-4be289fbecef"),
+        keywords: ["spa", "relax"],
+      },
+      {
+        src: u("photo-1600334129128-685c5582fd35"),
+        keywords: ["scrub", "steam", "stone"],
+      },
+      {
+        src: u("photo-1519823551278-64ac92734fb1"),
+        keywords: ["facial", "glow"],
+      },
+      {
+        src: u("photo-1596178060671-7a80dc8059ea"),
+        keywords: ["soak", "private"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["treatment", "body"],
+      },
+    ],
+  },
+  coach_b: {
+    generic: u("photo-1551836022-d5d88e9218df"),
+    logos: TEMPLATE_LOGOS.slice(3, 11).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1551836022-d5d88e9218df"),
+        keywords: ["executive", "intensive"],
+      },
+      {
+        src: u("photo-1522202176988-66273c2fd55f"),
+        keywords: ["coach", "meeting"],
+      },
+      {
+        src: u("photo-1552664730-d307ca884978"),
+        keywords: ["retainer", "leadership"],
+      },
+      {
+        src: u("photo-1517245386807-bb43f82c33c4"),
+        keywords: ["manager", "launch"],
+      },
+      {
+        src: u("photo-1573496359142-b8d87734a5a2"),
+        keywords: ["board", "prep"],
+      },
+      {
+        src: u("photo-1600880292203-757bb62b4baf"),
+        keywords: ["growth", "planning"],
+      },
+    ],
+  },
+  fitness_b: {
+    generic: u("photo-1517836357463-d25dfeac3438"),
+    before: u("photo-1571019614242-c5c5dee9f50b"),
+    after: u("photo-1517836357463-d25dfeac3438"),
+    logos: TEMPLATE_LOGOS.slice(4, 12).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1517836357463-d25dfeac3438"),
+        keywords: ["strength", "personal"],
+      },
+      {
+        src: u("photo-1534438327276-14e5300c3a48"),
+        keywords: ["gym", "fitness"],
+      },
+      {
+        src: u("photo-1571019614242-c5c5dee9f50b"),
+        keywords: ["conditioning", "engine"],
+      },
+      {
+        src: u("photo-1581009146145-b5ef050c2e1e"),
+        keywords: ["recovery", "mobility"],
+      },
+      {
+        src: u("photo-1549060279-7e168fcee0c2"),
+        keywords: ["team", "group"],
+      },
+      {
+        src: u("photo-1571902943202-507ec2618e8f"),
+        keywords: ["studio", "workout"],
+      },
+    ],
+  },
+  photography_b: {
+    generic: u("photo-1492691527719-9d1e07e534b4"),
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1492691527719-9d1e07e534b4"),
+        keywords: ["portrait", "golden"],
+      },
+      {
+        src: u("photo-1554048612-b6a482bc67e5"),
+        keywords: ["photo", "camera"],
+      },
+      {
+        src: u("photo-1531684096782-1af8c28ddb95"),
+        keywords: ["founder", "brand"],
+      },
+      {
+        src: u("photo-1452587925148-ce544e77e70d"),
+        keywords: ["product"],
+      },
+      {
+        src: u("photo-1452587925148-ce544e77e70d"),
+        keywords: ["event", "documentary"],
+      },
+      {
+        src: u("photo-1542038784456-1ea8e935640e"),
+        keywords: ["gallery", "lens"],
+      },
+    ],
+  },
+  clinic_b: {
+    generic: u("photo-1576091160399-112ba8d25d1d"),
+    logos: TEMPLATE_LOGOS.slice(5, 13).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1576091160399-112ba8d25d1d"),
+        keywords: ["wellness", "checkup"],
+      },
+      {
+        src: u("photo-1519494026892-80bbd2d6fd0d"),
+        keywords: ["clinic", "care"],
+      },
+      {
+        src: u("photo-1631217868264-e5b90bb7e133"),
+        keywords: ["sick", "urgent"],
+      },
+      {
+        src: u("photo-1666214280557-f1b5022eb634"),
+        keywords: ["video", "telehealth"],
+      },
+      {
+        src: u("photo-1584820927498-cfe5211fd8bf"),
+        keywords: ["travel", "vaccine"],
+      },
+      {
+        src: u("photo-1519494026892-80bbd2d6fd0d"),
+        keywords: ["family", "patient"],
+      },
+    ],
+  },
+  pet_b: {
+    generic: u("photo-1587300003388-59208cc962cb"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1587300003388-59208cc962cb"),
+        keywords: ["groom", "trail"],
+      },
+      {
+        src: u("photo-1548199973-03cce0bbc87b"),
+        keywords: ["pet", "dog"],
+      },
+      {
+        src: u("photo-1516734212186-a967f81ad0d7"),
+        keywords: ["walk", "adventure"],
+      },
+      {
+        src: u("photo-1546527868-ccb7ee7dfa6a"),
+        keywords: ["puppy"],
+      },
+      {
+        src: u("photo-1450778869180-41d0601e046e"),
+        keywords: ["deshed"],
+      },
+      {
+        src: u("photo-1583511655857-d19b40a7a54e"),
+        keywords: ["care", "happy"],
+      },
+    ],
+  },
+  home_services_b: {
+    generic: u("photo-1556911220-bff31c812dba"),
+    logos: TEMPLATE_LOGOS.slice(6, 13).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1556911220-bff31c812dba"),
+        keywords: ["handyman", "punch"],
+      },
+      {
+        src: u("photo-1581578731548-c64695cc6952"),
+        keywords: ["clean", "weekly"],
+      },
+      {
+        src: u("photo-1621905251189-08b45d6a269e"),
+        keywords: ["move", "detail"],
+      },
+      {
+        src: u("photo-1504328345606-18bbc8c9d7d1"),
+        keywords: ["fixture", "maintenance"],
+      },
+      {
+        src: u("photo-1600585154340-be6161a56a0c"),
+        keywords: ["house", "exterior"],
+      },
+      {
+        src: u("photo-1484154218962-a197022b5858"),
+        keywords: ["kitchen", "deep"],
+      },
+    ],
+  },
+  professional_b: {
+    generic: u("photo-1556761175-b413da4baf72"),
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1556761175-b413da4baf72"),
+        keywords: ["controller", "meeting"],
+      },
+      {
+        src: u("photo-1454165804606-c3d57bc86b40"),
+        keywords: ["books", "cleanup"],
+      },
+      {
+        src: u("photo-1460925895917-afdab827c52f"),
+        keywords: ["process", "ops"],
+      },
+      {
+        src: u("photo-1507679799987-c73779587ccf"),
+        keywords: ["tax"],
+      },
+      {
+        src: u("photo-1554224155-6726b3ff858f"),
+        keywords: ["finance", "reports"],
       },
       {
         src: u("photo-1521791136064-7986c2920216"),

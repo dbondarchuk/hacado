@@ -52,7 +52,7 @@ function isAwaitingSenderSettings(app: ConnectedApp): boolean {
   );
 }
 
-/** OAuth in progress — not yet authorized / not ready for From settings. */
+/** OAuth in progress - not yet authorized / not ready for From settings. */
 function isAuthorizing(app: ConnectedApp): boolean {
   return app.status === "pending" && !isAwaitingSenderSettings(app);
 }

@@ -67,12 +67,38 @@ export const heroSectionStyle: FluidLayoutProps["style"] = {
   ],
 };
 
+/** Full-viewport hero under a fixed transparent header. */
+export const fullBleedHeroStyle: FluidLayoutProps["style"] = {
+  ...FluidLayoutPropsDefaults.style,
+  padding: [
+    {
+      value: {
+        top: { value: 6, unit: "rem" },
+        right: { value: 1.5, unit: "rem" },
+        bottom: { value: 4, unit: "rem" },
+        left: { value: 1.5, unit: "rem" },
+      },
+    },
+  ],
+  minHeight: [
+    {
+      value: { value: 100, unit: "vh" },
+    },
+  ],
+  width: [
+    {
+      value: { value: 100, unit: "%" },
+    },
+  ],
+};
+
 export function imageBackgroundStyle(
   url: string,
   opacity = 45,
+  fullBleed = false,
 ): FluidLayoutProps["style"] {
   return {
-    ...heroSectionStyle,
+    ...(fullBleed ? fullBleedHeroStyle : heroSectionStyle),
     backgroundColor: [{ value: COLORS.background.value }],
     backgroundImage: [{ value: { type: "url", value: url } }],
     backgroundSize: [{ value: "cover" }],
@@ -87,9 +113,10 @@ export function videoBackgroundStyle(
   poster: string,
   videoSrc: string,
   opacity = 40,
+  fullBleed = false,
 ): FluidLayoutProps["style"] {
   return {
-    ...imageBackgroundStyle(poster, opacity),
+    ...imageBackgroundStyle(poster, opacity, fullBleed),
     backgroundVideo: [
       {
         value: {

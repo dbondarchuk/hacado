@@ -12,14 +12,14 @@ export const colorStyle = {
   category: "typography",
   icon: ({ className }) => <Paintbrush className={className} />,
   schema: ColorSchema,
-  defaultValue: COLORS.primary.value,
+  defaultValue: COLORS.foreground.value,
   renderToCSS: (value) => {
     if (!value) return null;
     return `color: ${getColorStyle(value)};`;
   },
   component: ({ value, onChange }) => (
     <ColorExtendedInput
-      defaultValue={value || COLORS.primary.value}
+      defaultValue={value || COLORS.foreground.value}
       onChange={onChange}
       nullable={false}
     />

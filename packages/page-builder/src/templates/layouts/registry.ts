@@ -19,6 +19,10 @@ function svc(
   };
 }
 
+function packCategoryId(id: WebsitePackId): string {
+  return id.endsWith("_b") ? id.slice(0, -2) : id;
+}
+
 function pack(
   def: Omit<WebsitePackDefinition, "media" | "displayName" | "category"> & {
     id: WebsitePackId;
@@ -29,8 +33,9 @@ function pack(
     media: PACK_MEDIA[def.id],
     displayName:
       `builder.pageBuilder.pageTemplates.packs.${def.id}.name` as BaseAllKeys,
+    // Series B shares the Series A category key so both appear in one Layouts group.
     category:
-      `builder.pageBuilder.pageTemplates.packs.${def.id}.category` as BaseAllKeys,
+      `builder.pageBuilder.pageTemplates.packs.${packCategoryId(def.id)}.category` as BaseAllKeys,
   };
 }
 
@@ -38,7 +43,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   salon: pack({
     id: "salon",
     installCategories: ["beauty"],
-    hero: "split",
+    hero: "centered",
     homeMix: ["zigzag", "gallery", "testimonials", "cta"],
     serviceExtra: "beforeAfter",
     demoServices: [
@@ -90,7 +95,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   fitness: pack({
     id: "fitness",
     installCategories: ["fitness"],
-    hero: "split",
+    hero: "video",
     homeMix: ["stats", "gallery", "faqTeaser", "cta"],
     serviceExtra: "gallery",
     demoServices: [
@@ -129,7 +134,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   pet: pack({
     id: "pet",
     installCategories: ["pet"],
-    hero: "split",
+    hero: "overlay",
     homeMix: ["bento", "logoCloud", "testimonials", "cta"],
     serviceExtra: "gallery",
     demoServices: [
@@ -171,6 +176,166 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
       svc("professional", "books", "monthly-bookkeeping", ["bookkeeping"]),
       svc("professional", "tax", "tax-planning-review", ["tax"]),
       svc("professional", "ops", "ops-audit", ["ops"]),
+    ],
+  }),
+  salon_b: pack({
+    id: "salon_b",
+    installCategories: ["beauty"],
+    hero: "centered",
+    homeMix: ["bento", "beforeAfter", "stats", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("salon_b", "cut", "precision-cut", ["cut", "precision"]),
+      svc("salon_b", "color", "balayage-session", ["balayage", "color"]),
+      svc("salon_b", "nails", "luxury-mani", ["mani", "nails"]),
+      svc("salon_b", "styling", "event-styling", ["styling", "event"]),
+    ],
+  }),
+  tattoo_b: pack({
+    id: "tattoo_b",
+    installCategories: ["creative"],
+    hero: "split",
+    homeMix: ["zigzag", "galleryCarousel", "faq", "cta"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("tattoo_b", "custom", "custom-design-session", ["custom", "design"]),
+      svc("tattoo_b", "fineLine", "fine-line-half-day", ["fine", "line"]),
+      svc("tattoo_b", "blackwork", "large-blackwork", ["blackwork"]),
+      svc("tattoo_b", "touchUp", "healed-touch-up", ["touch"]),
+    ],
+  }),
+  spa_b: pack({
+    id: "spa_b",
+    installCategories: ["welness"],
+    hero: "minimal",
+    homeMix: ["howItWorks", "testimonials", "pricing", "cta"],
+    serviceExtra: "video",
+    demoServices: [
+      svc("spa_b", "massage", "signature-massage", ["massage"]),
+      svc("spa_b", "facial", "glow-facial", ["facial", "glow"]),
+      svc("spa_b", "scrub", "steam-scrub", ["scrub", "steam"]),
+      svc("spa_b", "soak", "private-soak", ["soak", "private"]),
+    ],
+  }),
+  coach_b: pack({
+    id: "coach_b",
+    installCategories: ["coaching"],
+    hero: "split",
+    homeMix: ["featuresShowcase", "stats", "cta", "testimonials"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("coach_b", "intensive", "executive-intensive", [
+        "executive",
+        "intensive",
+      ]),
+      svc("coach_b", "retainer", "quarterly-retainer", [
+        "retainer",
+        "quarterly",
+      ]),
+      svc("coach_b", "manager", "new-manager-launch", ["manager", "launch"]),
+      svc("coach_b", "board", "board-prep-hour", ["board", "prep"]),
+    ],
+  }),
+  fitness_b: pack({
+    id: "fitness_b",
+    installCategories: ["fitness"],
+    hero: "video",
+    homeMix: ["bento", "beforeAfter", "logoMarquee", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("fitness_b", "strength", "strength-block", ["strength", "personal"]),
+      svc("fitness_b", "conditioning", "engine-conditioning", [
+        "conditioning",
+        "engine",
+      ]),
+      svc("fitness_b", "recovery", "recovery-flow", ["recovery", "mobility"]),
+      svc("fitness_b", "team", "team-challenge", ["team", "group"]),
+    ],
+  }),
+  photography_b: pack({
+    id: "photography_b",
+    installCategories: ["creative"],
+    hero: "leftOverlay",
+    homeMix: ["zigzag", "stats", "testimonials", "cta"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("photography_b", "portrait", "golden-hour-portrait", [
+        "portrait",
+        "golden",
+      ]),
+      svc("photography_b", "brand", "founder-day", ["founder", "brand"]),
+      svc("photography_b", "product", "product-still-set", ["product"]),
+      svc("photography_b", "event", "documentary-event", [
+        "event",
+        "documentary",
+      ]),
+    ],
+  }),
+  clinic_b: pack({
+    id: "clinic_b",
+    installCategories: ["medical"],
+    hero: "leftOverlay",
+    homeMix: ["featureList", "carousel", "testimonials", "cta"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("clinic_b", "wellness", "wellness-visit", ["wellness", "checkup"]),
+      svc("clinic_b", "sick", "same-day-sick-visit", ["sick", "urgent"]),
+      svc("clinic_b", "travel", "travel-clinic", ["travel", "vaccine"]),
+      svc("clinic_b", "video", "video-follow-up", ["video", "telehealth"]),
+    ],
+  }),
+  pet_b: pack({
+    id: "pet_b",
+    installCategories: ["pet"],
+    hero: "galleryFirst",
+    homeMix: ["howItWorks", "galleryCarousel", "cta", "logoCloud"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("pet_b", "groom", "trail-groom", ["groom", "trail"]),
+      svc("pet_b", "walk", "adventure-walk", ["walk", "adventure"]),
+      svc("pet_b", "puppy", "puppy-primer", ["puppy"]),
+      svc("pet_b", "deshed", "deshed-express", ["deshed"]),
+    ],
+  }),
+  home_services_b: pack({
+    id: "home_services_b",
+    installCategories: ["home-services"],
+    hero: "announcementSplit",
+    homeMix: ["bento", "stats", "faq", "cta"],
+    serviceExtra: "video",
+    demoServices: [
+      svc("home_services_b", "clean", "weekly-clean", ["clean", "weekly"]),
+      svc("home_services_b", "handyman", "punch-list-hour", [
+        "punch",
+        "handyman",
+      ]),
+      svc("home_services_b", "move", "move-ready-detail", ["move", "detail"]),
+      svc("home_services_b", "fixture", "filter-fixture", [
+        "fixture",
+        "maintenance",
+      ]),
+    ],
+  }),
+  professional_b: pack({
+    id: "professional_b",
+    installCategories: [
+      "professional",
+      "education",
+      "event",
+      "meetings",
+      "misc",
+    ],
+    hero: "leftOverlay",
+    homeMix: ["comparison", "howItWorks", "pricing", "cta"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("professional_b", "books", "books-cleanup", ["books", "cleanup"]),
+      svc("professional_b", "controller", "fractional-controller", [
+        "controller",
+        "fractional",
+      ]),
+      svc("professional_b", "process", "process-map", ["process", "ops"]),
+      svc("professional_b", "tax", "tax-season-brief", ["tax"]),
     ],
   }),
 };

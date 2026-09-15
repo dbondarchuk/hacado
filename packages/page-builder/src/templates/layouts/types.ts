@@ -15,7 +15,17 @@ export type WebsitePackId =
   | "clinic"
   | "pet"
   | "home_services"
-  | "professional";
+  | "professional"
+  | "salon_b"
+  | "tattoo_b"
+  | "spa_b"
+  | "coach_b"
+  | "fitness_b"
+  | "photography_b"
+  | "clinic_b"
+  | "pet_b"
+  | "home_services_b"
+  | "professional_b";
 
 /** Page-builder layout roles (opaque `layoutKind` string on base builder). */
 export type PageLayoutKind = "home" | "booking" | "service" | "about" | "terms";
@@ -27,13 +37,15 @@ export type PackHeroKind =
   | "minimal"
   | "leftOverlay"
   | "galleryFirst"
-  | "announcementSplit";
+  | "announcementSplit"
+  | "video";
 
 export type PackHomeSection =
   | "zigzag"
   | "bento"
   | "featureList"
   | "gallery"
+  | "galleryCarousel"
   | "carousel"
   | "beforeAfter"
   | "testimonials"
@@ -48,7 +60,11 @@ export type PackHomeSection =
   | "featuresShowcase"
   | "cta";
 
-export type PackServiceExtra = "beforeAfter" | "gallery" | "video";
+export type PackServiceExtra =
+  | "beforeAfter"
+  | "gallery"
+  | "galleryCarousel"
+  | "video";
 
 export type PackMediaItem = {
   src: string;

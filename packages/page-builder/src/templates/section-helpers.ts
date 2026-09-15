@@ -575,6 +575,7 @@ export function buildSectionIntro(
   if (keys.eyebrow) {
     children.push(eyebrowInline(t, keys.eyebrow));
   }
+
   children.push(introTitle(t, keys.title), introBody(t, keys.body));
   return {
     type: "Container",

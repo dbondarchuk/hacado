@@ -31,7 +31,7 @@ Set:
 - `RESEND_OAUTH_CLIENT_ID`
 - `RESEND_OAUTH_CLIENT_SECRET`
 
-Redirect URI must match `{ADMIN_URL}/apps/oauth/resend/redirect`. Add extra URIs (up to 10) for local/staging hosts if needed. Do **not** call register on each org install — Hacado is one remote client; orgs only authorize it.
+Redirect URI must match `{ADMIN_URL}/apps/oauth/resend/redirect`. Add extra URIs (up to 10) for local/staging hosts if needed. Do **not** call register on each org install - Hacado is one remote client; orgs only authorize it.
 
 These OAuth secrets are separate from platform system mail (`RESEND_API_KEY` / `EMAIL_PROVIDER=resend`).
 
