@@ -231,7 +231,7 @@ export function StepPersonalization() {
         {t("wizard.personalization.editLater")}
       </p>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
         <Button
           variant="outline"
           type="button"

@@ -75,6 +75,7 @@ wizard:
     schedule: Розклад
     integrations: Зв'язки
     payments: Оплата
+    website: Сайт
     done: Готово
   verify:
     title: "Підтвердіть email, щоб продовжити"
@@ -296,6 +297,27 @@ wizard:
     cancelHelp: Точні вікна та штрафи - у налаштуваннях записів.
     flex: Усе це можна змінити будь-коли - ми лише робимо старт.
     acceptPaymentsUpgradeHint: Перейдіть на Solo, щоб приймати онлайн-платежі.
+  website:
+    title: Оберіть сайт
+    subtitle: >-
+      Виберіть стартовий макет публічних сторінок. Пізніше можна змінити
+      будь-який блок у конструкторі.
+    suggested: Рекомендовано для вас
+    browseAll: Усі дизайни
+    useThisDesign: Використати цей дизайн
+    selectDesign: Обрати цей дизайн
+    preview: Перегляд
+    previewPages:
+      home: Головна
+      booking: Запис
+      service: Послуга
+      about: Про нас
+      terms: Умови
+    closePreview: Закрити
+    loadingPreview: Завантаження перегляду…
+    continue: Далі
+    finish: Завершити налаштування
+    selectRequired: Оберіть дизайн сайту, щоб продовжити
   finish:
     taskPage: Створюємо сторінку бронювання
     taskAvailability: Застосовуємо доступність

@@ -1,8 +1,4 @@
-import { InstallWizard } from "@/components/install/install-wizard";
-import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
-import { getI18nAsync } from "@hacado/i18n/server";
-import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { getSession } from "@/app/utils";
 import {
   getInstallCalendarAppsSnapshot,
   getInstallPaymentAppsSnapshot,
@@ -10,8 +6,12 @@ import {
   getInstallScheduleSnapshot,
   getInstallServicesSnapshot,
   getInstallWorkspaceSnapshot,
-} from "../../components/install/actions";
-import { getSession } from "../utils";
+} from "@/components/install/actions";
+import { InstallWizard } from "@/components/install/install-wizard";
+import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
+import { getI18nAsync } from "@hacado/i18n/server";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getI18nAsync("install");

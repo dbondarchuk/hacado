@@ -9,6 +9,7 @@ import {
   TooltipResponsiveTrigger,
 } from "@hacado/ui";
 import { GripVertical, Layers, LayoutTemplate } from "lucide-react";
+import Image from "next/image";
 import { memo, useMemo } from "react";
 import { useTemplates } from "../../../documents/editor/context";
 import {
@@ -98,12 +99,15 @@ export const DraggableBlockItem = memo(
           className={cardClass}
         >
           <div className="relative aspect-video w-full overflow-hidden bg-muted">
-            <img
-              src={previewImage}
-              alt=""
-              className="h-full w-full object-cover"
-              draggable={false}
-            />
+            <div className="relative aspect-video w-full overflow-hidden bg-muted">
+              <Image
+                src={previewImage}
+                alt={`${blockType} preview`}
+                draggable={false}
+                fill
+                className="object-cover object-top"
+              />
+            </div>
             <div className="absolute right-2 top-2 rounded bg-background/80 p-1 text-muted-foreground">
               {isLayout ? (
                 <LayoutTemplate className="size-3.5" />

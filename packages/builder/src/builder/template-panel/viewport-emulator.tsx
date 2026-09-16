@@ -27,9 +27,10 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
   ({ children, viewportSize, className }) => {
     const iframeRef = useRef<HTMLIFrameElement>(null);
     const hintHostRef = useRef<HTMLDivElement>(null);
+    const overlayHostRef = useRef<HTMLDivElement>(null);
     const [iframeReady, setIframeReady] = useState(false);
     const prevViewportSizeRef = useRef<ViewportSize>(viewportSize);
-    const { setViewportHintHost } = usePortalContext();
+    const { setViewportHintHost, setOverlayHost } = usePortalContext();
 
     const currentSize = VIEWPORT_SIZES[viewportSize];
 
@@ -39,6 +40,11 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
       setViewportHintHost(hintHostRef.current);
       return () => setViewportHintHost(null);
     }, [setViewportHintHost]);
+
+    useEffect(() => {
+      setOverlayHost(overlayHostRef.current);
+      return () => setOverlayHost(null);
+    }, [setOverlayHost]);
 
     //   // Reset iframe ready state only when switching from original to other viewport sizes
     //   useEffect(() => {
@@ -198,7 +204,9 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
               </span>
             </div> */}
 
-              {/* Iframe container */}
+              {/* Iframe container — chrome padding lives outside the canvas so
+                  fixed page content can be full-bleed while drag handles /
+                  floating menus break out into this padding via overlayHost. */}
               <div
                 className="iframe-container transition-all duration-300"
                 style={{
@@ -229,6 +237,10 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
                   onLoad={() => {
                     // Iframe loaded, styles will be copied via the effect
                   }}
+                />
+                <div
+                  ref={overlayHostRef}
+                  className="iframe-overlay-host pointer-events-none absolute inset-0 z-[25]"
                 />
                 {iframeReady && iframeRef.current?.contentDocument?.body && (
                   <IframePortal document={iframeRef.current.contentDocument}>
@@ -270,8 +282,6 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
           flex-direction: column;
           align-items: center;
           gap: 0.5rem;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
         }
 
         .device-header {
@@ -295,6 +305,13 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
 
         .iframe-container {
           position: relative;
+          box-sizing: content-box;
+          overflow: visible;
+        }
+
+        .iframe-overlay-host {
+          /* Covers the padded container so chrome can paint into the gutter. */
+          overflow: visible;
         }
       `}</style>
       </>
@@ -341,8 +358,7 @@ const IframePortal: React.FC<IframePortalProps> = ({ document, children }) => {
         }
 
         body {
-          background: #f8f9fa;
-          padding: 2rem;
+          background: #fff;
           position: relative;
         }
       `}</style>

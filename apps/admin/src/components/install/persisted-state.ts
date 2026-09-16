@@ -175,6 +175,9 @@ export function sanitizePersisted(
     if (typeof s.allowCancelReschedule === "boolean") {
       fromDb.allowCancelReschedule = s.allowCancelReschedule;
     }
+    if (typeof s.websitePackId === "string" && s.websitePackId.trim()) {
+      fromDb.websitePackId = s.websitePackId.trim();
+    }
   }
 
   const partialMerged =

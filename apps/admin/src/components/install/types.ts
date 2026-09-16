@@ -1,7 +1,7 @@
 import type { Language } from "@hacado/i18n";
 import type { Country, Currency, Schedule } from "@hacado/types";
 
-export type WizardStep = "verify" | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type WizardStep = "verify" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type InstallServicePriceType = "fixed" | "per_hour";
 
@@ -89,6 +89,8 @@ export type PersistedState = {
   secondaryFont: string;
   /** Same shape as general `logo` (e.g. `/assets/…` or URL). */
   installLogo: string | null | undefined;
+  /** Website pack chosen on the Website install step. */
+  websitePackId: string;
 };
 
 /** Fields saved on the server (org + general configuration) for install step 1 hydration. */
@@ -130,6 +132,7 @@ export type InstallPreferencesServerState = Partial<
     | "depositEnabled"
     | "depositPercent"
     | "allowCancelReschedule"
+    | "websitePackId"
   >
 >;
 

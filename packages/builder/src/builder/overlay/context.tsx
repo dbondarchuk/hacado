@@ -60,6 +60,43 @@ type BlockGeometry = {
   height: number;
 };
 
+function toOverlayGeometry(
+  rect: DOMRect,
+  overlayHost: HTMLElement | null,
+  view: Window | null,
+): BlockGeometry {
+  if (overlayHost) {
+    const hostRect = overlayHost.getBoundingClientRect();
+    // Elements live in the iframe; their rect is iframe-viewport-relative.
+    // The overlay host lives in the parent page — add the iframe's offset.
+    const iframe = overlayHost.parentElement?.querySelector("iframe");
+    const iframeRect = iframe?.getBoundingClientRect();
+    const frameTop = iframeRect?.top ?? hostRect.top;
+    const frameLeft = iframeRect?.left ?? hostRect.left;
+
+    return {
+      top: rect.top + frameTop - hostRect.top,
+      left: rect.left + frameLeft - hostRect.left,
+      width: rect.width,
+      height: rect.height,
+    };
+  }
+
+  return {
+    top: rect.top + (view?.scrollY ?? 0),
+    left: rect.left + (view?.scrollX ?? 0),
+    width: rect.width,
+    height: rect.height,
+  };
+}
+
+function applyOverlayGeometry(box: HTMLElement, geometry: BlockGeometry) {
+  box.style.top = `${geometry.top}px`;
+  box.style.left = `${geometry.left}px`;
+  box.style.width = `${geometry.width}px`;
+  box.style.height = `${geometry.height}px`;
+}
+
 // ---------------------------
 // Types
 // ---------------------------
@@ -74,6 +111,7 @@ type OverlayContextType = {
   hoveredBlock: BlockGeometry | null;
   selectedBlock: BlockGeometry | null;
   selectedBlockElement: Element | null;
+  hoveredBlockElement: Element | null;
   selectedBlockMeta: BlockMeta | null;
   updateActiveBlocks: () => void;
 };
@@ -109,7 +147,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
   const meta = useRef(new Map<string, BlockMeta>());
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const { document } = usePortalContext();
+  const { document, overlayHost } = usePortalContext();
 
   const elements = useRef(new Map<string, Element>());
   const resizeObserver = useRef<ResizeObserver | null>(null);
@@ -149,30 +187,23 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
   }, [selectedId]);
 
   const updateActiveBlocks = useCallback(() => {
-    // if (rafPending.current) return;
-    // rafPending.current = true;
-
-    // requestAnimationFrame(() => {
-    //   rafPending.current = false;
-
     if (hoveredId) {
       const el = elements.current.get(hoveredId);
       if (el) {
-        const rect = el.getBoundingClientRect();
+        const next = toOverlayGeometry(
+          el.getBoundingClientRect(),
+          overlayHost,
+          document.defaultView,
+        );
         setHoveredBlock((prev) => {
           if (
             !prev ||
-            prev.top !== rect.top ||
-            prev.left !== rect.left ||
-            prev.width !== rect.width ||
-            prev.height !== rect.height
+            prev.top !== next.top ||
+            prev.left !== next.left ||
+            prev.width !== next.width ||
+            prev.height !== next.height
           ) {
-            return {
-              top: rect.top + (document.defaultView?.scrollY ?? 0),
-              left: rect.left + (document.defaultView?.scrollX ?? 0),
-              width: rect.width,
-              height: rect.height,
-            };
+            return next;
           }
           return prev;
         });
@@ -182,32 +213,30 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
     if (selectedId) {
       const el = elements.current.get(selectedId);
       if (el) {
-        const rect = el.getBoundingClientRect();
+        const next = toOverlayGeometry(
+          el.getBoundingClientRect(),
+          overlayHost,
+          document.defaultView,
+        );
         setSelectedBlock((prev) => {
           if (
             !prev ||
-            prev.top !== rect.top ||
-            prev.left !== rect.left ||
-            prev.width !== rect.width ||
-            prev.height !== rect.height
+            prev.top !== next.top ||
+            prev.left !== next.left ||
+            prev.width !== next.width ||
+            prev.height !== next.height
           ) {
-            return {
-              top: rect.top + (document.defaultView?.scrollY ?? 0),
-              left: rect.left + (document.defaultView?.scrollX ?? 0),
-              width: rect.width,
-              height: rect.height,
-            };
+            return next;
           }
           return prev;
         });
       }
     }
-    // });
   }, [
     document.defaultView,
+    overlayHost,
     hoveredId,
     selectedId,
-    elements.current,
     setHoveredBlock,
     setSelectedBlock,
   ]);
@@ -256,16 +285,18 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
     updateActiveBlocks();
   }, [hoveredId, selectedId, updateActiveBlocks]);
 
-  // One global scroll listener
+  // Keep geometry in sync while scrolling. Prefer rAF (not setInterval — timers
+  // are throttled during scroll) and let OverlayLayer write positions to the DOM
+  // directly for frame-accurate tracking.
   useEffect(() => {
-    const onScroll = () => updateActiveBlocks();
-    document.defaultView?.addEventListener("scroll", onScroll, true);
+    const view = document.defaultView;
+    if (!view) return;
 
-    const intervalId = setInterval(() => updateActiveBlocks(), 10);
+    const onScroll = () => updateActiveBlocks();
+    view.addEventListener("scroll", onScroll, { capture: true, passive: true });
 
     return () => {
-      document.defaultView?.removeEventListener("scroll", onScroll, true);
-      clearInterval(intervalId);
+      view.removeEventListener("scroll", onScroll, true);
     };
   }, [updateActiveBlocks, document]);
 
@@ -281,6 +312,9 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
         : null,
       selectedBlockElement: selectedId
         ? (elements.current.get(selectedId) ?? null)
+        : null,
+      hoveredBlockElement: hoveredId
+        ? (elements.current.get(hoveredId) ?? null)
         : null,
     }),
     [hoveredId, selectedId, hoveredBlock, selectedBlock, updateActiveBlocks],
@@ -471,9 +505,11 @@ export function useBlockEditor(
 
 const OverlayLayer = () => {
   const ctx = useContext(OverlayContext)!;
-  const { document } = usePortalContext();
+  const { document, overlayHost } = usePortalContext();
 
   const [isResizing, setIsResizing] = useState(false);
+  const selectedBoxRef = useRef<HTMLDivElement>(null);
+  const hoveredBoxRef = useRef<HTMLDivElement>(null);
 
   const disableAnimation = useDisableAnimation();
   const rootBlockId = useRootBlockId();
@@ -486,8 +522,53 @@ const OverlayLayer = () => {
     selectedBlock,
     selectedBlockMeta,
     selectedBlockElement,
+    hoveredBlockElement,
   } = ctx;
   const disable = useBlockDisableOptions(selectedId);
+
+  // Frame-synced DOM writes so overlays track iframe scroll without React lag.
+  useEffect(() => {
+    if (!selectedBlockElement && !hoveredBlockElement) return;
+
+    let raf = 0;
+    const tick = () => {
+      if (selectedBlockElement && selectedBoxRef.current) {
+        applyOverlayGeometry(
+          selectedBoxRef.current,
+          toOverlayGeometry(
+            selectedBlockElement.getBoundingClientRect(),
+            overlayHost,
+            document.defaultView,
+          ),
+        );
+      }
+      if (
+        hoveredBlockElement &&
+        hoveredBoxRef.current &&
+        selectedId !== hoveredId
+      ) {
+        applyOverlayGeometry(
+          hoveredBoxRef.current,
+          toOverlayGeometry(
+            hoveredBlockElement.getBoundingClientRect(),
+            overlayHost,
+            document.defaultView,
+          ),
+        );
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [
+    selectedBlockElement,
+    hoveredBlockElement,
+    selectedId,
+    hoveredId,
+    overlayHost,
+    document.defaultView,
+  ]);
 
   // Resize handler
   const startResize = useCallback(
@@ -560,13 +641,15 @@ const OverlayLayer = () => {
       disableAnimation,
       setDisableAnimation,
       selectedBlockElement,
+      ctx,
     ],
   );
 
   return createPortal(
-    <div className="absolute inset-0 pointer-events-none z-[25]">
+    <div className="absolute inset-0 pointer-events-none z-[25] overflow-visible">
       {hoveredBlock && selectedId !== hoveredId && !isResizing && (
         <div
+          ref={hoveredBoxRef}
           className="absolute border border-blue-300"
           style={{
             top: hoveredBlock.top,
@@ -578,12 +661,12 @@ const OverlayLayer = () => {
       )}
 
       {selectedBlock &&
-        selectedBlock &&
         selectedId &&
         rootBlockId !== selectedId &&
         selectedBlockMeta &&
         !disable?.overlay && (
           <SelectedBlockOverlay
+            ref={selectedBoxRef}
             top={selectedBlock.top}
             left={selectedBlock.left}
             width={selectedBlock.width}
@@ -595,6 +678,6 @@ const OverlayLayer = () => {
           />
         )}
     </div>,
-    document.body,
+    overlayHost ?? document.body,
   );
 };

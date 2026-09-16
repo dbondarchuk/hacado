@@ -26,6 +26,7 @@ export { conversionEditorTemplates } from "./conversion";
 export { featuresEditorTemplates } from "./features";
 export { heroEditorTemplates } from "./heroes";
 export {
+  composeService,
   getLayoutTemplateKey,
   getPackLayoutBlocks,
   getWebsitePack,
@@ -40,13 +41,18 @@ export {
 export { marketingEditorTemplates } from "./marketing";
 export { mediaEditorTemplates } from "./media";
 export {
+  getTemplatePreviewChrome,
   getTemplatePreviewDelayMs,
   HERO_TEMPLATE_PREVIEWS,
   heroTemplatePreviewPath,
+  LAYOUT_FULL_PAGE_PREVIEWS,
   LAYOUT_TEMPLATE_PREVIEWS,
+  layoutFullPagePreviewPath,
+  layoutPreviewHeaderVariant,
   layoutTemplatePreviewPath,
   MARKETING_TEMPLATE_PREVIEWS,
   marketingTemplatePreviewPath,
+  packUsesOverlayHeader,
   SECTION_TEMPLATE_PREVIEW_BASE,
   SECTION_TEMPLATE_PREVIEWS,
   sectionTemplatePreviewPath,
@@ -54,6 +60,7 @@ export {
   TEMPLATE_PREVIEWS,
   templatePreviewPath,
   type SectionTemplatePreviewKey,
+  type TemplatePreviewChrome,
   type TemplatePreviewGroup,
   type TemplatePreviewKey,
 } from "./preview-manifest";

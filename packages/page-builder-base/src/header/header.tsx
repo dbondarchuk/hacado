@@ -1,4 +1,5 @@
 "use client";
+import { usePortalContext } from "@hacado/builder";
 import {
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
@@ -55,18 +56,26 @@ export const HeaderInternal = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(forceScrolled ?? false);
 
+  const { document: portalDocument } = usePortalContext();
+
   useEffect(() => {
+    const effectiveWindow = portalDocument.defaultView ?? window;
     if (forceScrolled !== undefined) {
       setIsScrolled(forceScrolled);
       return;
     }
+
     const scrollHandler = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(effectiveWindow.scrollY > 10);
     };
+
     scrollHandler();
-    window.addEventListener("scroll", scrollHandler, { passive: true });
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, [forceScrolled]);
+    effectiveWindow.addEventListener("scroll", scrollHandler, {
+      passive: true,
+    });
+
+    return () => effectiveWindow.removeEventListener("scroll", scrollHandler);
+  }, [forceScrolled, portalDocument]);
 
   const style = resolveHeaderStyle(config, isScrolled);
   const resolvedPosition = resolvePageHeaderPosition({

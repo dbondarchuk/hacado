@@ -349,8 +349,10 @@ export function getWebsitePack(id: WebsitePackId): WebsitePackDefinition {
 /** Suggest a pack from install business category / profession catalog id. */
 export function suggestWebsitePackId(
   businessCategory?: string | null,
-): WebsitePackId {
-  const cat = (businessCategory ?? "").toLowerCase();
+): WebsitePackId | null {
+  const cat = (businessCategory ?? "").trim().toLowerCase();
+  if (!cat) return null;
+
   for (const packDef of Object.values(WEBSITE_PACKS)) {
     if (packDef.installCategories.some((c) => cat.includes(c) || c === cat)) {
       return packDef.id;

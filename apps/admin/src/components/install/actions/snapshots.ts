@@ -65,6 +65,7 @@ const installPreferencesSchema = z.object({
   acceptPayments: z.boolean().default(false),
   depositEnabled: z.boolean().default(false),
   depositPercent: z.string().default("25"),
+  websitePackId: z.string().trim().optional().default(""),
 });
 
 function normalizeInstallPreferencesFromOrg(

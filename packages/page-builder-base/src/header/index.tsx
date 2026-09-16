@@ -1,5 +1,6 @@
 "use client";
 
+import { usePortalContext } from "@hacado/builder";
 import { richTextToString, StaticText } from "@hacado/rte-inline/reader";
 import {
   ButtonMenuItem,
@@ -137,20 +138,28 @@ export const Header: React.FC<HeaderProps> = ({
     getHeaderMobileSnapshot,
     getHeaderMobileServerSnapshot,
   );
+
+  const { document: portalDocument } = usePortalContext();
   const isMobile = forceMobile ?? mediaMobile;
 
   useEffect(() => {
+    const effectiveWindow = portalDocument.defaultView ?? window;
     if (forceScrolled !== undefined) {
       setIsScrolled(forceScrolled);
       return;
     }
+
     const scrollHandler = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(effectiveWindow.scrollY > 10);
     };
+
     scrollHandler();
-    window.addEventListener("scroll", scrollHandler, { passive: true });
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, [forceScrolled]);
+    effectiveWindow.addEventListener("scroll", scrollHandler, {
+      passive: true,
+    });
+
+    return () => effectiveWindow.removeEventListener("scroll", scrollHandler);
+  }, [forceScrolled, portalDocument]);
 
   const style = resolveHeaderStyle(config, isScrolled);
   const mobileHeaderItem = config.menu?.find(isMobilePinnedMenuItem);

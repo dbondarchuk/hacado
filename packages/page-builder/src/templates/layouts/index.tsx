@@ -1,11 +1,13 @@
-import {
-  type LayoutTemplateContext,
-  type LayoutTemplateDefinition,
-  type TemplatesConfiguration,
+import type {
+  LayoutTemplateContext,
+  LayoutTemplateDefinition,
+  LayoutTemplateService,
+  TemplatesConfiguration,
 } from "@hacado/builder";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { LayoutTemplate } from "lucide-react";
 import { layoutTemplatePreviewPath } from "../preview-manifest";
+import { matchServiceImage } from "./media";
 import { WEBSITE_PACK_IDS, WEBSITE_PACKS } from "./registry";
 import {
   composeAbout,
@@ -45,14 +47,24 @@ function composeForKind(
   layoutKind: PageLayoutKind,
   t: I18nFn<undefined, undefined>,
   ctx?: LayoutTemplateContext,
+  selectedService?: LayoutTemplateService,
 ) {
   switch (layoutKind) {
     case "home":
       return composeHome(pack, t, ctx);
     case "booking":
       return composeBooking(pack, t, ctx);
-    case "service":
-      return composeService(pack, t, ctx);
+    case "service": {
+      const selected = selectedService
+        ? {
+            ...selectedService,
+            imageUrl:
+              selectedService.imageUrl ||
+              matchServiceImage(pack.id, selectedService.name),
+          }
+        : undefined;
+      return composeService(pack, t, ctx, selected);
+    }
     case "about":
       return composeAbout(pack, t, ctx);
     case "terms":
@@ -104,6 +116,13 @@ export function getPackLayoutBlocks(
   layoutKind: PageLayoutKind,
   t: I18nFn<undefined, undefined>,
   ctx?: LayoutTemplateContext,
+  selectedService?: LayoutTemplateService,
 ) {
-  return composeForKind(WEBSITE_PACKS[packId], layoutKind, t, ctx);
+  return composeForKind(
+    WEBSITE_PACKS[packId],
+    layoutKind,
+    t,
+    ctx,
+    selectedService,
+  );
 }

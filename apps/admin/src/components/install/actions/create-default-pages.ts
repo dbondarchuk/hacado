@@ -5,9 +5,18 @@ import {
   MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
+import { generateId, type LayoutTemplateService } from "@hacado/builder";
 import type { Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import {
+  getPackLayoutBlocks,
+  packUsesOverlayHeader,
+  suggestWebsitePackId,
+  WEBSITE_PACK_IDS,
+  WEBSITE_PACKS,
+  type WebsitePackId,
+} from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
 import {
   flattenCatalogOptionIds,
@@ -30,6 +39,7 @@ type CompleteInstallPagesInput = {
   language: Language;
   businessName: string;
   hasAddress: boolean;
+  websitePackId?: string;
 };
 
 const generateSlug = (title: string): string => {
@@ -193,7 +203,7 @@ async function upsertOverlayHeader(
     backdropBlur: false,
     backgroundColor: "transparent",
     textColor: lightText,
-    fullWidth: true,
+    fullWidth: false,
     scrolled: {
       backgroundColor: "var(--value-background-color)",
       textColor: scrolledText,
@@ -314,6 +324,86 @@ async function getTemplateServices(
 
   logger.debug({ count: output.length }, "Built template services payload");
   return output;
+}
+
+function plateToPlainText(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (!Array.isArray(value)) return "";
+  const parts: string[] = [];
+  const walk = (nodes: unknown[]) => {
+    for (const node of nodes) {
+      if (!node || typeof node !== "object") continue;
+      const record = node as Record<string, unknown>;
+      if (typeof record.text === "string") parts.push(record.text);
+      if (Array.isArray(record.children)) walk(record.children);
+    }
+  };
+  walk(value);
+  return parts.join("").trim();
+}
+
+function toLayoutServices(
+  templateServices: TemplateServiceArg[],
+): LayoutTemplateService[] {
+  return templateServices.map((service) => ({
+    id: service.id,
+    name: service.name,
+    description: plateToPlainText(service.description) || service.name,
+    slug: service.slug,
+    pageSlug: service.pageSlug,
+  }));
+}
+
+function resolveWebsitePackId(raw?: string | null): WebsitePackId {
+  if (raw && (WEBSITE_PACK_IDS as string[]).includes(raw)) {
+    return raw as WebsitePackId;
+  }
+  return suggestWebsitePackId() ?? "professional";
+}
+
+function pageContentFromBlocks(children: unknown[]) {
+  return {
+    id: generateId(),
+    type: "PageLayout" as const,
+    data: {
+      fontFamily: "PRIMARY",
+      fullWidth: true,
+      children: children.filter(Boolean),
+    },
+  };
+}
+
+async function upsertPackPage(
+  services: IServicesContainer,
+  args: {
+    slug: string;
+    title: string;
+    description: string;
+    keywords: string;
+    headerId: string;
+    footerId: string;
+    content: unknown;
+    published?: boolean;
+  },
+): Promise<void> {
+  const pagesService = services.pagesService;
+  const existing = await pagesService.getPageBySlug(args.slug);
+  const pageData = {
+    title: args.title,
+    description: args.description,
+    keywords: args.keywords,
+    slug: args.slug,
+    published: args.published ?? true,
+    publishDate: new Date(),
+    headerId: args.headerId,
+    footerId: args.footerId,
+    content: args.content,
+  };
+  if (existing) {
+    await pagesService.updatePage(existing._id, pageData, systemEventSource);
+    return;
+  }
+  await pagesService.createPage(pageData, systemEventSource);
 }
 
 async function upsertDefaultFooter(
@@ -714,6 +804,11 @@ export async function createInstallDefaultPages(
 
   const labels = await getInstallPageDefaultsLabels(input.language);
   const templateServices = await getTemplateServices(input.services);
+  const layoutServices = toLayoutServices(templateServices);
+  const packId = resolveWebsitePackId(input.websitePackId);
+  const pack = WEBSITE_PACKS[packId];
+  const t = await getI18nAsync({ locale: input.language });
+  const layoutCtx = { services: layoutServices };
   const myCabinetLabel = labels.headerMyCabinetLabel;
   const manageAppointmentLabel = labels.bookLabels.manageYourAppointment;
   const menuArgs: HeaderMenuArgs = {
@@ -726,10 +821,11 @@ export async function createInstallDefaultPages(
     manageAppointmentLabel,
   };
 
-  // Static default for most pages; overlay (fixed transparent → solid on scroll)
-  // is created for image/video hero pages to opt into.
   const headerId = await upsertDefaultHeader(input.services, menuArgs);
   const overlayHeaderId = await upsertOverlayHeader(input.services, menuArgs);
+  const homeHeaderId = packUsesOverlayHeader(pack.hero)
+    ? overlayHeaderId
+    : headerId;
 
   const footerId = await upsertDefaultFooter(
     input.services,
@@ -741,25 +837,28 @@ export async function createInstallDefaultPages(
     manageAppointmentLabel,
   );
 
-  await upsertDefaultHomePage(input.services, {
-    businessName: input.businessName,
-    language: input.language,
-    headerId,
+  await upsertPackPage(input.services, {
+    slug: "home",
+    title: DEFAULT_HOME_TITLE,
+    description: `${input.businessName} home page`,
+    keywords: `${input.businessName}, booking, services`,
+    headerId: homeHeaderId,
     footerId,
-    homeLabels: labels.homeLabels,
-    templateServices,
-    isMyCabinetEnabled: input.isMyCabinetEnabled,
-    isCancelRescheduleEnabled: input.isCancelRescheduleEnabled,
-    myCabinetLabel,
-    manageAppointmentLabel,
+    content: pageContentFromBlocks(
+      getPackLayoutBlocks(packId, "home", t, layoutCtx),
+    ),
   });
 
-  await upsertDefaultBookPage(input.services, {
-    businessName: input.businessName,
-    language: input.language,
+  await upsertPackPage(input.services, {
+    slug: "book",
+    title: labels.bookLabels.bookNowLabel || "Book now",
+    description: `${input.businessName} booking page`,
+    keywords: `${input.businessName}, book, appointment`,
     headerId,
     footerId,
-    bookLabels: labels.bookLabels,
+    content: pageContentFromBlocks(
+      getPackLayoutBlocks(packId, "booking", t, layoutCtx),
+    ),
   });
 
   await upsertDefaultModifyPage(
@@ -774,13 +873,42 @@ export async function createInstallDefaultPages(
     },
   );
 
-  await upsertDefaultServicesPage(input.services, {
-    businessName: input.businessName,
-    language: input.language,
+  for (const service of layoutServices) {
+    await upsertPackPage(input.services, {
+      slug: service.pageSlug,
+      title: service.name,
+      description: `${input.businessName} ${service.name}`,
+      keywords: `${input.businessName}, service, ${service.name}`,
+      headerId,
+      footerId,
+      content: pageContentFromBlocks(
+        getPackLayoutBlocks(packId, "service", t, layoutCtx, service),
+      ),
+    });
+  }
+
+  await upsertPackPage(input.services, {
+    slug: "about",
+    title: "About",
+    description: `${input.businessName} about`,
+    keywords: `${input.businessName}, about`,
     headerId,
     footerId,
-    services: templateServices,
-    bookLabels: labels.bookLabels,
+    content: pageContentFromBlocks(
+      getPackLayoutBlocks(packId, "about", t, layoutCtx),
+    ),
+  });
+
+  await upsertPackPage(input.services, {
+    slug: "terms",
+    title: "Terms",
+    description: `${input.businessName} terms`,
+    keywords: `${input.businessName}, terms, policies`,
+    headerId,
+    footerId,
+    content: pageContentFromBlocks(
+      getPackLayoutBlocks(packId, "terms", t, layoutCtx),
+    ),
   });
 
   await upsertDefaultGiftCardsPage(input.services, {
@@ -791,6 +919,9 @@ export async function createInstallDefaultPages(
     giftCardStudioLabels: labels.giftCardStudioLabels,
   });
 
-  logger.debug({ language: input.language }, "Created install default pages");
+  logger.debug(
+    { language: input.language, packId },
+    "Created install default pages",
+  );
   return { headerId, overlayHeaderId, footerId, labels };
 }

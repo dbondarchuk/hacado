@@ -1,6 +1,10 @@
 "use client";
 
 import {
+  parsePreviewHeaderParam,
+  PreviewChrome,
+} from "@/components/install/preview-chrome";
+import {
   getTemplatePreviewArgs,
   getTemplatePreviewBlockRegistry,
   resolveTemplatePreviewBlocks,
@@ -8,6 +12,7 @@ import {
 import { generateId } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { PageReader, Styling } from "@hacado/page-builder/reader";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
 type Props = {
@@ -17,6 +22,9 @@ type Props = {
 
 export function TemplatePreviewClient({ templateKey, previewDelayMs }: Props) {
   const t = useI18n();
+  const searchParams = useSearchParams();
+  const header = parsePreviewHeaderParam(searchParams.get("header"));
+  const footer = searchParams.get("footer") === "1";
 
   const document = useMemo(() => {
     const children = resolveTemplatePreviewBlocks(templateKey, t);
@@ -82,15 +90,25 @@ export function TemplatePreviewClient({ templateKey, previewDelayMs }: Props) {
     );
   }
 
+  const page = (
+    <PageReader
+      document={document}
+      args={previewArgs}
+      blockRegistry={blockRegistry}
+      isEditor
+    />
+  );
+
   return (
     <div data-template-preview className="min-h-screen bg-background">
       <Styling />
-      <PageReader
-        document={document}
-        args={previewArgs}
-        blockRegistry={blockRegistry}
-        isEditor
-      />
+      {header || footer ? (
+        <PreviewChrome header={header} footer={footer}>
+          {page}
+        </PreviewChrome>
+      ) : (
+        page
+      )}
     </div>
   );
 }

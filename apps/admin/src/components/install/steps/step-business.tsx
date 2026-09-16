@@ -278,7 +278,7 @@ export function StepBusiness() {
           />
         </div>
       </div>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
         <Button
           onClick={() => void onSubmitWorkspace()}
           disabled={!validateStep1() || workspaceSubmitting}

@@ -92,5 +92,6 @@ export function emptyPersisted(
     primaryFont: DEFAULT_WEB_PRIMARY_FONT,
     secondaryFont: DEFAULT_WEB_SECONDARY_FONT,
     installLogo: "",
+    websitePackId: "",
   };
 }

@@ -6,12 +6,19 @@
  *
  * From repo root:
  *   yarn workspace @hacado/admin generate-template-previews
+ *   yarn workspace @hacado/admin generate-template-previews --layouts
+ *   yarn workspace @hacado/admin generate-template-previews --full-page-layouts
  *
  * Options:
  *   --base-url=http://localhost:3001
  *   --only=HeroCenteredImage,BookingSection
- *   --group=marketing|heroes|sections|layouts|blog
+ *   --group=marketing|heroes|sections|layouts|layouts-full|blog
+ *   --layouts             Builder layout PNGs only (body, no chrome, 1920×1080)
+ *   --full-page-layouts   Install layout PNGs only (header+footer chrome, 1920×1080)
  *   --no-skip   Re-render even when PNG already exists
+ *
+ * Layout / layouts-full shots capture only the visible viewport (Full HD), not the
+ * full scrollable page. Marketing / heroes / sections still screenshot the block.
  */
 
 import fs from "node:fs";
@@ -29,8 +36,40 @@ const manifestPaths = [
   ),
 ];
 
-/** @type {Array<{ key: string; group: string; file: string; delayMs?: number }>} */
-function loadManifest() {
+const OVERLAY_HEROES = new Set(["centered", "overlay", "leftOverlay", "video"]);
+
+/** Full HD — shared by `--layouts` and `--full-page-layouts`. */
+const LAYOUT_VIEWPORT = { width: 1920, height: 1080 };
+const BLOCK_VIEWPORT = { width: 1280, height: 900 };
+
+function loadPackHeroes() {
+  const registryPath = path.join(
+    root,
+    "packages/page-builder/src/templates/layouts/registry.ts",
+  );
+  const source = fs.readFileSync(registryPath, "utf8");
+  /** @type {Record<string, string>} */
+  const heroes = {};
+  const packBlocks = [
+    ...source.matchAll(/id:\s*"([^"]+)"[\s\S]*?hero:\s*"([^"]+)"/g),
+  ];
+  for (const match of packBlocks) {
+    heroes[match[1]] = match[2];
+  }
+  return heroes;
+}
+
+/**
+ * @param {{ layouts?: boolean; fullPageLayouts?: boolean }} opts
+ * @returns {Array<{
+ *   key: string;
+ *   group: string;
+ *   file: string;
+ *   delayMs?: number;
+ *   chrome?: { supported: true; header: "solid" | "transparent"; footer?: boolean };
+ * }>}
+ */
+function loadManifest({ layouts = false, fullPageLayouts = false } = {}) {
   const entries = [];
   const re =
     /\{\s*key:\s*"([^"]+)"\s*,\s*group:\s*"([^"]+)"\s*,\s*file:\s*"([^"]+)"(?:\s*,\s*delayMs:\s*([\d_]+))?\s*,?\s*\}/g;
@@ -39,6 +78,8 @@ function loadManifest() {
     const source = fs.readFileSync(manifestPath, "utf8");
     let match;
     while ((match = re.exec(source)) !== null) {
+      if (match[2] === "layouts" || match[2] === "layouts-full") continue;
+      if (layouts || fullPageLayouts) continue;
       entries.push({
         key: match[1],
         group: match[2],
@@ -47,7 +88,6 @@ function loadManifest() {
       });
     }
 
-    // Synthesize layout pack previews from LAYOUT_PACKS / LAYOUT_KINDS arrays.
     const packsMatch = source.match(
       /const LAYOUT_PACKS = \[([\s\S]*?)\] as const/,
     );
@@ -57,16 +97,42 @@ function loadManifest() {
     if (packsMatch && kindsMatch) {
       const packs = [...packsMatch[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
       const kinds = [...kindsMatch[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+      const heroes = loadPackHeroes();
       for (const packId of packs) {
         for (const layoutKind of kinds) {
           const key = `Layout_${packId}_${layoutKind}`;
-          if (entries.some((e) => e.key === key)) continue;
-          entries.push({
-            key,
-            group: "layouts",
-            file: `${packId}-${layoutKind}.png`,
-            delayMs: layoutKind === "booking" ? 5000 : 3000,
-          });
+          const header =
+            layoutKind === "home" && OVERLAY_HEROES.has(heroes[packId])
+              ? "transparent"
+              : "solid";
+          const delayMs = layoutKind === "booking" ? 5000 : 3000;
+          const chrome = { supported: true, header, footer: true };
+
+          if (fullPageLayouts) {
+            entries.push({
+              key,
+              group: "layouts-full",
+              file: `${packId}-${layoutKind}.png`,
+              delayMs,
+              chrome,
+            });
+          } else if (layouts) {
+            entries.push({
+              key,
+              group: "layouts",
+              file: `${packId}-${layoutKind}.png`,
+              delayMs,
+              chrome,
+            });
+          } else if (!entries.some((e) => e.key === key)) {
+            entries.push({
+              key,
+              group: "layouts",
+              file: `${packId}-${layoutKind}.png`,
+              delayMs,
+              chrome,
+            });
+          }
         }
       }
     }
@@ -101,11 +167,20 @@ async function main() {
 
   const baseUrl = parseArg("--base-url") ?? "http://localhost:3001";
   const noSkip = process.argv.includes("--no-skip");
+  const layouts = process.argv.includes("--layouts");
+  const fullPageLayouts = process.argv.includes("--full-page-layouts");
+  if (layouts && fullPageLayouts) {
+    throw new Error("Use either --layouts or --full-page-layouts, not both.");
+  }
+
   const only = parseOnlyArg();
   const groupFilter = parseArg("--group");
   const templatesRoot = path.join(root, "apps/admin/public/pages/templates");
 
-  const manifest = loadManifest().filter((entry) => {
+  let manifest = loadManifest({ layouts, fullPageLayouts }).filter((entry) => {
+    if (fullPageLayouts && entry.group !== "layouts-full") return false;
+    if (layouts && entry.group !== "layouts") return false;
+    if (!fullPageLayouts && entry.group === "layouts-full") return false;
     if (only && !only.has(entry.key)) return false;
     if (groupFilter && entry.group !== groupFilter) return false;
     return true;
@@ -115,28 +190,26 @@ async function main() {
     throw new Error("No templates matched the current filters.");
   }
 
-  console.log(
-    `Generating ${manifest.length} preview(s) for ${groupFilter} group(s)`,
-  );
-
+  const modeLabel = fullPageLayouts
+    ? " (full-page layouts)"
+    : layouts
+      ? " (layouts)"
+      : "";
+  console.log(`Generating ${manifest.length} preview(s)${modeLabel}`);
   console.log(`Only: ${only ? Array.from(only).join(", ") : "all"}`);
   console.log(`Base URL: ${baseUrl}`);
   console.log(`No Skip: ${noSkip}`);
+  console.log(`Layouts: ${layouts}`);
+  console.log(`Full page layouts: ${fullPageLayouts}`);
   console.log(`Templates Root: ${templatesRoot}`);
-  console.log(`Manifest: ${JSON.stringify(manifest, null, 2)}`);
 
   console.log("Launching browser...");
   const browser = await chromium.launch({ headless: true });
-  console.log("Browser launched");
-
   const context = await browser.newContext({
-    viewport: { width: 1280, height: 900 },
-    deviceScaleFactor: 2,
+    viewport: BLOCK_VIEWPORT,
+    deviceScaleFactor: 1,
   });
-
-  console.log("Context created");
   const page = await context.newPage();
-  console.log("Page created");
 
   await page.addStyleTag({
     content: `
@@ -160,12 +233,11 @@ async function main() {
   const errors = [];
   let done = 0;
 
-  for (const { key, group, file, delayMs = 1000 } of manifest) {
+  for (const entry of manifest) {
+    const { key, group, file, delayMs = 1000, chrome } = entry;
     const outDir = path.join(templatesRoot, group);
     const outfile = path.join(outDir, file);
     fs.mkdirSync(outDir, { recursive: true });
-    console.log(`Creating output directory: ${outDir}`);
-    console.log(`Creating output file: ${outfile}`);
     if (fs.existsSync(outfile) && !noSkip) {
       done++;
       process.stdout.write(
@@ -173,38 +245,50 @@ async function main() {
       );
       continue;
     }
-    const url = `${baseUrl}/template-previews/${encodeURIComponent(key)}`;
+
+    const isLayoutShot = group === "layouts" || group === "layouts-full";
+    await page.setViewportSize(isLayoutShot ? LAYOUT_VIEWPORT : BLOCK_VIEWPORT);
+
+    const params = new URLSearchParams();
+    if (group === "layouts-full" && chrome?.supported) {
+      params.set("header", chrome.header);
+      if (chrome.footer !== false) params.set("footer", "1");
+    }
+    const qs = params.toString();
+    const url = `${baseUrl}/template-previews/${encodeURIComponent(key)}${qs ? `?${qs}` : ""}`;
     console.log(`Navigating to URL: ${url}`);
     try {
       await page.goto(url, { waitUntil: "load", timeout: 120_000 });
-      console.log("Waiting for page to be ready...");
       await page.waitForSelector('[data-preview-ready="true"]', {
         timeout: Math.max(90_000, delayMs + 30_000),
       });
-
-      console.log("Page ready");
-      console.log("Waiting for template preview...");
       await page.waitForSelector("[data-template-preview]", {
         timeout: 10_000,
       });
 
       const error = await page.locator("[data-preview-error]").count();
       if (error > 0) {
-        console.log("Preview page reported unknown template");
         throw new Error(`preview page reported unknown template`);
       }
 
-      console.log("Waiting for template preview...");
       await page.waitForTimeout(delayMs);
 
-      const locator = page.locator(".page-layout-reader");
-      console.log("Taking screenshot...");
-      await locator.screenshot({
-        path: outfile,
-        type: "png",
-        animations: "disabled",
-      });
-      console.log("Screenshot taken");
+      if (isLayoutShot) {
+        // Viewport-only Full HD (1920×1080) for both builder and install thumbs.
+        await page.screenshot({
+          path: outfile,
+          type: "png",
+          fullPage: false,
+          animations: "disabled",
+        });
+      } else {
+        const locator = page.locator(".page-layout-reader").first();
+        await locator.screenshot({
+          path: outfile,
+          type: "png",
+          animations: "disabled",
+        });
+      }
       done++;
       process.stdout.write(
         `\rok ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
@@ -218,10 +302,8 @@ async function main() {
     }
   }
 
-  console.log("Closing browser...");
+  console.log("\nClosing browser...");
   await browser.close();
-  console.log("Browser closed");
-  console.log("");
 
   if (errors.length) {
     console.error(`${errors.length} failures:`);

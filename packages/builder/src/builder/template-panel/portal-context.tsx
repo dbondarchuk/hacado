@@ -7,6 +7,8 @@ interface PortalContextType {
   setDocument: (document: Document) => void;
   viewportHintHost: HTMLElement | null;
   setViewportHintHost: (host: HTMLElement | null) => void;
+  overlayHost: HTMLElement | null;
+  setOverlayHost: (host: HTMLElement | null) => void;
 }
 
 const PortalContext = createContext<PortalContextType>({
@@ -15,6 +17,8 @@ const PortalContext = createContext<PortalContextType>({
   setDocument: () => {},
   viewportHintHost: null,
   setViewportHintHost: () => {},
+  overlayHost: null,
+  setOverlayHost: () => {},
 });
 
 export const usePortalContext = () =>
@@ -24,6 +28,8 @@ export const usePortalContext = () =>
     setDocument: () => {},
     viewportHintHost: null,
     setViewportHintHost: () => {},
+    overlayHost: null,
+    setOverlayHost: () => {},
   };
 
 interface PortalProviderProps {
@@ -37,6 +43,7 @@ export const PortalProvider: React.FC<PortalProviderProps> = ({ children }) => {
   const [viewportHintHost, setViewportHintHost] = useState<HTMLElement | null>(
     null,
   );
+  const [overlayHost, setOverlayHost] = useState<HTMLElement | null>(null);
 
   const value: PortalContextType = useMemo(
     () => ({
@@ -45,8 +52,10 @@ export const PortalProvider: React.FC<PortalProviderProps> = ({ children }) => {
       setDocument,
       viewportHintHost,
       setViewportHintHost,
+      overlayHost,
+      setOverlayHost,
     }),
-    [stateDocument, viewportHintHost],
+    [stateDocument, viewportHintHost, overlayHost],
   );
 
   return (

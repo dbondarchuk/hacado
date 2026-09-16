@@ -11,6 +11,11 @@ export default function TemplatePreviewsLayout({
       <style
         dangerouslySetInnerHTML={{
           __html: `
+            html, body {
+              overflow: auto !important;
+              height: auto !important;
+              min-height: 100%;
+            }
             nextjs-portal,
             [data-nextjs-toast],
             [data-nextjs-dev-tools-button],

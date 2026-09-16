@@ -21,6 +21,7 @@ import { StepPersonalization } from "@/components/install/steps/step-personaliza
 import { StepSchedule } from "@/components/install/steps/step-schedule";
 import { StepService } from "@/components/install/steps/step-service";
 import { StepVerify } from "@/components/install/steps/step-verify";
+import { StepWebsiteTemplate } from "@/components/install/steps/step-website-template";
 import type {
   InstallPreferencesServerState,
   InstallServiceServerSnapshot,
@@ -116,8 +117,8 @@ export function InstallWizard({
           if (parsedStep !== undefined && parsedStep !== "verify") {
             if (typeof parsedStep === "number") {
               let s = parsedStep;
-              if (s > 7) s = 7;
-              setStep(s >= 1 && s <= 7 ? s : 1);
+              if (s > 8) s = 8;
+              setStep(s >= 1 && s <= 8 ? s : 1);
             } else {
               setStep(parsedStep);
             }
@@ -169,8 +170,8 @@ export function InstallWizard({
         const parsed = JSON.parse(raw) as { step?: WizardStep };
         if (typeof parsed.step === "number") {
           let s = parsed.step;
-          if (s > 7) s = 7;
-          if (s >= 1 && s <= 7) next = s;
+          if (s > 8) s = 8;
+          if (s >= 1 && s <= 8) next = s;
         }
       }
     } catch {
@@ -244,14 +245,15 @@ export function InstallWizard({
       <div ref={topRef} />
       <div className="flex min-h-screen flex-col bg-muted/30">
         <StepInstallHeader stepNum={typeof step === "number" ? step : 1} />
-        <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8 md:px-8">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-8 md:px-8">
           {step === 1 ? <StepBusiness /> : null}
           {step === 2 ? <StepPersonalization /> : null}
           {step === 3 ? <StepService /> : null}
           {step === 4 ? <StepSchedule /> : null}
           {step === 5 ? <StepIntegrations /> : null}
           {step === 6 ? <StepPayments /> : null}
-          {step === 7 ? <StepFinish /> : null}
+          {step === 7 ? <StepWebsiteTemplate /> : null}
+          {step === 8 ? <StepFinish /> : null}
         </main>
       </div>
     </InstallWizardProvider>

@@ -1,8 +1,18 @@
+import { WEBSITE_PACKS } from "./layouts/registry";
+import type { PackHeroKind } from "./layouts/types";
+
 export type TemplatePreviewGroup =
   | "marketing"
   | "heroes"
   | "sections"
-  | "layouts";
+  | "layouts"
+  | "layouts-full";
+
+export type TemplatePreviewChrome = {
+  supported: true;
+  header: "solid" | "transparent";
+  footer?: boolean;
+};
 
 export type TemplatePreviewEntry = {
   key: string;
@@ -10,6 +20,8 @@ export type TemplatePreviewEntry = {
   file: string;
   /** Extra wait before screenshot (booking widgets, etc.). */
   delayMs?: number;
+  /** Full-page chrome for install thumbnails (`--full-page-layouts`). */
+  chrome?: TemplatePreviewChrome;
 };
 
 export const TEMPLATE_PREVIEW_BASE = "/pages/templates";
@@ -138,16 +150,51 @@ const LAYOUT_PACKS = [
 
 const LAYOUT_KINDS = ["home", "booking", "service", "about", "terms"] as const;
 
+const OVERLAY_HEROES: PackHeroKind[] = [
+  "centered",
+  "overlay",
+  "leftOverlay",
+  "video",
+];
+
+export function layoutPreviewHeaderVariant(
+  packId: (typeof LAYOUT_PACKS)[number],
+  layoutKind: (typeof LAYOUT_KINDS)[number],
+): "solid" | "transparent" {
+  if (layoutKind !== "home") return "solid";
+  const hero = WEBSITE_PACKS[packId]?.hero;
+  return hero && OVERLAY_HEROES.includes(hero) ? "transparent" : "solid";
+}
+
+export function packUsesOverlayHeader(hero: PackHeroKind): boolean {
+  return OVERLAY_HEROES.includes(hero);
+}
+
 export const LAYOUT_TEMPLATE_PREVIEWS = LAYOUT_PACKS.flatMap((packId) =>
-  LAYOUT_KINDS.map(
-    (layoutKind) =>
-      ({
-        key: `Layout_${packId}_${layoutKind}`,
-        group: "layouts" as const,
-        file: `${packId}-${layoutKind}.png`,
-        delayMs: layoutKind === "booking" ? 5_000 : 3_000,
-      }) satisfies TemplatePreviewEntry,
-  ),
+  LAYOUT_KINDS.map((layoutKind) => {
+    const header = layoutPreviewHeaderVariant(packId, layoutKind);
+    return {
+      key: `Layout_${packId}_${layoutKind}`,
+      group: "layouts" as const,
+      file: `${packId}-${layoutKind}.png`,
+      delayMs: layoutKind === "booking" ? 5_000 : 3_000,
+      chrome: {
+        supported: true as const,
+        header,
+        footer: true,
+      },
+    } satisfies TemplatePreviewEntry;
+  }),
+);
+
+/** Install-only full-page copies (same keys; different output group/file path). */
+export const LAYOUT_FULL_PAGE_PREVIEWS = LAYOUT_TEMPLATE_PREVIEWS.map(
+  (entry) =>
+    ({
+      ...entry,
+      group: "layouts-full" as const,
+      file: entry.file,
+    }) satisfies TemplatePreviewEntry,
 );
 
 export const TEMPLATE_PREVIEWS = [
@@ -187,6 +234,10 @@ export function layoutTemplatePreviewPath(file: string): string {
   return templatePreviewPath("layouts", file);
 }
 
+export function layoutFullPagePreviewPath(file: string): string {
+  return templatePreviewPath("layouts-full", file);
+}
+
 const previewByKey = new Map(
   TEMPLATE_PREVIEWS.map(
     (entry) =>
@@ -198,4 +249,10 @@ export function getTemplatePreviewDelayMs(
   templateKey: TemplatePreviewKey,
 ): number {
   return previewByKey.get(templateKey)?.delayMs ?? 3000;
+}
+
+export function getTemplatePreviewChrome(
+  templateKey: string,
+): TemplatePreviewChrome | undefined {
+  return previewByKey.get(templateKey as TemplatePreviewKey)?.chrome;
 }

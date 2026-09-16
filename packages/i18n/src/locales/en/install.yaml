@@ -75,6 +75,7 @@ wizard:
     schedule: Schedule
     integrations: Connect
     payments: Payments
+    website: Website
     done: Done
   verify:
     title: Confirm your email to continue
@@ -296,6 +297,27 @@ wizard:
     cancelHelp: You can define windows and fees in appointment settings later.
     flex: All of this can be changed anytime - we are just getting you started.
     acceptPaymentsUpgradeHint: Upgrade to Solo to accept online payments.
+  website:
+    title: Choose your website
+    subtitle: >-
+      Pick a starting layout for your public pages. You can edit every block
+      later in the page builder.
+    suggested: Suggested for you
+    browseAll: Browse all designs
+    useThisDesign: Use this design
+    selectDesign: Select this design
+    preview: Preview
+    previewPages:
+      home: Home
+      booking: Book
+      service: Service
+      about: About
+      terms: Terms
+    closePreview: Close
+    loadingPreview: Loading preview…
+    continue: Continue
+    finish: Finish setup
+    selectRequired: Choose a website design to continue
   finish:
     taskPage: Creating your booking page
     taskAvailability: Applying availability defaults

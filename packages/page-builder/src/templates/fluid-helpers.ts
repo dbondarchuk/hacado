@@ -19,7 +19,7 @@ import { TextPropsDefaults } from "../blocks/text/schema";
 
 export { FLUID_COLUMNS, FLUID_MOBILE_COLUMNS, FLUID_TABLET_COLUMNS };
 
-export const BUTTON_COL_SPAN = 3;
+export const BUTTON_COL_SPAN = 4;
 export const BUTTON_COL_SPAN_MOBILE = 4;
 export const BUTTON_ROW_SPAN = 1;
 

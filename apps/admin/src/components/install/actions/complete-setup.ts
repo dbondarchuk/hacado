@@ -59,6 +59,7 @@ type InstallPreferences = {
   optForms: boolean;
   optGiftCardStudio: boolean;
   optMyCabinet: boolean;
+  websitePackId?: string;
 };
 
 function sanitizeInstallPreferencesForPlanTier(
@@ -755,6 +756,7 @@ export async function runCompleteInstallSetupSteps(args: {
     isCancelRescheduleEnabled: prefs.allowCancelReschedule,
     isBlogEnabled: prefs.optBlog,
     isMyCabinetEnabled: prefs.optMyCabinet,
+    websitePackId: prefs.websitePackId,
   });
 
   const installSet = new Set<string>();

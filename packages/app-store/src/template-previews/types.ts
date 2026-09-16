@@ -8,6 +8,11 @@ export type TemplatePreviewEntry = {
   group: string;
   file: string;
   delayMs?: number;
+  chrome?: {
+    supported: true;
+    header: "solid" | "transparent";
+    footer?: boolean;
+  };
 };
 
 export type TemplatePreviewProvider = {

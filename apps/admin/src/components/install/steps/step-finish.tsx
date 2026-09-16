@@ -55,6 +55,7 @@ export function StepFinish() {
         acceptPayments: p.acceptPayments,
         depositEnabled: p.depositEnabled,
         depositPercent: p.depositPercent,
+        websitePackId: p.websitePackId,
       });
 
       if (!r.ok) {

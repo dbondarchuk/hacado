@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Clock,
   CreditCard,
+  LayoutTemplate,
   Link2,
   Palette,
 } from "lucide-react";
@@ -51,6 +52,11 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
         icon: CreditCard,
       },
       {
+        id: "website",
+        label: t("wizard.steps.website"),
+        icon: LayoutTemplate,
+      },
+      {
         id: "done",
         label: t("wizard.steps.done"),
         icon: CheckCircle2,
@@ -66,18 +72,18 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
     if (stepNum === 4) return "schedule";
     if (stepNum === 5) return "integrations";
     if (stepNum === 6) return "payments";
-    if (stepNum === 7) return "done";
+    if (stepNum === 7) return "website";
+    if (stepNum === 8) return "done";
     return "business";
   }, [stepNum]);
 
-  const progressPercent = Math.round((stepNum / 7) * 100);
+  const progressPercent = Math.round((stepNum / 8) * 100);
 
   return (
     <header className="border-b bg-card px-4 py-4 md:px-8">
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-3">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            {/* <Image src="/logo.png" alt="Hacado" width={28} height={28} /> */}
             <div className="text-xl font-semibold tracking-tight font-display text-primary">
               hacado
             </div>

@@ -296,6 +296,7 @@ export function StepIntegrations() {
       acceptPayments: p.acceptPayments,
       depositEnabled: p.depositEnabled,
       depositPercent: p.depositPercent,
+      websitePackId: p.websitePackId,
     });
     if (!r.ok) {
       toast.error(t("wizard.integrations.saveError"));
@@ -546,7 +547,7 @@ export function StepIntegrations() {
       <p className="text-sm text-muted-foreground">
         {t("wizard.integrations.skipHint")}
       </p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
         <Button
           variant="outline"
           onClick={() => {

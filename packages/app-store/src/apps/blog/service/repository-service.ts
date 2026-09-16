@@ -2,6 +2,7 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   IConnectedAppProps,
   Query,
+  resolvePageHeaderPosition,
   systemEventSource,
   WithTotal,
 } from "@hacado/types";
@@ -838,15 +839,19 @@ export class BlogRepositoryService {
 
     logger.debug("Blog posts collection indexed. Creating blog pages");
 
-    const header = await this.services.pagesService.getPageHeaders({
-      limit: 1,
+    const headers = await this.services.pagesService.getPageHeaders({
+      limit: 50,
     });
+    const preferredHeader =
+      headers.items.find(
+        (item) => resolvePageHeaderPosition(item) !== "fixed",
+      ) ?? headers.items[0];
 
     const footer = await this.services.pagesService.getPageFooters({
       limit: 1,
     });
 
-    const headerId = header.items[0]?._id;
+    const headerId = preferredHeader?._id;
     const footerId = footer.items[0]?._id;
 
     logger.debug({ headerId, footerId }, "Using blog pages header and footer");

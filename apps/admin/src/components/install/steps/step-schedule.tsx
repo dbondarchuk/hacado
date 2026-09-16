@@ -63,7 +63,7 @@ export function StepSchedule() {
         <p>{t("wizard.schedule.weeklyScheduleAppHint")}</p>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center justify-between">
         <Button
           variant="outline"
           type="button"
