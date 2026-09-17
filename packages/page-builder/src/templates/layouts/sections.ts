@@ -105,6 +105,7 @@ export function resolveServices(
   });
 }
 
+/** Matches HeroLeftOverlay placements in heroes.tsx (bottom-left copy). */
 function leftOverlayPlacements(
   headingId: string,
   textId: string,
@@ -114,7 +115,7 @@ function leftOverlayPlacements(
     [headingId]: {
       colStart: 2,
       colEnd: 14,
-      rowStart: 6,
+      rowStart: 8,
       rowEnd: 10,
       zIndex: 1,
     },
@@ -139,8 +140,8 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: 9,
-        rowStart: 2,
-        rowEnd: 7,
+        rowStart: 7,
+        rowEnd: 9,
         zIndex: 1,
       },
       [textId]: {
@@ -156,8 +157,8 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 1,
-        rowEnd: 8,
+        rowStart: 8,
+        rowEnd: 10,
         zIndex: 1,
       },
       [textId]: {

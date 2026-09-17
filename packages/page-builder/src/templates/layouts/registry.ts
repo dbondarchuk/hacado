@@ -69,7 +69,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   }),
   spa: pack({
     id: "spa",
-    installCategories: ["welness"],
+    installCategories: ["wellness"],
     hero: "centered",
     homeMix: ["featureList", "carousel", "stats", "cta"],
     serviceExtra: "gallery",
@@ -207,7 +207,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   }),
   spa_b: pack({
     id: "spa_b",
-    installCategories: ["welness"],
+    installCategories: ["wellness"],
     hero: "minimal",
     homeMix: ["howItWorks", "testimonials", "pricing", "cta"],
     serviceExtra: "video",
@@ -377,7 +377,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
   }),
   spa_c: pack({
     id: "spa_c",
-    installCategories: ["welness"],
+    installCategories: ["wellness"],
     hero: "overlay",
     mood: "muted",
     motion: true,
@@ -550,7 +550,7 @@ export function suggestWebsitePackId(
   if (
     cat.includes("spa") ||
     cat.includes("wellness") ||
-    cat.includes("welness")
+    cat.includes("wellness")
   )
     return "spa";
   if (cat.includes("coach")) return "coach";

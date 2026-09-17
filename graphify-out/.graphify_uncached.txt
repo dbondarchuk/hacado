@@ -3151,7 +3151,7 @@ C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\meetin
 C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\misc.yaml
 C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\pet.yaml
 C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\professional.yaml
-C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\welness.yaml
+C:\Users\dmytro\projects\timeli.sh\apps\admin\src\components\install\data\wellness.yaml
 C:\Users\dmytro\projects\timeli.sh\apps\notification-sender\README.md
 C:\Users\dmytro\projects\timeli.sh\diagrams\google-calendar-architecture-sections.html
 C:\Users\dmytro\projects\timeli.sh\diagrams\google-calendar-architecture-sections.md

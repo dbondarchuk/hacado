@@ -1,23 +1,12 @@
 {
   "beauty": {
     "hair_stylist": {
-      "tags": [
-        "beauty",
-        "hair",
-        "salon"
-      ],
+      "tags": ["beauty", "hair", "salon"],
       "services": [
         {
           "id": "women_s_haircut_style",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            45,
-            60,
-            85
-          ],
+          "durations": [45, 60],
+          "prices": [45, 60, 85],
           "recommended": false,
           "addons": [
             {
@@ -34,15 +23,8 @@
         },
         {
           "id": "men_s_haircut",
-          "durations": [
-            25,
-            40
-          ],
-          "prices": [
-            20,
-            35,
-            50
-          ],
+          "durations": [25, 40],
+          "prices": [20, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -54,15 +36,8 @@
         },
         {
           "id": "full_color",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            80,
-            120,
-            180
-          ],
+          "durations": [90, 120],
+          "prices": [80, 120, 180],
           "recommended": false,
           "addons": [
             {
@@ -80,22 +55,12 @@
       ]
     },
     "nail_technician": {
-      "tags": [
-        "beauty",
-        "nails",
-        "spa"
-      ],
+      "tags": ["beauty", "nails", "spa"],
       "services": [
         {
           "id": "basic_manicure",
-          "durations": [
-            30
-          ],
-          "prices": [
-            18,
-            25,
-            35
-          ],
+          "durations": [30],
+          "prices": [18, 25, 35],
           "recommended": false,
           "addons": [
             {
@@ -112,15 +77,8 @@
         },
         {
           "id": "gel_manicure",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            30,
-            40,
-            55
-          ],
+          "durations": [45, 60],
+          "prices": [30, 40, 55],
           "recommended": false,
           "addons": [
             {
@@ -137,15 +95,8 @@
         },
         {
           "id": "acrylic_full_set",
-          "durations": [
-            75,
-            90
-          ],
-          "prices": [
-            50,
-            70,
-            95
-          ],
+          "durations": [75, 90],
+          "prices": [50, 70, 95],
           "recommended": false,
           "addons": [
             {
@@ -163,22 +114,12 @@
       ]
     },
     "esthetician": {
-      "tags": [
-        "beauty",
-        "skin",
-        "spa"
-      ],
+      "tags": ["beauty", "skin", "spa"],
       "services": [
         {
           "id": "classic_facial",
-          "durations": [
-            60
-          ],
-          "prices": [
-            65,
-            85,
-            110
-          ],
+          "durations": [60],
+          "prices": [65, 85, 110],
           "recommended": false,
           "addons": [
             {
@@ -195,15 +136,8 @@
         },
         {
           "id": "microdermabrasion",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            85,
-            110,
-            140
-          ],
+          "durations": [45, 60],
+          "prices": [85, 110, 140],
           "recommended": false,
           "addons": [
             {
@@ -220,15 +154,8 @@
         },
         {
           "id": "acne_treatment",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            70,
-            95,
-            120
-          ],
+          "durations": [45, 60],
+          "prices": [70, 95, 120],
           "recommended": false,
           "addons": [
             {
@@ -246,22 +173,12 @@
       ]
     },
     "makeup_artist": {
-      "tags": [
-        "beauty",
-        "makeup",
-        "events"
-      ],
+      "tags": ["beauty", "makeup", "events"],
       "services": [
         {
           "id": "natural_day_makeup",
-          "durations": [
-            45
-          ],
-          "prices": [
-            50,
-            70,
-            95
-          ],
+          "durations": [45],
+          "prices": [50, 70, 95],
           "recommended": false,
           "addons": [
             {
@@ -278,15 +195,8 @@
         },
         {
           "id": "bridal_makeup",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            150,
-            220,
-            320
-          ],
+          "durations": [90, 120],
+          "prices": [150, 220, 320],
           "recommended": false,
           "addons": [
             {
@@ -303,15 +213,8 @@
         },
         {
           "id": "event_glam",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            80,
-            110,
-            150
-          ],
+          "durations": [60, 90],
+          "prices": [80, 110, 150],
           "recommended": false,
           "addons": [
             {
@@ -329,23 +232,12 @@
       ]
     },
     "lash_technician": {
-      "tags": [
-        "beauty",
-        "lashes",
-        "spa"
-      ],
+      "tags": ["beauty", "lashes", "spa"],
       "services": [
         {
           "id": "classic_lash_extensions",
-          "durations": [
-            60,
-            75
-          ],
-          "prices": [
-            70,
-            95,
-            130
-          ],
+          "durations": [60, 75],
+          "prices": [70, 95, 130],
           "recommended": false,
           "addons": [
             {
@@ -362,15 +254,8 @@
         },
         {
           "id": "volume_lash_extensions",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            110,
-            140,
-            180
-          ],
+          "durations": [90, 120],
+          "prices": [110, 140, 180],
           "recommended": false,
           "addons": [
             {
@@ -387,14 +272,8 @@
         },
         {
           "id": "lash_fill",
-          "durations": [
-            45
-          ],
-          "prices": [
-            40,
-            55,
-            75
-          ],
+          "durations": [45],
+          "prices": [40, 55, 75],
           "recommended": false,
           "addons": [
             {
@@ -412,22 +291,12 @@
       ]
     },
     "brow_artist": {
-      "tags": [
-        "beauty",
-        "brows",
-        "spa"
-      ],
+      "tags": ["beauty", "brows", "spa"],
       "services": [
         {
           "id": "brow_shaping",
-          "durations": [
-            30
-          ],
-          "prices": [
-            18,
-            30,
-            45
-          ],
+          "durations": [30],
+          "prices": [18, 30, 45],
           "recommended": false,
           "addons": [
             {
@@ -444,15 +313,8 @@
         },
         {
           "id": "brow_lamination",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            45,
-            60,
-            85
-          ],
+          "durations": [45, 60],
+          "prices": [45, 60, 85],
           "recommended": false,
           "addons": [
             {
@@ -469,15 +331,8 @@
         },
         {
           "id": "tint_shape",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            25,
-            35,
-            50
-          ],
+          "durations": [30, 45],
+          "prices": [25, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -495,22 +350,12 @@
       ]
     },
     "spray_tan_technician": {
-      "tags": [
-        "beauty",
-        "tan",
-        "spa"
-      ],
+      "tags": ["beauty", "tan", "spa"],
       "services": [
         {
           "id": "full_body_spray_tan",
-          "durations": [
-            30
-          ],
-          "prices": [
-            30,
-            45,
-            60
-          ],
+          "durations": [30],
+          "prices": [30, 45, 60],
           "recommended": false,
           "addons": [
             {
@@ -527,14 +372,8 @@
         },
         {
           "id": "express_spray_tan",
-          "durations": [
-            20
-          ],
-          "prices": [
-            25,
-            35,
-            45
-          ],
+          "durations": [20],
+          "prices": [25, 35, 45],
           "recommended": false,
           "addons": [
             {
@@ -546,13 +385,8 @@
         },
         {
           "id": "touch_up",
-          "durations": [
-            20
-          ],
-          "prices": [
-            20,
-            30
-          ],
+          "durations": [20],
+          "prices": [20, 30],
           "recommended": false,
           "addons": [
             {
@@ -565,22 +399,12 @@
       ]
     },
     "waxing_specialist": {
-      "tags": [
-        "beauty",
-        "waxing",
-        "spa"
-      ],
+      "tags": ["beauty", "waxing", "spa"],
       "services": [
         {
           "id": "bikini_wax",
-          "durations": [
-            30
-          ],
-          "prices": [
-            30,
-            40,
-            55
-          ],
+          "durations": [30],
+          "prices": [30, 40, 55],
           "recommended": false,
           "addons": [
             {
@@ -597,15 +421,8 @@
         },
         {
           "id": "full_body_wax",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            120,
-            150,
-            200
-          ],
+          "durations": [90, 120],
+          "prices": [120, 150, 200],
           "recommended": false,
           "addons": [
             {
@@ -622,14 +439,8 @@
         },
         {
           "id": "underarm_wax",
-          "durations": [
-            20
-          ],
-          "prices": [
-            15,
-            25,
-            35
-          ],
+          "durations": [20],
+          "prices": [15, 25, 35],
           "recommended": false,
           "addons": [
             {
@@ -644,23 +455,12 @@
   },
   "coaching": {
     "life_coach": {
-      "tags": [
-        "coaching",
-        "personal",
-        "wellness"
-      ],
+      "tags": ["coaching", "personal", "wellness"],
       "services": [
         {
           "id": "discovery_session",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            35,
-            55,
-            80
-          ],
+          "durations": [30, 45],
+          "prices": [35, 55, 80],
           "recommended": false,
           "addons": [
             {
@@ -677,15 +477,8 @@
         },
         {
           "id": "coaching_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            60,
-            85,
-            120
-          ],
+          "durations": [45, 60],
+          "prices": [60, 85, 120],
           "recommended": false,
           "addons": [
             {
@@ -703,23 +496,12 @@
       ]
     },
     "business_coach": {
-      "tags": [
-        "coaching",
-        "business",
-        "strategy"
-      ],
+      "tags": ["coaching", "business", "strategy"],
       "services": [
         {
           "id": "strategy_audit",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            150,
-            220,
-            350
-          ],
+          "durations": [60, 90],
+          "prices": [150, 220, 350],
           "recommended": false,
           "addons": [
             {
@@ -736,14 +518,8 @@
         },
         {
           "id": "executive_coaching",
-          "durations": [
-            60
-          ],
-          "prices": [
-            200,
-            300,
-            450
-          ],
+          "durations": [60],
+          "prices": [200, 300, 450],
           "recommended": false,
           "addons": [
             {
@@ -760,14 +536,8 @@
         },
         {
           "id": "team_workshop",
-          "durations": [
-            120,
-            180
-          ],
-          "prices": [
-            400,
-            600
-          ],
+          "durations": [120, 180],
+          "prices": [400, 600],
           "recommended": false,
           "addons": [
             {
@@ -785,21 +555,12 @@
       ]
     },
     "career_coach": {
-      "tags": [
-        "coaching",
-        "career",
-        "jobs"
-      ],
+      "tags": ["coaching", "career", "jobs"],
       "services": [
         {
           "id": "resume_review",
-          "durations": [
-            45
-          ],
-          "prices": [
-            60,
-            80
-          ],
+          "durations": [45],
+          "prices": [60, 80],
           "recommended": false,
           "addons": [
             {
@@ -816,14 +577,8 @@
         },
         {
           "id": "interview_prep",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            80,
-            120
-          ],
+          "durations": [60, 90],
+          "prices": [80, 120],
           "recommended": false,
           "addons": [
             {
@@ -840,13 +595,8 @@
         },
         {
           "id": "career_strategy_session",
-          "durations": [
-            60
-          ],
-          "prices": [
-            100,
-            150
-          ],
+          "durations": [60],
+          "prices": [100, 150],
           "recommended": false,
           "addons": [
             {
@@ -864,21 +614,12 @@
       ]
     },
     "health_coach": {
-      "tags": [
-        "coaching",
-        "health",
-        "wellness"
-      ],
+      "tags": ["coaching", "health", "wellness"],
       "services": [
         {
           "id": "initial_health_assessment",
-          "durations": [
-            60
-          ],
-          "prices": [
-            60,
-            85
-          ],
+          "durations": [60],
+          "prices": [60, 85],
           "recommended": false,
           "addons": [
             {
@@ -895,14 +636,8 @@
         },
         {
           "id": "follow_up_coaching",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            40,
-            60
-          ],
+          "durations": [30, 45],
+          "prices": [40, 60],
           "recommended": false,
           "addons": [
             {
@@ -922,23 +657,12 @@
   },
   "creative": {
     "photographer": {
-      "tags": [
-        "creative",
-        "photo",
-        "events"
-      ],
+      "tags": ["creative", "photo", "events"],
       "services": [
         {
           "id": "portrait_session",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            150,
-            220,
-            300
-          ],
+          "durations": [60, 90],
+          "prices": [150, 220, 300],
           "recommended": false,
           "addons": [
             {
@@ -955,15 +679,8 @@
         },
         {
           "id": "event_photography_per_hour",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            120,
-            180,
-            250
-          ],
+          "durations": [60, 120],
+          "prices": [120, 180, 250],
           "recommended": false,
           "addons": [
             {
@@ -980,15 +697,8 @@
         },
         {
           "id": "product_shoot",
-          "durations": [
-            120,
-            240
-          ],
-          "prices": [
-            300,
-            500,
-            800
-          ],
+          "durations": [120, 240],
+          "prices": [300, 500, 800],
           "recommended": false,
           "addons": [
             {
@@ -1006,23 +716,12 @@
       ]
     },
     "videographer": {
-      "tags": [
-        "creative",
-        "video",
-        "events"
-      ],
+      "tags": ["creative", "video", "events"],
       "services": [
         {
           "id": "promo_video_up_to_2_min",
-          "durations": [
-            180,
-            240
-          ],
-          "prices": [
-            600,
-            900,
-            1500
-          ],
+          "durations": [180, 240],
+          "prices": [600, 900, 1500],
           "recommended": false,
           "addons": [
             {
@@ -1039,15 +738,8 @@
         },
         {
           "id": "event_videography",
-          "durations": [
-            180,
-            360
-          ],
-          "prices": [
-            500,
-            900,
-            1400
-          ],
+          "durations": [180, 360],
+          "prices": [500, 900, 1400],
           "recommended": false,
           "addons": [
             {
@@ -1064,14 +756,8 @@
         },
         {
           "id": "interview_recording",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            200,
-            350
-          ],
+          "durations": [60, 120],
+          "prices": [200, 350],
           "recommended": false,
           "addons": [
             {
@@ -1089,23 +775,12 @@
       ]
     },
     "graphic_designer": {
-      "tags": [
-        "creative",
-        "design",
-        "freelance"
-      ],
+      "tags": ["creative", "design", "freelance"],
       "services": [
         {
           "id": "logo_design_basic",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            200,
-            350,
-            600
-          ],
+          "durations": [60, 120],
+          "prices": [200, 350, 600],
           "recommended": false,
           "addons": [
             {
@@ -1122,15 +797,8 @@
         },
         {
           "id": "brand_kit",
-          "durations": [
-            120,
-            240
-          ],
-          "prices": [
-            600,
-            900,
-            1500
-          ],
+          "durations": [120, 240],
+          "prices": [600, 900, 1500],
           "recommended": false,
           "addons": [
             {
@@ -1147,15 +815,8 @@
         },
         {
           "id": "social_media_graphics_pack",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            120,
-            220,
-            350
-          ],
+          "durations": [60, 120],
+          "prices": [120, 220, 350],
           "recommended": false,
           "addons": [
             {
@@ -1173,23 +834,12 @@
       ]
     },
     "illustrator": {
-      "tags": [
-        "creative",
-        "illustration",
-        "freelance"
-      ],
+      "tags": ["creative", "illustration", "freelance"],
       "services": [
         {
           "id": "custom_illustration_single",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            100,
-            200,
-            350
-          ],
+          "durations": [60, 120],
+          "prices": [100, 200, 350],
           "recommended": false,
           "addons": [
             {
@@ -1206,15 +856,8 @@
         },
         {
           "id": "series_of_illustrations",
-          "durations": [
-            240,
-            360
-          ],
-          "prices": [
-            500,
-            900,
-            1400
-          ],
+          "durations": [240, 360],
+          "prices": [500, 900, 1400],
           "recommended": false,
           "addons": [
             {
@@ -1234,22 +877,12 @@
   },
   "education": {
     "tutor": {
-      "tags": [
-        "education",
-        "teaching",
-        "tutor"
-      ],
+      "tags": ["education", "teaching", "tutor"],
       "services": [
         {
           "id": "one_on_one_tutoring",
-          "durations": [
-            60
-          ],
-          "prices": [
-            30,
-            45,
-            65
-          ],
+          "durations": [60],
+          "prices": [30, 45, 65],
           "recommended": false,
           "addons": [
             {
@@ -1266,15 +899,8 @@
         },
         {
           "id": "exam_prep_per_session",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            60,
-            90,
-            130
-          ],
+          "durations": [90, 120],
+          "prices": [60, 90, 130],
           "recommended": false,
           "addons": [
             {
@@ -1291,15 +917,8 @@
         },
         {
           "id": "homework_help",
-          "durations": [
-            30,
-            60
-          ],
-          "prices": [
-            20,
-            35,
-            50
-          ],
+          "durations": [30, 60],
+          "prices": [20, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -1317,22 +936,12 @@
       ]
     },
     "music_teacher": {
-      "tags": [
-        "education",
-        "music",
-        "lessons"
-      ],
+      "tags": ["education", "music", "lessons"],
       "services": [
         {
           "id": "private_lesson_30min",
-          "durations": [
-            30
-          ],
-          "prices": [
-            25,
-            35,
-            50
-          ],
+          "durations": [30],
+          "prices": [25, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -1349,14 +958,8 @@
         },
         {
           "id": "advanced_lesson_60min",
-          "durations": [
-            60
-          ],
-          "prices": [
-            45,
-            70,
-            95
-          ],
+          "durations": [60],
+          "prices": [45, 70, 95],
           "recommended": false,
           "addons": [
             {
@@ -1373,13 +976,8 @@
         },
         {
           "id": "monthly_lesson_package",
-          "durations": [
-            60
-          ],
-          "prices": [
-            160,
-            220
-          ],
+          "durations": [60],
+          "prices": [160, 220],
           "recommended": false,
           "addons": [
             {
@@ -1397,23 +995,12 @@
       ]
     },
     "language_tutor": {
-      "tags": [
-        "education",
-        "language",
-        "lessons"
-      ],
+      "tags": ["education", "language", "lessons"],
       "services": [
         {
           "id": "conversational_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            25,
-            40,
-            60
-          ],
+          "durations": [45, 60],
+          "prices": [25, 40, 60],
           "recommended": false,
           "addons": [
             {
@@ -1430,13 +1017,8 @@
         },
         {
           "id": "grammar_writing",
-          "durations": [
-            60
-          ],
-          "prices": [
-            30,
-            50
-          ],
+          "durations": [60],
+          "prices": [30, 50],
           "recommended": false,
           "addons": [
             {
@@ -1453,13 +1035,8 @@
         },
         {
           "id": "exam_prep",
-          "durations": [
-            90
-          ],
-          "prices": [
-            60,
-            90
-          ],
+          "durations": [90],
+          "prices": [60, 90],
           "recommended": false,
           "addons": [
             {
@@ -1477,22 +1054,12 @@
       ]
     },
     "dance_instructor": {
-      "tags": [
-        "education",
-        "dance",
-        "classes"
-      ],
+      "tags": ["education", "dance", "classes"],
       "services": [
         {
           "id": "private_dance_lesson",
-          "durations": [
-            60
-          ],
-          "prices": [
-            40,
-            60,
-            85
-          ],
+          "durations": [60],
+          "prices": [40, 60, 85],
           "recommended": false,
           "addons": [
             {
@@ -1509,15 +1076,8 @@
         },
         {
           "id": "group_class",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            12,
-            18,
-            25
-          ],
+          "durations": [45, 60],
+          "prices": [12, 18, 25],
           "recommended": false,
           "addons": [
             {
@@ -1534,14 +1094,8 @@
         },
         {
           "id": "choreography_session",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            120,
-            200
-          ],
+          "durations": [90, 120],
+          "prices": [120, 200],
           "recommended": false,
           "addons": [
             {
@@ -1561,22 +1115,12 @@
   },
   "event": {
     "event_planner": {
-      "tags": [
-        "events",
-        "planning",
-        "weddings"
-      ],
+      "tags": ["events", "planning", "weddings"],
       "services": [
         {
           "id": "consultation",
-          "durations": [
-            60
-          ],
-          "prices": [
-            80,
-            120,
-            200
-          ],
+          "durations": [60],
+          "prices": [80, 120, 200],
           "recommended": false,
           "addons": [
             {
@@ -1593,13 +1137,8 @@
         },
         {
           "id": "partial_planning_package",
-          "durations": [
-            120
-          ],
-          "prices": [
-            500,
-            800
-          ],
+          "durations": [120],
+          "prices": [500, 800],
           "recommended": false,
           "addons": [
             {
@@ -1616,13 +1155,8 @@
         },
         {
           "id": "full_service_planning",
-          "durations": [
-            240
-          ],
-          "prices": [
-            2000,
-            3500
-          ],
+          "durations": [240],
+          "prices": [2000, 3500],
           "recommended": false,
           "addons": [
             {
@@ -1640,23 +1174,12 @@
       ]
     },
     "dj": {
-      "tags": [
-        "events",
-        "music",
-        "party"
-      ],
+      "tags": ["events", "music", "party"],
       "services": [
         {
           "id": "event_dj_per_hour",
-          "durations": [
-            60,
-            180
-          ],
-          "prices": [
-            80,
-            120,
-            200
-          ],
+          "durations": [60, 180],
+          "prices": [80, 120, 200],
           "recommended": false,
           "addons": [
             {
@@ -1673,13 +1196,8 @@
         },
         {
           "id": "ceremony_dj",
-          "durations": [
-            60
-          ],
-          "prices": [
-            200,
-            300
-          ],
+          "durations": [60],
+          "prices": [200, 300],
           "recommended": false,
           "addons": [
             {
@@ -1696,14 +1214,8 @@
         },
         {
           "id": "mc_dj_package",
-          "durations": [
-            180,
-            360
-          ],
-          "prices": [
-            400,
-            700
-          ],
+          "durations": [180, 360],
+          "prices": [400, 700],
           "recommended": false,
           "addons": [
             {
@@ -1721,21 +1233,12 @@
       ]
     },
     "photobooth_operator": {
-      "tags": [
-        "events",
-        "photo",
-        "entertainment"
-      ],
+      "tags": ["events", "photo", "entertainment"],
       "services": [
         {
           "id": "basic_booth_2_hours",
-          "durations": [
-            120
-          ],
-          "prices": [
-            250,
-            350
-          ],
+          "durations": [120],
+          "prices": [250, 350],
           "recommended": false,
           "addons": [
             {
@@ -1752,14 +1255,8 @@
         },
         {
           "id": "custom_backdrop",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            150,
-            250
-          ],
+          "durations": [60, 120],
+          "prices": [150, 250],
           "recommended": false,
           "addons": [
             {
@@ -1776,13 +1273,8 @@
         },
         {
           "id": "booth_package_4_hours",
-          "durations": [
-            240
-          ],
-          "prices": [
-            400,
-            600
-          ],
+          "durations": [240],
+          "prices": [400, 600],
           "recommended": false,
           "addons": [
             {
@@ -1802,22 +1294,12 @@
   },
   "fitness": {
     "personal_trainer": {
-      "tags": [
-        "fitness",
-        "trainer",
-        "coaching"
-      ],
+      "tags": ["fitness", "trainer", "coaching"],
       "services": [
         {
           "id": "initial_fitness_assessment",
-          "durations": [
-            60
-          ],
-          "prices": [
-            50,
-            75,
-            100
-          ],
+          "durations": [60],
+          "prices": [50, 75, 100],
           "recommended": false,
           "addons": [
             {
@@ -1834,15 +1316,8 @@
         },
         {
           "id": "one_on_one_training",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            40,
-            60,
-            85
-          ],
+          "durations": [45, 60],
+          "prices": [40, 60, 85],
           "recommended": false,
           "addons": [
             {
@@ -1859,14 +1334,8 @@
         },
         {
           "id": "nutrition_training_plan",
-          "durations": [
-            60
-          ],
-          "prices": [
-            120,
-            160,
-            220
-          ],
+          "durations": [60],
+          "prices": [120, 160, 220],
           "recommended": false,
           "addons": [
             {
@@ -1884,22 +1353,12 @@
       ]
     },
     "yoga_instructor": {
-      "tags": [
-        "fitness",
-        "yoga",
-        "wellness"
-      ],
+      "tags": ["fitness", "yoga", "wellness"],
       "services": [
         {
           "id": "private_yoga_session",
-          "durations": [
-            60
-          ],
-          "prices": [
-            40,
-            60,
-            85
-          ],
+          "durations": [60],
+          "prices": [40, 60, 85],
           "recommended": false,
           "addons": [
             {
@@ -1916,14 +1375,8 @@
         },
         {
           "id": "small_group_class",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            15,
-            20
-          ],
+          "durations": [45, 60],
+          "prices": [15, 20],
           "recommended": false,
           "addons": [
             {
@@ -1940,15 +1393,8 @@
         },
         {
           "id": "yoga_workshop",
-          "durations": [
-            120,
-            180
-          ],
-          "prices": [
-            80,
-            120,
-            160
-          ],
+          "durations": [120, 180],
+          "prices": [80, 120, 160],
           "recommended": false,
           "addons": [
             {
@@ -1966,23 +1412,12 @@
       ]
     },
     "pilates_instructor": {
-      "tags": [
-        "fitness",
-        "pilates",
-        "wellness"
-      ],
+      "tags": ["fitness", "pilates", "wellness"],
       "services": [
         {
           "id": "mat_pilates_private",
-          "durations": [
-            50,
-            60
-          ],
-          "prices": [
-            45,
-            65,
-            90
-          ],
+          "durations": [50, 60],
+          "prices": [45, 65, 90],
           "recommended": false,
           "addons": [
             {
@@ -1999,15 +1434,8 @@
         },
         {
           "id": "reformer_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            55,
-            75,
-            110
-          ],
+          "durations": [45, 60],
+          "prices": [55, 75, 110],
           "recommended": false,
           "addons": [
             {
@@ -2025,21 +1453,12 @@
       ]
     },
     "group_fitness_instructor": {
-      "tags": [
-        "fitness",
-        "group",
-        "classes"
-      ],
+      "tags": ["fitness", "group", "classes"],
       "services": [
         {
           "id": "bootcamp_class",
-          "durations": [
-            45
-          ],
-          "prices": [
-            12,
-            18
-          ],
+          "durations": [45],
+          "prices": [12, 18],
           "recommended": false,
           "addons": [
             {
@@ -2056,14 +1475,8 @@
         },
         {
           "id": "circuit_training",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            12,
-            20
-          ],
+          "durations": [45, 60],
+          "prices": [12, 20],
           "recommended": false,
           "addons": [
             {
@@ -2080,13 +1493,8 @@
         },
         {
           "id": "corporate_wellness_session",
-          "durations": [
-            60
-          ],
-          "prices": [
-            120,
-            200
-          ],
+          "durations": [60],
+          "prices": [120, 200],
           "recommended": false,
           "addons": [
             {
@@ -2104,21 +1512,12 @@
       ]
     },
     "running_coach": {
-      "tags": [
-        "fitness",
-        "running",
-        "coaching"
-      ],
+      "tags": ["fitness", "running", "coaching"],
       "services": [
         {
           "id": "gait_analysis_plan",
-          "durations": [
-            60
-          ],
-          "prices": [
-            60,
-            90
-          ],
+          "durations": [60],
+          "prices": [60, 90],
           "recommended": false,
           "addons": [
             {
@@ -2135,15 +1534,8 @@
         },
         {
           "id": "one_on_one_coaching",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            45,
-            70,
-            95
-          ],
+          "durations": [45, 60],
+          "prices": [45, 70, 95],
           "recommended": false,
           "addons": [
             {
@@ -2160,13 +1552,8 @@
         },
         {
           "id": "group_run_session",
-          "durations": [
-            60
-          ],
-          "prices": [
-            8,
-            12
-          ],
+          "durations": [60],
+          "prices": [8, 12],
           "recommended": false,
           "addons": [
             {
@@ -2186,23 +1573,12 @@
   },
   "home-services": {
     "cleaner": {
-      "tags": [
-        "home",
-        "services",
-        "cleaning"
-      ],
+      "tags": ["home", "services", "cleaning"],
       "services": [
         {
           "id": "standard_home_cleaning",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            60,
-            100,
-            150
-          ],
+          "durations": [60, 120],
+          "prices": [60, 100, 150],
           "recommended": false,
           "addons": [
             {
@@ -2219,15 +1595,8 @@
         },
         {
           "id": "deep_clean",
-          "durations": [
-            180,
-            240
-          ],
-          "prices": [
-            180,
-            250,
-            350
-          ],
+          "durations": [180, 240],
+          "prices": [180, 250, 350],
           "recommended": false,
           "addons": [
             {
@@ -2244,15 +1613,8 @@
         },
         {
           "id": "move_out_cleaning",
-          "durations": [
-            180,
-            240
-          ],
-          "prices": [
-            160,
-            220,
-            300
-          ],
+          "durations": [180, 240],
+          "prices": [160, 220, 300],
           "recommended": false,
           "addons": [
             {
@@ -2270,23 +1632,12 @@
       ]
     },
     "handyman": {
-      "tags": [
-        "home",
-        "services",
-        "repairs"
-      ],
+      "tags": ["home", "services", "repairs"],
       "services": [
         {
           "id": "small_repair_visit",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            60,
-            90,
-            130
-          ],
+          "durations": [60, 90],
+          "prices": [60, 90, 130],
           "recommended": false,
           "addons": [
             {
@@ -2303,15 +1654,8 @@
         },
         {
           "id": "assembly_service",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            50,
-            80,
-            120
-          ],
+          "durations": [60, 120],
+          "prices": [50, 80, 120],
           "recommended": false,
           "addons": [
             {
@@ -2329,22 +1673,12 @@
       ]
     },
     "electrician": {
-      "tags": [
-        "home",
-        "services",
-        "electric"
-      ],
+      "tags": ["home", "services", "electric"],
       "services": [
         {
           "id": "diagnostic_visit",
-          "durations": [
-            60
-          ],
-          "prices": [
-            80,
-            120,
-            160
-          ],
+          "durations": [60],
+          "prices": [80, 120, 160],
           "recommended": false,
           "addons": [
             {
@@ -2361,14 +1695,8 @@
         },
         {
           "id": "repair_per_hour",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            80,
-            120
-          ],
+          "durations": [60, 120],
+          "prices": [80, 120],
           "recommended": false,
           "addons": [
             {
@@ -2385,15 +1713,8 @@
         },
         {
           "id": "installation",
-          "durations": [
-            120,
-            240
-          ],
-          "prices": [
-            200,
-            320,
-            500
-          ],
+          "durations": [120, 240],
+          "prices": [200, 320, 500],
           "recommended": false,
           "addons": [
             {
@@ -2411,22 +1732,12 @@
       ]
     },
     "plumber": {
-      "tags": [
-        "home",
-        "services",
-        "plumbing"
-      ],
+      "tags": ["home", "services", "plumbing"],
       "services": [
         {
           "id": "leak_repair",
-          "durations": [
-            60
-          ],
-          "prices": [
-            80,
-            120,
-            180
-          ],
+          "durations": [60],
+          "prices": [80, 120, 180],
           "recommended": false,
           "addons": [
             {
@@ -2443,15 +1754,8 @@
         },
         {
           "id": "fixture_installation",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            90,
-            140,
-            220
-          ],
+          "durations": [60, 120],
+          "prices": [90, 140, 220],
           "recommended": false,
           "addons": [
             {
@@ -2468,15 +1772,8 @@
         },
         {
           "id": "drain_cleaning",
-          "durations": [
-            45,
-            90
-          ],
-          "prices": [
-            70,
-            100,
-            150
-          ],
+          "durations": [45, 90],
+          "prices": [70, 100, 150],
           "recommended": false,
           "addons": [
             {
@@ -2496,23 +1793,12 @@
   },
   "medical": {
     "general_practitioner": {
-      "tags": [
-        "medical",
-        "health",
-        "clinic"
-      ],
+      "tags": ["medical", "health", "clinic"],
       "services": [
         {
           "id": "new_patient_visit",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            80,
-            120,
-            160
-          ],
+          "durations": [30, 45],
+          "prices": [80, 120, 160],
           "recommended": false,
           "addons": [
             {
@@ -2529,15 +1815,8 @@
         },
         {
           "id": "follow_up_visit",
-          "durations": [
-            15,
-            30
-          ],
-          "prices": [
-            40,
-            65,
-            90
-          ],
+          "durations": [15, 30],
+          "prices": [40, 65, 90],
           "recommended": false,
           "addons": [
             {
@@ -2549,14 +1828,8 @@
         },
         {
           "id": "telehealth_consultation",
-          "durations": [
-            15,
-            30
-          ],
-          "prices": [
-            40,
-            60
-          ],
+          "durations": [15, 30],
+          "prices": [40, 60],
           "recommended": false,
           "addons": [
             {
@@ -2569,23 +1842,12 @@
       ]
     },
     "dentist": {
-      "tags": [
-        "medical",
-        "dental",
-        "clinic"
-      ],
+      "tags": ["medical", "dental", "clinic"],
       "services": [
         {
           "id": "initial_exam_cleaning",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            80,
-            120,
-            160
-          ],
+          "durations": [45, 60],
+          "prices": [80, 120, 160],
           "recommended": false,
           "addons": [
             {
@@ -2602,15 +1864,8 @@
         },
         {
           "id": "cavity_filling",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            120,
-            180,
-            250
-          ],
+          "durations": [45, 60],
+          "prices": [120, 180, 250],
           "recommended": false,
           "addons": [
             {
@@ -2627,14 +1882,8 @@
         },
         {
           "id": "emergency_visit",
-          "durations": [
-            30,
-            60
-          ],
-          "prices": [
-            150,
-            220
-          ],
+          "durations": [30, 60],
+          "prices": [150, 220],
           "recommended": false,
           "addons": [
             {
@@ -2652,22 +1901,12 @@
       ]
     },
     "optometrist": {
-      "tags": [
-        "medical",
-        "vision",
-        "clinic"
-      ],
+      "tags": ["medical", "vision", "clinic"],
       "services": [
         {
           "id": "comprehensive_eye_exam",
-          "durations": [
-            45
-          ],
-          "prices": [
-            60,
-            90,
-            120
-          ],
+          "durations": [45],
+          "prices": [60, 90, 120],
           "recommended": false,
           "addons": [
             {
@@ -2684,14 +1923,8 @@
         },
         {
           "id": "contact_lens_fitting",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            50,
-            80
-          ],
+          "durations": [30, 45],
+          "prices": [50, 80],
           "recommended": false,
           "addons": [
             {
@@ -2708,14 +1941,8 @@
         },
         {
           "id": "follow_up_exam",
-          "durations": [
-            15,
-            30
-          ],
-          "prices": [
-            40,
-            60
-          ],
+          "durations": [15, 30],
+          "prices": [40, 60],
           "recommended": false,
           "addons": [
             {
@@ -2728,21 +1955,12 @@
       ]
     },
     "physiotherapist": {
-      "tags": [
-        "medical",
-        "rehab",
-        "therapy"
-      ],
+      "tags": ["medical", "rehab", "therapy"],
       "services": [
         {
           "id": "assessment_plan",
-          "durations": [
-            60
-          ],
-          "prices": [
-            80,
-            120
-          ],
+          "durations": [60],
+          "prices": [80, 120],
           "recommended": false,
           "addons": [
             {
@@ -2759,15 +1977,8 @@
         },
         {
           "id": "therapy_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            60,
-            85,
-            110
-          ],
+          "durations": [45, 60],
+          "prices": [60, 85, 110],
           "recommended": false,
           "addons": [
             {
@@ -2784,13 +1995,8 @@
         },
         {
           "id": "post_op_rehab_package",
-          "durations": [
-            45
-          ],
-          "prices": [
-            220,
-            300
-          ],
+          "durations": [45],
+          "prices": [220, 300],
           "recommended": false,
           "addons": [
             {
@@ -2810,18 +2016,11 @@
   },
   "meetings": {
     "general_meeting": {
-      "tags": [
-        "meetings",
-        "business",
-        "calls"
-      ],
+      "tags": ["meetings", "business", "calls"],
       "services": [
         {
           "id": "intro_call",
-          "durations": [
-            15,
-            30
-          ],
+          "durations": [15, 30],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2834,10 +2033,7 @@
         },
         {
           "id": "discovery_call",
-          "durations": [
-            30,
-            45
-          ],
+          "durations": [30, 45],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2855,10 +2051,7 @@
         },
         {
           "id": "follow_up_meeting",
-          "durations": [
-            30,
-            60
-          ],
+          "durations": [30, 60],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2877,18 +2070,11 @@
       ]
     },
     "interview_slot": {
-      "tags": [
-        "meetings",
-        "hiring",
-        "recruiting"
-      ],
+      "tags": ["meetings", "hiring", "recruiting"],
       "services": [
         {
           "id": "initial_screening",
-          "durations": [
-            15,
-            30
-          ],
+          "durations": [15, 30],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2901,10 +2087,7 @@
         },
         {
           "id": "technical_interview",
-          "durations": [
-            45,
-            60
-          ],
+          "durations": [45, 60],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2922,10 +2105,7 @@
         },
         {
           "id": "final_interview",
-          "durations": [
-            60,
-            90
-          ],
+          "durations": [60, 90],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2944,18 +2124,11 @@
       ]
     },
     "demo_call": {
-      "tags": [
-        "meetings",
-        "sales",
-        "demo"
-      ],
+      "tags": ["meetings", "sales", "demo"],
       "services": [
         {
           "id": "quick_demo",
-          "durations": [
-            15,
-            30
-          ],
+          "durations": [15, 30],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2968,10 +2141,7 @@
         },
         {
           "id": "full_demo_q_a",
-          "durations": [
-            45,
-            60
-          ],
+          "durations": [45, 60],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -2989,10 +2159,7 @@
         },
         {
           "id": "pilot_kickoff",
-          "durations": [
-            60,
-            90
-          ],
+          "durations": [60, 90],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -3011,18 +2178,11 @@
       ]
     },
     "cohort_onboarding": {
-      "tags": [
-        "meetings",
-        "onboarding",
-        "product"
-      ],
+      "tags": ["meetings", "onboarding", "product"],
       "services": [
         {
           "id": "new_user_onboarding",
-          "durations": [
-            30,
-            60
-          ],
+          "durations": [30, 60],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -3040,10 +2200,7 @@
         },
         {
           "id": "team_onboarding",
-          "durations": [
-            60,
-            90
-          ],
+          "durations": [60, 90],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -3061,10 +2218,7 @@
         },
         {
           "id": "training_workshop",
-          "durations": [
-            90,
-            180
-          ],
+          "durations": [90, 180],
           "prices": [],
           "recommended": false,
           "addons": [
@@ -3085,23 +2239,12 @@
   },
   "misc": {
     "photography_consult": {
-      "tags": [
-        "creative",
-        "consulting",
-        "photography"
-      ],
+      "tags": ["creative", "consulting", "photography"],
       "services": [
         {
           "id": "portfolio_review",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            60,
-            90,
-            130
-          ],
+          "durations": [45, 60],
+          "prices": [60, 90, 130],
           "recommended": false,
           "addons": [
             {
@@ -3118,15 +2261,8 @@
         },
         {
           "id": "creative_direction_session",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            120,
-            180,
-            260
-          ],
+          "durations": [60, 90],
+          "prices": [120, 180, 260],
           "recommended": false,
           "addons": [
             {
@@ -3144,22 +2280,12 @@
       ]
     },
     "translation_service": {
-      "tags": [
-        "services",
-        "translation",
-        "language"
-      ],
+      "tags": ["services", "translation", "language"],
       "services": [
         {
           "id": "document_translation_per_500_words",
-          "durations": [
-            30
-          ],
-          "prices": [
-            20,
-            35,
-            50
-          ],
+          "durations": [30],
+          "prices": [20, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -3176,13 +2302,8 @@
         },
         {
           "id": "localization_consultation",
-          "durations": [
-            60
-          ],
-          "prices": [
-            80,
-            120
-          ],
+          "durations": [60],
+          "prices": [80, 120],
           "recommended": false,
           "addons": [
             {
@@ -3200,22 +2321,12 @@
       ]
     },
     "virtual_assistant": {
-      "tags": [
-        "services",
-        "virtual",
-        "assistant"
-      ],
+      "tags": ["services", "virtual", "assistant"],
       "services": [
         {
           "id": "task_block_1_hour",
-          "durations": [
-            60
-          ],
-          "prices": [
-            20,
-            35,
-            50
-          ],
+          "durations": [60],
+          "prices": [20, 35, 50],
           "recommended": false,
           "addons": [
             {
@@ -3235,22 +2346,12 @@
   },
   "pet": {
     "dog_walker": {
-      "tags": [
-        "pets",
-        "dog",
-        "care"
-      ],
+      "tags": ["pets", "dog", "care"],
       "services": [
         {
           "id": "30_min_walk",
-          "durations": [
-            30
-          ],
-          "prices": [
-            12,
-            18,
-            25
-          ],
+          "durations": [30],
+          "prices": [12, 18, 25],
           "recommended": false,
           "addons": [
             {
@@ -3267,14 +2368,8 @@
         },
         {
           "id": "60_min_walk",
-          "durations": [
-            60
-          ],
-          "prices": [
-            20,
-            30,
-            45
-          ],
+          "durations": [60],
+          "prices": [20, 30, 45],
           "recommended": false,
           "addons": [
             {
@@ -3291,14 +2386,8 @@
         },
         {
           "id": "pet_sitting_overnight",
-          "durations": [
-            720
-          ],
-          "prices": [
-            60,
-            90,
-            130
-          ],
+          "durations": [720],
+          "prices": [60, 90, 130],
           "recommended": false,
           "addons": [
             {
@@ -3316,23 +2405,12 @@
       ]
     },
     "pet_groomer": {
-      "tags": [
-        "pets",
-        "grooming",
-        "care"
-      ],
+      "tags": ["pets", "grooming", "care"],
       "services": [
         {
           "id": "full_groom",
-          "durations": [
-            90,
-            120
-          ],
-          "prices": [
-            50,
-            80,
-            120
-          ],
+          "durations": [90, 120],
+          "prices": [50, 80, 120],
           "recommended": false,
           "addons": [
             {
@@ -3349,15 +2427,8 @@
         },
         {
           "id": "bath_brush",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            30,
-            45,
-            65
-          ],
+          "durations": [45, 60],
+          "prices": [30, 45, 65],
           "recommended": false,
           "addons": [
             {
@@ -3374,15 +2445,8 @@
         },
         {
           "id": "nail_trim",
-          "durations": [
-            15,
-            20
-          ],
-          "prices": [
-            12,
-            20,
-            30
-          ],
+          "durations": [15, 20],
+          "prices": [12, 20, 30],
           "recommended": false,
           "addons": [
             {
@@ -3395,23 +2459,12 @@
       ]
     },
     "veterinarian": {
-      "tags": [
-        "pets",
-        "veterinary",
-        "medical"
-      ],
+      "tags": ["pets", "veterinary", "medical"],
       "services": [
         {
           "id": "wellness_exam",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            50,
-            80,
-            120
-          ],
+          "durations": [30, 45],
+          "prices": [50, 80, 120],
           "recommended": false,
           "addons": [
             {
@@ -3428,15 +2481,8 @@
         },
         {
           "id": "sick_visit",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            60,
-            100,
-            150
-          ],
+          "durations": [30, 45],
+          "prices": [60, 100, 150],
           "recommended": false,
           "addons": [
             {
@@ -3453,15 +2499,8 @@
         },
         {
           "id": "vaccination_visit",
-          "durations": [
-            15,
-            30
-          ],
-          "prices": [
-            20,
-            40,
-            60
-          ],
+          "durations": [15, 30],
+          "prices": [20, 40, 60],
           "recommended": false,
           "addons": [
             {
@@ -3476,23 +2515,12 @@
   },
   "professional": {
     "consultant": {
-      "tags": [
-        "professional",
-        "consulting",
-        "business"
-      ],
+      "tags": ["professional", "consulting", "business"],
       "services": [
         {
           "id": "strategy_session",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            150,
-            250,
-            400
-          ],
+          "durations": [60, 90],
+          "prices": [150, 250, 400],
           "recommended": false,
           "addons": [
             {
@@ -3509,15 +2537,8 @@
         },
         {
           "id": "project_advisory",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            200,
-            350,
-            600
-          ],
+          "durations": [60, 120],
+          "prices": [200, 350, 600],
           "recommended": false,
           "addons": [
             {
@@ -3534,14 +2555,8 @@
         },
         {
           "id": "workshop_facilitation",
-          "durations": [
-            120,
-            240
-          ],
-          "prices": [
-            500,
-            800
-          ],
+          "durations": [120, 240],
+          "prices": [500, 800],
           "recommended": false,
           "addons": [
             {
@@ -3559,23 +2574,12 @@
       ]
     },
     "accountant": {
-      "tags": [
-        "professional",
-        "finance",
-        "accounting"
-      ],
+      "tags": ["professional", "finance", "accounting"],
       "services": [
         {
           "id": "tax_consultation",
-          "durations": [
-            30,
-            60
-          ],
-          "prices": [
-            80,
-            120,
-            180
-          ],
+          "durations": [30, 60],
+          "prices": [80, 120, 180],
           "recommended": false,
           "addons": [
             {
@@ -3592,13 +2596,8 @@
         },
         {
           "id": "bookkeeping_setup",
-          "durations": [
-            120
-          ],
-          "prices": [
-            250,
-            400
-          ],
+          "durations": [120],
+          "prices": [250, 400],
           "recommended": false,
           "addons": [
             {
@@ -3615,14 +2614,8 @@
         },
         {
           "id": "monthly_accounting_support",
-          "durations": [
-            60
-          ],
-          "prices": [
-            150,
-            250,
-            350
-          ],
+          "durations": [60],
+          "prices": [150, 250, 350],
           "recommended": false,
           "addons": [
             {
@@ -3640,22 +2633,12 @@
       ]
     },
     "lawyer": {
-      "tags": [
-        "professional",
-        "legal"
-      ],
+      "tags": ["professional", "legal"],
       "services": [
         {
           "id": "initial_consultation",
-          "durations": [
-            30,
-            60
-          ],
-          "prices": [
-            120,
-            180,
-            250
-          ],
+          "durations": [30, 60],
+          "prices": [120, 180, 250],
           "recommended": false,
           "addons": [
             {
@@ -3672,15 +2655,8 @@
         },
         {
           "id": "contract_review",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            200,
-            300,
-            450
-          ],
+          "durations": [60, 90],
+          "prices": [200, 300, 450],
           "recommended": false,
           "addons": [
             {
@@ -3697,13 +2673,8 @@
         },
         {
           "id": "retainer_package_monthly",
-          "durations": [
-            60
-          ],
-          "prices": [
-            1000,
-            1500
-          ],
+          "durations": [60],
+          "prices": [1000, 1500],
           "recommended": false,
           "addons": [
             {
@@ -3721,21 +2692,12 @@
       ]
     },
     "real_estate_agent": {
-      "tags": [
-        "professional",
-        "real_estate",
-        "sales"
-      ],
+      "tags": ["professional", "real_estate", "sales"],
       "services": [
         {
           "id": "home_listing_consultation",
-          "durations": [
-            60
-          ],
-          "prices": [
-            100,
-            150
-          ],
+          "durations": [60],
+          "prices": [100, 150],
           "recommended": false,
           "addons": [
             {
@@ -3752,13 +2714,8 @@
         },
         {
           "id": "open_house_appointment",
-          "durations": [
-            60,
-            120
-          ],
-          "prices": [
-            0
-          ],
+          "durations": [60, 120],
+          "prices": [0],
           "recommended": false,
           "addons": [
             {
@@ -3773,13 +2730,8 @@
         },
         {
           "id": "buyer_consultation",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            0
-          ],
+          "durations": [45, 60],
+          "prices": [0],
           "recommended": false,
           "addons": [
             {
@@ -3795,25 +2747,14 @@
       ]
     }
   },
-  "welness": {
+  "wellness": {
     "massage_therapist": {
-      "tags": [
-        "wellness",
-        "massage",
-        "spa"
-      ],
+      "tags": ["wellness", "massage", "spa"],
       "services": [
         {
           "id": "swedish_massage",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            70,
-            85,
-            110
-          ],
+          "durations": [60, 90],
+          "prices": [70, 85, 110],
           "recommended": false,
           "addons": [
             {
@@ -3830,15 +2771,8 @@
         },
         {
           "id": "deep_tissue_massage",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            80,
-            95,
-            120
-          ],
+          "durations": [60, 90],
+          "prices": [80, 95, 120],
           "recommended": false,
           "addons": [
             {
@@ -3855,15 +2789,8 @@
         },
         {
           "id": "hot_stone_massage",
-          "durations": [
-            75,
-            90
-          ],
-          "prices": [
-            95,
-            120,
-            150
-          ],
+          "durations": [75, 90],
+          "prices": [95, 120, 150],
           "recommended": false,
           "addons": [
             {
@@ -3881,23 +2808,12 @@
       ]
     },
     "acupuncturist": {
-      "tags": [
-        "wellness",
-        "acupuncture",
-        "therapy"
-      ],
+      "tags": ["wellness", "acupuncture", "therapy"],
       "services": [
         {
           "id": "initial_consultation_treatment",
-          "durations": [
-            60,
-            90
-          ],
-          "prices": [
-            70,
-            90,
-            110
-          ],
+          "durations": [60, 90],
+          "prices": [70, 90, 110],
           "recommended": false,
           "addons": [
             {
@@ -3914,15 +2830,8 @@
         },
         {
           "id": "follow_up_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            50,
-            65,
-            80
-          ],
+          "durations": [45, 60],
+          "prices": [50, 65, 80],
           "recommended": false,
           "addons": [
             {
@@ -3939,15 +2848,8 @@
         },
         {
           "id": "cupping_therapy",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            40,
-            55,
-            70
-          ],
+          "durations": [30, 45],
+          "prices": [40, 55, 70],
           "recommended": false,
           "addons": [
             {
@@ -3965,23 +2867,12 @@
       ]
     },
     "chiropractor": {
-      "tags": [
-        "wellness",
-        "chiropractic",
-        "health"
-      ],
+      "tags": ["wellness", "chiropractic", "health"],
       "services": [
         {
           "id": "initial_assessment",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            90,
-            110,
-            140
-          ],
+          "durations": [45, 60],
+          "prices": [90, 110, 140],
           "recommended": false,
           "addons": [
             {
@@ -3998,15 +2889,8 @@
         },
         {
           "id": "adjustment_session",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            50,
-            65,
-            85
-          ],
+          "durations": [30, 45],
+          "prices": [50, 65, 85],
           "recommended": false,
           "addons": [
             {
@@ -4023,14 +2907,8 @@
         },
         {
           "id": "therapeutic_package_3_sessions",
-          "durations": [
-            45
-          ],
-          "prices": [
-            140,
-            180,
-            220
-          ],
+          "durations": [45],
+          "prices": [140, 180, 220],
           "recommended": false,
           "addons": [
             {
@@ -4048,22 +2926,12 @@
       ]
     },
     "physical_therapist": {
-      "tags": [
-        "wellness",
-        "rehab",
-        "health"
-      ],
+      "tags": ["wellness", "rehab", "health"],
       "services": [
         {
           "id": "initial_evaluation",
-          "durations": [
-            60
-          ],
-          "prices": [
-            100,
-            130,
-            160
-          ],
+          "durations": [60],
+          "prices": [100, 130, 160],
           "recommended": false,
           "addons": [
             {
@@ -4080,15 +2948,8 @@
         },
         {
           "id": "therapy_session",
-          "durations": [
-            45,
-            60
-          ],
-          "prices": [
-            70,
-            90,
-            120
-          ],
+          "durations": [45, 60],
+          "prices": [70, 90, 120],
           "recommended": false,
           "addons": [
             {
@@ -4105,13 +2966,8 @@
         },
         {
           "id": "telehealth_follow_up",
-          "durations": [
-            30
-          ],
-          "prices": [
-            40,
-            55
-          ],
+          "durations": [30],
+          "prices": [40, 55],
           "recommended": false,
           "addons": [
             {
@@ -4129,22 +2985,12 @@
       ]
     },
     "nutritionist": {
-      "tags": [
-        "wellness",
-        "nutrition",
-        "health"
-      ],
+      "tags": ["wellness", "nutrition", "health"],
       "services": [
         {
           "id": "initial_nutrition_consultation",
-          "durations": [
-            60
-          ],
-          "prices": [
-            70,
-            95,
-            130
-          ],
+          "durations": [60],
+          "prices": [70, 95, 130],
           "recommended": false,
           "addons": [
             {
@@ -4161,15 +3007,8 @@
         },
         {
           "id": "follow_up_coaching",
-          "durations": [
-            30,
-            45
-          ],
-          "prices": [
-            40,
-            55,
-            75
-          ],
+          "durations": [30, 45],
+          "prices": [40, 55, 75],
           "recommended": false,
           "addons": [
             {
@@ -4186,14 +3025,8 @@
         },
         {
           "id": "meal_plan_4_week",
-          "durations": [
-            30
-          ],
-          "prices": [
-            120,
-            160,
-            220
-          ],
+          "durations": [30],
+          "prices": [120, 160, 220],
           "recommended": false,
           "addons": [
             {
@@ -4211,21 +3044,12 @@
       ]
     },
     "sleep_coach": {
-      "tags": [
-        "wellness",
-        "sleep",
-        "coaching"
-      ],
+      "tags": ["wellness", "sleep", "coaching"],
       "services": [
         {
           "id": "sleep_assessment",
-          "durations": [
-            60
-          ],
-          "prices": [
-            70,
-            95
-          ],
+          "durations": [60],
+          "prices": [70, 95],
           "recommended": false,
           "addons": [
             {
@@ -4242,13 +3066,8 @@
         },
         {
           "id": "coaching_session",
-          "durations": [
-            45
-          ],
-          "prices": [
-            50,
-            70
-          ],
+          "durations": [45],
+          "prices": [50, 70],
           "recommended": false,
           "addons": [
             {
@@ -4265,13 +3084,8 @@
         },
         {
           "id": "family_sleep_plan",
-          "durations": [
-            60
-          ],
-          "prices": [
-            120,
-            160
-          ],
+          "durations": [60],
+          "prices": [120, 160],
           "recommended": false,
           "addons": [
             {
@@ -4289,22 +3103,12 @@
       ]
     },
     "holistic_practitioner": {
-      "tags": [
-        "wellness",
-        "holistic",
-        "therapy"
-      ],
+      "tags": ["wellness", "holistic", "therapy"],
       "services": [
         {
           "id": "integrative_session",
-          "durations": [
-            60
-          ],
-          "prices": [
-            70,
-            95,
-            120
-          ],
+          "durations": [60],
+          "prices": [70, 95, 120],
           "recommended": false,
           "addons": [
             {
@@ -4321,13 +3125,8 @@
         },
         {
           "id": "energy_balancing",
-          "durations": [
-            45
-          ],
-          "prices": [
-            50,
-            70
-          ],
+          "durations": [45],
+          "prices": [50, 70],
           "recommended": false,
           "addons": [
             {
@@ -4344,13 +3143,8 @@
         },
         {
           "id": "wellness_package_3_sessions",
-          "durations": [
-            60
-          ],
-          "prices": [
-            200,
-            260
-          ],
+          "durations": [60],
+          "prices": [200, 260],
           "recommended": false,
           "addons": [
             {

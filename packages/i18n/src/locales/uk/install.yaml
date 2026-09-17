@@ -387,7 +387,7 @@ catalog:
     misc: Різне
     pet: Домашня тварина
     professional: професійний
-    welness: Велнес
+    wellness: Оздоровлення
   tags:
     beauty: Краса
     hair: Волосся
@@ -403,7 +403,7 @@ catalog:
     waxing: Депіляція воском
     coaching: Коучинг
     personal: Особистий
-    wellness: оздоровлення
+    wellness: Оздоровлення
     business: Бізнес
     strategy: Стратегія
     career: Кар'єра
@@ -2766,7 +2766,7 @@ catalog:
               description: >-
                 **Примітки, контрольний список або записка**, що фіксують
                 результати консультації з покупцем.
-  welness:
+  wellness:
     massage_therapist:
       label: Масажист
       services:

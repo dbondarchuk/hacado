@@ -2105,13 +2105,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/data/_catalog-data.json": {
-    "mtime": 1776877590.5607173,
-    "ast_hash": "5e4a1f31b7d3a17890a0a589873be5da",
+    "mtime": 1789668594.9810493,
+    "ast_hash": "42d46615d95d4f14df750318d8c24a77",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/data/_catalog-en-source.json": {
-    "mtime": 1776877590.5616922,
-    "ast_hash": "30e5fddf1c14c0f57a150e33c7276cd4",
+    "mtime": 1789668595.0258255,
+    "ast_hash": "5d0eec32bba5e346628d6429c5a0279d",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/default-booking.ts": {
@@ -11215,8 +11215,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/youtube-video/editor.tsx": {
-    "mtime": 1786820409.8078327,
-    "ast_hash": "ba7e47589841257d69a886c52f93347c",
+    "mtime": 1789670513.281504,
+    "ast_hash": "19c01d3fe295362e2d9495f408b43896",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/youtube-video/index.ts": {
@@ -11225,8 +11225,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/youtube-video/reader.tsx": {
-    "mtime": 1786820409.8083768,
-    "ast_hash": "34b1ed601d0dc566260b30e3c846b96f",
+    "mtime": 1789670504.2355192,
+    "ast_hash": "81c641bc78066af0810f0d7907bd53f0",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/youtube-video/schema.tsx": {
@@ -15349,11 +15349,6 @@
     "ast_hash": "2b0d34006c2d559c6536971beb5346ac",
     "semantic_hash": ""
   },
-  "apps/admin/src/components/install/data/welness.yaml": {
-    "mtime": 1776877585.719293,
-    "ast_hash": "59ebb5827637635b7c8d782fd5cc0ae6",
-    "semantic_hash": ""
-  },
   "apps/notification-sender/README.md": {
     "mtime": 1786820408.961824,
     "ast_hash": "8a80b6f08fcccd8a3e0085b18ac6d5e9",
@@ -16105,8 +16100,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/install.yaml": {
-    "mtime": 1789511296.3803852,
-    "ast_hash": "babf1ab0f2941c914e4f1790f11c7ab4",
+    "mtime": 1789668594.0550969,
+    "ast_hash": "1bd881bc69db9ef9da873d2483824097",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/translation.yaml": {
@@ -16140,8 +16135,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/install.yaml": {
-    "mtime": 1789511296.9239292,
-    "ast_hash": "5710c947d78ce4100a4723495592e56c",
+    "mtime": 1789668625.0950048,
+    "ast_hash": "7f3d7d60cb4e9c827e70245eefd4e07d",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/translation.yaml": {
@@ -29500,8 +29495,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/section-helpers.ts": {
-    "mtime": 1789658844.9726648,
-    "ast_hash": "f9ee369638311cb6a0738bd580b01b2e",
+    "mtime": 1789663311.8911278,
+    "ast_hash": "57265863e2a081c74f56089f52418fd4",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/social-proof.tsx": {
@@ -29845,8 +29840,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/sections.ts": {
-    "mtime": 1789658841.3077378,
-    "ast_hash": "ddfbe93ec0ec313beb03494309b4b745",
+    "mtime": 1789670513.45222,
+    "ast_hash": "c735cf5f3193b55461cbfe89334b9b90",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/text.ts": {
@@ -29875,8 +29870,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/registry.ts": {
-    "mtime": 1789658034.8839586,
-    "ast_hash": "92d7593b7abc275b385c1966f0612b72",
+    "mtime": 1789668600.4176316,
+    "ast_hash": "9db7f1caffc5967444afe1abbd626eae",
     "semantic_hash": ""
   },
   "packages/ui/src/components/image-zoom.tsx": {
@@ -29885,253 +29880,253 @@
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic-about.png": {
-    "mtime": 1789657886.6207383,
-    "ast_hash": "71aa33cd0fa6639797f3da753b7b6bc1",
+    "mtime": 1789664155.2945197,
+    "ast_hash": "9edd23fd892403e5f53177a8da277d13",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic-booking.png": {
-    "mtime": 1789657883.7347658,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664156.2822316,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic-home.png": {
-    "mtime": 1789657874.6472316,
-    "ast_hash": "99e9d95aff5b4b17074a87c38d96d0c7",
+    "mtime": 1789664148.4247377,
+    "ast_hash": "605eae6c8c84e48a55867fe405a059e6",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic-service.png": {
-    "mtime": 1789657881.5577178,
-    "ast_hash": "1796912b5289ce6d31aa8290cbdecfee",
+    "mtime": 1789664152.3705525,
+    "ast_hash": "1c7245f37a785d4c57ae6aab94dfd991",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic-terms.png": {
-    "mtime": 1789657881.721428,
-    "ast_hash": "5389ae042178e26ce983afed15c0707b",
+    "mtime": 1789664155.7336743,
+    "ast_hash": "55c61c3749c9aaa3ff788f38d927febe",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach-about.png": {
-    "mtime": 1789657855.4195087,
-    "ast_hash": "044fcde0b1a9931dd41e78ddcb6a5b84",
+    "mtime": 1789664129.3079977,
+    "ast_hash": "d8f4ff26ba1bbd5b2a2902c32d47cbb8",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach-booking.png": {
-    "mtime": 1789657855.048494,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664129.745672,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach-home.png": {
-    "mtime": 1789657848.0834906,
-    "ast_hash": "790fe0e93b1acd724bd6517d4c144dfc",
+    "mtime": 1789664125.4920037,
+    "ast_hash": "afd31e9e09b3f467ed39c99349c88c6d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach-service.png": {
-    "mtime": 1789657857.5357983,
-    "ast_hash": "6c728b8f5bcd639f61d0bfeda0e82ec6",
+    "mtime": 1789664129.4277375,
+    "ast_hash": "09fb2092c8da40ea2feefbca46193fd7",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach-terms.png": {
-    "mtime": 1789657855.4195087,
-    "ast_hash": "d52baa403da8ee3fead4ac9de685bccc",
+    "mtime": 1789664129.510583,
+    "ast_hash": "6251e5e9fcd60a05887340c086916503",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness-about.png": {
-    "mtime": 1789657866.5368886,
-    "ast_hash": "3e0d6be396c9b1c57367a2de6af8ce6b",
+    "mtime": 1789664137.2774203,
+    "ast_hash": "595d4e6a26aea764ed99ead6a66b6ad6",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness-booking.png": {
-    "mtime": 1789657866.5368886,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664140.9279556,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness-home.png": {
-    "mtime": 1789657859.4273973,
-    "ast_hash": "04c5e3f032a0704be431e57e2c624aef",
+    "mtime": 1789664133.1906757,
+    "ast_hash": "bda2760d9423e5207edc90cf600ee51a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness-service.png": {
-    "mtime": 1789657863.027513,
-    "ast_hash": "b4eda91b0f998a2296cf5d2f1111b83f",
+    "mtime": 1789664136.794402,
+    "ast_hash": "e6f0b350956c0868cc47eb5bfc6e6f18",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness-terms.png": {
-    "mtime": 1789657865.0308886,
-    "ast_hash": "f04b0af1fc21949792a2ecb995eb3cad",
+    "mtime": 1789664137.2774203,
+    "ast_hash": "58b7bf578b07ba4251982bc75930edea",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services-about.png": {
-    "mtime": 1789657898.390668,
-    "ast_hash": "94047ba3e4698b2f1d62afe5c83c57d9",
+    "mtime": 1789664171.4282682,
+    "ast_hash": "3ff0d441827b8a245e8e62481c4d3efb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services-booking.png": {
-    "mtime": 1789657900.4898381,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664174.1548555,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services-home.png": {
-    "mtime": 1789657894.0594068,
+    "mtime": 1789664163.7940402,
     "ast_hash": "70fdc78e36d495508dbe6eafe6c111a9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services-service.png": {
-    "mtime": 1789657897.5440834,
-    "ast_hash": "8ddc7b1d40cefcc0f9c00362866b3d82",
+    "mtime": 1789664171.3767126,
+    "ast_hash": "c3858efde33fe728db9402e4a15148b2",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services-terms.png": {
-    "mtime": 1789657900.4462507,
-    "ast_hash": "1c568f0a9f8ef709e9da7d6a344e9043",
+    "mtime": 1789664171.2525415,
+    "ast_hash": "66b76763bc59c2efd1a7cb83dff189e0",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet-about.png": {
-    "mtime": 1789657889.831993,
-    "ast_hash": "2acb45bf65c8a36dc2d5c9b5cf6a022a",
+    "mtime": 1789664163.3468442,
+    "ast_hash": "899104518705ca767bbc7cd1f930336c",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet-booking.png": {
-    "mtime": 1789657893.0463724,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664163.8385105,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet-home.png": {
-    "mtime": 1789657882.542857,
-    "ast_hash": "de1bce0e8029da75fea2f2adb44d0d40",
+    "mtime": 1789664156.0561244,
+    "ast_hash": "088ae4116f2f4e828b7f4053b9619c93",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet-service.png": {
-    "mtime": 1789657889.2096336,
-    "ast_hash": "970e7de0c96da37cd549aeb92c19e042",
+    "mtime": 1789664162.6536658,
+    "ast_hash": "59b39d0ae6c00cd21895d6601942c0ea",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet-terms.png": {
-    "mtime": 1789657891.0370514,
-    "ast_hash": "8e68e516331dc0b995ece5662657cd76",
+    "mtime": 1789664163.4576797,
+    "ast_hash": "8b42e5a0a5d8f9a7c1b1244d4e54eb75",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography-about.png": {
-    "mtime": 1789657873.9221113,
-    "ast_hash": "fbe0bb6975497bb53d2278ed74613820",
+    "mtime": 1789664144.7897885,
+    "ast_hash": "9d95e84e2f9bb870b2a71f1c4c61b7f3",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography-booking.png": {
-    "mtime": 1789657874.398519,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664148.2627866,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography-home.png": {
-    "mtime": 1789657867.1854544,
-    "ast_hash": "4ce8cd92ede8104a2cac79f97e5bcc72",
+    "mtime": 1789664140.659808,
+    "ast_hash": "c6f4c9414918f4612996724747a647d9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography-service.png": {
-    "mtime": 1789657872.3227918,
-    "ast_hash": "08a04bedaf0bbee3dc4b25e5843f381c",
+    "mtime": 1789664144.7897885,
+    "ast_hash": "afc04581d86a11b83663264a935a7327",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography-terms.png": {
-    "mtime": 1789657873.9221113,
-    "ast_hash": "2ef961ec175fbbf4ccb6899192e1df22",
+    "mtime": 1789664147.9628549,
+    "ast_hash": "b99b16a60b45d9dfb322241768c9ee14",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional-about.png": {
-    "mtime": 1789657912.7803383,
-    "ast_hash": "ef9e4f5f6785aaeb3a6272ae59f90c0c",
+    "mtime": 1789664178.7796257,
+    "ast_hash": "19a39439b49b1d72d65ac1d7e2a35afa",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional-booking.png": {
-    "mtime": 1789657908.8717844,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664182.7360754,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional-home.png": {
-    "mtime": 1789657901.6371598,
-    "ast_hash": "bf8b3c36f3df0d3e11336a356e5dfa0b",
+    "mtime": 1789664171.218117,
+    "ast_hash": "ea994db103d514856cc95b9201658cd2",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional-service.png": {
-    "mtime": 1789657906.0879548,
-    "ast_hash": "5ee2247a49a979e803d0851d1d7af34b",
+    "mtime": 1789664178.9149857,
+    "ast_hash": "67bdd8324c8dde15c0f02426286ba6fc",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional-terms.png": {
-    "mtime": 1789657907.8453414,
-    "ast_hash": "a3309c7d60023c5e1eb97756fc858e49",
+    "mtime": 1789664179.067973,
+    "ast_hash": "134d498fca3e451f3395f477996eacf2",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon-about.png": {
-    "mtime": 1789657828.0617957,
-    "ast_hash": "15c42565502b86e90165fbdeb12578d7",
+    "mtime": 1789664102.7158225,
+    "ast_hash": "eace60aeebfc925d1a23a1deffd365eb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon-booking.png": {
-    "mtime": 1789657825.1153028,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664107.32926,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon-home.png": {
-    "mtime": 1789657820.6733434,
-    "ast_hash": "7180d3ef113ca5e6ab497c48de272c5e",
+    "mtime": 1789664103.4215765,
+    "ast_hash": "826d8e27b465ed6c3587a1cd85a07644",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon-service.png": {
-    "mtime": 1789657825.948868,
-    "ast_hash": "c2d6bb24ffd170f22e1fc68f516b1c0c",
+    "mtime": 1789664102.7974842,
+    "ast_hash": "3e6c2bcc8dfb7d92b9fad1427b818ecd",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon-terms.png": {
-    "mtime": 1789657828.3340397,
-    "ast_hash": "a8e2aa56e51608e559beb8f08fbd08ef",
+    "mtime": 1789664102.7158225,
+    "ast_hash": "311b41c9c27da850f19ee8350903eb32",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa-about.png": {
-    "mtime": 1789657844.7166758,
-    "ast_hash": "7a8b969a830995a4f5ae543b1c856f13",
+    "mtime": 1789664121.8066444,
+    "ast_hash": "9c7856310dfa7909c3ae102cda308865",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa-booking.png": {
-    "mtime": 1789657851.323665,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664121.9607625,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa-home.png": {
-    "mtime": 1789657840.5976489,
+    "mtime": 1789664118.0998285,
     "ast_hash": "6a74b511bdc8a26c054639668e37ae24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa-service.png": {
-    "mtime": 1789657843.6998541,
-    "ast_hash": "41f9fd7469003d29cd8e74b5f97096aa",
+    "mtime": 1789664118.3474524,
+    "ast_hash": "5f0be8916fbd1a6479720bd87e9a16a8",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa-terms.png": {
-    "mtime": 1789657848.033054,
-    "ast_hash": "612c97693074d43b3361b3cfed3953e5",
+    "mtime": 1789664122.15929,
+    "ast_hash": "2541356f78491b938309556ca796c107",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo-about.png": {
-    "mtime": 1789657835.7015624,
-    "ast_hash": "4672f3a4c3e2fdf776042a5f9521c12a",
+    "mtime": 1789664110.8592207,
+    "ast_hash": "db3098b6eb32a9519edd8fdb15208a46",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo-booking.png": {
-    "mtime": 1789657837.3332324,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664114.408293,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo-home.png": {
-    "mtime": 1789657833.0379465,
-    "ast_hash": "dda6091d74440c039cecce7704927907",
+    "mtime": 1789664110.5762856,
+    "ast_hash": "616640f7ec361fc9699bb93207dfd7ca",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo-service.png": {
-    "mtime": 1789657835.7873788,
-    "ast_hash": "f8e7bd30c2fc990db2e3d1c6a0bab573",
+    "mtime": 1789664110.257169,
+    "ast_hash": "710c1f10016267699994666a9dbb6e47",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo-terms.png": {
-    "mtime": 1789657840.6443048,
-    "ast_hash": "eeac709d72f66d99059e9f61692139de",
+    "mtime": 1789664114.7226532,
+    "ast_hash": "4f61eaa5a8a27a58a5006ce66e90b2f1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/logos/benjamin-lehman-5t4qCgtaLGU-unsplash.jpg": {
@@ -30340,353 +30335,353 @@
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic-home.png": {
-    "mtime": 1789660516.4974139,
-    "ast_hash": "634b2ff6ddd56475e8a9a6c32787515e",
+    "mtime": 1789664641.119118,
+    "ast_hash": "0b9ddf2d498064ef576e24447e332a6f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_b-home.png": {
-    "mtime": 1789660599.994744,
-    "ast_hash": "6a4453d8d5597fd6baa47f3272a2246b",
+    "mtime": 1789664723.964617,
+    "ast_hash": "e5479fdce5b56640a61c7d941b659a95",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach-home.png": {
-    "mtime": 1789660493.6932836,
-    "ast_hash": "0f7a26d900786b2021e631677bf84bbb",
+    "mtime": 1789664618.2951262,
+    "ast_hash": "a7147a53dd9f9c9654de520cdd094028",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_b-home.png": {
-    "mtime": 1789660573.2382624,
-    "ast_hash": "ffa7446594d22501915ce15c15e81255",
+    "mtime": 1789664697.868028,
+    "ast_hash": "c4b627e8705963997bedf38ca686f21a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness-home.png": {
-    "mtime": 1789660501.3328032,
-    "ast_hash": "14c4ce886cb9926935cba89361463879",
+    "mtime": 1789664625.998218,
+    "ast_hash": "cf8345b8a6d476b894eb87d83ce7ca5f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_b-home.png": {
-    "mtime": 1789660581.7455797,
-    "ast_hash": "03269732c960b324e6a970ba8b50f730",
+    "mtime": 1789664705.8945463,
+    "ast_hash": "5995afc793aadaf25df408b278315407",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services-home.png": {
-    "mtime": 1789660532.2301848,
+    "mtime": 1789664656.4219315,
     "ast_hash": "fbe932516963f04443206a3960750b82",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_b-home.png": {
-    "mtime": 1789660615.9195557,
-    "ast_hash": "5ca2481bb8a709a49c9a0de88a59c5f7",
+    "mtime": 1789664741.8239267,
+    "ast_hash": "deaafaf01f07935b34b18e6cad45a9fc",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet-home.png": {
-    "mtime": 1789660524.642808,
-    "ast_hash": "fac14197b303f5da43b8ef1136739609",
+    "mtime": 1789664648.8481805,
+    "ast_hash": "d0ac2c38d1db9c81f22a2aaa9930c493",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_b-home.png": {
-    "mtime": 1789660607.3729057,
-    "ast_hash": "15796661d2a42ab8057cc32aec96da71",
+    "mtime": 1789664734.0575414,
+    "ast_hash": "91ed8cc49c511dc2461438dcb5c07db5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography-home.png": {
-    "mtime": 1789660508.70946,
-    "ast_hash": "62afc3bc67ae05567420e20e0ed17651",
+    "mtime": 1789664633.382527,
+    "ast_hash": "ca75c0b6fd6a9b3b46a6adc45bdedf02",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_b-home.png": {
-    "mtime": 1789660592.1892729,
+    "mtime": 1789664715.8429205,
     "ast_hash": "15e9c08ce514f68b47b355a3168db89d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional-home.png": {
-    "mtime": 1789660540.1281226,
-    "ast_hash": "272249fc704de9115a4cd72ee5f4be02",
+    "mtime": 1789664663.9945345,
+    "ast_hash": "0c77172f6e7dec47f6bafe80f4e5ba2b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_b-home.png": {
-    "mtime": 1789660623.638816,
+    "mtime": 1789664750.1316051,
     "ast_hash": "f3b1ffc1802e79e95f56a19268f700e4",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon-home.png": {
-    "mtime": 1789660470.6718974,
-    "ast_hash": "66c3597aa75e9f751ad75b50f7f31029",
+    "mtime": 1789664596.0544126,
+    "ast_hash": "54eddef34780a23d398e7089dd493a13",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_b-home.png": {
-    "mtime": 1789660550.198751,
+    "mtime": 1789664674.6697118,
     "ast_hash": "407ef7f1754b3164f5fec4c070d1d227",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa-home.png": {
-    "mtime": 1789660486.3383143,
+    "mtime": 1789664610.9264936,
     "ast_hash": "e6f068f9f9c9d145460e0eaaffa78a88",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_b-home.png": {
-    "mtime": 1789660565.731356,
-    "ast_hash": "6f96c8fa32846ffc651000d499eae85b",
+    "mtime": 1789664690.2697146,
+    "ast_hash": "28c15c4415da59c42f24e80cdabfff7f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo-home.png": {
-    "mtime": 1789660480.3735237,
-    "ast_hash": "a896c27faefb9c3ed841aa222bdce255",
+    "mtime": 1789664603.3792436,
+    "ast_hash": "65f47fcf4615156015e30100c18d7d47",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_b-home.png": {
-    "mtime": 1789660558.2637067,
-    "ast_hash": "09ae9399bee09d5bd3c62206c6dc196d",
+    "mtime": 1789664682.7642074,
+    "ast_hash": "40e7019f0db2aea4bf907235b2eba897",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_b-about.png": {
-    "mtime": 1789657968.5122871,
-    "ast_hash": "3875391231d5a25f5625cc0576d6859b",
+    "mtime": 1789664237.4805481,
+    "ast_hash": "64c4391bc699ac838f2e1ca32368ccac",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_b-booking.png": {
-    "mtime": 1789657969.3997505,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664239.0187614,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_b-home.png": {
-    "mtime": 1789657960.5934255,
-    "ast_hash": "9389b671d56a7b1554ec952f1d96b702",
+    "mtime": 1789664231.8640268,
+    "ast_hash": "f9f27d72da2cdb2f4da5fe091d171772",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_b-service.png": {
-    "mtime": 1789657965.7116292,
-    "ast_hash": "eb695c4619f31ddebad14b424091b8ea",
+    "mtime": 1789664235.6256356,
+    "ast_hash": "b55de14da91e4e250aca6579654e2544",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_b-terms.png": {
-    "mtime": 1789657967.8950183,
-    "ast_hash": "1562803dd00c9ea51d77dd5b21e1006b",
+    "mtime": 1789664238.863948,
+    "ast_hash": "169a0e6b75a81527c38acd8a587704b8",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_b-about.png": {
-    "mtime": 1789657942.5685325,
-    "ast_hash": "576fd48b193a750809d98cf2a8aecac6",
+    "mtime": 1789664212.5148335,
+    "ast_hash": "d977c18898e104a29551b083401091a1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_b-booking.png": {
-    "mtime": 1789657945.0673199,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664215.2882683,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_b-home.png": {
-    "mtime": 1789657935.657576,
-    "ast_hash": "baf50ba2b1c269299954978b00fdade3",
+    "mtime": 1789664205.5138292,
+    "ast_hash": "55a24f549860c887d1f0ae1fbad5e010",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_b-service.png": {
-    "mtime": 1789657941.621822,
-    "ast_hash": "deeeac2d3dda4cbddac2bf1bf976bf93",
+    "mtime": 1789664212.472307,
+    "ast_hash": "4c8584ee4a2accdbd92060a32acff629",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_b-terms.png": {
-    "mtime": 1789657942.630115,
-    "ast_hash": "9743f5e7d657b1e09864c9f044543a98",
+    "mtime": 1789664212.634472,
+    "ast_hash": "ae24b49613d74de155aa536ec6243495",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_b-about.png": {
-    "mtime": 1789657950.2284524,
-    "ast_hash": "294add7d1c29ca08f591992350733d8b",
+    "mtime": 1789664220.08174,
+    "ast_hash": "734e9775f85bac796d5847b610438c39",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_b-booking.png": {
-    "mtime": 1789657953.0829077,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664224.29701,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_b-home.png": {
-    "mtime": 1789657943.8512135,
-    "ast_hash": "4a35a1b208e33f9dfe34d2a417c62bde",
+    "mtime": 1789664213.322965,
+    "ast_hash": "41b2e2f72b1fa05d92f71cf551ef598a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_b-service.png": {
-    "mtime": 1789657950.596638,
-    "ast_hash": "08878cee741042079bd762c4f518c0dd",
+    "mtime": 1789664220.2971787,
+    "ast_hash": "62a5f0ebe01a5c79dcb63967606d2b49",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_b-terms.png": {
-    "mtime": 1789657951.0614388,
-    "ast_hash": "953603400f0104ad1ff7070b39d3c141",
+    "mtime": 1789664220.6160605,
+    "ast_hash": "065737bf112743fb4cee5d9580dbb191",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_b-about.png": {
-    "mtime": 1789657983.748815,
-    "ast_hash": "824dbc8b791e03a1b09273dbd6f603b4",
+    "mtime": 1789664253.7213573,
+    "ast_hash": "5840f826c00294739a3f13fc3c7f3b14",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_b-booking.png": {
-    "mtime": 1789657986.7299123,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664256.4887855,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_b-home.png": {
-    "mtime": 1789657976.8594682,
-    "ast_hash": "6019883a3ca8832b019d0e73e3fe09d9",
+    "mtime": 1789664247.327037,
+    "ast_hash": "9a54970badb745a95388ba28431838fd",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_b-service.png": {
-    "mtime": 1789657983.4079251,
-    "ast_hash": "4031afb46655bce368f4ac7b9d01d058",
+    "mtime": 1789664253.845645,
+    "ast_hash": "13e47a768a78bc47d1ce244b405f7309",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_b-terms.png": {
-    "mtime": 1789657984.097402,
-    "ast_hash": "60317eb46e436402c9e0df4e1c43eb9d",
+    "mtime": 1789664254.3890705,
+    "ast_hash": "502a140067fcfbd1cf1b8742675423b4",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_b-about.png": {
-    "mtime": 1789657975.8145385,
-    "ast_hash": "2cf68228f8ba30da0beb6a61c5c9784f",
+    "mtime": 1789664246.2211695,
+    "ast_hash": "318e738ebfb64d0cc9fb5dedb2b53e49",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_b-booking.png": {
-    "mtime": 1789657977.021745,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664247.0174193,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_b-home.png": {
-    "mtime": 1789657969.0475907,
-    "ast_hash": "0a64e2aabd1e48cabba0cd3cfb4c79ac",
+    "mtime": 1789664239.6219718,
+    "ast_hash": "4b4dc4d3fbd3c5f686cc02e7f461b65a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_b-service.png": {
-    "mtime": 1789657975.2473137,
-    "ast_hash": "7e5adafa8b00ad16298fd8cfb41ade23",
+    "mtime": 1789664245.1493666,
+    "ast_hash": "12fde917f76eb219ad7b4107d4e8534b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_b-terms.png": {
-    "mtime": 1789657976.396961,
-    "ast_hash": "db3c36fb50e6bbc34f3bbb4beafa066f",
+    "mtime": 1789664246.3228366,
+    "ast_hash": "dd184e73737335e8c0bb2a3499729f35",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_b-about.png": {
-    "mtime": 1789657958.4112327,
-    "ast_hash": "9cae54ad4c667c9c5959ed224edc324d",
+    "mtime": 1789664227.9495444,
+    "ast_hash": "9dfa76c8c28f50b750076f2c5fffced5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_b-booking.png": {
-    "mtime": 1789657961.687295,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664231.54636,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_b-home.png": {
-    "mtime": 1789657952.601133,
+    "mtime": 1789664222.806962,
     "ast_hash": "c4d02ac73d5886e3644975cc0d04032f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_b-service.png": {
-    "mtime": 1789657957.9784558,
-    "ast_hash": "05b0392ea86acedcad8fd2537f02c8bb",
+    "mtime": 1789664227.6353724,
+    "ast_hash": "9809ca2c7b2dbd6ce13815cff4bddf27",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_b-terms.png": {
-    "mtime": 1789657959.882727,
-    "ast_hash": "7ff383d52e0a22b41bf2a2220a949327",
+    "mtime": 1789664230.146746,
+    "ast_hash": "0b05beab20b2762c71b351c7cf32b573",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_b-about.png": {
-    "mtime": 1789657991.5267298,
-    "ast_hash": "701a74b3d39bded4e3acec1d340b29c0",
+    "mtime": 1789664261.742594,
+    "ast_hash": "25c304f0d471517e3badaef5f4ae9b27",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_b-booking.png": {
-    "mtime": 1789657995.0200303,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664265.4355583,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_b-home.png": {
-    "mtime": 1789657984.6491394,
+    "mtime": 1789664254.9691684,
     "ast_hash": "da72eb1b941e93d41f9fc4762e4b6f21",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_b-service.png": {
-    "mtime": 1789657991.488071,
-    "ast_hash": "dbb43bf9d6222407266ab3480cc5a28f",
+    "mtime": 1789664261.4034941,
+    "ast_hash": "43f20d03f26b0379ad33fbc7811f5c6e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_b-terms.png": {
-    "mtime": 1789657991.941902,
-    "ast_hash": "7c091e2299ec7e95215071ca90207f27",
+    "mtime": 1789664262.954322,
+    "ast_hash": "7fc4a977da6edc0c83944f5cf8651293",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_b-about.png": {
-    "mtime": 1789657916.1357841,
-    "ast_hash": "83d27567c2376fc9be1c80329f8f3217",
+    "mtime": 1789664186.52081,
+    "ast_hash": "30cd7bf3bda85d2fbde7ac26e8885fd5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_b-booking.png": {
-    "mtime": 1789657917.4819593,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664190.2918935,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_b-home.png": {
-    "mtime": 1789657909.3884525,
-    "ast_hash": "593879056b934b4d1fe267d58b038d5a",
+    "mtime": 1789664181.5902064,
+    "ast_hash": "f7ccbfb3d17a90c43293e62710ed5349",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_b-service.png": {
-    "mtime": 1789657915.1938503,
-    "ast_hash": "09f2bfab4bdf1ab965f8d521dad73563",
+    "mtime": 1789664186.5218105,
+    "ast_hash": "176cf06d3cea298ef0af7a550f5f00a5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_b-terms.png": {
-    "mtime": 1789657916.6541307,
-    "ast_hash": "6415c91e81327df017b0c2c38701ade8",
+    "mtime": 1789664188.962753,
+    "ast_hash": "49cadaeb69f2ab65f6e73d97626df6aa",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_b-about.png": {
-    "mtime": 1789657933.6119647,
-    "ast_hash": "eb56d15e1918fe555c7d05984ec9e0ce",
+    "mtime": 1789664205.0328667,
+    "ast_hash": "745e621d56058ebc5b44c874396e9158",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_b-booking.png": {
-    "mtime": 1789657935.232716,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664205.2342837,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_b-home.png": {
-    "mtime": 1789657927.9126768,
-    "ast_hash": "efa6897fd9a303ce1ebebd1fe8fe842a",
+    "mtime": 1789664197.6982772,
+    "ast_hash": "ffd2241dd6104e854ffb3a67409f606f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_b-service.png": {
-    "mtime": 1789657935.3378634,
-    "ast_hash": "04a19304592837c564ad1f2121f6435b",
+    "mtime": 1789664203.9177213,
+    "ast_hash": "301ea0f2c67791771db965ab277ba548",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_b-terms.png": {
-    "mtime": 1789657933.9428668,
-    "ast_hash": "d6c2edc7beb6ea1a23e1a24d61d2b047",
+    "mtime": 1789664205.0811217,
+    "ast_hash": "5280c1fbe184919e1223214fef737607",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_b-about.png": {
-    "mtime": 1789657923.9132628,
-    "ast_hash": "ec3101e1512c1f514a86ce9ce7f89c7e",
+    "mtime": 1789664196.302077,
+    "ast_hash": "66ad5de27b526c6877b07dbb8be843cd",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_b-booking.png": {
-    "mtime": 1789657926.5805173,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664198.0250635,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_b-home.png": {
-    "mtime": 1789657920.5960453,
+    "mtime": 1789664190.2251723,
     "ast_hash": "7fd91d158c119cac2503a8b7bc1e5109",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_b-service.png": {
-    "mtime": 1789657926.2847743,
-    "ast_hash": "60221836b6a2a6e356f1bfb8d2d4043f",
+    "mtime": 1789664193.8836765,
+    "ast_hash": "4da76dab8cdf3a6f3a1d3405585aaa8d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_b-terms.png": {
-    "mtime": 1789657924.7435155,
-    "ast_hash": "968234c0d93568989d3c865f3130a39e",
+    "mtime": 1789664197.6468582,
+    "ast_hash": "d937dacbf324ca43da27adaa820d00ad",
     "semantic_hash": ""
   },
   "apps/admin/src/app/install/(wizard)/layout.tsx": {
@@ -30700,278 +30695,278 @@
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic-about.png": {
-    "mtime": 1789660523.450174,
-    "ast_hash": "c4516da1b5a2be67ae17f9612e13c3b8",
+    "mtime": 1789664648.319316,
+    "ast_hash": "b241c4217405a3ca3e65ae32d089b030",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic-booking.png": {
-    "mtime": 1789660524.6932096,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664648.5172963,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic-service.png": {
-    "mtime": 1789660521.3542943,
-    "ast_hash": "2d38b178e0d91e3b6ab10d7fb89744a9",
+    "mtime": 1789664645.0166695,
+    "ast_hash": "1cf4904b002459177ad3746791359bdd",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic-terms.png": {
-    "mtime": 1789660523.826433,
-    "ast_hash": "47971534adadde000a5d45b84cd9e891",
+    "mtime": 1789664648.4717233,
+    "ast_hash": "2ec0bd4c7f1f7ac6b8a3520361ef8b0e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach-about.png": {
-    "mtime": 1789660497.5767577,
-    "ast_hash": "dc74fd2ee97e7ca0bc54e923ca553024",
+    "mtime": 1789664621.9200418,
+    "ast_hash": "6b6456a4862c47286fabef05e271a0c2",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach-booking.png": {
-    "mtime": 1789660499.1510363,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664622.5790274,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach-service.png": {
-    "mtime": 1789660497.7396636,
-    "ast_hash": "c2aa79c7d5df1e11aaa853d247028a6c",
+    "mtime": 1789664621.9200418,
+    "ast_hash": "0069b39edbae53479d2b9d71df302327",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach-terms.png": {
-    "mtime": 1789660497.8628757,
-    "ast_hash": "432e8e8b03bdd848927adb88b7d8277e",
+    "mtime": 1789664622.2685156,
+    "ast_hash": "c7bcf7b7295fb5a052fa2e76460003dd",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_b-about.png": {
-    "mtime": 1789660580.9458292,
-    "ast_hash": "d763062a000ddce03b73c4f66f9935f8",
+    "mtime": 1789664705.008587,
+    "ast_hash": "8ec26430d487bf089dcce6bfc6e957c3",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_b-booking.png": {
-    "mtime": 1789660584.8136744,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664708.4399302,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_b-service.png": {
-    "mtime": 1789660581.7445867,
-    "ast_hash": "9dccf583e07b9d7218f5310342354490",
+    "mtime": 1789664704.9634182,
+    "ast_hash": "0cd57d9782bd6133e11f97eb3f75e6d1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness-about.png": {
-    "mtime": 1789660505.4626353,
-    "ast_hash": "fe7066dc597bcb0ebada8cfddaf20c51",
+    "mtime": 1789664629.652513,
+    "ast_hash": "4b4661657c4b62b0212880412457aa8e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness-booking.png": {
-    "mtime": 1789660509.0744328,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664633.5976639,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness-service.png": {
-    "mtime": 1789660505.464619,
-    "ast_hash": "8fd733916172bef345ce271758e77e55",
+    "mtime": 1789664629.6064045,
+    "ast_hash": "8f5f09bfc25c7bb6120372e6eea383da",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness-terms.png": {
-    "mtime": 1789660506.464844,
-    "ast_hash": "a20260377f01afff165faca8cccfa9f9",
+    "mtime": 1789664630.0632524,
+    "ast_hash": "1b659b0df8740521f30877a1199502f6",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services-about.png": {
-    "mtime": 1789660539.3587716,
-    "ast_hash": "2a98b67994d34336fbdbc452e0a46573",
+    "mtime": 1789664663.69961,
+    "ast_hash": "00e5b75a7c647fcfb7c9ae790764cb60",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services-booking.png": {
-    "mtime": 1789660542.775566,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664667.1815586,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services-service.png": {
-    "mtime": 1789660539.101305,
-    "ast_hash": "ee1e42f9d3eb7c098b2ba5d81171d698",
+    "mtime": 1789664663.69961,
+    "ast_hash": "ce36c2e4ac8df85a7a156f2b4398ea54",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services-terms.png": {
-    "mtime": 1789660539.674077,
-    "ast_hash": "c03471da941b1b82f0980a090e1d1347",
+    "mtime": 1789664663.8011124,
+    "ast_hash": "d23949079cd8a68eb36676076a855874",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet-about.png": {
-    "mtime": 1789660531.207962,
-    "ast_hash": "bae664835359599477b24eac76c870b2",
+    "mtime": 1789664656.0944755,
+    "ast_hash": "fccb28a22d317b16c97379ac11f4038a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet-booking.png": {
-    "mtime": 1789660532.748278,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664656.471482,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet-service.png": {
-    "mtime": 1789660531.281522,
-    "ast_hash": "ac7034a1b7bcebcb0af819da5fa19c64",
+    "mtime": 1789664655.7372785,
+    "ast_hash": "f40b2c770ea3e6e8b16a4c6c31b2055b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet-terms.png": {
-    "mtime": 1789660531.9828422,
-    "ast_hash": "beed3d927c7b8450d65034f52497d42a",
+    "mtime": 1789664656.2141395,
+    "ast_hash": "9294fe829c44d226023e22b11219d599",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography-about.png": {
-    "mtime": 1789660513.7940013,
-    "ast_hash": "03f5095b35e8cd98acf131ec0d2c13c4",
+    "mtime": 1789664637.466478,
+    "ast_hash": "aacfeb5dd46ff89676e24f8d7124e4f3",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography-booking.png": {
-    "mtime": 1789660516.9588046,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664641.163104,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography-service.png": {
-    "mtime": 1789660513.3091674,
-    "ast_hash": "ac6e0922a629fca944a395af2236f56c",
+    "mtime": 1789664637.068504,
+    "ast_hash": "484601de8272293e992a0c8fb7d855ad",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography-terms.png": {
-    "mtime": 1789660516.1010773,
-    "ast_hash": "79e55c20d56e8f3f4bb701c8d6227ec3",
+    "mtime": 1789664640.8615556,
+    "ast_hash": "f2740fbfdac128ada47c80e58f713c2e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional-about.png": {
-    "mtime": 1789660547.0695934,
-    "ast_hash": "352c8f63a6e344cf97dacb3688d84a75",
+    "mtime": 1789664671.2502904,
+    "ast_hash": "2845dc2a27f9a96209e764fffbe2649a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional-booking.png": {
-    "mtime": 1789660550.6084902,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664675.2078183,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional-service.png": {
-    "mtime": 1789660546.9181082,
-    "ast_hash": "10f3ef686c7d20608a48a3bd76449320",
+    "mtime": 1789664671.2081409,
+    "ast_hash": "5bb4bae27f90b4c1adb87a62035aad34",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional-terms.png": {
-    "mtime": 1789660547.4425137,
-    "ast_hash": "82c3997469242001616fd822fe8c8b03",
+    "mtime": 1789664671.3422332,
+    "ast_hash": "55b663d99d72b0017fc59897e5ad349a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon-about.png": {
-    "mtime": 1789660471.0025785,
-    "ast_hash": "dafecf7cb94b9eed0858f328c45f77e2",
+    "mtime": 1789664595.5797849,
+    "ast_hash": "3d68897ed24ad884ad44b49acb3de792",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon-booking.png": {
-    "mtime": 1789660475.0606024,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664599.6236494,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon-service.png": {
-    "mtime": 1789660470.6718974,
-    "ast_hash": "4abeaa09a66829406f5a3ee82219a0c9",
+    "mtime": 1789664595.5797849,
+    "ast_hash": "83291b1685ade2a7a8d31a16bc0f8378",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon-terms.png": {
-    "mtime": 1789660470.7173772,
-    "ast_hash": "9fbb91ac6f11e9258135a24d2630d583",
+    "mtime": 1789664595.6304555,
+    "ast_hash": "21e2a9a09557ddfa6a6548d60075d1aa",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_b-about.png": {
-    "mtime": 1789660554.7822914,
-    "ast_hash": "6834c5f5150c493ea11ee4ccabd3ddf6",
+    "mtime": 1789664678.7985432,
+    "ast_hash": "46d372d19d01d0490aa001eeb27af723",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_b-booking.png": {
-    "mtime": 1789660558.382206,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664682.9406455,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_b-service.png": {
-    "mtime": 1789660554.3406756,
-    "ast_hash": "4679ce4b9b02a36864e2de76351746b8",
+    "mtime": 1789664678.7985432,
+    "ast_hash": "41ae1903446e6e4c2ca777891eef5583",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_b-terms.png": {
-    "mtime": 1789660557.5098348,
-    "ast_hash": "3ccc2afd506616246340812e5b063a84",
+    "mtime": 1789664682.0296836,
+    "ast_hash": "0b9673d32d2aee98951c65ee8401ebcc",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa-about.png": {
-    "mtime": 1789660490.2054684,
-    "ast_hash": "018776b4fb05c8085af2f7a5ec9aff41",
+    "mtime": 1789664614.2784214,
+    "ast_hash": "5c06e533bfa7aaf13eb9c9203248731f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa-booking.png": {
-    "mtime": 1789660490.528484,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664614.876102,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa-service.png": {
-    "mtime": 1789660487.715735,
-    "ast_hash": "e089ed874689b2cde8824597e225c322",
+    "mtime": 1789664611.1948652,
+    "ast_hash": "78514724f9ed855435e1c4709b2b2418",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa-terms.png": {
-    "mtime": 1789660490.1635327,
-    "ast_hash": "cd6b370ffaf56bec4483a861c4cada86",
+    "mtime": 1789664614.514016,
+    "ast_hash": "0dc5365fcbaf1cca6cfbe2072cd96132",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_b-about.png": {
-    "mtime": 1789660573.5344098,
-    "ast_hash": "9a1f2df84ef60f8c3c07dd3efab03ea1",
+    "mtime": 1789664697.5716362,
+    "ast_hash": "65075a8af2e877950e4b6443f68b3ac0",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_b-booking.png": {
-    "mtime": 1789660573.9267068,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664697.5264697,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_b-service.png": {
-    "mtime": 1789660573.4520888,
-    "ast_hash": "42c9b664481e554f506d7dc896ec8254",
+    "mtime": 1789664696.9740717,
+    "ast_hash": "da6c1e8af8833f3feb65a582bce03fca",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_b-terms.png": {
-    "mtime": 1789660573.2362337,
-    "ast_hash": "a64be7bfc537342a6d2718d891207dea",
+    "mtime": 1789664698.1518517,
+    "ast_hash": "3b934e67470da186b09c8aaf26d4ee70",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo-about.png": {
-    "mtime": 1789660478.5929809,
-    "ast_hash": "a9d3909b48728eeb990bc69fe24f0c28",
+    "mtime": 1789664603.792137,
+    "ast_hash": "8a562d6ac638430c98fb76b6c72db00b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo-booking.png": {
-    "mtime": 1789660482.809471,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664607.0824287,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo-service.png": {
-    "mtime": 1789660478.8311794,
-    "ast_hash": "d4eb9cf7495fc6874580547ff4909e78",
+    "mtime": 1789664603.0875885,
+    "ast_hash": "fb2212d77d62aede78e875a7cca33887",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo-terms.png": {
-    "mtime": 1789660482.4821537,
-    "ast_hash": "e8be068ac5753a7d55b2b9af4d9b4be6",
+    "mtime": 1789664606.9468496,
+    "ast_hash": "d879d34e69f4ed8fc9fb946f00958412",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_b-about.png": {
-    "mtime": 1789660565.630036,
-    "ast_hash": "4c4372f788de22f8efda968d2e67e7e2",
+    "mtime": 1789664689.3635023,
+    "ast_hash": "a08f609dad745756cc5c3d96f9f46aa0",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_b-booking.png": {
-    "mtime": 1789660565.8035135,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664690.3078697,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_b-service.png": {
-    "mtime": 1789660562.4977014,
-    "ast_hash": "991620521f3dfd4681a765775a496ffd",
+    "mtime": 1789664686.077653,
+    "ast_hash": "579c0425eab8c745003e96720e2e1d4d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_b-terms.png": {
-    "mtime": 1789660565.590559,
-    "ast_hash": "a75d6c899402e42b414c07e7d1c279fc",
+    "mtime": 1789664690.1166735,
+    "ast_hash": "bed967e9b1625254149213efa967b049",
     "semantic_hash": ""
   },
   "apps/admin/src/app/install/preview/layout.tsx": {
@@ -30980,628 +30975,628 @@
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_b-about.png": {
-    "mtime": 1789660607.0116386,
-    "ast_hash": "66829a479e31e9f107873985950039af",
+    "mtime": 1789664731.4060493,
+    "ast_hash": "258207fb640088b2e4a397507db296e3",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_b-booking.png": {
-    "mtime": 1789660608.0905125,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664732.0527573,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_b-service.png": {
-    "mtime": 1789660604.0838163,
-    "ast_hash": "a3a32ec12bdbe550ffc1fc37fe183434",
+    "mtime": 1789664731.076982,
+    "ast_hash": "ac23d2b7ba7893fe5530029dfb5ba704",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_b-terms.png": {
-    "mtime": 1789660607.4623096,
-    "ast_hash": "66a512d1efa805a04060ab68bd8ca66e",
+    "mtime": 1789664731.4060493,
+    "ast_hash": "6c295c9e3b484cbc24674103f7aa82f7",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_c-about.png": {
-    "mtime": 1789660690.7034848,
-    "ast_hash": "7fae40842c47de12b769a9c51a46ee89",
+    "mtime": 1789664814.2291515,
+    "ast_hash": "21dc8a008ac3e5d1ea88a6d007eae7db",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_c-booking.png": {
-    "mtime": 1789660692.1137867,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664816.7391346,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_c-home.png": {
-    "mtime": 1789660683.7645383,
-    "ast_hash": "2bb7994c18dfaa69003f77cf7a5b4550",
+    "mtime": 1789664807.423076,
+    "ast_hash": "045b9401d1f13f874a22f42e02f65b5a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_c-service.png": {
-    "mtime": 1789660688.2424755,
-    "ast_hash": "b662f41df292d8e596a3dd683d8b45f1",
+    "mtime": 1789664814.1835015,
+    "ast_hash": "0b17d5b79b42ddbf31ed52d94cbb6508",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/clinic_c-terms.png": {
-    "mtime": 1789660691.218797,
-    "ast_hash": "400e7788cf92f0515b5f33f6ff7e5385",
+    "mtime": 1789664814.8051205,
+    "ast_hash": "108c79b3de6d787223559230c49aaeae",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_b-terms.png": {
-    "mtime": 1789660580.9458292,
-    "ast_hash": "e2b4efbaf132b9e79011e7a929f6cc00",
+    "mtime": 1789664705.4064393,
+    "ast_hash": "22f7103c50178d33ddcacf2e4bfffe6f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_c-about.png": {
-    "mtime": 1789660664.4681292,
-    "ast_hash": "a98c04b0521339e4d53b6fe78a7c9b52",
+    "mtime": 1789664788.5060053,
+    "ast_hash": "64befd9a65e4c8c74e72f410cfbd74c8",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_c-booking.png": {
-    "mtime": 1789660668.5551116,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664792.0379748,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_c-home.png": {
-    "mtime": 1789660657.8595984,
+    "mtime": 1789664783.0888307,
     "ast_hash": "7473f57ebe078f8b6186f6380771fffe",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_c-service.png": {
-    "mtime": 1789660664.6321445,
-    "ast_hash": "db19f974e3ec5510b25a8cf72695a960",
+    "mtime": 1789664788.7337375,
+    "ast_hash": "ea85f1fee61af737814df1327dd4bf20",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/coach_c-terms.png": {
-    "mtime": 1789660664.7153187,
-    "ast_hash": "adf5d5b25f8349dfdaaea500c6f58cb9",
+    "mtime": 1789664790.407102,
+    "ast_hash": "729ce3ef39f1a4608bc9059909dbd51a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_b-about.png": {
-    "mtime": 1789660589.1926286,
-    "ast_hash": "cb413eb37df0c4ccb89de84946a5beef",
+    "mtime": 1789664712.9335783,
+    "ast_hash": "a135e257ac54ed03c7a8458598348335",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_b-booking.png": {
-    "mtime": 1789660592.428079,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664716.4340506,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_b-service.png": {
-    "mtime": 1789660588.3678408,
-    "ast_hash": "b8fb9c80284603ca7fcaf203f6b84449",
+    "mtime": 1789664712.4483836,
+    "ast_hash": "83859023a502e8c1c72ecda10000c8bf",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_b-terms.png": {
-    "mtime": 1789660589.1926286,
-    "ast_hash": "e4e66652b7ba46a051b4fc465746ff6b",
+    "mtime": 1789664713.2057812,
+    "ast_hash": "93a9cc071e465fa0be53fd47b395d5ab",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_c-about.png": {
-    "mtime": 1789660672.4581072,
-    "ast_hash": "74962fec775dfc8f5687c46d9bc6dc26",
+    "mtime": 1789664797.9742782,
+    "ast_hash": "972dc39b18af92fdeccec62d090f5f81",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_c-booking.png": {
-    "mtime": 1789660676.3056805,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664799.9893844,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_c-home.png": {
-    "mtime": 1789660666.067318,
-    "ast_hash": "c6be4f25ca640c994dc898fb7ce4ddca",
+    "mtime": 1789664791.8635948,
+    "ast_hash": "b09a63980b71b032bee84504f905c48d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_c-service.png": {
-    "mtime": 1789660672.75049,
-    "ast_hash": "92bced9c70f68293aad2d7adda295d6c",
+    "mtime": 1789664796.4983244,
+    "ast_hash": "2742a05a6367010ff48797a2b556d8b4",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/fitness_c-terms.png": {
-    "mtime": 1789660673.4418373,
-    "ast_hash": "92d91dfed19aa12a1eb4df115866383c",
+    "mtime": 1789664799.2873607,
+    "ast_hash": "831e39e73d4631370933bf7b8bc87ceb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_b-about.png": {
-    "mtime": 1789660622.5046694,
-    "ast_hash": "626fd61712821759163281ca41272f8e",
+    "mtime": 1789664746.7335026,
+    "ast_hash": "e97fd90cbb22f34a010e18667cc8ef00",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_b-booking.png": {
-    "mtime": 1789660626.3563426,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664750.3198125,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_b-service.png": {
-    "mtime": 1789660622.6089377,
-    "ast_hash": "f63a37080c77873b09072ff844321663",
+    "mtime": 1789664746.4577255,
+    "ast_hash": "cbe949215e0a750c44654f282e7d7c81",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_b-terms.png": {
-    "mtime": 1789660623.1258776,
-    "ast_hash": "f1acd279cc71123f2c702115f231eca6",
+    "mtime": 1789664749.1342397,
+    "ast_hash": "d2cc2815ed9bbb9df9154f55691e6090",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_c-about.png": {
-    "mtime": 1789660707.02278,
-    "ast_hash": "028ff7ac36b603f18a32aa4949d2a0f6",
+    "mtime": 1789664831.6447947,
+    "ast_hash": "d9576ff09df7b0a64ba9bf7cc98dbe1f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_c-booking.png": {
-    "mtime": 1789660710.0528731,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664833.8759806,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_c-home.png": {
-    "mtime": 1789660699.588994,
+    "mtime": 1789664824.2228267,
     "ast_hash": "149a243cb2e489d2cade4e7d546413ab",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_c-service.png": {
-    "mtime": 1789660706.3863704,
-    "ast_hash": "a42c6b3a7a2e4cd4771611410bd32376",
+    "mtime": 1789664830.8841963,
+    "ast_hash": "6f943dec267c43ec4e45b75fa8ead17f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/home_services_c-terms.png": {
-    "mtime": 1789660707.3361082,
-    "ast_hash": "0d12ee7c80a5ef76a13c2fc15745853c",
+    "mtime": 1789664832.906668,
+    "ast_hash": "ac259d619f244b39238a48f1395e643b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_b-about.png": {
-    "mtime": 1789660614.8056278,
-    "ast_hash": "9a56b057019bc1962ef6383588df616c",
+    "mtime": 1789664738.853013,
+    "ast_hash": "4760cfb2433eedae914cc22f48db7f4a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_b-booking.png": {
-    "mtime": 1789660615.7237525,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664742.4907117,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_b-service.png": {
-    "mtime": 1789660614.9555357,
-    "ast_hash": "7cc7059cf36fc096f7f23e47d8aa0e48",
+    "mtime": 1789664738.8072906,
+    "ast_hash": "3450c4a149c55fb9637ced009fd4b0a6",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_b-terms.png": {
-    "mtime": 1789660614.9580545,
-    "ast_hash": "2d28625bea20c81811f62aa44e624985",
+    "mtime": 1789664739.3886642,
+    "ast_hash": "d452c657dd74d9c842a1eedd916c89a5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_c-about.png": {
-    "mtime": 1789660698.5999367,
-    "ast_hash": "c1f4547457bf2b87cc89f96ecebea439",
+    "mtime": 1789664822.317349,
+    "ast_hash": "6229dc2cb61fa72a8305427a5ce84029",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_c-booking.png": {
-    "mtime": 1789660699.8084836,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664825.6396174,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_c-home.png": {
-    "mtime": 1789660692.0666392,
+    "mtime": 1789664815.8789103,
     "ast_hash": "9294ca370d9bea7ba547b6c39fe80c12",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_c-service.png": {
-    "mtime": 1789660698.4986334,
-    "ast_hash": "a18f3d6392c2a868308bc91b49fdad12",
+    "mtime": 1789664826.9507592,
+    "ast_hash": "972c965b2d601a9a02148f37597b74f9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/pet_c-terms.png": {
-    "mtime": 1789660699.6317172,
-    "ast_hash": "fc3aa03c13008c0cf407c5d47bf13351",
+    "mtime": 1789664823.2090538,
+    "ast_hash": "7e842d8b6413abd6edd44c1d401b4b52",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_b-about.png": {
-    "mtime": 1789660596.5940025,
-    "ast_hash": "a576cc0b54a5e2b0d6352505a4e1f7b8",
+    "mtime": 1789664720.5802014,
+    "ast_hash": "5fa3a73e1d2142d79e8cb4dd2bf6a9bf",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_b-booking.png": {
-    "mtime": 1789660599.7799344,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664724.0085871,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_b-service.png": {
-    "mtime": 1789660596.5950043,
-    "ast_hash": "0ea14505e7d92361bf02512cdabb8ec6",
+    "mtime": 1789664726.7349744,
+    "ast_hash": "d6e78c4c84753045560a1c6f3576bf89",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_b-terms.png": {
-    "mtime": 1789660599.5640595,
-    "ast_hash": "b0ca1b6467a5c160cc11f432d7fd3cd5",
+    "mtime": 1789664723.285892,
+    "ast_hash": "ab9dae4df2988f5cdc106bc5f578abaf",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_c-about.png": {
-    "mtime": 1789660680.7773147,
-    "ast_hash": "58b72e98d5acc016b96857c89b55ce97",
+    "mtime": 1789664806.6755457,
+    "ast_hash": "761435a4acb037ab830b8becc2da4942",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_c-booking.png": {
-    "mtime": 1789660683.9872007,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664807.8801832,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_c-home.png": {
-    "mtime": 1789660675.876309,
-    "ast_hash": "3972ed25b3ed4a9d4473d31502915a26",
+    "mtime": 1789664799.4497044,
+    "ast_hash": "7d736aec436f134caf7f5d968b806dc7",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_c-service.png": {
-    "mtime": 1789660680.557301,
-    "ast_hash": "27b208862de30ddd961cd4d19598c307",
+    "mtime": 1789664805.2600608,
+    "ast_hash": "405d33bd520ce71ae12500f316208e96",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/photography_c-terms.png": {
-    "mtime": 1789660683.3516622,
-    "ast_hash": "a5d00f43c14852b479852727067d2d70",
+    "mtime": 1789664806.8380547,
+    "ast_hash": "485f976456a89b0d07fc45b47e06a1b9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_b-about.png": {
-    "mtime": 1789660630.477094,
-    "ast_hash": "4bb868568fa7f6a2ef278b94c1d9ffb5",
+    "mtime": 1789664756.5770557,
+    "ast_hash": "957e858dc7eed9ae4e3e7e928d3bbe5a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_b-booking.png": {
-    "mtime": 1789660634.2627301,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664757.9217713,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_b-service.png": {
-    "mtime": 1789660630.394956,
-    "ast_hash": "e23c7fc87d3974a04c524698735d61ac",
+    "mtime": 1789664754.2662482,
+    "ast_hash": "c3e6cb8bf329398a44dcf023fdca7503",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_b-terms.png": {
-    "mtime": 1789660630.954243,
-    "ast_hash": "bfc071042d4dac8e921c1f1f9ff902a9",
+    "mtime": 1789664757.435063,
+    "ast_hash": "b0e3e37d91eac837753dea258d2180b1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_c-about.png": {
-    "mtime": 1789660714.851751,
-    "ast_hash": "827ddfca6ad24b727b2222bc278b3004",
+    "mtime": 1789664840.2932942,
+    "ast_hash": "e805c863ae6ff4533d3accf804a7a1e1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_c-booking.png": {
-    "mtime": 1789660717.9035037,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664842.259012,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_c-home.png": {
-    "mtime": 1789660707.6597414,
-    "ast_hash": "b2e23155bf91e45a00cf7139515d0422",
+    "mtime": 1789664834.727209,
+    "ast_hash": "ad29988673071d1e57fbde12cb5a2fb9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_c-service.png": {
-    "mtime": 1789660714.477103,
-    "ast_hash": "0314bdd4eca3482d5f993778deefebef",
+    "mtime": 1789664839.302641,
+    "ast_hash": "96ce8a764c8ed7e20e0ce7dc10d5160b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/professional_c-terms.png": {
-    "mtime": 1789660715.051469,
-    "ast_hash": "5d5f8c967a9dd5b64ead1ee79d8b1772",
+    "mtime": 1789664841.2459452,
+    "ast_hash": "22f842f4a28576dc4f47992a02646744",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_c-about.png": {
-    "mtime": 1789660638.288952,
-    "ast_hash": "c648a7329f86740ef7f742db9fad7183",
+    "mtime": 1789664764.870127,
+    "ast_hash": "d163e3c007dbf92ff26cdd18c13e6570",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_c-booking.png": {
-    "mtime": 1789660641.8271284,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664765.5925105,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_c-home.png": {
-    "mtime": 1789660634.2104475,
-    "ast_hash": "9233596a249722abfbba27a1ad5a28f8",
+    "mtime": 1789664757.857059,
+    "ast_hash": "8de0f11f8c1588655efad03c6c5c5e8e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_c-service.png": {
-    "mtime": 1789660638.131824,
-    "ast_hash": "f9054015a81fff8662343f79acc9a25a",
+    "mtime": 1789664764.1365626,
+    "ast_hash": "0f51f4f2fc953da0b12ecc2ec9e16e32",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/salon_c-terms.png": {
-    "mtime": 1789660641.9212828,
-    "ast_hash": "3b3e11328be5888b452605a351299ef7",
+    "mtime": 1789664765.1927738,
+    "ast_hash": "6d673a38e568dd123f8b891ec1ee61c6",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_c-about.png": {
-    "mtime": 1789660656.939001,
-    "ast_hash": "8fbbdb924cb04687fa3313ab80e8936e",
+    "mtime": 1789664780.6134613,
+    "ast_hash": "c22e1a908a733f881a778e3794d82683",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_c-booking.png": {
-    "mtime": 1789660657.3781154,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664784.171322,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_c-home.png": {
-    "mtime": 1789660650.0216925,
-    "ast_hash": "d1e829c7935f0136cb9c0e1ea2eda7ca",
+    "mtime": 1789664773.7482352,
+    "ast_hash": "a4fd096d4de9d869acae24f283a395c3",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_c-service.png": {
-    "mtime": 1789660657.0959158,
-    "ast_hash": "fcb0e6859abd3220383c030a3e478dc6",
+    "mtime": 1789664781.0520785,
+    "ast_hash": "3e5e83f9692d7f4952971ddf49b0e138",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/spa_c-terms.png": {
-    "mtime": 1789660656.939001,
-    "ast_hash": "6ce2f7b9289261da16b4215615011d2a",
+    "mtime": 1789664781.137936,
+    "ast_hash": "0f3ce234b7a453366890f541b971ebfb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_c-about.png": {
-    "mtime": 1789660649.3028708,
-    "ast_hash": "582ba80a30ca82c0abb23414472908f0",
+    "mtime": 1789664772.5529969,
+    "ast_hash": "a24401471a0d76b24fbb0ffc92e0de5d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_c-booking.png": {
-    "mtime": 1789660649.5198457,
-    "ast_hash": "38031dbc31fb147ebff9bfd3ac50306a",
+    "mtime": 1789664775.6674058,
+    "ast_hash": "01cdbbb55da3ab5427cf72f8d3c682e5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_c-home.png": {
-    "mtime": 1789660642.269509,
+    "mtime": 1789664765.9931853,
     "ast_hash": "c8bdd99111fc4158918bfb9379b8d390",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_c-service.png": {
-    "mtime": 1789660646.0286214,
-    "ast_hash": "5730749ecaa24869fb40dc4bcde31861",
+    "mtime": 1789664773.1789095,
+    "ast_hash": "b57b3851c15f1d4204615016c9cc0cd4",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts-full/tattoo_c-terms.png": {
-    "mtime": 1789660649.5602622,
-    "ast_hash": "e3894f82209027a3d19d172a925895ca",
+    "mtime": 1789664773.2241337,
+    "ast_hash": "5f3acbde7eda211a3d75bda31b58dee5",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_c-about.png": {
-    "mtime": 1789658075.611016,
-    "ast_hash": "e4c8f9f12bc697067ecef8ffc96804d4",
+    "mtime": 1789664343.3324292,
+    "ast_hash": "553b118c3add48767a8f61a27cddce6f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_c-booking.png": {
-    "mtime": 1789658078.6614375,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664346.458536,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_c-home.png": {
-    "mtime": 1789658069.4015763,
-    "ast_hash": "02d53b0906c95beffabe9472219e6a7d",
+    "mtime": 1789664337.7474854,
+    "ast_hash": "a8cb8e3b3a4cdb6a1320a04b0ca9fd94",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_c-service.png": {
-    "mtime": 1789658077.433148,
-    "ast_hash": "2df6b57be595b07c72b51d2bfd1cc564",
+    "mtime": 1789664343.100725,
+    "ast_hash": "61804eaed83479cc2bddc791373a657a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/clinic_c-terms.png": {
-    "mtime": 1789658076.6990523,
-    "ast_hash": "967c1e14fe876d897d159a1e7184d034",
+    "mtime": 1789664345.1212494,
+    "ast_hash": "45e2976aba9468640307a84cdb724fa1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_c-about.png": {
-    "mtime": 1789658048.1929512,
-    "ast_hash": "746672d29d433d3371d59649f4f9ff06",
+    "mtime": 1789664320.2892754,
+    "ast_hash": "2f1b859dd89b159c6007e602e7746d62",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_c-booking.png": {
-    "mtime": 1789658050.7457666,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664319.3227196,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_c-home.png": {
-    "mtime": 1789658052.9872503,
-    "ast_hash": "20183d7e4983e20a42198f0d03a5109b",
+    "mtime": 1789664314.4074812,
+    "ast_hash": "61ba947b64a136c53d686f3722ea0b85",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_c-service.png": {
-    "mtime": 1789658046.0553856,
-    "ast_hash": "8b0748dcdf37d9a640ccf57bbf6b484c",
+    "mtime": 1789664317.108403,
+    "ast_hash": "436a4436ab42ec685a2a04e794c33eb1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/coach_c-terms.png": {
-    "mtime": 1789658053.3902328,
-    "ast_hash": "2065912a014fa621dac7f2df61017833",
+    "mtime": 1789664320.3322856,
+    "ast_hash": "7d49b741c7818f3d18ede42e3754608e",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_c-about.png": {
-    "mtime": 1789658060.4187047,
-    "ast_hash": "1703cfba4af14fa83d210f045155164e",
+    "mtime": 1789664327.710888,
+    "ast_hash": "6a5d5ffa7ef72b7d8608903461b2f523",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_c-booking.png": {
-    "mtime": 1789658059.8223972,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664328.6421,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_c-home.png": {
-    "mtime": 1789658054.7664468,
-    "ast_hash": "6df8986d06bd9923de8301057fc62b8b",
+    "mtime": 1789664322.5615864,
+    "ast_hash": "44515125f7a3ba9b8a656d8c8497a6ea",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_c-service.png": {
-    "mtime": 1789658058.3827534,
-    "ast_hash": "b85368b080fd6fdb0adeb943baea3614",
+    "mtime": 1789664326.6952121,
+    "ast_hash": "43687844fdebcfc276b27b53fd55da48",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/fitness_c-terms.png": {
-    "mtime": 1789658060.9919279,
-    "ast_hash": "6eaab09f781b254e31e889ac845efb19",
+    "mtime": 1789664327.710888,
+    "ast_hash": "7140078039d8c73e4e48b5419f10aec1",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_c-about.png": {
-    "mtime": 1789658093.475432,
-    "ast_hash": "76644ea028aafd7ceee597c4e2cef011",
+    "mtime": 1789664361.339898,
+    "ast_hash": "0971bdcf186fe6ef57620d66546d3e1f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_c-booking.png": {
-    "mtime": 1789658095.7717526,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664362.165927,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_c-home.png": {
-    "mtime": 1789658086.1166222,
+    "mtime": 1789664354.0437045,
     "ast_hash": "7e8ea3d9f40dcdaab381ec3be91a0772",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_c-service.png": {
-    "mtime": 1789658092.1564498,
-    "ast_hash": "f4263137c73ef6d0f6fda65f1a989122",
+    "mtime": 1789664359.9629927,
+    "ast_hash": "899b419aa1eae8c2481f26957c164877",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/home_services_c-terms.png": {
-    "mtime": 1789658094.5255027,
-    "ast_hash": "75a28f2cd7836ae29e705443335ca4b1",
+    "mtime": 1789664361.4323332,
+    "ast_hash": "2879d0e05b10066b3693861d117e5b69",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_c-about.png": {
-    "mtime": 1789658088.905759,
-    "ast_hash": "d5b22bd072c5f8537f0201492ca984a8",
+    "mtime": 1789664352.5233555,
+    "ast_hash": "b4d9daa927007d33e6ab8fc996d094d9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_c-booking.png": {
-    "mtime": 1789658087.1460347,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664354.7592087,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_c-home.png": {
-    "mtime": 1789658077.348222,
+    "mtime": 1789664346.1301682,
     "ast_hash": "9e93e71803080e0ff4616f349aa14163",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_c-service.png": {
-    "mtime": 1789658084.1825314,
-    "ast_hash": "38a54de2b5b905c59d920f3dece7d7f7",
+    "mtime": 1789664350.7590935,
+    "ast_hash": "1b9cc722a772422eb89a8a20c6d698cb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/pet_c-terms.png": {
-    "mtime": 1789658084.847852,
-    "ast_hash": "8ee958c52f1b5f13098eddbbf9367a2f",
+    "mtime": 1789664353.8915873,
+    "ast_hash": "42f70c7408e41d7ca568cc092b3e5ee7",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_c-about.png": {
-    "mtime": 1789658067.7509801,
-    "ast_hash": "63600707210d980fcd3b493c6d258ca5",
+    "mtime": 1789664335.0481255,
+    "ast_hash": "8ddb0c7893424a55fdaae1a1f149c92b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_c-booking.png": {
-    "mtime": 1789658069.8088999,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664338.590144,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_c-home.png": {
-    "mtime": 1789658062.061267,
-    "ast_hash": "12f5a0d0e2c242c02d7f33e4f5672351",
+    "mtime": 1789664330.3299322,
+    "ast_hash": "76c060e04f6a8ee79efb7841cb440322",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_c-service.png": {
-    "mtime": 1789658067.1715696,
-    "ast_hash": "a7fa23a31b92b1bee73d41adddd31309",
+    "mtime": 1789664335.4888313,
+    "ast_hash": "19848d2a23c300f1d2417be537d5d87d",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/photography_c-terms.png": {
-    "mtime": 1789658068.2807302,
-    "ast_hash": "05ad62c656679708b83c2b2d5d452860",
+    "mtime": 1789664335.9880085,
+    "ast_hash": "ab17d3e86f34fbd371ac838aa5229fe9",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_c-about.png": {
-    "mtime": 1789658101.8239737,
-    "ast_hash": "6eb277d0875adb6f0879610427709b3b",
+    "mtime": 1789664368.7844,
+    "ast_hash": "1abd1b71cd75cfbfe80233e2fb7e3536",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_c-booking.png": {
-    "mtime": 1789658104.0737214,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664374.131105,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_c-home.png": {
-    "mtime": 1789658096.4772353,
-    "ast_hash": "3486b16adfa46de276bedd39409e5aff",
+    "mtime": 1789664362.0959816,
+    "ast_hash": "0c63129cfdee590a5c439ac18d490aa2",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_c-service.png": {
-    "mtime": 1789658101.3041892,
-    "ast_hash": "dbb43bf9d6222407266ab3480cc5a28f",
+    "mtime": 1789664368.728564,
+    "ast_hash": "aaa9210f99b137745ba741ed53b6389b",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/professional_c-terms.png": {
-    "mtime": 1789658103.20937,
-    "ast_hash": "4d0d5055755ec64b3e02ac85ae5cc23d",
+    "mtime": 1789664369.528113,
+    "ast_hash": "2537fddc9576de739f3434793fc70fbb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_c-about.png": {
-    "mtime": 1789658005.05874,
-    "ast_hash": "b4187967853336ec8bc7c6edc54611b0",
+    "mtime": 1789664270.286616,
+    "ast_hash": "9e7b86961edbbfee95dd81e35eeefab7",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_c-booking.png": {
-    "mtime": 1789658003.0619354,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664272.853683,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_c-home.png": {
-    "mtime": 1789657994.5540843,
+    "mtime": 1789664264.350722,
     "ast_hash": "aa9ebb7419197350f30a77ac4fc238bc",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_c-service.png": {
-    "mtime": 1789658002.6555476,
-    "ast_hash": "72c43e1e08078ec6431227d29f983729",
+    "mtime": 1789664269.325644,
+    "ast_hash": "e5111f024f1f4a8485dd0fce08e8143f",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/salon_c-terms.png": {
-    "mtime": 1789658001.8411043,
-    "ast_hash": "584e67f61e8112161fe1431bb12760ed",
+    "mtime": 1789664271.6702251,
+    "ast_hash": "3b5637e8ebaef9dd31b25874e667ca6a",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_c-about.png": {
-    "mtime": 1789658017.8399618,
-    "ast_hash": "53fd183707002706c632a222a02b1950",
+    "mtime": 1789664312.8892412,
+    "ast_hash": "dc9b10adfd6a7c82171ad0538a450a39",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_c-booking.png": {
-    "mtime": 1789658021.3600864,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664309.5897694,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_c-home.png": {
-    "mtime": 1789658012.7554557,
-    "ast_hash": "2b18c7a2f0b8068488afe4bdf1a356c5",
+    "mtime": 1789664305.6521385,
+    "ast_hash": "533b4b782d718f3ecaaed1dcd3198820",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_c-service.png": {
-    "mtime": 1789658018.0905392,
-    "ast_hash": "88aed20f8e65de663186ed97c165a920",
+    "mtime": 1789664307.7925434,
+    "ast_hash": "5132a0b3c50229c053949dec897404ae",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/spa_c-terms.png": {
-    "mtime": 1789658046.5419977,
-    "ast_hash": "547f42b4a57d7560640ba80c301e9f1a",
+    "mtime": 1789664312.9731314,
+    "ast_hash": "ab511cdceda3a24fe2ceaaa930bd6735",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_c-about.png": {
-    "mtime": 1789658010.3270617,
-    "ast_hash": "ce09943d1696d87df418f14161c478bd",
+    "mtime": 1789664305.3921075,
+    "ast_hash": "631f420ab1145d863fd01bed9fe3cf88",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_c-booking.png": {
-    "mtime": 1789658013.5029075,
-    "ast_hash": "d9d8de4366ab27a88052529f44ccc672",
+    "mtime": 1789664281.0257297,
+    "ast_hash": "44240644b3824ae6a7f3957c5641ff24",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_c-home.png": {
-    "mtime": 1789658003.0119352,
+    "mtime": 1789664273.4007897,
     "ast_hash": "12a734a3a86ce386e5cbc6df2ab52897",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_c-service.png": {
-    "mtime": 1789658009.9476337,
-    "ast_hash": "08cc068707b4628e457ab6b99da1b499",
+    "mtime": 1789664277.6746006,
+    "ast_hash": "8008498410ea242f2ee4d2e3943ce1fb",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/layouts/tattoo_c-terms.png": {
-    "mtime": 1789658010.3700597,
-    "ast_hash": "464745b712d60d692869bcded879010a",
+    "mtime": 1789664306.6385114,
+    "ast_hash": "f668cd69430e1806483ac7bc950a67f9",
     "semantic_hash": ""
   },
   "apps/web/public/pages/templates/logos/airplane-svgrepo-com.svg": {
@@ -31677,6 +31672,16 @@
   "apps/web/public/pages/templates/logos/wine-svgrepo-com.svg": {
     "mtime": 1788290357.0793965,
     "ast_hash": "7f81b46f7066c94d1a12d8ed486acac3",
+    "semantic_hash": ""
+  },
+  "packages/page-builder/src/blocks/youtube-video/youtube-video.tsx": {
+    "mtime": 1789670590.6072896,
+    "ast_hash": "70962dd25956358b59408b893bb3ecd0",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/install/data/welness.yaml": {
+    "mtime": 1776877585.719293,
+    "ast_hash": "59ebb5827637635b7c8d782fd5cc0ae6",
     "semantic_hash": ""
   }
 }

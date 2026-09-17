@@ -387,7 +387,7 @@ catalog:
     misc: Misc
     pet: Pet
     professional: Professional
-    welness: Welness
+    wellness: Wellness
   tags:
     beauty: Beauty
     hair: Hair
@@ -2658,7 +2658,7 @@ catalog:
               description: >-
                 **Notes, checklist, or memo** capturing outcomes from Buyer
                 Consultation.
-  welness:
+  wellness:
     massage_therapist:
       label: Massage Therapist
       services:
