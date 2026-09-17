@@ -974,7 +974,7 @@ export const FluidLayoutEditor = ({ props }: FluidLayoutProps) => {
   container-type: inline-size;
   display: grid !important;
   grid-template-columns: repeat(${columnCount}, minmax(0, 1fr));
-  grid-template-rows: repeat(${gridRowCount}, ${squareRow});
+  grid-template-rows: repeat(${gridRowCount}, 1fr);
   gap: ${gap}px;
   position: relative;
   box-sizing: border-box;
@@ -1036,7 +1036,7 @@ display: grid !important;
               gridColumn: `1 / ${columnCount + 1}`,
               gridRow: `1 / ${maxRowEnd}`,
               gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-              gridTemplateRows: `repeat(${gridRowCount}, ${cellSize}px)`,
+              gridTemplateRows: `repeat(${gridRowCount}, 1fr)`,
               gap: `${gap}px`,
             }}
           >

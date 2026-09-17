@@ -15,6 +15,7 @@
  *   --group=marketing|heroes|sections|layouts|layouts-full|blog
  *   --layouts             Builder layout PNGs only (body, no chrome, 1920×1080)
  *   --full-page-layouts   Install layout PNGs only (header+footer chrome, 1920×1080)
+ *   --concurrency=5       Parallel page renders (default 5)
  *   --no-skip   Re-render even when PNG already exists
  *
  * Layout / layouts-full shots capture only the visible viewport (Full HD), not the
@@ -24,9 +25,28 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import pLimit from "p-limit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "../../..");
+
+const DEFAULT_CONCURRENCY = 5;
+
+const DEVTOOLS_HIDE_CSS = `
+  nextjs-portal,
+  [data-nextjs-toast],
+  [data-nextjs-dev-tools-button],
+  #devtools-indicator,
+  #__next-build-watcher,
+  .nextjs-toast-errors-parent,
+  button[aria-label*="Issue"],
+  button[aria-label*="issue"],
+  [data-nextjs-dialog-overlay] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+`;
 
 const manifestPaths = [
   path.join(root, "packages/page-builder/src/templates/preview-manifest.ts"),
@@ -38,7 +58,7 @@ const manifestPaths = [
 
 const OVERLAY_HEROES = new Set(["centered", "overlay", "leftOverlay", "video"]);
 
-/** Full HD — shared by `--layouts` and `--full-page-layouts`. */
+/** Full HD - shared by `--layouts` and `--full-page-layouts`. */
 const LAYOUT_VIEWPORT = { width: 1920, height: 1080 };
 const BLOCK_VIEWPORT = { width: 1280, height: 900 };
 
@@ -162,6 +182,16 @@ function parseOnlyArg() {
   );
 }
 
+function parseConcurrencyArg() {
+  const raw = parseArg("--concurrency");
+  if (!raw) return DEFAULT_CONCURRENCY;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 1) {
+    throw new Error(`Invalid --concurrency=${raw} (expected integer >= 1)`);
+  }
+  return Math.floor(n);
+}
+
 async function main() {
   const { chromium } = await import("playwright");
 
@@ -169,6 +199,7 @@ async function main() {
   const noSkip = process.argv.includes("--no-skip");
   const layouts = process.argv.includes("--layouts");
   const fullPageLayouts = process.argv.includes("--full-page-layouts");
+  const concurrency = parseConcurrencyArg();
   if (layouts && fullPageLayouts) {
     throw new Error("Use either --layouts or --full-page-layouts, not both.");
   }
@@ -198,6 +229,7 @@ async function main() {
   console.log(`Generating ${manifest.length} preview(s)${modeLabel}`);
   console.log(`Only: ${only ? Array.from(only).join(", ") : "all"}`);
   console.log(`Base URL: ${baseUrl}`);
+  console.log(`Concurrency: ${concurrency}`);
   console.log(`No Skip: ${noSkip}`);
   console.log(`Layouts: ${layouts}`);
   console.log(`Full page layouts: ${fullPageLayouts}`);
@@ -205,102 +237,91 @@ async function main() {
 
   console.log("Launching browser...");
   const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    viewport: BLOCK_VIEWPORT,
-    deviceScaleFactor: 1,
-  });
-  const page = await context.newPage();
-
-  await page.addStyleTag({
-    content: `
-      nextjs-portal,
-      [data-nextjs-toast],
-      [data-nextjs-dev-tools-button],
-      #devtools-indicator,
-      #__next-build-watcher,
-      .nextjs-toast-errors-parent,
-      button[aria-label*="Issue"],
-      button[aria-label*="issue"],
-      [data-nextjs-dialog-overlay] {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-      }
-    `,
-  });
+  const limit = pLimit(concurrency);
 
   /** @type {string[]} */
   const errors = [];
   let done = 0;
 
-  for (const entry of manifest) {
-    const { key, group, file, delayMs = 1000, chrome } = entry;
-    const outDir = path.join(templatesRoot, group);
-    const outfile = path.join(outDir, file);
-    fs.mkdirSync(outDir, { recursive: true });
-    if (fs.existsSync(outfile) && !noSkip) {
-      done++;
-      process.stdout.write(
-        `\rskip ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
-      );
-      continue;
-    }
+  await Promise.all(
+    manifest.map((entry) =>
+      limit(async () => {
+        const { key, group, file, delayMs = 1000, chrome } = entry;
+        const outDir = path.join(templatesRoot, group);
+        const outfile = path.join(outDir, file);
+        fs.mkdirSync(outDir, { recursive: true });
+        if (fs.existsSync(outfile) && !noSkip) {
+          done++;
+          process.stdout.write(
+            `\rskip ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
+          );
+          return;
+        }
 
-    const isLayoutShot = group === "layouts" || group === "layouts-full";
-    await page.setViewportSize(isLayoutShot ? LAYOUT_VIEWPORT : BLOCK_VIEWPORT);
-
-    const params = new URLSearchParams();
-    if (group === "layouts-full" && chrome?.supported) {
-      params.set("header", chrome.header);
-      if (chrome.footer !== false) params.set("footer", "1");
-    }
-    const qs = params.toString();
-    const url = `${baseUrl}/template-previews/${encodeURIComponent(key)}${qs ? `?${qs}` : ""}`;
-    console.log(`Navigating to URL: ${url}`);
-    try {
-      await page.goto(url, { waitUntil: "load", timeout: 120_000 });
-      await page.waitForSelector('[data-preview-ready="true"]', {
-        timeout: Math.max(90_000, delayMs + 30_000),
-      });
-      await page.waitForSelector("[data-template-preview]", {
-        timeout: 10_000,
-      });
-
-      const error = await page.locator("[data-preview-error]").count();
-      if (error > 0) {
-        throw new Error(`preview page reported unknown template`);
-      }
-
-      await page.waitForTimeout(delayMs);
-
-      if (isLayoutShot) {
-        // Viewport-only Full HD (1920×1080) for both builder and install thumbs.
-        await page.screenshot({
-          path: outfile,
-          type: "png",
-          fullPage: false,
-          animations: "disabled",
+        const isLayoutShot = group === "layouts" || group === "layouts-full";
+        const context = await browser.newContext({
+          viewport: isLayoutShot ? LAYOUT_VIEWPORT : BLOCK_VIEWPORT,
+          deviceScaleFactor: 1,
         });
-      } else {
-        const locator = page.locator(".page-layout-reader").first();
-        await locator.screenshot({
-          path: outfile,
-          type: "png",
-          animations: "disabled",
-        });
-      }
-      done++;
-      process.stdout.write(
-        `\rok ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
-      );
-    } catch (e) {
-      errors.push(`${key}: ${e instanceof Error ? e.message : String(e)}`);
-      done++;
-      process.stdout.write(
-        `\rfail ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
-      );
-    }
-  }
+        const page = await context.newPage();
+        await page.addStyleTag({ content: DEVTOOLS_HIDE_CSS });
+
+        const params = new URLSearchParams();
+        if (group === "layouts-full" && chrome?.supported) {
+          params.set("header", chrome.header);
+          if (chrome.footer !== false) params.set("footer", "1");
+        }
+        const qs = params.toString();
+        const url = `${baseUrl}/template-previews/${encodeURIComponent(key)}${qs ? `?${qs}` : ""}`;
+
+        try {
+          await page.goto(url, { waitUntil: "load", timeout: 120_000 });
+          await page.waitForSelector('[data-preview-ready="true"]', {
+            timeout: Math.max(90_000, delayMs + 30_000),
+          });
+          await page.waitForSelector("[data-template-preview]", {
+            timeout: 10_000,
+          });
+
+          const error = await page.locator("[data-preview-error]").count();
+          if (error > 0) {
+            throw new Error(`preview page reported unknown template`);
+          }
+
+          await page.waitForTimeout(delayMs);
+
+          if (isLayoutShot) {
+            // Viewport-only Full HD (1920×1080) for both builder and install thumbs.
+            await page.screenshot({
+              path: outfile,
+              type: "png",
+              fullPage: false,
+              animations: "disabled",
+            });
+          } else {
+            const locator = page.locator(".page-layout-reader").first();
+            await locator.screenshot({
+              path: outfile,
+              type: "png",
+              animations: "disabled",
+            });
+          }
+          done++;
+          process.stdout.write(
+            `\rok ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
+          );
+        } catch (e) {
+          errors.push(`${key}: ${e instanceof Error ? e.message : String(e)}`);
+          done++;
+          process.stdout.write(
+            `\rfail ${done}/${manifest.length} ${key.padEnd(32, " ")}`,
+          );
+        } finally {
+          await context.close();
+        }
+      }),
+    ),
+  );
 
   console.log("\nClosing browser...");
   await browser.close();

@@ -100,7 +100,7 @@ function InstallWebsitePreviewDialog({
       <DialogContent className="grid h-[min(92vh,80rem)] w-[min(96vw,96rem)] max-w-none grid-rows-[auto_auto_minmax(0,1fr)_auto] gap-3 overflow-hidden p-4 sm:p-6">
         <DialogHeader className="space-y-1">
           <DialogTitle>
-            {tBuilder(builderKey(pack.displayName))} —{" "}
+            {tBuilder(builderKey(pack.displayName))} -{" "}
             {t("wizard.website.preview")}
           </DialogTitle>
           <p className="text-sm text-muted-foreground">

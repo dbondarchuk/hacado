@@ -39,6 +39,8 @@ import {
   buildSectionIntro,
   COLORS,
   compositeContainer,
+  contentContainer,
+  entranceAnimation,
   flexFill,
   flexRow,
   logoImageCard,
@@ -51,6 +53,7 @@ import {
   styledStep,
   translateYRem,
   withBlockStyle,
+  withEntrance,
 } from "../section-helpers";
 import { matchServiceImage } from "./media";
 import {
@@ -61,6 +64,7 @@ import {
 } from "./text";
 import type {
   PackHomeSection,
+  PackMood,
   ResolvedLayoutService,
   WebsitePackDefinition,
   WebsitePackId,
@@ -110,7 +114,7 @@ function leftOverlayPlacements(
     [headingId]: {
       colStart: 2,
       colEnd: 14,
-      rowStart: 8,
+      rowStart: 6,
       rowEnd: 10,
       zIndex: 1,
     },
@@ -135,8 +139,8 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: 9,
-        rowStart: 7,
-        rowEnd: 9,
+        rowStart: 2,
+        rowEnd: 7,
         zIndex: 1,
       },
       [textId]: {
@@ -152,8 +156,8 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 8,
-        rowEnd: 10,
+        rowStart: 1,
+        rowEnd: 8,
         zIndex: 1,
       },
       [textId]: {
@@ -208,20 +212,20 @@ function splitOverrides(
         zIndex: 0,
       },
       [headingId]: {
-        colStart: 1,
-        colEnd: FLUID_TABLET_COLUMNS + 1,
+        colStart: 2,
+        colEnd: FLUID_TABLET_COLUMNS,
         rowStart: 6,
         rowEnd: 8,
         zIndex: 0,
       },
       [textId]: {
-        colStart: 1,
-        colEnd: FLUID_TABLET_COLUMNS + 1,
+        colStart: 2,
+        colEnd: FLUID_TABLET_COLUMNS,
         rowStart: 8,
         rowEnd: 10,
         zIndex: 0,
       },
-      [buttonId]: buttonPlacement(1, 10, 0),
+      [buttonId]: buttonPlacement(2, 10, 0),
     },
     mobile: {
       [imageId]: {
@@ -232,20 +236,20 @@ function splitOverrides(
         zIndex: 0,
       },
       [headingId]: {
-        colStart: 1,
-        colEnd: FLUID_MOBILE_COLUMNS + 1,
+        colStart: 2,
+        colEnd: FLUID_MOBILE_COLUMNS,
         rowStart: 7,
         rowEnd: 9,
         zIndex: 0,
       },
       [textId]: {
-        colStart: 1,
-        colEnd: FLUID_MOBILE_COLUMNS + 1,
+        colStart: 2,
+        colEnd: FLUID_MOBILE_COLUMNS,
         rowStart: 9,
         rowEnd: 11,
         zIndex: 0,
       },
-      [buttonId]: buttonPlacement(1, 11, 0, true),
+      [buttonId]: buttonPlacement(2, 11, 0, true),
     },
   };
 }
@@ -315,25 +319,134 @@ function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
 function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t, {
     lightText: true,
+    titleFontSize: { value: 3.25, unit: "rem" as const },
   });
-  return fluidSection(
-    [heading, text, button],
-    centeredCopyPlacements(heading.id, text.id, button.id),
-    imageBackgroundStyle(heroImageUrl(pack), 45, true),
-    centeredCopyOverrides(heading.id, text.id, button.id),
+  return withEntrance(
+    fluidSection(
+      [heading, text, button],
+      centeredCopyPlacements(heading.id, text.id, button.id),
+      imageBackgroundStyle(heroImageUrl(pack), {
+        opacity: pack.mood === "dark" ? 50 : 32,
+        fullBleed: true,
+      }),
+      centeredCopyOverrides(heading.id, text.id, button.id),
+    ),
+    "fadeIn",
+    0.1,
   );
 }
 
+/** Full-bleed photo with left-bottom copy (gradient feel via stronger overlay). */
 function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t, {
     textAlign: "left" as const,
     lightText: true,
+    titleFontSize: { value: 3.5, unit: "rem" as const },
   });
+  return withEntrance(
+    fluidSection(
+      [heading, text, button],
+      leftOverlayPlacements(heading.id, text.id, button.id),
+      imageBackgroundStyle(heroImageUrl(pack), {
+        opacity: 38,
+        fullBleed: true,
+      }),
+      leftOverlayOverrides(heading.id, text.id, button.id),
+    ),
+    "fadeIn",
+    0.1,
+  );
+}
+
+/** Mid-viewport frosted panel over full-bleed media - matches HTML leftOverlay card. */
+function buildLeftOverlayHero(
+  pack: WebsitePackDefinition,
+  t: TFn,
+): TEditorBlock {
+  const { heading, text, button } = packHeroCopy(pack, t, {
+    textAlign: "left" as const,
+    lightText: true,
+    titleFontSize: { value: 2.75, unit: "rem" as const },
+  });
+  const whiteText = { color: [{ value: "0 0% 100%" }] };
+  const panel = withBlockStyle(
+    compositeContainer(
+      [
+        withBlockStyle(heading, whiteText),
+        withBlockStyle(text, whiteText),
+        withBlockStyle(button, {
+          width: [{ value: "max-content" }],
+          alignSelf: [{ value: "flex-start" }],
+          flexGrow: [{ value: 0 }],
+          flexShrink: [{ value: 0 }],
+        }),
+      ],
+      1.25,
+      {
+        alignItems: [{ value: "flex-start" }],
+        justifyContent: [{ value: "center" }],
+        padding: [
+          {
+            value: {
+              top: { value: 2.5, unit: "rem" },
+              bottom: { value: 2.5, unit: "rem" },
+              left: { value: 2.5, unit: "rem" },
+              right: { value: 2.5, unit: "rem" },
+            },
+          },
+        ],
+        borderRadius: [{ value: { value: 24, unit: "px" } }],
+        // HSL channels - hex breaks getColorStyle (`hsl(#000…)`).
+        backgroundColor: [{ value: "0 0% 0%" }],
+        backgroundColorOpacity: [{ value: 72 }],
+        backdropFilter: [
+          {
+            value: {
+              functions: [
+                { function: "blur", values: [{ value: 12, unit: "px" }] },
+              ],
+            },
+          },
+        ],
+        boxShadow: boxShadowValue(24, 48, -12, "0 0% 0%"),
+        maxWidth: [{ value: { value: 32, unit: "rem" } }],
+        width: [{ value: { value: 100, unit: "%" } }],
+      },
+    ),
+    entranceAnimation("scaleIn", 0.1, 0.9),
+  );
   return fluidSection(
-    [heading, text, button],
-    leftOverlayPlacements(heading.id, text.id, button.id),
-    imageBackgroundStyle(heroImageUrl(pack), 50, true),
-    leftOverlayOverrides(heading.id, text.id, button.id),
+    [panel],
+    {
+      [panel.id]: {
+        colStart: 2,
+        colEnd: 13,
+        rowStart: 5,
+        rowEnd: 14,
+        zIndex: 1,
+      },
+    },
+    imageBackgroundStyle(heroImageUrl(pack), { opacity: 28, fullBleed: true }),
+    {
+      tablet: {
+        [panel.id]: {
+          colStart: 1,
+          colEnd: 9,
+          rowStart: 4,
+          rowEnd: 14,
+          zIndex: 1,
+        },
+      },
+      mobile: {
+        [panel.id]: {
+          colStart: 1,
+          colEnd: FLUID_MOBILE_COLUMNS + 1,
+          rowStart: 4,
+          rowEnd: 14,
+          zIndex: 1,
+        },
+      },
+    },
   );
 }
 
@@ -345,17 +458,21 @@ const HERO_VIDEO_SRC =
 function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t, {
     lightText: true,
+    titleFontSize: { value: 3.5, unit: "rem" as const },
   });
-  return fluidSection(
-    [heading, text, button],
-    centeredCopyPlacements(heading.id, text.id, button.id),
-    videoBackgroundStyle(
-      pack.media.generic || HERO_VIDEO_POSTER,
-      HERO_VIDEO_SRC,
-      40,
-      true,
+  return withEntrance(
+    fluidSection(
+      [heading, text, button],
+      centeredCopyPlacements(heading.id, text.id, button.id),
+      videoBackgroundStyle(
+        pack.media.generic || HERO_VIDEO_POSTER,
+        HERO_VIDEO_SRC,
+        { opacity: 40, fullBleed: true },
+      ),
+      centeredCopyOverrides(heading.id, text.id, button.id),
     ),
-    centeredCopyOverrides(heading.id, text.id, button.id),
+    "zoomIn",
+    0.1,
   );
 }
 
@@ -507,18 +624,19 @@ export function buildPackHero(
 ): TEditorBlock[] {
   switch (pack.hero) {
     case "split":
-      return [buildSplitHero(pack, t)];
+      return [withEntrance(buildSplitHero(pack, t), "fadeIn", 0.1)];
     case "centered":
       return [buildCenteredHero(pack, t)];
     case "overlay":
-    case "leftOverlay":
       return [buildOverlayHero(pack, t)];
+    case "leftOverlay":
+      return [buildLeftOverlayHero(pack, t)];
     case "video":
       return [buildVideoHero(pack, t)];
     case "minimal":
-      return [buildMinimalHero(pack, t)];
+      return [withEntrance(buildMinimalHero(pack, t), "slideInUp", 0.1)];
     case "galleryFirst":
-      return [buildGalleryFirstHero(pack, t)];
+      return [withEntrance(buildGalleryFirstHero(pack, t), "fadeIn", 0.1)];
     case "announcementSplit":
       return buildAnnouncementSplitHero(pack, t);
     default:
@@ -1024,22 +1142,93 @@ function buildCta(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
     t(k(pack.id, "home", "ctaBody")),
     t(k(pack.id, "home", "bookCta")),
   );
-  return withBlockStyle(cta, {
-    backgroundColor: [{ value: COLORS.primary.value }],
-    color: [{ value: COLORS["primary-foreground"].value }],
-    padding: [
-      {
-        value: {
-          top: { value: 2.5, unit: "rem" },
-          bottom: { value: 2.5, unit: "rem" },
-          left: { value: 1.5, unit: "rem" },
-          right: { value: 1.5, unit: "rem" },
+  return compositeContainer(
+    [
+      contentContainer([
+        withBlockStyle(cta, {
+          alignItems: [{ value: "center" }],
+          textAlign: [{ value: "center" }],
+          width: [{ value: { value: 100, unit: "%" } }],
+        }),
+      ]),
+    ],
+    0,
+    {
+      backgroundColor: [{ value: COLORS.primary.value }],
+      color: [{ value: COLORS["primary-foreground"].value }],
+      padding: [
+        {
+          value: {
+            top: { value: 2.5, unit: "rem" },
+            bottom: { value: 2.5, unit: "rem" },
+            left: { value: 1.5, unit: "rem" },
+            right: { value: 1.5, unit: "rem" },
+          },
+        },
+      ],
+    },
+  );
+}
+
+function buildVideoHomeSection(
+  pack: WebsitePackDefinition,
+  t: TFn,
+): TEditorBlock {
+  return sectionShell([
+    buildSectionIntro(t, {
+      title: sk("video", "title"),
+      body: sk("video", "body"),
+    }),
+    {
+      type: "YouTubeVideo",
+      id: generateId(),
+      data: {
+        ...YouTubeVideoPropsDefaults,
+        props: {
+          ...YouTubeVideoPropsDefaults.props,
+          youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         },
       },
-    ],
-    alignItems: [{ value: "center" }],
-    textAlign: [{ value: "center" }],
-  });
+    },
+  ]);
+}
+
+const SECTION_ENTRANCES = [
+  "fadeIn",
+  "slideInUp",
+  "slideInLeft",
+  "scaleIn",
+  "slideInRight",
+] as const;
+
+function moodBandStyle(
+  mood: PackMood | undefined,
+  index: number,
+): Record<string, unknown> {
+  if (!mood) return {};
+  if (mood === "muted") {
+    return index % 2 === 1
+      ? { backgroundColor: [{ value: COLORS.muted.value }] }
+      : {};
+  }
+  if (mood === "bold") {
+    return index % 2 === 1
+      ? { backgroundColor: [{ value: "33 100% 96%" }] }
+      : { backgroundColor: [{ value: COLORS.background.value }] };
+  }
+  if (mood === "dark") {
+    // Keep body bands readable; hero carries the dark mood.
+    return index % 2 === 1
+      ? { backgroundColor: [{ value: COLORS.muted.value }] }
+      : { backgroundColor: [{ value: COLORS.background.value }] };
+  }
+  return index % 2 === 1 ? { backgroundColor: [{ value: "210 40% 98%" }] } : {};
+}
+
+function packUsesMotion(pack: WebsitePackDefinition): boolean {
+  if (pack.motion === false) return false;
+  if (pack.motion === true) return true;
+  return Boolean(pack.mood);
 }
 
 export function buildHomeSection(
@@ -1083,6 +1272,8 @@ export function buildHomeSection(
       return buildComparison(pack, t);
     case "featuresShowcase":
       return buildFeaturesShowcase(pack, t, services);
+    case "video":
+      return buildVideoHomeSection(pack, t);
     case "cta":
       return buildCta(pack, t);
     default:
@@ -1096,10 +1287,32 @@ export function composeHome(
   ctx?: LayoutTemplateContext,
 ): TEditorBlock[] {
   const services = resolveServices(pack, t, ctx);
-  return [
-    ...buildPackHero(pack, t, services),
-    ...pack.homeMix.map((key) => buildHomeSection(key, pack, t, services)),
-  ];
+  const motion = packUsesMotion(pack);
+  let bandIndex = 0;
+
+  const sections = pack.homeMix.map((key, index) => {
+    let block = buildHomeSection(key, pack, t, services);
+
+    if (!block.data?.style?.backgroundColor) {
+      const band = moodBandStyle(pack.mood, bandIndex);
+      if (Object.keys(band).length > 0) {
+        block = withBlockStyle(block, band);
+        bandIndex++;
+      }
+    }
+
+    if (motion) {
+      const entrance =
+        key === "cta"
+          ? "scaleIn"
+          : SECTION_ENTRANCES[index % SECTION_ENTRANCES.length];
+      block = withEntrance(block, entrance, index * 0.1);
+    }
+
+    return block;
+  });
+
+  return [...buildPackHero(pack, t, services), ...sections];
 }
 
 export function composeBooking(

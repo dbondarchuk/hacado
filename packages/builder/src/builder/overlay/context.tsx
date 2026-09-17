@@ -68,7 +68,7 @@ function toOverlayGeometry(
   if (overlayHost) {
     const hostRect = overlayHost.getBoundingClientRect();
     // Elements live in the iframe; their rect is iframe-viewport-relative.
-    // The overlay host lives in the parent page — add the iframe's offset.
+    // The overlay host lives in the parent page - add the iframe's offset.
     const iframe = overlayHost.parentElement?.querySelector("iframe");
     const iframeRect = iframe?.getBoundingClientRect();
     const frameTop = iframeRect?.top ?? hostRect.top;
@@ -285,7 +285,7 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
     updateActiveBlocks();
   }, [hoveredId, selectedId, updateActiveBlocks]);
 
-  // Keep geometry in sync while scrolling. Prefer rAF (not setInterval — timers
+  // Keep geometry in sync while scrolling. Prefer rAF (not setInterval - timers
   // are throttled during scroll) and let OverlayLayer write positions to the DOM
   // directly for frame-accurate tracking.
   useEffect(() => {

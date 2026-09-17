@@ -178,8 +178,14 @@ async function upsertDefaultHeader(
   const headerId = await upsertHeaderByName(services, DEFAULT_HEADER_NAME, {
     name: DEFAULT_HEADER_NAME,
     showLogo: true,
-    sticky: false,
+    position: "sticky",
+    sticky: true,
     shadow: false,
+    backdropBlur: false,
+    scrolled: {
+      shadow: true,
+      backdropBlur: true,
+    },
     menu: buildDefaultHeaderMenu(menuArgs),
   });
   logger.debug({ headerId }, "Upserted default header");

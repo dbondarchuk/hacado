@@ -89,11 +89,46 @@ export function compositeContainer(
   };
 }
 
+/** Centered page column (`max-w-6xl` + `mx-auto`), matching HTML mockups. */
+export function contentContainer(
+  children: TEditorBlock[],
+  gapRem = 2,
+  extraStyle: Record<string, unknown> = {},
+): TEditorBlock {
+  return compositeContainer(children, gapRem, {
+    maxWidth: [
+      { value: { value: 100, unit: "%" } },
+      { value: { value: 72, unit: "rem" }, breakpoint: ["md"] },
+    ],
+    margin: [
+      {
+        value: {
+          top: { value: 0, unit: "rem" },
+          right: "auto",
+          bottom: { value: 0, unit: "rem" },
+          left: "auto",
+        },
+      },
+    ],
+    padding: [
+      {
+        value: {
+          top: { value: 0, unit: "rem" },
+          bottom: { value: 0, unit: "rem" },
+          left: { value: 0, unit: "rem" },
+          right: { value: 0, unit: "rem" },
+        },
+      },
+    ],
+    ...extraStyle,
+  });
+}
+
 export function sectionShell(
   children: TEditorBlock[],
   extraStyle: Record<string, unknown> = {},
 ): TEditorBlock {
-  return compositeContainer(children, 2, {
+  return compositeContainer([contentContainer(children)], 0, {
     padding: [
       {
         value: {
@@ -104,6 +139,7 @@ export function sectionShell(
         },
       },
     ],
+    width: [{ value: { value: 100, unit: "%" } }],
     ...extraStyle,
   });
 }
@@ -374,6 +410,53 @@ export function withBlockStyle(
       },
     },
   };
+}
+
+export type EntranceAnimationName =
+  | "fadeIn"
+  | "slideInUp"
+  | "slideInLeft"
+  | "slideInRight"
+  | "scaleIn"
+  | "zoomIn";
+
+/** One-shot entrance animation on first scroll into view. */
+export function entranceAnimation(
+  name: EntranceAnimationName = "fadeIn",
+  delay = 0,
+  duration = 0.8,
+): Record<string, unknown> {
+  // AnimationSchema requires delay/duration as multiples of 0.1.
+  const snappedDelay = Math.round(delay * 10) / 10;
+  const snappedDuration = Math.round(duration * 10) / 10;
+
+  return {
+    // Do not set base opacity:0 - slide/scale keyframes don't restore it, and the
+    // builder forces `animation: none`, which left sections permanently hidden.
+    // firstTimeInView + fillMode both still plays the enter from the 0% keyframe.
+    animation: [
+      {
+        value: {
+          name,
+          duration: snappedDuration,
+          iterationCount: 1,
+          direction: "normal",
+          timingFunction: "ease-out",
+          fillMode: "both",
+          delay: snappedDelay,
+        },
+        state: [{ state: "firstTimeInView", target: { type: "self" } }],
+      },
+    ],
+  };
+}
+
+export function withEntrance(
+  block: TEditorBlock,
+  name: EntranceAnimationName = "fadeIn",
+  delay = 0,
+): TEditorBlock {
+  return withBlockStyle(block, entranceAnimation(name, delay));
 }
 
 export function logoImageCard(

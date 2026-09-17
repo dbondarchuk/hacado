@@ -74,7 +74,7 @@ export const ModifyAppointmentFormLayout = ({
   return (
     <div className={className} {...props}>
       <div ref={topRef} />
-      <div className="max-w-3xl mx-auto booking-container">
+      <div className="max-w-3xl mx-auto booking-container @container/booking-container [contain:layout]">
         {!hideTitle && (
           <div className="text-center mb-8 title-container">
             <h1 className="text-xl font-semibold text-foreground mb-2 title-text">
@@ -119,9 +119,9 @@ export const ModifyAppointmentFormLayout = ({
 
         {/* Summary & Navigation - Hide when booking is confirmed */}
         {!isModificationConfirmed && (
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
             {!!appointment && (
-              <div className="flex flex-col md:flex-row gap-2 w-full">
+              <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full">
                 {!!appointment.dateTime && (
                   <div className="text-left">
                     <p className="text-xs text-muted-foreground amount-label">
@@ -135,7 +135,7 @@ export const ModifyAppointmentFormLayout = ({
                   </div>
                 )}
                 {type === "reschedule" && !!newDateTime && (
-                  <div className="text-left border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0">
+                  <div className="text-left border-t pt-2 @xl/booking-container:border-t-0 @xl/booking-container:border-l @xl/booking-container:pl-2 @xl/booking-container:pt-0">
                     <p className="text-xs text-muted-foreground">
                       {t("modification.summary.estimates.newDateTime")}
                     </p>
@@ -151,9 +151,9 @@ export const ModifyAppointmentFormLayout = ({
 
             <div
               className={cn(
-                "w-full lg:w-auto flex justify-between gap-2 buttons-container",
+                "w-full @xl/booking-container:w-auto flex justify-between gap-2 buttons-container",
                 !step.prev.show(ctx) && "justify-end",
-                !appointment && "lg:w-full",
+                !appointment && "@xl/booking-container:w-full",
               )}
             >
               {step.prev.show(ctx) && (

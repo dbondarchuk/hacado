@@ -136,7 +136,7 @@ export const BookingLayout = ({
   return (
     <div className={className} {...props}>
       <div ref={topRef} />
-      <div className="max-w-3xl mx-auto booking-container">
+      <div className="max-w-3xl mx-auto booking-container @container/booking-container [contain:layout]">
         {!hideTitle && (
           <div className="text-center mb-8 title-container">
             <h1 className="text-xl font-semibold text-foreground mb-2 title-text">
@@ -182,9 +182,9 @@ export const BookingLayout = ({
         {!isBookingConfirmed &&
           !areAppointmentOptionsLoading &&
           !isBookingRestricted && (
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+            <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
               {!!selectedAppointmentOption && (
-                <div className="flex flex-col md:flex-row gap-2 w-full">
+                <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full">
                   {!!basePrice && (
                     <div className="text-left">
                       <p className="text-xs text-muted-foreground amount-label">
@@ -200,7 +200,7 @@ export const BookingLayout = ({
                       className={cn(
                         "text-left",
                         !!basePrice &&
-                          "border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0",
+                          "border-t pt-2 @xl/booking-container:border-t-0 @xl/booking-container:border-l @xl/booking-container:pl-2 @xl/booking-container:pt-0",
                       )}
                     >
                       <p className="text-xs text-muted-foreground duration-label">
@@ -215,7 +215,7 @@ export const BookingLayout = ({
                     </div>
                   )}
                   {!!dateTime && (
-                    <div className="text-left border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0">
+                    <div className="text-left border-t pt-2 @xl/booking-container:border-t-0 @xl/booking-container:border-l @xl/booking-container:pl-2 @xl/booking-container:pt-0">
                       <p className="text-xs text-muted-foreground">
                         {t("booking.summary.estimates.dateTime")}
                       </p>
@@ -235,9 +235,9 @@ export const BookingLayout = ({
 
               <div
                 className={cn(
-                  "w-full lg:w-auto flex justify-between gap-2 buttons-container",
+                  "w-full @xl/booking-container:w-auto flex justify-between gap-2 buttons-container",
                   !step.prev.show(ctx) && "justify-end",
-                  !selectedAppointmentOption && "lg:w-full",
+                  !selectedAppointmentOption && "@xl/booking-container:w-full",
                 )}
               >
                 {step.prev.show(ctx) && (

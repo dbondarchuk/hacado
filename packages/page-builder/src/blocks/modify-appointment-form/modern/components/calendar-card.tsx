@@ -231,7 +231,7 @@ export const CalendarCard: React.FC = () => {
       />
 
       {/* Time Slots */}
-      <div className="available-times-container">
+      <div className="available-times-container @container/available-times [contain:layout]">
         <h4 className="text-sm font-medium text-foreground mb-3 available-times-title">
           {t("common.labels.availableTimes")}
         </h4>
@@ -240,7 +240,7 @@ export const CalendarCard: React.FC = () => {
             {t("common.labels.loadingAvailableTimes")}
           </div>
         ) : adjustedAvailability.length > 0 && date ? (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 calendar-times-list">
+          <div className="grid grid-cols-3 @md/available-times:grid-cols-4 @xl/available-times:grid-cols-7 gap-2 calendar-times-list">
             {(times[formatDate(date)] || []).map((t) => (
               <div className="" key={formatTimeLocale(t, locale)}>
                 <Button

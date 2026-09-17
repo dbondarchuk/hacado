@@ -210,7 +210,10 @@ export const heroEditorTemplates: TemplatesConfiguration = {
       return fluidSection(
         [heading, text, button],
         centeredCopyPlacements(heading.id, text.id, button.id),
-        imageBackgroundStyle(UNSPLASH_CENTERED, 45, true),
+        imageBackgroundStyle(UNSPLASH_CENTERED, {
+          opacity: 45,
+          fullBleed: true,
+        }),
         centeredCopyOverrides(heading.id, text.id, button.id),
       );
     },
@@ -287,12 +290,10 @@ export const heroEditorTemplates: TemplatesConfiguration = {
       return fluidSection(
         [heading, text, button],
         centeredCopyPlacements(heading.id, text.id, button.id),
-        videoBackgroundStyle(
-          UNSPLASH_VIDEO_POSTER,
-          PEXELS_HERO_VIDEO,
-          40,
-          true,
-        ),
+        videoBackgroundStyle(UNSPLASH_VIDEO_POSTER, PEXELS_HERO_VIDEO, {
+          opacity: 40,
+          fullBleed: true,
+        }),
         centeredCopyOverrides(heading.id, text.id, button.id),
       );
     },
@@ -342,7 +343,10 @@ export const heroEditorTemplates: TemplatesConfiguration = {
       return fluidSection(
         [heading, text, button],
         leftOverlayPlacements(heading.id, text.id, button.id),
-        imageBackgroundStyle(UNSPLASH_CENTERED, 50, true),
+        imageBackgroundStyle(UNSPLASH_CENTERED, {
+          opacity: 35,
+          fullBleed: true,
+        }),
         leftOverlayOverrides(heading.id, text.id, button.id),
       );
     },

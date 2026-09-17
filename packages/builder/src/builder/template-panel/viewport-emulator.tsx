@@ -204,7 +204,7 @@ export const ViewportEmulator: React.FC<ViewportEmulatorProps> = memo(
               </span>
             </div> */}
 
-              {/* Iframe container — chrome padding lives outside the canvas so
+              {/* Iframe container - chrome padding lives outside the canvas so
                   fixed page content can be full-bleed while drag handles /
                   floating menus break out into this padding via overlayHost. */}
               <div

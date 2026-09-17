@@ -124,7 +124,7 @@ export const FluidLayoutReader = ({
   container-type: inline-size;
   display: grid !important;
   grid-template-columns: repeat(${FLUID_COLUMNS}, minmax(0, 1fr));
-  grid-template-rows: repeat(${desktopRowCount}, ${squareRowCss(FLUID_COLUMNS, gap)});
+  grid-template-rows: repeat(${desktopRowCount}, 1fr);
   gap: ${gap}px;
   position: relative;
   box-sizing: border-box;
@@ -134,9 +134,10 @@ export const FluidLayoutReader = ({
   min-width: 0;
   min-height: 0;
 }
+/* Reader has no .fluid-child-content chrome - stretch only the rotate wrapper
+   and the block root (not nested descendants). */
 .${className}.fluid-layout-grid > [data-fluid-child] > .fluid-child-rotate,
-.${className}.fluid-layout-grid > [data-fluid-child] > .fluid-child-rotate > *,
-.${className}.fluid-layout-grid > [data-fluid-child] > .fluid-child-rotate > * > * {
+.${className}.fluid-layout-grid > [data-fluid-child] > .fluid-child-rotate > * {
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
@@ -147,14 +148,14 @@ ${desktopChildCss}
 @media (max-width: ${FLUID_TABLET_MAX_WIDTH}) {
   .${className}.fluid-layout-grid {
     grid-template-columns: repeat(${FLUID_TABLET_COLUMNS}, minmax(0, 1fr)) !important;
-    grid-template-rows: repeat(${tabletRowCount}, ${squareRowCss(FLUID_TABLET_COLUMNS, gap)}) !important;
+    grid-template-rows: repeat(${tabletRowCount}, 1fr) !important;
   }
   ${tabletChildCss}
 }
 @media (max-width: ${FLUID_MOBILE_MAX_WIDTH}) {
   .${className}.fluid-layout-grid {
     grid-template-columns: repeat(${FLUID_MOBILE_COLUMNS}, minmax(0, 1fr)) !important;
-    grid-template-rows: repeat(${mobileRowCount}, ${squareRowCss(FLUID_MOBILE_COLUMNS, gap)}) !important;
+    grid-template-rows: repeat(${mobileRowCount}, 1fr) !important;
   }
   ${mobileChildCss}
   ${landscapeChildCss}

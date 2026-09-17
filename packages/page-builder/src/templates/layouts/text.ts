@@ -1,5 +1,4 @@
 import { generateId, type TEditorBlock } from "@hacado/builder";
-import { COLORS } from "@hacado/page-builder-base/style";
 import { ButtonPropsDefaults } from "../../blocks/button";
 import { HeadingPropsDefaults } from "../../blocks/heading/schema";
 import { InlineContainerPropsDefaults } from "../../blocks/inline-container";
@@ -28,9 +27,7 @@ export function headingFromText(
         ...(titleFontSize
           ? { fontSize: [{ value: titleFontSize }] }
           : undefined),
-        ...(lightText
-          ? { color: [{ value: COLORS.foreground.value }] }
-          : undefined),
+        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
         padding: [
           {
             value: {
@@ -82,9 +79,7 @@ export function paragraphFromText(
       style: {
         ...TextPropsDefaults.style,
         textAlign: [{ value: textAlign }],
-        ...(lightText
-          ? { color: [{ value: COLORS.foreground.value }] }
-          : undefined),
+        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
         padding: [
           {
             value: {

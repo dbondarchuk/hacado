@@ -1,6 +1,5 @@
 import { generateId, TEditorBlock } from "@hacado/builder";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
-import { COLORS } from "@hacado/page-builder-base/style";
 import { ButtonPropsDefaults } from "../blocks/button";
 import {
   FLUID_COLUMNS,
@@ -80,7 +79,7 @@ export const fullBleedHeroStyle: FluidLayoutProps["style"] = {
       },
     },
   ],
-  minHeight: [
+  height: [
     {
       value: { value: 100, unit: "vh" },
     },
@@ -94,12 +93,20 @@ export const fullBleedHeroStyle: FluidLayoutProps["style"] = {
 
 export function imageBackgroundStyle(
   url: string,
-  opacity = 45,
-  fullBleed = false,
+  options?: {
+    opacity?: number;
+    fullBleed?: boolean;
+    backgroundColor?: string;
+  },
 ): FluidLayoutProps["style"] {
+  const {
+    opacity = 35,
+    fullBleed = false,
+    backgroundColor = "0 0% 0%",
+  } = options || {};
   return {
     ...(fullBleed ? fullBleedHeroStyle : heroSectionStyle),
-    backgroundColor: [{ value: COLORS.background.value }],
+    backgroundColor: [{ value: backgroundColor }],
     backgroundImage: [{ value: { type: "url", value: url } }],
     backgroundSize: [{ value: "cover" }],
     backgroundRepeat: [{ value: "no-repeat" }],
@@ -112,11 +119,14 @@ export function imageBackgroundStyle(
 export function videoBackgroundStyle(
   poster: string,
   videoSrc: string,
-  opacity = 40,
-  fullBleed = false,
+  options?: {
+    opacity?: number;
+    fullBleed?: boolean;
+    backgroundColor?: string;
+  },
 ): FluidLayoutProps["style"] {
   return {
-    ...imageBackgroundStyle(poster, opacity, fullBleed),
+    ...imageBackgroundStyle(poster, options),
     backgroundVideo: [
       {
         value: {
@@ -201,9 +211,7 @@ export function titleHeading(
         ...(titleFontSize
           ? { fontSize: [{ value: titleFontSize }] }
           : undefined),
-        ...(lightText
-          ? { color: [{ value: COLORS.foreground.value }] }
-          : undefined),
+        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
         padding: [
           {
             value: {
@@ -256,9 +264,7 @@ export function bodyText(
       style: {
         ...TextPropsDefaults.style,
         textAlign: [{ value: textAlign }],
-        ...(lightText
-          ? { color: [{ value: COLORS.foreground.value }] }
-          : undefined),
+        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
         padding: [
           {
             value: {

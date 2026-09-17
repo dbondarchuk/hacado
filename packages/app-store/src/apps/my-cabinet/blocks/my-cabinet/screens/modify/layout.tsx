@@ -70,7 +70,7 @@ export const CabinetModifyLayout = ({
   return (
     <div className={className} {...props}>
       <div ref={topRef} />
-      <div className="max-w-3xl mx-auto modify-container booking-container">
+      <div className="max-w-3xl mx-auto modify-container booking-container @container/booking-container [contain:layout]">
         {!isModificationConfirmed && (
           <div className="mb-4">
             <Button
@@ -115,9 +115,9 @@ export const CabinetModifyLayout = ({
         )}
 
         {!isModificationConfirmed && (
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container modify-summary">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container modify-summary">
             {!!appointment && (
-              <div className="flex flex-col md:flex-row gap-2 w-full modify-summary-dates">
+              <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full modify-summary-dates">
                 {!!appointment.dateTime && (
                   <div className="text-left modify-summary-original-date">
                     <p className="text-xs text-muted-foreground">
@@ -131,7 +131,7 @@ export const CabinetModifyLayout = ({
                   </div>
                 )}
                 {type === "reschedule" && !!newDateTime && (
-                  <div className="text-left border-t pt-2 md:border-t-0 md:border-l md:pl-2 md:pt-0 modify-summary-new-date">
+                  <div className="text-left border-t pt-2 @xl/booking-container:border-t-0 @xl/booking-container:border-l @xl/booking-container:pl-2 @xl/booking-container:pt-0 modify-summary-new-date">
                     <p className="text-xs text-muted-foreground">
                       {t("modification.summary.estimates.newDateTime")}
                     </p>
@@ -149,9 +149,9 @@ export const CabinetModifyLayout = ({
 
             <div
               className={cn(
-                "w-full lg:w-auto flex justify-between gap-2 buttons-container modify-buttons",
+                "w-full @xl/booking-container:w-auto flex justify-between gap-2 buttons-container modify-buttons",
                 !step.prev.show(ctx) && "justify-end",
-                !appointment && "lg:w-full",
+                !appointment && "@xl/booking-container:w-full",
               )}
             >
               {step.prev.show(ctx) && (

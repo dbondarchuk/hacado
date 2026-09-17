@@ -15,7 +15,7 @@ type PreviewChromeProps = {
 
 /**
  * Static header/footer chrome for template and install live previews.
- * Not the real page-header entities — visual only for screenshots / iframes.
+ * Not the real page-header entities - visual only for screenshots / iframes.
  */
 export function PreviewChrome({
   header,

@@ -1211,6 +1211,56 @@ pageBuilder:
         category: Professional layouts
         tagline: Accounting and ops clarity for growing teams
         installHint: Professional
+      salon_c:
+        name: Strand House
+        category: Salon layouts
+        tagline: Blowouts and color that photograph as good as they feel
+        installHint: Beauty
+      tattoo_c:
+        name: Black Line Co.
+        category: Tattoo layouts
+        tagline: Fine-line and blackwork with a gallery-first studio
+        installHint: Creative
+      spa_c:
+        name: "Moss & Mineral"
+        category: Spa layouts
+        tagline: "Quiet rituals for skin, breath, and deep rest"
+        installHint: Wellness
+      coach_c:
+        name: Clear Horizon
+        category: Coaching layouts
+        tagline: "Executive coaching with proof, not platitudes"
+        installHint: Coaching
+      fitness_c:
+        name: Redline Athletics
+        category: Fitness layouts
+        tagline: High-output training with recovery built in
+        installHint: Fitness
+      photography_c:
+        name: Aperture Field
+        category: Photography layouts
+        tagline: "Cinematic portraits and brand stories, booked simply"
+        installHint: Creative
+      clinic_c:
+        name: Harbor Health
+        category: Clinic layouts
+        tagline: Same-week care with clear next steps
+        installHint: Medical
+      pet_c:
+        name: "Paw & Pine"
+        category: Pet care layouts
+        tagline: Grooming and play your dog actually looks forward to
+        installHint: Pet
+      home_services_c:
+        name: Nest Fix Co.
+        category: Home services layouts
+        tagline: Cleaning and fixes with calendar-first booking
+        installHint: Home services
+      professional_c:
+        name: Meridian Advisors
+        category: Professional layouts
+        tagline: "Books, tax, and ops clarity for growing teams"
+        installHint: Professional
     layouts:
       salon:
         home: Bench Salon - Home
@@ -1332,6 +1382,66 @@ pageBuilder:
         service: "Ledger & Line - Service"
         about: "Ledger & Line - About"
         terms: "Ledger & Line - Policies"
+      salon_c:
+        home: Strand House - Home
+        booking: Strand House - Booking
+        service: Strand House - Service
+        about: Strand House - About
+        terms: Strand House - Policies
+      tattoo_c:
+        home: Black Line Co. - Home
+        booking: Black Line Co. - Booking
+        service: Black Line Co. - Service
+        about: Black Line Co. - About
+        terms: Black Line Co. - Policies
+      spa_c:
+        home: "Moss & Mineral - Home"
+        booking: "Moss & Mineral - Booking"
+        service: "Moss & Mineral - Service"
+        about: "Moss & Mineral - About"
+        terms: "Moss & Mineral - Policies"
+      coach_c:
+        home: Clear Horizon - Home
+        booking: Clear Horizon - Booking
+        service: Clear Horizon - Service
+        about: Clear Horizon - About
+        terms: Clear Horizon - Policies
+      fitness_c:
+        home: Redline Athletics - Home
+        booking: Redline Athletics - Booking
+        service: Redline Athletics - Service
+        about: Redline Athletics - About
+        terms: Redline Athletics - Policies
+      photography_c:
+        home: Aperture Field - Home
+        booking: Aperture Field - Booking
+        service: Aperture Field - Service
+        about: Aperture Field - About
+        terms: Aperture Field - Policies
+      clinic_c:
+        home: Harbor Health - Home
+        booking: Harbor Health - Booking
+        service: Harbor Health - Service
+        about: Harbor Health - About
+        terms: Harbor Health - Policies
+      pet_c:
+        home: "Paw & Pine - Home"
+        booking: "Paw & Pine - Booking"
+        service: "Paw & Pine - Service"
+        about: "Paw & Pine - About"
+        terms: "Paw & Pine - Policies"
+      home_services_c:
+        home: Nest Fix Co. - Home
+        booking: Nest Fix Co. - Booking
+        service: Nest Fix Co. - Service
+        about: Nest Fix Co. - About
+        terms: Nest Fix Co. - Policies
+      professional_c:
+        home: Meridian Advisors - Home
+        booking: Meridian Advisors - Booking
+        service: Meridian Advisors - Service
+        about: Meridian Advisors - About
+        terms: Meridian Advisors - Policies
     shared:
       learnMore: Learn more
       bookService: Book this service
@@ -2648,6 +2758,646 @@ pageBuilder:
         paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
         liabilityTitle: Liability
         liabilityBody: "To the fullest extent permitted by law, Ledger & Line is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        books:
+          name: Books Cleanup
+          description: Catch-up reconciliations so your ledger matches reality.
+        controller:
+          name: Fractional Controller
+          description: "Monthly close, cash forecast, and board-ready reports."
+        process:
+          name: Process Map
+          description: Document handoffs across tools and ownership gaps.
+        tax:
+          name: Tax Season Brief
+          description: Pre-file review with action items for your CPA.
+    salon_c:
+      home:
+        heroTitle: Blowouts and color that photograph as good as they feel
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Strand House.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Strand House is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Strand House
+        body1: "We started Strand House to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Blowouts and color that photograph as good as they feel. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Strand House, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Strand House is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        blowout:
+          name: Signature Blowout
+          description: "Volume, shine, and a finish built for your week - not just the chair."
+        color:
+          name: Lived-In Color
+          description: Soft dimension and gloss that grows out gracefully.
+        cut:
+          name: "Cut & Shape"
+          description: Precision cut with texture tailored to how you style at home.
+        event:
+          name: Event Glam
+          description: "Updos and polished looks for weddings, shoots, and nights out."
+    tattoo_c:
+      home:
+        heroTitle: Fine-line and blackwork with a gallery-first studio
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Black Line Co..
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Black Line Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Black Line Co.
+        body1: "We started Black Line Co. to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Fine-line and blackwork with a gallery-first studio. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Black Line Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Black Line Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        fineLine:
+          name: Fine-Line Session
+          description: Delicate linework with careful placement and healed touch guidance.
+        blackwork:
+          name: Blackwork Panel
+          description: Bold fills and graphic forms planned across larger canvases.
+        custom:
+          name: Custom Consult
+          description: "Design collaboration before ink - references, scale, and timeline."
+        touchUp:
+          name: Healed Touch-Up
+          description: Refresh settled work so edges stay crisp.
+    spa_c:
+      home:
+        heroTitle: "Quiet rituals for skin, breath, and deep rest"
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Moss & Mineral."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Moss & Mineral is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Moss & Mineral"
+        body1: "We started Moss & Mineral to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Quiet rituals for skin, breath, and deep rest. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Moss & Mineral, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Moss & Mineral is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        massage:
+          name: Mineral Massage
+          description: "Slow pressure work that releases shoulders, hips, and jaw."
+        facial:
+          name: Botanical Facial
+          description: Skin reset with gentle exfoliation and calming botanicals.
+        scrub:
+          name: "Steam & Scrub"
+          description: "Warm steam, full-body scrub, and oil seal for soft skin."
+        soak:
+          name: Private Soak
+          description: Solo soak time with aromatics and soft lighting.
+    coach_c:
+      home:
+        heroTitle: "Executive coaching with proof, not platitudes"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Clear Horizon.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Clear Horizon is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Clear Horizon
+        body1: "We started Clear Horizon to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Executive coaching with proof, not platitudes. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Clear Horizon, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Clear Horizon is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        leadership:
+          name: Leadership Intensive
+          description: "Focused sprint on presence, decisions, and team clarity."
+        career:
+          name: Career Pivot
+          description: "Map the next role with narrative, network, and negotiation prep."
+        manager:
+          name: Manager Launch
+          description: First-90-days coaching for new people leaders.
+        checkIn:
+          name: Accountability Hour
+          description: Biweekly check-ins that keep commitments visible.
+    fitness_c:
+      home:
+        heroTitle: High-output training with recovery built in
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Redline Athletics.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Redline Athletics is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Redline Athletics
+        body1: "We started Redline Athletics to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "High-output training with recovery built in. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Redline Athletics, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Redline Athletics is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        strength:
+          name: Strength Block
+          description: Progressive lifts with form coaching and weekly targets.
+        conditioning:
+          name: Engine Conditioning
+          description: Intervals that build capacity without junk volume.
+        mobility:
+          name: Mobility Reset
+          description: Joint-friendly sessions between hard training days.
+        team:
+          name: Team Challenge
+          description: Small-group programming with shared scoreboards.
+    photography_c:
+      home:
+        heroTitle: "Cinematic portraits and brand stories, booked simply"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Aperture Field.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Aperture Field is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Aperture Field
+        body1: "We started Aperture Field to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Cinematic portraits and brand stories, booked simply. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Aperture Field, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Aperture Field is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        portrait:
+          name: Portrait Hour
+          description: Natural-light portraits with direction that feels effortless.
+        brand:
+          name: Brand Story Day
+          description: Founder and product frames that match your site and socials.
+        event:
+          name: Event Coverage
+          description: Documentary coverage with a curated gallery within days.
+        product:
+          name: Product Still Set
+          description: Clean product frames for ecommerce and lookbooks.
+    clinic_c:
+      home:
+        heroTitle: Same-week care with clear next steps
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Harbor Health.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Harbor Health is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Harbor Health
+        body1: "We started Harbor Health to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Same-week care with clear next steps. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Harbor Health, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Harbor Health is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        wellness:
+          name: Annual Wellness
+          description: Prevention-focused exam with labs review and a written plan.
+        sick:
+          name: Same-Day Sick Visit
+          description: "Acute care for colds, rashes, and minor injuries."
+        travel:
+          name: Travel Prep
+          description: Vaccines and destination advice before you fly.
+        video:
+          name: Video Follow-Up
+          description: Short telehealth visits to review results or adjust plans.
+    pet_c:
+      home:
+        heroTitle: Grooming and play your dog actually looks forward to
+        heroSubtitle: "Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Paw & Pine."
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Paw & Pine is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Paw & Pine"
+        body1: "We started Paw & Pine to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Grooming and play your dog actually looks forward to. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Paw & Pine, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Paw & Pine is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        groom:
+          name: Full Groom
+          description: "Bath, trim, and brush-out sized for your dog’s coat and calm."
+        walk:
+          name: Adventure Walk
+          description: Enrichment walk with photo updates along the way.
+        puppy:
+          name: Puppy Primer
+          description: Gentle intro to tools and handling so future grooms go easier.
+        deshed:
+          name: Deshed Express
+          description: Focused undercoat removal without the full spa package.
+    home_services_c:
+      home:
+        heroTitle: Cleaning and fixes with calendar-first booking
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Nest Fix Co..
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Nest Fix Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Nest Fix Co.
+        body1: "We started Nest Fix Co. to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Cleaning and fixes with calendar-first booking. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Nest Fix Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Nest Fix Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        clean:
+          name: Weekly Clean
+          description: "Recurring tidy with kitchens, baths, and floors done right."
+        handyman:
+          name: Punch-List Hour
+          description: "Mounts, swaps, and small fixes billed by the hour."
+        move:
+          name: Move-Ready Detail
+          description: "Deep clean for listings, move-outs, and new keys."
+        fixture:
+          name: "Filter & Fixture"
+          description: "Seasonal swaps for filters, bulbs, and simple fixtures."
+    professional_c:
+      home:
+        heroTitle: "Books, tax, and ops clarity for growing teams"
+        heroSubtitle: Trusted by locals who want great results without the phone tag. Browse services and lock in a time at Meridian Advisors.
+        bookCta: Book now
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services built around you
+        servicesBody: Each booking includes a dedicated slot - no double-booking, no rush.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Meridian Advisors is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Ready when you are
+        ctaBody: Pick a time that works - confirmation lands in your inbox in seconds.
+      booking:
+        title: Choose a time that works
+        body: Select a service, pick an opening, and get instant confirmation. Reschedule from your email link when plans change.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Meridian Advisors
+        body1: "We started Meridian Advisors to make great service easy to book - transparent pricing, real availability, and people who care about the details."
+        body2: "Books, tax, and ops clarity for growing teams. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Meridian Advisors, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours before your appointment. Repeated no-shows may require a deposit for future bookings.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Meridian Advisors is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
         contactTitle: Contact
         contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
       services:

@@ -330,7 +330,10 @@ export const conversionEditorTemplates: TemplatesConfiguration = {
       return fluidSection(
         [cta],
         { [cta.id]: fullWidthPlacement(cta.id, 1, 10) },
-        imageBackgroundStyle(CTA_BACKGROUND, 55),
+        imageBackgroundStyle(CTA_BACKGROUND, {
+          opacity: 55,
+          backgroundColor: COLORS.background.value,
+        }),
       );
     },
   },

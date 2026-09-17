@@ -25,7 +25,17 @@ export type WebsitePackId =
   | "clinic_b"
   | "pet_b"
   | "home_services_b"
-  | "professional_b";
+  | "professional_b"
+  | "salon_c"
+  | "tattoo_c"
+  | "spa_c"
+  | "coach_c"
+  | "fitness_c"
+  | "photography_c"
+  | "clinic_c"
+  | "pet_c"
+  | "home_services_c"
+  | "professional_c";
 
 /** Page-builder layout roles (opaque `layoutKind` string on base builder). */
 export type PageLayoutKind = "home" | "booking" | "service" | "about" | "terms";
@@ -58,6 +68,7 @@ export type PackHomeSection =
   | "pricing"
   | "comparison"
   | "featuresShowcase"
+  | "video"
   | "cta";
 
 export type PackServiceExtra =
@@ -65,6 +76,9 @@ export type PackServiceExtra =
   | "gallery"
   | "galleryCarousel"
   | "video";
+
+/** Visual rhythm for alternating section bands + hero intensity. */
+export type PackMood = "light" | "muted" | "dark" | "bold";
 
 export type PackMediaItem = {
   src: string;
@@ -98,6 +112,10 @@ export type WebsitePackDefinition = {
   serviceExtra: PackServiceExtra;
   media: PackMediaLibrary;
   demoServices: PackDemoServiceDef[];
+  /** Optional banded backgrounds + motion intensity for Series C+. */
+  mood?: PackMood;
+  /** Staggered entrance animations on home sections (default true for mood packs). */
+  motion?: boolean;
 };
 
 export type LayoutComposer = (
