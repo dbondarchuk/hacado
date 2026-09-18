@@ -33,7 +33,9 @@ export const BookingWithWaitlistEditor = ({
         successPage={props.confirmationPage}
         flowOrder={props.flowOrder}
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
-        isEditor
+        lockServiceId={props.lockServiceId}
+        lockMemberId={props.lockMemberId}
+        // isEditor
         isOnlyWaitlist={false}
         appId={appId}
         hideTitle={props.hideTitle}

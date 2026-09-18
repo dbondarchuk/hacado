@@ -1,7 +1,7 @@
 import { BaseReaderBlockProps } from "@hacado/builder";
+import { zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { zStyles } from "./styles";
-
 export const flowOrderSchema = z
   .enum(["service-first", "specialist-first"])
   .default("service-first")
@@ -15,6 +15,8 @@ export const BookingWithWaitlistPropsSchema = z.object({
     confirmationPage: z.string().optional().nullable(),
     flowOrder: flowOrderSchema,
     dontAllowAnySpecialist: z.boolean().optional(),
+    lockServiceId: zObjectId().optional().nullable(),
+    lockMemberId: zObjectId().optional().nullable(),
   }),
 });
 

@@ -1,5 +1,10 @@
 import { clientApi } from "@hacado/api-sdk";
 import {
+  AppointmentChoice,
+  shouldSkipLockedMemberStep,
+  shouldSkipLockedServiceStep,
+} from "@hacado/types";
+import {
   Calendar,
   CheckCircle2,
   CreditCard,
@@ -37,6 +42,43 @@ export function getSteps(flow: FlowType, flowOrder: FlowOrder): StepType[] {
   }
 
   return ["option", "specialist", ...tail];
+}
+
+export function getInitialBookingStep({
+  flow,
+  flowOrder,
+  lockServiceId,
+  lockMemberId,
+  lockCustomerPackageId,
+  selectedOption,
+  activeStaffCount,
+}: {
+  flow: FlowType;
+  flowOrder: FlowOrder;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
+  lockCustomerPackageId?: string | null;
+  selectedOption?: AppointmentChoice;
+  activeStaffCount: number;
+}): StepType {
+  if (lockCustomerPackageId) return "calendar";
+
+  const skipOption = shouldSkipLockedServiceStep(lockServiceId, selectedOption);
+  const skipSpecialist =
+    shouldSkipLockedMemberStep(lockMemberId) ||
+    (flowOrder !== "specialist-first" && activeStaffCount <= 1);
+
+  if (flowOrder === "specialist-first") {
+    if (!skipSpecialist) return "specialist";
+    if (!skipOption) return "option";
+  } else {
+    if (!skipOption) return "option";
+    if (!skipSpecialist) return "specialist";
+  }
+
+  if (selectedOption?.addons?.length) return "addons";
+  if (flow === "waitlist") return "waitlist-form";
+  return "calendar";
 }
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
@@ -106,12 +148,61 @@ const goToStepAfterSpecialist = async (ctx: ScheduleContextProps) => {
 
 /** Goes back to the step preceding "addons", accounting for the specialist step. */
 const goToStepBeforeAddons = (ctx: ScheduleContextProps) => {
-  if (ctx.flowOrder !== "specialist-first" && ctx.activeStaff.length > 1) {
+  if (
+    ctx.flowOrder !== "specialist-first" &&
+    ctx.activeStaff.length > 1 &&
+    !shouldSkipLockedMemberStep(ctx.lockMemberId)
+  ) {
     ctx.setCurrentStep("specialist");
     return;
   }
 
-  ctx.setCurrentStep("option");
+  if (
+    ctx.flowOrder === "specialist-first" &&
+    shouldSkipLockedServiceStep(
+      ctx.lockServiceId,
+      ctx.selectedAppointmentOption,
+    ) &&
+    !shouldSkipLockedMemberStep(ctx.lockMemberId)
+  ) {
+    ctx.setCurrentStep("specialist");
+    return;
+  }
+
+  if (
+    !shouldSkipLockedServiceStep(
+      ctx.lockServiceId,
+      ctx.selectedAppointmentOption,
+    )
+  ) {
+    ctx.setCurrentStep("option");
+  }
+};
+
+const canGoToStepBeforeAddons = (ctx: ScheduleContextProps) => {
+  if (
+    ctx.flowOrder !== "specialist-first" &&
+    ctx.activeStaff.length > 1 &&
+    !shouldSkipLockedMemberStep(ctx.lockMemberId)
+  ) {
+    return true;
+  }
+
+  if (
+    ctx.flowOrder === "specialist-first" &&
+    shouldSkipLockedServiceStep(
+      ctx.lockServiceId,
+      ctx.selectedAppointmentOption,
+    ) &&
+    !shouldSkipLockedMemberStep(ctx.lockMemberId)
+  ) {
+    return true;
+  }
+
+  return !shouldSkipLockedServiceStep(
+    ctx.lockServiceId,
+    ctx.selectedAppointmentOption,
+  );
 };
 
 export const ScheduleSteps: Record<StepType, Step> = {
@@ -120,7 +211,8 @@ export const ScheduleSteps: Record<StepType, Step> = {
     prev: {
       show: (ctx) =>
         (ctx.packageBookingFlow && ctx.otpVerified) ||
-        ctx.flowOrder === "specialist-first" ||
+        (ctx.flowOrder === "specialist-first" &&
+          !shouldSkipLockedMemberStep(ctx.lockMemberId)) ||
         (ctx.catalogPath?.length ?? 0) > 0,
       isEnabled: () => true,
       action: (ctx) => {
@@ -141,7 +233,10 @@ export const ScheduleSteps: Record<StepType, Step> = {
       isEnabled: (ctx) => !!ctx.selectedAppointmentOption && !!ctx.duration,
       action: async (ctx) => {
         if (ctx.flowOrder !== "specialist-first") {
-          if (ctx.activeStaff.length > 1) {
+          if (
+            ctx.activeStaff.length > 1 &&
+            !shouldSkipLockedMemberStep(ctx.lockMemberId)
+          ) {
             ctx.setCurrentStep("specialist");
             return;
           }
@@ -154,7 +249,12 @@ export const ScheduleSteps: Record<StepType, Step> = {
   specialist: {
     icon: Users,
     prev: {
-      show: (ctx) => ctx.flowOrder !== "specialist-first",
+      show: (ctx) =>
+        ctx.flowOrder !== "specialist-first" &&
+        !shouldSkipLockedServiceStep(
+          ctx.lockServiceId,
+          ctx.selectedAppointmentOption,
+        ),
       isEnabled: () => true,
       action: ({ setCurrentStep }) => setCurrentStep("option"),
     },
@@ -165,7 +265,13 @@ export const ScheduleSteps: Record<StepType, Step> = {
           ? !!selectedMemberId
           : !!selectedMemberId || isAnySpecialist,
       action: async (ctx) => {
-        if (ctx.flowOrder === "specialist-first") {
+        if (
+          ctx.flowOrder === "specialist-first" &&
+          !shouldSkipLockedServiceStep(
+            ctx.lockServiceId,
+            ctx.selectedAppointmentOption,
+          )
+        ) {
           ctx.setCurrentStep("option");
           return;
         }
@@ -177,7 +283,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
   addons: {
     icon: HeartPlus,
     prev: {
-      show: () => true,
+      show: (ctx) => canGoToStepBeforeAddons(ctx),
       isEnabled: () => true,
       action: (ctx) => goToStepBeforeAddons(ctx),
     },
@@ -204,7 +310,17 @@ export const ScheduleSteps: Record<StepType, Step> = {
   calendar: {
     icon: Calendar,
     prev: {
-      show: () => true,
+      show: (ctx) => {
+        if (ctx.isCustomerPackageLocked) return true;
+        if (
+          ctx.selectedAppointmentOption?.addons?.length &&
+          !ctx.purchasePackageId &&
+          !ctx.customerPackageId
+        ) {
+          return true;
+        }
+        return canGoToStepBeforeAddons(ctx);
+      },
       isEnabled: () => true,
       action: (ctx) => {
         if (ctx.isCustomerPackageLocked) {
@@ -317,7 +433,17 @@ export const ScheduleSteps: Record<StepType, Step> = {
   "waitlist-form": {
     icon: User,
     prev: {
-      show: () => true,
+      show: (ctx) => {
+        if (
+          ctx.selectedAppointmentOption?.addons?.length &&
+          !ctx.purchasePackageId &&
+          !ctx.customerPackageId
+        ) {
+          return true;
+        }
+
+        return canGoToStepBeforeAddons(ctx);
+      },
       isEnabled: () => true,
       action: (ctx) => {
         if (

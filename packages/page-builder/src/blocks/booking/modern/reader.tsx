@@ -31,6 +31,8 @@ export const BookingReader = ({
         scrollToTop={props.scrollToTop}
         flowOrder={props.flowOrder}
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
+        lockServiceId={props.lockServiceId}
+        lockMemberId={props.lockMemberId}
         isEditor={isEditor}
       />
     </>

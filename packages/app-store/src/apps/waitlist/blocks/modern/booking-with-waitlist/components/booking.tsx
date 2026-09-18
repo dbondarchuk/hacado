@@ -1,7 +1,10 @@
 "use client";
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { GetAppointmentOptionsResponse } from "@hacado/types";
+import {
+  applyBookingLocks,
+  GetAppointmentOptionsResponse,
+} from "@hacado/types";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../components/fixtures";
 import {
@@ -16,6 +19,8 @@ export type BookingWithWaitlistProps = {
   successPage?: string | null;
   flowOrder?: FlowOrder | null;
   dontAllowAnySpecialist?: boolean | null;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   className?: string;
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
@@ -35,6 +40,8 @@ export const BookingWithWaitlist: React.FC<
   successPage,
   flowOrder,
   dontAllowAnySpecialist,
+  lockServiceId,
+  lockMemberId,
   className,
   id,
   isEditor,
@@ -80,15 +87,28 @@ export const BookingWithWaitlist: React.FC<
     );
   }
 
+  const locked = applyBookingLocks(
+    response?.options ?? [],
+    response?.members ?? [],
+    {
+      lockServiceId,
+      lockMemberId,
+    },
+  );
+
   return (
     <Schedule
       id={id}
       {...props}
-      appointmentOptions={response?.options ?? []}
+      appointmentOptions={locked.options}
       areAppointmentOptionsLoading={!response}
-      members={response?.members ?? []}
+      members={locked.members}
       flowOrder={flowOrder ?? "service-first"}
-      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
+      dontAllowAnySpecialist={
+        (dontAllowAnySpecialist ?? false) || !!lockMemberId
+      }
+      lockServiceId={lockServiceId}
+      lockMemberId={lockMemberId}
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}

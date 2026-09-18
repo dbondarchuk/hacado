@@ -67,6 +67,8 @@ export type ScheduleContextProps = {
   members: PublicStaffMember[];
   flowOrder: FlowOrder;
   dontAllowAnySpecialist: boolean;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   isAnySpecialist: boolean;
   setIsAnySpecialist: (value: boolean) => void;
   selectedMemberId: string | null;

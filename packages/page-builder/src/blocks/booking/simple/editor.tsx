@@ -28,7 +28,9 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         successPage={props.confirmationPage}
         flowOrder={props.flowOrder}
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
-        isEditor
+        lockServiceId={props.lockServiceId}
+        lockMemberId={props.lockMemberId}
+        // isEditor
         {...overlayProps}
       />
     </>

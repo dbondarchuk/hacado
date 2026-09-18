@@ -31,6 +31,8 @@ export type AppointmentsProps = {
   members?: PublicStaffMember[];
   flowOrder?: FlowOrder;
   dontAllowAnySpecialist?: boolean;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   optionsClassName?: string;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
@@ -53,6 +55,8 @@ export const Appointments: React.FC<
   members = [],
   flowOrder = "service-first",
   dontAllowAnySpecialist = false,
+  lockServiceId,
+  lockMemberId,
   optionsClassName,
   successPage,
   fieldsSchema,
@@ -71,7 +75,9 @@ export const Appointments: React.FC<
   const i18n = useI18n("translation");
   const searchParams = useSearchParams();
   const fromQuery = searchParams.get("option");
-  const [option, setOption] = React.useState<string | null>(fromQuery);
+  const [option, setOption] = React.useState<string | null>(
+    lockServiceId ?? fromQuery,
+  );
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
   const [purchasePackageId, setPurchasePackageId] = React.useState<string>();
   const [customerPackageId, setCustomerPackageId] = React.useState<string>();
@@ -103,7 +109,7 @@ export const Appointments: React.FC<
 
   const [specialistFirstMemberId, setSpecialistFirstMemberId] = React.useState<
     string | null
-  >(null);
+  >(lockMemberId ?? null);
   const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
 
   const selected = options.find((m) => m._id === option);
@@ -221,14 +227,18 @@ export const Appointments: React.FC<
         className={cn(className)}
         appointmentOption={selected}
         successPage={successPage}
-        goBack={() => {
-          setOption(null);
-          if (packageBookingFlow) {
-            setCustomerPackageId(undefined);
-          } else {
-            setPurchasePackageId(undefined);
-          }
-        }}
+        goBack={
+          lockServiceId
+            ? undefined
+            : () => {
+                setOption(null);
+                if (packageBookingFlow) {
+                  setCustomerPackageId(undefined);
+                } else {
+                  setPurchasePackageId(undefined);
+                }
+              }
+        }
         fieldsSchema={fieldsSchema}
         showPromoCode={showPromoCode}
         bookingRestriction={bookingRestriction}
@@ -238,12 +248,14 @@ export const Appointments: React.FC<
         flowOrder={flowOrder}
         dontAllowAnySpecialist={dontAllowAnySpecialist}
         preselectedMemberId={
-          isSpecialistFirst && !specialistFirstAny
-            ? specialistFirstMemberId
-            : undefined
+          lockMemberId
+            ? lockMemberId
+            : isSpecialistFirst && !specialistFirstAny
+              ? specialistFirstMemberId
+              : undefined
         }
         initialIsAnySpecialist={
-          isSpecialistFirst ? specialistFirstAny : undefined
+          isSpecialistFirst && !lockMemberId ? specialistFirstAny : undefined
         }
         purchasePackageId={purchasePackageId}
         customerPackageId={customerPackageId}
@@ -399,7 +411,9 @@ export const Appointments: React.FC<
             </div>
           ) : null}
 
-          {!catalogPath.length && hasActiveCustomerPackages ? (
+          {!catalogPath.length &&
+          hasActiveCustomerPackages &&
+          !lockServiceId ? (
             <div className="rounded-lg border border-dashed p-4 space-y-2 package-booking-cta mb-2">
               <p className="text-sm font-medium">
                 {i18n("booking.package.bookWithPackage")}
@@ -450,7 +464,7 @@ export const Appointments: React.FC<
         </div>
       ) : (
         <div className="flex flex-col gap-2" id={id}>
-          {hasActiveCustomerPackages ? (
+          {hasActiveCustomerPackages && !lockServiceId ? (
             <div className="rounded-lg border border-dashed p-4 space-y-2 package-booking-cta mb-2">
               <p className="text-sm font-medium">
                 {i18n("booking.package.bookWithPackage")}
@@ -487,20 +501,22 @@ export const Appointments: React.FC<
           />
         </div>
       )}
-      {isSpecialistFirst && (specialistFirstMemberId || specialistFirstAny) && (
-        <div className="mt-4 text-center">
-          <button
-            type="button"
-            className="text-sm text-muted-foreground underline"
-            onClick={() => {
-              setSpecialistFirstMemberId(null);
-              setSpecialistFirstAny(false);
-            }}
-          >
-            {i18n("common.buttons.back")}
-          </button>
-        </div>
-      )}
+      {isSpecialistFirst &&
+        !lockMemberId &&
+        (specialistFirstMemberId || specialistFirstAny) && (
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              className="text-sm text-muted-foreground underline"
+              onClick={() => {
+                setSpecialistFirstMemberId(null);
+                setSpecialistFirstAny(false);
+              }}
+            >
+              {i18n("common.buttons.back")}
+            </button>
+          </div>
+        )}
     </>
   );
 };

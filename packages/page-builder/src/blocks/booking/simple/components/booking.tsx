@@ -1,6 +1,9 @@
 "use client";
 import { clientApi } from "@hacado/api-sdk";
-import { GetAppointmentOptionsResponse } from "@hacado/types";
+import {
+  applyBookingLocks,
+  GetAppointmentOptionsResponse,
+} from "@hacado/types";
 import { Skeleton } from "@hacado/ui";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
@@ -16,6 +19,8 @@ export const Booking: React.FC<
   successPage,
   flowOrder,
   dontAllowAnySpecialist,
+  lockServiceId,
+  lockMemberId,
   className,
   id,
   isEditor,
@@ -46,15 +51,22 @@ export const Booking: React.FC<
       </div>
     );
 
+  const locked = applyBookingLocks(response.options, response.members ?? [], {
+    lockServiceId,
+    lockMemberId,
+  });
+
   return (
     <Appointments
       id={id}
       {...props}
       className={className}
-      options={response.options}
-      members={response.members}
+      options={locked.options}
+      members={locked.members}
       flowOrder={flowOrder ?? "service-first"}
-      dontAllowAnySpecialist={dontAllowAnySpecialist ?? false}
+      dontAllowAnySpecialist={dontAllowAnySpecialist || !!lockMemberId}
+      lockServiceId={lockServiceId}
+      lockMemberId={lockMemberId}
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}

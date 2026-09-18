@@ -27,6 +27,8 @@ export const BookingReader = ({
         successPage={props.confirmationPage}
         flowOrder={props.flowOrder}
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
+        lockServiceId={props.lockServiceId}
+        lockMemberId={props.lockMemberId}
         id={base?.id}
       />
     </>

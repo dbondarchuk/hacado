@@ -4,8 +4,10 @@ import {
   AppSelectorInput,
   BooleanInput,
   ConfigurationProps,
+  MemberInput,
   PageInput,
   SelectInput,
+  ServiceInput,
 } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
@@ -98,6 +100,24 @@ export const BookingWithWaitlistConfiguration = deepMemo(
           defaultValue={data.props.dontAllowAnySpecialist ?? false}
           onChange={(value) =>
             updateProps({ ...data.props, dontAllowAnySpecialist: value })
+          }
+        />
+        <ServiceInput
+          label={t("pageBuilder.blocks.booking.lockService")}
+          helperText={t("pageBuilder.blocks.booking.lockServiceHelper")}
+          defaultValue={data.props.lockServiceId ?? null}
+          nullable
+          onChange={(value) =>
+            updateProps({ ...data.props, lockServiceId: value })
+          }
+        />
+        <MemberInput
+          label={t("pageBuilder.blocks.booking.lockMember")}
+          helperText={t("pageBuilder.blocks.booking.lockMemberHelper")}
+          defaultValue={data.props.lockMemberId ?? null}
+          nullable
+          onChange={(value) =>
+            updateProps({ ...data.props, lockMemberId: value })
           }
         />
       </StylesConfigurationPanel>

@@ -1,5 +1,6 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { shouldSkipLockedServiceStep } from "@hacado/types";
 import {
   Button,
   cn,
@@ -110,9 +111,19 @@ export const BookingLayout = ({
       }
 
       if (
+        step === "option" &&
+        shouldSkipLockedServiceStep(
+          ctx.lockServiceId,
+          selectedAppointmentOption,
+        )
+      ) {
+        return false;
+      }
+
+      if (
         step === "specialist" &&
-        flowOrder !== "specialist-first" &&
-        activeStaff.length <= 1
+        (ctx.lockMemberId ||
+          (flowOrder !== "specialist-first" && activeStaff.length <= 1))
       ) {
         return false;
       }

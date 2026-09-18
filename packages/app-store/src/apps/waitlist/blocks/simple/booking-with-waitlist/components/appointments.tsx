@@ -34,6 +34,8 @@ export type AppointmentsProps = {
   members?: PublicStaffMember[];
   flowOrder?: FlowOrder;
   dontAllowAnySpecialist?: boolean;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   optionsClassName?: string;
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
@@ -58,6 +60,8 @@ export const Appointments: React.FC<
   members = [],
   flowOrder = "service-first",
   dontAllowAnySpecialist = false,
+  lockServiceId,
+  lockMemberId,
   optionsClassName,
   successPage,
   fieldsSchema,
@@ -79,7 +83,9 @@ export const Appointments: React.FC<
   const searchParams = useSearchParams();
   const fromQuery = searchParams.get("option");
   const waitlistTokenParam = searchParams.get("w");
-  const [option, setOption] = React.useState<string | null>(fromQuery);
+  const [option, setOption] = React.useState<string | null>(
+    lockServiceId ?? fromQuery,
+  );
   const [waitlistOffer, setWaitlistOffer] =
     React.useState<WaitlistOfferPrefill | null>(null);
   const [catalogPath, setCatalogPath] = React.useState<string[]>([]);
@@ -115,7 +121,7 @@ export const Appointments: React.FC<
     flowOrder === "specialist-first" && staffAcrossOptions.length > 0;
   const [specialistFirstMemberId, setSpecialistFirstMemberId] = React.useState<
     string | null
-  >(null);
+  >(lockMemberId ?? null);
   const [specialistFirstAny, setSpecialistFirstAny] = React.useState(false);
 
   React.useEffect(() => {
@@ -124,9 +130,11 @@ export const Appointments: React.FC<
     void fetchWaitlistOffer(appId, waitlistTokenParam).then((offer) => {
       if (cancelled || !offer) return;
       setWaitlistOffer(offer);
-      setOption(offer.optionId);
+      if (!lockServiceId) {
+        setOption(offer.optionId);
+      }
       setBookingFields((current) => ({ ...current, ...offer.fields }));
-      if (offer.memberId) {
+      if (offer.memberId && !lockMemberId) {
         setSpecialistFirstMemberId(offer.memberId);
       }
     });
@@ -134,7 +142,7 @@ export const Appointments: React.FC<
     return () => {
       cancelled = true;
     };
-  }, [waitlistTokenParam, isEditor, appId]);
+  }, [waitlistTokenParam, isEditor, appId, lockServiceId, lockMemberId]);
 
   const availableOptions =
     isSpecialistFirst && specialistFirstMemberId && !specialistFirstAny
@@ -266,22 +274,28 @@ export const Appointments: React.FC<
         flowOrder={flowOrder}
         dontAllowAnySpecialist={dontAllowAnySpecialist}
         preselectedMemberId={
-          isSpecialistFirst && !specialistFirstAny
-            ? specialistFirstMemberId
-            : undefined
+          lockMemberId
+            ? lockMemberId
+            : isSpecialistFirst && !specialistFirstAny
+              ? specialistFirstMemberId
+              : undefined
         }
         initialIsAnySpecialist={
-          isSpecialistFirst ? specialistFirstAny : undefined
+          isSpecialistFirst && !lockMemberId ? specialistFirstAny : undefined
         }
         successPage={successPage}
-        goBack={() => {
-          setOption(null);
-          if (packageBookingFlow) {
-            setCustomerPackageId(undefined);
-          } else {
-            setPurchasePackageId(undefined);
-          }
-        }}
+        goBack={
+          lockServiceId
+            ? undefined
+            : () => {
+                setOption(null);
+                if (packageBookingFlow) {
+                  setCustomerPackageId(undefined);
+                } else {
+                  setPurchasePackageId(undefined);
+                }
+              }
+        }
         fieldsSchema={fieldsSchema}
         showPromoCode={showPromoCode}
         bookingRestriction={bookingRestriction}
@@ -454,7 +468,8 @@ export const Appointments: React.FC<
           ) : null}
           {!isOnlyWaitlist &&
           !catalogPath.length &&
-          hasActiveCustomerPackages ? (
+          hasActiveCustomerPackages &&
+          !lockServiceId ? (
             <div className="rounded-lg border border-dashed p-4 space-y-2 package-booking-cta mb-2">
               <p className="text-sm font-medium">
                 {i18n("booking.package.bookWithPackage")}
@@ -504,7 +519,7 @@ export const Appointments: React.FC<
         </div>
       ) : (
         <div className="flex flex-col gap-2" id={id}>
-          {!isOnlyWaitlist && hasActiveCustomerPackages ? (
+          {!isOnlyWaitlist && hasActiveCustomerPackages && !lockServiceId ? (
             <div className="rounded-lg border border-dashed p-4 space-y-2 package-booking-cta mb-2">
               <p className="text-sm font-medium">
                 {i18n("booking.package.bookWithPackage")}
@@ -541,20 +556,22 @@ export const Appointments: React.FC<
           />
         </div>
       )}
-      {isSpecialistFirst && (specialistFirstMemberId || specialistFirstAny) && (
-        <div className="mt-4 text-center">
-          <button
-            type="button"
-            className="text-sm text-muted-foreground underline"
-            onClick={() => {
-              setSpecialistFirstMemberId(null);
-              setSpecialistFirstAny(false);
-            }}
-          >
-            {i18n("common.buttons.back")}
-          </button>
-        </div>
-      )}
+      {isSpecialistFirst &&
+        !lockMemberId &&
+        (specialistFirstMemberId || specialistFirstAny) && (
+          <div className="mt-4 text-center">
+            <button
+              type="button"
+              className="text-sm text-muted-foreground underline"
+              onClick={() => {
+                setSpecialistFirstMemberId(null);
+                setSpecialistFirstAny(false);
+              }}
+            >
+              {i18n("common.buttons.back")}
+            </button>
+          </div>
+        )}
     </>
   );
 };

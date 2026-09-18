@@ -3913,6 +3913,10 @@ pageBuilder:
         serviceFirst: Service first
         specialistFirst: Specialist first
       dontAllowAnySpecialist: Disable "Any specialist" option
+      lockService: Lock to service
+      lockServiceHelper: Visitors can only book this service. Leave empty to show all services.
+      lockMember: Lock to team member
+      lockMemberHelper: Visitors can only book with this team member. Leave empty to show all members.
     popup:
       displayName: Popup
       open: Open

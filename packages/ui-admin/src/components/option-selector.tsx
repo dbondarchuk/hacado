@@ -58,7 +58,8 @@ export type OptionSelectorProps = {
   disabled?: boolean;
   excludeIds?: string[];
   className?: string;
-  onItemSelect?: (value: string) => void;
+  placeholder?: string;
+  onItemSelect?: (value: string | undefined) => void;
   onValueChange?: (value: AppointmentOption | undefined) => void;
   allowClear?: boolean;
 };
@@ -71,6 +72,7 @@ export const OptionSelector: React.FC<OptionSelectorProps> = ({
   onItemSelect,
   onValueChange,
   allowClear,
+  placeholder,
 }) => {
   const t = useI18n("ui");
   const [itemsCache, setItemsCache] = React.useState<
@@ -126,7 +128,7 @@ export const OptionSelector: React.FC<OptionSelectorProps> = ({
       onChange={onItemSelect}
       disabled={disabled}
       className={cn("flex font-normal text-base max-w-full", className)}
-      placeholder={t("optionSelector.placeholder")}
+      placeholder={placeholder ?? t("optionSelector.placeholder")}
       value={value}
       allowClear={allowClear}
       fetchItems={getOptions}

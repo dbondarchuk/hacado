@@ -38,6 +38,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setSelectedMemberId,
     isAnySpecialist,
     setIsAnySpecialist,
+    lockMemberId,
     catalog,
     catalogPath,
     setCatalogPath,
@@ -107,7 +108,8 @@ export const AppointmentOptionCard: React.FC = () => {
     if (!isSameOption) {
       setDateTime(undefined);
     }
-    if (flowOrder !== "specialist-first") {
+
+    if (flowOrder !== "specialist-first" && !lockMemberId) {
       setSelectedMemberId(null);
       setIsAnySpecialist(false);
     }

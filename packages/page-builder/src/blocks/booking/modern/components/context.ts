@@ -60,6 +60,8 @@ export type ScheduleContextProps = {
   flowOrder: FlowOrder;
   /** When true, hide the "Any specialist" option. */
   dontAllowAnySpecialist: boolean;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   /** Customer chose Any on the specialist step. */
   isAnySpecialist: boolean;
   setIsAnySpecialist: (value: boolean) => void;

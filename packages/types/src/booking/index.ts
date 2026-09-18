@@ -4,6 +4,7 @@ export * from "./appointment-history";
 export * from "./appointment-option";
 export * from "./appointment-package";
 export * from "./availability";
+export * from "./booking-locks";
 export * from "./booking-tracking";
 export * from "./calendar-event";
 export * from "./date-time";

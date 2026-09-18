@@ -1,4 +1,5 @@
 import { BaseReaderBlockProps } from "@hacado/builder";
+import { zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { zStyles } from "./styles";
 
@@ -18,6 +19,8 @@ export const BookingPropsSchema = z.object({
     scrollToTop: z.boolean().optional().nullable(),
     flowOrder: flowOrderSchema,
     dontAllowAnySpecialist: z.boolean().optional(),
+    lockServiceId: zObjectId().optional().nullable(),
+    lockMemberId: zObjectId().optional().nullable(),
   }),
 });
 

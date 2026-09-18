@@ -33,6 +33,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { FlowOrder, ScheduleContext, StepType } from "./context";
 import { BookingLayout } from "./layout";
+import { getInitialBookingStep } from "./steps";
 
 export type ScheduleProps = {
   appointmentOptions: AppointmentChoice[];
@@ -56,6 +57,8 @@ export type ScheduleProps = {
   hasActiveCustomerPackages?: boolean;
   lockPurchasePackageId?: string;
   lockCustomerPackageId?: string;
+  lockServiceId?: string | null;
+  lockMemberId?: string | null;
   refreshBookingOptions?: () => Promise<void>;
 };
 
@@ -83,6 +86,8 @@ export const Schedule: React.FC<
   hasActiveCustomerPackages,
   lockPurchasePackageId,
   lockCustomerPackageId,
+  lockServiceId,
+  lockMemberId,
   refreshBookingOptions,
   ...props
 }) => {
@@ -125,7 +130,11 @@ export const Schedule: React.FC<
   );
 
   const [selectedAppointmentOption, setSelectedAppointmentOption] =
-    React.useState<AppointmentChoice | undefined>(undefined);
+    React.useState<AppointmentChoice | undefined>(() =>
+      lockServiceId
+        ? appointmentOptions.find((option) => option._id === lockServiceId)
+        : undefined,
+    );
 
   const appointmentOptionDuration =
     selectedAppointmentOption?.durationType === "fixed"
@@ -190,7 +199,7 @@ export const Schedule: React.FC<
     React.useState<CollectPayment | null>();
 
   const [selectedMemberId, setSelectedMemberId] = React.useState<string | null>(
-    null,
+    lockMemberId ?? null,
   );
   const [isAnySpecialist, setIsAnySpecialist] = React.useState(false);
 
@@ -233,10 +242,65 @@ export const Schedule: React.FC<
   >("payment");
   const [otpDialogOpen, setOtpDialogOpen] = React.useState(false);
 
-  const initialStep: StepType = isSpecialistFirst ? "specialist" : "option";
-  const [currentStep, setCurrentStep] = React.useState<StepType>(
-    lockCustomerPackageId ? "calendar" : initialStep,
-  );
+  const initialStep: StepType = getInitialBookingStep({
+    flowOrder,
+    lockServiceId,
+    lockMemberId,
+    lockCustomerPackageId,
+    selectedOption: lockServiceId
+      ? appointmentOptions.find((option) => option._id === lockServiceId)
+      : undefined,
+    activeStaffCount: getActiveStaffForAssignments(
+      (lockServiceId
+        ? appointmentOptions.find((option) => option._id === lockServiceId)
+        : undefined
+      )?.staff,
+      members,
+      undefined,
+      undefined,
+    ).length,
+  });
+
+  const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
+  const locksBootstrapped = React.useRef(!lockServiceId && !lockMemberId);
+
+  React.useEffect(() => {
+    if (locksBootstrapped.current) return;
+    if (areAppointmentOptionsLoading) return;
+
+    const option = lockServiceId
+      ? appointmentOptions.find((item) => item._id === lockServiceId)
+      : undefined;
+
+    if (option) setSelectedAppointmentOption(option);
+    if (lockMemberId) setSelectedMemberId(lockMemberId);
+
+    setCurrentStep(
+      getInitialBookingStep({
+        flowOrder,
+        lockServiceId,
+        lockMemberId,
+        lockCustomerPackageId,
+        selectedOption: option,
+        activeStaffCount: getActiveStaffForAssignments(
+          option?.staff,
+          members,
+          undefined,
+          undefined,
+        ).length,
+      }),
+    );
+    locksBootstrapped.current = true;
+  }, [
+    areAppointmentOptionsLoading,
+    appointmentOptions,
+    lockServiceId,
+    lockMemberId,
+    lockCustomerPackageId,
+    flowOrder,
+    members,
+  ]);
+
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
     undefined,
   );
@@ -496,11 +560,50 @@ export const Schedule: React.FC<
   //   }
   // }, [initialStep, i18n]);
 
+  const didFetchInitialAvailability = React.useRef(false);
+  React.useEffect(() => {
+    if (didFetchInitialAvailability.current) return;
+    if (currentStep !== "calendar") return;
+    if (!selectedAppointmentOption) return;
+
+    const memberId =
+      selectedMemberId ??
+      (activeStaff.length === 1 ? activeStaff[0].member.id : null);
+    if (!memberId && !(isAnySpecialist && activeStaff.length > 1)) return;
+
+    didFetchInitialAvailability.current = true;
+    void fetchAvailability(memberId);
+  }, [
+    currentStep,
+    selectedAppointmentOption,
+    selectedMemberId,
+    activeStaff,
+    isAnySpecialist,
+  ]);
+
   const handleNewBooking = () => {
-    setCurrentStep(isSpecialistFirst ? "specialist" : "option");
-    setSelectedAppointmentOption(undefined);
-    setSelectedMemberId(null);
+    const option = lockServiceId
+      ? appointmentOptions.find((item) => item._id === lockServiceId)
+      : undefined;
+    setCurrentStep(
+      getInitialBookingStep({
+        flowOrder,
+        lockServiceId,
+        lockMemberId,
+        lockCustomerPackageId,
+        selectedOption: option,
+        activeStaffCount: getActiveStaffForAssignments(
+          option?.staff,
+          members,
+          undefined,
+          undefined,
+        ).length,
+      }),
+    );
+    setSelectedAppointmentOption(option);
+    setSelectedMemberId(lockMemberId ?? null);
     setIsAnySpecialist(false);
+    didFetchInitialAvailability.current = false;
     setSelectedAddons([]);
     setDuration(undefined);
     setDateTime(undefined);
@@ -622,6 +725,8 @@ export const Schedule: React.FC<
         members,
         flowOrder,
         dontAllowAnySpecialist,
+        lockServiceId,
+        lockMemberId,
         isAnySpecialist,
         setIsAnySpecialist,
         selectedMemberId,
@@ -679,7 +784,8 @@ export const Schedule: React.FC<
         setPackageBookingFlow,
         isCustomerPackageLocked: packageBookingFlow && !!customerPackageId,
         requireCustomerOtp,
-        hasActiveCustomerPackages,
+        hasActiveCustomerPackages:
+          !!hasActiveCustomerPackages && !lockServiceId,
         otpVerified,
         setOtpVerified,
         otpReturnStep,
