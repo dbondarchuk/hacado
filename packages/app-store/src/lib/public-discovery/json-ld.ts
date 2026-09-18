@@ -5,6 +5,7 @@ import type {
   ScheduleConfiguration,
   SocialConfiguration,
 } from "@hacado/types";
+import { stripMarkdown } from "@hacado/utils";
 import {
   getPublicCatalogSnapshot,
   type PublicCatalogMember,
@@ -29,6 +30,16 @@ export type JsonLdGraph = {
   "@context": "https://schema.org";
   "@graph": Record<string, unknown>[];
 };
+
+function plainTextDescription(
+  value: string | undefined | null,
+): string | undefined {
+  const trimmed = value?.trim();
+  if (!trimmed) return undefined;
+
+  const plain = stripMarkdown(trimmed).replace(/\s+/g, " ").trim();
+  return plain || undefined;
+}
 
 function businessId(websiteUrl: string) {
   return `${websiteUrl.replace(/\/$/, "")}/#business`;
@@ -81,25 +92,46 @@ function personNodes(
   });
 }
 
-function offerForService(
-  service: PublicCatalogService,
-): Record<string, unknown> | undefined {
-  if (service.price == null) {
-    return {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: service.name,
-        description: service.description,
-      },
-    };
-  }
+function toIso8601Duration(minutes: number): string | undefined {
+  if (!Number.isFinite(minutes) || minutes <= 0) return undefined;
 
+  const total = Math.round(minutes);
+  const hours = Math.floor(total / 60);
+  const mins = total % 60;
+
+  if (hours && mins) return `PT${hours}H${mins}M`;
+  if (hours) return `PT${hours}H`;
+  return `PT${mins}M`;
+}
+
+function serviceItemOffered(
+  service: PublicCatalogService,
+): Record<string, unknown> {
   const itemOffered: Record<string, unknown> = {
     "@type": "Service",
     name: service.name,
-    description: service.description,
+    description: plainTextDescription(service.description),
   };
+
+  if (service.durationType === "fixed" && service.duration != null) {
+    const timeRequired = toIso8601Duration(service.duration);
+    if (timeRequired) itemOffered.timeRequired = timeRequired;
+  }
+
+  return itemOffered;
+}
+
+function offerForService(
+  service: PublicCatalogService,
+): Record<string, unknown> | undefined {
+  const itemOffered = serviceItemOffered(service);
+
+  if (service.price == null) {
+    return {
+      "@type": "Offer",
+      itemOffered,
+    };
+  }
 
   if (service.isFromPricing) {
     const offer: Record<string, unknown> = {
@@ -108,9 +140,11 @@ function offerForService(
       priceCurrency: service.currency,
       itemOffered,
     };
+
     if (service.durationType === "flexible") {
       offer.unitText = "HOUR";
     }
+
     return offer;
   }
 
@@ -133,7 +167,7 @@ function offerForPackage(pkg: PublicCatalogPackage): Record<string, unknown> {
     )
     .join(", ");
   const descriptionParts = [
-    pkg.description?.trim(),
+    plainTextDescription(pkg.description),
     included ? `Includes ${included}` : undefined,
     pkg.validityMonths
       ? `Valid for ${pkg.validityMonths} month${pkg.validityMonths === 1 ? "" : "s"}`

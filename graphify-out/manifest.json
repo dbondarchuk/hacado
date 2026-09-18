@@ -31795,8 +31795,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/lib/public-discovery/json-ld.ts": {
-    "mtime": 1789752578.0478878,
-    "ast_hash": "e101726cf9f68c2e5f39535c96eefaa8",
+    "mtime": 1789765799.096699,
+    "ast_hash": "10e69ac8f49ec8946e73d0535ed54957",
     "semantic_hash": ""
   },
   "packages/app-store/src/lib/public-discovery/llms-txt.ts": {
