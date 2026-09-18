@@ -1,0 +1,7 @@
+app:
+  displayName: Automatic Structured Data
+  description: Helps Google and other search engines understand your business, services, and pages so you show up more clearly in search results. Works automatically with no setup.
+statusText:
+  successfully_set_up: Successfully set up Automatic Structured Data
+setup:
+  connect: Connect <app></app>

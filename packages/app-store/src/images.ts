@@ -1,3 +1,7 @@
+import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
+import { AutomaticAiDiscoveryImages } from "./apps/automatic-ai-discovery/images";
+import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
+import { AutomaticStructuredDataImages } from "./apps/automatic-structured-data/images";
 import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CaldavImages } from "./apps/caldav/images";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
@@ -30,4 +34,6 @@ export const AppImages: Record<string, string[]> = {
   [ZOOM_APP_NAME]: ZoomImages,
   [SQUARE_APP_NAME]: SquareImages,
   [STRIPE_APP_NAME]: StripeImages,
+  [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataImages,
+  [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryImages,
 };

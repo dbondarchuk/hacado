@@ -25,6 +25,9 @@ export type AppScope = Extandable<
   | "demo-arguments-provider"
   | "sitemap-items-provider"
   | "page-seo-arguments-provider"
+  | "script-provider"
+  | "page-metadata-provider"
+  | "llms-full-txt-provider"
 >;
 
 export type AppSetupProps = {

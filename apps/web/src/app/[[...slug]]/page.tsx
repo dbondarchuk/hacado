@@ -1,3 +1,12 @@
+import { AppScriptRenderer } from "@/components/app-script-renderer";
+import {
+  collectPageFooterScripts,
+  collectPageHeaderScripts,
+} from "@/utils/app-scripts";
+import {
+  collectAppPageMetadata,
+  mergeBaseAndAppMetadata,
+} from "@/utils/page-metadata";
 import { collectPageSeoArgs, resolvePageSeoFields } from "@/utils/page-seo";
 import {
   getOrganizationId,
@@ -161,6 +170,11 @@ export async function generateMetadata(
     const slugPath = params.slug?.join("/") || "home";
     const ogImageUrl =
       featuredImage || `${websiteUrl.replace(/\/$/, "")}/api/og/${slugPath}`;
+    const appMetadataParts = await collectAppPageMetadata(
+      websiteUrl,
+      page,
+      routeParams,
+    );
 
     logger.debug(
       {
@@ -171,29 +185,33 @@ export async function generateMetadata(
         doNotCombineDescription: page.doNotCombine?.description,
         doNotCombineKeywords: page.doNotCombine?.keywords,
         ogImageUrl,
+        appMetadataCount: appMetadataParts.length,
       },
       "Generated page metadata",
     );
 
-    return {
-      title,
-      description,
-      keywords,
-      icons: {
-        icon: brand.favicon || "/icon.ico",
-      },
-      openGraph: {
+    return mergeBaseAndAppMetadata(
+      {
         title,
         description,
-        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+        keywords,
+        icons: {
+          icon: brand.favicon || "/icon.ico",
+        },
+        openGraph: {
+          title,
+          description,
+          images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+        },
+        twitter: {
+          card: "summary_large_image",
+          title,
+          description,
+          images: [ogImageUrl],
+        },
       },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: [ogImageUrl],
-      },
-    };
+      appMetadataParts,
+    );
   } catch (error: any) {
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
@@ -254,6 +272,13 @@ export default async function Page(props: Props) {
       !!searchParams?.preview,
     );
 
+    const websiteUrl = await getWebsiteUrl();
+    const slugPath = routeParams.slug?.join("/") || "home";
+    const [pageHeaderScripts, pageFooterScripts] = await Promise.all([
+      collectPageHeaderScripts(websiteUrl, page, params),
+      collectPageFooterScripts(websiteUrl, page, params),
+    ]);
+
     logger.debug(
       {
         pageId: page._id,
@@ -275,7 +300,7 @@ export default async function Page(props: Props) {
       {
         pageId: page._id,
         pageTitle: page.title,
-        pageSlug: routeParams.slug?.join("/") || "home",
+        pageSlug: slugPath,
         preview: searchParams?.preview,
       },
       "Successfully rendered page",
@@ -355,6 +380,13 @@ export default async function Page(props: Props) {
 
     return (
       <>
+        {pageHeaderScripts.map((script, index) => (
+          <AppScriptRenderer
+            script={script}
+            id={`app-page-header-${index}`}
+            key={script.id || `header-${index}`}
+          />
+        ))}
         <Styling styling={styling} />
         <ReplaceOriginalColors />
         {header && (
@@ -372,6 +404,13 @@ export default async function Page(props: Props) {
             blockRegistry={blockRegistry}
           />
         )}
+        {pageFooterScripts.map((script, index) => (
+          <AppScriptRenderer
+            script={script}
+            id={`app-page-footer-${index}`}
+            key={script.id || `footer-${index}`}
+          />
+        ))}
       </>
     );
   } catch (error: any) {

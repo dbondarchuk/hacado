@@ -1,0 +1,7 @@
+app:
+  displayName: Automatic AI Discovery
+  description: Helps ChatGPT and other AI assistants find and understand your business from your website. Publishes a clear text summary of your pages, services, and team automatically.
+statusText:
+  successfully_set_up: Successfully set up Automatic AI Discovery
+setup:
+  connect: Connect <app></app>

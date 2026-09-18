@@ -14,7 +14,8 @@
     "./style": "./src/style/index.ts",
     "./style-inputs": "./src/style-inputs/index.ts",
     "./reader": "./src/reader.ts",
-    "./slots": "./src/slots-base.ts"
+    "./slots": "./src/slots-base.ts",
+    "./plain-text": "./src/plain-text/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -33,6 +34,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@hacado/builder": "*",
     "@hacado/rte": "*",
+    "@hacado/rte-inline": "*",
     "@hacado/ui": "*",
     "@hacado/ui-admin": "*",
     "@hacado/i18n": "*",

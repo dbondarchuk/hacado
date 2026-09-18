@@ -28,7 +28,8 @@
     "./payment-forms": "./src/payment-forms.tsx",
     "./exports": "./src/exports.ts",
     "./app-events": "./src/app-events/index.ts",
-    "./utils": "./src/utils.ts"
+    "./utils": "./src/utils.ts",
+    "./public-discovery": "./src/lib/public-discovery/index.ts"
   },
   "devDependencies": {
     "@hacado/eslint-config": "*",

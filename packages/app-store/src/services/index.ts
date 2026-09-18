@@ -1,6 +1,10 @@
 import { IConnectedApp, IConnectedAppProps } from "@hacado/types";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "../apps/appointment-notifications/const";
 import ScheduledNotificationsConnectedApp from "../apps/appointment-notifications/service";
+import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "../apps/automatic-ai-discovery/const";
+import { AutomaticAiDiscoveryConnectedApp } from "../apps/automatic-ai-discovery/service";
+import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "../apps/automatic-structured-data/const";
+import { AutomaticStructuredDataConnectedApp } from "../apps/automatic-structured-data/service";
 import { BLOG_APP_NAME } from "../apps/blog/const";
 import { BlogConnectedApp } from "../apps/blog/service/service";
 import { BUSY_EVENTS_APP_NAME } from "../apps/busy-events/const";
@@ -113,5 +117,9 @@ export const AvailableAppServices: Record<
   [FORMS_APP_NAME]: (props) => new FormsConnectedApp(props),
   [GIFT_CARD_STUDIO_APP_NAME]: (props) => new GiftCardStudioConnectedApp(props),
   [MY_CABINET_APP_NAME]: (props) => new MyCabinetConnectedApp(props),
+  [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: (props) =>
+    new AutomaticStructuredDataConnectedApp(props),
+  [AUTOMATIC_AI_DISCOVERY_APP_NAME]: (props) =>
+    new AutomaticAiDiscoveryConnectedApp(props),
 };
 export { AvailableApps as ServiceAvailableApps } from "../apps";

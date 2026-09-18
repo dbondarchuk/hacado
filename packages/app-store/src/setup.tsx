@@ -1,6 +1,8 @@
 import { BasicAppSetup } from "@hacado/types";
 
 // Import all setup components
+import { AutomaticAiDiscoveryAppSetup } from "./apps/automatic-ai-discovery/setup";
+import { AutomaticStructuredDataAppSetup } from "./apps/automatic-structured-data/setup";
 import { BlogAppSetup } from "./apps/blog/setup";
 import { CaldavAppSetup } from "./apps/caldav/setup";
 import { CalendarWriterAppSetup } from "./apps/calendar-writer/setup";
@@ -25,6 +27,8 @@ import { WebhooksAppSetup } from "./apps/webhooks/setup";
 import { ZoomAppSetup } from "./apps/zoom/setup";
 
 // Import app name constants
+import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
+import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
 import { BLOG_APP_NAME } from "./apps/blog/const";
 import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
@@ -81,4 +85,10 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [WEBHOOKS_APP_NAME]: (props) => <WebhooksAppSetup {...props} />,
   [ZOOM_APP_NAME]: (props) => <ZoomAppSetup {...props} />,
   [MY_CABINET_APP_NAME]: (props) => <MyCabinetAppSetup {...props} />,
+  [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: (props) => (
+    <AutomaticStructuredDataAppSetup {...props} />
+  ),
+  [AUTOMATIC_AI_DISCOVERY_APP_NAME]: (props) => (
+    <AutomaticAiDiscoveryAppSetup {...props} />
+  ),
 };

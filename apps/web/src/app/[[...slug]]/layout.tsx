@@ -1,4 +1,9 @@
+import { AppScriptRenderer } from "@/components/app-script-renderer";
 import { CookiesProvider } from "@/components/cookies-provider";
+import {
+  collectLayoutFooterScripts,
+  collectLayoutHeaderScripts,
+} from "@/utils/app-scripts";
 import {
   getOrganizationDomain,
   getOrganizationId,
@@ -9,7 +14,7 @@ import {
   sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { Resource } from "@hacado/types";
+import type { Resource } from "@hacado/types";
 import { ConfigProvider, SonnerToaster, Toaster } from "@hacado/ui";
 import {
   buildGoogleFontsUrl,
@@ -114,12 +119,11 @@ export default async function RootLayout({
     tertiaryFont,
   );
 
-  // const fontsRes = await fetch(fontsCssUrl, {
-  //   cache: "force-cache",
-  // });
-
-  // const fonts = await fontsRes.text();
   const colors = getColorsCss(styling?.colors);
+  const [appHeaderScripts, appFooterScripts] = await Promise.all([
+    collectLayoutHeaderScripts(websiteUrl),
+    collectLayoutFooterScripts(websiteUrl),
+  ]);
 
   logger.debug({ fontsCssUrl, hasColors: !!colors }, "Generated styles");
 
@@ -151,6 +155,13 @@ export default async function RootLayout({
               sizes="any"
             />
           )}
+          {appHeaderScripts.map((script, index) => (
+            <AppScriptRenderer
+              script={script}
+              id={`app-layout-header-${index}`}
+              key={script.id || index}
+            />
+          ))}
           {!!canUseScripts &&
             scripts?.header?.map((resource, index) => (
               <ScriptRenderer resource={resource} id={index} key={index} />
@@ -159,7 +170,6 @@ export default async function RootLayout({
             <CssRenderer resource={resource} id={index} key={index} />
           ))}
         </head>
-        {/* <TwLoad /> */}
         <body className="font-primary">
           <ConfigProvider
             generalConfiguration={general}
@@ -183,6 +193,13 @@ export default async function RootLayout({
                   </div>
                 )}
               </main>
+              {appFooterScripts.map((script, index) => (
+                <AppScriptRenderer
+                  script={script}
+                  id={`app-layout-footer-${index}`}
+                  key={script.id || index}
+                />
+              ))}
               {!!canUseScripts &&
                 scripts?.footer?.map((resource, index) => (
                   <ScriptRenderer resource={resource} id={index} key={index} />

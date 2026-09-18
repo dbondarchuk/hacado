@@ -2,6 +2,8 @@
 
 import {
   APPOINTMENT_NOTIFICATIONS_APP_NAME,
+  AUTOMATIC_AI_DISCOVERY_APP_NAME,
+  AUTOMATIC_STRUCTURED_DATA_APP_NAME,
   AvailableApps,
   BLOG_APP_NAME,
   CALENDAR_WRITER_APP_NAME,
@@ -760,6 +762,9 @@ export async function runCompleteInstallSetupSteps(args: {
   });
 
   const installSet = new Set<string>();
+  installSet.add(AUTOMATIC_STRUCTURED_DATA_APP_NAME);
+  installSet.add(AUTOMATIC_AI_DISCOVERY_APP_NAME);
+
   if (prefs.optCustomerEmailNotifications) {
     logger.debug(
       { appName: CUSTOMER_EMAIL_NOTIFICATION_APP_NAME },

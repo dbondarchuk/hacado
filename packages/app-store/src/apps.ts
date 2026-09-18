@@ -1,6 +1,10 @@
 import type { App } from "@hacado/types";
 import { AppointmentNotificationsApp } from "./apps/appointment-notifications/app";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
+import { AutomaticAiDiscoveryApp } from "./apps/automatic-ai-discovery/app";
+import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
+import { AutomaticStructuredDataApp } from "./apps/automatic-structured-data/app";
+import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
 import { BlogApp } from "./apps/blog/app";
 import { BLOG_APP_NAME } from "./apps/blog/const";
 import { BusyEventsApp } from "./apps/busy-events/app";
@@ -104,6 +108,8 @@ export const AvailableApps: Record<string, App> = {
   [FORMS_APP_NAME]: FormsApp,
   [GIFT_CARD_STUDIO_APP_NAME]: GiftCardStudioApp,
   [MY_CABINET_APP_NAME]: MyCabinetApp,
+  [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataApp,
+  [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryApp,
 };
 
 export { BLOG_APP_NAME } from "./apps/blog/const";
@@ -126,6 +132,8 @@ export { SQUARE_APP_NAME } from "./apps/square/const";
 export { STRIPE_APP_NAME } from "./apps/stripe/const";
 // export { S3_ASSETS_STORAGE_APP_NAME } from "./apps/s3-assets-storage/const";
 export { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
+export { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
+export { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
 export { FORMS_APP_NAME } from "./apps/forms/const";
 export { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
 export { RESEND_APP_NAME } from "./apps/resend/const";

@@ -35,6 +35,26 @@ const nextConfig = {
       source: "/sitemap.xml",
       destination: "/api/sitemap",
     },
+    {
+      source: "/llms.txt",
+      destination: "/api/llms",
+    },
+    {
+      source: "/llm.txt",
+      destination: "/api/llms",
+    },
+    {
+      source: "/llms-full.txt",
+      destination: "/api/llms-full",
+    },
+    {
+      source: "/index.md",
+      destination: "/api/page-markdown/home",
+    },
+    {
+      source: "/:path*.md",
+      destination: "/api/page-markdown/:path*",
+    },
   ],
 };
 

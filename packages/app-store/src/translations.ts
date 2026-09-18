@@ -1,5 +1,9 @@
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./apps/appointment-notifications/const";
 import { AppointmentNotificationsTranslations } from "./apps/appointment-notifications/translations";
+import { AUTOMATIC_AI_DISCOVERY_APP_NAME } from "./apps/automatic-ai-discovery/const";
+import { AutomaticAiDiscoveryTranslations } from "./apps/automatic-ai-discovery/translations";
+import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-data/const";
+import { AutomaticStructuredDataTranslations } from "./apps/automatic-structured-data/translations";
 import { BLOG_APP_NAME } from "./apps/blog/const";
 import { BlogTranslations } from "./apps/blog/translations";
 import { BUSY_EVENTS_APP_NAME } from "./apps/busy-events/const";
@@ -109,4 +113,6 @@ export const AppsTranslations: Record<
   [FORMS_APP_NAME]: FormsTranslations,
   [GIFT_CARD_STUDIO_APP_NAME]: GiftCardStudioTranslations,
   [MY_CABINET_APP_NAME]: MyCabinetTranslations,
+  [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataTranslations,
+  [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryTranslations,
 };
