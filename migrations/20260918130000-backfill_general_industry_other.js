@@ -7,33 +7,24 @@ module.exports = {
    * @param client {import('mongodb').MongoClient}
    * @returns {Promise<void>}
    */
-  async up(db, client) {
-    const session = client.startSession();
+  async up(db) {
+    const configuration = db.collection("configuration");
 
-    try {
-      await session.withTransaction(async () => {
-        const configuration = db.collection("configuration");
+    const result = await configuration.updateMany(
+      {
+        key: "general",
+        $or: [
+          { "value.industry": { $exists: false } },
+          { "value.industry": null },
+          { "value.industry": "" },
+        ],
+      },
+      { $set: { "value.industry": "other" } },
+    );
 
-        const result = await configuration.updateMany(
-          {
-            key: "general",
-            $or: [
-              { "value.industry": { $exists: false } },
-              { "value.industry": null },
-              { "value.industry": "" },
-            ],
-          },
-          { $set: { "value.industry": "other" } },
-          { session },
-        );
-
-        console.log(
-          `Backfilled general.industry=other on ${result.modifiedCount} configuration(s)`,
-        );
-      });
-    } finally {
-      await session.endSession();
-    }
+    console.log(
+      `Backfilled general.industry=other on ${result.modifiedCount} configuration(s)`,
+    );
   },
 
   /**
@@ -41,21 +32,12 @@ module.exports = {
    * @param client {import('mongodb').MongoClient}
    * @returns {Promise<void>}
    */
-  async down(db, client) {
-    const session = client.startSession();
+  async down(db) {
+    const configuration = db.collection("configuration");
 
-    try {
-      await session.withTransaction(async () => {
-        const configuration = db.collection("configuration");
-
-        await configuration.updateMany(
-          { key: "general", "value.industry": "other" },
-          { $unset: { "value.industry": "" } },
-          { session },
-        );
-      });
-    } finally {
-      await session.endSession();
-    }
+    await configuration.updateMany(
+      { key: "general", "value.industry": "other" },
+      { $unset: { "value.industry": "" } },
+    );
   },
 };

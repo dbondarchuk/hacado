@@ -58,32 +58,21 @@ module.exports = {
    * @param client {import('mongodb').MongoClient}
    * @returns {Promise<void>}
    */
-  async up(db, client) {
-    const session = client.startSession();
+  async up(db) {
     let updated = 0;
 
-    try {
-      await session.withTransaction(async () => {
-        for (const name of COLLECTIONS) {
-          const collection = db.collection(name);
-          const cursor = collection.find({}, { session });
+    for (const name of COLLECTIONS) {
+      const collection = db.collection(name);
+      const cursor = collection.find({});
 
-          for await (const doc of cursor) {
-            const { _id, ...rest } = doc;
-            const result = rewriteValue(rest);
-            if (!result.changed) continue;
+      for await (const doc of cursor) {
+        const { _id, ...rest } = doc;
+        const result = rewriteValue(rest);
+        if (!result.changed) continue;
 
-            await collection.replaceOne(
-              { _id },
-              { _id, ...(result.value) },
-              { session },
-            );
-            updated++;
-          }
-        }
-      });
-    } finally {
-      await session.endSession();
+        await collection.replaceOne({ _id }, { _id, ...result.value });
+        updated++;
+      }
     }
 
     console.log(
@@ -96,8 +85,7 @@ module.exports = {
    * @param client {import('mongodb').MongoClient}
    * @returns {Promise<void>}
    */
-  async down(db, client) {
-    const session = client.startSession();
+  async down(db) {
     const downRe = /\{\{(general|config)\.address\.formatted\}\}/g;
     const downReplacement = "{{$1.address}}";
 
@@ -141,27 +129,17 @@ module.exports = {
       return { value, changed: false };
     }
 
-    try {
-      await session.withTransaction(async () => {
-        for (const name of COLLECTIONS) {
-          const collection = db.collection(name);
-          const cursor = collection.find({}, { session });
+    for (const name of COLLECTIONS) {
+      const collection = db.collection(name);
+      const cursor = collection.find({});
 
-          for await (const doc of cursor) {
-            const { _id, ...rest } = doc;
-            const result = rewriteDown(rest);
-            if (!result.changed) continue;
+      for await (const doc of cursor) {
+        const { _id, ...rest } = doc;
+        const result = rewriteDown(rest);
+        if (!result.changed) continue;
 
-            await collection.replaceOne(
-              { _id },
-              { _id, ...(result.value) },
-              { session },
-            );
-          }
-        }
-      });
-    } finally {
-      await session.endSession();
+        await collection.replaceOne({ _id }, { _id, ...result.value });
+      }
     }
   },
 };
