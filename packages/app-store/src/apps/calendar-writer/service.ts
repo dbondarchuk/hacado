@@ -12,6 +12,7 @@ import {
   ConnectedAppStatusWithText,
   EventEnvelope,
   EventSource,
+  formatPostalAddress,
   ICalendarWriter,
   IConnectedApp,
   IConnectedAppProps,
@@ -573,7 +574,11 @@ export class CalendarWriterConnectedApp
         },
         location: {
           name: config.general.name,
-          address: config.general.address,
+          address: formatPostalAddress(
+            config.general.address,
+            config.general.country,
+            true,
+          ),
           onlineUrl: appointment.option.isOnline
             ? appointment.meetingInformation?.url
             : undefined,

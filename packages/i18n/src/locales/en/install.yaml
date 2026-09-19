@@ -113,6 +113,17 @@ wizard:
     namePlaceholder: e.g. Willow Massage Studio
     address: Business address (optional)
     addressPlaceholder: "e.g. 123 Main St, Springfield"
+    streetAddress: Street address (optional)
+    streetAddressPlaceholder: "e.g. 123 Main St"
+    addressLine2: Address line 2 (optional)
+    addressLine2Placeholder: "e.g. Suite 205E"
+    addressSearch: Find address (optional)
+    addressLocality: City (optional)
+    addressLocalityPlaceholder: City
+    addressRegion: State / region (optional)
+    addressRegionPlaceholder: State or region
+    postalCode: Postal code (optional)
+    postalCodePlaceholder: Postal or ZIP code
     slug: Public booking address
     slugPlaceholder: your-studio-name
     slugHint: "Preview: {url}"
@@ -124,8 +135,11 @@ wizard:
     slugTaken: This address is already taken.
     timeZone: Timezone
     selectTimeZone: Search timezone
-    category: Business category
-    selectCategory: Choose a category
+    category: Industry
+    selectCategory: Choose your industry
+    industry: Industry
+    selectIndustry: Choose your industry
+    industryHint: Helps search engines recognize your business and suggests service and website templates.
     saved: Workspace created
     updated: Workspace updated
     language: Website language

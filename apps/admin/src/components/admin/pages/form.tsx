@@ -249,6 +249,7 @@ export const PageForm: React.FC<{
         },
         language || config.brand.language,
         config.general.currency,
+        config.general.country,
       ),
     [
       title,

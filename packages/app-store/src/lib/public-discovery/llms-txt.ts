@@ -8,7 +8,11 @@ import type {
   ScheduleConfiguration,
   SocialConfiguration,
 } from "@hacado/types";
-import { pageSlugHasPlaceholder } from "@hacado/types";
+import {
+  formatPostalAddress,
+  getBusinessIndustryDefinition,
+  pageSlugHasPlaceholder,
+} from "@hacado/types";
 import {
   formatOfferSummary,
   formatPackageSummary,
@@ -34,6 +38,25 @@ type LlmsSiteContext = {
   members: PublicCatalogMember[];
 };
 
+function titleFromKebab(value: string): string {
+  return value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function formatIndustryProse(general: GeneralConfiguration): string {
+  const def = getBusinessIndustryDefinition(general.industry);
+  if (!def) return "";
+
+  const category = titleFromKebab(def.category);
+  if (def.id === "other" || def.id === def.category) {
+    return `Business category: ${category}`;
+  }
+
+  return `Business category: ${category} — ${titleFromKebab(def.id)}`;
+}
+
 function formatTeamProse(members: PublicCatalogMember[]): string {
   if (!members.length) return "";
 
@@ -47,15 +70,13 @@ function formatTeamProse(members: PublicCatalogMember[]): string {
 
 function formatContactProse(general: GeneralConfiguration): string {
   const lines: string[] = [];
+  const industry = formatIndustryProse(general);
+  if (industry) lines.push(industry);
   if (general.phone) lines.push(`Phone: ${general.phone}`);
   if (general.email) lines.push(`Email: ${general.email}`);
 
-  if (general.address) {
-    const address = general.country
-      ? `${general.address}, ${general.country}`
-      : general.address;
-    lines.push(`Address: ${address}`);
-  }
+  const address = formatPostalAddress(general.address, general.country);
+  if (address) lines.push(`Address: ${address}`);
 
   return lines.join("\n");
 }

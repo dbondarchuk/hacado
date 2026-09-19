@@ -9,12 +9,18 @@ import { normalizeSlug } from "@/components/install/constants";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
 import { languages, useI18n } from "@hacado/i18n/client";
-import { countryOptions, currencyOptions } from "@hacado/types";
+import {
+  businessIndustryDefinitions,
+  catalogCategoryForIndustry,
+  countryOptions,
+  currencyOptions,
+  type BusinessIndustry,
+  type PostalAddress,
+} from "@hacado/types";
 import {
   Button,
   cn,
   Combobox,
-  type IComboboxItem,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -24,22 +30,24 @@ import {
   Spinner,
   toast,
   useDebounceCallback,
+  type IComboboxItem,
 } from "@hacado/ui";
+import { AddressAutocomplete } from "@hacado/ui-admin";
 import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const timeZones: IComboboxItem[] = getTimeZones().map((zone) => ({
-  label: `GMT${zone.currentTimeFormat}`,
+  label: (
+    <span className="overflow-hidden text-nowrap min-w-0 max-w-[var(--radix-popover-trigger-width)]">
+      GMT{zone.currentTimeFormat}
+    </span>
+  ),
   value: zone.name,
 }));
 
 export function StepBusiness() {
   const t = useI18n("install");
-  const tUnsafe = t as unknown as (
-    key: string,
-    args?: Record<string, unknown>,
-  ) => string;
   const tAdmin = useI18n("admin");
   const tUi = useI18n("ui");
   const router = useRouter();
@@ -79,6 +87,7 @@ export function StepBusiness() {
   const validateStep1 = () => {
     if (!p.businessName.trim() || p.businessName.trim().length < 2)
       return false;
+    if (!p.industry) return false;
     if (slugIssue || slugCheck !== "available") return false;
     if (!p.timeZone) return false;
     if (!p.language) return false;
@@ -92,11 +101,19 @@ export function StepBusiness() {
       toast.error(t("wizard.errors.fixStep"));
       return;
     }
+
     setWorkspaceSubmitting(true);
     try {
       const body: CreateWorkspaceInput = {
         businessName: p.businessName.trim(),
-        address: p.address.trim(),
+        industry: p.industry as BusinessIndustry,
+        address: {
+          streetAddress: p.address.streetAddress?.trim() || undefined,
+          addressLine2: p.address.addressLine2?.trim() || undefined,
+          addressLocality: p.address.addressLocality?.trim() || undefined,
+          addressRegion: p.address.addressRegion?.trim() || undefined,
+          postalCode: p.address.postalCode?.trim() || undefined,
+        },
         slug: p.slug,
         timeZone: p.timeZone,
         language: p.language,
@@ -155,16 +172,6 @@ export function StepBusiness() {
               }
             }}
             placeholder={t("wizard.business.namePlaceholder")}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label>{tUnsafe("wizard.business.address")}</Label>
-          <Input
-            value={p.address}
-            onChange={(e) =>
-              setP((prev) => ({ ...prev, address: e.target.value }))
-            }
-            placeholder={tUnsafe("wizard.business.addressPlaceholder")}
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -227,55 +234,176 @@ export function StepBusiness() {
           ) : null}
         </div>
         <div className="flex flex-col gap-2">
-          <Label>{t("wizard.business.timeZone")}</Label>
+          <Label>{t("wizard.business.industry")}</Label>
           <Combobox
-            values={timeZones}
-            value={p.timeZone}
+            useCategories
+            value={p.industry || undefined}
             onItemSelect={(v) => {
               if (!v) return;
-              setP((prev) => ({ ...prev, timeZone: v }));
+              const industry = v as BusinessIndustry;
+              const catalogCategory = catalogCategoryForIndustry(industry);
+              setP((prev) => ({
+                ...prev,
+                industry,
+                ...(catalogCategory
+                  ? { businessCategory: catalogCategory }
+                  : {}),
+              }));
             }}
-            searchLabel={t("wizard.business.selectTimeZone")}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label>{t("wizard.business.language")}</Label>
-          <Combobox
-            value={p.language}
-            onItemSelect={(v) =>
-              setP((prev) => ({ ...prev, language: v as any }))
-            }
-            values={languages.map((l) => ({
-              value: l,
-              label: tAdmin(`common.labels.languages.${l}`),
+            searchLabel={t("wizard.business.selectIndustry")}
+            values={businessIndustryDefinitions.map((industry) => ({
+              value: industry.id,
+              label: tUi(`industry.${industry.id}`),
+              category: tUi(`industry.category.${industry.category}`),
             }))}
           />
+          <p className="text-sm text-muted-foreground">
+            {t("wizard.business.industryHint")}
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.timeZone")}</Label>
+            <Combobox
+              values={timeZones}
+              value={p.timeZone}
+              onItemSelect={(v) => {
+                if (!v) return;
+                setP((prev) => ({ ...prev, timeZone: v }));
+              }}
+              searchLabel={t("wizard.business.selectTimeZone")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.language")}</Label>
+            <Combobox
+              value={p.language}
+              onItemSelect={(v) =>
+                setP((prev) => ({ ...prev, language: v as any }))
+              }
+              values={languages.map((l) => ({
+                value: l,
+                label: tAdmin(`common.labels.languages.${l}`),
+              }))}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.country")}</Label>
+            <Combobox
+              value={p.country}
+              onItemSelect={(v) =>
+                setP((prev) => ({ ...prev, country: v as any }))
+              }
+              values={countryOptions.map((c) => ({
+                value: c,
+                label: tUi(`country.${c}`),
+              }))}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.currency")}</Label>
+            <Combobox
+              value={p.currency}
+              onItemSelect={(v) =>
+                setP((prev) => ({ ...prev, currency: v as any }))
+              }
+              values={currencyOptions.map((c) => ({
+                value: c,
+                label: tUi(`currency.${c}`),
+              }))}
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Label>{t("wizard.business.country")}</Label>
-          <Combobox
-            value={p.country}
-            onItemSelect={(v) =>
-              setP((prev) => ({ ...prev, country: v as any }))
+          <Label>{t("wizard.business.streetAddress")}</Label>
+          <Input
+            value={p.address.streetAddress ?? ""}
+            onChange={(e) =>
+              setP((prev) => ({
+                ...prev,
+                address: { ...prev.address, streetAddress: e.target.value },
+              }))
             }
-            values={countryOptions.map((c) => ({
-              value: c,
-              label: tUi(`country.${c}`),
-            }))}
+            placeholder={t("wizard.business.streetAddressPlaceholder")}
           />
+          <div className="text-sm text-muted-foreground">
+            <AddressAutocomplete
+              countryBias={p.country}
+              onSelect={(address: PostalAddress) => {
+                setP((prev) => ({
+                  ...prev,
+                  address: {
+                    streetAddress: address.streetAddress,
+                    addressLine2: address.addressLine2,
+                    addressLocality: address.addressLocality,
+                    addressRegion: address.addressRegion,
+                    postalCode: address.postalCode,
+                    addressCountry: address.addressCountry,
+                  },
+                  ...(address.addressCountry
+                    ? { country: address.addressCountry }
+                    : {}),
+                }));
+              }}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <Label>{t("wizard.business.currency")}</Label>
-          <Combobox
-            value={p.currency}
-            onItemSelect={(v) =>
-              setP((prev) => ({ ...prev, currency: v as any }))
-            }
-            values={currencyOptions.map((c) => ({
-              value: c,
-              label: tUi(`currency.${c}`),
-            }))}
-          />
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.addressLine2")}</Label>
+            <Input
+              value={p.address.addressLine2 ?? ""}
+              onChange={(e) =>
+                setP((prev) => ({
+                  ...prev,
+                  address: { ...prev.address, addressLine2: e.target.value },
+                }))
+              }
+              placeholder={t("wizard.business.addressLine2Placeholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.addressLocality")}</Label>
+            <Input
+              value={p.address.addressLocality ?? ""}
+              onChange={(e) =>
+                setP((prev) => ({
+                  ...prev,
+                  address: {
+                    ...prev.address,
+                    addressLocality: e.target.value,
+                  },
+                }))
+              }
+              placeholder={t("wizard.business.addressLocalityPlaceholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.addressRegion")}</Label>
+            <Input
+              value={p.address.addressRegion ?? ""}
+              onChange={(e) =>
+                setP((prev) => ({
+                  ...prev,
+                  address: { ...prev.address, addressRegion: e.target.value },
+                }))
+              }
+              placeholder={t("wizard.business.addressRegionPlaceholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>{t("wizard.business.postalCode")}</Label>
+            <Input
+              value={p.address.postalCode ?? ""}
+              onChange={(e) =>
+                setP((prev) => ({
+                  ...prev,
+                  address: { ...prev.address, postalCode: e.target.value },
+                }))
+              }
+              placeholder={t("wizard.business.postalCodePlaceholder")}
+            />
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap gap-3 items-center justify-between">

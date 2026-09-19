@@ -1,7 +1,9 @@
 import * as z from "zod";
 import { asOptionalField, zEmail, zNonEmptyString, zPhone } from "../../utils";
+import { zBusinessIndustry } from "../../utils/business-industry";
 import { zCountry } from "../../utils/country";
 import { zCurrency } from "../../utils/currency";
+import { zPostalAddress } from "../../utils/postal-address";
 import { zTimeZone } from "../../utils/zTimeZone";
 
 export const generalConfigurationSchema = z.object({
@@ -11,11 +13,12 @@ export const generalConfigurationSchema = z.object({
     64,
     "configuration.general.name.max",
   ),
+  /** Business industry for JSON-LD LocalBusiness subtype and template suggestions. */
+  industry: asOptionalField(zBusinessIndustry),
   phone: asOptionalField(zPhone),
   email: zEmail,
-  address: asOptionalField(
-    z.string().max(1024, "configuration.general.address.max"),
-  ),
+  /** Physical address (schema.org PostalAddress). */
+  address: asOptionalField(zPostalAddress),
   country: zCountry,
   currency: zCurrency,
   timeZone: zTimeZone,

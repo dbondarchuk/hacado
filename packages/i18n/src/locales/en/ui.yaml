@@ -60,6 +60,14 @@ pageSelector:
   title: Select page
   placeholder: Select page
   requestFailed: Request to fetch pages has failed
+addressAutocomplete:
+  findAddress: Find address
+  description: Prefer to look it up?
+  title: Find address
+  dialogDescription: Search and select an address to autofill the fields below.
+  search: Search by street, city, or postal code
+  empty: No addresses found
+  minCharacters: Type at least 2 characters to search
 promoCodeSelector:
   placeholder: Select promo code
   notActive: Not active
@@ -253,6 +261,68 @@ country:
   HR: Croatia
   IE: Ireland
   IT: Italy
+industry:
+  category:
+    beauty: Beauty & personal care
+    wellness: Wellness & spa
+    fitness: Fitness
+    medical: Medical & health
+    home-services: Home services
+    professional: Professional services
+    creative: Creative services
+    education: Education & training
+    coaching: Coaching
+    pet: Pet services
+    events: Events
+    meetings: Meetings & consultations
+    other: Other
+  beauty: Beauty & personal care (general)
+  beauty-salon: Beauty salon
+  hair-salon: Hair salon
+  nail-salon: Nail salon
+  tattoo-parlor: Tattoo parlor
+  wellness: Wellness & spa (general)
+  day-spa: Day spa
+  fitness: Fitness (general)
+  health-club: Health club
+  exercise-gym: Gym
+  sports-club: Sports club
+  golf-course: Golf course
+  public-swimming-pool: Swimming pool
+  medical: Medical & health (general)
+  medical-clinic: Medical clinic
+  dentist: Dentist
+  physician: Physician
+  optician: Optician
+  pharmacy: Pharmacy
+  home-services: Home services (general)
+  electrician: Electrician
+  plumber: Plumber
+  hvac: HVAC
+  house-painter: House painter
+  locksmith: Locksmith
+  moving-company: Moving company
+  roofing-contractor: Roofing contractor
+  general-contractor: General contractor
+  professional: Professional services (general)
+  attorney: Attorney
+  notary: Notary
+  accounting-service: Accounting
+  insurance-agency: Insurance agency
+  real-estate-agent: Real estate agent
+  creative: Creative services (general)
+  photography: Photography
+  art-gallery: Art gallery
+  education: Education & training
+  coaching: Coaching
+  pet: Pet services (general)
+  pet-store: Pet store / grooming
+  veterinary-care: Veterinary care
+  event: Events (general)
+  entertainment: Entertainment
+  comedy-club: Comedy club
+  meetings: Meetings & consultations
+  other: Other
 marketingFeaturesShowcase:
   learnMore: Learn more
   clickToClose: Click to close

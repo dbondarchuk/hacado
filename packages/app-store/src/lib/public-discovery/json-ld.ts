@@ -1,9 +1,12 @@
-import type {
-  BrandConfiguration,
-  GeneralConfiguration,
-  IServicesContainer,
-  ScheduleConfiguration,
-  SocialConfiguration,
+import {
+  formatPostalStreetAddress,
+  localBusinessTypeForIndustry,
+  normalizePostalAddress,
+  type BrandConfiguration,
+  type GeneralConfiguration,
+  type IServicesContainer,
+  type ScheduleConfiguration,
+  type SocialConfiguration,
 } from "@hacado/types";
 import { stripMarkdown } from "@hacado/utils";
 import {
@@ -213,7 +216,7 @@ export function buildSiteJsonLd(args: {
     .filter((offer): offer is Record<string, unknown> => !!offer);
 
   const business: Record<string, unknown> = {
-    "@type": "LocalBusiness",
+    "@type": localBusinessTypeForIndustry(general.industry),
     "@id": businessId(websiteUrl),
     name: general.name,
     description: brand.description,
@@ -226,11 +229,33 @@ export function buildSiteJsonLd(args: {
   }
   if (general.phone) business.telephone = general.phone;
   if (general.email) business.email = general.email;
-  if (general.address || general.country) {
+
+  const postalAddress = normalizePostalAddress(
+    general.address,
+    general.country,
+  );
+  if (postalAddress) {
+    const streetAddress = formatPostalStreetAddress(postalAddress);
     business.address = {
       "@type": "PostalAddress",
-      ...(general.address ? { streetAddress: general.address } : {}),
-      ...(general.country ? { addressCountry: general.country } : {}),
+      ...(streetAddress ? { streetAddress } : {}),
+      ...(postalAddress.addressLocality
+        ? { addressLocality: postalAddress.addressLocality }
+        : {}),
+      ...(postalAddress.addressRegion
+        ? { addressRegion: postalAddress.addressRegion }
+        : {}),
+      ...(postalAddress.postalCode
+        ? { postalCode: postalAddress.postalCode }
+        : {}),
+      ...(postalAddress.addressCountry
+        ? { addressCountry: postalAddress.addressCountry }
+        : {}),
+    };
+  } else if (general.country) {
+    business.address = {
+      "@type": "PostalAddress",
+      addressCountry: general.country,
     };
   }
 

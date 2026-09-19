@@ -5,8 +5,11 @@ import {
   OUTLOOK_APP_NAME,
 } from "@hacado/app-store";
 import {
+  catalogCategoryForIndustry,
   fontsNames,
+  normalizePostalAddress,
   shiftsSchema,
+  zBusinessIndustry,
   type ConnectedApp,
   type Schedule,
 } from "@hacado/types";
@@ -93,7 +96,8 @@ export function sanitizePersisted(
   if (serverWorkspace) {
     const s = serverWorkspace;
     if (s.businessName) fromDb.businessName = s.businessName;
-    if (typeof s.address === "string") fromDb.address = s.address;
+    if (s.industry) fromDb.industry = s.industry;
+    if (s.address) fromDb.address = s.address;
     if (s.slug) fromDb.slug = s.slug;
     if (s.timeZone) fromDb.timeZone = s.timeZone;
     if (s.language) fromDb.language = s.language;
@@ -186,6 +190,11 @@ export function sanitizePersisted(
       : { ...partial, ...fromDb };
 
   const merged: PersistedState = { ...base, ...partialMerged };
+  merged.address =
+    normalizePostalAddress(
+      (partialMerged as { address?: unknown }).address ?? merged.address,
+      merged.country,
+    ) ?? {};
 
   const serverRows =
     serverServices && serverServices.length > 0 ? serverServices : null;
@@ -243,6 +252,17 @@ export function sanitizePersisted(
     merged.businessCategory = seed.businessCategory;
     merged.professionId = seed.professionId;
     merged.serviceTemplateId = seed.serviceTemplateId;
+  }
+
+  const industryParsed = zBusinessIndustry.safeParse(merged.industry);
+  if (industryParsed.success) {
+    merged.industry = industryParsed.data;
+    const fromIndustry = catalogCategoryForIndustry(industryParsed.data);
+    if (fromIndustry && INSTALL_CATALOG_DATA[fromIndustry]) {
+      merged.businessCategory = fromIndustry;
+    }
+  } else {
+    merged.industry = "";
   }
 
   let prof = getCatalogProfession(merged.businessCategory, merged.professionId);

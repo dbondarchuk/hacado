@@ -2,6 +2,7 @@ import {
   Appointment,
   AppointmentStatus,
   EventAttributes,
+  formatPostalAddress,
   GeneralConfiguration,
   IcalEventMethod,
   ParticipationStatus,
@@ -42,7 +43,7 @@ export const getEventCalendarContent = (
 
   const config: CalendarEventOptions = {
     from: email,
-    address,
+    address: formatPostalAddress(address, generalConfig.country, true),
     name,
     url,
   };

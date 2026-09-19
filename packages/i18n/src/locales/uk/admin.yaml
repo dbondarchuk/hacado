@@ -2684,12 +2684,26 @@ settings:
     form:
       name: Назва бізнесу
       namePlaceholder: Назва вашого бізнесу
+      industry: Галузь
+      industryPlaceholder: Виберіть галузь
+      industryTooltip: Використовується для пошукових лістингів та оптимізації для пошукових систем.
       phone: Номер телефону бізнесу
       email: Email адреса бізнесу
       emailPlaceholder: Ваша email адреса бізнесу
       address: Адреса
-      addressTooltip: Фізична адреса офісу
+      addressTooltip: Фізична адреса офісу для сайту та пошукових лістингів
       addressPlaceholder: Фізична адреса офісу
+      streetAddress: Вулиця та будинок
+      streetAddressPlaceholder: "Напр., вул. Хрещатик, 1"
+      addressLine2: Другий рядок адреси
+      addressLine2Placeholder: "Напр., офіс 205Е"
+      addressSearch: Знайти адресу
+      addressLocality: Місто
+      addressLocalityPlaceholder: Місто
+      addressRegion: Область / регіон
+      addressRegionPlaceholder: Область або регіон
+      postalCode: Поштовий індекс
+      postalCodePlaceholder: Поштовий індекс
       country: Країна
       countryTooltip: Країна присутності
       countryPlaceholder: Вибрати країну

@@ -1,5 +1,10 @@
 import { Language } from "@hacado/i18n";
-import { Currency } from "@hacado/types";
+import {
+  Country,
+  Currency,
+  postalAddressForTemplates,
+  type PostalAddress,
+} from "@hacado/types";
 import { DateTime } from "luxon";
 import { formatAmountWithCurrency } from "./currency";
 
@@ -51,16 +56,49 @@ export type FormattedArguments<T> = {
           : T[K];
 };
 
+const POSTAL_ADDRESS_KEYS = new Set([
+  "streetAddress",
+  "addressLine2",
+  "addressLocality",
+  "addressRegion",
+  "postalCode",
+  "addressCountry",
+  "formatted",
+]);
+
+function looksLikePostalAddress(value: unknown): value is PostalAddress {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return false;
+  }
+
+  const record = value as Record<string, unknown>;
+  const keys = Object.keys(record);
+  if (!keys.length || keys.some((key) => !POSTAL_ADDRESS_KEYS.has(key))) {
+    return false;
+  }
+
+  return (
+    !!record.streetAddress ||
+    !!record.addressLine2 ||
+    !!record.addressLocality ||
+    !!record.addressRegion ||
+    !!record.postalCode ||
+    !!record.addressCountry
+  );
+}
+
 export function formatArguments<T extends Record<string, any>>(
   args: T,
   locale: Language,
   currency: Currency,
+  countryFallback: Country,
   timeZone?: string,
 ): FormattedArguments<T> {
   return processObject(
     args,
     locale,
     currency,
+    countryFallback,
     timeZone,
   ) as FormattedArguments<T>;
 }
@@ -69,6 +107,7 @@ function processObject(
   obj: any,
   locale: Language,
   currency: Currency,
+  countryFallback: Country,
   timeZone?: string,
 ): any {
   if (obj === null || obj === undefined) {
@@ -76,14 +115,30 @@ function processObject(
   }
 
   if (Array.isArray(obj)) {
-    return obj.map((item) => processObject(item, locale, currency, timeZone));
+    return obj.map((item) =>
+      processObject(item, locale, currency, countryFallback, timeZone),
+    );
   }
 
   if (typeof obj === "object" && !isDate(obj) && !isLuxonDateTime(obj)) {
     const result: Record<string, any> = {};
 
     for (const [key, value] of Object.entries(obj)) {
-      result[key] = processObject(value, locale, currency, timeZone);
+      if (looksLikePostalAddress(value)) {
+        const address = postalAddressForTemplates(value, countryFallback, true);
+        result[key] = address
+          ? processObject(address, locale, currency, countryFallback, timeZone)
+          : processObject(value, locale, currency, countryFallback, timeZone);
+        continue;
+      }
+
+      result[key] = processObject(
+        value,
+        locale,
+        currency,
+        countryFallback,
+        timeZone,
+      );
 
       // If the value is a Date or Luxon DateTime, replace with formatted object
       if (isDate(value) || isLuxonDateTime(value)) {

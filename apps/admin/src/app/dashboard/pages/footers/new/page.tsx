@@ -73,6 +73,7 @@ export default async function NewPageFooterPage(props: Props) {
     },
     brand.language,
     general.currency,
+    general.country,
   );
 
   return (

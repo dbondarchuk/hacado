@@ -64,12 +64,14 @@ function ServiceTemplateDialog({
   onPickTemplate,
   language,
   currency,
+  preferredCategoryId,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onPickTemplate: (draft: Omit<InstallServiceDraftItem, "clientId">) => void;
   language: Language;
   currency: Currency;
+  preferredCategoryId?: string;
 }) {
   const t = useI18n("install");
   const tAdmin = useI18n("admin");
@@ -103,9 +105,17 @@ function ServiceTemplateDialog({
   }, [allProfessions, query, tAny]);
 
   const shownProfessions = useMemo(() => {
-    if (!query) return allProfessions.slice(0, 4);
-    return matchedProfessions.slice(0, 6);
-  }, [allProfessions, matchedProfessions, query]);
+    if (query) return matchedProfessions.slice(0, 6);
+    if (preferredCategoryId) {
+      const preferred = allProfessions.filter(
+        (prof) => prof.categoryId === preferredCategoryId,
+      );
+
+      if (preferred.length) return preferred.slice(0, 6);
+    }
+
+    return allProfessions.slice(0, 4);
+  }, [allProfessions, matchedProfessions, preferredCategoryId, query]);
 
   const totalMatches = matchedProfessions.length;
 
@@ -529,6 +539,7 @@ export function StepService() {
         onOpenChange={setAddDialogOpen}
         language={p.language}
         currency={p.currency}
+        preferredCategoryId={p.businessCategory}
         onPickTemplate={(draft) => {
           if (!canAddMore) return;
           setP((prev) => ({

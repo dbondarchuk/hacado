@@ -6,6 +6,7 @@ import {
   AssetEntity,
   BookingConfiguration,
   BrandConfiguration,
+  Country,
   Currency,
   Customer,
   GeneralConfiguration,
@@ -63,6 +64,7 @@ type Props<
   websiteUrl: string;
   locale?: Language;
   currency?: Currency;
+  country?: Country;
   useAppointmentTimezone?: boolean;
   additionalProperties?: T;
   member?: OrganizationMember;
@@ -148,6 +150,7 @@ export const getArguments = <
   config,
   locale = config.brand.language,
   currency = config.general.currency,
+  country = config.general.country,
   useAppointmentTimezone = false,
   additionalProperties,
   adminUrl,
@@ -302,6 +305,7 @@ export const getArguments = <
     },
     locale,
     currency,
+    country,
     useAppointmentTimezone ? appointment?.timeZone : config.general.timeZone,
   ) as FormattedArguments<
     TAdditional extends undefined

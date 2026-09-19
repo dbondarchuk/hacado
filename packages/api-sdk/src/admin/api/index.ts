@@ -1,4 +1,5 @@
 import * as activities from "./activities";
+import * as addresses from "./addresses";
 import * as appointments from "./appointments";
 import * as apps from "./apps";
 import * as assets from "./assets";
@@ -34,6 +35,7 @@ export const adminApi = {
   billing,
   calendar,
   activities,
+  addresses,
   appointments,
   assets,
   payments,

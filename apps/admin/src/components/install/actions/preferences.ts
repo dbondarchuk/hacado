@@ -6,7 +6,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import { ServicesContainer } from "@hacado/services";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import { Organization } from "@hacado/types";
+import { hasPostalAddress, Organization } from "@hacado/types";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { runCompleteInstallSetupSteps } from "./complete-setup";
@@ -144,8 +144,7 @@ export async function completeInstallSetup(
     (typeof legacyGeneral.title === "string" && legacyGeneral.title.trim()) ||
     "Hacado";
 
-  const hasAddress =
-    typeof general.address === "string" && general.address.trim().length > 0;
+  const hasAddress = hasPostalAddress(general.address);
 
   const setupResult = await runCompleteInstallSetupSteps({
     services,

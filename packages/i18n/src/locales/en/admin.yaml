@@ -2816,12 +2816,26 @@ settings:
     form:
       name: Business name
       namePlaceholder: Your business name
+      industry: Industry
+      industryPlaceholder: Select industry
+      industryTooltip: Used for search listings and search engine optimization.
       phone: Business phone number
       email: Business email address
       emailPlaceholder: Your business email address
       address: Address
-      addressTooltip: Physical office address
+      addressTooltip: Physical office address used on your site and in search listings
       addressPlaceholder: Physical office address
+      streetAddress: Street address
+      streetAddressPlaceholder: "e.g. 123 Main St"
+      addressLine2: Address line 2
+      addressLine2Placeholder: "e.g. Suite 205E"
+      addressSearch: Find address
+      addressLocality: City
+      addressLocalityPlaceholder: City
+      addressRegion: State / region
+      addressRegionPlaceholder: State or region
+      postalCode: Postal code
+      postalCodePlaceholder: Postal or ZIP code
       country: Country
       countryTooltip: Country of the presence
       countryPlaceholder: Select country

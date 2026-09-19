@@ -84,7 +84,7 @@ function buildBusinessFooterBlock(): TReaderBlock {
           {
             type: "p",
             align: "center",
-            children: [muted("{{config.address}}")],
+            children: [muted("{{config.address.formatted}}")],
           },
           {
             type: "p",

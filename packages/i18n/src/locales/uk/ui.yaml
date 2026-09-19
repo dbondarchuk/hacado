@@ -60,6 +60,14 @@ pageSelector:
   title: Вибрати сторінку
   placeholder: Вибрати сторінку
   requestFailed: Запит на отримання сторінок не вдався
+addressAutocomplete:
+  findAddress: Знайти адресу
+  description: Хочете знайти адресу?
+  title: Знайти адресу
+  dialogDescription: Знайдіть і виберіть адресу, щоб заповнити поля нижче.
+  search: Пошук за вулицею, містом або індексом
+  empty: Адрес не знайдено
+  minCharacters: Введіть щонайменше 2 символи для пошуку
 promoCodeSelector:
   placeholder: Вибрати промо-код
   notActive: Не активний
@@ -253,6 +261,68 @@ country:
   HR: Хорватія
   IE: Ірландія
   IT: Італія
+industry:
+  category:
+    beauty: Краса та догляд
+    wellness: Велнес і спа
+    fitness: Фітнес
+    medical: Медицина та здоров'я
+    home-services: Домашні послуги
+    professional: Професійні послуги
+    creative: Креативні послуги
+    education: Освіта та навчання
+    coaching: Коучинг
+    pet: Послуги для тварин
+    events: Події
+    meetings: Зустрічі та консультації
+    other: Інше
+  beauty: Краса та догляд (загальне)
+  beauty-salon: Салон краси
+  hair-salon: Перукарня
+  nail-salon: Нігтьовий салон
+  tattoo-parlor: Тату-салон
+  wellness: Велнес і спа (загальне)
+  day-spa: Денне спа
+  fitness: Фітнес (загальне)
+  health-club: Фітнес-клуб
+  exercise-gym: Тренажерний зал
+  sports-club: Спортивний клуб
+  golf-course: Поле для гольфу
+  public-swimming-pool: Басейн
+  medical: Медицина та здоров'я (загальне)
+  medical-clinic: Медична клініка
+  dentist: Стоматолог
+  physician: Лікар
+  optician: Оптик
+  pharmacy: Аптека
+  home-services: Домашні послуги (загальне)
+  electrician: Електрик
+  plumber: Сантехнік
+  hvac: HVAC / клімат
+  house-painter: Маляр
+  locksmith: Слюсар
+  moving-company: Переїзди
+  roofing-contractor: Покрівельник
+  general-contractor: Генеральний підрядник
+  professional: Професійні послуги (загальне)
+  attorney: Адвокат
+  notary: Нотаріус
+  accounting-service: Бухгалтерія
+  insurance-agency: Страхова агенція
+  real-estate-agent: Рієлтор
+  creative: Креативні послуги (загальне)
+  photography: Фотографія
+  art-gallery: Художня галерея
+  education: Освіта та навчання
+  coaching: Коучинг
+  pet: Послуги для тварин (загальне)
+  pet-store: Зоомагазин / грумінг
+  veterinary-care: Ветеринарія
+  event: Події (загальне)
+  entertainment: Розваги
+  comedy-club: Комедійний клуб
+  meetings: Зустрічі та консультації
+  other: Інше
 marketingFeaturesShowcase:
   learnMore: Дізнатися більше
   clickToClose: Натисніть, щоб закрити

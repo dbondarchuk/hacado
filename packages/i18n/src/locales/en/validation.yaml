@@ -355,12 +355,24 @@ configuration:
       min: Website URL must be at least 3 characters long
     address:
       max: Address must be at most 1024 characters long
+      streetAddress:
+        max: Street address must be at most 256 characters long
+      addressLine2:
+        max: Address line 2 must be at most 128 characters long
+      addressLocality:
+        max: City must be at most 128 characters long
+      addressRegion:
+        max: State / region must be at most 128 characters long
+      postalCode:
+        max: Postal code must be at most 32 characters long
     domain:
       invalid: Domain must be a valid domain name
     currency:
       invalid: Invalid currency
     country:
       invalid: Invalid country
+    industry:
+      invalid: Invalid industry
   brand:
     title:
       min: Site title must be at least 3 characters long

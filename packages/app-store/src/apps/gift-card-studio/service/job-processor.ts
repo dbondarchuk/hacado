@@ -3,6 +3,8 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
   ConnectedAppData,
+  formatPostalAddress,
+  hasPostalAddress,
   IServicesContainer,
 } from "@hacado/types";
 import {
@@ -385,12 +387,17 @@ export class GiftCardStudioJobProcessor {
 
         y += 26;
 
-        if (general.address || general.phone) {
+        if (hasPostalAddress(general.address) || general.phone) {
           doc.fontSize(10).fillColor("#555555");
-          doc.text(general.address ?? "", leftX, y, {
-            width: contentWidth / 2,
-            align: "left",
-          });
+          doc.text(
+            formatPostalAddress(general.address, general.country, true),
+            leftX,
+            y,
+            {
+              width: contentWidth / 2,
+              align: "left",
+            },
+          );
           y += 14;
           if (general.phone) {
             doc.text(general.phone, leftX, y, {

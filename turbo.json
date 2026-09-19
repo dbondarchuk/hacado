@@ -107,7 +107,8 @@
     "SMS_LINK_SHORTENING_ENABLED",
     "MARKETING_URL",
     "UNSPLASH_ACCESS_KEY",
-    "PEXELS_API_KEY"
+    "PEXELS_API_KEY",
+    "GEOAPIFY_API_KEY"
   ],
   "tasks": {
     "build": {

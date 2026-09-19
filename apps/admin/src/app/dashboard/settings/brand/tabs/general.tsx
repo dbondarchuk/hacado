@@ -2,8 +2,12 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
+import type {
+  OrganizationBillingSubscriptionDetails,
+  PostalAddress,
+} from "@hacado/types";
 import {
+  businessIndustryDefinitions,
   countryOptions,
   Currency,
   currencyOptions,
@@ -17,6 +21,7 @@ import {
   CardTitle,
   Combobox,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,6 +31,7 @@ import {
   Input,
   PhoneInput,
 } from "@hacado/ui";
+import { AddressAutocomplete } from "@hacado/ui-admin";
 import { UseFormReturn } from "react-hook-form";
 import { SiteSettingsFormValues } from "../site-settings-schema";
 import { GeneralBillingCard } from "./general-billing-card";
@@ -38,6 +44,44 @@ export const GeneralTab: React.FC<{
 }> = ({ form, loading, timeZoneValues, billingSubscriptionDetails }) => {
   const t = useI18n("admin");
   const tUI = useI18n("ui");
+
+  const applyAddressSuggestion = (address: PostalAddress) => {
+    form.setValue(
+      "general.address.streetAddress",
+      address.streetAddress ?? "",
+      {
+        shouldDirty: true,
+      },
+    );
+
+    form.setValue("general.address.addressLine2", address.addressLine2 ?? "", {
+      shouldDirty: true,
+    });
+
+    form.setValue(
+      "general.address.addressLocality",
+      address.addressLocality ?? "",
+      { shouldDirty: true },
+    );
+
+    form.setValue(
+      "general.address.addressRegion",
+      address.addressRegion ?? "",
+      {
+        shouldDirty: true,
+      },
+    );
+
+    form.setValue("general.address.postalCode", address.postalCode ?? "", {
+      shouldDirty: true,
+    });
+
+    if (address.addressCountry) {
+      form.setValue("general.country", address.addressCountry, {
+        shouldDirty: true,
+      });
+    }
+  };
 
   return (
     <>
@@ -68,22 +112,32 @@ export const GeneralTab: React.FC<{
             />
             <FormField
               control={form.control}
-              name="general.address"
+              name="general.industry"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {t("settings.general.form.address")}{" "}
+                    {t("settings.general.form.industry")}{" "}
                     <InfoTooltip>
-                      {t("settings.general.form.addressTooltip")}
+                      {t("settings.general.form.industryTooltip")}
                     </InfoTooltip>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder={t(
-                        "settings.general.form.addressPlaceholder",
+                    <Combobox
+                      useCategories
+                      values={businessIndustryDefinitions.map((industry) => ({
+                        label: tUI(`industry.${industry.id}`),
+                        value: industry.id,
+                        category: tUI(`industry.category.${industry.category}`),
+                      }))}
+                      searchLabel={t(
+                        "settings.general.form.industryPlaceholder",
                       )}
-                      {...field}
+                      disabled={loading}
+                      value={field.value}
+                      onItemSelect={(value) => {
+                        field.onChange(value);
+                        field.onBlur();
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -224,6 +278,124 @@ export const GeneralTab: React.FC<{
                         field.onChange(value);
                         field.onBlur();
                       }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="general.address.streetAddress"
+              render={({ field }) => (
+                <FormItem className="md:col-span-2">
+                  <FormLabel>
+                    {t("settings.general.form.streetAddress")}{" "}
+                    <InfoTooltip>
+                      {t("settings.general.form.addressTooltip")}
+                    </InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder={t(
+                        "settings.general.form.streetAddressPlaceholder",
+                      )}
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <FormDescription>
+                    <AddressAutocomplete
+                      disabled={loading}
+                      countryBias={form.watch("general.country")}
+                      onSelect={applyAddressSuggestion}
+                    />
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="general.address.addressLine2"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("settings.general.form.addressLine2")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder={t(
+                        "settings.general.form.addressLine2Placeholder",
+                      )}
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="general.address.addressLocality"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("settings.general.form.addressLocality")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder={t(
+                        "settings.general.form.addressLocalityPlaceholder",
+                      )}
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="general.address.addressRegion"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    {t("settings.general.form.addressRegion")}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder={t(
+                        "settings.general.form.addressRegionPlaceholder",
+                      )}
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="general.address.postalCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("settings.general.form.postalCode")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder={t(
+                        "settings.general.form.postalCodePlaceholder",
+                      )}
+                      {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormMessage />

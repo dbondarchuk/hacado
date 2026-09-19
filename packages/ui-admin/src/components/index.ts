@@ -1,4 +1,5 @@
 export * from "./addon-selector";
+export * from "./address-autocomplete";
 export * from "./app-selector";
 export * from "./appointment-selector";
 export * from "./arguments-autocomplete";

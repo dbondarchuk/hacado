@@ -19,6 +19,8 @@ import { getLoggerFactory } from "@hacado/logger";
 import { ServicesContainer } from "@hacado/services";
 import {
   fontName,
+  normalizePostalAddress,
+  zBusinessIndustry,
   zCountry,
   zCurrency,
   zTimeZone,
@@ -44,6 +46,7 @@ const installGeneralWorkspaceSchema = z.object({
   language: z.enum(languages),
   country: zCountry,
   currency: zCurrency,
+  industry: zBusinessIndustry.optional(),
 });
 
 const installInviteModeSchema = z.enum(["none", "email", "calendar_writer"]);
@@ -117,11 +120,16 @@ export async function getInstallWorkspaceSnapshot(): Promise<InstallWorkspaceSer
     language: installLanguage,
     country: general?.country,
     currency: general?.currency,
+    industry: general?.industry,
   });
 
   const out: InstallWorkspaceServerState = {};
   if (businessName) out.businessName = businessName;
-  if (typeof general?.address === "string") out.address = general.address;
+  if (typeof general?.address === "string" || general?.address) {
+    const normalized = normalizePostalAddress(general.address, general.country);
+    if (normalized) out.address = normalized;
+  }
+
   if (slug && !slug.startsWith("pending-")) out.slug = slug;
   if (generalPick.success) Object.assign(out, generalPick.data);
 

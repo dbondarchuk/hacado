@@ -13,12 +13,15 @@ import { getDbConnection } from "@hacado/services/database";
 import {
   brandConfigurationSchema,
   generalConfigurationSchema,
+  normalizePostalAddress,
+  zBusinessIndustry,
   zCountry,
   zCurrency,
   zTimeZone,
   type ConfigurationOption,
   type Organization,
   type OrganizationMember,
+  type PostalAddress,
 } from "@hacado/types";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
@@ -32,7 +35,17 @@ import {
 
 const workspaceInputSchema = z.object({
   businessName: z.string().min(2).max(128),
-  address: z.string().trim().max(256).optional().default(""),
+  industry: zBusinessIndustry,
+  address: z
+    .object({
+      streetAddress: z.string().trim().max(256).optional(),
+      addressLine2: z.string().trim().max(128).optional(),
+      addressLocality: z.string().trim().max(128).optional(),
+      addressRegion: z.string().trim().max(128).optional(),
+      postalCode: z.string().trim().max(32).optional(),
+    })
+    .optional()
+    .default({}),
   slug: z
     .string()
     .min(ORGANIZATION_SLUG_MIN_LENGTH)
@@ -176,9 +189,14 @@ export async function createWorkspace(
     "Resolved organization for workspace",
   );
 
+  const address = normalizePostalAddress(parsed.address, parsed.country) as
+    | PostalAddress
+    | undefined;
+
   const generalValue = generalConfigurationSchema.parse({
     name: parsed.businessName,
-    address: parsed.address || "",
+    industry: parsed.industry,
+    address,
     email: session.user.email,
     phone: session.user.phone,
     country: parsed.country,

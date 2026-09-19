@@ -1037,7 +1037,7 @@ export const footerDefaultPage = (
                                                                 type: "paragraph",
                                                                 content: [
                                                                   {
-                                                                    text: "{{general.address}}",
+                                                                    text: "{{general.address.formatted}}",
                                                                   },
                                                                 ],
                                                               },

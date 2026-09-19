@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
 import { saveSiteSettingsAction } from "./actions";
 import {
   siteSettingsFormSchema,
@@ -58,7 +58,9 @@ export const SiteSettingsForm: React.FC<{
   const router = useRouter();
 
   const form = useForm<SiteSettingsFormValues>({
-    resolver: zodResolver(siteSettingsFormSchema),
+    resolver: zodResolver(
+      siteSettingsFormSchema,
+    ) as Resolver<SiteSettingsFormValues>,
     mode: "all",
     reValidateMode: "onChange",
     values,

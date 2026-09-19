@@ -46,7 +46,8 @@ export function emptyPersisted(
   return {
     step: 1,
     businessName: "",
-    address: "",
+    industry: "",
+    address: {},
     slug: "",
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
     businessCategory: seed.businessCategory,

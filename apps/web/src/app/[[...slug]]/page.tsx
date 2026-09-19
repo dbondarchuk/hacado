@@ -348,6 +348,7 @@ export default async function Page(props: Props) {
       args,
       rest.language || brand.language,
       general.currency,
+      general.country,
     );
 
     const apps =

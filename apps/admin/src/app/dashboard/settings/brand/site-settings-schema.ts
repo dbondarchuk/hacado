@@ -1,6 +1,7 @@
 import {
   brandConfigurationSchema,
   generalConfigurationSchema,
+  Prettify,
   socialConfigurationSchema,
   stylingConfigurationSchema,
 } from "@hacado/types";
@@ -13,4 +14,6 @@ export const siteSettingsFormSchema = z.object({
   styling: stylingConfigurationSchema,
 });
 
-export type SiteSettingsFormValues = z.infer<typeof siteSettingsFormSchema>;
+export type SiteSettingsFormValues = Prettify<
+  z.infer<typeof siteSettingsFormSchema>
+>;

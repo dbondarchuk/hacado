@@ -1,5 +1,11 @@
 import type { Language } from "@hacado/i18n";
-import type { Country, Currency, Schedule } from "@hacado/types";
+import type {
+  BusinessIndustry,
+  Country,
+  Currency,
+  PostalAddress,
+  Schedule,
+} from "@hacado/types";
 
 export type WizardStep = "verify" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -37,7 +43,9 @@ export type InstallServiceServerSnapshot = {
 export type PersistedState = {
   step: WizardStep;
   businessName: string;
-  address: string;
+  /** Business industry (general configuration); drives template suggestions. */
+  industry: BusinessIndustry | "";
+  address: PostalAddress;
   slug: string;
   timeZone: string;
   businessCategory: string;
@@ -98,6 +106,7 @@ export type InstallWorkspaceServerState = Partial<
   Pick<
     PersistedState,
     | "businessName"
+    | "industry"
     | "address"
     | "slug"
     | "timeZone"

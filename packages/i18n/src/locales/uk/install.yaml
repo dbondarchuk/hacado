@@ -111,6 +111,17 @@ wizard:
     namePlaceholder: "Напр., Студія масажу «Верба»"
     address: Адреса бізнесу (необов'язково)
     addressPlaceholder: "Напр., вул. Головна, 123, Київ"
+    streetAddress: Вулиця та будинок (необов'язково)
+    streetAddressPlaceholder: "Напр., вул. Хрещатик, 1"
+    addressLine2: Другий рядок адреси (необов'язково)
+    addressLine2Placeholder: "Напр., офіс 205Е"
+    addressSearch: Знайти адресу (необов'язково)
+    addressLocality: Місто (необов'язково)
+    addressLocalityPlaceholder: Місто
+    addressRegion: Область / регіон (необов'язково)
+    addressRegionPlaceholder: Область або регіон
+    postalCode: Поштовий індекс (необов'язково)
+    postalCodePlaceholder: Поштовий індекс
     slug: Публічна адреса бронювання
     slugPlaceholder: vasha-studiya
     slugHint: "Перегляд: {url}"
@@ -122,8 +133,11 @@ wizard:
     slugTaken: Ця адреса вже зайнята.
     timeZone: Часовий пояс
     selectTimeZone: Пошук часового поясу
-    category: Категорія бізнесу
-    selectCategory: Оберіть категорію
+    category: Галузь
+    selectCategory: Оберіть галузь
+    industry: Галузь
+    selectIndustry: Оберіть галузь
+    industryHint: Допомагає пошуковим системам розпізнати ваш бізнес і пропонує шаблони послуг і сайту.
     language: Мова веб-сайту
     country: Країна
     currency: Валюта

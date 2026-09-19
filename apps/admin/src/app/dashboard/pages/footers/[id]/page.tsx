@@ -80,6 +80,7 @@ export default async function EditPageFooterPage(props: Props) {
     },
     brand.language,
     general.currency,
+    general.country,
   );
 
   return (
