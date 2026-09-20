@@ -55,6 +55,7 @@ export const SiteSettingsForm: React.FC<{
   billingSubscriptionDetails,
 }) => {
   const t = useI18n("admin");
+  const tValidation = useI18n("validation");
   const router = useRouter();
 
   const form = useForm<SiteSettingsFormValues>({
@@ -75,13 +76,26 @@ export const SiteSettingsForm: React.FC<{
         (async () => {
           const result = await saveSiteSettingsAction(data);
           if (!result.ok) {
+            if (result.code === "invalid_favicon") {
+              form.setError("brand.favicon", {
+                type: "manual",
+                message: "common.favicon.invalid",
+              });
+            }
+
             throw new Error(result.code);
           }
           return result;
         })(),
         {
           success: t("settings.brand.form.toasts.changesSaved"),
-          error: t("settings.brand.form.toasts.requestError"),
+          error: (err) => {
+            if (err instanceof Error && err.message === "invalid_favicon") {
+              return tValidation("common.favicon.invalid");
+            }
+
+            return t("settings.brand.form.toasts.requestError");
+          },
         },
       );
       if (data.brand.language !== initialBrandLanguage && window?.location) {

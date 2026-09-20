@@ -1025,8 +1025,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/actions.ts": {
-    "mtime": 1786820408.7831948,
-    "ast_hash": "4be9a528840f11036bf4d5b95c1423fb",
+    "mtime": 1789920568.4485483,
+    "ast_hash": "6d6db227544b0c4bf4d92659b9e1da86",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/page.tsx": {
@@ -1035,8 +1035,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/site-settings-form.tsx": {
-    "mtime": 1789771433.2453427,
-    "ast_hash": "aa49c14febb60a0d4633531953005348",
+    "mtime": 1789921172.065276,
+    "ast_hash": "fd3824d50f5c083165d0b9b73d703c04",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/site-settings-schema.ts": {
@@ -1055,8 +1055,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/brand.tsx": {
-    "mtime": 1786820408.786704,
-    "ast_hash": "1bb6ced681dfe48938fbd8eb3d50cd7d",
+    "mtime": 1789920734.6904466,
+    "ast_hash": "6e086121b5b826380facf0d728a4d68b",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/general-billing-card.tsx": {
@@ -1065,8 +1065,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/general.tsx": {
-    "mtime": 1789778890.2347858,
-    "ast_hash": "c5b5497abf74e9c1201b9bdeb767947a",
+    "mtime": 1789784751.454456,
+    "ast_hash": "7e6ca030a415c75f6de0c3f8b7bd3e0e",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/sms-topup-purchase-dialog.tsx": {
@@ -2065,8 +2065,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/personalization.ts": {
-    "mtime": 1786820408.9034925,
-    "ast_hash": "f698e7cffdcd6e4a5aa036dcbb9c78c7",
+    "mtime": 1789921308.37535,
+    "ast_hash": "a9ee11fbfc675e76cacc341643a140d2",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/preferences.ts": {
@@ -2180,8 +2180,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-business.tsx": {
-    "mtime": 1789778890.646955,
-    "ast_hash": "0b9dfd69fbbf22fad99ac77dd2664e75",
+    "mtime": 1789787319.8132772,
+    "ast_hash": "950941c6dd60604e1e64f867b176c362",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-finish.tsx": {
@@ -2530,8 +2530,8 @@
     "semantic_hash": ""
   },
   "apps/web/next.config.mjs": {
-    "mtime": 1789744884.05345,
-    "ast_hash": "6f2f5d807eafe94a68299fa2598a37e9",
+    "mtime": 1789920407.0248458,
+    "ast_hash": "95a79d0eee85ba89df7b43b8fe4705e2",
     "semantic_hash": ""
   },
   "apps/web/package.json": {
@@ -2555,18 +2555,18 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/layout.tsx": {
-    "mtime": 1789753671.689311,
-    "ast_hash": "1e94a2a81d453e525e842c41b88865cd",
+    "mtime": 1789920463.041337,
+    "ast_hash": "bca5367ffd911ae10d9a65e12b1ec228",
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/not-found.tsx": {
-    "mtime": 1786820408.9749968,
-    "ast_hash": "62595cc40de43794bf5e77f8c3036bd9",
+    "mtime": 1789921849.8331132,
+    "ast_hash": "5d4d6bb4b3f8e16646c59c208e6c2c6c",
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/page.tsx": {
-    "mtime": 1789770430.0052853,
-    "ast_hash": "602f74653c82bd1a13839ed07a3a5c33",
+    "mtime": 1789921849.3499148,
+    "ast_hash": "c7acca55f6353b271d54841ed8fd96c4",
     "semantic_hash": ""
   },
   "apps/web/src/app/admin/[[...slug]]/route.ts": {
@@ -4810,8 +4810,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/calendar-writer/service.ts": {
-    "mtime": 1789767722.2570693,
-    "ast_hash": "240b8fa6d16ef20b6c267c17c1e4c7f5",
+    "mtime": 1789785583.7286377,
+    "ast_hash": "0598e0349172e705fc5fa64497658361",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/calendar-writer/setup.tsx": {
@@ -5700,8 +5700,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/job-processor.ts": {
-    "mtime": 1789767258.6588645,
-    "ast_hash": "2b7969288c41dc27d02867c347f9b7e9",
+    "mtime": 1789785574.7395952,
+    "ast_hash": "4f75c68a30d7b96175a2a4f9a3b01bcd",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/repository-service.ts": {
@@ -8720,8 +8720,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/header/logo.tsx": {
-    "mtime": 1789413474.211661,
-    "ast_hash": "a1426f89423eb129762b31ec6cff3f9f",
+    "mtime": 1789787681.017985,
+    "ast_hash": "f36b78afdb54787ba9efa7efef3dd199",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/helpers/class-name-generator.tsx": {
@@ -13700,8 +13700,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/pages/page.ts": {
-    "mtime": 1786820409.9660556,
-    "ast_hash": "a4fe3590765c9bfc8384fdaf9414148c",
+    "mtime": 1789923106.0923238,
+    "ast_hash": "8b72b60300d8214e8d814fd552b4b85b",
     "semantic_hash": ""
   },
   "packages/types/src/services/activity.service.ts": {
@@ -14170,8 +14170,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/asset-selector-input.tsx": {
-    "mtime": 1788205272.5823195,
-    "ast_hash": "73868057696ad7e04068cded9703d18c",
+    "mtime": 1789921919.4090576,
+    "ast_hash": "ed52b6feaadad14b6de8a7b81cb31027",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/assets-selector-dialog.tsx": {
@@ -15120,8 +15120,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/email.ts": {
-    "mtime": 1789769186.8157146,
-    "ast_hash": "2d5682f6650fc73f91d181fb7409bab6",
+    "mtime": 1789785603.6640668,
+    "ast_hash": "9609d26834c8c32ae78b996e72f6ebab",
     "semantic_hash": ""
   },
   "packages/utils/src/fetch-with-json.ts": {
@@ -15150,8 +15150,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/format-arguments.ts": {
-    "mtime": 1789771879.9319487,
-    "ast_hash": "39b0949b08d48c017b3a97761ec009a2",
+    "mtime": 1789785510.1812751,
+    "ast_hash": "4fa15d44c8b3e24a493d06c823e34530",
     "semantic_hash": ""
   },
   "packages/utils/src/get-arguments.ts": {
@@ -15170,8 +15170,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/index.ts": {
-    "mtime": 1789232543.0974028,
-    "ast_hash": "12f0b0326bd8c5ae32f997ac066e75a5",
+    "mtime": 1789921337.5683138,
+    "ast_hash": "bb778cd4b1c1ac4b5f46f81a5ba40fc9",
     "semantic_hash": ""
   },
   "packages/utils/src/markdown.ts": {
@@ -16085,8 +16085,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1789772247.83093,
-    "ast_hash": "f32789492a5ce50d488873763848538c",
+    "mtime": 1789920595.4519665,
+    "ast_hash": "2068908e1b74daf0351542441759d2f6",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16110,18 +16110,18 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/ui.yaml": {
-    "mtime": 1789778878.0244677,
-    "ast_hash": "5f1850dc5acffcd943a87385bc019e38",
+    "mtime": 1789920600.0927298,
+    "ast_hash": "1225ee123f6437aa69f3cdf24bf6b6a3",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/validation.yaml": {
-    "mtime": 1789771938.6375315,
-    "ast_hash": "8d5ae6424dd31721e5f339832912463c",
+    "mtime": 1789920603.5586495,
+    "ast_hash": "f06c643f6a8347cdb426e8041a942257",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1789772248.6766264,
-    "ast_hash": "7c2a336135860695a48158e7cc72318e",
+    "mtime": 1789920599.713911,
+    "ast_hash": "28c97e6cf8be2df26ca1eefdbd79c9a9",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -16145,13 +16145,13 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/ui.yaml": {
-    "mtime": 1789778883.8362014,
-    "ast_hash": "98423df01429db2908504925c9d72148",
+    "mtime": 1789920609.1885495,
+    "ast_hash": "b53f4b338143ee0610f4e350063e316c",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/validation.yaml": {
-    "mtime": 1789771938.8143277,
-    "ast_hash": "c9b14badfc4e77a3e6c08c7ad5b7c005",
+    "mtime": 1789920621.148558,
+    "ast_hash": "e662691f85db42f6f0ec37aec58c454f",
     "semantic_hash": ""
   },
   "apps/admin/public/email-logo-dark.png": {
@@ -25729,11 +25729,6 @@
     "ast_hash": "5fa92a82f690c3428896192788936705",
     "semantic_hash": ""
   },
-  "apps/web/public/next.svg": {
-    "mtime": 1773675371.042997,
-    "ast_hash": "8e061864f388b47f33a1c3780831193e",
-    "semantic_hash": ""
-  },
   "apps/web/public/screenshots/app-store.png": {
     "mtime": 1774237709.4972007,
     "ast_hash": "b264e8f1aa3166a9079eef09fbfff448",
@@ -25767,11 +25762,6 @@
   "apps/web/public/unknown-person.png": {
     "mtime": 1773675371.0434933,
     "ast_hash": "df7c99f468da5cfd8095dd782f1f72b1",
-    "semantic_hash": ""
-  },
-  "apps/web/public/vercel.svg": {
-    "mtime": 1773675371.0454931,
-    "ast_hash": "61c6b19abff40ea7acd577be818f3976",
     "semantic_hash": ""
   },
   "docs/static/img/docusaurus.png": {
@@ -31910,28 +31900,28 @@
     "semantic_hash": ""
   },
   "migrations/20260918130000-backfill_general_industry_other.js": {
-    "mtime": 1789766990.3845527,
-    "ast_hash": "65dec7de019f896f2fc9b026d8b7fa3e",
+    "mtime": 1789835624.1213932,
+    "ast_hash": "5eba0724f63e03b742fad30ed22ea0fb",
     "semantic_hash": ""
   },
   "migrations/20260918140000-general_address_to_postal_address.js": {
-    "mtime": 1789767268.8596113,
-    "ast_hash": "3cba12e31ce0f0b22a57b72c8a7919e2",
+    "mtime": 1789835634.4927628,
+    "ast_hash": "f0b0ef257c7482e8ac467da57fe4f815",
     "semantic_hash": ""
   },
   "packages/types/src/utils/postal-address.ts": {
-    "mtime": 1789772207.6032586,
-    "ast_hash": "949e216e19d40a5033d3c294b6724c69",
+    "mtime": 1789785498.5571206,
+    "ast_hash": "db15a477987856fcf7a5326dbd4c7972",
     "semantic_hash": ""
   },
   "migrations/20260918150000-address_template_formatted_placeholder.js": {
-    "mtime": 1789769381.2333689,
-    "ast_hash": "09b6b2d62db025506a81f7af6818bdb6",
+    "mtime": 1789835634.6023593,
+    "ast_hash": "5cbab5f1c0093fc151f0996065abfd5b",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/addresses/suggestions/route.ts": {
-    "mtime": 1789773703.6276748,
-    "ast_hash": "093c7fdd2da21a06b75e61db705ef16e",
+    "mtime": 1789785767.4050584,
+    "ast_hash": "318ec754ad2c5b4a78a1b596bf9e3bd7",
     "semantic_hash": ""
   },
   "packages/api-sdk/src/admin/api/addresses.ts": {
@@ -31950,8 +31940,38 @@
     "semantic_hash": ""
   },
   "apps/admin/src/utils/geoapify.service.ts": {
-    "mtime": 1789773701.9044397,
-    "ast_hash": "83ba78cdad515dd28efa1d2786cdc0a3",
+    "mtime": 1789785767.4050584,
+    "ast_hash": "cce984221e08a13b669930b4c179ea35",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/lib/validate-favicon.ts": {
+    "mtime": 1789921396.618832,
+    "ast_hash": "95185cccff75d2305766f3fdc422caf1",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/api/favicon/route.ts": {
+    "mtime": 1789920477.6995003,
+    "ast_hash": "ffe66c2c321e00f8763e1e6cdaf3ebfe",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/apple-icon.tsx": {
+    "mtime": 1789921810.0683923,
+    "ast_hash": "f4b379df9fda5c71c8977cb7646cfebb",
+    "semantic_hash": ""
+  },
+  "apps/web/src/app/icon.tsx": {
+    "mtime": 1789921808.1295106,
+    "ast_hash": "122c2f3c0da63d60c709bb70c4e80e9d",
+    "semantic_hash": ""
+  },
+  "apps/web/src/utils/site-icons.ts": {
+    "mtime": 1789922429.0992532,
+    "ast_hash": "c67d22951fcf5d97105950bb4978ecdc",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/favicon.ts": {
+    "mtime": 1789920499.3806984,
+    "ast_hash": "fa5ecff5bc98971bbfee50b71e44a733",
     "semantic_hash": ""
   }
 }

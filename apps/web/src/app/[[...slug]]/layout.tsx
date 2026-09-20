@@ -147,14 +147,6 @@ export default async function RootLayout({
           `,
             }}
           />
-          {brand.favicon && (
-            <link
-              rel="icon"
-              href={brand.favicon}
-              type="image/x-icon"
-              sizes="any"
-            />
-          )}
           {appHeaderScripts.map((script, index) => (
             <AppScriptRenderer
               script={script}

@@ -8,6 +8,7 @@ import {
   mergeBaseAndAppMetadata,
 } from "@/utils/page-metadata";
 import { collectPageSeoArgs, resolvePageSeoFields } from "@/utils/page-seo";
+import { buildSiteIconsMetadata } from "@/utils/site-icons";
 import {
   getOrganizationId,
   getServicesContainer,
@@ -195,9 +196,7 @@ export async function generateMetadata(
         title,
         description,
         keywords,
-        icons: {
-          icon: brand.favicon || "/icon.ico",
-        },
+        icons: await buildSiteIconsMetadata(),
         openGraph: {
           title,
           description,

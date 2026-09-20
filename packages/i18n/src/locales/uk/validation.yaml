@@ -22,6 +22,12 @@ common:
     invalid: Повинно бути дійсним ім'ям або URL ресурсу
     minLength: Ім'я ресурсу повинне містити щонайменше 3 символи
     maxLength: Ім'я ресурсу повинне містити щонайбільше 1024 символів
+  favicon:
+    notSquare: Favicon має бути квадратним зображенням
+    tooSmall: Favicon має бути щонайменше 512×512 пікселів
+    unsupportedType: Favicon має бути PNG, JPEG, WebP, GIF або SVG
+    unreadable: Не вдалося прочитати зображення favicon
+    invalid: Favicon має бути квадратним зображенням щонайменше 512×512px або SVG
 assets:
   fileRequired: Файл повинен бути прикріплений
   fileNameMinLength: Назва файлу повинна містити щонайменше 3 символи

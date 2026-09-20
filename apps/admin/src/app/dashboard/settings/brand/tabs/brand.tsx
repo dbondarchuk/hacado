@@ -273,13 +273,29 @@ export const BrandTab: React.FC<{
                     <FormControl>
                       <AssetSelectorInput
                         value={field.value}
-                        onChange={field.onChange}
+                        onChange={(next) => {
+                          form.clearErrors("brand.favicon");
+                          field.onChange(next);
+                        }}
                         onBlur={field.onBlur}
                         disabled={loading}
                         placeholder={t(
                           "settings.brand.form.faviconPlaceholder",
                         )}
-                        accept="image/*"
+                        accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                        imageConstraints={{ square: true, minSize: 512 }}
+                        onConstraintError={(code) => {
+                          const keyMap = {
+                            not_square: "common.favicon.notSquare",
+                            too_small: "common.favicon.tooSmall",
+                            unsupported_type: "common.favicon.unsupportedType",
+                            unreadable: "common.favicon.unreadable",
+                          } as const;
+                          form.setError("brand.favicon", {
+                            type: "manual",
+                            message: keyMap[code],
+                          });
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

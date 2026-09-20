@@ -2,6 +2,7 @@
 
 import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
+import { validateFaviconValue } from "@/lib/validate-favicon";
 import { getLoggerFactory } from "@hacado/logger";
 import { ServicesContainer } from "@hacado/services";
 import {
@@ -84,6 +85,7 @@ export async function applyInstallPersonalization(
     newStyling,
     eventSource,
   );
+
   logger.debug({ organizationId }, "Applied styling configuration");
 
   const brand = await services.configurationService.getConfiguration("brand");
@@ -91,10 +93,32 @@ export async function applyInstallPersonalization(
     logger.error({ organizationId }, "Brand configuration not found");
     return { ok: false, code: "no_brand" };
   }
+
+  let favicon = brand.favicon;
+  if (logo) {
+    const faviconValidation = await validateFaviconValue(
+      logo,
+      services.assetsService,
+    );
+
+    if (faviconValidation.ok) {
+      favicon = logo;
+      logger.debug(
+        { logo },
+        "Install logo meets favicon rules; using as favicon",
+      );
+    } else {
+      logger.debug(
+        { logo, code: faviconValidation.code },
+        "Install logo does not meet favicon rules; leaving favicon unchanged",
+      );
+    }
+  }
+
   const newBrand: BrandConfiguration = {
     ...brand,
     logo: logo ?? brand.logo,
-    favicon: logo ?? brand.favicon,
+    favicon,
   };
   await services.configurationService.setConfiguration(
     "brand",

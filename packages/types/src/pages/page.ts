@@ -14,7 +14,26 @@ export const pageTagSchema = zNonEmptyString(
   64,
   "validation.page.tag.max",
 );
-const notAllowedSlugs = ["admin", "assets", "api"];
+const notAllowedSlugs = [
+  "admin",
+  "assets",
+  "api",
+  "icon",
+  "apple-icon",
+  "favicon",
+  "favicon.ico",
+  "organization-not-found",
+  "robots",
+  "robots.txt",
+  "sitemap",
+  "sitemap.xml",
+  "llms",
+  "llms.txt",
+  "llm",
+  "llm.txt",
+  "llms-full",
+  "llms-full.txt",
+];
 
 export const pageSchema = z.object({
   title: zNonEmptyString(

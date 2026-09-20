@@ -28,6 +28,10 @@ const nextConfig = {
   },
   rewrites: () => [
     {
+      source: "/favicon.ico",
+      destination: "/api/favicon",
+    },
+    {
       source: "/robots.txt",
       destination: "/api/robots",
     },

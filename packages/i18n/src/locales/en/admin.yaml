@@ -2888,8 +2888,14 @@ settings:
       logoPlaceholder: Logo URL
       noLogo: No logo
       favicon: Favicon
-      faviconTooltip: Icon shown in browser tabs
+      faviconTooltip: Square image at least 512×512px (PNG, JPEG, WebP, GIF) or SVG. Shown in browser tabs and search results.
       faviconPlaceholder: Favicon URL
+      faviconErrors:
+        not_square: Favicon must be a square image.
+        too_small: Favicon must be at least 512×512 pixels.
+        unsupported_type: Favicon must be PNG, JPEG, WebP, GIF, or SVG.
+        unreadable: Could not read the favicon image.
+        invalid: Favicon must be a square image at least 512×512px, or an SVG.
       language: Default site language
       hacadoAddress:
         sectionTitle: Your Hacado address
@@ -2918,6 +2924,7 @@ settings:
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
+        invalidFavicon: Favicon must be a square image at least 512×512px, or an SVG.
   appointments:
     title: Appointment Settings
     description: Adjust appointment settings

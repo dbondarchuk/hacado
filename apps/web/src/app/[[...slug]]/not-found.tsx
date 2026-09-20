@@ -1,6 +1,7 @@
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Home } from "lucide-react";
 
+import { buildSiteIconsMetadata } from "@/utils/site-icons";
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import {
@@ -46,9 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       keywords,
-      icons: {
-        icon: brand.favicon || "/icon.ico",
-      },
+      icons: await buildSiteIconsMetadata(),
     };
   } catch (error: any) {
     logger.error(

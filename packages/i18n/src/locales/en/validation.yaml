@@ -22,6 +22,12 @@ common:
     invalid: Must be a valid asset name or URL
     minLength: Asset name must be at least 3 characters long
     maxLength: Asset name must be at most 1024 characters long
+  favicon:
+    notSquare: Favicon must be a square image
+    tooSmall: Favicon must be at least 512×512 pixels
+    unsupportedType: Favicon must be PNG, JPEG, WebP, GIF, or SVG
+    unreadable: Could not read the favicon image
+    invalid: Favicon must be a square image at least 512×512px, or an SVG
 assets:
   fileRequired: File must be attached
   fileNameMinLength: File name must be at least 3 characters

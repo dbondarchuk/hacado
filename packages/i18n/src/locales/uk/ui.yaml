@@ -56,6 +56,11 @@ assetSelector:
   on: на
   unsplashEmpty: Фото не знайдено
   pexelsEmpty: Медіа не знайдено
+  constraintErrors:
+    not_square: Зображення має бути квадратним.
+    too_small: Зображення має бути щонайменше {minSize}×{minSize} пікселів.
+    unsupported_type: Непідтримуваний тип зображення.
+    unreadable: Не вдалося прочитати зображення.
 pageSelector:
   title: Вибрати сторінку
   placeholder: Вибрати сторінку

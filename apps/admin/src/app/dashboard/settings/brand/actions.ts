@@ -1,6 +1,7 @@
 "use server";
 
 import { getActor, getOrganizationId, getServicesContainer } from "@/app/utils";
+import { validateFaviconValue } from "@/lib/validate-favicon";
 import { getLoggerFactory } from "@hacado/logger";
 import { getPolarClient } from "@hacado/services";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
@@ -10,7 +11,10 @@ import { siteSettingsFormSchema } from "./site-settings-schema";
 
 export type SaveSiteSettingsResult =
   | { ok: true }
-  | { ok: false; code: "invalid_input" | "persist_failed" };
+  | {
+      ok: false;
+      code: "invalid_input" | "invalid_favicon" | "persist_failed";
+    };
 
 export async function saveSiteSettingsAction(
   input: unknown,
@@ -28,6 +32,21 @@ export async function saveSiteSettingsAction(
   const services = await getServicesContainer();
   const source = await getActor();
   const d = parsed.data;
+
+  const favicon = d.brand.favicon?.trim();
+  if (favicon) {
+    const faviconValidation = await validateFaviconValue(
+      favicon,
+      services.assetsService,
+    );
+    if (!faviconValidation.ok) {
+      logger.warn(
+        { favicon, code: faviconValidation.code },
+        "Invalid favicon rejected",
+      );
+      return { ok: false, code: "invalid_favicon" };
+    }
+  }
 
   try {
     await services.configurationService.setConfiguration(

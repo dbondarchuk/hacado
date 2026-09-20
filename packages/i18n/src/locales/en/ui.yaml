@@ -56,6 +56,11 @@ assetSelector:
   on: on
   unsplashEmpty: No photos found
   pexelsEmpty: No media found
+  constraintErrors:
+    not_square: Image must be square.
+    too_small: Image must be at least {minSize}×{minSize} pixels.
+    unsupported_type: Unsupported image type.
+    unreadable: Could not read the image.
 pageSelector:
   title: Select page
   placeholder: Select page

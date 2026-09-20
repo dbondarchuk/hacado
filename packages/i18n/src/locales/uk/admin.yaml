@@ -2753,8 +2753,14 @@ settings:
       logoPlaceholder: URL логотипу
       noLogo: Без логотипу
       favicon: Favicon
-      faviconTooltip: Іконка на вкладці браузера
+      faviconTooltip: Квадратне зображення щонайменше 512×512px (PNG, JPEG, WebP, GIF) або SVG. Показується на вкладках браузера та в результатах пошуку.
       faviconPlaceholder: URL favicon
+      faviconErrors:
+        not_square: Favicon має бути квадратним зображенням.
+        too_small: Favicon має бути щонайменше 512×512 пікселів.
+        unsupported_type: Favicon має бути PNG, JPEG, WebP, GIF або SVG.
+        unreadable: Не вдалося прочитати зображення favicon.
+        invalid: Favicon має бути квадратним зображенням щонайменше 512×512px або SVG.
       language: Мова сайту за замовчуванням
       hacadoAddress:
         sectionTitle: Ваша адреса Hacado
@@ -2778,6 +2784,7 @@ settings:
       toasts:
         changesSaved: Ваші зміни були збережені.
         requestError: Виникла проблема з вашим запитом.
+        invalidFavicon: Favicon має бути квадратним зображенням щонайменше 512×512px або SVG.
   appointments:
     title: Налаштування записів
     description: Налаштувати параметри записів
