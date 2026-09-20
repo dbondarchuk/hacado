@@ -1,7 +1,12 @@
-import { getActor, getServicesContainer } from "@/app/utils";
+import {
+  getActor,
+  getOrganizationIdAndSlug,
+  getServicesContainer,
+} from "@/app/utils";
 import { organizationDomainSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types";
+import { validateCustomDomainDns } from "@hacado/utils/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -18,6 +23,35 @@ export async function POST(request: NextRequest) {
     logger.warn({ error }, "Invalid custom domain payload");
     return NextResponse.json(
       { error, success: false, code: "invalid_request_format" },
+      { status: 400 },
+    );
+  }
+
+  const { organizationSlug } = await getOrganizationIdAndSlug();
+  const publicDomain = process.env.PUBLIC_DOMAIN?.trim();
+  const expectedCnameHost = publicDomain
+    ? `${organizationSlug}.${publicDomain}`
+    : undefined;
+  const expectedARecordIp =
+    process.env.CUSTOM_DOMAIN_A_RECORD_IP?.trim() || undefined;
+
+  const dnsResult = await validateCustomDomainDns({
+    domain: data.domain,
+    expectedARecordIp,
+    expectedCnameHost,
+  });
+
+  if (!dnsResult.ok) {
+    logger.warn(
+      { customDomain: data.domain },
+      "Custom domain DNS is not configured",
+    );
+    return NextResponse.json(
+      {
+        error: "DNS is not configured correctly for this domain",
+        success: false,
+        code: "dns_not_configured",
+      },
       { status: 400 },
     );
   }

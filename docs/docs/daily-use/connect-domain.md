@@ -20,7 +20,13 @@ Buy the domain yourself from whichever company sells domain names - Hacado does 
 
 3. Follow the prompts to type **only the hostname** (`www.yoursite.com` or `booking.yoursite.com`) depending on guidance shown.
 
-Hacado may display **DNS directions** explaining an **address (A-type) record** pointing at Hacado’s approved server address. Leave that browser tab open - you will reuse the IP or target string when switching to your registrar’s site.
+Hacado displays **DNS directions** for one of these options:
+
+- An **A** record pointing at Hacado’s published server address, or
+- A **CNAME** pointing at your Hacado hostname (for example `yourname.hacado.me`), or
+- An **ALIAS** / **ANAME** record pointing at that same Hacado hostname — if your DNS provider supports it (especially useful for the apex `@`, where CNAME often cannot be used).
+
+Leave that browser tab open - you will reuse the IP or target string when switching to your registrar’s site.
 
 ![DNS helper text inside Hacado](/img/placeholders/domain-dns-instructions.svg)
 
@@ -29,11 +35,11 @@ Hacado may display **DNS directions** explaining an **address (A-type) record** 
 Inside the registrar dashboard:
 
 1. Locate **DNS**, **Zones**, or **Manage records**.
-2. Add - or edit - the record Hacado asked for (**A** pointing to Hacado’s published address is common).
-3. Remove conflicting records for that same hostname (`CNAME`s or stray `A` rows competing for the identical name confuse browsers).
+2. Add - or edit - one of the records Hacado asked for (**A**, **CNAME**, or **ALIAS** when your provider offers it).
+3. Avoid conflicting records for that same hostname (for example an old **A** and a new **CNAME** competing for the identical name confuse browsers). Keep a single clear answer for the name you connect.
 4. Save.
 
-DNS propagation can take anywhere from minutes to a day; small delays are normal.
+When you click **Connect**, Hacado checks that DNS already points correctly. If it does not, you will see an error and can fix the records and try again. DNS propagation can take anywhere from minutes to a day; small delays are normal.
 
 ## Removing or changing the mapping
 

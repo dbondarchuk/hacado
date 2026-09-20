@@ -2911,17 +2911,25 @@ settings:
         connectDialogDnsTitle: Configure DNS first
         connectDialogDnsARecord:
           At your DNS provider, create an A record for @ (apex)
-          or your subdomain pointing to {ip}.
+          or your subdomain pointing to <value></value>.
         connectDialogDnsCname:
-          Or create a CNAME or ALIAS record pointing to {host}
+          Or create a CNAME record pointing to <value></value>
           - the hostname for your Hacado site.
+        connectDialogDnsAlias:
+          If your DNS provider supports ALIAS or ANAME records, you can use
+          one of those pointing to <value></value> instead — useful for the apex (@)
+          where CNAME often cannot be used.
         domainLabel: Domain
         connectButton: Connect
+        connectButtonValidating: Validating...
         customDomainUpgradeRequired: Custom domains are available on Solo.
         customDomainUpgradeLink: Upgrade in brand settings
         copyWebsiteUrlAriaLabel: Copy website URL
+        copyDnsValueAriaLabel: Copy {value}
         websiteUrlCopied: Website URL copied to clipboard.
         websiteUrlCopyFailed: Could not copy the URL.
+        dnsValueCopied: Copied to clipboard.
+        dnsValueCopyFailed: Could not copy the value.
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.

@@ -1,7 +1,7 @@
 "use client";
 
 import { LanguageOptions } from "@/constants/texts";
-import { adminApi } from "@hacado/api-sdk";
+import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { languages, useI18n } from "@hacado/i18n/client";
 import { zNonEmptyString } from "@hacado/types";
 import {
@@ -19,6 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Form,
   FormControl,
   FormField,
   FormItem,
@@ -42,6 +43,26 @@ import React, { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { SiteSettingsFormValues } from "../site-settings-schema";
+
+const DnsCopyableValue: React.FC<{
+  value: string;
+  onCopy: (value: string) => void;
+  ariaLabel: string;
+}> = ({ value, onCopy, ariaLabel }) => (
+  <span className="inline-flex items-center gap-0.5 align-middle mx-0.5 rounded border bg-background px-1.5 py-0.5 font-mono text-sm text-foreground">
+    <span className="select-all">{value}</span>
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon"
+      className="h-5 w-5 shrink-0"
+      onClick={() => onCopy(value)}
+      aria-label={ariaLabel}
+    >
+      <Copy className="h-3 w-3" />
+    </Button>
+  </span>
+);
 
 const customDomainSchema = z.object({
   domain: z
@@ -108,19 +129,33 @@ export const BrandTab: React.FC<{
   const onSubmitDomain = async (data: z.infer<typeof customDomainSchema>) => {
     try {
       setSavingDomain(true);
-      await toastPromise(
-        (async () => {
-          return adminApi.organization.setCustomDomain({
-            domain: data.domain,
-          });
-        })(),
-        {
-          success: t("settings.brand.form.toasts.changesSaved"),
-          error: t("settings.brand.form.toasts.requestError"),
-        },
-      );
+      domainForm.clearErrors("domain");
+      await adminApi.organization.setCustomDomain({
+        domain: data.domain,
+      });
+
+      toast.success(t("settings.brand.form.toasts.changesSaved"));
       setOpen(false);
       router.refresh();
+    } catch (error) {
+      if (error instanceof AdminApiError) {
+        try {
+          const body = (await error.response.clone().json()) as {
+            code?: string;
+          };
+          if (body.code === "dns_not_configured") {
+            domainForm.setError("domain", {
+              type: "manual",
+              message: "configuration.brand.domain.dnsNotConfigured",
+            });
+            return;
+          }
+        } catch {
+          // fall through to generic error toast
+        }
+      }
+
+      toast.error(t("settings.brand.form.toasts.requestError"));
     } finally {
       setSavingDomain(false);
     }
@@ -134,6 +169,25 @@ export const BrandTab: React.FC<{
       toast.error(t("settings.brand.form.hacadoAddress.websiteUrlCopyFailed"));
     }
   };
+
+  const onCopyDnsValue = async (value: string) => {
+    const ok = await copyToClipboard(value);
+    if (ok) {
+      toast.success(t("settings.brand.form.hacadoAddress.dnsValueCopied"));
+    } else {
+      toast.error(t("settings.brand.form.hacadoAddress.dnsValueCopyFailed"));
+    }
+  };
+
+  const dnsCopyableValue = (value: string) => () => (
+    <DnsCopyableValue
+      value={value}
+      onCopy={onCopyDnsValue}
+      ariaLabel={t("settings.brand.form.hacadoAddress.copyDnsValueAriaLabel", {
+        value,
+      })}
+    />
+  );
 
   const onDisconnectDomain = async () => {
     try {
@@ -434,47 +488,66 @@ export const BrandTab: React.FC<{
                     </p>
                     {customDomainARecordIp ? (
                       <p>
-                        {t(
+                        {t.rich(
                           "settings.brand.form.hacadoAddress.connectDialogDnsARecord",
-                          { ip: customDomainARecordIp },
+                          {
+                            value: dnsCopyableValue(customDomainARecordIp),
+                          },
                         )}
                       </p>
                     ) : null}
                     <p>
-                      {t(
+                      {t.rich(
                         "settings.brand.form.hacadoAddress.connectDialogDnsCname",
                         {
-                          host: baseHost,
+                          value: dnsCopyableValue(baseHost),
+                        },
+                      )}
+                    </p>
+                    <p>
+                      {t.rich(
+                        "settings.brand.form.hacadoAddress.connectDialogDnsAlias",
+                        {
+                          value: dnsCopyableValue(baseHost),
                         },
                       )}
                     </p>
                   </div>
-                  <form
-                    onSubmit={domainForm.handleSubmit(onSubmitDomain)}
-                    className="space-y-6"
-                  >
-                    <FormField
-                      control={domainForm.control}
-                      name="domain"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("settings.brand.form.hacadoAddress.domainLabel")}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder={t(
-                                "settings.brand.form.domainPlaceholder",
+                  <Form {...domainForm}>
+                    <form
+                      onSubmit={domainForm.handleSubmit(onSubmitDomain)}
+                      className="space-y-6"
+                    >
+                      <FormField
+                        control={domainForm.control}
+                        name="domain"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              {t(
+                                "settings.brand.form.hacadoAddress.domainLabel",
                               )}
-                              disabled={savingDomain}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </form>
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder={t(
+                                  "settings.brand.form.domainPlaceholder",
+                                )}
+                                disabled={savingDomain}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    domainForm.handleSubmit(onSubmitDomain)();
+                                  }
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </form>
+                  </Form>
                   <DialogFooter>
                     <DialogClose asChild>
                       <Button variant="secondary" disabled={savingDomain}>
@@ -489,7 +562,11 @@ export const BrandTab: React.FC<{
                       }
                     >
                       {savingDomain ? <Spinner /> : <Plug />}{" "}
-                      {t("settings.brand.form.hacadoAddress.connectButton")}
+                      {savingDomain
+                        ? t(
+                            "settings.brand.form.hacadoAddress.connectButtonValidating",
+                          )
+                        : t("settings.brand.form.hacadoAddress.connectButton")}
                     </Button>
                   </DialogFooter>
                 </DialogContent>

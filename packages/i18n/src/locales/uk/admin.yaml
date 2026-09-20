@@ -2773,13 +2773,18 @@ settings:
         connectDialogTitle: Підключити власний домен
         connectDialogDescription: Підключіть власний домен до Hacado, щоб повністю контролювати свій бренд.
         connectDialogDnsTitle: Спочатку налаштуйте DNS
-        connectDialogDnsARecord: У панелі DNS створіть A-запис для @ (кореня) або вашого піддомену зі значенням {ip}.
-        connectDialogDnsCname: Або додайте CNAME або ALIAS на {host} - це ім’я хоста вашого сайту в Hacado.
+        connectDialogDnsARecord: У панелі DNS створіть A-запис для @ (кореня) або вашого піддомену зі значенням <value></value>.
+        connectDialogDnsCname: Або додайте CNAME на <value></value> - це ім’я хоста вашого сайту в Hacado.
+        connectDialogDnsAlias: Якщо ваш DNS-провайдер підтримує записи ALIAS або ANAME, можете додати такий запис на <value></value> замість CNAME — зручно для кореня (@), де CNAME часто недоступний.
         domainLabel: Домен
         connectButton: Підключити
+        connectButtonValidating: Перевірка...
         copyWebsiteUrlAriaLabel: Копіювати URL веб-сайту
+        copyDnsValueAriaLabel: Копіювати {value}
         websiteUrlCopied: URL веб-сайту скопійовано.
         websiteUrlCopyFailed: Не вдалося скопіювати URL.
+        dnsValueCopied: Скопійовано в буфер обміну.
+        dnsValueCopyFailed: Не вдалося скопіювати значення.
         customDomainUpgradeRequired: Персональні домени доступні на Solo.
         customDomainUpgradeLink: Оновлення в налаштуваннях бренду
       toasts:
