@@ -99,6 +99,7 @@ export const AppointmentCalendar: React.FC<{
                   _id: app.member._id,
                   name: app.member.name,
                   email: app.member.email,
+                  jobTitle: app.member.jobTitle,
                   image: app.member.image,
                 }
               : undefined,
@@ -128,6 +129,7 @@ export const AppointmentCalendar: React.FC<{
                   _id: app.member._id,
                   name: app.member.name,
                   email: app.member.email,
+                  jobTitle: app.member.jobTitle,
                   image: app.member.image,
                 }
               : undefined,

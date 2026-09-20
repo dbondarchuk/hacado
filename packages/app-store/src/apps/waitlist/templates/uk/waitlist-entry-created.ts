@@ -27,7 +27,7 @@ export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate =
 
 Бажана послуга: {{waitlistEntry.option.name}}
 
-Спеціаліст: {{waitlistEntry.member.name}}`,
+Спеціаліст: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}`,
       },
       addonsSelectedBlock("Додаткові опції: {{#addons}}{{name}}, {{/addons}}"),
       {

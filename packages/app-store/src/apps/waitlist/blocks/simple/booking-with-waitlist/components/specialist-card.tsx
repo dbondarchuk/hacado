@@ -110,13 +110,20 @@ export const SpecialistList: React.FC<SpecialistListProps> = ({
             </Avatar>
             <CardHeader className="p-0 flex-1">
               <CardTitle className="mt-0 text-base">{member.name}</CardTitle>
-              {member.bio && (
+              {(member.jobTitle || member.bio) && (
                 <CardContent className="p-0">
-                  <Markdown
-                    markdown={member.bio}
-                    prose="simple"
-                    className="text-xs text-muted-foreground [&_p]:my-0.5 [&_p]:leading-6"
-                  />
+                  {member.jobTitle ? (
+                    <p className="text-xs text-muted-foreground">
+                      {member.jobTitle}
+                    </p>
+                  ) : null}
+                  {member.bio ? (
+                    <Markdown
+                      markdown={member.bio}
+                      prose="simple"
+                      className="text-xs text-muted-foreground [&_p]:my-0.5 [&_p]:leading-6"
+                    />
+                  ) : null}
                 </CardContent>
               )}
             </CardHeader>

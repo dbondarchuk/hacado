@@ -117,6 +117,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
                 _id: app.member._id,
                 name: app.member.name,
                 email: app.member.email,
+                jobTitle: app.member.jobTitle,
                 image: app.member.image,
               }
             : undefined,
@@ -138,6 +139,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
                 _id: app.member._id,
                 name: app.member.name,
                 email: app.member.email,
+                jobTitle: app.member.jobTitle,
                 image: app.member.image,
               }
             : undefined,

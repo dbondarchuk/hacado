@@ -582,9 +582,16 @@ export const ReviewCard: React.FC = () => {
                   {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
                 </AvatarFallback>
               </Avatar>
-              <span className="text-xs font-medium text-foreground review-specialist-name">
-                {selectedMember.member.name}
-              </span>
+              <div className="min-w-0 flex flex-col">
+                <span className="text-xs font-medium text-foreground review-specialist-name">
+                  {selectedMember.member.name}
+                </span>
+                {selectedMember.member.jobTitle ? (
+                  <span className="text-xs text-muted-foreground">
+                    {selectedMember.member.jobTitle}
+                  </span>
+                ) : null}
+              </div>
             </div>
           </div>
         )}

@@ -61,8 +61,13 @@ function formatTeamProse(members: PublicCatalogMember[]): string {
   if (!members.length) return "";
 
   const parts = members.map((member) => {
+    const title = member.jobTitle?.trim();
     const bio = member.bio?.trim();
-    return bio ? `${member.name} — ${bio}` : member.name;
+    if (title && bio) return `${member.name} (${title}) — ${bio}`;
+    if (title) return `${member.name} (${title})`;
+    if (bio) return `${member.name} — ${bio}`;
+
+    return member.name;
   });
 
   return `Team: ${parts.join(". ")}.`;
@@ -249,6 +254,7 @@ export async function buildLlmsFullTxt(
     parts.push("", "## Team", "");
     for (const member of ctx.members) {
       parts.push(`### ${member.name}`);
+      if (member.jobTitle?.trim()) parts.push("", member.jobTitle.trim());
       if (member.bio?.trim()) parts.push("", member.bio.trim());
       parts.push("");
     }

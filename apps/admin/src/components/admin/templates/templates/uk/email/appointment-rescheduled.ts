@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-Ваш візит на послугу {{option.name}} з {{member.name}} було перенесено на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.
+Ваш візит на послугу {{option.name}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} було перенесено на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}} якомога швидше, якщо цей час вам не підходить.
 

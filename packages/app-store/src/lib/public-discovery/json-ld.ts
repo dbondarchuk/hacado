@@ -87,6 +87,7 @@ function personNodes(
       "@id": `${websiteUrl.replace(/\/$/, "")}/#person-${member.id}`,
       name: member.name,
     };
+    if (member.jobTitle?.trim()) node.jobTitle = member.jobTitle.trim();
     if (member.bio?.trim()) node.description = member.bio.trim();
     if (member.image) {
       node.image = toAbsoluteWebsiteUrl(websiteUrl, member.image);

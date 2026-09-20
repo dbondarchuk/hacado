@@ -25,7 +25,7 @@ We have confirmed your appointment on {{dateTime.full}}
 
 Service requested: {{option.name}}
 
-Specialist: {{member.name}}`,
+Specialist: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },
       addonsSelectedBlock(),
       {

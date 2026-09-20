@@ -1743,6 +1743,7 @@ export class BookingService extends BaseService implements IBookingService {
     const members: PublicStaffMember[] = activeMembers.map((member) => ({
       id: String(member._id),
       name: member.name || member.email || "",
+      jobTitle: member.jobTitle,
       bio: member.bio,
       image: member.image,
     }));

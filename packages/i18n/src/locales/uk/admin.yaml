@@ -481,6 +481,7 @@ team:
   table:
     columns:
       name: Імʼя
+      jobTitle: Посада
       email: Електронна пошта
       role: Роль
       status: Статус
@@ -3735,6 +3736,9 @@ users:
       detailsSectionTitle: Дані профілю
       name: Ім'я
       namePlaceholder: Введіть ваше ім'я
+      jobTitle: Посада
+      jobTitlePlaceholder: напр. Старший спеціаліст з волосся
+      jobTitleTooltip: Відображається під ім'ям у формі бронювання
       email: Електронна пошта
       emailPlaceholder: Введіть ваш email
       phone: Телефон
@@ -3919,6 +3923,8 @@ users:
       max: Ім'я має містити не більше 256 символів
     language:
       invalid: Невідома мова
+    jobTitle:
+      max: Посада має містити не більше 80 символів
     bio:
       max: Біографія має містити не більше 1024 символів
 memberSelector:

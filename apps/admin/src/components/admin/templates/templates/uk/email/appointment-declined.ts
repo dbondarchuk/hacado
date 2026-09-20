@@ -20,7 +20,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-На жаль, ми не можемо підтвердити ваш візит на послугу {{option.name}} {{dateTime.full}} з {{member.name}}.
+На жаль, ми не можемо підтвердити ваш візит на послугу {{option.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}} або оберіть інший час.
 

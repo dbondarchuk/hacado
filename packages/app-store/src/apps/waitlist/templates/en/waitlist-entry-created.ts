@@ -27,7 +27,7 @@ We will get in touch with you as soon as a time slot opens up for your desired d
 
 Service requested: {{waitlistEntry.option.name}}
 
-Specialist: {{waitlistEntry.member.name}}`,
+Specialist: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}`,
       },
       addonsSelectedBlock(),
       {

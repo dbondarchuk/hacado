@@ -132,6 +132,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
     {
       id: "member-1",
       name: "[DEMO] Alex Morgan",
+      jobTitle: "Senior Hair Specialist",
       bio: "Senior specialist with 8 years of experience.",
       image: null,
     },

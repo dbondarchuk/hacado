@@ -175,6 +175,7 @@ export function minEffectiveDuration(
 export type PublicStaffMember = {
   id: string;
   name: string;
+  jobTitle?: string | null;
   bio?: string | null;
   image?: string | null;
 };

@@ -4,6 +4,7 @@ import React from "react";
 export type MemberNameMember = {
   name?: string | null;
   email?: string | null;
+  jobTitle?: string | null;
   image?: string | null;
 };
 
@@ -16,16 +17,24 @@ function memberInitials(name: string): string {
     .join("");
 }
 
+function memberSubtitle(member: MemberNameMember): string | null {
+  const title = member.jobTitle?.trim();
+  if (title) return title;
+  if (member.name && member.email) return member.email;
+  return null;
+}
+
 export const MemberName: React.FC<{
   member?: MemberNameMember | null;
   empty?: React.ReactNode;
   className?: string;
-  /** Smaller avatar + name only (no email). */
+  /** Smaller avatar + name only (no subtitle). */
   compact?: boolean;
 }> = ({ member, empty = "-", className, compact = false }) => {
   if (!member) return <>{empty}</>;
 
   const name = member.name || member.email || "-";
+  const subtitle = memberSubtitle(member);
 
   if (compact) {
     return (
@@ -51,9 +60,9 @@ export const MemberName: React.FC<{
       </Avatar>
       <div className="min-w-0 flex flex-col">
         <span className="truncate font-medium">{name}</span>
-        {member.name && member.email ? (
+        {subtitle ? (
           <span className="truncate text-xs text-muted-foreground">
-            {member.email}
+            {subtitle}
           </span>
         ) : null}
       </div>

@@ -4,5 +4,5 @@ export const appointmentNoShowTextMessageTemplate: TemplatesTemplate = {
   name: "Неявка на запис (текстовий)",
   type: "text-message",
   value:
-    "Привіт, {{fields.name}}!\nМи зафіксували, що ви не були на записі на послугу {{ option.name }} {{dateTime.full}} з {{member.name}}.\n\nЯкщо хочете обрати інший час, зателефонуйте або напишіть нам за номером {{config.phone}}.\n\n{{config.name}}",
+    "Привіт, {{fields.name}}!\nМи зафіксували, що ви не були на записі на послугу {{ option.name }} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.\n\nЯкщо хочете обрати інший час, зателефонуйте або напишіть нам за номером {{config.phone}}.\n\n{{config.name}}",
 };

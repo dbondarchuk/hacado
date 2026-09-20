@@ -22,6 +22,11 @@ export const userUpdateSchema = z.object({
     error: "admin.users.validation.language.invalid" satisfies BaseAllKeys,
   }),
   image: asOptionalField(zAssetName).nullable(),
+  jobTitle: asOptionalField(
+    z
+      .string()
+      .max(80, "admin.users.validation.jobTitle.max" satisfies BaseAllKeys),
+  ).nullable(),
   bio: asOptionalField(
     z
       .string()

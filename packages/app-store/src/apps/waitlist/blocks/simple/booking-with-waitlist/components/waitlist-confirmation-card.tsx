@@ -29,11 +29,18 @@ export const WaitlistConfirmationCard: React.FC = () => {
           })}
         </p>
         {selectedMember && (
-          <p className="text-sm text-muted-foreground">
-            {i18n("booking.confirmation.specialist", {
-              name: selectedMember.member.name,
-            })}
-          </p>
+          <div className="flex flex-col items-center gap-0.5">
+            <p className="text-sm text-muted-foreground">
+              {i18n("booking.confirmation.specialist", {
+                name: selectedMember.member.name,
+              })}
+            </p>
+            {selectedMember.member.jobTitle ? (
+              <p className="text-xs text-muted-foreground">
+                {selectedMember.member.jobTitle}
+              </p>
+            ) : null}
+          </div>
         )}
       </div>
     </div>

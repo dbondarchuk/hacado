@@ -7,7 +7,7 @@ ${customText}
 
 Запитаний {{ requestedAt.full }}
 
-Персонал: {{ member.name }}
+Персонал: {{ member.name }}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}
 
 Клієнт: [{{ customer.name }}]({{ adminUrl }}/dashboard/customers/{{customerId}})
 

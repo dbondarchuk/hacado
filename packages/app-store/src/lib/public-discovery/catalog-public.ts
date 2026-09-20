@@ -55,6 +55,7 @@ export type PublicCatalogOffer = PublicCatalogService | PublicCatalogPackage;
 export type PublicCatalogMember = {
   id: string;
   name: string;
+  jobTitle?: string | null;
   bio?: string | null;
   image?: string | null;
 };
@@ -221,6 +222,7 @@ export async function getPublicCatalogSnapshot(
     .map((m) => ({
       id: m.id,
       name: m.name,
+      jobTitle: m.jobTitle,
       bio: m.bio,
       image: m.image,
     }));

@@ -27,6 +27,7 @@ export const demoWaitlistEntry = {
   member: {
     _id: "member-1",
     name: "Demo Employee",
+    jobTitle: "Senior Hair Specialist",
     email: "demo@example.com",
     phone: "+1 (555)555-7777",
   },

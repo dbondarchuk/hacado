@@ -19,6 +19,7 @@ export type SessionUser = {
   createdAt: Date;
   updatedAt: Date;
   phone: string;
+  jobTitle: string | null;
   bio: string | null;
   language: Language;
   organizationInstalled: boolean;

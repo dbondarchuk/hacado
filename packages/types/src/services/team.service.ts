@@ -43,6 +43,7 @@ export type MemberProfileUpdate = Partial<
   Pick<
     OrganizationMember,
     | "name"
+    | "jobTitle"
     | "phone"
     | "language"
     | "image"

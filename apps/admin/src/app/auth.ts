@@ -70,6 +70,11 @@ const memberProfileAdditionalFields = {
     required: false,
     input: true,
   },
+  jobTitle: {
+    type: "string" as const,
+    required: false,
+    input: true,
+  },
   bio: {
     type: "string" as const,
     required: false,
@@ -625,6 +630,7 @@ export const auth = betterAuth({
           subscriptionStatus: OrganizationSubscriptionStatus.Active,
           subscriptionPlanTier: null,
           feesExempt: false,
+          jobTitle: null as string | null,
           bio: null as string | null,
           calendarSources: [] as SessionUser["calendarSources"],
           meetingUrlProviderAppId: null as string | null,
@@ -667,6 +673,7 @@ export const auth = betterAuth({
           ...user,
           name: member.name || user.name || "",
           phone: member.phone || "",
+          jobTitle: member.jobTitle ?? null,
           bio: member.bio ?? null,
           image: member.image ?? user.image ?? null,
           organizationInstalled: !!organization.isInstalled,

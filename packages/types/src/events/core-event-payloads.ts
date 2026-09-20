@@ -377,6 +377,7 @@ export type MemberProfileUpdatedPayload = {
     Pick<
       OrganizationMember,
       | "name"
+      | "jobTitle"
       | "phone"
       | "language"
       | "image"

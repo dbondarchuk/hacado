@@ -20,7 +20,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-Ми зафіксували, що ви не були на візиті на послугу {{option.name}} {{dateTime.full}} з {{member.name}}.
+Ми зафіксували, що ви не були на візиті на послугу {{option.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}}, якщо хочете обрати інший час.
 

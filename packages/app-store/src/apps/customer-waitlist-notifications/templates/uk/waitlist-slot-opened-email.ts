@@ -23,7 +23,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
 {{#isMorning}}Зранку{{/isMorning}}{{#isAfternoon}}Удень{{/isAfternoon}}{{#isEvening}}Увечері{{/isEvening}} з’явився час, який відповідає вашому запиту в листі очікування:
 
 Послуга: {{waitlistEntry.option.name}}
-Спеціаліст: {{waitlistEntry.member.name}}
+Спеціаліст: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}
 Коли: {{slotDateTime.full}}{{#hasOtherTimes}} (і інші години теж){{/hasOtherTimes}}
 
 Забронюйте зараз, щоб закріпити цей час. Якщо він більше не потрібен, ви можете вийти з листа очікування.`,

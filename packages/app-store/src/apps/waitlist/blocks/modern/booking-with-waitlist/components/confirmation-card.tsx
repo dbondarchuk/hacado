@@ -90,11 +90,18 @@ export const ConfirmationCard: React.FC = () => {
                 {selectedMember.member.name?.charAt(0)?.toUpperCase() ?? "?"}
               </AvatarFallback>
             </Avatar>
-            <p className="text-xs text-foreground">
-              {i18n("booking.confirmation.specialist", {
-                name: selectedMember.member.name,
-              })}
-            </p>
+            <div className="min-w-0 flex flex-col">
+              <p className="text-xs text-foreground">
+                {i18n("booking.confirmation.specialist", {
+                  name: selectedMember.member.name,
+                })}
+              </p>
+              {selectedMember.member.jobTitle ? (
+                <p className="text-xs text-muted-foreground">
+                  {selectedMember.member.jobTitle}
+                </p>
+              ) : null}
+            </div>
           </div>
         )}
         {flow === "booking" && dateTime && (

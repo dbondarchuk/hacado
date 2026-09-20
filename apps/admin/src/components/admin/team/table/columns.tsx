@@ -8,7 +8,7 @@ import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";
 import type { TeamMemberListModel } from "./types";
 
-export const TeamMembersTableColumnLength = 6;
+export const TeamMembersTableColumnLength = 7;
 
 export const columns: ColumnDef<TeamMemberListModel>[] = [
   {
@@ -26,6 +26,12 @@ export const columns: ColumnDef<TeamMemberListModel>[] = [
     ),
     id: "name",
     header: tableSortHeader("team.table.columns.name", "string", "admin"),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
+    cell: ({ row }) => row.original.jobTitle || "-",
+    id: "jobTitle",
+    header: tableSortHeader("team.table.columns.jobTitle", "string", "admin"),
     sortingFn: tableSortNoopFunction,
   },
   {

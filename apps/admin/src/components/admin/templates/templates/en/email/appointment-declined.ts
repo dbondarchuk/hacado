@@ -20,7 +20,7 @@ export const appointmentDeclinedEmailTemplate: TemplatesTemplate =
 
 Thank you for selecting {{config.name}}!
 
-Unfortunately, we can not confirm your appointment for {{option.name}} on {{dateTime.full}} with {{member.name}} at this moment.
+Unfortunately, we can not confirm your appointment for {{option.name}} on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} at this moment.
 
 Please give us a call at {{config.phone}} or try selecting another time.
 

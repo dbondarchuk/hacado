@@ -26,6 +26,8 @@ export type OrganizationMember = {
   email: string;
   /** Org-scoped display name. */
   name: string;
+  /** Optional job title shown on the booking form (e.g. "Senior Hair Specialist"). */
+  jobTitle?: string | null;
   phone: string;
   bio?: string | null;
   language: Language;

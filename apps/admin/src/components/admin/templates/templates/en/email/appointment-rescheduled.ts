@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 Thank you for selecting {{config.name}}!
 
-Your appointment for {{option.name}} with {{member.name}} was rescheduled for {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
+Your appointment for {{option.name}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} was rescheduled for {{dateTime.full}} and duration: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
 
 Please give us a call at {{config.phone}} as soon as possible if this time does not work for you.
 

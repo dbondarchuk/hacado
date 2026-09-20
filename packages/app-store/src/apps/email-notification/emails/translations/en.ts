@@ -7,7 +7,7 @@ ${customText}
 
 Requested on {{ createdAt.full }}
 
-Staff: {{ member.name }}
+Staff: {{ member.name }}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}
 
 Customer: [{{ customer.name }}]({{ adminUrl }}/dashboard/customers/{{customerId}})
 

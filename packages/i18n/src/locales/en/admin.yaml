@@ -487,6 +487,7 @@ team:
   table:
     columns:
       name: Name
+      jobTitle: Title
       email: Email
       role: Role
       status: Status
@@ -4024,6 +4025,9 @@ users:
       detailsSectionTitle: Profile details
       name: Name
       namePlaceholder: Enter your name
+      jobTitle: Title
+      jobTitlePlaceholder: e.g. Senior Hair Specialist
+      jobTitleTooltip: Shown under the name on the booking form
       email: Email
       emailPlaceholder: Enter your email
       phone: Phone
@@ -4214,5 +4218,7 @@ users:
       max: Name must be no more than 256 characters long
     language:
       invalid: Unknown language
+    jobTitle:
+      max: Title must be no more than 80 characters long
     bio:
       max: Bio must be no more than 1024 characters long

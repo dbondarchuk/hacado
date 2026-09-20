@@ -23,7 +23,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
 A time matching your waitlist request is available{{#isMorning}} in the morning{{/isMorning}}{{#isAfternoon}} in the afternoon{{/isAfternoon}}{{#isEvening}} in the evening{{/isEvening}}:
 
 Service: {{waitlistEntry.option.name}}
-Specialist: {{waitlistEntry.member.name}}
+Specialist: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}
 When: {{slotDateTime.full}}{{#hasOtherTimes}} (and other times too){{/hasOtherTimes}}
 
 Book now to claim this time. If you no longer need it, you can leave the waitlist.`,

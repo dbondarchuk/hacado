@@ -43,6 +43,7 @@ export const demoAppointment: Appointment = {
     createdAt: new Date(),
     status: "active",
     name: "Joe Doe",
+    jobTitle: "Senior Hair Specialist",
     role: "owner",
     email: "joe.doe@example.com",
     phone: "+1 (555)555-6666",

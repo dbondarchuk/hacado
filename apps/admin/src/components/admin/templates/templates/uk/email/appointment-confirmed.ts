@@ -25,7 +25,7 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
 
 Послуга: {{option.name}}
 
-Спеціаліст: {{member.name}}`,
+Спеціаліст: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },
       addonsSelectedBlock("Додаткові опції: {{#addons}}{{name}}, {{/addons}}"),
       {

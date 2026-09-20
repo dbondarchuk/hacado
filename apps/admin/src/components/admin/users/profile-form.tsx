@@ -134,6 +134,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 
   const image = form.watch("image");
   const name = form.watch("name");
+  const jobTitle = form.watch("jobTitle");
   const calendarSourceIds = useMemo(
     () => calendarSourceFields.map((x) => x.fields_id),
     [calendarSourceFields],
@@ -164,6 +165,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                 />
                 <div className="text-center">
                   <p className="text-lg font-semibold">{name}</p>
+                  {jobTitle ? (
+                    <p className="text-sm text-muted-foreground">{jobTitle}</p>
+                  ) : null}
                   <p className="text-base text-muted-foreground">
                     {values.email}
                   </p>
@@ -242,6 +246,32 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           disabled={loading}
                           placeholder={t("users.profile.form.namePlaceholder")}
                           {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="jobTitle"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-1">
+                        {t("users.profile.form.jobTitle")}
+                        <InfoTooltip>
+                          {t("users.profile.form.jobTitleTooltip")}
+                        </InfoTooltip>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={loading}
+                          placeholder={t(
+                            "users.profile.form.jobTitlePlaceholder",
+                          )}
+                          {...field}
+                          value={field.value ?? ""}
                         />
                       </FormControl>
                       <FormMessage />

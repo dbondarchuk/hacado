@@ -27,7 +27,7 @@ import {
   useCurrencyFormat,
   useTimeZone,
 } from "@hacado/ui";
-import { CustomerName, useAuth } from "@hacado/ui-admin";
+import { CustomerName, MemberName, useAuth } from "@hacado/ui-admin";
 import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
@@ -376,36 +376,7 @@ export const AppointmentDetails = ({
             <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
               {t("appointments.view.member")}
             </p>
-            <div className="flex items-center gap-3 min-w-0">
-              <Avatar>
-                <AvatarImage
-                  src={appointment.member.image ?? undefined}
-                  alt={
-                    appointment.member.name ||
-                    appointment.member.email ||
-                    t("appointments.view.member")
-                  }
-                />
-                <AvatarFallback>
-                  {(appointment.member.name || appointment.member.email || "?")
-                    .split(" ")
-                    .map((part) => part[0]?.toUpperCase())
-                    .filter(Boolean)
-                    .slice(0, 2)
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              <div className="min-w-0 flex flex-col">
-                <span className="text-sm font-medium text-foreground truncate">
-                  {appointment.member.name || appointment.member.email || "-"}
-                </span>
-                {appointment.member.name && appointment.member.email ? (
-                  <span className="text-xs text-muted-foreground truncate">
-                    {appointment.member.email}
-                  </span>
-                ) : null}
-              </div>
-            </div>
+            <MemberName member={appointment.member} />
           </div>
         )}
 

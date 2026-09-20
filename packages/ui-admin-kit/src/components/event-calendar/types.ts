@@ -17,6 +17,7 @@ export type CalendarEventVariant =
 export type EventCalendarMember = {
   name?: string | null;
   email?: string | null;
+  jobTitle?: string | null;
   image?: string | null;
 };
 
@@ -45,6 +46,7 @@ export type EventCalendarEvent = {
     _id: string;
     name: string | null;
     email: string | null;
+    jobTitle?: string | null;
     image?: string | null;
   };
   variant?: CalendarEventVariant;

@@ -18,7 +18,7 @@ export const appointmentReminderEmailTemplate: TemplatesTemplate =
         type: "text",
         text: `Hi {{fields.name}},
 
-This is a friendly reminder about your upcoming appointment on {{dateTime.full}} with {{member.name}}.
+This is a friendly reminder about your upcoming appointment on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 We are looking forward to seeing you!
 

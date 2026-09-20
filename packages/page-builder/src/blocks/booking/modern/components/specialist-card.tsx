@@ -110,6 +110,11 @@ export const SpecialistCard: React.FC = () => {
                 <h3 className="text-sm font-medium text-foreground">
                   {member.name}
                 </h3>
+                {member.jobTitle ? (
+                  <p className="text-xs text-muted-foreground">
+                    {member.jobTitle}
+                  </p>
+                ) : null}
                 {member.bio && (
                   <Markdown
                     markdown={member.bio}

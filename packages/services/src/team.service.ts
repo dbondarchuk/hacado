@@ -159,6 +159,8 @@ export class TeamService extends BaseService implements ITeamService {
         { $regex },
         "name",
         "email",
+        "jobTitle",
+        "bio",
       );
     }
 
