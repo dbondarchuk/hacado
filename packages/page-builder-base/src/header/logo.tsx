@@ -61,7 +61,7 @@ export const Logo: React.FC<{
     <Link
       href="/"
       className={cn(
-        "flex title-font font-medium items-center gap-2 grow header-logo-container",
+        "flex title-font font-medium items-center gap-2 header-logo-container",
         headerId && `header-${headerId}-logo-container`,
         className,
       )}
