@@ -4,7 +4,11 @@ import { describe, it } from "node:test";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";
 import { GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE } from "../gift-card-studio/models/events";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";
-import { mapGa4Event, stableGaClientId } from "./map-ga4-event";
+import {
+  mapGa4Event,
+  stableGaClientId,
+  stableGaSessionId,
+} from "./map-ga4-event";
 
 function envelope(
   type: string,
@@ -30,6 +34,16 @@ describe("stableGaClientId", () => {
   });
 });
 
+describe("stableGaSessionId", () => {
+  it("returns a stable positive integer", () => {
+    const a = stableGaSessionId("org:customer");
+    const b = stableGaSessionId("org:customer");
+    assert.equal(a, b);
+    assert.ok(a > 0);
+    assert.equal(Number.isInteger(a), true);
+  });
+});
+
 describe("mapGa4Event", () => {
   it("maps paid appointment.created to purchase", () => {
     const mapped = mapGa4Event(
@@ -45,27 +59,25 @@ describe("mapGa4Event", () => {
       "USD",
     );
 
-    assert.deepEqual(mapped, {
-      name: "purchase",
-      params: {
-        event_id: "evt-1",
-        transaction_id: "appt-1",
-        value: 50,
-        currency: "USD",
-        items: [
-          {
-            item_id: "opt-1",
-            item_name: "Haircut",
-            price: 50,
-            quantity: 1,
-          },
-        ],
+    assert.equal(mapped?.name, "purchase");
+    assert.equal(mapped?.clientIdSeed, "org-1:cust-1");
+    assert.equal(mapped?.params.event_id, "evt-1");
+    assert.equal(mapped?.params.transaction_id, "appt-1");
+    assert.equal(mapped?.params.value, 50);
+    assert.equal(mapped?.params.currency, "USD");
+    assert.equal(mapped?.params.engagement_time_msec, 100);
+    assert.equal(mapped?.params.session_id, stableGaSessionId("org-1:cust-1"));
+    assert.deepEqual(mapped?.params.items, [
+      {
+        item_id: "opt-1",
+        item_name: "Haircut",
+        price: 50,
+        quantity: 1,
       },
-      clientIdSeed: "org-1:cust-1",
-    });
+    ]);
   });
 
-  it("maps free appointment.created to generate_lead", () => {
+  it("maps free appointment.created to purchase with zero value", () => {
     const mapped = mapGa4Event(
       envelope("appointment.created", {
         appointment: {
@@ -79,8 +91,9 @@ describe("mapGa4Event", () => {
       "USD",
     );
 
-    assert.equal(mapped?.name, "generate_lead");
-    assert.equal(mapped?.params.lead_type, "booking");
+    assert.equal(mapped?.name, "purchase");
+    assert.equal(mapped?.params.value, 0);
+    assert.equal(mapped?.params.currency, "USD");
   });
 
   it("skips admin-created appointments", () => {

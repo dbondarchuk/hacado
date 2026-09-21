@@ -1035,7 +1035,7 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/site-settings-form.tsx": {
-    "mtime": 1789921172.065276,
+    "mtime": 1789999013.9472892,
     "ast_hash": "fd3824d50f5c083165d0b9b73d703c04",
     "semantic_hash": ""
   },
@@ -3125,7 +3125,7 @@
     "semantic_hash": ""
   },
   "docs/sidebars.ts": {
-    "mtime": 1789930698.4385576,
+    "mtime": 1789999013.9442868,
     "ast_hash": "edbf89459212a765fb4354bafb3b367b",
     "semantic_hash": ""
   },
@@ -3660,7 +3660,7 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1789930699.036834,
+    "mtime": 1789999013.9472892,
     "ast_hash": "3e1b5230a04a5200624a49fcbdd994f6",
     "semantic_hash": ""
   },
@@ -3675,7 +3675,7 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps.ts": {
-    "mtime": 1789930666.925515,
+    "mtime": 1789999013.9472892,
     "ast_hash": "6765834a64af97f8fa8fc27740ac69e6",
     "semantic_hash": ""
   },
@@ -7375,8 +7375,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/images.ts": {
-    "mtime": 1789756351.2560945,
-    "ast_hash": "8b77c871d37b771a6ebefcc078632ca2",
+    "mtime": 1790006497.8038,
+    "ast_hash": "ac4664151d28e346a2de7157ae9644a5",
     "semantic_hash": ""
   },
   "packages/app-store/src/index.ts": {
@@ -7415,17 +7415,17 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/services/index.ts": {
-    "mtime": 1789930672.5115528,
+    "mtime": 1789999013.9392867,
     "ast_hash": "21b21e2f7e233e371c3b6dd19e820883",
     "semantic_hash": ""
   },
   "packages/app-store/src/setup.tsx": {
-    "mtime": 1789930670.1034946,
+    "mtime": 1789999013.9442868,
     "ast_hash": "23ca58853f0eb02f6c93de57a50aed25",
     "semantic_hash": ""
   },
   "packages/app-store/src/translations.ts": {
-    "mtime": 1789930673.6782548,
+    "mtime": 1789999013.9472892,
     "ast_hash": "b02362b1bcad7456e70fd06413c15929",
     "semantic_hash": ""
   },
@@ -12670,8 +12670,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/jobs/bullmq-job-worker.ts": {
-    "mtime": 1786820409.8993878,
-    "ast_hash": "c1b3d1ad318f57fb32ff3d6b326f4909",
+    "mtime": 1790013680.4569223,
+    "ast_hash": "7185470cae6d509c506277c3a31a5f90",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/jobs/index.ts": {
@@ -15265,7 +15265,7 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1789930859.5904157,
+    "mtime": 1789999013.943287,
     "ast_hash": "dc177544be9373baa3153c78a3d34d06",
     "semantic_hash": ""
   },
@@ -16090,7 +16090,7 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
-    "mtime": 1789930506.5418656,
+    "mtime": 1789999013.9392867,
     "ast_hash": "3eccbb5c6432cebd6ae5bcb89764943c",
     "semantic_hash": ""
   },
@@ -16125,7 +16125,7 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
-    "mtime": 1789930506.5418656,
+    "mtime": 1789999013.943287,
     "ast_hash": "a2703c719e25c2682d29529bd3edaa3c",
     "semantic_hash": ""
   },
@@ -31980,62 +31980,62 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/app.tsx": {
-    "mtime": 1789998144.3600628,
+    "mtime": 1790002768.0656204,
     "ast_hash": "d83acac41b0aac6799734e8b1ee1dd44",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/const.ts": {
-    "mtime": 1789930485.9033885,
-    "ast_hash": "72936bc826588d2bf46cce83c2fe740d",
+    "mtime": 1790000991.240709,
+    "ast_hash": "1fc802b815a804d4afe9919bf826f811",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/gtag-scripts.test.ts": {
-    "mtime": 1789930527.6294277,
+    "mtime": 1790002768.0656204,
     "ast_hash": "332e78e2d8549da750bc02bdf0df4a04",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/gtag-scripts.ts": {
-    "mtime": 1789930514.3687034,
+    "mtime": 1790002768.0656204,
     "ast_hash": "c0792f2d687b23baa3e963d4d84471ea",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/logo.tsx": {
-    "mtime": 1789930837.1383061,
+    "mtime": 1790002768.0656204,
     "ast_hash": "92ab8b3ba8e17dc8c47dff14d5bde10a",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/map-ga4-event.test.ts": {
-    "mtime": 1789930856.4372559,
-    "ast_hash": "0c4f1e54237af7fd1da36f3acfe4d522",
+    "mtime": 1790015055.3523688,
+    "ast_hash": "c178934217c48bfef60f76bc30ad5b1d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/map-ga4-event.ts": {
-    "mtime": 1789930856.4372559,
-    "ast_hash": "9ee4bf6a3df19ef26b666c450bf266c0",
+    "mtime": 1790015055.3523688,
+    "ast_hash": "88bd0ba1450944ac6713c444dd32af9f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/models.ts": {
-    "mtime": 1789930493.8768263,
+    "mtime": 1790002768.0656204,
     "ast_hash": "f8a638db47f85249b4488168cafe4107",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/service.ts": {
-    "mtime": 1789998622.295849,
-    "ast_hash": "b7d146a5fa3686c2ae114f9157a8f089",
+    "mtime": 1790013715.3895464,
+    "ast_hash": "ed3547db5b63788f6fc50b5fa1b41b4b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/setup.tsx": {
-    "mtime": 1789998666.906912,
-    "ast_hash": "6c54f15d1bbceb1a426de30fe0223475",
+    "mtime": 1790010416.6680698,
+    "ast_hash": "145232d0d61ad40af7ab5bb253f828fe",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/index.ts": {
-    "mtime": 1789930683.0513647,
+    "mtime": 1790002768.0656204,
     "ast_hash": "4250bffed3a8214433d66760cdc6af63",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/types.ts": {
-    "mtime": 1789930682.369959,
+    "mtime": 1790002768.0656204,
     "ast_hash": "0af9aec8681ce455bf0e630aa54fe267",
     "semantic_hash": ""
   },
@@ -32050,18 +32050,33 @@
     "semantic_hash": ""
   },
   "docs/docs/apps/google-analytics.md": {
-    "mtime": 1789998665.1504655,
-    "ast_hash": "a47974b8492de05e45b666ce128fa80e",
+    "mtime": 1789999013.9472892,
+    "ast_hash": "79d802158727449da864e7989f46aee5",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/en/admin.yaml": {
-    "mtime": 1789998630.2285821,
-    "ast_hash": "b32164c1b0cd5e876c2983353ed941d1",
+    "mtime": 1789999396.765543,
+    "ast_hash": "8b322eb18ba570434c2973cba2508a35",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/uk/admin.yaml": {
-    "mtime": 1789998633.8027573,
-    "ast_hash": "d02ba4016d8f5c78ed6a9d90647df9a0",
+    "mtime": 1789999399.0599422,
+    "ast_hash": "62c0ff39e594d35b8d61c35613e1499d",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/images/index.ts": {
+    "mtime": 1790006421.5460892,
+    "ast_hash": "64001225ea129b758edc259ab6f6b569",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/images/image1.png": {
+    "mtime": 1790006346.9654262,
+    "ast_hash": "78af52bd61f603fb9f30283cdc2ddc4d",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/images/image2.png": {
+    "mtime": 1790006373.684324,
+    "ast_hash": "9c243b0bf21b3daf1ae12086060157a7",
     "semantic_hash": ""
   }
 }

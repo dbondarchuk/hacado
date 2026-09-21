@@ -377,13 +377,26 @@ export class BullMQJobWorker extends BaseBullMQClient {
         const { service, app } =
           await services.connectedAppsService.getAppService(jobData.appId);
 
+        logger.info(
+          {
+            jobId,
+            appId: jobData.appId,
+            appName: app.name,
+            eventType: envelope.type,
+          },
+          "Delivering event to connected app",
+        );
+
         const subscriber = service as IEventSubscriber;
         if (typeof subscriber.onEvent === "function") {
           await subscriber.onEvent(app, envelope);
         }
       }
 
-      logger.info({ jobId }, "Event delivery job completed successfully");
+      logger.info(
+        { jobId, appId: jobData.appId, eventType: envelope.type },
+        "Event delivery job completed successfully",
+      );
     } catch (error) {
       logger.error(
         { error, jobId, jobData },

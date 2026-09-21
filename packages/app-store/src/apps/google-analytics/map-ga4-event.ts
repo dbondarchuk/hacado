@@ -28,6 +28,10 @@ export type Ga4MappedEvent = {
     currency?: string;
     lead_type?: string;
     items?: Ga4Item[];
+    /** Required for Realtime / engagement reporting via Measurement Protocol. */
+    engagement_time_msec: number;
+    /** Synthetic session id so MP-only hits appear in Realtime. */
+    session_id: number;
   };
   clientIdSeed: string;
 };
@@ -44,6 +48,23 @@ export function stableGaClientId(seed: string): string {
   return `${part1}.${part2}`;
 }
 
+/** Positive numeric session_id (GA4 requires `^\d+$`). */
+export function stableGaSessionId(seed: string): number {
+  const hash = createHash("sha256").update(`session:${seed}`).digest();
+  return (hash.readUInt32BE(0) % 2_147_483_647) + 1;
+}
+
+function withReportParams(
+  params: Omit<Ga4MappedEvent["params"], "engagement_time_msec" | "session_id">,
+  clientIdSeed: string,
+): Ga4MappedEvent["params"] {
+  return {
+    ...params,
+    engagement_time_msec: 100,
+    session_id: stableGaSessionId(clientIdSeed),
+  };
+}
+
 export function mapGa4Event(
   envelope: EventEnvelope,
   currency: string,
@@ -56,23 +77,28 @@ export function mapGa4Event(
       const value = appointment.totalPrice ?? 0;
       const itemName = appointment.option?.name ?? "Appointment";
       const itemId = appointment.option?._id ?? appointment._id;
-      const isPurchase = value > 0;
+      const clientIdSeed = `${envelope.organizationId}:${appointment.customerId ?? appointment._id}`;
 
       return {
-        name: isPurchase ? "purchase" : "generate_lead",
-        params: {
-          event_id: envelope.id,
-          transaction_id: appointment._id,
-          ...(isPurchase ? { value, currency } : { lead_type: "booking" }),
-          items: [
-            {
-              item_id: itemId,
-              item_name: itemName,
-              ...(isPurchase ? { price: value, quantity: 1 } : {}),
-            },
-          ],
-        },
-        clientIdSeed: `${envelope.organizationId}:${appointment.customerId ?? appointment._id}`,
+        name: "purchase",
+        params: withReportParams(
+          {
+            event_id: envelope.id,
+            transaction_id: appointment._id,
+            value,
+            currency,
+            items: [
+              {
+                item_id: itemId,
+                item_name: itemName,
+                price: value,
+                quantity: 1,
+              },
+            ],
+          },
+          clientIdSeed,
+        ),
+        clientIdSeed,
       };
     }
 
@@ -83,16 +109,20 @@ export function mapGa4Event(
         envelope.payload as WaitlistEntryCreatedEvent["payload"];
       const itemName = entry.option?.name ?? "Waitlist";
       const itemId = entry.option?._id ?? entry._id;
+      const clientIdSeed = `${envelope.organizationId}:${entry.customerId ?? entry._id}`;
 
       return {
         name: "generate_lead",
-        params: {
-          event_id: envelope.id,
-          transaction_id: entry._id,
-          lead_type: "waitlist",
-          items: [{ item_id: itemId, item_name: itemName }],
-        },
-        clientIdSeed: `${envelope.organizationId}:${entry.customerId ?? entry._id}`,
+        params: withReportParams(
+          {
+            event_id: envelope.id,
+            transaction_id: entry._id,
+            lead_type: "waitlist",
+            items: [{ item_id: itemId, item_name: itemName }],
+          },
+          clientIdSeed,
+        ),
+        clientIdSeed,
       };
     }
 
@@ -102,24 +132,28 @@ export function mapGa4Event(
       const { purchase } =
         envelope.payload as GiftCardStudioPurchaseCreatedPayload;
       const value = purchase.amountPurchased;
+      const clientIdSeed = `${envelope.organizationId}:${purchase._id}`;
 
       return {
         name: "purchase",
-        params: {
-          event_id: envelope.id,
-          transaction_id: purchase._id,
-          value,
-          currency,
-          items: [
-            {
-              item_id: purchase.designId,
-              item_name: purchase.designName,
-              price: value,
-              quantity: 1,
-            },
-          ],
-        },
-        clientIdSeed: `${envelope.organizationId}:${purchase._id}`,
+        params: withReportParams(
+          {
+            event_id: envelope.id,
+            transaction_id: purchase._id,
+            value,
+            currency,
+            items: [
+              {
+                item_id: purchase.designId,
+                item_name: purchase.designName,
+                price: value,
+                quantity: 1,
+              },
+            ],
+          },
+          clientIdSeed,
+        ),
+        clientIdSeed,
       };
     }
 
@@ -129,24 +163,28 @@ export function mapGa4Event(
       if (customerPackage.channel !== "customer") return undefined;
 
       const value = customerPackage.price;
+      const clientIdSeed = `${envelope.organizationId}:${customerPackage.customerId}`;
 
       return {
         name: "purchase",
-        params: {
-          event_id: envelope.id,
-          transaction_id: customerPackage._id,
-          value,
-          currency,
-          items: [
-            {
-              item_id: customerPackage.packageId,
-              item_name: customerPackage.name,
-              price: value,
-              quantity: 1,
-            },
-          ],
-        },
-        clientIdSeed: `${envelope.organizationId}:${customerPackage.customerId}`,
+        params: withReportParams(
+          {
+            event_id: envelope.id,
+            transaction_id: customerPackage._id,
+            value,
+            currency,
+            items: [
+              {
+                item_id: customerPackage.packageId,
+                item_name: customerPackage.name,
+                price: value,
+                quantity: 1,
+              },
+            ],
+          },
+          clientIdSeed,
+        ),
+        clientIdSeed,
       };
     }
 
@@ -155,21 +193,25 @@ export function mapGa4Event(
 
       const { formResponse, form } =
         envelope.payload as FormResponseCreatedPayload;
+      const clientIdSeed = `${envelope.organizationId}:${formResponse._id}`;
 
       return {
         name: "generate_lead",
-        params: {
-          event_id: envelope.id,
-          transaction_id: formResponse._id,
-          lead_type: "form",
-          items: [
-            {
-              item_id: form._id,
-              item_name: form.name,
-            },
-          ],
-        },
-        clientIdSeed: `${envelope.organizationId}:${formResponse._id}`,
+        params: withReportParams(
+          {
+            event_id: envelope.id,
+            transaction_id: formResponse._id,
+            lead_type: "form",
+            items: [
+              {
+                item_id: form._id,
+                item_name: form.name,
+              },
+            ],
+          },
+          clientIdSeed,
+        ),
+        clientIdSeed,
       };
     }
 

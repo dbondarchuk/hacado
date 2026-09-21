@@ -318,28 +318,41 @@ class GoogleAnalyticsConnectedApp
   ): Promise<void> {
     const logger = this.loggerFactory("onEvent");
 
-    logger.debug(
-      { appId: appData._id, envelope },
-      "Sending Google Analytics Measurement Protocol event",
+    logger.info(
+      {
+        appId: appData._id,
+        eventType: envelope.type,
+        eventId: envelope.id,
+        actor: envelope.source?.actor,
+        status: appData.status,
+      },
+      "Google Analytics received event",
     );
 
     if (appData.status !== "connected") {
-      logger.debug(
-        { appId: appData._id, status: appData.status },
+      logger.info(
+        {
+          appId: appData._id,
+          status: appData.status,
+          eventType: envelope.type,
+        },
         "Google Analytics is not connected; skipping event",
       );
-
       return;
     }
 
     const measurementId = appData.data?.measurementId;
     const encryptedSecret = appData.data?.apiSecret;
     if (!measurementId || !encryptedSecret) {
-      logger.debug(
-        { appId: appData._id, measurementId, encryptedSecret },
-        "Google Analytics Measurement Protocol event is not configured; skipping event",
+      logger.info(
+        {
+          appId: appData._id,
+          eventType: envelope.type,
+          hasMeasurementId: !!measurementId,
+          hasApiSecret: !!encryptedSecret,
+        },
+        "Google Analytics Measurement Protocol is not configured; skipping event",
       );
-
       return;
     }
 
@@ -352,18 +365,16 @@ class GoogleAnalyticsConnectedApp
       const currency = general?.currency ?? "USD";
       const mapped = mapGa4Event(envelope, currency);
       if (!mapped) {
-        logger.debug(
-          { appId: appData._id, mapped },
-          "Google Analytics Measurement Protocol event is not mapped; skipping event",
+        logger.info(
+          {
+            appId: appData._id,
+            eventType: envelope.type,
+            actor: envelope.source?.actor,
+          },
+          "Google Analytics event is not mapped (non-public or unsupported); skipping",
         );
-
         return;
       }
-
-      logger.debug(
-        { appId: appData._id, mapped },
-        "Google Analytics Measurement Protocol event is mapped; sending event",
-      );
 
       const apiSecret = decrypt(encryptedSecret);
       const body = {
@@ -376,11 +387,6 @@ class GoogleAnalyticsConnectedApp
         ],
       };
 
-      logger.debug(
-        { appId: appData._id, body },
-        "Google Analytics Measurement Protocol event body",
-      );
-
       const url = new URL("https://www.google-analytics.com/mp/collect");
       url.searchParams.set("measurement_id", measurementId);
       url.searchParams.set("api_secret", apiSecret);
@@ -391,29 +397,26 @@ class GoogleAnalyticsConnectedApp
         body: JSON.stringify(body),
       });
 
-      logger.debug(
-        { appId: appData._id, response },
-        "Google Analytics Measurement Protocol event response",
-      );
-
       if (!response.ok) {
         logger.warn(
           {
             appId: appData._id,
             eventType: envelope.type,
+            measurementId,
             status: response.status,
           },
           "Google Analytics Measurement Protocol request failed",
         );
-
         return;
       }
 
-      logger.debug(
+      logger.info(
         {
           appId: appData._id,
           eventType: envelope.type,
+          measurementId,
           gaEvent: mapped.name,
+          transactionId: mapped.params.transaction_id,
         },
         "Sent Google Analytics Measurement Protocol event",
       );
