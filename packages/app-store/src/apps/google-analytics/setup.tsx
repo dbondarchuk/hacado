@@ -213,7 +213,11 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
     () =>
       streams.map((s) => ({
         value: streamKey(s),
-        label: streamLabel(s),
+        label: (
+          <span className="shrink overflow-hidden text-nowrap min-w-0 max-w-[var(--radix-popover-trigger-width)]">
+            {streamLabel(s)}
+          </span>
+        ),
       })),
     [streams],
   );
