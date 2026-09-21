@@ -120,6 +120,7 @@ categories:
   appointments: Записи
   customers: Клієнти
   content: Контент
+  marketing: Маркетинг
 fileSystemAssetsStorage:
   title: Сховище ресурсів файлової системи
   displayName: Сховище ресурсів файлової системи

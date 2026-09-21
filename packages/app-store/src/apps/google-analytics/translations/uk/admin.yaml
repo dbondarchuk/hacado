@@ -1,0 +1,28 @@
+title: Google Analytics
+app:
+  displayName: Google Analytics
+  description: Підключіть Google Analytics 4, щоб відстежувати відвідування вашого публічного сайту та записи бронювання, додавання до листа очікування, покупки подарункових карток, продаж пакетів і відправлення форм як конверсії.
+form:
+  selectStream:
+    label: Вибрати потік даних
+    searchLabel: Шукати потоки даних
+    tooltip: Виберіть, який веб-потік GA4 використовувати для цього сайту
+  connect: Підключитися з <app></app>
+  reconnect: Перепідключитися <app></app>
+  pendingAuthorization: Очікує авторизації
+statusText:
+  successfully_set_up: Успішно підключено до Google Analytics
+  requires_data_stream: Виберіть потік даних, щоб завершити налаштування
+  redirect_request_does_not_contain_app_id: Запит перенаправлення не містить app ID
+  redirect_request_does_not_contain_authorization_code: Запит перенаправлення не містить код авторизації
+  app_was_not_authorized_properly: Додаток не було правильно авторизовано
+  app_was_not_given_required_scopes: Додатку не було надано необхідні області
+  failed_to_get_user_email: Не вдалося отримати email користувача
+  failed_to_retrieve_data_stream_list: Не вдалося отримати список потоків даних
+  failed_to_set_data_stream: Не вдалося встановити потік даних
+  failed_to_create_measurement_protocol_secret: Не вдалося створити секрет Measurement Protocol
+  missing_oauth_config: OAuth для Google Analytics не налаштовано. Вкажіть GOOGLE_ANALYTICS_APP_CLIENT_ID і GOOGLE_ANALYTICS_APP_CLIENT_SECRET.
+toast:
+  changes_saved: Ваші зміни були збережені.
+  request_error: Виникла проблема з вашим запитом.
+  stream_list_error: Не вдалося отримати список потоків даних

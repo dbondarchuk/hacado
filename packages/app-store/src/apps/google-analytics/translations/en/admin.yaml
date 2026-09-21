@@ -1,0 +1,28 @@
+title: Google Analytics
+app:
+  displayName: Google Analytics
+  description: Connect Google Analytics 4 to track visits on your public website and record bookings, waitlist joins, gift card purchases, package sales, and form submissions as conversions.
+form:
+  selectStream:
+    label: Select data stream
+    searchLabel: Search data streams
+    tooltip: Choose which GA4 web data stream to use for this website
+  connect: Connect with <app></app>
+  reconnect: Reconnect <app></app>
+  pendingAuthorization: Pending authorization
+statusText:
+  successfully_set_up: Successfully connected to Google Analytics
+  requires_data_stream: Select a data stream to finish setup
+  redirect_request_does_not_contain_app_id: Redirect request does not contain app ID
+  redirect_request_does_not_contain_authorization_code: Redirect request does not contain authorization code
+  app_was_not_authorized_properly: App was not authorized properly
+  app_was_not_given_required_scopes: App was not given required scopes
+  failed_to_get_user_email: Failed to get user email
+  failed_to_retrieve_data_stream_list: Failed to retrieve data stream list
+  failed_to_set_data_stream: Failed to set data stream
+  failed_to_create_measurement_protocol_secret: Failed to create Measurement Protocol secret
+  missing_oauth_config: Google Analytics OAuth is not configured. Set GOOGLE_ANALYTICS_APP_CLIENT_ID and GOOGLE_ANALYTICS_APP_CLIENT_SECRET.
+toast:
+  changes_saved: Your changes were saved.
+  request_error: There was a problem with your request.
+  stream_list_error: Failed to retrieve data stream list

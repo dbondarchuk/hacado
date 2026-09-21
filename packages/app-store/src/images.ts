@@ -4,6 +4,8 @@ import { AUTOMATIC_STRUCTURED_DATA_APP_NAME } from "./apps/automatic-structured-
 import { AutomaticStructuredDataImages } from "./apps/automatic-structured-data/images";
 import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CaldavImages } from "./apps/caldav/images";
+import { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
+import { GoogleAnalyticsImages } from "./apps/google-analytics/images";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { GoogleCalendarImages } from "./apps/google-calendar/images";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
@@ -36,4 +38,5 @@ export const AppImages: Record<string, string[]> = {
   [STRIPE_APP_NAME]: StripeImages,
   [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataImages,
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryImages,
+  [GOOGLE_ANALYTICS_APP_NAME]: GoogleAnalyticsImages,
 };

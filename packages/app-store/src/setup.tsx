@@ -8,6 +8,7 @@ import { CaldavAppSetup } from "./apps/caldav/setup";
 import { CalendarWriterAppSetup } from "./apps/calendar-writer/setup";
 import { CarddavAppSetup } from "./apps/carddav/setup";
 import { EmailNotificationAppSetup } from "./apps/email-notification/setup";
+import { GoogleAnalyticsAppSetup } from "./apps/google-analytics/setup";
 import { GoogleAppSetup } from "./apps/google-calendar/setup";
 import { IcsAppSetup } from "./apps/ics/setup";
 import { MyCabinetAppSetup } from "./apps/my-cabinet/setup";
@@ -34,6 +35,7 @@ import { CALDAV_APP_NAME } from "./apps/caldav/const";
 import { CALENDAR_WRITER_APP_NAME } from "./apps/calendar-writer/const";
 import { CARDDAV_APP_NAME } from "./apps/carddav/const";
 import { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
+import { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { ICS_APP_NAME } from "./apps/ics/const";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
@@ -60,6 +62,9 @@ export const AppSetups: Record<string, BasicAppSetup> = {
     <EmailNotificationAppSetup {...props} />
   ),
   [GOOGLE_CALENDAR_APP_NAME]: (props) => <GoogleAppSetup {...props} />,
+  [GOOGLE_ANALYTICS_APP_NAME]: (props) => (
+    <GoogleAnalyticsAppSetup {...props} />
+  ),
   [ICS_APP_NAME]: (props) => <IcsAppSetup {...props} />,
   [OUTLOOK_APP_NAME]: (props) => <OutlookAppSetup {...props} />,
   [PAYPAL_APP_NAME]: (props) => <PaypalAppSetup {...props} />,

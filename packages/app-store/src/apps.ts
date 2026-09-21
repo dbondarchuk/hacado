@@ -29,6 +29,8 @@ import { FormsApp } from "./apps/forms/app";
 import { FORMS_APP_NAME } from "./apps/forms/const";
 import { GiftCardStudioApp } from "./apps/gift-card-studio/app";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
+import { GoogleAnalyticsApp } from "./apps/google-analytics/app";
+import { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
 import { GoogleCalendarApp } from "./apps/google-calendar/app";
 import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { IcsApp } from "./apps/ics/app";
@@ -73,6 +75,7 @@ import { ZOOM_APP_NAME } from "./apps/zoom/const";
 export const AvailableApps: Record<string, App> = {
   [OUTLOOK_APP_NAME]: OutlookApp,
   [GOOGLE_CALENDAR_APP_NAME]: GoogleCalendarApp,
+  [GOOGLE_ANALYTICS_APP_NAME]: GoogleAnalyticsApp,
   [ICS_APP_NAME]: IcsApp,
   [CALDAV_APP_NAME]: CaldavApp,
   [CARDDAV_APP_NAME]: CarddavApp,
@@ -123,6 +126,7 @@ export { CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./apps/customer-tex
 export { CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME } from "./apps/customer-waitlist-notifications/const";
 export { EMAIL_NOTIFICATION_APP_NAME } from "./apps/email-notification/const";
 // export { FILE_SYSTEM_ASSETS_STORAGE_APP_NAME } from "./apps/file-system-assets-storage/const";
+export { GOOGLE_ANALYTICS_APP_NAME } from "./apps/google-analytics/const";
 export { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 export { ICS_APP_NAME } from "./apps/ics/const";
 export { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";

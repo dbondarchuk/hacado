@@ -29,6 +29,8 @@ import { FORMS_APP_NAME } from "../apps/forms/const";
 import { FormsConnectedApp } from "../apps/forms/service";
 import { GIFT_CARD_STUDIO_APP_NAME } from "../apps/gift-card-studio/const";
 import { GiftCardStudioConnectedApp } from "../apps/gift-card-studio/service/service";
+import { GOOGLE_ANALYTICS_APP_NAME } from "../apps/google-analytics/const";
+import GoogleAnalyticsConnectedApp from "../apps/google-analytics/service";
 import { GOOGLE_CALENDAR_APP_NAME } from "../apps/google-calendar/const";
 import GoogleCalendarConnectedApp from "../apps/google-calendar/service";
 import { ICS_APP_NAME } from "../apps/ics/const";
@@ -76,6 +78,8 @@ export const AvailableAppServices: Record<
 > = {
   [OUTLOOK_APP_NAME]: (props) => new OutlookConnectedApp(props),
   [GOOGLE_CALENDAR_APP_NAME]: (props) => new GoogleCalendarConnectedApp(props),
+  [GOOGLE_ANALYTICS_APP_NAME]: (props) =>
+    new GoogleAnalyticsConnectedApp(props),
   [ICS_APP_NAME]: (props) => new IcsConnectedApp(props),
   [CALDAV_APP_NAME]: (props) => new CaldavConnectedApp(props),
   [CARDDAV_APP_NAME]: (props) => new CarddavConnectedApp(props),

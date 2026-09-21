@@ -420,13 +420,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/organization/custom-domain/route.ts": {
-    "mtime": 1786820408.6922474,
-    "ast_hash": "05e6e26d511e4859624b66cd8f8cf4a0",
+    "mtime": 1789929375.4604118,
+    "ast_hash": "d4f0ebdee0c07b93a73459323da7a9f1",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/organization/domain/route.ts": {
-    "mtime": 1786820408.6932485,
-    "ast_hash": "f9cdb23ae4569ca0b91884b6a85c3951",
+    "mtime": 1789929375.4604118,
+    "ast_hash": "c3a85b8a0b5a1816e8dbda5dc9259301",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/pages/[id]/route.ts": {
@@ -1055,8 +1055,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/brand.tsx": {
-    "mtime": 1789920734.6904466,
-    "ast_hash": "6e086121b5b826380facf0d728a4d68b",
+    "mtime": 1789930001.0767379,
+    "ast_hash": "6e5e15d2d4180358384c437a8f670ebf",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/brand/tabs/general-billing-card.tsx": {
@@ -3125,8 +3125,8 @@
     "semantic_hash": ""
   },
   "docs/sidebars.ts": {
-    "mtime": 1789229433.3321197,
-    "ast_hash": "58e91d57ab1381dfba77759ba31e4ebe",
+    "mtime": 1789930698.4385576,
+    "ast_hash": "edbf89459212a765fb4354bafb3b367b",
     "semantic_hash": ""
   },
   "docs/src/pages/index.tsx": {
@@ -3660,8 +3660,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1789749778.081653,
-    "ast_hash": "45e5340a96bc953ed9c795cf3e576952",
+    "mtime": 1789930699.036834,
+    "ast_hash": "3e1b5230a04a5200624a49fcbdd994f6",
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/index.ts": {
@@ -3675,8 +3675,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps.ts": {
-    "mtime": 1789749204.6446476,
-    "ast_hash": "a899e3c51e2ca69d517bf7ba5959029c",
+    "mtime": 1789930666.925515,
+    "ast_hash": "6765834a64af97f8fa8fc27740ac69e6",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/appointment-notifications/actions.ts": {
@@ -7415,18 +7415,18 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/services/index.ts": {
-    "mtime": 1789749236.6481733,
-    "ast_hash": "e76f75bf96c9ed2a8d01a83bbf2652a3",
+    "mtime": 1789930672.5115528,
+    "ast_hash": "21b21e2f7e233e371c3b6dd19e820883",
     "semantic_hash": ""
   },
   "packages/app-store/src/setup.tsx": {
-    "mtime": 1789749239.4220245,
-    "ast_hash": "f379f34385812f0993b1f21aca29d08c",
+    "mtime": 1789930670.1034946,
+    "ast_hash": "23ca58853f0eb02f6c93de57a50aed25",
     "semantic_hash": ""
   },
   "packages/app-store/src/translations.ts": {
-    "mtime": 1789749241.3085518,
-    "ast_hash": "66d24a072707adb774ad9453110400d8",
+    "mtime": 1789930673.6782548,
+    "ast_hash": "b02362b1bcad7456e70fd06413c15929",
     "semantic_hash": ""
   },
   "packages/app-store/tailwind.config.ts": {
@@ -15085,8 +15085,8 @@
     "semantic_hash": ""
   },
   "packages/utils/package.json": {
-    "mtime": 1789232543.1309762,
-    "ast_hash": "667519f07cfa90fe42da068a0d6c3f8c",
+    "mtime": 1789928529.1389892,
+    "ast_hash": "89fc46a69977386d0f555966a6890f4d",
     "semantic_hash": ""
   },
   "packages/utils/src/appointment-event-dispatch.ts": {
@@ -15265,8 +15265,8 @@
     "semantic_hash": ""
   },
   "turbo.json": {
-    "mtime": 1789773857.9113562,
-    "ast_hash": "6bc37ff7fff81cca1e6cb0e61f755c59",
+    "mtime": 1789930859.5904157,
+    "ast_hash": "dc177544be9373baa3153c78a3d34d06",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.md": {
@@ -15425,18 +15425,18 @@
     "semantic_hash": ""
   },
   "docker-compose.local.yaml": {
-    "mtime": 1789229473.4573417,
-    "ast_hash": "bc5c9b5ab823bda55633359e343e9908",
+    "mtime": 1789998030.8583221,
+    "ast_hash": "86f3fc4f6ce842800b0c11a8dc3bf5f5",
     "semantic_hash": ""
   },
   "docker-compose.services.yaml": {
-    "mtime": 1789229473.8607786,
-    "ast_hash": "08d558135fa08d63f5fa220027b0d0ee",
+    "mtime": 1789998036.6984997,
+    "ast_hash": "f66f9f040f8e454888b1274091945956",
     "semantic_hash": ""
   },
   "docker-compose.yaml": {
-    "mtime": 1789229472.2494283,
-    "ast_hash": "4c29d742c72c3dde3ed988526508904d",
+    "mtime": 1789998041.2624028,
+    "ast_hash": "4266d7ec0f850a3528de08a9c4e9c6c1",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -15605,8 +15605,8 @@
     "semantic_hash": ""
   },
   "docs/docs/daily-use/connect-domain.md": {
-    "mtime": 1787002092.8562346,
-    "ast_hash": "4bdae6a708c1eae411b4048ceebe05d5",
+    "mtime": 1789928597.2135482,
+    "ast_hash": "d7b737f385f4f4a4c187028b365e2b93",
     "semantic_hash": ""
   },
   "docs/docs/daily-use/settings.md": {
@@ -16085,13 +16085,13 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1789924564.3780127,
-    "ast_hash": "0d11a0f4cd6675a50474ba247f8f3119",
+    "mtime": 1789929991.4850056,
+    "ast_hash": "cbc006206c40f9ec2624e8690c3ea644",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
-    "mtime": 1787364795.239834,
-    "ast_hash": "eca2ba2ebc1e8d7dfe2e0791d5a5e410",
+    "mtime": 1789930506.5418656,
+    "ast_hash": "3eccbb5c6432cebd6ae5bcb89764943c",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/builder.yaml": {
@@ -16115,18 +16115,18 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/validation.yaml": {
-    "mtime": 1789920603.5586495,
-    "ast_hash": "f06c643f6a8347cdb426e8041a942257",
+    "mtime": 1789928589.0848742,
+    "ast_hash": "53b43164093082c2fe5626177824b085",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1789924565.6169739,
-    "ast_hash": "8ad3aff507640231b8ed40d7ccb70d16",
+    "mtime": 1789929993.9781427,
+    "ast_hash": "5c29010022d8cb2b3c6ba6a68460da45",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
-    "mtime": 1787364795.2433922,
-    "ast_hash": "6cd5d5601595c2379a073cc940bd8478",
+    "mtime": 1789930506.5418656,
+    "ast_hash": "a2703c719e25c2682d29529bd3edaa3c",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/builder.yaml": {
@@ -16150,8 +16150,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/validation.yaml": {
-    "mtime": 1789920621.148558,
-    "ast_hash": "e662691f85db42f6f0ec37aec58c454f",
+    "mtime": 1789928597.0997639,
+    "ast_hash": "ccc1c6f477430c2a888540ce62745651",
     "semantic_hash": ""
   },
   "apps/admin/public/email-logo-dark.png": {
@@ -30225,8 +30225,8 @@
     "semantic_hash": ""
   },
   "packages/utils/src/server/index.ts": {
-    "mtime": 1789232542.2694511,
-    "ast_hash": "b5e6e6aec336810e94ac4d46c5027dae",
+    "mtime": 1789928516.4201348,
+    "ast_hash": "9078575d0af2a7c9761c996b8c63e191",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/context/bannerContext.tsx": {
@@ -31977,6 +31977,91 @@
   "apps/admin/public/logo-white-bg.svg": {
     "mtime": 1789924718.9850402,
     "ast_hash": "99eebb659db2e0bac7dfaa21a24d8763",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/app.tsx": {
+    "mtime": 1789998144.3600628,
+    "ast_hash": "d83acac41b0aac6799734e8b1ee1dd44",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/const.ts": {
+    "mtime": 1789930485.9033885,
+    "ast_hash": "72936bc826588d2bf46cce83c2fe740d",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/gtag-scripts.test.ts": {
+    "mtime": 1789930527.6294277,
+    "ast_hash": "332e78e2d8549da750bc02bdf0df4a04",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/gtag-scripts.ts": {
+    "mtime": 1789930514.3687034,
+    "ast_hash": "c0792f2d687b23baa3e963d4d84471ea",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/logo.tsx": {
+    "mtime": 1789930837.1383061,
+    "ast_hash": "92ab8b3ba8e17dc8c47dff14d5bde10a",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/map-ga4-event.test.ts": {
+    "mtime": 1789930856.4372559,
+    "ast_hash": "0c4f1e54237af7fd1da36f3acfe4d522",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/map-ga4-event.ts": {
+    "mtime": 1789930856.4372559,
+    "ast_hash": "9ee4bf6a3df19ef26b666c450bf266c0",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/models.ts": {
+    "mtime": 1789930493.8768263,
+    "ast_hash": "f8a638db47f85249b4488168cafe4107",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/service.ts": {
+    "mtime": 1789998622.295849,
+    "ast_hash": "b7d146a5fa3686c2ae114f9157a8f089",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/setup.tsx": {
+    "mtime": 1789998666.906912,
+    "ast_hash": "6c54f15d1bbceb1a426de30fe0223475",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/translations/index.ts": {
+    "mtime": 1789930683.0513647,
+    "ast_hash": "4250bffed3a8214433d66760cdc6af63",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/translations/types.ts": {
+    "mtime": 1789930682.369959,
+    "ast_hash": "0af9aec8681ce455bf0e630aa54fe267",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/server/custom-domain-dns.test.ts": {
+    "mtime": 1789929305.583021,
+    "ast_hash": "e58079f9f77dc2646e9dcef520f4139c",
+    "semantic_hash": ""
+  },
+  "packages/utils/src/server/custom-domain-dns.ts": {
+    "mtime": 1789929305.583021,
+    "ast_hash": "c96a1e77419923e7bacd26b70bd71224",
+    "semantic_hash": ""
+  },
+  "docs/docs/apps/google-analytics.md": {
+    "mtime": 1789998665.1504655,
+    "ast_hash": "a47974b8492de05e45b666ce128fa80e",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/translations/en/admin.yaml": {
+    "mtime": 1789998630.2285821,
+    "ast_hash": "b32164c1b0cd5e876c2983353ed941d1",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/translations/uk/admin.yaml": {
+    "mtime": 1789998633.8027573,
+    "ast_hash": "d02ba4016d8f5c78ed6a9d90647df9a0",
     "semantic_hash": ""
   }
 }

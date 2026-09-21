@@ -120,6 +120,7 @@ categories:
   appointments: Appointments
   customers: Customers
   content: Content
+  marketing: Marketing
 fileSystemAssetsStorage:
   title: File system assets storage
   displayName: File system assets storage

@@ -8,7 +8,7 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node --import tsx --test src/subscription-plan-access.test.ts src/apps/customer-waitlist-notifications/slot-match.test.ts src/apps/waitlist/waitlist-offer-token.test.ts src/apps/waitlist/waitlist-offer-prefill.test.ts"
+    "test": "node --import tsx --test src/subscription-plan-access.test.ts src/apps/customer-waitlist-notifications/slot-match.test.ts src/apps/waitlist/waitlist-offer-token.test.ts src/apps/waitlist/waitlist-offer-prefill.test.ts src/apps/google-analytics/gtag-scripts.test.ts src/apps/google-analytics/map-ga4-event.test.ts"
   },
   "main": "./src/index.ts",
   "exports": {
@@ -47,6 +47,7 @@
     "@aws-sdk/client-s3": "^3.782.0",
     "@azure/msal-node": "^3.0.1",
     "@google-pay/button-react": "^3.2.1",
+    "@googleapis/analyticsadmin": "22.0.0",
     "@googleapis/calendar": "^12.0.0",
     "@googleapis/meet": "^3.0.0",
     "@hacado/api-sdk": "*",
