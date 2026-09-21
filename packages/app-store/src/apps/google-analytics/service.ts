@@ -318,20 +318,52 @@ class GoogleAnalyticsConnectedApp
   ): Promise<void> {
     const logger = this.loggerFactory("onEvent");
 
-    if (appData.status !== "connected") return;
+    logger.debug(
+      { appId: appData._id, envelope },
+      "Sending Google Analytics Measurement Protocol event",
+    );
+
+    if (appData.status !== "connected") {
+      logger.debug(
+        { appId: appData._id, status: appData.status },
+        "Google Analytics is not connected; skipping event",
+      );
+
+      return;
+    }
 
     const measurementId = appData.data?.measurementId;
     const encryptedSecret = appData.data?.apiSecret;
-    if (!measurementId || !encryptedSecret) return;
+    if (!measurementId || !encryptedSecret) {
+      logger.debug(
+        { appId: appData._id, measurementId, encryptedSecret },
+        "Google Analytics Measurement Protocol event is not configured; skipping event",
+      );
+
+      return;
+    }
 
     try {
       const { general } =
         await this.props.services.configurationService.getConfigurations(
           "general",
         );
+
       const currency = general?.currency ?? "USD";
       const mapped = mapGa4Event(envelope, currency);
-      if (!mapped) return;
+      if (!mapped) {
+        logger.debug(
+          { appId: appData._id, mapped },
+          "Google Analytics Measurement Protocol event is not mapped; skipping event",
+        );
+
+        return;
+      }
+
+      logger.debug(
+        { appId: appData._id, mapped },
+        "Google Analytics Measurement Protocol event is mapped; sending event",
+      );
 
       const apiSecret = decrypt(encryptedSecret);
       const body = {
@@ -344,6 +376,11 @@ class GoogleAnalyticsConnectedApp
         ],
       };
 
+      logger.debug(
+        { appId: appData._id, body },
+        "Google Analytics Measurement Protocol event body",
+      );
+
       const url = new URL("https://www.google-analytics.com/mp/collect");
       url.searchParams.set("measurement_id", measurementId);
       url.searchParams.set("api_secret", apiSecret);
@@ -353,6 +390,11 @@ class GoogleAnalyticsConnectedApp
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
+
+      logger.debug(
+        { appId: appData._id, response },
+        "Google Analytics Measurement Protocol event response",
+      );
 
       if (!response.ok) {
         logger.warn(
@@ -392,25 +434,56 @@ class GoogleAnalyticsConnectedApp
   ): Promise<DataStreamListItem[]> {
     const logger = this.loggerFactory("getDataStreamList");
 
+    logger.debug(
+      { appId: appData._id },
+      "Listing Google Analytics data streams",
+    );
+
     try {
       const client = await this.getAnalyticsAdminClient(appData);
       const streams: DataStreamListItem[] = [];
       let pageToken: string | undefined;
 
       do {
+        logger.debug(
+          { appId: appData._id, pageToken },
+          "Listing Google Analytics data streams",
+        );
+
         const response = await client.accountSummaries.list({
           pageSize: 200,
           pageToken,
         });
+
+        logger.debug(
+          { appId: appData._id, response },
+          "Google Analytics data streams response",
+        );
+
         pageToken = response.data.nextPageToken ?? undefined;
 
         for (const account of response.data.accountSummaries ?? []) {
+          logger.debug(
+            { appId: appData._id, account },
+            "Google Analytics data streams account",
+          );
+
           for (const property of account.propertySummaries ?? []) {
+            logger.debug(
+              { appId: appData._id, property },
+              "Google Analytics data streams property",
+            );
+
             const propertyName = property.property;
             if (!propertyName) continue;
 
             const propertyId = propertyName.replace(/^properties\//, "");
             const displayName = property.displayName || propertyId;
+
+            logger.debug(
+              { appId: appData._id, displayName },
+              "Google Analytics data streams displayName",
+            );
 
             let streamPageToken: string | undefined;
             do {
@@ -419,14 +492,34 @@ class GoogleAnalyticsConnectedApp
                 pageSize: 200,
                 pageToken: streamPageToken,
               });
+
+              logger.debug(
+                { appId: appData._id, streamResponse },
+                "Google Analytics data streams stream response",
+              );
+
               streamPageToken = streamResponse.data.nextPageToken ?? undefined;
 
               for (const stream of streamResponse.data.dataStreams ?? []) {
-                if (stream.type !== "WEB_DATA_STREAM") continue;
+                if (stream.type !== "WEB_DATA_STREAM") {
+                  logger.debug(
+                    { appId: appData._id, stream },
+                    "Google Analytics data streams stream is not a web data stream; skipping",
+                  );
+
+                  continue;
+                }
 
                 const measurementId = stream.webStreamData?.measurementId;
                 const streamResource = stream.name;
-                if (!measurementId || !streamResource) continue;
+                if (!measurementId || !streamResource) {
+                  logger.debug(
+                    { appId: appData._id, stream },
+                    "Google Analytics data streams stream is not a web data stream; skipping",
+                  );
+
+                  continue;
+                }
 
                 const streamId = streamResource.split("/").pop();
                 if (!streamId) continue;
@@ -443,6 +536,11 @@ class GoogleAnalyticsConnectedApp
           }
         }
       } while (pageToken);
+
+      logger.debug(
+        { appId: appData._id, streamsCount: streams.length },
+        "Google Analytics data streams",
+      );
 
       return streams;
     } catch (error: any) {
@@ -464,16 +562,31 @@ class GoogleAnalyticsConnectedApp
     const logger = this.loggerFactory("ensureMeasurementProtocolSecret");
     const parent = `properties/${propertyId}/dataStreams/${streamId}`;
 
+    logger.debug(
+      { appId: appData._id, parent },
+      "Ensuring Measurement Protocol secret",
+    );
+
     // List API never returns secretValue; reuse our stored secret for the same stream.
     if (
       appData.data?.streamId === streamId &&
       appData.data?.propertyId === propertyId &&
       appData.data?.apiSecret
     ) {
+      logger.debug(
+        { appId: appData._id },
+        "Reusing existing Measurement Protocol secret",
+      );
+
       return decrypt(appData.data.apiSecret);
     }
 
     try {
+      logger.debug(
+        { appId: appData._id },
+        "Creating Google Analytics admin client",
+      );
+
       const client = await this.getAnalyticsAdminClient(appData);
 
       // Required by Google before Measurement Protocol secrets can be created.
@@ -483,6 +596,11 @@ class GoogleAnalyticsConnectedApp
           acknowledgement: GA4_USER_DATA_COLLECTION_ACKNOWLEDGEMENT,
         },
       });
+
+      logger.debug(
+        { appId: appData._id },
+        "Acknowledged Google Analytics user data collection",
+      );
 
       const existingNames = new Set<string>();
       let pageToken: string | undefined;
@@ -495,6 +613,11 @@ class GoogleAnalyticsConnectedApp
             pageToken,
           });
 
+        logger.debug(
+          { appId: appData._id, listed },
+          "Google Analytics data streams measurement protocol secrets list",
+        );
+
         pageToken = listed.data.nextPageToken ?? undefined;
 
         for (const secret of listed.data.measurementProtocolSecrets ?? []) {
@@ -502,11 +625,21 @@ class GoogleAnalyticsConnectedApp
         }
       } while (pageToken);
 
+      logger.debug(
+        { appId: appData._id, existingNamesCount: existingNames.size },
+        "Google Analytics data streams measurement protocol secrets",
+      );
+
       const displayName = existingNames.has(
         HACADO_MEASUREMENT_PROTOCOL_SECRET_NAME,
       )
         ? `${HACADO_MEASUREMENT_PROTOCOL_SECRET_NAME}-${Date.now()}`
         : HACADO_MEASUREMENT_PROTOCOL_SECRET_NAME;
+
+      logger.debug(
+        { appId: appData._id, displayName },
+        "Creating Google Analytics data streams measurement protocol secret",
+      );
 
       const created =
         await client.properties.dataStreams.measurementProtocolSecrets.create({
@@ -514,12 +647,27 @@ class GoogleAnalyticsConnectedApp
           requestBody: { displayName },
         });
 
+      logger.debug(
+        { appId: appData._id, created },
+        "Google Analytics data streams measurement protocol secret created",
+      );
+
       const secretValue = created.data.secretValue;
       if (!secretValue) {
+        logger.error(
+          { appId: appData._id },
+          "Failed to create Google Analytics data streams measurement protocol secret",
+        );
+
         throw new ConnectedAppError(
           "app_google-analytics_admin.statusText.failed_to_create_measurement_protocol_secret" satisfies GoogleAnalyticsAdminAllKeys,
         );
       }
+
+      logger.debug(
+        { appId: appData._id, secretValue },
+        "Google Analytics data streams measurement protocol secret value",
+      );
 
       return secretValue;
     } catch (error: any) {
