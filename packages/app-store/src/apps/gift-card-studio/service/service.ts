@@ -1346,7 +1346,10 @@ export class GiftCardStudioConnectedApp
           phone,
           name,
         },
-        { actor: "customer" },
+        await this.props.services.connectedAppsService.attachPublicEventContext(
+          { actor: "customer" },
+          request,
+        ),
       );
 
     if (intent.customerId !== customer._id) {
@@ -1365,10 +1368,14 @@ export class GiftCardStudioConnectedApp
       "Intent found, creating payment",
     );
 
-    const purchaseSource = {
-      actor: "customer" as const,
-      actorId: customer._id,
-    };
+    const purchaseSource =
+      await this.props.services.connectedAppsService.attachPublicEventContext(
+        {
+          actor: "customer" as const,
+          actorId: customer._id,
+        },
+        request,
+      );
 
     const payment = await this.props.services.paymentsService.createPayment(
       {
@@ -1582,7 +1589,10 @@ export class GiftCardStudioConnectedApp
           phone,
           name,
         },
-        { actor: "customer" },
+        await this.props.services.connectedAppsService.attachPublicEventContext(
+          { actor: "customer" },
+          request,
+        ),
       );
 
     const intentUpdate = {

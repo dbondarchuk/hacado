@@ -11,6 +11,7 @@ import {
   ConnectedAppUninstallResult,
   IConnectedApp,
 } from "../apps/connected-app.service";
+import type { EventSource } from "../events/envelope";
 import type { SessionUser } from "../users/session-user";
 
 export interface IConnectedAppsService {
@@ -67,6 +68,22 @@ export interface IConnectedAppsService {
     appId: string,
   ): Promise<{ service: IConnectedApp & T; app: ConnectedAppData }>;
   getAppServiceProps(appId: string): IConnectedAppProps;
+
+  /**
+   * Invokes installed `public-event-context-provider` apps and returns
+   * non-empty contexts keyed by connected app id.
+   */
+  collectPublicEventContext(
+    request: Request,
+  ): Promise<Record<string, Record<string, any>>>;
+
+  /**
+   * Attaches collected public event context onto a customer/visitor event source.
+   */
+  attachPublicEventContext<S extends Exclude<EventSource, { actor: "system" }>>(
+    source: S,
+    request: Request,
+  ): Promise<S>;
 
   invokeAppsByScope<T, TReturn = void>(
     scope: AppScope,

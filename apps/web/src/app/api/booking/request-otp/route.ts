@@ -66,13 +66,19 @@ export async function POST(request: NextRequest) {
     }
 
     logger.debug("Getting or upserting customer");
+    const customerSource =
+      await servicesContainer.connectedAppsService.attachPublicEventContext(
+        { actor: "customer" },
+        request,
+      );
+
     await servicesContainer.customersService.getOrUpsertCustomer(
       {
         name: name.trim(),
         email: email ?? "",
         phone: phone ?? "",
       },
-      { actor: "customer" },
+      customerSource,
     );
     logger.debug("Customer upserted");
   }

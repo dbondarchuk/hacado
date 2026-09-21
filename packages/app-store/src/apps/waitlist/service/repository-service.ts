@@ -75,7 +75,7 @@ export class WaitlistRepositoryService {
 
     const emitSource: EventSource =
       source.actor === "customer"
-        ? { actor: "customer", actorId: customer._id }
+        ? { ...source, actorId: customer._id }
         : source;
 
     await this.services.eventService.emit(

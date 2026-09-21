@@ -300,6 +300,12 @@ export class BlogConnectedApp
     const status = config.commentsPremoderation ? "pending" : "approved";
     const comment = await repositoryService.createComment(parsed.data, status);
 
+    const source =
+      await this.props.services.connectedAppsService.attachPublicEventContext(
+        { actor: "visitor", actorName: comment.authorName },
+        request,
+      );
+
     await this.emitBlogEvent(
       BLOG_COMMENT_CREATED_EVENT_TYPE,
       {
@@ -318,7 +324,7 @@ export class BlogConnectedApp
           slug: post.slug,
         },
       },
-      { actor: "visitor", actorName: comment.authorName },
+      source,
     );
 
     logger.info({ postId: parsed.data.postId, status }, "Blog comment created");

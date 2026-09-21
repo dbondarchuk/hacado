@@ -5,6 +5,7 @@ import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";
 import { GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE } from "../gift-card-studio/models/events";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";
 import {
+  gaPublicContextFromSource,
   mapGa4Event,
   stableGaClientId,
   stableGaSessionId,
@@ -41,6 +42,27 @@ describe("stableGaSessionId", () => {
     assert.equal(a, b);
     assert.ok(a > 0);
     assert.equal(Number.isInteger(a), true);
+  });
+});
+
+describe("gaPublicContextFromSource", () => {
+  it("returns only the matching app context", () => {
+    const source: EventEnvelope["source"] = {
+      actor: "customer",
+      actorId: "c1",
+      context: {
+        public: {
+          "ga-app": { clientId: "1.2", sessionId: 99 },
+          "other-app": { foo: "bar" },
+        },
+      },
+    };
+
+    assert.deepEqual(gaPublicContextFromSource(source, "ga-app"), {
+      clientId: "1.2",
+      sessionId: 99,
+    });
+    assert.deepEqual(gaPublicContextFromSource(source, "missing"), {});
   });
 });
 
@@ -94,6 +116,61 @@ describe("mapGa4Event", () => {
     assert.equal(mapped?.name, "purchase");
     assert.equal(mapped?.params.value, 0);
     assert.equal(mapped?.params.currency, "USD");
+  });
+
+  it("prefers browser client id from public event context", () => {
+    const mapped = mapGa4Event(
+      envelope(
+        "appointment.created",
+        {
+          appointment: {
+            _id: "appt-4",
+            customerId: "cust-1",
+            totalPrice: 10,
+            option: { _id: "opt-1", name: "Haircut" },
+          },
+          confirmed: true,
+        },
+        { actor: "customer", actorId: "c1" },
+      ),
+      "USD",
+      { clientId: "111222333.444555666" },
+    );
+
+    assert.equal(mapped?.clientId, "111222333.444555666");
+  });
+
+  it("reads browser client id for waitlist and form events", () => {
+    const waitlist = mapGa4Event(
+      envelope(
+        WAITLIST_ENTRY_CREATED_EVENT_TYPE,
+        {
+          entry: {
+            _id: "wl-2",
+            customerId: "cust-1",
+            option: { _id: "opt-1", name: "Massage" },
+          },
+        },
+        { actor: "customer" },
+      ),
+      "USD",
+      { clientId: "1.2" },
+    );
+    assert.equal(waitlist?.clientId, "1.2");
+
+    const form = mapGa4Event(
+      envelope(
+        FORM_RESPONSE_CREATED_EVENT_TYPE,
+        {
+          formResponse: { _id: "fr-2", formId: "f-1" },
+          form: { _id: "f-1", name: "Contact" },
+        },
+        { actor: "visitor", actorName: "Anon" },
+      ),
+      "USD",
+      { clientId: "3.4" },
+    );
+    assert.equal(form?.clientId, "3.4");
   });
 
   it("skips admin-created appointments", () => {

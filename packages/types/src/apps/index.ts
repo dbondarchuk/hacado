@@ -18,6 +18,7 @@ export * from "./notifications";
 export * from "./page-metadata-provider";
 export * from "./page-seo-arguments-provider";
 export * from "./payment";
+export * from "./public-event-context-provider";
 export * from "./schedule";
 export * from "./scheduled";
 export * from "./script-provider";

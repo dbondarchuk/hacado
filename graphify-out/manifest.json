@@ -2585,8 +2585,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/[appointmentId]/modify/route.ts": {
-    "mtime": 1787790813.0371199,
-    "ast_hash": "162b9ab7dba974e8b36a7ea990d3ae43",
+    "mtime": 1790021113.5241904,
+    "ast_hash": "89dfbbe98836395ae2c158507329ddae",
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/duplicate/route.ts": {
@@ -2605,8 +2605,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/route.ts": {
-    "mtime": 1787874166.0575755,
-    "ast_hash": "dbca85dc8c773ef29ee14713e99c8374",
+    "mtime": 1790020979.9281762,
+    "ast_hash": "76b049b02bfa01f6560333bf6ae34b77",
     "semantic_hash": ""
   },
   "apps/web/src/app/api/customer-auth/check/route.ts": {
@@ -2725,8 +2725,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/utils/booking-tracking.ts": {
-    "mtime": 1787712698.413434,
-    "ast_hash": "b4e3971c78cbc96cb691c9a56262eef4",
+    "mtime": 1790021080.2023532,
+    "ast_hash": "fd7d8936d04d34ae51d268bc13286131",
     "semantic_hash": ""
   },
   "apps/web/src/utils/customer-auth/session.ts": {
@@ -3660,8 +3660,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1789999013.9472892,
-    "ast_hash": "3e1b5230a04a5200624a49fcbdd994f6",
+    "mtime": 1790021115.6806035,
+    "ast_hash": "53d8a1c08e2a360f6e798a4c94f3fa9d",
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/index.ts": {
@@ -4640,8 +4640,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/service/service.ts": {
-    "mtime": 1786820409.2300012,
-    "ast_hash": "65d2eadf3139e1ac7136e7022fd8d700",
+    "mtime": 1790021080.264508,
+    "ast_hash": "00acf055db3b7ca711308f0f6e369bc8",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/settings/pages/main.tsx": {
@@ -5355,8 +5355,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/service/service.ts": {
-    "mtime": 1786820409.2992084,
-    "ast_hash": "b3c0de3facfb30d9cf6ec1f7e4fceb95",
+    "mtime": 1790020986.4497573,
+    "ast_hash": "e393fdd9228d336d902e1e1311ef98d0",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/translations/index.ts": {
@@ -5710,8 +5710,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/service.ts": {
-    "mtime": 1787790813.0796602,
-    "ast_hash": "612aeb36e70eea068450328837afc116",
+    "mtime": 1790021162.7855508,
+    "ast_hash": "b42e398d374d219521215dd2da276b9f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/utils.ts": {
@@ -7060,13 +7060,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/service/repository-service.ts": {
-    "mtime": 1788455904.0354257,
-    "ast_hash": "1ba2d7acd7baf7a2c36f8f1ef67f7906",
+    "mtime": 1790017980.6894588,
+    "ast_hash": "5b0bb9955481371c64cca881cda30d58",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/service/service.ts": {
-    "mtime": 1787876587.4056816,
-    "ast_hash": "513d91a88cb159453fa694698ee28dcc",
+    "mtime": 1790020988.683142,
+    "ast_hash": "3aa2b9110a8a65f2e76b0aeaf48c954e",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/setup.tsx": {
@@ -12670,8 +12670,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/jobs/bullmq-job-worker.ts": {
-    "mtime": 1790013680.4569223,
-    "ast_hash": "7185470cae6d509c506277c3a31a5f90",
+    "mtime": 1790020873.7010777,
+    "ast_hash": "36e6c00b99b5e88be6c2a8b35b6e1298",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/jobs/index.ts": {
@@ -12750,8 +12750,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/connected-apps.service.ts": {
-    "mtime": 1786820409.9033885,
-    "ast_hash": "aa7834c76978d72ad8198315bce4be1c",
+    "mtime": 1790020886.0402584,
+    "ast_hash": "bf393a5c63d40f4afe11649615ca47b2",
     "semantic_hash": ""
   },
   "packages/services/src/customer-auth.service.ts": {
@@ -13140,8 +13140,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/app.ts": {
-    "mtime": 1789749023.755195,
-    "ast_hash": "095741f2ffab33f53670c9ec67309c31",
+    "mtime": 1790020839.147488,
+    "ast_hash": "a0c4a677719812df1e4098e7bb265b82",
     "semantic_hash": ""
   },
   "packages/types/src/apps/assets/assets-storage.ts": {
@@ -13235,8 +13235,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/index.ts": {
-    "mtime": 1789749023.755195,
-    "ast_hash": "0a3986a994f8a4a98f0bb57e167caf87",
+    "mtime": 1790020842.9752233,
+    "ast_hash": "450d3dd01ab6c0354b0910d177eb2df4",
     "semantic_hash": ""
   },
   "packages/types/src/apps/injectors.ts": {
@@ -13620,8 +13620,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/events/envelope.ts": {
-    "mtime": 1786820409.9640563,
-    "ast_hash": "0dd83b96963a6a57f1362c2703cc3967",
+    "mtime": 1790020844.8263986,
+    "ast_hash": "6c167556427cd9b13d8c83aa0775d217",
     "semantic_hash": ""
   },
   "packages/types/src/events/event-definition.ts": {
@@ -13735,8 +13735,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/services/connected-apps.service.ts": {
-    "mtime": 1786820409.9690554,
-    "ast_hash": "800d8bfb116ccf003fdd70ac8d34d4a2",
+    "mtime": 1790020900.6450763,
+    "ast_hash": "591d4a297522251652ef7343335be869",
     "semantic_hash": ""
   },
   "packages/types/src/services/container.ts": {
@@ -15085,7 +15085,7 @@
     "semantic_hash": ""
   },
   "packages/utils/package.json": {
-    "mtime": 1789928529.1389892,
+    "mtime": 1790021115.6806035,
     "ast_hash": "89fc46a69977386d0f555966a6890f4d",
     "semantic_hash": ""
   },
@@ -15170,7 +15170,7 @@
     "semantic_hash": ""
   },
   "packages/utils/src/index.ts": {
-    "mtime": 1789921337.5683138,
+    "mtime": 1790021113.7451904,
     "ast_hash": "bb778cd4b1c1ac4b5f46f81a5ba40fc9",
     "semantic_hash": ""
   },
@@ -28430,8 +28430,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/request-otp/route.ts": {
-    "mtime": 1787758670.8745313,
-    "ast_hash": "10069bbf31d1b509356d5d5bb9f9eb72",
+    "mtime": 1790021138.1775649,
+    "ast_hash": "26868133a3a1b7a9f22845f9f924c009",
     "semantic_hash": ""
   },
   "apps/web/src/utils/appointments/assert-booking-customer-access.ts": {
@@ -31980,8 +31980,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/app.tsx": {
-    "mtime": 1790002768.0656204,
-    "ast_hash": "d83acac41b0aac6799734e8b1ee1dd44",
+    "mtime": 1790020934.889787,
+    "ast_hash": "973769541cb300babbdc66acf0e0a2b3",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/const.ts": {
@@ -32005,13 +32005,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/map-ga4-event.test.ts": {
-    "mtime": 1790015055.3523688,
-    "ast_hash": "c178934217c48bfef60f76bc30ad5b1d",
+    "mtime": 1790021138.778657,
+    "ast_hash": "c04ea6485345b32a28eb952465b61fc9",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/map-ga4-event.ts": {
-    "mtime": 1790015055.3523688,
-    "ast_hash": "88bd0ba1450944ac6713c444dd32af9f",
+    "mtime": 1790020935.1346412,
+    "ast_hash": "d2b736f6d226cded236e80c2923a7c8b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/models.ts": {
@@ -32020,8 +32020,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/service.ts": {
-    "mtime": 1790013715.3895464,
-    "ast_hash": "ed3547db5b63788f6fc50b5fa1b41b4b",
+    "mtime": 1790021118.450176,
+    "ast_hash": "f0d0f775b3623560e747d06802807db4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/setup.tsx": {
@@ -32077,6 +32077,21 @@
   "packages/app-store/src/apps/google-analytics/images/image2.png": {
     "mtime": 1790006373.684324,
     "ast_hash": "9c243b0bf21b3daf1ae12086060157a7",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/parse-ga-cookie.test.ts": {
+    "mtime": 1790017744.9108272,
+    "ast_hash": "8133d46315f9931427028f755ceb43e0",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/google-analytics/parse-ga-cookie.ts": {
+    "mtime": 1790020913.0183158,
+    "ast_hash": "f03b8c184f7d962dc0a48e926d7917c7",
+    "semantic_hash": ""
+  },
+  "packages/types/src/apps/public-event-context-provider.ts": {
+    "mtime": 1790020838.9076645,
+    "ast_hash": "6c21638285e5e5c8798c863a1e1a7f84",
     "semantic_hash": ""
   }
 }

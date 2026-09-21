@@ -2,6 +2,7 @@ import { canProcessApp } from "@hacado/app-store";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
+  envelopeForAppDelivery,
   EventDeliveryJobRequest,
   EventEnvelope,
   IEventSubscriber,
@@ -371,7 +372,10 @@ export class BullMQJobWorker extends BaseBullMQClient {
         const service = new builtIn.getService(organizationId, services);
         const subscriber = service as IEventSubscriber;
         if (typeof subscriber.onEvent === "function") {
-          await subscriber.onEvent(appData, envelope);
+          await subscriber.onEvent(
+            appData,
+            envelopeForAppDelivery(envelope, jobData.appId),
+          );
         }
       } else {
         const { service, app } =
@@ -389,7 +393,10 @@ export class BullMQJobWorker extends BaseBullMQClient {
 
         const subscriber = service as IEventSubscriber;
         if (typeof subscriber.onEvent === "function") {
-          await subscriber.onEvent(app, envelope);
+          await subscriber.onEvent(
+            app,
+            envelopeForAppDelivery(envelope, jobData.appId),
+          );
         }
       }
 

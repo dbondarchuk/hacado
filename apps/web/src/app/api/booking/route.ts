@@ -231,7 +231,11 @@ export async function POST(request: NextRequest) {
       event: eventWithSessionId,
       paymentIntentId,
       files,
-      eventSource: { actor: "customer" },
+      eventSource:
+        await servicesContainer.connectedAppsService.attachPublicEventContext(
+          { actor: "customer" },
+          request,
+        ),
       giftCards: eventOrError.giftCards,
       memberId: appointmentRequest.memberId,
       customerPackageId: appointmentRequest.customerPackageId,

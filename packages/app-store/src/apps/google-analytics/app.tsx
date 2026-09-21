@@ -20,7 +20,11 @@ export const GoogleAnalyticsApp: App<
 > = {
   name: GOOGLE_ANALYTICS_APP_NAME,
   displayName: "app_google-analytics_admin.app.displayName",
-  scope: ["script-provider", "event-subscriber"],
+  scope: [
+    "script-provider",
+    "event-subscriber",
+    "public-event-context-provider",
+  ],
   subscribeTo: [
     APPOINTMENT_CREATED_EVENT_TYPE,
     WAITLIST_ENTRY_CREATED_EVENT_TYPE,

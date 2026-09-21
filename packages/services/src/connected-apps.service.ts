@@ -23,13 +23,16 @@ import {
   DefaultAppsConfiguration,
   DefaultAppScope,
   defaultAppScopes,
+  EventSource,
   IConnectedApp,
   IConnectedAppProps,
   IConnectedAppsService,
   IConnectedAppWithWebhook,
   IOAuthConnectedApp,
+  IPublicEventContextProvider,
   IServicesContainer,
   OrganizationMember,
+  PublicEventContextByApp,
   SessionUser,
 } from "@hacado/types";
 import { ObjectId } from "mongodb";
@@ -983,6 +986,60 @@ export class ConnectedAppsService
       );
       throw error;
     }
+  }
+
+  public async collectPublicEventContext(
+    request: Request,
+  ): Promise<PublicEventContextByApp> {
+    const logger = this.loggerFactory("collectPublicEventContext");
+    const collected: PublicEventContextByApp = {};
+
+    await this.invokeAppsByScope<IPublicEventContextProvider>(
+      "public-event-context-provider",
+      async (appData, service) => {
+        if (typeof service.getPublicEventContext !== "function") {
+          return;
+        }
+
+        const context = await service.getPublicEventContext(appData, request);
+        if (!context || Object.keys(context).length === 0) {
+          return;
+        }
+
+        collected[appData._id] = context;
+        logger.debug(
+          {
+            appId: appData._id,
+            appName: appData.name,
+            keys: Object.keys(context),
+          },
+          "Collected public event context from app",
+        );
+      },
+      { ignoreErrors: true },
+    );
+
+    return collected;
+  }
+
+  public async attachPublicEventContext<
+    S extends Exclude<EventSource, { actor: "system" }>,
+  >(source: S, request: Request): Promise<S> {
+    const publicContext = await this.collectPublicEventContext(request);
+    if (Object.keys(publicContext).length === 0) {
+      return source;
+    }
+
+    return {
+      ...source,
+      context: {
+        ...source.context,
+        public: {
+          ...source.context?.public,
+          ...publicContext,
+        },
+      },
+    };
   }
 
   public async invokeAppsByScope<T, TReturn = void>(

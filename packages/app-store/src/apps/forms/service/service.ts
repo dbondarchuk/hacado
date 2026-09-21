@@ -407,11 +407,13 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
         await this.props.services.customersService.getCustomer(
           customerIdFromForm,
         );
+
       if (!customer) {
         logger.warn(
           { formId, customerId: customerIdFromForm },
           "Customer not found for required form",
         );
+
         return Response.json(
           {
             success: false,
@@ -528,7 +530,10 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
                   : [],
               requireDeposit: "inherit",
             },
-            { actor: "customer" },
+            await this.props.services.connectedAppsService.attachPublicEventContext(
+              { actor: "customer" },
+              request,
+            ),
           );
 
           logger.debug(
@@ -602,7 +607,13 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
       "Successfully created form response",
     );
 
-    await this.enqueueFormResponseHook(response, form, customer);
+    await this.enqueueFormResponseHook(
+      response,
+      form,
+      customer,
+      undefined,
+      request,
+    );
     await this.sendEmailNotification(appData, response, form, customer);
 
     return Response.json(
@@ -1171,16 +1182,27 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     return result;
   }
 
-  private formResponseEventSource(
+  private async formResponseEventSource(
     formResponse: FormResponseModel,
     customer: Customer | null | undefined,
     memberId?: string,
-  ): EventSource {
+    request?: ApiRequest,
+  ): Promise<EventSource> {
     if (memberId) {
       return { actor: "member", actorId: memberId };
     }
     const cid = formResponse.customerId ?? customer?._id;
-    return cid ? { actor: "customer", actorId: cid } : { actor: "customer" };
+    const base = cid
+      ? { actor: "customer" as const, actorId: cid }
+      : { actor: "customer" as const };
+    if (!request) {
+      return base;
+    }
+
+    return this.props.services.connectedAppsService.attachPublicEventContext(
+      base,
+      request,
+    );
   }
 
   private async processCreateFormResponseRequest(
@@ -1461,14 +1483,16 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     form: FormModel,
     customer?: Customer | null,
     memberId?: string,
+    request?: ApiRequest,
   ) {
     const logger = this.loggerFactory("enqueueFormResponseHook");
     // Enqueue hook for apps that want to react to form submissions
     try {
-      const source = this.formResponseEventSource(
+      const source = await this.formResponseEventSource(
         formResponse,
         customer,
         memberId,
+        request,
       );
       await this.props.services.eventService.emit(
         FORM_RESPONSE_CREATED_EVENT_TYPE,

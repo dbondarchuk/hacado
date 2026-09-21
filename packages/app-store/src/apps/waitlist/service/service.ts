@@ -600,7 +600,7 @@ export class WaitlistConnectedApp
     }
 
     try {
-      const result = await this.createWaitlistEntry(appData, data);
+      const result = await this.createWaitlistEntry(appData, data, request);
 
       // Track booking conversion to waitlist if sessionId is available
       const sessionId = request.headers.get("x-session-id");
@@ -772,6 +772,7 @@ export class WaitlistConnectedApp
   private async createWaitlistEntry(
     appData: ConnectedAppData<WaitlistConfiguration>,
     entry: WaitlistRequest,
+    request?: ApiRequest,
   ): Promise<WaitlistEntry> {
     const logger = this.loggerFactory("createWaitlistEntry");
     logger.debug({ entry }, "Creating waitlist entry");
@@ -780,9 +781,14 @@ export class WaitlistConnectedApp
       appData._id,
       appData.organizationId,
     );
-    const result = await repositoryService.createWaitlistEntry(entry, {
-      actor: "customer",
-    });
+    const source = request
+      ? await this.props.services.connectedAppsService.attachPublicEventContext(
+          { actor: "customer" },
+          request,
+        )
+      : ({ actor: "customer" } as const);
+
+    const result = await repositoryService.createWaitlistEntry(entry, source);
     logger.debug({ result }, "Waitlist entry created");
 
     return result;

@@ -10,6 +10,7 @@ import {
   IConnectedAppProps,
   IEventSubscriber,
   IOAuthConnectedApp,
+  IPublicEventContextProvider,
   IScriptProvider,
   LayoutScriptProviderContext,
   okStatus,
@@ -23,13 +24,23 @@ import {
   HACADO_MEASUREMENT_PROTOCOL_SECRET_NAME,
 } from "./const";
 import { buildGtagScripts } from "./gtag-scripts";
-import { mapGa4Event, stableGaClientId } from "./map-ga4-event";
+import {
+  gaPublicContextFromSource,
+  mapGa4Event,
+  stableGaClientId,
+} from "./map-ga4-event";
 import {
   DataStreamListItem,
   GoogleAnalyticsConfiguration,
   RequestAction,
   requestActionSchema,
 } from "./models";
+import {
+  gaSessionCookieName,
+  getCookieFromRequest,
+  parseGaClientIdFromCookie,
+  parseGaSessionIdFromCookie,
+} from "./parse-ga-cookie";
 import { GoogleAnalyticsAdminAllKeys } from "./translations/types";
 
 /** Token shape stored on the connected app (encrypted at rest). */
@@ -51,7 +62,11 @@ const requiredScopes = [
 ];
 
 class GoogleAnalyticsConnectedApp
-  implements IOAuthConnectedApp, IScriptProvider, IEventSubscriber
+  implements
+    IOAuthConnectedApp,
+    IScriptProvider,
+    IEventSubscriber,
+    IPublicEventContextProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -300,6 +315,49 @@ class GoogleAnalyticsConnectedApp
     });
   }
 
+  public async getPublicEventContext(
+    appData: ConnectedAppData<GoogleAnalyticsConfiguration>,
+    request: Request,
+  ): Promise<Record<string, any> | undefined> {
+    const logger = this.loggerFactory("getPublicEventContext");
+    logger.debug(
+      { appId: appData._id },
+      "Getting Google Analytics public event context",
+    );
+
+    const clientId = parseGaClientIdFromCookie(
+      getCookieFromRequest(request, "_ga"),
+    );
+
+    const measurementId = appData.data?.measurementId;
+    const sessionId = measurementId
+      ? parseGaSessionIdFromCookie(
+          getCookieFromRequest(request, gaSessionCookieName(measurementId)),
+        )
+      : undefined;
+
+    if (!clientId && !sessionId) {
+      logger.debug(
+        { appId: appData._id },
+        "No Google Analytics client ID or session ID found",
+      );
+
+      return undefined;
+    }
+
+    const context = {
+      ...(clientId ? { clientId } : {}),
+      ...(sessionId ? { sessionId } : {}),
+    };
+
+    logger.debug(
+      { appId: appData._id, context },
+      "Google Analytics public event context",
+    );
+
+    return context;
+  }
+
   public async provideLayoutHeaderScripts(
     appData: ConnectedAppData<GoogleAnalyticsConfiguration>,
     _ctx: LayoutScriptProviderContext,
@@ -363,7 +421,11 @@ class GoogleAnalyticsConnectedApp
         );
 
       const currency = general?.currency ?? "USD";
-      const mapped = mapGa4Event(envelope, currency);
+      const publicContext = gaPublicContextFromSource(
+        envelope.source,
+        appData._id,
+      );
+      const mapped = mapGa4Event(envelope, currency, publicContext);
       if (!mapped) {
         logger.info(
           {
@@ -377,8 +439,9 @@ class GoogleAnalyticsConnectedApp
       }
 
       const apiSecret = decrypt(encryptedSecret);
+      const clientId = mapped.clientId ?? stableGaClientId(mapped.clientIdSeed);
       const body = {
-        client_id: stableGaClientId(mapped.clientIdSeed),
+        client_id: clientId,
         events: [
           {
             name: mapped.name,
@@ -387,11 +450,11 @@ class GoogleAnalyticsConnectedApp
         ],
       };
 
-      const url = new URL("https://www.google-analytics.com/mp/collect");
-      url.searchParams.set("measurement_id", measurementId);
-      url.searchParams.set("api_secret", apiSecret);
+      const collectUrl = new URL("https://www.google-analytics.com/mp/collect");
+      collectUrl.searchParams.set("measurement_id", measurementId);
+      collectUrl.searchParams.set("api_secret", apiSecret);
 
-      const response = await fetch(url.toString(), {
+      const response = await fetch(collectUrl.toString(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -417,6 +480,7 @@ class GoogleAnalyticsConnectedApp
           measurementId,
           gaEvent: mapped.name,
           transactionId: mapped.params.transaction_id,
+          clientIdSource: mapped.clientId ? "browser" : "synthetic",
         },
         "Sent Google Analytics Measurement Protocol event",
       );

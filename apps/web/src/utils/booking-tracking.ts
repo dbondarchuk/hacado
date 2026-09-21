@@ -34,10 +34,16 @@ export async function trackBookingStep(
       createIfMissing: options?.createIfMissing,
     };
 
+    const source =
+      await servicesContainer.connectedAppsService.attachPublicEventContext(
+        { actor: "customer", actorId: metadata?.customerId },
+        request,
+      );
+
     await servicesContainer.eventService.emit(
       BOOKING_TRACKING_STEP_EVENT_TYPE,
       eventData,
-      { actor: "customer", actorId: metadata?.customerId },
+      source,
     );
 
     logger.debug(

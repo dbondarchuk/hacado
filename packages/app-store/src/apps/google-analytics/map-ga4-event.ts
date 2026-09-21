@@ -11,12 +11,18 @@ import type { GiftCardStudioPurchaseCreatedPayload } from "../gift-card-studio/m
 import { GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE } from "../gift-card-studio/models/events";
 import type { WaitlistEntryCreatedEvent } from "../waitlist/models/events";
 import { WAITLIST_ENTRY_CREATED_EVENT_TYPE } from "../waitlist/models/events";
+import { isGaClientId } from "./parse-ga-cookie";
 
 export type Ga4Item = {
   item_id: string;
   item_name: string;
   price?: number;
   quantity?: number;
+};
+
+export type Ga4PublicContext = {
+  clientId?: string;
+  sessionId?: number;
 };
 
 export type Ga4MappedEvent = {
@@ -30,14 +36,41 @@ export type Ga4MappedEvent = {
     items?: Ga4Item[];
     /** Required for Realtime / engagement reporting via Measurement Protocol. */
     engagement_time_msec: number;
-    /** Synthetic session id so MP-only hits appear in Realtime. */
     session_id: number;
   };
   clientIdSeed: string;
+  /** Browser client_id when available (joins gtag sessions). */
+  clientId?: string;
 };
 
 function isPublicActor(source: EventSource): boolean {
   return source.actor === "customer" || source.actor === "visitor";
+}
+
+export function gaPublicContextFromSource(
+  source: EventSource,
+  appId: string,
+): Ga4PublicContext {
+  if (source.actor === "system") return {};
+
+  const raw = source.context?.public?.[appId];
+  if (!raw || typeof raw !== "object") return {};
+
+  const clientId =
+    typeof raw.clientId === "string" && isGaClientId(raw.clientId)
+      ? raw.clientId
+      : undefined;
+  const sessionId =
+    typeof raw.sessionId === "number" &&
+    Number.isFinite(raw.sessionId) &&
+    raw.sessionId > 0
+      ? raw.sessionId
+      : undefined;
+
+  return {
+    ...(clientId ? { clientId } : {}),
+    ...(sessionId ? { sessionId } : {}),
+  };
 }
 
 /** Stable GA-shaped client_id from a seed (not tied to the browser `_ga` cookie). */
@@ -57,17 +90,28 @@ export function stableGaSessionId(seed: string): number {
 function withReportParams(
   params: Omit<Ga4MappedEvent["params"], "engagement_time_msec" | "session_id">,
   clientIdSeed: string,
+  publicContext?: Ga4PublicContext,
 ): Ga4MappedEvent["params"] {
   return {
     ...params,
     engagement_time_msec: 100,
-    session_id: stableGaSessionId(clientIdSeed),
+    session_id: publicContext?.sessionId ?? stableGaSessionId(clientIdSeed),
   };
+}
+
+function withBrowserClient(
+  mapped: Omit<Ga4MappedEvent, "clientId">,
+  publicContext?: Ga4PublicContext,
+): Ga4MappedEvent {
+  return publicContext?.clientId
+    ? { ...mapped, clientId: publicContext.clientId }
+    : mapped;
 }
 
 export function mapGa4Event(
   envelope: EventEnvelope,
   currency: string,
+  publicContext?: Ga4PublicContext,
 ): Ga4MappedEvent | undefined {
   switch (envelope.type) {
     case "appointment.created": {
@@ -79,27 +123,31 @@ export function mapGa4Event(
       const itemId = appointment.option?._id ?? appointment._id;
       const clientIdSeed = `${envelope.organizationId}:${appointment.customerId ?? appointment._id}`;
 
-      return {
-        name: "purchase",
-        params: withReportParams(
-          {
-            event_id: envelope.id,
-            transaction_id: appointment._id,
-            value,
-            currency,
-            items: [
-              {
-                item_id: itemId,
-                item_name: itemName,
-                price: value,
-                quantity: 1,
-              },
-            ],
-          },
+      return withBrowserClient(
+        {
+          name: "purchase",
+          params: withReportParams(
+            {
+              event_id: envelope.id,
+              transaction_id: appointment._id,
+              value,
+              currency,
+              items: [
+                {
+                  item_id: itemId,
+                  item_name: itemName,
+                  price: value,
+                  quantity: 1,
+                },
+              ],
+            },
+            clientIdSeed,
+            publicContext,
+          ),
           clientIdSeed,
-        ),
-        clientIdSeed,
-      };
+        },
+        publicContext,
+      );
     }
 
     case WAITLIST_ENTRY_CREATED_EVENT_TYPE: {
@@ -111,19 +159,23 @@ export function mapGa4Event(
       const itemId = entry.option?._id ?? entry._id;
       const clientIdSeed = `${envelope.organizationId}:${entry.customerId ?? entry._id}`;
 
-      return {
-        name: "generate_lead",
-        params: withReportParams(
-          {
-            event_id: envelope.id,
-            transaction_id: entry._id,
-            lead_type: "waitlist",
-            items: [{ item_id: itemId, item_name: itemName }],
-          },
+      return withBrowserClient(
+        {
+          name: "generate_lead",
+          params: withReportParams(
+            {
+              event_id: envelope.id,
+              transaction_id: entry._id,
+              lead_type: "waitlist",
+              items: [{ item_id: itemId, item_name: itemName }],
+            },
+            clientIdSeed,
+            publicContext,
+          ),
           clientIdSeed,
-        ),
-        clientIdSeed,
-      };
+        },
+        publicContext,
+      );
     }
 
     case GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE: {
@@ -134,27 +186,31 @@ export function mapGa4Event(
       const value = purchase.amountPurchased;
       const clientIdSeed = `${envelope.organizationId}:${purchase._id}`;
 
-      return {
-        name: "purchase",
-        params: withReportParams(
-          {
-            event_id: envelope.id,
-            transaction_id: purchase._id,
-            value,
-            currency,
-            items: [
-              {
-                item_id: purchase.designId,
-                item_name: purchase.designName,
-                price: value,
-                quantity: 1,
-              },
-            ],
-          },
+      return withBrowserClient(
+        {
+          name: "purchase",
+          params: withReportParams(
+            {
+              event_id: envelope.id,
+              transaction_id: purchase._id,
+              value,
+              currency,
+              items: [
+                {
+                  item_id: purchase.designId,
+                  item_name: purchase.designName,
+                  price: value,
+                  quantity: 1,
+                },
+              ],
+            },
+            clientIdSeed,
+            publicContext,
+          ),
           clientIdSeed,
-        ),
-        clientIdSeed,
-      };
+        },
+        publicContext,
+      );
     }
 
     case "customerPackage.issued": {
@@ -165,27 +221,31 @@ export function mapGa4Event(
       const value = customerPackage.price;
       const clientIdSeed = `${envelope.organizationId}:${customerPackage.customerId}`;
 
-      return {
-        name: "purchase",
-        params: withReportParams(
-          {
-            event_id: envelope.id,
-            transaction_id: customerPackage._id,
-            value,
-            currency,
-            items: [
-              {
-                item_id: customerPackage.packageId,
-                item_name: customerPackage.name,
-                price: value,
-                quantity: 1,
-              },
-            ],
-          },
+      return withBrowserClient(
+        {
+          name: "purchase",
+          params: withReportParams(
+            {
+              event_id: envelope.id,
+              transaction_id: customerPackage._id,
+              value,
+              currency,
+              items: [
+                {
+                  item_id: customerPackage.packageId,
+                  item_name: customerPackage.name,
+                  price: value,
+                  quantity: 1,
+                },
+              ],
+            },
+            clientIdSeed,
+            publicContext,
+          ),
           clientIdSeed,
-        ),
-        clientIdSeed,
-      };
+        },
+        publicContext,
+      );
     }
 
     case FORM_RESPONSE_CREATED_EVENT_TYPE: {
@@ -195,24 +255,28 @@ export function mapGa4Event(
         envelope.payload as FormResponseCreatedPayload;
       const clientIdSeed = `${envelope.organizationId}:${formResponse._id}`;
 
-      return {
-        name: "generate_lead",
-        params: withReportParams(
-          {
-            event_id: envelope.id,
-            transaction_id: formResponse._id,
-            lead_type: "form",
-            items: [
-              {
-                item_id: form._id,
-                item_name: form.name,
-              },
-            ],
-          },
+      return withBrowserClient(
+        {
+          name: "generate_lead",
+          params: withReportParams(
+            {
+              event_id: envelope.id,
+              transaction_id: formResponse._id,
+              lead_type: "form",
+              items: [
+                {
+                  item_id: form._id,
+                  item_name: form.name,
+                },
+              ],
+            },
+            clientIdSeed,
+            publicContext,
+          ),
           clientIdSeed,
-        ),
-        clientIdSeed,
-      };
+        },
+        publicContext,
+      );
     }
 
     default:

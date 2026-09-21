@@ -22,16 +22,21 @@ const processRescheduleRequest = async (
     { type: "reschedule"; allowed: true }
   >,
   customerId: string,
+  httpRequest: NextRequest,
 ): Promise<NextResponse> => {
   const logger = getLoggerFactory("API/event/[appointmentId]/modify")(
     "processRescheduleRequest",
   );
   const servicesContainer = await getServicesContainer();
   const appointmentId = information.id;
-  const customerSource = {
-    actor: "customer" as const,
-    actorId: customerId,
-  };
+  const customerSource =
+    await servicesContainer.connectedAppsService.attachPublicEventContext(
+      {
+        actor: "customer" as const,
+        actorId: customerId,
+      },
+      httpRequest,
+    );
   logger.debug(
     {
       appointmentId,
@@ -242,7 +247,7 @@ const processRescheduleRequest = async (
     appointmentId,
     request.dateTime,
     information.duration,
-    { actor: "customer" },
+    customerSource,
     false,
   );
 
@@ -269,16 +274,21 @@ const processCancelRequest = async (
     { type: "cancel"; allowed: true }
   >,
   customerId: string,
+  httpRequest: NextRequest,
 ) => {
   const logger = getLoggerFactory("API/booking/[appointmentId]/modify")(
     "processCancelRequest",
   );
   const servicesContainer = await getServicesContainer();
   const appointmentId = information.id;
-  const customerSource = {
-    actor: "customer" as const,
-    actorId: customerId,
-  };
+  const customerSource =
+    await servicesContainer.connectedAppsService.attachPublicEventContext(
+      {
+        actor: "customer" as const,
+        actorId: customerId,
+      },
+      httpRequest,
+    );
 
   logger.debug({ appointmentId }, "Processing cancel request");
 
@@ -529,7 +539,7 @@ const processCancelRequest = async (
   await servicesContainer.bookingService.changeAppointmentStatus(
     appointmentId,
     "canceled",
-    { actor: "customer" },
+    customerSource,
   );
 
   logger.debug({ appointmentId }, "Appointment cancelled successfully");
@@ -684,6 +694,7 @@ export async function PUT(
         { type: "reschedule"; allowed: true }
       >,
       eventOrError.customerId,
+      request,
     );
   } else if (modifyAppointmentRequest.type === "cancel") {
     return await processCancelRequest(
@@ -693,6 +704,7 @@ export async function PUT(
         { type: "cancel"; allowed: true }
       >,
       eventOrError.customerId,
+      request,
     );
   } else {
     logger.warn(
