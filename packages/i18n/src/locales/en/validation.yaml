@@ -519,10 +519,16 @@ payments:
     required: Method is required
   type:
     required: Payment type is required
+  customerId:
+    required: Customer is required
   giftCardId:
     required: Gift card is required
   giftCardAmount:
     max: Gift card amount must be at most the remaining balance on the card
+  paymentLinkAppId:
+    required: Payment link app is required
+  to:
+    required: Destination email or phone is required
 cancellation:
   policy:
     enabled:

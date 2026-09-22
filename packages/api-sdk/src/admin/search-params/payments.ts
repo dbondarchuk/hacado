@@ -10,7 +10,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { paymentMethods, paymentType } from "@hacado/types";
+import { paymentMethods, paymentStatus, paymentType } from "@hacado/types";
 import { baseSearchParams } from "./base";
 
 export const paymentsSearchParams = {
@@ -21,6 +21,7 @@ export const paymentsSearchParams = {
   appointmentId: parseAsArrayOf(parseAsString),
   type: parseAsArrayOf(parseAsStringEnum(paymentType.flat())),
   method: parseAsArrayOf(parseAsStringEnum(paymentMethods.flat())),
+  status: parseAsArrayOf(parseAsStringEnum(paymentStatus.flat())),
   sort: baseSearchParams.sort.withDefault([
     {
       id: "paidAt",

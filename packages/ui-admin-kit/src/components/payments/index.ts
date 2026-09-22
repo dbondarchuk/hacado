@@ -6,6 +6,8 @@ export * from "./manage-synced-payment-dialog";
 export * from "./payment-card";
 export * from "./payment-delete-confirmation-modal";
 export * from "./payment-details-dialog";
+export * from "./payment-link-qr-code-dialog";
 export * from "./payment-refund-dialog";
 export * from "./record-synced-payment-dialog";
+export * from "./resend-payment-link-dialog";
 export * from "./synced-payment-card";

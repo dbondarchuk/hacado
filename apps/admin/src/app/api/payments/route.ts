@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
   const search = params.search ?? undefined;
   const type = params.type ?? undefined;
   const method = params.method ?? undefined;
+  const status = params.status ?? undefined;
 
   logger.debug(
     {
@@ -42,6 +43,7 @@ export async function GET(request: NextRequest) {
       search,
       type,
       method,
+      status,
       sort,
     },
     "Listing payments",
@@ -56,6 +58,7 @@ export async function GET(request: NextRequest) {
     search,
     type,
     method,
+    status,
     sort,
   });
 

@@ -2,6 +2,7 @@ import { BaseAllKeys } from "@hacado/i18n";
 import {
   PAYMENT_CREATED_EVENT_TYPE,
   PAYMENT_DELETED_EVENT_TYPE,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
   PAYMENT_REFUNDED_EVENT_TYPE,
   PAYMENT_UPDATED_EVENT_TYPE,
   type EventDefinition,
@@ -108,6 +109,13 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         link: dashboardUrls.payment(payment),
       };
     },
+    dashboardNotification: false,
+    emailNotifications: false,
+    smsNotifications: false,
+  },
+  [PAYMENT_INTENT_PAID_EVENT_TYPE]: {
+    type: PAYMENT_INTENT_PAID_EVENT_TYPE,
+    recordActivity: false,
     dashboardNotification: false,
     emailNotifications: false,
     smsNotifications: false,

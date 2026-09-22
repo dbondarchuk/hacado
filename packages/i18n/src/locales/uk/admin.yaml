@@ -48,6 +48,7 @@ common:
       paid: Оплачено
       refunded: Повернено
       pending: Очікує
+      cancelled: Скасовано
     appointmentHistoryType:
       statusChanged: Статус змінено
       rescheduled: Перенесено
@@ -60,6 +61,7 @@ common:
       in-person-card: Картка в особі
       gift-card: Подарункова карта
       online: Онлайн
+      payment-link: Посилання на оплату
     filters: Фільтри
     loading: Завантаження
     unknown: Невідомо
@@ -3531,10 +3533,30 @@ payment:
     update: Оновити
     description: Опис
     fees: Комісії
+    tip: Чайові
     netAmount: Чиста сума
     refundFees: Повертати комісії
     syncedPayment: Синхронізований платіж
     manageSyncedPayment: Керувати
+    copyLink: Копіювати посилання
+    showQrCode: Показати QR-код
+    resendLink: Надіслати знову
+    cancelLink: Скасувати посилання
+    linkCopied: Посилання на оплату скопійовано
+    sendVia: Надіслати через
+    destination: Отримувач
+    resendLinkDescription: Надіслати посилання на оплату клієнту знову
+    qrCode:
+      title: QR-код посилання на оплату
+      description: Покажіть цей код клієнту, щоб він міг відсканувати та оплатити
+      copy: Копіювати
+      download: Завантажити
+      alt: QR-код для {url}
+      copyUrl: Копіювати URL
+      copied: QR-код скопійовано в буфер обміну
+      copyError: Не вдалося скопіювати QR-код
+      downloadError: Не вдалося завантажити QR-код
+      loadError: Не вдалося завантажити посилання на оплату
   addUpdatePayment:
     addPayment: Додати платіж
     updatePayment: Оновити платіж
@@ -3549,12 +3571,22 @@ payment:
         cash: Готівка
         in-person-card: Картка
         gift-card: Подарункова картка
+        payment-link: Посилання на оплату
       type:
         label: Тип платежу
       giftCardId:
         label: Подарункова картка
       customerId:
         label: Клієнт
+      paymentLinkAppId:
+        label: Додаток
+      channel:
+        label: Надіслати через
+        email: Email
+        sms: SMS
+        copy: Копіювати посилання
+      to:
+        label: Отримувач
   toasts:
     refundSuccess: Оплату повернено
     refundSuccessDescription: Оплату було успішно повернено

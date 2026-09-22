@@ -15,7 +15,7 @@ const calendarsAndScheduling = [
 
 const meetings = ["apps/zoom"];
 
-const payments = ["apps/stripe", "apps/square", "apps/paypal"];
+const payments = ["apps/stripe", "apps/square", "apps/paypal", "apps/payment-links"];
 
 const email = [
   "apps/smtp",

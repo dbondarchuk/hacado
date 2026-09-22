@@ -39,6 +39,8 @@ import { MyCabinetApp } from "./apps/my-cabinet/app";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { OutlookApp } from "./apps/outlook/app";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
+import { PaymentLinksApp } from "./apps/payment-links/app";
+import { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
 import { PaypalApp } from "./apps/paypal/app";
 import { PAYPAL_APP_NAME } from "./apps/paypal/const";
 import { ResendApp } from "./apps/resend/app";
@@ -98,6 +100,7 @@ export const AvailableApps: Record<string, App> = {
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: TextMessageAutoReplyApp,
   [TEXT_MESSAGE_RESENDER_APP_NAME]: TextMessageResenderApp,
   [PAYPAL_APP_NAME]: PaypalApp,
+  [PAYMENT_LINKS_APP_NAME]: PaymentLinksApp,
   [SQUARE_APP_NAME]: SquareApp,
   [STRIPE_APP_NAME]: StripeApp,
   [BLOG_APP_NAME]: BlogApp,
@@ -131,6 +134,7 @@ export { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 export { ICS_APP_NAME } from "./apps/ics/const";
 export { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 export { OUTLOOK_APP_NAME } from "./apps/outlook/const";
+export { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
 export { PAYPAL_APP_NAME } from "./apps/paypal/const";
 export { SQUARE_APP_NAME } from "./apps/square/const";
 export { STRIPE_APP_NAME } from "./apps/stripe/const";

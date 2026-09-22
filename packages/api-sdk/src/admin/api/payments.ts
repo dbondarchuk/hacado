@@ -4,7 +4,11 @@ import {
   PaymentSummary,
   WithTotal,
 } from "@hacado/types";
-import { RefundPayments } from "../schemas/payments";
+import {
+  CreatePaymentLinkBody,
+  RefundPayments,
+  ResendPaymentLinkBody,
+} from "../schemas/payments";
 import {
   PaymentsSearchParams,
   paymentsSearchParamsSerializer,
@@ -185,6 +189,77 @@ export const refundPayment = async (id: string, amount: number) => {
   console.debug("Payment refunded successfully", {
     success: result.success,
     error: result.error,
+  });
+
+  return result;
+};
+
+export const listPaymentLinkApps = async () => {
+  const response = await fetchAdminApi("/payments/payment-link/apps");
+  return response.json<{ items: { _id: string; name: string }[] }>();
+};
+
+export const createPaymentLink = async (body: CreatePaymentLinkBody) => {
+  console.debug({ body }, "Creating payment link");
+
+  const response = await fetchAdminApi("/payments/payment-link", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json<{ payment: Payment; url: string }>();
+
+  console.debug("Payment link created successfully", {
+    paymentId: result.payment._id,
+  });
+
+  return result;
+};
+
+export const resendPaymentLink = async (
+  id: string,
+  body: ResendPaymentLinkBody,
+) => {
+  console.debug({ paymentId: id, body }, "Resending payment link");
+
+  const response = await fetchAdminApi(`/payments/${id}/payment-link/resend`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+
+  const result = await response.json<{ payment: Payment }>();
+
+  console.debug("Payment link resent successfully", {
+    paymentId: result.payment._id,
+  });
+
+  return result;
+};
+
+export const cancelPaymentLink = async (id: string) => {
+  console.debug({ paymentId: id }, "Cancelling payment link");
+
+  const response = await fetchAdminApi(`/payments/${id}/payment-link/cancel`, {
+    method: "POST",
+  });
+
+  const result = await response.json<Payment>();
+
+  console.debug("Payment link cancelled successfully", {
+    paymentId: result._id,
+  });
+
+  return result;
+};
+
+export const getPaymentLinkUrl = async (id: string) => {
+  console.debug({ paymentId: id }, "Getting payment link URL");
+
+  const response = await fetchAdminApi(`/payments/${id}/payment-link/url`);
+  const result = await response.json<{ url: string }>();
+
+  console.debug("Payment link URL retrieved successfully", {
+    paymentId: id,
   });
 
   return result;

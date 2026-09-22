@@ -1,0 +1,47 @@
+app:
+  displayName: Payment Links
+  description: |-
+    Send hosted payment links by email or SMS so customers can pay online.
+statusText:
+  successfully_set_up: Successfully set up Payment Links
+  error_processing_configuration: Error processing Payment Links configuration
+form:
+  connect: Connect <app></app>
+  update: Update <app></app>
+  verification:
+    label: Verification
+    description: How customers prove who they are before paying
+    values:
+      none: No verification
+      contact-match: Match email or phone
+      otp: One-time code (OTP)
+  emailTemplateId:
+    label: Email template
+    description: Template used when sending the payment link by email
+  smsTemplateId:
+    label: SMS template
+    description: Template used when sending the payment link by SMS
+  linkExpiryDays:
+    label: Link expiry (days)
+    description: Optional. Links expire after this many days if set.
+    placeholder: "7"
+  tipsEnabled:
+    label: Enable tips
+    description: Let customers add a tip on the public payment page
+  tipPresets:
+    label: Tip presets
+    description: Up to 4 percentage options shown to customers (in addition to None and Custom)
+    add: Add preset
+    percentage: "% of amount"
+    remove: Remove
+  headerId:
+    label: Page header
+    description: Optional header shown on the public payment page
+    placeholder: Select header
+  footerId:
+    label: Page footer
+    description: Optional footer shown on the public payment page
+    placeholder: Select footer
+handlers:
+  send-email: Sent payment link email to {name}
+  send-sms: Sent payment link SMS to {name}

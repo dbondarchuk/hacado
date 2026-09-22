@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { paymentMethods, paymentType } from "@hacado/types";
+import { paymentMethods, paymentStatus, paymentType } from "@hacado/types";
 import {
   Button,
   cn,
@@ -35,6 +35,8 @@ export const PaymentsTableAction: React.FC<{
     setTypeFilter,
     methodFilter,
     setMethodFilter,
+    statusFilter,
+    setStatusFilter,
     start,
     end,
     setStartValue,
@@ -68,6 +70,16 @@ export const PaymentsTableAction: React.FC<{
         }))}
         setFilterValue={setMethodFilter as any}
         filterValue={methodFilter ?? []}
+      />
+      <DataTableFilterBox
+        filterKey="status"
+        title={t("paymentsList.columns.status")}
+        options={paymentStatus.map((status) => ({
+          value: status,
+          label: t(`common.labels.paymentStatus.${status}`),
+        }))}
+        setFilterValue={setStatusFilter as any}
+        filterValue={statusFilter ?? []}
       />
       <CustomersDataTableAsyncFilterBox
         filterValue={customerFilter}

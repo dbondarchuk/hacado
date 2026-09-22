@@ -6,6 +6,7 @@ import {
   Appointment,
   AppointmentStatus,
   ClosedAppointmentStatus,
+  getPaymentProcessorRefundTarget,
   Payment,
 } from "@hacado/types";
 import {
@@ -67,10 +68,11 @@ const PaymentRefundCard = ({
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
 
-  const dateTime =
-    typeof payment.paidAt === "string"
+  const dateTime = payment.paidAt
+    ? typeof payment.paidAt === "string"
       ? DateTime.fromISO(payment.paidAt)
-      : DateTime.fromJSDate(payment.paidAt);
+      : DateTime.fromJSDate(payment.paidAt)
+    : undefined;
 
   const totalRefunded =
     payment.status === "refunded"
@@ -225,18 +227,22 @@ const PaymentRefundCard = ({
             <span className="text-sm text-muted-foreground">
               {t("admin.appointments.declineDialog.timePaid")}
             </span>
-            <TooltipResponsive>
-              <TooltipResponsiveTrigger>
-                <span className="text-sm text-foreground/60 underline decoration-dashed cursor-help">
-                  {dateTime.setLocale(locale).toRelative()}
-                </span>
-              </TooltipResponsiveTrigger>
-              <TooltipResponsiveContent>
-                {dateTime.toLocaleString(DateTime.DATETIME_MED, {
-                  locale,
-                })}
-              </TooltipResponsiveContent>
-            </TooltipResponsive>
+            {dateTime?.isValid ? (
+              <TooltipResponsive>
+                <TooltipResponsiveTrigger>
+                  <span className="text-sm text-foreground/60 underline decoration-dashed cursor-help">
+                    {dateTime.setLocale(locale).toRelative()}
+                  </span>
+                </TooltipResponsiveTrigger>
+                <TooltipResponsiveContent>
+                  {dateTime.toLocaleString(DateTime.DATETIME_MED, {
+                    locale,
+                  })}
+                </TooltipResponsiveContent>
+              </TooltipResponsive>
+            ) : (
+              <span className="text-sm text-foreground/60">—</span>
+            )}
           </div>
           {payment.description && (
             <div className="flex justify-between items-center">
@@ -373,16 +379,18 @@ export const AppointmentDeclineDialog: React.FC<{
 
   const paymentsAvailableToRefund = React.useMemo(
     () =>
-      appointment.payments?.filter(
-        (payment) =>
-          payment.method === "online" &&
-          (payment.status === "paid" ||
-            (payment.status === "refunded" &&
-              (payment.refunds?.reduce(
-                (acc, refund) => acc + refund.amount,
-                0,
-              ) || 0) < payment.amount)),
-      ) ?? [],
+      appointment.payments?.filter((payment) => {
+        const totalRefunded =
+          payment.refunds?.reduce((acc, refund) => acc + refund.amount, 0) || 0;
+        const isRefundableStatus =
+          payment.status === "paid" ||
+          (payment.status === "refunded" && totalRefunded < payment.amount);
+
+        return (
+          isRefundableStatus &&
+          getPaymentProcessorRefundTarget(payment) !== null
+        );
+      }) ?? [],
     [appointment],
   );
 

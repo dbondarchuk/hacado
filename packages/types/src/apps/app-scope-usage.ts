@@ -12,6 +12,7 @@ export const APP_SCOPE_USAGE = {
   "mail-send": "company",
   "meeting-url-provider": "member",
   payment: "company",
+  "payment-link": "company",
   "text-message-send": "company",
   "text-message-respond": "company",
   schedule: "company",

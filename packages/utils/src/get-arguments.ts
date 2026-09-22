@@ -10,7 +10,9 @@ import {
   Currency,
   Customer,
   GeneralConfiguration,
+  getPaymentServiceAmount,
   isAppointmentCoveredByPackage,
+  isSettledPayment,
   OrganizationMember,
   Payment,
   SocialConfiguration,
@@ -165,8 +167,10 @@ export const getArguments = <
   const payments = appointment?.payments?.map((payment) => {
     const totalRefunded =
       payment.refunds?.reduce((acc, refund) => acc + refund.amount, 0) || 0;
-
-    const amountLeft = payment.amount - totalRefunded;
+    const serviceAmount = getPaymentServiceAmount(payment);
+    const amountLeft = isSettledPayment(payment)
+      ? Math.max(0, serviceAmount - totalRefunded)
+      : 0;
 
     return {
       ...payment,
@@ -180,7 +184,7 @@ export const getArguments = <
       isCash: payment.method === "cash",
       isInPersonCard: payment.method === "in-person-card",
       isGiftCard: payment.method === "gift-card",
-      isTips: payment.type === "tips",
+      isTips: payment.type === "tips" || (payment.tipAmount ?? 0) > 0,
       isOther: payment.type === "other",
       isDeposit: payment.type === "deposit",
       isRescheduleFee: payment.type === "rescheduleFee",
@@ -189,17 +193,19 @@ export const getArguments = <
     };
   });
 
-  const totalAmountPaid = payments?.reduce(
+  const settledPayments = payments?.filter(isSettledPayment);
+
+  const totalAmountPaid = settledPayments?.reduce(
     (sum, payment) => sum + payment.amount,
     0,
   );
 
-  const totalRefunded = payments?.reduce(
+  const totalRefunded = settledPayments?.reduce(
     (sum, payment) => sum + payment.totalRefunded,
     0,
   );
 
-  const totalAmountLeft = payments?.reduce(
+  const totalAmountLeft = settledPayments?.reduce(
     (sum, payment) => sum + payment.amountLeft,
     0,
   );
@@ -208,7 +214,7 @@ export const getArguments = <
     ? Math.max(
         0,
         appointment.totalPrice -
-          (payments
+          (settledPayments
             ?.filter(
               (payment) =>
                 payment.type !== "rescheduleFee" &&

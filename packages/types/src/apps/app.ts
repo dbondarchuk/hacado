@@ -29,6 +29,8 @@ export type AppScope = Extandable<
   | "page-metadata-provider"
   | "llms-full-txt-provider"
   | "public-event-context-provider"
+  | "public-page-provider"
+  | "payment-link"
 >;
 
 export type AppSetupProps = {

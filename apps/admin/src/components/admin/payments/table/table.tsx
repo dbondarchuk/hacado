@@ -18,6 +18,7 @@ export const PaymentsTable: React.FC = async () => {
     paymentsSearchParamsCache.get("appointmentId") || undefined;
   const type = paymentsSearchParamsCache.get("type") || undefined;
   const method = paymentsSearchParamsCache.get("method") || undefined;
+  const status = paymentsSearchParamsCache.get("status") || undefined;
 
   const offset = (page - 1) * limit;
 
@@ -32,6 +33,7 @@ export const PaymentsTable: React.FC = async () => {
     appointmentId: appointmentIds?.[0],
     type,
     method,
+    status,
   });
 
   return (

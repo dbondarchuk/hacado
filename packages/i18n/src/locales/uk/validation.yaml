@@ -527,10 +527,16 @@ payments:
     required: Спосіб повинен бути вказаний
   type:
     required: Тип платежу повинен бути вказаний
+  customerId:
+    required: Клієнт обовʼязковий
   giftCardId:
     required: Подарункова картка обов'язкова
   giftCardAmount:
     max: Сума подарункової картки не повинна перевищувати залишок на картці
+  paymentLinkAppId:
+    required: Додаток посилання на оплату обовʼязковий
+  to:
+    required: Потрібно вказати email або телефон одержувача
 cancellation:
   policy:
     enabled:

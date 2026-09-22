@@ -15,6 +15,7 @@ import {
   getWebsiteUrl,
 } from "@/utils/utils";
 import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
+import { PublicPageRenderers } from "@hacado/app-store/public-page-renderers";
 import { getLoggerFactory } from "@hacado/logger";
 import { ReplaceOriginalColors } from "@hacado/page-builder-base/reader";
 import {
@@ -23,12 +24,18 @@ import {
   PageReader,
   Styling,
 } from "@hacado/page-builder/reader";
+import type {
+  ConnectedAppData,
+  IPublicPageProvider,
+  PublicPageChrome,
+  PublicPageClaim,
+} from "@hacado/types";
 import { formatArguments, setPageData } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Metadata, ResolvingMetadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-import { cache } from "react";
+import { cache, ReactNode } from "react";
 
 type Props = PageProps<"/[[...slug]]">;
 
@@ -41,6 +48,59 @@ class NotFoundError extends Error {
     this.name = "NotFoundError";
   }
 }
+
+type PublicPageMatch = {
+  app: ConnectedAppData;
+  claim: PublicPageClaim;
+  chrome?: PublicPageChrome;
+};
+
+const resolvePublicPageTakeover = cache(
+  async (
+    slugPath: string,
+    searchParams: Record<string, string | string[] | undefined>,
+    websiteUrl: string,
+  ): Promise<PublicPageMatch | null> => {
+    if (!slugPath || slugPath.includes("/")) {
+      return null;
+    }
+
+    const servicesContainer = await getServicesContainer();
+    const apps =
+      await servicesContainer.connectedAppsService.getAppsByScopeWithData(
+        "public-page-provider",
+      );
+
+    for (const app of apps) {
+      const { service: provider } =
+        await servicesContainer.connectedAppsService.getAppService<IPublicPageProvider>(
+          app._id,
+        );
+
+      if (!provider.getPublicPageClaims) {
+        continue;
+      }
+
+      const claims = await provider.getPublicPageClaims(app);
+      const claim = claims.find((c) => c.slug === slugPath);
+      if (!claim) {
+        continue;
+      }
+
+      const chrome = provider.getPublicPageChrome
+        ? await provider.getPublicPageChrome(app, {
+            slug: slugPath,
+            searchParams,
+            websiteUrl,
+          })
+        : undefined;
+
+      return { app, claim, chrome };
+    }
+
+    return null;
+  },
+);
 
 const getSource = cache(async (slug?: string, preview = false) => {
   const logger = getLoggerFactory("PageComponent")("getSource");
@@ -108,7 +168,6 @@ const getSource = cache(async (slug?: string, preview = false) => {
     throw new NotFoundError("Page not found");
   }
 
-  // read route params
   const { general, brand } =
     await servicesContainer.configurationService.getConfigurations(
       "general",
@@ -140,6 +199,28 @@ export async function generateMetadata(
   try {
     const searchParams = await props.searchParams;
     const params = await props.params;
+    const slugPath = params.slug?.join("/") || "home";
+    const websiteUrl = await getWebsiteUrl();
+
+    const takeover = await resolvePublicPageTakeover(
+      slugPath,
+      searchParams || {},
+      websiteUrl,
+    );
+
+    if (takeover) {
+      const title =
+        takeover.chrome?.title ||
+        takeover.claim.slug.charAt(0).toUpperCase() +
+          takeover.claim.slug.slice(1);
+
+      return {
+        title,
+        robots: takeover.claim.noIndex
+          ? { index: false, follow: false }
+          : undefined,
+      };
+    }
 
     logger.debug(
       {
@@ -164,11 +245,9 @@ export async function generateMetadata(
     );
 
     const seoArgs = await collectPageSeoArgs(page, routeParams);
-    const websiteUrl = await getWebsiteUrl();
     const { title, description, keywords, featuredImage } =
       resolvePageSeoFields(page, brand, seoArgs, websiteUrl);
 
-    const slugPath = params.slug?.join("/") || "home";
     const ogImageUrl =
       featuredImage || `${websiteUrl.replace(/\/$/, "")}/api/og/${slugPath}`;
     const appMetadataParts = await collectAppPageMetadata(
@@ -232,12 +311,97 @@ export async function generateMetadata(
       "Error generating page metadata",
     );
 
-    // Return basic metadata on error
     return {
       title: "Error",
       description: "An error occurred while loading the page",
     };
   }
+}
+
+async function renderPublicPageTakeover(args: {
+  match: PublicPageMatch;
+  searchParams: Record<string, string | string[] | undefined>;
+  websiteUrl: string;
+  styling: any;
+}): Promise<ReactNode> {
+  const { match, searchParams, websiteUrl, styling } = args;
+  const servicesContainer = await getServicesContainer();
+  const { general, brand } =
+    await servicesContainer.configurationService.getConfigurations(
+      "general",
+      "brand",
+    );
+
+  const header = match.chrome?.headerId
+    ? await servicesContainer.pagesService.getPageHeader(match.chrome.headerId)
+    : undefined;
+  const footer = match.chrome?.footerId
+    ? await servicesContainer.pagesService.getPageFooter(match.chrome.footerId)
+    : undefined;
+
+  const apps =
+    await servicesContainer.connectedAppsService.getAppsByScope(
+      "ui-components",
+    );
+
+  const blockRegistry: BlockProviderRegistry = {
+    providers:
+      apps?.map((app) => ({
+        providerName: app.name,
+        priority: 100,
+        blocks: Object.fromEntries(
+          Object.entries(AppsBlocksReaders[app.name] || {}).map(
+            ([name, value]) => [
+              name,
+              {
+                reader: value,
+              },
+            ],
+          ),
+        ),
+      })) || [],
+  };
+
+  const Renderer =
+    PublicPageRenderers[match.app.name]?.[match.claim.slug] || null;
+
+  if (!Renderer) {
+    throw new NotFoundError("Public page renderer not found");
+  }
+
+  return (
+    <>
+      <Styling styling={styling} />
+      <ReplaceOriginalColors />
+      {header && (
+        <Header name={general.name} logo={brand.logo} config={header} />
+      )}
+      {Renderer({
+        appId: match.app._id,
+        appName: match.app.name,
+        searchParams,
+        websiteUrl,
+      })}
+      {footer?.content && (
+        <PageReader
+          document={footer.content}
+          args={formatArguments(
+            {
+              general,
+              brand,
+              now: new Date(),
+              path: match.claim.slug,
+              searchParams,
+            },
+            brand.language,
+            general.currency,
+            general.country,
+          )}
+          blockRegistry={blockRegistry}
+        />
+      )}
+    </>
+  );
 }
 
 export default async function Page(props: Props) {
@@ -249,6 +413,8 @@ export default async function Page(props: Props) {
   try {
     const searchParams = await props.searchParams;
     const routeParams = await props.params;
+    const slugPath = routeParams.slug?.join("/") || "home";
+    const websiteUrl = await getWebsiteUrl();
 
     const servicesContainer = await getServicesContainer();
     const { styling, social } =
@@ -256,6 +422,30 @@ export default async function Page(props: Props) {
         "styling",
         "social",
       );
+
+    const takeover = await resolvePublicPageTakeover(
+      slugPath,
+      searchParams || {},
+      websiteUrl,
+    );
+
+    if (takeover) {
+      logger.info(
+        {
+          slug: slugPath,
+          appId: takeover.app._id,
+          appName: takeover.app.name,
+        },
+        "Rendering public page takeover",
+      );
+
+      return renderPublicPageTakeover({
+        match: takeover,
+        searchParams: searchParams || {},
+        websiteUrl,
+        styling,
+      });
+    }
 
     logger.debug(
       {
@@ -271,8 +461,6 @@ export default async function Page(props: Props) {
       !!searchParams?.preview,
     );
 
-    const websiteUrl = await getWebsiteUrl();
-    const slugPath = routeParams.slug?.join("/") || "home";
     const [pageHeaderScripts, pageFooterScripts] = await Promise.all([
       collectPageHeaderScripts(websiteUrl, page, params),
       collectPageFooterScripts(websiteUrl, page, params),
@@ -433,7 +621,6 @@ export default async function Page(props: Props) {
       notFound();
     }
 
-    // Re-throw to let Next.js handle the error
     throw error;
   } finally {
     logger.debug(

@@ -6,7 +6,7 @@ import { withVariants } from "../cn/with-variants";
 export const inputVariants = cva(
   [
     "flex w-full rounded-md bg-background",
-    "text-base file:border-0 file:bg-background file:text-base file:font-medium file:text-foreground placeholder:text-muted-foreground",
+    "text-base file:border-0 file:bg-background file:text-base file:font-medium file:text-foreground placeholder:text-muted-foreground/50",
     "focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
   ],
   {

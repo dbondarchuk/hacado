@@ -8,6 +8,7 @@ export const PAYMENT_CREATED_EVENT_TYPE = "payment.created" as const;
 export const PAYMENT_UPDATED_EVENT_TYPE = "payment.updated" as const;
 export const PAYMENT_DELETED_EVENT_TYPE = "payment.deleted" as const;
 export const PAYMENT_REFUNDED_EVENT_TYPE = "payment.refunded" as const;
+export const PAYMENT_INTENT_PAID_EVENT_TYPE = "payment-intent.paid" as const;
 
 export const SYNCED_PAYMENT_INGESTED_EVENT_TYPE =
   "syncedPayment.ingested" as const;

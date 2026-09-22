@@ -5,8 +5,10 @@ import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
   AppointmentStatus,
+  getPaymentServiceAmount,
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
+  isSettledPayment,
   timeZones,
 } from "@hacado/types";
 import {
@@ -92,13 +94,16 @@ export const AppointmentDetails = ({
       : undefined;
 
   const totalPaid =
-    appointment.payments?.reduce(
-      (sum, payment) =>
-        sum +
-        payment.amount -
-        (payment.refunds?.reduce((sum, refund) => sum + refund.amount, 0) || 0),
-      0,
-    ) || 0;
+    appointment.payments
+      ?.filter(isSettledPayment)
+      .reduce(
+        (sum, payment) =>
+          sum +
+          payment.amount -
+          (payment.refunds?.reduce((sum, refund) => sum + refund.amount, 0) ||
+            0),
+        0,
+      ) || 0;
 
   const totalAmountLeft = appointment.totalPrice
     ? Math.max(
@@ -109,7 +114,10 @@ export const AppointmentDetails = ({
               (payment) =>
                 payment.type === "payment" || payment.type === "deposit",
             )
-            .reduce((sum, payment) => sum + payment.amount, 0) || 0),
+            .reduce(
+              (sum, payment) => sum + getPaymentServiceAmount(payment),
+              0,
+            ) || 0),
       )
     : 0;
 

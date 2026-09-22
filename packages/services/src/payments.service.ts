@@ -1,13 +1,14 @@
 import {
   AppointmentRequest,
+  getPaymentProcessorRefundTarget,
   IConnectedAppsService,
   IEventService,
   IPaymentProcessor,
   IPaymentsService,
-  OnlinePaymentMethod,
   Payment,
   PAYMENT_CREATED_EVENT_TYPE,
   PAYMENT_DELETED_EVENT_TYPE,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
   PAYMENT_REFUNDED_EVENT_TYPE,
   PAYMENT_UPDATED_EVENT_TYPE,
   PaymentExportRow,
@@ -15,6 +16,7 @@ import {
   PaymentIntentUpdateModel,
   PaymentMethod,
   PAYMENTS_EXPORT_MAX_ROWS,
+  PaymentStatus,
   PaymentSummary,
   PaymentType,
   PaymentUpdateModel,
@@ -24,6 +26,7 @@ import {
   type EventSource,
   type PaymentCreatedPayload,
   type PaymentDeletedPayload,
+  type PaymentIntentPaidPayload,
   type PaymentRefundedPayload,
   type PaymentUpdatedPayload,
 } from "@hacado/types";
@@ -55,6 +58,7 @@ type PaymentsListQuery = {
   appointmentId?: string;
   type?: PaymentType[];
   method?: PaymentMethod[];
+  status?: PaymentStatus[];
   search?: string;
   sort?: Query["sort"];
 };
@@ -387,6 +391,11 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       PAYMENT_INTENTS_COLLECTION_NAME,
     );
 
+    const previousIntent = await intents.findOne({
+      _id: id,
+      organizationId: this.organizationId,
+    });
+
     const $set: Partial<PaymentIntent> = {
       ...updateObj,
       updatedAt: new Date(),
@@ -414,6 +423,18 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     if (!updatedIntent) {
       logger.error({ intentId: id }, "Failed to fetch updated intent");
       throw new Error("Failed to fetch updated intent");
+    }
+
+    if (
+      updateObj.status === "paid" &&
+      previousIntent?.status !== "paid" &&
+      updatedIntent.status === "paid"
+    ) {
+      await this.eventService.emit(
+        PAYMENT_INTENT_PAID_EVENT_TYPE,
+        { intent: updatedIntent } satisfies PaymentIntentPaidPayload,
+        { actor: "system" },
+      );
     }
 
     logger.debug(
@@ -450,6 +471,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       ...payment,
       organizationId: this.organizationId,
       _id: new ObjectId().toString(),
+      createdAt: payment.createdAt ?? new Date(),
       updatedAt: new Date(),
     };
 
@@ -478,6 +500,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       appointmentId?: string;
       type?: PaymentType[];
       method?: PaymentMethod[];
+      status?: PaymentStatus[];
     },
   ): Promise<WithTotal<PaymentSummary>> {
     const logger = this.loggerFactory("list");
@@ -567,6 +590,9 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     }
     if (query.method?.length) {
       match.method = { $in: query.method };
+    }
+    if (query.status?.length) {
+      match.status = { $in: query.status };
     }
     if (query.range?.start || query.range?.end) {
       const paidAt: Record<string, Date> = {};
@@ -721,6 +747,33 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     return payment;
   }
 
+  public async getPaymentByIntentId(intentId: string): Promise<Payment | null> {
+    const logger = this.loggerFactory("getPaymentByIntentId");
+    logger.debug({ intentId }, "Getting payment by intent id");
+
+    const db = await getDbConnection();
+    const payments = db.collection<Payment>(PAYMENTS_COLLECTION_NAME);
+
+    const payment = await payments.findOne({
+      intentId,
+      organizationId: this.organizationId,
+    });
+
+    if (!payment) {
+      logger.warn({ intentId }, "Payment not found by intent id");
+    } else {
+      logger.debug(
+        {
+          intentId,
+          paymentId: payment._id,
+        },
+        "Payment found by intent id",
+      );
+    }
+
+    return payment;
+  }
+
   public async getAppointmentPayments(
     appointmentId: string,
   ): Promise<Payment[]> {
@@ -852,10 +905,11 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       return { success: false, error: "payment_not_found", status: 404 };
     }
 
-    if (payment.method !== "online" && payment.method !== "gift-card") {
+    const processor = getPaymentProcessorRefundTarget(payment);
+    if (payment.method !== "gift-card" && !processor) {
       logger.error(
         { paymentId: id, method: payment.method, amount },
-        "Only online and gift card payments supported for refund",
+        "Payment method not supported for refund",
       );
 
       return {
@@ -903,7 +957,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       return this.refundGiftCardPayment(payment, amount, source);
     }
 
-    return this.refundOnlinePayment(payment, amount, source);
+    return this.refundProcessorPayment(payment, amount, source);
   }
 
   private async refundGiftCardPayment(
@@ -949,28 +1003,42 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     return { success: true, updatedPayment };
   }
 
-  private async refundOnlinePayment(
-    payment: Extract<Payment, { method: OnlinePaymentMethod }>,
+  private async refundProcessorPayment(
+    payment: Payment,
     amount: number,
     source: EventSource,
   ): Promise<
     | { success: false; error: string; status: number }
     | { success: true; updatedPayment: Payment }
   > {
-    const logger = this.loggerFactory("refundOnlinePayment");
+    const logger = this.loggerFactory("refundProcessorPayment");
+    const processor = getPaymentProcessorRefundTarget(payment);
     logger.debug(
-      { paymentId: payment._id, amount },
-      "Processing online payment refund",
+      {
+        paymentId: payment._id,
+        amount,
+        method: payment.method,
+        processorAppId: processor?.appId,
+      },
+      "Processing processor payment refund",
     );
+
+    if (!processor) {
+      return {
+        success: false,
+        error: "only_online_and_gift_card_payments_supported",
+        status: 405,
+      };
+    }
 
     try {
       const { app, service } =
         await this.connectedAppsService.getAppService<IPaymentProcessor>(
-          payment.appId,
+          processor.appId,
         );
       if (!service.refundPayment) {
         logger.error(
-          { paymentId: payment._id, appId: payment.appId, amount },
+          { paymentId: payment._id, appId: processor.appId, amount },
           "Refund not supported by payment app",
         );
 

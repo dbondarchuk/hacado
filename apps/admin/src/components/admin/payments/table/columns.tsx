@@ -16,16 +16,28 @@ import { CellAction } from "./cell-action";
 
 function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
   const locale = useLocale();
-  const paidAt = payment.paidAt;
+  const rawDate = payment.paidAt ?? payment.createdAt;
+  if (!rawDate) {
+    return (
+      <PaymentDetailsDialog payment={payment}>
+        <Button variant="link-dashed" className="p-0 h-auto font-medium">
+          —
+        </Button>
+      </PaymentDetailsDialog>
+    );
+  }
+
   const dateTime =
-    typeof paidAt === "string"
-      ? DateTime.fromISO(paidAt)
-      : DateTime.fromJSDate(paidAt);
+    typeof rawDate === "string"
+      ? DateTime.fromISO(rawDate)
+      : DateTime.fromJSDate(rawDate);
 
   return (
     <PaymentDetailsDialog payment={payment}>
       <Button variant="link-dashed" className="p-0 h-auto font-medium">
-        {dateTime.toLocaleString(DateTime.DATETIME_MED, { locale })}
+        {dateTime.isValid
+          ? dateTime.toLocaleString(DateTime.DATETIME_MED, { locale })
+          : "—"}
       </Button>
     </PaymentDetailsDialog>
   );

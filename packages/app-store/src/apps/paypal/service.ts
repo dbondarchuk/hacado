@@ -1077,19 +1077,11 @@ class PaypalConnectedApp
         paymentType: payment.type,
         paymentMethod: payment.method,
         amount,
-        ...(payment.method === "online" && {
-          appName: (payment as any).appName,
-          externalId: (payment as any).externalId,
-        }),
       },
       "Processing PayPal refund",
     );
 
-    if (
-      payment.method !== "online" ||
-      (payment as any).appName !== PAYPAL_APP_NAME ||
-      !payment.externalId
-    ) {
+    if (payment.method !== "online" && payment.method !== "payment-link") {
       logger.debug(
         { appId: appData._id, paymentId: payment._id },
         "Payment not supported for refund",
@@ -1097,7 +1089,20 @@ class PaypalConnectedApp
       return { success: false, error: "not_supported" };
     }
 
+    const processorName =
+      payment.method === "online" ? payment.appName : payment.processorAppName;
     const captureId = payment.externalId;
+    if (processorName !== PAYPAL_APP_NAME || !captureId) {
+      logger.debug(
+        {
+          appId: appData._id,
+          paymentId: payment._id,
+          appName: processorName,
+        },
+        "Payment not supported for refund",
+      );
+      return { success: false, error: "not_supported" };
+    }
 
     try {
       logger.debug(

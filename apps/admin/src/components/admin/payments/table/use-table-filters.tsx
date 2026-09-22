@@ -22,6 +22,11 @@ export function usePaymentsTableFilters() {
     paymentsSearchParams.method.withOptions({ shallow: false }),
   );
 
+  const [statusFilter, setStatusFilter] = useQueryState(
+    "status",
+    paymentsSearchParams.status.withOptions({ shallow: false }),
+  );
+
   const [customerFilter, setCustomerFilter] = useQueryState(
     "customerId",
     paymentsSearchParams.customerId.withOptions({ shallow: false }),
@@ -48,6 +53,7 @@ export function usePaymentsTableFilters() {
     setSearchQuery(null);
     setTypeFilter(null);
     setMethodFilter(null);
+    setStatusFilter(null);
     setCustomerFilter(null);
     setAppointmentFilter(null);
     setStartValue(null);
@@ -57,6 +63,7 @@ export function usePaymentsTableFilters() {
     setSearchQuery,
     setTypeFilter,
     setMethodFilter,
+    setStatusFilter,
     setCustomerFilter,
     setAppointmentFilter,
     setStartValue,
@@ -69,6 +76,7 @@ export function usePaymentsTableFilters() {
       !!searchQuery ||
       !!typeFilter?.length ||
       !!methodFilter?.length ||
+      !!statusFilter?.length ||
       !!customerFilter?.length ||
       !!appointmentFilter?.length ||
       !!start ||
@@ -78,6 +86,7 @@ export function usePaymentsTableFilters() {
     searchQuery,
     typeFilter,
     methodFilter,
+    statusFilter,
     customerFilter,
     appointmentFilter,
     start,
@@ -95,6 +104,8 @@ export function usePaymentsTableFilters() {
     setTypeFilter,
     methodFilter,
     setMethodFilter,
+    statusFilter,
+    setStatusFilter,
     start,
     setStartValue,
     end,

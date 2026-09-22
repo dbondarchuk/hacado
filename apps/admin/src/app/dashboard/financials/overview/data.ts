@@ -149,7 +149,13 @@ export function createFinancialOverviewQueries(organizationId: string) {
               $map: {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
-                in: "$$payment.amount",
+                in: {
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
+                    "$$payment.amount",
+                    0,
+                  ],
+                },
               },
             },
           },
@@ -174,30 +180,38 @@ export function createFinancialOverviewQueries(organizationId: string) {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
                 in: {
-                  $subtract: [
-                    "$$payment.amount",
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
                     {
-                      $add: [
+                      $subtract: [
+                        "$$payment.amount",
                         {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.refunds", []] },
-                              as: "refund",
-                              in: "$$refund.amount",
+                          $add: [
+                            {
+                              $sum: {
+                                $map: {
+                                  input: {
+                                    $ifNull: ["$$payment.refunds", []],
+                                  },
+                                  as: "refund",
+                                  in: "$$refund.amount",
+                                },
+                              },
                             },
-                          },
-                        },
-                        {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.fees", []] },
-                              as: "fee",
-                              in: "$$fee.amount",
+                            {
+                              $sum: {
+                                $map: {
+                                  input: { $ifNull: ["$$payment.fees", []] },
+                                  as: "fee",
+                                  in: "$$fee.amount",
+                                },
+                              },
                             },
-                          },
+                          ],
                         },
                       ],
                     },
+                    0,
                   ],
                 },
               },
@@ -400,7 +414,13 @@ export function createFinancialOverviewQueries(organizationId: string) {
               $map: {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
-                in: "$$payment.amount",
+                in: {
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
+                    "$$payment.amount",
+                    0,
+                  ],
+                },
               },
             },
           },
@@ -425,30 +445,38 @@ export function createFinancialOverviewQueries(organizationId: string) {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
                 in: {
-                  $subtract: [
-                    "$$payment.amount",
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
                     {
-                      $add: [
+                      $subtract: [
+                        "$$payment.amount",
                         {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.refunds", []] },
-                              as: "refund",
-                              in: "$$refund.amount",
+                          $add: [
+                            {
+                              $sum: {
+                                $map: {
+                                  input: {
+                                    $ifNull: ["$$payment.refunds", []],
+                                  },
+                                  as: "refund",
+                                  in: "$$refund.amount",
+                                },
+                              },
                             },
-                          },
-                        },
-                        {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.fees", []] },
-                              as: "fee",
-                              in: "$$fee.amount",
+                            {
+                              $sum: {
+                                $map: {
+                                  input: { $ifNull: ["$$payment.fees", []] },
+                                  as: "fee",
+                                  in: "$$fee.amount",
+                                },
+                              },
                             },
-                          },
+                          ],
                         },
                       ],
                     },
+                    0,
                   ],
                 },
               },
@@ -586,7 +614,13 @@ export function createFinancialOverviewQueries(organizationId: string) {
               $map: {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
-                in: "$$payment.amount",
+                in: {
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
+                    "$$payment.amount",
+                    0,
+                  ],
+                },
               },
             },
           },
@@ -596,30 +630,38 @@ export function createFinancialOverviewQueries(organizationId: string) {
                 input: "$paymentsExcludingGiftCardPurchases",
                 as: "payment",
                 in: {
-                  $subtract: [
-                    "$$payment.amount",
+                  $cond: [
+                    { $eq: ["$$payment.status", "paid"] },
                     {
-                      $add: [
+                      $subtract: [
+                        "$$payment.amount",
                         {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.refunds", []] },
-                              as: "refund",
-                              in: "$$refund.amount",
+                          $add: [
+                            {
+                              $sum: {
+                                $map: {
+                                  input: {
+                                    $ifNull: ["$$payment.refunds", []],
+                                  },
+                                  as: "refund",
+                                  in: "$$refund.amount",
+                                },
+                              },
                             },
-                          },
-                        },
-                        {
-                          $sum: {
-                            $map: {
-                              input: { $ifNull: ["$$payment.fees", []] },
-                              as: "fee",
-                              in: "$$fee.amount",
+                            {
+                              $sum: {
+                                $map: {
+                                  input: { $ifNull: ["$$payment.fees", []] },
+                                  as: "fee",
+                                  in: "$$fee.amount",
+                                },
+                              },
                             },
-                          },
+                          ],
                         },
                       ],
                     },
+                    0,
                   ],
                 },
               },
