@@ -312,6 +312,7 @@ purchases:
       downloadGiftCardPdf: Download Gift Card PDF
       downloadInvoice: Download Invoice
       generating: Generating...
+      awaitingPayment: Awaiting payment
     giftCardDetail:
       title: Gift Card Details
       description: View the details of the gift card
@@ -321,6 +322,7 @@ purchases:
       amountLeft: Amount Left
       expiresAt: Expires At
       paymentsCount: Payments
+      paymentMethod: Payment Method
       customer: Customer
       recipient: Recipient
       recipientEmail: Recipient Email
@@ -392,6 +394,10 @@ validation:
       max: Message must be less than 1024 characters
     paymentType:
       required: Payment type is required
+    paymentLinkAppId:
+      required: Payment link app is required
+    to:
+      required: Destination is required
     sendToAnotherRecipient:
       required: Recipient information is required
     toName:

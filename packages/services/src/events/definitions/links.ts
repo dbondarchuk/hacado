@@ -5,9 +5,7 @@ export const dashboardUrls = {
   customers: "/dashboard/customers",
   appointment: (id: string) => `/dashboard/appointments/${id}`,
   payment: (payment: Payment) =>
-    payment.appointmentId
-      ? `/dashboard/appointments/${payment.appointmentId}`
-      : `/dashboard/customers/${payment.customerId}`,
+    `/dashboard/financials/payments?id=${encodeURIComponent(payment._id)}`,
   syncedPayment: (record: { externalId: string }) =>
     `/dashboard/financials/inbox?externalId=${encodeURIComponent(record.externalId)}`,
   syncedPayments: "/dashboard/financials/inbox",

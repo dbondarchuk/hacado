@@ -7,6 +7,8 @@ page:
   tip: Tip
   total: Total
   description: Description
+descriptions:
+  giftCard: Gift card payment
 status:
   paid:
     title: Payment complete

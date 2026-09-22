@@ -7,6 +7,8 @@ page:
   tip: Чайові
   total: Разом
   description: Опис
+descriptions:
+  giftCard: Оплата подарункової картки
 status:
   paid:
     title: Оплату завершено

@@ -106,6 +106,18 @@ platformEvents:
     refunded:
       title: Payment refunded
       description: "{refundAmount} of {amount}"
+    linkCreated:
+      title: Payment link created
+      description: "{amount}"
+    linkSent:
+      title: Payment link sent
+      description: "{amount}"
+    linkPaid:
+      title: Payment link paid
+      description: "{amount}"
+    linkCancelled:
+      title: Payment link cancelled
+      description: "{amount}"
   syncedPayment:
     ingested:
       title: In-store payment synced
@@ -2350,6 +2362,7 @@ services:
         createdAt: Created at
         updatedAt: Updated at
         payments: Payments
+        paymentMethod: Payment method
         customer: Customer
       cellAction:
         giftCardDeleted: Gift card {code} was deleted.
@@ -3786,6 +3799,7 @@ payment:
     description: Description
     fees: Fees
     tip: Tip
+    paymentAmount: Payment
     netAmount: Net amount
     refundFees: Refund fees
     syncedPayment: Synced payment

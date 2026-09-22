@@ -7,7 +7,10 @@ import {
   tableSortHeader,
   tableSortNoopFunction,
 } from "@hacado/ui-admin";
-import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import {
+  GiftCardPaymentsDialog,
+  PaymentDetailsDialog,
+} from "@hacado/ui-admin-kit";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { parseAsString, useQueryState } from "nuqs";
@@ -161,6 +164,30 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
     header: tableSortHeader(
       "services.giftCards.table.columns.payments",
       "number",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+  },
+  {
+    cell: ({ row }) => {
+      const t = useI18n("admin");
+      const payment = row.original.payment;
+      if (!payment) {
+        return null;
+      }
+
+      return (
+        <PaymentDetailsDialog payment={payment}>
+          <Button variant="link-dashed" className="p-0 h-auto font-medium">
+            {t(`common.labels.paymentMethod.${payment.method}`)}
+          </Button>
+        </PaymentDetailsDialog>
+      );
+    },
+    id: "paymentMethod",
+    header: tableSortHeader(
+      "services.giftCards.table.columns.paymentMethod",
+      "string",
       "admin",
     ),
     sortingFn: tableSortNoopFunction,

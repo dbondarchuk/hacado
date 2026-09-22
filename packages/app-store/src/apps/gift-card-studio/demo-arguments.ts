@@ -31,5 +31,6 @@ export const demoPurchasedGiftCard: Omit<
   status: "active",
   paymentId: "payment-1234",
   paymentMethod: "online",
+  paymentStatus: "paid",
   paymentsCount: 1,
 };

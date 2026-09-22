@@ -607,6 +607,7 @@ export class GiftCardStudioRepositoryService {
         {
           $set: {
             paymentMethod: { $first: "$payments.method" },
+            paymentStatus: { $first: "$payments.status" },
             paymentsCount: { $size: "$giftCardPayments" },
           },
         },
@@ -791,6 +792,7 @@ export class GiftCardStudioRepositoryService {
         {
           $set: {
             paymentMethod: { $first: "$payments.method" },
+            paymentStatus: { $first: "$payments.status" },
             paymentsCount: { $size: "$giftCardPayments" },
           },
         },
@@ -814,6 +816,29 @@ export class GiftCardStudioRepositoryService {
     return doc as PurchasedGiftCardListModel;
   }
 
+  public async getPurchasedGiftCardByGiftCardId(
+    giftCardId: string,
+  ): Promise<PurchasedGiftCardModel | null> {
+    const logger = this.loggerFactory("getPurchasedGiftCardByGiftCardId");
+    logger.debug({ giftCardId }, "Getting purchased gift card by gift card id");
+
+    const db = await this.getDbConnection();
+    const doc = await db
+      .collection<PurchasedGiftCardModel>(PURCHASED_GIFT_CARDS_COLLECTION_NAME)
+      .findOne({
+        giftCardId,
+        organizationId: this.organizationId,
+        appId: this.appId,
+      });
+
+    if (!doc) {
+      logger.debug({ giftCardId }, "Purchased gift card not found");
+      return null;
+    }
+
+    return doc;
+  }
+
   public async deletePurchasedGiftCard(
     id: string,
   ): Promise<PurchasedGiftCardModel | null> {
@@ -832,11 +857,23 @@ export class GiftCardStudioRepositoryService {
         giftCard.paymentMethod,
       )
     ) {
-      logger.warn(
-        { id, paymentMethod: giftCard.paymentMethod },
-        "Purchased gift card payment method is not an in-person payment method",
+      const purchasePayment = await this.services.paymentsService.getPayment(
+        giftCard.paymentId,
       );
-      return null;
+      if (
+        purchasePayment?.method !== "payment-link" ||
+        purchasePayment.status !== "pending"
+      ) {
+        logger.warn(
+          {
+            id,
+            paymentMethod: giftCard.paymentMethod,
+            paymentStatus: purchasePayment?.status,
+          },
+          "Purchased gift card cannot be deleted for this payment method",
+        );
+        return null;
+      }
     }
 
     const deletedGiftCard = await this.services.giftCardsService.deleteGiftCard(

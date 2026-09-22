@@ -41,6 +41,8 @@ export type IGiftCardsService = {
   ): Promise<void>;
   getGiftCard(id: string): Promise<GiftCardListModel | null>;
   getGiftCardByCode(code: string): Promise<GiftCardListModel | null>;
+  getGiftCardByPaymentId(paymentId: string): Promise<GiftCardListModel | null>;
+  claimStudioFulfillment(giftCardId: string, appId: string): Promise<boolean>;
   getGiftCards(
     query: Query & {
       priorityIds?: string[];

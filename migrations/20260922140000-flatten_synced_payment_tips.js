@@ -41,11 +41,13 @@ function isFlattenedSyncedPayment(payment) {
  * Before: paymentIds = [servicePayment, tipPayment]
  * After:  paymentIds = [servicePayment] with amount = service + tip, tipAmount = tip
  *
+ * Uses sequential writes (no multi-doc transactions) so standalone MongoDB
+ * without retryable writes can run this migration.
+ *
  * @param {import('mongodb').Db} db
- * @param {import('mongodb').MongoClient} client
  * @returns {Promise<void>}
  */
-async function up(db, client) {
+async function up(db) {
   const payments = db.collection(PAYMENTS);
   const syncedPayments = db.collection(SYNCED_PAYMENTS);
   const now = new Date();
@@ -101,95 +103,83 @@ async function up(db, client) {
       continue;
     }
 
-    const session = client.startSession();
-    try {
-      await session.withTransaction(async () => {
-        if (serviceRows.length > 0) {
-          const primary = serviceRows[0];
-          const nextAmount = round2((Number(primary.amount) || 0) + tipTotal);
+    if (serviceRows.length > 0) {
+      const primary = serviceRows[0];
+      const nextAmount = round2((Number(primary.amount) || 0) + tipTotal);
 
-          await payments.updateOne(
-            { _id: primary._id },
-            {
-              $set: {
-                amount: nextAmount,
-                tipAmount: tipTotal,
-                updatedAt: now,
-              },
-            },
-            { session },
-          );
-
-          const remainingIds = [
-            primary._id,
-            ...serviceRows.slice(1).map((payment) => payment._id),
-          ];
-
-          await payments.deleteMany(
-            { _id: { $in: tipRows.map((tip) => tip._id) } },
-            { session },
-          );
-
-          await syncedPayments.updateOne(
-            { _id: record._id },
-            {
-              $set: {
-                paymentIds: remainingIds,
-                updatedAt: now,
-              },
-            },
-            { session },
-          );
-
-          tipsMerged += tipRows.length;
-          tipRowsDeleted += tipRows.length;
-          recordsUpdated += 1;
-          return;
-        }
-
-        // Tip-only synced charge (service amount was 0): convert tip row into
-        // a single flattened payment matching the new createPayments shape.
-        const tipPrimary = tipRows[0];
-        const extraTipIds = tipRows.slice(1).map((tip) => tip._id);
-        const paymentType = record.paymentType || "payment";
-        const nextAmount = tipTotal;
-
-        await payments.updateOne(
-          { _id: tipPrimary._id },
-          {
-            $set: {
-              amount: nextAmount,
-              tipAmount: tipTotal,
-              type: paymentType,
-              description: "syncedPayment",
-              updatedAt: now,
-            },
+      await payments.updateOne(
+        { _id: primary._id },
+        {
+          $set: {
+            amount: nextAmount,
+            tipAmount: tipTotal,
+            updatedAt: now,
           },
-          { session },
-        );
+        },
+      );
 
-        if (extraTipIds.length) {
-          await payments.deleteMany({ _id: { $in: extraTipIds } }, { session });
-          tipRowsDeleted += extraTipIds.length;
-        }
+      const remainingIds = [
+        primary._id,
+        ...serviceRows.slice(1).map((payment) => payment._id),
+      ];
 
-        await syncedPayments.updateOne(
-          { _id: record._id },
-          {
-            $set: {
-              paymentIds: [tipPrimary._id],
-              updatedAt: now,
-            },
-          },
-          { session },
-        );
-
-        tipOnlyConverted += 1;
-        recordsUpdated += 1;
+      await payments.deleteMany({
+        _id: { $in: tipRows.map((tip) => tip._id) },
       });
-    } finally {
-      await session.endSession();
+
+      await syncedPayments.updateOne(
+        { _id: record._id },
+        {
+          $set: {
+            paymentIds: remainingIds,
+            updatedAt: now,
+          },
+        },
+      );
+
+      tipsMerged += tipRows.length;
+      tipRowsDeleted += tipRows.length;
+      recordsUpdated += 1;
+      continue;
     }
+
+    // Tip-only synced charge (service amount was 0): convert tip row into
+    // a single flattened payment matching the new createPayments shape.
+    const tipPrimary = tipRows[0];
+    const extraTipIds = tipRows.slice(1).map((tip) => tip._id);
+    const paymentType = record.paymentType || "payment";
+    const nextAmount = tipTotal;
+
+    await payments.updateOne(
+      { _id: tipPrimary._id },
+      {
+        $set: {
+          amount: nextAmount,
+          tipAmount: tipTotal,
+          type: paymentType,
+          description: "syncedPayment",
+          updatedAt: now,
+        },
+      },
+    );
+
+    if (extraTipIds.length) {
+      await payments.deleteMany({ _id: { $in: extraTipIds } });
+      tipRowsDeleted += extraTipIds.length;
+    }
+
+    await syncedPayments.updateOne(
+      { _id: record._id },
+      {
+        $set: {
+          paymentIds: [tipPrimary._id],
+          updatedAt: now,
+        },
+      },
+    );
+
+    tipOnlyConverted += 1;
+    recordsUpdated += 1;
   }
 
   // Orphan synced tip rows (same externalId as a service payment, not listed
@@ -232,38 +222,29 @@ async function up(db, client) {
       continue;
     }
 
-    const session = client.startSession();
-    try {
-      await session.withTransaction(async () => {
-        await payments.updateOne(
-          { _id: sibling._id },
-          {
-            $set: {
-              amount: round2((Number(sibling.amount) || 0) + tipAmount),
-              tipAmount: tipAmount,
-              updatedAt: now,
-            },
-          },
-          { session },
-        );
-        await payments.deleteOne({ _id: tip._id }, { session });
+    await payments.updateOne(
+      { _id: sibling._id },
+      {
+        $set: {
+          amount: round2((Number(sibling.amount) || 0) + tipAmount),
+          tipAmount: tipAmount,
+          updatedAt: now,
+        },
+      },
+    );
+    await payments.deleteOne({ _id: tip._id });
 
-        await syncedPayments.updateMany(
-          {
-            organizationId: tip.organizationId,
-            externalId: tip.externalId,
-            paymentIds: tip._id,
-          },
-          {
-            $pull: { paymentIds: tip._id },
-            $set: { updatedAt: now },
-          },
-          { session },
-        );
-      });
-    } finally {
-      await session.endSession();
-    }
+    await syncedPayments.updateMany(
+      {
+        organizationId: tip.organizationId,
+        externalId: tip.externalId,
+        paymentIds: tip._id,
+      },
+      {
+        $pull: { paymentIds: tip._id },
+        $set: { updatedAt: now },
+      },
+    );
 
     orphansMerged += 1;
     tipRowsDeleted += 1;
@@ -278,10 +259,9 @@ async function up(db, client) {
  * Split flattened synced tipAmount back into a separate tips payment row.
  *
  * @param {import('mongodb').Db} db
- * @param {import('mongodb').MongoClient} client
  * @returns {Promise<void>}
  */
-async function down(db, client) {
+async function down(db) {
   const payments = db.collection(PAYMENTS);
   const syncedPayments = db.collection(SYNCED_PAYMENTS);
   const now = new Date();
@@ -311,87 +291,77 @@ async function down(db, client) {
     const serviceAmount = round2((Number(payment.amount) || 0) - tipAmount);
     const isTipOnly = serviceAmount <= 0;
 
-    const session = client.startSession();
-    try {
-      await session.withTransaction(async () => {
-        if (isTipOnly) {
-          await payments.updateOne(
-            { _id: payment._id },
-            {
-              $set: {
-                amount: tipAmount,
-                type: "tips",
-                description: "syncedTip",
-                updatedAt: now,
-              },
-              $unset: { tipAmount: "" },
-            },
-            { session },
-          );
-          tipOnlyRestored += 1;
-          split += 1;
-          return;
-        }
-
-        const tipPaymentId = new ObjectId().toString();
-        const tipPayment = {
-          _id: tipPaymentId,
-          organizationId: payment.organizationId,
-          amount: tipAmount,
-          status: payment.status || "paid",
-          paidAt: payment.paidAt || payment.createdAt || now,
-          createdAt: payment.createdAt || now,
-          updatedAt: now,
-          appointmentId: payment.appointmentId,
-          customerId: payment.customerId,
-          description: "syncedTip",
-          type: "tips",
-          method: "in-person-card",
-          source: "synced",
-          disableUpdate: true,
-          externalId: payment.externalId,
-          appName: payment.appName,
-          appId: payment.appId,
-        };
-
-        // Drop undefined fields so we don't store nullish keys.
-        for (const key of Object.keys(tipPayment)) {
-          if (tipPayment[key] === undefined) {
-            delete tipPayment[key];
-          }
-        }
-
-        await payments.insertOne(tipPayment, { session });
-
-        await payments.updateOne(
-          { _id: payment._id },
-          {
-            $set: {
-              amount: serviceAmount,
-              updatedAt: now,
-            },
-            $unset: { tipAmount: "" },
+    if (isTipOnly) {
+      await payments.updateOne(
+        { _id: payment._id },
+        {
+          $set: {
+            amount: tipAmount,
+            type: "tips",
+            description: "syncedTip",
+            updatedAt: now,
           },
-          { session },
-        );
-
-        await syncedPayments.updateMany(
-          {
-            organizationId: payment.organizationId,
-            paymentIds: payment._id,
-          },
-          {
-            $addToSet: { paymentIds: tipPaymentId },
-            $set: { updatedAt: now },
-          },
-          { session },
-        );
-
-        split += 1;
-      });
-    } finally {
-      await session.endSession();
+          $unset: { tipAmount: "" },
+        },
+      );
+      tipOnlyRestored += 1;
+      split += 1;
+      continue;
     }
+
+    const tipPaymentId = new ObjectId().toString();
+    const tipPayment = {
+      _id: tipPaymentId,
+      organizationId: payment.organizationId,
+      amount: tipAmount,
+      status: payment.status || "paid",
+      paidAt: payment.paidAt || payment.createdAt || now,
+      createdAt: payment.createdAt || now,
+      updatedAt: now,
+      appointmentId: payment.appointmentId,
+      customerId: payment.customerId,
+      description: "syncedTip",
+      type: "tips",
+      method: "in-person-card",
+      source: "synced",
+      disableUpdate: true,
+      externalId: payment.externalId,
+      appName: payment.appName,
+      appId: payment.appId,
+    };
+
+    // Drop undefined fields so we don't store nullish keys.
+    for (const key of Object.keys(tipPayment)) {
+      if (tipPayment[key] === undefined) {
+        delete tipPayment[key];
+      }
+    }
+
+    await payments.insertOne(tipPayment);
+
+    await payments.updateOne(
+      { _id: payment._id },
+      {
+        $set: {
+          amount: serviceAmount,
+          updatedAt: now,
+        },
+        $unset: { tipAmount: "" },
+      },
+    );
+
+    await syncedPayments.updateMany(
+      {
+        organizationId: payment.organizationId,
+        paymentIds: payment._id,
+      },
+      {
+        $addToSet: { paymentIds: tipPaymentId },
+        $set: { updatedAt: now },
+      },
+    );
+
+    split += 1;
   }
 
   console.log(

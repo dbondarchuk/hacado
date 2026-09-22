@@ -1740,13 +1740,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/services/gift-cards/form.tsx": {
-    "mtime": 1786820408.864997,
-    "ast_hash": "909390d6777be0445384ba0805f9eb01",
+    "mtime": 1790105581.3291,
+    "ast_hash": "9680807321f78307104c0599b46700d2",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/services/gift-cards/table/cell-action.tsx": {
-    "mtime": 1786820408.864997,
-    "ast_hash": "6ff1527f385e789c2635be27bbca4893",
+    "mtime": 1790105589.051753,
+    "ast_hash": "59f1f15e0d491f2258ac3e572e10b5c5",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/services/gift-cards/table/columns.tsx": {
@@ -1755,8 +1755,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/services/gift-cards/table/delete-selected.tsx": {
-    "mtime": 1786820408.8664198,
-    "ast_hash": "2052cfe6f30f7ccc2ec14212bbb9d78d",
+    "mtime": 1790105815.5530229,
+    "ast_hash": "5c020b8f9470d8ac1c8252d3067ededa",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/services/gift-cards/table/set-status-selected.tsx": {
@@ -5375,8 +5375,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/app.tsx": {
-    "mtime": 1787790813.075572,
-    "ast_hash": "a8ec7cd987eb2c30244d75e93fd41466",
+    "mtime": 1790105326.173285,
+    "ast_hash": "d5936b8081de2d382ee8a2643591eb44",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/blocks/gift-card-purchase/actions.ts": {
@@ -5610,8 +5610,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/models/app.ts": {
-    "mtime": 1786820409.3238509,
-    "ast_hash": "7132448fff99de129d82a9b11357a352",
+    "mtime": 1790105381.9787493,
+    "ast_hash": "908c45fe5ded0ff17224d596e57f08b9",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/models/design.ts": {
@@ -5645,8 +5645,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/purchases/components/manual-purchase-form.tsx": {
-    "mtime": 1786820409.3278506,
-    "ast_hash": "e208b7a5b1afe915c0205187a28bed4e",
+    "mtime": 1790105515.4488385,
+    "ast_hash": "ab286d12b36a751784c304470920cc18",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/purchases/pages/main.tsx": {
@@ -5660,8 +5660,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/purchases/table/cell-action.tsx": {
-    "mtime": 1786820409.328851,
-    "ast_hash": "2623d64404b548112139261af8979575",
+    "mtime": 1790105779.882556,
+    "ast_hash": "17f769ef0096b2aa037031e4a6319686",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/purchases/table/columns.tsx": {
@@ -5705,13 +5705,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/repository-service.ts": {
-    "mtime": 1787790813.0786605,
-    "ast_hash": "0f38715b181efcf3f8fa8850880d6b26",
+    "mtime": 1790105406.6865742,
+    "ast_hash": "888b77c56431d919c56155007fff563a",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/service.ts": {
-    "mtime": 1790021162.7855508,
-    "ast_hash": "b42e398d374d219521215dd2da276b9f",
+    "mtime": 1790107370.2512443,
+    "ast_hash": "682ecf11705652f07b90fa33a5de77e8",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/utils.ts": {
@@ -12870,8 +12870,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/links.ts": {
-    "mtime": 1787364795.259909,
-    "ast_hash": "0afcfeccab5ba80360af3a729cfc9837",
+    "mtime": 1790107345.864326,
+    "ast_hash": "7cb88e644c8697c531c93bc997967679",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/organization/organization-event-definitions.ts": {
@@ -12895,8 +12895,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/payment/payment-event-definitions.ts": {
-    "mtime": 1790087059.027747,
-    "ast_hash": "5ad8fa646235afc4d9b5598217d3a70b",
+    "mtime": 1790107384.4343135,
+    "ast_hash": "34647894d9c95768e28792c2f1fb98cd",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/settings/settings-event-definitions.ts": {
@@ -12960,13 +12960,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/gift-cards.service.ts": {
-    "mtime": 1786820409.9259756,
-    "ast_hash": "8694fcf17960f09331eb4383d15ab9ba",
+    "mtime": 1790105839.504112,
+    "ast_hash": "474f09a2fe59d65f61d313b8c21180dd",
     "semantic_hash": ""
   },
   "packages/services/src/index.ts": {
-    "mtime": 1789232385.9693577,
-    "ast_hash": "e77218eeaba5626c898412ae168efd57",
+    "mtime": 1790105186.4140089,
+    "ast_hash": "7acea0ddf3ef234e216e7262f49d9f15",
     "semantic_hash": ""
   },
   "packages/services/src/notifications.service.ts": {
@@ -13760,8 +13760,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/services/gift-cards.service.ts": {
-    "mtime": 1786820409.9700556,
-    "ast_hash": "49074196e9a5ea15dbc2f479f1dae8e3",
+    "mtime": 1790105839.2142768,
+    "ast_hash": "ee3d5473ef014842c7565e971ba36c0d",
     "semantic_hash": ""
   },
   "packages/types/src/services/index.ts": {
@@ -14085,8 +14085,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/add-update-payment-dialog.tsx": {
-    "mtime": 1790096312.0896964,
-    "ast_hash": "5ab23b450d3998627590ed84769caa2f",
+    "mtime": 1790107579.5119412,
+    "ast_hash": "835173468e8ce6259fe9c30e307ec2ba",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/gift-card-payments-dialog.tsx": {
@@ -14100,8 +14100,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-card.tsx": {
-    "mtime": 1790096312.0896964,
-    "ast_hash": "756c8e289fd077a59bfc03f04753323e",
+    "mtime": 1790105596.0549865,
+    "ast_hash": "5a6e376335de71c2b0dbdc8a7b9d3ee6",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-delete-confirmation-modal.tsx": {
@@ -15770,8 +15770,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/translations/en/admin.yaml": {
-    "mtime": 1787364795.2116258,
-    "ast_hash": "936f9c870709e7515fc408009432bca3",
+    "mtime": 1790105519.2702348,
+    "ast_hash": "42f9381fb03ff820652b0049d49609b4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/translations/en/public.yaml": {
@@ -15780,8 +15780,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/translations/uk/admin.yaml": {
-    "mtime": 1787364795.2126253,
-    "ast_hash": "432407e1e20a9e822dc7fece90171bd4",
+    "mtime": 1790105534.1811004,
+    "ast_hash": "6bd57678e14cb0a7eb9aea685a3a1186",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/translations/uk/public.yaml": {
@@ -16085,8 +16085,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1790095260.9368532,
-    "ast_hash": "585ba4c54cb6aadaaaf2d9aba79dd621",
+    "mtime": 1790107355.9436488,
+    "ast_hash": "d5ddfab09bb9b7c2898eabbfc3ed4b7f",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16120,8 +16120,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1790095261.7352521,
-    "ast_hash": "68e8bd14033560a5e22f95525d35b2d4",
+    "mtime": 1790107370.20074,
+    "ast_hash": "04ad5d984e3838b51cef201ccd1923b9",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -26825,8 +26825,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/payments/page.tsx": {
-    "mtime": 1786985101.9869585,
-    "ast_hash": "541852956a43729440811f95472b6e13",
+    "mtime": 1790107879.7940762,
+    "ast_hash": "d46537e4e435069398ae76265ba0723d",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/appointment-selector.tsx": {
@@ -27005,8 +27005,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-details-dialog.tsx": {
-    "mtime": 1786820410.0056934,
-    "ast_hash": "ea4db3418ae6342c99193a00dcdad5b8",
+    "mtime": 1790107286.8815672,
+    "ast_hash": "3a52c759e60fea551f7b9fb2cf7c0c07",
     "semantic_hash": ""
   },
   "packages/utils/src/csv.ts": {
@@ -32135,8 +32135,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/service.ts": {
-    "mtime": 1790092801.9484084,
-    "ast_hash": "fbff05b820dc54a82fe9636018ef8c7f",
+    "mtime": 1790105612.0255618,
+    "ast_hash": "67c4dc8c4474dceb4e394ca259aeb0d1",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/setup.tsx": {
@@ -32195,8 +32195,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/en/public.yaml": {
-    "mtime": 1790102696.289096,
-    "ast_hash": "a653d4466c379a0cda8a27f0dcd2da28",
+    "mtime": 1790105593.027412,
+    "ast_hash": "f433360afe5fb56589d4c21f6091bc02",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/uk/admin.yaml": {
@@ -32205,13 +32205,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/uk/public.yaml": {
-    "mtime": 1790102696.6335847,
-    "ast_hash": "272aacd6ed136026936f6e1ac5dfa8c6",
+    "mtime": 1790105601.1397107,
+    "ast_hash": "f960c6c1da775d32a47e9c5dc36f6a2d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/public-page.tsx": {
-    "mtime": 1790102711.8177464,
-    "ast_hash": "ce3f4cfa44c1290d00a089f58258aaa0",
+    "mtime": 1790105596.1072845,
+    "ast_hash": "10ce9b1aabf129b0a52a48ba489f37d0",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/resend-payment-link-dialog.tsx": {
@@ -32232,6 +32232,11 @@
   "migrations/20260922140000-flatten_synced_payment_tips.js": {
     "mtime": 1790096104.7109969,
     "ast_hash": "c228c7933f92f40dd55d6da034180cb0",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/components/admin/payments/table/open-payment-details-from-query.tsx": {
+    "mtime": 1790107310.7062545,
+    "ast_hash": "8b4a1ce6ddf89d0edede7736da5d7c74",
     "semantic_hash": ""
   }
 }

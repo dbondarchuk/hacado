@@ -53,6 +53,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { PaymentDetailsDialog } from "./payment-details-dialog";
 
 type PaymentLinkApp = { _id: string; name: string };
 type PaymentLinkChannel = "email" | "sms" | "copy";
@@ -106,6 +107,8 @@ export const AddUpdatePaymentDialog = ({
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [detailsPayment, setDetailsPayment] = useState<Payment | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [giftCard, setGiftCard] = useState<GiftCardListModel | undefined>(
     undefined,
   );
@@ -429,6 +432,8 @@ export const AddUpdatePaymentDialog = ({
         }
 
         setOpen(false);
+        setDetailsPayment(result.payment);
+        setDetailsOpen(true);
         router.refresh();
         onSuccess?.(result.payment);
         return;
@@ -482,181 +487,87 @@ export const AddUpdatePaymentDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onDialogOpenChange}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>
-            {isEdit
-              ? t("payment.addUpdatePayment.updatePayment")
-              : t("payment.addUpdatePayment.addPayment")}
-          </DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? t("payment.addUpdatePayment.updatePaymentDescription")
-              : t("payment.addUpdatePayment.addPaymentDescription")}
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="w-full flex flex-col gap-2 relative">
-              <FormField
-                control={form.control}
-                name="method"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("payment.addUpdatePayment.form.method.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          field.onBlur();
-                          if (value === "payment-link") {
-                            form.setValue("channel", "copy");
-                            if (paymentLinkApps.length === 1) {
-                              form.setValue(
-                                "paymentLinkAppId",
-                                paymentLinkApps[0]._id,
-                              );
+    <>
+      <Dialog open={open} onOpenChange={onDialogOpenChange}>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {isEdit
+                ? t("payment.addUpdatePayment.updatePayment")
+                : t("payment.addUpdatePayment.addPayment")}
+            </DialogTitle>
+            <DialogDescription>
+              {isEdit
+                ? t("payment.addUpdatePayment.updatePaymentDescription")
+                : t("payment.addUpdatePayment.addPaymentDescription")}
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="w-full flex flex-col gap-2 relative">
+                <FormField
+                  control={form.control}
+                  name="method"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("payment.addUpdatePayment.form.method.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <Select
+                          value={field.value}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            field.onBlur();
+                            if (value === "payment-link") {
+                              form.setValue("channel", "copy");
+                              if (paymentLinkApps.length === 1) {
+                                form.setValue(
+                                  "paymentLinkAppId",
+                                  paymentLinkApps[0]._id,
+                                );
+                              }
                             }
-                          }
-                        }}
-                        disabled={loading || "giftCardId" in props}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={t(
-                              "payment.addUpdatePayment.form.method.label",
-                            )}
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {allowedMethods.map((type) => (
-                            <SelectItem value={type} key={type}>
-                              {t(
-                                `payment.addUpdatePayment.form.method.${type}`,
+                          }}
+                          disabled={loading || "giftCardId" in props}
+                        >
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder={t(
+                                "payment.addUpdatePayment.form.method.label",
                               )}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {method === "payment-link" && (
-                <>
-                  {paymentLinkApps.length >= 2 && (
-                    <FormField
-                      control={form.control}
-                      name="paymentLinkAppId"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t(
-                              "payment.addUpdatePayment.form.paymentLinkAppId.label",
-                            )}
-                          </FormLabel>
-                          <FormControl>
-                            <Select
-                              value={field.value}
-                              onValueChange={(value) => {
-                                field.onChange(value);
-                                field.onBlur();
-                              }}
-                              disabled={loading}
-                            >
-                              <SelectTrigger>
-                                <SelectValue
-                                  placeholder={t(
-                                    "payment.addUpdatePayment.form.paymentLinkAppId.label",
-                                  )}
-                                />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {paymentLinkApps.map((app) => {
-                                  const Logo = AvailableApps[app.name]?.Logo;
-                                  return (
-                                    <SelectItem value={app._id} key={app._id}>
-                                      <span className="flex items-center gap-2">
-                                        {Logo ? (
-                                          <Logo className="size-4" />
-                                        ) : null}
-                                        {appLabel(app.name)}
-                                      </span>
-                                    </SelectItem>
-                                  );
-                                })}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {allowedMethods.map((type) => (
+                              <SelectItem value={type} key={type}>
+                                {t(
+                                  `payment.addUpdatePayment.form.method.${type}`,
+                                )}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
-                  <FormField
-                    control={form.control}
-                    name="channel"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("payment.addUpdatePayment.form.channel.label")}
-                        </FormLabel>
-                        <FormControl>
-                          <Select
-                            value={field.value ?? "copy"}
-                            onValueChange={(value) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                            disabled={loading}
-                          >
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem
-                                value="email"
-                                disabled={emailDestinations.length === 0}
-                              >
-                                {t(
-                                  "payment.addUpdatePayment.form.channel.email",
-                                )}
-                              </SelectItem>
-                              <SelectItem
-                                value="sms"
-                                disabled={phoneDestinations.length === 0}
-                              >
-                                {t("payment.addUpdatePayment.form.channel.sms")}
-                              </SelectItem>
-                              <SelectItem value="copy">
-                                {t(
-                                  "payment.addUpdatePayment.form.channel.copy",
-                                )}
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {(channel === "email" || channel === "sms") && (
-                    <FormField
-                      control={form.control}
-                      name="to"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("payment.addUpdatePayment.form.to.label")}
-                          </FormLabel>
-                          <FormControl>
-                            {destinations.length > 1 ? (
+                />
+                {method === "payment-link" && (
+                  <>
+                    {paymentLinkApps.length >= 2 && (
+                      <FormField
+                        control={form.control}
+                        name="paymentLinkAppId"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              {t(
+                                "payment.addUpdatePayment.form.paymentLinkAppId.label",
+                              )}
+                            </FormLabel>
+                            <FormControl>
                               <Select
                                 value={field.value}
                                 onValueChange={(value) => {
@@ -666,209 +577,326 @@ export const AddUpdatePaymentDialog = ({
                                 disabled={loading}
                               >
                                 <SelectTrigger>
-                                  <SelectValue />
+                                  <SelectValue
+                                    placeholder={t(
+                                      "payment.addUpdatePayment.form.paymentLinkAppId.label",
+                                    )}
+                                  />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  {destinations.map((destination) => (
-                                    <SelectItem
-                                      value={destination}
-                                      key={destination}
-                                    >
-                                      {destination}
-                                    </SelectItem>
-                                  ))}
+                                  {paymentLinkApps.map((app) => {
+                                    const Logo = AvailableApps[app.name]?.Logo;
+                                    return (
+                                      <SelectItem value={app._id} key={app._id}>
+                                        <span className="flex items-center gap-2">
+                                          {Logo ? (
+                                            <Logo className="size-4" />
+                                          ) : null}
+                                          {appLabel(app.name)}
+                                        </span>
+                                      </SelectItem>
+                                    );
+                                  })}
                                 </SelectContent>
                               </Select>
-                            ) : (
-                              <Input
-                                value={destinations[0] ?? ""}
-                                disabled
-                                readOnly
-                              />
-                            )}
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                    <FormField
+                      control={form.control}
+                      name="channel"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {t("payment.addUpdatePayment.form.channel.label")}
+                          </FormLabel>
+                          <FormControl>
+                            <Select
+                              value={field.value ?? "copy"}
+                              onValueChange={(value) => {
+                                field.onChange(value);
+                                field.onBlur();
+                              }}
+                              disabled={loading}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem
+                                  value="email"
+                                  disabled={emailDestinations.length === 0}
+                                >
+                                  {t(
+                                    "payment.addUpdatePayment.form.channel.email",
+                                  )}
+                                </SelectItem>
+                                <SelectItem
+                                  value="sms"
+                                  disabled={phoneDestinations.length === 0}
+                                >
+                                  {t(
+                                    "payment.addUpdatePayment.form.channel.sms",
+                                  )}
+                                </SelectItem>
+                                <SelectItem value="copy">
+                                  {t(
+                                    "payment.addUpdatePayment.form.channel.copy",
+                                  )}
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  )}
-                </>
-              )}
-              {method === "gift-card" && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="giftCardId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("payment.addUpdatePayment.form.giftCardId.label")}
-                        </FormLabel>
-                        <FormControl>
-                          <GiftCardSelector
-                            onItemSelect={(value) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                            value={field.value}
-                            onValueChange={(value) => {
-                              setGiftCard(value);
-                              form.trigger("amount");
-                            }}
-                            disabled={loading}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                    {(channel === "email" || channel === "sms") && (
+                      <FormField
+                        control={form.control}
+                        name="to"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              {t("payment.addUpdatePayment.form.to.label")}
+                            </FormLabel>
+                            <FormControl>
+                              {destinations.length > 1 ? (
+                                <Select
+                                  value={field.value}
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    field.onBlur();
+                                  }}
+                                  disabled={loading}
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {destinations.map((destination) => (
+                                      <SelectItem
+                                        value={destination}
+                                        key={destination}
+                                      >
+                                        {destination}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              ) : (
+                                <Input
+                                  value={destinations[0] ?? ""}
+                                  disabled
+                                  readOnly
+                                />
+                              )}
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="customerId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("payment.addUpdatePayment.form.customerId.label")}
-                        </FormLabel>
-                        <FormControl>
-                          <CustomerSelector
-                            onItemSelect={(value: string) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                            value={field.value}
-                            disabled={loading}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
-              <FormField
-                control={form.control}
-                name="amount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("payment.addUpdatePayment.form.amount")}
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupAddon
-                          className={InputGroupAddonClasses({
-                            variant: "prefix",
-                          })}
-                        >
-                          {currencySymbol}
-                        </InputGroupAddon>
-                        <InputGroupInput>
-                          <Input
-                            {...field}
-                            disabled={loading}
-                            type="number"
-                            className={InputGroupInputClasses({
-                              variant: "prefix",
-                            })}
-                          />
-                        </InputGroupInput>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  </>
                 )}
-              />
-              <FormField
-                control={form.control}
-                name="type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("payment.addUpdatePayment.form.type.label")}
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          field.onBlur();
-                        }}
-                        disabled={loading}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={t(
-                              "payment.addUpdatePayment.form.type.label",
+                {method === "gift-card" && (
+                  <>
+                    <FormField
+                      control={form.control}
+                      name="giftCardId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {t(
+                              "payment.addUpdatePayment.form.giftCardId.label",
                             )}
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {paymentType.map((type) => (
-                            <SelectItem value={type} key={type}>
-                              {t(`payment.types.${type}`)}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                          </FormLabel>
+                          <FormControl>
+                            <GiftCardSelector
+                              onItemSelect={(value) => {
+                                field.onChange(value);
+                                field.onBlur();
+                              }}
+                              value={field.value}
+                              onValueChange={(value) => {
+                                setGiftCard(value);
+                                form.trigger("amount");
+                              }}
+                              disabled={loading}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="customerId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {t(
+                              "payment.addUpdatePayment.form.customerId.label",
+                            )}
+                          </FormLabel>
+                          <FormControl>
+                            <CustomerSelector
+                              onItemSelect={(value: string) => {
+                                field.onChange(value);
+                                field.onBlur();
+                              }}
+                              value={field.value}
+                              disabled={loading}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </>
                 )}
-              />
-              {method !== "payment-link" && (
                 <FormField
                   control={form.control}
-                  name="paidAt"
+                  name="amount"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        {t("payment.addUpdatePayment.form.paidAt")}
+                        {t("payment.addUpdatePayment.form.amount")}
                       </FormLabel>
                       <FormControl>
-                        <DateTimePicker
-                          use12HourFormat={uses12HourFormat}
-                          disabled={loading}
-                          timeZone={timeZone}
-                          {...field}
-                          className="flex w-full"
-                          minutesDivisibleBy={5}
-                          commitOnChange
-                        />
+                        <InputGroup>
+                          <InputGroupAddon
+                            className={InputGroupAddonClasses({
+                              variant: "prefix",
+                            })}
+                          >
+                            {currencySymbol}
+                          </InputGroupAddon>
+                          <InputGroupInput>
+                            <Input
+                              {...field}
+                              disabled={loading}
+                              type="number"
+                              className={InputGroupInputClasses({
+                                variant: "prefix",
+                              })}
+                            />
+                          </InputGroupInput>
+                        </InputGroup>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              )}
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("payment.addUpdatePayment.form.description")}
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea {...field} disabled={loading} autoResize />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("payment.addUpdatePayment.form.type.label")}
+                      </FormLabel>
+                      <FormControl>
+                        <Select
+                          value={field.value}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            field.onBlur();
+                          }}
+                          disabled={loading}
+                        >
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder={t(
+                                "payment.addUpdatePayment.form.type.label",
+                              )}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {paymentType.map((type) => (
+                              <SelectItem value={type} key={type}>
+                                {t(`payment.types.${type}`)}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {method !== "payment-link" && (
+                  <FormField
+                    control={form.control}
+                    name="paidAt"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("payment.addUpdatePayment.form.paidAt")}
+                        </FormLabel>
+                        <FormControl>
+                          <DateTimePicker
+                            use12HourFormat={uses12HourFormat}
+                            disabled={loading}
+                            timeZone={timeZone}
+                            {...field}
+                            className="flex w-full"
+                            minutesDivisibleBy={5}
+                            commitOnChange
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 )}
-              />
-            </div>
-          </form>
-        </Form>
-        <DialogFooter>
-          <Button variant="secondary" onClick={() => onDialogOpenChange(false)}>
-            {t("common.buttons.close")}
-          </Button>
-          <Button variant="primary" onClick={form.handleSubmit(onSubmit)}>
-            {loading ? <Spinner /> : null}
-            {isEdit ? t("common.buttons.update") : t("common.buttons.addNew")}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("payment.addUpdatePayment.form.description")}
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea {...field} disabled={loading} autoResize />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </form>
+          </Form>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={() => onDialogOpenChange(false)}
+            >
+              {t("common.buttons.close")}
+            </Button>
+            <Button variant="primary" onClick={form.handleSubmit(onSubmit)}>
+              {loading ? <Spinner /> : null}
+              {isEdit ? t("common.buttons.update") : t("common.buttons.addNew")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {detailsPayment ? (
+        <PaymentDetailsDialog
+          payment={detailsPayment}
+          open={detailsOpen}
+          onOpenChange={(next) => {
+            setDetailsOpen(next);
+            if (!next) {
+              setDetailsPayment(null);
+            }
+          }}
+        />
+      ) : null}
+    </>
   );
 };

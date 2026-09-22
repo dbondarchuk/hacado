@@ -1,5 +1,7 @@
 "use client";
 
+import { adminApi } from "@hacado/api-sdk";
+import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
@@ -53,6 +55,7 @@ import {
   GetPreviewPayload,
   getSettings,
 } from "../../actions";
+import { PurchasedGiftCardListModel } from "../../models";
 import { GiftCardStudioSettings } from "../../models/settings";
 import {
   GiftCardStudioAdminAllKeys,
@@ -87,10 +90,13 @@ const manualPurchaseSchema = z
           "app_gift-card-studio_admin.validation.manualForm.message.max" satisfies GiftCardStudioAdminAllKeys,
       },
     ),
-    paymentType: z.enum(["cash", "in-person-card"], {
+    paymentType: z.enum(["cash", "in-person-card", "payment-link"], {
       message:
         "app_gift-card-studio_admin.validation.manualForm.paymentType.required" satisfies GiftCardStudioAdminAllKeys,
     }),
+    paymentLinkAppId: z.string().optional(),
+    channel: z.enum(["email", "sms", "copy"]).optional(),
+    to: z.string().optional(),
     sendCustomerEmail: z.coerce.boolean<boolean>().default(true),
     sendRecipientEmail: z.coerce.boolean<boolean>().default(true),
   })
@@ -123,25 +129,52 @@ const manualPurchaseSchema = z
           }),
         }),
       ),
-  );
+  )
+  .superRefine((data, ctx) => {
+    if (data.paymentType !== "payment-link") {
+      return;
+    }
+    if (!data.paymentLinkAppId) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["paymentLinkAppId"],
+        message:
+          "app_gift-card-studio_admin.validation.manualForm.paymentLinkAppId.required" satisfies GiftCardStudioAdminAllKeys,
+      });
+    }
+    if (
+      (data.channel === "email" || data.channel === "sms") &&
+      (!data.to || data.to.trim().length === 0)
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["to"],
+        message:
+          "app_gift-card-studio_admin.validation.manualForm.to.required" satisfies GiftCardStudioAdminAllKeys,
+      });
+    }
+  });
 
 type FormValues = z.infer<typeof manualPurchaseSchema>;
+type PaymentLinkApp = { _id: string; name: string };
 
 export const ManualPurchaseDialog: React.FC<{
   appId: string;
   open: boolean;
   designId?: string;
   onOpenChange: (open: boolean) => void;
-  onSuccess?: () => void;
+  onSuccess?: (purchase?: PurchasedGiftCardListModel) => void;
 }> = ({ appId, open, designId: initialDesignId, onOpenChange, onSuccess }) => {
   const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
     giftCardStudioAdminNamespace,
   );
   const tAdmin = useI18n("admin");
+  const tRoot = useI18n();
   const currencySymbol = useCurrencySymbol();
   const [loading, setLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
+  const [paymentLinkApps, setPaymentLinkApps] = useState<PaymentLinkApp[]>([]);
 
   const [settings, setSettings] = useState<GiftCardStudioSettings | null>(null);
   const fetchSettings = useCallback(async () => {
@@ -152,6 +185,17 @@ export const ManualPurchaseDialog: React.FC<{
       setSettings(null);
     }
   }, [appId]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    void fetchSettings();
+    void adminApi.payments
+      .listPaymentLinkApps()
+      .then((result) => setPaymentLinkApps(result.items))
+      .catch(() => setPaymentLinkApps([]));
+  }, [open, fetchSettings]);
 
   useEffect(() => {
     if (open) {
@@ -195,6 +239,7 @@ export const ManualPurchaseDialog: React.FC<{
       amountPurchased: 50,
       customerId: "",
       paymentType: "cash",
+      channel: "copy",
       sendCustomerEmail: true,
       sendRecipientEmail: true,
       sendToAnotherRecipient: false,
@@ -209,10 +254,50 @@ export const ManualPurchaseDialog: React.FC<{
   const message = form.watch("message");
   const toEmail = form.watch("toEmail");
   const sendToAnotherRecipient = form.watch("sendToAnotherRecipient");
-
+  const paymentType = form.watch("paymentType");
+  const channel = form.watch("channel");
   const [customer, setCustomer] = useState<CustomerListModel | undefined>(
     undefined,
   );
+
+  const emailDestinations = useMemo(
+    () => [
+      ...new Set([customer?.email].filter((value): value is string => !!value)),
+    ],
+    [customer?.email],
+  );
+  const phoneDestinations = useMemo(
+    () => [
+      ...new Set([customer?.phone].filter((value): value is string => !!value)),
+    ],
+    [customer?.phone],
+  );
+  const destinations =
+    channel === "email"
+      ? emailDestinations
+      : channel === "sms"
+        ? phoneDestinations
+        : [];
+
+  useEffect(() => {
+    if (paymentLinkApps.length === 1) {
+      form.setValue("paymentLinkAppId", paymentLinkApps[0]._id);
+    }
+  }, [paymentLinkApps, form]);
+
+  useEffect(() => {
+    if (paymentType !== "payment-link") {
+      return;
+    }
+    if (destinations.length === 1) {
+      form.setValue("to", destinations[0], { shouldValidate: true });
+    } else if (
+      destinations.length > 1 &&
+      !destinations.includes(form.getValues("to") ?? "")
+    ) {
+      form.setValue("to", destinations[0], { shouldValidate: true });
+    }
+  }, [paymentType, channel, destinations, form]);
 
   const previewPayload: GetPreviewPayload | null = useMemo(() => {
     if (!designId || !amountPurchased) {
@@ -274,7 +359,7 @@ export const ManualPurchaseDialog: React.FC<{
 
     try {
       setLoading(true);
-      await toastPromise(
+      const purchase = await toastPromise(
         createPurchasedGiftCard(appId, {
           designId: values.designId,
           amountPurchased: values.amountPurchased,
@@ -285,6 +370,9 @@ export const ManualPurchaseDialog: React.FC<{
             : customer.email,
           message: values.message,
           paymentType: values.paymentType,
+          paymentLinkAppId: values.paymentLinkAppId,
+          channel: values.channel,
+          to: values.to,
           sendCustomerEmail: values.sendCustomerEmail,
           sendRecipientEmail: sendToAnotherRecipient
             ? values.sendRecipientEmail
@@ -298,7 +386,7 @@ export const ManualPurchaseDialog: React.FC<{
       handleOpenChange(false);
       form.reset();
       setPreviewUrl(null);
-      onSuccess?.();
+      onSuccess?.(purchase);
     } catch (e) {
       console.error(e);
     } finally {
@@ -417,7 +505,18 @@ export const ManualPurchaseDialog: React.FC<{
                     <FormControl>
                       <Select
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          if (value === "payment-link") {
+                            form.setValue("channel", "copy");
+                            if (paymentLinkApps.length === 1) {
+                              form.setValue(
+                                "paymentLinkAppId",
+                                paymentLinkApps[0]._id,
+                              );
+                            }
+                          }
+                        }}
                         disabled={loading}
                       >
                         <SelectTrigger>
@@ -431,6 +530,13 @@ export const ManualPurchaseDialog: React.FC<{
                               {tAdmin(`common.labels.paymentMethod.${method}`)}
                             </SelectItem>
                           ))}
+                          {paymentLinkApps.length > 0 && (
+                            <SelectItem value="payment-link">
+                              {tAdmin(
+                                "common.labels.paymentMethod.payment-link",
+                              )}
+                            </SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -438,6 +544,143 @@ export const ManualPurchaseDialog: React.FC<{
                   </FormItem>
                 )}
               />
+              {paymentType === "payment-link" && (
+                <>
+                  {paymentLinkApps.length >= 2 && (
+                    <FormField
+                      control={form.control}
+                      name="paymentLinkAppId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {tAdmin(
+                              "payment.addUpdatePayment.form.paymentLinkAppId.label",
+                            )}
+                          </FormLabel>
+                          <FormControl>
+                            <Select
+                              value={field.value}
+                              onValueChange={field.onChange}
+                              disabled={loading}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {paymentLinkApps.map((app) => {
+                                  const Logo = AvailableApps[app.name]?.Logo;
+                                  const displayName =
+                                    AvailableApps[app.name]?.displayName;
+                                  return (
+                                    <SelectItem value={app._id} key={app._id}>
+                                      <span className="flex items-center gap-2">
+                                        {Logo ? (
+                                          <Logo className="size-4" />
+                                        ) : null}
+                                        {displayName
+                                          ? tRoot(displayName)
+                                          : app.name}
+                                      </span>
+                                    </SelectItem>
+                                  );
+                                })}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                  <FormField
+                    control={form.control}
+                    name="channel"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {tAdmin(
+                            "payment.addUpdatePayment.form.channel.label",
+                          )}
+                        </FormLabel>
+                        <FormControl>
+                          <Select
+                            value={field.value ?? "copy"}
+                            onValueChange={field.onChange}
+                            disabled={loading}
+                          >
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem
+                                value="email"
+                                disabled={emailDestinations.length === 0}
+                              >
+                                {tAdmin(
+                                  "payment.addUpdatePayment.form.channel.email",
+                                )}
+                              </SelectItem>
+                              <SelectItem
+                                value="sms"
+                                disabled={phoneDestinations.length === 0}
+                              >
+                                {tAdmin(
+                                  "payment.addUpdatePayment.form.channel.sms",
+                                )}
+                              </SelectItem>
+                              <SelectItem value="copy">
+                                {tAdmin(
+                                  "payment.addUpdatePayment.form.channel.copy",
+                                )}
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {(channel === "email" || channel === "sms") && (
+                    <FormField
+                      control={form.control}
+                      name="to"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {tAdmin("payment.addUpdatePayment.form.to.label")}
+                          </FormLabel>
+                          <FormControl>
+                            {destinations.length > 1 ? (
+                              <Select
+                                value={field.value}
+                                onValueChange={field.onChange}
+                                disabled={loading}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {destinations.map((destination) => (
+                                    <SelectItem
+                                      key={destination}
+                                      value={destination}
+                                    >
+                                      {destination}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            ) : (
+                              <Input {...field} disabled={loading} />
+                            )}
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                </>
+              )}
             </div>
 
             <FormField

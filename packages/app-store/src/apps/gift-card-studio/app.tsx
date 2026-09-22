@@ -1,4 +1,8 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import {
+  App,
+  BillingPlanTier,
+  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
+} from "@hacado/types";
 import { Gift } from "lucide-react";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./const";
 import {
@@ -20,7 +24,9 @@ export const GiftCardStudioApp: App<
     "demo-arguments-provider",
     "communication-templates-provider",
     "dashboard-notifier",
+    "event-subscriber",
   ],
+  subscribeTo: [GIFT_CARD_STATUS_CHANGED_EVENT_TYPE],
   type: "complex",
   target: "company",
   Logo: ({ className }) => <Gift className={className} />,

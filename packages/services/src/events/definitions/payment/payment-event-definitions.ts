@@ -14,11 +14,41 @@ import {
 
 import { dashboardUrls } from "../links";
 
+const PAYMENT_LINK_NOISE_KEYS = new Set([
+  "intentId",
+  "fees",
+  "processorAppId",
+  "processorAppName",
+  "externalId",
+  "amount",
+  "tipAmount",
+  "paidAt",
+  "data",
+]);
+
 export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [PAYMENT_CREATED_EVENT_TYPE]: {
     type: PAYMENT_CREATED_EVENT_TYPE,
     recordActivity: (envelope) => {
       const { payment } = envelope.payload as PaymentCreatedPayload;
+
+      if (payment.method === "payment-link") {
+        return {
+          eventId: envelope.id,
+          eventType: envelope.type,
+          title: {
+            key: "admin.platformEvents.payment.linkCreated.title" satisfies BaseAllKeys,
+          },
+          description: {
+            key: "admin.platformEvents.payment.linkCreated.description" satisfies BaseAllKeys,
+            args: { amount: payment.amount },
+          },
+          source: envelope.source,
+          noExpiry: true,
+          link: dashboardUrls.payment(payment),
+        };
+      }
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,
@@ -44,7 +74,73 @@ export const PAYMENT_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [PAYMENT_UPDATED_EVENT_TYPE]: {
     type: PAYMENT_UPDATED_EVENT_TYPE,
     recordActivity: (envelope) => {
-      const { payment } = envelope.payload as PaymentUpdatedPayload;
+      const { payment, update } = envelope.payload as PaymentUpdatedPayload;
+      const isPaymentLink = payment.method === "payment-link";
+
+      if (isPaymentLink) {
+        if (update.status === "paid") {
+          return {
+            eventId: envelope.id,
+            eventType: envelope.type,
+            title: {
+              key: "admin.platformEvents.payment.linkPaid.title" satisfies BaseAllKeys,
+            },
+            description: {
+              key: "admin.platformEvents.payment.linkPaid.description" satisfies BaseAllKeys,
+              args: { amount: payment.amount },
+            },
+            source: envelope.source,
+            noExpiry: true,
+            link: dashboardUrls.payment(payment),
+          };
+        }
+
+        if (update.status === "cancelled") {
+          return {
+            eventId: envelope.id,
+            eventType: envelope.type,
+            title: {
+              key: "admin.platformEvents.payment.linkCancelled.title" satisfies BaseAllKeys,
+            },
+            description: {
+              key: "admin.platformEvents.payment.linkCancelled.description" satisfies BaseAllKeys,
+              args: { amount: payment.amount },
+            },
+            source: envelope.source,
+            noExpiry: true,
+            link: dashboardUrls.payment(payment),
+          };
+        }
+
+        if (
+          ("sentToEmail" in update && update.sentToEmail) ||
+          ("sentToPhone" in update && update.sentToPhone)
+        ) {
+          return {
+            eventId: envelope.id,
+            eventType: envelope.type,
+            title: {
+              key: "admin.platformEvents.payment.linkSent.title" satisfies BaseAllKeys,
+            },
+            description: {
+              key: "admin.platformEvents.payment.linkSent.description" satisfies BaseAllKeys,
+              args: { amount: payment.amount },
+            },
+            source: envelope.source,
+            noExpiry: true,
+            link: dashboardUrls.payment(payment),
+          };
+        }
+
+        const updateKeys = Object.keys(update);
+        if (
+          updateKeys.length > 0 &&
+          updateKeys.every((key) => PAYMENT_LINK_NOISE_KEYS.has(key))
+        ) {
+          return false;
+        }
+      }
+
       return {
         eventId: envelope.id,
         eventType: envelope.type,

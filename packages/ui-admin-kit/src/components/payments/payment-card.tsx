@@ -100,6 +100,7 @@ export const getPaymentDescription = (description: string): AllKeys => {
       return "admin.payment.descriptions.cancellationFee" satisfies BaseAllKeys;
 
     case "giftCard":
+    case "descriptions.giftCard":
       return "admin.payment.descriptions.giftCard" satisfies BaseAllKeys;
 
     case "syncedPayment":
@@ -278,14 +279,26 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
           {"tipAmount" in payment &&
             typeof payment.tipAmount === "number" &&
             payment.tipAmount > 0 && (
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">
-                  {t("admin.payment.card.tip")}
-                </span>
-                <span className="text-sm font-medium text-foreground/60">
-                  {currencyFormat(payment.tipAmount)}
-                </span>
-              </div>
+              <>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">
+                    {t("admin.payment.card.paymentAmount")}
+                  </span>
+                  <span className="text-sm font-medium text-foreground/60">
+                    {currencyFormat(
+                      Math.round((amount - payment.tipAmount) * 100) / 100,
+                    )}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">
+                    {t("admin.payment.card.tip")}
+                  </span>
+                  <span className="text-sm font-medium text-foreground/60">
+                    {currencyFormat(payment.tipAmount)}
+                  </span>
+                </div>
+              </>
             )}
           {"customerName" in rest && !!rest.customerId && (
             <div className="flex justify-between items-center">

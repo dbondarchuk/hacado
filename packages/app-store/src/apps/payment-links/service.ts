@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   canUseFeature,
@@ -13,6 +14,7 @@ import {
   ConnectedAppStatusWithText,
   CreatePaymentLinkRequest,
   CUSTOMER_SESSION_COOKIE,
+  customerEventSource,
   EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
@@ -52,6 +54,8 @@ import {
   PaymentLinksAdminAllKeys,
   PaymentLinksAdminKeys,
   PaymentLinksAdminNamespace,
+  PaymentLinksPublicKeys,
+  paymentLinksPublicNamespace,
 } from "./translations/types";
 
 const PAYMENTS_COLLECTION = "payments";
@@ -443,6 +447,13 @@ export class PaymentLinksConnectedApp
       general.currency,
     );
 
+    const tPublic = await getI18nAsync(paymentLinksPublicNamespace);
+    const descriptionKey = payment.description as PaymentLinksPublicKeys;
+    const description =
+      payment.description && tPublic.has(descriptionKey)
+        ? tPublic(descriptionKey)
+        : payment.description;
+
     const args = getArguments({
       appointment: null,
       customer,
@@ -453,6 +464,7 @@ export class PaymentLinksConnectedApp
         payment: {
           ...payment,
           amountFormatted,
+          description,
         },
         paymentLinkUrl,
       },
@@ -705,8 +717,10 @@ export class PaymentLinksConnectedApp
         externalId: intent.externalId,
         fees: intent.fees,
       } as Partial<PaymentLinkPayment>,
-      systemEventSource,
+      customerEventSource(payment.customerId),
     );
+
+    await this.activateGiftCardForPaidPayment(payment._id);
 
     logger.info(
       { paymentId: payment._id, intentId: intent._id },
@@ -1170,8 +1184,10 @@ export class PaymentLinksConnectedApp
           externalId: intent.externalId,
           fees: intent.fees,
         } as Partial<PaymentLinkPayment>,
-        systemEventSource,
+        customerEventSource(payment.customerId),
       );
+
+      await this.activateGiftCardForPaidPayment(payment._id);
 
       logger.info(
         { appId: appData._id, paymentId: payment._id, intentId },
@@ -1241,6 +1257,31 @@ export class PaymentLinksConnectedApp
     });
 
     return (payment as PaymentLinkPayment | null) ?? null;
+  }
+
+  private async activateGiftCardForPaidPayment(
+    paymentId: string,
+  ): Promise<void> {
+    const logger = this.loggerFactory("activateGiftCardForPaidPayment");
+    const giftCard =
+      await this.props.services.giftCardsService.getGiftCardByPaymentId(
+        paymentId,
+      );
+
+    if (!giftCard || giftCard.status === "active") {
+      return;
+    }
+
+    logger.debug(
+      { paymentId, giftCardId: giftCard._id },
+      "Activating gift card after payment link paid",
+    );
+
+    await this.props.services.giftCardsService.setGiftCardStatus(
+      giftCard._id,
+      "active",
+      systemEventSource,
+    );
   }
 }
 

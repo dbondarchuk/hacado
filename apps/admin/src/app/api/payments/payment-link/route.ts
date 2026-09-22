@@ -150,6 +150,43 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const { app, service } =
+    await servicesContainer.connectedAppsService.getAppService<IPaymentLinkProvider>(
+      paymentLinkApp._id,
+    );
+
+  if (typeof service.createPaymentLink !== "function") {
+    logger.error(
+      { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
+      "App does not implement createPaymentLink",
+    );
+    return NextResponse.json(
+      {
+        success: false,
+        error: "App does not support payment links",
+        code: "payment_link_unsupported",
+      },
+      { status: 400 },
+    );
+  }
+
+  const needsSend = payload.channel === "email" || payload.channel === "sms";
+
+  if (needsSend && typeof service.sendPaymentLink !== "function") {
+    logger.error(
+      { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
+      "App does not implement sendPaymentLink",
+    );
+    return NextResponse.json(
+      {
+        success: false,
+        error: "App does not support sending payment links",
+        code: "payment_link_send_unsupported",
+      },
+      { status: 400 },
+    );
+  }
+
   const now = new Date();
   const publicId = randomBytes(16).toString("hex");
 
@@ -173,57 +210,30 @@ export async function POST(request: NextRequest) {
     actor,
   );
 
-  const { app, service } =
-    await servicesContainer.connectedAppsService.getAppService<IPaymentLinkProvider>(
-      paymentLinkApp._id,
-    );
-
-  if (typeof service.createPaymentLink !== "function") {
+  let linkResult;
+  try {
+    linkResult = await service.createPaymentLink(app, {
+      amount: payment.amount,
+      customerId: payment.customerId,
+      appointmentId: payment.appointmentId,
+      description: payment.description,
+      type: payment.type,
+      paymentId: payment._id,
+    });
+  } catch (error) {
     logger.error(
-      { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
-      "App does not implement createPaymentLink",
+      { paymentId: payment._id, error },
+      "Payment link creation failed; removing payment",
     );
-    return NextResponse.json(
-      {
-        success: false,
-        error: "App does not support payment links",
-        code: "payment_link_unsupported",
-      },
-      { status: 400 },
-    );
+    await servicesContainer.paymentsService.deletePayment(payment._id, actor);
+    throw error;
   }
-
-  const linkResult = await service.createPaymentLink(app, {
-    amount: payment.amount,
-    customerId: payment.customerId,
-    appointmentId: payment.appointmentId,
-    description: payment.description,
-    type: payment.type,
-    paymentId: payment._id,
-  });
 
   let updatedPayment = payment;
 
-  if (payload.channel === "email" || payload.channel === "sms") {
-    if (typeof service.sendPaymentLink !== "function") {
-      logger.error(
-        { appId: paymentLinkApp._id, appName: paymentLinkApp.name },
-        "App does not implement sendPaymentLink",
-      );
-      return NextResponse.json(
-        {
-          success: false,
-          error: "App does not support sending payment links",
-          code: "payment_link_send_unsupported",
-          payment,
-          url: linkResult.url,
-        },
-        { status: 400 },
-      );
-    }
-
-    await service.sendPaymentLink(app, payment, {
-      channel: payload.channel,
+  if (needsSend) {
+    await service.sendPaymentLink!(app, payment, {
+      channel: payload.channel as "email" | "sms",
       to: payload.to!,
     });
 

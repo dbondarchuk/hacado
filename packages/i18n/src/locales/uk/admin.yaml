@@ -99,13 +99,25 @@ platformEvents:
       description: "{type} · {amount}"
     updated:
       title: Платіж оновлено
-      description: "{статус} · {сума}"
+      description: "{status} · {amount}"
     deleted:
       title: Платіж видалено
-      description: "{сума}"
+      description: "{amount}"
     refunded:
       title: Повернення платежу
       description: "{refundAmount} з {amount}"
+    linkCreated:
+      title: Створено посилання на оплату
+      description: "{amount}"
+    linkSent:
+      title: Посилання на оплату надіслано
+      description: "{amount}"
+    linkPaid:
+      title: Оплату за посиланням отримано
+      description: "{amount}"
+    linkCancelled:
+      title: Посилання на оплату скасовано
+      description: "{amount}"
   syncedPayment:
     ingested:
       title: Синхронізовано платіж у закладі
@@ -2229,6 +2241,7 @@ services:
         createdAt: Створено
         updatedAt: Оновлено
         payments: Платежі
+        paymentMethod: Спосіб оплати
         customer: Клієнт
       cellAction:
         giftCardDeleted: Подарункову картку {code} видалено.
@@ -3534,6 +3547,7 @@ payment:
     description: Опис
     fees: Комісії
     tip: Чайові
+    paymentAmount: Оплата
     netAmount: Чиста сума
     refundFees: Повертати комісії
     syncedPayment: Синхронізований платіж

@@ -19,6 +19,7 @@ import {
 } from "../../translations/types";
 import { CellAction } from "./cell-action";
 import { GiftCardDetailDialog } from "./gift-card-detail-dialog";
+import { PaymentMethodCell } from "./payment-method-cell";
 
 export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
   {
@@ -51,6 +52,18 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+      const isAwaitingPayment =
+        purchase.paymentMethod === "payment-link" &&
+        purchase.paymentStatus === "pending";
+
+      if (isAwaitingPayment) {
+        return (
+          <span className="text-muted-foreground">
+            {t("purchases.table.detail.awaitingPayment")}
+          </span>
+        );
+      }
+
       if (purchase.cardGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -97,6 +110,18 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       const t = useI18n<GiftCardStudioAdminNamespace, GiftCardStudioAdminKeys>(
         giftCardStudioAdminNamespace,
       );
+      const isAwaitingPayment =
+        purchase.paymentMethod === "payment-link" &&
+        purchase.paymentStatus === "pending";
+
+      if (isAwaitingPayment) {
+        return (
+          <span className="text-muted-foreground">
+            {t("purchases.table.detail.awaitingPayment")}
+          </span>
+        );
+      }
+
       if (purchase.invoiceGenerationStatus !== "completed") {
         return (
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -184,12 +209,7 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       "string",
       giftCardStudioAdminNamespace,
     ),
-    cell: ({ row }) => {
-      const tAdmin = useI18n("admin");
-      return tAdmin(
-        `common.labels.paymentMethod.${row.original.paymentMethod}`,
-      );
-    },
+    cell: ({ row }) => <PaymentMethodCell purchase={row.original} />,
     sortingFn: tableSortNoopFunction,
   },
   {

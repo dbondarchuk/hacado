@@ -234,7 +234,7 @@ export async function generateMetadata(
       page,
       brand,
       params: routeParams,
-    } = await getSource(params.slug?.join("/"), !!searchParams?.preview);
+    } = await getSource(slugPath, !!searchParams?.preview);
 
     logger.debug(
       {
@@ -439,7 +439,7 @@ export default async function Page(props: Props) {
         "Rendering public page takeover",
       );
 
-      return renderPublicPageTakeover({
+      return await renderPublicPageTakeover({
         match: takeover,
         searchParams: searchParams || {},
         websiteUrl,
@@ -457,7 +457,7 @@ export default async function Page(props: Props) {
     );
 
     const { page, general, brand, params } = await getSource(
-      routeParams.slug?.join("/"),
+      slugPath,
       !!searchParams?.preview,
     );
 

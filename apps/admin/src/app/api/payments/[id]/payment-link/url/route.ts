@@ -27,15 +27,6 @@ export async function GET(
     "Getting payment link URL",
   );
 
-  const user = session?.user;
-  if (!user?.id) {
-    logger.warn("Unauthorized");
-    return NextResponse.json(
-      { success: false, code: "unauthorized", error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
-
   const payment = await servicesContainer.paymentsService.getPayment(paymentId);
 
   if (!payment) {
@@ -72,24 +63,29 @@ export async function GET(
       logger,
     );
 
-    logger.debug(
-      { appointmentId: payment.appointmentId },
-      "Checking appointment update authorization",
-    );
-
     if (!auth.ok) {
-      logger.warn({ appointmentId: payment.appointmentId }, "Forbidden");
       return auth.response;
     }
-  } else if (
-    !hasPermission(user, "customer", "update") &&
-    !hasPermission(user, "billing", "manage")
-  ) {
-    logger.warn({ role: user.role }, "Forbidden");
-    return NextResponse.json(
-      { success: false, code: "forbidden", error: "Forbidden" },
-      { status: 403 },
-    );
+  } else {
+    const user = session?.user;
+    if (!user?.id) {
+      logger.warn("Unauthorized");
+      return NextResponse.json(
+        { success: false, code: "unauthorized", error: "Unauthorized" },
+        { status: 401 },
+      );
+    }
+
+    if (
+      !hasPermission(user, "customer", "update") &&
+      !hasPermission(user, "billing", "manage")
+    ) {
+      logger.warn({ role: user.role }, "Forbidden");
+      return NextResponse.json(
+        { success: false, code: "forbidden", error: "Forbidden" },
+        { status: 403 },
+      );
+    }
   }
 
   const paymentLinkPayment = payment as PaymentLinkPayment;

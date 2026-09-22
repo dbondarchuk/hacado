@@ -1,4 +1,5 @@
 import PageContainer from "@/components/admin/layout/page-container";
+import { OpenPaymentDetailsFromQuery } from "@/components/admin/payments/table/open-payment-details-from-query";
 import { PaymentsTable } from "@/components/admin/payments/table/table";
 import { PaymentsTableAction } from "@/components/admin/payments/table/table-action";
 import {
@@ -54,6 +55,9 @@ export default async function PaymentsPage(props: Params) {
           fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}
         >
           <PaymentsTable />
+        </Suspense>
+        <Suspense fallback={null}>
+          <OpenPaymentDetailsFromQuery />
         </Suspense>
       </div>
     </PageContainer>

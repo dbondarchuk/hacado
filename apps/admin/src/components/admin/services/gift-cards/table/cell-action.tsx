@@ -81,8 +81,21 @@ export const CellAction: React.FC<CellActionProps> = ({ giftCard }) => {
     }
   };
 
+  const canActivate =
+    !isActive &&
+    !(
+      giftCard.payment?.method === "payment-link" &&
+      (giftCard.payment?.status === "pending" ||
+        giftCard.payment?.status === "cancelled")
+    );
+
   const canDelete =
-    !giftCard.paymentsCount && giftCard.payment?.method !== "online";
+    !giftCard.paymentsCount &&
+    giftCard.payment?.method !== "online" &&
+    !(
+      giftCard.payment?.method === "payment-link" &&
+      giftCard.payment?.status === "paid"
+    );
 
   return (
     <>
@@ -114,7 +127,7 @@ export const CellAction: React.FC<CellActionProps> = ({ giftCard }) => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          {!isActive && (
+          {canActivate && (
             <DropdownMenuItem onClick={() => onSetStatus("active")}>
               <ToggleRight className="size-3.5" />{" "}
               {t("services.giftCards.table.cellAction.setActive")}

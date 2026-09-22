@@ -146,7 +146,15 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
   };
 
   const canDelete =
-    purchase.paymentsCount === 0 && purchase.paymentMethod !== "online";
+    purchase.paymentsCount === 0 &&
+    purchase.paymentMethod !== "online" &&
+    (purchase.paymentMethod !== "payment-link" ||
+      (purchase.status === "inactive" &&
+        purchase.cardGenerationStatus === "pending"));
+
+  const isAwaitingPayment =
+    purchase.paymentMethod === "payment-link" &&
+    purchase.paymentStatus === "pending";
 
   const canSendToCustomer =
     purchase.invoiceGenerationStatus === "completed" &&
@@ -214,15 +222,19 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
               {t("purchases.table.actions.setInactive")}
             </DropdownMenuItem>
           )}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => onRegenerate("gift-card")}>
-            <RefreshCcw className="size-3.5" />{" "}
-            {t("purchases.table.actions.regenerateGiftCard")}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onRegenerate("invoice")}>
-            <RefreshCw className="size-3.5" />{" "}
-            {t("purchases.table.actions.regenerateInvoice")}
-          </DropdownMenuItem>
+          {!isAwaitingPayment && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => onRegenerate("gift-card")}>
+                <RefreshCcw className="size-3.5" />{" "}
+                {t("purchases.table.actions.regenerateGiftCard")}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onRegenerate("invoice")}>
+                <RefreshCw className="size-3.5" />{" "}
+                {t("purchases.table.actions.regenerateInvoice")}
+              </DropdownMenuItem>
+            </>
+          )}
           {canSendToCustomer && (
             <DropdownMenuItem onClick={() => openResendEmail("customer")}>
               <Send className="size-3.5" />{" "}

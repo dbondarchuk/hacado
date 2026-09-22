@@ -566,7 +566,11 @@ export const PaymentLinksPublicPage: React.FC<PublicPageRendererProps> = ({
               <span className="text-muted-foreground">
                 {t("page.description")}
               </span>
-              <span className="text-right">{payment.description}</span>
+              <span className="text-right">
+                {t.has(payment.description as PaymentLinksPublicKeys)
+                  ? t(payment.description as PaymentLinksPublicKeys)
+                  : payment.description}
+              </span>
             </div>
           )}
         </div>

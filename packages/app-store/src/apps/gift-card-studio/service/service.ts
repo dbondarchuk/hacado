@@ -12,21 +12,29 @@ import {
   ConnectedAppUninstallResult,
   DashboardNotification,
   DemoArguments,
+  EventEnvelope,
   EventSource,
+  GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
+  GiftCardStatusChangedPayload,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
   IDemoArgumentsProvider,
+  IEventSubscriber,
+  IPaymentLinkProvider,
   IPaymentProcessor,
   IScheduled,
   memberEventSource,
   PaymentIntentUpdateModel,
+  PaymentLinkPayment,
+  PaymentUpdateModel,
   SessionUser,
   systemEventSource,
   TemplateTemplatesList,
 } from "@hacado/types";
 import { formatAmountWithCurrency } from "@hacado/utils";
+import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
 import { demoPurchasedGiftCard } from "../demo-arguments";
@@ -109,7 +117,8 @@ export class GiftCardStudioConnectedApp
     IScheduled,
     IDemoArgumentsProvider,
     ICommunicationTemplatesProvider,
-    IDashboardNotifierApp
+    IDashboardNotifierApp,
+    IEventSubscriber
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -126,6 +135,102 @@ export class GiftCardStudioConnectedApp
       "GiftCardStudioConnectedApp",
       props.organizationId,
     );
+  }
+
+  public async onEvent(
+    appData: ConnectedAppData,
+    envelope: EventEnvelope,
+  ): Promise<void> {
+    const logger = this.loggerFactory("onEvent");
+    if (envelope.type !== GIFT_CARD_STATUS_CHANGED_EVENT_TYPE) {
+      return;
+    }
+
+    const { ids, status } = envelope.payload as GiftCardStatusChangedPayload;
+    if (status !== "active" || !ids.length) {
+      return;
+    }
+
+    logger.debug(
+      { appId: appData._id, ids },
+      "Gift card status changed to active",
+    );
+
+    const repo = this.getRepositoryService(appData._id, appData.organizationId);
+
+    for (const giftCardId of ids) {
+      const giftCard =
+        await this.props.services.giftCardsService.getGiftCard(giftCardId);
+      if (!giftCard || giftCard.source?.appId !== appData._id) {
+        continue;
+      }
+
+      const payment = await this.props.services.paymentsService.getPayment(
+        giftCard.paymentId,
+      );
+      if (
+        !payment ||
+        payment.method !== "payment-link" ||
+        payment.status !== "paid"
+      ) {
+        continue;
+      }
+
+      const purchased = await repo.getPurchasedGiftCardByGiftCardId(giftCardId);
+      if (!purchased || purchased.cardGenerationStatus !== "pending") {
+        continue;
+      }
+
+      const metadata = (giftCard.source?.metadata ?? {}) as {
+        sendRecipientEmail?: boolean;
+        sendCustomerEmail?: boolean;
+        fulfillmentScheduled?: boolean;
+      };
+      if (metadata.fulfillmentScheduled) {
+        continue;
+      }
+
+      const claimed =
+        await this.props.services.giftCardsService.claimStudioFulfillment(
+          giftCardId,
+          appData._id,
+        );
+      if (!claimed) {
+        continue;
+      }
+
+      const sendEmails = {
+        recipient: !!metadata.sendRecipientEmail,
+        customer: !!metadata.sendCustomerEmail,
+      };
+
+      logger.info(
+        { purchasedId: purchased._id, giftCardId },
+        "Scheduling gift card fulfillment after payment link paid",
+      );
+
+      await this.props.services.jobService.scheduleJob({
+        type: "app",
+        executeAt: "now",
+        appId: appData._id,
+        payload: {
+          type: "generate-gift-card",
+          purchasedGiftCardId: purchased._id,
+          sendEmails,
+        } satisfies GiftCardStudioJobPayload,
+      });
+
+      await this.props.services.jobService.scheduleJob({
+        type: "app",
+        executeAt: "now",
+        appId: appData._id,
+        payload: {
+          type: "generate-invoice",
+          purchasedGiftCardId: purchased._id,
+          sendEmails,
+        } satisfies GiftCardStudioJobPayload,
+      });
+    }
   }
 
   public async getInitialNotifications(
@@ -850,25 +955,133 @@ export class GiftCardStudioConnectedApp
     logger.debug({ purchase }, "Creating purchased gift card");
 
     const code = await this.generateUniqueGiftCardCode();
-    const paidAt = new Date();
-
+    const paymentSource = this.adminEventSource(memberId);
     const customerSource = {
       actor: "customer" as const,
       actorId: purchase.customerId,
     };
+    const isPaymentLink = purchase.paymentType === "payment-link";
 
-    const payment = await this.props.services.paymentsService.createPayment(
-      {
+    let payment;
+    if (isPaymentLink) {
+      if (!purchase.paymentLinkAppId) {
+        throw new ConnectedAppRequestError(
+          "payment_link_app_required",
+          {},
+          400,
+          "Payment link app is required",
+        );
+      }
+
+      const paymentLinkApps =
+        await this.props.services.connectedAppsService.getAppsByScope(
+          "payment-link",
+        );
+      const paymentLinkApp = paymentLinkApps.find(
+        (app) => app._id === purchase.paymentLinkAppId,
+      );
+      if (!paymentLinkApp) {
+        throw new ConnectedAppRequestError(
+          "payment_link_app_not_found",
+          { paymentLinkAppId: purchase.paymentLinkAppId },
+          404,
+          "Payment link app not found",
+        );
+      }
+
+      const publicId = randomBytes(16).toString("hex");
+      const paymentUpdateModel: PaymentUpdateModel = {
         amount: purchase.amountPurchased,
-        status: "paid",
-        paidAt,
+        status: "pending",
+        method: "payment-link",
+        paidAt: undefined,
+        createdAt: new Date(),
         customerId: purchase.customerId,
-        description: "giftCard",
+        description: "descriptions.giftCard",
         type: "payment",
-        method: purchase.paymentType,
-      },
-      customerSource,
-    );
+        appId: paymentLinkApp._id,
+        appName: paymentLinkApp.name,
+        publicId,
+      };
+
+      const { app, service } =
+        await this.props.services.connectedAppsService.getAppService<IPaymentLinkProvider>(
+          paymentLinkApp._id,
+        );
+
+      if (typeof service.createPaymentLink !== "function") {
+        throw new ConnectedAppRequestError(
+          "payment_link_unsupported",
+          { appId: paymentLinkApp._id },
+          400,
+          "App does not support payment links",
+        );
+      }
+
+      const needsSend =
+        (purchase.channel === "email" || purchase.channel === "sms") &&
+        !!purchase.to;
+
+      if (needsSend && typeof service.sendPaymentLink !== "function") {
+        throw new ConnectedAppRequestError(
+          "payment_link_send_unsupported",
+          { appId: paymentLinkApp._id },
+          400,
+          "App does not support sending payment links",
+        );
+      }
+
+      payment = await this.props.services.paymentsService.createPayment(
+        paymentUpdateModel,
+        paymentSource,
+      );
+
+      try {
+        await service.createPaymentLink(app, {
+          amount: payment.amount,
+          customerId: payment.customerId,
+          description: payment.description,
+          type: payment.type,
+          paymentId: payment._id,
+        });
+      } catch (error) {
+        await this.props.services.paymentsService.deletePayment(
+          payment._id,
+          paymentSource,
+        );
+        throw error;
+      }
+
+      if (needsSend) {
+        await service.sendPaymentLink!(app, payment, {
+          channel: purchase.channel as "email" | "sms",
+          to: purchase.to!,
+        });
+
+        payment = await this.props.services.paymentsService.updatePayment(
+          payment._id,
+          purchase.channel === "email"
+            ? ({ sentToEmail: purchase.to } as Partial<PaymentLinkPayment>)
+            : ({ sentToPhone: purchase.to } as Partial<PaymentLinkPayment>),
+          paymentSource,
+        );
+      }
+    } else {
+      const inPersonMethod =
+        purchase.paymentType === "in-person-card" ? "in-person-card" : "cash";
+      payment = await this.props.services.paymentsService.createPayment(
+        {
+          amount: purchase.amountPurchased,
+          status: "paid",
+          paidAt: new Date(),
+          customerId: purchase.customerId,
+          description: "giftCard",
+          type: "payment",
+          method: inPersonMethod,
+        },
+        customerSource,
+      );
+    }
 
     logger.debug(
       {
@@ -892,6 +1105,11 @@ export class GiftCardStudioConnectedApp
         source: {
           appName: appData.name,
           appId: appData._id,
+          metadata: {
+            sendRecipientEmail: purchase.sendRecipientEmail ?? false,
+            sendCustomerEmail: purchase.sendCustomerEmail ?? false,
+            fulfillmentScheduled: false,
+          },
         },
       },
       customerSource,
@@ -927,46 +1145,48 @@ export class GiftCardStudioConnectedApp
       "Purchased gift card created",
     );
 
-    await this.props.services.jobService.scheduleJob({
-      type: "app",
-      executeAt: "now",
-      appId: appData._id,
-      payload: {
-        type: "generate-gift-card",
-        purchasedGiftCardId: purchased._id,
-        sendEmails: {
-          recipient: purchase.sendRecipientEmail ?? false,
-          customer: purchase.sendCustomerEmail ?? false,
-        },
-      } satisfies GiftCardStudioJobPayload,
-    });
+    if (!isPaymentLink) {
+      await this.props.services.jobService.scheduleJob({
+        type: "app",
+        executeAt: "now",
+        appId: appData._id,
+        payload: {
+          type: "generate-gift-card",
+          purchasedGiftCardId: purchased._id,
+          sendEmails: {
+            recipient: purchase.sendRecipientEmail ?? false,
+            customer: purchase.sendCustomerEmail ?? false,
+          },
+        } satisfies GiftCardStudioJobPayload,
+      });
 
-    await this.props.services.jobService.scheduleJob({
-      type: "app",
-      executeAt: "now",
-      appId: appData._id,
-      payload: {
-        type: "generate-invoice",
-        purchasedGiftCardId: purchased._id,
-        sendEmails: {
-          recipient: purchase.sendRecipientEmail ?? false,
-          customer: purchase.sendCustomerEmail ?? false,
-        },
-      } satisfies GiftCardStudioJobPayload,
-    });
+      await this.props.services.jobService.scheduleJob({
+        type: "app",
+        executeAt: "now",
+        appId: appData._id,
+        payload: {
+          type: "generate-invoice",
+          purchasedGiftCardId: purchased._id,
+          sendEmails: {
+            recipient: purchase.sendRecipientEmail ?? false,
+            customer: purchase.sendCustomerEmail ?? false,
+          },
+        } satisfies GiftCardStudioJobPayload,
+      });
 
-    logger.debug(
-      {
-        purchasedId: purchased._id,
-        code,
-        amount: purchase.amountPurchased,
-        sendEmails: {
-          recipient: purchase.sendRecipientEmail ?? false,
-          customer: purchase.sendCustomerEmail ?? false,
+      logger.debug(
+        {
+          purchasedId: purchased._id,
+          code,
+          amount: purchase.amountPurchased,
+          sendEmails: {
+            recipient: purchase.sendRecipientEmail ?? false,
+            customer: purchase.sendCustomerEmail ?? false,
+          },
         },
-      },
-      "Successfully scheduled generate gift card job",
-    );
+        "Successfully scheduled generate gift card job",
+      );
+    }
 
     await this.emitPurchaseCreated(
       appData,
@@ -985,6 +1205,7 @@ export class GiftCardStudioConnectedApp
         purchasedId: purchased._id,
         designId: purchase.designId,
         amount: purchase.amountPurchased,
+        paymentLink: isPaymentLink,
       },
       "Purchased gift card created",
     );
