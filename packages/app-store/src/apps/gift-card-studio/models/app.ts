@@ -1,5 +1,6 @@
 import { Prettify, zObjectId, zTaggedUnion, zUniqueArray } from "@hacado/types";
 import * as z from "zod";
+import type { GiftCardStudioAdminAllKeys } from "../translations/types";
 import { designSchemaBase, getDesignsQuerySchema } from "./design";
 import {
   getPurchasedGiftCardsQuerySchema,
@@ -138,9 +139,36 @@ export const createPurchasedGiftCardActionSchema = z.object({
       customerDeliveryStatus: true,
     })
     .extend({
-      paymentType: z.enum(["cash", "in-person-card"]),
+      paymentType: z.enum(["cash", "in-person-card", "payment-link"]),
+      paymentLinkAppId: zObjectId().optional(),
+      channel: z.enum(["email", "sms", "copy"]).optional(),
+      to: z.string().optional(),
       sendCustomerEmail: z.coerce.boolean<boolean>().optional(),
       sendRecipientEmail: z.coerce.boolean<boolean>().optional(),
+    })
+    .superRefine((data, ctx) => {
+      if (data.paymentType !== "payment-link") {
+        return;
+      }
+      if (!data.paymentLinkAppId) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["paymentLinkAppId"],
+          message:
+            "app_gift-card-studio_admin.validation.manualForm.paymentLinkAppId.required" satisfies GiftCardStudioAdminAllKeys,
+        });
+      }
+      if (
+        (data.channel === "email" || data.channel === "sms") &&
+        (!data.to || data.to.trim().length === 0)
+      ) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["to"],
+          message:
+            "app_gift-card-studio_admin.validation.manualForm.to.required" satisfies GiftCardStudioAdminAllKeys,
+        });
+      }
     }),
 });
 export type CreatePurchasedGiftCardAction = z.infer<

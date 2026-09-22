@@ -826,16 +826,12 @@ class SquareConnectedApp
   ): Promise<{ success: boolean; error?: string }> {
     const logger = this.loggerFactory("refundPayment");
 
-    if (
-      payment.method !== "online" ||
-      (payment as { appName?: string }).appName !== SQUARE_APP_NAME ||
-      !(payment as { externalId?: string }).externalId
-    ) {
+    if (payment.method !== "online" && payment.method !== "payment-link") {
       logger.debug(
         {
           appId: appData._id,
           paymentId: payment._id,
-          appName: (payment as { appName?: string }).appName,
+          method: payment.method,
         },
         "Square refund payment not supported",
       );
@@ -843,7 +839,21 @@ class SquareConnectedApp
       return { success: false, error: "not_supported" };
     }
 
-    const externalId = (payment as { externalId: string }).externalId;
+    const processorName =
+      payment.method === "online" ? payment.appName : payment.processorAppName;
+    const externalId = payment.externalId;
+    if (processorName !== SQUARE_APP_NAME || !externalId) {
+      logger.debug(
+        {
+          appId: appData._id,
+          paymentId: payment._id,
+          appName: processorName,
+        },
+        "Square refund payment not supported",
+      );
+
+      return { success: false, error: "not_supported" };
+    }
 
     logger.debug(
       {

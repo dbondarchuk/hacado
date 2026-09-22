@@ -26,6 +26,7 @@
     "./setup": "./src/setup.tsx",
     "./images": "./src/images.ts",
     "./payment-forms": "./src/payment-forms.tsx",
+    "./public-page-renderers": "./src/public-page-renderers.tsx",
     "./exports": "./src/exports.ts",
     "./app-events": "./src/app-events/index.ts",
     "./utils": "./src/utils.ts",

@@ -1,6 +1,7 @@
 import {
   Appointment,
   DateRange,
+  getPaymentServiceAmount,
   HydratedSyncedPayment,
   IBookingService,
   ICustomersService,
@@ -72,7 +73,7 @@ const computeRemainingBalance = (appointment: Appointment): number => {
         (acc, refund) => acc + refund.amount,
         0,
       );
-      return sum + (payment.amount - refunded);
+      return sum + Math.max(0, getPaymentServiceAmount(payment) - refunded);
     }, 0);
 
   return round2(appointment.totalPrice - paid);
@@ -1090,10 +1091,12 @@ export class SyncedPaymentsService
       DEFAULT_SYNCED_PAYMENT_TYPE;
 
     const paymentIds: string[] = [];
+    const totalAmount = round2(paymentAmount + inferredTip);
 
-    if (paymentAmount > 0) {
+    if (totalAmount > 0) {
       const payment: PaymentUpdateModel = {
-        amount: paymentAmount,
+        amount: totalAmount,
+        tipAmount: inferredTip > 0 ? inferredTip : undefined,
         status: "paid",
         paidAt: transaction.transactionTime,
         appointmentId,
@@ -1111,29 +1114,6 @@ export class SyncedPaymentsService
         fees: transaction.fees,
       };
       const created = await this.paymentsService.createPayment(payment, source);
-      paymentIds.push(created._id);
-    }
-
-    if (inferredTip > 0) {
-      const tipPayment: PaymentUpdateModel = {
-        amount: inferredTip,
-        status: "paid",
-        paidAt: transaction.transactionTime,
-        appointmentId,
-        customerId: appointment.customerId,
-        description: "syncedTip",
-        type: "tips",
-        method: "in-person-card",
-        source: "synced",
-        disableUpdate: true,
-        externalId: transaction.externalId,
-        appName: transaction.appName,
-        appId: transaction.appId,
-      };
-      const created = await this.paymentsService.createPayment(
-        tipPayment,
-        source,
-      );
       paymentIds.push(created._id);
     }
 

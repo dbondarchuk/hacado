@@ -52,8 +52,11 @@ export const DeleteSelectedGiftCardsButton: React.FC<{
   };
 
   const hasPayments = selected.some((giftCard) => giftCard.paymentsCount > 0);
-  const hasOnlinePayments = selected.some(
-    (giftCard) => giftCard.payment.method === "online",
+  const hasNonDeletablePurchasePayment = selected.some(
+    (giftCard) =>
+      giftCard.payment.method === "online" ||
+      (giftCard.payment.method === "payment-link" &&
+        giftCard.payment.status === "paid"),
   );
 
   const disabled =
@@ -61,7 +64,7 @@ export const DeleteSelectedGiftCardsButton: React.FC<{
     !selected ||
     !selected.length ||
     hasPayments ||
-    hasOnlinePayments ||
+    hasNonDeletablePurchasePayment ||
     selected.some((giftCard) => !!giftCard.source?.appId);
   return (
     <AlertDialog onOpenChange={setIsOpen} open={isOpen}>

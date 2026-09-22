@@ -39,6 +39,8 @@ import { MY_CABINET_APP_NAME } from "../apps/my-cabinet/const";
 import { MyCabinetConnectedApp } from "../apps/my-cabinet/service";
 import { OUTLOOK_APP_NAME } from "../apps/outlook/const";
 import OutlookConnectedApp from "../apps/outlook/service";
+import { PAYMENT_LINKS_APP_NAME } from "../apps/payment-links/const";
+import { PaymentLinksConnectedApp } from "../apps/payment-links/service";
 import { PAYPAL_APP_NAME } from "../apps/paypal/const";
 import PaypalConnectedApp from "../apps/paypal/service";
 import { RESEND_APP_NAME } from "../apps/resend/const";
@@ -106,6 +108,7 @@ export const AvailableAppServices: Record<
   [APPOINTMENT_NOTIFICATIONS_APP_NAME]: (props) =>
     new ScheduledNotificationsConnectedApp(props),
   [PAYPAL_APP_NAME]: (props) => new PaypalConnectedApp(props),
+  [PAYMENT_LINKS_APP_NAME]: (props) => new PaymentLinksConnectedApp(props),
   [SQUARE_APP_NAME]: (props) => new SquareConnectedApp(props),
   [STRIPE_APP_NAME]: (props) => new StripeConnectedApp(props),
   [BLOG_APP_NAME]: (props) => new BlogConnectedApp(props),

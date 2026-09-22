@@ -1,6 +1,9 @@
 "use client";
 
+import { adminApi } from "@hacado/api-sdk";
+import { Payment } from "@hacado/types";
 import { dispatchDashboardBadge, useReload } from "@hacado/ui-admin";
+import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -20,6 +23,8 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
   const [purchase, setPurchase] = useState<PurchasedGiftCardListModel | null>(
     null,
   );
+  const [detailsPayment, setDetailsPayment] = useState<Payment | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const { reload } = useReload();
   const router = useRouter();
 
@@ -45,11 +50,45 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
         setPurchase(purchase);
       });
     }
-  }, [searchParams]);
 
-  const handleManualPurchaseSuccess = useCallback(() => {
-    reload();
-  }, [reload]);
+    const paymentId = searchParams.get("paymentId");
+    if (paymentId) {
+      void adminApi.payments
+        .getPayment(paymentId)
+        .then((payment) => {
+          setDetailsPayment(payment);
+          setDetailsOpen(true);
+          const next = new URLSearchParams(searchParams.toString());
+          next.delete("paymentId");
+          const query = next.toString();
+          router.replace(query ? `?${query}` : "?");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [appId, router, searchParams]);
+
+  const handleManualPurchaseSuccess = useCallback(
+    async (created?: PurchasedGiftCardListModel) => {
+      reload();
+
+      if (
+        created?.paymentMethod === "payment-link" &&
+        created.paymentId &&
+        created.paymentStatus === "pending"
+      ) {
+        try {
+          const payment = await adminApi.payments.getPayment(created.paymentId);
+          setDetailsPayment(payment);
+          setDetailsOpen(true);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+    [reload],
+  );
 
   const onPurchaseOpenChange = useCallback(
     (open: boolean) => {
@@ -80,6 +119,18 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
           onOpenChange={onPurchaseOpenChange}
         />
       )}
+      {detailsPayment ? (
+        <PaymentDetailsDialog
+          payment={detailsPayment}
+          open={detailsOpen}
+          onOpenChange={(next) => {
+            setDetailsOpen(next);
+            if (!next) {
+              setDetailsPayment(null);
+            }
+          }}
+        />
+      ) : null}
     </div>
   );
 }

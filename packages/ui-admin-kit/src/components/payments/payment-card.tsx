@@ -1,11 +1,18 @@
 "use client";
 
+import { adminApi } from "@hacado/api-sdk";
 import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { Payment, PaymentStatus, PaymentSummary } from "@hacado/types";
+import {
+  InStorePaymentUpdateModel,
+  Payment,
+  PaymentStatus,
+  PaymentSummary,
+} from "@hacado/types";
 import {
   Badge,
   Button,
   Link,
+  toastPromise,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
@@ -13,18 +20,30 @@ import {
 } from "@hacado/ui";
 import { useAuth } from "@hacado/ui-admin";
 import { canManageSyncedPayments } from "@hacado/utils";
-import { Check, CheckCircle, Clock, Pencil } from "lucide-react";
+import {
+  Ban,
+  Check,
+  CheckCircle,
+  Clock,
+  Copy,
+  Pencil,
+  QrCode,
+  Send,
+  XCircle,
+} from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { AddUpdatePaymentDialog } from "./add-update-payment-dialog";
 import { ManageSyncedPaymentDialog } from "./manage-synced-payment-dialog";
 import { PaymentDeleteConfirmationModal } from "./payment-delete-confirmation-modal";
+import { PaymentLinkQrCodeDialog } from "./payment-link-qr-code-dialog";
 import {
   getPaymentMethod,
   getPaymentMethodIcon,
 } from "./payment-method-display";
 import { canRefundPayment, PaymentRefundDialog } from "./payment-refund-dialog";
+import { ResendPaymentLinkDialog } from "./resend-payment-link-dialog";
 
 export {
   getPaymentMethod,
@@ -42,10 +61,10 @@ export const getPaymentStatusIcon = (status: PaymentStatus) => {
   switch (status) {
     case "paid":
       return <CheckCircle className="size-4 text-green-600" />;
-    //   case "refunded":
-    //     return <Clock className="h-4 w-4 text-yellow-600" />;
-    //   case "failed":
-    //     return <CreditCard className="h-4 w-4 text-red-600" />;
+    case "pending":
+      return <Clock className="size-4 text-yellow-600" />;
+    case "cancelled":
+      return <Ban className="size-4 text-gray-600" />;
     default:
       return <Clock className="size-4 text-gray-600" />;
   }
@@ -55,10 +74,10 @@ export const getPaymentStatusColor = (status: PaymentStatus) => {
   switch (status) {
     case "paid":
       return "bg-green-100 hover:bg-green-300 text-green-800 hover:text-green-900 border-green-200 hover:border-green-400 ";
-    //   case "pending":
-    //     return "bg-yellow-100 text-yellow-800 border-yellow-200";
-    //   case "failed":
-    //     return "bg-red-100 text-red-800 border-red-200";
+    case "pending":
+      return "bg-yellow-100 hover:bg-yellow-300 text-yellow-800 hover:text-yellow-900 border-yellow-200 hover:border-yellow-400 ";
+    case "cancelled":
+      return "bg-gray-100 hover:bg-gray-300 text-gray-800 hover:text-gray-900 border-gray-200 hover:border-gray-400 ";
     case "refunded":
       return "bg-red-100 hover:bg-red-300 text-red-800 hover:text-red-900 border-red-200 hover:border-red-400 ";
     default:
@@ -81,6 +100,7 @@ export const getPaymentDescription = (description: string): AllKeys => {
       return "admin.payment.descriptions.cancellationFee" satisfies BaseAllKeys;
 
     case "giftCard":
+    case "descriptions.giftCard":
       return "admin.payment.descriptions.giftCard" satisfies BaseAllKeys;
 
     case "syncedPayment":
@@ -92,6 +112,16 @@ export const getPaymentDescription = (description: string): AllKeys => {
     default:
       return description as AllKeys;
   }
+};
+
+const toDateTime = (value: Date | string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+
+  return typeof value === "string"
+    ? DateTime.fromISO(value)
+    : DateTime.fromJSDate(value);
 };
 
 export const PaymentCard: React.FC<PaymentCardProps> = ({
@@ -114,21 +144,22 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
   } = payment;
 
   const router = useRouter();
-
   const t = useI18n();
+  const tAdmin = useI18n("admin");
   const locale = useLocale();
   const currencyFormat = useCurrencyFormat();
   const { user } = useAuth();
   const canManageSynced = canManageSyncedPayments(user);
+  const [linkActionLoading, setLinkActionLoading] = useState(false);
 
-  const dateTime =
-    typeof paidAt === "string"
-      ? DateTime.fromISO(paidAt)
-      : DateTime.fromJSDate(paidAt);
+  const createdAt =
+    "createdAt" in rest
+      ? (rest.createdAt as Date | string | undefined)
+      : undefined;
+  const dateTime = toDateTime(paidAt ?? createdAt);
+  const dateTimeValid = !!dateTime?.isValid;
   const refundedDateTime = refunds?.[0]?.refundedAt
-    ? typeof refunds[0].refundedAt === "string"
-      ? DateTime.fromISO(refunds[0].refundedAt)
-      : DateTime.fromJSDate(refunds[0].refundedAt)
+    ? toDateTime(refunds[0].refundedAt)
     : undefined;
 
   const totalRefunded =
@@ -141,6 +172,14 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
     rest.externalId
       ? rest.externalId
       : undefined;
+
+  const isPendingPaymentLink =
+    method === "payment-link" && status === "pending";
+  const canEditInStore =
+    method !== "online" &&
+    method !== "gift-card" &&
+    method !== "payment-link" &&
+    (!("disableUpdate" in rest) || !rest.disableUpdate);
 
   const onRefundSuccess = useCallback(
     (updatedPayment: Payment) => {
@@ -155,11 +194,51 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
       Object.assign(payment, updatedPayment);
       router.refresh();
     },
-    [router],
+    [payment, router],
   );
 
+  const onCopyLink = async () => {
+    try {
+      setLinkActionLoading(true);
+      await toastPromise(
+        (async () => {
+          const { url } = await adminApi.payments.getPaymentLinkUrl(_id);
+          await navigator.clipboard.writeText(url);
+        })(),
+        {
+          success: tAdmin("payment.card.linkCopied"),
+          error: tAdmin("common.toasts.error"),
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLinkActionLoading(false);
+    }
+  };
+
+  const onCancelLink = async () => {
+    try {
+      setLinkActionLoading(true);
+      const updated = await toastPromise(
+        adminApi.payments.cancelPaymentLink(_id),
+        {
+          success: tAdmin("common.toasts.saved"),
+          error: tAdmin("common.toasts.error"),
+        },
+      );
+      onUpdate(updated);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLinkActionLoading(false);
+    }
+  };
+
   return (
-    <div className="w-full flex flex-col rounded-lg border border-border bg-background overflow-hidden">
+    <div
+      className={`w-full flex flex-col rounded-lg border border-border bg-background overflow-hidden ${className ?? ""}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border">
         <div className="flex items-center gap-3">
@@ -197,6 +276,30 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
           </p>
         </div>
         <div className="flex flex-col gap-2.5">
+          {"tipAmount" in payment &&
+            typeof payment.tipAmount === "number" &&
+            payment.tipAmount > 0 && (
+              <>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">
+                    {t("admin.payment.card.paymentAmount")}
+                  </span>
+                  <span className="text-sm font-medium text-foreground/60">
+                    {currencyFormat(
+                      Math.round((amount - payment.tipAmount) * 100) / 100,
+                    )}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">
+                    {t("admin.payment.card.tip")}
+                  </span>
+                  <span className="text-sm font-medium text-foreground/60">
+                    {currencyFormat(payment.tipAmount)}
+                  </span>
+                </div>
+              </>
+            )}
           {"customerName" in rest && !!rest.customerId && (
             <div className="flex justify-between items-center">
               <span className="text-sm text-muted-foreground">
@@ -285,18 +388,22 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
             <span className="text-sm text-muted-foreground">
               {t("admin.payment.card.timePaid")}
             </span>
-            <TooltipResponsive>
-              <TooltipResponsiveTrigger>
-                <span className="text-sm text-foreground/60 underline decoration-dashed cursor-help">
-                  {dateTime.setLocale(locale).toRelative()}
-                </span>
-              </TooltipResponsiveTrigger>
-              <TooltipResponsiveContent>
-                {dateTime.toLocaleString(DateTime.DATETIME_MED, {
-                  locale,
-                })}
-              </TooltipResponsiveContent>
-            </TooltipResponsive>
+            {dateTimeValid && dateTime ? (
+              <TooltipResponsive>
+                <TooltipResponsiveTrigger>
+                  <span className="text-sm text-foreground/60 underline decoration-dashed cursor-help">
+                    {dateTime.setLocale(locale).toRelative()}
+                  </span>
+                </TooltipResponsiveTrigger>
+                <TooltipResponsiveContent>
+                  {dateTime.toLocaleString(DateTime.DATETIME_MED, {
+                    locale,
+                  })}
+                </TooltipResponsiveContent>
+              </TooltipResponsive>
+            ) : (
+              <span className="text-sm text-foreground/60">—</span>
+            )}
           </div>
           {description && (
             <div className="flex justify-between items-center">
@@ -399,6 +506,49 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
 
       {/* Action */}
       <div className="px-5 py-4">
+        {isPendingPaymentLink && (
+          <div className="flex flex-col gap-2 w-full">
+            <PaymentLinkQrCodeDialog paymentId={_id}>
+              <Button
+                variant="secondary"
+                size="md"
+                className="w-full"
+                disabled={linkActionLoading}
+              >
+                <QrCode /> {tAdmin("payment.card.showQrCode")}
+              </Button>
+            </PaymentLinkQrCodeDialog>
+            <Button
+              variant="secondary"
+              size="md"
+              className="w-full"
+              disabled={linkActionLoading}
+              onClick={onCopyLink}
+            >
+              <Copy /> {tAdmin("payment.card.copyLink")}
+            </Button>
+            <ResendPaymentLinkDialog payment={payment} onSuccess={onUpdate}>
+              <Button
+                variant="secondary"
+                size="md"
+                className="w-full"
+                disabled={linkActionLoading}
+              >
+                <Send /> {tAdmin("payment.card.resendLink")}
+              </Button>
+            </ResendPaymentLinkDialog>
+            <Button
+              variant="destructive"
+              size="md"
+              className="w-full"
+              disabled={linkActionLoading}
+              onClick={onCancelLink}
+            >
+              <XCircle /> {tAdmin("payment.card.cancelLink")}
+            </Button>
+          </div>
+        )}
+
         {onRefund && canRefundPayment(payment) && (
           <PaymentRefundDialog payment={payment} onSuccess={onRefundSuccess}>
             <Button variant="destructive" size="md" className="w-full">
@@ -407,27 +557,24 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
           </PaymentRefundDialog>
         )}
 
-        {onDelete &&
-          method !== "online" &&
-          method !== "gift-card" &&
-          (!("disableUpdate" in rest) || !rest.disableUpdate) && (
-            <div className="mt-4 flex flex-row gap-2 w-full">
-              <AddUpdatePaymentDialog
-                paymentId={payment._id}
-                payment={payment}
-                onSuccess={onUpdate}
-              >
-                <Button variant="primary" className="w-full">
-                  <Pencil /> {t("admin.payment.card.update")}
-                </Button>
-              </AddUpdatePaymentDialog>
+        {onDelete && canEditInStore && (
+          <div className="mt-4 flex flex-row gap-2 w-full">
+            <AddUpdatePaymentDialog
+              paymentId={payment._id}
+              payment={payment as InStorePaymentUpdateModel}
+              onSuccess={onUpdate}
+            >
+              <Button variant="primary" className="w-full">
+                <Pencil /> {t("admin.payment.card.update")}
+              </Button>
+            </AddUpdatePaymentDialog>
 
-              <PaymentDeleteConfirmationModal
-                payment={payment}
-                onDelete={onDelete}
-              />
-            </div>
-          )}
+            <PaymentDeleteConfirmationModal
+              payment={payment}
+              onDelete={onDelete}
+            />
+          </div>
+        )}
 
         {canManageSynced && syncedExternalId && status === "paid" && (
           <div className="mt-4 w-full">

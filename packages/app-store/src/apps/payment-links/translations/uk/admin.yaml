@@ -1,0 +1,47 @@
+app:
+  displayName: Посилання на оплату
+  description: |-
+    Надсилайте клієнтам посилання на оплату електронною поштою або SMS.
+statusText:
+  successfully_set_up: Посилання на оплату успішно налаштовано
+  error_processing_configuration: Помилка обробки налаштувань посилань на оплату
+form:
+  connect: Підключити <app></app>
+  update: Оновити <app></app>
+  verification:
+    label: Перевірка
+    description: Як клієнт підтверджує особу перед оплатою
+    values:
+      none: Без перевірки
+      contact-match: Збіг email або телефону
+      otp: Одноразовий код (OTP)
+  emailTemplateId:
+    label: Шаблон email
+    description: Шаблон для надсилання посилання на оплату електронною поштою
+  smsTemplateId:
+    label: Шаблон SMS
+    description: Шаблон для надсилання посилання на оплату SMS
+  linkExpiryDays:
+    label: Термін дії (дні)
+    description: Необовʼязково. Посилання закінчується через вказану кількість днів.
+    placeholder: "7"
+  tipsEnabled:
+    label: Чайові
+    description: Дозволити клієнту додати чайові на публічній сторінці оплати
+  tipPresets:
+    label: Пресети чайових
+    description: До 4 варіантів у відсотках (окрім «Без чайових» і «Своя сума»)
+    add: Додати пресет
+    percentage: "% від суми"
+    remove: Видалити
+  headerId:
+    label: Заголовок сторінки
+    description: Необовʼязковий заголовок публічної сторінки оплати
+    placeholder: Оберіть заголовок
+  footerId:
+    label: Підвал сторінки
+    description: Необовʼязковий підвал публічної сторінки оплати
+    placeholder: Оберіть підвал
+handlers:
+  send-email: Надіслано email з посиланням на оплату {name}
+  send-sms: Надіслано SMS з посиланням на оплату {name}

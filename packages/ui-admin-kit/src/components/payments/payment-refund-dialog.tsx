@@ -2,7 +2,11 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Payment, PaymentSummary } from "@hacado/types";
+import {
+  getPaymentProcessorRefundTarget,
+  Payment,
+  PaymentSummary,
+} from "@hacado/types";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -29,11 +33,19 @@ export function canRefundPayment(payment: Payment | PaymentSummary): boolean {
   const totalRefunded =
     payment.refunds?.reduce((acc, refund) => acc + refund.amount, 0) || 0;
 
-  return (
-    (payment.status === "paid" ||
-      (payment.status === "refunded" && totalRefunded < payment.amount)) &&
-    (payment.method === "online" || payment.method === "gift-card")
-  );
+  const isRefundableStatus =
+    payment.status === "paid" ||
+    (payment.status === "refunded" && totalRefunded < payment.amount);
+
+  if (!isRefundableStatus) {
+    return false;
+  }
+
+  if (payment.method === "gift-card") {
+    return true;
+  }
+
+  return getPaymentProcessorRefundTarget(payment) !== null;
 }
 
 export type PaymentRefundDialogProps = {

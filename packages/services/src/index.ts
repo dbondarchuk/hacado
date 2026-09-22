@@ -213,6 +213,7 @@ export const ServicesContainer: (
       organizationId,
       paymentsService,
       eventService,
+      connectedAppsService,
     );
 
     const customerAuthService = new CustomerAuthService(organizationId, {

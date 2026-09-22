@@ -54,7 +54,11 @@ export async function PUT(
     if (!auth.ok) return auth.response;
   }
 
-  if (payment.method === "online" || payment.method === "gift-card") {
+  if (
+    payment.method === "online" ||
+    payment.method === "gift-card" ||
+    payment.method === "payment-link"
+  ) {
     logger.error({ paymentId: id }, "Cannot update online payment");
     return NextResponse.json(
       {
@@ -66,7 +70,7 @@ export async function PUT(
     );
   }
 
-  if (payment.disableUpdate) {
+  if ("disableUpdate" in payment && payment.disableUpdate) {
     logger.error({ paymentId: id }, "Cannot update amount for this payment");
     return NextResponse.json(
       {
@@ -146,6 +150,18 @@ export async function DELETE(
         success: false,
         error: "Cannot delete gift card payment",
         code: "cannot_delete_gift_card_payment",
+      },
+      { status: 400 },
+    );
+  }
+
+  if (payment.method === "payment-link") {
+    logger.error({ paymentId: id }, "Cannot delete payment link payment");
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Cannot delete payment link payment",
+        code: "cannot_delete_payment_link",
       },
       { status: 400 },
     );

@@ -1,4 +1,5 @@
 import PageContainer from "@/components/admin/layout/page-container";
+import { OpenPaymentDetailsFromQuery } from "@/components/admin/payments/table/open-payment-details-from-query";
 import { GiftCardsTable } from "@/components/admin/services/gift-cards/table/table";
 import { GiftCardsTableAction } from "@/components/admin/services/gift-cards/table/table-action";
 import {
@@ -67,6 +68,9 @@ export default async function GiftCardsPage(props: Params) {
           fallback={<DataTableSkeleton columnCount={11} rowCount={10} />}
         >
           <GiftCardsTable />
+        </Suspense>
+        <Suspense fallback={null}>
+          <OpenPaymentDetailsFromQuery />
         </Suspense>
       </div>
     </PageContainer>

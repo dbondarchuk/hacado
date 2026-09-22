@@ -43,7 +43,7 @@ export type PaymentIntentUpdateModel = {
   data?: Record<string, any>;
 } & (
   | {
-      type: Exclude<PaymentType, "rescheduleFee">;
+      type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">;
       request: AppointmentRequest;
     }
   | {
@@ -55,6 +55,11 @@ export type PaymentIntentUpdateModel = {
       type: "purchase";
       request: {
         amount: number;
+        /** Tip included in the charged amount (same charge). */
+        tipAmount?: number;
+        /** Optional source for non-booking purchases (gift cards, payment links). */
+        source?: "gift-card" | "payment-link";
+        sourceId?: string;
       };
     }
 );
@@ -108,32 +113,117 @@ export const inPersonPaymentMethod = ["cash", "in-person-card"] as const;
 export const inPersonPaymentSource = ["manual", "synced"] as const;
 export type InPersonPaymentSource = (typeof inPersonPaymentSource)[number];
 
-export type PaymentStatus = "paid" | "refunded";
+export const paymentStatus = [
+  "pending",
+  "paid",
+  "refunded",
+  "cancelled",
+] as const;
+export type PaymentStatus = (typeof paymentStatus)[number];
+
 export type OnlinePaymentMethod = "online";
 export type InPersonPaymentMethod = (typeof inPersonPaymentMethod)[number];
 
 export const giftCardPaymentMethod = ["gift-card"] as const;
 export type GiftCardPaymentMethod = (typeof giftCardPaymentMethod)[number];
 
+export const paymentLinkPaymentMethod = ["payment-link"] as const;
+export type PaymentLinkPaymentMethod =
+  (typeof paymentLinkPaymentMethod)[number];
+
 export type PaymentMethod =
   | OnlinePaymentMethod
   | InPersonPaymentMethod
-  | GiftCardPaymentMethod;
+  | GiftCardPaymentMethod
+  | PaymentLinkPaymentMethod;
 
 export const paymentMethods = [
   ...inPersonPaymentMethod,
   "online",
   ...giftCardPaymentMethod,
+  ...paymentLinkPaymentMethod,
 ] as const satisfies readonly PaymentMethod[];
+
+/** Settled money that should count toward balances and revenue. */
+export function isSettledPayment(payment: { status: PaymentStatus }): boolean {
+  return payment.status === "paid" || payment.status === "refunded";
+}
+
+/**
+ * Portion of a payment that applies to appointment balance / service total.
+ * Excludes tip included on the same charge (`tipAmount`) and standalone tip rows.
+ */
+export function getPaymentServiceAmount(payment: {
+  amount: number;
+  type: PaymentType;
+  tipAmount?: number;
+}): number {
+  if (payment.type === "tips") {
+    return 0;
+  }
+
+  return Math.max(0, payment.amount - (payment.tipAmount ?? 0));
+}
+
+/**
+ * Processor identity used to refund an online or paid payment-link charge.
+ * Payment-link rows keep `appId` as the payment-links app; the processor is
+ * stored on `processorAppId` / `processorAppName` once paid.
+ */
+export function getPaymentProcessorRefundTarget(payment: {
+  method: PaymentMethod;
+  externalId?: string;
+  appId?: string;
+  appName?: string;
+  processorAppId?: string;
+  processorAppName?: string;
+}): { appId: string; appName: string; externalId: string } | null {
+  if (payment.method === "online") {
+    if (payment.appId && payment.appName && payment.externalId) {
+      return {
+        appId: payment.appId,
+        appName: payment.appName,
+        externalId: payment.externalId,
+      };
+    }
+
+    return null;
+  }
+
+  if (payment.method === "payment-link") {
+    if (
+      payment.processorAppId &&
+      payment.processorAppName &&
+      payment.externalId
+    ) {
+      return {
+        appId: payment.processorAppId,
+        appName: payment.processorAppName,
+        externalId: payment.externalId,
+      };
+    }
+
+    return null;
+  }
+
+  return null;
+}
 
 export type PaymentUpdateModel = {
   amount: number;
   status: PaymentStatus;
-  paidAt: Date;
+  /** Set when status becomes paid; optional while pending/cancelled. */
+  paidAt?: Date;
+  createdAt?: Date;
   appointmentId?: string;
   customerId: string;
   description: string;
   type: PaymentType;
+  /**
+   * Tip included in `amount` on the same charge (e.g. payment link or synced
+   * card). Staff can still record a separate cash tip as type `tips`.
+   */
+  tipAmount?: number;
   fees?: PaymentFee[];
   refunds?: {
     amount: number;
@@ -169,6 +259,28 @@ export type PaymentUpdateModel = {
       giftCardCode: string;
       giftCardId: string;
     }
+  | {
+      method: PaymentLinkPaymentMethod;
+      /** Connected payment-link app id. */
+      appId: string;
+      /** Payment-link app slug (e.g. "payment-links"). */
+      appName: string;
+      /** Unguessable public token used in `/payment?id=`. */
+      publicId: string;
+      /** PaymentIntent id once checkout starts. */
+      intentId?: string;
+      /** Processor external id once paid. */
+      externalId?: string;
+      /** Processor app id (default payment app) once paid. */
+      processorAppId?: string;
+      /** Processor app name once paid. */
+      processorAppName?: string;
+      expiresAt?: Date;
+      /** Last email destination used when sending the link. */
+      sentToEmail?: string;
+      /** Last phone destination used when sending the link. */
+      sentToPhone?: string;
+    }
 );
 
 export type Payment = Prettify<
@@ -185,6 +297,10 @@ export type OnlinePayment = Extract<Payment, { method: OnlinePaymentMethod }>;
 export type InStorePayment = Extract<
   Payment,
   { method: InPersonPaymentMethod }
+>;
+export type PaymentLinkPayment = Extract<
+  Payment,
+  { method: PaymentLinkPaymentMethod }
 >;
 
 export const inStorePaymentUpdateModelSchema = z

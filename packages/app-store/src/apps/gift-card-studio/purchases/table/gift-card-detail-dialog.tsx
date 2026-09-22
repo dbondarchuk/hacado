@@ -29,6 +29,7 @@ import {
   GiftCardStudioAdminNamespace,
   giftCardStudioAdminNamespace,
 } from "../../translations/types";
+import { PaymentMethodCell } from "./payment-method-cell";
 
 export const GiftCardDetailDialog: React.FC<{
   purchase: PurchasedGiftCardListModel;
@@ -211,6 +212,16 @@ export const GiftCardDetailDialog: React.FC<{
                         ? t("purchases.table.status.active")
                         : t("purchases.table.status.inactive")}
                     </span>
+                  </dd>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <dt className="text-muted-foreground">
+                    <span data-autoskeleton-ignore>
+                      {t("purchases.table.giftCardDetail.paymentMethod")}
+                    </span>
+                  </dt>
+                  <dd className="font-medium">
+                    <PaymentMethodCell purchase={purchase} />
                   </dd>
                 </div>
                 <div className="grid grid-cols-2 gap-2">

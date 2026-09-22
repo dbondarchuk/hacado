@@ -78,9 +78,11 @@ export const PaymentDeleteConfirmationModal = ({
           <AlertDialogDescription>
             {t("payment.card.deleteConfirmDescription", {
               amountFormatted: currencyFormat(payment.amount),
-              date: DateTime.fromJSDate(payment.paidAt).toLocaleString(
-                DateTime.DATETIME_FULL,
-              ),
+              date: payment.paidAt
+                ? DateTime.fromJSDate(payment.paidAt).toLocaleString(
+                    DateTime.DATETIME_FULL,
+                  )
+                : "—",
             })}
           </AlertDialogDescription>
         </AlertDialogHeader>

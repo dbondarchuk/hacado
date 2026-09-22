@@ -2,6 +2,7 @@ import {
   Customer,
   GiftCardStatus,
   PaymentMethod,
+  PaymentStatus,
   Prettify,
   WithAppId,
   WithDatabaseId,
@@ -52,6 +53,7 @@ export type PurchasedGiftCardListModel = PurchasedGiftCardModel & {
   status: GiftCardStatus;
   paymentId: string;
   paymentMethod: PaymentMethod;
+  paymentStatus: PaymentStatus;
   paymentsCount: number;
 };
 

@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { PaymentSummary } from "@hacado/types";
+import { InStorePaymentUpdateModel, PaymentSummary } from "@hacado/types";
 import {
   AlertModal,
   Button,
@@ -19,10 +19,22 @@ import {
   AddUpdatePaymentDialog,
   canRefundPayment,
   ManageSyncedPaymentDialog,
+  PaymentLinkQrCodeDialog,
   PaymentRefundDialog,
+  ResendPaymentLinkDialog,
 } from "@hacado/ui-admin-kit";
 import { canManageSyncedPayments } from "@hacado/utils";
-import { Calendar, Edit, MoreHorizontal, RotateCcw, Trash } from "lucide-react";
+import {
+  Calendar,
+  Copy,
+  Edit,
+  MoreHorizontal,
+  QrCode,
+  RotateCcw,
+  Send,
+  Trash,
+  XCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -58,13 +70,23 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
     return undefined;
   }, [method, source, externalId, status]);
 
+  const isPendingPaymentLink =
+    method === "payment-link" && status === "pending";
+
   const canUpdateInStore =
-    method !== "online" && method !== "gift-card" && !disableUpdate;
+    method !== "online" &&
+    method !== "gift-card" &&
+    method !== "payment-link" &&
+    !disableUpdate;
 
   const canRefund = canRefundPayment(payment);
 
   const hasActions =
-    !!appointmentId || canUpdateInStore || !!syncedExternalId || canRefund;
+    !!appointmentId ||
+    canUpdateInStore ||
+    !!syncedExternalId ||
+    canRefund ||
+    isPendingPaymentLink;
 
   const onConfirmDelete = async () => {
     try {
@@ -74,6 +96,43 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
         error: t("common.toasts.error"),
       });
       setIsDeleteOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onCopyLink = async () => {
+    try {
+      setLoading(true);
+      await toastPromise(
+        (async () => {
+          const { url } = await adminApi.payments.getPaymentLinkUrl(
+            payment._id,
+          );
+          await navigator.clipboard.writeText(url);
+        })(),
+        {
+          success: t("payment.card.linkCopied"),
+          error: t("common.toasts.error"),
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onCancelLink = async () => {
+    try {
+      setLoading(true);
+      await toastPromise(adminApi.payments.cancelPaymentLink(payment._id), {
+        success: t("common.toasts.saved"),
+        error: t("common.toasts.error"),
+      });
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -117,11 +176,40 @@ export const CellAction: React.FC<CellActionProps> = ({ payment }) => {
               </Link>
             </DropdownMenuItem>
           )}
+          {isPendingPaymentLink && (
+            <>
+              <PaymentLinkQrCodeDialog paymentId={payment._id}>
+                <DropdownMenuItem
+                  onSelect={(event) => event.preventDefault()}
+                  disabled={loading}
+                >
+                  <QrCode className="size-3.5" /> {t("payment.card.showQrCode")}
+                </DropdownMenuItem>
+              </PaymentLinkQrCodeDialog>
+              <DropdownMenuItem onClick={onCopyLink} disabled={loading}>
+                <Copy className="size-3.5" /> {t("payment.card.copyLink")}
+              </DropdownMenuItem>
+              <ResendPaymentLinkDialog
+                payment={payment}
+                onSuccess={() => router.refresh()}
+              >
+                <DropdownMenuItem
+                  onSelect={(event) => event.preventDefault()}
+                  disabled={loading}
+                >
+                  <Send className="size-3.5" /> {t("payment.card.resendLink")}
+                </DropdownMenuItem>
+              </ResendPaymentLinkDialog>
+              <DropdownMenuItem onClick={onCancelLink} disabled={loading}>
+                <XCircle className="size-3.5" /> {t("payment.card.cancelLink")}
+              </DropdownMenuItem>
+            </>
+          )}
           {canUpdateInStore && (
             <>
               <AddUpdatePaymentDialog
                 paymentId={payment._id}
-                payment={payment as any}
+                payment={payment as InStorePaymentUpdateModel}
                 onSuccess={() => router.refresh()}
               >
                 <DropdownMenuItem onSelect={(event) => event.preventDefault()}>

@@ -20,7 +20,11 @@ import type {
   GiftCardStatus,
   GiftCardUpdateModel,
 } from "../booking/gift-card";
-import type { Payment, PaymentUpdateModel } from "../booking/payment";
+import type {
+  Payment,
+  PaymentIntent,
+  PaymentUpdateModel,
+} from "../booking/payment";
 import type { SyncedPayment } from "../booking/synced-payment";
 import type { ConfigurationKey } from "../configuration";
 import type { Customer, CustomerUpdateModel } from "../customers/customer";
@@ -92,6 +96,7 @@ import {
   PAGE_UPDATED_EVENT_TYPE,
   PAYMENT_CREATED_EVENT_TYPE,
   PAYMENT_DELETED_EVENT_TYPE,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
   PAYMENT_REFUNDED_EVENT_TYPE,
   PAYMENT_UPDATED_EVENT_TYPE,
   SCHEDULE_CHANGED_EVENT_TYPE,
@@ -183,6 +188,8 @@ export type PaymentUpdatedPayload = {
 export type PaymentDeletedPayload = { payment: Payment };
 
 export type PaymentRefundedPayload = { payment: Payment; amount: number };
+
+export type PaymentIntentPaidPayload = { intent: PaymentIntent };
 
 export type SyncedPaymentIngestedPayload = { syncedPayment: SyncedPayment };
 
@@ -430,6 +437,7 @@ export type CoreEventPayloadByType = {
   [PAYMENT_UPDATED_EVENT_TYPE]: PaymentUpdatedPayload;
   [PAYMENT_DELETED_EVENT_TYPE]: PaymentDeletedPayload;
   [PAYMENT_REFUNDED_EVENT_TYPE]: PaymentRefundedPayload;
+  [PAYMENT_INTENT_PAID_EVENT_TYPE]: PaymentIntentPaidPayload;
   [SYNCED_PAYMENT_INGESTED_EVENT_TYPE]: SyncedPaymentIngestedPayload;
   [SYNCED_PAYMENT_CONFIRMED_EVENT_TYPE]: SyncedPaymentConfirmedPayload;
   [SYNCED_PAYMENT_REJECTED_EVENT_TYPE]: SyncedPaymentRejectedPayload;

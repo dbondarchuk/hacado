@@ -804,6 +804,7 @@ class StripeConnectedApp
     await this.props.services.paymentsService.updateIntent(intent._id, {
       status: "paid",
       externalId: pi.id,
+      fees,
     });
     const feesApplied = await this.applyStripeFeesToPayment(
       this.props.services.paymentsService,
@@ -824,8 +825,9 @@ class StripeConnectedApp
   }
 
   /**
-   * Persists processor fees on the **Payment** document only (`externalId` is the Stripe PaymentIntent id).
-   * Returns whether a payment row was found and updated.
+   * Persists processor fees on the Payment document.
+   * Looks up by Stripe PI id as `externalId`, then by hacado intent → payment
+   * (payment-link rows get `externalId` only after the async paid handler).
    */
   private async applyStripeFeesToPayment(
     paymentService: IPaymentsService,
@@ -836,9 +838,17 @@ class StripeConnectedApp
       return false;
     }
 
-    const payment = await paymentService.getPaymentByExternalId(
+    let payment = await paymentService.getPaymentByExternalId(
       stripePaymentIntentId,
     );
+    if (!payment) {
+      const intent = await paymentService.getIntentByExternalId(
+        stripePaymentIntentId,
+      );
+      if (intent) {
+        payment = await paymentService.getPaymentByIntentId(intent._id);
+      }
+    }
     if (!payment) {
       return false;
     }
@@ -880,16 +890,12 @@ class StripeConnectedApp
       "Refunding Stripe payment",
     );
 
-    if (
-      payment.method !== "online" ||
-      (payment as { appName?: string }).appName !== STRIPE_APP_NAME ||
-      !(payment as { externalId?: string }).externalId
-    ) {
+    if (payment.method !== "online" && payment.method !== "payment-link") {
       logger.warn(
         {
           appId: appData._id,
           paymentId: payment._id,
-          appName: (payment as { appName?: string }).appName,
+          method: payment.method,
         },
         "Stripe refund not supported for this payment",
       );
@@ -897,7 +903,22 @@ class StripeConnectedApp
       return { success: false, error: "not_supported" };
     }
 
-    const externalId = (payment as { externalId: string }).externalId;
+    const processorName =
+      payment.method === "online" ? payment.appName : payment.processorAppName;
+    const externalId = payment.externalId;
+    if (processorName !== STRIPE_APP_NAME || !externalId) {
+      logger.warn(
+        {
+          appId: appData._id,
+          paymentId: payment._id,
+          appName: processorName,
+        },
+        "Stripe refund not supported for this payment",
+      );
+
+      return { success: false, error: "not_supported" };
+    }
+
     try {
       const stripe = this.getStripeClient();
       const idempotencyKey =
@@ -1127,6 +1148,7 @@ class StripeConnectedApp
     await paymentService.updateIntent(hacadoIntentId, {
       status: "paid",
       externalId: retrieveResult.id,
+      fees,
     });
     const feesApplied = await this.applyStripeFeesToPayment(
       paymentService,

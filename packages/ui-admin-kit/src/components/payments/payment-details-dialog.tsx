@@ -9,12 +9,16 @@ import { PaymentCard } from "./payment-card";
 
 export type PaymentDetailsDialogProps = {
   payment: Payment | PaymentSummary;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 export const PaymentDetailsDialog: React.FC<PaymentDetailsDialogProps> = ({
   payment,
   children,
+  open,
+  onOpenChange,
 }) => {
   const router = useRouter();
   const t = useI18n("admin");
@@ -24,8 +28,8 @@ export const PaymentDetailsDialog: React.FC<PaymentDetailsDialogProps> = ({
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {children ? <DialogTrigger asChild>{children}</DialogTrigger> : null}
       <DialogContent className="sm:max-w-md gap-0 overflow-hidden p-0">
         <DialogTitle className="sr-only">{t("paymentsList.title")}</DialogTitle>
         <PaymentCard

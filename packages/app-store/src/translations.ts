@@ -38,6 +38,8 @@ import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { MyCabinetTranslations } from "./apps/my-cabinet/translations";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
 import { OutlookTranslations } from "./apps/outlook/translations";
+import { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
+import { PaymentLinksTranslations } from "./apps/payment-links/translations";
 import { PAYPAL_APP_NAME } from "./apps/paypal/const";
 import { PaypalTranslations } from "./apps/paypal/translations";
 import { RESEND_APP_NAME } from "./apps/resend/const";
@@ -98,6 +100,7 @@ export const AppsTranslations: Record<
   [ICS_APP_NAME]: IcsTranslations,
   [OUTLOOK_APP_NAME]: OutlookTranslations,
   [PAYPAL_APP_NAME]: PaypalTranslations,
+  [PAYMENT_LINKS_APP_NAME]: PaymentLinksTranslations,
   [SQUARE_APP_NAME]: SquareTranslations,
   [STRIPE_APP_NAME]: StripeTranslations,
   [APPOINTMENT_NOTIFICATIONS_APP_NAME]: AppointmentNotificationsTranslations,

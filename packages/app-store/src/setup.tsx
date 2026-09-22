@@ -13,6 +13,7 @@ import { GoogleAppSetup } from "./apps/google-calendar/setup";
 import { IcsAppSetup } from "./apps/ics/setup";
 import { MyCabinetAppSetup } from "./apps/my-cabinet/setup";
 import { OutlookAppSetup } from "./apps/outlook/setup";
+import { PaymentLinksAppSetup } from "./apps/payment-links/setup";
 import { PaypalAppSetup } from "./apps/paypal/setup";
 import { ResendAppSetup } from "./apps/resend/setup";
 import { SmartScheduleAppSetup } from "./apps/smart-schedule/setup";
@@ -40,6 +41,7 @@ import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { ICS_APP_NAME } from "./apps/ics/const";
 import { MY_CABINET_APP_NAME } from "./apps/my-cabinet/const";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
+import { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
 import { PAYPAL_APP_NAME } from "./apps/paypal/const";
 import { RESEND_APP_NAME } from "./apps/resend/const";
 import { SMART_SCHEDULE_APP_NAME } from "./apps/smart-schedule/const";
@@ -68,6 +70,7 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [ICS_APP_NAME]: (props) => <IcsAppSetup {...props} />,
   [OUTLOOK_APP_NAME]: (props) => <OutlookAppSetup {...props} />,
   [PAYPAL_APP_NAME]: (props) => <PaypalAppSetup {...props} />,
+  [PAYMENT_LINKS_APP_NAME]: (props) => <PaymentLinksAppSetup {...props} />,
   [RESEND_APP_NAME]: (props) => <ResendAppSetup {...props} />,
   [SQUARE_APP_NAME]: (props) => <SquareAppSetup {...props} />,
   [STRIPE_APP_NAME]: (props) => <StripeAppSetup {...props} />,

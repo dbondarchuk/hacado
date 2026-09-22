@@ -1,0 +1,65 @@
+page:
+  title: Payment
+  missingId: This payment link is invalid or incomplete.
+  loadError: Unable to load this payment. Please try again later.
+  pay: Pay now
+  amount: Amount
+  tip: Tip
+  total: Total
+  description: Description
+descriptions:
+  giftCard: Gift card payment
+status:
+  paid:
+    title: Payment complete
+    description: Thank you. This payment has already been completed.
+  cancelled:
+    title: Payment cancelled
+    description: This payment link is no longer available.
+  expired:
+    title: Payment link expired
+    description: This payment link has expired. Please contact the business for a new link.
+  pending:
+    title: Complete your payment
+verification:
+  contactMatch:
+    title: Verify your details
+    description: Enter the email or phone associated with this payment.
+    email: Email
+    phone: Phone
+    emailPlaceholder: Email
+    phonePlaceholder: Phone
+    emailInvalid: Please enter a valid email address.
+    phoneInvalid: Please enter a valid phone number.
+    submit: Continue
+    mismatch: The details you entered do not match this payment.
+    error: Verification failed. Please try again.
+  otp:
+    descriptionEmailOnly: Enter your email to verify and complete this payment.
+    descriptionPhoneOnly: Enter your phone to verify and complete this payment.
+    descriptionEmailOrPhone: Enter your email or phone to verify and complete this payment.
+    email: Email
+    phone: Phone
+    emailPlaceholder: Email
+    phonePlaceholder: Phone
+    emailInvalid: Please enter a valid email address.
+    phoneInvalid: Please enter a valid phone number.
+    request: Send code
+    requestBlocked: Request new code in {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    hint: Enter the 6-digit code we sent you
+    verify: Verify code
+    sent: If we found a match, we sent a code
+    invalid: Invalid code
+    requestError: Something went wrong. Please try again.
+    verifyError: OTP verification failed. Please check your code and try again.
+    wrongCustomer: Please sign in with the contact used for this payment.
+tips:
+  title: Add a tip
+  none: No tip
+  custom: Custom
+  customAmount: Tip amount
+  preset: "{percent}%"
+payment:
+  error: Payment could not be started. Please try again.
+  completeError: Payment could not be completed. Please try again.
+  success: Payment successful

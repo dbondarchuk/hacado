@@ -312,6 +312,7 @@ purchases:
       downloadGiftCardPdf: Завантажити PDF карти
       downloadInvoice: Завантажити рахунок
       generating: Генерується...
+      awaitingPayment: Очікує оплати
     giftCardDetail:
       title: Деталі карти
       description: Перегляд деталей карти
@@ -321,6 +322,7 @@ purchases:
       amountLeft: Залишок
       expiresAt: Термін дії
       paymentsCount: Платежі
+      paymentMethod: Спосіб оплати
       customer: Клієнт
       recipient: Отримувач
       recipientEmail: Email отримувача
@@ -392,6 +394,10 @@ validation:
       max: Повідомлення має бути менше 1024 символів
     paymentType:
       required: Спосіб оплати обов'язковий
+    paymentLinkAppId:
+      required: Додаток для посилання на оплату обов'язковий
+    to:
+      required: Отримувач обов'язковий
     sendToAnotherRecipient:
       required: Потрібні дані отримувача
     toName:

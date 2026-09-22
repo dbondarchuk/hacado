@@ -48,6 +48,7 @@ common:
       paid: Paid
       refunded: Refunded
       pending: Pending
+      cancelled: Cancelled
     appointmentHistoryType:
       statusChanged: Status changed
       rescheduled: Rescheduled
@@ -60,6 +61,7 @@ common:
       in-person-card: In-person card
       gift-card: Gift card
       online: Online
+      payment-link: Payment link
     filters: Filters
     loading: Loading
     unknown: Unknown
@@ -104,6 +106,18 @@ platformEvents:
     refunded:
       title: Payment refunded
       description: "{refundAmount} of {amount}"
+    linkCreated:
+      title: Payment link created
+      description: "{amount}"
+    linkSent:
+      title: Payment link sent
+      description: "{amount}"
+    linkPaid:
+      title: Payment link paid
+      description: "{amount}"
+    linkCancelled:
+      title: Payment link cancelled
+      description: "{amount}"
   syncedPayment:
     ingested:
       title: In-store payment synced
@@ -2348,6 +2362,7 @@ services:
         createdAt: Created at
         updatedAt: Updated at
         payments: Payments
+        paymentMethod: Payment method
         customer: Customer
       cellAction:
         giftCardDeleted: Gift card {code} was deleted.
@@ -3783,10 +3798,31 @@ payment:
     update: Update
     description: Description
     fees: Fees
+    tip: Tip
+    paymentAmount: Payment
     netAmount: Net amount
     refundFees: Refund fees
     syncedPayment: Synced payment
     manageSyncedPayment: Manage
+    copyLink: Copy link
+    showQrCode: Show QR code
+    resendLink: Resend
+    cancelLink: Cancel link
+    linkCopied: Payment link copied
+    sendVia: Send via
+    destination: Destination
+    resendLinkDescription: Resend the payment link to the customer
+    qrCode:
+      title: Payment link QR code
+      description: Show this code to the customer so they can scan and pay
+      copy: Copy
+      download: Download
+      alt: QR code for {url}
+      copyUrl: Copy URL
+      copied: QR code copied to clipboard
+      copyError: Could not copy QR code
+      downloadError: Could not download QR code
+      loadError: Could not load payment link
   addUpdatePayment:
     addPayment: Add payment
     updatePayment: Update payment
@@ -3801,12 +3837,22 @@ payment:
         cash: Cash
         in-person-card: Card
         gift-card: Gift card
+        payment-link: Payment link
       type:
         label: Type
       giftCardId:
         label: Gift card
       customerId:
         label: Customer
+      paymentLinkAppId:
+        label: App
+      channel:
+        label: Send via
+        email: Email
+        sms: SMS
+        copy: Copy link
+      to:
+        label: Destination
   toasts:
     refundSuccess: Payment was refunded
     refundSuccessDescription: Payment was successfully refunded

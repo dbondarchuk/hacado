@@ -8,12 +8,15 @@ import {
   GiftCardListModel,
   GiftCardStatus,
   GiftCardUpdateModel,
+  IConnectedAppsService,
   IEventService,
   IGiftCardsService,
   InPersonPaymentMethod,
   inPersonPaymentMethod,
+  IPaymentLinkProvider,
   IPaymentsService,
   Payment,
+  PaymentLinkPayment,
   PaymentSummary,
   Query,
   WithTotal,
@@ -39,6 +42,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
     organizationId: string,
     protected readonly paymentsService: IPaymentsService,
     protected readonly eventService: IEventService,
+    protected readonly connectedAppsService: IConnectedAppsService,
   ) {
     super("GiftCardsService", organizationId);
   }
@@ -49,29 +53,34 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
   ): Promise<GiftCardListModel> {
     const logger = this.loggerFactory("createGiftCard");
     logger.debug({ giftCard }, "Creating gift card");
+
+    if (!(await this.checkGiftCardCodeUnique(giftCard.code))) {
+      logger.error({ giftCard }, "Gift card code already exists");
+      throw new Error("Gift card code already exists");
+    }
+
+    const payment = await this.paymentsService.getPayment(giftCard.paymentId);
+    if (!payment) {
+      logger.error({ giftCard }, "Payment not found");
+      throw new Error("Payment not found");
+    }
+
+    const status: GiftCardStatus =
+      payment.method === "payment-link" && payment.status === "pending"
+        ? "inactive"
+        : "active";
+
     const dbGiftCard: Omit<
       GiftCard,
       "giftCardPayment" | "payments" | "customer" | "amountLeft"
-    > & {
-      status: "active";
-    } = {
+    > = {
       ...giftCard,
       organizationId: this.organizationId,
       _id: new ObjectId().toString(),
       createdAt: new Date(),
       updatedAt: new Date(),
-      status: "active",
+      status,
     };
-
-    if (!this.checkGiftCardCodeUnique(dbGiftCard.code)) {
-      logger.error({ giftCard }, "Gift card code already exists");
-      throw new Error("Gift card code already exists");
-    }
-
-    if (!this.paymentsService.getPayment(giftCard.paymentId)) {
-      logger.error({ giftCard }, "Payment not found");
-      throw new Error("Payment not found");
-    }
 
     const db = await getDbConnection();
     const giftCards = db.collection<typeof dbGiftCard>(
@@ -163,23 +172,49 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
         throw new Error("Gift card has payments, cannot update amount");
       }
 
-      if (
-        !inPersonPaymentMethod.includes(payment.method as InPersonPaymentMethod)
-      ) {
+      const isInPerson = inPersonPaymentMethod.includes(
+        payment.method as InPersonPaymentMethod,
+      );
+      const isPendingPaymentLink =
+        payment.method === "payment-link" && payment.status === "pending";
+
+      if (!isInPerson && !isPendingPaymentLink) {
         logger.error(
-          { id, paymentId: payment._id },
-          "Payment is not an in-person payment, cannot update gift card amount",
+          { id, paymentId: payment._id, method: payment.method },
+          "Cannot update gift card amount for this payment method",
         );
 
         throw new Error(
-          "Payment is not an in-person payment, cannot update gift card amount",
+          "Cannot update gift card amount for this payment method",
         );
       }
 
-      await payments.updateOne(
-        { _id: payment._id, organizationId: this.organizationId },
-        { $set: { amount: giftCard.amount } },
+      await this.paymentsService.updatePayment(
+        payment._id,
+        { amount: giftCard.amount },
+        source,
       );
+
+      if (isPendingPaymentLink && "intentId" in payment && payment.intentId) {
+        const intent = await this.paymentsService.getIntent(payment.intentId);
+        if (intent && intent.status !== "paid" && intent.type === "purchase") {
+          const tipAmount =
+            typeof intent.request.tipAmount === "number"
+              ? intent.request.tipAmount
+              : 0;
+          const chargeAmount =
+            Math.round((giftCard.amount + tipAmount) * 100) / 100;
+
+          await this.paymentsService.updateIntent(payment.intentId, {
+            amount: chargeAmount,
+            status: intent.status,
+            request: {
+              ...intent.request,
+              amount: giftCard.amount,
+            },
+          });
+        }
+      }
     }
 
     const result = await giftCards.updateOne(
@@ -226,6 +261,17 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       return null;
     }
 
+    if (!(await this.canSetGiftCardStatus(existingGiftCard, status, logger))) {
+      return null;
+    }
+
+    if (status === "inactive") {
+      await this.cancelPendingPurchasePaymentLink(
+        existingGiftCard.paymentId,
+        source,
+      );
+    }
+
     const db = await getDbConnection();
     const giftCards = db.collection<GiftCard>(GIFT_CARDS_COLLECTION_NAME);
     const result = await giftCards.updateOne(
@@ -265,23 +311,43 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       return;
     }
 
+    const allowedIds: string[] = [];
+    for (const id of ids) {
+      const giftCard = await this.getGiftCard(id);
+      if (!giftCard) {
+        continue;
+      }
+      if (!(await this.canSetGiftCardStatus(giftCard, status, logger))) {
+        continue;
+      }
+      if (status === "inactive") {
+        await this.cancelPendingPurchasePaymentLink(giftCard.paymentId, source);
+      }
+      allowedIds.push(id);
+    }
+
+    if (!allowedIds.length) {
+      logger.warn({ ids }, "No gift cards eligible for status update");
+      return;
+    }
+
     const db = await getDbConnection();
     const giftCards = db.collection<GiftCard>(GIFT_CARDS_COLLECTION_NAME);
     await giftCards.updateMany(
-      { _id: { $in: ids }, organizationId: this.organizationId },
+      { _id: { $in: allowedIds }, organizationId: this.organizationId },
       { $set: { status, updatedAt: new Date() } },
     );
 
     await this.eventService.emit(
       GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
       {
-        ids,
+        ids: allowedIds,
         status,
       } satisfies GiftCardStatusChangedPayload,
       source,
     );
 
-    logger.debug({ ids, status }, "Gift cards status updated");
+    logger.debug({ ids: allowedIds, status }, "Gift cards status updated");
   }
 
   public async deleteGiftCard(
@@ -310,15 +376,23 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       giftCard.paymentId,
     );
 
-    if (
-      giftCardPayment?.method &&
-      !(inPersonPaymentMethod as readonly string[]).includes(
+    const isInPerson =
+      !!giftCardPayment?.method &&
+      (inPersonPaymentMethod as readonly string[]).includes(
         giftCardPayment.method,
-      )
-    ) {
+      );
+    const isPendingPaymentLink =
+      giftCardPayment?.method === "payment-link" &&
+      giftCardPayment.status === "pending";
+
+    if (!isInPerson && !isPendingPaymentLink) {
       logger.warn(
-        { id },
-        "Gift card payment is not an in-person payment, cannot delete gift card",
+        {
+          id,
+          method: giftCardPayment?.method,
+          status: giftCardPayment?.status,
+        },
+        "Gift card payment cannot be deleted",
       );
 
       return null;
@@ -328,7 +402,6 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       .aggregate([
         {
           $match: {
-            _id: id,
             organizationId: this.organizationId,
             method: "gift-card",
             giftCardId: id,
@@ -345,8 +418,15 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       return null;
     }
 
+    if (isPendingPaymentLink && giftCardPayment) {
+      await this.cancelPendingPurchasePaymentLink(giftCardPayment._id, source);
+    }
+
     await giftCards.deleteOne({ _id: id, organizationId: this.organizationId });
-    await this.paymentsService.deletePayment(giftCard.paymentId, source);
+
+    if (isInPerson) {
+      await this.paymentsService.deletePayment(giftCard.paymentId, source);
+    }
 
     await this.eventService.emit(
       GIFT_CARD_DELETED_EVENT_TYPE,
@@ -410,15 +490,28 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
 
     const toDelete = giftCardsToDelete.filter(
       (giftCard) =>
+        giftCard.source?.appId === sourceAppId &&
         (!giftCard.payment ||
-          inPersonPaymentMethod.includes(giftCard.payment.method)) &&
-        giftCard.source?.appId === sourceAppId,
+          inPersonPaymentMethod.includes(giftCard.payment.method) ||
+          (giftCard.payment.method === "payment-link" &&
+            giftCard.payment.status === "pending")),
     );
 
     const giftCardIdsToDelete = toDelete.map((giftCard) => giftCard._id);
-    const paymentIdsToDelete = toDelete
-      .map((giftCard) => giftCard.payment?._id)
-      .filter((paymentId) => !!paymentId);
+    const inPersonPaymentIdsToDelete = toDelete
+      .filter(
+        (giftCard) =>
+          giftCard.payment &&
+          inPersonPaymentMethod.includes(giftCard.payment.method),
+      )
+      .map((giftCard) => giftCard.payment!._id);
+    const pendingPaymentLinkIds = toDelete
+      .filter(
+        (giftCard) =>
+          giftCard.payment?.method === "payment-link" &&
+          giftCard.payment.status === "pending",
+      )
+      .map((giftCard) => giftCard.payment!._id);
 
     if (giftCardIdsToDelete.length === 0) {
       logger.warn({ ids }, "No gift cards to delete");
@@ -442,6 +535,10 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       return;
     }
 
+    for (const paymentId of pendingPaymentLinkIds) {
+      await this.cancelPendingPurchasePaymentLink(paymentId, source);
+    }
+
     logger.debug({ giftCardIdsToDelete }, "Deleting gift cards");
 
     await giftCards.deleteMany({
@@ -449,12 +546,14 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
       organizationId: this.organizationId,
     });
 
-    logger.debug({ paymentIdsToDelete }, "Deleting payments");
+    logger.debug({ inPersonPaymentIdsToDelete }, "Deleting payments");
 
-    await payments.deleteMany({
-      _id: { $in: paymentIdsToDelete },
-      organizationId: this.organizationId,
-    });
+    if (inPersonPaymentIdsToDelete.length > 0) {
+      await payments.deleteMany({
+        _id: { $in: inPersonPaymentIdsToDelete },
+        organizationId: this.organizationId,
+      });
+    }
 
     await this.eventService.emit(
       GIFT_CARD_DELETED_EVENT_TYPE,
@@ -514,6 +613,61 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
     }
 
     return result;
+  }
+
+  public async getGiftCardByPaymentId(
+    paymentId: string,
+  ): Promise<GiftCardListModel | null> {
+    const logger = this.loggerFactory("getGiftCardByPaymentId");
+    logger.debug({ paymentId }, "Getting gift card by payment id");
+    const db = await getDbConnection();
+    const giftCards = db.collection<GiftCard>(GIFT_CARDS_COLLECTION_NAME);
+
+    const result = (await giftCards
+      .aggregate([
+        ...this.aggregateJoin,
+        {
+          $match: { paymentId },
+        },
+      ])
+      .next()) as GiftCardListModel | null;
+
+    if (!result) {
+      logger.debug({ paymentId }, "Gift card not found for payment");
+      return null;
+    }
+
+    return result;
+  }
+
+  public async claimStudioFulfillment(
+    giftCardId: string,
+    appId: string,
+  ): Promise<boolean> {
+    const logger = this.loggerFactory("claimStudioFulfillment");
+    const db = await getDbConnection();
+    const giftCards = db.collection<GiftCard>(GIFT_CARDS_COLLECTION_NAME);
+    const result = await giftCards.updateOne(
+      {
+        _id: giftCardId,
+        organizationId: this.organizationId,
+        "source.appId": appId,
+        "source.metadata.fulfillmentScheduled": { $ne: true },
+      },
+      {
+        $set: {
+          "source.metadata.fulfillmentScheduled": true,
+          updatedAt: new Date(),
+        },
+      },
+    );
+
+    logger.debug(
+      { giftCardId, claimed: result.modifiedCount > 0 },
+      "Claimed studio fulfillment",
+    );
+
+    return result.modifiedCount > 0;
   }
 
   public async getGiftCards(
@@ -774,6 +928,78 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
     );
 
     return !result;
+  }
+
+  private async canSetGiftCardStatus(
+    giftCard: GiftCardListModel,
+    status: GiftCardStatus,
+    logger: ReturnType<GiftCardsService["loggerFactory"]>,
+  ): Promise<boolean> {
+    if (status !== "active") {
+      return true;
+    }
+
+    const payment = await this.paymentsService.getPayment(giftCard.paymentId);
+    if (
+      payment?.method === "payment-link" &&
+      (payment.status === "pending" || payment.status === "cancelled")
+    ) {
+      logger.warn(
+        {
+          giftCardId: giftCard._id,
+          paymentId: payment._id,
+          paymentStatus: payment.status,
+        },
+        "Cannot activate gift card while purchase payment link is unpaid",
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  private async cancelPendingPurchasePaymentLink(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void> {
+    const logger = this.loggerFactory("cancelPendingPurchasePaymentLink");
+    const payment = await this.paymentsService.getPayment(paymentId);
+
+    if (
+      !payment ||
+      payment.method !== "payment-link" ||
+      payment.status !== "pending"
+    ) {
+      return;
+    }
+
+    const paymentLinkPayment = payment as PaymentLinkPayment;
+    logger.debug(
+      { paymentId: paymentLinkPayment._id },
+      "Cancelling pending gift card payment link",
+    );
+
+    try {
+      const { app, service } =
+        await this.connectedAppsService.getAppService<IPaymentLinkProvider>(
+          paymentLinkPayment.appId,
+        );
+
+      if (typeof service.cancelPaymentLink === "function") {
+        await service.cancelPaymentLink(app, payment);
+      }
+    } catch (error) {
+      logger.warn(
+        { paymentId: paymentLinkPayment._id, error },
+        "Failed to call cancelPaymentLink on app",
+      );
+    }
+
+    await this.paymentsService.updatePayment(
+      paymentLinkPayment._id,
+      { status: "cancelled" },
+      source,
+    );
   }
 
   private get aggregateJoin() {

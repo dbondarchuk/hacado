@@ -76,7 +76,7 @@ export type SyncedPaymentUpdateModel = SyncedPaymentTransaction & {
   status: SyncedPaymentStatus;
   appointmentId?: string;
   customerId?: string;
-  /** Ids of the payment records created when matched (service payment + tip). */
+  /** Ids of the payment records created when matched (one row; tip is tipAmount). */
   paymentIds?: string[];
   /**
    * Current service-payment amount applied to the appointment balance.
@@ -84,8 +84,8 @@ export type SyncedPaymentUpdateModel = SyncedPaymentTransaction & {
    */
   paymentAmount?: number;
   /**
-   * Current amount split off as a tip. Editable by staff (can be set to 0 to
-   * remove the tip); reflected on the linked tip payment record.
+   * Current tip included on the linked payment (`tipAmount`). Editable by staff
+   * (can be set to 0 to remove the tip).
    */
   inferredTip?: number;
   /** Originally computed service-payment amount, kept so edits can be reverted. */

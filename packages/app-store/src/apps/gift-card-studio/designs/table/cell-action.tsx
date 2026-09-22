@@ -142,9 +142,16 @@ export const CellAction: React.FC<CellActionProps> = ({ design, appId }) => {
         open={purchaseOpen}
         designId={design._id}
         onOpenChange={setPurchaseOpen}
-        onSuccess={() => {
+        onSuccess={(purchase) => {
+          const params = new URLSearchParams({ designId: design._id });
+          if (
+            purchase?.paymentMethod === "payment-link" &&
+            purchase.paymentId
+          ) {
+            params.set("paymentId", purchase.paymentId);
+          }
           router.push(
-            `/dashboard/gift-card-studio/purchases?designId=${design._id}`,
+            `/dashboard/gift-card-studio/purchases?${params.toString()}`,
           );
         }}
       />

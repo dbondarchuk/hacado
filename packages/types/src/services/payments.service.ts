@@ -5,6 +5,7 @@ import {
   PaymentIntent,
   PaymentIntentUpdateModel,
   PaymentMethod,
+  PaymentStatus,
   PaymentSummary,
   PaymentType,
   PaymentUpdateModel,
@@ -54,6 +55,7 @@ export interface IPaymentsService {
       appointmentId?: string;
       type?: PaymentType[];
       method?: PaymentMethod[];
+      status?: PaymentStatus[];
     },
   ): Promise<WithTotal<PaymentSummary>>;
 
@@ -64,11 +66,13 @@ export interface IPaymentsService {
       appointmentId?: string;
       type?: PaymentType[];
       method?: PaymentMethod[];
+      status?: PaymentStatus[];
     },
   ): Promise<PaymentExportRow[]>;
 
   getPayment(id: string): Promise<Payment | null>;
   getPaymentByExternalId(externalId: string): Promise<Payment | null>;
+  getPaymentByIntentId(intentId: string): Promise<Payment | null>;
   getAppointmentPayments(appointmentId: string): Promise<Payment[]>;
 
   updatePayment(
