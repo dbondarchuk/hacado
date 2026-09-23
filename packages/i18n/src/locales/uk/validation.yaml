@@ -137,6 +137,8 @@ appointments:
       required: "Сума депозиту потрібна, якщо встановлено 'завжди'"
     depositPercentage:
       required: Відсоток депозиту повинен бути цілим числом між 10 і 100
+    tipsMode:
+      required: Потрібно вибрати режим чайових
     duplicateAppointmentCheck:
       enabled:
         required: >-
@@ -351,6 +353,13 @@ configuration:
       fullPaymentAmountThreshold:
         required: Порогова сума платежу повинна бути позитивним числом
         min: Порогова сума платежу повинна бути щонайменше 1
+      tipsMode:
+        required: Потрібно вибрати режим чайових
+      tipPresets:
+        min: Відсоток чайових має бути щонайменше 1%
+        max: Відсоток чайових має бути не більше 100%
+        maxItems: Можна додати не більше 4 варіантів чайових
+        unique: Варіанти чайових мають бути унікальними
   general:
     name:
       min: Назва бізнесу повинна містити щонайменше 3 символи

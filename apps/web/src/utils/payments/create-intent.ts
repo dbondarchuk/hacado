@@ -5,10 +5,13 @@ import {
   AppointmentRequest,
   CollectPayment,
   createOrUpdatePaymentIntentRequestSchema,
+  getIntentBaseAmount,
   IPaymentProcessor,
+  isBookingTipsVisible,
   ModifyAppointmentRequest,
   PaymentIntentUpdateModel,
   PaymentType,
+  resolveBookingTips,
 } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 import { getModifyAppointmentInformationRequestResult } from "../appointments/get-modify-appointment-request";
@@ -18,10 +21,14 @@ import {
 } from "../customer-auth/session";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 
+const roundMoney = (value: number) =>
+  Math.round((value + Number.EPSILON) * 100) / 100;
+
 const createOrUpdateAppointmentRequestIntent = async (
   appointmentRequest: AppointmentRequest,
   type: Exclude<PaymentType, "rescheduleFee" | "cancellationFee">,
   intentId?: string,
+  tipAmountRequest?: number,
 ): Promise<NextResponse> => {
   const logger = getLoggerFactory("PaymentsUtils")(
     "createOrUpdateAppointmentRequestIntent",
@@ -79,7 +86,31 @@ const createOrUpdateAppointmentRequestIntent = async (
     appId,
     customer,
     isFixedAmount,
+    option,
   } = isPaymentRequired;
+
+  const bookingConfig =
+    await servicesContainer.configurationService.getConfiguration("booking");
+  const tips = resolveBookingTips(
+    bookingConfig.payments,
+    option.tipsMode,
+    option.tipPresets,
+  );
+  const tipsVisible = isBookingTipsVisible(
+    tips,
+    amount,
+    amountTotal,
+    amountPaid,
+  );
+  const tipAmountRaw =
+    typeof tipAmountRequest === "number" && Number.isFinite(tipAmountRequest)
+      ? tipAmountRequest
+      : 0;
+
+  const tipAmount =
+    tipsVisible && tipAmountRaw > 0 ? roundMoney(tipAmountRaw) : 0;
+
+  const chargeAmount = roundMoney(amount + tipAmount);
 
   const { app, service } =
     await servicesContainer.connectedAppsService.getAppService<IPaymentProcessor>(
@@ -132,7 +163,7 @@ const createOrUpdateAppointmentRequestIntent = async (
       return NextResponse.json({
         formProps,
         intent,
-        amount,
+        amount: getIntentBaseAmount(intent),
         amountPaid,
         amountTotal,
         giftCards: giftCards?.map((giftCard) => ({
@@ -164,7 +195,7 @@ const createOrUpdateAppointmentRequestIntent = async (
     return NextResponse.json({
       formProps,
       intent,
-      amount,
+      amount: getIntentBaseAmount(reusablePaidIntent),
       amountPaid,
       amountTotal,
       giftCards: giftCards?.map((giftCard) => ({
@@ -176,16 +207,17 @@ const createOrUpdateAppointmentRequestIntent = async (
   }
 
   const intentUpdate = {
-    amount,
+    amount: chargeAmount,
     appId: app._id,
     appName: app.name,
     request: appointmentRequest,
     customerId: customer?._id,
     type: type,
+    data: tipAmount > 0 ? { tipAmount } : { tipAmount: 0 },
   } satisfies Omit<PaymentIntentUpdateModel, "status">;
 
   logger.debug(
-    { intent: intentUpdate, isUpdating: !!intentId },
+    { intent: intentUpdate, isUpdating: !!intentId, tipAmount },
     "Creating or updating intent",
   );
 
@@ -452,6 +484,7 @@ export const createOrUpdateIntent = async (
       createOrUpdatePaymentIntentRequest.request as AppointmentRequest,
       createOrUpdatePaymentIntentRequest.type,
       intentId,
+      createOrUpdatePaymentIntentRequest.tipAmount,
     );
   }
 

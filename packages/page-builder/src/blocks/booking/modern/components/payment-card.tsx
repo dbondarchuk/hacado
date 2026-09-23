@@ -1,8 +1,9 @@
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import { cn, useCurrencyFormat } from "@hacado/ui";
+import { BookingPaymentTips, cn, useCurrencyFormat } from "@hacado/ui";
 import { formatAmount } from "@hacado/utils";
 import { CreditCard } from "lucide-react";
+import { useCallback, useRef } from "react";
 import { useScheduleContext } from "./context";
 
 export const PaymentCard: React.FC = () => {
@@ -11,19 +12,43 @@ export const PaymentCard: React.FC = () => {
 
   const {
     paymentInformation: paymentForm,
+    setPaymentInformation,
+    fetchPaymentInformation,
     onSubmit,
     price,
     basePrice,
     discountAmount,
+    selectedAppointmentOption,
+    isLoading,
   } = useScheduleContext();
+
+  const lastTipAmountRef = useRef(0);
+
+  const handleTipAmountChange = useCallback(
+    async (tipAmount: number) => {
+      if (tipAmount === lastTipAmountRef.current) {
+        return;
+      }
+      lastTipAmountRef.current = tipAmount;
+      try {
+        const data = await fetchPaymentInformation(tipAmount);
+        if (data) {
+          setPaymentInformation(data);
+        }
+      } catch {
+        // fetchPaymentInformation already toasts
+      }
+    },
+    [fetchPaymentInformation, setPaymentInformation],
+  );
+
   if (!paymentForm || !price) return null;
 
   const Form = PaymentAppForms[paymentForm.intent.appName];
 
   const isFullPayment = paymentForm.amountTotal === price;
   const percentage = formatAmount((paymentForm.amountTotal / price) * 100);
-  const remainingBalance =
-    price - paymentForm.intent.amount - paymentForm.amountPaid;
+  const remainingBalance = price - paymentForm.amount - paymentForm.amountPaid;
 
   return (
     <div className="space-y-6 payment-card card-container">
@@ -116,7 +141,7 @@ export const PaymentCard: React.FC = () => {
               )}
             </span>
             <span className="text-foreground payment-card-deposit-amount">
-              {currencyFormat(paymentForm.intent.amount)}
+              {currencyFormat(paymentForm.amount)}
             </span>
           </div>
           <div className="border-t pt-4 flex justify-between text-sm">
@@ -136,6 +161,16 @@ export const PaymentCard: React.FC = () => {
             })}
           </p>
         )}
+
+        <BookingPaymentTips
+          tips={selectedAppointmentOption?.tips}
+          chargeAmount={paymentForm.amount}
+          amountTotal={paymentForm.amountTotal}
+          amountPaid={paymentForm.amountPaid}
+          disabled={isLoading}
+          className="mb-6"
+          onDebouncedTipAmountChange={handleTipAmountChange}
+        />
 
         <Form
           {...paymentForm.formProps}

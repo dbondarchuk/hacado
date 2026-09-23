@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useRef } from "react";
 
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import { useCurrencyFormat } from "@hacado/ui";
+import { BookingPaymentTips, useCurrencyFormat } from "@hacado/ui";
 import { formatAmount } from "@hacado/utils";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
@@ -14,15 +14,43 @@ export const PaymentCard: React.FC = () => {
   const currencyFormat = useCurrencyFormat();
   const {
     paymentInformation: paymentForm,
+    setPaymentInformation,
+    fetchPaymentInformation,
     price,
     onSubmit,
+    appointmentOption,
+    isLoading,
   } = useScheduleContext();
+
+  const lastTipAmountRef = useRef(0);
+
+  const handleTipAmountChange = useCallback(
+    async (tipAmount: number) => {
+      if (tipAmount === lastTipAmountRef.current) {
+        return;
+      }
+
+      lastTipAmountRef.current = tipAmount;
+      try {
+        const data = await fetchPaymentInformation(tipAmount);
+        if (data) {
+          setPaymentInformation(data);
+        }
+      } catch {
+        // fetchPaymentInformation already toasts
+      }
+    },
+    [fetchPaymentInformation, setPaymentInformation],
+  );
+
   if (!paymentForm) return null;
 
   const Form = PaymentAppForms[paymentForm.intent.appName];
 
-  const isFullPayment = paymentForm.intent.amount === price;
-  const percentage = formatAmount((paymentForm.intent.amount / price) * 100);
+  const isFullPayment = paymentForm.amountTotal === price;
+  const percentage = formatAmount(
+    price ? (paymentForm.amountTotal / price) * 100 : 0,
+  );
 
   return (
     <CardWithAppointmentInformation
@@ -39,10 +67,19 @@ export const PaymentCard: React.FC = () => {
             : "booking.payment.depositRequiredDescription",
           {
             percentage,
-            amount: currencyFormat(paymentForm.intent.amount),
+            amount: currencyFormat(paymentForm.amount),
           },
         )}
       </div>
+      <BookingPaymentTips
+        tips={appointmentOption.tips}
+        chargeAmount={paymentForm.amount}
+        amountTotal={paymentForm.amountTotal}
+        amountPaid={paymentForm.amountPaid}
+        disabled={isLoading}
+        className="mb-4"
+        onDebouncedTipAmountChange={handleTipAmountChange}
+      />
       <Form
         {...paymentForm.formProps}
         intent={paymentForm.intent}

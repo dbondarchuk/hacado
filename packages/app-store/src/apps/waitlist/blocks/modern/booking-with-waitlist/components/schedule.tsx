@@ -850,8 +850,8 @@ export const Schedule: React.FC<
     members,
   ]);
 
-  const fetchPaymentInformation =
-    useCallback(async (): Promise<CollectPayment | null> => {
+  const fetchPaymentInformation = useCallback(
+    async (tipAmount?: number): Promise<CollectPayment | null> => {
       const request = getAppointmentRequest();
       if (!request) throw new Error("Failed to build appointment request");
 
@@ -859,6 +859,9 @@ export const Schedule: React.FC<
       const body = {
         request,
         type: "deposit",
+        ...(typeof tipAmount === "number" && tipAmount > 0
+          ? { tipAmount }
+          : {}),
       } satisfies CreateOrUpdatePaymentIntentRequest;
 
       try {
@@ -877,12 +880,14 @@ export const Schedule: React.FC<
       } finally {
         setIsLoading(false);
       }
-    }, [
+    },
+    [
       getAppointmentRequest,
       paymentInformation?.intent?._id,
       errors.fetchPaymentInformationTitle,
       errors.fetchPaymentInformationDescription,
-    ]);
+    ],
+  );
 
   const onSubmit = useCallback(
     async (paymentIntentId?: string) => {

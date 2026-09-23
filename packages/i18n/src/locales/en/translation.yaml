@@ -200,6 +200,14 @@ booking:
     fullPaymentRequiredDescription: >-
       In order to book this appointment, full payment of {amount} is required.
       Please pay by using the form below
+    tips:
+      title: Add a tip
+      none: No tip
+      custom: Custom
+      customAmount: Tip amount
+      preset: "{percent}%"
+      tip: Tip
+      total: Total due now
   promoCode:
     trigger: Have a promo code?
     title: Promo code

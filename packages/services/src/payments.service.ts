@@ -1,5 +1,6 @@
 import {
   AppointmentRequest,
+  getIntentBaseAmount,
   getPaymentProcessorRefundTarget,
   IConnectedAppsService,
   IEventService,
@@ -210,7 +211,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
     }
 
     if (
-      intent.amount !== amount ||
+      getIntentBaseAmount(intent) !== amount ||
       intent.appId !== appId ||
       intent.type !== type
     ) {
@@ -287,7 +288,6 @@ export class PaymentsService extends BaseService implements IPaymentsService {
         organizationId: this.organizationId,
         status: "paid",
         appId,
-        amount,
         type,
         appointmentId: { $exists: false },
         "request.optionId": request.optionId,

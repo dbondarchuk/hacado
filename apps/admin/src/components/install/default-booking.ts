@@ -28,7 +28,7 @@ export function getInstallEnabledCancellationsAndReschedules(): AppointmentCance
 export function getDefaultBookingConfiguration(): BookingConfiguration {
   return bookingConfigurationSchema.parse({
     allowPromoCode: "allow-if-has-active",
-    payments: { requireDeposit: false },
+    payments: { requireDeposit: false, tipsMode: "off" },
     cancellationsAndReschedules: {
       cancellations: {
         withDeposit: { enabled: false },

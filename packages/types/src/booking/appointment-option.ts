@@ -5,6 +5,11 @@ import {
   appointmentWithDepositCancellationSchema,
   appointmentWithoutDepositCancellationSchema,
 } from "../configuration/booking/cancellation";
+import {
+  bookingTipPresetsSchema,
+  optionTipsModeSchema,
+  type ResolvedBookingTips,
+} from "../configuration/booking/payments";
 import { WithDatabaseId, WithOrganizationId } from "../database";
 import {
   asOptinalNumberField,
@@ -239,6 +244,12 @@ export const appointmentOptionSchema = z
       ),
   )
   .and(
+    z.object({
+      tipsMode: optionTipsModeSchema.optional().nullable(),
+      tipPresets: bookingTipPresetsSchema.optional().nullable(),
+    }),
+  )
+  .and(
     z
       .object({
         isOnline: z.literal(false, {
@@ -406,8 +417,10 @@ export const appointmentAddonsSchema = z
 export type AppointmentAddons = z.infer<typeof appointmentAddonsSchema>;
 
 export type AppointmentChoice = Prettify<
-  DistributiveOmit<AppointmentOption, "addons"> & {
+  DistributiveOmit<AppointmentOption, "addons" | "tipsMode" | "tipPresets"> & {
     addons: AppointmentAddon[];
+    /** Resolved tips settings for the public booking payment step. */
+    tips: ResolvedBookingTips;
   }
 >;
 

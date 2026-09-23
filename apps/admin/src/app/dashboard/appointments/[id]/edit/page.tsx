@@ -2,7 +2,7 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentChoice } from "@hacado/types";
+import { AppointmentChoice, resolveBookingTips } from "@hacado/types";
 import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentScheduleForm,
@@ -33,19 +33,24 @@ export default async function NewAssetsPage(props: Props) {
     "Loading edit appointment page",
   );
 
-  const [fields, addons, options] = await Promise.all([
+  const [fields, addons, options, bookingConfig] = await Promise.all([
     servicesContainer.servicesService.getFields({}),
     servicesContainer.servicesService.getAddons({}),
     servicesContainer.servicesService.getOptions({}),
+    servicesContainer.configurationService.getConfiguration("booking"),
   ]);
 
-  const choices: AppointmentChoice[] = (options.items ?? []).map((option) => ({
-    ...option,
-    addons:
-      option.addons
-        ?.map((f) => addons.items?.find((x) => x._id === f.id))
-        .filter((f) => !!f) || [],
-  }));
+  const choices: AppointmentChoice[] = (options.items ?? []).map((option) => {
+    const { tipsMode, tipPresets, ...optionWithoutTipsStorage } = option;
+    return {
+      ...optionWithoutTipsStorage,
+      addons:
+        option.addons
+          ?.map((f) => addons.items?.find((x) => x._id === f.id))
+          .filter((f) => !!f) || [],
+      tips: resolveBookingTips(bookingConfig.payments, tipsMode, tipPresets),
+    };
+  });
 
   const appointment = await servicesContainer.bookingService.getAppointment(id);
 

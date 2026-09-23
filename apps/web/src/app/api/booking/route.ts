@@ -8,6 +8,7 @@ import {
   AppointmentLimitReachedError,
   appointmentRequestSchema,
   AppointmentTimeNotAvaialbleError,
+  getIntentBaseAmount,
 } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -182,11 +183,12 @@ export async function POST(request: NextRequest) {
       ); // Payment required
     }
 
-    if (paymentIntent.amount !== eventOrError.amount) {
+    if (getIntentBaseAmount(paymentIntent) !== eventOrError.amount) {
       logger.warn(
         {
           paymentIntentId,
           paymentAmount: paymentIntent.amount,
+          tipAmount: paymentIntent.data?.tipAmount,
           requiredAmount: eventOrError.amount,
         },
         "Payment amount mismatch",

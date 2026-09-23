@@ -59,7 +59,7 @@ export const AppointmentsSettingsForm: React.FC<{
         ? data
         : {
             ...data,
-            payments: { requireDeposit: false },
+            payments: { requireDeposit: false, tipsMode: "off" },
           };
       await toastPromise(
         adminApi.configuration.setConfiguration("booking", payload),

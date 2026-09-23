@@ -1843,6 +1843,20 @@ services:
           tooltip:
             Deposit percentage<br></br>If set to 100, full price will be required
             to be paid upfront<br></br>Can be overriden per each customer
+        tipsMode:
+          label: Tips during booking
+          tooltip: Override organization tip settings for this service
+          values:
+            inherit: Same as general configuration
+            off: Off
+            on: On
+            full-payment-only: Only for full payments
+        tipPresets:
+          label: Tip presets
+          description: Up to 4 percentage options shown to customers
+          percentage: "% of amount"
+          add: Add preset
+          remove: Remove
       cancellationPolicy:
         title: Cancellations
         type:
@@ -3082,6 +3096,20 @@ settings:
           price</strong> instead of a partial deposit.</p><p><strong>Example:</strong>
           If the threshold is $5 and the deposit is $2, the customer will pay the
           full appointment price.</p><p><strong>Optional</strong></p>"
+        tipsMode:
+          label: Tips during booking
+          tooltip:
+            Allow customers to add a tip when paying online during booking
+          values:
+            off: Off
+            on: On
+            full-payment-only: Only for full payments
+        tipPresets:
+          label: Tip presets
+          description: Up to 4 percentage options shown to customers
+          percentage: "% of amount"
+          add: Add preset
+          remove: Remove
       cancellationsAndReschedules:
         title: Cancellations and Reschedules
         cancellations:

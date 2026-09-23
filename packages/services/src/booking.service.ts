@@ -46,6 +46,7 @@ import {
   Payment,
   PaymentHistory,
   PublicStaffMember,
+  resolveBookingTips,
   TimeSlot,
   type AppointmentCreatedPayload,
   type AppointmentEvent,
@@ -1789,10 +1790,13 @@ export class BookingService extends BaseService implements IBookingService {
           id: id,
         }));
 
+      const { tipsMode, tipPresets, ...optionWithoutTipsStorage } = option;
+
       return {
-        ...option,
+        ...optionWithoutTipsStorage,
         addons: addonsFiltered,
         fields,
+        tips: resolveBookingTips(config.payments, tipsMode, tipPresets),
       };
     });
 
@@ -2260,6 +2264,10 @@ export class BookingService extends BaseService implements IBookingService {
           if (status === "paid") {
             const pkg =
               await this.packagesService.getPackage(purchasePackageId);
+            const tipAmount =
+              typeof data?.tipAmount === "number" && data.tipAmount > 0
+                ? data.tipAmount
+                : undefined;
             const payment = await this.paymentsService.createPayment(
               {
                 appId,
@@ -2275,6 +2283,7 @@ export class BookingService extends BaseService implements IBookingService {
                 externalId: externalId,
                 data: data,
                 fees,
+                tipAmount,
               },
               eventSource,
             );
@@ -2354,6 +2363,13 @@ export class BookingService extends BaseService implements IBookingService {
             "Payment intent is paid, adding to payments",
           );
 
+          const tipAmount =
+            typeof data?.tipAmount === "number" && data.tipAmount > 0
+              ? data.tipAmount
+              : undefined;
+          const serviceAmount = amount - (tipAmount ?? 0);
+          const totalPrice = event.totalPrice ?? 0;
+
           const payment = await this.paymentsService.createPayment(
             {
               appId,
@@ -2364,13 +2380,16 @@ export class BookingService extends BaseService implements IBookingService {
               appointmentId: id,
               customerId: customer._id,
               description:
-                amount === event.totalPrice ? "full_payment" : "deposit",
+                serviceAmount >= totalPrice - 0.005
+                  ? "full_payment"
+                  : "deposit",
               status: "paid",
               method: "online",
               type: "deposit",
               externalId: externalId,
               data: data,
               fees,
+              tipAmount,
             },
             eventSource,
           );
@@ -2388,7 +2407,11 @@ export class BookingService extends BaseService implements IBookingService {
             appointmentId: id,
             paymentAmount: amount,
             paymentType:
-              amount === event.totalPrice ? "full_payment" : "deposit",
+              amount -
+                (typeof data?.tipAmount === "number" ? data.tipAmount : 0) >=
+              (event.totalPrice ?? 0) - 0.005
+                ? "full_payment"
+                : "deposit",
           },
           "Payment processed for appointment",
         );

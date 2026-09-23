@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { WithDatabaseId, WithOrganizationId } from "../database";
-import { zObjectId } from "../utils";
+import { asOptinalNumberField, zObjectId } from "../utils";
 import { Prettify } from "../utils/helpers";
 import {
   AppointmentRequest,
@@ -70,11 +70,14 @@ export const createOrUpdatePaymentIntentRequestSchema = z.discriminatedUnion(
     z.object({
       type: paymentTypeSchema.exclude(["rescheduleFee", "cancellationFee"]),
       request: appointmentRequestSchema,
+      /** Optional tip in currency units; added to the charged intent amount. */
+      tipAmount: asOptinalNumberField(z.coerce.number<number>().min(0)),
     }),
     z.object({
       type: paymentTypeSchema.extract(["rescheduleFee", "cancellationFee"]),
       appointmentId: zObjectId("appointments.request.appointmentId.required"),
       request: modifyAppointmentRequestSchema,
+      tipAmount: asOptinalNumberField(z.coerce.number<number>().min(0)),
     }),
   ],
 );
@@ -107,6 +110,22 @@ export type CollectPayment = {
     amountApplied: number;
   }[];
 };
+
+/** Tip stored on appointment deposit intents via `data.tipAmount`. */
+export function getIntentTipAmount(intent: {
+  data?: Record<string, unknown> | null;
+}): number {
+  const tip = intent.data?.tipAmount;
+  return typeof tip === "number" && Number.isFinite(tip) && tip > 0 ? tip : 0;
+}
+
+/** Charged amount minus tip included on the same intent. */
+export function getIntentBaseAmount(intent: {
+  amount: number;
+  data?: Record<string, unknown> | null;
+}): number {
+  return Math.max(0, intent.amount - getIntentTipAmount(intent));
+}
 
 export const inPersonPaymentMethod = ["cash", "in-person-card"] as const;
 

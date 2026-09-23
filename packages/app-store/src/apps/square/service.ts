@@ -89,6 +89,7 @@ function verifySquareWebhookSignature(
   if (!signatureHeader) {
     return false;
   }
+
   const hmac = createHmac("sha256", signatureKey);
   hmac.update(notificationUrl + requestBody);
   const digest = hmac.digest("base64");
@@ -98,6 +99,7 @@ function verifySquareWebhookSignature(
     if (a.length !== b.length) {
       return false;
     }
+
     return timingSafeEqual(a, b);
   } catch {
     return false;
@@ -523,6 +525,7 @@ class SquareConnectedApp
         { notificationUrl },
         "Square webhook signature verification failed",
       );
+
       return Response.json({ error: "invalid_signature" }, { status: 403 });
     }
 

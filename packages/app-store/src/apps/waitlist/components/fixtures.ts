@@ -46,6 +46,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       requireDeposit: "inherit",
       updatedAt: new Date(),
       organizationId: "organization",
+      tips: { mode: "off", presets: [] },
     },
     {
       _id: "option-2",
@@ -85,6 +86,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       organizationId: "organization",
       requireDeposit: "inherit",
       updatedAt: new Date(),
+      tips: { mode: "off", presets: [] },
     },
     {
       _id: "option-3",
@@ -124,6 +126,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
       requireDeposit: "inherit",
       updatedAt: new Date(),
       organizationId: "organization",
+      tips: { mode: "off", presets: [] },
     },
   ],
   fieldsSchema: {},

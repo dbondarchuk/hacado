@@ -203,6 +203,14 @@ booking:
     fullPaymentRequiredDescription: >-
       Для бронювання цього запису потрібна повна оплата {amount}. Будь ласка,
       оплатіть, використовуючи форму нижче
+    tips:
+      title: Додати чайові
+      none: Без чайових
+      custom: Своя сума
+      customAmount: Сума чайових
+      preset: "{percent}%"
+      tip: Чайові
+      total: До сплати зараз
   promoCode:
     trigger: Маєте промокод?
     title: Промокод

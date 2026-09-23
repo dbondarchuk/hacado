@@ -131,6 +131,8 @@ appointments:
       required: Deposit amount must be a positive number
     depositPercentage:
       required: Deposit percentage must be an integer number between 10 and 100
+    tipsMode:
+      required: Tips mode is required
     duplicateAppointmentCheck:
       enabled:
         required: >-
@@ -343,6 +345,13 @@ configuration:
       fullPaymentAmountThreshold:
         required: Full payment amount threshold should be positive number
         min: Full payment amount threshold should be at least 1
+      tipsMode:
+        required: Tips mode is required
+      tipPresets:
+        min: Tip preset must be at least 1%
+        max: Tip preset must be at most 100%
+        maxItems: You can add at most 4 tip presets
+        unique: Tip presets must be unique
   general:
     name:
       min: Business name must be at least 3 characters long

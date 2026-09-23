@@ -123,7 +123,9 @@ export type ScheduleContextProps = {
 
   paymentInformation?: CollectPayment | null;
   setPaymentInformation: (form?: CollectPayment | null) => void;
-  fetchPaymentInformation: () => Promise<CollectPayment | null>;
+  fetchPaymentInformation: (
+    tipAmount?: number,
+  ) => Promise<CollectPayment | null>;
 
   className?: string;
 

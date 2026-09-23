@@ -477,7 +477,9 @@ export const Schedule: React.FC<
     }
   };
 
-  const fetchPaymentInformation = async (): Promise<CollectPayment | null> => {
+  const fetchPaymentInformation = async (
+    tipAmount?: number,
+  ): Promise<CollectPayment | null> => {
     const request = getAppointmentRequest();
     if (!request) throw new Error("Failed to build appointment request");
 
@@ -485,6 +487,7 @@ export const Schedule: React.FC<
     const body = {
       request,
       type: "deposit",
+      ...(typeof tipAmount === "number" && tipAmount > 0 ? { tipAmount } : {}),
     } satisfies CreateOrUpdatePaymentIntentRequest;
 
     try {
