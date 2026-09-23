@@ -18,6 +18,7 @@ const AppointmentLoader: React.FC = () => (
   <div className="flex flex-col gap-1 pl-6 w-full">
     <Skeleton className="h-5 w-full max-w-96" />
     <Skeleton className="h-4 w-full max-w-72" />
+    <Skeleton className="h-4 w-full max-w-72" />
   </div>
 );
 
@@ -41,7 +42,8 @@ const AppointmentShortLabel: React.FC<{
         ) : (
           "-"
         )}
-        {" · "}
+      </span>
+      <span className="truncate text-xs text-muted-foreground">
         {formatTime(appointment.dateTime)}
       </span>
     </div>
@@ -52,6 +54,8 @@ type BaseAppointmentSelectorProps = {
   value?: string;
   disabled?: boolean;
   className?: string;
+  /** When set, only appointments for this customer are listed. */
+  customerId?: string;
   onValueChange?: (appointment?: Appointment) => void;
 };
 
@@ -76,6 +80,7 @@ export const AppointmentSelector: React.FC<AppointmentSelectorProps> = ({
   onItemSelect,
   onValueChange,
   allowClear,
+  customerId,
 }) => {
   const t = useI18n("admin");
   const locale = useLocale();
@@ -104,6 +109,7 @@ export const AppointmentSelector: React.FC<AppointmentSelectorProps> = ({
         page,
         limit,
         search,
+        customer: customerId ? [customerId] : undefined,
         sort: [{ id: "dateTime", desc: true }],
       });
 
@@ -141,7 +147,7 @@ export const AppointmentSelector: React.FC<AppointmentSelectorProps> = ({
         hasMore: page * limit < result.total,
       };
     },
-    [locale, timeZone],
+    [customerId, locale, timeZone],
   );
 
   React.useEffect(() => {
@@ -150,6 +156,7 @@ export const AppointmentSelector: React.FC<AppointmentSelectorProps> = ({
 
   return (
     <ComboboxAsync
+      key={customerId ?? "all"}
       // @ts-ignore Allow clear passthrough
       onChange={onItemSelect}
       disabled={disabled}

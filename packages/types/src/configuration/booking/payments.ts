@@ -1,11 +1,16 @@
 import * as z from "zod";
 import { asOptinalNumberField } from "../../utils";
 
+/**
+ * Booking deposit / payment-threshold settings.
+ * Online payments themselves are gated by the default payment app
+ * (`defaultApps.paymentAppId`) and the subscription plan — not by a
+ * separate `enabled` flag (legacy `enabled` is accepted and ignored).
+ */
 export const paymentsConfigurationSchema = z
   .object({
-    enabled: z.literal(true, {
-      error: "configuration.booking.payments.paymentAppId.required",
-    }),
+    /** @deprecated Ignored. Kept for backwards-compatible stored configs. */
+    enabled: z.boolean().optional(),
     fullPaymentAmountThreshold: asOptinalNumberField(
       z.coerce
         .number<number>({
@@ -54,15 +59,6 @@ export const paymentsConfigurationSchema = z
         ),
       }),
     ]),
-  )
-  .or(
-    z.object({
-      enabled: z
-        .literal(false, {
-          error: "configuration.booking.payments.paymentAppId.required",
-        })
-        .optional(),
-    }),
   );
 
 export type PaymentsConfiguration = z.infer<typeof paymentsConfigurationSchema>;

@@ -605,14 +605,29 @@ export class PaymentsService extends BaseService implements IPaymentsService {
       match.paidAt = paidAt;
     }
 
-    const sort: Sort = query.sort?.reduce(
-      (prev, curr) => ({ ...prev, [curr.id]: curr.desc ? -1 : 1 }),
-      {},
-    ) || { paidAt: -1 };
+    const sortFromQuery =
+      query.sort?.reduce<Record<string, 1 | -1>>(
+        (prev, curr) => ({
+          ...prev,
+          // Match the UI date cell, which falls back to createdAt when unpaid.
+          [curr.id === "paidAt" ? "effectiveDate" : curr.id]: curr.desc
+            ? -1
+            : 1,
+        }),
+        {},
+      ) ?? {};
+
+    const sort: Sort =
+      Object.keys(sortFromQuery).length > 0
+        ? sortFromQuery
+        : { effectiveDate: -1 };
+
+    const effectiveDate = { $ifNull: ["$paidAt", "$createdAt"] };
 
     const addFields =
       mode === "export"
         ? {
+            effectiveDate,
             customerName: { $arrayElemAt: ["$customer.name", 0] },
             customerEmail: { $arrayElemAt: ["$customer.email", 0] },
             customerPhone: { $arrayElemAt: ["$customer.phone", 0] },
@@ -640,6 +655,7 @@ export class PaymentsService extends BaseService implements IPaymentsService {
             },
           }
         : {
+            effectiveDate,
             customerName: { $arrayElemAt: ["$customer.name", 0] },
             serviceName: { $arrayElemAt: ["$appointment.option.name", 0] },
           };

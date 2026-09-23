@@ -627,6 +627,7 @@ financialOverview:
 paymentsList:
   title: Payments
   description: Browse all recorded payments across appointments and customers.
+  addPayment: Add payment
   empty: No payments found.
   loadError: Failed to load payments.
   filters:
@@ -1315,6 +1316,8 @@ customers:
   addNewShort: Add New
   details: Details
   appointments: Appointments
+  payments: Payments
+  addPayment: Add payment
   files: Files
   communications: Communications
   deletedCustomer: Deleted customer
@@ -3844,6 +3847,12 @@ payment:
         label: Gift card
       customerId:
         label: Customer
+      appointmentId:
+        label: Appointment
+        assign: Assign appointment
+        change: Change
+        clear: Clear
+        none: Not assigned
       paymentLinkAppId:
         label: App
       channel:
@@ -3860,6 +3869,9 @@ payment:
     refundErrorDescription:
       Payment refund has failed. Please see details on browser
       console
+    paymentAppRequired:
+      Configure a default payment app in Apps → Default apps before
+      creating payment links.
   descriptions:
     fullPayment: Full payment
     deposit: Deposit

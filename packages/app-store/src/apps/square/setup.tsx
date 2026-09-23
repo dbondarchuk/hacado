@@ -77,7 +77,8 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
     setIsConnecting(false);
 
     if (status.status === "connected") {
-      onSuccess(appId);
+      // Keep open so in-store sync settings can be configured after OAuth.
+      onSuccess(appId, true);
       return;
     }
 

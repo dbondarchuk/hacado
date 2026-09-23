@@ -194,7 +194,15 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
     <>
       <Dialog open={isOpen} onOpenChange={onDialogOpenChange}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="w-full sm:max-w-lg" aria-description={title}>
+        <DialogContent
+          className="w-full sm:max-w-lg"
+          aria-description={title}
+          // OAuth popups move focus out of the dialog; without this the
+          // dialog dismisses as soon as Connect/Reconnect opens the window.
+          onPointerDownOutside={(event) => event.preventDefault()}
+          onFocusOutside={(event) => event.preventDefault()}
+          onInteractOutside={(event) => event.preventDefault()}
+        >
           <DialogHeader className="px-1">
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>

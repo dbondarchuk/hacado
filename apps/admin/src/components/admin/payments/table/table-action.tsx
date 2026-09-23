@@ -19,12 +19,21 @@ import {
 } from "@hacado/ui-admin";
 import { Settings2 } from "lucide-react";
 import React from "react";
+import { AddPaymentButton } from "../add-payment-button";
 import { ExportPaymentsButton } from "./export-payments-button";
 import { usePaymentsTableFilters } from "./use-table-filters";
 
 export const PaymentsTableAction: React.FC<{
   className?: string;
-}> = ({ className }) => {
+  showCustomerFilter?: boolean;
+  customerIdLock?: string;
+  showAddPayment?: boolean;
+}> = ({
+  className,
+  showCustomerFilter = true,
+  customerIdLock,
+  showAddPayment = false,
+}) => {
   const {
     isAnyFilterActive,
     resetFilters,
@@ -81,14 +90,17 @@ export const PaymentsTableAction: React.FC<{
         setFilterValue={setStatusFilter as any}
         filterValue={statusFilter ?? []}
       />
-      <CustomersDataTableAsyncFilterBox
-        filterValue={customerFilter}
-        setFilterValue={setCustomerFilter}
-        maxAmount={1}
-      />
+      {showCustomerFilter && (
+        <CustomersDataTableAsyncFilterBox
+          filterValue={customerFilter}
+          setFilterValue={setCustomerFilter}
+          maxAmount={1}
+        />
+      )}
       <AppointmentsDataTableAsyncFilterBox
         filterValue={appointmentFilter}
         setFilterValue={setAppointmentFilter}
+        customerId={customerIdLock}
       />
       <DataTableRangeBox
         startValue={start}
@@ -135,7 +147,8 @@ export const PaymentsTableAction: React.FC<{
         />
       </div>
       <div className="flex flex-wrap items-center gap-4">
-        <ExportPaymentsButton />
+        <ExportPaymentsButton customerIdLock={customerIdLock} />
+        {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
       </div>
     </div>
   );

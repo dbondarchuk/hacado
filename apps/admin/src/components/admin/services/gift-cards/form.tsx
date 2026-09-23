@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
@@ -230,15 +230,34 @@ export const GiftCardForm: React.FC<{
           }
 
           if (data.paymentMethod === "payment-link") {
-            const result = await adminApi.payments.createPaymentLink({
-              amount: data.amount,
-              customerId: data.customerId,
-              description: "descriptions.giftCard",
-              type: "payment",
-              paymentLinkAppId: data.paymentLinkAppId!,
-              channel: data.channel,
-              to: data.to,
-            });
+            const result = await adminApi.payments
+              .createPaymentLink({
+                amount: data.amount,
+                customerId: data.customerId,
+                description: "descriptions.giftCard",
+                type: "payment",
+                paymentLinkAppId: data.paymentLinkAppId!,
+                channel: data.channel,
+                to: data.to,
+              })
+              .catch(async (error) => {
+                if (error instanceof AdminApiError) {
+                  let code: string | undefined;
+                  try {
+                    const body = (await error.response.clone().json()) as {
+                      code?: string;
+                    };
+                    code = body.code;
+                  } catch {
+                    // ignore parse errors
+                  }
+                  if (code) {
+                    throw new Error(code);
+                  }
+                }
+
+                throw error;
+              });
 
             if (data.channel === "copy" && result.url) {
               try {
@@ -301,7 +320,13 @@ export const GiftCardForm: React.FC<{
             ? "services.giftCards.form.toasts.changesSaved"
             : "services.giftCards.form.toasts.created",
         ),
-        error: t("services.giftCards.form.toasts.requestError"),
+        error: (err) => {
+          if (err instanceof Error && err.message === "payment_app_required") {
+            return t("payment.toasts.paymentAppRequired");
+          }
+
+          return t("services.giftCards.form.toasts.requestError");
+        },
       });
     } catch (error: any) {
       console.error(error);

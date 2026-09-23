@@ -59,7 +59,7 @@ export const AppointmentsSettingsForm: React.FC<{
         ? data
         : {
             ...data,
-            payments: { enabled: false },
+            payments: { requireDeposit: false },
           };
       await toastPromise(
         adminApi.configuration.setConfiguration("booking", payload),
@@ -91,8 +91,12 @@ export const AppointmentsSettingsForm: React.FC<{
   React.useEffect(() => triggerValidation(), [triggerValidation]);
 
   React.useEffect(() => {
-    if (!canUsePayments && form.getValues("payments.enabled")) {
-      form.setValue("payments", { enabled: false }, { shouldValidate: true });
+    if (!canUsePayments && form.getValues("payments.requireDeposit")) {
+      form.setValue(
+        "payments",
+        { requireDeposit: false },
+        { shouldValidate: true },
+      );
     }
   }, [canUsePayments, form]);
 

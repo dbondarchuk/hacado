@@ -336,14 +336,13 @@ const createOrUpdateModifyAppointmentRequestIntent = async (
   );
 
   const canUsePayments = await sessionCanUseFeature("payments");
-  const { booking: config, defaultApps } =
-    await servicesContainer.configurationService.getConfigurations(
-      "booking",
+  const defaultApps =
+    await servicesContainer.configurationService.getConfiguration(
       "defaultApps",
     );
   const paymentAppId = defaultApps?.paymentAppId;
 
-  if (!canUsePayments || !config.payments?.enabled || !paymentAppId) {
+  if (!canUsePayments || !paymentAppId) {
     logger.warn(
       { modifyAppointmentRequestResult },
       "Payment required but online payments are not available",

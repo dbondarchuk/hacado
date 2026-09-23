@@ -1,9 +1,15 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
+  AdminKeys,
+  BaseAllKeys,
+  useI18n,
+  useLocale,
+} from "@hacado/i18n/client";
+import {
+  Appointment,
   GiftCardListModel,
   giftCardPaymentMethod,
   inPersonPaymentMethod,
@@ -14,6 +20,7 @@ import {
 } from "@hacado/types";
 import {
   Button,
+  cn,
   DateTimePicker,
   Dialog,
   DialogContent,
@@ -43,16 +50,20 @@ import {
   Textarea,
   toast,
   toastPromise,
+  TooltipButton,
   use12HourFormat,
   useCurrencySymbol,
   useTimeZone,
 } from "@hacado/ui";
 import { CustomerSelector, GiftCardSelector } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Pencil, X } from "lucide-react";
+import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { AssignAppointmentDialog } from "./assign-appointment-dialog";
 import { PaymentDetailsDialog } from "./payment-details-dialog";
 
 type PaymentLinkApp = { _id: string; name: string };
@@ -63,7 +74,7 @@ type AddUpdatePaymentDialogProps = {
   children: React.ReactNode;
   amount?: number;
 } & (
-  | { appointmentId?: string; customerId: string }
+  | { appointmentId?: string; customerId?: string }
   | { giftCardId: string }
   | {
       paymentId: string;
@@ -92,6 +103,23 @@ const uniqueNonEmpty = (values: (string | null | undefined)[]) => [
   ...new Set(values.filter((value): value is string => !!value)),
 ];
 
+async function mapPaymentLinkError(error: unknown): Promise<never> {
+  if (error instanceof AdminApiError) {
+    let code: string | undefined;
+    try {
+      const body = (await error.response.clone().json()) as { code?: string };
+      code = body.code;
+    } catch {
+      // ignore parse errors
+    }
+    if (code) {
+      throw new Error(code);
+    }
+  }
+
+  throw error;
+}
+
 export const AddUpdatePaymentDialog = ({
   onSuccess,
   children: trigger,
@@ -100,6 +128,7 @@ export const AddUpdatePaymentDialog = ({
 }: AddUpdatePaymentDialogProps) => {
   const t = useI18n("admin");
   const tRoot = useI18n();
+  const locale = useLocale();
   const currencySymbol = useCurrencySymbol();
   const router = useRouter();
   const timeZone = useTimeZone();
@@ -107,6 +136,10 @@ export const AddUpdatePaymentDialog = ({
 
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [assignOpen, setAssignOpen] = useState(false);
+  const [assignedAppointment, setAssignedAppointment] = useState<
+    Appointment | undefined
+  >(undefined);
   const [detailsPayment, setDetailsPayment] = useState<Payment | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [giftCard, setGiftCard] = useState<GiftCardListModel | undefined>(
@@ -117,53 +150,52 @@ export const AddUpdatePaymentDialog = ({
   const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
 
   const isEdit = "paymentId" in props;
-  const canUsePaymentLink =
-    !isEdit && ("customerId" in props || "appointmentId" in props);
+  const isGiftCardCreate = "giftCardId" in props;
+  const canUsePaymentLink = !isEdit && !isGiftCardCreate;
 
-  const resolvedCustomerId =
-    "customerId" in props
-      ? props.customerId
-      : isEdit
-        ? props.payment.customerId
-        : undefined;
+  const lockedCustomerId = isGiftCardCreate
+    ? undefined
+    : isEdit
+      ? props.payment.customerId
+      : props.customerId;
 
-  const defaultValues: DialogFormValues =
-    "appointmentId" in props
+  const lockedAppointmentId = isGiftCardCreate
+    ? undefined
+    : isEdit
+      ? props.payment.appointmentId
+      : props.appointmentId;
+
+  const showCustomerSelector =
+    !isEdit && !isGiftCardCreate && !lockedCustomerId;
+
+  const showAppointmentSelector =
+    !isEdit && !isGiftCardCreate && !lockedAppointmentId;
+
+  const defaultValues: DialogFormValues = isGiftCardCreate
+    ? {
+        giftCardId: props.giftCardId,
+        customerId: "",
+        amount: propsAmount ?? 0,
+        description: "",
+        paidAt: new Date(),
+        method: "gift-card",
+        type: "payment",
+      }
+    : isEdit
       ? {
-          appointmentId: props.appointmentId,
-          customerId: props.customerId,
+          ...props.payment,
+          paidAt: props.payment.paidAt,
+        }
+      : {
+          customerId: lockedCustomerId ?? "",
+          appointmentId: lockedAppointmentId,
           amount: propsAmount ?? 0,
           description: "",
           paidAt: new Date(),
           method: "cash",
           type: "payment",
           channel: "copy",
-        }
-      : "customerId" in props
-        ? {
-            customerId: props.customerId,
-            appointmentId: undefined,
-            amount: propsAmount ?? 0,
-            description: "",
-            paidAt: new Date(),
-            method: "cash",
-            type: "payment",
-            channel: "copy",
-          }
-        : "giftCardId" in props
-          ? {
-              giftCardId: props.giftCardId,
-              customerId: "",
-              amount: propsAmount ?? 0,
-              description: "",
-              paidAt: new Date(),
-              method: "gift-card",
-              type: "payment",
-            }
-          : {
-              ...props.payment,
-              paidAt: props.payment.paidAt,
-            };
+        };
 
   const schema = useMemo(() => {
     return z
@@ -178,7 +210,12 @@ export const AddUpdatePaymentDialog = ({
         type: z.enum(paymentType, {
           error: "validation.payments.type.required",
         }),
-        customerId: z.string(),
+        customerId: z
+          .string()
+          .min(
+            1,
+            "validation.payments.customerId.required" satisfies BaseAllKeys,
+          ),
         appointmentId: z.string().optional(),
         giftCardId: z.string().optional(),
         method: z.enum(
@@ -259,6 +296,9 @@ export const AddUpdatePaymentDialog = ({
 
   const originalMethod = isEdit ? props.payment.method : undefined;
   const method = form.watch("method");
+  const selectedCustomerId = form.watch("customerId");
+  const paidAt = form.watch("paidAt");
+  const appointmentId = form.watch("appointmentId");
   const channel = form.watch("channel") ?? "copy";
   const destinations =
     channel === "email"
@@ -266,6 +306,14 @@ export const AddUpdatePaymentDialog = ({
       : channel === "sms"
         ? phoneDestinations
         : [];
+
+  const resolvedCustomerId =
+    lockedCustomerId || selectedCustomerId || undefined;
+
+  const clearAssignedAppointment = () => {
+    form.setValue("appointmentId", undefined);
+    setAssignedAppointment(undefined);
+  };
 
   const allowedMethods = useMemo(() => {
     if (!isEdit) {
@@ -295,6 +343,8 @@ export const AddUpdatePaymentDialog = ({
       setGiftCard(undefined);
       setEmailDestinations([]);
       setPhoneDestinations([]);
+      setAssignedAppointment(undefined);
+      setAssignOpen(false);
     }
 
     setOpen(next);
@@ -410,19 +460,30 @@ export const AddUpdatePaymentDialog = ({
 
       if (!isEdit && data.method === "payment-link") {
         const result = await toastPromise(
-          adminApi.payments.createPaymentLink({
-            amount: data.amount,
-            customerId: data.customerId,
-            appointmentId: data.appointmentId,
-            description: data.description,
-            type: data.type,
-            paymentLinkAppId: data.paymentLinkAppId!,
-            channel: data.channel,
-            to: data.to,
-          }),
+          adminApi.payments
+            .createPaymentLink({
+              amount: data.amount,
+              customerId: data.customerId,
+              appointmentId: data.appointmentId,
+              description: data.description,
+              type: data.type,
+              paymentLinkAppId: data.paymentLinkAppId!,
+              channel: data.channel,
+              to: data.to,
+            })
+            .catch(mapPaymentLinkError),
           {
             success: t("common.toasts.saved"),
-            error: t("common.toasts.error"),
+            error: (err) => {
+              if (
+                err instanceof Error &&
+                err.message === "payment_app_required"
+              ) {
+                return t("payment.toasts.paymentAppRequired");
+              }
+
+              return t("common.toasts.error");
+            },
           },
         );
 
@@ -431,11 +492,11 @@ export const AddUpdatePaymentDialog = ({
           toast.success(t("payment.card.linkCopied"));
         }
 
+        onSuccess?.(result.payment);
+        router.refresh();
         setOpen(false);
         setDetailsPayment(result.payment);
         setDetailsOpen(true);
-        router.refresh();
-        onSuccess?.(result.payment);
         return;
       }
 
@@ -471,9 +532,9 @@ export const AddUpdatePaymentDialog = ({
         },
       );
 
-      setOpen(false);
-      router.refresh();
       onSuccess?.(result);
+      router.refresh();
+      setOpen(false);
     } catch (error) {
       console.error(error);
     } finally {
@@ -530,7 +591,7 @@ export const AddUpdatePaymentDialog = ({
                               }
                             }
                           }}
-                          disabled={loading || "giftCardId" in props}
+                          disabled={loading || isGiftCardCreate}
                         >
                           <SelectTrigger>
                             <SelectValue
@@ -554,6 +615,136 @@ export const AddUpdatePaymentDialog = ({
                     </FormItem>
                   )}
                 />
+                {showCustomerSelector && method !== "gift-card" && (
+                  <FormField
+                    control={form.control}
+                    name="customerId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("payment.addUpdatePayment.form.customerId.label")}
+                        </FormLabel>
+                        <FormControl>
+                          <CustomerSelector
+                            onItemSelect={(value: string) => {
+                              field.onChange(value);
+                              field.onBlur();
+                              clearAssignedAppointment();
+                            }}
+                            value={field.value}
+                            disabled={loading}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+                {showAppointmentSelector && (
+                  <FormField
+                    control={form.control}
+                    name="appointmentId"
+                    render={() => {
+                      const assignLabel = appointmentId
+                        ? t(
+                            "payment.addUpdatePayment.form.appointmentId.change" as AdminKeys,
+                          )
+                        : t(
+                            "payment.addUpdatePayment.form.appointmentId.assign" as AdminKeys,
+                          );
+                      const clearLabel = t(
+                        "payment.addUpdatePayment.form.appointmentId.clear" as AdminKeys,
+                      );
+                      const canAssign = !!resolvedCustomerId && !loading;
+
+                      return (
+                        <FormItem>
+                          <FormLabel>
+                            {t(
+                              "payment.addUpdatePayment.form.appointmentId.label",
+                            )}
+                          </FormLabel>
+                          <FormControl>
+                            <InputGroup className="items-stretch">
+                              <InputGroupInput className="min-w-0 flex-1">
+                                <div
+                                  className={cn(
+                                    "flex h-full min-h-9 w-full items-center border border-input bg-background px-3 py-1.5 text-sm",
+                                    InputGroupInputClasses(),
+                                    !canAssign && "opacity-50",
+                                  )}
+                                >
+                                  {assignedAppointment ? (
+                                    <div className="flex min-w-0 flex-col gap-0.5">
+                                      <span className="truncate font-medium leading-tight">
+                                        {assignedAppointment.option.name}
+                                      </span>
+                                      <span className="truncate text-xs leading-tight text-muted-foreground">
+                                        {DateTime.fromJSDate(
+                                          new Date(
+                                            assignedAppointment.dateTime,
+                                          ),
+                                          { zone: timeZone },
+                                        ).toLocaleString(
+                                          DateTime.DATETIME_MED,
+                                          { locale },
+                                        )}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <span className="text-muted-foreground">
+                                      {t(
+                                        "payment.addUpdatePayment.form.appointmentId.none" as AdminKeys,
+                                      )}
+                                    </span>
+                                  )}
+                                </div>
+                              </InputGroupInput>
+                              <InputGroupAddon className="items-stretch gap-0">
+                                <TooltipButton
+                                  type="button"
+                                  variant="outline"
+                                  size="none"
+                                  tooltip={assignLabel}
+                                  disabled={!canAssign}
+                                  onClick={() => setAssignOpen(true)}
+                                  className={cn(
+                                    InputGroupAddonClasses(),
+                                    "!h-auto min-h-9 self-stretch px-3 py-0",
+                                    appointmentId && "rounded-r-none",
+                                  )}
+                                >
+                                  <Pencil />
+                                  <span className="sr-only">{assignLabel}</span>
+                                </TooltipButton>
+                                {appointmentId ? (
+                                  <TooltipButton
+                                    type="button"
+                                    variant="outline"
+                                    size="none"
+                                    tooltip={clearLabel}
+                                    disabled={loading}
+                                    onClick={clearAssignedAppointment}
+                                    className={cn(
+                                      InputGroupAddonClasses(),
+                                      "!h-auto min-h-9 self-stretch border-l-0 rounded-l-none px-3 py-0",
+                                    )}
+                                  >
+                                    <X className="opacity-50" />
+                                    <span className="sr-only">
+                                      {clearLabel}
+                                    </span>
+                                  </TooltipButton>
+                                ) : null}
+                              </InputGroupAddon>
+                            </InputGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                )}
                 {method === "payment-link" && (
                   <>
                     {paymentLinkApps.length >= 2 && (
@@ -897,6 +1088,23 @@ export const AddUpdatePaymentDialog = ({
           }}
         />
       ) : null}
+      {showAppointmentSelector && (
+        <AssignAppointmentDialog
+          open={assignOpen}
+          onOpenChange={setAssignOpen}
+          referenceDate={paidAt}
+          currentAppointmentId={appointmentId}
+          customerId={resolvedCustomerId}
+          lockCustomer
+          onConfirm={(nextAppointmentId, appointment) => {
+            form.setValue("appointmentId", nextAppointmentId, {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+            setAssignedAppointment(appointment);
+          }}
+        />
+      )}
     </>
   );
 };

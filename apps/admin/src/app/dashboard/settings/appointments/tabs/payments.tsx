@@ -26,193 +26,120 @@ export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({
 }) => {
   const t = useI18n("admin");
   const currencySymbol = useCurrencySymbol();
-  const enablePayments = form.watch("payments.enabled");
   const requireDeposit = form.watch("payments.requireDeposit");
-  const depositPercentage = form.watch("payments.depositPercentage");
+
+  if (!canUsePayments) {
+    return (
+      <div className="gap-2 grid grid-cols-1 md:grid-cols-2 md:gap-4 w-full">
+        <FeatureUpgradeHint />
+      </div>
+    );
+  }
+
   return (
     <div className="gap-2 grid grid-cols-1 md:grid-cols-2 md:gap-4 w-full">
-      {/* <div className="flex flex-col gap-2"> */}
       <FormField
         control={form.control}
-        name="payments.enabled"
+        name="payments.requireDeposit"
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              {t("settings.appointments.form.payments.enableDeposits")}{" "}
+              {t("settings.appointments.form.payments.requireDeposit")}{" "}
               <InfoTooltip>
-                {t("settings.appointments.form.payments.enableDepositsTooltip")}
+                <p>
+                  {t(
+                    "settings.appointments.form.payments.requireDepositTooltip1",
+                  )}
+                </p>
+                <p>
+                  {t(
+                    "settings.appointments.form.payments.requireDepositTooltip2",
+                  )}
+                </p>
               </InfoTooltip>
             </FormLabel>
             <FormControl>
               <BooleanSelect
                 value={field.value}
-                disabled={!canUsePayments || disabled}
-                onValueChange={(val) => {
-                  if (!canUsePayments) return;
-                  field.onChange(val);
-                  field.onBlur();
-                }}
+                disabled={disabled}
+                onValueChange={field.onChange}
                 className="w-full"
-                trueLabel={t("settings.appointments.form.payments.enable")}
-                falseLabel={t("settings.appointments.form.payments.disable")}
+                trueLabel={t("settings.appointments.form.payments.require")}
+                falseLabel={t(
+                  "settings.appointments.form.payments.doNotRequire",
+                )}
               />
             </FormControl>
-            {!canUsePayments ? <FeatureUpgradeHint /> : null}
             <FormMessage />
           </FormItem>
         )}
       />
-      {enablePayments && canUsePayments && (
+      {requireDeposit && (
         <>
-          {/* <div className="gap-2 flex flex-col md:grid md:grid-cols-2 md:gap-4 w-full"> */}
           <FormField
             control={form.control}
-            name="payments.requireDeposit"
+            name="payments.depositPercentage"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {t("settings.appointments.form.payments.requireDeposit")}{" "}
-                  <InfoTooltip>
-                    <p>
-                      {t(
-                        "settings.appointments.form.payments.requireDepositTooltip1",
-                      )}
-                    </p>
-                    <p>
-                      {t(
-                        "settings.appointments.form.payments.requireDepositTooltip2",
-                      )}
-                    </p>
-                  </InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <BooleanSelect
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    className="w-full"
-                    trueLabel={t("settings.appointments.form.payments.require")}
-                    falseLabel={t(
-                      "settings.appointments.form.payments.doNotRequire",
-                    )}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {requireDeposit && (
-            <>
-              <FormField
-                control={form.control}
-                name="payments.depositPercentage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("settings.appointments.form.payments.depositAmount")}{" "}
-                      <InfoTooltip>
-                        <I18nRichText
-                          namespace="admin"
-                          text="settings.appointments.form.payments.depositAmountTooltip"
-                        />
-                      </InfoTooltip>
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            disabled={disabled}
-                            placeholder="20"
-                            type="number"
-                            className={InputGroupInputClasses()}
-                            {...field}
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          %
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="payments.dontRequireIfCompletedMinNumberOfAppointments"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t(
-                        "settings.appointments.form.payments.dontRequireIfCompletedMinNumberOfAppointments",
-                      )}{" "}
-                      <InfoTooltip>
-                        <I18nRichText
-                          namespace="admin"
-                          text="settings.appointments.form.payments.dontRequireIfCompletedMinNumberOfAppointmentsTooltip"
-                        />
-                      </InfoTooltip>
-                    </FormLabel>
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            disabled={disabled}
-                            placeholder="3"
-                            type="number"
-                            className={InputGroupInputClasses()}
-                            {...field}
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          {t(
-                            "settings.appointments.form.payments.appointments",
-                          )}
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
-
-          <FormField
-            control={form.control}
-            name="payments.fullPaymentAmountThreshold"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t(
-                    "settings.appointments.form.payments.fullPaymentAmountThreshold",
-                  )}{" "}
+                  {t("settings.appointments.form.payments.depositAmount")}{" "}
                   <InfoTooltip>
                     <I18nRichText
                       namespace="admin"
-                      text="settings.appointments.form.payments.fullPaymentAmountThresholdTooltip"
+                      text="settings.appointments.form.payments.depositAmountTooltip"
                     />
                   </InfoTooltip>
                 </FormLabel>
                 <FormControl>
                   <InputGroup>
-                    <InputGroupAddon
-                      className={InputGroupAddonClasses({
-                        variant: "prefix",
-                      })}
-                    >
-                      {currencySymbol}
-                    </InputGroupAddon>
                     <InputGroupInput>
                       <Input
                         disabled={disabled}
-                        placeholder="5.00"
+                        placeholder="20"
                         type="number"
-                        className={InputGroupInputClasses({
-                          variant: "prefix",
-                        })}
+                        className={InputGroupInputClasses()}
                         {...field}
                       />
                     </InputGroupInput>
+                    <InputGroupAddon className={InputGroupAddonClasses()}>
+                      %
+                    </InputGroupAddon>
+                  </InputGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="payments.dontRequireIfCompletedMinNumberOfAppointments"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {t(
+                    "settings.appointments.form.payments.dontRequireIfCompletedMinNumberOfAppointments",
+                  )}{" "}
+                  <InfoTooltip>
+                    <I18nRichText
+                      namespace="admin"
+                      text="settings.appointments.form.payments.dontRequireIfCompletedMinNumberOfAppointmentsTooltip"
+                    />
+                  </InfoTooltip>
+                </FormLabel>
+                <FormControl>
+                  <InputGroup>
+                    <InputGroupInput>
+                      <Input
+                        disabled={disabled}
+                        placeholder="3"
+                        type="number"
+                        className={InputGroupInputClasses()}
+                        {...field}
+                      />
+                    </InputGroupInput>
+                    <InputGroupAddon className={InputGroupAddonClasses()}>
+                      {t("settings.appointments.form.payments.appointments")}
+                    </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
                 <FormMessage />
@@ -221,6 +148,49 @@ export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({
           />
         </>
       )}
+
+      <FormField
+        control={form.control}
+        name="payments.fullPaymentAmountThreshold"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              {t(
+                "settings.appointments.form.payments.fullPaymentAmountThreshold",
+              )}{" "}
+              <InfoTooltip>
+                <I18nRichText
+                  namespace="admin"
+                  text="settings.appointments.form.payments.fullPaymentAmountThresholdTooltip"
+                />
+              </InfoTooltip>
+            </FormLabel>
+            <FormControl>
+              <InputGroup>
+                <InputGroupAddon
+                  className={InputGroupAddonClasses({
+                    variant: "prefix",
+                  })}
+                >
+                  {currencySymbol}
+                </InputGroupAddon>
+                <InputGroupInput>
+                  <Input
+                    disabled={disabled}
+                    placeholder="5.00"
+                    type="number"
+                    className={InputGroupInputClasses({
+                      variant: "prefix",
+                    })}
+                    {...field}
+                  />
+                </InputGroupInput>
+              </InputGroup>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 };

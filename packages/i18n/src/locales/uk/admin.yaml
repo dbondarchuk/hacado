@@ -623,6 +623,7 @@ financialOverview:
 paymentsList:
   title: Платежі
   description: Переглядайте всі записані платежі за записами та клієнтами.
+  addPayment: Додати платіж
   empty: Платежів не знайдено.
   loadError: Не вдалося завантажити платежі.
   filters:
@@ -1287,6 +1288,8 @@ customers:
   addNewShort: Додати новий
   details: Деталі
   appointments: Записи
+  payments: Платежі
+  addPayment: Додати платіж
   files: Файли
   communications: Комунікації
   deletedCustomer: Видалений клієнт
@@ -3592,6 +3595,12 @@ payment:
         label: Подарункова картка
       customerId:
         label: Клієнт
+      appointmentId:
+        label: Запис
+        assign: Призначити запис
+        change: Змінити
+        clear: Очистити
+        none: Не призначено
       paymentLinkAppId:
         label: Додаток
       channel:
@@ -3606,6 +3615,10 @@ payment:
     refundSuccessDescription: Оплату було успішно повернено
     refundError: Повернення оплати не вдалося
     refundErrorDescription: Повернення оплати не вдалося. Дивіться деталі в консолі браузера
+    paymentAppRequired:
+      Налаштуйте платіжний застосунок за замовчуванням у розділі
+      Додатки → Додатки за замовчуванням, перш ніж створювати
+      посилання на оплату.
   descriptions:
     fullPayment: Повна оплата
     deposit: Депозит

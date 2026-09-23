@@ -10,6 +10,8 @@ import { GOOGLE_CALENDAR_APP_NAME } from "./apps/google-calendar/const";
 import { GoogleCalendarImages } from "./apps/google-calendar/images";
 import { OUTLOOK_APP_NAME } from "./apps/outlook/const";
 import { OutlookImages } from "./apps/outlook/images";
+import { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
+import { PaymentLinksImages } from "./apps/payment-links/images";
 import { PAYPAL_APP_NAME } from "./apps/paypal/const";
 import { PaypalImages } from "./apps/paypal/images";
 import { RESEND_APP_NAME } from "./apps/resend/const";
@@ -39,4 +41,5 @@ export const AppImages: Record<string, string[]> = {
   [AUTOMATIC_STRUCTURED_DATA_APP_NAME]: AutomaticStructuredDataImages,
   [AUTOMATIC_AI_DISCOVERY_APP_NAME]: AutomaticAiDiscoveryImages,
   [GOOGLE_ANALYTICS_APP_NAME]: GoogleAnalyticsImages,
+  [PAYMENT_LINKS_APP_NAME]: PaymentLinksImages,
 };

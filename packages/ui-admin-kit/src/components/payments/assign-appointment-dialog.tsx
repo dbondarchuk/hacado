@@ -110,7 +110,14 @@ type AssignAppointmentDialogProps = {
   referenceDate?: Date;
   /** The appointment the payment is currently assigned to, if any. */
   currentAppointmentId?: string;
-  onConfirm: (appointmentId: string) => Promise<void> | void;
+  /** Pre-filter (and optionally lock) appointments to this customer. */
+  customerId?: string;
+  /** When true with customerId, hide the customer selector. */
+  lockCustomer?: boolean;
+  onConfirm: (
+    appointmentId: string,
+    appointment: Appointment,
+  ) => Promise<void> | void;
 };
 
 export const AssignAppointmentDialog = ({
@@ -118,6 +125,8 @@ export const AssignAppointmentDialog = ({
   onOpenChange,
   referenceDate,
   currentAppointmentId,
+  customerId: lockedCustomerId,
+  lockCustomer = false,
   onConfirm,
 }: AssignAppointmentDialogProps) => {
   const t = useI18n("admin");
@@ -243,10 +252,11 @@ export const AssignAppointmentDialog = ({
       referenceDate ? getDefaultRange(referenceDate, timeZone) : undefined,
     );
     setStatusFilterState(DEFAULT_STATUS);
+    setCustomerId(lockedCustomerId);
     setSort(referenceDate ? REFERENCE_DATE_SORT : DEFAULT_SORT);
     setPage(0);
     setSelected(undefined);
-  }, [open, referenceDate, timeZone]);
+  }, [open, referenceDate, timeZone, lockedCustomerId]);
 
   const toggleSort = (id: string) => {
     setSort((current) => {
@@ -293,9 +303,13 @@ export const AssignAppointmentDialog = ({
     if (!selected) {
       return;
     }
+    const appointment = items.find((item) => item._id === selected);
+    if (!appointment) {
+      return;
+    }
     setSubmitting(true);
     try {
-      await onConfirm(selected);
+      await onConfirm(selected, appointment);
       onOpenChange(false);
     } finally {
       setSubmitting(false);
@@ -304,14 +318,16 @@ export const AssignAppointmentDialog = ({
 
   const additionalFilters = (
     <>
-      <div className="grid min-w-0 md:max-w-sm">
-        <CustomerSelector
-          value={customerId}
-          allowClear
-          onItemSelect={(value) => setCustomerId(value)}
-          className="w-full"
-        />
-      </div>
+      {!lockCustomer && (
+        <div className="grid min-w-0 md:max-w-sm">
+          <CustomerSelector
+            value={customerId}
+            allowClear
+            onItemSelect={(value) => setCustomerId(value)}
+            className="w-full"
+          />
+        </div>
+      )}
       <div className="grid min-w-0 md:max-w-sm">
         <CalendarDateRangePicker
           range={range}

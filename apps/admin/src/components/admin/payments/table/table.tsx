@@ -6,7 +6,9 @@ import {
 import { DataTable } from "@hacado/ui-admin";
 import { columns } from "./columns";
 
-export const PaymentsTable: React.FC = async () => {
+export const PaymentsTable: React.FC<{ customerId?: string }> = async ({
+  customerId,
+}) => {
   const page = paymentsSearchParamsCache.get("page");
   const limit = paymentsSearchParamsCache.get("limit");
   const sort = paymentsSearchParamsCache.get("sort");
@@ -29,7 +31,7 @@ export const PaymentsTable: React.FC = async () => {
     sort,
     search,
     range: { start, end },
-    customerId: customerIds?.[0],
+    customerId: customerId ?? customerIds?.[0],
     appointmentId: appointmentIds?.[0],
     type,
     method,

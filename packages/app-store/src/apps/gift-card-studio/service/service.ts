@@ -1781,18 +1781,17 @@ export class GiftCardStudioConnectedApp
       );
     }
 
-    const { booking: config, defaultApps } =
-      await this.props.services.configurationService.getConfigurations(
-        "booking",
+    const defaultApps =
+      await this.props.services.configurationService.getConfiguration(
         "defaultApps",
       );
 
     const paymentAppId = defaultApps?.paymentAppId;
 
-    if (!config.payments?.enabled || !paymentAppId) {
-      logger.debug({ config }, "Payments are not enabled");
+    if (!paymentAppId) {
+      logger.debug({}, "Default payment app is not configured");
       return Response.json(
-        { success: false, code: "payments_not_enabled" },
+        { success: false, code: "payment_app_required" },
         { status: 405 },
       );
     }

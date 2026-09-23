@@ -49,7 +49,7 @@ export default async function PaymentsPage(props: Params) {
             description={t("paymentsList.description")}
           />
         </div>
-        <PaymentsTableAction />
+        <PaymentsTableAction showAddPayment />
         <Suspense
           key={key}
           fallback={<DataTableSkeleton columnCount={8} rowCount={10} />}

@@ -4,11 +4,15 @@ import { AppointmentsTableAction } from "@/components/admin/appointments/table/t
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
 import { CustomerForm } from "@/components/admin/customers/form";
 import PageContainer from "@/components/admin/layout/page-container";
+import { PaymentsTable } from "@/components/admin/payments/table/table";
+import { PaymentsTableAction } from "@/components/admin/payments/table/table-action";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import {
   appointmentsSearchParamsCache,
   assetsSearchParamsCache,
   communicationLogsSearchParamsCache,
+  paymentsSearchParamsCache,
+  paymentsSearchParamsSerializer,
   serializeAppointmentsSearchParams,
   serializeAssetsSearchParams,
   serializeCommunicationLogsSearchParams,
@@ -38,6 +42,7 @@ import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { cache, Suspense } from "react";
+import { AddPayment } from "./add-payment";
 import {
   CustomerFiles,
   CustomerFilesTableAction,
@@ -49,6 +54,7 @@ type Props = PageProps<"/dashboard/customers/[id]/[tab]">;
 
 const detailsTab = "details";
 const appointmentsTab = "appointments";
+const paymentsTab = "payments";
 const filesTab = "files";
 const communicationsTab = "communications";
 
@@ -56,6 +62,7 @@ const packagesTab = "packages";
 const staticTabs = [
   detailsTab,
   appointmentsTab,
+  paymentsTab,
   packagesTab,
   filesTab,
   communicationsTab,
@@ -94,8 +101,10 @@ export default async function CustomerPage(props: Props) {
     getServicesContainer(),
     getSession(),
   ]);
+
   const canUpdateCustomer = hasPermission(session.user, "customer", "update");
   const canUsePackages = sessionCanUseFeature(session, "packages");
+  const canUsePayments = sessionCanUseFeature(session, "payments");
   const params = await props.params;
   const path = `/dashboard/customers/${params.id}`;
 
@@ -116,8 +125,11 @@ export default async function CustomerPage(props: Props) {
     .filter((item) => item.scrollable)
     .map((item) => item.href);
   const visibleStaticTabs = staticTabs.filter(
-    (tab) => tab !== packagesTab || canUsePackages,
+    (tab) =>
+      (tab !== packagesTab || canUsePackages) &&
+      (tab !== paymentsTab || canUsePayments),
   );
+
   const allTabValues = [...visibleStaticTabs, ...dynamicTabHrefs];
   const scrollableTabs = [
     ...baseScrollableTabs.filter(
@@ -125,10 +137,15 @@ export default async function CustomerPage(props: Props) {
     ),
     ...dynamicTabScrollable,
   ];
+
   const activeTab = params.tab as string;
   if (activeTab === packagesTab && !canUsePackages) {
     redirect(`/dashboard/customers/${params.id}/${detailsTab}`);
   }
+  if (activeTab === paymentsTab && !canUsePayments) {
+    redirect(`/dashboard/customers/${params.id}/${detailsTab}`);
+  }
+
   if (!allTabValues.includes(activeTab)) {
     logger.warn(
       {
@@ -147,6 +164,9 @@ export default async function CustomerPage(props: Props) {
   if (activeTab === appointmentsTab) {
     const parsed = appointmentsSearchParamsCache.parse(searchParams);
     key = serializeAppointmentsSearchParams({ ...parsed });
+  } else if (activeTab === paymentsTab) {
+    const parsed = paymentsSearchParamsCache.parse(searchParams);
+    key = paymentsSearchParamsSerializer({ ...parsed });
   } else if (activeTab === filesTab) {
     const parsed = assetsSearchParamsCache.parse(searchParams);
     key = serializeAssetsSearchParams({ ...parsed });
@@ -188,6 +208,7 @@ export default async function CustomerPage(props: Props) {
   const tabTitle: Record<StaticTab, string> = {
     [detailsTab]: t("customers.details"),
     [appointmentsTab]: t("customers.appointments"),
+    [paymentsTab]: t("customers.payments"),
     [packagesTab]: t("services.packages.customer.title"),
     [filesTab]: t("customers.files"),
     [communicationsTab]: t("customers.communications"),
@@ -268,6 +289,33 @@ export default async function CustomerPage(props: Props) {
                     }
                   >
                     <AppointmentsTable customerId={params.id} />
+                  </Suspense>
+                </TabsContent>
+              )}
+              {activeTab === paymentsTab && canUsePayments && (
+                <TabsContent
+                  value={paymentsTab}
+                  className="flex flex-1 flex-col gap-4"
+                >
+                  <div className="flex flex-col md:flex-row gap-2 w-full">
+                    <PaymentsTableAction
+                      className="flex-1"
+                      showCustomerFilter={false}
+                      customerIdLock={params.id}
+                    />
+                    {!customer.isDeleted && (
+                      <HeaderActionButtonsPortal>
+                        <AddPayment customerId={params.id} />
+                      </HeaderActionButtonsPortal>
+                    )}
+                  </div>
+                  <Suspense
+                    key={key}
+                    fallback={
+                      <DataTableSkeleton columnCount={10} rowCount={10} />
+                    }
+                  >
+                    <PaymentsTable customerId={params.id} />
                   </Suspense>
                 </TabsContent>
               )}

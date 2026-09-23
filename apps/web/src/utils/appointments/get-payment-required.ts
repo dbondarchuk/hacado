@@ -251,28 +251,27 @@ export const getAppointmentEventAndIsPaymentRequired = async (
   logger.debug(
     {
       customersPriorAppointmentsCount,
-      paymentsEnabled: config.payments?.enabled,
-      paymentAppId: config.payments?.enabled ? paymentAppId : undefined,
+      paymentAppId,
       requireDeposit:
-        config.payments?.enabled && "requireDeposit" in config.payments
+        config.payments && "requireDeposit" in config.payments
           ? config.payments.requireDeposit
           : undefined,
       depositPercentage:
-        config.payments?.enabled && "depositPercentage" in config.payments
+        config.payments && "depositPercentage" in config.payments
           ? config.payments.depositPercentage
           : undefined,
-      dontRequireIfCompletedMinNumberOfAppointments:
-        config.payments?.enabled && config.payments.requireDeposit
-          ? config.payments.dontRequireIfCompletedMinNumberOfAppointments
-          : undefined,
+      dontRequireIfCompletedMinNumberOfAppointments: config.payments
+        ?.requireDeposit
+        ? config.payments.dontRequireIfCompletedMinNumberOfAppointments
+        : undefined,
     },
     "Retrieved booking configuration",
   );
 
-  if (config.payments?.enabled && paymentAppId) {
+  if (paymentAppId) {
     logger.debug(
       { paymentAppId },
-      "Payments enabled, determining deposit requirement",
+      "Payment app configured, determining deposit requirement",
     );
 
     if (appointmentRequest.purchasePackageId && billableTotal > 0) {
@@ -521,11 +520,10 @@ export const getAppointmentEventAndIsPaymentRequired = async (
   } else {
     logger.debug(
       {
-        paymentsEnabled: config.payments?.enabled,
-        hasPaymentAppId: !!(config.payments?.enabled && paymentAppId),
-        reason: "payments_disabled_or_no_app_id",
+        hasPaymentAppId: !!paymentAppId,
+        reason: "no_payment_app_configured",
       },
-      "Payments disabled or no payment app configured",
+      "No payment app configured",
     );
   }
 

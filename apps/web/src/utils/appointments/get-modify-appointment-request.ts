@@ -150,7 +150,7 @@ export const getModifyAppointmentInformationRequestResult = async (
   ]);
 
   const canCollectOnlinePayment = Boolean(
-    canUsePayments && config.payments?.enabled && defaultApps?.paymentAppId,
+    canUsePayments && defaultApps?.paymentAppId,
   );
 
   const option = await servicesContainer.servicesService.getOption(

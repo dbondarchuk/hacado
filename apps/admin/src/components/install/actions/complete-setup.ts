@@ -87,7 +87,7 @@ function buildInstallPaymentsConfiguration(
   prefs: InstallPreferences,
 ): PaymentsConfiguration {
   if (!prefs.acceptPayments) {
-    return { enabled: false };
+    return { requireDeposit: false };
   }
   if (prefs.depositEnabled) {
     let depositPercentage = Math.round(Number.parseFloat(prefs.depositPercent));
@@ -96,13 +96,11 @@ function buildInstallPaymentsConfiguration(
     }
     depositPercentage = Math.min(100, Math.max(10, depositPercentage));
     return {
-      enabled: true,
       requireDeposit: true,
       depositPercentage,
     };
   }
   return {
-    enabled: true,
     requireDeposit: false,
   };
 }

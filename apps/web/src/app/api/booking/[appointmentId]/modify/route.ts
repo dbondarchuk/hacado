@@ -131,7 +131,7 @@ const processRescheduleRequest = async (
     information.action === "paymentRequired" &&
     information.paymentAmount > 0
   ) {
-    if (!config.payments?.enabled || !paymentAppId) {
+    if (!paymentAppId) {
       logger.warn("Payment required but online payments are not available");
       return NextResponse.json(
         { success: false, error: "online_payment_unavailable" },
@@ -424,7 +424,7 @@ const processCancelRequest = async (
   }
 
   if (information.action === "payment" && information.paymentAmount > 0) {
-    if (!config.payments?.enabled || !paymentAppId) {
+    if (!paymentAppId) {
       logger.warn("Payment required but online payments are not available");
       return NextResponse.json(
         { success: false, error: "online_payment_unavailable" },

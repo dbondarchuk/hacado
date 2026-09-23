@@ -13,7 +13,11 @@ import { useQueryState } from "nuqs";
 import { useCallback, useState } from "react";
 import { usePaymentsTableFilters } from "./use-table-filters";
 
-export function ExportPaymentsButton() {
+export function ExportPaymentsButton({
+  customerIdLock,
+}: {
+  customerIdLock?: string;
+}) {
   const t = useI18n("admin");
   const [isExporting, setIsExporting] = useState(false);
   const {
@@ -42,7 +46,9 @@ export function ExportPaymentsButton() {
         status: statusFilter ?? undefined,
         start: start ?? undefined,
         end: end ?? undefined,
-        customerId: customerFilter ?? undefined,
+        customerId: customerIdLock
+          ? [customerIdLock]
+          : (customerFilter ?? undefined),
         appointmentId: appointmentFilter ?? undefined,
         sort: sort ?? undefined,
       });
@@ -69,6 +75,7 @@ export function ExportPaymentsButton() {
   }, [
     appointmentFilter,
     customerFilter,
+    customerIdLock,
     end,
     methodFilter,
     searchQuery,

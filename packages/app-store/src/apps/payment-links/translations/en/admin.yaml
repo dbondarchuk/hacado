@@ -1,13 +1,25 @@
 app:
   displayName: Payment Links
   description: |-
-    Send hosted payment links by email or SMS so customers can pay online.
+    **Payment Links** lets you collect payment anytime—without waiting for checkout at booking.
+
+    Create a hosted payment page for an appointment, customer balance, gift card, or custom amount, then share it by **email**, **SMS**, or **copying the link**. Customers open the link and pay online through your connected payment provider.
+
+    Use it to:
+    - Send payment requests from appointments, customers, or gift cards in a few clicks.
+    - Optionally require **identity verification** (contact match or OTP) before paying.
+    - Offer **tips**, set **link expiry**, and brand the page with your header and footer.
+    - Track pending and paid links alongside your other payments.
 statusText:
   successfully_set_up: Successfully set up Payment Links
   error_processing_configuration: Error processing Payment Links configuration
 form:
   connect: Connect <app></app>
   update: Update <app></app>
+  paymentAppRequired:
+    Set a default payment app in Apps → Default apps before connecting
+    Payment Links.
+  paymentAppRequiredLink: Open Default apps
   verification:
     label: Verification
     description: How customers prove who they are before paying

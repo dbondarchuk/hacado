@@ -89,7 +89,7 @@ export async function PUT(
   ) {
     data = {
       ...(data as BookingConfiguration),
-      payments: { enabled: false },
+      payments: { requireDeposit: false },
     };
   }
 

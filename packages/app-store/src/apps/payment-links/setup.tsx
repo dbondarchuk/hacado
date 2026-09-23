@@ -15,6 +15,7 @@ import {
   FormMessage,
   IComboboxItem,
   Input,
+  Link,
   Select,
   SelectContent,
   SelectItem,
@@ -23,6 +24,7 @@ import {
   Skeleton,
   Spinner,
   Switch,
+  toast,
   toastPromise,
 } from "@hacado/ui";
 import {
@@ -63,6 +65,10 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   appId: existingAppId,
 }) => {
   const [connectedAppId, setConnectedAppId] = React.useState(existingAppId);
+  const [hasPaymentApp, setHasPaymentApp] = React.useState<boolean | null>(
+    existingAppId ? true : null,
+  );
+
   const tApps = useI18n("apps");
   const {
     appStatus,
@@ -90,7 +96,36 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const tipsEnabled = form.watch("tipsEnabled");
   const tipPresets = form.watch("tipPresets") ?? [];
 
+  React.useEffect(() => {
+    if (connectedAppId) {
+      return;
+    }
+
+    let cancelled = false;
+    void adminApi.configuration
+      .getConfiguration("defaultApps")
+      .then((apps) => {
+        if (!cancelled) {
+          setHasPaymentApp(!!apps?.paymentAppId);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setHasPaymentApp(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [connectedAppId]);
+
   const onInstall = React.useCallback(async () => {
+    if (!hasPaymentApp) {
+      toast.error(t("form.paymentAppRequired"));
+      return;
+    }
+
     try {
       setIsLoading(true);
       // Install only — `install()` seeds templates + header/footer. Do not call
@@ -115,7 +150,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }, [onError, onSuccess, setIsLoading, tApps]);
+  }, [hasPaymentApp, onError, onSuccess, setIsLoading, t, tApps]);
 
   const fetchHeaders = React.useCallback(
     async (page: number, search?: string) => {
@@ -174,16 +209,18 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   // First-time install: one click. Templates and header/footer are seeded in
   // `install()`; settings form appears in the same dialog after.
   if (!connectedAppId) {
+    const canConnect = hasPaymentApp === true;
+
     return (
       <>
         <div className="flex flex-col items-center gap-2 w-full">
           <Button
-            disabled={isLoading}
+            disabled={isLoading || !canConnect}
             variant="default"
             className="inline-flex gap-2 items-center w-full"
             onClick={() => void onInstall()}
           >
-            {isLoading && <Spinner />}
+            {(isLoading || hasPaymentApp === null) && <Spinner />}
             <span className="inline-flex gap-2 items-center">
               {t.rich("form.connect", {
                 app: () => (
@@ -192,6 +229,14 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               })}
             </span>
           </Button>
+          {hasPaymentApp === false && (
+            <p className="text-sm text-muted-foreground text-center">
+              {t("form.paymentAppRequired")}{" "}
+              <Link href="/dashboard/apps/default">
+                {t("form.paymentAppRequiredLink")}
+              </Link>
+            </p>
+          )}
         </div>
         {appStatus && (
           <ConnectedAppStatusMessage
