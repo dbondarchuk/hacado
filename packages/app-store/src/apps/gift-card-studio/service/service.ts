@@ -1002,6 +1002,7 @@ export class GiftCardStudioConnectedApp
         appId: paymentLinkApp._id,
         appName: paymentLinkApp.name,
         publicId,
+        ...(memberId ? { createdByMemberId: memberId } : {}),
       };
 
       const { app, service } =

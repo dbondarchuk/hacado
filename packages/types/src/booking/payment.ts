@@ -267,6 +267,8 @@ export type PaymentUpdateModel = {
       appName: string;
       /** Unguessable public token used in `/payment?id=`. */
       publicId: string;
+      /** Staff member who created the payment link (Better Auth members._id). */
+      createdByMemberId?: string;
       /** PaymentIntent id once checkout starts. */
       intentId?: string;
       /** Processor external id once paid. */

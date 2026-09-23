@@ -3670,8 +3670,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/registry.ts": {
-    "mtime": 1786820409.1526563,
-    "ast_hash": "efec1873dbd0e6ff0293247bc77c09cd",
+    "mtime": 1790189127.0305793,
+    "ast_hash": "eaa6ab216e2200501cc3c5a9ca9d8789",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps.ts": {
@@ -5710,8 +5710,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/service.ts": {
-    "mtime": 1790184671.1529493,
-    "ast_hash": "a265af1de23431c501838e32d6b4e580",
+    "mtime": 1790188477.4005184,
+    "ast_hash": "6ac2e2efc1de6c73e19942d6bae103fc",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/service/utils.ts": {
@@ -13415,8 +13415,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/booking/payment.ts": {
-    "mtime": 1790116654.5670955,
-    "ast_hash": "5260208bafab52d1adafbc7d871ad48b",
+    "mtime": 1790188463.0555322,
+    "ast_hash": "401e8c6643fb4039beb93572c4a1e39b",
     "semantic_hash": ""
   },
   "packages/types/src/booking/period.ts": {
@@ -32115,13 +32115,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/payments/payment-link/route.ts": {
-    "mtime": 1790116654.488833,
-    "ast_hash": "668e3d125b1c1ff039800a067bbcd50f",
+    "mtime": 1790188468.5008025,
+    "ast_hash": "b32b2e5debed45fe0d071d7570b02ee4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/app.tsx": {
-    "mtime": 1790116654.5509129,
-    "ast_hash": "02af53392b0754dd9bb873f373db9441",
+    "mtime": 1790189127.1639166,
+    "ast_hash": "57b13a7550add9ac7c1db8ab71b86eb7",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/const.ts": {
@@ -32130,18 +32130,18 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/models.ts": {
-    "mtime": 1790116654.5509129,
-    "ast_hash": "ed0dade8916c6284dec63e8ed1272b9c",
+    "mtime": 1790188465.7500474,
+    "ast_hash": "baa96917cb790dc8d7b180e9412e5778",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/service.ts": {
-    "mtime": 1790184663.816484,
-    "ast_hash": "08d3a9c1bf178e36cbd917e68fc5c17c",
+    "mtime": 1790189617.5269194,
+    "ast_hash": "bbea821aa266a52f85fff1a2321488d4",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/setup.tsx": {
-    "mtime": 1790185757.5389857,
-    "ast_hash": "2812332f74c33d8c8c33399d7531bb2a",
+    "mtime": 1790188528.138366,
+    "ast_hash": "5bd8f25cec61f56cb2837265b1212538",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/templates/en/payment-links-email.ts": {
@@ -32190,8 +32190,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/en/admin.yaml": {
-    "mtime": 1790185732.397635,
-    "ast_hash": "0e6a4fa4705190a68b1379daa5656570",
+    "mtime": 1790189572.3100667,
+    "ast_hash": "8570d56e4906cca175dfefc67cd30d72",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/en/public.yaml": {
@@ -32200,8 +32200,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/uk/admin.yaml": {
-    "mtime": 1790185734.625709,
-    "ast_hash": "18ed1102d440161da6556a401c36c501",
+    "mtime": 1790189585.3358028,
+    "ast_hash": "7d62a755199eb09656b7b5f412025b6c",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/uk/public.yaml": {
@@ -32272,6 +32272,21 @@
   "packages/app-store/src/apps/payment-links/images/image3.png": {
     "mtime": 1790183924.1534362,
     "ast_hash": "adb5f242784ccd1fc0eeb94fb70bd800",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/payment-links/emails/paid-email.ts": {
+    "mtime": 1790189569.5300038,
+    "ast_hash": "d15109c74b104d090b22f82922ae74d3",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/payment-links/app-events.ts": {
+    "mtime": 1790189585.397038,
+    "ast_hash": "0de4ec58e077edb8d9fbb29182671f0a",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/payment-links/models/events.ts": {
+    "mtime": 1790189113.5277376,
+    "ast_hash": "1afffbdcabd619f1ffe07fcf289ac830",
     "semantic_hash": ""
   }
 }

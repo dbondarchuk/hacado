@@ -55,6 +55,41 @@ form:
     label: Підвал сторінки
     description: Необовʼязковий підвал публічної сторінки оплати
     placeholder: Оберіть підвал
+  notifyOnPaid:
+    label: Надсилати email персоналу після оплати
+    description:
+      Надсилати email автору посилання та спеціалісту, призначеному на
+      запис, коли клієнт оплачує
+  notifyCoordinatorsOnPaid:
+    label: Надсилати email координаторам і вище
+    description:
+      Також надсилати email координаторам, адміністраторам і власнику,
+      коли посилання на оплату оплачено
 handlers:
   send-email: Надіслано email з посиланням на оплату {name}
   send-sms: Надіслано SMS з посиланням на оплату {name}
+  paymentPaid: Посилання на оплату — оплату отримано
+activity:
+  paymentPaid:
+    title: Посилання на оплату оплачено
+    description: "Отримано оплату на суму {amount}"
+emails:
+  paid:
+    subject: "Оплату отримано: {amount} від {customerName}"
+    title: Посилання на оплату оплачено
+    body: |
+      Вітаємо, {userName}!
+
+      Посилання на оплату було оплачено.
+
+      **Клієнт:** {customerLink}
+
+      **Сума:** {amount}
+      {tipLine}
+
+      **Оплачено:** {paidAt}
+
+      **Запис:** {appointmentLink}
+    tipLine: |
+      **Чайові:** {tip}
+    viewPayment: Переглянути оплату

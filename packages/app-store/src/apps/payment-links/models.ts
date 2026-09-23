@@ -24,6 +24,10 @@ export const paymentLinksSettingsSchema = z.object({
   tipsEnabled: z.boolean().optional(),
   /** Percentage presets (1–100). Max 4. */
   tipPresets: z.array(paymentLinksTipPresetSchema).max(4).optional(),
+  /** Email the link creator and appointment-assigned member when paid. */
+  notifyOnPaid: z.boolean().optional(),
+  /** Also email coordinators, admins, and the owner when paid. */
+  notifyCoordinatorsOnPaid: z.boolean().optional(),
 });
 
 export type PaymentLinksSettings = z.infer<typeof paymentLinksSettingsSchema>;

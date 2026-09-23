@@ -54,6 +54,41 @@ form:
     label: Page footer
     description: Optional footer shown on the public payment page
     placeholder: Select footer
+  notifyOnPaid:
+    label: Email staff when paid
+    description:
+      Email the person who created the link and the team member assigned
+      to the appointment when the customer pays
+  notifyCoordinatorsOnPaid:
+    label: Email coordinators and above
+    description:
+      Also email coordinators, admins, and the owner when a payment link
+      is paid
 handlers:
   send-email: Sent payment link email to {name}
   send-sms: Sent payment link SMS to {name}
+  paymentPaid: Payment Links - Payment paid
+activity:
+  paymentPaid:
+    title: Payment link paid
+    description: "Payment of {amount} was received"
+emails:
+  paid:
+    subject: "Payment received: {amount} from {customerName}"
+    title: Payment link paid
+    body: |
+      Hi {userName},
+
+      A payment link was paid.
+
+      **Customer:** {customerLink}
+
+      **Amount:** {amount}
+      {tipLine}
+
+      **Paid at:** {paidAt}
+
+      **Appointment:** {appointmentLink}
+    tipLine: |
+      **Tip:** {tip}
+    viewPayment: View payment

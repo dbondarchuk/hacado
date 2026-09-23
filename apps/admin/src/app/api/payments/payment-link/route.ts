@@ -203,6 +203,9 @@ export async function POST(request: NextRequest) {
     appId: paymentLinkApp._id,
     appName: paymentLinkApp.name,
     publicId,
+    ...(actor.actor === "member" && actor.actorId
+      ? { createdByMemberId: actor.actorId }
+      : {}),
   };
 
   const payment = await servicesContainer.paymentsService.createPayment(

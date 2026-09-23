@@ -57,6 +57,8 @@ const DEFAULT_INSTALL_SETTINGS: PaymentLinksSettings = {
   verification: "none",
   tipsEnabled: false,
   tipPresets: [],
+  notifyOnPaid: false,
+  notifyCoordinatorsOnPaid: false,
 };
 
 export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
@@ -465,6 +467,50 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                 )}
               </div>
             )}
+            <FormField
+              control={form.control}
+              name="notifyOnPaid"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 w-full">
+                  <div className="space-y-0.5">
+                    <FormLabel>{t("form.notifyOnPaid.label")}</FormLabel>
+                    <FormDescription>
+                      {t("form.notifyOnPaid.description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="notifyCoordinatorsOnPaid"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 w-full">
+                  <div className="space-y-0.5">
+                    <FormLabel>
+                      {t("form.notifyCoordinatorsOnPaid.label")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("form.notifyCoordinatorsOnPaid.description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="headerId"

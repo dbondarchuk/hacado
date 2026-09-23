@@ -5,6 +5,7 @@ import {
 } from "@hacado/types";
 import { Link2 } from "lucide-react";
 import { PAYMENT_LINKS_APP_NAME } from "./const";
+import { PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE } from "./models/events";
 import {
   PaymentLinksAdminAllKeys,
   PaymentLinksAdminKeys,
@@ -29,7 +30,10 @@ export const PaymentLinksApp: App<
     "communication-templates-provider",
     "event-subscriber",
   ],
-  subscribeTo: [PAYMENT_INTENT_PAID_EVENT_TYPE],
+  subscribeTo: [
+    PAYMENT_INTENT_PAID_EVENT_TYPE,
+    PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE,
+  ],
   Logo: ({ className }) => <Link2 className={className} />,
   isFeatured: false,
   isHidden: false,

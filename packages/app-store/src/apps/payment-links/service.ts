@@ -16,6 +16,7 @@ import {
   CUSTOMER_SESSION_COOKIE,
   customerEventSource,
   EventEnvelope,
+  EventSource,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -25,10 +26,12 @@ import {
   IPublicPageProvider,
   Payment,
   PAYMENT_INTENT_PAID_EVENT_TYPE,
+  PAYMENT_UPDATED_EVENT_TYPE,
   PaymentIntentPaidPayload,
   PaymentIntentUpdateModel,
   PaymentLinkPayment,
   PaymentLinkResult,
+  PaymentUpdatedPayload,
   PublicPageChrome,
   PublicPageChromeContext,
   PublicPageClaim,
@@ -49,6 +52,10 @@ import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { PAYMENT_LINK_VERIFIED_COOKIE } from "./const";
 import { PaymentLinksSettings, paymentLinksSettingsSchema } from "./models";
+import {
+  PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE,
+  type PaymentLinksPaymentPaidPayload,
+} from "./models/events";
 import { PaymentLinksTemplates } from "./templates";
 import {
   PaymentLinksAdminAllKeys,
@@ -259,6 +266,9 @@ export class PaymentLinksConnectedApp
         linkExpiryDays: currentSettings.linkExpiryDays,
         tipsEnabled: currentSettings.tipsEnabled ?? false,
         tipPresets: currentSettings.tipPresets ?? [],
+        notifyOnPaid: currentSettings.notifyOnPaid ?? false,
+        notifyCoordinatorsOnPaid:
+          currentSettings.notifyCoordinatorsOnPaid ?? false,
       };
 
       await this.props.update({
@@ -626,9 +636,15 @@ export class PaymentLinksConnectedApp
     const logger = this.loggerFactory("onEvent");
     logger.debug({ appId: appData._id, envelope }, "Handling event");
 
+    if (envelope.type === PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE) {
+      const { payment } = envelope.payload as PaymentLinksPaymentPaidPayload;
+      await this.activateGiftCardForPaidPayment(payment._id);
+
+      return;
+    }
+
     if (envelope.type !== PAYMENT_INTENT_PAID_EVENT_TYPE) {
       logger.debug({ appId: appData._id, envelope }, "Skipping event");
-
       return;
     }
 
@@ -645,7 +661,6 @@ export class PaymentLinksConnectedApp
         { appId: appData._id, envelope },
         "Skipping event (not payment link)",
       );
-
       return;
     }
 
@@ -668,7 +683,6 @@ export class PaymentLinksConnectedApp
         { sourceId: request.sourceId, intentId: intent._id },
         "Payment link payment not found, checking by intent id",
       );
-
       payment = await this.getPaymentByIntentId(intent._id);
     }
 
@@ -677,7 +691,6 @@ export class PaymentLinksConnectedApp
         { sourceId: request.sourceId, intentId: intent._id },
         "Payment link payment not found for paid intent",
       );
-
       return;
     }
 
@@ -686,7 +699,6 @@ export class PaymentLinksConnectedApp
         { paymentId: payment._id, status: payment.status },
         "Payment already settled, skipping",
       );
-
       return;
     }
 
@@ -704,10 +716,10 @@ export class PaymentLinksConnectedApp
         ? intent.amount
         : payment.amount;
 
-    await this.props.services.paymentsService.updatePayment(
+    const paidPayment = await this.markPaymentLinkPaidIfPending(
+      appData,
       payment._id,
       {
-        status: "paid",
         paidAt: intent.paidAt ?? new Date(),
         amount: paidAmount,
         tipAmount,
@@ -716,11 +728,17 @@ export class PaymentLinksConnectedApp
         processorAppName: intent.appName,
         externalId: intent.externalId,
         fees: intent.fees,
-      } as Partial<PaymentLinkPayment>,
+      },
       customerEventSource(payment.customerId),
     );
 
-    await this.activateGiftCardForPaidPayment(payment._id);
+    if (!paidPayment) {
+      logger.debug(
+        { paymentId: payment._id, intentId: intent._id },
+        "Payment already marked paid by another path",
+      );
+      return;
+    }
 
     logger.info(
       { paymentId: payment._id, intentId: intent._id },
@@ -1170,10 +1188,10 @@ export class PaymentLinksConnectedApp
           ? intent.amount
           : payment.amount;
 
-      await this.props.services.paymentsService.updatePayment(
+      const paidPayment = await this.markPaymentLinkPaidIfPending(
+        appData,
         payment._id,
         {
-          status: "paid",
           paidAt: intent.paidAt ?? new Date(),
           amount: paidAmount,
           tipAmount,
@@ -1182,16 +1200,21 @@ export class PaymentLinksConnectedApp
           processorAppName: intent.appName,
           externalId: intent.externalId,
           fees: intent.fees,
-        } as Partial<PaymentLinkPayment>,
+        },
         customerEventSource(payment.customerId),
       );
 
-      await this.activateGiftCardForPaidPayment(payment._id);
-
-      logger.info(
-        { appId: appData._id, paymentId: payment._id, intentId },
-        "Payment link completed",
-      );
+      if (paidPayment) {
+        logger.info(
+          { appId: appData._id, paymentId: payment._id, intentId },
+          "Payment link completed",
+        );
+      } else {
+        logger.debug(
+          { appId: appData._id, paymentId: payment._id, intentId },
+          "Payment already marked paid by another path",
+        );
+      }
     }
 
     return Response.json({ success: true });
@@ -1256,6 +1279,103 @@ export class PaymentLinksConnectedApp
     });
 
     return (payment as PaymentLinkPayment | null) ?? null;
+  }
+
+  private async markPaymentLinkPaidIfPending(
+    appData: ConnectedAppData,
+    paymentId: string,
+    update: {
+      paidAt: Date;
+      amount: number;
+      tipAmount?: number;
+      intentId: string;
+      processorAppId: string;
+      processorAppName: string;
+      externalId?: string;
+      fees?: PaymentLinkPayment["fees"];
+    },
+    source: EventSource,
+  ): Promise<PaymentLinkPayment | null> {
+    const logger = this.loggerFactory("markPaymentLinkPaidIfPending");
+    const $set: Partial<PaymentLinkPayment> & { updatedAt: Date } = {
+      status: "paid",
+      paidAt: update.paidAt,
+      amount: update.amount,
+      intentId: update.intentId,
+      processorAppId: update.processorAppId,
+      processorAppName: update.processorAppName,
+      updatedAt: new Date(),
+    };
+
+    if (typeof update.tipAmount === "number") {
+      $set.tipAmount = update.tipAmount;
+    }
+    if (update.externalId !== undefined) {
+      $set.externalId = update.externalId;
+    }
+    if (update.fees !== undefined) {
+      $set.fees = update.fees;
+    }
+
+    const db = await this.props.getDbConnection();
+    const paidPayment = await db
+      .collection<Payment>(PAYMENTS_COLLECTION)
+      .findOneAndUpdate(
+        {
+          _id: paymentId,
+          organizationId: this.props.organizationId,
+          method: "payment-link",
+          status: "pending",
+        },
+        { $set },
+        { returnDocument: "after" },
+      );
+
+    if (!paidPayment || paidPayment.method !== "payment-link") {
+      logger.debug({ paymentId }, "No pending payment-link row to mark paid");
+      return null;
+    }
+
+    const payment = paidPayment as PaymentLinkPayment;
+
+    await this.props.services.eventService.emit(
+      PAYMENT_UPDATED_EVENT_TYPE,
+      {
+        payment,
+        update: $set,
+      } satisfies PaymentUpdatedPayload,
+      source,
+    );
+
+    await this.emitPaymentPaid(appData, payment);
+    return payment;
+  }
+
+  private async emitPaymentPaid(
+    appData: ConnectedAppData,
+    payment: PaymentLinkPayment,
+  ): Promise<void> {
+    const logger = this.loggerFactory("emitPaymentPaid");
+    const payload: PaymentLinksPaymentPaidPayload = {
+      appId: appData._id,
+      payment,
+    };
+
+    try {
+      await this.props.services.eventService.emit(
+        PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE,
+        payload,
+        customerEventSource(payment.customerId),
+      );
+    } catch (error) {
+      logger.error(
+        {
+          paymentId: payment._id,
+          error: error instanceof Error ? error.message : String(error),
+        },
+        "Failed to emit payment-links.payment.paid",
+      );
+    }
   }
 
   private async activateGiftCardForPaidPayment(
