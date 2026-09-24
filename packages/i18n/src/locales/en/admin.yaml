@@ -1853,9 +1853,10 @@ services:
             full-payment-only: Only for full payments
         tipPresets:
           label: Tip presets
-          description: Up to 4 percentage options shown to customers
-          percentage: "% of amount"
+          description: Up to 4 percentage options shown to customers. Drag to reorder.
+          percentage: "%"
           add: Add preset
+          move: Move preset
           remove: Remove
       cancellationPolicy:
         title: Cancellations
@@ -3106,9 +3107,10 @@ settings:
             full-payment-only: Only for full payments
         tipPresets:
           label: Tip presets
-          description: Up to 4 percentage options shown to customers
-          percentage: "% of amount"
+          description: Up to 4 percentage options shown to customers. Drag to reorder.
+          percentage: "%"
           add: Add preset
+          move: Move preset
           remove: Remove
       cancellationsAndReschedules:
         title: Cancellations and Reschedules

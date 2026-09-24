@@ -1775,9 +1775,10 @@ services:
             full-payment-only: Лише для повної оплати
         tipPresets:
           label: Пресети чайових
-          description: До 4 відсоткових варіантів для клієнтів
-          percentage: "% від суми"
+          description: До 4 відсоткових варіантів для клієнтів. Перетягніть, щоб змінити порядок.
+          percentage: "%"
           add: Додати пресет
+          move: Перемістити пресет
           remove: Видалити
         requireDeposit:
           label: Вимагати завдаток
@@ -2910,9 +2911,10 @@ settings:
             full-payment-only: Лише для повної оплати
         tipPresets:
           label: Пресети чайових
-          description: До 4 відсоткових варіантів для клієнтів
-          percentage: "% від суми"
+          description: До 4 відсоткових варіантів для клієнтів. Перетягніть, щоб змінити порядок.
+          percentage: "%"
           add: Додати пресет
+          move: Перемістити пресет
           remove: Видалити
       cancellationsAndReschedules:
         title: Скасування та перенесення

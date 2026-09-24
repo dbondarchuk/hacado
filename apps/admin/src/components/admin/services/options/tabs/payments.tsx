@@ -1,3 +1,4 @@
+import { TipPresetsField } from "@/components/admin/payments/tip-presets-field";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import {
@@ -6,10 +7,8 @@ import {
   optionTipsModes,
 } from "@hacado/types";
 import {
-  Button,
   Combobox,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,7 +27,6 @@ import {
   SelectValue,
   useCurrencySymbol,
 } from "@hacado/ui";
-import { Plus, Trash2 } from "lucide-react";
 import React from "react";
 import { TabProps } from "./types";
 
@@ -39,7 +37,6 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
   const requireDeposit = form.watch("requireDeposit");
   const isAmountPaymentType = form.watch("paymentType") === "amount";
   const tipsMode = form.watch("tipsMode") ?? "inherit";
-  const tipPresets = form.watch("tipPresets") ?? [];
   const showTipPresets = tipsMode !== "inherit" && tipsMode !== "off";
 
   return (
@@ -300,90 +297,24 @@ export const PaymentsTab: React.FC<TabProps> = ({ form, disabled }) => {
       />
 
       {showTipPresets && (
-        <div className="flex flex-col gap-2">
-          <FormLabel>
-            {t("services.options.form.paymentSettings.tipPresets.label")}
-          </FormLabel>
-          <FormDescription>
-            {t("services.options.form.paymentSettings.tipPresets.description")}
-          </FormDescription>
-          {tipPresets.map((_preset: number, index: number) => (
-            <FormField
-              key={`option-tip-preset-${index}`}
-              control={form.control}
-              name={`tipPresets.${index}` as const}
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex flex-row items-center gap-2">
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            type="number"
-                            min={1}
-                            max={100}
-                            disabled={disabled}
-                            className={InputGroupInputClasses()}
-                            value={field.value ?? ""}
-                            onChange={(e) => {
-                              const raw = e.target.value;
-                              field.onChange(
-                                raw === "" ? undefined : Number(raw),
-                              );
-                            }}
-                            onBlur={field.onBlur}
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          {t(
-                            "services.options.form.paymentSettings.tipPresets.percentage",
-                          )}
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      disabled={disabled}
-                      aria-label={t(
-                        "services.options.form.paymentSettings.tipPresets.remove",
-                      )}
-                      onClick={() => {
-                        const next = [...tipPresets];
-                        next.splice(index, 1);
-                        form.setValue("tipPresets", next, {
-                          shouldDirty: true,
-                          shouldValidate: true,
-                        });
-                      }}
-                    >
-                      <Trash2 className="size-4" />
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          {tipPresets.length < 4 && (
-            <Button
-              type="button"
-              variant="outline"
-              disabled={disabled}
-              className="inline-flex items-center gap-2 self-start"
-              onClick={() => {
-                form.setValue("tipPresets", [...tipPresets, 15], {
-                  shouldDirty: true,
-                  shouldValidate: true,
-                });
-              }}
-            >
-              <Plus className="size-4" />
-              {t("services.options.form.paymentSettings.tipPresets.add")}
-            </Button>
-          )}
-        </div>
+        <TipPresetsField
+          form={form}
+          name="tipPresets"
+          disabled={disabled}
+          labels={{
+            title: t("services.options.form.paymentSettings.tipPresets.label"),
+            description: t(
+              "services.options.form.paymentSettings.tipPresets.description",
+            ),
+            percentage: t(
+              "services.options.form.paymentSettings.tipPresets.percentage",
+            ),
+            move: t("services.options.form.paymentSettings.tipPresets.move"),
+            remove: t(
+              "services.options.form.paymentSettings.tipPresets.remove",
+            ),
+          }}
+        />
       )}
     </div>
   );
