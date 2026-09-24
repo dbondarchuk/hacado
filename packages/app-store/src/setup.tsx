@@ -17,6 +17,7 @@ import { PaymentLinksAppSetup } from "./apps/payment-links/setup";
 import { PaypalAppSetup } from "./apps/paypal/setup";
 import { ResendAppSetup } from "./apps/resend/setup";
 import { SmartScheduleAppSetup } from "./apps/smart-schedule/setup";
+import { SmtpAppSetup } from "./apps/smtp/setup";
 import { SquareAppSetup } from "./apps/square/setup";
 import { StripeAppSetup } from "./apps/stripe/setup";
 import { TextBeltAppSetup } from "./apps/text-belt/setup";
@@ -45,6 +46,7 @@ import { PAYMENT_LINKS_APP_NAME } from "./apps/payment-links/const";
 import { PAYPAL_APP_NAME } from "./apps/paypal/const";
 import { RESEND_APP_NAME } from "./apps/resend/const";
 import { SMART_SCHEDULE_APP_NAME } from "./apps/smart-schedule/const";
+import { SMTP_APP_NAME } from "./apps/smtp/const";
 import { SQUARE_APP_NAME } from "./apps/square/const";
 import { STRIPE_APP_NAME } from "./apps/stripe/const";
 import { TEXTBELT_APP_NAME } from "./apps/text-belt/const";
@@ -75,6 +77,7 @@ export const AppSetups: Record<string, BasicAppSetup> = {
   [SQUARE_APP_NAME]: (props) => <SquareAppSetup {...props} />,
   [STRIPE_APP_NAME]: (props) => <StripeAppSetup {...props} />,
   [SMART_SCHEDULE_APP_NAME]: (props) => <SmartScheduleAppSetup {...props} />,
+  [SMTP_APP_NAME]: (props) => <SmtpAppSetup {...props} />,
   [TEXTBELT_APP_NAME]: (props) => <TextBeltAppSetup {...props} />,
   [TEXT_MESSAGE_AUTO_REPLY_APP_NAME]: (props) => (
     <TextMessageAutoReplyAppSetup {...props} />

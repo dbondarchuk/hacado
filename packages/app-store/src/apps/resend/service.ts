@@ -640,6 +640,32 @@ export class ResendConnectedApp
         "Successfully sent email via Resend app",
       );
 
+      if (appData.status === "failed") {
+        try {
+          await this.props.update({
+            status: "connected",
+            statusText:
+              "app_resend_admin.statusText.successfully_configured" satisfies ResendAdminAllKeys,
+          });
+
+          logger.info(
+            { appId: appData._id },
+            "Restored Resend app status after a successful send",
+          );
+        } catch (statusError: unknown) {
+          logger.warn(
+            {
+              appId: appData._id,
+              error:
+                statusError instanceof Error
+                  ? statusError.message
+                  : String(statusError),
+            },
+            "Failed to restore Resend app status after a successful send",
+          );
+        }
+      }
+
       return { messageId };
     } catch (e: unknown) {
       logger.error(

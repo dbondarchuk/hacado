@@ -6160,8 +6160,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/app.tsx": {
-    "mtime": 1786820409.3695138,
-    "ast_hash": "d9d1be4721f0097369bd74ac68ec1b6d",
+    "mtime": 1790269793.8444276,
+    "ast_hash": "e2a025eb9c350c9b80fcb38530400d6a",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/const.ts": {
@@ -6174,24 +6174,19 @@
     "ast_hash": "61e0119217e62ddb5f6e6ab87ed4210b",
     "semantic_hash": ""
   },
-  "packages/app-store/src/apps/smtp/menu-items.tsx": {
-    "mtime": 1786820409.3704796,
-    "ast_hash": "8418a9076e16ebf8950a56c20d8f9dfa",
-    "semantic_hash": ""
-  },
   "packages/app-store/src/apps/smtp/models.ts": {
     "mtime": 1786820409.3704796,
     "ast_hash": "3c59b7c76d7c5e474a129908d20c4f27",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/service.ts": {
-    "mtime": 1789232547.9418035,
-    "ast_hash": "a38e5ca37c541b05e63ec09ddeeb0e2f",
+    "mtime": 1790270036.7511578,
+    "ast_hash": "9f63ceb1bfb8ee85977759651fe5c2f1",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/setup.tsx": {
-    "mtime": 1786820409.3714807,
-    "ast_hash": "47dd3dff440322b358500b8bca16a8a4",
+    "mtime": 1790269846.0027547,
+    "ast_hash": "b663f49f32dd874bcc40ee18787420ae",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/translations/index.ts": {
@@ -7400,8 +7395,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/menu-items.ts": {
-    "mtime": 1787879055.877594,
-    "ast_hash": "b67e1015526f9601847c009ee6b0bc5d",
+    "mtime": 1790269797.924973,
+    "ast_hash": "76865de56b2cbbbe91056c81f528fb6f",
     "semantic_hash": ""
   },
   "packages/app-store/src/payment-forms.tsx": {
@@ -7420,8 +7415,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/setup.tsx": {
-    "mtime": 1790116654.5579126,
-    "ast_hash": "f532399859a4a8aca0a2fd7445ceb54e",
+    "mtime": 1790269796.93389,
+    "ast_hash": "f2c44a01b59adc7a38cf1f1b9e81ab2d",
     "semantic_hash": ""
   },
   "packages/app-store/src/translations.ts": {
@@ -15890,13 +15885,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/translations/en/admin.yaml": {
-    "mtime": 1776878322.3281393,
-    "ast_hash": "fa2e5d9fb40fe486ba3b473c125afd2d",
+    "mtime": 1790269798.7057009,
+    "ast_hash": "378f19a75ede900775f2572d568d538b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/smtp/translations/uk/admin.yaml": {
-    "mtime": 1776878322.3291407,
-    "ast_hash": "0b616db2137743350a0f847cb9a128e9",
+    "mtime": 1790269799.7274446,
+    "ast_hash": "66903b552bb619b95b8bd535e5903e09",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/square/translations/en/admin.yaml": {
@@ -30150,8 +30145,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/service.ts": {
-    "mtime": 1789232662.4791331,
-    "ast_hash": "b30d728b1da36a2b02b39eae795e2686",
+    "mtime": 1790270036.8555124,
+    "ast_hash": "4ec3618959068ba8e08a966e1ba30da0",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/setup.tsx": {
@@ -32300,8 +32295,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/tip-preset-card.tsx": {
-    "mtime": 1790212686.685812,
-    "ast_hash": "9bb333304a51cdcf2cbe19f60b9524f6",
+    "mtime": 1790213091.3070436,
+    "ast_hash": "fe1d9435920042185b235274485a2386",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/tip-presets-field.tsx": {

@@ -17,8 +17,6 @@ import { FORMS_APP_NAME } from "./apps/forms/const";
 import { FormsMenuItems } from "./apps/forms/menu-items";
 import { GIFT_CARD_STUDIO_APP_NAME } from "./apps/gift-card-studio/const";
 import { GiftCardStudioMenuItems } from "./apps/gift-card-studio/menu-items";
-import { SMTP_APP_NAME } from "./apps/smtp/const";
-import { SmtpMenuItems } from "./apps/smtp/menu-items";
 import { WAITLIST_APP_NAME } from "./apps/waitlist/const";
 import { WaitlistMenuItems } from "./apps/waitlist/menu-items";
 import { WEEKLY_SCHEDULE_APP_NAME } from "./apps/weekly-schedule/const";
@@ -35,7 +33,6 @@ export const AppMenuItems: Record<string, AppMenuItem[]> = {
   [CUSTOMER_WAITLIST_NOTIFICATIONS_APP_NAME]:
     CustomerWaitlistNotificationsMenuItems,
   [WAITLIST_APP_NAME]: WaitlistMenuItems,
-  [SMTP_APP_NAME]: SmtpMenuItems,
   [WEEKLY_SCHEDULE_APP_NAME]: WeeklyScheduleMenuItems,
   [APPOINTMENT_NOTIFICATIONS_APP_NAME]: AppointmentNotificationsMenuItems,
   [FORMS_APP_NAME]: FormsMenuItems,

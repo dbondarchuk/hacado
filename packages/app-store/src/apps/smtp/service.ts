@@ -287,6 +287,29 @@ export default class SmtpConnectedApp
         "Successfully sent email via SMTP",
       );
 
+      if (appData.status === "failed") {
+        try {
+          await this.props.update({
+            status: "connected",
+            statusText:
+              "app_smtp_admin.statusText.successfully_connected" satisfies SmtpAdminAllKeys,
+          });
+
+          logger.info(
+            { appId: appData._id },
+            "Restored SMTP app status after a successful send",
+          );
+        } catch (statusError: any) {
+          logger.warn(
+            {
+              appId: appData._id,
+              error: statusError?.message || statusError?.toString(),
+            },
+            "Failed to restore SMTP app status after a successful send",
+          );
+        }
+      }
+
       return {
         messageId: result.messageId,
       };

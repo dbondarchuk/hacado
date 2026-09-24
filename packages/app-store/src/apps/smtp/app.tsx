@@ -7,7 +7,7 @@ export const SmtpApp: App<SmtpAdminNamespace, SmtpAdminKeys> = {
   name: SMTP_APP_NAME,
   displayName: "app_smtp_admin.app.displayName",
   scope: ["mail-send"],
-  type: "complex",
+  type: "basic",
   target: "company",
   category: ["apps.categories.communications"],
   Logo: ({ className }) => <SmtpLogo className={className} />,
@@ -17,5 +17,4 @@ export const SmtpApp: App<SmtpAdminNamespace, SmtpAdminKeys> = {
   description: {
     text: "app_smtp_admin.app.description",
   },
-  settingsHref: "settings/smtp",
 };

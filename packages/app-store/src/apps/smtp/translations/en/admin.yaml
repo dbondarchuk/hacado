@@ -2,9 +2,6 @@ title: SMTP
 app:
   displayName: SMTP
   description: SMTP (Simple Mail Transfer Protocol) is an internet standard for email supported by most email processing servers. Connect to SMTP to send email.
-navigation:
-  title: SMTP
-  description: Configure SMTP to send email.
 form:
   host:
     label: SMTP Host
@@ -27,6 +24,8 @@ form:
   authPass:
     label: SMTP authentication password
     tooltip: Password to log in into SMTP server
+  connect: Connect with <app></app>
+  update: Update <app></app>
 statusText:
   successfully_connected: Successfully connected to server
   error_processing_configuration: Error processing SMTP configuration request
