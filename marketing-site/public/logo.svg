@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-labelledby="hacado-logo-title">
+  <title id="hacado-logo-title">Hacado</title>
+  <path fill="#7C8B6F" d="M32 4c10.5 0 18 10 18 22 0 16-8 34-18 34S14 42 14 26C14 14 21.5 4 32 4z"/>
+  <circle cx="32" cy="36" r="8" fill="#C98A4B"/>
+</svg>

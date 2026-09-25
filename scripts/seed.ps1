@@ -1,0 +1,13 @@
+node scripts/seed-org.mjs `
+  --name="Hacado Nails" `
+  --slug=hacado-nails `
+  --email-domain=hacado.com `
+  --plan=studio `
+  --users=5 `
+  --industry=beauty `
+  --profession=nail_technician `
+  --template=spa_c `
+  --appointments `
+  --months=2 `
+  --yes `
+  --purge

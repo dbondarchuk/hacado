@@ -6,7 +6,7 @@ import { Button, cn, Link, Spinner, toast } from "@hacado/ui";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { completeInstallSetup } from "../actions";
-import { STORAGE_KEY } from "../constants";
+import { clearPreferredWebsitePack, STORAGE_KEY } from "../constants";
 
 export function StepFinish() {
   const t = useI18n("install");
@@ -78,6 +78,7 @@ export function StepFinish() {
         setFinalizing(false);
         try {
           localStorage.removeItem(STORAGE_KEY);
+          clearPreferredWebsitePack();
         } catch {
           /* ignore */
         }

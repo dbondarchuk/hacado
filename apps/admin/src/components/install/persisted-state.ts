@@ -307,6 +307,16 @@ export function sanitizePersisted(
   if (typeof merged.installLogo !== "string") {
     merged.installLogo = "";
   }
+  if (typeof merged.websitePackId !== "string") {
+    merged.websitePackId = "";
+  }
+  if (typeof merged.catalogPreferredPackId !== "string") {
+    merged.catalogPreferredPackId = "";
+  }
+  if (!merged.catalogPreferredPackId.trim() && merged.websitePackId.trim()) {
+    // Older localStorage snapshots only had websitePackId.
+    merged.catalogPreferredPackId = merged.websitePackId.trim();
+  }
 
   // Backward compatibility with older install snapshots.
   const rawInviteMode = (partialMerged as any).inviteMode;

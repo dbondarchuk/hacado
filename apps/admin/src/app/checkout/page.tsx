@@ -1,4 +1,6 @@
 import { CheckoutPlans } from "@/components/checkout/checkout-plans";
+import { preferredWebsitePackHref } from "@/components/install/constants";
+import { RememberWebsitePack } from "@/components/install/remember-website-pack";
 import { StepVerify } from "@/components/install/steps/step-verify";
 import {
   getPolarBillingPlansFromEnv,
@@ -56,9 +58,21 @@ function formatPriceParts(
   return { amount, period: "" };
 }
 
-export default async function CheckoutPage() {
+export default async function CheckoutPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ template?: string }>;
+}) {
   const session = await getSession();
   const t = await getI18nAsync("install");
+  const sp = await searchParams;
+  const templatePackId = sp.template?.trim() || "";
+  const checkoutPath = templatePackId
+    ? preferredWebsitePackHref("/checkout", templatePackId)
+    : "/checkout";
+  const installPath = templatePackId
+    ? preferredWebsitePackHref("/install", templatePackId)
+    : "/install";
 
   const organizationInstalled = Boolean(
     (session.user as { organizationInstalled?: boolean }).organizationInstalled,
@@ -68,7 +82,7 @@ export default async function CheckoutPage() {
   }
 
   if (await userRequiresProfileCompletion(session.user)) {
-    redirect(buildCompleteProfileCallbackUrl("/checkout"));
+    redirect(buildCompleteProfileCallbackUrl(checkoutPath));
   }
 
   const emailVerified = Boolean(
@@ -80,12 +94,13 @@ export default async function CheckoutPage() {
 
   const billingOk = await organizationHasInstallBillingAccess(organizationId);
   if (billingOk) {
-    redirect("/install");
+    redirect(installPath);
   }
 
   if (!emailVerified) {
     return (
       <div className="flex min-h-screen flex-col bg-muted/30">
+        <RememberWebsitePack packId={templatePackId || null} />
         <header className="border-b bg-card px-4 py-4 md:px-8">
           <div className="mx-auto flex w-full max-w-3xl items-center gap-2">
             <Image src="/logo.png" alt="Hacado" width={28} height={28} />
@@ -94,7 +109,7 @@ export default async function CheckoutPage() {
             </div>
           </div>
         </header>
-        <StepVerify email={session.user.email} callbackURL="/checkout" />
+        <StepVerify email={session.user.email} callbackURL={checkoutPath} />
       </div>
     );
   }
@@ -174,6 +189,7 @@ export default async function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <RememberWebsitePack packId={templatePackId || null} />
       <header className="border-b bg-card px-4 py-4 md:px-8">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
           <div className="flex items-center gap-2">

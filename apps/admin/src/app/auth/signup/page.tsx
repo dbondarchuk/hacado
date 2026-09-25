@@ -1,6 +1,8 @@
 import { getPublicInvitation } from "@/app/accept-invitation/actions";
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserSignupForm } from "@/components/admin/auth/user-signup-form";
+import { preferredWebsitePackHref } from "@/components/install/constants";
+import { RememberWebsitePack } from "@/components/install/remember-website-pack";
 import { isPublicSignupAllowedFromHeaders } from "@/lib/auth/signup-geo";
 import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
@@ -19,12 +21,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SignupPage(props: {
-  searchParams: Promise<{ invitationId?: string; callbackUrl?: string }>;
+  searchParams: Promise<{
+    invitationId?: string;
+    callbackUrl?: string;
+    template?: string;
+  }>;
 }) {
   const logger = getLoggerFactory("AdminPages")("signup");
   const publicDomain = process.env.PUBLIC_DOMAIN!;
   const searchParams = await props.searchParams;
   const invitationId = searchParams.invitationId || "";
+  const templatePackId = searchParams.template?.trim() || "";
 
   logger.debug("Loading signup page");
 
@@ -39,8 +46,16 @@ export default async function SignupPage(props: {
         `/accept-invitation?invitationId=${encodeURIComponent(invitationId)}`,
       );
     }
+
     const u = session.user as { organizationInstalled?: boolean };
-    redirect(u.organizationInstalled ? "/dashboard" : "/checkout");
+    if (u.organizationInstalled) {
+      redirect("/dashboard");
+    }
+    redirect(
+      templatePackId
+        ? preferredWebsitePackHref("/checkout", templatePackId)
+        : "/checkout",
+    );
   }
 
   const t = await getI18nAsync("admin");
@@ -107,11 +122,13 @@ export default async function SignupPage(props: {
 
   return (
     <AuthLayout title={t("auth.signUp.title")} description={description}>
+      <RememberWebsitePack packId={templatePackId || null} />
       <UserSignupForm
         publicDomain={publicDomain}
         invitation={invitation}
         turnstileSiteKey={process.env.TURNSTILE_SITE_KEY ?? ""}
         enabledSocialProviders={enabledSocialProviders}
+        preferredWebsitePackId={templatePackId || undefined}
       />
     </AuthLayout>
   );

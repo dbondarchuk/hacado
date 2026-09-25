@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# local env (use repo root /.env or --env-file)
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# generated page-builder JSON (yarn generate)
+scripts/structure/
+
+# generated locally if you run tooling that emits here
+dist/
+*.tsbuildinfo

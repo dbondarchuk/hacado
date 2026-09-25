@@ -30,6 +30,7 @@ const nav: NavItem[] = [
       { label: "Appointment management", href: "/features/appointments" },
       { label: "Activity events", href: "/features/activity" },
       { label: "Website builder", href: "/features/website-builder" },
+      { label: "Website templates", href: "/template-previews" },
       { label: "Booking tracking", href: "/features/booking-tracking" },
       { label: "Payments", href: "/features/payments" },
       { label: "Notifications", href: "/features/notifications" },
@@ -95,6 +96,7 @@ const footerColumns = [
       { label: "Staff management", href: "/features/team" },
       { label: "Client management", href: "/features/clients" },
       { label: "Booking tracking", href: "/features/booking-tracking" },
+      { label: "Website templates", href: "/template-previews" },
       { label: "Pricing", href: "/pricing" },
       { label: "Integrations", href: "/integrations" },
     ],
@@ -142,6 +144,10 @@ const containerClass = "mx-auto w-full max-w-[1280px] px-6";
 
 function marketingHref(path: string) {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  // Template gallery lives on the app host, not the marketing site.
+  if (path === "/template-previews" || path.startsWith("/template-previews/")) {
+    return path;
+  }
   return `${MARKETING_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 

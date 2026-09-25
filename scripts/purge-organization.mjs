@@ -8,11 +8,9 @@
  * and those user documents.
  *
  * Usage (from repo root):
- *   node apps/admin/scripts/purge-organization.mjs <organizationSlug> [--yes] [--slug=<slug>]
- *   node apps/admin/scripts/purge-organization.mjs --organization-id=<id> [--yes] [--slug=<slug>]
- *
- * Or from apps/admin:
+ *   yarn purge-organization <organizationSlug> [--yes] [--slug=<slug>]
  *   node scripts/purge-organization.mjs <organizationSlug> [--yes] [--slug=<slug>]
+ *   node scripts/purge-organization.mjs --organization-id=<id> [--yes] [--slug=<slug>]
  *
  * Without --yes / --slug you will be prompted:
  *   1) Type exactly: yes
@@ -52,8 +50,8 @@ function loadEnvIfPresent(dir) {
   }
 }
 
-loadEnvIfPresent(path.resolve(__dirname, "../../.."));
 loadEnvIfPresent(path.resolve(__dirname, ".."));
+loadEnvIfPresent(path.resolve(__dirname, "../apps/admin"));
 
 /** @param {string[]} argv */
 function parseArgs(argv) {

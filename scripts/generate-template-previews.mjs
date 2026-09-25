@@ -5,9 +5,9 @@
  * Prerequisites: admin dev server running on port 3001 (or set BASE_URL).
  *
  * From repo root:
- *   yarn workspace @hacado/admin generate-template-previews
- *   yarn workspace @hacado/admin generate-template-previews --layouts
- *   yarn workspace @hacado/admin generate-template-previews --full-page-layouts
+ *   yarn generate-template-previews
+ *   yarn generate-template-previews --layouts
+ *   yarn generate-template-previews --full-page-layouts
  *
  * Options:
  *   --base-url=http://localhost:3001
@@ -28,7 +28,7 @@ import { fileURLToPath } from "node:url";
 import pLimit from "p-limit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "../../..");
+const root = path.resolve(__dirname, "..");
 
 const DEFAULT_CONCURRENCY = 5;
 

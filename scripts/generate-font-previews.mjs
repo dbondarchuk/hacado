@@ -3,7 +3,7 @@
  * using Satori + Resvg (same stack as gift-card-studio).
  *
  * From repo root:
- *   yarn workspace @hacado/admin generate-font-previews
+ *   yarn generate-font-previews
  * Optional: --max=50
  *
  * Plain Node ESM - no tsx. Keep getWebfontPreviewFilename() in sync with
@@ -20,7 +20,7 @@ import { createElement } from "react";
 import satori from "satori";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "../../..");
+const root = path.resolve(__dirname, "..");
 const fontsJsonPath = path.join(
   root,
   "packages/types/src/configuration/styling/fonts.json",

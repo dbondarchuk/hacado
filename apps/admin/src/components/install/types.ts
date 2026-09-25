@@ -99,6 +99,11 @@ export type PersistedState = {
   installLogo: string | null | undefined;
   /** Website pack chosen on the Website install step. */
   websitePackId: string;
+  /**
+   * Pack remembered from catalog “Use this template” — used as Suggested on the
+   * website step (selection may still differ via `websitePackId`).
+   */
+  catalogPreferredPackId: string;
 };
 
 /** Fields saved on the server (org + general configuration) for install step 1 hydration. */

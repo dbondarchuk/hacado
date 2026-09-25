@@ -4,6 +4,10 @@ import {
   LastUsedInlineBadge,
   SocialAuthButtons,
 } from "@/components/admin/auth/social-auth-buttons";
+import {
+  PREFERRED_WEBSITE_PACK_PARAM,
+  preferredWebsitePackHref,
+} from "@/components/install/constants";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
@@ -43,6 +47,12 @@ export const UserAuthForm = ({
 }) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+  const templatePackId = searchParams.get(PREFERRED_WEBSITE_PACK_PARAM)?.trim();
+  const postAuthPath =
+    callbackUrl ||
+    (templatePackId
+      ? preferredWebsitePackHref("/checkout", templatePackId)
+      : "/dashboard");
   const paramError = searchParams.get("error");
   const paramVerified = searchParams.get("verified");
 
@@ -72,7 +82,7 @@ export const UserAuthForm = ({
       const response = await authClient.signIn.email({
         email: data.email,
         password: data.password,
-        callbackURL: callbackUrl ?? "/dashboard",
+        callbackURL: postAuthPath,
       });
 
       if (response.error?.code === "EMAIL_NOT_VERIFIED") {
@@ -89,7 +99,7 @@ export const UserAuthForm = ({
       }
 
       if (response.data?.user) {
-        router.push(callbackUrl ?? "/dashboard");
+        router.push(postAuthPath);
       }
     } finally {
       setLoading(false);
@@ -138,10 +148,10 @@ export const UserAuthForm = ({
       const signIn = await authClient.signIn.email({
         email,
         password,
-        callbackURL: callbackUrl ?? "/dashboard",
+        callbackURL: postAuthPath,
       });
       if (signIn.data?.user) {
-        router.push(callbackUrl ?? "/dashboard");
+        router.push(postAuthPath);
       }
     } catch (err) {
       console.error(err);
@@ -168,9 +178,7 @@ export const UserAuthForm = ({
       {enabledSocialProviders.length > 0 ? (
         <SocialAuthButtons
           enabledProviders={enabledSocialProviders}
-          callbackURL={buildCompleteProfileCallbackUrl(
-            callbackUrl ?? "/dashboard",
-          )}
+          callbackURL={buildCompleteProfileCallbackUrl(postAuthPath)}
           showLastUsed
         />
       ) : null}

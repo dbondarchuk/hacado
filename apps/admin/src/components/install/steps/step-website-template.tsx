@@ -172,11 +172,15 @@ export function StepWebsiteTemplate() {
   const { p, setP, setStep, refetch } = useInstallWizard();
 
   const suggestedPackId = useMemo(() => {
+    if (isWebsitePackId(p.catalogPreferredPackId)) {
+      return p.catalogPreferredPackId;
+    }
+
     const fromServices = p.installServices.find(
       (s) => s.businessCategory,
     )?.businessCategory;
     return suggestWebsitePackId(fromServices || p.businessCategory);
-  }, [p.businessCategory, p.installServices]);
+  }, [p.businessCategory, p.catalogPreferredPackId, p.installServices]);
 
   const selectedPackId: WebsitePackId | null = isWebsitePackId(p.websitePackId)
     ? p.websitePackId

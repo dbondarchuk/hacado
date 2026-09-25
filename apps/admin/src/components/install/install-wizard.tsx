@@ -2,7 +2,10 @@
 
 import { authClient } from "@/app/auth-client";
 import { checkOrganizationSlug } from "@/components/admin/auth/actions";
-import { STORAGE_KEY } from "@/components/install/constants";
+import {
+  STORAGE_KEY,
+  readPreferredWebsitePack,
+} from "@/components/install/constants";
 import {
   InstallWizardProvider,
   type SlugCheckState,
@@ -29,9 +32,14 @@ import type {
   PersistedState,
   WizardStep,
 } from "@/components/install/types";
+import { WEBSITE_PACK_IDS } from "@hacado/page-builder/templates";
 import type { ConnectedApp, Schedule } from "@hacado/types";
 import { Spinner } from "@hacado/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+function isRememberedWebsitePack(value: string | null): value is string {
+  return Boolean(value && (WEBSITE_PACK_IDS as string[]).includes(value));
+}
 
 export function InstallWizard({
   email,
@@ -98,21 +106,28 @@ export function InstallWizard({
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
+      const preferredPack = readPreferredWebsitePack();
+      const rememberedPack = isRememberedWebsitePack(preferredPack)
+        ? preferredPack
+        : null;
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<PersistedState> & {
           step?: WizardStep;
         };
         const { step: parsedStep, ...rest } = parsed;
-        setP(
-          sanitizePersisted(
-            rest,
-            workspaceFromServer,
-            servicesFromServer,
-            calendarAppsFromServer,
-            preferencesFromServer,
-            scheduleFromServer,
-          ),
+        const sanitized = sanitizePersisted(
+          rest,
+          workspaceFromServer,
+          servicesFromServer,
+          calendarAppsFromServer,
+          preferencesFromServer,
+          scheduleFromServer,
         );
+        if (rememberedPack) {
+          sanitized.websitePackId = rememberedPack;
+          sanitized.catalogPreferredPackId = rememberedPack;
+        }
+        setP(sanitized);
         if (initialVerified) {
           if (parsedStep !== undefined && parsedStep !== "verify") {
             if (typeof parsedStep === "number") {
@@ -130,6 +145,20 @@ export function InstallWizard({
           setStep("verify");
         }
       } else if (initialVerified) {
+        const sanitized = sanitizePersisted(
+          rememberedPack
+            ? {
+                websitePackId: rememberedPack,
+                catalogPreferredPackId: rememberedPack,
+              }
+            : undefined,
+          workspaceFromServer,
+          servicesFromServer,
+          calendarAppsFromServer,
+          preferencesFromServer,
+          scheduleFromServer,
+        );
+        setP(sanitized);
         setStep(1);
       } else {
         setStep("verify");

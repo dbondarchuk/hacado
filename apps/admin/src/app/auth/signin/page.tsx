@@ -1,5 +1,7 @@
 import { AuthLayout } from "@/components/admin/auth/layout";
 import { UserAuthForm } from "@/components/admin/auth/user-auth-form";
+import { preferredWebsitePackHref } from "@/components/install/constants";
+import { RememberWebsitePack } from "@/components/install/remember-website-pack";
 import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
@@ -15,8 +17,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function AuthenticationPage() {
+export default async function AuthenticationPage(props: {
+  searchParams: Promise<{ callbackUrl?: string; template?: string }>;
+}) {
   const logger = getLoggerFactory("AdminPages")("signin");
+  const searchParams = await props.searchParams;
+  const templatePackId = searchParams.template?.trim() || "";
 
   logger.debug("Loading signin page");
 
@@ -25,7 +31,15 @@ export default async function AuthenticationPage() {
   });
 
   if (session) {
-    redirect("/dashboard");
+    const u = session.user as { organizationInstalled?: boolean };
+    if (u.organizationInstalled) {
+      redirect("/dashboard");
+    }
+    redirect(
+      templatePackId
+        ? preferredWebsitePackHref("/checkout", templatePackId)
+        : searchParams.callbackUrl || "/checkout",
+    );
   }
 
   const t = await getI18nAsync("admin");
@@ -38,6 +52,7 @@ export default async function AuthenticationPage() {
       title={t("auth.signIn")}
       description={t("auth.signInDescription")}
     >
+      <RememberWebsitePack packId={templatePackId || null} />
       <UserAuthForm enabledSocialProviders={enabledSocialProviders} />
     </AuthLayout>
   );

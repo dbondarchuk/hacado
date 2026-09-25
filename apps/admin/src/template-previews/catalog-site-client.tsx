@@ -1,5 +1,7 @@
 "use client";
 
+import { authClient } from "@/app/auth-client";
+import { preferredWebsitePackHref } from "@/components/install/constants";
 import {
   buildPreviewChromeArgs,
   PreviewChrome,
@@ -18,6 +20,7 @@ import {
   rewriteCatalogUrlsInTree,
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
+import { Button } from "@hacado/ui";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -40,6 +43,7 @@ export function CatalogSiteClient({
 }: Props) {
   const t = useI18n();
   const router = useRouter();
+  const { data: session } = authClient.useSession();
   const pack = getWebsitePack(packId);
   const businessName = t(pack.displayName);
   const packStyling = useMemo(() => getPackSuggestedStyling(packId), [packId]);
@@ -125,6 +129,21 @@ export function CatalogSiteClient({
     return () => window.document.removeEventListener("click", onClick, true);
   }, [basePath, router]);
 
+  const onUseTemplate = () => {
+    const user = session?.user as
+      | { organizationInstalled?: boolean }
+      | undefined;
+    if (session?.user) {
+      router.push(
+        user?.organizationInstalled
+          ? "/dashboard"
+          : preferredWebsitePackHref("/checkout", packId),
+      );
+      return;
+    }
+    router.push(preferredWebsitePackHref("/auth/signup", packId));
+  };
+
   return (
     <div
       data-template-preview
@@ -132,17 +151,28 @@ export function CatalogSiteClient({
       className="min-h-screen bg-background"
     >
       <div className="sticky top-0 z-50 border-b border-border/60 bg-background/95 text-foreground backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-2 sm:gap-3 sm:px-6 sm:py-2.5">
           <Link
             href={CATALOG_INDEX_PATH}
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-muted-foreground transition hover:text-foreground sm:gap-2"
           >
             <ArrowLeft className="size-4" aria-hidden />
-            All templates
+            <span className="hidden sm:inline">All templates</span>
+            <span className="sm:hidden">Templates</span>
           </Link>
-          <span className="truncate text-xs text-muted-foreground sm:text-sm">
-            Preview · {businessName}
+          <span className="min-w-0 flex-1 truncate text-center text-xs text-muted-foreground sm:text-sm">
+            <span className="sm:hidden">{businessName}</span>
+            <span className="hidden sm:inline">Preview · {businessName}</span>
           </span>
+          <Button
+            type="button"
+            size="sm"
+            className="ml-auto shrink-0 whitespace-nowrap px-2.5 text-xs sm:ml-0 sm:px-3 sm:text-sm"
+            onClick={onUseTemplate}
+          >
+            <span className="sm:hidden">Use it</span>
+            <span className="hidden sm:inline">Use this template</span>
+          </Button>
         </div>
       </div>
       <Styling styling={packStyling} />

@@ -7,6 +7,81 @@ import type { PersistedState } from "./types";
 
 export const STORAGE_KEY = "hacado-install-v1";
 
+/** Catalog “Use this template” preference — survives signup → checkout → install. */
+export const PREFERRED_WEBSITE_PACK_KEY = "hacado-preferred-website-pack";
+
+/** Query param for direct links, e.g. `/auth/signup?template=nails_c`. */
+export const PREFERRED_WEBSITE_PACK_PARAM = "template";
+
+export function preferredWebsitePackHref(path: string, packId: string): string {
+  const id = packId.trim();
+  if (!id) return path;
+  const url = new URL(path, "http://local.invalid");
+  url.searchParams.set(PREFERRED_WEBSITE_PACK_PARAM, id);
+  return `${url.pathname}${url.search}`;
+}
+
+export function rememberPreferredWebsitePack(packId: string) {
+  if (typeof window === "undefined") return;
+  const id = packId.trim();
+  if (!id) return;
+  try {
+    window.localStorage.setItem(PREFERRED_WEBSITE_PACK_KEY, id);
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const prev = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        ...prev,
+        websitePackId: id,
+        catalogPreferredPackId: id,
+      }),
+    );
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+export function readPreferredWebsitePack(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const fromPreferred = window.localStorage
+      .getItem(PREFERRED_WEBSITE_PACK_KEY)
+      ?.trim();
+    if (fromPreferred) return fromPreferred;
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as {
+      catalogPreferredPackId?: unknown;
+      websitePackId?: unknown;
+    };
+    if (
+      typeof parsed.catalogPreferredPackId === "string" &&
+      parsed.catalogPreferredPackId.trim()
+    ) {
+      return parsed.catalogPreferredPackId.trim();
+    }
+    if (
+      typeof parsed.websitePackId === "string" &&
+      parsed.websitePackId.trim()
+    ) {
+      return parsed.websitePackId.trim();
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
+
+export function clearPreferredWebsitePack() {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(PREFERRED_WEBSITE_PACK_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
 export function newInstallServiceClientId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -94,5 +169,6 @@ export function emptyPersisted(
     secondaryFont: DEFAULT_WEB_SECONDARY_FONT,
     installLogo: "",
     websitePackId: "",
+    catalogPreferredPackId: "",
   };
 }

@@ -1,0 +1,6 @@
+.pack-compose.mjs
+.pack-registry.mjs
+.pack-registry-fresh.mjs
+.pack-media.mjs
+.install-defaults/
+.esbuild-stubs/

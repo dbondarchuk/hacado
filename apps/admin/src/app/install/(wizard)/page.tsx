@@ -7,7 +7,9 @@ import {
   getInstallServicesSnapshot,
   getInstallWorkspaceSnapshot,
 } from "@/components/install/actions";
+import { preferredWebsitePackHref } from "@/components/install/constants";
 import { InstallWizard } from "@/components/install/install-wizard";
+import { RememberWebsitePack } from "@/components/install/remember-website-pack";
 import { organizationHasInstallBillingAccess } from "@/lib/billing/install-billing-access";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Metadata } from "next";
@@ -24,11 +26,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
 export default async function InstallPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout_id?: string }>;
+  searchParams: Promise<{ checkout_id?: string; template?: string }>;
 }) {
   const session = await getSession();
   const publicDomain = process.env.PUBLIC_DOMAIN ?? "hacado.me";
   const sp = await searchParams;
+  const templatePackId = sp.template?.trim() || "";
 
   if (session.user.organizationId && session.user.organizationInstalled) {
     redirect("/dashboard");
@@ -45,7 +48,11 @@ export default async function InstallPage({
     reconcileWithPolar: Boolean(sp.checkout_id),
   });
   if (!billingOk) {
-    redirect("/checkout");
+    redirect(
+      templatePackId
+        ? preferredWebsitePackHref("/checkout", templatePackId)
+        : "/checkout",
+    );
   }
 
   const [
@@ -65,16 +72,19 @@ export default async function InstallPage({
   ]);
 
   return (
-    <InstallWizard
-      email={session.user.email}
-      emailVerified={emailVerified}
-      publicDomain={publicDomain}
-      workspaceFromServer={workspaceFromServer}
-      servicesFromServer={servicesFromServer}
-      calendarAppsFromServer={calendarAppsFromServer}
-      paymentAppsFromServer={paymentAppsFromServer}
-      preferencesFromServer={preferencesFromServer}
-      scheduleFromServer={scheduleFromServer}
-    />
+    <>
+      <RememberWebsitePack packId={templatePackId || null} />
+      <InstallWizard
+        email={session.user.email}
+        emailVerified={emailVerified}
+        publicDomain={publicDomain}
+        workspaceFromServer={workspaceFromServer}
+        servicesFromServer={servicesFromServer}
+        calendarAppsFromServer={calendarAppsFromServer}
+        paymentAppsFromServer={paymentAppsFromServer}
+        preferencesFromServer={preferencesFromServer}
+        scheduleFromServer={scheduleFromServer}
+      />
+    </>
   );
 }

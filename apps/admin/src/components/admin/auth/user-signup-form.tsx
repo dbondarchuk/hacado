@@ -11,6 +11,10 @@ import {
   TurnstileField,
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
+import {
+  PREFERRED_WEBSITE_PACK_PARAM,
+  preferredWebsitePackHref,
+} from "@/components/install/constants";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
@@ -55,6 +59,7 @@ export const UserSignupForm = ({
   invitation,
   turnstileSiteKey,
   enabledSocialProviders = [],
+  preferredWebsitePackId,
 }: {
   publicDomain: string;
   invitation?: {
@@ -64,6 +69,8 @@ export const UserSignupForm = ({
   } | null;
   turnstileSiteKey: string;
   enabledSocialProviders?: SocialAuthProvider[];
+  /** Catalog pack from `?template=` — preserved through sign-in link and post-auth redirect. */
+  preferredWebsitePackId?: string;
 }) => {
   const profileSchema = useMemo(
     () =>
@@ -166,7 +173,30 @@ export const UserSignupForm = ({
 
   const postAuthPath = invitation
     ? `/accept-invitation?invitationId=${encodeURIComponent(invitation.id)}`
-    : (callbackUrl ?? "/checkout");
+    : preferredWebsitePackId
+      ? preferredWebsitePackHref(
+          callbackUrl ?? "/checkout",
+          preferredWebsitePackId,
+        )
+      : (callbackUrl ?? "/checkout");
+
+  const signInHref = (() => {
+    if (invitation) {
+      return `/auth/signin?callbackUrl=${encodeURIComponent(
+        `/accept-invitation?invitationId=${invitation.id}`,
+      )}`;
+    }
+    if (preferredWebsitePackId) {
+      const params = new URLSearchParams();
+      params.set(PREFERRED_WEBSITE_PACK_PARAM, preferredWebsitePackId);
+      params.set(
+        "callbackUrl",
+        preferredWebsitePackHref("/checkout", preferredWebsitePackId),
+      );
+      return `/auth/signin?${params.toString()}`;
+    }
+    return "/auth/signin";
+  })();
   const googleCallbackURL = buildCompleteProfileCallbackUrl(postAuthPath);
 
   const profileForm = useForm<ProfileValues>({
@@ -293,13 +323,7 @@ export const UserSignupForm = ({
       {t.rich("auth.sign_up_sign_in_link", {
         link: (chunks: any) => (
           <Link
-            href={
-              invitation
-                ? `/auth/signin?callbackUrl=${encodeURIComponent(
-                    `/accept-invitation?invitationId=${invitation.id}`,
-                  )}`
-                : "/auth/signin"
-            }
+            href={signInHref}
             className="ml-auto w-full"
             variant="underline"
           >
