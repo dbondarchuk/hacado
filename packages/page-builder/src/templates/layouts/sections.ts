@@ -17,6 +17,7 @@ import { ImagePropsDefaults } from "../../blocks/image/schema";
 import { LightboxPropsDefaults } from "../../blocks/lightbox/schema";
 import { MarketingFeatureItemPropsDefaults } from "../../blocks/marketing-feature-item/schema";
 import { TablePropsDefaults } from "../../blocks/table/schema";
+import { VideoPropsDefaults } from "../../blocks/video/schema";
 import { YouTubeVideoPropsDefaults } from "../../blocks/youtube-video/schema";
 import {
   buttonPlacement,
@@ -25,6 +26,7 @@ import {
   type CopyBlockOptions,
   FLUID_MOBILE_COLUMNS,
   fluidSection,
+  fullBleedHeroStyle,
   heroSectionStyle,
   imageBackgroundStyle,
   videoBackgroundStyle,
@@ -34,12 +36,10 @@ import {
   boxShadowValue,
   buildAccordion,
   buildBeforeAfter,
-  buildBrowserCarousel,
   buildScrollingLogos,
   buildSectionIntro,
   COLORS,
   compositeContainer,
-  contentContainer,
   entranceAnimation,
   flexFill,
   flexRow,
@@ -261,6 +261,113 @@ function heroImageUrl(pack: WebsitePackDefinition): string {
   return pack.media.generic;
 }
 
+/** Per-hero typography so packs don't share one display voice. */
+function packHeroType(
+  pack: WebsitePackDefinition,
+  base: CopyBlockOptions = {},
+): CopyBlockOptions {
+  const display = "SECONDARY" as const;
+  switch (pack.hero) {
+    case "galleryFirst":
+      return {
+        ...base,
+        textAlign: "left",
+        titleFontSize: { value: 4.25, unit: "rem" },
+        fontFamily: display ?? "HEAVY_SANS",
+        fontWeight: "900",
+        lineHeight: { value: 0.95, unit: "" },
+        letterSpacing: { value: -0.04, unit: "rem" },
+      };
+    case "overlay":
+      return {
+        ...base,
+        textAlign: "left",
+        lightText: true,
+        titleFontSize: { value: 4.5, unit: "rem" },
+        fontFamily:
+          display ?? (pack.mood === "dark" ? "HEAVY_SANS" : "MODERN_SANS"),
+        fontWeight: "800",
+        letterSpacing: { value: 0.02, unit: "rem" },
+        lineHeight: { value: 1, unit: "" },
+      };
+    case "leftOverlay":
+      return {
+        ...base,
+        textAlign: "left",
+        lightText: true,
+        titleFontSize: { value: 2.75, unit: "rem" },
+        fontFamily: display ?? "MODERN_SERIF",
+        fontWeight: "600",
+        lineHeight: { value: 1.1, unit: "" },
+      };
+    case "video":
+      return {
+        ...base,
+        lightText: true,
+        textAlign: pack.mood === "muted" ? "left" : "center",
+        titleFontSize: {
+          value: pack.mood === "bold" ? 4 : 3.25,
+          unit: "rem",
+        },
+        fontFamily:
+          display ?? (pack.mood === "bold" ? "GEOMETRIC_SANS" : "BOOK_SERIF"),
+        fontWeight: pack.mood === "bold" ? "800" : "500",
+        letterSpacing:
+          pack.mood === "bold"
+            ? { value: -0.02, unit: "rem" }
+            : { value: 0.01, unit: "rem" },
+        lineHeight: { value: 1.05, unit: "" },
+      };
+    case "minimal":
+      return {
+        ...base,
+        textAlign: "center",
+        titleFontSize: { value: 4.75, unit: "rem" },
+        fontFamily: display ?? "MODERN_SERIF",
+        fontWeight: "400",
+        lineHeight: { value: 1.05, unit: "" },
+        letterSpacing: { value: -0.03, unit: "rem" },
+      };
+    case "split":
+      return {
+        ...base,
+        textAlign: "left",
+        titleFontSize: {
+          value: pack.mood === "bold" ? 3.5 : 3.25,
+          unit: "rem",
+        },
+        fontFamily:
+          display ??
+          (pack.mood === "bold"
+            ? "ROUNDED_SANS"
+            : pack.mood === "muted"
+              ? "GEOMETRIC_SANS"
+              : "BOOK_SERIF"),
+        fontWeight: pack.mood === "bold" ? "700" : "600",
+        lineHeight: { value: 1.1, unit: "" },
+      };
+    case "centered":
+      return {
+        ...base,
+        lightText: true,
+        titleFontSize: { value: 3.25, unit: "rem" },
+        fontFamily: display ?? "MODERN_SANS",
+        fontWeight: "700",
+      };
+    case "announcementSplit":
+      return {
+        ...base,
+        textAlign: "left",
+        titleFontSize: { value: 3.15, unit: "rem" },
+        fontFamily: display ?? "ORGANIC_SANS",
+        fontWeight: "600",
+        lineHeight: { value: 1.15, unit: "" },
+      };
+    default:
+      return base;
+  }
+}
+
 function packHeroCopy(
   pack: WebsitePackDefinition,
   t: TFn,
@@ -270,15 +377,29 @@ function packHeroCopy(
     t(k(pack.id, "home", "heroTitle")),
     t(k(pack.id, "home", "heroSubtitle")),
     t(k(pack.id, "home", "bookCta")),
-    options,
+    packHeroType(pack, options),
   );
 }
 
 function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const imageId = generateId();
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    textAlign: "left" as const,
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
+  const pullQuote =
+    pack.mood === "light"
+      ? paragraphFromText(
+          `“${t(`builder.pageBuilder.pageTemplates.packs.${pack.id}.tagline` as BaseAllKeys)}”`,
+          { textAlign: "left" },
+        )
+      : null;
+  // Stacked secondary photo for editorial / playful splits (coach, pet, home).
+  const stackImage =
+    pack.media.items[1] != null
+      ? galleryImage(
+          pack.media.items[1].src,
+          t(k(pack.id, "home", "heroTitle")),
+          14,
+        )
+      : null;
   const imageBlock: TEditorBlock = {
     type: "Image",
     id: imageId,
@@ -294,34 +415,37 @@ function buildSplitHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
         width: [{ value: { value: 100, unit: "%" } }],
         height: [{ value: { value: 100, unit: "%" } }],
         objectFit: [{ value: "cover" }],
+        borderRadius: [{ value: { value: 24, unit: "px" } }],
       },
     },
   };
-  return fluidSection(
-    [imageBlock, heading, text, button],
-    {
-      [imageId]: {
-        colStart: 1,
-        colEnd: 13,
-        rowStart: 1,
-        rowEnd: 11,
-        zIndex: 0,
+  const mediaColumn = stackImage
+    ? compositeContainer([imageBlock, stackImage], 1)
+    : imageBlock;
+  const copyKids = pullQuote
+    ? [heading, pullQuote, text, button]
+    : [heading, text, button];
+  const copy = compositeContainer(copyKids, 1, {
+    alignItems: [{ value: "flex-start" }],
+    justifyContent: [{ value: "center" }],
+  });
+  return sectionShell([splitColumns(copy, mediaColumn)], {
+    minHeight: [{ value: { value: 28, unit: "rem" } }],
+    padding: [
+      {
+        value: {
+          top: { value: 3, unit: "rem" },
+          right: { value: 1.5, unit: "rem" },
+          bottom: { value: 3, unit: "rem" },
+          left: { value: 1.5, unit: "rem" },
+        },
       },
-      ...splitCopyPlacements(heading.id, text.id, button.id),
-    },
-    {
-      ...heroSectionStyle,
-      minHeight: [{ value: { value: 24, unit: "rem" } }],
-    },
-    splitOverrides(imageId, heading.id, text.id, button.id),
-  );
+    ],
+  });
 }
 
 function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    lightText: true,
-    titleFontSize: { value: 3.25, unit: "rem" as const },
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
   return withEntrance(
     fluidSection(
       [heading, text, button],
@@ -332,29 +456,92 @@ function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
       }),
       centeredCopyOverrides(heading.id, text.id, button.id),
     ),
-    "fadeIn",
     0.1,
   );
 }
 
-/** Full-bleed photo with left-bottom copy (gradient feel via stronger overlay). */
+/** Full-bleed editorial overlay — dark packs get denser scrim + display tracking. */
 function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    textAlign: "left" as const,
-    lightText: true,
-    titleFontSize: { value: 3.5, unit: "rem" as const },
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
+  const dark = pack.mood === "dark";
   return withEntrance(
     fluidSection(
       [heading, text, button],
-      leftOverlayPlacements(heading.id, text.id, button.id),
-      imageBackgroundStyle(heroImageUrl(pack), {
-        opacity: 38,
-        fullBleed: true,
-      }),
-      leftOverlayOverrides(heading.id, text.id, button.id),
+      {
+        [heading.id]: {
+          colStart: 2,
+          colEnd: 14,
+          rowStart: dark ? 8 : 9,
+          rowEnd: dark ? 11 : 12,
+          zIndex: 1,
+        },
+        [text.id]: {
+          colStart: 2,
+          colEnd: 11,
+          rowStart: dark ? 11 : 12,
+          rowEnd: dark ? 13 : 14,
+          zIndex: 1,
+        },
+        [button.id]: buttonPlacement(2, dark ? 13 : 14),
+      },
+      {
+        ...fullBleedHeroStyle,
+        ...imageBackgroundStyle(heroImageUrl(pack), {
+          opacity: dark ? 22 : 34,
+          fullBleed: true,
+        }),
+        ...(dark ? { backgroundColor: [{ value: "0 0% 4%" }] } : undefined),
+        minHeight: [{ value: { value: 36, unit: "rem" } }],
+      },
+      {
+        tablet: {
+          [heading.id]: {
+            colStart: 1,
+            colEnd: FLUID_TABLET_COLUMNS + 1,
+            rowStart: 6,
+            rowEnd: 9,
+            zIndex: 1,
+          },
+          [text.id]: {
+            colStart: 1,
+            colEnd: FLUID_TABLET_COLUMNS + 1,
+            rowStart: 9,
+            rowEnd: 11,
+            zIndex: 1,
+          },
+          [button.id]: {
+            colStart: 1,
+            colEnd: Math.min(5, FLUID_TABLET_COLUMNS + 1),
+            rowStart: 11,
+            rowEnd: 12,
+            zIndex: 1,
+          },
+        },
+        mobile: {
+          [heading.id]: {
+            colStart: 1,
+            colEnd: FLUID_MOBILE_COLUMNS + 1,
+            rowStart: 5,
+            rowEnd: 8,
+            zIndex: 1,
+          },
+          [text.id]: {
+            colStart: 1,
+            colEnd: FLUID_MOBILE_COLUMNS + 1,
+            rowStart: 8,
+            rowEnd: 10,
+            zIndex: 1,
+          },
+          [button.id]: {
+            colStart: 1,
+            colEnd: FLUID_MOBILE_COLUMNS + 1,
+            rowStart: 10,
+            rowEnd: 11,
+            zIndex: 1,
+          },
+        },
+      },
     ),
-    "fadeIn",
     0.1,
   );
 }
@@ -364,11 +551,7 @@ function buildLeftOverlayHero(
   pack: WebsitePackDefinition,
   t: TFn,
 ): TEditorBlock {
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    textAlign: "left" as const,
-    lightText: true,
-    titleFontSize: { value: 2.75, unit: "rem" as const },
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
   const whiteText = { color: [{ value: "0 0% 100%" }] };
   const panel = withBlockStyle(
     compositeContainer(
@@ -414,7 +597,7 @@ function buildLeftOverlayHero(
         width: [{ value: { value: 100, unit: "%" } }],
       },
     ),
-    entranceAnimation("scaleIn", 0.1, 0.9),
+    entranceAnimation(0.1, 0.7),
   );
   return fluidSection(
     [panel],
@@ -457,37 +640,86 @@ const HERO_VIDEO_SRC =
   "https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4";
 
 function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    lightText: true,
-    titleFontSize: { value: 3.5, unit: "rem" as const },
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
+  const bold = pack.mood === "bold";
+  const muted = pack.mood === "muted";
+  const placements = muted
+    ? {
+        [heading.id]: {
+          colStart: 2,
+          colEnd: 12,
+          rowStart: 8,
+          rowEnd: 11,
+          zIndex: 1,
+        },
+        [text.id]: {
+          colStart: 2,
+          colEnd: 10,
+          rowStart: 11,
+          rowEnd: 13,
+          zIndex: 1,
+        },
+        [button.id]: buttonPlacement(2, 13),
+      }
+    : centeredCopyPlacements(heading.id, text.id, button.id);
+  const overrides = muted
+    ? undefined
+    : centeredCopyOverrides(heading.id, text.id, button.id);
+
   return withEntrance(
     fluidSection(
       [heading, text, button],
-      centeredCopyPlacements(heading.id, text.id, button.id),
-      videoBackgroundStyle(
-        pack.media.generic || HERO_VIDEO_POSTER,
-        HERO_VIDEO_SRC,
-        { opacity: 40, fullBleed: true },
-      ),
-      centeredCopyOverrides(heading.id, text.id, button.id),
+      placements,
+      {
+        ...fullBleedHeroStyle,
+        ...videoBackgroundStyle(
+          pack.media.generic || HERO_VIDEO_POSTER,
+          HERO_VIDEO_SRC,
+          { opacity: bold ? 28 : 48, fullBleed: true },
+        ),
+        minHeight: [{ value: { value: bold ? 38 : 32, unit: "rem" } }],
+      },
+      overrides,
     ),
-    "zoomIn",
     0.1,
   );
 }
 
 function buildMinimalHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
-  const { heading, text, button } = packHeroCopy(pack, t, {
-    titleFontSize: { value: 3.5, unit: "rem" as const },
-  });
+  const { heading, text, button } = packHeroCopy(pack, t);
   return fluidSection(
     [heading, text, button],
-    centeredCopyPlacements(heading.id, text.id, button.id),
+    {
+      [heading.id]: {
+        colStart: 3,
+        colEnd: 15,
+        rowStart: 5,
+        rowEnd: 9,
+        zIndex: 1,
+      },
+      [text.id]: {
+        colStart: 5,
+        colEnd: 13,
+        rowStart: 9,
+        rowEnd: 11,
+        zIndex: 1,
+      },
+      [button.id]: buttonPlacement(7, 11),
+    },
     {
       ...heroSectionStyle,
       backgroundColor: [{ value: COLORS.background.value }],
-      minHeight: [{ value: { value: 24, unit: "rem" } }],
+      minHeight: [{ value: { value: 32, unit: "rem" } }],
+      padding: [
+        {
+          value: {
+            top: { value: 6, unit: "rem" },
+            right: { value: 1.5, unit: "rem" },
+            bottom: { value: 5, unit: "rem" },
+            left: { value: 1.5, unit: "rem" },
+          },
+        },
+      ],
     },
     centeredCopyOverrides(heading.id, text.id, button.id),
   );
@@ -505,45 +737,121 @@ function galleryImage(src: string, alt: string, heightRem = 12): TEditorBlock {
         width: [{ value: { value: 100, unit: "%" } }],
         height: [{ value: { value: heightRem, unit: "rem" } }],
         objectFit: [{ value: "cover" }],
-        borderRadius: [{ value: { value: 8, unit: "px" } }],
+        borderRadius: [{ value: { value: 16, unit: "px" } }],
       },
     },
   };
 }
 
+/** Typography-first + horizontal filmstrip — matches Series D HTML galleryFirst. */
 function buildGalleryFirstHero(
   pack: WebsitePackDefinition,
   t: TFn,
 ): TEditorBlock {
-  const images = pack.media.items
-    .slice(0, 7)
-    .map((item, index) =>
-      galleryImage(item.src, t(k(pack.id, "home", "heroTitle")), 12),
-    );
-  const copy = compositeContainer(
-    [
-      headingFromText(t(k(pack.id, "home", "heroTitle")), {
-        level: "h1",
-        textAlign: "left",
-      }),
-      paragraphFromText(t(k(pack.id, "home", "heroSubtitle")), {
-        textAlign: "left",
-      }),
-      buttonFromLabel(t(k(pack.id, "home", "bookCta"))),
-    ],
-    1,
+  const type = packHeroType(pack);
+  const heading = headingFromText(t(k(pack.id, "home", "heroTitle")), type);
+  const text = paragraphFromText(t(k(pack.id, "home", "heroSubtitle")), {
+    textAlign: "left",
+  });
+  const primary = buttonFromLabel(t(k(pack.id, "home", "bookCta")));
+  const copyChildren: TEditorBlock[] = [];
+  const city = pack.theme.city;
+
+  if (city) {
+    const eyebrow = paragraphFromText(city.toUpperCase(), {
+      textAlign: "left",
+    });
+    eyebrow.data.style = {
+      ...eyebrow.data.style,
+      fontSize: [{ value: { value: 0.875, unit: "rem" } }],
+      color: [{ value: COLORS["muted-foreground"].value }],
+    };
+    copyChildren.push(eyebrow);
+  }
+
+  copyChildren.push(heading, text);
+
+  const secondary = buttonFromLabel(
+    t(sk("viewServices")),
+    "/services",
+    "outline",
   );
-  return sectionShell([
-    {
-      type: "GridContainer",
-      id: generateId(),
-      data: {
-        ...GridContainerPropsDefaults,
-        props: { children: images },
+  copyChildren.push(
+    flexRow([primary, secondary], {
+      gapRem: 0.75,
+      justify: "flex-start",
+      align: "center",
+    }),
+  );
+
+  const copy = compositeContainer(copyChildren, 1.25, {
+    alignItems: [{ value: "flex-start" }],
+    maxWidth: [{ value: { value: 48, unit: "rem" } }],
+  });
+  const images = pack.media.items
+    .slice(0, 8)
+    .map((item) =>
+      galleryImage(item.src, t(k(pack.id, "home", "heroTitle")), 20),
+    );
+  const carouselDefaults = CarouselPropsDefaults();
+  const filmstrip = {
+    type: "Carousel" as const,
+    id: generateId(),
+    data: {
+      ...carouselDefaults,
+      props: {
+        ...carouselDefaults.props,
+        autoPlay: 3,
+        loop: true,
+        navigation: false,
+        children: images,
+      },
+      style: {
+        ...carouselDefaults.style,
+        width: [{ value: { value: 100, unit: "%" } }],
+        carouselChildrenAlign: [{ value: "center" }],
+        justifyItems: [{ value: "center" }],
+        padding: [
+          {
+            value: {
+              top: { value: 1, unit: "rem" },
+              bottom: { value: 1, unit: "rem" },
+              left: { value: 0, unit: "rem" },
+              right: { value: 0, unit: "rem" },
+            },
+          },
+        ],
+        carouselChildrenItemsPerSlide: [
+          { value: 1, breakpoint: [] },
+          { value: 2, breakpoint: ["md"] },
+          { value: 3, breakpoint: ["lg"] },
+        ],
+        margin: [
+          {
+            value: {
+              top: { value: 2.5, unit: "rem" },
+              bottom: { value: 0, unit: "rem" },
+              left: { value: 0, unit: "rem" },
+              right: { value: 0, unit: "rem" },
+            },
+          },
+        ],
       },
     },
-    copy,
-  ]);
+  };
+
+  return sectionShell([copy, filmstrip], {
+    padding: [
+      {
+        value: {
+          top: { value: 2.5, unit: "rem" },
+          bottom: { value: 2, unit: "rem" },
+          left: { value: 1.5, unit: "rem" },
+          right: { value: 1.5, unit: "rem" },
+        },
+      },
+    ],
+  });
 }
 
 function withBannerMessage(block: TEditorBlock, message: string): TEditorBlock {
@@ -575,6 +883,11 @@ function withCtaCopy(
     const inline =
       heading.data?.props?.children?.[0]?.data?.props?.children?.[0];
     if (inline?.data?.props) inline.data.props.text = title;
+    heading.data.style = {
+      ...heading.data.style,
+      color: [{ value: COLORS["primary-foreground"].value }],
+      textAlign: [{ value: "center" }],
+    };
   }
 
   if (text?.data?.props) {
@@ -625,7 +938,7 @@ export function buildPackHero(
 ): TEditorBlock[] {
   switch (pack.hero) {
     case "split":
-      return [withEntrance(buildSplitHero(pack, t), "fadeIn", 0.1)];
+      return [withEntrance(buildSplitHero(pack, t), 0.1)];
     case "centered":
       return [buildCenteredHero(pack, t)];
     case "overlay":
@@ -635,9 +948,9 @@ export function buildPackHero(
     case "video":
       return [buildVideoHero(pack, t)];
     case "minimal":
-      return [withEntrance(buildMinimalHero(pack, t), "slideInUp", 0.1)];
+      return [withEntrance(buildMinimalHero(pack, t), 0.1)];
     case "galleryFirst":
-      return [withEntrance(buildGalleryFirstHero(pack, t), "fadeIn", 0.1)];
+      return [withEntrance(buildGalleryFirstHero(pack, t), 0.1)];
     case "announcementSplit":
       return buildAnnouncementSplitHero(pack, t);
     default:
@@ -649,6 +962,7 @@ function serviceCoverImage(
   service: ResolvedLayoutService,
   alt: string,
   linkHref: string | null = null,
+  heightRem = 12,
 ): TEditorBlock {
   return {
     type: "Image",
@@ -663,9 +977,11 @@ function serviceCoverImage(
       style: {
         ...ImagePropsDefaults.style,
         width: [{ value: { value: 100, unit: "%" } }],
-        minHeight: [{ value: { value: 16, unit: "rem" } }],
+        height: [{ value: { value: heightRem, unit: "rem" } }],
+        minHeight: [{ value: { value: heightRem, unit: "rem" } }],
         objectFit: [{ value: "cover" }],
         borderRadius: [{ value: { value: 12, unit: "px" } }],
+        flexShrink: [{ value: 0 }],
       },
     },
   };
@@ -677,7 +993,7 @@ function buildZigzag(
   services: ResolvedLayoutService[],
 ): TEditorBlock {
   const rows = services.map((service, index) => {
-    const image = serviceCoverImage(service, service.name);
+    const image = serviceCoverImage(service, service.name, null, 18);
     const copy = compositeContainer(
       [
         headingFromText(service.name, { level: "h3", textAlign: "left" }),
@@ -704,7 +1020,10 @@ function serviceCard(service: ResolvedLayoutService, t: TFn): TEditorBlock {
     [
       serviceCoverImage(service, service.name, `/${service.pageSlug}`),
       headingFromText(service.name, { level: "h3", textAlign: "left" }),
-      paragraphFromText(service.description, { textAlign: "left" }),
+      withBlockStyle(
+        paragraphFromText(service.description, { textAlign: "left" }),
+        { flexGrow: [{ value: 1 }] },
+      ),
       buttonFromLabel(t(sk("learnMore")), `/${service.pageSlug}`),
     ],
     0.75,
@@ -726,6 +1045,7 @@ function serviceCard(service: ResolvedLayoutService, t: TFn): TEditorBlock {
       borderRadius: roundedLg(),
       boxShadow: boxShadowValue(6, 24, -6, COLORS.foreground.value),
       height: [{ value: { value: 100, unit: "%" } }],
+      alignSelf: [{ value: "stretch" }],
     },
   );
 }
@@ -799,34 +1119,114 @@ function buildFeatureList(
 
 function buildGallery(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const images = pack.media.items.map((item) =>
-    galleryImage(item.src, t(k(pack.id, "home", "galleryTitle"))),
+    galleryImage(item.src, t(k(pack.id, "home", "galleryTitle")), 14),
   );
-  return sectionShell([
-    buildSectionIntro(t, {
-      title: k(pack.id, "home", "galleryTitle"),
-      body: k(pack.id, "home", "servicesBody"),
-    }),
-    {
-      type: "Lightbox",
-      id: generateId(),
-      data: {
-        ...LightboxPropsDefaults,
-        props: {
-          ...LightboxPropsDefaults.props,
-          children: [
-            {
-              type: "GridContainer",
-              id: generateId(),
-              data: {
-                ...GridContainerPropsDefaults,
-                props: { children: images },
+  return sectionShell(
+    [
+      buildSectionIntro(t, {
+        title: k(pack.id, "home", "galleryTitle"),
+        body: k(pack.id, "home", "servicesBody"),
+      }),
+      {
+        type: "Lightbox",
+        id: generateId(),
+        data: {
+          ...LightboxPropsDefaults,
+          props: {
+            ...LightboxPropsDefaults.props,
+            children: [
+              {
+                type: "GridContainer",
+                id: generateId(),
+                data: {
+                  ...GridContainerPropsDefaults,
+                  props: { children: images },
+                },
               },
-            },
-          ],
+            ],
+          },
         },
       },
-    },
-  ]);
+    ],
+    pack.mood === "dark" ? { backgroundColor: [{ value: "240 5% 6%" }] } : {},
+  );
+}
+
+/** Column stacks with staggered image heights (masonry lookbook). */
+function buildGalleryMasonry(
+  pack: WebsitePackDefinition,
+  t: TFn,
+): TEditorBlock {
+  const alt = t(k(pack.id, "home", "galleryTitle"));
+  const heights = [11, 17, 13, 19, 12, 16, 14, 18, 10, 15];
+  const items = pack.media.items.slice(0, 9);
+  const columns: TEditorBlock[][] = [[], [], []];
+
+  items.forEach((item, index) => {
+    columns[index % 3]!.push(
+      galleryImage(item.src, alt, heights[index % heights.length]!),
+    );
+  });
+
+  const columnBlocks = columns
+    .filter((col) => col.length > 0)
+    .map((col) =>
+      compositeContainer(col, 1, {
+        width: [{ value: { value: 100, unit: "%" } }],
+        minWidth: [{ value: { value: 0, unit: "rem" } }],
+      }),
+    );
+
+  return sectionShell(
+    [
+      buildSectionIntro(t, {
+        title: k(pack.id, "home", "galleryTitle"),
+        body: k(pack.id, "home", "servicesBody"),
+      }),
+      {
+        type: "Lightbox",
+        id: generateId(),
+        data: {
+          ...LightboxPropsDefaults,
+          props: {
+            ...LightboxPropsDefaults.props,
+            children: [
+              {
+                type: "Container",
+                id: generateId(),
+                data: {
+                  ...GridContainerPropsDefaults,
+                  style: {
+                    ...GridContainerPropsDefaults.style,
+                    display: [{ value: "grid" }],
+                    gridTemplateColumns: [
+                      { value: "1fr" },
+                      { value: "repeat(2, 1fr)", breakpoint: ["sm"] },
+                      { value: "repeat(3, 1fr)", breakpoint: ["md"] },
+                    ],
+                    gap: [{ value: { value: 1, unit: "rem" } }],
+                    alignItems: [{ value: "flex-start" }],
+                    padding: [
+                      {
+                        value: {
+                          top: { value: 0, unit: "rem" },
+                          bottom: { value: 0, unit: "rem" },
+                          left: { value: 0, unit: "rem" },
+                          right: { value: 0, unit: "rem" },
+                        },
+                      },
+                    ],
+                  },
+                  props: { children: columnBlocks },
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+    pack.mood === "dark" ? { backgroundColor: [{ value: "240 5% 6%" }] } : {},
+  );
 }
 
 function buildGalleryCarousel(
@@ -863,6 +1263,21 @@ function buildGalleryCarousel(
                   loop: true,
                   children: images,
                 },
+                style: {
+                  ...carouselDefaults.style,
+                  carouselChildrenAlign: [{ value: "center" }],
+                  justifyItems: [{ value: "center" }],
+                  padding: [
+                    {
+                      value: {
+                        top: { value: 1, unit: "rem" },
+                        bottom: { value: 1, unit: "rem" },
+                        left: { value: 0, unit: "rem" },
+                        right: { value: 0, unit: "rem" },
+                      },
+                    },
+                  ],
+                },
               },
             },
           ],
@@ -872,18 +1287,114 @@ function buildGalleryCarousel(
   ]);
 }
 
-function buildCarousel(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
-  const slides = pack.media.items.slice(0, 4).map((item, index) => ({
-    src: item.src,
-    label: t(sk("carousel", `slide${index + 1}Label`)),
-    addressBar: t(sk("carousel", `slide${index + 1}Address`)),
-  }));
+function serviceFilmstripCard(service: ResolvedLayoutService): TEditorBlock {
+  const cover = serviceCoverImage(
+    service,
+    service.name,
+    `/${service.pageSlug}`,
+  );
+  cover.data.style = {
+    ...cover.data.style,
+    height: [{ value: { value: 10, unit: "rem" } }],
+    minHeight: [{ value: { value: 10, unit: "rem" } }],
+    borderRadius: [{ value: { value: 0, unit: "px" } }],
+  };
+  return compositeContainer(
+    [
+      cover,
+      compositeContainer(
+        [
+          headingFromText(service.name, { level: "h3", textAlign: "left" }),
+          paragraphFromText(service.description, { textAlign: "left" }),
+        ],
+        0.35,
+        {
+          padding: [
+            {
+              value: {
+                top: { value: 1, unit: "rem" },
+                bottom: { value: 1, unit: "rem" },
+                left: { value: 1, unit: "rem" },
+                right: { value: 1, unit: "rem" },
+              },
+            },
+          ],
+        },
+      ),
+    ],
+    0,
+    {
+      backgroundColor: [{ value: COLORS.card.value }],
+      borderStyle: [{ value: "solid" }],
+      borderWidth: [{ value: { value: 1, unit: "px" } }],
+      borderColor: [{ value: COLORS.border.value }],
+      borderRadius: roundedLg(),
+      boxShadow: boxShadowValue(6, 24, -6, COLORS.foreground.value),
+      overflow: [{ value: "hidden" }],
+      maxWidth: [{ value: { value: 18, unit: "rem" } }],
+      width: [{ value: { value: 100, unit: "%" } }],
+      margin: [
+        {
+          value: {
+            top: { value: 0, unit: "rem" },
+            bottom: { value: 0, unit: "rem" },
+            left: "auto",
+            right: "auto",
+          },
+        },
+      ],
+    },
+  );
+}
+
+function buildCarousel(
+  pack: WebsitePackDefinition,
+  t: TFn,
+  services: ResolvedLayoutService[],
+): TEditorBlock {
+  const cards = services
+    .slice(0, 4)
+    .map((service) => serviceFilmstripCard(service));
+  const carouselDefaults = CarouselPropsDefaults();
   return sectionShell([
     buildSectionIntro(t, {
-      title: k(pack.id, "home", "lookInsideTitle"),
+      title: k(pack.id, "home", "servicesTitle"),
       body: k(pack.id, "home", "servicesBody"),
     }),
-    buildBrowserCarousel(t, slides),
+    {
+      type: "Carousel",
+      id: generateId(),
+      data: {
+        ...carouselDefaults,
+        props: {
+          ...carouselDefaults.props,
+          autoPlay: 3,
+          loop: true,
+          navigation: false,
+          children: cards,
+        },
+        style: {
+          ...carouselDefaults.style,
+          carouselChildrenAlign: [{ value: "center" }],
+          justifyItems: [{ value: "center" }],
+          padding: [
+            {
+              value: {
+                top: { value: 1, unit: "rem" },
+                bottom: { value: 1, unit: "rem" },
+                left: { value: 0, unit: "rem" },
+                right: { value: 0, unit: "rem" },
+              },
+            },
+          ],
+          carouselChildrenItemsPerSlide: [
+            { value: 1, breakpoint: [] },
+            { value: 2, breakpoint: ["md"] },
+            { value: 3, breakpoint: ["lg"] },
+          ],
+        },
+      },
+    },
   ]);
 }
 
@@ -1143,20 +1654,29 @@ function buildCta(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
     t(k(pack.id, "home", "ctaBody")),
     t(k(pack.id, "home", "bookCta")),
   );
-  return compositeContainer(
+  // HTML: rounded primary band inside the page column — not a full-bleed shell.
+  return sectionShell(
     [
-      contentContainer([
-        withBlockStyle(cta, {
-          alignItems: [{ value: "center" }],
-          textAlign: [{ value: "center" }],
-          width: [{ value: { value: 100, unit: "%" } }],
-        }),
-      ]),
+      withBlockStyle(cta, {
+        backgroundColor: [{ value: COLORS.primary.value }],
+        color: [{ value: COLORS["primary-foreground"].value }],
+        borderRadius: [{ value: { value: 24, unit: "px" } }],
+        alignItems: [{ value: "center" }],
+        textAlign: [{ value: "center" }],
+        width: [{ value: { value: 100, unit: "%" } }],
+        padding: [
+          {
+            value: {
+              top: { value: 2.5, unit: "rem" },
+              bottom: { value: 2.5, unit: "rem" },
+              left: { value: 2, unit: "rem" },
+              right: { value: 2, unit: "rem" },
+            },
+          },
+        ],
+      }),
     ],
-    0,
     {
-      backgroundColor: [{ value: COLORS.primary.value }],
-      color: [{ value: COLORS["primary-foreground"].value }],
       padding: [
         {
           value: {
@@ -1175,38 +1695,73 @@ function buildVideoHomeSection(
   pack: WebsitePackDefinition,
   t: TFn,
 ): TEditorBlock {
+  const videoSrc = pack.media.video;
+  const videoBlock: TEditorBlock = videoSrc
+    ? {
+        type: "Video",
+        id: generateId(),
+        data: {
+          ...VideoPropsDefaults,
+          props: {
+            ...VideoPropsDefaults.props,
+            src: videoSrc,
+            poster: pack.media.generic,
+            controls: true,
+            muted: true,
+            loop: true,
+            autoplay: false,
+          },
+          style: {
+            ...VideoPropsDefaults.style,
+            width: [{ value: { value: 100, unit: "%" } }],
+            maxWidth: [{ value: { value: 100, unit: "%" } }],
+            display: [{ value: "block" }],
+            borderRadius: [{ value: { value: 24, unit: "px" } }],
+            overflow: [{ value: "hidden" }],
+          },
+        },
+      }
+    : {
+        type: "YouTubeVideo",
+        id: generateId(),
+        data: {
+          ...YouTubeVideoPropsDefaults,
+          props: {
+            ...YouTubeVideoPropsDefaults.props,
+            youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          },
+        },
+      };
+
   return sectionShell([
     buildSectionIntro(t, {
       title: sk("video", "title"),
       body: sk("video", "body"),
     }),
-    {
-      type: "YouTubeVideo",
-      id: generateId(),
-      data: {
-        ...YouTubeVideoPropsDefaults,
-        props: {
-          ...YouTubeVideoPropsDefaults.props,
-          youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        },
-      },
-    },
+    videoBlock,
   ]);
 }
-
-const SECTION_ENTRANCES = [
-  "fadeIn",
-  "slideInUp",
-  "slideInLeft",
-  "scaleIn",
-  "slideInRight",
-] as const;
 
 function moodBandStyle(
   mood: PackMood | undefined,
   index: number,
+  darkTheme = false,
 ): Record<string, unknown> {
   if (!mood) return {};
+
+  // Dark pack themes use light foreground — never put light pastel bands under them.
+  if (darkTheme || mood === "dark") {
+    return index % 2 === 1
+      ? {
+          backgroundColor: [{ value: "240 6% 10%" }],
+          color: [{ value: "0 0% 98%" }],
+        }
+      : {
+          backgroundColor: [{ value: "240 5% 6%" }],
+          color: [{ value: "0 0% 96%" }],
+        };
+  }
+
   if (mood === "muted") {
     return index % 2 === 1
       ? { backgroundColor: [{ value: COLORS.muted.value }] }
@@ -1215,12 +1770,6 @@ function moodBandStyle(
   if (mood === "bold") {
     return index % 2 === 1
       ? { backgroundColor: [{ value: "33 100% 96%" }] }
-      : { backgroundColor: [{ value: COLORS.background.value }] };
-  }
-  if (mood === "dark") {
-    // Keep body bands readable; hero carries the dark mood.
-    return index % 2 === 1
-      ? { backgroundColor: [{ value: COLORS.muted.value }] }
       : { backgroundColor: [{ value: COLORS.background.value }] };
   }
   return index % 2 === 1 ? { backgroundColor: [{ value: "210 40% 98%" }] } : {};
@@ -1247,10 +1796,12 @@ export function buildHomeSection(
       return buildFeatureList(pack, t, services);
     case "gallery":
       return buildGallery(pack, t);
+    case "galleryMasonry":
+      return buildGalleryMasonry(pack, t);
     case "galleryCarousel":
       return buildGalleryCarousel(pack, t);
     case "carousel":
-      return buildCarousel(pack, t);
+      return buildCarousel(pack, t, services);
     case "beforeAfter":
       return buildBeforeAfterSection(pack, t);
     case "testimonials":
@@ -1295,7 +1846,7 @@ export function composeHome(
     let block = buildHomeSection(key, pack, t, services);
 
     if (!block.data?.style?.backgroundColor) {
-      const band = moodBandStyle(pack.mood, bandIndex);
+      const band = moodBandStyle(pack.mood, bandIndex, pack.theme.dark);
       if (Object.keys(band).length > 0) {
         block = withBlockStyle(block, band);
         bandIndex++;
@@ -1303,11 +1854,7 @@ export function composeHome(
     }
 
     if (motion) {
-      const entrance =
-        key === "cta"
-          ? "scaleIn"
-          : SECTION_ENTRANCES[index % SECTION_ENTRANCES.length];
-      block = withEntrance(block, entrance, index * 0.1);
+      block = withEntrance(block, index * 0.1);
     }
 
     return block;
@@ -1352,6 +1899,8 @@ function buildServiceExtra(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
       return buildBeforeAfterSection(pack, t);
     case "gallery":
       return buildGallery(pack, t);
+    case "galleryMasonry":
+      return buildGalleryMasonry(pack, t);
     case "galleryCarousel":
       return buildGalleryCarousel(pack, t);
     case "video":
@@ -1360,17 +1909,40 @@ function buildServiceExtra(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           title: sk("video", "title"),
           body: sk("video", "body"),
         }),
-        {
-          type: "YouTubeVideo",
-          id: generateId(),
-          data: {
-            ...YouTubeVideoPropsDefaults,
-            props: {
-              ...YouTubeVideoPropsDefaults.props,
-              youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        pack.media.video
+          ? {
+              type: "Video",
+              id: generateId(),
+              data: {
+                ...VideoPropsDefaults,
+                props: {
+                  ...VideoPropsDefaults.props,
+                  src: pack.media.video,
+                  poster: pack.media.generic,
+                  controls: true,
+                  muted: true,
+                },
+                style: {
+                  ...VideoPropsDefaults.style,
+                  width: [{ value: { value: 100, unit: "%" } }],
+                  maxWidth: [{ value: { value: 100, unit: "%" } }],
+                  display: [{ value: "block" }],
+                  borderRadius: [{ value: { value: 24, unit: "px" } }],
+                  overflow: [{ value: "hidden" }],
+                },
+              },
+            }
+          : {
+              type: "YouTubeVideo",
+              id: generateId(),
+              data: {
+                ...YouTubeVideoPropsDefaults,
+                props: {
+                  ...YouTubeVideoPropsDefaults.props,
+                  youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                },
+              },
             },
-          },
-        },
       ]);
     default:
       return buildGallery(pack, t);
@@ -1388,7 +1960,7 @@ export function composeService(
   if (!selected) {
     return [buildCta(pack, t)];
   }
-  const image = serviceCoverImage(selected, selected.name);
+  const image = serviceCoverImage(selected, selected.name, null, 22);
   const bullets = compositeContainer(
     [1, 2, 3].map((n) =>
       paragraphFromText(`• ${t(k(pack.id, "service", `bullet${n}`))}`, {

@@ -1,9 +1,10 @@
 "use server";
 
 import { auth } from "@/app/auth";
+import { validateFaviconValue } from "@/lib/validate-favicon";
 import { languages } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { StaticOrganizationService } from "@hacado/services";
+import { ServicesContainer, StaticOrganizationService } from "@hacado/services";
 import {
   CONFIGURATION_COLLECTION_NAME,
   MEMBERS_COLLECTION_NAME,
@@ -11,13 +12,16 @@ import {
 } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
 import {
+  asOptionalField,
   brandConfigurationSchema,
   generalConfigurationSchema,
   normalizePostalAddress,
+  zAssetName,
   zBusinessIndustry,
   zCountry,
   zCurrency,
   zTimeZone,
+  type BrandConfiguration,
   type ConfigurationOption,
   type Organization,
   type OrganizationMember,
@@ -58,6 +62,7 @@ const workspaceInputSchema = z.object({
   language: z.enum(languages),
   country: zCountry,
   currency: zCurrency,
+  installLogo: asOptionalField(zAssetName).nullable().optional(),
 });
 
 export type CreateWorkspaceInput = z.infer<typeof workspaceInputSchema>;
@@ -205,13 +210,6 @@ export async function createWorkspace(
     useClientTimezone: false,
   });
 
-  const brandValue = brandConfigurationSchema.parse({
-    title: parsed.businessName,
-    description: `${parsed.businessName} - Book online with Hacado.`,
-    keywords: `${parsed.businessName}, booking`,
-    language: parsed.language,
-  });
-
   const configurations = db.collection<
     | ConfigurationOption<"general">
     | ConfigurationOption<"brand">
@@ -223,6 +221,49 @@ export async function createWorkspace(
     { upsert: true },
   );
   logger.debug({ orgId }, "Stored general configuration");
+
+  const existingBrandDoc = await configurations.findOne({
+    key: "brand",
+    organizationId: orgId,
+  } as any);
+  const existingBrand = (existingBrandDoc?.value ?? {}) as BrandConfiguration;
+  const logoInput = parsed.installLogo;
+  const logo =
+    logoInput === null || logoInput === undefined
+      ? undefined
+      : logoInput.trim() || undefined;
+
+  let favicon = existingBrand.favicon;
+  if (logo) {
+    const services = ServicesContainer(orgId, true);
+    const faviconValidation = await validateFaviconValue(
+      logo,
+      services.assetsService,
+    );
+    if (faviconValidation.ok) {
+      favicon = logo;
+      logger.debug(
+        { logo },
+        "Install logo meets favicon rules; using as favicon",
+      );
+    } else {
+      logger.debug(
+        { logo, code: faviconValidation.code },
+        "Install logo does not meet favicon rules; leaving favicon unchanged",
+      );
+    }
+  }
+
+  const brandValue = brandConfigurationSchema.parse({
+    ...existingBrand,
+    title: parsed.businessName,
+    description: `${parsed.businessName} - Book online with Hacado.`,
+    keywords: `${parsed.businessName}, booking`,
+    language: parsed.language,
+    ...(logoInput !== undefined
+      ? { logo, favicon: logo ? favicon : existingBrand.favicon }
+      : {}),
+  });
 
   await configurations.updateOne(
     { key: "brand", organizationId: orgId },

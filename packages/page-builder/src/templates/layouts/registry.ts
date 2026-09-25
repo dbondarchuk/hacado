@@ -1,5 +1,6 @@
 import type { BaseAllKeys } from "@hacado/i18n";
 import { PACK_MEDIA } from "./media";
+import { PACK_THEMES } from "./theme";
 import type { WebsitePackDefinition, WebsitePackId } from "./types";
 
 function svc(
@@ -20,21 +21,27 @@ function svc(
 }
 
 function packCategoryId(id: WebsitePackId): string {
-  if (id.endsWith("_b") || id.endsWith("_c")) return id.slice(0, -2);
+  if (id.endsWith("_b") || id.endsWith("_c") || id.endsWith("_d")) {
+    return id.slice(0, -2);
+  }
   return id;
 }
 
 function pack(
-  def: Omit<WebsitePackDefinition, "media" | "displayName" | "category"> & {
+  def: Omit<
+    WebsitePackDefinition,
+    "media" | "displayName" | "category" | "theme"
+  > & {
     id: WebsitePackId;
   },
 ): WebsitePackDefinition {
   return {
     ...def,
+    theme: PACK_THEMES[def.id],
     media: PACK_MEDIA[def.id],
     displayName:
       `builder.pageBuilder.pageTemplates.packs.${def.id}.name` as BaseAllKeys,
-    // Series B/C share the Series A category key so all appear in one Layouts group.
+    // Series B/C/D share the Series A category key so all appear in one Layouts group.
     category:
       `builder.pageBuilder.pageTemplates.packs.${packCategoryId(def.id)}.category` as BaseAllKeys,
   };
@@ -97,8 +104,8 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
     id: "fitness",
     installCategories: ["fitness"],
     hero: "video",
-    homeMix: ["stats", "gallery", "faqTeaser", "cta"],
-    serviceExtra: "gallery",
+    homeMix: ["stats", "galleryMasonry", "faqTeaser", "cta"],
+    serviceExtra: "galleryMasonry",
     demoServices: [
       svc("fitness", "pt", "personal-training", ["personal", "training"]),
       svc("fitness", "hiit", "small-group-hiit", ["hiit", "group"]),
@@ -110,8 +117,8 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
     id: "photography",
     installCategories: ["creative"],
     hero: "galleryFirst",
-    homeMix: ["carousel", "testimonials", "cta", "gallery"],
-    serviceExtra: "gallery",
+    homeMix: ["carousel", "testimonials", "cta", "galleryMasonry"],
+    serviceExtra: "galleryMasonry",
     demoServices: [
       svc("photography", "portrait", "portrait-session", ["portrait"]),
       svc("photography", "brand", "brand-story-day", ["brand"]),
@@ -177,6 +184,32 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
       svc("professional", "books", "monthly-bookkeeping", ["bookkeeping"]),
       svc("professional", "tax", "tax-planning-review", ["tax"]),
       svc("professional", "ops", "ops-audit", ["ops"]),
+    ],
+  }),
+  nails: pack({
+    id: "nails",
+    installCategories: ["beauty"],
+    hero: "galleryFirst",
+    homeMix: ["galleryMasonry", "beforeAfter", "testimonials", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("nails", "gel", "gel-manicure", ["gel", "manicure"]),
+      svc("nails", "acrylic", "acrylic-set", ["acrylic", "set"]),
+      svc("nails", "art", "nail-art-session", ["art", "design"]),
+      svc("nails", "fill", "fill-appointment", ["fill", "refresh"]),
+    ],
+  }),
+  lash: pack({
+    id: "lash",
+    installCategories: ["beauty"],
+    hero: "overlay",
+    homeMix: ["howItWorks", "beforeAfter", "galleryMasonry", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("lash", "classic", "classic-lash-set", ["classic", "lash"]),
+      svc("lash", "volume", "volume-lash-set", ["volume", "lash"]),
+      svc("lash", "fill", "lash-fill", ["fill", "refresh"]),
+      svc("lash", "brow", "brow-lamination", ["brow", "lamination"]),
     ],
   }),
   salon_b: pack({
@@ -339,6 +372,32 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
       svc("professional_b", "tax", "tax-season-brief", ["tax"]),
     ],
   }),
+  nails_b: pack({
+    id: "nails_b",
+    installCategories: ["beauty"],
+    hero: "centered",
+    homeMix: ["bento", "galleryCarousel", "faqTeaser", "cta"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("nails_b", "gel", "soft-gel-mani", ["gel", "mani"]),
+      svc("nails_b", "builder", "builder-overlay", ["builder", "overlay"]),
+      svc("nails_b", "art", "micro-art-hour", ["art", "micro"]),
+      svc("nails_b", "fill", "biweekly-fill", ["fill", "biweekly"]),
+    ],
+  }),
+  lash_b: pack({
+    id: "lash_b",
+    installCategories: ["beauty"],
+    hero: "split",
+    homeMix: ["zigzag", "galleryCarousel", "faq", "cta"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("lash_b", "classic", "silk-classic-set", ["classic", "silk"]),
+      svc("lash_b", "volume", "soft-volume", ["volume", "soft"]),
+      svc("lash_b", "fill", "two-week-fill", ["fill", "two-week"]),
+      svc("lash_b", "brow", "brow-sculpt-tint", ["brow", "tint"]),
+    ],
+  }),
   salon_c: pack({
     id: "salon_c",
     installCategories: ["beauty"],
@@ -471,7 +530,7 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
     hero: "centered",
     mood: "bold",
     motion: true,
-    homeMix: ["bento", "beforeAfter", "gallery", "testimonials", "cta"],
+    homeMix: ["bento", "beforeAfter", "galleryMasonry", "testimonials", "cta"],
     serviceExtra: "beforeAfter",
     demoServices: [
       svc("pet_c", "groom", "full-groom", ["groom"]),
@@ -525,6 +584,240 @@ export const WEBSITE_PACKS: Record<WebsitePackId, WebsitePackDefinition> = {
       svc("professional_c", "tax", "tax-season-brief", ["tax"]),
     ],
   }),
+  nails_c: pack({
+    id: "nails_c",
+    installCategories: ["beauty"],
+    hero: "overlay",
+    mood: "bold",
+    motion: true,
+    homeMix: ["zigzag", "galleryMasonry", "stats", "cta"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("nails_c", "chrome", "chrome-tip-set", ["chrome", "tip"]),
+      svc("nails_c", "color", "bold-color-set", ["color", "bold"]),
+      svc("nails_c", "art", "statement-art", ["art", "statement"]),
+      svc("nails_c", "fill", "express-fill", ["fill", "express"]),
+    ],
+  }),
+  lash_c: pack({
+    id: "lash_c",
+    installCategories: ["beauty"],
+    hero: "minimal",
+    mood: "muted",
+    motion: true,
+    homeMix: ["featureList", "beforeAfter", "testimonials", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("lash_c", "classic", "mapped-classic", ["classic", "mapped"]),
+      svc("lash_c", "volume", "mega-volume", ["volume", "mega"]),
+      svc("lash_c", "hybrid", "hybrid-refresh", ["hybrid", "fill"]),
+      svc("lash_c", "brow", "brow-lamination", ["brow", "lamination"]),
+    ],
+  }),
+  salon_d: pack({
+    id: "salon_d",
+    installCategories: ["beauty"],
+    hero: "galleryFirst",
+    mood: "light",
+    motion: true,
+    homeMix: ["carousel", "video", "beforeAfter", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("salon_d", "cut", "precision-cut", ["cut", "shape"]),
+      svc("salon_d", "color", "glass-color", ["color", "glass"]),
+      svc("salon_d", "blowout", "blow-architecture", ["blowout", "blow"]),
+      svc("salon_d", "event", "event-finish", ["event", "finish"]),
+    ],
+  }),
+  tattoo_d: pack({
+    id: "tattoo_d",
+    installCategories: ["creative"],
+    hero: "overlay",
+    mood: "dark",
+    motion: true,
+    homeMix: ["galleryMasonry", "video", "beforeAfter", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("tattoo_d", "fineLine", "fine-line-session", ["fine", "line"]),
+      svc("tattoo_d", "blackwork", "blackwork-panel", ["blackwork"]),
+      svc("tattoo_d", "custom", "custom-consult", ["custom", "consult"]),
+      svc("tattoo_d", "touchUp", "healed-touch-up", ["touch", "healed"]),
+    ],
+  }),
+  spa_d: pack({
+    id: "spa_d",
+    installCategories: ["wellness"],
+    hero: "video",
+    mood: "muted",
+    motion: true,
+    homeMix: ["howItWorks", "pricing", "carousel", "cta"],
+    serviceExtra: "galleryCarousel",
+    demoServices: [
+      svc("spa_d", "massage", "mineral-massage", ["massage", "mineral"]),
+      svc("spa_d", "facial", "botanical-facial", ["facial", "botanical"]),
+      svc("spa_d", "scrub", "steam-scrub", ["scrub", "steam"]),
+      svc("spa_d", "soak", "private-soak", ["soak", "private"]),
+    ],
+  }),
+  coach_d: pack({
+    id: "coach_d",
+    installCategories: ["coaching"],
+    hero: "split",
+    mood: "light",
+    motion: true,
+    homeMix: ["zigzag", "video", "testimonials", "cta"],
+    serviceExtra: "video",
+    demoServices: [
+      svc("coach_d", "leadership", "leadership-intensive", [
+        "leadership",
+        "intensive",
+      ]),
+      svc("coach_d", "career", "career-pivot", ["career", "pivot"]),
+      svc("coach_d", "manager", "manager-launch", ["manager", "launch"]),
+      svc("coach_d", "checkIn", "accountability-hour", [
+        "accountability",
+        "check",
+      ]),
+    ],
+  }),
+  fitness_d: pack({
+    id: "fitness_d",
+    installCategories: ["fitness"],
+    hero: "video",
+    mood: "bold",
+    motion: true,
+    homeMix: ["stats", "galleryMasonry", "logoMarquee", "cta"],
+    serviceExtra: "galleryMasonry",
+    demoServices: [
+      svc("fitness_d", "strength", "strength-block", ["strength"]),
+      svc("fitness_d", "conditioning", "engine-conditioning", [
+        "conditioning",
+        "engine",
+      ]),
+      svc("fitness_d", "mobility", "mobility-reset", ["mobility", "recovery"]),
+      svc("fitness_d", "team", "team-challenge", ["team", "group"]),
+    ],
+  }),
+  photography_d: pack({
+    id: "photography_d",
+    installCategories: ["creative"],
+    hero: "galleryFirst",
+    mood: "muted",
+    motion: true,
+    homeMix: ["video", "zigzag", "beforeAfter", "cta"],
+    serviceExtra: "galleryMasonry",
+    demoServices: [
+      svc("photography_d", "portrait", "portrait-hour", ["portrait"]),
+      svc("photography_d", "brand", "brand-story-day", ["brand", "story"]),
+      svc("photography_d", "event", "event-coverage", ["event"]),
+      svc("photography_d", "product", "product-still-set", ["product"]),
+    ],
+  }),
+  clinic_d: pack({
+    id: "clinic_d",
+    installCategories: ["medical"],
+    hero: "announcementSplit",
+    mood: "light",
+    motion: true,
+    homeMix: ["carousel", "video", "howItWorks", "faq", "stats", "cta"],
+    serviceExtra: "video",
+    demoServices: [
+      svc("clinic_d", "wellness", "annual-wellness", ["wellness", "checkup"]),
+      svc("clinic_d", "sick", "same-day-sick", ["sick", "urgent"]),
+      svc("clinic_d", "travel", "travel-prep", ["travel", "vaccine"]),
+      svc("clinic_d", "video", "video-follow-up", ["video", "telehealth"]),
+    ],
+  }),
+  pet_d: pack({
+    id: "pet_d",
+    installCategories: ["pet"],
+    hero: "split",
+    mood: "bold",
+    motion: true,
+    homeMix: ["video", "gallery", "beforeAfter", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("pet_d", "groom", "full-groom", ["groom"]),
+      svc("pet_d", "walk", "adventure-walk", ["walk", "adventure"]),
+      svc("pet_d", "puppy", "puppy-primer", ["puppy"]),
+      svc("pet_d", "deshed", "deshed-express", ["deshed"]),
+    ],
+  }),
+  home_services_d: pack({
+    id: "home_services_d",
+    installCategories: ["home-services"],
+    hero: "split",
+    mood: "muted",
+    motion: true,
+    homeMix: ["beforeAfter", "featureList", "gallery", "video", "cta"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("home_services_d", "clean", "weekly-clean", ["clean", "weekly"]),
+      svc("home_services_d", "handyman", "punch-list-hour", [
+        "handyman",
+        "punch",
+      ]),
+      svc("home_services_d", "move", "move-ready-detail", ["move", "detail"]),
+      svc("home_services_d", "fixture", "filter-fixture", [
+        "filter",
+        "fixture",
+      ]),
+    ],
+  }),
+  professional_d: pack({
+    id: "professional_d",
+    installCategories: [
+      "professional",
+      "education",
+      "event",
+      "meetings",
+      "misc",
+    ],
+    hero: "minimal",
+    mood: "light",
+    motion: true,
+    homeMix: ["zigzag", "logoCloud", "video", "faqTeaser", "cta"],
+    serviceExtra: "video",
+    demoServices: [
+      svc("professional_d", "books", "books-cleanup", ["books", "cleanup"]),
+      svc("professional_d", "controller", "fractional-controller", [
+        "controller",
+        "fractional",
+      ]),
+      svc("professional_d", "process", "process-map", ["process", "ops"]),
+      svc("professional_d", "tax", "tax-season-brief", ["tax"]),
+    ],
+  }),
+  nails_d: pack({
+    id: "nails_d",
+    installCategories: ["beauty"],
+    hero: "leftOverlay",
+    mood: "light",
+    motion: true,
+    homeMix: ["howItWorks", "beforeAfter", "testimonials", "cta"],
+    serviceExtra: "beforeAfter",
+    demoServices: [
+      svc("nails_d", "gel", "glass-gel-mani", ["gel", "glass"]),
+      svc("nails_d", "sculpt", "sculpted-soft-set", ["sculpt", "soft"]),
+      svc("nails_d", "art", "atelier-art", ["art", "atelier"]),
+      svc("nails_d", "fill", "fill-rebalance", ["fill", "rebalance"]),
+    ],
+  }),
+  lash_d: pack({
+    id: "lash_d",
+    installCategories: ["beauty"],
+    hero: "galleryFirst",
+    mood: "bold",
+    motion: true,
+    homeMix: ["bento", "galleryMasonry", "faqTeaser", "cta"],
+    serviceExtra: "gallery",
+    demoServices: [
+      svc("lash_d", "classic", "classic-map-set", ["classic", "map"]),
+      svc("lash_d", "volume", "volume-couture", ["volume", "couture"]),
+      svc("lash_d", "fill", "two-week-fill", ["fill", "two-week"]),
+      svc("lash_d", "brow", "brow-lamination", ["brow", "lamination"]),
+    ],
+  }),
 };
 
 export const WEBSITE_PACK_IDS = Object.keys(WEBSITE_PACKS) as WebsitePackId[];
@@ -545,6 +838,8 @@ export function suggestWebsitePackId(
       return packDef.id;
     }
   }
+  if (cat.includes("nail")) return "nails";
+  if (cat.includes("lash") || cat.includes("brow")) return "lash";
   if (cat.includes("beauty") || cat.includes("salon")) return "salon";
   if (cat.includes("tattoo")) return "tattoo";
   if (

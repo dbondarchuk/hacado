@@ -1,21 +1,17 @@
 import { generateId, type TEditorBlock } from "@hacado/builder";
+import { COLORS } from "@hacado/page-builder-base/style";
 import { ButtonPropsDefaults } from "../../blocks/button";
 import { HeadingPropsDefaults } from "../../blocks/heading/schema";
 import { InlineContainerPropsDefaults } from "../../blocks/inline-container";
 import { TextPropsDefaults } from "../../blocks/text/schema";
-import type { CopyBlockOptions } from "../fluid-helpers";
+import { type CopyBlockOptions, typographyStylePatch } from "../fluid-helpers";
 
 export function headingFromText(
   text: string,
   options: CopyBlockOptions = {},
 ): TEditorBlock {
   const headingDefaults = HeadingPropsDefaults();
-  const {
-    level = "h1",
-    textAlign = "center",
-    titleFontSize,
-    lightText,
-  } = options;
+  const { level = "h1", textAlign = "center" } = options;
   return {
     type: "Heading",
     id: generateId(),
@@ -24,10 +20,7 @@ export function headingFromText(
       style: {
         ...headingDefaults.style,
         textAlign: [{ value: textAlign }],
-        ...(titleFontSize
-          ? { fontSize: [{ value: titleFontSize }] }
-          : undefined),
-        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
+        ...typographyStylePatch(options),
         padding: [
           {
             value: {
@@ -98,7 +91,11 @@ export function paragraphFromText(
   };
 }
 
-export function buttonFromLabel(label: string, url = "/book"): TEditorBlock {
+export function buttonFromLabel(
+  label: string,
+  url = "/book",
+  variant: "primary" | "outline" = "primary",
+): TEditorBlock {
   const btn = structuredClone(ButtonPropsDefaults());
   const inlineText = (btn as any).props?.children?.[0]?.data?.props
     ?.children?.[0];
@@ -108,6 +105,19 @@ export function buttonFromLabel(label: string, url = "/book"): TEditorBlock {
   if ((btn as any).props) {
     (btn as any).props.url = url;
   }
+
+  const outlineStyle =
+    variant === "outline"
+      ? {
+          backgroundColor: [{ value: COLORS.background.value }],
+          backgroundColorOpacity: [{ value: 0 }],
+          color: [{ value: COLORS.foreground.value }],
+          borderStyle: [{ value: "solid" }],
+          borderWidth: [{ value: { value: 1, unit: "px" } }],
+          borderColor: [{ value: COLORS.foreground.value }],
+        }
+      : {};
+
   return {
     type: "Button",
     id: generateId(),
@@ -116,6 +126,8 @@ export function buttonFromLabel(label: string, url = "/book"): TEditorBlock {
       style: {
         ...btn.style,
         justifyContent: [{ value: "center" }],
+        borderRadius: [{ value: { value: 9999, unit: "px" } }],
+        ...outlineStyle,
       },
     },
   };

@@ -11,9 +11,19 @@ import {
   CreditCard,
   LayoutTemplate,
   Link2,
-  Palette,
 } from "lucide-react";
 import { useMemo } from "react";
+
+/** Internal wizard step numbers in flow order (personalization / 2 skipped). */
+const FLOW_STEP_NUMS = [1, 3, 4, 5, 6, 7, 8] as const;
+
+function flowIndexForStep(stepNum: number): number {
+  if (stepNum === 2) return FLOW_STEP_NUMS.indexOf(3);
+  const idx = FLOW_STEP_NUMS.indexOf(
+    stepNum as (typeof FLOW_STEP_NUMS)[number],
+  );
+  return idx >= 0 ? idx : 0;
+}
 
 export function StepInstallHeader({ stepNum }: { stepNum: number }) {
   const t = useI18n("install");
@@ -25,11 +35,6 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
         id: "business",
         label: t("wizard.steps.business"),
         icon: Building2,
-      },
-      {
-        id: "personalization",
-        label: t("wizard.steps.personalization"),
-        icon: Palette,
       },
       {
         id: "service",
@@ -67,8 +72,7 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
 
   const currentStepperId = useMemo(() => {
     if (stepNum === 1) return "business";
-    if (stepNum === 2) return "personalization";
-    if (stepNum === 3) return "service";
+    if (stepNum === 2 || stepNum === 3) return "service";
     if (stepNum === 4) return "schedule";
     if (stepNum === 5) return "integrations";
     if (stepNum === 6) return "payments";
@@ -77,7 +81,9 @@ export function StepInstallHeader({ stepNum }: { stepNum: number }) {
     return "business";
   }, [stepNum]);
 
-  const progressPercent = Math.round((stepNum / 8) * 100);
+  const progressPercent = Math.round(
+    ((flowIndexForStep(stepNum) + 1) / FLOW_STEP_NUMS.length) * 100,
+  );
 
   return (
     <header className="border-b bg-card px-4 py-4 md:px-8">

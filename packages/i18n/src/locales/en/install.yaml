@@ -111,6 +111,10 @@ wizard:
       later.
     name: Business or brand name
     namePlaceholder: e.g. Willow Massage Studio
+    logo: Logo
+    removeLogo: Remove logo
+    logoPreviewAlt: Logo preview
+    logoPlaceholder: Logo path or upload an image
     address: Business address (optional)
     addressPlaceholder: "e.g. 123 Main St, Springfield"
     streetAddress: Street address (optional)
@@ -332,6 +336,7 @@ wizard:
     continue: Continue
     finish: Finish setup
     selectRequired: Choose a website design to continue
+    stylingError: Could not apply template colors and fonts. Try again.
   finish:
     taskPage: Creating your booking page
     taskAvailability: Applying availability defaults

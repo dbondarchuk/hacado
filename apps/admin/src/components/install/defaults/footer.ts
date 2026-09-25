@@ -1024,7 +1024,7 @@ export const footerDefaultPage = (
                                                 type: "Link",
                                                 data: {
                                                   props: {
-                                                    url: "https://maps.app.goo.gl/JNCukRZSchRmZFJc6",
+                                                    url: "https://www.google.com/maps/search/?api=1&query={{general.address.formatted}}",
                                                     target: "_blank",
                                                     children: [
                                                       {

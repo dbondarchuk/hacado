@@ -1,6 +1,9 @@
 "use client";
 
-import { saveInstallPreferences } from "@/components/install/actions";
+import {
+  applyInstallPackStyling,
+  saveInstallPreferences,
+} from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -24,6 +27,7 @@ import {
   toast,
 } from "@hacado/ui";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const PREVIEW_KINDS: PageLayoutKind[] = [
@@ -164,7 +168,8 @@ function InstallWebsitePreviewDialog({
 export function StepWebsiteTemplate() {
   const t = useI18n("install");
   const tBuilder = useI18n("builder");
-  const { p, setP, setStep } = useInstallWizard();
+  const router = useRouter();
+  const { p, setP, setStep, refetch } = useInstallWizard();
 
   const suggestedPackId = useMemo(() => {
     const fromServices = p.installServices.find(
@@ -208,35 +213,55 @@ export function StepWebsiteTemplate() {
 
     selectPack(packId);
     setContinuing(true);
-    const r = await saveInstallPreferences({
-      inviteMode: p.inviteMode,
-      inviteCalendarWriterAppId: p.inviteCalendarWriterAppId,
-      optCustomerEmailNotifications: p.optCustomerEmailNotifications,
-      optCustomerPackageEmailNotifications:
-        p.optCustomerPackageEmailNotifications,
-      optCustomerTextMessageNotifications:
-        p.optCustomerTextMessageNotifications,
-      optAppointmentNotifications: p.optAppointmentNotifications,
-      optWaitlist: p.optWaitlist,
-      optWaitlistNotifications: p.optWaitlistNotifications,
-      optBlog: p.optBlog,
-      optForms: p.optForms,
-      optGiftCardStudio: p.optGiftCardStudio,
-      optMyCabinet: p.optMyCabinet,
-      allowCancelReschedule: p.allowCancelReschedule,
-      autoConfirmBookings: p.autoConfirmBookings,
-      acceptPayments: p.acceptPayments,
-      depositEnabled: p.depositEnabled,
-      depositPercent: p.depositPercent,
-      websitePackId: packId,
-    });
-    setContinuing(false);
-    if (!r.ok) {
-      toast.error(t("wizard.integrations.saveError"));
-      return;
+    try {
+      const r = await saveInstallPreferences({
+        inviteMode: p.inviteMode,
+        inviteCalendarWriterAppId: p.inviteCalendarWriterAppId,
+        optCustomerEmailNotifications: p.optCustomerEmailNotifications,
+        optCustomerPackageEmailNotifications:
+          p.optCustomerPackageEmailNotifications,
+        optCustomerTextMessageNotifications:
+          p.optCustomerTextMessageNotifications,
+        optAppointmentNotifications: p.optAppointmentNotifications,
+        optWaitlist: p.optWaitlist,
+        optWaitlistNotifications: p.optWaitlistNotifications,
+        optBlog: p.optBlog,
+        optForms: p.optForms,
+        optGiftCardStudio: p.optGiftCardStudio,
+        optMyCabinet: p.optMyCabinet,
+        allowCancelReschedule: p.allowCancelReschedule,
+        autoConfirmBookings: p.autoConfirmBookings,
+        acceptPayments: p.acceptPayments,
+        depositEnabled: p.depositEnabled,
+        depositPercent: p.depositPercent,
+        websitePackId: packId,
+      });
+      if (!r.ok) {
+        toast.error(t("wizard.integrations.saveError"));
+        return;
+      }
+
+      const styling = await applyInstallPackStyling(packId);
+      if (!styling.ok) {
+        toast.error(t("wizard.website.stylingError"));
+        return;
+      }
+
+      await refetch();
+      router.refresh();
+      setStep(8);
+      setP((prev) => ({
+        ...prev,
+        websitePackId: packId,
+        primaryColorHex: styling.primaryColorHex,
+        secondaryColorHex: styling.secondaryColorHex,
+        primaryFont: styling.primaryFont,
+        secondaryFont: styling.secondaryFont,
+        step: 8,
+      }));
+    } finally {
+      setContinuing(false);
     }
-    setStep(8);
-    setP((prev) => ({ ...prev, websitePackId: packId, step: 8 }));
   };
 
   return (
@@ -343,6 +368,7 @@ export function StepWebsiteTemplate() {
           disabled={continuing || !selectedPackId}
           onClick={onContinue}
         >
+          {continuing ? <Spinner /> : null}
           {t("wizard.website.finish")}
         </Button>
       </div>

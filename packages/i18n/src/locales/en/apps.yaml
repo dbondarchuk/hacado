@@ -92,6 +92,7 @@ scopes:
   schedule: Schedule provider
   assets-storage: Assets storage
   payment: Payments
+  payment-link: Payment links
   dashboard-tab: Dashboard tab
   customer-tab: Customer tab
   ui-components: UI components
@@ -102,6 +103,11 @@ scopes:
   communication-templates-provider: Communication templates provider
   sitemap-items-provider: Sitemap items provider
   page-seo-arguments-provider: Page SEO arguments provider
+  script-provider: Script provider
+  page-metadata-provider: Page metadata provider
+  llms-full-txt-provider: LLMs full text provider
+  public-event-context-provider: Public event context provider
+  public-page-provider: Public page provider
 target:
   company: Company
   member: Member

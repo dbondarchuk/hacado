@@ -1,13 +1,15 @@
 "use client";
 
 import {
+  buildPreviewChromeArgs,
   PreviewChrome,
   type PreviewHeaderVariant,
 } from "@/components/install/preview-chrome";
 import { generateId, type TEditorBlock } from "@hacado/builder";
+import type { Language } from "@hacado/i18n";
 import { PageReader, Styling } from "@hacado/page-builder/reader";
 import type { StylingConfiguration } from "@hacado/types";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 type Props = {
   childrenBlocks: TEditorBlock[];
@@ -16,6 +18,8 @@ type Props = {
   footer: boolean;
   logoUrl?: string | null;
   businessName?: string;
+  language?: Language;
+  general?: Record<string, unknown> | null;
 };
 
 function isNavigatingControl(el: Element): boolean {
@@ -45,6 +49,8 @@ export function InstallLayoutPreviewClient({
   footer,
   logoUrl,
   businessName,
+  language = "en",
+  general,
 }: Props) {
   useEffect(() => {
     const root = window.document.documentElement;
@@ -58,6 +64,16 @@ export function InstallLayoutPreviewClient({
     };
   }, []);
 
+  const chromeArgs = useMemo(
+    () =>
+      buildPreviewChromeArgs({
+        businessName,
+        language,
+        general,
+      }),
+    [businessName, language, general],
+  );
+
   const document = {
     id: generateId(),
     type: "PageLayout" as const,
@@ -68,7 +84,7 @@ export function InstallLayoutPreviewClient({
     },
   };
 
-  const page = <PageReader document={document} isEditor />;
+  const page = <PageReader document={document} args={chromeArgs} isEditor />;
 
   return (
     <div data-install-layout-preview className="min-h-screen bg-background">
@@ -80,6 +96,7 @@ export function InstallLayoutPreviewClient({
           footer={footer}
           logoUrl={logoUrl}
           businessName={businessName}
+          args={chromeArgs}
         >
           {page}
         </PreviewChrome>

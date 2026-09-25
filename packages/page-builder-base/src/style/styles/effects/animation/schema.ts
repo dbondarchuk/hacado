@@ -3,6 +3,7 @@ import * as z from "zod";
 // Animation name options
 export const animationNameKeys = [
   "none",
+  "reveal",
   "fadeIn",
   "fadeOut",
   "slideInLeft",
@@ -41,6 +42,7 @@ export const animationNameKeys = [
 
 export const animationNameKeyMap = {
   none: "none",
+  reveal: "reveal",
   fadeIn: "fadeIn",
   fadeOut: "fadeOut",
   slideInLeft: "slideInLeft",

@@ -22,6 +22,7 @@ import type {
   WebsitePackId,
 } from "./types";
 
+export * from "./catalog-paths";
 export * from "./media";
 export * from "./registry";
 export {
@@ -32,6 +33,7 @@ export {
   composeTerms,
   resolveServices,
 } from "./sections";
+export * from "./theme";
 export * from "./types";
 
 const LAYOUT_KINDS: PageLayoutKind[] = [

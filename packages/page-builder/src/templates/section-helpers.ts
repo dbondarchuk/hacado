@@ -412,36 +412,26 @@ export function withBlockStyle(
   };
 }
 
-export type EntranceAnimationName =
-  | "fadeIn"
-  | "slideInUp"
-  | "slideInLeft"
-  | "slideInRight"
-  | "scaleIn"
-  | "zoomIn";
+export type EntranceAnimationName = "reveal";
 
-/** One-shot entrance animation on first scroll into view. */
+/** HTML-style reveal: fade + slight rise on first scroll into view. */
 export function entranceAnimation(
-  name: EntranceAnimationName = "fadeIn",
   delay = 0,
-  duration = 0.8,
+  duration = 0.7,
 ): Record<string, unknown> {
   // AnimationSchema requires delay/duration as multiples of 0.1.
   const snappedDelay = Math.round(delay * 10) / 10;
   const snappedDuration = Math.round(duration * 10) / 10;
 
   return {
-    // Do not set base opacity:0 - slide/scale keyframes don't restore it, and the
-    // builder forces `animation: none`, which left sections permanently hidden.
-    // firstTimeInView + fillMode both still plays the enter from the 0% keyframe.
     animation: [
       {
         value: {
-          name,
+          name: "reveal" satisfies EntranceAnimationName,
           duration: snappedDuration,
           iterationCount: 1,
           direction: "normal",
-          timingFunction: "ease-out",
+          timingFunction: "ease",
           fillMode: "both",
           delay: snappedDelay,
         },
@@ -451,12 +441,8 @@ export function entranceAnimation(
   };
 }
 
-export function withEntrance(
-  block: TEditorBlock,
-  name: EntranceAnimationName = "fadeIn",
-  delay = 0,
-): TEditorBlock {
-  return withBlockStyle(block, entranceAnimation(name, delay));
+export function withEntrance(block: TEditorBlock, delay = 0): TEditorBlock {
+  return withBlockStyle(block, entranceAnimation(delay));
 }
 
 export function logoImageCard(

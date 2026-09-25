@@ -6,6 +6,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import {
   getPackLayoutBlocks,
   getWebsitePack,
+  mergePackStylingBase,
   packUsesOverlayHeader,
   WEBSITE_PACK_IDS,
   type PageLayoutKind,
@@ -148,11 +149,13 @@ export default async function InstallLayoutPreviewPage(props: Props) {
   return (
     <InstallLayoutPreviewClient
       childrenBlocks={children}
-      styling={styling}
+      styling={mergePackStylingBase(packId, styling)}
       header={header}
       footer
       logoUrl={logoUrl}
       businessName={businessName}
+      language={language}
+      general={general as Record<string, unknown> | null}
     />
   );
 }

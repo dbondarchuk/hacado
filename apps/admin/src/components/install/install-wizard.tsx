@@ -17,11 +17,11 @@ import { StepFinish } from "@/components/install/steps/step-finish";
 import { StepInstallHeader } from "@/components/install/steps/step-install-header";
 import { StepIntegrations } from "@/components/install/steps/step-integrations";
 import { StepPayments } from "@/components/install/steps/step-payments";
-import { StepPersonalization } from "@/components/install/steps/step-personalization";
 import { StepSchedule } from "@/components/install/steps/step-schedule";
 import { StepService } from "@/components/install/steps/step-service";
 import { StepVerify } from "@/components/install/steps/step-verify";
 import { StepWebsiteTemplate } from "@/components/install/steps/step-website-template";
+// StepPersonalization kept in codebase but skipped from the install flow.
 import type {
   InstallPreferencesServerState,
   InstallServiceServerSnapshot,
@@ -118,6 +118,7 @@ export function InstallWizard({
             if (typeof parsedStep === "number") {
               let s = parsedStep;
               if (s > 8) s = 8;
+              if (s === 2) s = 3;
               setStep(s >= 1 && s <= 8 ? s : 1);
             } else {
               setStep(parsedStep);
@@ -171,6 +172,7 @@ export function InstallWizard({
         if (typeof parsed.step === "number") {
           let s = parsed.step;
           if (s > 8) s = 8;
+          if (s === 2) s = 3;
           if (s >= 1 && s <= 8) next = s;
         }
       }
@@ -247,8 +249,7 @@ export function InstallWizard({
         <StepInstallHeader stepNum={typeof step === "number" ? step : 1} />
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-8 md:px-8">
           {step === 1 ? <StepBusiness /> : null}
-          {step === 2 ? <StepPersonalization /> : null}
-          {step === 3 ? <StepService /> : null}
+          {step === 2 || step === 3 ? <StepService /> : null}
           {step === 4 ? <StepSchedule /> : null}
           {step === 5 ? <StepIntegrations /> : null}
           {step === 6 ? <StepPayments /> : null}

@@ -1,6 +1,7 @@
 import { generateId, TemplatesConfiguration } from "@hacado/builder";
-import type { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import {
+  Columns3,
   GalleryHorizontal,
   GalleryHorizontalEnd,
   MonitorPlay,
@@ -36,7 +37,7 @@ const GALLERY_IMAGES = [
   SALON_IMAGES.styling,
 ];
 
-function galleryImage(src: string, alt: string) {
+function galleryImage(src: string, alt: string, heightRem = 12) {
   return {
     type: "Image" as const,
     id: generateId(),
@@ -46,12 +47,78 @@ function galleryImage(src: string, alt: string) {
       style: {
         ...ImagePropsDefaults.style,
         width: [{ value: { value: 100, unit: "%" } }],
-        height: [{ value: { value: 12, unit: "rem" } }],
+        height: [{ value: { value: heightRem, unit: "rem" } }],
         objectFit: [{ value: "cover" }],
         borderRadius: [{ value: { value: 8, unit: "px" } }],
       },
     },
   };
+}
+
+function masonryGalleryBlock(t: I18nFn<undefined, undefined>) {
+  const alt = t(`${prefix}.galleryMasonry.imageAlt` as BaseAllKeys);
+  const heights = [11, 17, 13, 19, 12, 16, 14, 18];
+  const columns: ReturnType<typeof galleryImage>[][] = [[], [], []];
+  GALLERY_IMAGES.forEach((src, index) => {
+    columns[index % 3]!.push(
+      galleryImage(src, alt, heights[index % heights.length]!),
+    );
+  });
+
+  const columnBlocks = columns.map((col) =>
+    compositeContainer(col, 1, {
+      width: [{ value: { value: 100, unit: "%" } }],
+      minWidth: [{ value: { value: 0, unit: "rem" } }],
+    }),
+  );
+
+  return sectionShell([
+    buildSectionIntro(t, {
+      title: `${prefix}.galleryMasonry.title` as BaseAllKeys,
+      body: `${prefix}.galleryMasonry.body` as BaseAllKeys,
+    }),
+    {
+      type: "Lightbox",
+      id: generateId(),
+      data: {
+        ...LightboxPropsDefaults,
+        props: {
+          ...LightboxPropsDefaults.props,
+          children: [
+            {
+              type: "Container",
+              id: generateId(),
+              data: {
+                ...GridContainerPropsDefaults,
+                style: {
+                  ...GridContainerPropsDefaults.style,
+                  display: [{ value: "grid" }],
+                  gridTemplateColumns: [
+                    { value: "1fr" },
+                    { value: "repeat(2, 1fr)", breakpoint: ["sm"] },
+                    { value: "repeat(3, 1fr)", breakpoint: ["md"] },
+                  ],
+                  gap: [{ value: { value: 1, unit: "rem" } }],
+                  alignItems: [{ value: "flex-start" }],
+                  padding: [
+                    {
+                      value: {
+                        top: { value: 0, unit: "rem" },
+                        bottom: { value: 0, unit: "rem" },
+                        left: { value: 0, unit: "rem" },
+                        right: { value: 0, unit: "rem" },
+                      },
+                    },
+                  ],
+                },
+                props: { children: columnBlocks },
+              },
+            },
+          ],
+        },
+      },
+    },
+  ]);
 }
 
 export const mediaEditorTemplates: TemplatesConfiguration = {
@@ -166,6 +233,16 @@ export const mediaEditorTemplates: TemplatesConfiguration = {
         },
       ]);
     },
+  },
+
+  GalleryMasonry: {
+    displayName:
+      "builder.pageBuilder.templates.media.galleryMasonry" as BaseAllKeys,
+    icon: <Columns3 />,
+    category,
+    previewImage: sectionTemplatePreviewPath("gallery-masonry.png"),
+    allowedBuilderTypes: ["page"],
+    getBlock: (t) => masonryGalleryBlock(t),
   },
 
   GalleryCarousel: {

@@ -4,6 +4,9 @@ import type {
   TEditorBlock,
 } from "@hacado/builder";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+import type { PackTheme } from "./theme";
+
+export type { PackTheme } from "./theme";
 
 export type WebsitePackId =
   | "salon"
@@ -16,6 +19,8 @@ export type WebsitePackId =
   | "pet"
   | "home_services"
   | "professional"
+  | "nails"
+  | "lash"
   | "salon_b"
   | "tattoo_b"
   | "spa_b"
@@ -26,6 +31,8 @@ export type WebsitePackId =
   | "pet_b"
   | "home_services_b"
   | "professional_b"
+  | "nails_b"
+  | "lash_b"
   | "salon_c"
   | "tattoo_c"
   | "spa_c"
@@ -35,7 +42,21 @@ export type WebsitePackId =
   | "clinic_c"
   | "pet_c"
   | "home_services_c"
-  | "professional_c";
+  | "professional_c"
+  | "nails_c"
+  | "lash_c"
+  | "salon_d"
+  | "tattoo_d"
+  | "spa_d"
+  | "coach_d"
+  | "fitness_d"
+  | "photography_d"
+  | "clinic_d"
+  | "pet_d"
+  | "home_services_d"
+  | "professional_d"
+  | "nails_d"
+  | "lash_d";
 
 /** Page-builder layout roles (opaque `layoutKind` string on base builder). */
 export type PageLayoutKind = "home" | "booking" | "service" | "about" | "terms";
@@ -55,6 +76,7 @@ export type PackHomeSection =
   | "bento"
   | "featureList"
   | "gallery"
+  | "galleryMasonry"
   | "galleryCarousel"
   | "carousel"
   | "beforeAfter"
@@ -74,6 +96,7 @@ export type PackHomeSection =
 export type PackServiceExtra =
   | "beforeAfter"
   | "gallery"
+  | "galleryMasonry"
   | "galleryCarousel"
   | "video";
 
@@ -91,6 +114,8 @@ export type PackMediaLibrary = {
   before?: string;
   after?: string;
   logos?: Array<{ src: string; name: string }>;
+  /** Optional ambient clip for home/service video sections. */
+  video?: string;
 };
 
 export type PackDemoServiceDef = {
@@ -116,6 +141,8 @@ export type WebsitePackDefinition = {
   mood?: PackMood;
   /** Staggered entrance animations on home sections (default true for mood packs). */
   motion?: boolean;
+  /** Suggested colors/fonts from HTML mockups — preview & install base. */
+  theme: PackTheme;
 };
 
 export type LayoutComposer = (

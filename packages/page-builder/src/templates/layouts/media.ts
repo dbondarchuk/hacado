@@ -75,6 +75,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1605497788044-5a32c7078486"),
         keywords: ["artist", "studio"],
       },
+      {
+        src: u("photo-1590247813693-5541d1c609fd"),
+        keywords: ["ink", "arm"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   spa: {
@@ -142,6 +150,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1600880292203-757bb62b4baf"),
         keywords: ["growth", "planning"],
+      },
+      {
+        src: u("photo-1522071820081-009f0129c71c"),
+        keywords: ["team", "meeting"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
       },
     ],
   },
@@ -249,6 +265,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1519494026892-80bbd2d6fd0d"),
         keywords: ["family", "patient"],
       },
+      {
+        src: u("photo-1559839734-2b71ea197ec2"),
+        keywords: ["physician", "consult"],
+      },
+      {
+        src: u("photo-1584433144859-1fc3ab64a957"),
+        keywords: ["nurse", "patient"],
+      },
     ],
   },
   pet: {
@@ -278,6 +302,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1583511655857-d19b40a7a54e"),
         keywords: ["care", "happy"],
+      },
+      {
+        src: u("photo-1601758228041-f3b2795255f1"),
+        keywords: ["groom", "bath"],
+      },
+      {
+        src: u("photo-1530281700549-e82e7bf110d6"),
+        keywords: ["walk", "outdoor"],
       },
     ],
   },
@@ -347,6 +379,94 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1521791136064-7986c2920216"),
         keywords: ["advisors", "handshake"],
       },
+      {
+        src: u("photo-1520607162513-77705c0f0d4a"),
+        keywords: ["office", "laptop"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  nails: {
+    generic: u("photo-1604654894610-df63bc536371"),
+    before: u("photo-1519014816548-bf5fe059798b"),
+    after: u("photo-1604654894610-df63bc536371"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1604654894610-df63bc536371"),
+        keywords: ["gel", "manicure", "nails"],
+      },
+      {
+        src: u("photo-1519014816548-bf5fe059798b"),
+        keywords: ["acrylic", "set", "sculpt", "builder"],
+      },
+      {
+        src: u("photo-1632345031435-8727f6897d53"),
+        keywords: ["art", "design", "chrome", "statement"],
+      },
+      {
+        src: u("photo-1607779097040-26e80aa78e66"),
+        keywords: ["fill", "refresh", "polish", "express"],
+      },
+      {
+        src: u("photo-1522337660859-02fbefca4702"),
+        keywords: ["studio", "hands", "beauty", "glass"],
+      },
+      {
+        src: u("photo-1596462502278-27bfdc403348"),
+        keywords: ["tools", "cuticle"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["glow", "finish", "atelier"],
+      },
+      {
+        src: u("photo-1604654894610-df63bc536371"),
+        keywords: ["nails", "gallery"],
+      },
+    ],
+  },
+  lash: {
+    generic: u("photo-1583001931096-959e9a1a6223"),
+    before: u("photo-1616394584738-fc6e612e71b9"),
+    after: u("photo-1583001931096-959e9a1a6223"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["classic", "lash", "extensions", "silk", "map"],
+      },
+      {
+        src: u("photo-1522335789203-aabd1fc54bc9"),
+        keywords: ["volume", "makeup", "eyes", "soft", "couture", "mega"],
+      },
+      {
+        src: u("photo-1616394584738-fc6e612e71b9"),
+        keywords: ["brow", "lamination", "tint", "sculpt"],
+      },
+      {
+        src: u("photo-1512496015851-a90fb38ba796"),
+        keywords: ["fill", "refresh", "hybrid", "two-week"],
+      },
+      {
+        src: u("photo-1526045478516-99145907023c"),
+        keywords: ["beauty", "portrait"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["spa", "calm", "room"],
+      },
+      {
+        src: u("photo-1595476108010-b4d1f102b1b1"),
+        keywords: ["studio", "glow"],
+      },
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["lash", "gallery"],
+      },
     ],
   },
   salon_b: {
@@ -378,6 +498,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1492106087820-71f1a00d2b11"),
         keywords: ["hair", "finish"],
+      },
+      {
+        src: u("photo-1522337360788-8b13dee7a37e"),
+        keywords: ["cut", "style"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["gallery", "look"],
       },
     ],
   },
@@ -411,6 +539,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1614850715649-1d0106293bd1"),
         keywords: ["touch", "refresh"],
       },
+      {
+        src: u("photo-1590247813693-5541d1c609fd"),
+        keywords: ["ink", "arm"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   spa_b: {
@@ -441,6 +577,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1570172619644-dfd03ed5d881"),
         keywords: ["treatment", "body"],
       },
+      {
+        src: u("photo-1515377905703-c4788e51af15"),
+        keywords: ["ritual", "oil"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   coach_b: {
@@ -470,6 +614,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1600880292203-757bb62b4baf"),
         keywords: ["growth", "planning"],
+      },
+      {
+        src: u("photo-1522071820081-009f0129c71c"),
+        keywords: ["team", "meeting"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
       },
     ],
   },
@@ -503,6 +655,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1571902943202-507ec2618e8f"),
         keywords: ["studio", "workout"],
       },
+      {
+        src: u("photo-1576678927484-cc907957088c"),
+        keywords: ["gym", "rack"],
+      },
+      {
+        src: u("photo-1434494878577-86c23bcb06b9"),
+        keywords: ["training", "watch"],
+      },
     ],
   },
   photography_b: {
@@ -532,6 +692,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1542038784456-1ea8e935640e"),
         keywords: ["gallery", "lens"],
+      },
+      {
+        src: u("photo-1516035069371-29a1b244cc32"),
+        keywords: ["studio", "light"],
+      },
+      {
+        src: u("photo-1507003211169-0a1dd7228f2d"),
+        keywords: ["portrait", "face"],
       },
     ],
   },
@@ -563,6 +731,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1519494026892-80bbd2d6fd0d"),
         keywords: ["family", "patient"],
       },
+      {
+        src: u("photo-1559839734-2b71ea197ec2"),
+        keywords: ["physician", "consult"],
+      },
+      {
+        src: u("photo-1584433144859-1fc3ab64a957"),
+        keywords: ["nurse", "patient"],
+      },
     ],
   },
   pet_b: {
@@ -592,6 +768,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1583511655857-d19b40a7a54e"),
         keywords: ["care", "happy"],
+      },
+      {
+        src: u("photo-1601758228041-f3b2795255f1"),
+        keywords: ["groom", "bath"],
+      },
+      {
+        src: u("photo-1530281700549-e82e7bf110d6"),
+        keywords: ["walk", "outdoor"],
       },
     ],
   },
@@ -623,6 +807,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1484154218962-a197022b5858"),
         keywords: ["kitchen", "deep"],
       },
+      {
+        src: u("photo-1600585154526-990dced4db0d"),
+        keywords: ["interior", "room"],
+      },
+      {
+        src: u("photo-1600566753086-00f18fb6b3ea"),
+        keywords: ["kitchen", "detail"],
+      },
     ],
   },
   professional_b: {
@@ -652,6 +844,94 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1521791136064-7986c2920216"),
         keywords: ["advisors", "handshake"],
+      },
+      {
+        src: u("photo-1520607162513-77705c0f0d4a"),
+        keywords: ["office", "laptop"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  nails_b: {
+    generic: u("photo-1632345031435-8727f6897d53"),
+    before: u("photo-1519014816548-bf5fe059798b"),
+    after: u("photo-1632345031435-8727f6897d53"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1604654894610-df63bc536371"),
+        keywords: ["gel", "manicure", "nails"],
+      },
+      {
+        src: u("photo-1519014816548-bf5fe059798b"),
+        keywords: ["acrylic", "set", "sculpt", "builder"],
+      },
+      {
+        src: u("photo-1632345031435-8727f6897d53"),
+        keywords: ["art", "design", "chrome", "statement"],
+      },
+      {
+        src: u("photo-1607779097040-26e80aa78e66"),
+        keywords: ["fill", "refresh", "polish", "express"],
+      },
+      {
+        src: u("photo-1522337660859-02fbefca4702"),
+        keywords: ["studio", "hands", "beauty", "glass"],
+      },
+      {
+        src: u("photo-1596462502278-27bfdc403348"),
+        keywords: ["tools", "cuticle"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["glow", "finish", "atelier"],
+      },
+      {
+        src: u("photo-1632345031435-8727f6897d53"),
+        keywords: ["nails", "gallery"],
+      },
+    ],
+  },
+  lash_b: {
+    generic: u("photo-1522335789203-aabd1fc54bc9"),
+    before: u("photo-1616394584738-fc6e612e71b9"),
+    after: u("photo-1522335789203-aabd1fc54bc9"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["classic", "lash", "extensions", "silk", "map"],
+      },
+      {
+        src: u("photo-1522335789203-aabd1fc54bc9"),
+        keywords: ["volume", "makeup", "eyes", "soft", "couture", "mega"],
+      },
+      {
+        src: u("photo-1616394584738-fc6e612e71b9"),
+        keywords: ["brow", "lamination", "tint", "sculpt"],
+      },
+      {
+        src: u("photo-1512496015851-a90fb38ba796"),
+        keywords: ["fill", "refresh", "hybrid", "two-week"],
+      },
+      {
+        src: u("photo-1526045478516-99145907023c"),
+        keywords: ["beauty", "portrait"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["spa", "calm", "room"],
+      },
+      {
+        src: u("photo-1595476108010-b4d1f102b1b1"),
+        keywords: ["studio", "glow"],
+      },
+      {
+        src: u("photo-1522335789203-aabd1fc54bc9"),
+        keywords: ["lash", "gallery"],
       },
     ],
   },
@@ -685,6 +965,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1519699047748-de8e457a634e"),
         keywords: ["before", "finish"],
       },
+      {
+        src: u("photo-1562322140-8baeececf3df"),
+        keywords: ["salon", "stylist"],
+      },
+      {
+        src: u("photo-1516975080664-ed2fc6a32937"),
+        keywords: ["nails", "gel"],
+      },
     ],
   },
   tattoo_c: {
@@ -717,6 +1005,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1558618666-fcd25c85cd64"),
         keywords: ["artist", "gallery"],
       },
+      {
+        src: u("photo-1605497788044-5a32c7078486"),
+        keywords: ["artist", "needle"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   spa_c: {
@@ -747,6 +1043,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1540555700478-4be289fbecef"),
         keywords: ["wellness", "calm"],
       },
+      {
+        src: u("photo-1515377905703-c4788e51af15"),
+        keywords: ["ritual", "oil"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   coach_c: {
@@ -776,6 +1080,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1573496359142-b8d87734a5a2"),
         keywords: ["executive", "portrait"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["gallery", "look"],
       },
     ],
   },
@@ -809,6 +1121,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1534438327276-14e5300c3a48"),
         keywords: ["athletics", "fitness"],
       },
+      {
+        src: u("photo-1576678927484-cc907957088c"),
+        keywords: ["gym", "rack"],
+      },
+      {
+        src: u("photo-1434494878577-86c23bcb06b9"),
+        keywords: ["training", "watch"],
+      },
     ],
   },
   photography_c: {
@@ -839,6 +1159,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1492691527719-9d1e07e534b4"),
         keywords: ["cinematic", "photo"],
       },
+      {
+        src: u("photo-1507003211169-0a1dd7228f2d"),
+        keywords: ["portrait", "face"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
     ],
   },
   clinic_c: {
@@ -868,6 +1196,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1631217868264-e5b90bb7e133"),
         keywords: ["medical", "exam"],
+      },
+      {
+        src: u("photo-1559839734-2b71ea197ec2"),
+        keywords: ["physician", "consult"],
+      },
+      {
+        src: u("photo-1584433144859-1fc3ab64a957"),
+        keywords: ["nurse", "patient"],
       },
     ],
   },
@@ -901,6 +1237,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1548199973-03cce0bbc87b"),
         keywords: ["play", "happy"],
       },
+      {
+        src: u("photo-1601758228041-f3b2795255f1"),
+        keywords: ["groom", "bath"],
+      },
+      {
+        src: u("photo-1530281700549-e82e7bf110d6"),
+        keywords: ["walk", "outdoor"],
+      },
     ],
   },
   home_services_c: {
@@ -931,6 +1275,14 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
         src: u("photo-1581578731548-c64695cc6952"),
         keywords: ["cleaning", "service"],
       },
+      {
+        src: u("photo-1600585154526-990dced4db0d"),
+        keywords: ["interior", "room"],
+      },
+      {
+        src: u("photo-1600566753086-00f18fb6b3ea"),
+        keywords: ["kitchen", "detail"],
+      },
     ],
   },
   professional_c: {
@@ -960,6 +1312,584 @@ export const PACK_MEDIA: Record<WebsitePackId, PackMediaLibrary> = {
       {
         src: u("photo-1521791136064-7986c2920216"),
         keywords: ["advisors", "handshake"],
+      },
+      {
+        src: u("photo-1520607162513-77705c0f0d4a"),
+        keywords: ["office", "laptop"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  nails_c: {
+    generic: u("photo-1607779097040-26e80aa78e66"),
+    before: u("photo-1519014816548-bf5fe059798b"),
+    after: u("photo-1607779097040-26e80aa78e66"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1604654894610-df63bc536371"),
+        keywords: ["gel", "manicure", "nails"],
+      },
+      {
+        src: u("photo-1519014816548-bf5fe059798b"),
+        keywords: ["acrylic", "set", "sculpt", "builder"],
+      },
+      {
+        src: u("photo-1632345031435-8727f6897d53"),
+        keywords: ["art", "design", "chrome", "statement"],
+      },
+      {
+        src: u("photo-1607779097040-26e80aa78e66"),
+        keywords: ["fill", "refresh", "polish", "express"],
+      },
+      {
+        src: u("photo-1522337660859-02fbefca4702"),
+        keywords: ["studio", "hands", "beauty", "glass"],
+      },
+      {
+        src: u("photo-1596462502278-27bfdc403348"),
+        keywords: ["tools", "cuticle"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["glow", "finish", "atelier"],
+      },
+      {
+        src: u("photo-1607779097040-26e80aa78e66"),
+        keywords: ["nails", "gallery"],
+      },
+    ],
+  },
+  lash_c: {
+    generic: u("photo-1512496015851-a90fb38ba796"),
+    before: u("photo-1616394584738-fc6e612e71b9"),
+    after: u("photo-1512496015851-a90fb38ba796"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["classic", "lash", "extensions", "silk", "map"],
+      },
+      {
+        src: u("photo-1522335789203-aabd1fc54bc9"),
+        keywords: ["volume", "makeup", "eyes", "soft", "couture", "mega"],
+      },
+      {
+        src: u("photo-1616394584738-fc6e612e71b9"),
+        keywords: ["brow", "lamination", "tint", "sculpt"],
+      },
+      {
+        src: u("photo-1512496015851-a90fb38ba796"),
+        keywords: ["fill", "refresh", "hybrid", "two-week"],
+      },
+      {
+        src: u("photo-1526045478516-99145907023c"),
+        keywords: ["beauty", "portrait"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["spa", "calm", "room"],
+      },
+      {
+        src: u("photo-1595476108010-b4d1f102b1b1"),
+        keywords: ["studio", "glow"],
+      },
+      {
+        src: u("photo-1512496015851-a90fb38ba796"),
+        keywords: ["lash", "gallery"],
+      },
+    ],
+  },
+  salon_d: {
+    generic: u("photo-1522338140262-f46f5913618a"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-hairdresser-cutting-hair-4065/1080p.mp4",
+    before: u("photo-1516975080664-ed2fc6a32937"),
+    after: u("photo-1522338140262-f46f5913618a"),
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["cut", "shape"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["color", "glass"],
+      },
+      {
+        src: u("photo-1522337360788-8b13dee7a37e"),
+        keywords: ["blowout", "blow"],
+      },
+      {
+        src: u("photo-1595476108010-b4d1f102b1b1"),
+        keywords: ["event", "finish"],
+      },
+      {
+        src: u("photo-1521590832167-7bcbfaa6381f"),
+        keywords: ["salon", "hair"],
+      },
+      {
+        src: u("photo-1519699047748-de8e457a634e"),
+        keywords: ["lookbook", "portrait"],
+      },
+      {
+        src: u("photo-1562322140-8baeececf3df"),
+        keywords: ["salon", "stylist"],
+      },
+      {
+        src: u("photo-1516975080664-ed2fc6a32937"),
+        keywords: ["nails", "gel"],
+      },
+    ],
+  },
+  tattoo_d: {
+    generic: u("photo-1611501275019-9b5cda994e8d"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-hairdresser-cutting-hair-4065/1080p.mp4",
+    before: u("photo-1542727365-19732a80dcfd"),
+    after: u("photo-1611501275019-9b5cda994e8d"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1542727365-19732a80dcfd"),
+        keywords: ["fine", "line"],
+      },
+      {
+        src: u("photo-1611501275019-9b5cda994e8d"),
+        keywords: ["blackwork", "tattoo"],
+      },
+      {
+        src: u("photo-1542051841857-5f90071e7989"),
+        keywords: ["custom", "consult"],
+      },
+      {
+        src: u("photo-1590247813693-5541d1c609fd"),
+        keywords: ["touch", "healed"],
+      },
+      {
+        src: u("photo-1558618666-fcd25c85cd64"),
+        keywords: ["artist", "gallery"],
+      },
+      {
+        src: u("photo-1605497788044-5a32c7078486"),
+        keywords: ["ink", "studio"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  spa_d: {
+    generic: u("photo-1540555700478-4be289fbecef"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-woman-getting-a-facial-treatment-5585/1080p.mp4",
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1544161515-4ab6ce6db874"),
+        keywords: ["massage", "mineral"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["facial", "botanical"],
+      },
+      {
+        src: u("photo-1600334129128-685c5582fd35"),
+        keywords: ["scrub", "steam"],
+      },
+      {
+        src: u("photo-1507652313519-d4e9174996dd"),
+        keywords: ["soak", "private"],
+      },
+      {
+        src: u("photo-1515377905703-c4788e51af15"),
+        keywords: ["spa", "ritual"],
+      },
+      {
+        src: u("photo-1540555700478-4be289fbecef"),
+        keywords: ["wellness", "calm"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  coach_d: {
+    generic: u("photo-1573496359142-b8d87734a5a2"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-a-man-working-on-a-laptop-5633/1080p.mp4",
+    logos: TEMPLATE_LOGOS.slice(3, 11).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1551836022-d5d88e9218df"),
+        keywords: ["leadership", "intensive"],
+      },
+      {
+        src: u("photo-1522071820081-009f0129c71c"),
+        keywords: ["career", "pivot"],
+      },
+      {
+        src: u("photo-1556761175-b413da4baf72"),
+        keywords: ["manager", "launch"],
+      },
+      {
+        src: u("photo-1517245386807-bb43f82c33c4"),
+        keywords: ["accountability", "check"],
+      },
+      {
+        src: u("photo-1552664730-d307ca884978"),
+        keywords: ["coach", "draft"],
+      },
+      {
+        src: u("photo-1507679799987-c73779587ccf"),
+        keywords: ["executive", "meeting"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+      {
+        src: u("photo-1560066984-138dadb4c035"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  fitness_d: {
+    generic: u("photo-1534438327276-14e5300c3a48"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-working-out-in-the-gym-5631/1080p.mp4",
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1517836357463-d25dfeac3438"),
+        keywords: ["strength"],
+      },
+      {
+        src: u("photo-1571019614242-c5c5dee9f50b"),
+        keywords: ["conditioning", "engine"],
+      },
+      {
+        src: u("photo-1583454110551-21f2fa2afe61"),
+        keywords: ["mobility", "recovery"],
+      },
+      {
+        src: u("photo-1540497077202-7c8a3999166f"),
+        keywords: ["team", "group"],
+      },
+      {
+        src: u("photo-1518611012118-696072aa579a"),
+        keywords: ["gym", "volt"],
+      },
+      {
+        src: u("photo-1434494878577-86c23bcb06b9"),
+        keywords: ["training", "class"],
+      },
+      {
+        src: u("photo-1576678927484-cc907957088c"),
+        keywords: ["gym", "rack"],
+      },
+      {
+        src: u("photo-1534438327276-14e5300c3a48"),
+        keywords: ["studio", "class"],
+      },
+    ],
+  },
+  photography_d: {
+    generic: u("photo-1492691527719-9d1e07e534b4"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-a-man-working-on-a-laptop-5633/1080p.mp4",
+    before: u("photo-1516035069371-29a1b244cc32"),
+    after: u("photo-1492691527719-9d1e07e534b4"),
+    logos: TEMPLATE_LOGOS.slice(4, 12).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1507003211169-0a1dd7228f2d"),
+        keywords: ["portrait"],
+      },
+      {
+        src: u("photo-1531746020798-e6953c6e8e04"),
+        keywords: ["brand", "story"],
+      },
+      {
+        src: u("photo-1469334031218-e382a71b716b"),
+        keywords: ["event"],
+      },
+      {
+        src: u("photo-1542038784456-1ea8e935640e"),
+        keywords: ["product"],
+      },
+      {
+        src: u("photo-1554048612-b6a482bc67e5"),
+        keywords: ["camera", "field"],
+      },
+      {
+        src: u("photo-1516035069371-29a1b244cc32"),
+        keywords: ["studio", "light"],
+      },
+      {
+        src: u("photo-1492691527719-9d1e07e534b4"),
+        keywords: ["camera", "lens"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  clinic_d: {
+    generic: u("photo-1576091160399-112ba8d25d1d"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-a-man-working-on-a-laptop-5633/1080p.mp4",
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1631217868264-e5b90bb7e133"),
+        keywords: ["wellness", "checkup"],
+      },
+      {
+        src: u("photo-1584820927498-cfe5211fd8bf"),
+        keywords: ["sick", "urgent"],
+      },
+      {
+        src: u("photo-1579684385127-1ef15d508118"),
+        keywords: ["travel", "vaccine"],
+      },
+      {
+        src: u("photo-1559839734-2b71ea197ec2"),
+        keywords: ["video", "telehealth"],
+      },
+      {
+        src: u("photo-1584433144859-1fc3ab64a957"),
+        keywords: ["clinic", "care"],
+      },
+      {
+        src: u("photo-1519494026892-80bbd2d6fd0d"),
+        keywords: ["team", "nurse"],
+      },
+      {
+        src: u("photo-1576091160399-112ba8d25d1d"),
+        keywords: ["clinic", "care"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  pet_d: {
+    generic: u("photo-1587300003388-59208cc962cb"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-woman-getting-a-facial-treatment-5585/1080p.mp4",
+    before: u("photo-1548199973-03cce0bbc87b"),
+    after: u("photo-1587300003388-59208cc962cb"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1601758228041-f3b2795255f1"),
+        keywords: ["groom"],
+      },
+      {
+        src: u("photo-1530281700549-e82e7bf110d6"),
+        keywords: ["walk", "adventure"],
+      },
+      {
+        src: u("photo-1583511655857-d19b40a7a54e"),
+        keywords: ["puppy"],
+      },
+      {
+        src: u("photo-1450778869180-41d0601e046e"),
+        keywords: ["deshed"],
+      },
+      {
+        src: u("photo-1516734212186-a967f81ad0d7"),
+        keywords: ["dog", "trail"],
+      },
+      {
+        src: u("photo-1548199973-03cce0bbc87b"),
+        keywords: ["pet", "play"],
+      },
+      {
+        src: u("photo-1587300003388-59208cc962cb"),
+        keywords: ["dog", "happy"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  home_services_d: {
+    generic: u("photo-1581578731548-c64695cc6952"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-a-man-working-on-a-laptop-5633/1080p.mp4",
+    before: u("photo-1560185127-6ed189bf02f4"),
+    after: u("photo-1600585154340-be6161a56a0c"),
+    logos: TEMPLATE_LOGOS.slice(0, 8).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1556912173-46c336c7fd55"),
+        keywords: ["clean", "weekly"],
+      },
+      {
+        src: u("photo-1484154218962-a197022b5858"),
+        keywords: ["handyman", "punch"],
+      },
+      {
+        src: u("photo-1600566753190-17f0baa2a6c3"),
+        keywords: ["move", "detail"],
+      },
+      {
+        src: u("photo-1600585154526-990dced4db0d"),
+        keywords: ["filter", "fixture"],
+      },
+      {
+        src: u("photo-1581578731548-c64695cc6952"),
+        keywords: ["home", "threshold"],
+      },
+      {
+        src: u("photo-1600585154340-be6161a56a0c"),
+        keywords: ["project", "finish"],
+      },
+      {
+        src: u("photo-1600566753086-00f18fb6b3ea"),
+        keywords: ["kitchen", "detail"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  professional_d: {
+    generic: u("photo-1454165804606-c3d57bc86b40"),
+    video:
+      "https://cdn.coverr.co/videos/coverr-a-man-working-on-a-laptop-5633/1080p.mp4",
+    logos: TEMPLATE_LOGOS.slice(3, 11).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1554224155-6726b3ff858f"),
+        keywords: ["books", "cleanup"],
+      },
+      {
+        src: u("photo-1460925895917-afdab827c52f"),
+        keywords: ["controller", "fractional"],
+      },
+      {
+        src: u("photo-1551836022-4c4c79ecde51"),
+        keywords: ["process", "ops"],
+      },
+      {
+        src: u("photo-1507679799987-c73779587ccf"),
+        keywords: ["tax"],
+      },
+      {
+        src: u("photo-1556761175-5973dc0f32e7"),
+        keywords: ["ledger", "finance"],
+      },
+      {
+        src: u("photo-1520607162513-77705c0f0d4a"),
+        keywords: ["advisors", "desk"],
+      },
+      {
+        src: u("photo-1454165804606-c3d57bc86b40"),
+        keywords: ["desk", "work"],
+      },
+      {
+        src: u("photo-1522338140262-f46f5913618a"),
+        keywords: ["gallery", "look"],
+      },
+    ],
+  },
+  nails_d: {
+    generic: u("photo-1522337660859-02fbefca4702"),
+    before: u("photo-1519014816548-bf5fe059798b"),
+    after: u("photo-1522337660859-02fbefca4702"),
+    logos: TEMPLATE_LOGOS.slice(1, 9).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1604654894610-df63bc536371"),
+        keywords: ["gel", "manicure", "nails"],
+      },
+      {
+        src: u("photo-1519014816548-bf5fe059798b"),
+        keywords: ["acrylic", "set", "sculpt", "builder"],
+      },
+      {
+        src: u("photo-1632345031435-8727f6897d53"),
+        keywords: ["art", "design", "chrome", "statement"],
+      },
+      {
+        src: u("photo-1607779097040-26e80aa78e66"),
+        keywords: ["fill", "refresh", "polish", "express"],
+      },
+      {
+        src: u("photo-1522337660859-02fbefca4702"),
+        keywords: ["studio", "hands", "beauty", "glass"],
+      },
+      {
+        src: u("photo-1596462502278-27bfdc403348"),
+        keywords: ["tools", "cuticle"],
+      },
+      {
+        src: u("photo-1487412947147-5cebf100ffc2"),
+        keywords: ["glow", "finish", "atelier"],
+      },
+      {
+        src: u("photo-1522337660859-02fbefca4702"),
+        keywords: ["nails", "gallery"],
+      },
+    ],
+  },
+  lash_d: {
+    generic: u("photo-1583001931096-959e9a1a6223"),
+    before: u("photo-1616394584738-fc6e612e71b9"),
+    after: u("photo-1583001931096-959e9a1a6223"),
+    logos: TEMPLATE_LOGOS.slice(2, 10).map((l) => ({ ...l })),
+    items: [
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["classic", "lash", "extensions", "silk", "map"],
+      },
+      {
+        src: u("photo-1522335789203-aabd1fc54bc9"),
+        keywords: ["volume", "makeup", "eyes", "soft", "couture", "mega"],
+      },
+      {
+        src: u("photo-1616394584738-fc6e612e71b9"),
+        keywords: ["brow", "lamination", "tint", "sculpt"],
+      },
+      {
+        src: u("photo-1512496015851-a90fb38ba796"),
+        keywords: ["fill", "refresh", "hybrid", "two-week"],
+      },
+      {
+        src: u("photo-1526045478516-99145907023c"),
+        keywords: ["beauty", "portrait"],
+      },
+      {
+        src: u("photo-1570172619644-dfd03ed5d881"),
+        keywords: ["spa", "calm", "room"],
+      },
+      {
+        src: u("photo-1595476108010-b4d1f102b1b1"),
+        keywords: ["studio", "glow"],
+      },
+      {
+        src: u("photo-1583001931096-959e9a1a6223"),
+        keywords: ["lash", "gallery"],
       },
     ],
   },

@@ -32,8 +32,9 @@ import {
   useDebounceCallback,
   type IComboboxItem,
 } from "@hacado/ui";
-import { AddressAutocomplete } from "@hacado/ui-admin";
+import { AddressAutocomplete, AssetSelectorInput } from "@hacado/ui-admin";
 import { getTimeZones } from "@vvo/tzdb";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -119,6 +120,7 @@ export function StepBusiness() {
         language: p.language,
         country: p.country,
         currency: p.currency,
+        installLogo: p.installLogo?.trim() || null,
       };
       const result = await createWorkspace(body);
       if (!result.ok) {
@@ -135,8 +137,8 @@ export function StepBusiness() {
       }
       await refetch();
       router.refresh();
-      setStep(2);
-      setP((prev) => ({ ...prev, step: 2 }));
+      setStep(3);
+      setP((prev) => ({ ...prev, step: 3 }));
       toast.success(
         result.updated
           ? t("wizard.business.updated")
@@ -173,6 +175,35 @@ export function StepBusiness() {
             }}
             placeholder={t("wizard.business.namePlaceholder")}
           />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Label>{t("wizard.business.logo")}</Label>
+          <AssetSelectorInput
+            value={p.installLogo || ""}
+            onChange={(v) =>
+              setP((prev) => ({ ...prev, installLogo: v ?? "" }))
+            }
+            accept="image/*"
+            placeholder={t("wizard.business.logoPlaceholder")}
+          />
+          {p.installLogo?.trim() ? (
+            <div className="flex justify-center rounded-lg border bg-muted/30 p-4 relative">
+              <img
+                src={p.installLogo}
+                alt={t("wizard.business.logoPreviewAlt")}
+                className="max-h-36 max-w-full object-contain"
+              />
+              <Button
+                variant="ghost-destructive"
+                type="button"
+                className="absolute top-2 right-2"
+                onClick={() => setP((prev) => ({ ...prev, installLogo: null }))}
+                title={t("wizard.business.removeLogo")}
+              >
+                <X className="size-4" />
+              </Button>
+            </div>
+          ) : null}
         </div>
         <div className="flex flex-col gap-2">
           <Label>{t("wizard.business.slug")}</Label>

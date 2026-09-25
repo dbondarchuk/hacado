@@ -469,6 +469,7 @@ pageBuilder:
       step_end: Step End
     animation:
       none: None
+      reveal: Reveal
       fadeIn: Fade In
       fadeOut: Fade Out
       slideInLeft: Slide In Left
@@ -987,6 +988,7 @@ pageBuilder:
       browserCarouselSection: Browser carousel section
       videoEmbedSection: Video embed section
       galleryGrid: Gallery grid
+      galleryMasonry: Masonry gallery
       galleryCarousel: Gallery carousel
     booking:
       bookingSection: Booking section
@@ -1105,6 +1107,10 @@ pageBuilder:
         title: Inside the salon
         body: Spaces, services, and results from salons on Hacado.
         imageAlt: Salon photo
+      galleryMasonry:
+        title: Lookbook
+        body: Staggered columns of photos — tap any shot to open it.
+        imageAlt: Gallery photo
     booking:
       bookingSection:
         title: Book your appointment
@@ -1261,6 +1267,96 @@ pageBuilder:
         category: Professional layouts
         tagline: "Books, tax, and ops clarity for growing teams"
         installHint: Professional
+      salon_d:
+        name: Lumen Cut
+        category: Salon layouts
+        tagline: Cuts that catch light — booked in two taps
+        installHint: Beauty
+      tattoo_d:
+        name: Needle Atlas
+        category: Tattoo layouts
+        tagline: Maps drawn into skin
+        installHint: Creative
+      spa_d:
+        name: Stillwater Baths
+        category: Spa layouts
+        tagline: Mineral quiet in the middle of the city
+        installHint: Wellness
+      coach_d:
+        name: North Draft
+        category: Coaching layouts
+        tagline: Leadership drafts that survive the week
+        installHint: Coaching
+      fitness_d:
+        name: Volt Room
+        category: Fitness layouts
+        tagline: Small-group power. No mirror selfies required.
+        installHint: Fitness
+      photography_d:
+        name: "Frame & Field"
+        category: Photography layouts
+        tagline: Portraits with weather in them
+        installHint: Creative
+      clinic_d:
+        name: Cedar Care
+        category: Clinic layouts
+        tagline: Primary care that answers the same day
+        installHint: Medical
+      pet_d:
+        name: "Trail & Tail"
+        category: Pet care layouts
+        tagline: Grooms and walks with mud allowed
+        installHint: Pet
+      home_services_d:
+        name: Threshold Co.
+        category: Home services layouts
+        tagline: The punch list that actually closes
+        installHint: Home services
+      professional_d:
+        name: Ledger Lane
+        category: Professional layouts
+        tagline: Books that close without the scramble
+        installHint: Professional
+      nails:
+        name: Gloss Bench
+        category: Nail layouts
+        tagline: "Gel, acrylic, and art that photographs itself"
+        installHint: Beauty
+      lash:
+        name: Soft Lash Room
+        category: Lash layouts
+        tagline: "Classic sets, volume, and brows with a calm chair"
+        installHint: Beauty
+      nails_b:
+        name: Soft Edge Nail
+        category: Nail layouts
+        tagline: "Quiet luxury at the tip — pastel, precise, booked"
+        installHint: Beauty
+      lash_b:
+        name: Silk Brow Co.
+        category: Lash layouts
+        tagline: Lashes and brows that frame the whole face
+        installHint: Beauty
+      nails_c:
+        name: Chrome Room
+        category: Nail layouts
+        tagline: "Mirror tips, bold color, and night-out sets"
+        installHint: Beauty
+      lash_c:
+        name: Volume Studio
+        category: Lash layouts
+        tagline: Clinical-calm lash beds and precise mapping
+        installHint: Beauty
+      nails_d:
+        name: Glass Cuticle
+        category: Nail layouts
+        tagline: Editorial nails in a light-forward studio
+        installHint: Beauty
+      lash_d:
+        name: Lash Atelier
+        category: Lash layouts
+        tagline: Sets and fills with a gallery wall of eyes
+        installHint: Beauty
     layouts:
       salon:
         home: Bench Salon - Home
@@ -1442,12 +1538,121 @@ pageBuilder:
         service: Meridian Advisors - Service
         about: Meridian Advisors - About
         terms: Meridian Advisors - Policies
+      salon_d:
+        home: Lumen Cut - Home
+        booking: Lumen Cut - Booking
+        service: Lumen Cut - Service
+        about: Lumen Cut - About
+        terms: Lumen Cut - Policies
+      tattoo_d:
+        home: Needle Atlas - Home
+        booking: Needle Atlas - Booking
+        service: Needle Atlas - Service
+        about: Needle Atlas - About
+        terms: Needle Atlas - Policies
+      spa_d:
+        home: Stillwater Baths - Home
+        booking: Stillwater Baths - Booking
+        service: Stillwater Baths - Service
+        about: Stillwater Baths - About
+        terms: Stillwater Baths - Policies
+      coach_d:
+        home: North Draft - Home
+        booking: North Draft - Booking
+        service: North Draft - Service
+        about: North Draft - About
+        terms: North Draft - Policies
+      fitness_d:
+        home: Volt Room - Home
+        booking: Volt Room - Booking
+        service: Volt Room - Service
+        about: Volt Room - About
+        terms: Volt Room - Policies
+      photography_d:
+        home: "Frame & Field - Home"
+        booking: "Frame & Field - Booking"
+        service: "Frame & Field - Service"
+        about: "Frame & Field - About"
+        terms: "Frame & Field - Policies"
+      clinic_d:
+        home: Cedar Care - Home
+        booking: Cedar Care - Booking
+        service: Cedar Care - Service
+        about: Cedar Care - About
+        terms: Cedar Care - Policies
+      pet_d:
+        home: "Trail & Tail - Home"
+        booking: "Trail & Tail - Booking"
+        service: "Trail & Tail - Service"
+        about: "Trail & Tail - About"
+        terms: "Trail & Tail - Policies"
+      home_services_d:
+        home: Threshold Co. - Home
+        booking: Threshold Co. - Booking
+        service: Threshold Co. - Service
+        about: Threshold Co. - About
+        terms: Threshold Co. - Policies
+      professional_d:
+        home: Ledger Lane - Home
+        booking: Ledger Lane - Booking
+        service: Ledger Lane - Service
+        about: Ledger Lane - About
+        terms: Ledger Lane - Policies
+      nails:
+        home: Gloss Bench - Home
+        booking: Gloss Bench - Booking
+        service: Gloss Bench - Service
+        about: Gloss Bench - About
+        terms: Gloss Bench - Policies
+      lash:
+        home: Soft Lash Room - Home
+        booking: Soft Lash Room - Booking
+        service: Soft Lash Room - Service
+        about: Soft Lash Room - About
+        terms: Soft Lash Room - Policies
+      nails_b:
+        home: Soft Edge Nail - Home
+        booking: Soft Edge Nail - Booking
+        service: Soft Edge Nail - Service
+        about: Soft Edge Nail - About
+        terms: Soft Edge Nail - Policies
+      lash_b:
+        home: Silk Brow Co. - Home
+        booking: Silk Brow Co. - Booking
+        service: Silk Brow Co. - Service
+        about: Silk Brow Co. - About
+        terms: Silk Brow Co. - Policies
+      nails_c:
+        home: Chrome Room - Home
+        booking: Chrome Room - Booking
+        service: Chrome Room - Service
+        about: Chrome Room - About
+        terms: Chrome Room - Policies
+      lash_c:
+        home: Volume Studio - Home
+        booking: Volume Studio - Booking
+        service: Volume Studio - Service
+        about: Volume Studio - About
+        terms: Volume Studio - Policies
+      nails_d:
+        home: Glass Cuticle - Home
+        booking: Glass Cuticle - Booking
+        service: Glass Cuticle - Service
+        about: Glass Cuticle - About
+        terms: Glass Cuticle - Policies
+      lash_d:
+        home: Lash Atelier - Home
+        booking: Lash Atelier - Booking
+        service: Lash Atelier - Service
+        about: Lash Atelier - About
+        terms: Lash Atelier - Policies
     shared:
       learnMore: Learn more
       bookService: Book this service
+      viewServices: View services
       beforeAfter:
-        title: Before & after
-        body: Drag to compare results from a recent visit.
+        title: Before / after
+        body: Same light. Different outcome.
         beforeAlt: Before
         afterAlt: After
       carousel:
@@ -1460,8 +1665,8 @@ pageBuilder:
         slide4Label: Finish
         slide4Address: studio.example/finish
       stats:
-        title: By the numbers
-        body: Proof that people trust us with their time.
+        title: Live numbers
+        body: Stats as design, not decoration.
         stat1Value: 2.4k+
         stat1Label: Happy clients
         stat1Supporting: And counting
@@ -1475,7 +1680,7 @@ pageBuilder:
         stat4Label: Years experience
         stat4Supporting: In the craft
       logos:
-        title: As featured in
+        title: Seen alongside
         body: Local partners and publications who know our work.
       how:
         step1Number: "01"
@@ -1491,8 +1696,8 @@ pageBuilder:
         step4Title: See it in action
         step4Bullets: A short look at how a visit with us typically goes.
       video:
-        title: See it in action
-        body: A short look at how a visit with us typically goes.
+        title: A minute inside
+        body: Autoplaying ambient clip — mute by default.
     salon:
       home:
         heroTitle: "Hair, nails & glow - booked in minutes"
@@ -3413,6 +3618,1194 @@ pageBuilder:
         tax:
           name: Tax Season Brief
           description: Pre-file review with action items for your CPA.
+    salon_d:
+      home:
+        heroTitle: Hair that photographs itself.
+        heroSubtitle: Editorial cuts and color in a calm chair — no upsell theater.
+        bookCta: Book a chair
+        secondaryCta: View services
+        heroEyebrow: NASHVILLE
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Lumen Cut is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a chair
+        ctaBody: Cuts that catch light — booked in two taps
+      booking:
+        title: Choose a time that works
+        body: "New guests: arrive with dry hair and a reference that shows the silhouette you want."
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Lumen Cut
+        body1: "Lumen Cut is a light-forward salon for people who want their hair to look intentional in daylight, not just under studio LEDs."
+        body2: "Cuts that catch light — booked in two taps. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Lumen Cut, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: "Cancellations within 24 hours may be charged 50% of service value."
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Lumen Cut is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        cut:
+          name: Precision Cut
+          description: Shape that grows out clean for months.
+        color:
+          name: Glass Color
+          description: Lived-in dimension without the brass.
+        blowout:
+          name: Blow Architecture
+          description: Volume mapped to your bone structure.
+        event:
+          name: Event Finish
+          description: Camera-ready set with soft hold.
+    tattoo_d:
+      home:
+        heroTitle: Flash walls. Private rooms. No flashy nonsense.
+        heroSubtitle: Walk-in sheets on Saturdays. Custom books the rest of the week.
+        bookCta: Reserve a seat
+        secondaryCta: View services
+        heroEyebrow: PORTLAND
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Needle Atlas is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Reserve a seat
+        ctaBody: Maps drawn into skin
+      booking:
+        title: Choose a time that works
+        body: Bring ID. Eat first. We will not tattoo over fresh sunburns.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Needle Atlas
+        body1: Needle Atlas is a small Portland shop obsessed with composition — every piece is a miniature atlas you carry.
+        body2: "Maps drawn into skin. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Needle Atlas, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Deposits are non-refundable but transferable within 90 days.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Needle Atlas is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        fineLine:
+          name: Fine Line Session
+          description: Single-needle detail for small maps.
+        blackwork:
+          name: Blackwork Panel
+          description: Solid fields with breathing negative space.
+        custom:
+          name: Custom Consult
+          description: Sketch + placement plan before ink.
+        touchUp:
+          name: Healed Touch-Up
+          description: Refresh after 8+ weeks of healing.
+    spa_d:
+      home:
+        heroTitle: Silence you can book.
+        heroSubtitle: Stillwater is a bathhouse for people who treat rest like a skill.
+        bookCta: Book a soak
+        secondaryCta: View services
+        heroEyebrow: SEATTLE
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Arrive, settle, leave lighter.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Stillwater Baths is easy to find - directions are included in your confirmation.
+        pricingTitle: Transparent pricing
+        comparisonTitle: Why book with us
+        ctaTitle: Book a soak
+        ctaBody: Mineral quiet in the middle of the city
+      booking:
+        title: Choose a time that works
+        body: Arrive 15 minutes early. Phones stay in lockers.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Stillwater Baths
+        body1: "We keep rooms quiet, lights low, and menus short — so you leave with a slower pulse, not a product bag."
+        body2: "Mineral quiet in the middle of the city. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Stillwater Baths, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Late arrivals shorten the session; full fee still applies.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Stillwater Baths is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        massage:
+          name: Mineral Massage
+          description: Warm stone + slow pressure reset.
+        facial:
+          name: Botanical Facial
+          description: "Barrier-first skin, no sting rituals."
+        scrub:
+          name: Steam Scrub
+          description: "Cedar steam, then soft polish."
+        soak:
+          name: Private Soak
+          description: Solo tub with tea service.
+    coach_d:
+      home:
+        heroTitle: Write the week before it writes you.
+        heroSubtitle: North Draft coaches leaders who need clarity more than cheerleading.
+        bookCta: Start a draft
+        secondaryCta: View services
+        heroEyebrow: CHICAGO
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Case strips
+        servicesBody: Alternating narrative blocks.
+        galleryTitle: Gallery
+        lookInsideTitle: Look inside
+        testimonialsTitle: Words from the room
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: North Draft is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Start a draft
+        ctaBody: Leadership drafts that survive the week
+      booking:
+        title: Choose a time that works
+        body: Intake form required 48 hours before the first session.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind North Draft
+        body1: "We work in written drafts — agendas, decisions, feedback — so coaching sticks after the call ends."
+        body2: "Leadership drafts that survive the week. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with North Draft, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Packages are non-transferable; unused sessions expire after 6 months.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, North Draft is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        leadership:
+          name: Leadership Intensive
+          description: "Six weeks, one operating system."
+        career:
+          name: Career Pivot
+          description: Narrative + outreach plan in 4 sessions.
+        manager:
+          name: Manager Launch
+          description: First 90 days with a weekly draft.
+        checkIn:
+          name: Accountability Hour
+          description: Standing check-in for shipping work.
+    fitness_d:
+      home:
+        heroTitle: Train like the room is watching — because it is.
+        heroSubtitle: Volt Room caps classes at 12. Coaches know your name by week two.
+        bookCta: Claim a spot
+        secondaryCta: View services
+        heroEyebrow: AUSTIN
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Volt Room is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Claim a spot
+        ctaBody: Small-group power. No mirror selfies required.
+      booking:
+        title: Choose a time that works
+        body: First class includes a 10-minute movement screen.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Volt Room
+        body1: We built Volt for people tired of endless apps and empty big-box floors. Short classes. Real load. Clear progress.
+        body2: "Small-group power. No mirror selfies required.. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Volt Room, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Class packs freeze once for up to 30 days with 48h notice.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Volt Room is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        strength:
+          name: Strength Block
+          description: "Barbell focus, coached sets."
+        conditioning:
+          name: Engine Conditioning
+          description: Intervals that stay honest.
+        mobility:
+          name: Mobility Reset
+          description: "Hips, T-spine, soft tissue."
+        team:
+          name: Team Challenge
+          description: Four-week partner scoring.
+    photography_d:
+      home:
+        heroTitle: Leave the stock smile at home.
+        heroSubtitle: "Frame & Field shoots people and places with room for wind, dust, and real expression."
+        bookCta: Book a shoot
+        secondaryCta: View services
+        heroEyebrow: DENVER
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Case strips
+        servicesBody: Alternating narrative blocks.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Frame & Field is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a shoot
+        ctaBody: Portraits with weather in them
+      booking:
+        title: Choose a time that works
+        body: Wardrobe guide sent after deposit. Golden-hour slots book 3 weeks out.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Frame & Field"
+        body1: We are a two-person studio that still delivers galleries within a week — because waiting kills momentum.
+        body2: "Portraits with weather in them. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Frame & Field, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Raw files are not included unless contracted separately.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Frame & Field is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        portrait:
+          name: Portrait Hour
+          description: "One location, natural light emphasis."
+        brand:
+          name: Brand Story Day
+          description: Team + product narrative set.
+        event:
+          name: Event Coverage
+          description: "Candid + key moments, 4 hours."
+        product:
+          name: Product Still Set
+          description: Tabletop pack of 20 edited frames.
+    clinic_d:
+      home:
+        heroTitle: Care with a cedar-calm waiting room — and a real inbox.
+        heroSubtitle: Cedar Care is a neighborhood clinic that still picks up the phone.
+        bookCta: Book a visit
+        secondaryCta: View services
+        heroEyebrow: CEDAR FALLS
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Cedar Care is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a visit
+        ctaBody: Primary care that answers the same day
+      booking:
+        title: Choose a time that works
+        body: "New patients: upload insurance card before your visit."
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Cedar Care
+        body1: We keep panels small so visits are longer and follow-ups are faster. Telehealth when it helps; in-person when it matters.
+        body2: "Primary care that answers the same day. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Cedar Care, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: No-shows may incur a $40 fee after the second occurrence.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Cedar Care is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        wellness:
+          name: Annual Wellness
+          description: Labs + plan you can actually follow.
+        sick:
+          name: Same-Day Sick
+          description: Morning slots held for acute needs.
+        travel:
+          name: Travel Prep
+          description: Vaccines + destination checklist.
+        video:
+          name: Video Follow-Up
+          description: Quick check-ins without the lobby.
+    pet_d:
+      home:
+        heroTitle: Happy dogs. Honest towels.
+        heroSubtitle: "Trail & Tail is a groom + walk shop for pets who actually go outside."
+        bookCta: Book for your dog
+        secondaryCta: View services
+        heroEyebrow: BOULDER
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services in motion
+        servicesBody: Swipe the strip — every card books the same calendar.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: "Trail & Tail is easy to find - directions are included in your confirmation."
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book for your dog
+        ctaBody: Grooms and walks with mud allowed
+      booking:
+        title: Choose a time that works
+        body: Vaccination records required for daycare-adjacent walks.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: "The story behind Trail & Tail"
+        body1: We photograph after every groom (with consent) and text you when your dog is ready — no surprise add-ons.
+        body2: "Grooms and walks with mud allowed. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Trail & Tail, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Late pickups after 30 minutes incur a boarding-minute fee.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Trail & Tail is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        groom:
+          name: Full Groom
+          description: "Bath, cut, nails — trail-ready."
+        walk:
+          name: Adventure Walk
+          description: 90 minutes off the sidewalk.
+        puppy:
+          name: Puppy Primer
+          description: Gentle intro bath + handling.
+        deshed:
+          name: Deshed Express
+          description: Undercoat relief before summer.
+    home_services_d:
+      home:
+        heroTitle: Homes that feel finished again.
+        heroSubtitle: Threshold Co. pairs cleaning crews with handymen so the list actually shrinks.
+        bookCta: Schedule a visit
+        secondaryCta: View services
+        heroEyebrow: PHILADELPHIA
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: What comes with the visit
+        servicesBody: Clear scopes. No surprise add-ons mid-job.
+        galleryTitle: Gallery wall
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Threshold Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Schedule a visit
+        ctaBody: The punch list that actually closes
+      booking:
+        title: Choose a time that works
+        body: "Pets? Add a note — we bring boot covers either way."
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Threshold Co.
+        body1: We photograph before/after on request and leave a short note of what still needs a specialist.
+        body2: "The punch list that actually closes. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Threshold Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Same-day cancels under 4 hours may be billed a travel fee.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Threshold Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        clean:
+          name: Weekly Clean
+          description: "Kitchen, baths, floors — consistent."
+        handyman:
+          name: Punch-List Hour
+          description: Handyman blocks for small fixes.
+        move:
+          name: Move-Ready Detail
+          description: Empty-home deep clean.
+        fixture:
+          name: "Filter & Fixture"
+          description: HVAC filters + drip fixes.
+    professional_d:
+      home:
+        heroTitle: Numbers that stay quiet.
+        heroSubtitle: Ledger Lane is a boutique practice for founders who want books closed by day five — every month.
+        bookCta: Book a consult
+        secondaryCta: More about us
+        heroEyebrow: LEDGER LANE
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Case strips
+        servicesBody: Alternating narrative blocks.
+        galleryTitle: Teams we keep tidy
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Ledger Lane is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a consult
+        ctaBody: Books that close without the scramble
+      booking:
+        title: Choose a time that works
+        body: Bring last three months of bank feeds or grant read-only access.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Ledger Lane
+        body1: "We specialize in service businesses and studios. Less jargon, more reconciliations that match reality."
+        body2: "Books that close without the scramble. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Ledger Lane, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Engagements auto-renew monthly; 30-day written notice to end.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Ledger Lane is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        books:
+          name: Books Cleanup
+          description: Catch-up months into a clean close.
+        controller:
+          name: Fractional Controller
+          description: Half-day monthly leadership.
+        process:
+          name: Process Map
+          description: AP/AR flow that your team can run.
+        tax:
+          name: Tax Season Brief
+          description: Organizer + CPA-ready packet.
+    nails:
+      home:
+        heroTitle: Nails that photograph themselves.
+        heroSubtitle: "Gel, acrylic, and art in a calm chair — booked in a few taps."
+        bookCta: Book a set
+        secondaryCta: More about us
+        heroEyebrow: GLOSS BENCH
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Gloss Bench is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a set
+        ctaBody: "Gel, acrylic, and art that photographs itself"
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Gloss Bench
+        body1: Gloss Bench is built for independents who want a beautiful booking website.
+        body2: "Gel, acrylic, and art that photographs itself. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Gloss Bench, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Gloss Bench is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        gel:
+          name: Gel Manicure
+          description: "Cuticle care, strength layer, and a glossy gel seal that lasts."
+        acrylic:
+          name: Acrylic Set
+          description: "Full set with shape, length, and a finish built for real life."
+        art:
+          name: Nail Art Session
+          description: "Custom hand-painted details, chrome, or soft French accents."
+        fill:
+          name: Fill Appointment
+          description: "Grow-out refresh with rebalance, repair, and a new top coat."
+    lash:
+      home:
+        heroTitle: Eyes first. Everything else follows.
+        heroSubtitle: "Classic, volume, and fills in a calm lash bed."
+        bookCta: Book lashes
+        secondaryCta: More about us
+        heroEyebrow: SOFT LASH ROOM
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Soft Lash Room is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book lashes
+        ctaBody: "Classic sets, volume, and brows with a calm chair"
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Soft Lash Room
+        body1: Soft Lash Room is built for independents who want a beautiful booking website.
+        body2: "Classic sets, volume, and brows with a calm chair. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Soft Lash Room, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Soft Lash Room is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        classic:
+          name: Classic Lash Set
+          description: "One-to-one extensions for a soft, natural open-eye look."
+        volume:
+          name: Volume Lash Set
+          description: Lightweight fans for fuller drama without the weight.
+        fill:
+          name: Lash Fill
+          description: Two-week refresh to keep the set even and photo-ready.
+        brow:
+          name: Brow Lamination
+          description: "Lift, set, and tint for brows that frame the lashes."
+    nails_b:
+      home:
+        heroTitle: Quiet luxury at the tip.
+        heroSubtitle: "Pastel gels, soft overlays, and micro art — booked on your calendar."
+        bookCta: Book a mani
+        secondaryCta: More about us
+        heroEyebrow: SOFT EDGE NAIL
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Soft Edge Nail is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a mani
+        ctaBody: "Quiet luxury at the tip — pastel, precise, booked"
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Soft Edge Nail
+        body1: Soft Edge Nail is built for independents who want a beautiful booking website.
+        body2: "Quiet luxury at the tip — pastel, precise, booked. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Soft Edge Nail, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Soft Edge Nail is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        gel:
+          name: Soft Gel Mani
+          description: Sheer builds and clean edges for everyday polish that lasts.
+        builder:
+          name: Builder Overlay
+          description: Natural-length strength with a soft almond or square finish.
+        art:
+          name: Micro Art Hour
+          description: "Tiny florals, chrome tips, or a single statement nail."
+        fill:
+          name: Biweekly Fill
+          description: "Rebalance, repair, and a fresh coat before the grow-out shows."
+    lash_b:
+      home:
+        heroTitle: "Lashes and brows, one visit."
+        heroSubtitle: "Silk classics, soft volume, and brows that match the set."
+        bookCta: Book a visit
+        secondaryCta: More about us
+        heroEyebrow: SILK BROW CO.
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Silk Brow Co. is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a visit
+        ctaBody: Lashes and brows that frame the whole face
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Silk Brow Co.
+        body1: Silk Brow Co. is built for independents who want a beautiful booking website.
+        body2: "Lashes and brows that frame the whole face. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Silk Brow Co., you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Silk Brow Co. is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        classic:
+          name: Silk Classic Set
+          description: Feather-light classics mapped to your natural lash line.
+        volume:
+          name: Soft Volume
+          description: Wispy fans for soft drama that still reads natural in daylight.
+        fill:
+          name: Two-Week Fill
+          description: Keep density even between full sets.
+        brow:
+          name: Brow Sculpt + Tint
+          description: "Shape, tint, and a light set so brows match the lash work."
+    nails_c:
+      home:
+        heroTitle: Mirror tips. Night-out color.
+        heroSubtitle: Chrome Room is for sets that catch flash and streetlight alike.
+        bookCta: Book chrome
+        secondaryCta: More about us
+        heroEyebrow: CHROME ROOM
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Chrome Room is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book chrome
+        ctaBody: "Mirror tips, bold color, and night-out sets"
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Chrome Room
+        body1: Chrome Room is built for independents who want a beautiful booking website.
+        body2: "Mirror tips, bold color, and night-out sets. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Chrome Room, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Chrome Room is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        chrome:
+          name: Chrome Tip Set
+          description: Mirror finish on a sculpted tip — camera-ready from every angle.
+        color:
+          name: Bold Color Set
+          description: Saturated gels with clean cuticles and a glass-smooth seal.
+        art:
+          name: Statement Art
+          description: One or two nails that carry the whole look.
+        fill:
+          name: Express Fill
+          description: Fast rebalance when the grow-out starts to show.
+    lash_c:
+      home:
+        heroTitle: Mapped volume. Clinical calm.
+        heroSubtitle: "Precise eye-shape mapping in a quiet, light studio."
+        bookCta: Book volume
+        secondaryCta: More about us
+        heroEyebrow: VOLUME STUDIO
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Volume Studio is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book volume
+        ctaBody: Clinical-calm lash beds and precise mapping
+      booking:
+        title: Choose a time that works
+        body: Pick a service and time — confirmation arrives right away.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Volume Studio
+        body1: Volume Studio is built for independents who want a beautiful booking website.
+        body2: "Clinical-calm lash beds and precise mapping. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Volume Studio, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Please cancel or reschedule at least 24 hours ahead.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Volume Studio is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        classic:
+          name: Mapped Classic
+          description: Eye-shape mapping with natural curl and length.
+        volume:
+          name: Mega Volume
+          description: Dense fans for editorial fullness — still lightweight.
+        hybrid:
+          name: Hybrid Refresh
+          description: Mix classic and volume to fill sparse zones evenly.
+        brow:
+          name: Brow Lamination
+          description: Soft lift and tint so the brow line matches the set.
+    nails_d:
+      home:
+        heroTitle: Nails that catch the light.
+        heroSubtitle: "Glass Cuticle is a calm chair for gel, soft sets, and art that still looks intentional in daylight."
+        bookCta: Book a set
+        secondaryCta: More about us
+        heroEyebrow: GLASS CUTICLE
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Glass Cuticle is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book a set
+        ctaBody: Editorial nails in a light-forward studio
+      booking:
+        title: Choose a time that works
+        body: Arrive with clean nails; soak-offs add 20 minutes when needed.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Glass Cuticle
+        body1: We photograph finished sets in natural light and keep appointments paced so cuticles stay quiet.
+        body2: "Editorial nails in a light-forward studio. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Glass Cuticle, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: "Fills and cancels within 24 hours may be charged 50% of service value."
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Glass Cuticle is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        gel:
+          name: Glass Gel Mani
+          description: Sheer builds with a crystal seal.
+        sculpt:
+          name: Sculpted Soft Set
+          description: "Natural length, almond or squoval."
+        art:
+          name: Atelier Art
+          description: Hand-painted details on 1–10 nails.
+        fill:
+          name: "Fill & Rebalance"
+          description: "Structure first, polish second."
+    lash_d:
+      home:
+        heroTitle: Eyes first. Everything else follows.
+        heroSubtitle: "Lash Atelier is a booking-first studio for classic, volume, and fills — with brows that match."
+        bookCta: Book lashes
+        secondaryCta: More about us
+        heroEyebrow: LASH ATELIER
+        announcement: New clients welcome - same-week openings available
+        servicesTitle: Services
+        servicesBody: Pick what fits your week.
+        galleryTitle: Look inside
+        lookInsideTitle: Look inside
+        testimonialsTitle: What clients say
+        howTitle: How it works
+        howBody: Three simple steps from browsing to walking out happy.
+        faqTitle: FAQ
+        faqBody: Quick answers before you book.
+        faqQ1: How do I book?
+        faqA1: Use the Book page to pick a service and available time. You will get a confirmation email right away.
+        faqQ2: What is your cancellation policy?
+        faqA2: Please cancel or reschedule at least 24 hours ahead so we can offer the slot to someone else.
+        faqQ3: Do you take walk-ins?
+        faqA3: We prioritize booked appointments. Same-day openings sometimes appear online - check the Book page.
+        faqQ4: Where are you located?
+        faqA4: Lash Atelier is easy to find - directions are included in your confirmation.
+        pricingTitle: Simple packages
+        comparisonTitle: Why book with us
+        ctaTitle: Book lashes
+        ctaBody: Sets and fills with a gallery wall of eyes
+      booking:
+        title: Choose a time that works
+        body: Come with clean lashes — no mascara. Patch tests available on request.
+      service:
+        bullet1: Dedicated appointment length - no overlapping clients
+        bullet2: Confirmation and reminders by email
+        bullet3: Easy reschedule from your booking link
+      about:
+        title: The story behind Lash Atelier
+        body1: We map every set to your eye shape and photograph healed fills so you know what two weeks looks like.
+        body2: "Sets and fills with a gallery wall of eyes. Whether it is your first visit or your fiftieth, you should leave feeling taken care of."
+      terms:
+        title: Booking policies
+        intro: These placeholders are for review only and are not legal advice. Replace with counsel-approved terms before publishing.
+        appointmentsTitle: Appointments
+        appointmentsBody: "By booking with Lash Atelier, you agree to arrive on time and provide accurate contact details. Late arrivals may shorten your service."
+        cancelTitle: Cancellations & rescheduling
+        cancelBody: Fills cancelled inside 12 hours may forfeit the deposit.
+        paymentsTitle: Payments & refunds
+        paymentsBody: Fees for completed services are non-refundable. Deposits, when required, are applied to your visit or forfeited per the cancellation window.
+        liabilityTitle: Liability
+        liabilityBody: "To the fullest extent permitted by law, Lash Atelier is not liable for indirect or incidental damages arising from use of our booking site or services, except where prohibited."
+        contactTitle: Contact
+        contactBody: Questions about these policies? Reach out through the contact details in your confirmation email.
+      services:
+        classic:
+          name: Classic Map Set
+          description: Natural open-eye mapping.
+        volume:
+          name: Volume Couture
+          description: Wispy fans with soft drama.
+        fill:
+          name: Two-Week Fill
+          description: Keep the set even and full.
+        brow:
+          name: Brow Lamination
+          description: Lift + tint to frame the set.
   heroDefaults:
     title: Build something people love
     subtitle: A short supporting line that explains your value proposition.

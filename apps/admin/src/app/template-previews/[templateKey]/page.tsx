@@ -1,9 +1,11 @@
 import { getTemplatePreviewDelayMs } from "@/template-previews/preview-config";
+import { TemplatePreviewClient } from "@/template-previews/template-preview-client";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { TemplatePreviewClient } from "./template-preview-client";
 
-type Props = PageProps<"/template-previews/[templateKey]">;
+type Props = {
+  params: Promise<{ templateKey: string }>;
+};
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

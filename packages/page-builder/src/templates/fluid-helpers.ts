@@ -186,7 +186,54 @@ export type CopyBlockOptions = {
   textAlign?: CopyAlign;
   titleFontSize?: { value: number; unit: "rem" };
   lightText?: boolean;
+  fontWeight?:
+    | "normal"
+    | "bold"
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
+  fontFamily?:
+    | "MODERN_SANS"
+    | "BOOK_SANS"
+    | "HEAVY_SANS"
+    | "GEOMETRIC_SANS"
+    | "MODERN_SERIF"
+    | "BOOK_SERIF"
+    | "ROUNDED_SANS"
+    | "ORGANIC_SANS"
+    | "PRIMARY"
+    | "SECONDARY";
+  letterSpacing?: { value: number; unit: "rem" | "px" };
+  lineHeight?: { value: number; unit: "" | "rem" };
 };
+
+/** Shared typography fields for Heading / Text style bags. */
+export function typographyStylePatch(options: CopyBlockOptions) {
+  const {
+    titleFontSize,
+    lightText,
+    fontWeight,
+    fontFamily,
+    letterSpacing,
+    lineHeight,
+  } = options;
+  return {
+    ...(titleFontSize ? { fontSize: [{ value: titleFontSize }] } : undefined),
+    ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
+    ...(fontWeight ? { fontWeight: [{ value: fontWeight }] } : undefined),
+    ...(fontFamily ? { fontFamily: [{ value: fontFamily }] } : undefined),
+    ...(letterSpacing
+      ? { letterSpacing: [{ value: letterSpacing }] }
+      : undefined),
+    ...(lineHeight ? { lineHeight: [{ value: lineHeight }] } : undefined),
+  };
+}
 
 export function titleHeading(
   t: I18nFn<undefined, undefined>,
@@ -194,12 +241,7 @@ export function titleHeading(
   options: CopyBlockOptions = {},
 ): TEditorBlock {
   const headingDefaults = HeadingPropsDefaults();
-  const {
-    level = "h1",
-    textAlign = "center",
-    titleFontSize,
-    lightText,
-  } = options;
+  const { level = "h1", textAlign = "center" } = options;
   return {
     type: "Heading",
     id: generateId(),
@@ -208,10 +250,7 @@ export function titleHeading(
       style: {
         ...headingDefaults.style,
         textAlign: [{ value: textAlign }],
-        ...(titleFontSize
-          ? { fontSize: [{ value: titleFontSize }] }
-          : undefined),
-        ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
+        ...typographyStylePatch(options),
         padding: [
           {
             value: {

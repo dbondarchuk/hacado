@@ -92,6 +92,7 @@ scopes:
   schedule: Постачальник розкладу
   assets-storage: Сховище ресурсів
   payment: Платежі
+  payment-link: Платіжні посилання
   dashboard-tab: Вкладка панелі керування
   customer-tab: Вкладка клієнта
   ui-components: UI компоненти
@@ -102,6 +103,11 @@ scopes:
   communication-templates-provider: Постачальник шаблонів комунікацій
   sitemap-items-provider: Постачальник елементів sitemap
   page-seo-arguments-provider: Постачальник аргументів SEO сторінки
+  script-provider: Постачальник скриптів
+  page-metadata-provider: Постачальник метаданих сторінки
+  llms-full-txt-provider: Постачальник llms.txt
+  public-event-context-provider: Постачальник публічного контексту подій
+  public-page-provider: Постачальник публічних сторінок
 target:
   company: Компанія
   member: Учасник

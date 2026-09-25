@@ -728,8 +728,8 @@ export function StepService() {
           variant="outline"
           type="button"
           onClick={() => {
-            setStep(2);
-            setP((prev) => ({ ...prev, step: 2 }));
+            setStep(1);
+            setP((prev) => ({ ...prev, step: 1 }));
           }}
         >
           {t("wizard.common.back")}

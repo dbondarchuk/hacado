@@ -1,7 +1,15 @@
 "use client";
 
+import { footerDefaultPage } from "@/components/install/defaults/footer";
+import type { TEditorBlock } from "@hacado/builder";
+import type { Language } from "@hacado/i18n";
+import { useI18n } from "@hacado/i18n/client";
+import { PageReader } from "@hacado/page-builder/reader";
+import { rewriteCatalogUrlsInTree } from "@hacado/page-builder/templates";
+import type { Country, Currency } from "@hacado/types";
 import { cn } from "@hacado/ui";
-import { useEffect, useState } from "react";
+import { formatArguments } from "@hacado/utils";
+import { useEffect, useMemo, useState } from "react";
 
 export type PreviewHeaderVariant = "solid" | "transparent";
 
@@ -10,23 +18,123 @@ type PreviewChromeProps = {
   footer?: boolean;
   logoUrl?: string | null;
   businessName?: string;
+  /** When set, header nav links to catalog pages under this base (`/c/salon`). */
+  basePath?: string | null;
+  /** Pre-formatted reader args (general/now/…). Built from demo data when omitted. */
+  args?: Record<string, unknown>;
   children: React.ReactNode;
 };
 
+/** Demo `general` / `now` args so install footer tokens resolve in previews. */
+export function buildPreviewChromeArgs(options?: {
+  businessName?: string;
+  phone?: string;
+  email?: string;
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  country?: Country;
+  currency?: Currency;
+  language?: Language;
+  general?: Record<string, unknown> | null;
+}): Record<string, unknown> {
+  const fromGeneral = options?.general ?? null;
+  const language = options?.language ?? "en";
+  const currency =
+    (typeof fromGeneral?.currency === "string"
+      ? (fromGeneral.currency as Currency)
+      : undefined) ??
+    options?.currency ??
+    "USD";
+  const country =
+    (typeof fromGeneral?.country === "string"
+      ? (fromGeneral.country as Country)
+      : undefined) ??
+    options?.country ??
+    "US";
+  const businessName =
+    (typeof fromGeneral?.name === "string" && fromGeneral.name.trim()) ||
+    options?.businessName?.trim() ||
+    "Studio";
+
+  const general = {
+    phone: options?.phone ?? "+1 (615) 555-0148",
+    email: options?.email ?? "hello@studio.example",
+    address: {
+      streetAddress: options?.streetAddress ?? "412 Music Row",
+      addressLocality: options?.addressLocality ?? "Nashville",
+      addressRegion: options?.addressRegion ?? "TN",
+      postalCode: options?.postalCode ?? "37203",
+      addressCountry: country,
+    },
+    ...(fromGeneral ?? {}),
+    name: businessName,
+    currency,
+    country,
+  };
+
+  return formatArguments(
+    {
+      general,
+      now: new Date(),
+    },
+    language,
+    currency,
+    country,
+  ) as Record<string, unknown>;
+}
+
 /**
- * Static header/footer chrome for template and install live previews.
- * Not the real page-header entities - visual only for screenshots / iframes.
+ * Header + install-default footer chrome for template and install live previews.
+ * With `basePath`, header nav is clickable catalog links.
  */
 export function PreviewChrome({
   header,
   footer,
   logoUrl,
   businessName = "Studio",
+  basePath,
+  args: argsProp,
   children,
 }: PreviewChromeProps) {
+  const t = useI18n("install");
   const showHeader = Boolean(header);
   const transparent = header === "transparent";
   const [scrolled, setScrolled] = useState(false);
+  const homeHref = basePath?.replace(/\/$/, "") || null;
+  const aboutHref = homeHref ? `${homeHref}/about` : null;
+  const bookHref = homeHref ? `${homeHref}/book` : null;
+
+  const footerArgs = useMemo(
+    () => argsProp ?? buildPreviewChromeArgs({ businessName }),
+    [argsProp, businessName],
+  );
+
+  const footerDocument = useMemo(() => {
+    if (!footer) return null;
+    const document = footerDefaultPage(
+      true,
+      {
+        contactUsLabel: t("wizard.finish.pageDefaults.footer.contactUsLabel"),
+        phoneLabel: t("wizard.finish.pageDefaults.footer.phoneLabel"),
+        emailLabel: t("wizard.finish.pageDefaults.footer.emailLabel"),
+        addressLabel: t("wizard.finish.pageDefaults.footer.addressLabel"),
+        bookNowLabel: t("wizard.finish.pageDefaults.footer.bookNowLabel"),
+        cancelOrRescheduleLabel: t(
+          "wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel",
+        ),
+        policiesLabel: t("wizard.finish.pageDefaults.footer.policiesLabel"),
+      },
+      false,
+      false,
+      t("wizard.finish.pageDefaults.header.myCabinetLabel"),
+      t("wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel"),
+    ) as TEditorBlock;
+
+    if (!basePath) return document;
+    return rewriteCatalogUrlsInTree(document, basePath);
+  }, [footer, t, basePath]);
 
   useEffect(() => {
     if (!transparent) {
@@ -62,55 +170,89 @@ export function PreviewChrome({
           )}
         >
           <div className="flex min-w-0 items-center gap-3">
-            {!!logoUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={logoUrl}
-                alt=""
-                className="h-8 w-auto max-w-[9rem] object-contain"
-              />
+            {homeHref ? (
+              <a href={homeHref} className="flex min-w-0 items-center gap-3">
+                {!!logoUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logoUrl}
+                    alt=""
+                    className="h-8 w-auto max-w-[9rem] object-contain"
+                  />
+                )}
+                <span
+                  className={cn(
+                    "truncate text-lg font-semibold tracking-tight",
+                    transparent && !overlaySolid && "drop-shadow-sm",
+                  )}
+                >
+                  {businessName}
+                </span>
+              </a>
+            ) : (
+              <>
+                {!!logoUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logoUrl}
+                    alt=""
+                    className="h-8 w-auto max-w-[9rem] object-contain"
+                  />
+                )}
+                <span
+                  className={cn(
+                    "truncate text-lg font-semibold tracking-tight",
+                    transparent && !overlaySolid && "drop-shadow-sm",
+                  )}
+                >
+                  {businessName}
+                </span>
+              </>
             )}
-            <span
-              className={cn(
-                "truncate text-lg font-semibold tracking-tight",
-                transparent && !overlaySolid && "drop-shadow-sm",
-              )}
-            >
-              {businessName}
-            </span>
           </div>
           <nav className="flex items-center gap-1 text-sm font-medium">
-            <span className="rounded-md px-3 py-1.5 opacity-90">About</span>
-            <span
-              className={cn(
-                "rounded-md px-3 py-1.5",
-                transparent && !overlaySolid
-                  ? "bg-white/15 text-white"
-                  : "bg-primary text-primary-foreground",
-              )}
-            >
-              Book
-            </span>
+            {aboutHref ? (
+              <a
+                href={aboutHref}
+                className="rounded-md px-3 py-1.5 opacity-90 hover:opacity-100"
+              >
+                About
+              </a>
+            ) : (
+              <span className="rounded-md px-3 py-1.5 opacity-90">About</span>
+            )}
+            {bookHref ? (
+              <a
+                href={bookHref}
+                className={cn(
+                  "rounded-md px-3 py-1.5",
+                  transparent && !overlaySolid
+                    ? "bg-white/15 text-white"
+                    : "bg-primary text-primary-foreground",
+                )}
+              >
+                Book
+              </a>
+            ) : (
+              <span
+                className={cn(
+                  "rounded-md px-3 py-1.5",
+                  transparent && !overlaySolid
+                    ? "bg-white/15 text-white"
+                    : "bg-primary text-primary-foreground",
+                )}
+              >
+                Book
+              </span>
+            )}
           </nav>
         </header>
       ) : null}
       <div className="min-w-0 flex-1">{children}</div>
-      {footer ? (
-        <footer className="mt-auto border-t border-border bg-muted/40 px-6 py-10 md:px-10">
-          <div className="mx-auto flex max-w-5xl flex-col gap-6 md:flex-row md:justify-between">
-            <div>
-              <p className="text-base font-semibold">{businessName}</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Book online anytime
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-              <span>Book</span>
-              <span>About</span>
-              <span>Terms</span>
-            </div>
-          </div>
-        </footer>
+      {footerDocument ? (
+        <div className="mt-auto border-t border-border">
+          <PageReader document={footerDocument} args={footerArgs} isEditor />
+        </div>
       ) : null}
     </div>
   );
