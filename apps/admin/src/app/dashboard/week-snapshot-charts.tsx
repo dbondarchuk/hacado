@@ -130,16 +130,16 @@ export function WeekSnapshotCharts({
                     type="monotone"
                     dataKey="newCustomers"
                     name={t("dashboard.overview.newCustomers")}
-                    stroke="hsl(var(--primary))"
-                    fill="hsl(var(--primary) / 0.25)"
+                    stroke="hsl(var(--brand))"
+                    fill="hsl(var(--brand) / 0.3)"
                     stackId="1"
                   />
                   <Area
                     type="monotone"
                     dataKey="returningCustomers"
                     name={t("dashboard.overview.returningCustomers")}
-                    stroke="hsl(var(--muted-foreground))"
-                    fill="hsl(var(--muted-foreground) / 0.2)"
+                    stroke="hsl(var(--primary))"
+                    fill="hsl(var(--primary) / 0.2)"
                     stackId="1"
                   />
                 </AreaChart>
