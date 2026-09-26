@@ -37,3 +37,8 @@ validation:
     invalid: Sender email must be a valid email address
   fromName:
     max: Sender name must be at most 256 characters
+needsAttention:
+  sender:
+    title: Finish Resend setup
+    description: Add sender settings so transactional email can be sent.
+    action: Configure

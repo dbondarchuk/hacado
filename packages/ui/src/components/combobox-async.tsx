@@ -25,6 +25,8 @@ type BaseComboboAsyncProps = {
   emptyMessage?: string;
   searchLabel?: string;
   value?: string;
+  /** Prefer this for the closed trigger when the selected row may not be in the loaded page. */
+  selectedItem?: IComboboxItem;
   fetchItems: (
     page: number,
     search?: string,
@@ -60,6 +62,7 @@ export const ComboboxAsync: React.FC<ComboboAsyncProps> = ({
   emptyMessage,
   searchLabel,
   value,
+  selectedItem: selectedItemProp,
   onChange,
   fetchItems,
   debounceMs = 300,
@@ -88,11 +91,12 @@ export const ComboboxAsync: React.FC<ComboboAsyncProps> = ({
     threshold: 0.5,
   });
 
-  // Get selected item label
-  const selectedItem = React.useMemo(
-    () => items.find((item) => item.value === value),
-    [items, value],
-  );
+  const selectedItem = React.useMemo(() => {
+    if (selectedItemProp && selectedItemProp.value === value) {
+      return selectedItemProp;
+    }
+    return items.find((item) => item.value === value);
+  }, [selectedItemProp, items, value]);
 
   // Reset when search changes
   React.useEffect(() => {

@@ -1,6 +1,7 @@
 import { AllKeys, I18nNamespaces } from "@hacado/i18n";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactElement, ReactNode } from "react";
 import { Customer } from "../customers/customer";
+import type { RequiredPermission } from "../users/permissions";
 import { IConnectedAppProps } from "./connected-app.props";
 
 export type DashboardTabInjectorApp<
@@ -22,6 +23,41 @@ export type DashboardTabInjectorApp<
       }) => ReactNode;
     },
   ];
+};
+
+export type DashboardQuickLinkInjectorItem<
+  T extends I18nNamespaces = I18nNamespaces,
+  CustomKeys extends string | undefined = undefined,
+> = {
+  id: string;
+  order: number;
+  /** Full i18n key including app namespace (e.g. `app_weekly-schedule_admin.quickLinks.adjust`). */
+  label: AllKeys<T, CustomKeys>;
+  icon: ReactElement;
+  /** Key matching `DashboardNotificationBadge.key` from the notifications SSE stream. */
+  notificationsCountKey?: string;
+  requiredPermission?: RequiredPermission;
+} & (
+  | {
+      href: string;
+      Action?: never;
+    }
+  | {
+      href?: never;
+      Action: ComponentType<{
+        appId?: string;
+        label: string;
+        icon: ReactNode;
+        className?: string;
+      }>;
+    }
+);
+
+export type DashboardQuickLinkInjectorApp<
+  T extends I18nNamespaces = I18nNamespaces,
+  CustomKeys extends string | undefined = undefined,
+> = {
+  items: DashboardQuickLinkInjectorItem<T, CustomKeys>[];
 };
 
 export type CustomerTabInjectorApp<

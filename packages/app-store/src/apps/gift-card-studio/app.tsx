@@ -24,6 +24,7 @@ export const GiftCardStudioApp: App<
     "demo-arguments-provider",
     "communication-templates-provider",
     "dashboard-notifier",
+    "quick-link-provider",
     "event-subscriber",
   ],
   subscribeTo: [GIFT_CARD_STATUS_CHANGED_EVENT_TYPE],

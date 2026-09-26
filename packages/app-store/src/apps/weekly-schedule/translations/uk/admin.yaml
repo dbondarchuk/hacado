@@ -6,6 +6,8 @@ navigation:
   main:
     title: Тижневий розклад
     description: Керувати вашим тижневим розкладом
+quickLinks:
+  adjust: Налаштувати розклад
 form:
   thisWeek: Цей тиждень
   previousWeek: Попередній тиждень

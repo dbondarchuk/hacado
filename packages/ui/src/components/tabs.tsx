@@ -103,10 +103,12 @@ const TabsViaUrl = React.forwardRef<
       if (usePath) {
         router.push(`${usePath}/${encodeURIComponent(value)}`);
       } else {
-        router.push(`?activeTab=${encodeURIComponent(value)}`);
+        const next = new URLSearchParams(searchParams.toString());
+        next.set("activeTab", value);
+        router.push(`?${next.toString()}`);
       }
     },
-    [usePath, onValueChange, router],
+    [usePath, onValueChange, router, searchParams],
   );
 
   return (

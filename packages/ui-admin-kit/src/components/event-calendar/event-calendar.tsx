@@ -123,6 +123,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
   daysAround = 3,
   daysToShow = 3,
   scrollToHour,
+  scrollToEarliestEvent,
+  showIntervalBoundaries,
   slotInterval,
   onRangeChange,
   onEventClick,
@@ -223,8 +225,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
       )}
 
       {showControls && (
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-          <div className="justify-self-start">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+          <div className="justify-self-start shrink-0">
             {showTimeNav ? (
               <>
                 <Button
@@ -249,7 +251,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
             ) : null}
           </div>
 
-          <div className="justify-self-center flex flex-row items-center gap-1 min-w-0">
+          <div className="justify-self-center flex flex-row items-center justify-center gap-1 min-w-0">
             {showTimeNav && (
               <Button
                 variant="outline"
@@ -265,7 +267,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                 <PopoverTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="h-auto min-w-0 max-w-[16rem] rounded-full px-3 py-1.5 font-display text-lg font-medium tracking-tight truncate"
+                    className="h-auto min-w-0 max-w-full rounded-full px-2 py-1.5 font-display text-base font-medium tracking-tight truncate sm:px-3 sm:text-lg"
                     aria-label={dateLabel}
                   >
                     {dateLabel}
@@ -304,10 +306,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
             )}
           </div>
 
-          <div className="justify-self-end flex flex-row items-center gap-2 min-w-0">
+          <div className="justify-self-end flex flex-row items-center gap-2 shrink-0">
             {showViewSwitch ? (
               <>
-                <div className="lg:hidden">
+                <div className="xl:hidden">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -342,7 +344,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                   </DropdownMenu>
                 </div>
 
-                <div className="hidden lg:inline-flex shrink-0 flex-nowrap rounded-full border border-border/70 bg-muted/40 p-0.5">
+                <div className="hidden xl:inline-flex shrink-0 flex-nowrap rounded-full border border-border/70 bg-muted/40 p-0.5">
                   {SWITCHABLE_VIEWS.map((item) => (
                     <button
                       key={item.value}
@@ -374,6 +376,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
           variant="week-of"
           className={viewClassName}
           scrollToHour={scrollToHour}
+          scrollToEarliestEvent={scrollToEarliestEvent}
+          showIntervalBoundaries={showIntervalBoundaries}
           slotInterval={slotInterval}
           onRangeChange={onRangeChange}
           onEventClick={onEventClick}
@@ -387,6 +391,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
           daysAround={0}
           className={viewClassName}
           scrollToHour={scrollToHour}
+          scrollToEarliestEvent={scrollToEarliestEvent}
+          showIntervalBoundaries={showIntervalBoundaries}
           slotInterval={slotInterval}
           onRangeChange={onRangeChange}
           onEventClick={onEventClick}
@@ -400,6 +406,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
           daysAround={daysAround}
           className={viewClassName}
           scrollToHour={scrollToHour}
+          scrollToEarliestEvent={scrollToEarliestEvent}
+          showIntervalBoundaries={showIntervalBoundaries}
           slotInterval={slotInterval}
           onRangeChange={onRangeChange}
           onEventClick={onEventClick}

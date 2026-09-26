@@ -99,6 +99,8 @@ scopes:
   availability-provider: Availability provider
   meeting-url-provider: Meeting URL provider
   dashboard-notifier: Dashboard notifier
+  needs-attention-provider: Needs attention provider
+  quick-link-provider: Quick link provider
   demo-arguments-provider: Demo arguments provider
   communication-templates-provider: Communication templates provider
   sitemap-items-provider: Sitemap items provider

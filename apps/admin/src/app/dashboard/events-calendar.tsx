@@ -17,25 +17,44 @@ type CookieValues = {
   [VIEW_COOKIE_NAME]?: DashboardEventsCalendarView;
 };
 
+function parseInitialDate(value?: string): DateTime {
+  if (!value) {
+    return DateTime.now().startOf("day");
+  }
+
+  const parsed = DateTime.fromISO(value);
+  if (!parsed.isValid) {
+    return DateTime.now().startOf("day");
+  }
+
+  return parsed.startOf("day");
+}
+
 export const EventsCalendar = ({
   className,
   memberId,
+  initialDate,
+  controlsAfterViewSwitch,
 }: {
   className?: string;
   memberId?: string;
+  initialDate?: string;
+  controlsAfterViewSwitch?: React.ReactNode;
 }) => {
   const [cookies, setCookies] = useCookies<
     typeof VIEW_COOKIE_NAME,
     CookieValues
   >([VIEW_COOKIE_NAME]);
 
-  const [date, setDate] = React.useState(
-    DateTime.now().startOf("day") as DateTime,
-  );
+  const [date, setDate] = React.useState(() => parseInitialDate(initialDate));
 
   const [view, setView] = React.useState<DashboardEventsCalendarView>(
     cookies[VIEW_COOKIE_NAME] ?? "weekly",
   );
+
+  React.useEffect(() => {
+    setDate(parseInitialDate(initialDate));
+  }, [initialDate]);
 
   const changeView = (next: EventCalendarView) => {
     if (next === "days-around") return;
@@ -60,6 +79,8 @@ export const EventsCalendar = ({
       showControls
       allowTimeChange
       allowViewSwitch
+      scrollToEarliestEvent
+      controlsAfterViewSwitch={controlsAfterViewSwitch}
       onDateClick={(clicked) => {
         setDate(DateTime.fromJSDate(clicked).startOf("day"));
         changeView("daily");

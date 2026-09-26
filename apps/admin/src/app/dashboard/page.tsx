@@ -24,17 +24,28 @@ import { getOrganizationId, getServicesContainer, getSession } from "../utils";
 import { DashboardGreeting } from "./dashboard-greeting";
 import { DashboardKpiStrip } from "./dashboard-kpi-strip";
 import { DashboardMemberFilter } from "./dashboard-member-filter";
+import {
+  DashboardKpiSkeleton,
+  NeedsAttentionSkeleton,
+  QuickLinksSkeleton,
+  UpcomingAppointmentsSkeleton,
+  WeekSnapshotSkeleton,
+} from "./dashboard-overview-skeletons";
+import { DashboardQuickLinks } from "./dashboard-quick-links";
 import { getDashboardStats } from "./dashboard-stats";
 import { EventsCalendar } from "./events-calendar";
-import { NextAppointmentsCards } from "./next-appointments-cards";
+import { NeedsAttentionSection } from "./needs-attention-section";
 import { DashboardNotificationsBadge } from "./notifications-toast-stream";
 import { PendingAppointmentsTab } from "./pending-appointments-tab";
+import { UpcomingAppointments } from "./upcoming-appointments";
+import { WeekSnapshot } from "./week-snapshot";
 
 type Params = {
   searchParams: Promise<{
     activeTab?: string;
     key?: string;
     member?: string;
+    date?: string;
   }>;
 };
 
@@ -64,20 +75,24 @@ export default async function Page(params: Params) {
 
   const logger = getLoggerFactory("AdminPages")("dashboard");
   const searchParams = await params.searchParams;
-  const { activeTab = defaultTab, key, member } = searchParams;
+  const { activeTab = defaultTab, key, member, date } = searchParams;
   const tAdmin = await getI18nAsync("admin");
   const t = await getI18nAsync();
   const session = await getSession();
   const showFinancialKpis =
     sessionCanUseFeature(session, "financials") &&
     canViewFinancials(session?.user);
-  const showMemberFilter = canSeeAllCalendarMembers(session?.user);
+  const canFilterMembers = canSeeAllCalendarMembers(session?.user);
+  const showMemberFilter =
+    canFilterMembers &&
+    (await servicesContainer.teamService.getActiveMemberCount()) > 1;
   const showPendingAppointmentsTab = canUpdateAppointments(session?.user);
   const memberId = resolveCalendarMemberId(
     session?.user,
     showMemberFilter ? member : undefined,
   );
   const memberScopeKey = memberId ?? "all";
+  const memberQuery = showMemberFilter ? member : undefined;
   const breadcrumbItems = [
     { title: tAdmin("navigation.dashboard"), link: "/dashboard" },
   ];
@@ -122,9 +137,11 @@ export default async function Page(params: Params) {
   const greetingSubtitle =
     activeTab === "appointments"
       ? tAdmin("dashboard.greeting.subtitlePending")
-      : activeAppTab
-        ? activeAppTab.subtitle
-        : tAdmin("dashboard.greeting.subtitleOverview");
+      : activeTab === "calendar"
+        ? tAdmin("dashboard.greeting.subtitleCalendar")
+        : activeAppTab
+          ? activeAppTab.subtitle
+          : tAdmin("dashboard.greeting.subtitleOverview");
 
   return (
     <PageContainer scrollable>
@@ -136,6 +153,9 @@ export default async function Page(params: Params) {
             <ResponsiveTabsList className="w-full flex flex-row gap-2">
               <TabsTrigger value="overview" className="rounded-full">
                 {tAdmin("dashboard.tabs.overview")}
+              </TabsTrigger>
+              <TabsTrigger value="calendar" className="rounded-full">
+                {tAdmin("dashboard.tabs.calendar")}
               </TabsTrigger>
               {showPendingAppointmentsTab ? (
                 <TabsTrigger value="appointments" className="rounded-full">
@@ -167,55 +187,68 @@ export default async function Page(params: Params) {
                 value="overview"
                 className="space-y-5 @container [contain:layout]"
               >
-                {showMemberFilter ? <DashboardMemberFilter /> : null}
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="min-w-0 flex-1">
+                    <Suspense fallback={<QuickLinksSkeleton />}>
+                      <DashboardQuickLinks />
+                    </Suspense>
+                  </div>
+                  {showMemberFilter ? (
+                    <div className="shrink-0">
+                      <DashboardMemberFilter />
+                    </div>
+                  ) : null}
+                </div>
                 <Suspense
                   key={`kpi-${memberScopeKey}`}
                   fallback={
-                    <div
-                      className={
-                        showFinancialKpis
-                          ? "grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4"
-                          : "grid grid-cols-1 gap-3 sm:grid-cols-2"
-                      }
-                    >
-                      {Array.from({
-                        length: showFinancialKpis ? 4 : 2,
-                      }).map((_, index) => (
-                        <Skeleton
-                          className="h-24 w-full rounded-2xl"
-                          key={index}
-                        />
-                      ))}
-                    </div>
+                    <DashboardKpiSkeleton count={showFinancialKpis ? 4 : 2} />
                   }
                 >
                   <DashboardKpiSection memberId={memberId} />
                 </Suspense>
-                <div className="flex flex-col-reverse @6xl:flex-row gap-6">
-                  <div className="flex flex-col @6xl:flex-1 min-w-0">
-                    <EventsCalendar memberId={memberId} />
-                  </div>
-                  <div className="@6xl:w-80 @6xl:shrink-0 flex flex-col gap-2">
-                    <h2 className="font-display text-xl font-medium tracking-tight text-foreground">
-                      {tAdmin("dashboard.appointments.nextAppointments")}
-                    </h2>
-                    <Suspense
-                      key={`next-${memberScopeKey}-${key ?? ""}`}
-                      fallback={
-                        <>
-                          {Array.from({ length: 3 }).map((_, index) => (
-                            <Skeleton className="w-full h-40" key={index} />
-                          ))}
-                        </>
-                      }
-                    >
-                      <NextAppointmentsCards
-                        className="flex-row @6xl:flex-col flex-wrap gap-2"
-                        memberId={memberId}
+                <div className="grid grid-cols-1 gap-6 @6xl:grid-cols-2">
+                  <Suspense
+                    key={`upcoming-${memberScopeKey}-${key ?? ""}`}
+                    fallback={<UpcomingAppointmentsSkeleton />}
+                  >
+                    <UpcomingAppointments
+                      memberId={memberId}
+                      member={memberQuery}
+                    />
+                  </Suspense>
+                  <Suspense
+                    key={`week-${memberScopeKey}`}
+                    fallback={
+                      <WeekSnapshotSkeleton
+                        showCustomerChart={showFinancialKpis}
                       />
-                    </Suspense>
-                  </div>
+                    }
+                  >
+                    <WeekSnapshot
+                      memberId={memberId}
+                      member={memberQuery}
+                      showCustomerChart={showFinancialKpis}
+                    />
+                  </Suspense>
                 </div>
+                <Suspense fallback={<NeedsAttentionSkeleton />}>
+                  <NeedsAttentionSection />
+                </Suspense>
+              </TabsContent>
+            )}
+            {activeTab === "calendar" && (
+              <TabsContent
+                value="calendar"
+                className="space-y-5 @container [contain:layout]"
+              >
+                <EventsCalendar
+                  memberId={memberId}
+                  initialDate={date}
+                  controlsAfterViewSwitch={
+                    showMemberFilter ? <DashboardMemberFilter /> : undefined
+                  }
+                />
               </TabsContent>
             )}
             {activeTab === "appointments" && showPendingAppointmentsTab && (

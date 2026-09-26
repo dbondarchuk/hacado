@@ -26,3 +26,8 @@ toast:
   changes_saved: Ваші зміни були збережені.
   request_error: Виникла проблема з вашим запитом.
   stream_list_error: Не вдалося отримати список потоків даних
+needsAttention:
+  dataStream:
+    title: Завершіть налаштування Google Analytics
+    description: Виберіть потік даних, щоб почати відстеження сайту та конверсій.
+    action: Налаштувати

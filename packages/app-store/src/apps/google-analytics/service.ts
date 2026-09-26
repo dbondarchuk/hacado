@@ -9,12 +9,16 @@ import {
   EventEnvelope,
   IConnectedAppProps,
   IEventSubscriber,
+  INeedsAttentionApp,
   IOAuthConnectedApp,
   IPublicEventContextProvider,
   IScriptProvider,
   LayoutScriptProviderContext,
+  NeedsAttentionItem,
   okStatus,
+  OrganizationMember,
   ScriptContribution,
+  SessionUser,
 } from "@hacado/types";
 import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
@@ -41,7 +45,11 @@ import {
   parseGaClientIdFromCookie,
   parseGaSessionIdFromCookie,
 } from "./parse-ga-cookie";
-import { GoogleAnalyticsAdminAllKeys } from "./translations/types";
+import {
+  GoogleAnalyticsAdminAllKeys,
+  GoogleAnalyticsAdminKeys,
+  GoogleAnalyticsAdminNamespace,
+} from "./translations/types";
 
 /** Token shape stored on the connected app (encrypted at rest). */
 type GoogleOAuthTokens = {
@@ -61,12 +69,28 @@ const requiredScopes = [
   "https://www.googleapis.com/auth/analytics.edit",
 ];
 
+function statusTextKey(statusText: ConnectedAppData["statusText"]): string {
+  if (typeof statusText === "string") {
+    return statusText;
+  }
+
+  if (statusText && typeof statusText === "object" && "key" in statusText) {
+    return String(statusText.key);
+  }
+
+  return "";
+}
+
+const REQUIRES_DATA_STREAM =
+  "app_google-analytics_admin.statusText.requires_data_stream" satisfies GoogleAnalyticsAdminAllKeys;
+
 class GoogleAnalyticsConnectedApp
   implements
     IOAuthConnectedApp,
     IScriptProvider,
     IEventSubscriber,
-    IPublicEventContextProvider
+    IPublicEventContextProvider,
+    INeedsAttentionApp
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -75,6 +99,44 @@ class GoogleAnalyticsConnectedApp
       "GoogleAnalyticsConnectedApp",
       props.organizationId,
     );
+  }
+
+  public getNeedAttentionItems(
+    appData: ConnectedAppData,
+    _member: OrganizationMember | null,
+    _user: SessionUser,
+  ): NeedsAttentionItem<
+    GoogleAnalyticsAdminNamespace,
+    GoogleAnalyticsAdminKeys
+  >[] {
+    const key = statusTextKey(appData.statusText);
+    const needsStream =
+      key === REQUIRES_DATA_STREAM || key.includes("requires_data_stream");
+
+    if (!needsStream) {
+      return [];
+    }
+
+    return [
+      {
+        id: "requires-data-stream",
+        fingerprint: key || "requires-data-stream",
+        level: "warning",
+        title: {
+          key: "app_google-analytics_admin.needsAttention.dataStream.title",
+        },
+        description: {
+          key: "app_google-analytics_admin.needsAttention.dataStream.description",
+        },
+        action: {
+          type: "update-app",
+          label: {
+            key: "app_google-analytics_admin.needsAttention.dataStream.action",
+          },
+        },
+        order: 50,
+      },
+    ];
   }
 
   public async processRequest(

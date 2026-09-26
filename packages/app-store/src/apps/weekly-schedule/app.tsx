@@ -12,7 +12,7 @@ export const WeeklyScheduleApp: App<
 > = {
   name: WEEKLY_SCHEDULE_APP_NAME,
   displayName: "app_weekly-schedule_admin.app.displayName",
-  scope: ["schedule"],
+  scope: ["schedule", "quick-link-provider"],
   type: "complex",
   target: "company",
   category: ["apps.categories.schedule"],

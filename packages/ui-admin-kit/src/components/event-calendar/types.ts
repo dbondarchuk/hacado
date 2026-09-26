@@ -65,6 +65,13 @@ type BaseEventCalendarProps = {
 
 type BaseWeeklyEventCalendarProps = BaseEventCalendarProps & {
   scrollToHour?: HourNumbers;
+  /**
+   * When true, scroll to the earliest in-range event hour minus two.
+   * Falls back to `scrollToHour` when there are no events.
+   */
+  scrollToEarliestEvent?: boolean;
+  /** When true, draw horizontal lines for each slot interval (not only hours). */
+  showIntervalBoundaries?: boolean;
   slotInterval?: 5 | 10 | 15 | 20 | 30;
 };
 
@@ -130,6 +137,13 @@ export type EventCalendarProps = {
   daysAround?: number;
   daysToShow?: number;
   scrollToHour?: HourNumbers;
+  /**
+   * When true, scroll to the earliest in-range event hour minus two.
+   * Falls back to `scrollToHour` when there are no events.
+   */
+  scrollToEarliestEvent?: boolean;
+  /** When true, draw horizontal lines for each slot interval (not only hours). */
+  showIntervalBoundaries?: boolean;
   slotInterval?: 5 | 10 | 15 | 20 | 30;
 
   onRangeChange?: (start: Date, end: Date) => void;

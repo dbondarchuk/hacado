@@ -15,6 +15,7 @@
     ".": "./src/index.ts",
     "./services": "./src/services/index.ts",
     "./injectors/dashboard-tab": "./src/injectors/dashboard-tab.ts",
+    "./injectors/dashboard-quick-link": "./src/injectors/dashboard-quick-link.ts",
     "./injectors/customer-tab": "./src/injectors/customer-tab.ts",
     "./blocks/editors": "./src/blocks/editors.ts",
     "./blocks/readers": "./src/blocks/readers.ts",

@@ -22,6 +22,8 @@ export type AppScope = Extandable<
   | "availability-provider"
   | "meeting-url-provider"
   | "dashboard-notifier"
+  | "needs-attention-provider"
+  | "quick-link-provider"
   | "demo-arguments-provider"
   | "sitemap-items-provider"
   | "page-seo-arguments-provider"

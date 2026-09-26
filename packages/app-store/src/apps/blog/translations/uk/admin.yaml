@@ -1,4 +1,6 @@
 pageTitle: Блог
+quickLinks:
+  writePost: Написати новий запис
 table:
   columns:
     title: Заголовок

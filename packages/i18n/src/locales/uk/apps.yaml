@@ -99,6 +99,8 @@ scopes:
   availability-provider: Постачальник доступності
   meeting-url-provider: Постачальник URL зустрічі
   dashboard-notifier: Сповіщувач панелі керування
+  needs-attention-provider: Постачальник «потребує уваги»
+  quick-link-provider: Постачальник швидких посилань
   demo-arguments-provider: Постачальник демонстраційних аргументів
   communication-templates-provider: Постачальник шаблонів комунікацій
   sitemap-items-provider: Постачальник елементів sitemap

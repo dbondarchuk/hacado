@@ -11,6 +11,7 @@ export const BlogApp: App<"app_blog_admin", BlogAdminKeys> = {
     "ui-components",
     "sitemap-items-provider",
     "dashboard-notifier",
+    "quick-link-provider",
     "page-seo-arguments-provider",
   ],
   type: "complex",

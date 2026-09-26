@@ -78,7 +78,9 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
   variant = "week-of",
   events: propsEvents,
   className,
-  scrollToHour = 8,
+  scrollToHour = 7,
+  scrollToEarliestEvent = false,
+  showIntervalBoundaries = false,
   slotInterval = 10,
   schedule = {},
   onEventClick,
@@ -103,14 +105,6 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
 
   const scrollAreaRef = React.useRef<HTMLDivElement | null>(null);
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
-  React.useEffect(() => {
-    const offset = scrollRef?.current?.offsetTop;
-
-    scrollAreaRef?.current?.scrollTo({
-      top: offset,
-      behavior: "instant",
-    });
-  }, [scrollRef.current]);
 
   const getDates = (day: Date) => {
     switch (variant) {
@@ -151,6 +145,47 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
       isMultiDay: end.diff(start, "hours").hours >= 24,
     };
   });
+
+  const targetScrollHour = React.useMemo((): HourNumbers => {
+    if (!scrollToEarliestEvent) {
+      return scrollToHour;
+    }
+
+    const visibleDays = new Set(
+      dates.map((day) => day.toISODate()).filter(Boolean),
+    );
+
+    let earliestHour: number | null = null;
+    for (const event of propsEvents || []) {
+      const start = DateTime.fromJSDate(event.start).setZone(timeZone);
+      const end = DateTime.fromJSDate(event.end).setZone(timeZone);
+
+      if (end.diff(start, "hours").hours >= 24) continue;
+
+      const dayKey = start.toISODate();
+      if (!dayKey || !visibleDays.has(dayKey)) continue;
+
+      earliestHour =
+        earliestHour === null ? start.hour : Math.min(earliestHour, start.hour);
+    }
+
+    if (earliestHour === null) {
+      return scrollToHour;
+    }
+
+    return Math.max(0, earliestHour - 2) as HourNumbers;
+  }, [scrollToEarliestEvent, scrollToHour, propsEvents, dates, timeZone]);
+
+  React.useLayoutEffect(() => {
+    const viewport = scrollAreaRef.current;
+    const target = scrollRef.current;
+    if (!viewport || !target) return;
+
+    viewport.scrollTo({
+      top: target.offsetTop,
+      behavior: "instant",
+    });
+  }, [targetScrollHour, dates, propsEvents]);
 
   const eventToCalendarEvent = (
     event: (typeof events)[0],
@@ -434,18 +469,21 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
                 <div
                   className={cn(
                     rowStartClass,
-                    "text-darkGray translate-y-[var(--translate-y)] text-sm leading-[30px] col-span-full border-t scroll-m-16",
-                    time.endsWith("00")
-                      ? "col-start-1 border-border/60"
-                      : "col-start-2 border-primary/20",
+                    "text-darkGray translate-y-[var(--translate-y)] text-sm leading-[30px] col-span-full scroll-m-16",
+                    time.endsWith("00") &&
+                      "col-start-1 border-t border-border/60",
+                    !time.endsWith("00") &&
+                      cn(
+                        "col-start-2",
+                        showIntervalBoundaries && "border-t border-primary/20",
+                      ),
                   )}
                   style={{
                     "--calendar-row-start": index + 1,
-                    //"--translate-y": `-${sizePerRow * 2}px`,
                   }}
                   data-time={time}
                   ref={
-                    timeObj.hour === scrollToHour && timeObj.minute === 0
+                    timeObj.hour === targetScrollHour && timeObj.minute === 0
                       ? scrollRef
                       : undefined
                   }

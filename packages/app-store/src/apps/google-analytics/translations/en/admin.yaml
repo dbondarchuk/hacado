@@ -26,3 +26,8 @@ toast:
   changes_saved: Your changes were saved.
   request_error: There was a problem with your request.
   stream_list_error: Failed to retrieve data stream list
+needsAttention:
+  dataStream:
+    title: Finish Google Analytics setup
+    description: Select a data stream so website and conversion tracking can start.
+    action: Configure

@@ -11,7 +11,12 @@ export const FormsApp: App<FormsAdminNamespace, FormsAdminKeys> = {
   name: FORMS_APP_NAME,
   displayName: "app_forms_admin.app.displayName",
   category: ["apps.categories.content"],
-  scope: ["ui-components", "customer-tab", "dashboard-notifier"],
+  scope: [
+    "ui-components",
+    "customer-tab",
+    "dashboard-notifier",
+    "quick-link-provider",
+  ],
   type: "complex",
   target: "company",
   Logo: ({ className }) => <Form className={className} />,

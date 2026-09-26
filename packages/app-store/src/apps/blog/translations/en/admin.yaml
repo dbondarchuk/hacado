@@ -1,4 +1,6 @@
 pageTitle: Blog
+quickLinks:
+  writePost: Write new post
 table:
   columns:
     title: Title

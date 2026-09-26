@@ -650,13 +650,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signin/page.tsx": {
-    "mtime": 1790356721.0143814,
-    "ast_hash": "8fe6d82a0054d4e42db0f338e6cf6bcb",
+    "mtime": 1790359369.747669,
+    "ast_hash": "bb48ecccdf39a32af82d8e1a5932ac08",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/signup/page.tsx": {
-    "mtime": 1790356693.1551006,
-    "ast_hash": "20f1fd45c151d71a44062e3ab64d09ea",
+    "mtime": 1790359301.653188,
+    "ast_hash": "c622e83797bac3c277ba8947f7135fcc",
     "semantic_hash": ""
   },
   "apps/admin/src/app/checkout/layout.tsx": {
@@ -825,18 +825,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/events-calendar.tsx": {
-    "mtime": 1786820408.7556055,
-    "ast_hash": "ac1e1b64747304a000e9d4b7202bfc63",
+    "mtime": 1790371027.0764985,
+    "ast_hash": "ba8612b7a7179a8280525491979536c3",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/layout.tsx": {
     "mtime": 1788207984.8971539,
     "ast_hash": "ff088eac15e9927a4f36280393122fda",
-    "semantic_hash": ""
-  },
-  "apps/admin/src/app/dashboard/next-appointments-cards.tsx": {
-    "mtime": 1786984598.0948386,
-    "ast_hash": "48a23d7d6d86c40aeece5941211acc21",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/notifications-toast-stream.tsx": {
@@ -845,8 +840,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/page.tsx": {
-    "mtime": 1786820408.7626255,
-    "ast_hash": "2e77d47ac150a869779c806749d8e3f0",
+    "mtime": 1790442024.533178,
+    "ast_hash": "158c80e1968733241657571a8b325344",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/pages/[id]/page.tsx": {
@@ -1155,8 +1150,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/layout.tsx": {
-    "mtime": 1786987866.5020106,
-    "ast_hash": "0bd79c344127328e9fb9bc771335b23d",
+    "mtime": 1790440955.5344996,
+    "ast_hash": "fc8cd8cc24445c5224b0dbfe642d8a7f",
     "semantic_hash": ""
   },
   "apps/admin/src/app/utils.ts": {
@@ -1325,8 +1320,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-signup-form.tsx": {
-    "mtime": 1790356716.9588945,
-    "ast_hash": "ecf3d0dbf0a7c94300d5f6ab6edae444",
+    "mtime": 1790359369.747669,
+    "ast_hash": "aa4d419e4e38b008aa66bc6a0f4a114e",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/charts/area-graph.tsx": {
@@ -2090,8 +2085,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/constants.ts": {
-    "mtime": 1790356668.3430943,
-    "ast_hash": "ceed09a37cc98b92a9cd48b7e04d7cd2",
+    "mtime": 1790359369.747669,
+    "ast_hash": "4f8d2b43a5b7f09aeb059dbc8a39fff8",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/data/_catalog-data.json": {
@@ -2160,13 +2155,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/install-wizard.tsx": {
-    "mtime": 1790356318.30136,
-    "ast_hash": "d337c8e61b713788f194f98d210ea44d",
+    "mtime": 1790359369.7481904,
+    "ast_hash": "e9f2102f2dce90d74703784191f77e18",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/persisted-state.ts": {
-    "mtime": 1790356240.244379,
-    "ast_hash": "c2bf3967ce171e44502e88478efb4d2a",
+    "mtime": 1790359369.7481904,
+    "ast_hash": "9977130da9cfadab21362bf7dc3d0289",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-business.tsx": {
@@ -2175,8 +2170,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-finish.tsx": {
-    "mtime": 1790356253.4479008,
-    "ast_hash": "b976816e15e177fcd54673214a145cfc",
+    "mtime": 1790359369.7481904,
+    "ast_hash": "9a7bbc3e074586c8ecb3b51653b8a03c",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/steps/step-install-header.tsx": {
@@ -3305,7 +3300,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1790358730.9363468,
+    "mtime": 1790370388.6566129,
     "ast_hash": "fcc30684138aa29512a047e77829480a",
     "semantic_hash": ""
   },
@@ -3650,8 +3645,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/package.json": {
-    "mtime": 1790196202.8885436,
-    "ast_hash": "264c587acedef1eafe5acc52b2c00a61",
+    "mtime": 1790443337.9108853,
+    "ast_hash": "20d65d27bf1def7e8fe0c442a51d001a",
     "semantic_hash": ""
   },
   "packages/app-store/src/app-events/index.ts": {
@@ -3815,8 +3810,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/app.tsx": {
-    "mtime": 1786820409.1667938,
-    "ast_hash": "86ba4080c20ef3c9c3f210399962413e",
+    "mtime": 1790443340.8339462,
+    "ast_hash": "38e185f43404789eb9a8eef4e4ac1bf9",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/author-actions.ts": {
@@ -5005,8 +5000,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/app.tsx": {
-    "mtime": 1786820409.264516,
-    "ast_hash": "5cdc55d84541b718f56eb24ce051796f",
+    "mtime": 1790443341.6379755,
+    "ast_hash": "daabe66da370f1faa4d4837fbdb549fb",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/blocks/form/component.tsx": {
@@ -5365,8 +5360,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/app.tsx": {
-    "mtime": 1790116654.5439136,
-    "ast_hash": "806d2e9b047cb4c8d7f7338e40738baa",
+    "mtime": 1790443342.8988154,
+    "ast_hash": "6ac4d4de130bedd5f96da868c430c618",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/blocks/gift-card-purchase/actions.ts": {
@@ -6615,8 +6610,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/app.tsx": {
-    "mtime": 1786820409.418643,
-    "ast_hash": "7d6ec3a84226688dd083c13fcfd960b0",
+    "mtime": 1790443345.2226334,
+    "ast_hash": "28315627bc97a9fea6dcc0d02c02d83b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/modern/booking-with-waitlist/components/addons-card.tsx": {
@@ -7200,8 +7195,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/app.tsx": {
-    "mtime": 1786820409.476779,
-    "ast_hash": "8885279d71f58f648722fa9f808845e7",
+    "mtime": 1790443343.577139,
+    "ast_hash": "f0200d563459b0eb079b9e81c1db42c7",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/components/actions.ts": {
@@ -7380,8 +7375,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/injectors/index.ts": {
-    "mtime": 1786820409.491846,
-    "ast_hash": "11b42291fd1d5daad13b98ee9e935c77",
+    "mtime": 1790443336.6004298,
+    "ast_hash": "007b40386f1154ad3f5cf72e8713a448",
     "semantic_hash": ""
   },
   "packages/app-store/src/menu-items.ts": {
@@ -13125,8 +13120,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/app.ts": {
-    "mtime": 1790116654.5650978,
-    "ast_hash": "9d0db6117844cba39170cbfc1906787e",
+    "mtime": 1790443279.8502204,
+    "ast_hash": "273fe098dd32705785f59e545c9cc79b",
     "semantic_hash": ""
   },
   "packages/types/src/apps/assets/assets-storage.ts": {
@@ -13220,13 +13215,13 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/index.ts": {
-    "mtime": 1790116654.5660949,
-    "ast_hash": "a47aecf526d78d8ec429ad718afeabcf",
+    "mtime": 1790427172.3441422,
+    "ast_hash": "cfe8627ab5ffd325594e53957163f2f2",
     "semantic_hash": ""
   },
   "packages/types/src/apps/injectors.ts": {
-    "mtime": 1786820409.945562,
-    "ast_hash": "9a7c7ee5913cf4e6e4c086fef278348b",
+    "mtime": 1790444126.8450127,
+    "ast_hash": "6fe955f8342605575afc0ab5af4328d6",
     "semantic_hash": ""
   },
   "packages/types/src/apps/mail/event-attributes.ts": {
@@ -14520,8 +14515,8 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/combobox-async.tsx": {
-    "mtime": 1786820410.0465858,
-    "ast_hash": "27ab147c004d039c53429cdfaa88b382",
+    "mtime": 1790441161.17613,
+    "ast_hash": "3190490134ba3537a1fa6b15156921ad",
     "semantic_hash": ""
   },
   "packages/ui/src/components/combobox.tsx": {
@@ -14820,8 +14815,8 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/tabs.tsx": {
-    "mtime": 1786820410.0682144,
-    "ast_hash": "118260113cc083c138f595d43895be07",
+    "mtime": 1790371021.0220318,
+    "ast_hash": "8cfe06d920cd08116b0facbb1d8254de",
     "semantic_hash": ""
   },
   "packages/ui/src/components/tag-input.tsx": {
@@ -15635,8 +15630,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/translations/en/admin.yaml": {
-    "mtime": 1780946625.7105722,
-    "ast_hash": "be46df4a6403d72e6cd3676df3c42194",
+    "mtime": 1790443303.1383739,
+    "ast_hash": "1c4301ea69503576d672c2bd5321eb3d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/translations/en/public.yaml": {
@@ -15645,8 +15640,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/translations/uk/admin.yaml": {
-    "mtime": 1786987867.113739,
-    "ast_hash": "690dd11f451a2fe1803bfca4a88b31db",
+    "mtime": 1790443303.5255306,
+    "ast_hash": "291d54f3e5f7d074ebc4b706fcf7b174",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/translations/uk/public.yaml": {
@@ -16040,13 +16035,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/translations/en/admin.yaml": {
-    "mtime": 1786820409.482779,
-    "ast_hash": "c5d0cfaf8e31463880a83ba88b3152d8",
+    "mtime": 1790443295.6148999,
+    "ast_hash": "1ed31948e457b4cc9a247df17d59a510",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/weekly-schedule/translations/uk/admin.yaml": {
-    "mtime": 1786820409.4847808,
-    "ast_hash": "8b4c27896c71b4972271fc933f3513e4",
+    "mtime": 1790443300.2874835,
+    "ast_hash": "27163ac4b6f33f4e7472feb24d7c8fcf",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/zoom/translations/en/admin.yaml": {
@@ -16070,13 +16065,13 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1790212129.3033133,
-    "ast_hash": "1270fc8954c33904c92aaedb60d6f563",
+    "mtime": 1790442553.442155,
+    "ast_hash": "9079d00f6eb9cffc4e96e3836d1643ea",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
-    "mtime": 1790285782.3891196,
-    "ast_hash": "e244f7a9e968cbe8532a1989ea61b75f",
+    "mtime": 1790443288.9357717,
+    "ast_hash": "39fa3c1aea0af74c0c388017a4d75651",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/builder.yaml": {
@@ -16105,13 +16100,13 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1790212097.1464355,
-    "ast_hash": "97b41cb87d54915398c0e144e765740f",
+    "mtime": 1790442553.736308,
+    "ast_hash": "1b7dfb03dfe52c135abb85f5c41c7109",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
-    "mtime": 1790285782.7086792,
-    "ast_hash": "f6cddc3541ecf9eb59d6e13afd460ec8",
+    "mtime": 1790443294.7701871,
+    "ast_hash": "db19a5926abaf051e91d319b22b736a7",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/builder.yaml": {
@@ -27135,8 +27130,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/dashboard-stats.ts": {
-    "mtime": 1786820408.7546382,
-    "ast_hash": "f1c11eb78194b4a525939f6171ffe531",
+    "mtime": 1790381042.6218605,
+    "ast_hash": "ff092fd76f7c8961cd4840e14a20f6a8",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/team/user-seat-actions.ts": {
@@ -27485,8 +27480,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/member-selector.tsx": {
-    "mtime": 1786820410.0265853,
-    "ast_hash": "a50c27b4e49e999fe3767205f6ae596e",
+    "mtime": 1790441188.4273775,
+    "ast_hash": "da54421c16e9084731466f3f4d3ee03d",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/teams/_utils.ts": {
@@ -27935,7 +27930,7 @@
     "semantic_hash": ""
   },
   "apps/web/src/proxy-chain/with-organization-id.ts": {
-    "mtime": 1786820408.9989448,
+    "mtime": 1790370388.6295803,
     "ast_hash": "0f3d8d92e3da3326bcc800f2bc816fa2",
     "semantic_hash": ""
   },
@@ -30100,8 +30095,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/app.tsx": {
-    "mtime": 1789231096.2987087,
-    "ast_hash": "2b95e2cfb1df2acc12b0e5a3282a5307",
+    "mtime": 1790427396.0310886,
+    "ast_hash": "eeff728c76fbd20f1b3f784fa9c46a8f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/client.ts": {
@@ -30125,8 +30120,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/service.ts": {
-    "mtime": 1790270431.7536838,
-    "ast_hash": "8a5d35c351a441b225593d46f0f04760",
+    "mtime": 1790427234.3046615,
+    "ast_hash": "eccc9fe896aa626ef2fd3c5c0be8fa1f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/setup.tsx": {
@@ -30150,13 +30145,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/translations/en/admin.yaml": {
-    "mtime": 1789231772.5021856,
-    "ast_hash": "5f00258c396dd429045e8cf5b2d58b09",
+    "mtime": 1790381181.8211682,
+    "ast_hash": "114807830305fe7e7a560f52cbaedb62",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/translations/uk/admin.yaml": {
-    "mtime": 1789498503.8409114,
-    "ast_hash": "d59b5d941c192cd07d240d57038698a4",
+    "mtime": 1790381183.4500175,
+    "ast_hash": "1150c82828ad0d3b30c6b4c3d8748519",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/images/index.ts": {
@@ -31955,8 +31950,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/app.tsx": {
-    "mtime": 1790021265.7269986,
-    "ast_hash": "58a72dbfe6edc347704741fddc026adb",
+    "mtime": 1790427396.7992778,
+    "ast_hash": "612ebe7a6a5625e59853309584e44758",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/const.ts": {
@@ -31995,8 +31990,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/service.ts": {
-    "mtime": 1790022422.1002984,
-    "ast_hash": "77f6decc80f1be53c01588d9b8da58a4",
+    "mtime": 1790427255.5798137,
+    "ast_hash": "b3f1fd504b0c624c48bafdbfc11ff16a",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/setup.tsx": {
@@ -32030,13 +32025,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/en/admin.yaml": {
-    "mtime": 1789999396.765543,
-    "ast_hash": "8b322eb18ba570434c2973cba2508a35",
+    "mtime": 1790381177.8943617,
+    "ast_hash": "72b6232527ce0f68c6bc434624be4eab",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/uk/admin.yaml": {
-    "mtime": 1789999399.0599422,
-    "ast_hash": "62c0ff39e594d35b8d61c35613e1499d",
+    "mtime": 1790381180.280037,
+    "ast_hash": "a6aad3d7768a3cb5c8331b8dac6ed557",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/images/index.ts": {
@@ -32305,8 +32300,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/catalog/marketing-chrome.tsx": {
-    "mtime": 1790354648.1022146,
-    "ast_hash": "ef894ee732fe5fc46acd1771a2c20daf",
+    "mtime": 1790359369.747669,
+    "ast_hash": "65cfa4acaaa4e92d582a5f2a6b4b0df6",
     "semantic_hash": ""
   },
   "apps/admin/src/template-previews/catalog-series-layout.tsx": {
@@ -33235,8 +33230,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/remember-website-pack.tsx": {
-    "mtime": 1790356670.0981288,
-    "ast_hash": "6c3254ed0ef2478113d7baa5b4efa80e",
+    "mtime": 1790359369.7481904,
+    "ast_hash": "13b1a02a51bc5a6ece9881ead07c067f",
     "semantic_hash": ""
   },
   "marketing-site/package.json": {
@@ -33265,602 +33260,602 @@
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/footer.json": {
-    "mtime": 1790359124.0548334,
+    "mtime": 1790367111.3809295,
     "ast_hash": "e386ffec5085eda651f5fe1d3e069390",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/header-hero-header.json": {
-    "mtime": 1790359124.05354,
+    "mtime": 1790367111.3799293,
     "ast_hash": "9d37616d6860f03eea7994adc899657d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/header.json": {
-    "mtime": 1790359124.05354,
+    "mtime": 1790367111.3799293,
     "ast_hash": "061b5c20591a2bc85a035ef316802dc1",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/index.json": {
-    "mtime": 1790359124.2196176,
+    "mtime": 1790367111.5297878,
     "ast_hash": "062053f8c88849741678911c4d85d729",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/404.json": {
-    "mtime": 1790359124.2190773,
+    "mtime": 1790367111.52878,
     "ast_hash": "69c6ef095aad0636b3c1ba957981d682",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/about.json": {
-    "mtime": 1790359124.2125852,
+    "mtime": 1790367111.5242603,
     "ast_hash": "0a2c875d7ebeb5a602772b12f9d846b2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/acuity-alternative.json": {
-    "mtime": 1790359124.1703374,
+    "mtime": 1790367111.484258,
     "ast_hash": "c6a52c4459fe46c8368b0fb333e1e158",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/acuity-scheduling-alternative.json": {
-    "mtime": 1790359124.171339,
+    "mtime": 1790367111.484258,
     "ast_hash": "b20d6f222245983a1df5ec6eabf29fd1",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/acuity.json": {
-    "mtime": 1790359124.171339,
+    "mtime": 1790367111.4852588,
     "ast_hash": "42fb1a2d206800b49f1b71c5225cd8f2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/booksy.json": {
-    "mtime": 1790359124.1668253,
+    "mtime": 1790367111.479257,
     "ast_hash": "46f469675fda0946e3ebf22e42dd551c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/boulevard.json": {
-    "mtime": 1790359124.1733396,
+    "mtime": 1790367111.4872198,
     "ast_hash": "9b93b45fecdc61a1123bf3cc5bb6ef49",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/calendly.json": {
-    "mtime": 1790359124.1693387,
+    "mtime": 1790367111.4832587,
     "ast_hash": "40f49387c5f6ffb3a427f4032aa8107b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/fresha.json": {
-    "mtime": 1790359124.1657264,
+    "mtime": 1790367111.479257,
     "ast_hash": "78e0a1b3c60744856d630f2a351364f0",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/glossgenius.json": {
-    "mtime": 1790359124.171339,
+    "mtime": 1790367111.4852588,
     "ast_hash": "526fc3467e981e7898919a4fbb1b6768",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/goldie.json": {
-    "mtime": 1790359124.1753373,
+    "mtime": 1790367111.489852,
     "ast_hash": "031e80fce6086548a371bdbf434af962",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/mindbody.json": {
-    "mtime": 1790359124.1763384,
+    "mtime": 1790367111.4919999,
     "ast_hash": "f5f9a3199ed5b194ae2ee94722013907",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/square-appointments.json": {
-    "mtime": 1790359124.1693387,
+    "mtime": 1790367111.4822588,
     "ast_hash": "abd9497e410ac841a9f24f1c8e6708c3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/squire.json": {
-    "mtime": 1790359124.1753373,
+    "mtime": 1790367111.4909208,
     "ast_hash": "b5916102ee742540572cf6a1df5a7a11",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/styleseat.json": {
-    "mtime": 1790359124.1733396,
+    "mtime": 1790367111.4887643,
     "ast_hash": "669cf129da4bbd5a0b33ff31dd4e13e9",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/vagaro.json": {
-    "mtime": 1790359124.168339,
+    "mtime": 1790367111.4802582,
     "ast_hash": "3023ebdda9b1899a476522bd0034282f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-booksy-alternative.json": {
-    "mtime": 1790359124.1673656,
+    "mtime": 1790367111.4802582,
     "ast_hash": "6972e2164fcef8eb87b790ea89ac7d4d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-boulevard-alternative.json": {
-    "mtime": 1790359124.1733396,
+    "mtime": 1790367111.4877584,
     "ast_hash": "1d5b315264a6596247883a7b0d695404",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-calendly-alternative.json": {
-    "mtime": 1790359124.1703374,
+    "mtime": 1790367111.484258,
     "ast_hash": "665f33102736c1d96bf9608aee1f223e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-fresha-alternative.json": {
-    "mtime": 1790359124.1662924,
+    "mtime": 1790367111.479257,
     "ast_hash": "5178ccc17d07158dafe41866edec7215",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-glossgenius-alternative.json": {
-    "mtime": 1790359124.1723378,
+    "mtime": 1790367111.4852588,
     "ast_hash": "964b9f53374e63ee3e1ff124a6fe29bf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-goldie-alternative.json": {
-    "mtime": 1790359124.1753373,
+    "mtime": 1790367111.49037,
     "ast_hash": "21684fde361f25c7027665114d5d1828",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-mindbody-alternative.json": {
-    "mtime": 1790359124.1763384,
+    "mtime": 1790367111.4925292,
     "ast_hash": "fdbcec421bfc57e2f3b02b834067987c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-squire-alternative.json": {
-    "mtime": 1790359124.1763384,
+    "mtime": 1790367111.491479,
     "ast_hash": "8721a805991f8e709247e5fd76fcdb5f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-styleseat-alternative.json": {
-    "mtime": 1790359124.174337,
+    "mtime": 1790367111.488784,
     "ast_hash": "7da571948fc568b4537023f51153190e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-vagaro-alternative.json": {
-    "mtime": 1790359124.168339,
+    "mtime": 1790367111.4812584,
     "ast_hash": "42a646ce42c09a0dfd56bb41c1e69867",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-system-without-marketplace.json": {
-    "mtime": 1790359124.1818635,
+    "mtime": 1790367111.496565,
     "ast_hash": "b7e8e1bf9be2ea212c92d6b8bd0056be",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-website-for-salons.json": {
-    "mtime": 1790359124.1783435,
+    "mtime": 1790367111.4935906,
     "ast_hash": "e19785c12a469d6fad0c1eada6c8fd03",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-website-with-stripe.json": {
-    "mtime": 1790359124.1923811,
+    "mtime": 1790367111.5076785,
     "ast_hash": "b3a580a1371264a1097e46e33a47e899",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booksy-alternative.json": {
-    "mtime": 1790359124.1662924,
+    "mtime": 1790367111.479257,
     "ast_hash": "677fb00cbd1e6f71bdbe6e1c9ce625e9",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/boulevard-alternative.json": {
-    "mtime": 1790359124.1723378,
+    "mtime": 1790367111.4872046,
     "ast_hash": "fedc01e96f5dca7b634a7497671e4f4f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/calendly-alternative.json": {
-    "mtime": 1790359124.1693387,
+    "mtime": 1790367111.4832587,
     "ast_hash": "2c31985906ee8adb8efcae9699e9a284",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare.json": {
-    "mtime": 1790359124.1438015,
+    "mtime": 1790367111.460065,
     "ast_hash": "9d675ebe493467140ebdfb8cbed024b9",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/acuity.json": {
-    "mtime": 1790359124.156311,
+    "mtime": 1790367111.471562,
     "ast_hash": "d9d7e49d8af82b6232821d4969300638",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/booksy.json": {
-    "mtime": 1790359124.1477852,
+    "mtime": 1790367111.4632242,
     "ast_hash": "5aec78b0f5749512e927fdee8ff058a3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/boulevard.json": {
-    "mtime": 1790359124.1594489,
+    "mtime": 1790367111.4740791,
     "ast_hash": "792e5979de115f880e7260436b917ed3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/calendly.json": {
-    "mtime": 1790359124.1533158,
+    "mtime": 1790367111.468551,
     "ast_hash": "1e90c34c02e6a92a774f61b7ccfd8265",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/fresha.json": {
-    "mtime": 1790359124.1447847,
+    "mtime": 1790367111.4620478,
     "ast_hash": "4b5ce092b670f08d47bdbff79613e2b6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/glossgenius.json": {
-    "mtime": 1790359124.1584077,
+    "mtime": 1790367111.4730828,
     "ast_hash": "4347f5a0ad671dcbf17d57d41ecf4e0d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/goldie.json": {
-    "mtime": 1790359124.1620617,
+    "mtime": 1790367111.4752786,
     "ast_hash": "391d6e41cde08f3a8ec6da8791b96606",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/mindbody.json": {
-    "mtime": 1790359124.1646628,
+    "mtime": 1790367111.478258,
     "ast_hash": "4dc392546fadba2b45d7634724219b0a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/square-appointments.json": {
-    "mtime": 1790359124.1513176,
+    "mtime": 1790367111.4665742,
     "ast_hash": "a98426826b776891da0108242d031c57",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/squire.json": {
-    "mtime": 1790359124.163625,
+    "mtime": 1790367111.4772573,
     "ast_hash": "1e6134645b2e3fa3c6f93f44d7f6bbe8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/styleseat.json": {
-    "mtime": 1790359124.1610157,
+    "mtime": 1790367111.4752786,
     "ast_hash": "d1d018ac8dd373b49ee7fa861c6c7948",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/vagaro.json": {
-    "mtime": 1790359124.149336,
+    "mtime": 1790367111.465213,
     "ast_hash": "a20b17ff87d828345eb8e2580deba3ee",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/contact.json": {
-    "mtime": 1790359124.21356,
+    "mtime": 1790367111.5252576,
     "ast_hash": "5257b65df7d15a1f563024e69f178ade",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/deposits-for-nail-techs.json": {
-    "mtime": 1790359124.1893847,
+    "mtime": 1790367111.503666,
     "ast_hash": "27e831d5917d1669dc8c2ea41f07514e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/deposits-for-stylists.json": {
-    "mtime": 1790359124.1893847,
+    "mtime": 1790367111.5046465,
     "ast_hash": "4ec391fbfa90c02c7ba59073391391f3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features.json": {
-    "mtime": 1790359124.0654225,
+    "mtime": 1790367111.3905013,
     "ast_hash": "fd0d8ad38543a3e1fb4d8fd4c210ead5",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/activity.json": {
-    "mtime": 1790359124.0745883,
+    "mtime": 1790367111.3985367,
     "ast_hash": "644c4db0cc88f6971cbb227f7e4b2897",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/add-ons.json": {
-    "mtime": 1790359124.1025128,
+    "mtime": 1790367111.424016,
     "ast_hash": "86e190113e74e9e3d83322c908d5db02",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/appointments.json": {
-    "mtime": 1790359124.0725784,
+    "mtime": 1790367111.3965857,
     "ast_hash": "dc6541977a180a048d61e181cfc306e2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/booking-tracking.json": {
-    "mtime": 1790359124.079108,
+    "mtime": 1790367111.4035785,
     "ast_hash": "366cbe6ec55c1b109c548d8dc62a1f7f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/calendars-video.json": {
-    "mtime": 1790359124.088272,
+    "mtime": 1790367111.4111538,
     "ast_hash": "f3a75797c231aba7723ef2b04bc3dabf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/clients.json": {
-    "mtime": 1790359124.1064923,
+    "mtime": 1790367111.4277565,
     "ast_hash": "753506a69b3a04a7f2fb13d4019298c4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/discounts.json": {
-    "mtime": 1790359124.0977092,
+    "mtime": 1790367111.4198313,
     "ast_hash": "b36af7c1bca932507d312537503e3c8f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/gift-cards.json": {
-    "mtime": 1790359124.0950694,
+    "mtime": 1790367111.4172146,
     "ast_hash": "7996ac5acad8009d93c83193ff020359",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/notifications.json": {
-    "mtime": 1790359124.0862732,
+    "mtime": 1790367111.4091516,
     "ast_hash": "48bda8f9e0a1422a71801d4a9e2be080",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/packages.json": {
-    "mtime": 1790359124.1004121,
+    "mtime": 1790367111.4219344,
     "ast_hash": "33f452e098e51eed98ab4c90e3c18263",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/payments.json": {
-    "mtime": 1790359124.0822794,
+    "mtime": 1790367111.4045806,
     "ast_hash": "adb26e652e71326b4e61740ae6d1c161",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/revenue-tools.json": {
-    "mtime": 1790359124.0654225,
+    "mtime": 1790367111.3905013,
     "ast_hash": "67ad2031b583354813311e86f76ad569",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/scheduling.json": {
-    "mtime": 1790359124.0699613,
+    "mtime": 1790367111.395015,
     "ast_hash": "34414bdc29e81a2a87d0517453c9eb83",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/team.json": {
-    "mtime": 1790359124.1044953,
+    "mtime": 1790367111.426177,
     "ast_hash": "2b1399e3faca9ed5dafe26f592b5a8fe",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/website-builder.json": {
-    "mtime": 1790359124.07711,
+    "mtime": 1790367111.4010553,
     "ast_hash": "5b69c64fc2b9d165e5ff123c1ecd17bf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/fresha-alternative.json": {
-    "mtime": 1790359124.165208,
+    "mtime": 1790367111.478258,
     "ast_hash": "5c0bc210f9dee19284cebaa2af1b0078",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/gift-cards-for-salons.json": {
-    "mtime": 1790359124.1903815,
+    "mtime": 1790367111.505646,
     "ast_hash": "9e882b6e7ef860227a2e25c7a307a48a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/gloss-genius-alternative.json": {
-    "mtime": 1790359124.1723378,
+    "mtime": 1790367111.4866989,
     "ast_hash": "2252282be20ede1ead432105b1f5f081",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/glossgenius-alternative.json": {
-    "mtime": 1790359124.171339,
+    "mtime": 1790367111.4852588,
     "ast_hash": "828e204f38f8c7b76bb4832689e8e012",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/goldie-alternative.json": {
-    "mtime": 1790359124.174337,
+    "mtime": 1790367111.4893305,
     "ast_hash": "53a9bbc07e40fb7e1ee335024cb1e5f4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/home.json": {
-    "mtime": 1790359124.0618906,
+    "mtime": 1790367111.387983,
     "ast_hash": "bc20478404d897814518f010cb514622",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/how-to-leave-a-booking-marketplace.json": {
-    "mtime": 1790359124.186381,
+    "mtime": 1790367111.502123,
     "ast_hash": "e89158337efc5c42469e6560e72df871",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/import-clients-from-fresha.json": {
-    "mtime": 1790359124.2012212,
+    "mtime": 1790367111.5136878,
     "ast_hash": "76e2505d66e11c44f9cc9e409aaac614",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/import-clients-into-hacado.json": {
-    "mtime": 1790359124.1883838,
+    "mtime": 1790367111.5031283,
     "ast_hash": "296cac658187387ad4c0ad08e2492f3a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations.json": {
-    "mtime": 1790359124.210248,
+    "mtime": 1790367111.5232787,
     "ast_hash": "2860164e6d58de996e87e2bd8a69cf40",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/google-analytics.json": {
-    "mtime": 1790359124.1986694,
+    "mtime": 1790367111.5127153,
     "ast_hash": "c6990488eaccd7e76c2e5f83a59c8d29",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/google-calendar.json": {
-    "mtime": 1790359124.1933818,
+    "mtime": 1790367111.508647,
     "ast_hash": "bebf6ed581945b4eb1decc211f4d50ab",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/outlook.json": {
-    "mtime": 1790359124.194381,
+    "mtime": 1790367111.509647,
     "ast_hash": "3a9091ce5a8e3663897a6b715e74ab31",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/sms-notifications.json": {
-    "mtime": 1790359124.197671,
+    "mtime": 1790367111.511647,
     "ast_hash": "c192cd5330881763e1309c0f2830beae",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/stripe.json": {
-    "mtime": 1790359124.1957002,
+    "mtime": 1790367111.509647,
     "ast_hash": "ccc6daa058b81984fb06ac26b8f1a6be",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/zoom.json": {
-    "mtime": 1790359124.19667,
+    "mtime": 1790367111.5106473,
     "ast_hash": "cde010026c2a91c980aadcd436a92374",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-booksy.json": {
-    "mtime": 1790359124.2006693,
+    "mtime": 1790367111.5136878,
     "ast_hash": "dd47b9a10c540286f7ffdbbdb1c2e46d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-fresha.json": {
-    "mtime": 1790359124.1996696,
+    "mtime": 1790367111.5127153,
     "ast_hash": "7205f8daad3fa53387d7ed77159591e6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-vagaro.json": {
-    "mtime": 1790359124.168339,
+    "mtime": 1790367111.4812584,
     "ast_hash": "fd0e87ad4f6691901c6da6f1a1c4def5",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/migrate-from-booksy.json": {
-    "mtime": 1790359124.1853814,
+    "mtime": 1790367111.5001378,
     "ast_hash": "194253923bcf86e8e44d177d1cfc807f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/migrate-from-fresha.json": {
-    "mtime": 1790359124.1843836,
+    "mtime": 1790367111.4996083,
     "ast_hash": "f4446dc327e69f5366106d74e855de8f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/mindbody-alternative.json": {
-    "mtime": 1790359124.1763384,
+    "mtime": 1790367111.491479,
     "ast_hash": "a4583a2f1ad8044f64eaa366506ce31c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/online-booking-for-nail-salons.json": {
-    "mtime": 1790359124.1798644,
+    "mtime": 1790367111.4955637,
     "ast_hash": "6b681761bba7ada28c3c400af83e0458",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/pricing.json": {
-    "mtime": 1790359124.2031884,
+    "mtime": 1790367111.515694,
     "ast_hash": "2c46a95401435de5b81e1d893b2cafde",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/privacy.json": {
-    "mtime": 1790359124.2161076,
+    "mtime": 1790367111.5277834,
     "ast_hash": "549da583d4c4978c0e49416c4128d10b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/salon-software-no-commission.json": {
-    "mtime": 1790359124.1833804,
+    "mtime": 1790367111.4975638,
     "ast_hash": "27e38aafc5c88cb4f9ea140d76b50b00",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/sms-reminders-for-beauty.json": {
-    "mtime": 1790359124.1913843,
+    "mtime": 1790367111.5066466,
     "ast_hash": "b66dd9b97e024185b74d6124e7f7d972",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/square-alternative.json": {
-    "mtime": 1790359124.1693387,
+    "mtime": 1790367111.4822588,
     "ast_hash": "2b8efc35ca240a13689c9ca90fa117de",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/square-appointments-alternative.json": {
-    "mtime": 1790359124.168339,
+    "mtime": 1790367111.4822588,
     "ast_hash": "5e4779a0746c0c9f7216af8130949403",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/squire-alternative.json": {
-    "mtime": 1790359124.1753373,
+    "mtime": 1790367111.4903994,
     "ast_hash": "a1d413fef0b72ed408ea632fa31169b6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/staff-booking-for-salons.json": {
-    "mtime": 1790359124.1913843,
+    "mtime": 1790367111.5066466,
     "ast_hash": "2c119c600d0516d65808a6fc9a18c509",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/style-seat-alternative.json": {
-    "mtime": 1790359124.174337,
+    "mtime": 1790367111.4893305,
     "ast_hash": "ae5d6960f1c6ab02c08b7ef29bc80607",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/styleseat-alternative.json": {
-    "mtime": 1790359124.1733396,
+    "mtime": 1790367111.4882576,
     "ast_hash": "e01d7ee2b38508dee7801c43ca7ab237",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/support.json": {
-    "mtime": 1790359124.21356,
+    "mtime": 1790367111.5252576,
     "ast_hash": "4cb74d1540f2918c8640065af3d6781c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/switch-from-booksy.json": {
-    "mtime": 1790359124.2011776,
+    "mtime": 1790367111.5136878,
     "ast_hash": "0de4906ea73cae8210140c8e15c82613",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/switch-from-fresha.json": {
-    "mtime": 1790359124.1996696,
+    "mtime": 1790367111.5127153,
     "ast_hash": "16793d75ca04dd951668f8ad4da18eed",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/terms.json": {
-    "mtime": 1790359124.2180767,
+    "mtime": 1790367111.52878,
     "ast_hash": "2dc21af2fd6a39b7ed24acf64dcbd9df",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases.json": {
-    "mtime": 1790359124.1096075,
+    "mtime": 1790367111.4307978,
     "ast_hash": "4c4fd821e6ff651a884389f79d50689b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/coaches.json": {
-    "mtime": 1790359124.126217,
+    "mtime": 1790367111.4444594,
     "ast_hash": "a8ceafba3adcd8ad0d03d20b7cdc6a04",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/consultants.json": {
-    "mtime": 1790359124.1302185,
+    "mtime": 1790367111.449501,
     "ast_hash": "a8fd762c17594f6a489b873081bda9ab",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/freelancers.json": {
-    "mtime": 1790359124.1387372,
+    "mtime": 1790367111.4555333,
     "ast_hash": "3b35a3c9c5707fc4b34c91737c5b2594",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/hair-stylists.json": {
-    "mtime": 1790359124.1141353,
+    "mtime": 1790367111.435328,
     "ast_hash": "fa53e88c82fa6b74a3378ded73292b10",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/lash-and-brow.json": {
-    "mtime": 1790359124.1186638,
+    "mtime": 1790367111.4393654,
     "ast_hash": "06fb61a8fd183ec797b36ae2a6c3db2b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/nail-artists.json": {
-    "mtime": 1790359124.1116116,
+    "mtime": 1790367111.4333231,
     "ast_hash": "eb304e7ca5d7579fd00762a2709a0937",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/new-businesses.json": {
-    "mtime": 1790359124.1412606,
+    "mtime": 1790367111.457533,
     "ast_hash": "68490139d73e4f0cb2934ac4349e2865",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/personal-trainers.json": {
-    "mtime": 1790359124.1322165,
+    "mtime": 1790367111.450498,
     "ast_hash": "53c3e0cd05dd314f12d57cf3b8cef06d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/photographers.json": {
-    "mtime": 1790359124.1352165,
+    "mtime": 1790367111.452507,
     "ast_hash": "2ecef85157c530ee1a0badc1456cc7a6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/salons-clinics.json": {
-    "mtime": 1790359124.1211767,
+    "mtime": 1790367111.4413643,
     "ast_hash": "efa59cac95034e5711909d8823095a2e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/tattoo-artists.json": {
-    "mtime": 1790359124.1166751,
+    "mtime": 1790367111.4373858,
     "ast_hash": "ca376c47a7b7b1aea43483acf5fd1365",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/therapists.json": {
-    "mtime": 1790359124.1367633,
+    "mtime": 1790367111.4535377,
     "ast_hash": "66af0012df372ac29a45db4a29dfd6d7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/tutors-freelancers.json": {
-    "mtime": 1790359124.1282172,
+    "mtime": 1790367111.446976,
     "ast_hash": "6efe44cb6589bc32a6dc18bc259b64c5",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/vagaro-alternative.json": {
-    "mtime": 1790359124.1673656,
+    "mtime": 1790367111.4802582,
     "ast_hash": "35ad84bd4144aa5eb4f5909c68950fb2",
     "semantic_hash": ""
   },
@@ -34060,7 +34055,7 @@
     "semantic_hash": ""
   },
   "scripts/seed-org.mjs": {
-    "mtime": 1790359058.828528,
+    "mtime": 1790370388.6575987,
     "ast_hash": "3ee0dffe9bf9f01a05a5a810c43506a7",
     "semantic_hash": ""
   },
@@ -34085,37 +34080,37 @@
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/hero-workspace.png": {
-    "mtime": 1787600877.1241057,
+    "mtime": 1790366100.0749774,
     "ast_hash": "a82ea344ada6f981986a21b585b63978",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/mock-admin-calendar.png": {
-    "mtime": 1787600879.4696805,
+    "mtime": 1790370388.6361098,
     "ast_hash": "bcf530a55395744c1084a73390101460",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/mock-booking-site.png": {
-    "mtime": 1787600881.58241,
+    "mtime": 1790370388.643007,
     "ast_hash": "fae56542ac35fd999ac2e417f78cf1c4",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/mock-gift-checkout.png": {
-    "mtime": 1787600908.7807872,
+    "mtime": 1790370388.6499438,
     "ast_hash": "7acce3663b86362b0e7cc24895e0824a",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/mock-gift-studio.png": {
-    "mtime": 1787601118.1892004,
+    "mtime": 1790370388.6566129,
     "ast_hash": "3efa8beb9cdf1670e847fd86a20c37ff",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/mock-sms-phone.png": {
-    "mtime": 1787600921.2551148,
+    "mtime": 1790367276.6129248,
     "ast_hash": "b3bda2222012b48938c5fbaa9d8018cc",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/usecase-coach.png": {
-    "mtime": 1787601105.700675,
+    "mtime": 1790367271.39275,
     "ast_hash": "36a6c98708c887ee342b6c657db4967b",
     "semantic_hash": ""
   },
@@ -34135,7 +34130,7 @@
     "semantic_hash": ""
   },
   "marketing-site/public/assets/generated/usecase-newbiz.png": {
-    "mtime": 1787601100.273275,
+    "mtime": 1790367267.1565833,
     "ast_hash": "a7a07bcd115838eaa98c05c9d6fa61c8",
     "semantic_hash": ""
   },
@@ -34392,6 +34387,116 @@
   "marketing-site/public/assets/videos/woman-laptop-ui.mp4": {
     "mtime": 1789488321.8067253,
     "ast_hash": "a56212d4d600bb475c8df512a06b46d5",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/collect-needs-attention.ts": {
+    "mtime": 1790428426.9646933,
+    "ast_hash": "302784297a5dda7873b7fff2ed137b9a",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/dashboard-member-filter-compact.tsx": {
+    "mtime": 1790441407.7974885,
+    "ast_hash": "fa717d756159e3731c83def24e650abc",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/dashboard-quick-links.tsx": {
+    "mtime": 1790444076.777482,
+    "ast_hash": "fdc5d5939e1d9246eb8e7d7d5ddfcf2d",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/needs-attention-actions.ts": {
+    "mtime": 1790381001.0991495,
+    "ast_hash": "e86c28f20072e2d0670a1d3a221977a3",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/needs-attention-dismissals.ts": {
+    "mtime": 1790380999.284604,
+    "ast_hash": "f6679271657cbc62d3f944f88373d2da",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/needs-attention-list.tsx": {
+    "mtime": 1790442557.945485,
+    "ast_hash": "32e288ae6502684b4e3b9fb19b01ceac",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/needs-attention-section.tsx": {
+    "mtime": 1790381115.551443,
+    "ast_hash": "91f8e18e3e398ba60da50a8f4f074f1d",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/week-snapshot-charts.tsx": {
+    "mtime": 1790381095.65261,
+    "ast_hash": "87f893d4bc7e5ee235bd9d2f7ad54282",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/week-snapshot.tsx": {
+    "mtime": 1790381100.806357,
+    "ast_hash": "535d6c33e35c3454dcbbe3eee43d87b5",
+    "semantic_hash": ""
+  },
+  "packages/types/src/apps/needs-attention.ts": {
+    "mtime": 1790427159.911295,
+    "ast_hash": "953e146c917fd24327e98e56a5158c71",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/upcoming-appointments.tsx": {
+    "mtime": 1790442509.5243795,
+    "ast_hash": "ee0ddd36b18de081c53689a21e2d3cec",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/dashboard-overview-skeletons.tsx": {
+    "mtime": 1790442029.002957,
+    "ast_hash": "4d68d3213fb2b7db42b72bdd49f74039",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/dashboard-quick-links-scroll.tsx": {
+    "mtime": 1790444069.7631319,
+    "ast_hash": "d41f58f0a36e628acca7907d7b2d8ce1",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/dashboard-quick-links-defs.tsx": {
+    "mtime": 1790444132.218935,
+    "ast_hash": "c4ccc79914d34279c4cb3e0ace734fff",
+    "semantic_hash": ""
+  },
+  "apps/admin/src/app/dashboard/quick-link-add-payment-button.tsx": {
+    "mtime": 1790444131.2808938,
+    "ast_hash": "40c46a485ac616360e20dfdee0ec438b",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/blog/quick-link-injector.tsx": {
+    "mtime": 1790444049.4795878,
+    "ast_hash": "fe5620470678f1f20e8d7fd50f0048ef",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/forms/quick-link-injector.tsx": {
+    "mtime": 1790444051.60982,
+    "ast_hash": "fed704e8803418336f6bc7254f03a6b7",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/gift-card-studio/quick-link-injector.tsx": {
+    "mtime": 1790444055.2497163,
+    "ast_hash": "4529625e089f634e6297f37e4a484699",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/gift-card-studio/quick-link-manual-purchase.tsx": {
+    "mtime": 1790444130.2441216,
+    "ast_hash": "c7b4d4f859945d6bb29d92f4f2ce4f61",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/waitlist/quick-link-injector.tsx": {
+    "mtime": 1790444059.095813,
+    "ast_hash": "ee12bdce5c04adfc2fef38cbfe158be4",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/weekly-schedule/quick-link-injector.tsx": {
+    "mtime": 1790444057.1479464,
+    "ast_hash": "5df7fa12a2c4de6c66750427e5ada8c5",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/injectors/dashboard-quick-link.ts": {
+    "mtime": 1790443335.5871837,
+    "ast_hash": "3a5433c8ebce25cea762b7b74228f218",
     "semantic_hash": ""
   }
 }

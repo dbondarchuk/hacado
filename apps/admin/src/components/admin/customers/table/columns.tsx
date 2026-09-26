@@ -65,6 +65,7 @@ export const columns: ColumnDef<CustomerListModel>[] = [
       ) {
         return null;
       }
+
       return (
         <Checkbox
           checked={row.getIsSelected()}

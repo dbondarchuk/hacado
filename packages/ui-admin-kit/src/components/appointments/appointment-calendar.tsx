@@ -150,6 +150,7 @@ export const AppointmentCalendar: React.FC<{
       scrollToHour={
         Math.max(appointment.dateTime.getHours() - 2, 0) as HourNumbers
       }
+      showIntervalBoundaries
       showControls
       allowTimeChange={false}
       allowViewSwitch={false}

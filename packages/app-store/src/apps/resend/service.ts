@@ -12,7 +12,11 @@ import {
   EmailResponse,
   IConnectedAppProps,
   IMailSenderApp,
+  INeedsAttentionApp,
   IOAuthConnectedApp,
+  NeedsAttentionItem,
+  OrganizationMember,
+  SessionUser,
 } from "@hacado/types";
 import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
@@ -49,10 +53,26 @@ async function readableToBuffer(readable: Readable): Promise<Buffer> {
   return Buffer.concat(chunks);
 }
 
+function statusTextKey(statusText: ConnectedAppData["statusText"]): string {
+  if (typeof statusText === "string") {
+    return statusText;
+  }
+
+  if (statusText && typeof statusText === "object" && "key" in statusText) {
+    return String(statusText.key);
+  }
+
+  return "";
+}
+
+const REQUIRES_SENDER =
+  "app_resend_admin.statusText.requires_sender_settings" satisfies ResendAdminAllKeys;
+
 export class ResendConnectedApp
   implements
     IOAuthConnectedApp<ResendAppData, ConnectedOauthAppTokens>,
-    IMailSenderApp
+    IMailSenderApp,
+    INeedsAttentionApp
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -334,6 +354,41 @@ export class ResendConnectedApp
       { appId: appData._id },
       "Updated app status to pending (requires_sender_settings)",
     );
+  }
+
+  public getNeedAttentionItems(
+    appData: ConnectedAppData,
+    _member: OrganizationMember | null,
+    _user: SessionUser,
+  ): NeedsAttentionItem<ResendAdminNamespace, ResendAdminKeys>[] {
+    const key = statusTextKey(appData.statusText);
+    const needsSender =
+      key === REQUIRES_SENDER || key.includes("requires_sender_settings");
+
+    if (!needsSender) {
+      return [];
+    }
+
+    return [
+      {
+        id: "requires-sender-settings",
+        fingerprint: key || "requires-sender-settings",
+        level: "warning",
+        title: {
+          key: "app_resend_admin.needsAttention.sender.title",
+        },
+        description: {
+          key: "app_resend_admin.needsAttention.sender.description",
+        },
+        action: {
+          type: "update-app",
+          label: {
+            key: "app_resend_admin.needsAttention.sender.action",
+          },
+        },
+        order: 50,
+      },
+    ];
   }
 
   public async processRequest(

@@ -1,10 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { MemberSelector } from "@hacado/ui-admin";
+import { MemberSelectorCompact } from "@hacado/ui-admin";
 import { parseAsString, useQueryState } from "nuqs";
 import React from "react";
 
+/** URL-bound (`?member=`) compact member filter for the dashboard. */
 export const DashboardMemberFilter: React.FC = () => {
   const t = useI18n("admin");
   const [member, setMember] = useQueryState(
@@ -16,16 +17,12 @@ export const DashboardMemberFilter: React.FC = () => {
   );
 
   return (
-    <div className="flex justify-end">
-      <MemberSelector
-        className="w-full sm:w-72"
-        value={member ?? undefined}
-        allowClear
-        placeholder={t("calendar.allMembers")}
-        onItemSelect={(id) => {
-          void setMember(id ?? null);
-        }}
-      />
-    </div>
+    <MemberSelectorCompact
+      value={member ?? undefined}
+      placeholder={t("calendar.allMembers")}
+      onItemSelect={(id) => {
+        void setMember(id ?? null);
+      }}
+    />
   );
 };

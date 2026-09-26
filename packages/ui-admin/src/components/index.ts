@@ -15,6 +15,7 @@ export * from "./data-table";
 export * from "./field-selector";
 export * from "./gift-card-selector";
 export * from "./member-selector";
+export * from "./member-selector-compact";
 export * from "./non-sortable";
 export * from "./option-selector";
 export * from "./package-selector";

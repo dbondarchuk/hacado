@@ -3158,7 +3158,8 @@ dashboard:
     afternoon: Добрий день, {name}
     evening: Добрий вечір, {name}
     fallbackName: там
-    subtitleOverview: Ось що відбувається з вашими записами сьогодні.
+    subtitleOverview: Ваш огляд на сьогодні та цей тиждень.
+    subtitleCalendar: Переглядайте та керуйте своїм розкладом.
     subtitlePending: Перегляньте та відповідайте на очікуючі запити на записи.
     newAppointment: Новий запис
   kpi:
@@ -3168,6 +3169,33 @@ dashboard:
     thisWeekRevenue: Дохід за тиждень
     avgBookingValue: Середня вартість запису
     vsLastWeek: порівняно з минулим тижнем
+  overview:
+    openCalendar: Відкрити календар
+    weekSnapshot: Цей тиждень
+    appointmentsThisWeek: Записи
+    appointments: Записи
+    newVsReturning: Нові та постійні
+    newCustomers: Нові
+    returningCustomers: Постійні
+    quickLinks: Швидкі посилання
+  needsAttention:
+    title: Потребує уваги
+    dismiss: Відхилити
+    allClear:
+      title: Усе під контролем
+      description: Зараз немає нічого, що потребує вашої уваги.
+    pending:
+      title: Очікуючі запити на записи
+      description: "{count, plural, =1 {У вас один запит, що чекає відповіді.} few {У вас # запити, що чекають відповіді.} other {У вас # запитів, що чекають відповіді.}}"
+      action: Переглянути
+    inactiveMembers:
+      title: У неактивних співробітників є майбутні записи
+      description: "{count, plural, =1 {# запис потрібно перепризначити.} few {# записи потрібно перепризначити.} other {# записів потрібно перепризначити.}}"
+      action: Переглянути записи
+    failedApp:
+      title: "{appName} потребує уваги"
+      description: "{appName} працює некоректно і, можливо, потребує повторного підключення."
+      action: Виправити
   subscriptionPastDueBanner:
     message: Платіж за підпискою прострочено - нові бронювання та зміни тимчасово заблоковані.
     goToSettings: Перейти до налаштувань →
@@ -3190,6 +3218,7 @@ dashboard:
     nextAppointments: Наступні записи
   tabs:
     overview: Огляд
+    calendar: Календар
     pendingAppointments: Очікуючі записи
 communications:
   viewMore: Показати більше

@@ -3396,7 +3396,8 @@ dashboard:
     afternoon: Good afternoon, {name}
     evening: Good evening, {name}
     fallbackName: there
-    subtitleOverview: Here's what's happening with your appointments today.
+    subtitleOverview: Your briefing for today and this week.
+    subtitleCalendar: Browse and manage your schedule.
     subtitlePending: Review and respond to pending appointment requests.
     newAppointment: New Appointment
   kpi:
@@ -3406,6 +3407,33 @@ dashboard:
     thisWeekRevenue: This Week Revenue
     avgBookingValue: Avg. Booking Value
     vsLastWeek: vs last week
+  overview:
+    openCalendar: Open calendar
+    weekSnapshot: This week
+    appointmentsThisWeek: Appointments
+    appointments: Appointments
+    newVsReturning: New vs returning
+    newCustomers: New
+    returningCustomers: Returning
+    quickLinks: Quick links
+  needsAttention:
+    title: Needs attention
+    dismiss: Dismiss
+    allClear:
+      title: You're all caught up
+      description: Nothing needs your attention right now.
+    pending:
+      title: Pending appointment requests
+      description: "{count, plural, =1 {You have one request waiting for a response.} other {You have # requests waiting for a response.}}"
+      action: Review
+    inactiveMembers:
+      title: Inactive team members have upcoming appointments
+      description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
+      action: View appointments
+    failedApp:
+      title: "{appName} needs attention"
+      description: "{appName} is not working correctly and may need to be reconnected."
+      action: Fix connection
   subscriptionPastDueBanner:
     message: Subscription payment past due - new bookings and changes are currently blocked.
     goToSettings: Go to settings →
@@ -3434,6 +3462,7 @@ dashboard:
     nextAppointments: Upcoming appointments
   tabs:
     overview: Overview
+    calendar: Calendar
     pendingAppointments: Pending Appointments
 communications:
   viewMore: View more

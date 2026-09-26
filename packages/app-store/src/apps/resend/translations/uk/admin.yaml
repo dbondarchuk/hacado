@@ -37,3 +37,8 @@ validation:
     invalid: Email відправника має бути коректною email адресою
   fromName:
     max: Ім'я відправника не може бути більше 256 символів
+needsAttention:
+  sender:
+    title: Завершіть налаштування Resend
+    description: Додайте налаштування відправника, щоб надсилати транзакційні листи.
+    action: Налаштувати

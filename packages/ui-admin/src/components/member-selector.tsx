@@ -45,6 +45,7 @@ type BaseMemberSelectorProps = {
   className?: string;
   excludeIds?: string[];
   placeholder?: string;
+  size?: React.ComponentProps<typeof ComboboxAsync>["size"];
   /** When false (e.g. staff role), renders a locked read-only display. */
   canAssign?: boolean;
   onValueChange?: (member?: TeamMemberListModel) => void;
@@ -73,12 +74,22 @@ export const MemberSelector: React.FC<MemberSelectorProps> = ({
   allowClear,
   excludeIds,
   placeholder,
+  size,
   canAssign = true,
 }) => {
   const t = useI18n("admin");
   const [itemsCache, setItemsCache] = React.useState<
     Record<string, TeamMemberListModel>
   >({});
+
+  const toComboboxItem = React.useCallback(
+    (member: TeamMemberListModel): IComboboxItem => ({
+      label: <MemberShortLabel member={member} />,
+      shortLabel: <MemberShortLabel member={member} row />,
+      value: member._id,
+    }),
+    [],
+  );
 
   const getMembers = React.useCallback(
     async (page: number, search?: string) => {
@@ -107,15 +118,11 @@ export const MemberSelector: React.FC<MemberSelectorProps> = ({
       }));
 
       return {
-        items: filtered.map((member) => ({
-          label: <MemberShortLabel member={member} />,
-          shortLabel: <MemberShortLabel member={member} row />,
-          value: member._id,
-        })) satisfies IComboboxItem[],
+        items: filtered.map(toComboboxItem),
         hasMore: page * limit < result.total,
       };
     },
-    [value, excludeIds],
+    [value, excludeIds, toComboboxItem],
   );
 
   React.useEffect(() => {
@@ -145,8 +152,9 @@ export const MemberSelector: React.FC<MemberSelectorProps> = ({
     onValueChange?.(value ? itemsCache[value] : undefined);
   }, [value, itemsCache]);
 
+  const selectedMember = value ? itemsCache[value] : undefined;
+
   if (!canAssign) {
-    const selectedMember = value ? itemsCache[value] : undefined;
     return (
       <div
         className={cn(
@@ -173,7 +181,9 @@ export const MemberSelector: React.FC<MemberSelectorProps> = ({
       className={cn("flex font-normal text-base max-w-full min-w-0", className)}
       placeholder={placeholder ?? t("memberSelector.placeholder")}
       value={value}
+      selectedItem={selectedMember ? toComboboxItem(selectedMember) : undefined}
       allowClear={allowClear}
+      size={size}
       fetchItems={getMembers}
       loader={<MemberLoader />}
     />

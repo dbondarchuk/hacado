@@ -8,6 +8,8 @@ navigation:
   main:
     title: Weekly schedule
     description: Manage your weekly schedule
+quickLinks:
+  adjust: Adjust schedule
 form:
   thisWeek: This week
   previousWeek: Previous week

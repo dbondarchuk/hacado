@@ -18,6 +18,7 @@ export const WaitlistApp: App<"app_waitlist_admin", WaitlistAdminKeys> = {
     "waitlist",
     "event-subscriber",
     "dashboard-notifier",
+    "quick-link-provider",
     "customer-tab",
     "demo-arguments-provider",
     "communication-templates-provider",

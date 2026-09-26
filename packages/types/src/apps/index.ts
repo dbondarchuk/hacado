@@ -14,6 +14,7 @@ export * from "./events";
 export * from "./injectors";
 export * from "./llms-full-txt-provider";
 export * from "./mail";
+export * from "./needs-attention";
 export * from "./notifications";
 export * from "./page-metadata-provider";
 export * from "./page-seo-arguments-provider";

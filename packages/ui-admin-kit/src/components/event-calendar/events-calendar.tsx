@@ -39,6 +39,8 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
   daysAround,
   daysToShow,
   scrollToHour,
+  scrollToEarliestEvent,
+  showIntervalBoundaries,
   slotInterval,
   onDateClick,
   renderEvent,
@@ -259,6 +261,8 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
         daysAround={daysAround}
         daysToShow={daysToShow}
         scrollToHour={scrollToHour}
+        scrollToEarliestEvent={scrollToEarliestEvent}
+        showIntervalBoundaries={showIntervalBoundaries}
         slotInterval={slotInterval}
         onRangeChange={getEvents}
         onEventClick={onEventClick}

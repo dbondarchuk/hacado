@@ -43,6 +43,10 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={`${spaceGrotesk.variable} ${fraunces.variable} font-sans overflow-hidden`}
+        style={{
+          "--font-primary": spaceGrotesk.style.fontFamily,
+          "--font-secondary": fraunces.style.fontFamily,
+        }}
         suppressHydrationWarning
       >
         <NextIntlClientProvider>

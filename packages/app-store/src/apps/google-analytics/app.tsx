@@ -24,6 +24,7 @@ export const GoogleAnalyticsApp: App<
     "script-provider",
     "event-subscriber",
     "public-event-context-provider",
+    "needs-attention-provider",
   ],
   subscribeTo: [
     APPOINTMENT_CREATED_EVENT_TYPE,
