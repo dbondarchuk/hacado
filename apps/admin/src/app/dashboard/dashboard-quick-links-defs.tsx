@@ -2,6 +2,7 @@ import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import type { AllKeys } from "@hacado/i18n";
 import type { SessionUser } from "@hacado/types";
 import {
+  canManageSyncedPayments,
   canManageTeam,
   canReadActivity,
   canViewFinancials,
@@ -11,6 +12,7 @@ import {
   Activity,
   BookUser,
   ChartArea,
+  Check,
   CircleDollarSign,
   Globe,
   HandPlatter,
@@ -21,6 +23,7 @@ import {
 import React from "react";
 import type { AppSession } from "../utils";
 import { QuickLinkAddPaymentButton } from "./quick-link-add-payment-button";
+import { QuickLinkApproveMatchedPaymentsButton } from "./quick-link-approve-matched-payments-button";
 
 export type CoreQuickLinkContext = {
   session: AppSession | null | undefined;
@@ -83,6 +86,18 @@ export const CORE_QUICK_LINKS: CoreQuickLinkDefinition[] = [
       !!session &&
       sessionCanUseFeature(session, "financials") &&
       canViewFinancials(user),
+  },
+  {
+    id: "approve-matched-payments",
+    order: 45,
+    labelKey: "admin.syncedPayments.actions.approveAll",
+    icon: <Check {...iconProps} />,
+    Action: QuickLinkApproveMatchedPaymentsButton,
+    notificationsCountKey: "synced_payments_review",
+    predicate: ({ session, user }) =>
+      !!session &&
+      sessionCanUseFeature(session, "financials") &&
+      canManageSyncedPayments(user),
   },
   {
     id: "customers",
