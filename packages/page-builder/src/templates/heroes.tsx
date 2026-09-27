@@ -52,18 +52,18 @@ function leftOverlayPlacements(
     [headingId]: {
       colStart: 2,
       colEnd: 14,
-      rowStart: 8,
+      rowStart: 7,
       rowEnd: 10,
       zIndex: 1,
     },
     [textId]: {
       colStart: 2,
       colEnd: 16,
-      rowStart: 10,
-      rowEnd: 12,
+      rowStart: 11,
+      rowEnd: 13,
       zIndex: 1,
     },
-    [buttonId]: buttonPlacement(2, 12),
+    [buttonId]: buttonPlacement(2, 13),
   };
 }
 
@@ -77,25 +77,25 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: 9,
-        rowStart: 7,
+        rowStart: 6,
         rowEnd: 9,
         zIndex: 1,
       },
       [textId]: {
         colStart: 1,
         colEnd: 11,
-        rowStart: 9,
-        rowEnd: 11,
+        rowStart: 10,
+        rowEnd: 12,
         zIndex: 1,
       },
-      [buttonId]: buttonPlacement(1, 11),
+      [buttonId]: buttonPlacement(1, 12),
     },
     mobile: {
       [headingId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 8,
-        rowEnd: 10,
+        rowStart: 5,
+        rowEnd: 9,
         zIndex: 1,
       },
       [textId]: {
@@ -340,6 +340,24 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         "builder.pageBuilder.heroDefaults.leftOverlay.subtitle",
         { textAlign: "left", lightText: true },
       );
+      heading.data.style = {
+        ...heading.data.style,
+        fontSize: [
+          { value: { value: 2.25, unit: "rem" } },
+          { value: { value: 2.75, unit: "rem" }, breakpoint: ["md"] },
+          { value: { value: 3.25, unit: "rem" }, breakpoint: ["lg"] },
+        ],
+        padding: [
+          {
+            value: {
+              top: { value: 0, unit: "rem" },
+              right: { value: 0, unit: "rem" },
+              bottom: { value: 0.5, unit: "rem" },
+              left: { value: 0, unit: "rem" },
+            },
+          },
+        ],
+      };
       return fluidSection(
         [heading, text, button],
         leftOverlayPlacements(heading.id, text.id, button.id),

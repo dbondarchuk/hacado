@@ -115,18 +115,18 @@ function leftOverlayPlacements(
     [headingId]: {
       colStart: 2,
       colEnd: 14,
-      rowStart: 8,
+      rowStart: 7,
       rowEnd: 10,
       zIndex: 1,
     },
     [textId]: {
       colStart: 2,
       colEnd: 16,
-      rowStart: 10,
-      rowEnd: 12,
+      rowStart: 11,
+      rowEnd: 13,
       zIndex: 1,
     },
-    [buttonId]: buttonPlacement(2, 12),
+    [buttonId]: buttonPlacement(2, 13),
   };
 }
 
@@ -140,25 +140,25 @@ function leftOverlayOverrides(
       [headingId]: {
         colStart: 1,
         colEnd: 9,
-        rowStart: 7,
+        rowStart: 6,
         rowEnd: 9,
         zIndex: 1,
       },
       [textId]: {
         colStart: 1,
         colEnd: 11,
-        rowStart: 9,
-        rowEnd: 11,
+        rowStart: 10,
+        rowEnd: 12,
         zIndex: 1,
       },
-      [buttonId]: buttonPlacement(1, 11),
+      [buttonId]: buttonPlacement(1, 12),
     },
     mobile: {
       [headingId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 8,
-        rowEnd: 10,
+        rowStart: 5,
+        rowEnd: 9,
         zIndex: 1,
       },
       [textId]: {
@@ -464,6 +464,27 @@ function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
 function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t);
   const dark = pack.mood === "dark";
+  // Large display titles wrap on tablet/mobile — keep smaller type + more row
+  // span so the heading does not paint over the subtitle.
+  heading.data.style = {
+    ...heading.data.style,
+    fontSize: [
+      { value: { value: 2.35, unit: "rem" } },
+      { value: { value: 3.25, unit: "rem" }, breakpoint: ["md"] },
+      { value: { value: dark ? 4.5 : 4.25, unit: "rem" }, breakpoint: ["lg"] },
+    ],
+    padding: [
+      {
+        value: {
+          top: { value: 0, unit: "rem" },
+          right: { value: 0, unit: "rem" },
+          bottom: { value: 0.5, unit: "rem" },
+          left: { value: 0, unit: "rem" },
+        },
+      },
+    ],
+  };
+
   return withEntrance(
     fluidSection(
       [heading, text, button],
@@ -471,18 +492,18 @@ function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
         [heading.id]: {
           colStart: 2,
           colEnd: 14,
-          rowStart: dark ? 8 : 9,
-          rowEnd: dark ? 11 : 12,
+          rowStart: 5,
+          rowEnd: 8,
           zIndex: 1,
         },
         [text.id]: {
           colStart: 2,
           colEnd: 11,
-          rowStart: dark ? 11 : 12,
-          rowEnd: dark ? 13 : 14,
+          rowStart: 9,
+          rowEnd: 11,
           zIndex: 1,
         },
-        [button.id]: buttonPlacement(2, dark ? 13 : 14),
+        [button.id]: buttonPlacement(2, 11),
       },
       {
         ...fullBleedHeroStyle,
@@ -498,22 +519,22 @@ function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           [heading.id]: {
             colStart: 1,
             colEnd: FLUID_TABLET_COLUMNS + 1,
-            rowStart: 6,
-            rowEnd: 9,
+            rowStart: 4,
+            rowEnd: 7,
             zIndex: 1,
           },
           [text.id]: {
             colStart: 1,
             colEnd: FLUID_TABLET_COLUMNS + 1,
-            rowStart: 9,
-            rowEnd: 11,
+            rowStart: 8,
+            rowEnd: 10,
             zIndex: 1,
           },
           [button.id]: {
             colStart: 1,
             colEnd: Math.min(5, FLUID_TABLET_COLUMNS + 1),
-            rowStart: 11,
-            rowEnd: 12,
+            rowStart: 10,
+            rowEnd: 11,
             zIndex: 1,
           },
         },
@@ -521,15 +542,15 @@ function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           [heading.id]: {
             colStart: 1,
             colEnd: FLUID_MOBILE_COLUMNS + 1,
-            rowStart: 5,
-            rowEnd: 8,
+            rowStart: 3,
+            rowEnd: 6,
             zIndex: 1,
           },
           [text.id]: {
             colStart: 1,
             colEnd: FLUID_MOBILE_COLUMNS + 1,
-            rowStart: 8,
-            rowEnd: 10,
+            rowStart: 7,
+            rowEnd: 9,
             zIndex: 1,
           },
           [button.id]: {
@@ -553,6 +574,14 @@ function buildLeftOverlayHero(
 ): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t);
   const whiteText = { color: [{ value: "0 0% 100%" }] };
+  heading.data.style = {
+    ...heading.data.style,
+    fontSize: [
+      { value: { value: 1.875, unit: "rem" } },
+      { value: { value: 2.25, unit: "rem" }, breakpoint: ["md"] },
+      { value: { value: 2.75, unit: "rem" }, breakpoint: ["lg"] },
+    ],
+  };
   const panel = withBlockStyle(
     compositeContainer(
       [
@@ -565,11 +594,19 @@ function buildLeftOverlayHero(
           flexShrink: [{ value: 0 }],
         }),
       ],
-      1.25,
+      1.5,
       {
         alignItems: [{ value: "flex-start" }],
         justifyContent: [{ value: "center" }],
         padding: [
+          {
+            value: {
+              top: { value: 2, unit: "rem" },
+              bottom: { value: 2, unit: "rem" },
+              left: { value: 1.75, unit: "rem" },
+              right: { value: 1.75, unit: "rem" },
+            },
+          },
           {
             value: {
               top: { value: 2.5, unit: "rem" },
@@ -577,6 +614,7 @@ function buildLeftOverlayHero(
               left: { value: 2.5, unit: "rem" },
               right: { value: 2.5, unit: "rem" },
             },
+            breakpoint: ["md"],
           },
         ],
         borderRadius: [{ value: { value: 24, unit: "px" } }],

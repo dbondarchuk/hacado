@@ -82,9 +82,12 @@ export const UpcomingAppointments: React.FC<{
             const customerName =
               appointment.customer?.name ?? appointment.fields.name;
             const customerAvatar = appointment.customer?.avatar;
+            const timeRange = `${start.toFormat("HH:mm")}–${end.toFormat("HH:mm")}`;
+            const dateFormat =
+              start.year === todayStart.year ? "ccc, MMM d" : "ccc, MMM d yyyy";
             const timeLabel = isToday
-              ? `${start.toFormat("HH:mm")}–${end.toFormat("HH:mm")}`
-              : `${start.toFormat("ccc HH:mm", { locale })}–${end.toFormat("HH:mm")}`;
+              ? timeRange
+              : `${start.toFormat(dateFormat, { locale })} · ${timeRange}`;
             const meta = [
               customerName,
               !memberId && appointment.member?.name
