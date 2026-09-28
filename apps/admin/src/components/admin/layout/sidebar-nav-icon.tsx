@@ -1,6 +1,6 @@
 "use client";
 
-import { useHasDashboardNotifications } from "@/app/dashboard/notifications-toast-stream";
+import { useHasDashboardNotifications } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { cn, useSidebar } from "@hacado/ui";
 import React from "react";
 

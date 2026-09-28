@@ -42,6 +42,24 @@ block:
     title: Thank you!
     description: Your gift card has been purchased successfully. You will receive an email with the gift card and invoice shortly. If you chose to send the gift card to someone else, they will receive an email with the gift card shortly. If you have any questions, please contact us.
     newPurchaseButton: Purchase another gift card
+  showcase:
+    sections:
+      amount: Choose amount
+      recipient: Recipient's details
+      message: Add a personal message (optional)
+    messagePlaceholder: Write your message here...
+    messageCount: "{count} / {max}"
+    presetsLabel: Suggested amounts
+    noDesign: Gift card designs aren't available yet.
+  showcaseDefaults:
+    title: A thoughtful gift
+    description: Our gift cards can be used across the entire range. The perfect gift, every time.
+    deliveryTitle: Instant delivery
+    deliveryDescription: Sent by email
+    validityTitle: Valid for 12 months
+    validityDescription: Redeem in-store or online
+    secureTitle: Secure & flexible
+    secureDescription: Safe to spend your way
 validation:
   purchase:
     designId:
@@ -58,4 +76,3 @@ validation:
     toName:
       required: To name is required
       max: To name must be less than 64 characters
-

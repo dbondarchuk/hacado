@@ -1,5 +1,5 @@
 import { EditorDocumentBlocksDictionary } from "@hacado/builder";
-import { Gift } from "lucide-react";
+import { Gem, Gift } from "lucide-react";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 import {
   GiftCardPurchaseBlockConfiguration,
@@ -7,13 +7,21 @@ import {
   GiftCardPurchaseBlockPropsDefaults,
   GiftCardPurchaseBlockPropsSchema,
 } from "./gift-card-purchase";
+import {
+  GiftCardPurchaseShowcaseBlockConfiguration,
+  GiftCardPurchaseShowcaseBlockEditor,
+  GiftCardPurchaseShowcaseBlockPropsDefaults,
+  GiftCardPurchaseShowcaseBlockPropsSchema,
+} from "./gift-card-purchase-showcase";
 
 export const GiftCardStudioBlocksSchema = {
   GiftCardPurchase: GiftCardPurchaseBlockPropsSchema,
+  GiftCardPurchaseShowcase: GiftCardPurchaseShowcaseBlockPropsSchema,
 };
 
 export const GiftCardStudioBlocksAllowedInFooter = {
   GiftCardPurchase: false,
+  GiftCardPurchaseShowcase: false,
 };
 
 export const GiftCardStudioBlocksDefaultMetadata = (
@@ -33,6 +41,19 @@ export const GiftCardStudioEditors: EditorDocumentBlocksDictionary<
     Configuration: GiftCardPurchaseBlockConfiguration,
     Editor: GiftCardPurchaseBlockEditor as any,
     defaultValue: GiftCardPurchaseBlockPropsDefaults,
+    category:
+      "app_gift-card-studio_admin.block.giftCardPurchase.category" satisfies GiftCardStudioAdminAllKeys,
+    capabilities: ["block"],
+    tags: ["gift-card"],
+    allowedBuilderTypes: ["page"],
+  },
+  GiftCardPurchaseShowcase: {
+    displayName:
+      "app_gift-card-studio_admin.block.giftCardPurchaseShowcase.displayName" satisfies GiftCardStudioAdminAllKeys,
+    icon: <Gem />,
+    Configuration: GiftCardPurchaseShowcaseBlockConfiguration,
+    Editor: GiftCardPurchaseShowcaseBlockEditor as any,
+    defaultValue: GiftCardPurchaseShowcaseBlockPropsDefaults,
     category:
       "app_gift-card-studio_admin.block.giftCardPurchase.category" satisfies GiftCardStudioAdminAllKeys,
     capabilities: ["block"],

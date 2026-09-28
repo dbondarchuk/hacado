@@ -373,6 +373,19 @@ block:
     validation:
       appId:
         required: Застосунок Gift Card Studio обов'язковий
+  giftCardPurchaseShowcase:
+    displayName: Купівля подарункової карти (вітрина)
+    configuration:
+      previewPosition:
+        label: Позиція попереднього перегляду
+        left: Ліворуч
+        right: Праворуч
+        helperText: На вузькій ширині попередній перегляд завжди знизу.
+      amountPresets:
+        label: Швидкі суми
+        helperText: До 5 сум.
+        add: Додати суму
+        remove: Видалити суму
 validation:
   design:
     name:
@@ -449,7 +462,7 @@ notifications:
     view: Переглянути покупки
 emails:
   newPurchase:
-    subject: 'Нова покупка подарункової карти: {designName}'
+    subject: "Нова покупка подарункової карти: {designName}"
     title: Придбано нову подарункову карту
     body: |
       Вітаємо, {userName}!
@@ -462,4 +475,3 @@ emails:
       **Клієнт:** {customerName} ({customerEmail})
       **Отримувач:** {recipientName} ({recipientEmail})
     view: Переглянути покупку
-

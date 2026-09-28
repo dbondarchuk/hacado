@@ -42,6 +42,24 @@ block:
     title: Дякуємо!
     description: Подарункову карту успішно придбано. Ви отримаєте email з подарунковою картою та рахунком. Якщо ви вирішили надіслати подарункову карту іншій особі, вони отримають email з подарунковою картою. Якщо у вас є будь-які питання, будь ласка, зв'яжіться з нами.
     newPurchaseButton: Придбати іншу карту
+  showcase:
+    sections:
+      amount: Оберіть суму
+      recipient: Дані отримувача
+      message: Додайте особисте повідомлення (необов'язково)
+    messagePlaceholder: Напишіть повідомлення...
+    messageCount: "{count} / {max}"
+    presetsLabel: Запропоновані суми
+    noDesign: Дизайни подарункових карт ще недоступні.
+  showcaseDefaults:
+    title: Турботливий подарунок
+    description: Наші подарункові карти можна використати на весь асортимент. Ідеальний подарунок щоразу.
+    deliveryTitle: Миттєва доставка
+    deliveryDescription: Надсилається електронною поштою
+    validityTitle: Дійсна 12 місяців
+    validityDescription: Погашення в закладі або онлайн
+    secureTitle: Безпечно та гнучко
+    secureDescription: Витрачайте так, як зручно
 validation:
   purchase:
     designId:
@@ -58,4 +76,3 @@ validation:
     toName:
       required: Ім'я отримувача обов'язкове
       max: Ім'я отримувача має бути не більше 64 символів
-

@@ -373,6 +373,19 @@ block:
     validation:
       appId:
         required: Gift Card Studio app is required
+  giftCardPurchaseShowcase:
+    displayName: Gift Card Purchase (Showcase)
+    configuration:
+      previewPosition:
+        label: Preview position
+        left: Left
+        right: Right
+        helperText: On a narrow layout the preview stays below the form.
+      amountPresets:
+        label: Amount presets
+        helperText: Up to 5 quick amounts.
+        add: Add preset
+        remove: Remove preset
 validation:
   design:
     name:
@@ -449,7 +462,7 @@ notifications:
     view: View purchases
 emails:
   newPurchase:
-    subject: 'New gift card purchase: {designName}'
+    subject: "New gift card purchase: {designName}"
     title: New gift card purchased
     body: |
       Hi {userName},
@@ -462,4 +475,3 @@ emails:
       **Customer:** {customerName} ({customerEmail})
       **Recipient:** {recipientName} ({recipientEmail})
     view: View purchase
-

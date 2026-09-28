@@ -111,7 +111,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
 
   return (
     <Sidebar collapsible="icon" className={cn("border-r-0", className)}>
-      <SidebarHeader className="px-3 py-4">
+      <SidebarHeader className="px-3 py-4 items-center">
         <SidebarMenuButton
           size="lg"
           className="pointer-events-none hover:bg-transparent active:bg-transparent data-[active=true]:bg-transparent"

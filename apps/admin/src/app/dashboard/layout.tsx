@@ -1,4 +1,6 @@
 import { findPendingInvitationForEmail } from "@/app/accept-invitation/actions";
+import { NotificationsToastStream } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
+import { SubscriptionStatusListener } from "@/components/admin/dashboard/subscription/subscription-status-listener";
 import Header from "@/components/admin/layout/header";
 import { AppSidebar } from "@/components/admin/layout/sidebar";
 import { SubscriptionInactiveBillingPortalButton } from "@/components/subscription-inactive-billing-portal-button";
@@ -41,8 +43,6 @@ import {
   getSession,
   getWebsiteUrl,
 } from "../utils";
-import { NotificationsToastStream } from "./notifications-toast-stream";
-import { SubscriptionStatusListener } from "./subscription-status-listener";
 
 const SIDEBAR_COOKIE_NAME = "admin-sidebar-open";
 

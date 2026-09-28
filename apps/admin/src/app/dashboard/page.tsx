@@ -1,3 +1,21 @@
+import { EventsCalendar } from "@/components/admin/dashboard/calendar/events-calendar";
+import { DashboardGreeting } from "@/components/admin/dashboard/greeting/greeting";
+import { DashboardKpiStrip } from "@/components/admin/dashboard/kpi/kpi-strip";
+import { getDashboardStats } from "@/components/admin/dashboard/kpi/stats";
+import { DashboardMemberFilter } from "@/components/admin/dashboard/member-filter/member-filter";
+import { NeedsAttentionSection } from "@/components/admin/dashboard/needs-attention/section";
+import { DashboardNotificationsBadge } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
+import { PendingAppointmentsTab } from "@/components/admin/dashboard/pending-appointments/pending-appointments-tab";
+import { DashboardQuickLinks } from "@/components/admin/dashboard/quick-links/quick-links";
+import {
+  DashboardKpiSkeleton,
+  NeedsAttentionSkeleton,
+  QuickLinksSkeleton,
+  UpcomingAppointmentsSkeleton,
+  WeekSnapshotSkeleton,
+} from "@/components/admin/dashboard/skeletons/overview-skeletons";
+import { UpcomingAppointments } from "@/components/admin/dashboard/upcoming-appointments/upcoming-appointments";
+import { WeekSnapshot } from "@/components/admin/dashboard/week-snapshot/week-snapshot";
 import PageContainer from "@/components/admin/layout/page-container";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import { DashboardTabInjectorApps } from "@hacado/app-store/injectors/dashboard-tab";
@@ -21,24 +39,6 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getOrganizationId, getServicesContainer, getSession } from "../utils";
-import { DashboardGreeting } from "./dashboard-greeting";
-import { DashboardKpiStrip } from "./dashboard-kpi-strip";
-import { DashboardMemberFilter } from "./dashboard-member-filter";
-import {
-  DashboardKpiSkeleton,
-  NeedsAttentionSkeleton,
-  QuickLinksSkeleton,
-  UpcomingAppointmentsSkeleton,
-  WeekSnapshotSkeleton,
-} from "./dashboard-overview-skeletons";
-import { DashboardQuickLinks } from "./dashboard-quick-links";
-import { getDashboardStats } from "./dashboard-stats";
-import { EventsCalendar } from "./events-calendar";
-import { NeedsAttentionSection } from "./needs-attention-section";
-import { DashboardNotificationsBadge } from "./notifications-toast-stream";
-import { PendingAppointmentsTab } from "./pending-appointments-tab";
-import { UpcomingAppointments } from "./upcoming-appointments";
-import { WeekSnapshot } from "./week-snapshot";
 
 type Params = {
   searchParams: Promise<{

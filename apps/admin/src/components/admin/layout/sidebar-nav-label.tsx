@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardNotificationsBadge } from "@/app/dashboard/notifications-toast-stream";
+import { DashboardNotificationsBadge } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { AllKeys, useI18n } from "@hacado/i18n/client";
 import { cn, useSidebar } from "@hacado/ui";
 
