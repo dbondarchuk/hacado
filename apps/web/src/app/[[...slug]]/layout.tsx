@@ -4,6 +4,7 @@ import {
   collectLayoutFooterScripts,
   collectLayoutHeaderScripts,
 } from "@/utils/app-scripts";
+import { isRoutablePageSlug } from "@/utils/is-routable-page-slug";
 import {
   getOrganizationDomain,
   getOrganizationId,
@@ -63,11 +64,26 @@ const CssRenderer = ({
 
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ slug?: string[] }>;
 }>) {
   const logger = getLoggerFactory("RootLayout")("RootLayout");
   logger.debug("Starting root layout render");
+
+  const routeParams = await params;
+  if (!isRoutablePageSlug(routeParams.slug)) {
+    logger.debug(
+      { slug: routeParams.slug },
+      "Skipping layout for non-page route",
+    );
+    return (
+      <html>
+        <body>{children}</body>
+      </html>
+    );
+  }
 
   const organizationId = await getOrganizationId();
   if (!organizationId) {

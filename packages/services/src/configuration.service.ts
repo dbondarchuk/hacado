@@ -42,7 +42,9 @@ export class ConfigurationService
     });
 
     if (!value?.value) {
-      logger.error({ key }, "Can't find configuration");
+      // Optional keys (styling, social, scripts, …) are often unset; callers
+      // treat `{}` as defaults. Keep this at debug so it doesn't page alerts.
+      logger.debug({ key }, "Can't find configuration");
       return {} as ConfigurationOption<T>["value"];
     }
 
@@ -70,7 +72,7 @@ export class ConfigurationService
       .toArray();
 
     if (values.length !== keys.length) {
-      logger.error(
+      logger.debug(
         {
           keys,
           foundKeys: values?.map((v) => v.key),

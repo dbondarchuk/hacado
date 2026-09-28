@@ -3,11 +3,34 @@ import { getLoggerFactory } from "@hacado/logger";
 // Need to use require to make it work with production build
 const nextLogger = require("next/dist/build/output/log");
 
+const NOISY_ERROR_PATTERNS = [
+  // Bots and stale references hit `/_next/image?url=/assets/...` for missing
+  // or non-inline assets; Next logs these as errors and they page alerts.
+  /isn't a valid image/i,
+  /The requested resource isn't a valid image/i,
+];
+
+function isNoisyNextError(args: IArguments): boolean {
+  return Array.from(args).some((arg) => {
+    if (typeof arg === "string") {
+      return NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg));
+    }
+    if (arg instanceof Error) {
+      return NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg.message));
+    }
+    return false;
+  });
+}
+
 const getLogMethod = (nextMethod: string) => {
   return function () {
     const logger = getLoggerFactory("NextJs")();
     switch (nextMethod) {
       case "error":
+        if (isNoisyNextError(arguments)) {
+          // @ts-expect-error
+          return logger.debug.apply(logger, arguments);
+        }
         // @ts-expect-error
         return logger.error.apply(logger, arguments);
       case "warn":

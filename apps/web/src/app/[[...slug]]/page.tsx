@@ -3,6 +3,7 @@ import {
   collectPageFooterScripts,
   collectPageHeaderScripts,
 } from "@/utils/app-scripts";
+import { isRoutablePageSlug } from "@/utils/is-routable-page-slug";
 import {
   collectAppPageMetadata,
   mergeBaseAndAppMetadata,
@@ -105,9 +106,9 @@ const resolvePublicPageTakeover = cache(
 const getSource = cache(async (slug?: string, preview = false) => {
   const logger = getLoggerFactory("PageComponent")("getSource");
 
-  if (slug?.startsWith("_next/")) {
-    logger.warn({ slug }, "Skipping _next/ route");
-    throw new NotFoundError("Cannot access _next/ route");
+  if (!isRoutablePageSlug(slug)) {
+    logger.debug({ slug }, "Skipping non-page route");
+    throw new NotFoundError("Cannot access non-page route");
   }
 
   const organizationId = await getOrganizationId();
@@ -199,6 +200,15 @@ export async function generateMetadata(
   try {
     const searchParams = await props.searchParams;
     const params = await props.params;
+
+    if (!isRoutablePageSlug(params.slug)) {
+      logger.debug(
+        { slug: params.slug },
+        "Skipping metadata for non-page route",
+      );
+      notFound();
+    }
+
     const slugPath = params.slug?.join("/") || "home";
     const websiteUrl = await getWebsiteUrl();
 
@@ -413,6 +423,12 @@ export default async function Page(props: Props) {
   try {
     const searchParams = await props.searchParams;
     const routeParams = await props.params;
+
+    if (!isRoutablePageSlug(routeParams.slug)) {
+      logger.debug({ slug: routeParams.slug }, "Skipping non-page route");
+      notFound();
+    }
+
     const slugPath = routeParams.slug?.join("/") || "home";
     const websiteUrl = await getWebsiteUrl();
 

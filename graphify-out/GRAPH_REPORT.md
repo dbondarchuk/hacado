@@ -1,16 +1,16 @@
 # Graph Report - hacado  (2026-09-28)
 
 ## Corpus Check
-- 4043 files · ~10,832,558 words
+- 4045 files · ~10,833,139 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 22911 nodes · 43643 edges · 1343 communities (1084 shown, 259 thin omitted)
-- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 4326 edges (avg confidence: 0.8)
+- 22920 nodes · 43667 edges · 1317 communities (1065 shown, 252 thin omitted)
+- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 4331 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d4537abd`
+- Built from commit: `28430ce1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -1039,7 +1039,6 @@
 - [[_COMMUNITY_Community 1150|Community 1150]]
 - [[_COMMUNITY_Community 1151|Community 1151]]
 - [[_COMMUNITY_Community 1152|Community 1152]]
-- [[_COMMUNITY_Community 1153|Community 1153]]
 - [[_COMMUNITY_Community 1155|Community 1155]]
 - [[_COMMUNITY_Community 1156|Community 1156]]
 - [[_COMMUNITY_Community 1157|Community 1157]]
@@ -1047,20 +1046,15 @@
 - [[_COMMUNITY_Community 1159|Community 1159]]
 - [[_COMMUNITY_Community 1160|Community 1160]]
 - [[_COMMUNITY_Community 1161|Community 1161]]
-- [[_COMMUNITY_Community 1162|Community 1162]]
 - [[_COMMUNITY_Community 1163|Community 1163]]
 - [[_COMMUNITY_Community 1164|Community 1164]]
-- [[_COMMUNITY_Community 1166|Community 1166]]
 - [[_COMMUNITY_Community 1167|Community 1167]]
 - [[_COMMUNITY_Community 1168|Community 1168]]
 - [[_COMMUNITY_Community 1169|Community 1169]]
-- [[_COMMUNITY_Community 1170|Community 1170]]
 - [[_COMMUNITY_Community 1171|Community 1171]]
-- [[_COMMUNITY_Community 1173|Community 1173]]
 - [[_COMMUNITY_Community 1174|Community 1174]]
 - [[_COMMUNITY_Community 1175|Community 1175]]
 - [[_COMMUNITY_Community 1176|Community 1176]]
-- [[_COMMUNITY_Community 1177|Community 1177]]
 - [[_COMMUNITY_Community 1178|Community 1178]]
 - [[_COMMUNITY_Community 1179|Community 1179]]
 - [[_COMMUNITY_Community 1180|Community 1180]]
@@ -1072,7 +1066,6 @@
 - [[_COMMUNITY_Community 1188|Community 1188]]
 - [[_COMMUNITY_Community 1189|Community 1189]]
 - [[_COMMUNITY_Community 1190|Community 1190]]
-- [[_COMMUNITY_Community 1191|Community 1191]]
 - [[_COMMUNITY_Community 1192|Community 1192]]
 - [[_COMMUNITY_Community 1193|Community 1193]]
 - [[_COMMUNITY_Community 1194|Community 1194]]
@@ -1080,10 +1073,8 @@
 - [[_COMMUNITY_Community 1196|Community 1196]]
 - [[_COMMUNITY_Community 1198|Community 1198]]
 - [[_COMMUNITY_Community 1199|Community 1199]]
-- [[_COMMUNITY_Community 1200|Community 1200]]
 - [[_COMMUNITY_Community 1201|Community 1201]]
 - [[_COMMUNITY_Community 1202|Community 1202]]
-- [[_COMMUNITY_Community 1204|Community 1204]]
 - [[_COMMUNITY_Community 1205|Community 1205]]
 - [[_COMMUNITY_Community 1206|Community 1206]]
 - [[_COMMUNITY_Community 1207|Community 1207]]
@@ -1150,10 +1141,6 @@
 - [[_COMMUNITY_Community 1268|Community 1268]]
 - [[_COMMUNITY_Community 1269|Community 1269]]
 - [[_COMMUNITY_Community 1270|Community 1270]]
-- [[_COMMUNITY_Community 1271|Community 1271]]
-- [[_COMMUNITY_Community 1272|Community 1272]]
-- [[_COMMUNITY_Community 1273|Community 1273]]
-- [[_COMMUNITY_Community 1274|Community 1274]]
 - [[_COMMUNITY_Community 1275|Community 1275]]
 - [[_COMMUNITY_Community 1276|Community 1276]]
 - [[_COMMUNITY_Community 1277|Community 1277]]
@@ -1170,41 +1157,28 @@
 - [[_COMMUNITY_Community 1288|Community 1288]]
 - [[_COMMUNITY_Community 1289|Community 1289]]
 - [[_COMMUNITY_Community 1290|Community 1290]]
-- [[_COMMUNITY_Community 1291|Community 1291]]
-- [[_COMMUNITY_Community 1292|Community 1292]]
 - [[_COMMUNITY_Community 1293|Community 1293]]
-- [[_COMMUNITY_Community 1294|Community 1294]]
 - [[_COMMUNITY_Community 1295|Community 1295]]
-- [[_COMMUNITY_Community 1296|Community 1296]]
-- [[_COMMUNITY_Community 1297|Community 1297]]
 - [[_COMMUNITY_Community 1298|Community 1298]]
-- [[_COMMUNITY_Community 1299|Community 1299]]
 - [[_COMMUNITY_Community 1300|Community 1300]]
 - [[_COMMUNITY_Community 1301|Community 1301]]
 - [[_COMMUNITY_Community 1302|Community 1302]]
 - [[_COMMUNITY_Community 1303|Community 1303]]
-- [[_COMMUNITY_Community 1304|Community 1304]]
 - [[_COMMUNITY_Community 1305|Community 1305]]
 - [[_COMMUNITY_Community 1306|Community 1306]]
 - [[_COMMUNITY_Community 1307|Community 1307]]
 - [[_COMMUNITY_Community 1308|Community 1308]]
 - [[_COMMUNITY_Community 1309|Community 1309]]
-- [[_COMMUNITY_Community 1310|Community 1310]]
-- [[_COMMUNITY_Community 1311|Community 1311]]
 - [[_COMMUNITY_Community 1312|Community 1312]]
 - [[_COMMUNITY_Community 1313|Community 1313]]
-- [[_COMMUNITY_Community 1314|Community 1314]]
 - [[_COMMUNITY_Community 1315|Community 1315]]
 - [[_COMMUNITY_Community 1316|Community 1316]]
 - [[_COMMUNITY_Community 1317|Community 1317]]
 - [[_COMMUNITY_Community 1318|Community 1318]]
 - [[_COMMUNITY_Community 1319|Community 1319]]
-- [[_COMMUNITY_Community 1320|Community 1320]]
 - [[_COMMUNITY_Community 1321|Community 1321]]
-- [[_COMMUNITY_Community 1322|Community 1322]]
 - [[_COMMUNITY_Community 1323|Community 1323]]
 - [[_COMMUNITY_Community 1324|Community 1324]]
-- [[_COMMUNITY_Community 1325|Community 1325]]
 - [[_COMMUNITY_Community 1326|Community 1326]]
 - [[_COMMUNITY_Community 1345|Community 1345]]
 - [[_COMMUNITY_Community 1347|Community 1347]]
@@ -1219,7 +1193,7 @@
 ## God Nodes (most connected - your core abstractions)
 1. `t()` - 786 edges
 2. `useI18n()` - 725 edges
-3. `cn()` - 505 edges
+3. `cn()` - 506 edges
 4. `getDbConnection()` - 266 edges
 5. `getServicesContainer` - 202 edges
 6. `fetchAdminApi()` - 197 edges
@@ -1243,98 +1217,98 @@
 ## Import Cycles
 - 1-file cycle: `packages/app-store/src/blocks/readers.ts -> packages/app-store/src/blocks/readers.ts`
 - 3-file cycle: `packages/ui-admin-kit/src/components/payments/add-update-payment-dialog.tsx -> packages/ui-admin-kit/src/components/payments/payment-details-dialog.tsx -> packages/ui-admin-kit/src/components/payments/payment-card.tsx -> packages/ui-admin-kit/src/components/payments/add-update-payment-dialog.tsx`
-- 3-file cycle: `packages/types/src/apps/app.ts -> packages/types/src/services/container.ts -> packages/types/src/services/connected-apps.service.ts -> packages/types/src/apps/app.ts`
 - 3-file cycle: `packages/types/src/apps/connected-app.props.ts -> packages/types/src/services/container.ts -> packages/types/src/services/connected-apps.service.ts -> packages/types/src/apps/connected-app.props.ts`
+- 3-file cycle: `packages/types/src/apps/app.ts -> packages/types/src/services/container.ts -> packages/types/src/services/connected-apps.service.ts -> packages/types/src/apps/app.ts`
 - 3-file cycle: `packages/types/src/booking/appointment-event.ts -> packages/types/src/booking/gift-card.ts -> packages/types/src/booking/payment.ts -> packages/types/src/booking/appointment-event.ts`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/form-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/waitlist-review-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/waitlist-form-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/addons-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/addons-card.tsx`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/calendar-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/calendar-card.tsx`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/option-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
 - 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/payment-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/waitlist-form-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/calendar-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/calendar-card.tsx`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/addons-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/addons-card.tsx`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/form-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/option-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
 - 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/review-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
 - 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/specialist-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
-- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/payment-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/waitlist-review-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/context.ts`
 - 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/review-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts`
 - 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/calendar-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/calendar-card.tsx`
+- 3-file cycle: `packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/steps.ts -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/payment-card.tsx -> packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/context.ts`
 - 3-file cycle: `apps/admin/src/app/auth.ts -> apps/admin/src/lib/billing/persist-polar-subscription.ts -> apps/admin/src/lib/auth/invalidate-organization-sessions.ts -> apps/admin/src/app/auth.ts`
 - 4-file cycle: `packages/types/src/apps/connected-app.props.ts -> packages/types/src/services/container.ts -> packages/types/src/services/connected-apps.service.ts -> packages/types/src/apps/connected-app.service.ts -> packages/types/src/apps/connected-app.props.ts`
 - 4-file cycle: `packages/types/src/booking/appointment-package.ts -> packages/types/src/customers/index.ts -> packages/types/src/customers/list.ts -> packages/types/src/booking/appointment.ts -> packages/types/src/booking/appointment-package.ts`
 
-## Communities (1343 total, 259 thin omitted)
+## Communities (1317 total, 252 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (34): BlogPostFeaturedImagePropsDefaults(), createPostMetaInlineContainer(), createPostMetaSeparator(), createSectionHeading(), ForeachContainerPropsDefaults, getBlogPostFeaturedImageBlock(), getHeadingPropsDefaults(), getPostMetaBlock() (+26 more)
+Cohesion: 0.06
+Nodes (69): DocumentOutlineItem, DocumentOutlineItemProps, OutlinePanel(), DragIntoNestedModifierTracker(), getFluidLayoutAncestorId(), isDragSourceOutsideFluid(), resolvePreferNestedDrop(), shouldSkipFluidDropAdjustment() (+61 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
-Nodes (53): approveSelectedBlogComments(), deleteSelectedBlogComments(), rejectSelectedBlogComments(), ApproveBlogCommentAction, approveBlogCommentActionSchema, ApproveBlogCommentActionType, ApproveSelectedBlogCommentsAction, approveSelectedBlogCommentsActionSchema (+45 more)
+Cohesion: 0.07
+Nodes (50): ApproveBlogCommentAction, approveBlogCommentActionSchema, ApproveBlogCommentActionType, ApproveSelectedBlogCommentsAction, approveSelectedBlogCommentsActionSchema, ApproveSelectedBlogCommentsActionType, CheckBlogPostSlugUniqueAction, checkBlogPostSlugUniqueActionSchema (+42 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.03
-Nodes (101): Action, ACTIONS, POST(), REQUIRES_APPOINTMENT, GET(), POST(), POST(), AuthSession (+93 more)
+Nodes (113): Action, ACTIONS, POST(), REQUIRES_APPOINTMENT, GET(), POST(), POST(), AuthSession (+105 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.03
-Nodes (78): PageFooter, PageFooterListModel, pageFooterSchema, PageFooterUpdateModel, getPageHeaderSchemaWithUniqueNameCheck(), PageHeader, PageHeaderListModel, PageHeaderLogoNameFontSize (+70 more)
+Nodes (79): PageFooter, PageFooterListModel, pageFooterSchema, PageFooterUpdateModel, getPageHeaderSchemaWithUniqueNameCheck(), PageHeader, PageHeaderListModel, PageHeaderLogoNameFontSize (+71 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.06
-Nodes (45): useCreateEditor(), useCreateMarkdownEditor(), BlockSelection(), blockSelectionVariants, BlockquoteElement, CodeBlockElement, CodeLeaf, CodeLineElement (+37 more)
+Cohesion: 0.08
+Nodes (32): useCreateEditor(), useCreateMarkdownEditor(), BlockquoteElement, CodeBlockElement, CodeLeaf, CodeLineElement, CodeSyntaxLeaf, CommentLeaf() (+24 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.02
-Nodes (67): AppointmentNotificationsApp, BlogQuickLinkInjector, CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME, FormsMenuItems, FormsQuickLinkInjector, GiftCardStudioApp, AutomaticAiDiscoveryImages, AutomaticStructuredDataImages (+59 more)
+Nodes (65): AppsBlocksTemplates, BlogBlocks, BusyEventsApp, CUSTOMER_PACKAGE_EMAIL_NOTIFICATION_APP_NAME, FormsMenuItems, GiftCardStudioQuickLinkInjector, GiftCardStudioManualPurchaseQuickLink(), AutomaticAiDiscoveryImages (+57 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.06
-Nodes (93): AccordionEditor(), AccordionItemEditor(), AvatarEditor(), BeforeAfterEditor(), CarouselEditor(), ColumnsContainerEditor(), BlogCommentAuthorEditor(), BlogCommentBodyEditor() (+85 more)
+Nodes (87): AccordionEditor(), AccordionItemEditor(), AvatarEditor(), BeforeAfterEditor(), CarouselEditor(), ColumnsContainerEditor(), BlogCommentAuthorEditor(), BlogCommentBodyEditor() (+79 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.02
 Nodes (162): ALL_CORE_EVENT_TYPES, AddonCreatedPayload, AddonDeletedPayload, AddonUpdatedPayload, AppConnectedPayload, AppFailedPayload, AppInstalledPayload, AppointmentCreatedPayload (+154 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.11
-Nodes (23): PLATE_STATIC_EDITOR_COMPONENTS, PlateStaticEditor, PlateStaticEditorFast, PlateStaticEditorPlate, PlateStaticEditorProps, ColumnElementStatic(), ColumnGroupElementStatic(), CommentLeafStatic() (+15 more)
+Cohesion: 0.09
+Nodes (27): PLATE_STATIC_EDITOR_COMPONENTS, PlateStaticEditor, PlateStaticEditorFast, PlateStaticEditorPlate, PlateStaticEditorProps, ColumnElementStatic(), ColumnGroupElementStatic(), CommentLeafStatic() (+19 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.04
-Nodes (60): Page(), AddOrUpdateAppButtonProps, GET(), generateMetadata(), Props, generateMetadata(), generateMetadata(), generateMetadata() (+52 more)
+Nodes (53): AppointmentEntity, CommunicationChannel, communicationChannels, CommunicationDirection, communicationDirectionSchema, CommunicationLog, CommunicationLogContentPayload, CommunicationLogCreateInput (+45 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.10
-Nodes (50): ButtonPropsDefaults(), FluidPlacementOverrides, buildCenteredHero(), buildLeftOverlayHero(), buildMinimalHero(), buildOverlayHero(), buildPackHero(), buildVideoHero() (+42 more)
+Cohesion: 0.06
+Nodes (59): BeforeAfterPropsDefaults(), ButtonPropsDefaults(), HeadingPropsDefaults(), PACK_MEDIA, PackMediaLibrary, LinkPropsDefaults(), MarketingBrowserCarouselPropsDefaults(), bulletRow() (+51 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.05
-Nodes (44): FORMS_APP_EVENTS, GoogleAnalyticsApp, buildGtagScripts(), GoogleAnalyticsLogo(), Ga4Item, Ga4MappedEvent, Ga4PublicContext, gaPublicContextFromSource() (+36 more)
+Nodes (45): FORMS_APP_EVENTS, GoogleAnalyticsApp, buildGtagScripts(), GoogleAnalyticsLogo(), Ga4Item, Ga4MappedEvent, Ga4PublicContext, gaPublicContextFromSource() (+37 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.02
-Nodes (98): GetInvitationResult, getPublicInvitation(), AcceptInvitationPage(), generateMetadata(), Forbidden(), AppsStorePage(), generateMetadata(), Params (+90 more)
+Nodes (118): generateMetadata(), Params, AddonsPage(), generateMetadata(), Params, Forbidden(), AppsStorePage(), generateMetadata() (+110 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.05
-Nodes (41): PaymentRefundCard(), AddUpdatePaymentDialog(), AddUpdatePaymentDialogProps, DialogFormValues, PaymentLinkApp, PaymentLinkChannel, AssignAppointmentDialogProps, DEFAULT_SORT (+33 more)
+Nodes (44): PaymentRefundCard(), AddUpdatePaymentDialog(), AddUpdatePaymentDialogProps, DialogFormValues, PaymentLinkApp, PaymentLinkChannel, AssignAppointmentDialogProps, DEFAULT_SORT (+36 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.05
-Nodes (42): fetchWaitlistOffer(), ScheduleContext, CabinetBookScreenProps, ScheduleProps, formSchema, BookingWithWaitlistProps, BookingOtpDialog(), BookingOtpDialogProps (+34 more)
+Cohesion: 0.07
+Nodes (29): CabinetBookScreenProps, formSchema, BookingWithWaitlistProps, demoBookingOptionsResponse, BookingWithWaitlistProps, WaitlistDatePicker(), WaitlistDatePickerProps, createGroup() (+21 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.06
-Nodes (57): DesignEditor(), DesignEditorProps, getDefaultDesign, getDesignFromStore(), useIsValidDesign(), AlignmentGuide, AlignmentGuides(), AlignmentGuidesProps (+49 more)
+Nodes (58): AlignmentGuide, AlignmentGuides(), AlignmentGuidesProps, calculateSnappedPosition(), CARDINAL_ROTATIONS, snapRotationToCardinals(), CanvasElementProps, resolvePaintCss() (+50 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.06
-Nodes (54): RawNumberInputWithUnitsProps, backgroundColorShortcut, colorShortcut, fontFamilyShortcut, fontSizeShortcut, TEXT_SIZE_PRESETS, textAlignmentShortcut, AssetSelectorShortcut() (+46 more)
+Cohesion: 0.04
+Nodes (75): RawNumberInputWithUnitsProps, backgroundColorShortcut, colorShortcut, fontFamilyShortcut, fontSizeShortcut, TEXT_SIZE_PRESETS, textAlignmentShortcut, AssetSelectorShortcut() (+67 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.06
-Nodes (53): getFluidLayoutAncestorId(), isDragSourceOutsideFluid(), resolvePreferNestedDrop(), shouldSkipFluidDropAdjustment(), useFluidDropCollisionPriority(), useFluidLayoutAncestorId(), usePreferNestedDrop(), useDragHandle() (+45 more)
+Cohesion: 0.09
+Nodes (29): BlockFilterRule, BlockFilterRuleResult, intersect(), matchesRule(), mergeBlockFilterRules(), union(), EditorBlock, EditorBlockContext (+21 more)
 
 ### Community 18 - "Community 18"
 Cohesion: 0.06
@@ -1345,32 +1319,32 @@ Cohesion: 0.01
 Nodes (53): base64ToUint8Array(), _base64url(), base64url2(), base64urlToUint8Array(), _coercedDate(), _coercedNumber(), config(), date2() (+45 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.02
-Nodes (97): App, ConnectedApp, ConnectedAppAccount, ConnectedAppData, ConnectedAppError, ConnectedAppResponse, ConnectedAppStatus, ConnectedAppStatusWithText (+89 more)
+Cohesion: 0.03
+Nodes (85): App, AppLogoProps, AppMenuItem, AppScope, AppSetupProps, BaseApp, BasicApp, BasicAppSetup (+77 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.04
-Nodes (26): FormCard(), WaitlistFormCard(), ModifyAppointmentFormLayout(), CanvasWorkspace(), ShiftDisplay(), useAttributeObserver(), useEffectDebugger(), useIsMac() (+18 more)
+Cohesion: 0.09
+Nodes (35): GetInvitationResult, getPublicInvitation(), AcceptInvitationPage(), generateMetadata(), memberProfileAdditionalFields, Session, socialProviders, trustedSocialProviders (+27 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.06
-Nodes (39): GeneralConfiguration, generalConfigurationSchema, Country, countryOptions, zCountry, Currency, currencyOptions, CurrencySymbolMap (+31 more)
+Cohesion: 0.03
+Nodes (82): BookingProviderScope, CalendarSourceScope, DefaultAppsConfiguration, defaultAppsConfigurationSchema, DefaultAppScope, DefaultAppToInstallScope, defaultAppToInstallScopes, MeetingUrlProviderScope (+74 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.02
-Nodes (88): AppointmentAddons, appointmentAddonSchema, appointmentAddonsSchema, AppointmentChoice, appointmentOptionSchema, BookingRestriction, BookingRestrictionCode, getAppointmentAddonSchemaWithUniqueCheck() (+80 more)
+Cohesion: 0.03
+Nodes (84): AppointmentAddons, appointmentAddonSchema, appointmentAddonsSchema, AppointmentChoice, appointmentOptionSchema, BookingRestriction, BookingRestrictionCode, getAppointmentAddonSchemaWithUniqueCheck() (+76 more)
 
 ### Community 24 - "Community 24"
-Cohesion: 0.06
-Nodes (36): saveSiteSettingsAction(), SaveSiteSettingsResult, generateMetadata(), SiteSettingsForm(), timeZoneValues, siteSettingsFormSchema, SiteSettingsFormValues, SocialLinkCardProps (+28 more)
+Cohesion: 0.07
+Nodes (29): getOrganizationIdAndSlug(), saveSiteSettingsAction(), SaveSiteSettingsResult, generateMetadata(), Page(), SiteSettingsForm(), timeZoneValues, siteSettingsFormSchema (+21 more)
 
 ### Community 25 - "Community 25"
-Cohesion: 0.15
-Nodes (16): BackgroundImageSchema, GradientDirection, gradientDirectionOptions, gradientDirectionOptionsLabels, ColorExtendedInput(), Props, BoxShadowSchema, COLORS (+8 more)
+Cohesion: 0.05
+Nodes (42): BackgroundBlendModeSchema, options, BackgroundClipSchema, options, BackgroundColorOpacitySchema, BackgroundImageSchema, GradientDirection, gradientDirectionOptions (+34 more)
 
 ### Community 26 - "Community 26"
-Cohesion: 0.02
-Nodes (57): CellAction(), CellActionProps, CellAction(), CellActionProps, CellAction(), CellActionProps, CellAction(), CellActionProps (+49 more)
+Cohesion: 0.40
+Nodes (3): DeleteSelectedPageFootersButton(), PageFootersTableAction(), usePageFootersTableFilters()
 
 ### Community 27 - "Community 27"
 Cohesion: 0.06
@@ -1378,27 +1352,27 @@ Nodes (152): assetUrl(), bid(), block(), C, emptyPad, gap(), heroHeadingFontSize
 
 ### Community 28 - "Community 28"
 Cohesion: 0.02
-Nodes (119): assetUpdateSchema, UploadedFile, AssetEntity, Appointment, AppointmentStatus, appointmentStatuses, AppointmentWithReferenceDateDistance, ClosedAppointmentStatus (+111 more)
+Nodes (134): Asset, AssetUpdate, assetUpdateSchema, UploadedFile, AssetEntity, Appointment, appointmentStatuses, AppointmentWithReferenceDateDistance (+126 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.03
 Nodes (74): origins, 0058b4c6, 05e7694e, 138e0e15, 14eb3368, 17896441, 185eb769, 1a4e3797 (+66 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.11
-Nodes (22): parentLevels, StateSelector(), StateSelectorProps, StyleVariantProps, StateManager(), StateManagerProps, defaultStyling, Props (+14 more)
+Cohesion: 0.10
+Nodes (28): buildCompleteProfileCallbackUrl(), ResolvedMemberProfileFields, resolveMemberProfileFields(), savePendingMemberProfile(), savePendingMemberProfileByEmail(), setPendingMemberProfile(), takePendingMemberProfile(), takePendingMemberProfileByFilter() (+20 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.02
 Nodes (113): _array(), _base64(), base642(), _bigint(), bigint2(), bigint3(), _boolean(), boolean2() (+105 more)
 
 ### Community 32 - "Community 32"
-Cohesion: 0.14
-Nodes (21): GET(), generateMetadata(), Page(), Props, getSource, NotFoundError, PublicPageMatch, renderPublicPageTakeover() (+13 more)
+Cohesion: 0.08
+Nodes (37): GET(), generateMetadata(), Page(), Props, canUseFeature(), isFreeTier(), AppScriptRenderer(), Styling() (+29 more)
 
 ### Community 33 - "Community 33"
 Cohesion: 0.09
-Nodes (29): blogPostFixtureAuthor, blogPostsListFixtures, containerShortcuts, BlogCommentsContext, BlogPostContainerComponent(), BlogPostContainerComponentProps, BlogPostContainerConfiguration, BlogPostContainerEditorWrapper() (+21 more)
+Nodes (27): ApplyInstallPackStylingResult, installHexColor, InstallPersonalizationInput, installPersonalizationInputSchema, createWorkspace(), CreateWorkspaceInput, workspaceInputSchema, checkOrganizationSlug() (+19 more)
 
 ### Community 34 - "Community 34"
 Cohesion: 0.13
@@ -1409,48 +1383,48 @@ Cohesion: 0.03
 Nodes (70): dependencies, class-variance-authority, clsx, cmdk, countries-phone-masks, @dnd-kit/core, @dnd-kit/react, @dnd-kit/sortable (+62 more)
 
 ### Community 36 - "Community 36"
-Cohesion: 0.04
-Nodes (47): AppointmentSelector(), AppointmentSelectorProps, BaseAppointmentSelectorProps, ClearableAppointmentSelectorProps, NonClearableAppointmentSelectorProps, AddNewCustomerItem(), BaseCustomerSelectorProps, ClearableCustomerSelectorProps (+39 more)
+Cohesion: 0.03
+Nodes (51): AppointmentSelectorProps, BaseAppointmentSelectorProps, ClearableAppointmentSelectorProps, NonClearableAppointmentSelectorProps, AddNewCustomerItem(), BaseCustomerSelectorProps, ClearableCustomerSelectorProps, CustomerSelector() (+43 more)
 
 ### Community 37 - "Community 37"
-Cohesion: 0.10
-Nodes (39): childrenPropertyToSlotKey(), childrenPropertyToStyleProperty(), EmbeddedSlotData, EmbeddedSlotDescriptor, isEditorBlockLike(), isEmbeddedSlot(), isSlotLikeObject(), SelectedSlotRef (+31 more)
+Cohesion: 0.11
+Nodes (34): useDragHandle(), UseDragHandleInput, validateStoreState(), BlockDisableOptions, TEditorBlock, TEditorConfiguration, deepMerge(), editorHistoryReducer() (+26 more)
 
 ### Community 38 - "Community 38"
 Cohesion: 0.02
-Nodes (133): AppointmentCard(), AppointmentScheduleForm(), columns, StatusCell(), columns, columns, AddonsCard(), CalendarCard() (+125 more)
+Nodes (151): AppointmentCard(), AppointmentScheduleForm(), AppointmentRescheduleDialog(), columns, StatusCell(), columns, columns, DeleteAppButton() (+143 more)
 
 ### Community 39 - "Community 39"
 Cohesion: 0.03
 Nodes (67): dependencies, ai, @ai-sdk/openai, @ariakit/react, date-fns, @emoji-mart/data, @faker-js/faker, @hacado/ui (+59 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.03
-Nodes (51): BackgroundBlendModeSchema, options, BackgroundClipSchema, options, BackgroundPositionSchema, BackgroundPositionValue, CustomPositionSchema, optionsMap (+43 more)
+Cohesion: 0.04
+Nodes (59): BorderRadiusSchema, defaultBorderRadius, turn, BorderStyleItemSchema, borderStyleKeys, BorderStyleSchema, defaultBorderStyle, BorderWidthSchema (+51 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.05
-Nodes (55): demoPurchasedGiftCard, CheckDesignNameUniqueAction, checkDesignNameUniqueActionSchema, CheckDesignNameUniqueActionType, CreateDesignAction, createDesignActionSchema, CreatePurchasedGiftCardAction, createPurchasedGiftCardActionSchema (+47 more)
+Cohesion: 0.04
+Nodes (93): DesignSelectorProps, FormValues, manualPurchaseSchema, PaymentLinkApp, checkDesignNameUnique(), createDesign(), createPurchasedGiftCard(), deleteDesign() (+85 more)
 
 ### Community 42 - "Community 42"
-Cohesion: 0.05
-Nodes (60): buildInstallPaymentsConfiguration(), ensureDefaultInstallSchedule(), ensureInstallAppointmentNotificationDefaults(), ensureInstallBookingPaymentsDefaultAppsAndCancellations(), ensureInstallCustomerNotificationTemplates(), ensureInstallCustomerOtpTemplates(), ensureInstallDefaultApps(), ensureInstallDefaultConfigurations() (+52 more)
+Cohesion: 0.10
+Nodes (30): buildDefaultHeaderMenu(), buildOverlayHeaderMenu(), CompleteInstallPagesInput, createInstallDefaultPages(), generateSlug(), getInstallPageDefaultsLabels(), getTemplateServices(), HeaderMenuArgs (+22 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.17
-Nodes (22): renderFilterFunctionValue(), blurOptions, FilterConfiguration(), FilterConfigurationKind, getNumberOptions(), renderFilterFunctionValue(), FilterFunctionKey, filterFunctionKeyMap (+14 more)
+Cohesion: 0.07
+Nodes (35): renderFilterFunctionValue(), cursorKeys, CursorSchema, HideSchema, effectsStyles, overflowKeys, OverflowSchema, pointerEventsKeys (+27 more)
 
 ### Community 44 - "Community 44"
 Cohesion: 0.05
 Nodes (98): __dirname, assignUniqueIds(), buildFooter(), buildHeader(), buildOverlayHeader(), buildPackPages(), buttonBlock(), COLLECTIONS (+90 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.03
-Nodes (78): AppointmentActionButton, changeStatus(), AppointmentCalendar(), AppointmentCardProps, AppointmentDeclineDialog(), AppointmentDialog(), AppointmentDialogProps, appointmentFromSchema (+70 more)
+Cohesion: 0.04
+Nodes (65): AppointmentActionButton, changeStatus(), AppointmentCalendar(), AppointmentCardProps, AppointmentDeclineDialog(), AppointmentDialog(), AppointmentDialogProps, appointmentFromSchema (+57 more)
 
 ### Community 46 - "Community 46"
-Cohesion: 0.06
-Nodes (55): markFormResponsesRead(), CheckFormNameUniqueAction, checkFormNameUniqueActionSchema, CheckFormNameUniqueActionType, CreateFormAction, createFormActionSchema, CreateFormActionType, CreateFormResponseAction (+47 more)
+Cohesion: 0.07
+Nodes (46): getFormResponses(), markFormResponsesRead(), checkFormNameUniqueActionSchema, CheckFormNameUniqueActionType, createFormActionSchema, CreateFormActionType, createFormResponseActionSchema, CreateFormResponseActionType (+38 more)
 
 ### Community 47 - "Community 47"
 Cohesion: 0.05
@@ -1461,56 +1435,56 @@ Cohesion: 0.11
 Nodes (24): ResendApp, base64url(), exchangeAuthorizationCode(), generatePkcePair(), getBasicAuthHeader(), getResendOAuthCredentials(), loadConnectedApp(), refreshResendTokens() (+16 more)
 
 ### Community 49 - "Community 49"
-Cohesion: 0.07
-Nodes (24): FluidLayoutPropsSchema, GridContainerPropsSchema, InlineTextPropsSchema, BookingPropsSchema, BookingReaderProps, FlowOrder, flowOrderSchema, EditorBlocksSchema (+16 more)
+Cohesion: 0.24
+Nodes (7): RedirectConfiguration, EditorRedirect, RedirectReader(), RedirectProps, RedirectPropsDefaults(), RedirectPropsSchema, RedirectReaderProps
 
 ### Community 50 - "Community 50"
-Cohesion: 0.05
-Nodes (45): AddonsPage(), generateMetadata(), Params, getServiceFields(), getUser, GET(), POST(), DELETE() (+37 more)
+Cohesion: 0.06
+Nodes (45): getUser, GET(), POST(), DELETE(), GET(), PATCH(), GET(), GET() (+37 more)
 
 ### Community 51 - "Community 51"
 Cohesion: 0.17
 Nodes (19): crypto, decrypt(), down(), getPayPalClientForApp(), isAlreadyMigrated(), isPayPalProduction(), logInfo(), logMigrationComplete() (+11 more)
 
 ### Community 52 - "Community 52"
-Cohesion: 0.09
-Nodes (21): approveBlogComment(), deleteBlogComment(), getBlogPosts(), rejectBlogComment(), blogBreadcrumb, BlogMenuItems, BlogPost, columns (+13 more)
+Cohesion: 0.08
+Nodes (26): approveBlogComment(), approveSelectedBlogComments(), deleteBlogComment(), deleteSelectedBlogComments(), deleteSelectedBlogPosts(), getBlogPosts(), rejectBlogComment(), rejectSelectedBlogComments() (+18 more)
 
 ### Community 53 - "Community 53"
-Cohesion: 0.05
-Nodes (38): useOpenState(), getBlockType(), setBlockType(), STRUCTURAL_TYPES, AlignDropdownMenu(), items, ExportToolbarButton(), FixedToolbarButtons() (+30 more)
+Cohesion: 0.04
+Nodes (46): useOpenState(), getBlockType(), insertBlock(), insertBlockMap, insertInlineElement(), insertInlineMap, setBlockMap, setBlockType() (+38 more)
 
 ### Community 54 - "Community 54"
-Cohesion: 0.08
-Nodes (4): PurchasedGiftCardModel, GiftCardStudioRepositoryService, GiftCardStudioConnectedApp, getLocale
+Cohesion: 0.07
+Nodes (8): PurchasedGiftCardModel, GiftCardStudioRepositoryService, GiftCardStudioConnectedApp, getGiftCardStudioPurchasesLastReadAt(), getGiftCardStudioUnreadPurchasesBadges(), lastReadRedisKey(), markGiftCardStudioPurchasesRead(), getLocale
 
 ### Community 55 - "Community 55"
 Cohesion: 0.11
 Nodes (54): bentoGrid(), buildAccordion(), buildBeforeAfter(), buildBeforeAfterSection(), buildBento(), buildCarousel(), buildComparison(), buildCta() (+46 more)
 
 ### Community 56 - "Community 56"
-Cohesion: 0.07
-Nodes (29): PageFormValues, PageHeaderForm(), RestScrollRow(), IconSelect(), IconSelectProps, iconValues, BaseMenuItemProps, MenuItemCard() (+21 more)
+Cohesion: 0.03
+Nodes (62): SocialLinkCard(), FormFieldCard(), NonSortable(), NonSortableProps, Sortable(), SortableProps, Variants, FileTypePickerTag() (+54 more)
 
 ### Community 57 - "Community 57"
-Cohesion: 0.03
-Nodes (68): Asset, AssetUpdate, IAssetsStorage, AppointmentEntity, CommunicationChannel, communicationChannels, CommunicationDirection, communicationDirectionSchema (+60 more)
+Cohesion: 0.05
+Nodes (37): IAssetsStorage, CustomerAuthOptions, RequestOtpPayload, RequestOtpResult, VerifyOtpPayload, VerifyOtpResult, CustomerSession, CustomerSessionPayload (+29 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.10
-Nodes (14): buildNewWaitlistEntryEmailNotifications(), formatDuration(), formatWhen(), MemberRecipient, WAITLIST_ENTRIES_DISMISSED_EVENT_TYPE, WAITLIST_ENTRY_CREATED_EVENT_TYPE, WaitlistEntriesDismissedEvent, WaitlistEntryCreatedEvent (+6 more)
+Cohesion: 0.07
+Nodes (11): DismissWaitlistEntriesAction, GetWaitlistEntryAction, WaitlistEntry, WaitlistEntryEntity, WaitlistRequest, WaitlistStatus, CellActionProps, searchParams (+3 more)
 
 ### Community 59 - "Community 59"
-Cohesion: 0.06
-Nodes (56): addNewApp(), deleteApp(), getApp(), getAppData(), getAppLoginUrl(), getApps(), getAppsByName(), getAppsByScope() (+48 more)
+Cohesion: 0.05
+Nodes (62): addNewApp(), deleteApp(), getApp(), getAppData(), getAppLoginUrl(), getApps(), getAppsByName(), getAppsByScope() (+54 more)
 
 ### Community 60 - "Community 60"
-Cohesion: 0.12
-Nodes (26): FormsReaders, FormsBlocks, FormsBlocksAllowedInFooter, FormsBlocksSchema, FormsBlocksType, FormsEditors, FormBlockComponent(), FormBlockComponentProps (+18 more)
+Cohesion: 0.11
+Nodes (27): FormsReaders, FormsBlocks, FormsBlocksAllowedInFooter, FormsBlocksSchema, FormsBlocksType, FormsEditors, FormBlockComponent(), FormBlockComponentProps (+19 more)
 
 ### Community 61 - "Community 61"
-Cohesion: 0.19
-Nodes (10): PropsType, FontFamilyDropdownMenu(), PropsType, fontSizes, FontSizeToolbarMenu(), PropsType, FontWeightDropdownMenu(), PropsType (+2 more)
+Cohesion: 0.09
+Nodes (23): EmailLayoutConfiguration(), EmailLayoutReader(), EmailLayoutProps, EmailLayoutPropsSchema, EmailLayoutReaderProps, EmailLayoutToolbar(), LayoutFontFamilyDropdownMenu(), ButtonToolbar() (+15 more)
 
 ### Community 62 - "Community 62"
 Cohesion: 0.33
@@ -1521,44 +1495,44 @@ Cohesion: 0.09
 Nodes (21): GoogleCalendarApp, GoogleCalendarLogo(), CalendarListItem, calendarListItemSchema, GetCalendarListRequestType, GetSelectedCalendarRequestType, GoogleCalendarConfiguration, googleCalendarConfigurationSchema (+13 more)
 
 ### Community 64 - "Community 64"
-Cohesion: 0.06
-Nodes (33): getAddressSuggestions(), GET(), GET(), AddressesSearchParams, addressesSearchParamsCache, addressesSearchParamsSchema, addressesSearchParamsSerializer, AppointmentHistorySearchParams (+25 more)
+Cohesion: 0.05
+Nodes (47): GET(), GET(), GET(), GET(), GET(), GET(), GET(), addressesSearchParamsCache (+39 more)
 
 ### Community 65 - "Community 65"
 Cohesion: 0.04
 Nodes (51): js, js, js, js, js, js, js, js (+43 more)
 
 ### Community 66 - "Community 66"
-Cohesion: 0.11
-Nodes (36): Props, catalogCategoryLabelKey(), catalogProfessionLabelKey(), catalogServiceDescriptionKey(), catalogServiceNameKey(), catalogTagLabelKey(), getCatalogProfession(), getDefaultCatalogSeed() (+28 more)
+Cohesion: 0.09
+Nodes (42): Props, catalogCategoryLabelKey(), catalogProfessionLabelKey(), catalogServiceDescriptionKey(), catalogServiceNameKey(), catalogTagLabelKey(), getCatalogProfession(), getDefaultCatalogSeed() (+34 more)
 
 ### Community 67 - "Community 67"
-Cohesion: 0.05
-Nodes (47): AppScope, AppScopeUsage, getAppScopeUsage(), isCompanyUsageScope(), isMemberUsageScope(), MappedAppScope, BookingProviderScope, CalendarSourceScope (+39 more)
+Cohesion: 0.11
+Nodes (24): BaseRawNumberInputWithUnitsAndKeywordsProps, customKeyword, nullKeyword, RawNumberInputWithUnitsAndKeywords(), RawNumberInputWithUnitsAndKeywordsProps, RawNumberInputWithUnitsAndKeywordsPropsWithKeywords, RawNumberInputWithUnitsAndKeywordsPropsWithoutKeywords, CSSValueOption (+16 more)
 
 ### Community 68 - "Community 68"
-Cohesion: 0.09
-Nodes (21): AppsBlocksEditors, AppsBlocksTemplates, blogTemplatePreviewPath(), BlogTemplatePreviewProvider, blogTemplates, AppsBlocksReaders, WaitlistReaders, BlogBlocks (+13 more)
+Cohesion: 0.16
+Nodes (12): AppsBlocksEditors, BlogTemplatePreviewProvider, blogTemplates, AppsBlocksReaders, AppsTemplatePreviewProviders, findPreviewProvider(), flattenPreviewEntries(), getPreviewDelayMs() (+4 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.05
-Nodes (9): filterCatalogNodes(), getDbConnection(), CustomersService, enrichEventSourceWithCustomerId(), PagesService, buildSearchQuery(), ServicesService, escapeRegex() (+1 more)
+Nodes (7): filterCatalogNodes(), getDbConnection(), PagesService, buildSearchQuery(), ServicesService, escapeRegex(), TemplatesService
 
 ### Community 70 - "Community 70"
 Cohesion: 0.06
 Nodes (41): aborted(), add(), $constructor(), convertBaseSchema(), convertSchema(), datetime(), describe(), detectVersion() (+33 more)
 
 ### Community 71 - "Community 71"
-Cohesion: 0.04
-Nodes (38): BlockContextMenu(), Value, CommentsPopover(), Cursor(), CursorOverlay(), Draggable, DraggableAboveNodes(), DragHandle (+30 more)
+Cohesion: 0.06
+Nodes (30): BlockContextMenu(), Value, Draggable, DraggableAboveNodes(), DragHandle, DropLine, Gutter, UNDRAGGABLE_KEYS (+22 more)
 
 ### Community 72 - "Community 72"
 Cohesion: 0.05
-Nodes (46): callAppApi(), CallAppApiParams, getAvailability(), checkDuplicateAppointments(), createAppointment(), getBookingOptions(), getModifyAppointmentInformation(), modifyAppointment() (+38 more)
+Nodes (47): callAppApi(), CallAppApiParams, getAvailability(), checkDuplicateAppointments(), createAppointment(), getBookingOptions(), getModifyAppointmentInformation(), modifyAppointment() (+39 more)
 
 ### Community 73 - "Community 73"
 Cohesion: 0.03
-Nodes (48): alignContentKeys, AlignContentSchema, alignItemsKeys, AlignItemsSchema, alignSelfKeys, AlignSelfSchema, AspectRatioSchema, AspectRatioValue (+40 more)
+Nodes (49): alignContentKeys, AlignContentSchema, alignItemsKeys, AlignItemsSchema, alignSelfKeys, AlignSelfSchema, AspectRatioSchema, AspectRatioValue (+41 more)
 
 ### Community 74 - "Community 74"
 Cohesion: 0.11
@@ -1569,20 +1543,20 @@ Cohesion: 0.08
 Nodes (34): CustomerWaitlistNotificationsApp, CustomerWaitlistNotificationsJobProcessor, CustomerWaitlistNotificationsMenuItems, CustomerWaitlistNotificationsConfiguration, customerWaitlistNotificationsConfigurationSchema, CustomerWaitlistNotificationsJobPayload, OFFER_OPENED_SLOT_JOB_TYPE, OfferOpenedSlotJobPayload (+26 more)
 
 ### Community 76 - "Community 76"
-Cohesion: 0.04
-Nodes (36): AnswerFieldProps, FormFieldDef, getOptions(), MultiSelectField(), RadioField(), SelectField(), deleteForm(), getFormResponses() (+28 more)
+Cohesion: 0.06
+Nodes (22): FormAnswer, formAnswerSchema, formAnswerValueSchema, FormModel, FormResponseListModel, FormResponseModel, formResponseSchemaBase, FormResponseUpdateModel (+14 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.08
-Nodes (36): GiftCardStudioReaders, GiftCardStudioBlocks, GiftCardStudioBlocksAllowedInFooter, GiftCardStudioBlocksSchema, GiftCardStudioBlocksType, GiftCardStudioEditors, GiftCardPurchaseBlockConfiguration, GiftCardPurchaseBlockReader (+28 more)
+Cohesion: 0.11
+Nodes (33): GiftCardStudioBlocks, GiftCardStudioBlocksAllowedInFooter, GiftCardStudioBlocksType, GiftCardStudioEditors, GiftCardPurchaseShowcaseBlockConfiguration, SLOT_KEYS, GiftCardPurchaseShowcaseBlockEditor(), DEFAULT_AMOUNT_PRESETS (+25 more)
 
 ### Community 78 - "Community 78"
-Cohesion: 0.11
-Nodes (23): alignBlockStyle(), collectHeadings(), FastRenderCtx, HEADING_DEPTH, HEADING_TYPE_SET, headingItemVariants, indentBlockStyle(), isListBlock() (+15 more)
+Cohesion: 0.09
+Nodes (26): alignBlockStyle(), collectHeadings(), FastRenderCtx, HEADING_DEPTH, HEADING_TYPE_SET, headingItemVariants, indentBlockStyle(), isListBlock() (+18 more)
 
 ### Community 79 - "Community 79"
 Cohesion: 0.04
-Nodes (66): authClient, AUTH_ERROR_MESSAGE_KEYS, authErrorMessageKey(), AuthErrorContent(), normalizeAuthErrorCode(), AuthFormProgress(), autoSendCompleted, autoSendInFlight (+58 more)
+Nodes (56): authClient, AUTH_ERROR_MESSAGE_KEYS, authErrorMessageKey(), AuthErrorContent(), normalizeAuthErrorCode(), AuthFormProgress(), autoSendCompleted, autoSendInFlight (+48 more)
 
 ### Community 80 - "Community 80"
 Cohesion: 0.07
@@ -1593,8 +1567,8 @@ Cohesion: 0.10
 Nodes (23): ADDON_EVENT_DEFINITIONS, APP_EVENT_DEFINITIONS, APPOINTMENT_OPTION_EVENT_DEFINITIONS, ASSET_EVENT_DEFINITIONS, CUSTOMER_EVENT_DEFINITIONS, dashboardUrls, DISCOUNT_EVENT_DEFINITIONS, FIELD_EVENT_DEFINITIONS (+15 more)
 
 ### Community 82 - "Community 82"
-Cohesion: 0.14
-Nodes (11): getSquareOrder(), getSquarePayment(), SquareMerchantData, parsePaymentUpdatedWebhook(), SquareConnectedApp, verifySquareWebhookSignature(), isSquareSandbox(), squareApiBaseUrl() (+3 more)
+Cohesion: 0.10
+Nodes (24): getApplePayDomainAssociation(), getSquareOrder(), getSquarePayment(), extractOrderSplit(), isCompletedSquarePayment(), mapSquarePaymentToIngestInput(), processingFeesFromSquarePayment(), SquareInStorePaymentInput (+16 more)
 
 ### Community 83 - "Community 83"
 Cohesion: 0.04
@@ -1605,12 +1579,12 @@ Cohesion: 0.09
 Nodes (34): EditableText, EditableTextInner, EditableTextProps, StaticText, StaticTextProps, VariableAutocomplete(), VariableAutocompleteProps, RTEContext (+26 more)
 
 ### Community 85 - "Community 85"
-Cohesion: 0.07
-Nodes (51): COMPLETE_PROFILE_STEP_IDS, COMPLETE_PROFILE_STEP_LABELS, CompleteProfileForm(), CompleteProfileStep, CompleteProfilePhoneValues, phoneSchema, CompleteProfileProfileValues, profileSchema (+43 more)
+Cohesion: 0.10
+Nodes (38): COMPLETE_PROFILE_STEP_IDS, COMPLETE_PROFILE_STEP_LABELS, CompleteProfileForm(), CompleteProfileStep, CompleteProfilePhoneValues, phoneSchema, CompleteProfileProfileValues, profileSchema (+30 more)
 
 ### Community 86 - "Community 86"
 Cohesion: 0.05
-Nodes (73): CARDINAL_ROTATIONS, computeFluidAlignmentGuides(), FluidAlignmentGuide, placementEdges(), placementSize(), pushGuide(), snapFluidPlacement(), snapRotationToCardinals() (+65 more)
+Nodes (74): CARDINAL_ROTATIONS, computeFluidAlignmentGuides(), FluidAlignmentGuide, placementEdges(), placementSize(), pushGuide(), snapFluidPlacement(), snapRotationToCardinals() (+66 more)
 
 ### Community 87 - "Community 87"
 Cohesion: 0.08
@@ -1618,35 +1592,35 @@ Nodes (22): initialDate, CANCELLATIION_STEPS, RESCHEDULE_STEPS, ModifyAppointmen
 
 ### Community 88 - "Community 88"
 Cohesion: 0.05
-Nodes (43): appointmentNotificationAppointmentCountSchema, appointmentNotificationAppointmentCountTypeEnum, appointmentNotificationAtTimeSchema, appointmentNotificationChannelSchema, appointmentNotificationChannelsEnum, appointmentNotificationGeneralSchema, appointmentNotificationsAppDataSchema, appointmentNotificationSchema (+35 more)
+Nodes (41): appointmentNotificationAppointmentCountSchema, appointmentNotificationAppointmentCountType, appointmentNotificationAppointmentCountTypeEnum, appointmentNotificationAtTimeSchema, appointmentNotificationChannelSchema, appointmentNotificationChannelsEnum, appointmentNotificationGeneralSchema, appointmentNotificationsAppDataSchema (+33 more)
 
 ### Community 89 - "Community 89"
-Cohesion: 0.16
-Nodes (20): createOrUpdateIntent(), fetchPreview(), getInitOptions(), purchaseGiftCard(), STEPS, FetchPreviewPayload, fetchPreviewPayloadSchema, FetchPreviewResponse (+12 more)
+Cohesion: 0.10
+Nodes (29): GiftCardStudioReaders, GiftCardStudioBlocksSchema, createOrUpdateIntent(), fetchPreview(), getInitOptions(), purchaseGiftCard(), GiftCardPurchaseBlockConfiguration, GiftCardPurchaseBlockReader (+21 more)
 
 ### Community 90 - "Community 90"
-Cohesion: 0.07
-Nodes (19): getBlogPostReadMoreLinkBlock(), getLinkStyleDefaults(), InlineContainerPropsDefaults, getBlogComments(), BlogComment, BlogCommentEntity, BlogCommentListItem, BlogCommentStatus (+11 more)
+Cohesion: 0.06
+Nodes (24): getBlogPostReadMoreLinkBlock(), getLinkStyleDefaults(), InlineContainerPropsDefaults, deleteBlogPost(), getBlogComments(), BlogComment, BlogCommentEntity, BlogCommentListItem (+16 more)
 
 ### Community 91 - "Community 91"
 Cohesion: 0.06
 Nodes (30): 🚀 Advanced Features, App Store Modules (Built-in), Available Scripts, 💼 Business Management, Calendar Sync, Common Use Cases, Communication Channels, Contributing (+22 more)
 
 ### Community 92 - "Community 92"
-Cohesion: 0.04
-Nodes (44): AccordionContent, AccordionItem, AccordionTrigger, AlertModalProps, AutoSkeleton(), Avatar, AvatarFallback, AvatarImage (+36 more)
+Cohesion: 0.29
+Nodes (4): BreadcrumbItemProp, BreadcrumbItemProps, BreadcrumbsContext, BreadcrumbsContextProps
 
 ### Community 93 - "Community 93"
-Cohesion: 0.10
-Nodes (24): inputVariants, Caption, CaptionButton, CaptionTextarea, captionVariants, CommentAvatar(), CommentCreateForm(), CommentItem() (+16 more)
+Cohesion: 0.09
+Nodes (30): BlockSelection(), blockSelectionVariants, Caption, CaptionButton, CaptionTextarea, captionVariants, ColumnDragHandle, ColumnElement (+22 more)
 
 ### Community 94 - "Community 94"
 Cohesion: 0.15
 Nodes (5): CustomerAccessSettingsForm(), CustomerAuthFormValues, customerOtpAllowsEmail(), customerOtpAllowsPhone(), CustomerAuthService
 
 ### Community 95 - "Community 95"
-Cohesion: 0.06
-Nodes (38): isRequiredOptionTypes, AppointmentPackage, AppointmentPackageItem, AppointmentPackageItemInput, appointmentPackageItemSchema, AppointmentPackageListModel, appointmentPackageSchema, AppointmentPackageStatus (+30 more)
+Cohesion: 0.08
+Nodes (32): isRequiredOptionTypes, AppointmentPackage, AppointmentPackageItem, AppointmentPackageItemInput, appointmentPackageItemSchema, AppointmentPackageListModel, appointmentPackageSchema, AppointmentPackageStatus (+24 more)
 
 ### Community 96 - "Community 96"
 Cohesion: 0.05
@@ -1661,20 +1635,20 @@ Cohesion: 0.05
 Nodes (40): dependencies, @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities, @hacado/api-sdk, @hacado/builder, @hacado/i18n, @hacado/page-builder-base (+32 more)
 
 ### Community 99 - "Community 99"
-Cohesion: 0.15
-Nodes (15): EmailTemplate, ChangeEmailTemplate, EmailOtpChangeEmailTemplate, EmailOtpPasswordResetTemplate, EmailOtpVerificationTemplate, EmailVerificationTemplate, MembersReactivatedTemplate, TeamInvitationTemplate (+7 more)
+Cohesion: 0.13
+Nodes (18): EmailTemplates, EmailTemplate, ChangeEmailTemplate, EmailOtpChangeEmailTemplate, EmailOtpPasswordResetTemplate, EmailOtpVerificationTemplate, EmailVerificationTemplate, enEmailTemplates (+10 more)
 
 ### Community 100 - "Community 100"
-Cohesion: 0.06
-Nodes (43): createWorkspace(), CreateWorkspaceInput, workspaceInputSchema, AddOrUpdateAppButton(), ConnectedAppRow(), ConnectedAppRowProps, DeleteAppButton(), DeleteAppButtonProps (+35 more)
+Cohesion: 0.05
+Nodes (39): AddOrUpdateAppButton(), AddOrUpdateAppButtonProps, PaymentsTab(), PaymentsTab(), ConnectedAppRow(), ConnectedAppRowProps, DeleteAppButtonProps, AppsScope (+31 more)
 
 ### Community 101 - "Community 101"
-Cohesion: 0.15
-Nodes (14): MarketingFeaturesShowcaseConfiguration, allowFeature, chunk(), MarketingFeaturesShowcaseClient(), MarketingFeaturesShowcaseClientFeature, MarketingFeaturesShowcaseClientProps, MarketingFeaturesShowcaseProps, MarketingFeaturesShowcasePropsDefaults() (+6 more)
+Cohesion: 0.16
+Nodes (13): MarketingFeaturesShowcaseConfiguration, allowFeature, chunk(), MarketingFeaturesShowcaseClient(), MarketingFeaturesShowcaseClientFeature, MarketingFeaturesShowcaseClientProps, MarketingFeaturesShowcaseProps, MarketingFeaturesShowcasePropsSchema (+5 more)
 
 ### Community 102 - "Community 102"
-Cohesion: 0.03
-Nodes (138): DocumentOutlineItem, DocumentOutlineItemProps, OutlinePanel(), BuilderFullScreenProvider(), BuilderInternal(), BuilderProps, BuilderSidebarListener(), BuilderSidebarProvider() (+130 more)
+Cohesion: 0.05
+Nodes (58): BuilderFullScreenProvider(), BuilderInternal(), BuilderProps, BuilderSidebarListener(), BuilderSidebarProvider(), childrenPropertyToSlotKey(), childrenPropertyToStyleProperty(), EmbeddedSlotData (+50 more)
 
 ### Community 103 - "Community 103"
 Cohesion: 0.09
@@ -1689,20 +1663,20 @@ Cohesion: 0.05
 Nodes (41): dependencies, @aws-sdk/client-s3, bullmq, @hacado/app-store, @hacado/email-builder, @hacado/i18n, @hacado/logger, @hacado/types (+33 more)
 
 ### Community 106 - "Community 106"
-Cohesion: 0.09
-Nodes (33): AccordionClient(), AccordionConfiguration, AccordionContext, AccordionContextValue, AccordionProvider(), useAccordion(), allowOnly, AccordionItemInternal() (+25 more)
+Cohesion: 0.10
+Nodes (32): AccordionClient(), AccordionConfiguration, AccordionContext, AccordionContextValue, AccordionProvider(), useAccordion(), allowOnly, AccordionItemInternal() (+24 more)
 
 ### Community 107 - "Community 107"
-Cohesion: 0.15
-Nodes (28): Checkbox(), FormControl(), FormDescription(), FormField(), FormFieldContext, FormFieldContextValue, FormItem(), FormItemContext (+20 more)
+Cohesion: 0.54
+Nodes (7): FormControl(), FormField(), FormItem(), FormFieldDescription(), FormFieldErrorMessage, FormFieldLabel(), IFormFieldProps
 
 ### Community 108 - "Community 108"
-Cohesion: 0.03
-Nodes (97): BackgroundColorOpacitySchema, BaseRawNumberInputWithUnitsAndKeywordsProps, customKeyword, nullKeyword, RawNumberInputWithUnitsAndKeywords(), RawNumberInputWithUnitsAndKeywordsProps, RawNumberInputWithUnitsAndKeywordsPropsWithKeywords, RawNumberInputWithUnitsAndKeywordsPropsWithoutKeywords (+89 more)
+Cohesion: 0.04
+Nodes (63): parentLevels, StateSelectorProps, COLOR_NAMES, StateManager(), StateManagerProps, BlockStyle, defaultStyling, Props (+55 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.07
-Nodes (28): baseElementSchema, canvasBackgroundSchema, canvasSchema, designSchemaBase, DesignValue, ElementValue, gradientPaintSchema, groupElementSchema (+20 more)
+Cohesion: 0.06
+Nodes (34): DesignEditor(), DesignEditorProps, getDesignFromStore(), baseElementSchema, canvasBackgroundSchema, canvasSchema, designSchema, designSchemaBase (+26 more)
 
 ### Community 110 - "Community 110"
 Cohesion: 0.09
@@ -1713,8 +1687,8 @@ Cohesion: 0.05
 Nodes (38): dependencies, @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities, @hacado/builder, @hacado/i18n, @hacado/rte, @hacado/rte-inline (+30 more)
 
 ### Community 112 - "Community 112"
-Cohesion: 0.03
-Nodes (96): applyInstallPackStyling(), ApplyInstallPackStylingResult, applyInstallPersonalization(), installHexColor, InstallPersonalizationInput, installPersonalizationInputSchema, completeInstallSetup(), getInstallScheduleSnapshot() (+88 more)
+Cohesion: 0.07
+Nodes (42): applyInstallPackStyling(), applyInstallPersonalization(), completeInstallSetup(), installInviteModeSchema, InstallPreferences, installPreferencesSchema, saveInstallPreferences(), setInstallPreferencesInOrg() (+34 more)
 
 ### Community 113 - "Community 113"
 Cohesion: 0.09
@@ -1725,8 +1699,8 @@ Cohesion: 0.07
 Nodes (24): EmojiDropdownMenu(), EmojiDropdownMenuProps, emojiCategoryIcons, emojiSearchIcons, Button, EmojiButtonProps, EmojiPickerContent(), EmojiPickerContentProps (+16 more)
 
 ### Community 115 - "Community 115"
-Cohesion: 0.10
-Nodes (8): FilePreview(), FileField(), fileNameToMimeType(), BookingService, enrichEventSourceWithCustomerId(), historyActorFields(), getAppointmentBucket(), canUseMemberCalendarSources()
+Cohesion: 0.09
+Nodes (8): FilePreview(), FileField(), fileNameToMimeType(), BookingService, enrichEventSourceWithCustomerId(), historyActorFields(), getAppointmentBucket(), getCustomerBucket()
 
 ### Community 116 - "Community 116"
 Cohesion: 0.06
@@ -1749,16 +1723,16 @@ Cohesion: 0.11
 Nodes (16): CreateOrderRequestBody, CreateOrderResponse, ExperienceContext, Link, ListTransactionsResponse, ListTransactionsResult, PaymentSource, PaypalCartInfo (+8 more)
 
 ### Community 121 - "Community 121"
-Cohesion: 0.15
-Nodes (14): carouselChildrenAlignKeys, CarouselChildrenAlignSchema, carouselChildrenAlignToJustifyItemsMap, CarouselChildrenItemsPerSlideSchema, CarouselConfiguration, CarouselItemWrapper, CarouselProps, CarouselPropsSchema (+6 more)
+Cohesion: 0.16
+Nodes (13): carouselChildrenAlignKeys, CarouselChildrenAlignSchema, carouselChildrenAlignToJustifyItemsMap, CarouselChildrenItemsPerSlideSchema, CarouselConfiguration, CarouselItemWrapper, CarouselProps, CarouselReaderProps (+5 more)
 
 ### Community 122 - "Community 122"
-Cohesion: 0.09
-Nodes (19): logger, startServer(), GET(), GET(), GET(), AppointmentStatusToICalMethodMap, CalendarEventOptions, getEventCalendarContent() (+11 more)
+Cohesion: 0.12
+Nodes (9): GET(), GET(), resolveCustomerPackageStatus(), CustomerPackageEmailNotificationConnectedApp, GET(), getArguments(), templateSafeWithError(), getAdminUrl() (+1 more)
 
 ### Community 124 - "Community 124"
-Cohesion: 0.07
-Nodes (34): buttonClasses, ButtonProps, ButtonSize, buttonSizes, ButtonVariant, ButtonVariants, HeadingProps, ImageZoomProps (+26 more)
+Cohesion: 0.21
+Nodes (30): CarouselPropsDefaults(), buildBeforeAfterSection(), buildBento(), buildCarousel(), buildComparison(), buildCta(), buildFaq(), buildFeaturesShowcase() (+22 more)
 
 ### Community 125 - "Community 125"
 Cohesion: 0.06
@@ -1781,8 +1755,8 @@ Cohesion: 0.09
 Nodes (28): appsDir, args, cache, cachePath, __dirname, english, ensureAppLocaleFile(), ensureCoreLocaleFilename() (+20 more)
 
 ### Community 130 - "Community 130"
-Cohesion: 0.09
-Nodes (31): SquareApp, getApplePayDomainAssociation(), SquarePaymentRequestOptions, squarePrimaryPayButtonCss, SquareTokenizeResult, SquareLogo(), extractOrderSplit(), isCompletedSquarePayment() (+23 more)
+Cohesion: 0.12
+Nodes (18): SquareApp, SquarePaymentRequestOptions, squarePrimaryPayButtonCss, SquareTokenizeResult, SquareLogo(), SquareFormProps, squareInStoreSyncFields, squareMerchantDataSchema (+10 more)
 
 ### Community 131 - "Community 131"
 Cohesion: 0.16
@@ -1805,8 +1779,8 @@ Cohesion: 0.12
 Nodes (20): BoldToolbarButton(), ColorToolbarButton(), FloatingToolbar, FloatingToolbarProps, useRTEContext(), FONT_FAMILIES, FontFamilyToolbarButton(), FONT_WEIGHT_KEYS (+12 more)
 
 ### Community 136 - "Community 136"
-Cohesion: 0.16
-Nodes (15): BeforeAfterSlider(), BeforeAfterSliderProps, ComparisonHandle(), ComparisonItem(), containerAllowOnly, disable, inlineAllowOnly, NoImagesMessage() (+7 more)
+Cohesion: 0.11
+Nodes (20): BeforeAfterSlider(), BeforeAfterSliderProps, ComparisonHandle(), ComparisonItem(), containerAllowOnly, disable, inlineAllowOnly, NoImagesMessage() (+12 more)
 
 ### Community 137 - "Community 137"
 Cohesion: 0.12
@@ -1817,32 +1791,32 @@ Cohesion: 0.06
 Nodes (30): dependencies, framer-motion, @hacado/i18n, @hacado/rte, @hacado/ui, @hacado/ui-admin, lucide-react, react-dom (+22 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.15
-Nodes (18): useCommentsPagination(), requestBlogCommentsRefetch(), BlogPostCommentFormComponent(), BlogPostCommentFormComponentProps, BlogPostCommentFormConfiguration, BlogPostCommentFormEditorWrapper(), BlogPostCommentFormEditorWrapperProps, BlogPostCommentFormReader() (+10 more)
+Cohesion: 0.13
+Nodes (20): collectOrganizationUserIds(), invalidateOrganizationSessions(), emitSubscriptionStatusChangedEvent(), ALLOWED_STATUSES, isPolarSubscriptionStatusAllowed(), organizationHasInstallBillingAccess(), notifyOwnerOfMemberReactivations(), organizationIdFromPolarSubscriptionMetadata() (+12 more)
 
 ### Community 140 - "Community 140"
-Cohesion: 0.13
-Nodes (31): Label, labelVariants, TimePickerInput, TimePickerInputProps, TimePicker(), TimePickerDemoProps, convert12HourTo24Hour(), display12HourValue() (+23 more)
+Cohesion: 0.16
+Nodes (27): TimePickerInput, TimePickerInputProps, convert12HourTo24Hour(), display12HourValue(), getArrowByType(), getDateByType(), getDatePeriod(), getValid12Hour() (+19 more)
 
 ### Community 141 - "Community 141"
 Cohesion: 0.12
 Nodes (20): ButtonProps, ButtonPropsSchema, EMAIL_BRAND, addonsSelectedBlock(), buildBusinessFooterBlock(), buildEmailContentBlock(), BuildEmailContentBlockOptions, buildEmailContentBlocks() (+12 more)
 
 ### Community 142 - "Community 142"
-Cohesion: 0.07
-Nodes (34): ActivityActorDisplay, ActivityEntry, ActivityListItem, ActivityActorFilter, ActivityListQuery, ActivityRecord, ActivityTextField, ActivitySeverity (+26 more)
+Cohesion: 0.09
+Nodes (28): ActivityActorDisplay, ActivityEntry, ActivityListItem, ActivityActorFilter, ActivityListQuery, ActivityRecord, ActivityTextField, ActivitySeverity (+20 more)
 
 ### Community 143 - "Community 143"
-Cohesion: 0.05
-Nodes (55): Badge(), BadgeProps, badgeVariants, Button(), BaseComboboAsyncProps, ClearableComboboAsyncProps, ComboboAsyncProps, NonClearableComboboAsyncProps (+47 more)
+Cohesion: 0.02
+Nodes (150): withVariants(), AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter(), AlertDialogHeader(), AlertDialogOverlay (+142 more)
 
 ### Community 144 - "Community 144"
 Cohesion: 0.07
 Nodes (29): plugin, /docs-006, __comp, __context, /__docusaurus/debug-5ff, __comp, __context, /__docusaurus/debug/config-5ba (+21 more)
 
 ### Community 145 - "Community 145"
-Cohesion: 0.08
-Nodes (26): generateMetadata(), Props, generateMetadata(), Props, generateMetadata(), Props, generateMetadata(), Props (+18 more)
+Cohesion: 0.20
+Nodes (10): generateMetadata(), Props, UpdateTemplatePage(), getTemplate, TemplateFormPage(), getAllTemplates(), generateMetadata(), NewTemplatePage() (+2 more)
 
 ### Community 146 - "Community 146"
 Cohesion: 0.05
@@ -1850,46 +1824,46 @@ Nodes (41): AppointmentAddon, AppointmentAddonUpdateModel, AppointmentOption, Ap
 
 ### Community 147 - "Community 147"
 Cohesion: 0.08
-Nodes (24): BusyEventsApp, BusyEventsMenuItems, DefaultRequestType, GetWeeklyBusyEventsRequest, getWeeklyBusyEventsRequestSchema, GetWeeklyBusyEventsRequestType, RequestAction, requestActionSchema (+16 more)
+Nodes (23): BusyEventsMenuItems, DefaultRequestType, GetWeeklyBusyEventsRequest, getWeeklyBusyEventsRequestSchema, GetWeeklyBusyEventsRequestType, RequestAction, requestActionSchema, SetBusyEventsAction (+15 more)
 
 ### Community 148 - "Community 148"
 Cohesion: 0.13
 Nodes (14): CaldavApp, CaldavLogo(), CaldavAction, caldavActionSchema, CaldavCalendarSource, caldavCalendarSourceSchema, FetchActionType, SaveActionType (+6 more)
 
 ### Community 149 - "Community 149"
-Cohesion: 0.12
-Nodes (17): formatDate(), timeZones, FlowOrder, FlowType, getAppointmentBasePrice(), getAppointmentDiscountAmount(), getAppointmentDuration(), getAppointmentPrice() (+9 more)
+Cohesion: 0.09
+Nodes (24): AddonsCard(), formatDate(), timeZones, FlowOrder, FlowType, getAppointmentBasePrice(), getAppointmentDiscountAmount(), getAppointmentDuration() (+16 more)
 
 ### Community 150 - "Community 150"
 Cohesion: 0.05
-Nodes (36): AppointmentsPage(), Params, generateMetadata(), Props, generateMetadata(), generateMetadata(), Params, searchParams (+28 more)
+Nodes (34): AppointmentsPage(), generateMetadata(), Props, generateMetadata(), Params, searchParams, searchParamsCache, serialize (+26 more)
 
 ### Community 151 - "Community 151"
 Cohesion: 0.03
-Nodes (106): blogCommentFixtures, BlogReaders, BlogBlocksAllowedInFooter, BlogBlocksSchema, BlogBlocksType, BlogEditors, blogTextShortcuts, BlogTextToolbar() (+98 more)
+Nodes (99): blogCommentFixtures, blogPostFixtureAuthor, blogPostsListFixtures, getBlogConfiguration(), BlogReaders, BlogBlocksAllowedInFooter, BlogBlocksSchema, BlogBlocksType (+91 more)
 
 ### Community 152 - "Community 152"
 Cohesion: 0.07
-Nodes (61): useIsSelectedEmbeddedSlot(), splitTableCellSlotStyles(), TABLE_CELL_INNER_STYLE_KEYS, tableCellInnerClassName(), tableCellSlotStylesForSurface(), TableConfiguration, EMPTY_TABLE_PROPS, fillRowHeightsToRemaining() (+53 more)
+Nodes (61): splitTableCellSlotStyles(), TABLE_CELL_INNER_STYLE_KEYS, tableCellInnerClassName(), tableCellSlotStylesForSurface(), TableConfiguration, EMPTY_TABLE_PROPS, fillRowHeightsToRemaining(), measureTbodyAvailableHeightPx() (+53 more)
 
 ### Community 153 - "Community 153"
-Cohesion: 0.20
-Nodes (3): assertNonNegInt(), meterCreditUnitsForMeter(), PolarBillingService
+Cohesion: 0.08
+Nodes (18): APPOINTMENT_EVENT_DEFINITIONS, buildAppointmentLimitReachedEmails(), EMAIL_KEY_PREFIX, getOpenAppointmentsCreatedInBillingCycleCount(), getBillingPlanProductIdForTier(), getBillingPlanProductIdMap(), getPolarBillingPlansFromEnv(), LEGACY_PLAN_SLUG_ALIASES (+10 more)
 
 ### Community 154 - "Community 154"
-Cohesion: 0.14
-Nodes (21): BlogPostReadTimeComponent(), BlogPostReadTimeComponentProps, BlogPostReadTimeConfiguration, getFormatI18nKey(), getFormatPreview(), getReadingTimeLabel(), READ_TIME_FORMAT_KEYS, ReadTimeFormatKey (+13 more)
+Cohesion: 0.04
+Nodes (62): BlogCommentNavigationButtonComponentProps, BlogCommentNavigationButtonConfiguration, BlogCommentNavigationButtonEditorWrapperProps, BlogCommentNavigationButtonProps, BlogCommentNavigationButtonPropsSchema, BlogCommentNavigationButtonReaderProps, styles, zStyles (+54 more)
 
 ### Community 155 - "Community 155"
-Cohesion: 0.16
-Nodes (15): getAuthOptionsAction(), requestOtpAction(), verifyOtpAction(), AppointmentListResponse, AppointmentResponse, AppointmentSummaryResponse, AuthOptionsResponse, CheckSessionResponse (+7 more)
+Cohesion: 0.12
+Nodes (25): cabinetCall(), dismissCustomerWaitlistEntryAction(), getAppointmentByIdAction(), getAppointmentsAction(), getAppointmentsSummaryAction(), getCustomerMeAction(), getCustomerWaitlistEntriesAction(), getMyPackagesAction() (+17 more)
 
 ### Community 156 - "Community 156"
-Cohesion: 0.02
-Nodes (105): BeforeAfterReader(), ButtonReader(), CarouselReader(), withCn(), withProps(), BlogCommentNavigationButtonComponent(), BlogCommentNavigationButtonEditorWrapper(), CommunicationEntry() (+97 more)
+Cohesion: 0.01
+Nodes (167): InstalledAppsClient(), LastUsedBorderBadge(), SpecialistCard(), CarddavAppSetup(), withCn(), withProps(), BlogCommentNavigationButtonComponent(), BlogCommentNavigationButtonEditorWrapper() (+159 more)
 
 ### Community 157 - "Community 157"
-Cohesion: 0.13
+Cohesion: 0.12
 Nodes (17): CustomerEmailNotificationApp, CustomerEmailNotificationMenuItems, CustomerEmailNotificationConfiguration, customerEmailNotificationConfigurationSchema, EmailTemplateConfiguration, EmailTemplateKeys, EmailTemplates, emailTemplateSchema (+9 more)
 
 ### Community 158 - "Community 158"
@@ -1918,7 +1892,7 @@ Nodes (3): round2(), computeRemainingBalance(), SyncedPaymentsService
 
 ### Community 164 - "Community 164"
 Cohesion: 0.01
-Nodes (242): AppointmentsSettingsForm(), CancellationSection(), RescheduleSection(), GeneralTab(), CellAction(), CellActionProps, CellAction(), CellActionProps (+234 more)
+Nodes (271): AppointmentViewButtons(), AppointmentsSettingsForm(), CancellationSection(), RescheduleSection(), GeneralTab(), CellAction(), CellActionProps, CellAction() (+263 more)
 
 ### Community 165 - "Community 165"
 Cohesion: 0.13
@@ -1941,12 +1915,12 @@ Cohesion: 0.08
 Nodes (25): compilerOptions, baseUrl, declaration, declarationMap, esModuleInterop, forceConsistentCasingInFileNames, incremental, isolatedModules (+17 more)
 
 ### Community 170 - "Community 170"
-Cohesion: 0.15
-Nodes (12): Model, models, SettingsContext, SettingsContextType, SettingsDialog(), useSettings(), useChat(), AIChatEditor (+4 more)
+Cohesion: 0.10
+Nodes (17): Model, models, SettingsContext, SettingsContextType, SettingsDialog(), useSettings(), useChat(), AIChatEditor (+9 more)
 
 ### Community 171 - "Community 171"
-Cohesion: 0.10
-Nodes (12): GET(), GET(), GET(), GET(), GET(), Props, streamFile(), config (+4 more)
+Cohesion: 0.08
+Nodes (21): applyGiftCardsToPaymentAmount(), resolveAppointmentForModify(), processAppCall(), GET(), GET(), GET(), POST(), GET() (+13 more)
 
 ### Community 172 - "Community 172"
 Cohesion: 0.08
@@ -1965,8 +1939,8 @@ Cohesion: 0.08
 Nodes (25): Architecture, BullMQ Notification Sender App, Common Issues, Configuration, Crash Mode (Default), Deployment, Development, Docker (+17 more)
 
 ### Community 176 - "Community 176"
-Cohesion: 0.19
-Nodes (12): PopupConfiguration, allowOnly, disable, Popup(), overlayType, PopupProps, PopupReaderProps, showPopupType (+4 more)
+Cohesion: 0.18
+Nodes (13): PopupConfiguration, allowOnly, disable, Popup(), overlayType, PopupProps, PopupPropsDefaults(), PopupReaderProps (+5 more)
 
 ### Community 177 - "Community 177"
 Cohesion: 0.08
@@ -1977,8 +1951,8 @@ Cohesion: 0.13
 Nodes (16): SmartScheduleApp, SmartScheduleLogo(), SmartScheduleConfiguration, smartScheduleConfigurationSchema, SmartScheduleConnectedApp, getAvailableTimeSlotsWithPriority(), getSlotStartTimes(), mergeOverlappingPeriods() (+8 more)
 
 ### Community 179 - "Community 179"
-Cohesion: 0.24
-Nodes (9): MarketingScrollingLogosConfiguration, MarketingScrollingLogosProps, MarketingScrollingLogosPropsDefaults(), MarketingScrollingLogosPropsSchema, MarketingScrollingLogosReaderProps, marketingScrollingLogosShortcuts, styles, zStyles (+1 more)
+Cohesion: 0.07
+Nodes (37): AccordionItem(), BeforeAfterReader(), ButtonReader(), CarouselReader(), styles, GridContainerReader(), generateClassName(), InlineContainerReader() (+29 more)
 
 ### Community 180 - "Community 180"
 Cohesion: 0.08
@@ -1986,23 +1960,23 @@ Nodes (25): beauty, brow_artist, esthetician, hair_stylist, lash_technician, mak
 
 ### Community 181 - "Community 181"
 Cohesion: 0.05
-Nodes (39): dismissWaitlistEntry(), getWaitlistEntry(), CreateWaitlistEntryAction, createWaitlistEntryActionSchema, CreateWaitlistEntryActionType, CreateWaitlistEntryRequest, createWaitlistEntryRequestSchema, DismissWaitlistEntriesAction (+31 more)
+Nodes (45): dismissWaitlistEntry(), getWaitlistEntry(), WaitlistCardProps, CreateWaitlistEntryAction, createWaitlistEntryActionSchema, CreateWaitlistEntryActionType, CreateWaitlistEntryRequest, createWaitlistEntryRequestSchema (+37 more)
 
 ### Community 182 - "Community 182"
-Cohesion: 0.07
-Nodes (28): DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator (+20 more)
+Cohesion: 0.15
+Nodes (19): BlogPostCommentCountComponent(), BlogPostCommentCountComponentProps, BlogPostCommentCountConfiguration, BlogPostCommentCountEditorWrapper(), BlogPostCommentCountEditorWrapperProps, COMMENT_COUNT_FORMAT_KEYS, CommentCountFormatKey, CommentCountTranslateFn (+11 more)
 
 ### Community 183 - "Community 183"
-Cohesion: 0.09
-Nodes (28): insertBlock(), insertBlockMap, insertInlineElement(), insertInlineMap, setBlockMap, comboboxItemVariants, FilterFn, InlineCombobox() (+20 more)
+Cohesion: 0.15
+Nodes (20): comboboxItemVariants, FilterFn, InlineCombobox(), InlineComboboxContent(), InlineComboboxContext, InlineComboboxContextValue, InlineComboboxEmpty(), InlineComboboxGroup (+12 more)
 
 ### Community 184 - "Community 184"
 Cohesion: 0.08
 Nodes (23): dependencies, dotenv, @hacado/logger, @hacado/services, @hacado/types, devDependencies, esbuild, eslint (+15 more)
 
 ### Community 185 - "Community 185"
-Cohesion: 0.14
-Nodes (21): BlogPostAuthorComponent(), BlogPostAuthorComponentProps, BlogPostAuthorConfiguration, BlogPostAuthorEditorWrapper(), BlogPostAuthorEditorWrapperProps, AUTHOR_FORMAT_KEYS, AuthorFormatKey, AuthorFormatOption (+13 more)
+Cohesion: 0.15
+Nodes (20): BlogPostAuthorComponent(), BlogPostAuthorComponentProps, BlogPostAuthorConfiguration, BlogPostAuthorEditorWrapper(), BlogPostAuthorEditorWrapperProps, AUTHOR_FORMAT_KEYS, AuthorFormatKey, AuthorFormatOption (+12 more)
 
 ### Community 187 - "Community 187"
 Cohesion: 0.20
@@ -2013,12 +1987,12 @@ Cohesion: 0.09
 Nodes (10): BuiltInApps, getBuiltInAppData(), startBullMQJobProcessorApp(), BullMQJobService, BullMQJobWorker, BullMQHookJob, BullMQJobConfig, getBullMQJobConfig() (+2 more)
 
 ### Community 189 - "Community 189"
-Cohesion: 0.05
-Nodes (45): getCustomers(), getMember, getSession, PATCH(), schema, POST(), DELETE(), PUT() (+37 more)
+Cohesion: 0.04
+Nodes (57): getSession, Params, POST(), GET(), GET(), GET(), generateMetadata(), POST() (+49 more)
 
 ### Community 190 - "Community 190"
-Cohesion: 0.05
-Nodes (58): Props, CATALOG_SERIES, catalogPackBasePath(), catalogPagePath(), catalogPartsToPackId(), CatalogRoute, CatalogSeries, isCatalogInternalPath() (+50 more)
+Cohesion: 0.06
+Nodes (46): Props, CATALOG_SERIES, catalogPackBasePath(), catalogPagePath(), catalogPartsToPackId(), CatalogRoute, CatalogSeries, isCatalogInternalPath() (+38 more)
 
 ### Community 191 - "Community 191"
 Cohesion: 0.08
@@ -2029,20 +2003,20 @@ Cohesion: 0.08
 Nodes (25): dependencies, next-intl, yaml, devDependencies, @hacado/eslint-config, @hacado/typescript-config, typescript, exports (+17 more)
 
 ### Community 193 - "Community 193"
-Cohesion: 0.13
-Nodes (16): CurrencyPercentageInputProps, DataTableProps, DurationInputProps, sizes, FloatingInputProps, Input, InputProps, MaskedInputProps (+8 more)
+Cohesion: 0.23
+Nodes (8): DurationInputProps, sizes, FloatingInputProps, Input, InputProps, Mask, MaskedInput(), MaskedInputProps
 
 ### Community 194 - "Community 194"
-Cohesion: 0.08
-Nodes (22): AddonForm(), MemberOverrideCard(), MemberOverrideCardProps, StaffOverrides(), StaffOverridesProps, AddonSelectCard(), AddonSelectDragData, AddonSelectProps (+14 more)
+Cohesion: 0.13
+Nodes (23): buildInstallPaymentsConfiguration(), ensureDefaultInstallSchedule(), ensureInstallAppointmentNotificationDefaults(), ensureInstallBookingPaymentsDefaultAppsAndCancellations(), ensureInstallCustomerNotificationTemplates(), ensureInstallCustomerOtpTemplates(), ensureInstallDefaultApps(), ensureInstallDefaultConfigurations() (+15 more)
 
 ### Community 195 - "Community 195"
 Cohesion: 0.08
 Nodes (23): dependencies, @hacado/i18n, @hacado/ui, devDependencies, @hacado/eslint-config, @hacado/tailwind-config, @hacado/typescript-config, @types/node (+15 more)
 
 ### Community 196 - "Community 196"
-Cohesion: 0.03
-Nodes (69): FooterItem, MainNavItem, NavItem, NavItemGroup, NavItemWithChildren, NavItemWithOptionalChildren, SidebarNavItem, INeedsAttentionApp (+61 more)
+Cohesion: 0.04
+Nodes (56): FooterItem, MainNavItem, NavItem, NavItemGroup, NavItemWithChildren, NavItemWithOptionalChildren, SidebarNavItem, BillingConsumeSmsInput (+48 more)
 
 ### Community 197 - "Community 197"
 Cohesion: 0.19
@@ -2057,8 +2031,8 @@ Cohesion: 0.17
 Nodes (15): Block, DayScheduleSelectorProps, DragState, gridColsClasses, scheduleSourceBlockActiveClass, scheduleSourceBlockClass, Scheduler(), SimpleSchedulerProps (+7 more)
 
 ### Community 200 - "Community 200"
-Cohesion: 0.11
-Nodes (19): BookingProgressAnalyticsRepository, isDuplicateKeyError(), BuiltInBookingTrackingApp, ALL_BOOKING_STEPS, getAbandonedBookingsJobId(), getCountedEnteredKey(), getCountedStartedKey(), getRedisKey() (+11 more)
+Cohesion: 0.09
+Nodes (20): BuiltInBookingTrackingApp, ALL_BOOKING_STEPS, getAbandonedBookingsJobId(), getCountedEnteredKey(), getCountedStartedKey(), getRedisKey(), getSessionTrackingKeys(), getTerminalKey() (+12 more)
 
 ### Community 201 - "Community 201"
 Cohesion: 0.13
@@ -2261,20 +2235,20 @@ Cohesion: 0.09
 Nodes (22): description, draft, frontMatter, description, sidebar_position, id, next, permalink (+14 more)
 
 ### Community 251 - "Community 251"
-Cohesion: 0.04
-Nodes (56): BlocksPanel, BlocksPanelContent, BlocksPanelProps, DraggableBlockItem, DraggableBlockItemProps, BlocksPanelProps, BlocksSidebar, LayoutsPanel (+48 more)
+Cohesion: 0.05
+Nodes (42): BlocksPanel, BlocksPanelContent, BlocksPanelProps, DraggableBlockItem, DraggableBlockItemProps, BlocksPanelProps, BlocksSidebar, LayoutsPanel (+34 more)
 
 ### Community 252 - "Community 252"
-Cohesion: 0.12
-Nodes (22): baseUnitConfigs, formatUnitLabel(), NumberValueForUnit, selectValueToUnit(), unitAllowsDecimals(), UnitConfigMap, unitToSelectValue(), RawNumberInputWithUnit() (+14 more)
+Cohesion: 0.10
+Nodes (25): baseUnitConfigs, formatUnitLabel(), NumberValueForUnit, RawNumberInputWithUnit(), selectValueToUnit(), unitAllowsDecimals(), UnitConfigMap, unitToSelectValue() (+17 more)
 
 ### Community 253 - "Community 253"
-Cohesion: 0.06
-Nodes (33): deleteCustomDomain(), setCustomDomain(), addInstore(), cancelPaymentLink(), createPaymentLink(), deleteInstore(), exportPayments(), getPayment() (+25 more)
+Cohesion: 0.09
+Nodes (25): addInstore(), cancelPaymentLink(), createPaymentLink(), deleteInstore(), exportPayments(), getPayment(), getPaymentLinkUrl(), listPaymentLinkApps() (+17 more)
 
 ### Community 254 - "Community 254"
-Cohesion: 0.08
-Nodes (23): WaitlistCard(), WaitlistCardProps, WaitlistDate(), WaitlistStatus, BookingWithWaitlistConfiguration, WaitlistConfiguration, BookingWithWaitlistConfiguration, WaitlistConfiguration (+15 more)
+Cohesion: 0.12
+Nodes (18): BaseZodDictionary, BuilderSchema, CoreEditorBlock, templatePropsFromContext(), recursiveLoop(), templateProps(), Reader(), ReaderBlock() (+10 more)
 
 ### Community 255 - "Community 255"
 Cohesion: 0.09
@@ -2285,52 +2259,52 @@ Cohesion: 0.09
 Nodes (22): aliases, components, hooks, lib, ui, utils, iconLibrary, aliases (+14 more)
 
 ### Community 257 - "Community 257"
-Cohesion: 0.13
-Nodes (16): getOrganizationFullDomain, filterNavItemsForPermission(), NavItemWithPermission, collectNavPermissions(), EXTRA_PATH_PERMISSIONS, NavNode, resolveRequiredPermissionForPath(), isSubscriptionActiveOrTrialing() (+8 more)
+Cohesion: 0.09
+Nodes (21): getOrganizationFullDomain, filterNavItemsForPermission(), NavItemWithPermission, collectNavPermissions(), EXTRA_PATH_PERMISSIONS, NavNode, resolveRequiredPermissionForPath(), isSubscriptionActiveOrTrialing() (+13 more)
 
 ### Community 258 - "Community 258"
-Cohesion: 0.13
-Nodes (17): AvatarReader(), BaseColumnsContainer, getPaddingAfter(), getPaddingBefore(), Props, TableCell(), TColumn, ColumnsLayoutInputProps (+9 more)
+Cohesion: 0.25
+Nodes (9): BaseColumnsContainer, getPaddingAfter(), getPaddingBefore(), Props, TableCell(), TColumn, ColumnsContainerReader(), ColumnsContainerProps (+1 more)
 
 ### Community 259 - "Community 259"
-Cohesion: 0.10
-Nodes (18): getWebsiteUrl, CellActionProps, BreadcrumbsRender(), useBreadcrumbs(), Header(), HeaderHomeAware(), isSmsLinkShorteningEnabled(), LinkShorteningEnabledContext (+10 more)
+Cohesion: 0.16
+Nodes (10): isSmsLinkShorteningEnabled(), LinkShorteningEnabledContext, LinkShorteningEnabledProvider(), downloadOrSharePng(), isIos(), prefersNativeShare(), triggerFileDownload(), getShortPageUrl() (+2 more)
 
 ### Community 260 - "Community 260"
-Cohesion: 0.19
-Nodes (16): applyGiftCardsToPaymentAmount(), getModifyAppointmentInformationRequestResult(), resolveAppointmentForModify(), processAppCall(), CustomerSessionRequiredError, requireCustomerSession(), POST(), processCancelRequest() (+8 more)
+Cohesion: 0.12
+Nodes (15): inputVariants, popoverVariants, CommentAvatar(), CommentCreateForm(), CommentItem(), PlateCommentProps, CommentMoreDropdown(), CommentReplyItems() (+7 more)
 
 ### Community 261 - "Community 261"
 Cohesion: 0.09
 Nodes (22): services, tags, services, tags, services, tags, services, tags (+14 more)
 
 ### Community 262 - "Community 262"
-Cohesion: 0.27
-Nodes (13): AdminRecipient, buildNewPurchaseEmailNotifications(), GIFT_CARD_STUDIO_DESIGN_CREATED_EVENT_TYPE, GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE, GIFT_CARD_STUDIO_DESIGN_UPDATED_EVENT_TYPE, GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE, GIFT_CARD_STUDIO_PURCHASE_DELETED_EVENT_TYPE, GiftCardStudioDesignCreatedPayload (+5 more)
+Cohesion: 0.29
+Nodes (12): AdminRecipient, buildNewPurchaseEmailNotifications(), GIFT_CARD_STUDIO_DESIGN_CREATED_EVENT_TYPE, GIFT_CARD_STUDIO_DESIGN_DELETED_EVENT_TYPE, GIFT_CARD_STUDIO_DESIGN_UPDATED_EVENT_TYPE, GIFT_CARD_STUDIO_PURCHASE_CREATED_EVENT_TYPE, GIFT_CARD_STUDIO_PURCHASE_DELETED_EVENT_TYPE, GiftCardStudioDesignCreatedPayload (+4 more)
 
 ### Community 263 - "Community 263"
 Cohesion: 0.17
 Nodes (12): formatDate(), timeZones, CabinetModifyContextProps, Step, StepDirectionButton, StepType, useCabinetModifyContext(), CabinetModifySteps (+4 more)
 
 ### Community 264 - "Community 264"
-Cohesion: 0.13
-Nodes (10): EmailLayoutEditor(), EmailLayoutReader(), EmailLayoutProps, EmailLayoutPropsSchema, EmailLayoutReaderProps, getFontSize(), getStyles(), getPadding() (+2 more)
+Cohesion: 0.15
+Nodes (9): Button(), getButtonSizePadding(), getLinkStyles(), getRoundedCorners(), getWrapperStyles(), getFontSize(), getStyles(), getPadding() (+1 more)
 
 ### Community 266 - "Community 266"
-Cohesion: 0.12
-Nodes (17): createSmsTopupCheckoutSession(), createTopupInput, listSmsTopupProductOffers(), logger, parseCreditAmount(), pickPrimaryFixedPrice(), SmsTopupProductOffer, createCheckoutInputSchema (+9 more)
+Cohesion: 0.15
+Nodes (19): POST(), PUT(), ActiveStaffOption, AddonStaffOverride, addonStaffOverrideSchema, addonStaffOverridesSchema, effectiveAddonDuration(), effectiveAddonPrice() (+11 more)
 
 ### Community 267 - "Community 267"
-Cohesion: 0.10
-Nodes (21): bikini_wax-addon-beauty-1, bikini_wax-addon-waxing-2, underarm_wax-addon-beauty-1, waxing_specialist, description, name, description, name (+13 more)
+Cohesion: 0.06
+Nodes (31): bikini_wax-addon-beauty-1, bikini_wax-addon-waxing-2, full_body_wax-addon-beauty-1, full_body_wax-addon-waxing-2, underarm_wax-addon-beauty-1, waxing_specialist, description, name (+23 more)
 
 ### Community 268 - "Community 268"
 Cohesion: 0.18
 Nodes (9): ProcessOtherMembersAppointmentsField(), ProcessOtherMembersAppointmentsFieldProps, EmailNotificationApp, EmailNotificationConfiguration, emailNotificationConfigurationSchema, EmailNotificationConnectedApp, EmailNotificationAdminAllKeys, EmailNotificationAdminKeys (+1 more)
 
 ### Community 269 - "Community 269"
-Cohesion: 0.10
-Nodes (21): express_spray_tan-addon-beauty-1, full_body_spray_tan-addon-beauty-1, full_body_spray_tan-addon-tan-2, spray_tan_technician, description, name, addons, description (+13 more)
+Cohesion: 0.07
+Nodes (28): express_spray_tan-addon-beauty-1, full_body_spray_tan-addon-beauty-1, full_body_spray_tan-addon-tan-2, touch_up-addon-beauty-1, spray_tan_technician, description, name, addons (+20 more)
 
 ### Community 270 - "Community 270"
 Cohesion: 0.15
@@ -2354,7 +2328,7 @@ Nodes (19): checkGiftCardCodeUnique(), createGiftCard(), deleteGiftCard(), delet
 
 ### Community 275 - "Community 275"
 Cohesion: 0.07
-Nodes (40): BlockProvider, BlockProviderRegistry, resolveProviders(), PageBuilder, PageBuilderProps, PackThumbnail(), bookingSectionEditorTemplates, contentEditorTemplates (+32 more)
+Nodes (43): BlockProvider, BlockProviderRegistry, resolveProviders(), buildLayoutTemplate(), composeForKind(), getLayoutTemplateKey(), getPackLayoutBlocks(), LAYOUT_KINDS (+35 more)
 
 ### Community 276 - "Community 276"
 Cohesion: 0.26
@@ -2366,7 +2340,11 @@ Nodes (3): S3AssetsStorageService, S3Configuration, getS3Configuration()
 
 ### Community 278 - "Community 278"
 Cohesion: 0.16
-Nodes (18): activeAssignmentsForOption(), buildPackage(), buildService(), formatDurationMinutes(), formatPackageIncludedLabel(), formatPackagePriceLabel(), formatPackageSummary(), formatServiceDurationLabel() (+10 more)
+Nodes (20): activeAssignmentsForOption(), buildPackage(), buildService(), formatDurationMinutes(), formatOfferSummary(), formatPackageIncludedLabel(), formatPackagePriceLabel(), formatPackageSummary() (+12 more)
+
+### Community 279 - "Community 279"
+Cohesion: 0.09
+Nodes (16): CheckFormNameUniqueAction, CreateFormAction, CreateFormResponseAction, DeleteFormAction, DeleteFormResponseAction, DeleteSelectedFormResponsesAction, DeleteSelectedFormsAction, GetFormByIdAction (+8 more)
 
 ### Community 280 - "Community 280"
 Cohesion: 0.10
@@ -2381,12 +2359,12 @@ Cohesion: 0.10
 Nodes (19): devDependencies, eslint, eslint-config-next, eslint-config-prettier, eslint-config-turbo, eslint-plugin-only-warn, eslint-plugin-prettier, @next/eslint-plugin-next (+11 more)
 
 ### Community 283 - "Community 283"
-Cohesion: 0.18
-Nodes (6): EmailProvider, ResendService, ResendConfiguration, getResendConfiguration(), SmtpService, SmtpConfiguration
+Cohesion: 0.17
+Nodes (9): createDefaultEmailService(), EmailProvider, getEmailProvider(), ResendService, ResendConfiguration, getResendConfiguration(), SmtpService, SmtpConfiguration (+1 more)
 
 ### Community 284 - "Community 284"
-Cohesion: 0.21
-Nodes (10): Button(), BannerContext, BannerContextType, BannerProvider(), useCurrentBanner(), PopupContext, PopupContextType, PopupProvider() (+2 more)
+Cohesion: 0.05
+Nodes (32): Button(), Props, allowOnly, disable, ButtonReaderProps, ButtonType, buttonShortcuts, getButtonSizePadding() (+24 more)
 
 ### Community 285 - "Community 285"
 Cohesion: 0.09
@@ -2397,8 +2375,8 @@ Cohesion: 0.14
 Nodes (9): SpacerConfiguration, SpacerProps, SpacerPropsSchema, Spacer, SpacerReaderProps, spacerShortcuts, getDefaults(), styles (+1 more)
 
 ### Community 287 - "Community 287"
-Cohesion: 0.16
-Nodes (6): styles, containerShortcuts, styles, ForeachContainerToolbar(), ContainerConfiguration, ForeachContainerConfiguration
+Cohesion: 0.09
+Nodes (11): containerShortcuts, styles, ForeachContainerToolbar(), evaluate(), ConditionalContainerReader(), ForeachContainerReader(), ConditionalContainerReader(), ContainerConfiguration (+3 more)
 
 ### Community 288 - "Community 288"
 Cohesion: 0.15
@@ -2413,40 +2391,40 @@ Cohesion: 0.18
 Nodes (13): calculateExpiresAt(), fallbackRetentionDaysForOrg(), getBillingPlanProductIdMap(), isPermanentActivityType(), LEGACY_PLAN_SLUG_ALIASES, MISSING_EXPIRES_AT, MISSING_ORG_RETENTION, PERMANENT_PREFIXES (+5 more)
 
 ### Community 291 - "Community 291"
-Cohesion: 0.12
-Nodes (18): assertBookingCustomerAccess(), getAppointmentEventFromRequest(), getAppointmentEventAndIsPaymentRequired(), getCustomerCompletedAppointments(), GetIsPaymentRequiredReturnType, POST(), GET(), isClientTrackableBookingStep() (+10 more)
+Cohesion: 0.10
+Nodes (29): assertBookingCustomerAccess(), getAppointmentEventFromRequest(), getModifyAppointmentInformationRequestResult(), getAppointmentEventAndIsPaymentRequired(), getCustomerCompletedAppointments(), GetIsPaymentRequiredReturnType, getIntentBaseAmount(), getIntentTipAmount() (+21 more)
 
 ### Community 292 - "Community 292"
-Cohesion: 0.11
-Nodes (19): series_of_illustrations-addon-creative-1, creative, illustrator, photographer, videographer, description, name, label (+11 more)
+Cohesion: 0.12
+Nodes (16): custom_illustration_single-addon-creative-1, custom_illustration_single-addon-illustration-2, series_of_illustrations-addon-creative-1, description, name, description, name, addons (+8 more)
 
 ### Community 293 - "Community 293"
-Cohesion: 0.20
-Nodes (7): createDefaultEmailService(), getEmailProvider(), NotificationJobData, BullMQNotificationWorker, getSmtpConfiguration(), handlePlatformTextbeltWebhook(), getTextBeltConfiguration()
+Cohesion: 0.24
+Nodes (3): NotificationJobData, BullMQNotificationWorker, getTextBeltConfiguration()
 
 ### Community 294 - "Community 294"
-Cohesion: 0.05
-Nodes (58): PaymentsTab(), GeneralTab(), PaymentsTab(), InstalledAppsClient(), FeatureUpgradeHint(), CarddavAppSetup(), BookingPaymentTips(), BookingPaymentTipsProps (+50 more)
+Cohesion: 0.06
+Nodes (32): AddonForm(), MemberOverrideCard(), MemberOverrideCardProps, StaffOverrides(), StaffOverridesProps, generateMetadata(), GeneralTab(), CellAction() (+24 more)
 
 ### Community 295 - "Community 295"
 Cohesion: 0.29
 Nodes (7): TextMessageAutoReplyApp, TextMessageAutoReplyConfiguration, textMessageAutoReplyConfigurationSchema, TextMessageAutoReplyConnectedApp, TextMessageAutoReplyAdminAllKeys, TextMessageAutoReplyAdminKeys, TextMessageAutoReplyAdminNamespace
 
 ### Community 296 - "Community 296"
-Cohesion: 0.14
-Nodes (16): BlogPostAuthor, fetchBlogAuthorMemberName(), getBlogAuthorMemberName, inflightKey(), inflightMemberNames, resolveAuthorName(), resolveAuthorNameFromPost(), resolveAuthorNameFromPostAsync() (+8 more)
+Cohesion: 0.15
+Nodes (15): fetchBlogAuthorMemberName(), getBlogAuthorMemberName, inflightKey(), inflightMemberNames, resolveAuthorName(), resolveAuthorNameFromPost(), resolveAuthorNameFromPostAsync(), getPostAuthorName() (+7 more)
 
 ### Community 297 - "Community 297"
-Cohesion: 0.13
-Nodes (17): canUseFeature(), isFreeTier(), AppScriptRenderer(), Styling(), RootLayout(), ToastFromQuery(), getColorsCss(), fnv1a32() (+9 more)
+Cohesion: 0.06
+Nodes (22): deepEqual(), AppointmentStatusToICalMethodMap, CalendarEventOptions, getEventCalendarContent(), getIcsSequence(), demoAppointment, proxyHandler, fnv1a32() (+14 more)
 
 ### Community 298 - "Community 298"
 Cohesion: 0.12
 Nodes (16): buildCatalogTree(), catalogBlock, { categories, tags, professions }, __dirname, en, enSource, installEnObj, installEnYaml (+8 more)
 
 ### Community 300 - "Community 300"
-Cohesion: 0.10
-Nodes (20): resolveCustomerPackageStatus(), CustomerPackageEmailNotificationApp, demoCustomerPackage, demoPackageEmailArguments, now, CustomerPackageEmailNotificationMenuItems, CustomerPackageEmailNotificationConfiguration, customerPackageEmailNotificationConfigurationSchema (+12 more)
+Cohesion: 0.14
+Nodes (18): CustomerPackageEmailNotificationApp, demoCustomerPackage, demoPackageEmailArguments, now, CustomerPackageEmailNotificationMenuItems, CustomerPackageEmailNotificationConfiguration, customerPackageEmailNotificationConfigurationSchema, CustomerPackageEmailNotificationJobPayload (+10 more)
 
 ### Community 301 - "Community 301"
 Cohesion: 0.09
@@ -2454,15 +2432,15 @@ Nodes (21): GetWeeklyScheduleRequest, getWeeklyScheduleRequestSchema, GetWeeklyS
 
 ### Community 302 - "Community 302"
 Cohesion: 0.13
-Nodes (13): designSchema, DesignModel, designSchemaBase, DesignUpdateModel, getDesignSchemaWithUniqueCheck(), GetDesignsQuery, getDesignsQuerySchema, deliveryStatusEnum (+5 more)
+Nodes (13): demoPurchasedGiftCard, DesignModel, designSchemaBase, DesignUpdateModel, getDesignSchemaWithUniqueCheck(), GetDesignsQuery, getDesignsQuerySchema, deliveryStatusEnum (+5 more)
 
 ### Community 303 - "Community 303"
 Cohesion: 0.19
 Nodes (18): TransformConfiguration(), translateOptions, renderTransformFunctionValue(), getDefaultFunctionValues(), getFixedFunctionUnit(), getFunctionValueCount(), isTransformFunctionWithUnits(), TransformFunctionKey (+10 more)
 
 ### Community 304 - "Community 304"
-Cohesion: 0.04
-Nodes (60): GET(), GET(), CommunicationLogsPage(), generateMetadata(), Params, Page(), NewAssetsPage(), FinancialsIndexPage() (+52 more)
+Cohesion: 0.05
+Nodes (64): POST(), GET(), redirectIfFeatureUnavailable(), flattenCatalogOptionIds(), DashboardKpiSection(), Page(), DiscountsLayout(), NewAssetsPage() (+56 more)
 
 ### Community 305 - "Community 305"
 Cohesion: 0.17
@@ -2482,26 +2460,26 @@ Nodes (16): buildCreateOptions(), createIndexesFromSpecs(), down(), dropIndexesN
 
 ### Community 310 - "Community 310"
 Cohesion: 0.07
-Nodes (21): buildAppointmentLimitReachedEmails(), EMAIL_KEY_PREFIX, getOpenAppointmentsCreatedInBillingCycleCount(), getBillingPlanProductIdForTier(), getBillingPlanProductIdMap(), getPolarBillingPlansFromEnv(), LEGACY_PLAN_SLUG_ALIASES, PolarBillingPlanDef (+13 more)
+Nodes (15): BookingProgressAnalyticsRepository, isDuplicateKeyError(), BaseService, communicationLogHasPayloadData(), communicationLogPayloadFilename(), CommunicationLogSearchable, CommunicationLogsService, communicationLogTextPreview() (+7 more)
 
 ### Community 311 - "Community 311"
-Cohesion: 0.14
-Nodes (17): GET(), Props, GET(), GET(), generateSiteMap(), GET(), getSitemapProviderService(), SITEMAP_ITEMS_PROVIDER_SCOPE (+9 more)
+Cohesion: 0.17
+Nodes (16): GET(), Props, GET(), GET(), generateSiteMap(), GET(), getSitemapProviderService(), SITEMAP_ITEMS_PROVIDER_SCOPE (+8 more)
 
 ### Community 312 - "Community 312"
-Cohesion: 0.06
-Nodes (25): FontFamily, FontWeight, Padding, Styles, TextAlign, zColorNullable, zFontFamily, zFontSize (+17 more)
+Cohesion: 0.08
+Nodes (20): FontFamily, FontWeight, Padding, Styles, TextAlign, zColorNullable, zFontFamily, zFontSize (+12 more)
 
 ### Community 313 - "Community 313"
-Cohesion: 0.14
-Nodes (12): ImageLightbox, ImagePositionEditorProps, ImageReaderProps, imageShortcuts, getDefaults(), ImageStylesSchema, styles, zStyles (+4 more)
+Cohesion: 0.09
+Nodes (22): ImageLightbox, ImagePositionEditorProps, ImageReaderProps, imageShortcuts, getDefaults(), ImageStylesSchema, styles, zStyles (+14 more)
 
 ### Community 314 - "Community 314"
 Cohesion: 0.13
-Nodes (17): AmountFormatted, DateTimeFormatted, formatArguments(), FormattedArguments, isDate(), isLuxonDateTime(), looksLikePostalAddress(), POSTAL_ADDRESS_KEYS (+9 more)
+Nodes (16): AmountFormatted, DateTimeFormatted, FormattedArguments, isDate(), isLuxonDateTime(), looksLikePostalAddress(), POSTAL_ADDRESS_KEYS, processObject() (+8 more)
 
 ### Community 315 - "Community 315"
-Cohesion: 0.23
+Cohesion: 0.24
 Nodes (13): checkUniqueName(), create(), deleteAppointmentNotification(), deleteSelectedAppointmentNotifications(), getAppointmentNotification(), getAppointmentNotifications(), getAppointmentNotificationsAppData(), logger() (+5 more)
 
 ### Community 316 - "Community 316"
@@ -2509,12 +2487,12 @@ Cohesion: 0.20
 Nodes (13): chunkPlateValueByTopLevelBlocks(), PlateStaticFastRenderer, blockToPlainTextBlocks(), captionText(), flattenRootBlocks(), HEADING_TYPE_SET, isListBlock(), isUnorderedListStyle() (+5 more)
 
 ### Community 317 - "Community 317"
-Cohesion: 0.20
-Nodes (18): buildPageJsonLd(), buildSiteJsonLd(), businessId(), DAY_NAMES, JsonLdGraph, loadSiteJsonLd(), offerForCatalogOffer(), offerForPackage() (+10 more)
+Cohesion: 0.16
+Nodes (20): buildPageJsonLd(), buildSiteJsonLd(), businessId(), DAY_NAMES, JsonLdGraph, jsonLdScriptContent(), loadSiteJsonLd(), offerForCatalogOffer() (+12 more)
 
 ### Community 318 - "Community 318"
-Cohesion: 0.06
-Nodes (45): POST(), PUT(), BookingLocks, shouldSkipLockedMemberStep(), shouldSkipLockedServiceStep(), ActiveStaffOption, AddonStaffOverride, addonStaffOverrideSchema (+37 more)
+Cohesion: 0.07
+Nodes (42): BookingLocks, shouldSkipLockedMemberStep(), shouldSkipLockedServiceStep(), getActiveStaffAcrossAssignments(), PublicStaffMember, FlowType, getBookingSteps(), getSteps() (+34 more)
 
 ### Community 319 - "Community 319"
 Cohesion: 0.21
@@ -2530,7 +2508,7 @@ Nodes (16): aliases, components, hooks, lib, ui, utils, rsc, $schema (+8 more)
 
 ### Community 322 - "Community 322"
 Cohesion: 0.10
-Nodes (23): formsBaseFieldSchema, FormsField, FormsFieldData, FormsFieldFileData, FormsFieldMultiSelectData, FormsFieldOptionsData, FormsFields, FormsFieldSchema (+15 more)
+Nodes (22): formsBaseFieldSchema, FormsField, FormsFieldData, FormsFieldFileData, FormsFieldMultiSelectData, FormsFieldOptionsData, FormsFields, FormsFieldSchema (+14 more)
 
 ### Community 323 - "Community 323"
 Cohesion: 0.11
@@ -2541,8 +2519,8 @@ Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 325 - "Community 325"
-Cohesion: 0.21
-Nodes (8): allowOnly, HeadingReaderProps, headingShortcuts, getDefaults(), getFontSize(), styles, HeadingConfiguration, Heading()
+Cohesion: 0.14
+Nodes (11): allowOnly, HeadingReaderProps, headingShortcuts, getDefaults(), getFontSize(), styles, zStyles, HeadingConfiguration (+3 more)
 
 ### Community 326 - "Community 326"
 Cohesion: 0.27
@@ -2553,8 +2531,8 @@ Cohesion: 0.18
 Nodes (10): MyCabinetReaders, MyCabinetBlocks, MyCabinetBlocksSchema, MyCabinetEditors, MyCabinetBlockConfiguration, MyCabinetBlockReader(), MyCabinetBlockProps, MyCabinetBlockPropsSchema (+2 more)
 
 ### Community 328 - "Community 328"
-Cohesion: 0.24
-Nodes (14): formatOfferSummary(), buildHeader(), buildLlmsFullTxt(), buildLlmsTxt(), formatContactProse(), formatHoursProse(), formatIndustryProse(), formatSocialProse() (+6 more)
+Cohesion: 0.23
+Nodes (13): buildHeader(), buildLlmsFullTxt(), buildLlmsTxt(), formatContactProse(), formatHoursProse(), formatIndustryProse(), formatSocialProse(), formatTeamProse() (+5 more)
 
 ### Community 329 - "Community 329"
 Cohesion: 0.12
@@ -2573,24 +2551,24 @@ Cohesion: 0.13
 Nodes (11): packageCancelledEmailTemplate, packageExhaustedEmailTemplate, packageExpiredEmailTemplate, packageExpiringSoonEmailTemplate, packagePurchasedEmailTemplate, CustomerPackageEmailNotificationTemplates, packageCancelledEmailTemplate, packageExhaustedEmailTemplate (+3 more)
 
 ### Community 333 - "Community 333"
-Cohesion: 0.08
-Nodes (24): classic_lash_extensions-addon-beauty-1, classic_lash_extensions-addon-lashes-2, lash_fill-addon-beauty-1, lash_fill-addon-lashes-2, lash_technician, description, name, description (+16 more)
+Cohesion: 0.06
+Nodes (34): classic_lash_extensions-addon-beauty-1, classic_lash_extensions-addon-lashes-2, lash_fill-addon-beauty-1, lash_fill-addon-lashes-2, volume_lash_extensions-addon-beauty-1, volume_lash_extensions-addon-lashes-2, lash_technician, description (+26 more)
 
 ### Community 334 - "Community 334"
-Cohesion: 0.19
-Nodes (8): proxy, containsAdminApi(), containsAdminAuthApi(), containsAdminDashboard(), withAuth(), withPolarWebhooks(), API_FEATURE_RULES, withSubscriptionPlanGate()
+Cohesion: 0.09
+Nodes (18): { POST, GET }, auth, config, proxy, createCheckoutInputSchema, createPolarCheckoutSession(), resolveAppOrigin(), createPolarBillingPortalSession() (+10 more)
 
 ### Community 335 - "Community 335"
-Cohesion: 0.08
-Nodes (22): AssetPreview(), AssetPreviewProps, AssetPreviewSizes, AssetImageConstraints, AssetSelectorInput(), AssetSelectorInputProps, parseAcceptList(), AssetSelectorDialog() (+14 more)
+Cohesion: 0.04
+Nodes (36): AssetPreview(), AssetPreviewProps, AssetPreviewSizes, AssetImageConstraints, AssetSelectorInput(), AssetSelectorInputProps, parseAcceptList(), AssetSelectorDialog() (+28 more)
 
 ### Community 336 - "Community 336"
 Cohesion: 0.22
 Nodes (8): compilerOptions, composite, jsx, skipLibCheck, exclude, files, references, $schema
 
 ### Community 337 - "Community 337"
-Cohesion: 0.13
-Nodes (20): HeadingPropsDefaults(), MarketingFeatureItemConfiguration, SLOT_KEYS, allowHeading, MarketingFeatureItemReader(), bulletRow(), heading(), MarketingFeatureItemProps (+12 more)
+Cohesion: 0.18
+Nodes (12): MarketingFeatureItemConfiguration, SLOT_KEYS, allowHeading, MarketingFeatureItemProps, MarketingFeatureItemPropsSchema, MarketingFeatureItemReaderProps, SLOT_KEYS, zSlot (+4 more)
 
 ### Community 338 - "Community 338"
 Cohesion: 0.29
@@ -2605,8 +2583,8 @@ Cohesion: 0.15
 Nodes (7): Textarea, TextareaProps, useAutoResizeTextarea(), mergeRefs(), childToString(), transformChildrenToString(), formatJsx()
 
 ### Community 341 - "Community 341"
-Cohesion: 0.18
-Nodes (21): AppleIcon(), generateImageMetadata(), generateImageMetadata(), Icon(), GET(), generateMetadata(), assetPathFromFavicon(), buildSiteIconsMetadata() (+13 more)
+Cohesion: 0.19
+Nodes (20): AppleIcon(), generateImageMetadata(), generateImageMetadata(), Icon(), GET(), generateMetadata(), assetPathFromFavicon(), buildSiteIconsMetadata() (+12 more)
 
 ### Community 342 - "Community 342"
 Cohesion: 0.13
@@ -2629,20 +2607,20 @@ Cohesion: 0.16
 Nodes (6): getPaypalTransactionSyncSchedulerId(), CaptureOrderRequest, CreateOrderRequest, PaypalConfiguration, PaypalJobPayload, PaypalConnectedApp
 
 ### Community 347 - "Community 347"
-Cohesion: 0.22
-Nodes (11): LinkConfiguration, allowOnly, LinkProps, LinkPropsDefaults(), LinkPropsSchema, LinkReaderProps, linkShortcuts, getDefaults() (+3 more)
+Cohesion: 0.23
+Nodes (10): LinkConfiguration, allowOnly, LinkProps, LinkPropsSchema, LinkReaderProps, linkShortcuts, getDefaults(), styles (+2 more)
 
 ### Community 348 - "Community 348"
 Cohesion: 0.24
-Nodes (11): IconConfiguration, IconProps, IconPropsSchema, IconReaderProps, iconsEnum, iconShortcuts, getDefaults(), IconStylesSchema (+3 more)
+Nodes (11): IconConfiguration, Icon(), IconProps, IconReaderProps, iconsEnum, iconShortcuts, getDefaults(), IconStylesSchema (+3 more)
 
 ### Community 349 - "Community 349"
-Cohesion: 0.18
-Nodes (11): FormFieldCardProps, FormFieldDragData, FormFieldType, fileTypes, FormFieldEditor(), FormsFieldType, formsFieldTypes, formSchemaBase (+3 more)
+Cohesion: 0.17
+Nodes (12): FormFieldCardProps, FormFieldDragData, FormFieldType, fileTypes, FormFieldEditor(), FormsFieldType, formsFieldTypes, formSchemaBase (+4 more)
 
 ### Community 350 - "Community 350"
 Cohesion: 0.07
-Nodes (32): AnswerFields, FormSelector(), FormFieldDef, ResponseForm(), SelectFormDialog(), checkFormNameUnique(), createForm(), createFormResponse() (+24 more)
+Nodes (36): AnswerFields, FormSelector(), FormFieldDef, ResponseForm(), SelectFormDialog(), checkFormNameUnique(), createForm(), createFormResponse() (+28 more)
 
 ### Community 351 - "Community 351"
 Cohesion: 0.43
@@ -2653,24 +2631,24 @@ Cohesion: 0.05
 Nodes (35): readCookieValue(), CustomerAuthError, buildPaymentPaidEmailNotifications(), PaidEmailContext, PaidEmailRecipient, customerEventSource(), PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE, PaymentLinksPaymentPaidEvent (+27 more)
 
 ### Community 353 - "Community 353"
-Cohesion: 0.07
-Nodes (25): evaluate(), ConditionalContainerReader(), ForeachContainerReader(), ConditionalContainerReader(), afterAllRemoval, afterArrayRemoval, afterPracticalRemoval, afterRemoval (+17 more)
+Cohesion: 0.12
+Nodes (19): readNestedModifier(), syncDragIntoNestedModifier(), getActiveOverBlockContext(), useActiveOverBlock(), useBlockDepth(), useSetActiveDragBlockId(), useSetActiveOverBlockContextId(), ViewportSize (+11 more)
 
 ### Community 354 - "Community 354"
 Cohesion: 0.08
 Nodes (23): dependencies, dotenv, @hacado/logger, @hacado/services, @hacado/utils, devDependencies, esbuild, eslint (+15 more)
 
 ### Community 355 - "Community 355"
-Cohesion: 0.10
-Nodes (13): cursorKeys, CursorSchema, HideSchema, effectsStyles, overflowKeys, OverflowSchema, pointerEventsKeys, PointerEventsSchema (+5 more)
+Cohesion: 0.26
+Nodes (16): ConfigurationPanel(), renderMessage(), BaseBlockProps, useBlock(), useBlocks(), useDispatchAction(), useInspectBlockId(), useRootBlock() (+8 more)
 
 ### Community 356 - "Community 356"
 Cohesion: 0.14
 Nodes (7): buildWeekException(), scheduleToExceptionDays(), eachOfInterval(), hasSame(), is12hourUserTimeFormat(), REFERENCE_DATE, weeks
 
 ### Community 357 - "Community 357"
-Cohesion: 0.14
-Nodes (14): microdermabrasion-addon-beauty-1, microdermabrasion-addon-skin-2, esthetician, label, services, tags, description, name (+6 more)
+Cohesion: 0.08
+Nodes (24): description, name, description, name, addons, description, name, acne_treatment-addon-beauty-1 (+16 more)
 
 ### Community 358 - "Community 358"
 Cohesion: 0.14
@@ -2705,24 +2683,24 @@ Cohesion: 0.13
 Nodes (15): addFiles(), changeStatus(), createAppointment(), getAppointment(), getAppointmentHistory(), getAppointmentPayments(), getAppointments(), reschedule() (+7 more)
 
 ### Community 366 - "Community 366"
-Cohesion: 0.11
-Nodes (18): discovery_session-addon-coaching-1, discovery_session-addon-personal-2, label, tags, coaching, career_coach, life_coach, description (+10 more)
+Cohesion: 0.07
+Nodes (28): coaching_session-addon-coaching-1, coaching_session-addon-personal-2, discovery_session-addon-coaching-1, discovery_session-addon-personal-2, label, tags, coaching, business_coach (+20 more)
 
 ### Community 367 - "Community 367"
 Cohesion: 0.16
 Nodes (6): PexelsPhotoApi, PexelsPhotosSearchResponse, PexelsService, PexelsVideoApi, PexelsVideoFileApi, PexelsVideosSearchResponse
 
 ### Community 368 - "Community 368"
-Cohesion: 0.11
-Nodes (6): AppointmentNotificationUpdateModel, GetAppointmentNotificationsAction, RequestAction, requestActionSchema, AppointmentNotificationsRepository, AppointmentNotificationsConnectedApp
+Cohesion: 0.20
+Nodes (4): AppointmentNotificationUpdateModel, GetAppointmentNotificationsAction, requestActionSchema, AppointmentNotificationsRepository
 
 ### Community 369 - "Community 369"
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 370 - "Community 370"
-Cohesion: 0.18
-Nodes (13): cabinetCall(), dismissCustomerWaitlistEntryAction(), getAppointmentsAction(), getAppointmentsSummaryAction(), getCustomerMeAction(), getCustomerWaitlistEntriesAction(), getMyPackagesAction(), getPastAppointmentsAction() (+5 more)
+Cohesion: 0.12
+Nodes (16): adjustCustomerPackage(), createPackage(), deletePackage(), getCustomerPackages(), getEligibleCustomerPackages(), getPackage(), getPackages(), sellPackage() (+8 more)
 
 ### Community 371 - "Community 371"
 Cohesion: 0.14
@@ -2781,8 +2759,8 @@ Cohesion: 0.15
 Nodes (15): checkDiscountNameAndCode(), createDiscount(), deleteDiscount(), deleteDiscounts(), getDiscounts(), updateDiscount(), DiscountsPage(), checkDiscountNameAndCodeParamsLoader (+7 more)
 
 ### Community 387 - "Community 387"
-Cohesion: 0.16
-Nodes (16): FlowType, getSteps(), FlowOrder, getAppointmentBasePrice(), getAppointmentDiscountAmount(), getAppointmentDuration(), getAppointmentPrice(), ScheduleContext (+8 more)
+Cohesion: 0.25
+Nodes (9): fetchWaitlistOffer(), BookingOtpDialogProps, WaitlistOfferPrefill, ScheduleProps, AppointmentsProps, ScheduleProps, isWaitlistOfferSlotAvailable(), offerSlotToUtc() (+1 more)
 
 ### Community 388 - "Community 388"
 Cohesion: 0.15
@@ -2797,12 +2775,12 @@ Cohesion: 0.23
 Nodes (14): action(), assignSyncedPayment(), confirmAllMatchedSyncedPayments(), confirmSyncedPayment(), getSyncedPayment(), ignoreSyncedPayment(), listSyncedPayments(), reassignSyncedPayment() (+6 more)
 
 ### Community 391 - "Community 391"
-Cohesion: 0.22
-Nodes (6): BullMQEventService, BullMQEventConfig, BullMQEventWorker, EVENT_DEFINITIONS, getBullMQEventConfig(), eventHandlers
+Cohesion: 0.08
+Nodes (14): BaseBullMQClient, QueueJobData, getRedisClient(), BullMQConfig, getBullMQBaseConfig(), Client, getDashboardNotificationRealtimeBroker(), RedisDashboardNotificationPublisher (+6 more)
 
 ### Community 392 - "Community 392"
-Cohesion: 0.23
-Nodes (7): AutomaticStructuredDataApp, AutomaticStructuredDataLogo(), AutomaticStructuredDataConnectedApp, jsonLdScriptContent(), AutomaticStructuredDataAdminAllKeys, AutomaticStructuredDataAdminKeys, AutomaticStructuredDataAdminNamespace
+Cohesion: 0.16
+Nodes (13): checkCustomerUniqueEmailAndPhone(), createCustomer(), deleteCustomer(), deleteCustomers(), getCustomer(), getCustomers(), mergeCustomers(), updateCustomer() (+5 more)
 
 ### Community 393 - "Community 393"
 Cohesion: 0.17
@@ -2817,36 +2795,36 @@ Cohesion: 0.17
 Nodes (11): Appointments, Communication logs, Customers, Dashboard home, Form responses, Hand off to everyday reference, Incoming bookings, Inquiries and waitlist (+3 more)
 
 ### Community 396 - "Community 396"
-Cohesion: 0.21
-Nodes (10): LightboxConfiguration, LightboxContext, LightboxInternalContext, LightboxProvider(), Lightbox(), LightboxReader(), LightboxProps, LightboxPropsSchema (+2 more)
+Cohesion: 0.20
+Nodes (11): PlateEditor, PlateEditorProps, PlateMarkdownEditor(), PlateMarkdownEditorProps, AbsoluteUrlContext, Editor, EditorContainer(), editorContainerVariants (+3 more)
 
 ### Community 397 - "Community 397"
 Cohesion: 0.20
 Nodes (5): AppointmentNotificationsJobProcessor, getJobKey(), AppointmentNotificationsJobPayload, calculateAppointmentNotificationTime(), compareAppointmentCount()
 
 ### Community 398 - "Community 398"
-Cohesion: 0.07
-Nodes (38): rememberPreferredWebsitePack(), buildPreviewChromeArgs(), parsePreviewHeaderParam(), PreviewChrome(), PreviewChromeProps, PreviewHeaderVariant, blockNavigation(), InstallLayoutPreviewClient() (+30 more)
+Cohesion: 0.13
+Nodes (22): buildPreviewChromeArgs(), parsePreviewHeaderParam(), PreviewChrome(), PreviewChromeProps, PreviewHeaderVariant, blockNavigation(), InstallLayoutPreviewClient(), isNavigatingControl() (+14 more)
 
 ### Community 399 - "Community 399"
-Cohesion: 0.23
-Nodes (11): VideoConfiguration, VideoProps, VideoReaderProps, videoShortcuts, getDefaults(), styles, VideoStylesSchema, zStyles (+3 more)
+Cohesion: 0.21
+Nodes (12): VideoConfiguration, VideoProps, VideoPropsSchema, VideoReaderProps, videoShortcuts, getDefaults(), styles, VideoStylesSchema (+4 more)
 
 ### Community 400 - "Community 400"
-Cohesion: 0.06
-Nodes (34): SheetContent, SheetContentProps, SheetDescription, SheetFooter(), SheetHeader(), SheetOverlay, SheetTitle, sheetVariants (+26 more)
+Cohesion: 0.04
+Nodes (58): InfoTooltipProps, SheetContent, SheetContentProps, SheetDescription, SheetFooter(), SheetHeader(), SheetOverlay, SheetTitle (+50 more)
 
 ### Community 401 - "Community 401"
 Cohesion: 0.17
 Nodes (11): docsSidebar, version, badge, banner, className, docsSidebars, isLast, label (+3 more)
 
 ### Community 402 - "Community 402"
-Cohesion: 0.22
-Nodes (11): BlogPostContentConfiguration, getShortPostContent(), ShortPostContentOptions, BlogPostContentReader(), resolveBlogPostDisplayContent(), BlogPostContentProps, BlogPostContentPropsSchema, BlogPostContentReaderProps (+3 more)
+Cohesion: 0.06
+Nodes (44): blogTemplatePreviewPath(), BlogPostFeaturedImagePropsDefaults(), BlogTemplates(), createPostMetaInlineContainer(), createPostMetaSeparator(), createSectionHeading(), ForeachContainerPropsDefaults, getBlogPostFeaturedImageBlock() (+36 more)
 
 ### Community 403 - "Community 403"
 Cohesion: 0.06
-Nodes (47): getOrganizationId, CookieValues, DashboardEventsCalendarView, EventsCalendar(), DashboardKpiSection(), generateMetadata(), Params, DashboardGreeting() (+39 more)
+Nodes (39): getOrganizationId, createSmsTopupCheckoutSession(), createTopupInput, listSmsTopupProductOffers(), logger, parseCreditAmount(), pickPrimaryFixedPrice(), SmsTopupProductOffer (+31 more)
 
 ### Community 404 - "Community 404"
 Cohesion: 0.25
@@ -2858,7 +2836,7 @@ Nodes (11): dependencies, devDependencies, tailwindcss, tailwindcss-animate, @ta
 
 ### Community 407 - "Community 407"
 Cohesion: 0.02
-Nodes (59): AddonLabel(), AddonSelector(), AddonSelectorProps, AddressAutocomplete(), AddressAutocompleteProps, formatSuggestionPrimary(), AppSelector(), AppSelectorProps (+51 more)
+Nodes (66): AddonLabel(), AddonSelector(), AddonSelectorProps, AddressAutocomplete(), AddressAutocompleteProps, formatSuggestionPrimary(), AppSelector(), AppSelectorProps (+58 more)
 
 ### Community 408 - "Community 408"
 Cohesion: 0.18
@@ -2897,28 +2875,28 @@ Cohesion: 0.18
 Nodes (10): Adding the App, Good to know, Outside Hacado, Reconcile payouts with bookkeeping, Refund from a booking, Removing the App, Stripe, Take payment when someone books online (+2 more)
 
 ### Community 417 - "Community 417"
-Cohesion: 0.12
-Nodes (18): checkBlogPostSlugUnique(), createBlogPost(), deleteBlogPost(), deleteSelectedBlogPosts(), getBlogPost(), loggerFactory(), updateBlogPost(), OrganizationAuthorMember (+10 more)
+Cohesion: 0.16
+Nodes (15): checkBlogPostSlugUnique(), createBlogPost(), getBlogPost(), loggerFactory(), updateBlogPost(), OrganizationAuthorMember, BlogPostForm(), blogPostAuthorCustomSchema (+7 more)
 
 ### Community 418 - "Community 418"
-Cohesion: 0.15
-Nodes (9): EmailTemplates, sendEmail(), enEmailTemplates, getEmailTemplate(), getEmailTemplate(), getEmailTemplate(), SystemServicesContainer, renderUserEmailTemplate() (+1 more)
+Cohesion: 0.16
+Nodes (9): BILLING_EVENT_DEFINITIONS, buildSmsCreditThresholdActivity(), buildSmsCreditThresholdEmails(), smsCreditsActivityKeyPrefix(), smsCreditsEmailKeyPrefix(), getEmailTemplate(), getEmailTemplate(), getEmailTemplate() (+1 more)
 
 ### Community 419 - "Community 419"
-Cohesion: 0.16
-Nodes (19): getBlogConfiguration(), AdminRecipient, buildNewBlogCommentEmailNotifications(), truncateBody(), blogConfigurationSchema, BLOG_COMMENT_CREATED_EVENT_TYPE, BLOG_COMMENT_DELETED_EVENT_TYPE, BLOG_COMMENT_STATUS_CHANGED_EVENT_TYPE (+11 more)
+Cohesion: 0.20
+Nodes (16): AdminRecipient, buildNewBlogCommentEmailNotifications(), truncateBody(), BLOG_COMMENT_CREATED_EVENT_TYPE, BLOG_COMMENT_DELETED_EVENT_TYPE, BLOG_COMMENT_STATUS_CHANGED_EVENT_TYPE, BLOG_POST_CREATED_EVENT_TYPE, BLOG_POST_DELETED_EVENT_TYPE (+8 more)
 
 ### Community 420 - "Community 420"
-Cohesion: 0.08
-Nodes (24): logo_design_basic-addon-creative-1, logo_design_basic-addon-design-2, social_media_graphics_pack-addon-creative-1, social_media_graphics_pack-addon-design-2, graphic_designer, label, services, tags (+16 more)
+Cohesion: 0.20
+Nodes (10): logo_design_basic-addon-creative-1, logo_design_basic-addon-design-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 421 - "Community 421"
 Cohesion: 0.18
 Nodes (10): services, tags, event, dj, event_planner, photobooth_operator, services, tags (+2 more)
 
 ### Community 422 - "Community 422"
-Cohesion: 0.09
-Nodes (24): InfoTooltipProps, TooltipResponsive(), TooltipResponsiveContent(), TooltipResponsiveContentProps, TooltipResponsiveContext, TooltipResponsiveContextValue, TooltipResponsiveProps, TooltipResponsiveTrigger() (+16 more)
+Cohesion: 0.22
+Nodes (11): CheckboxField(), EmailField(), FieldComponentMapFn, fieldsSchemaMap, FileField(), getFieldName(), MultiLineField(), NameField() (+3 more)
 
 ### Community 423 - "Community 423"
 Cohesion: 0.25
@@ -2982,7 +2960,7 @@ Nodes (11): StickyBannerConfiguration, disable, showStickyBannerType, stickyBann
 
 ### Community 439 - "Community 439"
 Cohesion: 0.17
-Nodes (11): checkServiceFieldUniqueName(), createServiceField(), deleteServiceField(), deleteServiceFields(), getServiceField(), updateServiceField(), GET(), ServiceFieldsSearchParams (+3 more)
+Nodes (7): deleteCustomDomain(), setCustomDomain(), bulkDeleteSchema, setGiftCardsStatusSchema, setGiftCardStatusSchema, OrganizationDomainInput, organizationDomainSchema
 
 ### Community 440 - "Community 440"
 Cohesion: 0.20
@@ -3041,20 +3019,20 @@ Cohesion: 0.20
 Nodes (9): Add a Zoom link to virtual appointments, Adding the App, Good to know, Keep meeting details updated when bookings move, Outside Hacado, Removing the App, Usage, What changes afterward (+1 more)
 
 ### Community 454 - "Community 454"
-Cohesion: 0.09
-Nodes (23): Schedule(), isBookingLimitRestriction(), catalogNodesAtPath(), getActiveStaffForAssignments(), BookingOtpDialog(), BookingOtpDialogProps, BookingOtpForm(), BookingOtpFormProps (+15 more)
+Cohesion: 0.16
+Nodes (11): catalogNodesAtPath(), BookingOtpDialog(), BookingOtpDialogProps, BookingOtpForm(), BookingOtpFormProps, Appointments(), OtpCard(), Appointments() (+3 more)
 
 ### Community 455 - "Community 455"
 Cohesion: 0.15
 Nodes (12): devDependencies, husky, lint-staged, migrate-mongo, patch-package, postinstall-postinstall, prettier, prettier-plugin-organize-imports (+4 more)
 
 ### Community 456 - "Community 456"
-Cohesion: 0.19
-Nodes (14): TypewriterTextConfiguration, TypewriterTextReader(), TypewriterPhrase, typewriterPhraseSchema, TypewriterTextProps, TypewriterTextPropsDefaults(), TypewriterTextPropsSchema, TypewriterTextReaderProps (+6 more)
+Cohesion: 0.11
+Nodes (21): InlineTextConfiguration, InlineTextProps, InlineTextReaderProps, inlineTextShortcuts, styles, zStyles, InlineTextToolbar(), TypewriterTextConfiguration (+13 more)
 
 ### Community 457 - "Community 457"
-Cohesion: 0.25
-Nodes (9): AvatarPropsSchema, ColumnsContainerPropsSchema, DividerPropsSchema, OnlineMeetingReader(), OnlineMeetingProps, OnlineMeetingPropsSchema, getLogoUrl(), getStyles() (+1 more)
+Cohesion: 0.39
+Nodes (5): OnlineMeetingReader(), OnlineMeetingProps, getLogoUrl(), getStyles(), ReaderBlocks
 
 ### Community 458 - "Community 458"
 Cohesion: 0.20
@@ -3072,13 +3050,9 @@ Nodes (13): CatalogMarketingFooter(), CatalogMarketingHeader(), footerColumns, M
 Cohesion: 0.17
 Nodes (4): getClient(), getDbClient(), getDbConnectionSync(), AssetsService
 
-### Community 463 - "Community 463"
-Cohesion: 0.28
-Nodes (7): InlineTextConfiguration, InlineTextProps, InlineTextReaderProps, inlineTextShortcuts, styles, zStyles, InlineTextToolbar()
-
 ### Community 464 - "Community 464"
-Cohesion: 0.31
-Nodes (4): BookingConfiguration, BookingProps, bookingShortcuts, BookingToolbar()
+Cohesion: 0.16
+Nodes (8): BookingConfiguration, BookingProps, BookingPropsSchema, BookingReaderProps, FlowOrder, flowOrderSchema, bookingShortcuts, BookingToolbar()
 
 ### Community 465 - "Community 465"
 Cohesion: 0.18
@@ -3095,36 +3069,36 @@ Nodes (8): convertAuthObjectIdFields(), convertCollection(), convertDoc(), isBso
 }, up()
 
 ### Community 468 - "Community 468"
-Cohesion: 0.10
-Nodes (80): BeforeAfterPropsDefaults(), CarouselPropsDefaults(), buildAnnouncementSplitHero(), buildBeforeAfterSection(), buildBento(), buildCarousel(), buildComparison(), buildCta() (+72 more)
+Cohesion: 0.12
+Nodes (57): buildAnnouncementSplitHero(), buildCenteredHero(), buildFeatureList(), buildGalleryFirstHero(), buildLeftOverlayHero(), buildMinimalHero(), buildOverlayHero(), buildPackHero() (+49 more)
 
 ### Community 469 - "Community 469"
-Cohesion: 0.12
-Nodes (18): withVariants(), AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter(), AlertDialogHeader(), AlertDialogOverlay (+10 more)
+Cohesion: 0.22
+Nodes (8): generateMetadata(), Props, defaultCode, expiryDate, minDate, PaymentLinkApp, EditGiftCardPage(), getGiftCard
 
 ### Community 470 - "Community 470"
-Cohesion: 0.16
-Nodes (13): checkAssetUniqueFileName(), createAsset(), deleteAsset(), deleteAssets(), getAsset(), getAssets(), updateAsset(), GET() (+5 more)
+Cohesion: 0.24
+Nodes (6): AnswerFieldProps, FormFieldDef, getOptions(), MultiSelectField(), RadioField(), SelectField()
 
 ### Community 471 - "Community 471"
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 472 - "Community 472"
-Cohesion: 0.23
-Nodes (10): BlockStyle, SlotOrBlockStylesPanel(), createEmptySlot(), embeddedSlotSchema(), migrateContainerSlot(), migratePropsSlots(), migrateSlotValue(), ReaderBlockProps (+2 more)
+Cohesion: 0.30
+Nodes (10): isEmbeddedSlot(), SlotOrBlockStylesPanel(), createEmptySlot(), embeddedSlotSchema(), migrateContainerSlot(), migratePropsSlots(), migrateSlotValue(), ReaderBlockProps (+2 more)
 
 ### Community 474 - "Community 474"
 Cohesion: 0.18
 Nodes (10): afternoon, closed, companyEmptyTuesday, companyHoliday, companyReducedTuesday, evening, memberEveningTuesday, memberOpenOnHoliday (+2 more)
 
 ### Community 475 - "Community 475"
-Cohesion: 0.19
-Nodes (11): BooleanSelectProps, CalendarProps, endMonth, SelectContent, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton (+3 more)
+Cohesion: 0.16
+Nodes (13): BooleanSelectProps, endMonth, Label, labelVariants, SelectContent, SelectItem, SelectLabel, SelectScrollDownButton (+5 more)
 
 ### Community 476 - "Community 476"
-Cohesion: 0.18
-Nodes (9): WeeklyScheduleForm(), WeeklyScheduleAdminAllKeys, WeeklyScheduleAdminKeys, WeeklyScheduleAdminNamespace, WeeklyScheduleApp, WeeklyScheduleMenuItems, requestActionSchema, daySchedulesEqual() (+1 more)
+Cohesion: 0.16
+Nodes (10): WeeklyScheduleForm(), WeeklyScheduleAdminAllKeys, WeeklyScheduleAdminKeys, WeeklyScheduleAdminNamespace, WeeklyScheduleApp, WeeklyScheduleMenuItems, requestActionSchema, WeeklyScheduleQuickLinkInjector (+2 more)
 
 ### Community 477 - "Community 477"
 Cohesion: 0.24
@@ -3163,8 +3137,8 @@ Cohesion: 0.22
 Nodes (8): compilerOptions, outDir, paths, rootDir, exclude, extends, include, @/*
 
 ### Community 486 - "Community 486"
-Cohesion: 0.19
-Nodes (8): HeaderDrawerHeader(), HeaderDrawerTrigger(), PortalDrawerContent(), HeaderProps, itemClassName(), itemColorStyle(), LinkRender(), ReplaceOriginalColors()
+Cohesion: 0.25
+Nodes (7): delayByKey, getTemplatePreviewDelayMs(), TEMPLATE_PREVIEW_MANIFEST, Props, metadata, Props, TemplatePreviewPage()
 
 ### Community 487 - "Community 487"
 Cohesion: 0.22
@@ -3175,12 +3149,12 @@ Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 489 - "Community 489"
-Cohesion: 0.29
-Nodes (4): BookingConfiguration, BookingProps, bookingShortcuts, BookingToolbar()
+Cohesion: 0.15
+Nodes (8): BookingConfiguration, BookingProps, BookingPropsSchema, BookingReaderProps, FlowOrder, flowOrderSchema, bookingShortcuts, BookingToolbar()
 
 ### Community 490 - "Community 490"
-Cohesion: 0.43
-Nodes (5): proxy, responseWhenOrganizationNotFound(), responseWhenSubscriptionInactive(), rewriteToOrganizationNotFoundPage(), withOrganizationId()
+Cohesion: 0.33
+Nodes (6): proxy, responseWhenOrganizationNotFound(), responseWhenSubscriptionInactive(), rewriteToOrganizationNotFoundPage(), withOrganizationId(), withStaticFallthroughGuard()
 
 ### Community 491 - "Community 491"
 Cohesion: 0.11
@@ -3188,23 +3162,23 @@ Nodes (18): content, data, id, type, children, fontFamily, fullWidth, descriptio
 
 ### Community 492 - "Community 492"
 Cohesion: 0.20
-Nodes (10): giftCardStudioInvoiceTranslationsEn, GiftCardStudioJobPayload, PurchasedGiftCardListModel, png2pdf(), renderGiftCard(), GiftCardStudioJobProcessor, getFileName(), formatAmountWithCurrency() (+2 more)
+Nodes (9): giftCardStudioInvoiceTranslationsEn, GiftCardStudioJobPayload, PurchasedGiftCardListModel, columns, GiftCardStudioJobProcessor, getFileName(), PaymentMethodCell(), GiftCardStudioInvoiceTranslations (+1 more)
 
 ### Community 493 - "Community 493"
 Cohesion: 0.20
 Nodes (10): devDependencies, @hacado/eslint-config, @hacado/tailwind-config, @hacado/typescript-config, @types/node, @types/react, @types/react-big-calendar, @types/react-dom (+2 more)
 
 ### Community 494 - "Community 494"
-Cohesion: 0.25
-Nodes (5): CabinetModifyContext, CabinetModifyScreenProps, getAppointmentByIdAction(), getModifyInformationAction(), SessionExpiredError
+Cohesion: 0.20
+Nodes (10): product_shoot-addon-creative-1, product_shoot-addon-photo-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 495 - "Community 495"
 Cohesion: 0.20
 Nodes (10): scripts, build, dev, generate-font-previews, generate-template-previews, lint, lint:fix, purge-organization (+2 more)
 
 ### Community 496 - "Community 496"
-Cohesion: 0.31
-Nodes (7): GridContainerConfiguration, GridContainerProps, GridContainerReaderProps, styles, zStyles, gridContainerShortcuts, GridContainerToolbar()
+Cohesion: 0.07
+Nodes (26): CarouselPropsSchema, FluidLayoutPropsSchema, GridContainerConfiguration, GridContainerProps, GridContainerPropsSchema, GridContainerReaderProps, styles, zStyles (+18 more)
 
 ### Community 497 - "Community 497"
 Cohesion: 0.19
@@ -3223,8 +3197,8 @@ Cohesion: 0.20
 Nodes (9): compilerOptions, jsx, outDir, paths, rootDir, exclude, extends, include (+1 more)
 
 ### Community 501 - "Community 501"
-Cohesion: 0.21
-Nodes (8): CabinetBookScreen(), checkSessionAction(), CustomerContextValue, CustomerProfileContext, styles, SessionExpiredContext, CustomerProfile, HashState
+Cohesion: 0.13
+Nodes (16): CabinetBookScreen(), CabinetModifyContext, CabinetModifyScreen(), CabinetModifyScreenProps, checkSessionAction(), getModifyInformationAction(), SessionExpiredError, CustomerContextValue (+8 more)
 
 ### Community 502 - "Community 502"
 Cohesion: 0.22
@@ -3263,8 +3237,8 @@ Cohesion: 0.22
 Nodes (8): Adding the App, Be transparent publicly, Decide when to hire or expand schedules that always queue., Housekeeping stale rows so reporting stays earnest., Quickly refill surprise openings by calling people still waiting kindly., Removing the App, Usage, Waitlist
 
 ### Community 511 - "Community 511"
-Cohesion: 0.11
-Nodes (18): brow_shaping-addon-beauty-1, brow_shaping-addon-brows-2, beauty, brow_artist, hair_stylist, label, services, tags (+10 more)
+Cohesion: 0.06
+Nodes (34): brow_lamination-addon-beauty-1, brow_lamination-addon-brows-2, brow_shaping-addon-beauty-1, brow_shaping-addon-brows-2, tint_shape-addon-beauty-1, tint_shape-addon-brows-2, brow_artist, label (+26 more)
 
 ### Community 512 - "Community 512"
 Cohesion: 0.40
@@ -3275,8 +3249,8 @@ Cohesion: 0.20
 Nodes (9): compilerOptions, jsx, outDir, paths, rootDir, exclude, extends, include (+1 more)
 
 ### Community 514 - "Community 514"
-Cohesion: 0.33
-Nodes (6): Avatar, AvatarProps, AvatarShape, shape, getBorderRadius(), getStyles()
+Cohesion: 0.30
+Nodes (7): Avatar, AvatarReader(), AvatarProps, AvatarShape, shape, getBorderRadius(), getStyles()
 
 ### Community 515 - "Community 515"
 Cohesion: 0.22
@@ -3363,16 +3337,16 @@ Cohesion: 0.10
 Nodes (25): cancelInvitation(), deactivateMember(), getInactiveMemberAppointmentWarnings(), getMemberProfile(), getMembers(), getMemberUpcomingAppointments(), inviteMember(), listInvitations() (+17 more)
 
 ### Community 538 - "Community 538"
-Cohesion: 0.14
-Nodes (12): Carousel, CarouselApi, CarouselContent, CarouselContext, CarouselContextProps, CarouselItem, CarouselNext, CarouselOptions (+4 more)
+Cohesion: 0.20
+Nodes (10): promo_video_up_to_2_min-addon-creative-1, promo_video_up_to_2_min-addon-video-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 539 - "Community 539"
-Cohesion: 0.16
-Nodes (9): AutomaticAiDiscoveryApp, AutomaticAiDiscoveryLogo(), BlogApp, BlogConfigurationFormFields(), BlogConfigurationFormFieldsProps, UseConnectedAppSetupProps, AutomaticAiDiscoveryAdminAllKeys, AutomaticAiDiscoveryAdminKeys (+1 more)
+Cohesion: 0.12
+Nodes (12): AutomaticAiDiscoveryApp, AutomaticAiDiscoveryLogo(), AutomaticStructuredDataApp, AutomaticStructuredDataLogo(), AutomaticStructuredDataConnectedApp, UseConnectedAppSetupProps, AutomaticAiDiscoveryAdminAllKeys, AutomaticAiDiscoveryAdminKeys (+4 more)
 
 ### Community 540 - "Community 540"
 Cohesion: 0.20
-Nodes (9): ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuLabel, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut(), ContextMenuSubContent (+1 more)
+Nodes (10): social_media_graphics_pack-addon-creative-1, social_media_graphics_pack-addon-design-2, social_media_graphics_pack, description, name, description, name, addons (+2 more)
 
 ### Community 541 - "Community 541"
 Cohesion: 0.25
@@ -3383,8 +3357,8 @@ Cohesion: 0.25
 Nodes (7): 1) Scope and Capabilities, 2) Main Components, 3) Configuration + Secret Handling, 4) Checkout App Calls, 5) Refund Flow, 6) App Roles (Admin / Web / Workers), PayPal Integration Architecture (Sectioned)
 
 ### Community 543 - "Community 543"
-Cohesion: 0.20
-Nodes (10): basic_manicure-addon-beauty-1, basic_manicure-addon-nails-2, description, name, description, name, addons, description (+2 more)
+Cohesion: 0.08
+Nodes (24): basic_manicure-addon-beauty-1, basic_manicure-addon-nails-2, gel_manicure-addon-beauty-1, gel_manicure-addon-nails-2, description, name, description, name (+16 more)
 
 ### Community 544 - "Community 544"
 Cohesion: 0.25
@@ -3403,12 +3377,12 @@ Cohesion: 0.18
 Nodes (16): buildConfig, dev(), nextIntlServerPlugin, require, startApp(), watch(), backfillFromRenamedSource(), collectionExists() (+8 more)
 
 ### Community 548 - "Community 548"
-Cohesion: 0.23
-Nodes (11): HeaderInternal(), toBackgroundCss(), Header(), blockPreviewLinkNavigation(), applyMenuItemAppearanceOverride(), mergeMenuItemAppearance(), MergeMenuItemAppearanceOptions, pickScrolledValue() (+3 more)
+Cohesion: 0.09
+Nodes (21): PortalDrawerContent(), HeaderInternal(), toBackgroundCss(), Header(), HeaderProps, itemClassName(), itemColorStyle(), LinkRender() (+13 more)
 
 ### Community 549 - "Community 549"
-Cohesion: 0.21
-Nodes (9): TeamMembersTable(), CancelInvitationButton(), InviteMemberButton(), Props, generateMetadata(), Params, TeamSettingsPage(), PendingInvitations() (+1 more)
+Cohesion: 0.25
+Nodes (8): checkUniqueSlug(), createPage(), deletePage(), deletePages(), getPages(), updatePage(), PagesSearchParams, pagesSearchParamsSerializer
 
 ### Community 550 - "Community 550"
 Cohesion: 0.22
@@ -3440,7 +3414,7 @@ Nodes (6): compilerOptions, paths, exclude, extends, include, @/*
 
 ### Community 557 - "Community 557"
 Cohesion: 0.28
-Nodes (6): generateMetadata(), NewPackagePage(), EligibleStaff(), PackageForm(), packageFormSchema, PackageFormValues
+Nodes (7): FormDescription(), FormFieldContext, FormFieldContextValue, FormItemContext, FormItemContextValue, FormLabel(), useFormField()
 
 ### Community 558 - "Community 558"
 Cohesion: 0.29
@@ -3468,7 +3442,7 @@ Nodes (6): Before you begin, Connect your own web address, Removing or changing 
 
 ### Community 564 - "Community 564"
 Cohesion: 0.09
-Nodes (29): CanvasElement(), FontSelectProps, EDITOR_FONTS, FontEntry, fontFamilyCss(), getFamilyFromStoredFont(), SERVER_FONT_WEIGHTS, CanvasBackground (+21 more)
+Nodes (31): CanvasElement(), FontSelect(), FontSelectProps, EDITOR_FONTS, FontEntry, fontFamilyCss(), getFamilyFromStoredFont(), SERVER_FONT_WEIGHTS (+23 more)
 
 ### Community 565 - "Community 565"
 Cohesion: 0.18
@@ -3520,8 +3494,8 @@ Cohesion: 0.17
 Nodes (11): main, name, private, scripts, lint, lint:fix, test, type-check (+3 more)
 
 ### Community 576 - "Community 576"
-Cohesion: 0.10
-Nodes (21): career_strategy_session-addon-career-2, career_strategy_session-addon-coaching-1, interview_prep-addon-career-2, interview_prep-addon-coaching-1, services, description, name, description (+13 more)
+Cohesion: 0.08
+Nodes (24): career_strategy_session-addon-career-2, career_strategy_session-addon-coaching-1, interview_prep-addon-career-2, interview_prep-addon-coaching-1, label, services, tags, description (+16 more)
 
 ### Community 577 - "Community 577"
 Cohesion: 0.33
@@ -3883,6 +3857,10 @@ Nodes (3): argsInputPlugin, argsPlugin, mentionPlugin
 Cohesion: 0.40
 Nodes (4): __dirname, __filename, nextConfig, withNextIntl
 
+### Community 673 - "Community 673"
+Cohesion: 0.40
+Nodes (5): cachePath, getLogMethod(), isNoisyNextError(), nextLogger, NOISY_ERROR_PATTERNS
+
 ### Community 674 - "Community 674"
 Cohesion: 0.50
 Nodes (3): collapsed, label, position
@@ -3894,6 +3872,10 @@ Nodes (3): App not listed here, Apps, How each App page is organized
 ### Community 676 - "Community 676"
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
+
+### Community 677 - "Community 677"
+Cohesion: 0.40
+Nodes (5): cachePath, getLogMethod(), isNoisyNextError(), nextLogger, NOISY_ERROR_PATTERNS
 
 ### Community 678 - "Community 678"
 Cohesion: 0.50
@@ -3912,8 +3894,8 @@ Cohesion: 0.50
 Nodes (3): After setup, Get started with Hacado, How this site is organized
 
 ### Community 690 - "Community 690"
-Cohesion: 0.14
-Nodes (14): description, name, description, name, addons, description, name, acrylic_full_set-addon-beauty-1 (+6 more)
+Cohesion: 0.20
+Nodes (10): description, name, description, name, addons, description, name, acrylic_full_set-addon-beauty-1 (+2 more)
 
 ### Community 691 - "Community 691"
 Cohesion: 0.50
@@ -3960,8 +3942,8 @@ Cohesion: 0.50
 Nodes (3): ConditionalContainerProps, ConditionalContainerPropsSchema, ConditionalContainerReaderProps
 
 ### Community 704 - "Community 704"
-Cohesion: 0.41
-Nodes (5): Divider, DividerReader(), DividerProps, DividerPropsDefaults, lineHeightOptions
+Cohesion: 0.22
+Nodes (10): AvatarPropsSchema, ColumnsContainerPropsSchema, Divider, DividerReader(), DividerProps, DividerPropsDefaults, DividerPropsSchema, lineHeightOptions (+2 more)
 
 ### Community 705 - "Community 705"
 Cohesion: 0.50
@@ -3980,8 +3962,8 @@ Cohesion: 0.21
 Nodes (8): getDefaults(), styles, zStyles, CustomHTMLConfiguration, CustomHTML(), CustomHTMLProps, CustomHTMLPropsSchema, CustomHTMLReaderProps
 
 ### Community 720 - "Community 720"
-Cohesion: 0.06
-Nodes (33): ActivityActorDisplayView(), MarkAsReadEffect(), generateMetadata(), Params, columns, useSidebar(), ActivityFeedHeaderButton(), ActivityUnreadDot() (+25 more)
+Cohesion: 0.08
+Nodes (25): ActivityActorDisplayView(), MarkAsReadEffect(), columns, useSidebar(), ActivityFeedHeaderButton(), ActivityUnreadDot(), severityDotBg(), AppSidebar() (+17 more)
 
 ### Community 727 - "Community 727"
 Cohesion: 0.67
@@ -4184,28 +4166,28 @@ Cohesion: 0.67
 Nodes (3): /docs/getting-started/what-is-timelish-4d7, __comp, content
 
 ### Community 777 - "Community 777"
-Cohesion: 0.20
-Nodes (7): useArguments(), useDemoArguments(), Field, resolveArgs(), resolvedI18nText(), useResolvedI18nText(), PageForm()
+Cohesion: 0.32
+Nodes (6): getCalendar(), CalendarSearchParams, calendarSearchParamsCache, calendarSearchParamsLoader, calendarSearchParamsSchema, serializeCalendarSearchParams
 
 ### Community 816 - "Community 816"
 Cohesion: 0.38
 Nodes (3): NotAllowedCard(), SuccessCard(), CancelOrRescheduleSteps
 
 ### Community 817 - "Community 817"
-Cohesion: 0.20
-Nodes (4): logger, Route, RouteHandler, routes
+Cohesion: 0.18
+Nodes (5): logger, handlePlatformTextbeltWebhook(), Route, RouteHandler, routes
 
 ### Community 818 - "Community 818"
-Cohesion: 0.18
-Nodes (5): ModifyAppointmentFormConfiguration, ModifyAppointmentFormProps, ModifyAppointmentFormPropsSchema, ModifyAppointmentFormReaderProps, modifyAppointmentFormShortcuts
+Cohesion: 0.32
+Nodes (6): generateMetadata(), Props, formSchema, FormValues, EditAssetsPage(), getAsset
 
 ### Community 824 - "Community 824"
 Cohesion: 0.38
 Nodes (5): goToStepAfterSpecialist(), goToStepBeforeAddons(), goToStepBeforeSpecialist(), resolveMemberIdForFetch(), ScheduleSteps
 
 ### Community 828 - "Community 828"
-Cohesion: 0.05
-Nodes (40): checkUniquePageFooterName(), createPageFooter(), deletePageFooter(), deletePageFooters(), getPageFooter(), getPageFooters(), updatePageFooter(), checkUniquePageHeaderName() (+32 more)
+Cohesion: 0.20
+Nodes (10): checkUniquePageFooterName(), createPageFooter(), deletePageFooter(), deletePageFooters(), getPageFooter(), getPageFooters(), updatePageFooter(), PageFootersPage() (+2 more)
 
 ### Community 829 - "Community 829"
 Cohesion: 0.28
@@ -4224,8 +4206,8 @@ Cohesion: 0.25
 Nodes (7): engines, node, lint-staged, name, packageManager, private, workspaces
 
 ### Community 878 - "Community 878"
-Cohesion: 0.20
-Nodes (9): AdjustPackageCreditsDialog(), AdjustPackageCreditsDialogProps, canAdjustCustomerPackageCredits(), CancelCustomerPackageDialog(), CancelCustomerPackageDialogProps, CustomerPackageActions(), CustomerPackageActionsProps, ReactivateCustomerPackageDialog() (+1 more)
+Cohesion: 0.05
+Nodes (29): CommunicationLogPayloadDialog(), CommunicationLogPayloadDialogProps, ViewMode, CommunicationEntry(), CustomerOrAppointment, RecentCommunications(), RecentCommunicationsProps, SendCommunicationButton() (+21 more)
 
 ### Community 880 - "Community 880"
 Cohesion: 0.25
@@ -4248,8 +4230,8 @@ Cohesion: 0.22
 Nodes (8): Adding the App, Customer waitlist notifications, Good to know, Offer a freed time (FIFO), Removing the App, Send “you are on the list” reassurance, Usage, What changes afterward
 
 ### Community 892 - "Community 892"
-Cohesion: 0.14
-Nodes (14): executive_coaching-addon-business-2, executive_coaching-addon-coaching-1, label, services, tags, business_coach, description, name (+6 more)
+Cohesion: 0.10
+Nodes (21): executive_coaching-addon-business-2, executive_coaching-addon-coaching-1, strategy_audit-addon-business-2, strategy_audit-addon-coaching-1, services, description, name, description (+13 more)
 
 ### Community 893 - "Community 893"
 Cohesion: 0.27
@@ -4260,28 +4242,28 @@ Cohesion: 0.18
 Nodes (10): BOOKING_TRACKING_STEP_EVENT_TYPE, BOOKING_UI_STEP_TRACKING, BookingProgressAnalyticsDaily, BookingProgressAnalyticsMetrics, BookingProgressMetricsDelta, BookingProgressSession, BookingStep, BookingTrackingEventData (+2 more)
 
 ### Community 895 - "Community 895"
-Cohesion: 0.24
-Nodes (3): emptyMetrics(), IncrementStore, MemoryRedis
+Cohesion: 0.29
+Nodes (6): CellAction(), CellActionProps, CellAction(), CellActionProps, useWebsiteUrl(), useLinkShorteningEnabled()
 
 ### Community 896 - "Community 896"
-Cohesion: 0.20
-Nodes (7): SmsRequest, SmsResponse, TextBeltService, TextBeltConfiguration, TextbeltWebhookData, TextBeltWebhookService, verifyWebhook()
+Cohesion: 0.32
+Nodes (6): logger, startServer(), getAdminBaseUrl(), renderNotFoundHtml(), SHORT_CODE_PATTERN, shortLinksService
 
 ### Community 903 - "Community 903"
-Cohesion: 0.05
-Nodes (59): DesignSelectorProps, FormValues, manualPurchaseSchema, PaymentLinkApp, checkDesignNameUnique(), createDesign(), createPurchasedGiftCard(), deleteDesign() (+51 more)
+Cohesion: 0.10
+Nodes (20): DesignForm(), getDefaultDesign, useIsValidDesign(), getDesignById(), setDesignsArchived(), GiftCardStudioApp, BreadcrumbItem, designsBreadcrumbs (+12 more)
 
 ### Community 905 - "Community 905"
-Cohesion: 0.27
-Nodes (7): Props, allowOnly, disable, getButtonSizePadding(), getDefaults(), getRoundedCorners(), styles
+Cohesion: 0.25
+Nodes (5): WaitlistReaders, WaitlistBlocks, WaitlistBlocksAllowedInFooter, WaitlistBlocksSchema, WaitlistEditors
 
 ### Community 906 - "Community 906"
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 910 - "Community 910"
-Cohesion: 0.22
-Nodes (8): Overlay, ReaderBannerContextType, ReaderContext, ReaderContextType, ReaderPopupContextType, ReaderProvider(), useBannerContext(), usePopupContext()
+Cohesion: 0.25
+Nodes (8): creative, graphic_designer, illustrator, label, services, tags, label, tags
 
 ### Community 914 - "Community 914"
 Cohesion: 0.11
@@ -4304,16 +4286,16 @@ Cohesion: 0.22
 Nodes (9): clearAllCommunicationLogs(), clearSelectedCommunicationLogs(), getCommunicationLogContent(), getCommunicationLogs(), CommunicationLogsSearchParams, communicationLogsSearchParamsCache, communicationLogsSearchParamsLoader, communicationLogsSearchParamsSchema (+1 more)
 
 ### Community 1000 - "Community 1000"
-Cohesion: 0.29
-Nodes (6): CellAction(), SellFormValues, SellPackageDialog(), sellSchema, SoldPackagesTableAction(), useSoldPackagesTableFilters()
+Cohesion: 0.43
+Nodes (6): useCanRedoHistory(), useCanUndoHistory(), useRedoHistory(), useUndoHistory(), isUndoRedo(), ToolbarHistoryGroup()
 
 ### Community 1001 - "Community 1001"
-Cohesion: 0.08
-Nodes (13): BaseBullMQClient, QueueJobData, startBullMQNotificationSenderApp(), BullMQConfig, getBullMQBaseConfig(), BullMQNotificationService, BullMQSystemNotificationService, EmailJobData (+5 more)
+Cohesion: 0.09
+Nodes (11): startBullMQNotificationSenderApp(), BullMQNotificationService, BullMQSystemNotificationService, EmailJobData, SystemEmailJobData, SystemTextMessageJobData, TextMessageJobData, BullMQNotificationConfig (+3 more)
 
 ### Community 1002 - "Community 1002"
-Cohesion: 0.11
-Nodes (18): full_color-addon-beauty-1, full_color-addon-hair-2, men_s_haircut-addon-beauty-1, description, name, description, name, addons (+10 more)
+Cohesion: 0.20
+Nodes (10): full_color-addon-beauty-1, full_color-addon-hair-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 1003 - "Community 1003"
 Cohesion: 0.36
@@ -4324,24 +4306,24 @@ Cohesion: 0.14
 Nodes (16): UrlBusyEventsAdminAllKeys, UrlBusyEventsAdminKeys, UrlBusyEventsAdminNamespace, UrlBusyEventsApp, UrlBusyEventsLogo(), UrlBusyEventsConfiguration, urlBusyEventsConfigurationSchema, UrlBusyEventsConnectedApp (+8 more)
 
 ### Community 1006 - "Community 1006"
-Cohesion: 0.38
-Nodes (5): BILLING_EVENT_DEFINITIONS, buildSmsCreditThresholdActivity(), buildSmsCreditThresholdEmails(), smsCreditsActivityKeyPrefix(), smsCreditsEmailKeyPrefix()
+Cohesion: 0.43
+Nodes (4): logger, updateDefaultAppsConfiguration(), DefaultAppsConfigurationForm(), Page()
 
 ### Community 1007 - "Community 1007"
-Cohesion: 0.09
-Nodes (16): getBillingPortalUrl(), getCalendar(), sendCustomerMessage(), adminApi, ListPaymentsParams, PaymentsExportError, PexelsSearchParams, searchPexelsMedia() (+8 more)
+Cohesion: 0.11
+Nodes (13): getAddressSuggestions(), getBillingPortalUrl(), sendCustomerMessage(), adminApi, ListPaymentsParams, PaymentsExportError, PexelsSearchParams, searchPexelsMedia() (+5 more)
 
 ### Community 1021 - "Community 1021"
-Cohesion: 0.14
-Nodes (14): event_glam-addon-beauty-1, event_glam-addon-makeup-2, makeup_artist, description, name, description, name, addons (+6 more)
+Cohesion: 0.06
+Nodes (31): bridal_makeup-addon-beauty-1, bridal_makeup-addon-makeup-2, event_glam-addon-beauty-1, event_glam-addon-makeup-2, natural_day_makeup-addon-beauty-1, natural_day_makeup-addon-makeup-2, description, name (+23 more)
 
 ### Community 1026 - "Community 1026"
-Cohesion: 0.20
-Nodes (10): volume_lash_extensions-addon-beauty-1, volume_lash_extensions-addon-lashes-2, volume_lash_extensions, description, name, description, name, addons (+2 more)
+Cohesion: 0.29
+Nodes (5): zStyles, HeadingProps, HeadingPropsSchema, TextProps, TextPropsSchema
 
 ### Community 1079 - "Community 1079"
-Cohesion: 0.20
-Nodes (10): description, name, description, name, addons, description, name, acne_treatment-addon-beauty-1 (+2 more)
+Cohesion: 0.33
+Nodes (5): ColumnsLayoutInputProps, DEFAULT_2_COLUMNS, DEFAULT_3_COLUMNS, FixedWidths, TWidthValue
 
 ### Community 1095 - "Community 1095"
 Cohesion: 0.11
@@ -4356,12 +4338,12 @@ Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 1100 - "Community 1100"
-Cohesion: 0.16
-Nodes (13): EditAppointmentNotificationPage(), AppointmentNotificationForm(), appointmentNotificationBreadcrumb, AppointmentNotificationsMenuItems, AppointmentNotification, NewAppointmentNotificationPage(), AppointmentNotificationsPage(), CellActionProps (+5 more)
+Cohesion: 0.14
+Nodes (15): AppointmentNotificationsApp, EditAppointmentNotificationPage(), AppointmentNotificationForm(), appointmentNotificationBreadcrumb, AppointmentNotificationsMenuItems, appointmentNotificationTypes, getAppointmentNotificationSchemaWithUniqueCheck(), NewAppointmentNotificationPage() (+7 more)
 
 ### Community 1101 - "Community 1101"
-Cohesion: 0.11
-Nodes (17): ButtonReaderProps, ButtonType, zStyles, zStyles, InlineContainerConfiguration, allowOnly, InlineContainerProps, InlineContainerPropsSchema (+9 more)
+Cohesion: 0.25
+Nodes (9): InlineContainerConfiguration, allowOnly, InlineContainerProps, InlineContainerPropsSchema, InlineContainerReaderProps, styles, zStyles, inlineContainerShortcuts (+1 more)
 
 ### Community 1103 - "Community 1103"
 Cohesion: 0.20
@@ -4388,20 +4370,16 @@ Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
 ### Community 1125 - "Community 1125"
-Cohesion: 0.32
+Cohesion: 0.38
 Nodes (3): pageSlugHasPlaceholder(), AutomaticAiDiscoveryConnectedApp, buildPageMarkdown()
 
 ### Community 1130 - "Community 1130"
-Cohesion: 0.10
-Nodes (21): interview_recording-addon-creative-1, interview_recording-addon-video-2, promo_video_up_to_2_min-addon-creative-1, promo_video_up_to_2_min-addon-video-2, description, name, description, name (+13 more)
+Cohesion: 0.14
+Nodes (14): interview_recording-addon-creative-1, interview_recording-addon-video-2, videographer, description, name, description, name, addons (+6 more)
 
 ### Community 1131 - "Community 1131"
-Cohesion: 0.20
-Nodes (10): bridal_makeup-addon-beauty-1, bridal_makeup-addon-makeup-2, description, name, description, name, addons, description (+2 more)
-
-### Community 1140 - "Community 1140"
-Cohesion: 0.20
-Nodes (10): brow_lamination-addon-beauty-1, brow_lamination-addon-brows-2, description, name, description, name, addons, description (+2 more)
+Cohesion: 0.40
+Nodes (4): getAuthOptionsAction(), requestOtpAction(), verifyOtpAction(), AuthScreenProps
 
 ### Community 1141 - "Community 1141"
 Cohesion: 0.11
@@ -4423,17 +4401,9 @@ Nodes (10): classic_facial-addon-beauty-1, classic_facial-addon-skin-2, descript
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
-### Community 1150 - "Community 1150"
-Cohesion: 0.20
-Nodes (10): coaching_session-addon-coaching-1, coaching_session-addon-personal-2, description, name, description, name, addons, description (+2 more)
-
 ### Community 1151 - "Community 1151"
-Cohesion: 0.09
-Nodes (29): popoverVariants, PlateEditor, PlateEditorProps, PlateMarkdownEditor(), PlateMarkdownEditorProps, AbsoluteUrlContext, useAbsoluteUrl(), CommentsPopoverContent() (+21 more)
-
-### Community 1153 - "Community 1153"
-Cohesion: 0.26
-Nodes (4): communicationLogHasPayloadData(), communicationLogPayloadFilename(), CommunicationLogsService, communicationLogTextPreview()
+Cohesion: 0.12
+Nodes (20): useAbsoluteUrl(), floatingOptions, LinkFloatingToolbar(), LinkFloatingToolbarProps, CONTENT, ImageProgress(), MEDIA_CONFIG, MediaToolbarButton() (+12 more)
 
 ### Community 1155 - "Community 1155"
 Cohesion: 0.11
@@ -4455,33 +4425,21 @@ Nodes (3): cache, persistent, dev
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
 
-### Community 1162 - "Community 1162"
-Cohesion: 0.20
-Nodes (10): full_body_wax-addon-beauty-1, full_body_wax-addon-waxing-2, description, name, description, name, addons, description (+2 more)
-
 ### Community 1163 - "Community 1163"
-Cohesion: 0.08
-Nodes (24): portrait_session-addon-creative-1, portrait_session-addon-photo-2, product_shoot-addon-creative-1, product_shoot-addon-photo-2, description, name, services, description (+16 more)
-
-### Community 1166 - "Community 1166"
-Cohesion: 0.20
-Nodes (10): gel_manicure-addon-beauty-1, gel_manicure-addon-nails-2, description, name, description, name, addons, description (+2 more)
+Cohesion: 0.14
+Nodes (14): portrait_session-addon-creative-1, portrait_session-addon-photo-2, photographer, label, services, tags, description, name (+6 more)
 
 ### Community 1167 - "Community 1167"
 Cohesion: 0.50
 Nodes (3): COLLECTIONS, rewriteValue(), up()
 
 ### Community 1168 - "Community 1168"
-Cohesion: 0.12
-Nodes (15): maskify(), getAppsExternalUrl(), TextBeltApp, TextBeltLogo(), TextBeltConfiguration, textBeltConfigurationSchema, scrambleKey(), SmsRequest (+7 more)
+Cohesion: 0.08
+Nodes (22): maskify(), getAppsExternalUrl(), TextBeltApp, TextBeltLogo(), TextBeltConfiguration, textBeltConfigurationSchema, scrambleKey(), SmsRequest (+14 more)
 
 ### Community 1169 - "Community 1169"
 Cohesion: 0.11
 Nodes (18): content, data, id, type, children, fontFamily, fullWidth, description (+10 more)
-
-### Community 1170 - "Community 1170"
-Cohesion: 0.20
-Nodes (10): natural_day_makeup-addon-beauty-1, natural_day_makeup-addon-makeup-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 1171 - "Community 1171"
 Cohesion: 0.11
@@ -4498,10 +4456,6 @@ Nodes (18): content, data, id, type, children, fontFamily, fullWidth, descriptio
 ### Community 1176 - "Community 1176"
 Cohesion: 0.20
 Nodes (10): resume_review-addon-career-2, resume_review-addon-coaching-1, description, name, description, name, addons, description (+2 more)
-
-### Community 1177 - "Community 1177"
-Cohesion: 0.20
-Nodes (10): strategy_audit-addon-business-2, strategy_audit-addon-coaching-1, strategy_audit, description, name, description, name, addons (+2 more)
 
 ### Community 1178 - "Community 1178"
 Cohesion: 0.11
@@ -4536,8 +4490,8 @@ Cohesion: 0.11
 Nodes (17): content, data, id, type, children, fontFamily, fullWidth, description (+9 more)
 
 ### Community 1188 - "Community 1188"
-Cohesion: 0.10
-Nodes (13): decrypt(), encrypt(), getKey(), stripMarkdown(), stripMarkdownBlocks(), stripMarkdownInline(), ZoomAdminAllKeys, ZoomApiClient (+5 more)
+Cohesion: 0.12
+Nodes (8): decrypt(), encrypt(), getKey(), stripMarkdown(), stripMarkdownBlocks(), stripMarkdownInline(), ZoomApiClient, ZoomConnectedApp
 
 ### Community 1189 - "Community 1189"
 Cohesion: 0.11
@@ -4546,10 +4500,6 @@ Nodes (17): content, data, id, type, children, fontFamily, fullWidth, descriptio
 ### Community 1190 - "Community 1190"
 Cohesion: 0.11
 Nodes (17): content, data, id, type, children, fontFamily, fullWidth, description (+9 more)
-
-### Community 1191 - "Community 1191"
-Cohesion: 0.20
-Nodes (10): tint_shape-addon-beauty-1, tint_shape-addon-brows-2, tint_shape, description, name, description, name, addons (+2 more)
 
 ### Community 1192 - "Community 1192"
 Cohesion: 0.11
@@ -4564,8 +4514,8 @@ Cohesion: 0.11
 Nodes (17): content, data, id, type, children, fontFamily, fullWidth, description (+9 more)
 
 ### Community 1195 - "Community 1195"
-Cohesion: 0.20
-Nodes (10): women_s_haircut_style-addon-beauty-1, women_s_haircut_style-addon-hair-2, women_s_haircut_style, description, name, description, name, addons (+2 more)
+Cohesion: 0.08
+Nodes (25): men_s_haircut-addon-beauty-1, women_s_haircut_style-addon-beauty-1, women_s_haircut_style-addon-hair-2, beauty, hair_stylist, makeup_artist, label, services (+17 more)
 
 ### Community 1196 - "Community 1196"
 Cohesion: 0.11
@@ -4575,10 +4525,6 @@ Nodes (17): content, data, id, type, children, fontFamily, fullWidth, descriptio
 Cohesion: 0.11
 Nodes (17): content, data, id, type, children, fontFamily, fullWidth, description (+9 more)
 
-### Community 1200 - "Community 1200"
-Cohesion: 0.49
-Nodes (9): copy(), createShowcaseSlots(), featureItem(), headingBlock(), iconBlock(), padding(), rem(), textBlock() (+1 more)
-
 ### Community 1201 - "Community 1201"
 Cohesion: 0.33
 Nodes (5): ImagePreview(), toolButtonVariants, MediaUploadToast(), useUploadErrorToast(), mediaPlugins
@@ -4587,17 +4533,13 @@ Nodes (5): ImagePreview(), toolButtonVariants, MediaUploadToast(), useUploadErro
 Cohesion: 0.33
 Nodes (6): OutlookApp, OutlookLogo(), OutlookAppSetup(), OutlookAdminAllKeys, OutlookAdminKeys, OutlookAdminNamespace
 
-### Community 1204 - "Community 1204"
-Cohesion: 0.38
-Nodes (4): PageLayoutConfiguration, PageLayoutProps, PageLayoutPropsSchema, PageLayoutReaderProps
-
 ### Community 1205 - "Community 1205"
 Cohesion: 0.11
 Nodes (17): content, data, id, type, children, fontFamily, fullWidth, description (+9 more)
 
 ### Community 1206 - "Community 1206"
-Cohesion: 0.36
-Nodes (5): ZoomAdminKeys, ZoomAdminNamespace, ZoomApp, ZoomLogo(), ZoomAppSetup()
+Cohesion: 0.19
+Nodes (10): ZoomAdminAllKeys, ZoomAdminKeys, ZoomAdminNamespace, ZoomApp, ZoomLogo(), ZoomAppSetup(), ZoomCreateMeetingResponse, ZoomMeeting (+2 more)
 
 ### Community 1207 - "Community 1207"
 Cohesion: 0.11
@@ -4855,18 +4797,6 @@ Nodes (14): content, data, id, type, children, fontFamily, fullWidth, descriptio
 Cohesion: 0.13
 Nodes (14): content, data, id, type, children, fontFamily, fullWidth, description (+6 more)
 
-### Community 1271 - "Community 1271"
-Cohesion: 0.36
-Nodes (6): BackgroundVideoSchema, BackgroundVideoValue, BackgroundVideoLayer(), BackgroundVideoLayerProps, getBaseStyleValue(), hasBackgroundVideo()
-
-### Community 1273 - "Community 1273"
-Cohesion: 0.46
-Nodes (5): Button(), getButtonSizePadding(), getLinkStyles(), getRoundedCorners(), getWrapperStyles()
-
-### Community 1274 - "Community 1274"
-Cohesion: 0.25
-Nodes (7): NavigationMenu, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, NavigationMenuViewport
-
 ### Community 1275 - "Community 1275"
 Cohesion: 0.13
 Nodes (14): backdropBlur, backgroundColor, logoSize, menu, name, position, scrolled, backdropBlur (+6 more)
@@ -4924,8 +4854,8 @@ Cohesion: 0.13
 Nodes (14): content, data, id, type, children, fontFamily, fullWidth, description (+6 more)
 
 ### Community 1289 - "Community 1289"
-Cohesion: 0.25
-Nodes (5): FormsCustomerTabInjector, CustomerTabInjectorApps, DashboardTabInjectorApps, WaitlistCustomerTabInjector, WaitlistNotificationDashboardTabInjector
+Cohesion: 0.09
+Nodes (18): buildNewWaitlistEntryEmailNotifications(), formatDuration(), formatWhen(), MemberRecipient, FormsCustomerTabInjector, CustomerTabInjectorApps, DashboardTabInjectorApps, WAITLIST_ENTRIES_DISMISSED_EVENT_TYPE (+10 more)
 
 ### Community 1290 - "Community 1290"
 Cohesion: 0.22
@@ -4935,45 +4865,25 @@ Nodes (14): clone(), cloneDef(), extend(), isObject(), isPlainObject(), merge(),
 Cohesion: 0.15
 Nodes (12): backdropBlur, backgroundColor, logoSize, menu, name, position, scrolled, backdropBlur (+4 more)
 
-### Community 1294 - "Community 1294"
-Cohesion: 0.29
-Nodes (7): custom_illustration_single-addon-creative-1, custom_illustration_single-addon-illustration-2, description, name, description, name, addons
-
 ### Community 1295 - "Community 1295"
-Cohesion: 0.29
-Nodes (7): event_photography_per_hour-addon-creative-1, event_photography_per_hour-addon-photo-2, description, name, description, name, addons
-
-### Community 1296 - "Community 1296"
-Cohesion: 0.29
-Nodes (7): touch_up-addon-beauty-1, touch_up, description, name, addons, description, name
-
-### Community 1297 - "Community 1297"
-Cohesion: 0.33
-Nodes (5): ImageContext, ImageProvider(), useAllowImageResize(), Image, ImagePositionEditor
-
-### Community 1299 - "Community 1299"
-Cohesion: 0.33
-Nodes (4): HeaderActionButtonsContainer(), HeaderActionButtonsContext, HeaderActionButtonsPortal(), useContainerRef()
+Cohesion: 0.20
+Nodes (10): event_photography_per_hour-addon-creative-1, event_photography_per_hour-addon-photo-2, description, name, description, name, addons, description (+2 more)
 
 ### Community 1300 - "Community 1300"
-Cohesion: 0.29
-Nodes (5): BaseFooterSelectorProps, ClearableFooterSelectorProps, FooterSelectorProps, FooterShortLabel(), NonClearableFooterSelectorProps
+Cohesion: 0.09
+Nodes (21): PageFooterForm(), useDemoArguments(), NavigationGuardDialog(), useIsDirty(), BaseFooterSelectorProps, ClearableFooterSelectorProps, FooterSelector(), FooterSelectorProps (+13 more)
 
 ### Community 1301 - "Community 1301"
 Cohesion: 0.40
 Nodes (4): fetchWithJson(), FetchWithJsonResponse, JsonParseOptions, responseWithJsonBody()
 
 ### Community 1302 - "Community 1302"
-Cohesion: 0.05
-Nodes (47): generatePlaceholderImage(), GET(), GET(), streamFile(), generateMetadata(), Props, generateMetadata(), Props (+39 more)
+Cohesion: 0.04
+Nodes (51): generatePlaceholderImage(), GET(), GET(), streamFile(), generateMetadata(), Props, generateMetadata(), Props (+43 more)
 
 ### Community 1303 - "Community 1303"
 Cohesion: 0.50
 Nodes (4): /-e5f, __comp, config, __context
-
-### Community 1304 - "Community 1304"
-Cohesion: 0.38
-Nodes (4): CONTENT, ImageProgress(), Spinner(), spinnerVariants
 
 ### Community 1305 - "Community 1305"
 Cohesion: 0.38
@@ -4988,32 +4898,20 @@ Cohesion: 0.22
 Nodes (7): BLOCK_DIR_TO_SCHEMA, __dirname, entry, home, outfile, pbSrc, root
 
 ### Community 1308 - "Community 1308"
-Cohesion: 0.33
-Nodes (3): CellActionProps, columns, ASSIGNABLE_ROLES
-
-### Community 1310 - "Community 1310"
-Cohesion: 0.47
-Nodes (3): CodeBlockCombobox(), CodeBlockElementStatic(), languages
-
-### Community 1311 - "Community 1311"
-Cohesion: 0.40
-Nodes (4): Logo(), logoNameFontSizeClassNames, logoNameFontWeightClassNames, logoSizeClassNames
+Cohesion: 0.25
+Nodes (4): CellActionProps, columns, ASSIGNABLE_ROLES, TeamMembersTable()
 
 ### Community 1313 - "Community 1313"
 Cohesion: 0.22
 Nodes (8): content, data, id, type, children, fontFamily, fullWidth, name
 
-### Community 1314 - "Community 1314"
-Cohesion: 0.50
-Nodes (4): getHeadingList(), headingDepth, headingItemVariants, TocElementStatic()
-
 ### Community 1315 - "Community 1315"
 Cohesion: 0.40
 Nodes (5): equalColWidthPercents(), isLikelyPxColWidths(), normalizeColWidthsSum100(), pxColWidthsToPercent(), roundPct()
 
-### Community 1322 - "Community 1322"
-Cohesion: 0.50
-Nodes (3): DropLine(), RowDragHandle(), TableRowElement
+### Community 1321 - "Community 1321"
+Cohesion: 0.13
+Nodes (10): SpecialistCard(), SpecialistList(), SpecialistListOption, SpecialistListProps, SpecialistCard(), SpecialistList(), SpecialistListOption, SpecialistListProps (+2 more)
 
 ### Community 1345 - "Community 1345"
 Cohesion: 0.29
@@ -5036,24 +4934,24 @@ Cohesion: 0.67
 Nodes (3): dependsOn, outputs, build
 
 ## Knowledge Gaps
-- **8556 isolated node(s):** `husky.sh script`, `version`, `configurations`, `editor.formatOnSave`, `editor.formatOnPaste` (+8551 more)
+- **8559 isolated node(s):** `husky.sh script`, `version`, `configurations`, `editor.formatOnSave`, `editor.formatOnPaste` (+8554 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **259 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **252 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `t()` connect `Community 164` to `Community 0`, `Community 2`, `Community 6`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 16`, `Community 21`, `Community 24`, `Community 25`, `Community 26`, `Community 30`, `Community 36`, `Community 549`, `Community 38`, `Community 42`, `Community 43`, `Community 44`, `Community 45`, `Community 557`, `Community 50`, `Community 52`, `Community 55`, `Community 56`, `Community 58`, `Community 59`, `Community 60`, `Community 61`, `Community 62`, `Community 66`, `Community 579`, `Community 75`, `Community 1100`, `Community 76`, `Community 77`, `Community 79`, `Community 81`, `Community 596`, `Community 85`, `Community 86`, `Community 84`, `Community 100`, `Community 102`, `Community 106`, `Community 618`, `Community 108`, `Community 112`, `Community 1144`, `Community 135`, `Community 136`, `Community 139`, `Community 140`, `Community 145`, `Community 150`, `Community 151`, `Community 154`, `Community 156`, `Community 159`, `Community 173`, `Community 179`, `Community 185`, `Community 189`, `Community 194`, `Community 720`, `Community 252`, `Community 254`, `Community 257`, `Community 258`, `Community 259`, `Community 262`, `Community 777`, `Community 270`, `Community 271`, `Community 274`, `Community 275`, `Community 1300`, `Community 1302`, `Community 1307`, `Community 294`, `Community 1320`, `Community 1321`, `Community 303`, `Community 304`, `Community 310`, `Community 828`, `Community 335`, `Community 337`, `Community 341`, `Community 350`, `Community 352`, `Community 878`, `Community 883`, `Community 386`, `Community 903`, `Community 394`, `Community 403`, `Community 407`, `Community 419`, `Community 436`, `Community 454`, `Community 465`, `Community 468`, `Community 476`, `Community 486`, `Community 1000`, `Community 1006`?**
-  _High betweenness centrality (0.119) - this node is a cross-community bridge._
-- **Why does `cn()` connect `Community 156` to `Community 0`, `Community 4`, `Community 6`, `Community 8`, `Community 13`, `Community 15`, `Community 17`, `Community 21`, `Community 538`, `Community 26`, `Community 540`, `Community 33`, `Community 36`, `Community 548`, `Community 38`, `Community 549`, `Community 45`, `Community 47`, `Community 564`, `Community 565`, `Community 53`, `Community 56`, `Community 60`, `Community 62`, `Community 66`, `Community 71`, `Community 77`, `Community 78`, `Community 79`, `Community 86`, `Community 92`, `Community 93`, `Community 100`, `Community 101`, `Community 102`, `Community 106`, `Community 107`, `Community 108`, `Community 114`, `Community 124`, `Community 1151`, `Community 136`, `Community 139`, `Community 140`, `Community 143`, `Community 1174`, `Community 151`, `Community 152`, `Community 154`, `Community 161`, `Community 164`, `Community 166`, `Community 170`, `Community 173`, `Community 1201`, `Community 182`, `Community 183`, `Community 185`, `Community 187`, `Community 193`, `Community 194`, `Community 197`, `Community 711`, `Community 714`, `Community 720`, `Community 1271`, `Community 1274`, `Community 251`, `Community 252`, `Community 257`, `Community 270`, `Community 1299`, `Community 1300`, `Community 1304`, `Community 1310`, `Community 1311`, `Community 288`, `Community 1314`, `Community 294`, `Community 1322`, `Community 325`, `Community 335`, `Community 337`, `Community 340`, `Community 878`, `Community 398`, `Community 400`, `Community 402`, `Community 403`, `Community 407`, `Community 422`, `Community 436`, `Community 438`, `Community 454`, `Community 456`, `Community 460`, `Community 469`, `Community 475`, `Community 486`?**
-  _High betweenness centrality (0.077) - this node is a cross-community bridge._
-- **Why does `useI18n()` connect `Community 164` to `Community 6`, `Community 9`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 16`, `Community 21`, `Community 24`, `Community 25`, `Community 26`, `Community 539`, `Community 30`, `Community 36`, `Community 549`, `Community 38`, `Community 43`, `Community 45`, `Community 557`, `Community 50`, `Community 52`, `Community 56`, `Community 60`, `Community 61`, `Community 62`, `Community 66`, `Community 579`, `Community 73`, `Community 75`, `Community 1100`, `Community 76`, `Community 79`, `Community 596`, `Community 85`, `Community 86`, `Community 84`, `Community 94`, `Community 100`, `Community 101`, `Community 102`, `Community 106`, `Community 107`, `Community 108`, `Community 618`, `Community 110`, `Community 135`, `Community 136`, `Community 139`, `Community 140`, `Community 145`, `Community 150`, `Community 151`, `Community 154`, `Community 156`, `Community 157`, `Community 165`, `Community 173`, `Community 1202`, `Community 1206`, `Community 185`, `Community 194`, `Community 720`, `Community 251`, `Community 252`, `Community 254`, `Community 257`, `Community 258`, `Community 777`, `Community 270`, `Community 271`, `Community 1300`, `Community 294`, `Community 1320`, `Community 297`, `Community 1321`, `Community 300`, `Community 303`, `Community 816`, `Community 335`, `Community 347`, `Community 349`, `Community 350`, `Community 878`, `Community 903`, `Community 394`, `Community 398`, `Community 403`, `Community 407`, `Community 417`, `Community 436`, `Community 454`, `Community 463`, `Community 476`, `Community 486`, `Community 1000`?**
-  _High betweenness centrality (0.060) - this node is a cross-community bridge._
+- **Why does `t()` connect `Community 164` to `Community 0`, `Community 6`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 21`, `Community 24`, `Community 25`, `Community 26`, `Community 30`, `Community 36`, `Community 38`, `Community 40`, `Community 42`, `Community 43`, `Community 44`, `Community 45`, `Community 50`, `Community 564`, `Community 55`, `Community 56`, `Community 59`, `Community 60`, `Community 61`, `Community 62`, `Community 66`, `Community 579`, `Community 75`, `Community 1100`, `Community 77`, `Community 79`, `Community 81`, `Community 596`, `Community 85`, `Community 86`, `Community 84`, `Community 100`, `Community 102`, `Community 106`, `Community 618`, `Community 112`, `Community 1144`, `Community 124`, `Community 135`, `Community 136`, `Community 143`, `Community 145`, `Community 150`, `Community 153`, `Community 154`, `Community 156`, `Community 159`, `Community 173`, `Community 181`, `Community 182`, `Community 185`, `Community 189`, `Community 720`, `Community 252`, `Community 253`, `Community 257`, `Community 262`, `Community 1289`, `Community 270`, `Community 271`, `Community 274`, `Community 275`, `Community 1300`, `Community 1302`, `Community 1307`, `Community 294`, `Community 1321`, `Community 303`, `Community 304`, `Community 818`, `Community 828`, `Community 335`, `Community 341`, `Community 349`, `Community 350`, `Community 352`, `Community 355`, `Community 878`, `Community 370`, `Community 883`, `Community 895`, `Community 386`, `Community 903`, `Community 394`, `Community 402`, `Community 403`, `Community 407`, `Community 418`, `Community 419`, `Community 436`, `Community 454`, `Community 465`, `Community 468`, `Community 469`, `Community 470`, `Community 476`, `Community 1000`, `Community 1006`, `Community 501`?**
+  _High betweenness centrality (0.126) - this node is a cross-community bridge._
+- **Why does `cn()` connect `Community 156` to `Community 0`, `Community 4`, `Community 6`, `Community 8`, `Community 12`, `Community 13`, `Community 15`, `Community 17`, `Community 25`, `Community 36`, `Community 548`, `Community 38`, `Community 45`, `Community 557`, `Community 47`, `Community 564`, `Community 565`, `Community 53`, `Community 56`, `Community 60`, `Community 62`, `Community 66`, `Community 67`, `Community 77`, `Community 78`, `Community 86`, `Community 89`, `Community 93`, `Community 100`, `Community 101`, `Community 102`, `Community 106`, `Community 107`, `Community 114`, `Community 1151`, `Community 136`, `Community 140`, `Community 143`, `Community 1174`, `Community 151`, `Community 152`, `Community 154`, `Community 161`, `Community 164`, `Community 166`, `Community 170`, `Community 173`, `Community 1201`, `Community 179`, `Community 182`, `Community 183`, `Community 185`, `Community 187`, `Community 193`, `Community 197`, `Community 711`, `Community 714`, `Community 720`, `Community 251`, `Community 252`, `Community 257`, `Community 260`, `Community 270`, `Community 1300`, `Community 287`, `Community 288`, `Community 294`, `Community 1321`, `Community 325`, `Community 335`, `Community 340`, `Community 348`, `Community 878`, `Community 903`, `Community 396`, `Community 398`, `Community 400`, `Community 402`, `Community 403`, `Community 407`, `Community 436`, `Community 438`, `Community 454`, `Community 456`, `Community 460`, `Community 475`, `Community 496`, `Community 501`?**
+  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `useI18n()` connect `Community 164` to `Community 0`, `Community 6`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 21`, `Community 24`, `Community 25`, `Community 26`, `Community 30`, `Community 32`, `Community 36`, `Community 38`, `Community 40`, `Community 43`, `Community 45`, `Community 52`, `Community 564`, `Community 56`, `Community 60`, `Community 61`, `Community 62`, `Community 66`, `Community 67`, `Community 579`, `Community 73`, `Community 75`, `Community 1100`, `Community 79`, `Community 596`, `Community 85`, `Community 86`, `Community 84`, `Community 94`, `Community 100`, `Community 101`, `Community 102`, `Community 106`, `Community 107`, `Community 618`, `Community 110`, `Community 135`, `Community 136`, `Community 143`, `Community 149`, `Community 150`, `Community 154`, `Community 156`, `Community 157`, `Community 165`, `Community 173`, `Community 1202`, `Community 182`, `Community 1206`, `Community 185`, `Community 189`, `Community 720`, `Community 251`, `Community 252`, `Community 257`, `Community 270`, `Community 271`, `Community 1300`, `Community 294`, `Community 1321`, `Community 300`, `Community 303`, `Community 816`, `Community 335`, `Community 347`, `Community 349`, `Community 350`, `Community 355`, `Community 878`, `Community 895`, `Community 903`, `Community 394`, `Community 398`, `Community 403`, `Community 407`, `Community 417`, `Community 422`, `Community 436`, `Community 454`, `Community 456`, `Community 470`, `Community 476`, `Community 1000`, `Community 492`, `Community 1006`, `Community 501`?**
+  _High betweenness centrality (0.072) - this node is a cross-community bridge._
 - **Are the 785 inferred relationships involving `t()` (e.g. with `AcceptInvitationPage()` and `generateMetadata()`) actually correct?**
   _`t()` has 785 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 719 inferred relationships involving `useI18n()` (e.g. with `AcceptInvitationPage()` and `AccordionItemToolbar()`) actually correct?**
   _`useI18n()` has 719 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 381 inferred relationships involving `cn()` (e.g. with `AccordionClient()` and `AccordionEditor()`) actually correct?**
-  _`cn()` has 381 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 382 inferred relationships involving `cn()` (e.g. with `AccordionClient()` and `AccordionEditor()`) actually correct?**
+  _`cn()` has 382 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 24 inferred relationships involving `getDbConnection()` (e.g. with `getPublicInvitation()` and `AcceptInvitationPage()`) actually correct?**
   _`getDbConnection()` has 24 INFERRED edges - model-reasoned connections that need verification._
