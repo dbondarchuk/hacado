@@ -381,6 +381,8 @@ block:
         left: Ліворуч
         right: Праворуч
         helperText: На вузькій ширині попередній перегляд завжди знизу.
+      abovePreviewFirstOnMobile:
+        label: Показувати вступний текст над формою на мобільному
       amountPresets:
         label: Швидкі суми
         helperText: До 5 сум.

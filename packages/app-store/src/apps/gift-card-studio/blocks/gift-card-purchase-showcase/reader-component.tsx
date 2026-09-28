@@ -15,6 +15,7 @@ export const GiftCardPurchaseShowcaseReader = forwardRef<
     hideTitle?: boolean | null;
     hideSteps?: boolean | null;
     previewPosition?: "left" | "right" | null;
+    abovePreviewFirstOnMobile?: boolean | null;
     amountPresets?: number[] | null;
     title: ReactNode;
     abovePreview: ReactNode;
@@ -31,6 +32,7 @@ export const GiftCardPurchaseShowcaseReader = forwardRef<
       hideTitle,
       hideSteps,
       previewPosition,
+      abovePreviewFirstOnMobile,
       amountPresets: amountPresetsProp,
       title,
       abovePreview,
@@ -57,6 +59,7 @@ export const GiftCardPurchaseShowcaseReader = forwardRef<
         hideTitle={hideTitle ?? true}
         hideSteps={hideSteps ?? false}
         previewPosition={previewPosition === "right" ? "right" : "left"}
+        abovePreviewFirstOnMobile={abovePreviewFirstOnMobile ?? true}
         amountPresets={amountPresets}
         isEditor={isEditor}
         title={title}

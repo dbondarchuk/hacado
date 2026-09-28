@@ -130,6 +130,15 @@ export const GiftCardPurchaseShowcaseBlockConfiguration = deepMemo(
             "block.giftCardPurchaseShowcase.configuration.previewPosition.helperText",
           )}
         </p>
+        <BooleanInput
+          label={t(
+            "block.giftCardPurchaseShowcase.configuration.abovePreviewFirstOnMobile.label",
+          )}
+          defaultValue={data.props?.abovePreviewFirstOnMobile ?? true}
+          onChange={(value) =>
+            updateProps({ abovePreviewFirstOnMobile: value })
+          }
+        />
         <div className="flex flex-col gap-2">
           <Label>
             {t(

@@ -26,6 +26,7 @@ export const GiftCardPurchaseShowcaseBlockPropsSchema = z.object({
       hideTitle: z.boolean().optional().nullable(),
       hideSteps: z.boolean().optional().nullable(),
       previewPosition: z.enum(["left", "right"]).optional().nullable(),
+      abovePreviewFirstOnMobile: z.boolean().optional().nullable(),
       amountPresets: z
         .array(z.number().positive())
         .max(MAX_AMOUNT_PRESETS)
@@ -53,6 +54,7 @@ export function GiftCardPurchaseShowcaseBlockPropsDefaults(
       hideTitle: false,
       hideSteps: false,
       previewPosition: "left",
+      abovePreviewFirstOnMobile: true,
       amountPresets: [...DEFAULT_AMOUNT_PRESETS],
       ...createShowcaseSlots(t),
     },

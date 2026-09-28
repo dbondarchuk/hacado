@@ -28,6 +28,7 @@ export const GiftCardPurchaseShowcaseBlockReaderWrapper = (
         hideTitle={blockProps?.hideTitle ?? true}
         hideSteps={blockProps?.hideSteps ?? false}
         previewPosition={blockProps?.previewPosition}
+        abovePreviewFirstOnMobile={blockProps?.abovePreviewFirstOnMobile}
         amountPresets={blockProps?.amountPresets}
         isEditor={rest.isEditor}
         title={

@@ -46,6 +46,7 @@ export const GiftCardPurchaseShowcaseBlockEditor = ({
         hideTitle={blockProps?.hideTitle ?? true}
         hideSteps={blockProps?.hideSteps ?? false}
         previewPosition={blockProps?.previewPosition}
+        abovePreviewFirstOnMobile={blockProps?.abovePreviewFirstOnMobile}
         amountPresets={amountPresets}
         isEditor
         title={

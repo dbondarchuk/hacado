@@ -45,6 +45,7 @@ export const GiftCardPurchaseShowcaseView = forwardRef<
     hideTitle?: boolean | null;
     hideSteps?: boolean | null;
     previewPosition: "left" | "right";
+    abovePreviewFirstOnMobile?: boolean;
     amountPresets: number[];
     title: ReactNode;
     abovePreview: ReactNode;
@@ -61,6 +62,7 @@ export const GiftCardPurchaseShowcaseView = forwardRef<
       hideTitle,
       hideSteps,
       previewPosition,
+      abovePreviewFirstOnMobile = true,
       amountPresets,
       title,
       abovePreview,
@@ -103,26 +105,30 @@ export const GiftCardPurchaseShowcaseView = forwardRef<
           />
         )}
 
-        <div className="flex flex-col gap-8 @3xl/gift-card-showcase:flex-row @3xl/gift-card-showcase:items-start @3xl/gift-card-showcase:gap-10">
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-8 @3xl/gift-card-showcase:grid-cols-2 @3xl/gift-card-showcase:items-start @3xl/gift-card-showcase:gap-x-10 @3xl/gift-card-showcase:gap-y-6",
+          )}
+        >
           <div
             className={cn(
-              "flex w-full min-w-0 flex-col gap-6 @3xl/gift-card-showcase:flex-1",
+              "min-w-0",
+              abovePreviewFirstOnMobile ? "order-1" : "order-2",
               previewFirstOnWide
-                ? "order-2 @3xl/gift-card-showcase:order-1"
-                : "order-2",
+                ? "@3xl/gift-card-showcase:col-start-1 @3xl/gift-card-showcase:row-start-1"
+                : "@3xl/gift-card-showcase:col-start-2 @3xl/gift-card-showcase:row-start-1",
             )}
           >
             {abovePreview}
-            <PreviewFrame purchase={purchase} hasNoDesigns={hasNoDesigns} />
-            {belowPreview}
           </div>
 
           <div
             className={cn(
-              "w-full min-w-0 @3xl/gift-card-showcase:flex-1",
+              "min-w-0",
+              abovePreviewFirstOnMobile ? "order-2" : "order-1",
               previewFirstOnWide
-                ? "order-1 @3xl/gift-card-showcase:order-2"
-                : "order-1",
+                ? "@3xl/gift-card-showcase:col-start-2 @3xl/gift-card-showcase:row-start-1 @3xl/gift-card-showcase:row-span-2"
+                : "@3xl/gift-card-showcase:col-start-1 @3xl/gift-card-showcase:row-start-1 @3xl/gift-card-showcase:row-span-2",
             )}
           >
             <div className="relative rounded-2xl border bg-card p-5 shadow-sm @container/gift-card-form @md/gift-card-form:p-8">
@@ -143,6 +149,18 @@ export const GiftCardPurchaseShowcaseView = forwardRef<
                 </div>
               )}
             </div>
+          </div>
+
+          <div
+            className={cn(
+              "order-3 flex min-w-0 flex-col gap-6",
+              previewFirstOnWide
+                ? "@3xl/gift-card-showcase:col-start-1 @3xl/gift-card-showcase:row-start-2"
+                : "@3xl/gift-card-showcase:col-start-2 @3xl/gift-card-showcase:row-start-2",
+            )}
+          >
+            <PreviewFrame purchase={purchase} hasNoDesigns={hasNoDesigns} />
+            {belowPreview}
           </div>
         </div>
       </div>

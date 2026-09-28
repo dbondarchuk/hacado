@@ -381,6 +381,8 @@ block:
         left: Left
         right: Right
         helperText: On a narrow layout the preview stays below the form.
+      abovePreviewFirstOnMobile:
+        label: Show intro text above the form on mobile
       amountPresets:
         label: Amount presets
         helperText: Up to 5 quick amounts.
