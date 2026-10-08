@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types";
-import { Checkbox, Link, useCurrencyFormat } from "@hacado/ui";
+import { Checkbox, Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
@@ -105,11 +105,11 @@ export const columns: ColumnDef<
   {
     cell: ({ row }) => {
       const locale = useLocale();
+      const timeZone = useTimeZone();
       return row.original.startDate
-        ? DateTime.fromJSDate(row.original.startDate).toLocaleString(
-            DateTime.DATETIME_MED,
-            { locale },
-          )
+        ? DateTime.fromJSDate(row.original.startDate)
+            .setZone(timeZone)
+            .toLocaleString(DateTime.DATETIME_MED, { locale })
         : "";
     },
     id: "startDate",
@@ -123,11 +123,11 @@ export const columns: ColumnDef<
   {
     cell: ({ row }) => {
       const locale = useLocale();
+      const timeZone = useTimeZone();
       return row.original.endDate
-        ? DateTime.fromJSDate(row.original.endDate).toLocaleString(
-            DateTime.DATETIME_MED,
-            { locale },
-          )
+        ? DateTime.fromJSDate(row.original.endDate)
+            .setZone(timeZone)
+            .toLocaleString(DateTime.DATETIME_MED, { locale })
         : "";
     },
     id: "endDate",
@@ -158,10 +158,10 @@ export const columns: ColumnDef<
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.updatedAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.updatedAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "updatedAt",
     header: tableSortHeader(

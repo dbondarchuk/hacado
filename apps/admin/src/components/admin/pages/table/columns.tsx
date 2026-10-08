@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Page } from "@hacado/types";
-import { Checkbox, Link } from "@hacado/ui";
+import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
@@ -70,10 +70,10 @@ export const columns: ColumnDef<Page>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.publishDate).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.publishDate)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "publishDate",
     header: tableSortHeader("pages.table.columns.publishDate", "date", "admin"),
@@ -82,10 +82,10 @@ export const columns: ColumnDef<Page>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.createdAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "createdAt",
     header: tableSortHeader("pages.table.columns.createdAt", "date", "admin"),
@@ -94,10 +94,10 @@ export const columns: ColumnDef<Page>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.updatedAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.updatedAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "updatedAt",
     header: tableSortHeader("pages.table.columns.updatedAt", "date", "admin"),

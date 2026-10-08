@@ -28,12 +28,12 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
   const timeZone = useTimeZone();
 
   const [currentDate, setCurrentDate] = React.useState<DateTime>(
-    DateTime.fromJSDate(date || new Date()),
+    DateTime.fromJSDate(date || new Date()).setZone(timeZone),
   );
 
   React.useEffect(() => {
-    setCurrentDate(DateTime.fromJSDate(date || new Date()));
-  }, [date]);
+    setCurrentDate(DateTime.fromJSDate(date || new Date()).setZone(timeZone));
+  }, [date, timeZone]);
 
   React.useEffect(() => {
     onRangeChange?.(
@@ -64,8 +64,9 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
     });
 
     propsEvents?.forEach((event) => {
-      const eventDate = new Date(event.start);
-      const dateKey = DateTime.fromJSDate(eventDate).toFormat("yyyy-MM-dd");
+      const dateKey = DateTime.fromJSDate(event.start)
+        .setZone(timeZone)
+        .toFormat("yyyy-MM-dd");
 
       if (dateMap.has(dateKey)) {
         dateMap.get(dateKey)?.push(event);
@@ -106,7 +107,9 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
         (eventsByDate.find((item) => hasSame(item.date, rangeDate, "day"))
           ?.events.length ?? 0) > 0;
 
-      return hasSame(rangeDate, DateTime.now(), "day") || hasEvents;
+      return (
+        hasSame(rangeDate, DateTime.now().setZone(timeZone), "day") || hasEvents
+      );
     }
 
     return expandedDates[dateKey];

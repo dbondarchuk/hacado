@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn, useTimeZone } from "@hacado/ui";
 import {
   EventCalendarView,
   EventsCalendar as KitEventsCalendar,
@@ -17,14 +17,17 @@ type CookieValues = {
   [VIEW_COOKIE_NAME]?: DashboardEventsCalendarView;
 };
 
-function parseInitialDate(value?: string): DateTime {
+function parseInitialDate(
+  value: string | undefined,
+  timeZone: string,
+): DateTime {
   if (!value) {
-    return DateTime.now().startOf("day");
+    return DateTime.now().setZone(timeZone).startOf("day");
   }
 
-  const parsed = DateTime.fromISO(value);
+  const parsed = DateTime.fromISO(value, { zone: timeZone });
   if (!parsed.isValid) {
-    return DateTime.now().startOf("day");
+    return DateTime.now().setZone(timeZone).startOf("day");
   }
 
   return parsed.startOf("day");
@@ -41,20 +44,23 @@ export const EventsCalendar = ({
   initialDate?: string;
   controlsAfterViewSwitch?: React.ReactNode;
 }) => {
+  const timeZone = useTimeZone();
   const [cookies, setCookies] = useCookies<
     typeof VIEW_COOKIE_NAME,
     CookieValues
   >([VIEW_COOKIE_NAME]);
 
-  const [date, setDate] = React.useState(() => parseInitialDate(initialDate));
+  const [date, setDate] = React.useState(() =>
+    parseInitialDate(initialDate, timeZone),
+  );
 
   const [view, setView] = React.useState<DashboardEventsCalendarView>(
     cookies[VIEW_COOKIE_NAME] ?? "weekly",
   );
 
   React.useEffect(() => {
-    setDate(parseInitialDate(initialDate));
-  }, [initialDate]);
+    setDate(parseInitialDate(initialDate, timeZone));
+  }, [initialDate, timeZone]);
 
   const changeView = (next: EventCalendarView) => {
     if (next === "days-around") return;
@@ -72,7 +78,9 @@ export const EventsCalendar = ({
         className,
       )}
       date={date.toJSDate()}
-      onDateChange={(next) => setDate(DateTime.fromJSDate(next).startOf("day"))}
+      onDateChange={(next) =>
+        setDate(DateTime.fromJSDate(next).setZone(timeZone).startOf("day"))
+      }
       view={view}
       onViewChange={changeView}
       memberId={memberId}
@@ -82,7 +90,7 @@ export const EventsCalendar = ({
       scrollToEarliestEvent
       controlsAfterViewSwitch={controlsAfterViewSwitch}
       onDateClick={(clicked) => {
-        setDate(DateTime.fromJSDate(clicked).startOf("day"));
+        setDate(DateTime.fromJSDate(clicked).setZone(timeZone).startOf("day"));
         changeView("daily");
       }}
     />

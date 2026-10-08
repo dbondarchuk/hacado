@@ -21,6 +21,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
+  useTimeZone,
 } from "@hacado/ui";
 import { ExternalLink } from "lucide-react";
 import { DateTime } from "luxon";
@@ -45,6 +46,7 @@ export function GeneralBillingCard({
 }) {
   const t = useI18n("admin");
   const locale = useLocale();
+  const timeZone = useTimeZone();
   const [opening, setOpening] = useState(false);
   const [smsPurchased, setSmsPurchased] = useQueryState(
     "sms_topup",
@@ -245,6 +247,7 @@ export function GeneralBillingCard({
                 </span>
                 <span className="text-base font-medium text-foreground">
                   {DateTime.fromJSDate(details.nextCycleDate)
+                    .setZone(timeZone)
                     .setLocale(locale)
                     .toLocaleString(DateTime.DATE_MED)}
                 </span>

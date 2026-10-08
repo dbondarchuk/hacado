@@ -32,6 +32,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrencyFormat,
+  useTimeZone,
 } from "@hacado/ui";
 import { formatAmount } from "@hacado/utils";
 import { CalendarX2 } from "lucide-react";
@@ -66,12 +67,14 @@ const PaymentRefundCard = ({
 }) => {
   const t = useI18n();
   const locale = useLocale();
+  const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
 
   const dateTime = payment.paidAt
-    ? typeof payment.paidAt === "string"
-      ? DateTime.fromISO(payment.paidAt)
-      : DateTime.fromJSDate(payment.paidAt)
+    ? (typeof payment.paidAt === "string"
+        ? DateTime.fromISO(payment.paidAt)
+        : DateTime.fromJSDate(payment.paidAt)
+      ).setZone(timeZone)
     : undefined;
 
   const totalRefunded =
@@ -319,8 +322,8 @@ export const AppointmentDeclineDialog: React.FC<{
 }> = ({ appointment, open, trigger, onClose, onSuccess }) => {
   const t = useI18n();
   const currencyFormat = useCurrencyFormat();
-
   const locale = useLocale();
+  const timeZone = useTimeZone();
   const [isLoading, setIsLoading] = React.useState(false);
   const [closeReason, setCloseReason] =
     React.useState<ClosedAppointmentStatus>("declined");
@@ -469,10 +472,11 @@ export const AppointmentDeclineDialog: React.FC<{
                     {t("admin.appointments.declineDialog.dateTime")}
                   </span>
                   <span className="font-semibold">
-                    {DateTime.fromJSDate(appointment.dateTime).toLocaleString(
-                      DateTime.DATETIME_MED_WITH_WEEKDAY,
-                      { locale },
-                    )}
+                    {DateTime.fromJSDate(appointment.dateTime)
+                      .setZone(timeZone)
+                      .toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY, {
+                        locale,
+                      })}
                   </span>
                 </div>
               </div>

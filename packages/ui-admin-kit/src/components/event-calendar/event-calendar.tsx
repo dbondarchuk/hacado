@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   useIsMobile,
+  useTimeZone,
 } from "@hacado/ui";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
@@ -135,6 +136,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
   const t = useI18n("admin");
   const locale = useLocale();
   const isMobile = useIsMobile();
+  const timeZone = useTimeZone();
 
   const [uncontrolledDate, setUncontrolledDate] = React.useState(
     () => dateProp ?? new Date(),
@@ -176,7 +178,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     showControls && allowViewSwitch && view !== "days-around";
   const showTimeNav = showControls && allowTimeChange;
 
-  const dateTime = DateTime.fromJSDate(date).startOf("day");
+  const dateTime = DateTime.fromJSDate(date).setZone(timeZone).startOf("day");
   const dateLabel = formatDateLabel(
     dateTime,
     view,
@@ -186,7 +188,8 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
     isMobile && showTimeNav,
   );
 
-  const goToday = () => setDate(DateTime.now().startOf("day").toJSDate());
+  const goToday = () =>
+    setDate(DateTime.now().setZone(timeZone).startOf("day").toJSDate());
   const goPrevious = () =>
     setDate(shiftDate(dateTime, view, -1, daysAround, daysToShow).toJSDate());
   const goNext = () =>
@@ -281,7 +284,10 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({
                     onSelect={(selected) => {
                       if (!selected) return;
                       setDate(
-                        DateTime.fromJSDate(selected).startOf("day").toJSDate(),
+                        DateTime.fromJSDate(selected)
+                          .setZone(timeZone)
+                          .startOf("day")
+                          .toJSDate(),
                       );
                       setDatePickerOpen(false);
                     }}

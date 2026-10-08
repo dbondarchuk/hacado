@@ -16,6 +16,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useIsMobile,
+  useTimeZone,
 } from "@hacado/ui";
 import { Mail, MailQuestion, MessageSquare, Send } from "lucide-react";
 import { DateTime } from "luxon";
@@ -30,8 +31,9 @@ const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
 }) => {
   const tAdmin = useI18n("admin");
   const t = useI18n();
-  const dateTime = DateTime.fromJSDate(entry.dateTime);
   const locale = useLocale();
+  const timeZone = useTimeZone();
+  const dateTime = DateTime.fromJSDate(entry.dateTime).setZone(timeZone);
   const isMobile = useIsMobile();
 
   const subject =

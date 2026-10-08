@@ -1,7 +1,14 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types";
-import { Badge, Button, Checkbox, Link, useCurrencyFormat } from "@hacado/ui";
+import {
+  Badge,
+  Button,
+  Checkbox,
+  Link,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
@@ -195,11 +202,11 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
+      const timeZone = useTimeZone();
       return row.original.expiresAt
-        ? DateTime.fromJSDate(row.original.expiresAt).toLocaleString(
-            DateTime.DATETIME_MED,
-            { locale },
-          )
+        ? DateTime.fromJSDate(row.original.expiresAt)
+            .setZone(timeZone)
+            .toLocaleString(DateTime.DATETIME_MED, { locale })
         : "";
     },
     id: "expiresAt",
@@ -232,11 +239,11 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
+      const timeZone = useTimeZone();
       return row.original.createdAt
-        ? DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-            DateTime.DATETIME_MED,
-            { locale },
-          )
+        ? DateTime.fromJSDate(row.original.createdAt)
+            .setZone(timeZone)
+            .toLocaleString(DateTime.DATETIME_MED, { locale })
         : "";
     },
     id: "createdAt",
@@ -250,10 +257,10 @@ export const columns: ColumnDef<GiftCardListModel>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.updatedAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.updatedAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "updatedAt",
     header: tableSortHeader(

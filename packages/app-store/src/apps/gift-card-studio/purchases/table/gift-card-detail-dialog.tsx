@@ -17,6 +17,7 @@ import {
   Link,
   ScrollArea,
   useCurrencyFormat,
+  useTimeZone,
 } from "@hacado/ui";
 import { CustomerName } from "@hacado/ui-admin";
 import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
@@ -47,6 +48,7 @@ export const GiftCardDetailDialog: React.FC<{
   );
   const tAdmin = useI18n("admin");
   const currencyFormat = useCurrencyFormat();
+  const timeZone = useTimeZone();
 
   const [open, setOpen] = useState(propOpen ?? false);
   const [isLoading, setIsLoading] = useState(false);
@@ -194,9 +196,9 @@ export const GiftCardDetailDialog: React.FC<{
                       </span>
                     </dt>
                     <dd className="font-medium">
-                      {DateTime.fromJSDate(giftCard.expiresAt).toLocaleString(
-                        DateTime.DATETIME_MED,
-                      )}
+                      {DateTime.fromJSDate(giftCard.expiresAt)
+                        .setZone(timeZone)
+                        .toLocaleString(DateTime.DATETIME_MED)}
                     </dd>
                   </div>
                 )}

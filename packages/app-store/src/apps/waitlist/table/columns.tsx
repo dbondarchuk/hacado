@@ -135,10 +135,10 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.createdAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "createdAt",
     header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(

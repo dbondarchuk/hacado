@@ -2,7 +2,7 @@
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import type { ActivityListItem } from "@hacado/types";
-import { Badge, Link } from "@hacado/ui";
+import { Badge, Link, useTimeZone } from "@hacado/ui";
 import {
   ResolvedI18nText,
   tableSortHeader,
@@ -15,7 +15,9 @@ import { ActivityActorDisplayView } from "../actor-display";
 
 const CreatedAtCell: React.FC<{ value: Date }> = ({ value }) => {
   const locale = useLocale();
+  const timeZone = useTimeZone();
   return DateTime.fromJSDate(value instanceof Date ? value : new Date(value))
+    .setZone(timeZone)
     .setLocale(locale)
     .toLocaleString(DateTime.DATETIME_MED);
 };

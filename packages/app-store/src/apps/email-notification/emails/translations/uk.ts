@@ -103,13 +103,13 @@ export const UkEmailTemplates: EmailTemplates = {
   rescheduledByCustomer: {
     title: "Запис на {{option.name}} був перенесений.",
     text: getText(
-      "Запис на {{option.name}} від {{fields.name}} був перенесений клієнтом на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
+      "Запис на {{option.name}} від {{fields.name}} був перенесений клієнтом{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
     ),
   },
   rescheduled: {
     title: "Запис був перенесений на {{dateTime.full}}",
     text: getText(
-      "Запис на {{option.name}} від {{fields.name}} був перенесений на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
+      "Запис на {{option.name}} від {{fields.name}} був перенесений{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
     ),
   },
   "auto-confirmed": {

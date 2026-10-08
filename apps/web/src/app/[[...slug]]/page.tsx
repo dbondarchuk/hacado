@@ -50,6 +50,24 @@ class NotFoundError extends Error {
   }
 }
 
+function isNextControlFlowError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  const digest =
+    typeof error === "object" &&
+    error !== null &&
+    "digest" in error &&
+    typeof (error as { digest?: unknown }).digest === "string"
+      ? (error as { digest: string }).digest
+      : "";
+
+  return (
+    message.startsWith("NEXT_REDIRECT") ||
+    message.startsWith("NEXT_HTTP_ERROR_FALLBACK") ||
+    digest.startsWith("NEXT_REDIRECT") ||
+    digest.startsWith("NEXT_HTTP_ERROR_FALLBACK")
+  );
+}
+
 type PublicPageMatch = {
   app: ConnectedAppData;
   claim: PublicPageClaim;
@@ -301,17 +319,13 @@ export async function generateMetadata(
       appMetadataParts,
     );
   } catch (error: any) {
+    if (isNextControlFlowError(error)) {
+      throw error;
+    }
+
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
-
     const errorMessage = error instanceof Error ? error.message : String(error);
-
-    if (errorMessage === "NEXT_REDIRECT") {
-      return {
-        title: "Error",
-        description: "An error occurred while loading the page",
-      };
-    }
 
     loggerFn(
       {
@@ -618,20 +632,21 @@ export default async function Page(props: Props) {
       </>
     );
   } catch (error: any) {
+    if (isNextControlFlowError(error)) {
+      throw error;
+    }
+
     const loggerFn =
       error instanceof NotFoundError ? logger.warn : logger.error;
-
     const errorMessage = error instanceof Error ? error.message : String(error);
 
-    if (errorMessage !== "NEXT_REDIRECT") {
-      loggerFn(
-        {
-          slug: (await props.params).slug,
-          error: errorMessage,
-        },
-        "Error rendering page",
-      );
-    }
+    loggerFn(
+      {
+        slug: (await props.params).slug,
+        error: errorMessage,
+      },
+      "Error rendering page",
+    );
 
     if (error instanceof NotFoundError) {
       notFound();

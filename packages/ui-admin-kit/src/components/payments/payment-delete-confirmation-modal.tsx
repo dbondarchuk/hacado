@@ -17,6 +17,7 @@ import {
   Spinner,
   toastPromise,
   useCurrencyFormat,
+  useTimeZone,
 } from "@hacado/ui";
 import { Trash } from "lucide-react";
 import { DateTime } from "luxon";
@@ -32,6 +33,7 @@ export const PaymentDeleteConfirmationModal = ({
 }) => {
   const t = useI18n("admin");
   const currencyFormat = useCurrencyFormat();
+  const timeZone = useTimeZone();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -79,9 +81,9 @@ export const PaymentDeleteConfirmationModal = ({
             {t("payment.card.deleteConfirmDescription", {
               amountFormatted: currencyFormat(payment.amount),
               date: payment.paidAt
-                ? DateTime.fromJSDate(payment.paidAt).toLocaleString(
-                    DateTime.DATETIME_FULL,
-                  )
+                ? DateTime.fromJSDate(payment.paidAt)
+                    .setZone(timeZone)
+                    .toLocaleString(DateTime.DATETIME_FULL)
                 : "—",
             })}
           </AlertDialogDescription>

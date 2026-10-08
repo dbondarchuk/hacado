@@ -312,6 +312,7 @@ export class EmailNotificationConnectedApp
         appointmentId: appointment._id,
         newTime: newTime.toISOString(),
         newDuration,
+        oldTime: oldTime?.toISOString(),
       },
       "Appointment rescheduled, sending email notification",
     );
@@ -328,6 +329,7 @@ export class EmailNotificationConnectedApp
         newAppointment,
         source.actor === "customer" ? "rescheduledByCustomer" : "rescheduled",
         "rescheduled",
+        oldTime ? { oldDateTime: oldTime } : undefined,
       );
 
       logger.info(
@@ -370,6 +372,7 @@ export class EmailNotificationConnectedApp
       | "cancelledByCustomer"
       | "rescheduledByCustomer",
     initiator: keyof typeof AppointmentStatusToICalMethodMap | "newRequest",
+    additionalProperties?: Record<string, unknown>,
   ) {
     const logger = this.loggerFactory("sendNotification");
     logger.debug(
@@ -426,6 +429,7 @@ export class EmailNotificationConnectedApp
         useAppointmentTimezone: true,
         locale: config.brand.language,
         user: member,
+        additionalProperties,
       });
 
       logger.debug(

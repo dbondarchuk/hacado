@@ -15,6 +15,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  useTimeZone,
 } from "@hacado/ui";
 import { ResolvedI18nText } from "@hacado/ui-admin";
 import { Activity, ChevronRight } from "lucide-react";
@@ -125,6 +126,8 @@ const ActivityPreviewRow: React.FC<{
   row: ActivityFeedPreview;
   router: ReturnType<typeof useRouter>;
 }> = ({ row, router }) => {
+  const timeZone = useTimeZone();
+
   return (
     <DropdownMenuItem
       className="flex flex-col items-start gap-1 cursor-pointer group/activity-preview-row"
@@ -147,9 +150,9 @@ const ActivityPreviewRow: React.FC<{
         <ResolvedI18nText text={row.title} />
       </span>
       <span className="text-sm text-muted-foreground">
-        {DateTime.fromISO(row.createdAt).toLocaleString(
-          DateTime.DATETIME_SHORT,
-        )}
+        {DateTime.fromISO(row.createdAt)
+          .setZone(timeZone)
+          .toLocaleString(DateTime.DATETIME_SHORT)}
       </span>
     </DropdownMenuItem>
   );

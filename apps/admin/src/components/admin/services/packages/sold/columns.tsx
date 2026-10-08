@@ -3,7 +3,7 @@
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { appointmentStatuses, CustomerPackageListModel } from "@hacado/types";
-import { Badge, Link, useCurrencyFormat } from "@hacado/ui";
+import { Badge, Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
@@ -118,10 +118,12 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) =>
-      DateTime.fromJSDate(new Date(row.original.purchasedAt)).toLocaleString(
-        DateTime.DATETIME_MED,
-      ),
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(new Date(row.original.purchasedAt))
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
+    },
     id: "purchasedAt",
     header: tableSortHeader(
       "services.packages.sold.table.columns.purchasedAt",
@@ -131,12 +133,14 @@ export const soldPackageColumns: ColumnDef<CustomerPackageListModel>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) =>
-      row.original.expiresAt
-        ? DateTime.fromJSDate(new Date(row.original.expiresAt)).toLocaleString(
-            DateTime.DATE_MED,
-          )
-        : "-",
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return row.original.expiresAt
+        ? DateTime.fromJSDate(new Date(row.original.expiresAt))
+            .setZone(timeZone)
+            .toLocaleString(DateTime.DATE_MED)
+        : "-";
+    },
     id: "expiresAt",
     header: tableSortHeader(
       "services.packages.sold.table.columns.expiresAt",

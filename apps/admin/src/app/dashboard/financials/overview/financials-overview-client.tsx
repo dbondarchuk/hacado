@@ -204,9 +204,12 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
   };
 
   const currencyFormat = useCurrencyFormat();
+  const timeZone = useTimeZone();
 
   const formatChartDate = (dateString: string) => {
-    return DateTime.fromISO(dateString).toLocaleString(DateTime.DATE_SHORT);
+    return DateTime.fromISO(dateString, { zone: timeZone }).toLocaleString(
+      DateTime.DATE_SHORT,
+    );
   };
 
   const [start, setStart] = useQueryState(
@@ -216,7 +219,9 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
       // Default to current month if no start or end date is provided
       // This is done here and not in the search-params.ts file because
       // if deployment was done in last month, server will keep the last month's dates for default
-      .withDefault(DateTime.now().startOf("month").toJSDate()),
+      .withDefault(
+        DateTime.now().setZone(timeZone).startOf("month").toJSDate(),
+      ),
   );
 
   const [end, setEnd] = useQueryState(
@@ -226,7 +231,7 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
       // Default to current month if no start or end date is provided
       // This is done here and not in the search-params.ts file because
       // if deployment was done in last month, server will keep the last month's dates for default
-      .withDefault(DateTime.now().endOf("month").toJSDate()),
+      .withDefault(DateTime.now().setZone(timeZone).endOf("month").toJSDate()),
   );
 
   const { reload } = useReload();
@@ -257,8 +262,6 @@ export const FinancialsOverviewClient: React.FC<FinancialsTabProps> = ({
       ...point,
       date: formatChartDate(point.date),
     })) || [];
-
-  const timeZone = useTimeZone();
 
   const getConvertedToLabel = (convertedTo: string) => {
     const nestedKey = getConvertedToLabelKey(convertedTo);

@@ -8,6 +8,7 @@ import {
   IComboboxItem,
   Skeleton,
   useCurrencyFormat,
+  useTimeZone,
 } from "@hacado/ui";
 import { Gift } from "lucide-react";
 import { DateTime } from "luxon";
@@ -19,6 +20,7 @@ const GiftCardShortLabel: React.FC<{
 }> = ({ giftCard, row }) => {
   const t = useI18n("admin");
   const currencyFormat = useCurrencyFormat();
+  const timeZone = useTimeZone();
   return (
     <div className="flex flex-row items-center gap-2 shrink overflow-hidden text-nowrap min-w-0 max-w-[var(--radix-popover-trigger-width)]">
       <Gift size={20} />
@@ -33,9 +35,9 @@ const GiftCardShortLabel: React.FC<{
         {giftCard.expiresAt && !row && (
           <div className="text-xs italic">
             {t("giftCardSelector.expiresAt", {
-              expiresAt: DateTime.fromJSDate(giftCard.expiresAt).toLocaleString(
-                DateTime.DATETIME_MED,
-              ),
+              expiresAt: DateTime.fromJSDate(giftCard.expiresAt)
+                .setZone(timeZone)
+                .toLocaleString(DateTime.DATETIME_MED),
             })}
           </div>
         )}

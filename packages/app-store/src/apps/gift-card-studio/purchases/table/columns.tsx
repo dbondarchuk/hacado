@@ -1,7 +1,13 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Link, Spinner, useCurrencyFormat } from "@hacado/ui";
+import {
+  Button,
+  Link,
+  Spinner,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
@@ -301,10 +307,12 @@ export const columns: ColumnDef<PurchasedGiftCardListModel>[] = [
       "date",
       giftCardStudioAdminNamespace,
     ),
-    cell: ({ row }) =>
-      DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-        DateTime.DATETIME_MED,
-      ),
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.createdAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
+    },
     sortingFn: tableSortNoopFunction,
   },
   {

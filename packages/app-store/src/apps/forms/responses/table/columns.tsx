@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Checkbox, Link } from "@hacado/ui";
+import { Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
@@ -136,10 +136,12 @@ export const columns: ColumnDef<ResponsesTableRow>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    cell: ({ row }) =>
-      DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-        DateTime.DATETIME_MED,
-      ),
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.createdAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
+    },
     id: "createdAt",
     header: tableSortHeader<FormsAdminNamespace, FormsAdminKeys>(
       "responses.table.columns.createdAt",

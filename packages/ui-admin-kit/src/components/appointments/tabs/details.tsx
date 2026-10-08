@@ -628,9 +628,11 @@ export const AppointmentDetails = ({
         <div className="px-5 py-2.5 border-b border-border">
           <p className="text-sm text-muted-foreground">
             {t("appointments.view.requestedAtFormat", {
-              requestedAt: DateTime.fromJSDate(
-                appointment.createdAt,
-              ).toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY, { locale }),
+              requestedAt: DateTime.fromJSDate(appointment.createdAt)
+                .setZone(timeZone)
+                .toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY, {
+                  locale,
+                }),
               timezone:
                 timeZones.find((tz) => tz.name === appointment.timeZone)
                   ?.name || appointment.timeZone,

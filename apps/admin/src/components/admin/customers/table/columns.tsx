@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AppointmentEntity, CustomerListModel } from "@hacado/types";
-import { Checkbox, Link } from "@hacado/ui";
+import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
@@ -19,6 +19,7 @@ const AppointmentCell: React.FC<{ appointment?: AppointmentEntity }> = ({
   appointment,
 }) => {
   const locale = useLocale();
+  const timeZone = useTimeZone();
 
   return appointment && appointment.option ? (
     <Link
@@ -26,10 +27,9 @@ const AppointmentCell: React.FC<{ appointment?: AppointmentEntity }> = ({
       variant="underline"
     >
       {appointment.option.name} at{" "}
-      {DateTime.fromJSDate(appointment.dateTime).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      )}
+      {DateTime.fromJSDate(appointment.dateTime)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale })}
     </Link>
   ) : (
     ""

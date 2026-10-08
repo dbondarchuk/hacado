@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { cn, useTimeZone } from "@hacado/ui";
 import { MemberName } from "@hacado/ui-admin";
 import { User } from "lucide-react";
 import { DateTime } from "luxon";
@@ -26,8 +26,9 @@ export const EventItemContent: React.FC<EventItemContentProps> = ({
   showTime = true,
 }) => {
   const locale = useLocale();
-  const start = DateTime.fromJSDate(event.start);
-  const end = DateTime.fromJSDate(event.end);
+  const timeZone = useTimeZone();
+  const start = DateTime.fromJSDate(event.start).setZone(timeZone);
+  const end = DateTime.fromJSDate(event.end).setZone(timeZone);
   const timeLabel = `${start.toLocaleString(DateTime.TIME_SIMPLE, { locale })} – ${end.toLocaleString(DateTime.TIME_SIMPLE, { locale })}`;
 
   if (density === "compact") {

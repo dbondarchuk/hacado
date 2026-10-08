@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types";
-import { Button, Checkbox, Link } from "@hacado/ui";
+import { Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   MemberName,
@@ -183,10 +183,10 @@ export const columns: ColumnDef<CommunicationLog>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.dateTime).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.dateTime)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "dateTime",
     header: tableSortHeader(

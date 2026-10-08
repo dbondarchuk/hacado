@@ -6,6 +6,8 @@ const nextLogger = require("next/dist/build/output/log");
 const NOISY_ERROR_PATTERNS = [
   /isn't a valid image/i,
   /The requested resource isn't a valid image/i,
+  /^NEXT_HTTP_ERROR_FALLBACK/,
+  /^NEXT_REDIRECT/,
 ];
 
 function isNoisyNextError(args: IArguments): boolean {
@@ -14,7 +16,12 @@ function isNoisyNextError(args: IArguments): boolean {
       return NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg));
     }
     if (arg instanceof Error) {
-      return NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg.message));
+      const digest = (arg as unknown as { digest?: unknown }).digest;
+      return (
+        NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(arg.message)) ||
+        (typeof digest === "string" &&
+          NOISY_ERROR_PATTERNS.some((pattern) => pattern.test(digest)))
+      );
     }
     return false;
   });

@@ -103,13 +103,13 @@ export const EnEmailTemplates: EmailTemplates = {
   rescheduledByCustomer: {
     title: "Appointment for {{option.name}} was rescheduled.",
     text: getText(
-      "The appointment for {{option.name}} by {{fields.name}} was rescheduled by the customer for {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "The appointment for {{option.name}} by {{fields.name}} was rescheduled by the customer{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   rescheduled: {
     title: "Appointment was rescheduled for {{dateTime.full}}",
     text: getText(
-      "The appointment for {{option.name}} by {{fields.name}} was rescheduled for {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
+      "The appointment for {{option.name}} by {{fields.name}} was rescheduled{{#oldDateTime}} from {{oldDateTime.full}}{{/oldDateTime}} to {{dateTime.full}}, duration {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}",
     ),
   },
   "auto-confirmed": {

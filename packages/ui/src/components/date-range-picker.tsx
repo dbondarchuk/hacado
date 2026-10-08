@@ -66,11 +66,11 @@ export const CalendarDateRangePicker: React.FC<
             {date?.start ? (
               date.end ? (
                 <>
-                  {DateTime.fromJSDate(date.start).toFormat("LLL dd, y")} -{" "}
-                  {DateTime.fromJSDate(date.end).toFormat("LLL dd, y")}
+                  {getDateTime(date.start).toFormat("LLL dd, y")} -{" "}
+                  {getDateTime(date.end).toFormat("LLL dd, y")}
                 </>
               ) : (
-                DateTime.fromJSDate(date.start).toFormat("LLL dd, y")
+                getDateTime(date.start).toFormat("LLL dd, y")
               )
             ) : (
               <span className="text-muted-foreground">

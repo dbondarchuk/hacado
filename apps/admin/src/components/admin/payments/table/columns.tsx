@@ -2,7 +2,13 @@
 
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import { PaymentSummary } from "@hacado/types";
-import { Badge, Button, Link, useCurrencyFormat } from "@hacado/ui";
+import {
+  Badge,
+  Button,
+  Link,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import {
   getPaymentDescription,
@@ -16,6 +22,7 @@ import { CellAction } from "./cell-action";
 
 function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
   const locale = useLocale();
+  const timeZone = useTimeZone();
   const rawDate = payment.paidAt ?? payment.createdAt;
   if (!rawDate) {
     return (
@@ -27,10 +34,11 @@ function PaymentDateCell({ payment }: { payment: PaymentSummary }) {
     );
   }
 
-  const dateTime =
+  const dateTime = (
     typeof rawDate === "string"
       ? DateTime.fromISO(rawDate)
-      : DateTime.fromJSDate(rawDate);
+      : DateTime.fromJSDate(rawDate)
+  ).setZone(timeZone);
 
   return (
     <PaymentDetailsDialog payment={payment}>

@@ -7,6 +7,7 @@ import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
+  useTimeZone,
 } from "@hacado/ui";
 import {
   AssetPreview,
@@ -155,10 +156,10 @@ export const columns: ColumnDef<Asset>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.uploadedAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.uploadedAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "uploadedAt",
     header: tableSortHeader("assets.table.columns.uploadTime", "date", "admin"),

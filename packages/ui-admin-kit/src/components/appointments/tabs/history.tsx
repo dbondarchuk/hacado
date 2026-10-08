@@ -66,9 +66,9 @@ const HistoryEntry: React.FC<{ entry: AppointmentHistoryEntry }> = ({
   entry,
 }) => {
   const t = useI18n();
-  const dateTime = DateTime.fromJSDate(entry.dateTime);
   const locale = useLocale();
   const timeZone = useTimeZone();
+  const dateTime = DateTime.fromJSDate(entry.dateTime).setZone(timeZone);
   const currencyFormat = useCurrencyFormat();
 
   const isMobile = useIsMobile();

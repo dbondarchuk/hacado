@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AppointmentOption } from "@hacado/types";
-import { Checkbox, Link } from "@hacado/ui";
+import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   tableSortHeader,
   tableSortNoopFunction,
@@ -67,10 +67,10 @@ export const columns: ColumnDef<AppointmentOption>[] = [
   {
     cell: ({ row }) => {
       const locale = useLocale();
-      return DateTime.fromJSDate(row.original.updatedAt).toLocaleString(
-        DateTime.DATETIME_MED,
-        { locale },
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.updatedAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED, { locale });
     },
     id: "updatedAt",
     header: tableSortHeader(

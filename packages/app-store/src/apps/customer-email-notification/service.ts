@@ -265,8 +265,8 @@ export default class CustomerEmailNotificationConnectedApp
     appointment: Appointment,
     newTime: Date,
     newDuration: number,
-    _?: Date,
-    __?: number,
+    oldTime?: Date,
+    _oldDuration?: number,
     doNotNotifyCustomer?: boolean,
   ): Promise<void> {
     const logger = this.loggerFactory("onAppointmentRescheduled");
@@ -290,6 +290,7 @@ export default class CustomerEmailNotificationConnectedApp
         appointmentId: appointment._id,
         newTime: newTime.toISOString(),
         newDuration,
+        oldTime: oldTime?.toISOString(),
       },
       "Appointment rescheduled, sending customer email notification",
     );
@@ -306,6 +307,8 @@ export default class CustomerEmailNotificationConnectedApp
         newAppointment,
         "rescheduled",
         "rescheduled",
+        undefined,
+        oldTime ? { oldDateTime: oldTime } : undefined,
       );
 
       logger.info(
@@ -345,6 +348,7 @@ export default class CustomerEmailNotificationConnectedApp
     status: EmailTemplateKeys,
     initiator: EmailTemplateKeys | "newRequest",
     forceRequest?: boolean,
+    additionalProperties?: Record<string, unknown>,
   ) {
     const logger = this.loggerFactory("sendNotification");
     logger.debug(
@@ -390,6 +394,7 @@ export default class CustomerEmailNotificationConnectedApp
         customer: appointment.customer,
         useAppointmentTimezone: true,
         locale: config.brand.language,
+        additionalProperties,
       });
 
       const data = appData.data as CustomerEmailNotificationConfiguration;

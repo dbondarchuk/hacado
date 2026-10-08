@@ -1,7 +1,13 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentPackageListModel } from "@hacado/types";
-import { Badge, Checkbox, Link, useCurrencyFormat } from "@hacado/ui";
+import {
+  Badge,
+  Checkbox,
+  Link,
+  useCurrencyFormat,
+  useTimeZone,
+} from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
@@ -111,10 +117,12 @@ export const columns: ColumnDef<AppointmentPackageListModel>[] = [
     enableSorting: false,
   },
   {
-    cell: ({ row }) =>
-      DateTime.fromJSDate(new Date(row.original.updatedAt)).toLocaleString(
-        DateTime.DATETIME_MED,
-      ),
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(new Date(row.original.updatedAt))
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
+    },
     id: "updatedAt",
     header: tableSortHeader(
       "services.packages.table.columns.updatedAt",

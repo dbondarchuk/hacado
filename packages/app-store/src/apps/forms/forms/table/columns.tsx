@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { Checkbox, Link } from "@hacado/ui";
+import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { Lock } from "lucide-react";
@@ -92,15 +92,16 @@ export const columns: ColumnDef<FormsTableRow>[] = [
       const t = useI18n<FormsAdminNamespace, FormsAdminKeys>(
         formsAdminNamespace,
       );
+      const timeZone = useTimeZone();
       return (
         <Link
           href={`/dashboard/forms/responses?formId=${row.original._id}`}
           variant="underline"
         >
           {row.original.lastResponse
-            ? DateTime.fromJSDate(row.original.lastResponse).toLocaleString(
-                DateTime.DATETIME_MED,
-              )
+            ? DateTime.fromJSDate(row.original.lastResponse)
+                .setZone(timeZone)
+                .toLocaleString(DateTime.DATETIME_MED)
             : t("forms.table.columns.noResponses")}
         </Link>
       );
@@ -115,9 +116,10 @@ export const columns: ColumnDef<FormsTableRow>[] = [
   },
   {
     cell: ({ row }) => {
-      return DateTime.fromJSDate(row.original.createdAt).toLocaleString(
-        DateTime.DATETIME_MED,
-      );
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(row.original.createdAt)
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
     },
     id: "createdAt",
     header: tableSortHeader<FormsAdminNamespace, FormsAdminKeys>(

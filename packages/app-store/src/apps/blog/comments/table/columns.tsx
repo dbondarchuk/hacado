@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
   Link,
+  useTimeZone,
 } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
@@ -165,10 +166,12 @@ export const columns: ColumnDef<CommentsTableRow>[] = [
       "date",
       blogAdminNamespace,
     ),
-    cell: ({ row }) =>
-      DateTime.fromJSDate(new Date(row.original.createdAt)).toLocaleString(
-        DateTime.DATETIME_MED,
-      ),
+    cell: ({ row }) => {
+      const timeZone = useTimeZone();
+      return DateTime.fromJSDate(new Date(row.original.createdAt))
+        .setZone(timeZone)
+        .toLocaleString(DateTime.DATETIME_MED);
+    },
     sortingFn: tableSortNoopFunction,
   },
   {

@@ -107,18 +107,18 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
 
   const getDates = (day: Date) => {
+    const zonedDay = DateTime.fromJSDate(day).setZone(timeZone);
+
     switch (variant) {
       case "days-around":
         return Array.from({ length: daysAround * 2 + 1 })
           .map((_, index) => -1 * daysAround + index)
-          .map((d) =>
-            DateTime.fromJSDate(day).startOf("day").plus({ days: d }),
-          );
+          .map((d) => zonedDay.startOf("day").plus({ days: d }));
 
       case "week-of":
       default:
         return [0, 1, 2, 3, 4, 5, 6].map((d) =>
-          DateTime.fromJSDate(day).startOf("week").plus({ days: d }),
+          zonedDay.startOf("week").plus({ days: d }),
         );
     }
   };
@@ -129,7 +129,7 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
 
   React.useEffect(() => {
     setDates(getDates(date || new Date()));
-  }, [date]);
+  }, [date, timeZone, variant, daysAround]);
 
   React.useEffect(() => {
     onRangeChange?.(dates[0].toJSDate(), dates[dates.length - 1].toJSDate());
@@ -353,7 +353,10 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
         >
           <div></div>
           {dates.map((date, index) => {
-            const isToday = date.hasSame(DateTime.now(), "day");
+            const isToday = date.hasSame(
+              DateTime.now().setZone(timeZone),
+              "day",
+            );
             return (
               <Fragment key={`date-${date.toISO()}`}>
                 <div

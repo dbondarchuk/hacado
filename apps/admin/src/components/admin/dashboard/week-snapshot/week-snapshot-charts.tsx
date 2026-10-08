@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Link, cn } from "@hacado/ui";
+import { Link, cn, useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 import {
   Area,
@@ -49,17 +49,22 @@ export function WeekSnapshotCharts({
 }) {
   const t = useI18n("admin");
   const locale = useLocale();
-  const today = DateTime.now().toISODate();
+  const timeZone = useTimeZone();
+  const today = DateTime.now().setZone(timeZone).toISODate();
 
   const appointmentChart = weekDayCounts.map((day) => ({
     ...day,
-    label: DateTime.fromISO(day.date).toFormat("ccc", { locale }),
+    label: DateTime.fromISO(day.date, { zone: timeZone }).toFormat("ccc", {
+      locale,
+    }),
     isToday: day.date === today,
   }));
 
   const customerChart = (customerData ?? []).map((day) => ({
     ...day,
-    label: DateTime.fromISO(day.date).toFormat("ccc", { locale }),
+    label: DateTime.fromISO(day.date, { zone: timeZone }).toFormat("ccc", {
+      locale,
+    }),
   }));
 
   return (

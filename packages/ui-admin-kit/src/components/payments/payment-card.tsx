@@ -17,6 +17,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
   useCurrencyFormat,
+  useTimeZone,
 } from "@hacado/ui";
 import { useAuth } from "@hacado/ui-admin";
 import { canManageSyncedPayments } from "@hacado/utils";
@@ -114,14 +115,17 @@ export const getPaymentDescription = (description: string): AllKeys => {
   }
 };
 
-const toDateTime = (value: Date | string | undefined) => {
+const toDateTime = (value: Date | string | undefined, timeZone: string) => {
   if (!value) {
     return undefined;
   }
 
-  return typeof value === "string"
-    ? DateTime.fromISO(value)
-    : DateTime.fromJSDate(value);
+  const dateTime =
+    typeof value === "string"
+      ? DateTime.fromISO(value)
+      : DateTime.fromJSDate(value);
+
+  return dateTime.setZone(timeZone);
 };
 
 export const PaymentCard: React.FC<PaymentCardProps> = ({
@@ -147,6 +151,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
   const t = useI18n();
   const tAdmin = useI18n("admin");
   const locale = useLocale();
+  const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
   const { user } = useAuth();
   const canManageSynced = canManageSyncedPayments(user);
@@ -156,10 +161,10 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
     "createdAt" in rest
       ? (rest.createdAt as Date | string | undefined)
       : undefined;
-  const dateTime = toDateTime(paidAt ?? createdAt);
+  const dateTime = toDateTime(paidAt ?? createdAt, timeZone);
   const dateTimeValid = !!dateTime?.isValid;
   const refundedDateTime = refunds?.[0]?.refundedAt
-    ? toDateTime(refunds[0].refundedAt)
+    ? toDateTime(refunds[0].refundedAt, timeZone)
     : undefined;
 
   const totalRefunded =
@@ -463,12 +468,11 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
                       className="flex flex-row gap-2"
                     >
                       <span>
-                        {DateTime.fromJSDate(refund.refundedAt).toLocaleString(
-                          DateTime.DATETIME_MED,
-                          {
+                        {DateTime.fromJSDate(refund.refundedAt)
+                          .setZone(timeZone)
+                          .toLocaleString(DateTime.DATETIME_MED, {
                             locale,
-                          },
-                        )}
+                          })}
                       </span>
                       <span>{currencyFormat(-1 * refund.amount)}</span>
                     </div>

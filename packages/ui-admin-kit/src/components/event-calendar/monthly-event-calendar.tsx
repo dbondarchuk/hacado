@@ -54,7 +54,7 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
     setDates(
       getDates(DateTime.fromJSDate(date || new Date()).setZone(timeZone)),
     );
-  }, [date]);
+  }, [date, timeZone]);
 
   React.useEffect(() => {
     onRangeChange?.(dates.startDate.toJSDate(), dates.endDate.toJSDate());
@@ -70,10 +70,18 @@ export const MonthlyEventCalendar: React.FC<MonthlyEventCalendarProps> = ({
       const formattedDate = dayClonned.toFormat("d");
 
       const dayEvents = (propsEvents || []).filter((event) =>
-        hasSame(DateTime.fromJSDate(event.start), dayClonned, "day"),
+        hasSame(
+          DateTime.fromJSDate(event.start).setZone(timeZone),
+          dayClonned,
+          "day",
+        ),
       );
 
-      const isToday = hasSame(dayClonned, DateTime.now(), "day");
+      const isToday = hasSame(
+        dayClonned,
+        DateTime.now().setZone(timeZone),
+        "day",
+      );
       const daySchedule = schedule[dayClonned.toISODate()!];
       const outsideMonth = !hasSame(dayClonned, dates.monthStart, "month");
 
