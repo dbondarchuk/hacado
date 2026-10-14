@@ -2,7 +2,6 @@
 
 import {
   GIFT_CARD_STUDIO_APP_NAME,
-  MY_CABINET_APP_NAME,
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
 import { generateId, type LayoutTemplateService } from "@hacado/builder";
@@ -28,7 +27,6 @@ import { footerDefaultPage } from "../defaults/footer";
 import { giftCardsDefaultPage } from "../defaults/gift-cards";
 import { homeDefaultPage, TemplateServiceArg } from "../defaults/home";
 import { modifyDefaultPage } from "../defaults/modify";
-import { myCabinetDefaultPage } from "../defaults/my-cabinet";
 import { serviceDefaultPage } from "../defaults/service";
 
 type CompleteInstallPagesInput = {
@@ -293,9 +291,6 @@ async function getInstallPageDefaultsLabels(language: Language) {
     },
     giftCardStudioLabels: {
       title: t("wizard.finish.pageDefaults.giftCards.title"),
-    },
-    myCabinetLabels: {
-      title: t("wizard.finish.pageDefaults.myCabinet.title"),
     },
   };
 }
@@ -667,61 +662,6 @@ async function upsertDefaultGiftCardsPage(
 
   await pagesService.createPage(pageData, systemEventSource);
   logger.debug({ slug: "gift-cards" }, "Created default gift cards page");
-}
-
-export async function upsertInstallMyCabinetDefaultPage(
-  services: IServicesContainer,
-  args: {
-    businessName: string;
-    language: Language;
-    headerId: string;
-    footerId: string;
-    myCabinetLabels: { title: string };
-  },
-): Promise<void> {
-  const logger = getLoggerFactory("InstallActions")(
-    "upsertInstallMyCabinetDefaultPage",
-  );
-  logger.debug({}, "Upserting My Cabinet install default page");
-
-  const myCabinetApp = (
-    await services.connectedAppsService.getAppsByApp(MY_CABINET_APP_NAME)
-  )[0];
-
-  if (!myCabinetApp) {
-    logger.debug("My Cabinet app not installed; skipping page");
-    return;
-  }
-
-  const pagesService = services.pagesService;
-  const existing = await pagesService.getPageBySlug("my-cabinet");
-
-  const title = args.myCabinetLabels.title;
-  const content = myCabinetDefaultPage(myCabinetApp._id, { title });
-
-  const pageData = {
-    title,
-    description: `${args.businessName} customer account`,
-    keywords: `${args.businessName}, account, appointments`,
-    slug: "my-cabinet",
-    published: true,
-    publishDate: new Date(),
-    headerId: args.headerId,
-    footerId: args.footerId,
-    content,
-  };
-
-  if (existing) {
-    await pagesService.updatePage(existing._id, pageData, systemEventSource);
-    logger.debug(
-      { pageId: existing._id, slug: "my-cabinet" },
-      "Updated default My Cabinet page",
-    );
-    return;
-  }
-
-  await pagesService.createPage(pageData, systemEventSource);
-  logger.debug({ slug: "my-cabinet" }, "Created default My Cabinet page");
 }
 
 async function upsertDefaultServicesPage(

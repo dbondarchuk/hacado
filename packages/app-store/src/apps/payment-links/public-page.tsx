@@ -5,7 +5,7 @@ import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CollectPayment,
-  PublicPageRendererProps,
+  PublicPageClientProps,
   zEmail,
   zPhone,
 } from "@hacado/types";
@@ -73,7 +73,7 @@ function roundMoney(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
-export const PaymentLinksPublicPage: React.FC<PublicPageRendererProps> = ({
+export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
   appId,
   searchParams,
 }) => {

@@ -393,6 +393,9 @@ async function renderPublicPageTakeover(args: {
     throw new NotFoundError("Public page renderer not found");
   }
 
+  const { service: appService } =
+    await servicesContainer.connectedAppsService.getAppService(match.app._id);
+
   return (
     <>
       <Styling styling={styling} />
@@ -400,11 +403,12 @@ async function renderPublicPageTakeover(args: {
       {header && (
         <Header name={general.name} logo={brand.logo} config={header} />
       )}
-      {Renderer({
+      {await Renderer({
         appId: match.app._id,
         appName: match.app.name,
         searchParams,
         websiteUrl,
+        appService,
       })}
       {footer?.content && (
         <PageReader

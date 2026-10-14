@@ -4,19 +4,29 @@ import {
   ApiResponse,
   Appointment,
   ConnectedAppData,
+  ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   CUSTOMER_SESSION_COOKIE,
   IConnectedApp,
   IConnectedAppProps,
+  IPublicPageProvider,
+  PublicPageChrome,
+  PublicPageChromeContext,
+  PublicPageClaim,
   readCookieValue,
+  resolvePageHeaderPosition,
 } from "@hacado/types";
+import { WAITLIST_APP_NAME } from "../waitlist/const";
+import { MyCabinetSettings, myCabinetSettingsSchema } from "./models";
 import {
   MyCabinetAdminAllKeys,
   MyCabinetAdminKeys,
   MyCabinetAdminNamespace,
 } from "./translations/types";
 
-export class MyCabinetConnectedApp implements IConnectedApp {
+export class MyCabinetConnectedApp
+  implements IConnectedApp, IPublicPageProvider
+{
   protected readonly loggerFactory: LoggerFactory;
 
   constructor(private readonly props: IConnectedAppProps) {
@@ -26,27 +36,124 @@ export class MyCabinetConnectedApp implements IConnectedApp {
     );
   }
 
+  public async getPublicPageClaims(
+    _appData: ConnectedAppData,
+  ): Promise<PublicPageClaim[]> {
+    return [{ slug: "my-cabinet", noIndex: true }];
+  }
+
+  public async getPublicPageChrome(
+    appData: ConnectedAppData,
+    _ctx: PublicPageChromeContext,
+  ): Promise<PublicPageChrome | undefined> {
+    const settings = (appData.data ?? {}) as MyCabinetSettings;
+
+    return {
+      headerId: settings.headerId,
+      footerId: settings.footerId,
+      title: "My Cabinet",
+    };
+  }
+
   public async processRequest(
     appData: ConnectedAppData,
+    request: MyCabinetSettings,
   ): Promise<
     ConnectedAppStatusWithText<MyCabinetAdminNamespace, MyCabinetAdminKeys>
   > {
     const logger = this.loggerFactory("processRequest");
-    logger.debug({ appId: appData._id }, "Connecting My Cabinet app");
+    logger.debug({ appId: appData._id }, "Processing My Cabinet setup");
 
-    const status: ConnectedAppStatusWithText<
-      MyCabinetAdminNamespace,
-      MyCabinetAdminKeys
-    > = {
-      status: "connected",
-      statusText:
-        "app_my-cabinet_admin.statusText.successfully_set_up" satisfies MyCabinetAdminAllKeys,
-    };
+    const { data, success, error } = myCabinetSettingsSchema.safeParse(request);
+    if (!success) {
+      logger.error({ error }, "Invalid My Cabinet settings");
+      throw new ConnectedAppRequestError(
+        "invalid_request",
+        { request, error },
+        400,
+        error.message,
+      );
+    }
 
-    await this.props.update({ ...status });
+    try {
+      const status: ConnectedAppStatusWithText<
+        MyCabinetAdminNamespace,
+        MyCabinetAdminKeys
+      > = {
+        status: "connected",
+        statusText:
+          "app_my-cabinet_admin.statusText.successfully_set_up" satisfies MyCabinetAdminAllKeys,
+      };
 
-    logger.info({ appId: appData._id }, "My Cabinet app connected");
-    return status;
+      await this.props.update({
+        data,
+        ...status,
+      });
+
+      logger.info({ appId: appData._id }, "My Cabinet configured");
+      return status;
+    } catch (err) {
+      logger.error(
+        { appId: appData._id, error: err },
+        "Error processing My Cabinet configuration",
+      );
+
+      await this.props.update({
+        status: "failed",
+        statusText:
+          "app_my-cabinet_admin.statusText.error_processing_configuration" satisfies MyCabinetAdminAllKeys,
+      });
+
+      throw err;
+    }
+  }
+
+  public async install(appData: ConnectedAppData): Promise<void> {
+    const logger = this.loggerFactory("install");
+    logger.debug({ appId: appData._id }, "Installing My Cabinet");
+
+    try {
+      const { pagesService } = this.props.services;
+      const headers = await pagesService.getPageHeaders({ limit: 50 });
+      const preferredHeader =
+        headers.items.find(
+          (item) => resolvePageHeaderPosition(item) !== "fixed",
+        ) ?? headers.items[0];
+
+      const footers = await pagesService.getPageFooters({ limit: 1 });
+      const headerId = preferredHeader?._id;
+      const footerId = footers.items[0]?._id;
+
+      const currentSettings = (appData.data as MyCabinetSettings) ?? {};
+      const nextSettings: MyCabinetSettings = {
+        headerId: currentSettings.headerId ?? headerId,
+        footerId: currentSettings.footerId ?? footerId,
+      };
+
+      await this.props.update({
+        data: nextSettings,
+        status: "connected",
+        statusText:
+          "app_my-cabinet_admin.statusText.successfully_set_up" satisfies MyCabinetAdminAllKeys,
+      });
+
+      logger.info(
+        {
+          appId: appData._id,
+          headerId: nextSettings.headerId,
+          footerId: nextSettings.footerId,
+        },
+        "My Cabinet chrome seeded",
+      );
+    } catch (error) {
+      logger.error(
+        { appId: appData._id, error },
+        "Failed to seed My Cabinet on install",
+      );
+      throw error;
+    }
+
+    logger.info({ appId: appData._id }, "My Cabinet installed");
   }
 
   public async processAppCall(
@@ -97,6 +204,21 @@ export class MyCabinetConnectedApp implements IConnectedApp {
       { success: false, error: "not_found" },
       { status: 404 },
     );
+  }
+
+  public async resolveWaitlistAppId(): Promise<string | undefined> {
+    const logger = this.loggerFactory("resolveWaitlistAppId");
+    const waitlistApps =
+      await this.props.services.connectedAppsService.getAppsByApp(
+        WAITLIST_APP_NAME,
+      );
+    const waitlistApp = waitlistApps.find((app) => app.status === "connected");
+    logger.debug(
+      { waitlistAppId: waitlistApp?._id },
+      "Resolved waitlist app for cabinet",
+    );
+
+    return waitlistApp?._id;
   }
 
   private async getAppointments(

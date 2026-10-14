@@ -2015,13 +2015,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/complete-setup.ts": {
-    "mtime": 1790184639.3451853,
-    "ast_hash": "486dc4774d760e4d273e7b1ff26da726",
+    "mtime": 1791937963.1676476,
+    "ast_hash": "c3c104a4865f9f27f1ca5754f0849a56",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/create-default-pages.ts": {
-    "mtime": 1789661591.4688942,
-    "ast_hash": "f0fa20f2e4abc3d94feb6e3183fd6cc0",
+    "mtime": 1791937923.5230098,
+    "ast_hash": "436612c9cfe28c75c44feb5d633e73ca",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/actions/index.ts": {
@@ -2112,11 +2112,6 @@
   "apps/admin/src/components/install/defaults/modify.ts": {
     "mtime": 1786820408.9095247,
     "ast_hash": "c58a5b4a08c9f629a48f13804d93cc41",
-    "semantic_hash": ""
-  },
-  "apps/admin/src/components/install/defaults/my-cabinet.ts": {
-    "mtime": 1777482276.7656157,
-    "ast_hash": "cc9e25b1cba423fd1d5128c97a80ce1e",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/defaults/page.ts": {
@@ -2315,13 +2310,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/utils/logger/console-patch.ts": {
-    "mtime": 1791469184.8461947,
-    "ast_hash": "617e1603394d319efa0b0e729d515444",
+    "mtime": 1791469906.0533254,
+    "ast_hash": "509068c3e634f8ba6a6ad03922939249",
     "semantic_hash": ""
   },
   "apps/admin/src/utils/logger/next-patch.ts": {
-    "mtime": 1791469179.896395,
-    "ast_hash": "aaa9024320e276a0bd5da1a4159e01c2",
+    "mtime": 1791469904.137648,
+    "ast_hash": "ac56e48587dd1d30e046334ddf4086d2",
     "semantic_hash": ""
   },
   "apps/admin/src/utils/subscription/subscription-access.ts": {
@@ -2530,8 +2525,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/page.tsx": {
-    "mtime": 1791469152.6533966,
-    "ast_hash": "cb9d4cce383d7ff13dcab043b2a3a68d",
+    "mtime": 1791938386.1042025,
+    "ast_hash": "1f008af95d03d69d363d03d00aab52c9",
     "semantic_hash": ""
   },
   "apps/web/src/app/admin/[[...slug]]/route.ts": {
@@ -2705,13 +2700,13 @@
     "semantic_hash": ""
   },
   "apps/web/src/utils/logger/console-patch.ts": {
-    "mtime": 1791469176.1907854,
-    "ast_hash": "617e1603394d319efa0b0e729d515444",
+    "mtime": 1791469901.9446754,
+    "ast_hash": "509068c3e634f8ba6a6ad03922939249",
     "semantic_hash": ""
   },
   "apps/web/src/utils/logger/next-patch.ts": {
-    "mtime": 1791469171.2584517,
-    "ast_hash": "4e8ea0af00632ae5c9a3ae31e0b89503",
+    "mtime": 1791469900.420957,
+    "ast_hash": "07a343a2366e502e2e2a0935942f63cb",
     "semantic_hash": ""
   },
   "apps/web/src/utils/subscription-access.ts": {
@@ -5825,8 +5820,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/app.tsx": {
-    "mtime": 1786820409.3439262,
-    "ast_hash": "6f6a786b8d6f942e02b5a7d1f6f8e339",
+    "mtime": 1791937884.413545,
+    "ast_hash": "69b861a3f9dbf893478974824c0dc4fc",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/actions.ts": {
@@ -5950,18 +5945,18 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/index.ts": {
-    "mtime": 1779903563.6388803,
-    "ast_hash": "5c96fe617ca0ca361ae1e89ff768346e",
+    "mtime": 1791938092.0098748,
+    "ast_hash": "ead514c18fd346574d0439b1d394eb88",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/service.ts": {
-    "mtime": 1786820409.356926,
-    "ast_hash": "38d52eb954bc0a06942c4fd0c01c45d0",
+    "mtime": 1791938391.186272,
+    "ast_hash": "849fa6adadb2b2c5a510f69c587a2a15",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/setup.tsx": {
-    "mtime": 1786820409.356926,
-    "ast_hash": "16bb425d516507b77ee8b60214e0ab01",
+    "mtime": 1791937910.462957,
+    "ast_hash": "a33ee3658cb13984b221cc49b4101fd5",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/index.ts": {
@@ -7300,13 +7295,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/blocks/editors.ts": {
-    "mtime": 1786820409.48778,
-    "ast_hash": "3a1be266979abb8e274e9f5ded208306",
+    "mtime": 1791937912.945669,
+    "ast_hash": "5a05f408675ec54e3eb2d33f28077b50",
     "semantic_hash": ""
   },
   "packages/app-store/src/blocks/readers.ts": {
-    "mtime": 1786820409.48778,
-    "ast_hash": "2ed0d5e100a595ac62883f27ee2b1f39",
+    "mtime": 1791937915.169573,
+    "ast_hash": "bd5e7cd704c4b139fb604550e2ceb429",
     "semantic_hash": ""
   },
   "packages/app-store/src/const.ts": {
@@ -13970,8 +13965,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/agenda-event-calendar.tsx": {
-    "mtime": 1791468022.195845,
-    "ast_hash": "65cfbeb729636f4cf94b846c12e646d5",
+    "mtime": 1791469446.8831248,
+    "ast_hash": "0e32251314bc544acbb708fc5a78c8ac",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/event-calendar.tsx": {
@@ -15470,8 +15465,8 @@
     "semantic_hash": ""
   },
   "docs/docs/apps/my-cabinet.md": {
-    "mtime": 1777924614.51238,
-    "ast_hash": "ccceb1baed35e35a7862bfa0872cba37",
+    "mtime": 1791937950.6839354,
+    "ast_hash": "127539c4071205b860ed53c47a511a1b",
     "semantic_hash": ""
   },
   "docs/docs/apps/outlook.md": {
@@ -15780,8 +15775,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/en/admin.yaml": {
-    "mtime": 1787364795.2216256,
-    "ast_hash": "be817ce0550bf87a7e1e0171c7a54413",
+    "mtime": 1791937926.7468553,
+    "ast_hash": "5ce3054d61810951aed582023c39d225",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/en/public.yaml": {
@@ -15790,8 +15785,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/uk/admin.yaml": {
-    "mtime": 1787364795.2226264,
-    "ast_hash": "4fe18d5e88e4e20b9296d09b910d0109",
+    "mtime": 1791937943.658415,
+    "ast_hash": "ee72502a2872dbdd0f64fc2953b3ceb6",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/uk/public.yaml": {
@@ -26800,8 +26795,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/columns.tsx": {
-    "mtime": 1791468057.452762,
-    "ast_hash": "7e2c46c6657d2019ace15c49d6689d19",
+    "mtime": 1791469486.6464188,
+    "ast_hash": "d5ffc62ffcdb2d89f7430b808369c620",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/table-action.tsx": {
@@ -32110,13 +32105,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/public-page-renderers.tsx": {
-    "mtime": 1790116654.556915,
-    "ast_hash": "50bf12ac0689bcc43198618e4d6039f9",
+    "mtime": 1791938395.455445,
+    "ast_hash": "194bfa5f6496e58902f2bdce3bc1abd3",
     "semantic_hash": ""
   },
   "packages/types/src/apps/public-page-provider.ts": {
-    "mtime": 1790116654.5660949,
-    "ast_hash": "e892b29e53c2260b08f22eba3bceb7ca",
+    "mtime": 1791938384.1983,
+    "ast_hash": "fedfd5e60ac8f4c1112e0abc9fce496d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/en/admin.yaml": {
@@ -32140,8 +32135,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/public-page.tsx": {
-    "mtime": 1790116654.551913,
-    "ast_hash": "10ce9b1aabf129b0a52a48ba489f37d0",
+    "mtime": 1791938396.6590545,
+    "ast_hash": "b43e025d22db01bb23a78bd09e6fe889",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/resend-payment-link-dialog.tsx": {
@@ -34395,8 +34390,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/calendar/events-calendar.tsx": {
-    "mtime": 1791468423.4936697,
-    "ast_hash": "dd6e0d421ad118ec908782be16ac3635",
+    "mtime": 1791469486.6464188,
+    "ast_hash": "ca11951f2500cc129768a2923da7791c",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/greeting/greeting.tsx": {
@@ -34577,6 +34572,16 @@
   "apps/web/src/utils/is-routable-page-slug.ts": {
     "mtime": 1790615256.903276,
     "ast_hash": "323b85ef4fd3b8851c9443a6b7db2b5e",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/my-cabinet/models.ts": {
+    "mtime": 1791937967.6567843,
+    "ast_hash": "522fd80ccc38bd9a49f829d817847c70",
+    "semantic_hash": ""
+  },
+  "packages/app-store/src/apps/my-cabinet/public-page.tsx": {
+    "mtime": 1791938540.9237952,
+    "ast_hash": "d6e81abf708dc3091d4ebcd233a0b314",
     "semantic_hash": ""
   }
 }

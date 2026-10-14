@@ -38,10 +38,7 @@ import {
   getInstallEnabledCancellationsAndReschedules,
 } from "../default-booking";
 import { getDefaultScheduleConfiguration } from "../default-schedule";
-import {
-  createInstallDefaultPages,
-  upsertInstallMyCabinetDefaultPage,
-} from "./create-default-pages";
+import { createInstallDefaultPages } from "./create-default-pages";
 
 type InstallPreferences = {
   allowCancelReschedule: boolean;
@@ -748,7 +745,7 @@ export async function runCompleteInstallSetupSteps(args: {
   );
 
   logger.debug({ language, businessName }, "Creating install default pages");
-  const layout = await createInstallDefaultPages({
+  await createInstallDefaultPages({
     services,
     language,
     businessName,
@@ -921,16 +918,6 @@ export async function runCompleteInstallSetupSteps(args: {
     prefs,
     user,
   );
-
-  if (prefs.optMyCabinet) {
-    await upsertInstallMyCabinetDefaultPage(services, {
-      businessName,
-      language,
-      headerId: layout.headerId,
-      footerId: layout.footerId,
-      myCabinetLabels: layout.labels.myCabinetLabels,
-    });
-  }
 
   await ensureInstallDefaultConfigurations(services);
 

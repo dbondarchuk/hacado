@@ -1,4 +1,5 @@
 import type { ConnectedAppData } from "./connected-app.data";
+import type { IConnectedApp } from "./connected-app.service";
 
 export type PublicPageClaim = {
   /** Exact CMS-style slug this app owns (e.g. `"payment"`). */
@@ -38,4 +39,9 @@ export type PublicPageRendererProps = {
   appName: string;
   searchParams: Record<string, string | string[] | undefined>;
   websiteUrl: string;
+  /** Server-only connected-app service. Do not pass to client components. */
+  appService: IConnectedApp;
 };
+
+/** Serializable props safe to pass into client public-page components. */
+export type PublicPageClientProps = Omit<PublicPageRendererProps, "appService">;

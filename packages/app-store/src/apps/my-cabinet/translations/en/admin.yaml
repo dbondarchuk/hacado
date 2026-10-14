@@ -1,11 +1,28 @@
 app:
   displayName: My Cabinet
-  description: Customer sign-in cabinet for appointments
+  description: |-
+    **My Cabinet** lets returning clients sign in with a short code to view and manage their appointments.
+
+    Once installed, the cabinet is available on your website at **`/my-cabinet`**. Brand the page with your site header and footer from the app settings.
+
+    Use it to:
+    - Let clients review upcoming and past appointments.
+    - Allow self-service booking, cancel, and reschedule when your settings allow.
+    - Offer waitlist actions automatically when the Waitlist app is installed.
 statusText:
   successfully_set_up: Successfully set up My Cabinet
   error_processing_configuration: Error processing My Cabinet configuration
-setup:
+form:
   connect: Connect <app></app>
+  update: Update <app></app>
+  headerId:
+    label: Page header
+    description: Optional header shown on the public My Cabinet page at /my-cabinet
+    placeholder: Select header
+  footerId:
+    label: Page footer
+    description: Optional footer shown on the public My Cabinet page at /my-cabinet
+    placeholder: Select footer
 block:
   displayName: My Cabinet
   category: Booking
