@@ -117,21 +117,26 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     if (!tipsConfig.enabled || !payment) {
       return 0;
     }
+
     if (tipMode === "none") {
       return 0;
     }
+
     if (tipMode === "preset" && tipPresetPercent != null) {
       return roundMoney((payment.amount * tipPresetPercent) / 100);
     }
+
     if (tipMode === "custom") {
       const parsed = Number(customTip);
       return Number.isFinite(parsed) && parsed > 0 ? roundMoney(parsed) : 0;
     }
+
     return 0;
   }, [tipsConfig.enabled, payment, tipMode, tipPresetPercent, customTip]);
 
   const totalAmount = useMemo(() => {
     if (!payment) return 0;
+
     return roundMoney(payment.amount + tipAmount);
   }, [payment, tipAmount]);
 

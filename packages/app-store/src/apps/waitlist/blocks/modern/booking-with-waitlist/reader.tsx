@@ -37,6 +37,7 @@ export const BookingWithWaitlistReader = ({
         hideTitle={props.hideTitle}
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}
+        isEditor={isEditor}
       />
     </>
   );

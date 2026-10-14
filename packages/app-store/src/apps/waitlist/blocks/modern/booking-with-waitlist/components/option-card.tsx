@@ -60,6 +60,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setFields,
     fields,
     setFlow,
+    isEditor,
   } = useScheduleContext();
 
   const i18n = useI18n("translation");
@@ -383,11 +384,13 @@ export const AppointmentOptionCard: React.FC = () => {
 
     setIsLoading(true);
     setCurrentStep("calendar");
-    clientApi.booking.trackAdvanceFromUiStep("option", {
-      optionId: option._id,
-      memberId: memberId ?? undefined,
-      duration: nextDuration,
-    });
+    if (!isEditor) {
+      clientApi.booking.trackAdvanceFromUiStep("option", {
+        optionId: option._id,
+        memberId: memberId ?? undefined,
+        duration: nextDuration,
+      });
+    }
 
     try {
       await fetchAvailability(memberId, nextDuration);

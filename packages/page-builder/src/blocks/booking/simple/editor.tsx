@@ -30,7 +30,7 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
         lockServiceId={props.lockServiceId}
         lockMemberId={props.lockMemberId}
-        // isEditor
+        isEditor
         {...overlayProps}
       />
     </>

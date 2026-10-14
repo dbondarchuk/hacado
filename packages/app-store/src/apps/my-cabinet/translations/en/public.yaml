@@ -91,6 +91,7 @@ block:
     empty: No packages yet
     used: "Part of {name}"
     view: View package
+    expired: Expired
   waitlist:
     heading: Waitlist
     empty: You are not on the waitlist

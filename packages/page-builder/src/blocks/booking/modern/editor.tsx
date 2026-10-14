@@ -26,7 +26,7 @@ export const BookingEditor = ({ props, style }: BookingProps) => {
         className={cn(className, base?.className)}
         id={base?.id}
         successPage={props.confirmationPage}
-        // isEditor
+        isEditor
         hideTitle={props.hideTitle}
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}

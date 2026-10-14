@@ -5,6 +5,7 @@ import React from "react";
 import { DayPicker, DropdownProps } from "react-day-picker";
 
 import { useLocale } from "@hacado/i18n/client";
+import { resolveIanaTimeZone } from "@hacado/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { DateTime } from "luxon";
 import { useIsMobile } from "../hooks";
@@ -25,15 +26,20 @@ function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  timeZone,
   ...props
 }: CalendarProps) {
   const isMobile = useIsMobile();
   const locale = useLocale();
+  const resolvedTimeZone =
+    timeZone === undefined ? undefined : resolveIanaTimeZone(timeZone);
+
   return (
     <DayPicker
       lang={locale}
       showOutsideDays={showOutsideDays}
       captionLayout="dropdown"
+      timeZone={resolvedTimeZone}
       className={cn("p-3", className)}
       classNames={{
         ...classNames,

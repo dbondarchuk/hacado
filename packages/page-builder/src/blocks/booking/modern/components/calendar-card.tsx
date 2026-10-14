@@ -24,7 +24,12 @@ import {
   useTimeZone,
   useUseClientTimezone,
 } from "@hacado/ui";
-import { areTimesEqual, durationToTime, formatTimeLocale } from "@hacado/utils";
+import {
+  areTimesEqual,
+  durationToTime,
+  formatTimeLocale,
+  resolveIanaTimeZone,
+} from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import * as Locales from "date-fns/locale";
 import { Clock, Globe2Icon } from "lucide-react";
@@ -138,8 +143,8 @@ export const CalendarCard: React.FC = () => {
   const [date, setDate] = React.useState<Date | undefined>(dateTime?.date);
   const [time, setTime] = React.useState<Time | undefined>(dateTime?.time);
 
-  const [timeZone, setTimeZone] = React.useState<string>(
-    dateTime?.timeZone || defaultTimeZone,
+  const [timeZone, setTimeZone] = React.useState<string>(() =>
+    resolveIanaTimeZone(dateTime?.timeZone || defaultTimeZone),
   );
 
   const memberIds = React.useMemo(

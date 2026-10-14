@@ -83,6 +83,11 @@ export function getInitialBookingStep({
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
+    if (ctx.isEditor) {
+      await ctx.onSubmit();
+      return;
+    }
+
     if (
       (ctx.requireCustomerOtp ||
         ctx.customerPackageId ||
@@ -359,7 +364,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ isFormValid, isEditor }) => isFormValid && !isEditor,
+      isEnabled: ({ isFormValid }) => isFormValid,
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.selectedAppointmentOption?.duplicateAppointmentCheck?.enabled;

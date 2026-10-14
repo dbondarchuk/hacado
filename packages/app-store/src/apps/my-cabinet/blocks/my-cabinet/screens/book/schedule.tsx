@@ -32,6 +32,7 @@ import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
+import { demoAvailabilityByMember } from "../../../../../waitlist/components/fixtures";
 import {
   WaitlistDate,
   WaitlistRequest,
@@ -362,7 +363,11 @@ export const Schedule: React.FC<
   );
 
   const onWaitlistSubmit = useCallback(async () => {
-    if (isEditor) return;
+    if (isEditor) {
+      setIsBookingConfirmed(true);
+      return;
+    }
+
     if (!waitlistAppId || !selectedAppointmentOption?._id) return;
 
     const totalDuration = getTotalDuration();
@@ -508,6 +513,14 @@ export const Schedule: React.FC<
             return;
           }
 
+          if (isEditor) {
+            setAvailabilityByMember(
+              demoAvailabilityByMember(requests.map((r) => r.memberId)),
+            );
+
+            return;
+          }
+
           const data = await clientApi.availability.getAvailability({
             memberIds: requests.map((r) => r.memberId),
             durations: requests.map((r) => r.duration),
@@ -518,6 +531,11 @@ export const Schedule: React.FC<
 
         const totalDuration = getTotalDurationForMember(resolvedMemberId);
         if (!totalDuration || !resolvedMemberId) return;
+
+        if (isEditor) {
+          setAvailabilityByMember(demoAvailabilityByMember([resolvedMemberId]));
+          return;
+        }
 
         const data = await clientApi.availability.getAvailability({
           memberIds: [resolvedMemberId],
@@ -544,6 +562,7 @@ export const Schedule: React.FC<
       activeStaff,
       isAnySpecialist,
       selectedAddons,
+      isEditor,
     ],
   );
 
@@ -664,6 +683,13 @@ export const Schedule: React.FC<
 
   const checkDuplicateAppointments =
     useCallback(async (): Promise<CheckDuplicateAppointmentsResponse> => {
+      if (isEditor) {
+        return {
+          hasDuplicateAppointments: false,
+          doNotAllowScheduling: false,
+        };
+      }
+
       const request = getAppointmentRequest();
       if (!request) throw new Error("Failed to build appointment request");
 
@@ -684,10 +710,28 @@ export const Schedule: React.FC<
       } finally {
         setIsLoading(false);
       }
-    }, [getAppointmentRequest, errors.fetchTitle, errors.fetchDescription]);
+    }, [
+      getAppointmentRequest,
+      errors.fetchTitle,
+      errors.fetchDescription,
+      isEditor,
+    ]);
 
   const applyGiftCards = useCallback(
     async (codes: string[], amount: number) => {
+      if (isEditor) {
+        const perCard = codes.length ? amount / codes.length : 0;
+        const simulatedGiftCards = codes.map((code, index) => ({
+          id: `demo-gift-card-${index + 1}`,
+          code,
+          appliedAmount: perCard,
+          amountLeft: 0,
+        }));
+
+        setGiftCards(simulatedGiftCards);
+        return simulatedGiftCards;
+      }
+
       try {
         const data = await clientApi.giftCards.applyGiftCards({
           codes,
@@ -705,7 +749,7 @@ export const Schedule: React.FC<
         throw error;
       }
     },
-    [],
+    [isEditor],
   );
 
   // React.useEffect(() => {
@@ -720,6 +764,8 @@ export const Schedule: React.FC<
 
   const fetchPaymentInformation = useCallback(
     async (tipAmount?: number): Promise<CollectPayment | null> => {
+      if (isEditor) return null;
+
       const request = getAppointmentRequest();
       if (!request) throw new Error("Failed to build appointment request");
 
@@ -754,18 +800,25 @@ export const Schedule: React.FC<
       paymentInformation?.intent?._id,
       errors.fetchPaymentInformationTitle,
       errors.fetchPaymentInformationDescription,
+      isEditor,
     ],
   );
 
   const onSubmit = useCallback(
     async (paymentIntentId?: string) => {
-      if (isEditor) return;
+      if (isEditor) {
+        setIsBookingConfirmed(true);
+        return;
+      }
+
       if (isBookingRestricted) {
         toast.error(errors.limitReachedTitle, {
           description: errors.limitReachedDescription,
         });
+
         return;
       }
+
       setIsLoading(true);
 
       try {

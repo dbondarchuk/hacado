@@ -36,7 +36,7 @@ export const StepCard: React.FC = () => {
 
       setIsLoadingFn(true);
       try {
-        if (dir === "next") {
+        if (dir === "next" && !ctx.isEditor) {
           clientApi.booking.trackAdvanceFromUiStep(stepType, {
             optionId: appointmentOption._id,
             memberId: ctx.selectedMemberId ?? undefined,

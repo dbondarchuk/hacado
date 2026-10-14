@@ -34,6 +34,7 @@ export const BookingWithWaitlistReader = ({
         id={base?.id}
         isOnlyWaitlist={false}
         appId={appId}
+        isEditor={isEditor}
       />
     </>
   );

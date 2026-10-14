@@ -209,7 +209,9 @@ export const Appointments: React.FC<
     setCustomerPackageId(pkg._id);
     setPurchasePackageId(undefined);
     setOption(optionId);
-    clientApi.booking.trackAdvanceFromUiStep("option", { optionId });
+    if (!isEditor) {
+      clientApi.booking.trackAdvanceFromUiStep("option", { optionId });
+    }
   };
 
   const exitPackageBooking = () => {
@@ -344,14 +346,18 @@ export const Appointments: React.FC<
           onSelect={(memberId) => {
             setSpecialistFirstAny(false);
             setSpecialistFirstMemberId(memberId);
-            clientApi.booking.trackAdvanceFromUiStep("specialist", {
-              memberId,
-            });
+            if (!isEditor) {
+              clientApi.booking.trackAdvanceFromUiStep("specialist", {
+                memberId,
+              });
+            }
           }}
           onSelectAny={() => {
             setSpecialistFirstAny(true);
             setSpecialistFirstMemberId(null);
-            clientApi.booking.trackAdvanceFromUiStep("specialist", {});
+            if (!isEditor) {
+              clientApi.booking.trackAdvanceFromUiStep("specialist", {});
+            }
           }}
         />
       </div>
@@ -447,18 +453,22 @@ export const Appointments: React.FC<
               setCustomerPackageId(undefined);
               setPackageBookingFlow(false);
               setOption(optionId);
-              clientApi.booking.trackAdvanceFromUiStep("option", {
-                optionId,
-              });
+              if (!isEditor) {
+                clientApi.booking.trackAdvanceFromUiStep("option", {
+                  optionId,
+                });
+              }
             }}
             onSelectPackage={(pkg) => {
               setPurchasePackageId(pkg._id);
               setCustomerPackageId(undefined);
               setPackageBookingFlow(false);
               setOption(pkg.items[0]?.optionId ?? null);
-              clientApi.booking.trackAdvanceFromUiStep("option", {
-                optionId: pkg.items[0]?.optionId,
-              });
+              if (!isEditor) {
+                clientApi.booking.trackAdvanceFromUiStep("option", {
+                  optionId: pkg.items[0]?.optionId,
+                });
+              }
             }}
           />
         </div>
@@ -490,9 +500,11 @@ export const Appointments: React.FC<
               setCustomerPackageId(undefined);
               setPackageBookingFlow(false);
               setOption(optionId);
-              clientApi.booking.trackAdvanceFromUiStep("option", {
-                optionId,
-              });
+              if (!isEditor) {
+                clientApi.booking.trackAdvanceFromUiStep("option", {
+                  optionId,
+                });
+              }
             }}
             className={cn(className, optionsClassName)}
             id={id}

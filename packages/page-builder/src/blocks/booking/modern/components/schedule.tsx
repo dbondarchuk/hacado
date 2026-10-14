@@ -31,6 +31,7 @@ import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { demoAvailabilityByMember } from "../../utils/fixtures";
 import { FlowOrder, ScheduleContext, StepType } from "./context";
 import { BookingLayout } from "./layout";
 import { getInitialBookingStep } from "./steps";
@@ -441,6 +442,13 @@ export const Schedule: React.FC<
           return;
         }
 
+        if (isEditor) {
+          setAvailabilityByMember(
+            demoAvailabilityByMember(requests.map((r) => r.memberId)),
+          );
+          return;
+        }
+
         const data = await clientApi.availability.getAvailability({
           memberIds: requests.map((r) => r.memberId),
           durations: requests.map((r) => r.duration),
@@ -452,6 +460,11 @@ export const Schedule: React.FC<
       const totalDuration =
         durationOverride ?? getTotalDurationForMember(resolvedMemberId);
       if (!totalDuration || !resolvedMemberId) return;
+
+      if (isEditor) {
+        setAvailabilityByMember(demoAvailabilityByMember([resolvedMemberId]));
+        return;
+      }
 
       const data = await clientApi.availability.getAvailability({
         memberIds: [resolvedMemberId],
@@ -472,6 +485,13 @@ export const Schedule: React.FC<
 
   const checkDuplicateAppointments =
     async (): Promise<CheckDuplicateAppointmentsResponse> => {
+      if (isEditor) {
+        return {
+          hasDuplicateAppointments: false,
+          doNotAllowScheduling: false,
+        };
+      }
+
       const request = getAppointmentRequest();
       if (!request) throw new Error("Failed to build appointment request");
 
@@ -495,6 +515,19 @@ export const Schedule: React.FC<
     };
 
   const applyGiftCards = async (codes: string[], amount: number) => {
+    if (isEditor) {
+      const perCard = codes.length ? amount / codes.length : 0;
+      const giftCards = codes.map((code, index) => ({
+        id: `demo-gift-card-${index + 1}`,
+        code,
+        appliedAmount: perCard,
+        amountLeft: 0,
+      }));
+
+      setGiftCards(giftCards);
+      return giftCards;
+    }
+
     try {
       const data = await clientApi.giftCards.applyGiftCards({
         codes,
@@ -626,6 +659,8 @@ export const Schedule: React.FC<
   const fetchPaymentInformation = async (
     tipAmount?: number,
   ): Promise<CollectPayment | null> => {
+    if (isEditor) return null;
+
     const request = getAppointmentRequest();
     if (!request) throw new Error("Failed to build appointment request");
 
@@ -655,13 +690,19 @@ export const Schedule: React.FC<
   };
 
   const onSubmit = async (paymentIntentId?: string) => {
-    if (isEditor) return;
+    if (isEditor) {
+      setIsBookingConfirmed(true);
+      return;
+    }
+
     if (isBookingRestricted) {
       toast.error(errors.limitReachedTitle, {
         description: errors.limitReachedDescription,
       });
+
       return;
     }
+
     setIsLoading(true);
 
     try {

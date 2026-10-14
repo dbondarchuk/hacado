@@ -1,10 +1,37 @@
-import { GetAppointmentOptionsResponse } from "@hacado/types";
+import {
+  AvailabilityByMember,
+  GetAppointmentOptionsResponse,
+} from "@hacado/types";
+import { DateTime } from "luxon";
+
+/** Generates bookable demo slots for the next ~2 weeks (skips Sundays), as UTC wall-clock instants matching API availability encoding. */
+export function demoAvailabilityByMember(
+  memberIds: string[],
+): AvailabilityByMember {
+  const slots: Date[] = [];
+  const start = DateTime.utc().startOf("day").plus({ days: 1 });
+
+  for (let dayOffset = 0; dayOffset < 14; dayOffset++) {
+    const day = start.plus({ days: dayOffset });
+    if (day.weekday === 7) continue;
+
+    for (const hour of [9, 10, 11, 13, 14, 15, 16]) {
+      slots.push(
+        DateTime.utc(day.year, day.month, day.day, hour, 0, 0).toJSDate(),
+      );
+    }
+  }
+
+  return Object.fromEntries(
+    memberIds.map((id) => [id, slots.map((slot) => new Date(slot.getTime()))]),
+  );
+}
 
 export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   options: [
     {
       _id: "option-1",
-      name: "[DEMO] Standard Consultation",
+      name: "Standard Consultation [Demo]",
       description: "A time-based consultation session.",
       durationMin: 30,
       durationMax: 60,
@@ -50,7 +77,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
     },
     {
       _id: "option-2",
-      name: "[DEMO] Premium Consultation",
+      name: "Premium Consultation [Demo]",
       description: "A 60-minute in-depth consultation.",
       duration: 60,
       price: 90,
@@ -90,7 +117,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
     },
     {
       _id: "option-3",
-      name: "[DEMO] Follow-up Session",
+      name: "Follow-up Session [Demo]",
       description: "A 20-minute follow-up appointment.",
       duration: 20,
       price: 30,
@@ -134,13 +161,13 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   members: [
     {
       id: "member-1",
-      name: "[DEMO] Alex Morgan",
+      name: "Alex Morgan [Demo]",
       bio: "Senior specialist with 8 years of experience.",
       image: null,
     },
     {
       id: "member-2",
-      name: "[DEMO] Jamie Lee",
+      name: "Jamie Lee [Demo]",
       bio: "Loves helping clients feel their best.",
       image: null,
     },
@@ -150,5 +177,5 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
     { type: "option", id: "option-2", optionId: "option-2" },
     { type: "option", id: "option-3", optionId: "option-3" },
   ],
-  hasActiveCustomerPackages: true,
+  hasActiveCustomerPackages: false,
 };

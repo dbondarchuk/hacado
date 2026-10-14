@@ -68,6 +68,7 @@ export const ReviewCard: React.FC = () => {
     appointmentOptions,
     selectedMemberId,
     isCustomerPackageLocked,
+    isEditor,
   } = useScheduleContext();
 
   const locale = useLocale();
@@ -142,7 +143,9 @@ export const ReviewCard: React.FC = () => {
         phone: fields.phone || "",
       } satisfies ApplyDiscountRequest;
 
-      const data = await clientApi.discounts.applyDiscount(request);
+      const data = isEditor
+        ? { code: promoCode, value: 10, type: "percentage" as const }
+        : await clientApi.discounts.applyDiscount(request);
 
       setDiscount(data);
       setPromoCodeError(undefined);

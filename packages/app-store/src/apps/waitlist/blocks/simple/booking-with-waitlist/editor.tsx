@@ -35,7 +35,7 @@ export const BookingWithWaitlistEditor = ({
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
         lockServiceId={props.lockServiceId}
         lockMemberId={props.lockMemberId}
-        // isEditor
+        isEditor
         isOnlyWaitlist={false}
         appId={appId}
         {...overlayProps}

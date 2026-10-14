@@ -53,6 +53,7 @@ export const FormCard: React.FC = () => {
     setGiftCards,
     purchasePackageId,
     isCustomerPackageLocked,
+    isEditor,
   } = useScheduleContext();
 
   if (!dateTime) return null;
@@ -136,7 +137,9 @@ export const FormCard: React.FC = () => {
         phone: form.getValues("phone") || "",
       } satisfies ApplyDiscountRequest;
 
-      const data = await clientApi.discounts.applyDiscount(request);
+      const data = isEditor
+        ? { code: promoCode, value: 10, type: "percentage" as const }
+        : await clientApi.discounts.applyDiscount(request);
 
       setDiscount(data);
       setPromoCodeError(undefined);

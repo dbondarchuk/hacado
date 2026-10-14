@@ -44,6 +44,11 @@ export function getSteps(flow: FlowType, flowOrder: FlowOrder): StepType[] {
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
+    if (ctx.isEditor) {
+      await ctx.onSubmit();
+      return;
+    }
+
     const payment = await ctx.fetchPaymentInformation();
     ctx.setPaymentInformation(payment);
 
@@ -231,7 +236,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ isFormValid, isEditor }) => isFormValid && !isEditor,
+      isEnabled: ({ isFormValid }) => isFormValid,
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.selectedAppointmentOption?.duplicateAppointmentCheck?.enabled;

@@ -270,11 +270,13 @@ export const BookingLayout = ({
                   <Button
                     className="next-button"
                     onClick={() => {
-                      clientApi.booking.trackAdvanceFromUiStep(currentStep, {
-                        optionId: selectedAppointmentOption?._id,
-                        memberId: ctx.selectedMemberId ?? undefined,
-                        duration,
-                      });
+                      if (!ctx.isEditor) {
+                        clientApi.booking.trackAdvanceFromUiStep(currentStep, {
+                          optionId: selectedAppointmentOption?._id,
+                          memberId: ctx.selectedMemberId ?? undefined,
+                          duration,
+                        });
+                      }
                       step.next.action(ctx);
                     }}
                     disabled={

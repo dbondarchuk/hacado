@@ -23,13 +23,15 @@ async function MyCabinetPublicPageContent({
   ).resolveWaitlistAppId();
 
   return (
-    <MyCabinetBlockComponent
-      appId={appId}
-      waitlistAppId={waitlistAppId}
-      style={{}}
-      showTitle
-      scrollToTop
-    />
+    <div className="px-4 py-4 md:py-8">
+      <MyCabinetBlockComponent
+        appId={appId}
+        waitlistAppId={waitlistAppId}
+        style={{}}
+        showTitle
+        scrollToTop
+      />
+    </div>
   );
 }
 

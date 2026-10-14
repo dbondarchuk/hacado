@@ -28,6 +28,15 @@ export function getDateFromWeekIdentifier(identifier: WeekIdentifier): Date {
   // );
 }
 
+/**
+ * react-day-picker / @date-fns/tz reject Luxon's `"local"` alias and empty
+ * values. Prefer a concrete IANA zone for UI calendars.
+ */
+export function resolveIanaTimeZone(timeZone?: string | null): string {
+  if (timeZone && timeZone !== "local") return timeZone;
+  return DateTime.now().zoneName || "UTC";
+}
+
 export const parseTime = typesParseTime;
 
 export const formatTime = (time: Time) =>

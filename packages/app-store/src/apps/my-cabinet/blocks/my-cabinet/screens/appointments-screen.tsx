@@ -11,6 +11,7 @@ import {
   isClosedAppointmentStatus,
 } from "@hacado/types";
 import {
+  Badge,
   Button,
   cn,
   Collapsible,
@@ -555,7 +556,7 @@ export const AppointmentsScreen = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-2 shrink-0 pt-1 selector-button-container">
+        <div className="flex flex-col gap-2 shrink-0 pt-1 selector-button-container max-md:w-full">
           <div className="flex items-center gap-1 text-xs text-muted-foreground appointments-timezone-selector">
             <Globe2 className="size-3.5 shrink-0" />
             <Combobox
@@ -628,7 +629,11 @@ export const AppointmentsScreen = ({
                 >
                   {t("block.packages.book")}
                 </Button>
-              ) : null}
+              ) : (
+                <Badge variant="destructive">
+                  {t("block.packages.expired")}
+                </Badge>
+              )}
             </div>
           ))
         )}

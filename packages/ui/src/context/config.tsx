@@ -20,7 +20,7 @@ export const ConfigContext = createContext<{
     email: "",
     domain: "",
     language: "en",
-    timeZone: "local",
+    timeZone: "UTC",
     currency: "USD",
     country: "US",
     useClientTimezone: false,

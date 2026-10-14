@@ -30,6 +30,7 @@ export const BookingReader = ({
         lockServiceId={props.lockServiceId}
         lockMemberId={props.lockMemberId}
         id={base?.id}
+        isEditor={isEditor}
       />
     </>
   );

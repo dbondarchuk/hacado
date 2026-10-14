@@ -282,11 +282,13 @@ export const BookingWithWaitlistLayout = ({
                   <Button
                     className="next-button"
                     onClick={() => {
-                      trackWaitlistBookingUiStep(currentStep, {
-                        optionId: selectedAppointmentOption?._id,
-                        memberId: ctx.selectedMemberId ?? undefined,
-                        duration,
-                      });
+                      if (!ctx.isEditor) {
+                        trackWaitlistBookingUiStep(currentStep, {
+                          optionId: selectedAppointmentOption?._id,
+                          memberId: ctx.selectedMemberId ?? undefined,
+                          duration,
+                        });
+                      }
                       step.next.action(ctx);
                     }}
                     disabled={

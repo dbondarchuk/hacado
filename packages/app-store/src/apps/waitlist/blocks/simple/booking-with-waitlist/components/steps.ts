@@ -14,6 +14,11 @@ import { WaitlistFormCard } from "./waitlist-form-card";
 
 const handleGoToPayment = async (ctx: ScheduleContextProps) => {
   try {
+    if (ctx.isEditor) {
+      await ctx.onSubmit();
+      return;
+    }
+
     if (
       (ctx.requireCustomerOtp ||
         ctx.purchasePackageId ||
@@ -200,7 +205,7 @@ export const ScheduleSteps: Record<StepType, Step> = {
     },
     next: {
       show: () => true,
-      isEnabled: ({ isFormValid, isEditor }) => isFormValid && !isEditor,
+      isEnabled: ({ isFormValid }) => isFormValid,
       action: async (ctx) => {
         const optionNeedsDuplicateAppointmentsConfirmation =
           ctx.appointmentOption.duplicateAppointmentCheck?.enabled;
