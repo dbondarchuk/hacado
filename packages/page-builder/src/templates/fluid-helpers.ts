@@ -72,11 +72,20 @@ export const fullBleedHeroStyle: FluidLayoutProps["style"] = {
   padding: [
     {
       value: {
+        top: { value: 4, unit: "rem" },
+        right: { value: 1.25, unit: "rem" },
+        bottom: { value: 3, unit: "rem" },
+        left: { value: 1.25, unit: "rem" },
+      },
+    },
+    {
+      value: {
         top: { value: 6, unit: "rem" },
         right: { value: 1.5, unit: "rem" },
         bottom: { value: 4, unit: "rem" },
         left: { value: 1.5, unit: "rem" },
       },
+      breakpoint: ["md"],
     },
   ],
   height: [
@@ -213,6 +222,32 @@ export type CopyBlockOptions = {
   lineHeight?: { value: number; unit: "" | "rem" };
 };
 
+/** Mobile/tablet/desktop display sizes from a desktop rem target. */
+export function responsiveDisplayFontSize(desktopRem: number) {
+  // Large display heroes (4rem+) need a steeper drop so long words fit ~360px.
+  const mobileScale = desktopRem >= 3.5 ? 0.36 : 0.48;
+  const tabletScale = desktopRem >= 3.5 ? 0.58 : 0.68;
+  const mobile = Math.min(
+    1.95,
+    Math.max(1.55, Math.round(desktopRem * mobileScale * 100) / 100),
+  );
+  const tablet = Math.min(
+    2.85,
+    Math.max(2.05, Math.round(desktopRem * tabletScale * 100) / 100),
+  );
+  return [
+    { value: { value: mobile, unit: "rem" as const } },
+    {
+      value: { value: tablet, unit: "rem" as const },
+      breakpoint: ["md" as const],
+    },
+    {
+      value: { value: desktopRem, unit: "rem" as const },
+      breakpoint: ["lg" as const],
+    },
+  ];
+}
+
 /** Shared typography fields for Heading / Text style bags. */
 export function typographyStylePatch(options: CopyBlockOptions) {
   const {
@@ -224,7 +259,12 @@ export function typographyStylePatch(options: CopyBlockOptions) {
     lineHeight,
   } = options;
   return {
-    ...(titleFontSize ? { fontSize: [{ value: titleFontSize }] } : undefined),
+    ...(titleFontSize
+      ? { fontSize: responsiveDisplayFontSize(titleFontSize.value) }
+      : undefined),
+    // Keep long hero words on-screen on narrow viewports.
+    overflowWrap: [{ value: "break-word" }],
+    wordBreak: [{ value: "break-word" }],
     ...(lightText ? { color: [{ value: "0 0% 100%" }] } : undefined),
     ...(fontWeight ? { fontWeight: [{ value: fontWeight }] } : undefined),
     ...(fontFamily ? { fontFamily: [{ value: fontFamily }] } : undefined),
@@ -396,37 +436,39 @@ export function centeredCopyOverrides(
       [headingId]: {
         colStart: 2,
         colEnd: FLUID_TABLET_COLUMNS + 1,
-        rowStart: 3,
-        rowEnd: 5,
+        rowStart: 2,
+        rowEnd: 6,
         zIndex: 1,
       },
       [textId]: {
         colStart: 2,
         colEnd: FLUID_TABLET_COLUMNS + 1,
-        rowStart: 5,
-        rowEnd: 7,
+        rowStart: 7,
+        rowEnd: 9,
         zIndex: 1,
       },
-      [buttonId]: buttonPlacement(tabletBtnCol, 7),
+      [buttonId]: buttonPlacement(tabletBtnCol, 10),
     },
     mobile: {
+      // Extra heading rows + a clear gap so wrapped display titles don't
+      // paint over the subtitle (fluid children stretch to 100% cell height).
       [headingId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 2,
-        rowEnd: 4,
+        rowStart: 1,
+        rowEnd: 7,
         zIndex: 1,
       },
       [textId]: {
         colStart: 1,
         colEnd: FLUID_MOBILE_COLUMNS + 1,
-        rowStart: 4,
-        rowEnd: 6,
+        rowStart: 8,
+        rowEnd: 10,
         zIndex: 1,
       },
       [buttonId]: buttonPlacement(
         centeredButtonColStart(FLUID_MOBILE_COLUMNS),
-        6,
+        11,
         1,
         true,
       ),

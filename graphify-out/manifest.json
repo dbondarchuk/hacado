@@ -9820,8 +9820,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/utils/fixtures.ts": {
-    "mtime": 1792007354.382367,
-    "ast_hash": "ed363d6915bc5a1e183d32b517b0fef0",
+    "mtime": 1792007651.6605358,
+    "ast_hash": "7d9da09b6cc7acb7c23b2a7246e795dc",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/button/button.tsx": {
@@ -29345,8 +29345,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/heroes.tsx": {
-    "mtime": 1790522292.9610322,
-    "ast_hash": "00aba03b326a00407fdb702f3bff5432",
+    "mtime": 1792008744.809157,
+    "ast_hash": "a42aa1a24700c45f22d610437384d9c3",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/index.ts": {
@@ -29410,8 +29410,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/fluid-helpers.ts": {
-    "mtime": 1790347138.5632043,
-    "ast_hash": "d8fcd548218f123fe7f8cf6ce068ef78",
+    "mtime": 1792009111.182487,
+    "ast_hash": "6ad51d89445a342913ca30652ebf942c",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/media.tsx": {
@@ -29755,8 +29755,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/sections.ts": {
-    "mtime": 1790522344.7153711,
-    "ast_hash": "d398364a8753771a8cd6255ed633b12e",
+    "mtime": 1792009126.1058757,
+    "ast_hash": "9bc9272ae2df2b5496d1dbed5d80a2b6",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/text.ts": {

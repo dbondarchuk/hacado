@@ -338,26 +338,12 @@ export const heroEditorTemplates: TemplatesConfiguration = {
         t,
         "builder.pageBuilder.heroDefaults.leftOverlay.title",
         "builder.pageBuilder.heroDefaults.leftOverlay.subtitle",
-        { textAlign: "left", lightText: true },
+        {
+          textAlign: "left",
+          lightText: true,
+          titleFontSize: { value: 3.25, unit: "rem" },
+        },
       );
-      heading.data.style = {
-        ...heading.data.style,
-        fontSize: [
-          { value: { value: 2.25, unit: "rem" } },
-          { value: { value: 2.75, unit: "rem" }, breakpoint: ["md"] },
-          { value: { value: 3.25, unit: "rem" }, breakpoint: ["lg"] },
-        ],
-        padding: [
-          {
-            value: {
-              top: { value: 0, unit: "rem" },
-              right: { value: 0, unit: "rem" },
-              bottom: { value: 0.5, unit: "rem" },
-              left: { value: 0, unit: "rem" },
-            },
-          },
-        ],
-      };
       return fluidSection(
         [heading, text, button],
         leftOverlayPlacements(heading.id, text.id, button.id),

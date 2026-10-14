@@ -272,11 +272,11 @@ function packHeroType(
       return {
         ...base,
         textAlign: "left",
-        titleFontSize: { value: 4.25, unit: "rem" },
+        titleFontSize: { value: 3.75, unit: "rem" },
         fontFamily: display ?? "HEAVY_SANS",
         fontWeight: "900",
-        lineHeight: { value: 0.95, unit: "" },
-        letterSpacing: { value: -0.04, unit: "rem" },
+        lineHeight: { value: 1.02, unit: "" },
+        letterSpacing: { value: -0.02, unit: "rem" },
       };
     case "overlay":
       return {
@@ -322,11 +322,11 @@ function packHeroType(
       return {
         ...base,
         textAlign: "center",
-        titleFontSize: { value: 4.75, unit: "rem" },
+        titleFontSize: { value: 3.75, unit: "rem" },
         fontFamily: display ?? "MODERN_SERIF",
         fontWeight: "400",
-        lineHeight: { value: 1.05, unit: "" },
-        letterSpacing: { value: -0.03, unit: "rem" },
+        lineHeight: { value: 1.1, unit: "" },
+        letterSpacing: { value: -0.02, unit: "rem" },
       };
     case "split":
       return {
@@ -464,15 +464,8 @@ function buildCenteredHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
 function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t);
   const dark = pack.mood === "dark";
-  // Large display titles wrap on tablet/mobile — keep smaller type + more row
-  // span so the heading does not paint over the subtitle.
   heading.data.style = {
     ...heading.data.style,
-    fontSize: [
-      { value: { value: 2.35, unit: "rem" } },
-      { value: { value: 3.25, unit: "rem" }, breakpoint: ["md"] },
-      { value: { value: dark ? 4.5 : 4.25, unit: "rem" }, breakpoint: ["lg"] },
-    ],
     padding: [
       {
         value: {
@@ -542,22 +535,22 @@ function buildOverlayHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           [heading.id]: {
             colStart: 1,
             colEnd: FLUID_MOBILE_COLUMNS + 1,
-            rowStart: 3,
-            rowEnd: 6,
+            rowStart: 2,
+            rowEnd: 7,
             zIndex: 1,
           },
           [text.id]: {
             colStart: 1,
             colEnd: FLUID_MOBILE_COLUMNS + 1,
-            rowStart: 7,
-            rowEnd: 9,
+            rowStart: 8,
+            rowEnd: 10,
             zIndex: 1,
           },
           [button.id]: {
             colStart: 1,
             colEnd: FLUID_MOBILE_COLUMNS + 1,
-            rowStart: 10,
-            rowEnd: 11,
+            rowStart: 11,
+            rowEnd: 12,
             zIndex: 1,
           },
         },
@@ -574,14 +567,6 @@ function buildLeftOverlayHero(
 ): TEditorBlock {
   const { heading, text, button } = packHeroCopy(pack, t);
   const whiteText = { color: [{ value: "0 0% 100%" }] };
-  heading.data.style = {
-    ...heading.data.style,
-    fontSize: [
-      { value: { value: 1.875, unit: "rem" } },
-      { value: { value: 2.25, unit: "rem" }, breakpoint: ["md"] },
-      { value: { value: 2.75, unit: "rem" }, breakpoint: ["lg"] },
-    ],
-  };
   const panel = withBlockStyle(
     compositeContainer(
       [
@@ -686,22 +671,57 @@ function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
         [heading.id]: {
           colStart: 2,
           colEnd: 12,
-          rowStart: 8,
-          rowEnd: 11,
+          rowStart: 5,
+          rowEnd: 8,
           zIndex: 1,
         },
         [text.id]: {
           colStart: 2,
           colEnd: 10,
-          rowStart: 11,
-          rowEnd: 13,
+          rowStart: 9,
+          rowEnd: 11,
           zIndex: 1,
         },
-        [button.id]: buttonPlacement(2, 13),
+        [button.id]: buttonPlacement(2, 11),
       }
     : centeredCopyPlacements(heading.id, text.id, button.id);
   const overrides = muted
-    ? undefined
+    ? {
+        tablet: {
+          [heading.id]: {
+            colStart: 1,
+            colEnd: FLUID_TABLET_COLUMNS + 1,
+            rowStart: 3,
+            rowEnd: 7,
+            zIndex: 1,
+          },
+          [text.id]: {
+            colStart: 1,
+            colEnd: FLUID_TABLET_COLUMNS + 1,
+            rowStart: 8,
+            rowEnd: 10,
+            zIndex: 1,
+          },
+          [button.id]: buttonPlacement(1, 11),
+        },
+        mobile: {
+          [heading.id]: {
+            colStart: 1,
+            colEnd: FLUID_MOBILE_COLUMNS + 1,
+            rowStart: 2,
+            rowEnd: 7,
+            zIndex: 1,
+          },
+          [text.id]: {
+            colStart: 1,
+            colEnd: FLUID_MOBILE_COLUMNS + 1,
+            rowStart: 8,
+            rowEnd: 10,
+            zIndex: 1,
+          },
+          [button.id]: buttonPlacement(1, 11, 1, true),
+        },
+      }
     : centeredCopyOverrides(heading.id, text.id, button.id);
 
   return withEntrance(
@@ -715,6 +735,26 @@ function buildVideoHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
           HERO_VIDEO_SRC,
           { opacity: bold ? 28 : 48, fullBleed: true },
         ),
+        // Tighter top padding on the base (mobile) so copy isn't pushed down.
+        padding: [
+          {
+            value: {
+              top: { value: 4, unit: "rem" },
+              right: { value: 1.25, unit: "rem" },
+              bottom: { value: 3, unit: "rem" },
+              left: { value: 1.25, unit: "rem" },
+            },
+          },
+          {
+            value: {
+              top: { value: 6, unit: "rem" },
+              right: { value: 1.5, unit: "rem" },
+              bottom: { value: 4, unit: "rem" },
+              left: { value: 1.5, unit: "rem" },
+            },
+            breakpoint: ["md"],
+          },
+        ],
         minHeight: [{ value: { value: bold ? 38 : 32, unit: "rem" } }],
       },
       overrides,
@@ -731,31 +771,40 @@ function buildMinimalHero(pack: WebsitePackDefinition, t: TFn): TEditorBlock {
       [heading.id]: {
         colStart: 3,
         colEnd: 15,
-        rowStart: 5,
-        rowEnd: 9,
+        rowStart: 2,
+        rowEnd: 6,
         zIndex: 1,
       },
       [text.id]: {
         colStart: 5,
         colEnd: 13,
-        rowStart: 9,
-        rowEnd: 11,
+        rowStart: 7,
+        rowEnd: 9,
         zIndex: 1,
       },
-      [button.id]: buttonPlacement(7, 11),
+      [button.id]: buttonPlacement(7, 10),
     },
     {
       ...heroSectionStyle,
       backgroundColor: [{ value: COLORS.background.value }],
-      minHeight: [{ value: { value: 32, unit: "rem" } }],
+      minHeight: [{ value: { value: 28, unit: "rem" } }],
       padding: [
         {
           value: {
-            top: { value: 6, unit: "rem" },
+            top: { value: 1.5, unit: "rem" },
+            right: { value: 1.25, unit: "rem" },
+            bottom: { value: 2.5, unit: "rem" },
+            left: { value: 1.25, unit: "rem" },
+          },
+        },
+        {
+          value: {
+            top: { value: 4, unit: "rem" },
             right: { value: 1.5, unit: "rem" },
-            bottom: { value: 5, unit: "rem" },
+            bottom: { value: 4, unit: "rem" },
             left: { value: 1.5, unit: "rem" },
           },
+          breakpoint: ["md"],
         },
       ],
     },
@@ -822,9 +871,18 @@ function buildGalleryFirstHero(
     }),
   );
 
+  // Display titles use negative tracking — keep the block from blowing past
+  // the viewport on narrow screens even when a long word won't wrap.
+  heading.data.style = {
+    ...heading.data.style,
+    width: [{ value: { value: 100, unit: "%" } }],
+    maxWidth: [{ value: { value: 100, unit: "%" } }],
+  };
+
   const copy = compositeContainer(copyChildren, 1.25, {
     alignItems: [{ value: "flex-start" }],
     maxWidth: [{ value: { value: 48, unit: "rem" } }],
+    width: [{ value: { value: 100, unit: "%" } }],
   });
   const images = pack.media.items
     .slice(0, 8)
