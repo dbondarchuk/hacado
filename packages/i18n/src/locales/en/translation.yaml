@@ -51,6 +51,11 @@ booking:
     otp: Verify
     review: Summary
   summary:
+    title: Your booking
+    empty: Nothing selected yet.
+    with: With
+    when: When
+    total: Total
     estimates:
       amount: Amount
       duration: Duration

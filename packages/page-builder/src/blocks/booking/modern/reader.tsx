@@ -29,6 +29,7 @@ export const BookingReader = ({
         hideTitle={props.hideTitle}
         hideSteps={props.hideSteps}
         scrollToTop={props.scrollToTop}
+        summaryPosition={props.summaryPosition}
         flowOrder={props.flowOrder}
         dontAllowAnySpecialist={props.dontAllowAnySpecialist}
         lockServiceId={props.lockServiceId}

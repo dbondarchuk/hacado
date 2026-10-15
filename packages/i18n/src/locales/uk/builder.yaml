@@ -1622,6 +1622,10 @@ pageBuilder:
         hideTitle: Приховати заголовок
         hideSteps: Приховати кроки
         scrollToTop: Прокрутити вгору при зміні кроку
+        summaryPosition:
+          label: Розташування підсумку
+          bottom: Знизу
+          right: Справа (внизу на вузькому)
       confirmationPage: Сторінка підтвердження
       flowOrder:
         label: Порядок кроків бронювання

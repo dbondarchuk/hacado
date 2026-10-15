@@ -437,7 +437,7 @@ export const CalendarCard: React.FC = () => {
           (isAnyMulti
             ? aggregatedTimes.length > 0
             : adjustedAllAvailability.length > 0 && singleMemberId) ? (
-          <div className="grid grid-cols-3 @md/available-times:grid-cols-4 @xl/available-times:grid-cols-7 gap-2 calendar-times-list">
+          <div className="grid grid-cols-3 @md/available-times:grid-cols-4 @xl/available-times:grid-cols-6 @2xl/available-times:grid-cols-7 gap-2 calendar-times-list">
             {(isAnyMulti
               ? aggregatedTimes
               : singleTimes[formatDate(date)] || []

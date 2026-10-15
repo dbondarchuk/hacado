@@ -5300,6 +5300,10 @@ pageBuilder:
         hideTitle: Hide title
         hideSteps: Hide steps
         scrollToTop: Scroll to top on step change
+        summaryPosition:
+          label: Summary position
+          bottom: Bottom
+          right: Right (stacks on narrow)
       confirmationPage: Confirmation Page
       flowOrder:
         label: Booking flow order

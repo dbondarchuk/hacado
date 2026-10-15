@@ -35,6 +35,7 @@ import type {
   PublicPageChrome,
   PublicPageClaim,
 } from "@hacado/types";
+import { PageProvider } from "@hacado/ui";
 import { formatArguments, setPageData } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Metadata, ResolvingMetadata } from "next";
@@ -627,18 +628,27 @@ export default async function Page(props: Props) {
         {header && (
           <Header name={general.name} logo={brand.logo} config={header} />
         )}
-        <PageReader
-          document={content}
-          args={formattedArgs}
-          blockRegistry={blockRegistry}
-        />
-        {footer?.content && (
+        <PageProvider
+          header={header}
+          footer={!!footer?.content}
+          path={slugPath}
+          params={routeParams}
+          searchParams={searchParams}
+          locale={page.language}
+        >
           <PageReader
-            document={footer.content}
+            document={content}
             args={formattedArgs}
             blockRegistry={blockRegistry}
           />
-        )}
+          {footer?.content && (
+            <PageReader
+              document={footer.content}
+              args={formattedArgs}
+              blockRegistry={blockRegistry}
+            />
+          )}
+        </PageProvider>
         {pageFooterScripts.map((script, index) => (
           <AppScriptRenderer
             script={script}

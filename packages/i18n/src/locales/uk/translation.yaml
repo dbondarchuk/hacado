@@ -56,6 +56,11 @@ booking:
     otp: Підтвердження
     review: Підсумок
   summary:
+    title: Ваше бронювання
+    empty: Поки нічого не вибрано.
+    with: З
+    when: Коли
+    total: Разом
     estimates:
       amount: Сума
       duration: Тривалість

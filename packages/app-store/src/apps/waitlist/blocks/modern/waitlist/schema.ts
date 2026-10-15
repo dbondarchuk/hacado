@@ -2,12 +2,18 @@ import { BaseReaderBlockProps } from "@hacado/builder";
 import * as z from "zod";
 import { zStyles } from "./styles";
 
+export const summaryPositionSchema = z
+  .enum(["bottom", "right"])
+  .default("bottom")
+  .optional();
+
 export const WaitlistPropsSchema = z.object({
   style: zStyles,
   props: z.object({
     hideTitle: z.boolean().optional().nullable(),
     hideSteps: z.boolean().optional().nullable(),
     scrollToTop: z.boolean().optional().nullable(),
+    summaryPosition: summaryPositionSchema,
   }),
 });
 
@@ -20,5 +26,6 @@ export const WaitlistPropsDefaults = {
     hideTitle: false,
     hideSteps: false,
     scrollToTop: true,
+    summaryPosition: "bottom",
   },
 } as const satisfies WaitlistProps;

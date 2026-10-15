@@ -32,6 +32,11 @@ block:
       link: Do not see a time you like? Click <link>here</link> to join our waitlist.
   review:
     waitlistTitle: Review Your Waitlist Request
+  summary:
+    title: Your waitlist request
+    empty: Nothing selected yet.
+    showMore: Show all ({count})
+    showLess: Show less
   waitlist_form:
     title: Your Details
     description: Please provide your contact information and preferences

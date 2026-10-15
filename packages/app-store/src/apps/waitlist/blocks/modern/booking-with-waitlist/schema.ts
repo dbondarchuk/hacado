@@ -10,6 +10,13 @@ export const flowOrderSchema = z
 
 export type FlowOrder = z.infer<typeof flowOrderSchema>;
 
+export const summaryPositionSchema = z
+  .enum(["bottom", "right"])
+  .default("bottom")
+  .optional();
+
+export type SummaryPosition = z.infer<typeof summaryPositionSchema>;
+
 export const BookingWithWaitlistPropsSchema = z.object({
   style: zStyles,
   props: z.object({
@@ -17,6 +24,7 @@ export const BookingWithWaitlistPropsSchema = z.object({
     hideTitle: z.boolean().optional().nullable(),
     hideSteps: z.boolean().optional().nullable(),
     scrollToTop: z.boolean().optional().nullable(),
+    summaryPosition: summaryPositionSchema,
     flowOrder: flowOrderSchema,
     dontAllowAnySpecialist: z.boolean().optional(),
     lockServiceId: zObjectId().optional().nullable(),
@@ -36,6 +44,7 @@ export const BookingWithWaitlistPropsDefaults = {
     hideTitle: false,
     hideSteps: false,
     scrollToTop: true,
+    summaryPosition: "bottom",
     flowOrder: "service-first",
   },
 } as const satisfies BookingWithWaitlistProps;

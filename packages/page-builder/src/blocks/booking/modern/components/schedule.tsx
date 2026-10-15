@@ -51,6 +51,7 @@ export type ScheduleProps = {
   scrollToTop?: boolean;
   hideTitle?: boolean;
   hideSteps?: boolean;
+  summaryPosition?: "bottom" | "right";
   bookingRestriction?: BookingRestriction;
   catalog?: BookingCatalogNode[];
   packages?: AppointmentPackage[];
@@ -80,6 +81,7 @@ export const Schedule: React.FC<
   scrollToTop,
   hideTitle,
   hideSteps,
+  summaryPosition = "bottom",
   bookingRestriction,
   catalog,
   packages,
@@ -843,6 +845,7 @@ export const Schedule: React.FC<
         scrollToTop={scrollToTop}
         hideTitle={hideTitle}
         hideSteps={hideSteps}
+        summaryPosition={summaryPosition}
         className={className}
         {...props}
       />

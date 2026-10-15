@@ -235,7 +235,7 @@ export const CalendarCard: React.FC = () => {
             {t("common.labels.loadingAvailableTimes")}
           </div>
         ) : adjustedAvailability.length > 0 && date ? (
-          <div className="grid grid-cols-3 @md/available-times:grid-cols-4 @xl/available-times:grid-cols-7 gap-2 calendar-times-list">
+          <div className="grid grid-cols-3 @md/available-times:grid-cols-4 @xl/available-times:grid-cols-6 @2xl/available-times:grid-cols-7 gap-2 calendar-times-list">
             {(times[formatDate(date)] || []).map((t) => (
               <div key={formatTimeLocale(t, locale)}>
                 <Button

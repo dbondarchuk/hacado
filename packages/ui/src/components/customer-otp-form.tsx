@@ -300,7 +300,7 @@ export const CustomerOtpForm = ({
                 </>
               )}
               {hideContactFields && (
-                <span className="flex items-start justify-center gap-1.5 text-xs font-normal">
+                <span className="flex items-center justify-center gap-1.5 text-xs font-normal">
                   <Mail className="size-4 mt-0.5" />
                   <span className="min-w-0 break-all text-left">{email}</span>
                 </span>
@@ -323,7 +323,7 @@ export const CustomerOtpForm = ({
                 </>
               )}
               {hideContactFields && (
-                <span className="flex items-start justify-center gap-1.5 text-xs font-normal">
+                <span className="flex items-center justify-center gap-1.5 text-xs font-normal">
                   <Phone className="size-4 mt-0.5" />
                   <span className="min-w-0 break-all text-left">{phone}</span>
                 </span>

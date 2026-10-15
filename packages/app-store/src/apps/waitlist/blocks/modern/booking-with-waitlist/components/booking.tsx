@@ -25,6 +25,7 @@ export type BookingWithWaitlistProps = {
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
+  summaryPosition?: "bottom" | "right" | null;
   lockPurchasePackageId?: string;
   lockCustomerPackageId?: string;
 };
@@ -50,6 +51,7 @@ export const BookingWithWaitlist: React.FC<
   scrollToTop,
   hideTitle,
   hideSteps,
+  summaryPosition,
   lockPurchasePackageId,
   lockCustomerPackageId,
   ...props
@@ -119,6 +121,7 @@ export const BookingWithWaitlist: React.FC<
       scrollToTop={scrollToTop ?? false}
       hideTitle={hideTitle ?? false}
       hideSteps={hideSteps ?? false}
+      summaryPosition={summaryPosition ?? "bottom"}
       bookingRestriction={response?.bookingRestriction}
       catalog={response?.catalog}
       packages={response?.packages}

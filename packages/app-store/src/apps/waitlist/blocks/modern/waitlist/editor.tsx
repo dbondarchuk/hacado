@@ -33,6 +33,7 @@ export const WaitlistEditor = ({ props, style }: WaitlistProps) => {
         scrollToTop={props.scrollToTop}
         hideTitle={props.hideTitle}
         hideSteps={props.hideSteps}
+        summaryPosition={props.summaryPosition}
         {...overlayProps}
       />
     </>

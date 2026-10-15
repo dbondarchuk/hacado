@@ -15,6 +15,7 @@ export type BookingProps = {
   scrollToTop?: boolean | null;
   hideTitle?: boolean | null;
   hideSteps?: boolean | null;
+  summaryPosition?: "bottom" | "right" | null;
   flowOrder?: FlowOrder | null;
   dontAllowAnySpecialist?: boolean | null;
   lockServiceId?: string | null;
@@ -36,6 +37,7 @@ export const Booking: React.FC<
   scrollToTop,
   hideTitle,
   hideSteps,
+  summaryPosition,
   flowOrder,
   dontAllowAnySpecialist,
   lockServiceId,
@@ -97,6 +99,7 @@ export const Booking: React.FC<
       scrollToTop={scrollToTop ?? false}
       hideTitle={hideTitle ?? false}
       hideSteps={hideSteps ?? false}
+      summaryPosition={summaryPosition ?? "bottom"}
       bookingRestriction={response?.bookingRestriction}
     />
   );

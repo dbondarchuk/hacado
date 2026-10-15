@@ -89,6 +89,30 @@ export const BookingWithWaitlistConfiguration = deepMemo(
             updateProps({ ...data.props, scrollToTop: value })
           }
         />
+        <SelectInput
+          label={t("pageBuilder.blocks.booking.modern.summaryPosition.label")}
+          defaultValue={data.props.summaryPosition ?? "bottom"}
+          onChange={(value) =>
+            updateProps({
+              ...data.props,
+              summaryPosition: value as "bottom" | "right",
+            })
+          }
+          options={[
+            {
+              value: "bottom",
+              label: t(
+                "pageBuilder.blocks.booking.modern.summaryPosition.bottom",
+              ),
+            },
+            {
+              value: "right",
+              label: t(
+                "pageBuilder.blocks.booking.modern.summaryPosition.right",
+              ),
+            },
+          ]}
+        />
         <PageInput
           label={t("pageBuilder.blocks.booking.confirmationPage")}
           defaultValue={data.props.confirmationPage ?? null}

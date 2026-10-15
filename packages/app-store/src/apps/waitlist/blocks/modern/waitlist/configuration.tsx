@@ -4,6 +4,7 @@ import {
   AppSelectorInput,
   BooleanInput,
   ConfigurationProps,
+  SelectInput,
 } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
@@ -81,6 +82,30 @@ export const WaitlistConfiguration = deepMemo(
           onChange={(value) =>
             updateProps({ ...data.props, scrollToTop: value })
           }
+        />
+        <SelectInput
+          label={t("pageBuilder.blocks.booking.modern.summaryPosition.label")}
+          defaultValue={data.props.summaryPosition ?? "bottom"}
+          onChange={(value) =>
+            updateProps({
+              ...data.props,
+              summaryPosition: value as "bottom" | "right",
+            })
+          }
+          options={[
+            {
+              value: "bottom",
+              label: t(
+                "pageBuilder.blocks.booking.modern.summaryPosition.bottom",
+              ),
+            },
+            {
+              value: "right",
+              label: t(
+                "pageBuilder.blocks.booking.modern.summaryPosition.right",
+              ),
+            },
+          ]}
         />
       </StylesConfigurationPanel>
     );
