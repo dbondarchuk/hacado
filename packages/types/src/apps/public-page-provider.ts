@@ -11,6 +11,8 @@ export type PublicPageChrome = {
   headerId?: string;
   footerId?: string;
   title?: string;
+  description?: string;
+  keywords?: string;
 };
 
 export type PublicPageChromeContext = {

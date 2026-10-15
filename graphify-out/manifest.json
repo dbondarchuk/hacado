@@ -2525,8 +2525,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/[[...slug]]/page.tsx": {
-    "mtime": 1791938386.1042025,
-    "ast_hash": "1f008af95d03d69d363d03d00aab52c9",
+    "mtime": 1792080574.881809,
+    "ast_hash": "100a7b204218d1ab5d99435e6e32c752",
     "semantic_hash": ""
   },
   "apps/web/src/app/admin/[[...slug]]/route.ts": {
@@ -5820,8 +5820,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/app.tsx": {
-    "mtime": 1791937884.413545,
-    "ast_hash": "69b861a3f9dbf893478974824c0dc4fc",
+    "mtime": 1792080578.0965993,
+    "ast_hash": "ad4d91888905556a4cc3febddcd1d833",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/actions.ts": {
@@ -5950,13 +5950,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/service.ts": {
-    "mtime": 1791938391.186272,
-    "ast_hash": "849fa6adadb2b2c5a510f69c587a2a15",
+    "mtime": 1792080597.586329,
+    "ast_hash": "b5bafc38ee0e90969121b7458ca4f35b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/setup.tsx": {
-    "mtime": 1791937910.462957,
-    "ast_hash": "a33ee3658cb13984b221cc49b4101fd5",
+    "mtime": 1792080622.117293,
+    "ast_hash": "1a18e564a59e973c4ad30e7b72f7c289",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/index.ts": {
@@ -7295,13 +7295,13 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/blocks/editors.ts": {
-    "mtime": 1791937912.945669,
-    "ast_hash": "5a05f408675ec54e3eb2d33f28077b50",
+    "mtime": 1792080584.19997,
+    "ast_hash": "3a1be266979abb8e274e9f5ded208306",
     "semantic_hash": ""
   },
   "packages/app-store/src/blocks/readers.ts": {
-    "mtime": 1791937915.169573,
-    "ast_hash": "bd5e7cd704c4b139fb604550e2ceb429",
+    "mtime": 1792080589.2556503,
+    "ast_hash": "2ed0d5e100a595ac62883f27ee2b1f39",
     "semantic_hash": ""
   },
   "packages/app-store/src/const.ts": {
@@ -15465,8 +15465,8 @@
     "semantic_hash": ""
   },
   "docs/docs/apps/my-cabinet.md": {
-    "mtime": 1791937950.6839354,
-    "ast_hash": "127539c4071205b860ed53c47a511a1b",
+    "mtime": 1792080639.9367127,
+    "ast_hash": "75e2cd7ae0bc68c932269eeebfec218d",
     "semantic_hash": ""
   },
   "docs/docs/apps/outlook.md": {
@@ -15775,8 +15775,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/en/admin.yaml": {
-    "mtime": 1791937926.7468553,
-    "ast_hash": "5ce3054d61810951aed582023c39d225",
+    "mtime": 1792080625.2381299,
+    "ast_hash": "d3d897c2e48c4ba2782eeaad458b393c",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/en/public.yaml": {
@@ -15785,8 +15785,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/uk/admin.yaml": {
-    "mtime": 1791937943.658415,
-    "ast_hash": "ee72502a2872dbdd0f64fc2953b3ceb6",
+    "mtime": 1792080629.908538,
+    "ast_hash": "67c7341779f540ae9b885e6683d159aa",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/translations/uk/public.yaml": {
@@ -27980,8 +27980,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/utils/page-seo.ts": {
-    "mtime": 1786820409.0084946,
-    "ast_hash": "5b463d528f05514f837d16089bafae70",
+    "mtime": 1792080570.5413806,
+    "ast_hash": "ba339b208a08545a04ac1850c26d4d33",
     "semantic_hash": ""
   },
   "packages/services/src/text-message/textbelt/webhook.service.ts": {
@@ -32110,8 +32110,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/apps/public-page-provider.ts": {
-    "mtime": 1791938700.780702,
-    "ast_hash": "3c2c460a8d65095410d6530e5eb10891",
+    "mtime": 1792080567.2708206,
+    "ast_hash": "72c3bc2f4751ad66a802eb3f7d39b12f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/translations/en/admin.yaml": {
@@ -34575,8 +34575,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/models.ts": {
-    "mtime": 1791937967.6567843,
-    "ast_hash": "522fd80ccc38bd9a49f829d817847c70",
+    "mtime": 1792080577.2844596,
+    "ast_hash": "42f14ae7b3a3c048d1ef18b45e7afc7b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/public-page.tsx": {

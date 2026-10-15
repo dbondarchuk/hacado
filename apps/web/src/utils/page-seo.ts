@@ -100,3 +100,27 @@ export function resolvePageSeoFields(
     featuredImage,
   };
 }
+
+export function resolvePublicPageSeoFields(
+  chrome:
+    | {
+        title?: string;
+        description?: string;
+        keywords?: string;
+      }
+    | undefined,
+  brand: BrandConfiguration,
+  fallbackTitle: string,
+) {
+  const pageTitle = chrome?.title?.trim() || fallbackTitle;
+  const pageDescription = chrome?.description?.trim();
+  const pageKeywords = chrome?.keywords?.trim();
+
+  return {
+    title: [pageTitle, brand.title].filter((x) => !!x).join(" | "),
+    description: [brand.description, pageDescription]
+      .filter((x) => !!x)
+      .join("\n"),
+    keywords: [brand.keywords, pageKeywords].filter((x) => !!x).join(", "),
+  };
+}

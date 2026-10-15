@@ -8,7 +8,11 @@ import {
   collectAppPageMetadata,
   mergeBaseAndAppMetadata,
 } from "@/utils/page-metadata";
-import { collectPageSeoArgs, resolvePageSeoFields } from "@/utils/page-seo";
+import {
+  collectPageSeoArgs,
+  resolvePageSeoFields,
+  resolvePublicPageSeoFields,
+} from "@/utils/page-seo";
 import { buildSiteIconsMetadata } from "@/utils/site-icons";
 import {
   getOrganizationId,
@@ -237,13 +241,22 @@ export async function generateMetadata(
     );
 
     if (takeover) {
-      const title =
-        takeover.chrome?.title ||
+      const servicesContainer = await getServicesContainer();
+      const { brand } =
+        await servicesContainer.configurationService.getConfigurations("brand");
+      const fallbackTitle =
         takeover.claim.slug.charAt(0).toUpperCase() +
-          takeover.claim.slug.slice(1);
+        takeover.claim.slug.slice(1);
+      const { title, description, keywords } = resolvePublicPageSeoFields(
+        takeover.chrome,
+        brand,
+        fallbackTitle,
+      );
 
       return {
         title,
+        description,
+        keywords,
         robots: takeover.claim.noIndex
           ? { index: false, follow: false }
           : undefined,

@@ -1,3 +1,4 @@
+import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
@@ -17,11 +18,18 @@ import {
   resolvePageHeaderPosition,
 } from "@hacado/types";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
-import { MyCabinetSettings, myCabinetSettingsSchema } from "./models";
+import {
+  isMyCabinetPublicPageEnabled,
+  MyCabinetSettings,
+  myCabinetSettingsSchema,
+} from "./models";
 import {
   MyCabinetAdminAllKeys,
   MyCabinetAdminKeys,
   MyCabinetAdminNamespace,
+  MyCabinetPublicKeys,
+  MyCabinetPublicNamespace,
+  myCabinetPublicNamespace,
 } from "./translations/types";
 
 export class MyCabinetConnectedApp
@@ -37,8 +45,13 @@ export class MyCabinetConnectedApp
   }
 
   public async getPublicPageClaims(
-    _appData: ConnectedAppData,
+    appData: ConnectedAppData,
   ): Promise<PublicPageClaim[]> {
+    const settings = (appData.data ?? {}) as MyCabinetSettings;
+    if (!isMyCabinetPublicPageEnabled(settings)) {
+      return [];
+    }
+
     return [{ slug: "my-cabinet", noIndex: true }];
   }
 
@@ -47,11 +60,23 @@ export class MyCabinetConnectedApp
     _ctx: PublicPageChromeContext,
   ): Promise<PublicPageChrome | undefined> {
     const settings = (appData.data ?? {}) as MyCabinetSettings;
+    if (!isMyCabinetPublicPageEnabled(settings)) {
+      return undefined;
+    }
+
+    const { language } =
+      await this.props.services.configurationService.getConfiguration("brand");
+    const t = await getI18nAsync<MyCabinetPublicNamespace, MyCabinetPublicKeys>(
+      {
+        locale: language,
+        namespace: myCabinetPublicNamespace,
+      },
+    );
 
     return {
       headerId: settings.headerId,
       footerId: settings.footerId,
-      title: "My Cabinet",
+      title: t("page.title"),
     };
   }
 
@@ -126,6 +151,7 @@ export class MyCabinetConnectedApp
 
       const currentSettings = (appData.data as MyCabinetSettings) ?? {};
       const nextSettings: MyCabinetSettings = {
+        publicPageDisabled: currentSettings.publicPageDisabled,
         headerId: currentSettings.headerId ?? headerId,
         footerId: currentSettings.footerId ?? footerId,
       };

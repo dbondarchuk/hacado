@@ -12,7 +12,7 @@ export const MyCabinetApp: App<MyCabinetAdminNamespace, MyCabinetAdminKeys> = {
   displayName:
     "app_my-cabinet_admin.app.displayName" satisfies MyCabinetAdminAllKeys,
   category: ["apps.categories.appointments"],
-  scope: ["public-page-provider"],
+  scope: ["public-page-provider", "ui-components"],
   type: "basic",
   target: "company",
   Logo: ({ className }) => <UserRound className={className} />,

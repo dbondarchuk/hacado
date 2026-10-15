@@ -3,6 +3,8 @@ errors:
     title: My Cabinet is not configured
     description: Please select a My Cabinet app instance in the block settings.
   sessionExpired: Your session has expired. Please sign in again.
+page:
+  title: My Cabinet
 block:
   title: My Cabinet
   auth:

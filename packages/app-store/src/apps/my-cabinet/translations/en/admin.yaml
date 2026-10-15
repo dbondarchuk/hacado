@@ -15,6 +15,9 @@ statusText:
 form:
   connect: Connect <app></app>
   update: Update <app></app>
+  publicPageDisabled:
+    label: Disable public page at /my-cabinet
+    description: When enabled, the app does not claim /my-cabinet. Use a CMS page with the My Cabinet block instead. Header and footer below apply only when the public page is active.
   headerId:
     label: Page header
     description: Optional header shown on the public My Cabinet page at /my-cabinet
