@@ -25,6 +25,30 @@ const rowStartClass = "row-start-[var(--calendar-row-start)]";
 const rowSpanClass = "row-end-[var(--calendar-row-end)]";
 const colsRepeatClass = "grid-cols-[var(--calendar-grid-cols)]";
 
+/** Half-open [start, end): midnight ends stay exclusive; partial last days still count. */
+function getMultiDayColSpan(
+  eventStart: DateTime,
+  eventEnd: DateTime,
+  rangeStart: DateTime,
+  visibleDayCount: number,
+  dateIndex: number,
+): number {
+  const spanOrigin = eventStart > rangeStart ? eventStart : rangeStart;
+  const days = eventEnd.diff(spanOrigin, "days").days;
+  if (days <= 0) return 0;
+
+  return Math.min(visibleDayCount - dateIndex, Math.ceil(days));
+}
+
+function eventOverlapsVisibleRange(
+  eventStart: DateTime,
+  eventEnd: DateTime,
+  rangeStart: DateTime,
+  rangeEnd: DateTime,
+): boolean {
+  return eventStart < rangeEnd && eventEnd > rangeStart;
+}
+
 const ShiftDisplay: React.FC<{
   schedule: DaySchedule;
   className: string;
@@ -220,25 +244,19 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
       // event should start at the first date in props.dates)
       const dateIndex = Math.max(
         0,
-        dates.findIndex((date) =>
-          date
-            .toFormat("YYYY-MM-DD")
-            .startsWith(event.start.toFormat("YYYY-MM-DD")),
-        ),
+        dates.findIndex((date) => date.hasSame(event.start, "day")),
       );
 
       const appearance = getEventAppearance(event);
 
       const styles = {
         "--calendar-col-start": `${timeSlotColCount + dateIndex + 1}`,
-        "--calendar-col-end": `span ${Math.floor(
-          Math.min(
-            dates.length - dateIndex,
-            event.end.diff(
-              event.start > dates[0] ? event.start : dates[0],
-              "days",
-            ).days,
-          ),
+        "--calendar-col-end": `span ${getMultiDayColSpan(
+          event.start,
+          event.end,
+          dates[0],
+          dates.length,
+          dateIndex,
         )}`,
         "--calendar-row-start": `${
           (event.isMultiDay
@@ -406,7 +424,16 @@ export const WeeklyEventCalendar: React.FC<WeeklyEventCalendarProps> = ({
           ></div>
 
           {events
-            .filter(({ isMultiDay }) => isMultiDay)
+            .filter(
+              ({ isMultiDay, start, end }) =>
+                isMultiDay &&
+                eventOverlapsVisibleRange(
+                  start,
+                  end,
+                  dates[0].startOf("day"),
+                  dates[dates.length - 1].endOf("day"),
+                ),
+            )
             .map((event, index) => {
               const classes = getEventClassNames(event);
               const calendarEvent = eventToCalendarEvent(event);

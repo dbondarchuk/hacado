@@ -5760,8 +5760,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-calendar/service.ts": {
-    "mtime": 1789232552.4613802,
-    "ast_hash": "6b2e7d874c57a57ed5cc1003c3012e65",
+    "mtime": 1792076712.142265,
+    "ast_hash": "7baa6bf1df5e00d1745d13ebc758ccb1",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-calendar/setup.tsx": {
@@ -5990,8 +5990,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/outlook/service.ts": {
-    "mtime": 1789232553.2703571,
-    "ast_hash": "d7efc51ba65a88e817d74a7fe3eb8568",
+    "mtime": 1792076676.9994254,
+    "ast_hash": "00fd7e3124a70fcdb6b59681c32c5680",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/outlook/setup.tsx": {
@@ -13965,8 +13965,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/agenda-event-calendar.tsx": {
-    "mtime": 1791469446.8831248,
-    "ast_hash": "0e32251314bc544acbb708fc5a78c8ac",
+    "mtime": 1792077355.7553992,
+    "ast_hash": "3c6a46ea169237012bbed1c7f2455cd3",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/event-calendar.tsx": {
@@ -14000,8 +14000,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/weekly-event-calendar.tsx": {
-    "mtime": 1791468101.6420422,
-    "ast_hash": "9b420adacb0fb85b7b0e88685e525acf",
+    "mtime": 1792076662.017596,
+    "ast_hash": "21c9ea002c1958a4d28e04225272f742",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/index.ts": {
@@ -16040,8 +16040,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/admin.yaml": {
-    "mtime": 1790442553.442155,
-    "ast_hash": "9079d00f6eb9cffc4e96e3836d1643ea",
+    "mtime": 1792077337.6644697,
+    "ast_hash": "6a6ef901c3847852e264211b187f0f86",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/en/apps.yaml": {
@@ -16075,8 +16075,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/admin.yaml": {
-    "mtime": 1790442553.736308,
-    "ast_hash": "1b7dfb03dfe52c135abb85f5c41c7109",
+    "mtime": 1792077339.3815465,
+    "ast_hash": "df7479086c4e898c10a8c7db396f662c",
     "semantic_hash": ""
   },
   "packages/i18n/src/locales/uk/apps.yaml": {
@@ -27255,8 +27255,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/event-calendar/events-calendar.tsx": {
-    "mtime": 1790445972.2043595,
-    "ast_hash": "b01841633a63b502709842811fc9a218",
+    "mtime": 1792076714.546755,
+    "ast_hash": "9bc07dd29cfbf508808014a95b7022ba",
     "semantic_hash": ""
   },
   "apps/admin/src/app/accept-invitation/page.tsx": {

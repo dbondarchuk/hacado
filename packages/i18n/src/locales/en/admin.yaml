@@ -3519,6 +3519,7 @@ calendar:
   minute: min
   event: event
   events: events
+  allDay: All day
   noEventsScheduled: No events scheduled
   noEventsInRange: No events in the selected date range
   collapseAll: Collapse All

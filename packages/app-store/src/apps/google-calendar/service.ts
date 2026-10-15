@@ -377,6 +377,11 @@ class GoogleCalendarConnectedApp
         "Retrieved events from Google Calendar",
       );
 
+      const { timeZone } =
+        await this.props.services.configurationService.getConfiguration(
+          "general",
+        );
+
       const result = events
         .filter(
           (event) =>
@@ -386,13 +391,7 @@ class GoogleCalendarConnectedApp
             event.transparency !== "transparent",
         )
         .map((event) => {
-          const startAt = DateTime.fromISO(event.start?.dateTime!, {
-            zone: "utc",
-          }).toJSDate();
-
-          const endAt = DateTime.fromISO(event.end?.dateTime!, {
-            zone: "utc",
-          }).toJSDate();
+          const { startAt, endAt } = this.parseBusyTimeRange(event, timeZone);
 
           const uid =
             event.extendedProperties?.private?.uid ??
@@ -726,6 +725,36 @@ class GoogleCalendarConnectedApp
 
       throw error;
     }
+  }
+
+  /**
+   * Google all-day events use `start.date` / `end.date` (exclusive end). Map
+   * those calendar dates into the org timezone so multi-day busy blocks cover
+   * the intended local days.
+   */
+  private parseBusyTimeRange(
+    event: calendar_v3.Schema$Event,
+    timeZone: string,
+  ): { startAt: Date; endAt: Date } {
+    if (event.start?.date && event.end?.date) {
+      return {
+        startAt: DateTime.fromISO(event.start.date, { zone: timeZone })
+          .startOf("day")
+          .toJSDate(),
+        endAt: DateTime.fromISO(event.end.date, { zone: timeZone })
+          .startOf("day")
+          .toJSDate(),
+      };
+    }
+
+    return {
+      startAt: DateTime.fromISO(event.start?.dateTime!, {
+        zone: "utc",
+      }).toJSDate(),
+      endAt: DateTime.fromISO(event.end?.dateTime!, {
+        zone: "utc",
+      }).toJSDate(),
+    };
   }
 
   private getGoogleEvent(event: CalendarWriterEvent): calendar_v3.Schema$Event {

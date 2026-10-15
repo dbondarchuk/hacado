@@ -3275,6 +3275,7 @@ calendar:
   minute: хв
   event: подія
   events: подій
+  allDay: Цілий день
   noEventsScheduled: Немає запланованих подій
   noEventsInRange: Немає подій у вибраному діапазоні дат
   collapseAll: Згорнути все

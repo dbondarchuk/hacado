@@ -275,6 +275,11 @@ export class OutlookConnectedApp
         "Retrieved events from Outlook",
       );
 
+      const { timeZone } =
+        await this.props.services.configurationService.getConfiguration(
+          "general",
+        );
+
       const result = events
         .filter(
           (event) =>
@@ -284,13 +289,7 @@ export class OutlookConnectedApp
             event.showAs !== "free",
         )
         .map((event) => {
-          const startAt = DateTime.fromISO(event.start?.dateTime!, {
-            zone: "utc",
-          }).toJSDate();
-
-          const endAt = DateTime.fromISO(event.end?.dateTime!, {
-            zone: "utc",
-          }).toJSDate();
+          const { startAt, endAt } = this.parseBusyTimeRange(event, timeZone);
 
           const uid: string =
             event.singleValueExtendedProperties?.find(
@@ -839,6 +838,41 @@ export class OutlookConnectedApp
     );
 
     return outlookEvent;
+  }
+
+  /**
+   * All-day Outlook events use midnight UTC date boundaries with an exclusive
+   * end. Map those calendar dates into the org timezone so multi-day busy
+   * blocks cover the intended local days instead of shifting by the UTC offset.
+   */
+  private parseBusyTimeRange(
+    event: OutlookEvent,
+    timeZone: string,
+  ): { startAt: Date; endAt: Date } {
+    if (event.isAllDay) {
+      const startDate = event.start?.dateTime?.slice(0, 10);
+      const endDate = event.end?.dateTime?.slice(0, 10);
+
+      if (startDate && endDate) {
+        return {
+          startAt: DateTime.fromISO(startDate, { zone: timeZone })
+            .startOf("day")
+            .toJSDate(),
+          endAt: DateTime.fromISO(endDate, { zone: timeZone })
+            .startOf("day")
+            .toJSDate(),
+        };
+      }
+    }
+
+    return {
+      startAt: DateTime.fromISO(event.start?.dateTime!, {
+        zone: "utc",
+      }).toJSDate(),
+      endAt: DateTime.fromISO(event.end?.dateTime!, {
+        zone: "utc",
+      }).toJSDate(),
+    };
   }
 
   private async getEventsPaginated(

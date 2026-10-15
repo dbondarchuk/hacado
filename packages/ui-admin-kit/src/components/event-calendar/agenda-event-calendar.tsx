@@ -50,44 +50,41 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
   >({});
 
   const getEventsByDate = (): EventsByDate[] => {
-    const eventsByDate: EventsByDate[] = [];
-    const dateMap = new Map<string, EventCalendarEvent[]>();
-
     const dateRange: DateTime[] = [];
     for (let i = 0; i < daysToShow; i++) {
-      dateRange.push(currentDate.plus({ days: i }));
+      dateRange.push(currentDate.plus({ days: i }).startOf("day"));
     }
 
-    dateRange.forEach((rangeDate) => {
-      const dateKey = rangeDate.toFormat("yyyy-MM-dd");
-      dateMap.set(dateKey, []);
-    });
+    return dateRange.map((rangeDate) => {
+      const dayStart = rangeDate.startOf("day");
+      const nextDayStart = dayStart.plus({ days: 1 });
 
-    propsEvents?.forEach((event) => {
-      const dateKey = DateTime.fromJSDate(event.start)
-        .setZone(timeZone)
-        .toFormat("yyyy-MM-dd");
+      const dateEvents = (propsEvents || [])
+        .filter((event) => {
+          const start = DateTime.fromJSDate(event.start).setZone(timeZone);
+          const end = DateTime.fromJSDate(event.end).setZone(timeZone);
+          // Half-open [start, end) so exclusive midnight ends don't spill next day
+          return start < nextDayStart && end > dayStart;
+        })
+        .sort((a, b) => {
+          const aStart = DateTime.fromJSDate(a.start).setZone(timeZone);
+          const bStart = DateTime.fromJSDate(b.start).setZone(timeZone);
+          const aAllDay =
+            aStart <= dayStart &&
+            DateTime.fromJSDate(a.end).setZone(timeZone) >= nextDayStart;
+          const bAllDay =
+            bStart <= dayStart &&
+            DateTime.fromJSDate(b.end).setZone(timeZone) >= nextDayStart;
 
-      if (dateMap.has(dateKey)) {
-        dateMap.get(dateKey)?.push(event);
-      }
-    });
+          if (aAllDay !== bAllDay) return aAllDay ? -1 : 1;
+          return aStart.toMillis() - bStart.toMillis();
+        });
 
-    dateRange.forEach((rangeDate) => {
-      const dateKey = rangeDate.toFormat("yyyy-MM-dd");
-      const dateEvents = dateMap.get(dateKey) || [];
-
-      dateEvents.sort(
-        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
-      );
-
-      eventsByDate.push({
+      return {
         date: rangeDate,
         events: dateEvents,
-      });
+      };
     });
-
-    return eventsByDate;
   };
 
   const eventsByDate = getEventsByDate();
@@ -231,10 +228,17 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                       const endDate = DateTime.fromJSDate(event.end).setZone(
                         timeZone,
                       );
+                      const dayStart = rangeDate.startOf("day");
+                      const nextDayStart = dayStart.plus({ days: 1 });
+                      const isAllDay =
+                        eventDate <= dayStart && endDate >= nextDayStart;
 
                       const appearance = getEventAppearance(event);
                       return (
-                        <EventPopover key={idx} event={event}>
+                        <EventPopover
+                          key={`${event.id ?? event.title}-${dateKey}-${idx}`}
+                          event={event}
+                        >
                           <div
                             className={cn(
                               "flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors shadow-sm",
@@ -251,16 +255,15 @@ export const AgendaEventCalendar: React.FC<AgendaEventCalendarProps> = ({
                                 className="text-[12px] opacity-70"
                                 suppressHydrationWarning
                               >
-                                {eventDate.toLocaleString(
-                                  DateTime.TIME_SIMPLE,
-                                  {
-                                    locale,
-                                  },
-                                )}{" "}
-                                –{" "}
-                                {endDate.toLocaleString(DateTime.TIME_SIMPLE, {
-                                  locale,
-                                })}
+                                {isAllDay
+                                  ? t("calendar.allDay")
+                                  : `${eventDate.toLocaleString(
+                                      DateTime.TIME_SIMPLE,
+                                      { locale },
+                                    )} – ${endDate.toLocaleString(
+                                      DateTime.TIME_SIMPLE,
+                                      { locale },
+                                    )}`}
                               </div>
                               <div className="font-medium text-base truncate">
                                 {event.title}

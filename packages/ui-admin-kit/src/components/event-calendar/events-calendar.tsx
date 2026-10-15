@@ -8,6 +8,7 @@ import {
   DaySchedule,
   isClosedAppointmentStatus,
 } from "@hacado/types";
+import { useTimeZone } from "@hacado/ui";
 import { getColorForName } from "@hacado/utils";
 import {
   CheckCircle,
@@ -52,6 +53,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
   ...rest
 }) => {
   const t = useI18n("admin");
+  const timeZone = useTimeZone();
   const [events, setEvents] = React.useState<CalendarEvent[]>([]);
   const [appointment, setAppointment] = React.useState<
     Appointment | undefined
@@ -78,8 +80,11 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       setEvents([]);
 
       const result = await adminApi.calendar.getCalendar({
-        start: DateTime.fromJSDate(start).startOf("day").toJSDate(),
-        end: DateTime.fromJSDate(end).endOf("day").toJSDate(),
+        start: DateTime.fromJSDate(start)
+          .setZone(timeZone)
+          .startOf("day")
+          .toJSDate(),
+        end: DateTime.fromJSDate(end).setZone(timeZone).endOf("day").toJSDate(),
         member: memberId,
       });
 
@@ -91,9 +96,8 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       setEvents(result.events || []);
       onRangeChangeProp?.(start, end);
     },
-    [managedEvents, managedSchedule, memberId, onRangeChangeProp],
+    [managedEvents, managedSchedule, memberId, onRangeChangeProp, timeZone],
   );
-
   React.useEffect(() => {
     if (!managedEvents || !rangeRef.current) return;
     void getEvents(rangeRef.current.start, rangeRef.current.end);
