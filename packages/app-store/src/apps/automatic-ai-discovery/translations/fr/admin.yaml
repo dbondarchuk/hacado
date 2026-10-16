@@ -1,0 +1,8 @@
+app:
+  displayName: Découverte automatique de l'IA
+  description: Aide ChatGPT et d'autres assistants d'IA à trouver et à comprendre votre entreprise à partir de votre site Web. Publie automatiquement un résumé en texte clair de vos pages, services et équipe.
+statusText:
+  successfully_set_up: Configuration réussie de la découverte automatique de l'IA
+setup:
+  connect: Connectez <app></app>
+

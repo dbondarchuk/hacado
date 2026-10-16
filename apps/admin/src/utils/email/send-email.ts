@@ -1,4 +1,4 @@
-import { Language } from "@hacado/i18n";
+import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
 import { SystemServicesContainer } from "@hacado/services";
 import { templateSafeWithError } from "@hacado/utils";
 import { renderUserEmailTemplate } from "../../../../../packages/email-builder/src/static/user-email-template";
@@ -13,8 +13,10 @@ export const sendEmail = async (
 ) => {
   const serviceContainer = SystemServicesContainer();
 
-  const emailTemplate =
-    EmailTemplates[language][template] ?? EmailTemplates.en[template];
+  const languageTemplates =
+    resolveLanguageFromMap(EmailTemplates, language) ?? EmailTemplates.en!;
+
+  const emailTemplate = languageTemplates[template];
 
   const emailBody = await renderUserEmailTemplate(emailTemplate.body, args);
   const emailSubject = templateSafeWithError(emailTemplate.subject, args);

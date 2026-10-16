@@ -1,5 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { BuiltInTemplateTemplates } from "@/components/admin/templates/templates";
+import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   CommunicationChannel,
@@ -31,13 +32,14 @@ export const getAllTemplates = async (
   const allTemplates = Object.values(
     [BuiltInTemplateTemplates, ...communicationTemplates.filter((val) => !!val)]
       .flatMap((val) => Object.entries(val))
-      .flatMap(([id, templates]) => ({
-        id,
-        template: templates[language] ?? templates.en,
-      }))
-      .filter(
-        (template) => !!template.template && template.template.type === type,
-      )
+      .flatMap(([id, templates]) => {
+        const template = resolveLanguageFromMap(templates, language);
+        if (!template || template.type !== type) {
+          return [];
+        }
+
+        return [{ id, template }];
+      })
       .reduce(
         (acc, curr) => {
           return {

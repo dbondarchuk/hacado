@@ -16,7 +16,7 @@ import {
   subscriptionAllowsMultipleUsers,
   template,
 } from "@hacado/utils";
-import { TextMessageResenderMessages } from "./messages";
+import { getTextMessageResenderMessages } from "./messages";
 import {
   TextMessageResenderConfiguration,
   textMessageResenderConfigurationSchema,
@@ -281,9 +281,8 @@ export default class TextMessageResenderConnectedApp
       });
 
       const body = template(
-        TextMessageResenderMessages[config.brand.language]
-          .resendToUserFromCustomer ??
-          TextMessageResenderMessages["en"].resendToUserFromCustomer,
+        getTextMessageResenderMessages(config.brand.language)
+          .resendToUserFromCustomer,
         args,
       );
 

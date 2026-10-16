@@ -1,0 +1,29 @@
+title: Alimentación ICS
+app:
+  displayName: Alimentación ICS
+  description: Mantenga su agenda actualizada importando automáticamente eventos desde enlaces de calendario externos (.ics)
+form:
+  link:
+    label: enlace ICS
+    placeholder: https://
+    tooltip: URL al calendario ICS
+  connect: Conéctate con
+  validation: {}
+statusText:
+  successfully_set_up: Calendario obtenido correctamente
+  error_processing_configuration: Error al procesar la configuración de ICS
+  successfully_fetched_events: Eventos recuperados exitosamente
+  error_fetching_calendar: Error al recuperar el calendario
+  error_parsing_calendar: Error al analizar el calendario ICS
+  error_getting_busy_times: Error al obtener horas punta del calendario ICS
+  http_error: "No se pudo recuperar la URL. Código de estado: {statusCode}"
+  calendar_fetch_error: "No se pudo recuperar el calendario de ICS. Código de estado: {statusCode}"
+  invalid_url: URL de ICS no válida
+  connection_failed: Error de conexión al calendario ICS
+toast:
+  connection_success: Conectado correctamente al calendario ICS
+  connection_error: No se pudo conectar al calendario ICS
+  fetch_error: Error al recuperar datos del calendario ICS
+validation:
+  invalidUrl: ICS debe ser una URL válida para su calendario
+

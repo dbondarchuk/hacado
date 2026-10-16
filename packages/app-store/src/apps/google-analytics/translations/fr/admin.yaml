@@ -1,0 +1,34 @@
+title: Google Analytics
+app:
+  displayName: Google Analytics
+  description: Connectez Google Analytics 4 pour suivre les visites sur votre site Web public et enregistrer les réservations, les inscriptions sur liste d'attente, les achats de cartes cadeaux, les ventes de forfaits et les soumissions de formulaires en tant que conversions.
+form:
+  selectStream:
+    label: Sélectionnez le flux de données
+    searchLabel: Rechercher des flux de données
+    tooltip: Choisissez le flux de données Web GA4 à utiliser pour ce site Web
+  connect: Connectez-vous avec <app></app>
+  reconnect: Reconnecter <app></app>
+  pendingAuthorization: En attente d'autorisation
+statusText:
+  successfully_set_up: Connexion réussie à Google Analytics
+  requires_data_stream: Sélectionnez un flux de données pour terminer la configuration
+  redirect_request_does_not_contain_app_id: La demande de redirection ne contient pas d'ID d'application
+  redirect_request_does_not_contain_authorization_code: La demande de redirection ne contient pas de code d'autorisation
+  app_was_not_authorized_properly: L'application n'a pas été correctement autorisée
+  app_was_not_given_required_scopes: L'application n'a pas reçu les étendues requises
+  failed_to_get_user_email: Impossible d'obtenir l'e-mail de l'utilisateur
+  failed_to_retrieve_data_stream_list: Échec de la récupération de la liste des flux de données
+  failed_to_set_data_stream: Échec de la définition du flux de données
+  failed_to_create_measurement_protocol_secret: Échec de la création du secret du protocole de mesure
+  missing_oauth_config: Google Analytics OAuth n'est pas configuré. Définissez GOOGLE_ANALYTICS_APP_CLIENT_ID et GOOGLE_ANALYTICS_APP_CLIENT_SECRET.
+toast:
+  changes_saved: Vos modifications ont été enregistrées.
+  request_error: Il y a eu un problème avec votre demande.
+  stream_list_error: Échec de la récupération de la liste des flux de données
+needsAttention:
+  dataStream:
+    title: Terminer la configuration de Google Analytics
+    description: Sélectionnez un flux de données pour que le suivi du site Web et des conversions puisse démarrer.
+    action: Configurer
+

@@ -1,0 +1,194 @@
+pageTitle: Lista de espera (desde la aplicación)
+table:
+  columns:
+    status: Estado
+    createdAt: Creado en
+    dateAndTime: Fecha y hora
+    createAppointment: Crear cita
+    customer: Cliente
+    option: Servicio
+    member: Miembro del equipo
+    note: Nota
+  actions:
+    createAppointment: Crear cita
+    sendMessage: enviar mensaje
+    viewNote: Ver nota
+    close: Cerca
+  dismiss:
+    label: Descartar {count, plural, =1 {waitlist entry} other {# waitlist entries}}
+    title: ¿Estás absolutamente seguro?
+    description: Esta acción no se puede deshacer. Esto descartará la entrada de la lista de espera.
+    confirm: Despedir
+    cancel: Cancelar
+    action: Despedir
+  toast:
+    waitlist_entry_dismissed: La entrada a la lista de espera se descartó correctamente
+    error_deleting_waitlist_entry: Error al descartar la entrada de la lista de espera
+    waitlist_entries_dismissed: Las entradas de la lista de espera se descartaron correctamente
+    error_deleting_waitlist_entries: Error al descartar las entradas de la lista de espera
+    error_loading_waitlist_entries: Error al cargar las entradas de la lista de espera
+statuses:
+  active: Activo
+  dismissed: Despedido
+  expired: Venció
+view:
+  asSoonAsPossible: Lo antes posible
+  dateTimeTitle: Fecha y hora
+  duration: Duración
+  addons: Complementos
+  unknown: Desconocido
+  note: Nota del cliente
+  viewNote: Ver nota
+  submitted: Enviado {date}
+  dismiss: Despedir
+  createAppointment: Crear cita
+  sendMessage: enviar mensaje
+  viewAll: Ver todo
+  dates: Fechas
+  byFormat: por <link>{name}</link>
+  badge: Lista de espera
+  preferredAvailability: Disponibilidad preferida
+  member: Miembro del equipo
+  noSpecificDates: Sin fechas específicas
+  toast:
+    dismissed: Entrada en lista de espera descartada
+  times:
+    descriptions:
+      morning: Mañana (antes de las 12:00)
+      afternoon: Tarde (12:00 p. m. - 4:00 p. m.)
+      evening: Tarde (después de las 4:00 p.m.)
+    short:
+      morning: Mañana
+      afternoon: Tarde
+      evening: Noche
+settings:
+  tooltip: Ajustes
+  title: Ajustes
+  description: Configurar la lista de espera y los ajustes de notificación
+tab:
+  title: Lista de espera
+  subtitle: Revise las solicitudes de la lista de espera y conviértalas en citas.
+  noWaitlistEntries: No hay entradas en la lista de espera
+  caughtUp: Te has puesto al día con todas las solicitudes. ¡Buen trabajo!
+app:
+  displayName: Lista de espera
+  description: |-
+    La lista de espera le ayuda a capturar y gestionar la demanda de los clientes cuando su agenda está llena.
+    Permita que los clientes se unan fácilmente a una lista de espera para servicios, fechas u horarios específicos
+  customerTab:
+    waitlist: Lista de espera
+  pages:
+    main:
+      label: Lista de espera
+      title: Lista de espera
+      description: Administrar entradas de la lista de espera
+setup:
+  update: Actualización <app></app>
+  form:
+    notifyMemberOnNewEntry:
+      label: Enviar correo electrónico al miembro del equipo asignado
+      description: Enviar un correo electrónico al miembro del equipo asignado cuando un cliente se una a su lista de espera
+    notifyCoordinatorsOnNewEntry:
+      label: Coordinadores de correo electrónico y superiores
+      description: Envíe un correo electrónico a los coordinadores, administradores y al propietario cuando un cliente se una a la lista de espera.
+newEntry:
+  trigger: Nueva entrada
+  title: Nueva entrada en lista de espera
+  description: Crear una nueva entrada en la lista de espera
+  confirm: Crear
+  toasts:
+    success: Entrada en la lista de espera creada correctamente
+    error: Error al crear la entrada de la lista de espera
+  form:
+    customerId:
+      label: Cliente
+    optionId:
+      label: Servicio
+    addonsIds:
+      label: Complementos
+    duration:
+      label: Duración
+    note:
+      label: Nota
+      placeholder: Nota
+    when:
+      label: Cuando
+    asSoonAsPossible:
+      label: Lo antes posible
+    dates:
+      label: Fechas
+      label_count: Fechas ({count})
+notifications:
+  newEntries: Nuevas entradas en la lista de espera
+  viewWaitlist: Ver lista de espera
+  message: Tienes {count, plural, =1 {one new waitlist entry} other {# new waitlist entries}}
+  newEntry: Nueva solicitud de lista de espera
+  newEntryMessage: Tienes una nueva solicitud de lista de espera
+activity:
+  newEntry:
+    title: Nueva solicitud de lista de espera
+    description: "{customerName} ha solicitado ser agregado a la lista de espera para {serviceName}"
+  entriesDismissed:
+    title: Entradas en la lista de espera descartadas
+    description: "{count, plural, =1 {One waitlist entry was dismissed} other {# waitlist entries were dismissed}}"
+handlers:
+  newWaitlistEntry: "Notificación de lista de espera: nueva entrada"
+statusText:
+  successfully_set_up: Configurar correctamente la lista de espera
+  error_processing_configuration: Error al procesar la configuración de la lista de espera
+emails:
+  newEntry:
+    subject: Nueva entrada en la lista de espera de {customerName} para {serviceName}
+    title: Nueva solicitud de lista de espera
+    body: |-
+      Hola {userName},
+
+      Un cliente se unió a la lista de espera.
+
+      **Cliente:** {customerName} ({customerEmail})
+      **Teléfono:** {customerPhone}
+      **Servicio:** {serviceName}
+      **Miembro del equipo:** {memberName}
+      **Complementos:** {addons}
+      **Cuándo:** {when}
+      **Duración:** {duration}
+      **Nota:** {note}
+    none: Ninguno
+    view: Ver lista de espera
+    createAppointment: Crear cita
+    dismiss: Despedir
+block:
+  simple:
+    waitlist:
+      displayName: Lista de espera (simple)
+    bookingWithWaitlist:
+      displayName: Reserva con lista de espera (Simple)
+  modern:
+    waitlist:
+      displayName: Lista de espera (moderna)
+    bookingWithWaitlist:
+      displayName: Reserva con lista de espera (Moderno)
+  shortcuts:
+    gap:
+      label: Brecha
+      gaps:
+        none: Ninguno
+        small: Pequeño
+        medium: Medio
+        large: Grande
+        x-large: Extra grande
+  waitlistAppId:
+    label: Aplicación de lista de espera
+    tooltip: La aplicación que se utilizará para trabajar con la lista de espera. Requerido para que funcione el flujo de la lista de espera.
+validation:
+  createWaitlistEntry:
+    customerId:
+      required: Se requiere cliente
+    note:
+      max: La nota no debe tener más de 1024 caracteres.
+    asSoonAsPossible:
+      required: Se requiere lo antes posible
+    dates:
+      required: Se requieren fechas
+      max: Las fechas no deben tener más de 30 fechas.
+

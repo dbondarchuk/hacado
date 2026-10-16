@@ -1,0 +1,459 @@
+common:
+  buttons:
+    next: Continuar
+    back: Atrás
+    confirmBooking: Confirmar reserva
+    apply: Aplicar
+    close: Cerca
+    add: Agregar
+  formats:
+    durationMin: "{duration} min"
+    durationHourMin: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    durationMinutes: "{duration} minutos"
+    durationHourMinutes: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    timezone: GMT{timezone}
+    formDateLabel: "Fecha: {date}"
+    formTimeLabel: "Hora: {start} - {end}"
+    customDurationLabel: "Duración: personalizado"
+    formDurationLabel: "Duración: {duration} min"
+    formDurationHourMinutesLabel: "Duración: {hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    formPriceLabel: "Precio: {price}"
+    selectTimezoneLabel: Todos los horarios están en la zona horaria <timeZoneCombobox></timeZoneCombobox>
+  labels:
+    durationCustom: Costumbre
+    selectDateTime: Seleccione fecha y hora
+    selectDateFirst: Por favor seleccione la fecha primero
+    selectTimeFirst: Por favor seleccione la hora primero
+    availableTimes: Horarios disponibles
+    loadingAvailableTimes: Cargando horarios disponibles...
+    noAvailableTimeSlots: No hay franjas horarias disponibles para este día
+    durationSelectTitle: ¿Cuanto tiempo necesitas?
+    formTitle: Introduce tus datos
+    formName: Nombre
+    formEmail: Correo electrónico
+    formPhone: Teléfono
+    formPromoCode: código promocional
+    formSelectOption: Seleccionar opción
+    searchCountryCode: Buscar país...
+    searchTimezone: Buscar para cambiar la zona horaria
+  aria:
+    loading: Cargando...
+booking:
+  title: Reserve su cita
+  description: Complete los pasos a continuación para programar su sesión
+  steps:
+    option: Servicio
+    specialist: Especialista
+    addons: Complementos
+    calendar: Fecha y hora
+    form: Detalles
+    payment: Pago
+    otp: Verificar
+    review: Resumen
+  summary:
+    title: Tu reserva
+    empty: Aún no hay nada seleccionado.
+    with: Con
+    when: Cuando
+    total: Total
+    estimates:
+      amount: Cantidad
+      duration: Duración
+      dateTime: Fecha y hora
+  option:
+    title: Seleccione un servicio
+    description: Elige el tipo de sesión que mejor se adapte a ti
+    duration:
+      custom:
+        title: Duración de la sesión
+        min_max: "Mín.: {min} • Máx.: {max}"
+    price_per_hour: "{price}/h"
+  specialist:
+    title: Seleccione un especialista
+    choose: Elige con quién quieres reservar
+    fromPrice: Desde {price}
+    fromDuration: Desde {duration}
+    any:
+      title: Cualquier especialista
+      description: Vea la disponibilidad de todos los especialistas y elija el que funcione mejor
+  addons:
+    title: Mejora tu experiencia
+    description: Complementos opcionales para aprovechar al máximo tu sesión
+    no_addons_available: No hay complementos disponibles para este servicio
+    selectLabel: Seleccionar servicios adicionales
+  calendar:
+    title: Seleccionar fecha y hora
+    description: Elija su horario de cita preferido
+    firstAppointmentTitle: Seleccione Fecha y Hora para su primera cita
+    firstAppointmentDescription: Elige un horario para la primera sesión incluida en tu paquete
+    packageAppointmentTitle: Seleccione fecha y hora para su cita {serviceName}
+    nextPackageAppointmentTitle: Seleccione fecha y hora para su próxima cita
+    nextPackageAppointmentDescription: Elija una ranura usando créditos de su paquete
+    loading: Cargando horarios disponibles...
+    no_available_times: No hay horarios disponibles para esta fecha
+  form:
+    title: Tus detalles
+    description: Por favor proporcione su información de contacto
+    namePlaceholder: Su nombre
+  review:
+    title: Revise su reserva
+    description: Por favor confirme que todos los detalles sean correctos.
+    duplicate:
+      title: Posible nombramiento duplicado
+      description: "Encontramos citas existentes que pueden entrar en conflicto con esta reserva:"
+      closestAppointment: "Cita más cercana:"
+      confirm: Lo entiendo y quiero continuar de todos modos.
+      confirmationTitle: ¿Está seguro?
+      confirmationCheckboxLabel: Confirmo que entiendo y quiero reservar esta cita
+    specialist:
+      title: Especialista
+    addons:
+      title: Complementos
+    date:
+      title: Fecha y hora
+      duration: "Duración estimada: {duration}"
+    contact:
+      title: Información del contacto
+      name: "Nombre: {name}"
+      email: "Correo electrónico: {email}"
+      phone: "Teléfono: {phone}"
+      other: "{label}: {value}"
+      yes: Sí
+      no: No
+    price:
+      total: Total adeudado
+      discount: Descuento
+      original: Total parcial
+      giftCards: Tarjetas de regalo
+      package: Paquete
+  otp:
+    title: Verifica tus datos de contacto
+    description: Introduce el código que te enviamos para confirmar esta reserva.
+    descriptionEmailOnly: Le enviaremos un código de verificación a su correo electrónico.
+    descriptionPhoneOnly: Le enviaremos un código de verificación a su teléfono.
+    descriptionEmailOrPhone: Elija correo electrónico o teléfono para recibir un código de verificación
+    email: Correo electrónico
+    phone: Teléfono
+    emailPlaceholder: tu@ejemplo.com
+    phonePlaceholder: Teléfono
+    emailInvalid: Por favor, introduce una dirección de correo electrónico válida.
+    phoneInvalid: Por favor ingrese un número de teléfono válido.
+    send: Enviar código
+    request: Enviar código
+    verify: Verificar código
+    hint: Ingresa el código de 6 dígitos que te enviamos
+    sent: Enviamos un código de verificación
+    sentIfMatch: Si encontramos una coincidencia, enviamos el código.
+    invalid: código no válido
+    requestError: No se pudo enviar el código. Por favor inténtalo de nuevo.
+    verifyError: La verificación OTP falló. Por favor verifique su código e inténtelo nuevamente.
+    resendBlocked: Solicitar nuevo código en {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    changeContact: Los datos de contacto cambiaron. Por favor verifique nuevamente.
+    skip: Ya verificado
+    name: Nombre
+    nameRequired: Introduce tu nombre para continuar
+    namePlaceholder: Su nombre
+  package:
+    useCredits: Utilice los créditos del paquete
+    verifyToUseCredits: Verificar para usar créditos del paquete
+    verifyToUseCreditsDescription: Inicie sesión con un código único para aplicar créditos de un paquete que ya posee.
+    bookWithPackage: Quiero reservar una cita para mi paquete
+    bookWithPackageDescription: Verifica tu identidad para usar créditos de un paquete que ya compraste.
+    selectPackage: Seleccione un paquete
+    selectPackageDescription: Elija qué paquetes de créditos usar para esta cita
+    noPackages: No se encontraron paquetes con créditos restantes para su cuenta.
+    buyPackage: Comprar paquete
+    remaining: "{remaining} restante"
+    purchaseAndBook: Compra paquete y reserva
+    payFull: Pague sin créditos del paquete
+    bookIndependently: Reserva sin utilizar paquete
+    purchaseTitle: Estas comprando un paquete
+    firstAppointmentNote: Esto reserva la primera cita incluida en el paquete.
+    included: ¿Qué está incluido?
+    includedItem: "{count}× {name}"
+  catalog:
+    group: Categoría
+    package: Paquete
+    packages: Paquetes
+    empty: No hay servicios en esta categoría.
+  payment:
+    amount:
+      full: Monto total del pago
+      deposit: Monto del depósito
+    subtotal: Total parcial
+    discount: Descuento
+    total: Total adeudado
+    deposit: Depósito (vence ahora)
+    fullPayment: Pago completo (vence ahora)
+    remainingBalance: Saldo restante
+    remainingBalanceDescription: El saldo restante de {remainingBalance} deberá pagarse al momento de su cita.
+    giftCards: Tarjetas de regalo
+    informationFetchFailedTitle: ¡Oh, oh! Algo salió mal.
+    informationFetchFailedDescription: Algo salió mal mientras intentábamos obtener la información para reservar su cita. Por favor contáctenos
+    depositRequiredTitle: Se requiere depósito
+    depositRequiredDescription: Para reservar esta cita, se requiere un depósito de {percentage}% ({amount}). Por favor pague usando el siguiente formulario
+    fixedAmountRequiredDescription: Para reservar esta cita, se requiere un depósito de {amount}. Por favor pague usando el siguiente formulario
+    fullPaymentRequiredTitle: Se requiere pago completo
+    fullPaymentRequiredDescription: Para reservar esta cita, se requiere el pago total de {amount}. Por favor pague usando el siguiente formulario
+    tips:
+      title: Añadir una propina
+      none: Sin propina
+      custom: Costumbre
+      customAmount: Monto de propina
+      preset: "{percent}%"
+      tip: Consejo
+      total: Total adeudado ahora
+  promoCode:
+    trigger: ¿Tienes un código de promoción?
+    title: código promocional
+    code: código promocional
+    codePlaceholder: Ingrese el código de promoción (por ejemplo, XXX-XXX-XXX)
+    description: Se pueden aplicar hasta 2 códigos promocionales
+    success: El código de promoción {code} (-{discount}) se aplicó correctamente.
+    successMessage: El código de promoción {code} (-{discount}) se aplicó correctamente.
+    error: El código de promoción {code} no es válido o ha caducado.
+    errorInvalid: El código de promoción no es válido.
+    apply: Aplicar
+  giftCard:
+    trigger: ¿Tienes una tarjeta de regalo?
+    title: Tarjeta de regalo
+    code: Código de tarjeta de regalo
+    description: Se pueden aplicar hasta 2 tarjetas de regalo
+    success: La tarjeta de regalo {code} (-{appliedAmount}) se aplicó correctamente.
+    error: La tarjeta regalo {code} no es válida o ha caducado.
+    codeRequired: Se requiere el código de la tarjeta de regalo
+    apply: Aplicar
+    codePlaceholder: Ingrese el código de la tarjeta de regalo (por ejemplo, XXX-XXX-XXX)
+    giftCardAppliedAmount: -{appliedAmount} aplicado.
+    giftCardAmountLeftLabel: Saldo restante en la tarjeta después de la reserva
+    giftCardAmountLeft: "{amountLeft} restante en la tarjeta"
+    remove: Quitar tarjeta de regalo
+  confirmation:
+    price:
+      original: "Subtotal: {original}"
+      discount: "Descuento: -{discount}"
+      total: "Total: {total}"
+    successTitle: ¡Tu solicitud ha sido recibida!
+    successMessage: ¡Gracias, {name}! Su solicitud de {service} ha sido recibida y recibirá la confirmación en breve.
+    fetchFailedTitle: No encontramos tu cita
+    appointmentDetails: Detalles de la cita
+    duration: "Duración: {duration}"
+    specialist: "Especialista: {name}"
+    package: "Parte del paquete: {name}"
+    newBookingButton: Reserve otra cita
+  availability:
+    fetchFailedTitle: ¡Oh, oh! Algo salió mal.
+    fetchFailedDescription: Algo salió mal mientras teníamos horarios disponibles. Por favor contáctenos
+  restriction:
+    limitReachedTitle: Reserva online no disponible
+    limitReachedDescription: Esta empresa no acepta nuevos nombramientos en este momento. Inténtelo de nuevo más tarde o comuníquese con ellos directamente.
+  submitEvent:
+    failedTitle: ¡Oh, oh! Algo salió mal.
+    failedDescription: Algo salió mal mientras intentábamos reservar su cita. Por favor contáctenos
+    timeNotAvailableDescription: Parece que ya no hay tiempo disponible. Por favor seleccione otro horario
+    limitReachedTitle: No se puede reservar cita
+    limitReachedDescription: Este negocio ha alcanzado su límite de nombramientos para este período. Inténtelo de nuevo más tarde o comuníquese con ellos directamente.
+modification:
+  title: Gestiona tu cita
+  pageTitle: Modificar cita
+  description: Cancele o reprograme su cita existente
+  steps:
+    type: Acción
+    otp: Verificar
+    form: Encontrar
+    calendar: Nuevo tiempo
+    review: Resumen
+    payment: Pago
+  otp:
+    descriptionEmailOnly: Ingresa tu correo electrónico para recibir un código de verificación
+    descriptionPhoneOnly: Ingresa tu teléfono para recibir un código de verificación
+    descriptionEmailOrPhone: Ingresa tu correo electrónico o teléfono para recibir un código de verificación
+    email: Correo electrónico
+    phone: Teléfono
+    emailPlaceholder: tu@ejemplo.com
+    request: Enviar código
+    verify: Verificar código
+    resend: Reenviar código
+    resendBlocked: Solicitar nuevo código en {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    hint: Ingresa el código de 6 dígitos que te enviamos
+    sent: Si encontramos una coincidencia, enviamos un código.
+    invalid: código no válido
+    requestError: No se pudo enviar el código. Por favor inténtalo de nuevo.
+  summary:
+    estimates:
+      dateTime: Fecha y hora
+      newDateTime: Nueva fecha y hora
+  type:
+    cancel:
+      title: Cancelar cita
+      description: Cancela tu próxima cita
+    reschedule:
+      title: Reprogramar cita
+      description: Reprograme su próxima cita
+    title: ¿Qué te gustaría hacer?
+    description: Elija cancelar o reprogramar su cita
+  form:
+    title: Encuentra tu cita
+    description: Ingresa la fecha y hora de tu cita
+    typeLabel: Correo electrónico o teléfono
+    cancelTitle: Busquemos tu cita. Por favor proporcione los detalles de la cita que desea cancelar.
+    rescheduleTitle: Busquemos tu cita. Por favor proporcione los detalles de la cita que desea reprogramar.
+    type:
+      email: Correo electrónico
+      phone: Teléfono
+      label: ¿Cómo le gustaría encontrar su cita?
+    email:
+      label: Dirección de correo electrónico
+      placeholder: juan.doe@ejemplo.com
+    phone:
+      label: Número de teléfono
+      placeholder: "+1234567890"
+    date:
+      label: Fecha y hora
+      placeholder: Seleccionar fecha
+    time:
+      label: Tiempo
+      placeholder: Seleccionar hora
+    dateTime:
+      label: Fecha y hora
+    notAllowed:
+      cancel:
+        title: No se permite cancelación para esta cita.
+        message: <p>Hola {name}, lamentablemente no podemos cancelar esta cita en este momento. Por favor contáctenos para cancelar.</p><ul><li>{reason}</li></ul>
+      reschedule:
+        title: No se permite reprogramar esta cita
+        message: <p>Hola {name}, lamentablemente no podemos reprogramar esta cita en este momento. Por favor contáctenos para reprogramar.</p><ul><li>{reason}</li></ul>
+    searchError:
+      notFound: No se encontró ninguna cita con los detalles proporcionados. Por favor verifique e intente nuevamente.
+      notAllowed:
+        cancel: <p>Hola {name}, lamentablemente no podemos cancelar esta cita en este momento. Por favor contáctenos para cancelar.</p><ul><li>{reason}</li></ul>
+        reschedule: <p>Hola {name}, lamentablemente no podemos reprogramar esta cita en este momento. Por favor contáctenos para reprogramar.</p><ul><li>{reason}</li></ul>
+        reason:
+          max_reschedules_reached: Ha alcanzado el número máximo de reprogramaciones para esta cita.
+          original_appointment_deposit_required: Se requiere el depósito de la cita original para reprogramar esta cita.
+          time_not_available: El horario no está disponible para reprogramación.
+          invalid_request_type: El tipo de solicitud no es válido.
+          cancellation_not_allowed: No se permiten cancelaciones.
+          reschedule_not_allowed: No se permiten reprogramaciones.
+          cancellation_not_allowed_by_policy: No se permite cancelación para esta cita.
+          reschedule_not_allowed_by_policy: No se permiten reprogramaciones para esta cita.
+          rescheduled_appointment_not_allowed: No se permite la cancelación de esta cita porque ha sido reprogramada.
+          online_payment_unavailable: Este cambio requiere una tarifa, pero los pagos en línea no están disponibles. Por favor contáctenos.
+          unknown: Razón desconocida
+  calendar:
+    title: Seleccione nueva fecha y hora
+    description: Elija un nuevo horario para su cita {serviceName}
+  review:
+    cancel:
+      title: Cancelación de reseñas
+      description: Por favor confirme los detalles de la cita a continuación
+      alert:
+        title: Estás a punto de cancelar esta cita
+        subTitle: Esta acción no se puede deshacer.
+        forfeitDepositDescription: Si lo hace, su depósito no será reembolsado.
+      checkboxLabel: Confirmo que entiendo y quiero cancelar esta cita
+      confirmationTitle: ¿Está seguro?
+      confirmationForfeitDepositDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, tu depósito <b>no será reembolsado</b>.
+      partialRefundDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, <b>{refundPercentage}%</b> de tu depósito{refundFees, plural, =1 {} other Se reembolsará {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} (<b>{refundAmount}</b>).
+      fullRefundDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?<br></br>Si lo haces, tu depósito{refundFees, plural, =1 {} other {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} se reembolsará <b>completamente</b> (<b>{refundAmount}</b>).
+      paymentPartialRequiredDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?
+      paymentFullPriceRequiredDescription: Hola {name}, ¿estás seguro de que deseas cancelar tu cita para <b>{service}</b> el <i>{dateTime}</i>?
+      confirmationCheckboxLabel: Confirmo que entiendo y quiero cancelar esta cita
+      refundAmount: Monto del reembolso
+      fee: Tarifa de cancelación
+    reschedule:
+      title: Revisar cambios
+      description: Confirme los detalles de su cita reprogramada
+      checkboxLabel: Confirmo que entiendo y quiero reprogramar esta cita
+      confirmationTitle: ¿Está seguro?
+      confirmationDescription: Hola {name}, ¿estás seguro de que deseas reprogramar tu cita de <b>{service}</b> del <i>{dateTime}</i> al <i>{newDateTime}</i>?
+      confirmationCheckboxLabel: Confirmo que entiendo y quiero reprogramar esta cita
+      fee: Tarifa de reprogramación
+    service: Servicio
+    addons: Complementos
+    originalDate: Fecha original
+    newDate: Nueva fecha
+    originalTime: Hora original
+    newTime: Nuevo tiempo
+    timezone: Zona horaria
+    duration: Duración
+    originalPrice: Precio original
+    confirm: Confirmar
+  payment:
+    cancel:
+      title: Tarifa de cancelación
+      description: Pague la tarifa requerida para continuar
+    reschedule:
+      title: Tarifa de reprogramación
+      description: Pague la tarifa requerida para continuar
+    paymentReview: Resumen de pago
+    amountDue: Monto adeudado
+  confirmation:
+    cancel:
+      title: Cita cancelada
+      description: Su cita ha sido cancelada exitosamente.
+      successTitle: Tu cita ha sido cancelada
+      successMessage: ¡Gracias, {name}! Su cita para {service} ha sido cancelada y recibirá la confirmación en breve.
+    reschedule:
+      title: Cita reprogramada
+      description: Su cita ha sido reprogramada exitosamente.
+      successTitle: Tu cita ha sido reprogramada
+      successMessage: ¡Gracias, {name}! Su cita para {service} ha sido reprogramada para {newDateTime} y ​​recibirá la confirmación en breve.
+    appointmentDetails: Detalles de la cita
+  appointmentFetchFailed:
+    title: No encontramos tu cita
+    description: No podemos encontrar su cita. Asegúrate de tener la fecha y hora correctas y un correo electrónico o número de teléfono y vuelve a intentarlo. O contáctanos para modificar tu cita.
+  submitFailed:
+    cancel:
+      title: ¡Oh, oh! Algo salió mal.
+      description: Algo salió mal mientras intentábamos cancelar su cita. Por favor contáctenos
+    reschedule:
+      title: ¡Oh, oh! Algo salió mal.
+      description: Algo salió mal mientras intentábamos reprogramar su cita. Por favor contáctenos
+  feeRequired:
+    cancel:
+      title: Se requiere tarifa de cancelación
+      description: Para cancelar esta cita, se requiere una tarifa de {amount}. Por favor pague usando el siguiente formulario
+    reschedule:
+      title: Se requiere tarifa de reprogramación
+      description: Para reprogramar esta cita, se requiere una tarifa de {amount}. Por favor pague usando el siguiente formulario
+validation:
+  name:
+    required: El nombre es obligatorio
+    max: El nombre no debe tener más de 256 caracteres.
+  email:
+    invalid: Correo electrónico no válido
+    required: Se requiere correo electrónico
+    max: El correo electrónico no debe tener más de 256 caracteres.
+  phone:
+    invalid: Número de teléfono no válido
+    required: Se requiere teléfono
+    max: El teléfono no debe tener más de 32 caracteres
+  text:
+    required: Por favor proporcione la respuesta
+    maxOneLine: El texto no debe tener más de 256 caracteres.
+    maxMultiLine: El texto no debe tener más de 4096 caracteres.
+  checkbox:
+    required: Por favor marque la casilla
+  select:
+    required: Por favor seleccione una opción
+  file:
+    required: Por favor sube un archivo
+    maxSize: El archivo es demasiado grande
+    type: Archivo esperado
+  giftCard:
+    code:
+      required: Se requiere el código de la tarjeta de regalo
+footer:
+  contactUsLabel: Contáctenos
+  phone: Teléfono
+  email: Correo electrónico
+  address: DIRECCIÓN
+header:
+  menu: Menú
+  close: Cerca
+notFound:
+  title: Página no encontrada
+  description: La página que buscas no existe.
+  button: volver a casa
+

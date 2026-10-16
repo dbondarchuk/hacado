@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { pathToFileURL } = require("url");
 const { spawnSync } = require("child_process");
 const YAML = require("yaml");
 
@@ -14,6 +15,10 @@ const TRANSLATE_SCRIPT = path.join(
   __dirname,
   "translate-missing-locale-keys.js",
 );
+
+const LOCALE_CATALOG_URL = pathToFileURL(
+  path.join(__dirname, "../src/locale-catalog.ts"),
+).href;
 
 // Load configuration file if it exists
 let config = {
@@ -319,10 +324,34 @@ function loadAppTranslationFile(appName, locale, filename) {
 }
 
 /**
+ * Load merged parent-chain content for a locale (excluding the locale itself).
+ * @param {string} locale
+ * @param {string} filename
+ * @param {(locale: string, filename: string) => Object} loadFn
+ * @param {{ getLocaleChain: Function, deepMergeMessages: Function }} catalog
+ */
+function loadParentChainContent(locale, filename, loadFn, catalog) {
+  const parents = catalog.getLocaleChain(locale).slice(1);
+  let result = {};
+  for (const parent of [...parents].reverse()) {
+    try {
+      result = catalog.deepMergeMessages(
+        result,
+        loadFn(parent, filename) || {},
+      );
+    } catch {
+      // Parent file may be absent; inherit from further ancestors.
+    }
+  }
+  return result;
+}
+
+/**
  * Check app translations for missing keys
+ * @param {{ isPartialLocale: Function, getLocaleChain: Function, deepMergeMessages: Function }} catalog
  * @returns {Object} - Object containing missing app translations report
  */
-function checkAppTranslations() {
+function checkAppTranslations(catalog) {
   const apps = getApps();
   const baseLocale = BASE_LOCALE;
   const locales = getLocales().filter((locale) => locale !== baseLocale);
@@ -352,6 +381,7 @@ function checkAppTranslations() {
 
     for (const locale of locales) {
       const localeFiles = appTranslationFiles[locale] || [];
+      const partial = catalog.isPartialLocale(locale);
 
       // Initialize locale structure
       if (!report.missing[appName][locale]) {
@@ -364,6 +394,10 @@ function checkAppTranslations() {
       // Check each file
       for (const filename of baseFiles) {
         if (!localeFiles.includes(filename)) {
+          if (partial) {
+            // Sparse overlays may omit entire files.
+            continue;
+          }
           // File is missing entirely
           report.missing[appName][locale][filename] = ["FILE_MISSING"];
           report.totalMissing++;
@@ -381,28 +415,38 @@ function checkAppTranslations() {
             locale,
             filename,
           );
+          const parentContent = partial
+            ? loadParentChainContent(
+                locale,
+                filename,
+                (loc, file) => loadAppTranslationFile(appName, loc, file),
+                catalog,
+              )
+            : baseContent;
 
           const baseKeys = getAllKeys(baseContent);
           const localeKeys = getAllKeys(localeContent);
 
-          // Check for missing keys
-          for (const key of baseKeys) {
-            if (
-              !hasKey(localeContent, key) &&
-              !config.ignoreMissingKeys.includes(key)
-            ) {
-              if (!report.missing[appName][locale][filename]) {
-                report.missing[appName][locale][filename] = [];
+          // Check for missing keys (complete locales only)
+          if (!partial) {
+            for (const key of baseKeys) {
+              if (
+                !hasKey(localeContent, key) &&
+                !config.ignoreMissingKeys.includes(key)
+              ) {
+                if (!report.missing[appName][locale][filename]) {
+                  report.missing[appName][locale][filename] = [];
+                }
+                report.missing[appName][locale][filename].push(key);
+                report.totalMissing++;
               }
-              report.missing[appName][locale][filename].push(key);
-              report.totalMissing++;
             }
           }
 
-          // Check for extra keys
+          // Extra keys: must exist on parent chain (or base for complete locales)
           for (const key of localeKeys) {
             if (
-              !hasKey(baseContent, key) &&
+              !hasKey(parentContent, key) &&
               !config.ignoreExtraKeys.includes(key)
             ) {
               if (!report.extra[appName][locale][filename]) {
@@ -437,9 +481,10 @@ function checkAppTranslations() {
 
 /**
  * Check translations for missing keys
+ * @param {{ isPartialLocale: Function, getLocaleChain: Function, deepMergeMessages: Function }} catalog
  * @returns {Object} - Object containing missing translations report
  */
-function checkTranslations() {
+function checkTranslations(catalog) {
   const locales = getLocales();
   const baseLocale = BASE_LOCALE;
 
@@ -464,12 +509,17 @@ function checkTranslations() {
     if (locale === baseLocale) continue;
 
     const localeFiles = getTranslationFiles(locale);
+    const partial = catalog.isPartialLocale(locale);
     report.missing[locale] = {};
     report.extra[locale] = {};
 
     // Check each file
     for (const filename of baseFiles) {
       if (!localeFiles.includes(filename)) {
+        if (partial) {
+          // Sparse overlays may omit entire files.
+          continue;
+        }
         // File is missing entirely
         if (!report.missing[locale][filename]) {
           report.missing[locale][filename] = [];
@@ -482,28 +532,38 @@ function checkTranslations() {
       try {
         const baseContent = loadTranslationFile(baseLocale, filename);
         const localeContent = loadTranslationFile(locale, filename);
+        const parentContent = partial
+          ? loadParentChainContent(
+              locale,
+              filename,
+              loadTranslationFile,
+              catalog,
+            )
+          : baseContent;
 
         const baseKeys = getAllKeys(baseContent);
         const localeKeys = getAllKeys(localeContent);
 
-        // Check for missing keys
-        for (const key of baseKeys) {
-          if (
-            !hasKey(localeContent, key) &&
-            !config.ignoreMissingKeys.includes(key)
-          ) {
-            if (!report.missing[locale][filename]) {
-              report.missing[locale][filename] = [];
+        // Check for missing keys (complete locales only)
+        if (!partial) {
+          for (const key of baseKeys) {
+            if (
+              !hasKey(localeContent, key) &&
+              !config.ignoreMissingKeys.includes(key)
+            ) {
+              if (!report.missing[locale][filename]) {
+                report.missing[locale][filename] = [];
+              }
+              report.missing[locale][filename].push(key);
+              report.totalMissing++;
             }
-            report.missing[locale][filename].push(key);
-            report.totalMissing++;
           }
         }
 
-        // Check for extra keys (optional, but good to know)
+        // Extra keys: must exist on parent chain (or base for complete locales)
         for (const key of localeKeys) {
           if (
-            !hasKey(baseContent, key) &&
+            !hasKey(parentContent, key) &&
             !config.ignoreExtraKeys.includes(key)
           ) {
             if (!report.extra[locale][filename]) {
@@ -656,15 +716,18 @@ function printReport(report, appReport = null) {
 /**
  * Apply fixes for missing translations by invoking translation script.
  * Fix mode addresses both missing and extra keys/files.
+ * Partial locales are never machine-filled (overlays stay sparse).
  * @param {Object} report - Central translation report
  * @param {Object} appReport - App translation report
+ * @param {{ isPartialLocale: Function }} catalog
  */
-function applyFixes(report, appReport = null) {
+function applyFixes(report, appReport = null, catalog) {
   const cleanupResult = cleanupExtras(report, appReport);
   const targets = new Map();
 
   // Central translation targets: "<locale>/<filename>" => [target, locale]
   for (const [locale, files] of Object.entries(report.missing || {})) {
+    if (catalog.isPartialLocale(locale)) continue;
     for (const [filename, missingKeys] of Object.entries(files || {})) {
       if (!missingKeys || missingKeys.length === 0) continue;
       const dedupeKey = `central:${locale}:${filename}`;
@@ -676,6 +739,7 @@ function applyFixes(report, appReport = null) {
   if (appReport) {
     for (const [appName, locales] of Object.entries(appReport.missing || {})) {
       for (const [locale, files] of Object.entries(locales || {})) {
+        if (catalog.isPartialLocale(locale)) continue;
         for (const [filename, missingKeys] of Object.entries(files || {})) {
           if (!missingKeys || missingKeys.length === 0) continue;
           const dedupeKey = `app:${appName}:${locale}:${filename}`;
@@ -908,26 +972,27 @@ function removeKeyByPath(obj, keyPath) {
 /**
  * Main function
  */
-function main() {
+async function main() {
   try {
+    const catalog = await import(LOCALE_CATALOG_URL);
     console.log("🔍 Checking translations...");
 
-    let report = checkTranslations();
+    let report = checkTranslations(catalog);
     let appReport = null;
 
     if (config.checkApps) {
       console.log("📱 Checking app translations...");
-      appReport = checkAppTranslations();
+      appReport = checkAppTranslations(catalog);
     }
 
     printReport(report, appReport);
 
     if (cliOptions.fix) {
-      const fixResult = applyFixes(report, appReport);
+      const fixResult = applyFixes(report, appReport, catalog);
       if (fixResult.attempted > 0 || fixResult.changed > 0) {
         console.log("\n🔁 Re-checking translations after --fix...");
-        report = checkTranslations();
-        appReport = config.checkApps ? checkAppTranslations() : null;
+        report = checkTranslations(catalog);
+        appReport = config.checkApps ? checkAppTranslations(catalog) : null;
         printReport(report, appReport);
       }
       if (fixResult.failed > 0) {

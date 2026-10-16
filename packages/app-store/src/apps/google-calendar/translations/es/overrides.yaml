@@ -1,0 +1,5 @@
+admin:
+  onlineMeeting:
+    types:
+      google_meet: Reunión de Google
+

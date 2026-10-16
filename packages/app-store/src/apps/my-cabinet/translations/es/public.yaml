@@ -1,0 +1,109 @@
+errors:
+  appNotConfigured:
+    title: Mi Gabinete no está configurado
+    description: Seleccione una instancia de la aplicación My Cabinet en la configuración del bloque.
+  sessionExpired: Tu sesión ha caducado. Por favor inicia sesión nuevamente.
+page:
+  title: mi gabinete
+block:
+  title: mi gabinete
+  auth:
+    descriptionEmailOnly: Introduce tu correo electrónico para consultar y gestionar tus citas.
+    descriptionPhoneOnly: Introduce tu teléfono para consultar y gestionar tus citas.
+    descriptionEmailOrPhone: Introduce tu email o teléfono para consultar y gestionar tus citas.
+    type:
+      email: Correo electrónico
+      phone: Teléfono
+    emailPlaceholder: Correo electrónico
+    phonePlaceholder: Teléfono
+    requestOtp: Enviar código
+    requestOtpBlocked: Solicitar nuevo código en {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    secondsLeft: "{seconds} segundos"
+    minutesLeft: "{time} minutos"
+    verifyOtp: Verificar código
+    otpHint: Ingresa el código de 6 dígitos que te enviamos
+    otpSent: Si encontramos una coincidencia, enviamos un código.
+    otpInvalid: código no válido
+    emailInvalid: Por favor, introduce una dirección de correo electrónico válida.
+    phoneInvalid: Por favor ingrese un número de teléfono válido.
+    requestOtpError: Algo salió mal. Por favor inténtalo de nuevo.
+    verifyOtpError: La verificación OTP falló. Por favor verifique su código e inténtelo nuevamente.
+  appointments:
+    heading: mis citas
+    welcome: Bienvenido de nuevo,
+    counts: "{upcoming} próximo · {completed} completado"
+    customerFallback: Cliente
+    upcoming: Próximas citas
+    past: Citas pasadas
+    prev: Anterior
+    next: Próximo
+    page: Página {page}
+    duration: Duración
+    time: Tiempo
+    price: Precio
+    amountDue: Monto adeudado
+    timeEnd: Fin
+    loadError: Algo salió mal al cargar tus citas.
+    emptyUpcoming: No hay citas próximas
+    emptyPast: Sin citas pasadas
+    appointmentFallback: Cita
+    reschedule: Reprogramar
+    cancel: Cancelar
+    joinMeeting: Unirse a la reunión
+    meetingDetails: Reunión en línea
+    meetingId: ID de reunión
+    meetingPassword: Contraseña
+    meetingUrl: Enlace
+    copy: Copiar {label}
+    copied: "{label} copiado"
+    status:
+      pending: Pendiente
+      confirmed: Confirmado
+      declined: Rechazado
+      canceled: Cancelado
+      noShow: Cancelado
+  modify:
+    title: Modificar cita
+    step:
+      calendar: Calendario
+      review: Revisar
+      payment: Pago
+      success: Éxito
+    selectedAppointment: Cita seleccionada
+    selectedAction: Acción seleccionada
+    originalDateTime: Fecha y hora originales
+    newDateTime: Nueva fecha y hora
+    amountDue: Monto adeudado
+    paymentPlaceholder: El formulario de pago se mostrará aquí.
+    payAndConfirm: Paga y confirma
+    next: Próximo
+    actionCancel: Cancelar
+    actionReschedule: Reprogramar
+    rescheduleDateLabel: Nueva fecha y hora
+    submit: Confirmar
+    back: Volver a citas
+    backToAppointments: Volver a mis citas
+    completed: Hecho
+  book:
+    backToAppointments: Volver a mis citas
+  packages:
+    title: Paquetes
+    remaining: "{remaining} de {total} restantes"
+    book: Reservar cita
+    empty: Aún no hay paquetes
+    used: Parte de {name}
+    view: Ver paquete
+    expired: Venció
+  waitlist:
+    heading: Lista de espera
+    empty: No estás en la lista de espera
+    asSoonAsPossible: Lo antes posible
+    dismiss: Dejar
+    dismissAll: dejar todo
+    dismissError: No se pudo actualizar tu lista de espera
+    loadError: Algo salió mal al cargar tu lista de espera.
+    dismissed: Eliminado de la lista de espera
+    morning: Mañana
+    afternoon: Tarde
+    evening: Noche
+

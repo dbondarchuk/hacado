@@ -1,0 +1,99 @@
+title: Horario semanal
+app:
+  displayName: Horario semanal
+  description: |-
+    Establezca días festivos de la empresa y excepciones semanales por miembro además de sus horas predeterminadas.
+    Marcar días festivos para cerrar a todos; de lo contrario, los miembros pueden anular el horario de atención de la empresa.
+navigation:
+  main:
+    title: Horario semanal
+    description: Gestiona tu agenda semanal
+quickLinks:
+  adjust: Ajustar horario
+form:
+  thisWeek: Esta semana
+  previousWeek: Semana anterior
+  nextWeek: La próxima semana
+  setCustomWeeklySchedule: Establecer un horario semanal personalizado
+  selectMember: Seleccionar miembro del equipo
+  companySchedule: Empresa (todos los miembros)
+  legend: "Las horas provienen de:"
+  source:
+    default: Por defecto
+    company: Compañía
+    member: Miembro
+    app: Aplicación
+    holiday: Día festivo
+  recurrence:
+    badge: Recurrente cada {everyWeeks} semanas hasta {until}
+    weekOverride: Esta semana tiene una anulación única además de la serie.
+  holidays:
+    title: Vacaciones de empresa
+    description: Cierres duros para todos. El horario de limpieza a continuación no es un día festivo; aún se pueden establecer turnos propios de los miembros.
+    closeWeek: Cerrar toda la semana
+    clear: vacaciones claras
+dialogs:
+  reset:
+    title: ¿Estás absolutamente seguro?
+    description: Esta acción no se puede deshacer. Esto restablecerá el horario de la semana de {week} al predeterminado.
+    descriptionCompany: Esta acción no se puede deshacer. Esto restablecerá el cronograma de la semana de {week} al cronograma de la empresa.
+    descriptionFromSeries: Esta acción no se puede deshacer. Esto eliminará la semana de {week} del cronograma recurrente (cada {everyWeeks} semanas). Las horas volverán al horario predeterminado. Otras semanas de la serie se quedan.
+    descriptionFromSeriesCompany: Esta acción no se puede deshacer. Esto eliminará la semana de {week} del cronograma recurrente (cada {everyWeeks} semanas). El horario se ajustará al horario de la empresa. Otras semanas de la serie se quedan.
+    descriptionOverrideOnSeries: Esta acción no se puede deshacer. Esto borrará la anulación única para la semana de {week} y ​​la eliminará del programa recurrente. Las horas volverán al horario predeterminado.
+    descriptionOverrideOnSeriesCompany: Esta acción no se puede deshacer. Esto borrará la anulación única para la semana de {week} y ​​la eliminará del programa recurrente. El horario se ajustará al horario de la empresa.
+    success: El programa semanal para la semana de {week} se restableció exitosamente al valor predeterminado
+    successCompany: El cronograma semanal para la semana de {week} se restableció exitosamente al cronograma de la empresa
+    successFromSeries: La semana de {week} se eliminó del programa recurrente
+    cancel: Cancelar
+    reset: Reiniciar
+    resetThisWeekToDefault: Restablecer esta semana a los valores predeterminados
+    resetThisWeekToCompany: Restablecer esta semana a la empresa
+    removeThisWeekFromSeries: Eliminar esta semana de la serie
+    resetToDefault: Restablecer los valores predeterminados
+    resetToCompany: Restablecer a la empresa
+    defaultSchedule: Horario predeterminado
+    companySchedule: Horario de la empresa
+    removeSeries: Eliminar programación recurrente
+    removeSeriesDescription: Esto eliminará el programa recurrente (cada {everyWeeks} semanas hasta {until}). Todas las semanas de esa serie volverán al calendario {fallback}. Se mantienen las anulaciones semanales únicas.
+    removeSeriesSuccess: Se eliminó el horario recurrente
+    fallbackDefault: por defecto
+    fallbackCompany: compañía
+  resetAll:
+    title: ¿Estás absolutamente seguro?
+    description: Esta acción no se puede deshacer. Esto restablecerá todos los programas de la semana de {week} al predeterminado, incluidas las series recurrentes que comienzan en esta semana o después (las series anteriores se recortan).
+    descriptionCompany: Esta acción no se puede deshacer. Esto restablecerá todas las programaciones de la semana de {week} a la programación de la empresa, incluidas las series recurrentes que comienzan a partir de esta semana (las series anteriores se recortan).
+    success: Todos los horarios de la semana de {week} se restablecieron exitosamente a los valores predeterminados
+    successCompany: Todos los horarios de la semana de {week} se restablecieron exitosamente al horario de la empresa
+    cancel: Cancelar
+    reset: Reiniciar
+    resetAllToDefault: Restablecer todo lo de esta semana a los valores predeterminados
+    resetAllToCompany: Restablecer todo lo de esta semana a la empresa
+  copy:
+    title: Copiar horario
+    description: Copie las horas de esta semana a otra semana como un horario único (no una serie recurrente).
+    success: El horario fue copiado exitosamente
+    cancel: Cancelar
+    copy: Copiar
+    copySchedule: Copiar horario
+  repeat:
+    title: Repetir horario
+    description: Cree un nuevo horario repetitivo a partir de las horas de esta semana. Esto no edita una serie existente.
+    success: Nuevo programa recurrente desde la semana de {week} cada {interval} semanas hasta que se creó {maxWeek}
+    cancel: Cancelar
+    copy: Crear
+    repeatSchedule: Repetir horario
+    repeatEvery: Repetir cada
+    repeatUntil: Repita hasta
+    repeatUntilTooltip: La última semana (incluida) hasta la cual repetir el horario
+    weeks: Semanas
+    replaceExisting: Reemplazar anulaciones de semanas existentes
+    replaceExistingDescription: Si se marca, los cronogramas únicos para semanas en la nueva serie se borran para que se aplique el nuevo patrón repetitivo.
+    close: Cerca
+    confirmTitle: ¿Estás absolutamente seguro?
+    confirmDescription: Esto creará un nuevo programa repetitivo desde la semana de {week} cada {interval} semanas hasta la semana de {maxWeek}. Las series existentes no se editan; la serie más nueva gana donde se superponen.
+statusText:
+  successfully_installed: Instalé exitosamente la aplicación
+  error_processing_request: Error al procesar la solicitud de programación semanal
+  failed_to_load_schedule: No se pudo cargar el horario
+  saved: ¡Salvado!
+  request_error: Hubo un problema con tu solicitud.

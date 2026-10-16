@@ -1,0 +1,141 @@
+title: Webhooks
+app:
+  displayName: Webhooks
+  description: |-
+    Les Webhooks vous permettent de connecter votre compte à des systèmes externes et d'automatiser les flux de travail en temps réel.
+    Envoyez instantanément des événements de rendez-vous, de client ou de paiement vers vos propres applications ou services tiers, permettant ainsi des intégrations puissantes et une synchronisation transparente des données.
+form:
+  url:
+    label: URL du webhook
+    placeholder: https://votre-serveur.com/webhook
+    tooltip: Entrez l'URL où les événements de webhook seront envoyés via les requêtes POST
+  secret:
+    label: Secret du webhook (facultatif)
+    placeholder: Entrez le secret du webhook
+    tooltip: Si elles sont fournies, les charges utiles du webhook seront signées avec HMAC-SHA256. Laissez vide pour envoyer des webhooks sans signature.
+    editButton: Modifier le secret
+  eventTypes:
+    label: Types d'événements
+    tooltip: Sélectionnez les événements qui doivent déclencher des webhooks vers cette URL
+    placeholder: Sélectionnez des événements
+    loading: Chargement des types d'événements…
+  connect: Connectez-vous avec <app></app>
+  unselectEvent: Désélectionner un événement
+eventTypes:
+  appointment:
+    created:
+      label: Rendez-vous créé
+      description: Émis lors de la création d'un nouveau rendez-vous
+    rescheduled:
+      label: Rendez-vous mis à jour
+      description: Émis lorsqu'un rendez-vous est mis à jour (sauvegarde complète de l'événement, y compris les champs de replanification)
+    slotRescheduled:
+      label: Rendez-vous reporté
+      description: Émis lorsque seule l'heure ou la durée du rendez-vous change
+    statusChanged:
+      label: Statut du rendez-vous modifié
+      description: Émis lorsque le statut du rendez-vous change
+  customer:
+    created:
+      label: Client créé
+      description: Émis lors de la création d'un nouveau client
+    updated:
+      label: Client mis à jour
+      description: Émis lorsque les données client sont mises à jour
+    deleted:
+      label: Clients supprimés
+      description: Émis lorsqu'un ou plusieurs clients sont supprimés
+  payment:
+    created:
+      label: Paiement créé
+      description: Émis lors de la création d'un paiement
+    updated:
+      label: Paiement mis à jour
+      description: Émis lorsqu'un paiement est mis à jour
+    deleted:
+      label: Paiement supprimé
+      description: Émis lorsqu'un paiement est supprimé
+    refunded:
+      label: Paiement remboursé
+      description: Émis lorsqu'un paiement est remboursé
+  giftCard:
+    created:
+      label: Carte cadeau créée
+      description: Émis lors de la création d'une carte cadeau
+    updated:
+      label: Carte cadeau mise à jour
+      description: Émis lors de la mise à jour d'une carte cadeau
+    deleted:
+      label: Cartes cadeaux supprimées
+      description: Émis lorsque les cartes cadeaux sont supprimées
+    statusChanged:
+      label: Le statut des cartes cadeaux a changé
+      description: Émis lorsque le statut de la carte-cadeau change
+  field:
+    created:
+      label: Champ créé
+      description: Émis lors de la création d'un champ de réservation
+    updated:
+      label: Champ mis à jour
+      description: Émis lorsqu'un champ de réservation est mis à jour
+    deleted:
+      label: Champs supprimés
+      description: Émis lorsque les champs de réservation sont supprimés
+  addon:
+    created:
+      label: Module complémentaire créé
+      description: Émis lors de la création d'un module complémentaire
+    updated:
+      label: Module complémentaire mis à jour
+      description: Émis lorsqu'un module complémentaire est mis à jour
+    deleted:
+      label: Modules complémentaires supprimés
+      description: Émis lorsque les modules complémentaires sont supprimés
+  appointmentOption:
+    created:
+      label: Option de rendez-vous créée
+      description: Émis lors de la création d'un service/option
+    updated:
+      label: Option de rendez-vous mise à jour
+      description: Émis lorsqu'un service/une option est mis à jour
+    deleted:
+      label: Options de rendez-vous supprimées
+      description: Émis lorsque les services/options sont supprimés
+  discount:
+    created:
+      label: Remise créée
+      description: Émis lors de la création d'une remise
+    updated:
+      label: Remise mise à jour
+      description: Émis lorsqu'une remise est mise à jour
+    deleted:
+      label: Remises supprimées
+      description: Émis lorsque les remises sont supprimées
+    applied:
+      label: Rabais appliqué sur rendez-vous
+      description: Émis lorsqu'une réduction est appliquée lors de la réservation
+  waitlist:
+    entry:
+      created:
+        label: Entrée sur la liste d'attente créée
+        description: Émis lorsqu'une entrée sur la liste d'attente est créée (application Waitlist)
+      dismissed:
+        label: Entrées sur la liste d'attente rejetées
+        description: Émis lorsque les entrées de la liste d'attente sont rejetées (application Waitlist)
+  form:
+    response:
+      created:
+        label: Réponse au formulaire créée
+        description: Émis lorsqu'une réponse à un formulaire est soumise (application Forms)
+statusText:
+  successfullyConfigured: Webhook configuré avec succès
+  webhook_request_failed: "Échec de la demande de webhook : {status} {statusText}"
+validation:
+  url:
+    invalid: Veuillez saisir une URL valide
+    max: L'URL du webhook doit comporter au maximum 2 048 caractères.
+  secret:
+    max: Le secret du webhook doit comporter au maximum 256 caractères.
+  eventTypes:
+    required: Veuillez sélectionner au moins un type d'événement
+

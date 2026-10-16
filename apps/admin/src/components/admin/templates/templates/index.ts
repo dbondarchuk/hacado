@@ -1,8 +1,15 @@
 import { TemplateTemplatesList } from "@hacado/types";
 import { enTemplates } from "./en";
+import { esTemplates } from "./es";
+import { frTemplates } from "./fr";
 import { ukTemplates } from "./uk";
 
-const languageTemplates = { en: enTemplates, uk: ukTemplates } as const;
+const languageTemplates = {
+  en: enTemplates,
+  fr: frTemplates,
+  es: esTemplates,
+  uk: ukTemplates,
+} as const;
 
 /** Built-in template templates, grouped by id and then language */
 export const BuiltInTemplateTemplates: TemplateTemplatesList = Object.entries(

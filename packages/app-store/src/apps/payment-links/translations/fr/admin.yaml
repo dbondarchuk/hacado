@@ -1,0 +1,88 @@
+app:
+  displayName: Liens de paiement
+  description: |-
+    **Liens de paiement** vous permet d'encaisser le paiement à tout moment, sans attendre le paiement lors de la réservation.
+
+    Créez une page de paiement hébergée pour un rendez-vous, un solde client, une carte cadeau ou un montant personnalisé, puis partagez-la par **e-mail**, **SMS** ou **en copiant le lien**. Les clients ouvrent le lien et paient en ligne via votre fournisseur de paiement connecté.
+
+    Utilisez-le pour :
+    - Envoyez des demandes de paiement depuis des rendez-vous, des clients ou des cartes cadeaux en quelques clics.
+    - Exigez éventuellement une **vérification d'identité** (correspondance de contact ou OTP) avant de payer.
+    - Offrez des **conseils**, définissez l'**expiration du lien** et marquez la page avec votre en-tête et votre pied de page.
+    - Suivez les liens en attente et payés aux côtés de vos autres paiements.
+statusText:
+  successfully_set_up: Configuration réussie des liens de paiement
+  error_processing_configuration: Erreur lors du traitement de la configuration des liens de paiement
+form:
+  connect: Connectez <app></app>
+  update: Mettre à jour <app></app>
+  paymentAppRequired: Définissez une application de paiement par défaut dans Applications → Applications par défaut avant de connecter les liens de paiement.
+  paymentAppRequiredLink: Ouvrir les applications par défaut
+  verification:
+    label: Vérification
+    description: Comment les clients prouvent qui ils sont avant de payer
+    values:
+      none: Aucune vérification
+      contact-match: Faites correspondre l'e-mail ou le téléphone
+      otp: Code à usage unique (OTP)
+  emailTemplateId:
+    label: Modèle d'e-mail
+    description: Modèle utilisé lors de l'envoi du lien de paiement par email
+  smsTemplateId:
+    label: Modèle de SMS
+    description: Modèle utilisé lors de l'envoi du lien de paiement par SMS
+  linkExpiryDays:
+    label: Expiration du lien (jours)
+    description: Facultatif. Les liens expirent après ce nombre de jours s'ils sont définis.
+    placeholder: "7"
+  tipsEnabled:
+    label: Activer les conseils
+    description: Permettez aux clients d'ajouter un pourboire sur la page de paiement publique
+  tipPresets:
+    label: Préréglages de conseils
+    description: Jusqu'à 4 options de pourcentage présentées aux clients (en plus de Aucun et Personnalisé)
+    add: Ajouter un préréglage
+    percentage: "% du montant"
+    remove: Retirer
+  headerId:
+    label: En-tête de page
+    description: En-tête facultatif affiché sur la page de paiement publique
+    placeholder: Sélectionnez l'en-tête
+  footerId:
+    label: Pied de page
+    description: Pied de page facultatif affiché sur la page de paiement publique
+    placeholder: Sélectionner le pied de page
+  notifyOnPaid:
+    label: Envoyez un e-mail au personnel une fois payé
+    description: Envoyez un e-mail à la personne qui a créé le lien et au membre de l'équipe affecté au rendez-vous lorsque le client paie
+  notifyCoordinatorsOnPaid:
+    label: Coordonnateurs de courrier électronique et supérieurs
+    description: Envoyez également un e-mail aux coordinateurs, aux administrateurs et au propriétaire lorsqu'un lien de paiement est payé
+handlers:
+  send-email: Envoyé un e-mail de lien de paiement à {name}
+  send-sms: SMS de lien de paiement envoyé à {name}
+  paymentPaid: Liens de paiement - Paiement payé
+activity:
+  paymentPaid:
+    title: Lien de paiement payé
+    description: Le paiement de {amount} a été reçu
+emails:
+  paid:
+    subject: "Paiement reçu : {amount} de {customerName}"
+    title: Lien de paiement payé
+    body: |-
+      Bonjour {userName},
+
+      Un lien de paiement a été payé.
+
+      **Client :** {customerLink}
+
+      **Montant :** {amount}
+      {tipLine}
+
+      **Payé à :** {paidAt}
+
+      **Rendez-vous :** {appointmentLink}
+    tipLine: "**Conseil :** {tip}"
+    viewPayment: Voir le paiement
+

@@ -1,0 +1,30 @@
+title: Notification par SMS
+app:
+  displayName: Notifications de rendez-vous par SMS
+  description: Tenez-vous au courant de l'activité des rendez-vous par SMS. Recevez des alertes SMS pour les nouvelles réservations, les modifications et les annulations - afin d'être toujours informé, même lorsque vous êtes en déplacement
+form:
+  phone:
+    label: Numéro de téléphone
+    tooltip: Remplacement facultatif du numéro de téléphone à utiliser pour les notifications. Votre téléphone est utilisé par défaut
+    placeholder: Téléphone
+  processOtherMembersAppointments:
+    label: Traiter les nominations des autres membres
+    description: Lorsqu'il est activé, envoyez également des notifications pour les rendez-vous attribués aux autres membres de l'équipe.
+  update: Mettre à jour <app></app>
+  add: Ajouter <app></app>
+statusText:
+  text_message_app_not_configured: L'application par défaut de l'expéditeur de messages texte n'est pas configurée
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Erreur lors du traitement de la configuration de la notification par message texte
+  error_sending_owner_text_message_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par SMS au propriétaire pour un nouveau rendez-vous
+  error_sending_owner_text_message_notification_for_status_change: Erreur lors de l'envoi d'une notification par SMS au propriétaire pour un changement de statut
+  error_sending_owner_text_message_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par SMS au propriétaire pour un rendez-vous reprogrammé
+  error_processing_text_message_reply: Erreur lors du traitement de la réponse au message texte
+handlers:
+  newRequest: Notification par message texte – Nouvelle demande
+  pending: Notification par message texte - En attente
+  confirmed: Notification par message texte - Confirmé
+  declined: Notification par message texte – Refusé
+  rescheduled: Notification par message texte - Reprogrammée
+  autoReply: Réponse par message texte - Réponse automatique
+

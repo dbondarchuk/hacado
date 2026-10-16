@@ -1,0 +1,99 @@
+title: Paypal
+app:
+  displayName: Paypal
+  description: |-
+    **PayPal** est un service de paiement que les gens utilisent pour payer en ligne avec leur **solde PayPal**, un **compte bancaire** associé, des **portefeuilles numériques** (**Google Pay** et **Apple Pay** lorsqu'ils sont disponibles) ou des **cartes** enregistrées dans PayPal.
+
+    **Hacado** se connecte à votre compte **professionnel PayPal** afin que les clients puissent **payer lorsqu'ils réservent** en utilisant la caisse PayPal, et le paiement est effectué via PayPal.
+form:
+  clientId:
+    label: Identifiant client
+    placeholder: Identifiant client
+  secretKey:
+    label: Clé secrète
+    placeholder: Clé secrète
+  buttonStyle:
+    color:
+      label: Couleur du bouton PayPal
+      values:
+        blue: Bleu
+        black: Noir
+        white: Blanc
+        silver: Argent
+        gold: Or
+    shape:
+      label: Forme du bouton PayPal
+      values:
+        rect: Rectangulaire
+        pill: Pilule
+        circle: Cercle
+        sharp: Pointu
+    layout:
+      label: Disposition des boutons PayPal
+      values:
+        horizontal: Horizontal
+        vertical: Verticale
+    label:
+      label: Étiquette du bouton PayPal
+      values:
+        pay: Payer avec PayPal
+        paypal: Paypal
+  googlePay:
+    label: Activer Google Pay
+    description: Permettez aux clients de payer avec Google Pay via PayPal. Vous devez d'abord <link>activer Google Pay sur votre compte PayPal</link>.
+  applePay:
+    label: Activer Apple Pay
+    description: Permettez aux clients de payer avec Apple Pay via PayPal. Vous devez d'abord <link>activer Apple Pay sur votre compte PayPal</link> et vous assurer que votre domaine est vérifié.
+  inStoreSync:
+    label: Synchronisez les paiements par carte en personne
+    description: Importez automatiquement les paiements par carte PayPal en personne via un webhook et des sondages horaires, puis associez-les aux rendez-vous.
+  matchWindow:
+    label: Fenêtre de match (minutes)
+    placeholder: "240"
+    description: Dans quelle mesure l'heure de fin d'un rendez-vous peut-elle être éloignée de l'heure de paiement pour être considérée comme une correspondance.
+  selectPlaceholder: Sélectionnez la vue
+  connectWith: Connectez-vous avec <app></app>
+statusText:
+  successfully_set_up: Connexion réussie à PayPal
+  error_processing_configuration: Erreur lors du traitement de la configuration PayPal
+  invalid_configuration_data: Données de configuration PayPal invalides
+  connection_failed: Échec de la connexion à PayPal
+  successfully_connected: Connexion réussie à PayPal
+  error_creating_order: Erreur lors de la création de la commande PayPal
+  order_created: Commande PayPal créée avec succès
+  error_capturing_order: Erreur lors de la capture de la commande PayPal
+  order_captured: Commande PayPal capturée avec succès
+  error_refunding_payment: Erreur lors du remboursement du paiement PayPal
+  payment_refunded: Paiement PayPal remboursé avec succès
+  app_not_configured: L'application PayPal n'est pas configurée
+  no_data: Aucune donnée de configuration PayPal fournie
+  cannot_uninstall_has_payments: Impossible de supprimer PayPal car les paiements créés avec cette application existent
+toast:
+  configuration_saved: Configuration PayPal enregistrée avec succès
+  configuration_error: Erreur lors de l'enregistrement de la configuration PayPal
+  order_created: Commande créée avec succès
+  order_capture_failed: Échec de la capture de la commande
+  order_captured: Commande capturée avec succès
+  refund_success: Paiement remboursé avec succès
+  refund_error: Erreur lors du remboursement du paiement
+validation:
+  clientId:
+    required: L'identifiant client PayPal est requis
+    max: L'ID client PayPal doit comporter au maximum 256 caractères.
+  secretKey:
+    required: La clé API PayPal est requise
+    max: La clé API PayPal doit comporter au maximum 256 caractères
+  buttonStyle:
+    shape:
+      invalid: Forme inconnue
+    layout:
+      invalid: Disposition inconnue
+    color:
+      invalid: Couleur inconnue
+    label:
+      invalid: Étiquette inconnue
+  paymentIntentId:
+    required: L'identifiant de l'intention de paiement est requis
+  orderId:
+    required: Le numéro de commande est requis
+

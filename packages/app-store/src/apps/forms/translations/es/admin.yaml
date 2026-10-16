@@ -1,0 +1,336 @@
+app:
+  displayName: Formularios
+  description: Forms es un creador de formularios simple que le permite crear formularios y recopilar datos de sus usuarios.
+  customerTab:
+    forms: Formularios
+  pages:
+    main:
+      title: Formularios
+      description: Gestiona tus formularios y respuestas
+    new:
+      label: Nuevo formulario
+      title: Crear nuevo formulario
+      description: Crear un nuevo formulario
+    edit:
+      title: Editar formulario
+      description: Editar un formulario
+      notFound: Formulario no encontrado
+    responses:
+      title: Respuestas del formulario
+      description: Ver respuestas del formulario
+      edit:
+        title: Editar respuesta
+        description: Ver o editar una respuesta de formulario
+      new:
+        title: Nueva respuesta
+        description: Crear una nueva respuesta de formulario
+block:
+  category: Formularios
+  displayName: Forma
+  formsAppId:
+    label: Aplicación de formularios
+    helperText: Seleccione la aplicación Formularios que proporciona el formulario.
+  form:
+    formId:
+      label: Forma
+    preview: Bloque de formulario (el formulario se mostrará en la página)
+    selectForm: Seleccione un formulario para mostrar
+    loadError: No se pudo cargar el formulario
+forms:
+  table:
+    filters:
+      status: Estado
+      public: Público
+      archived: Archivado
+    actions:
+      create: Crear formulario
+      delete: Eliminar formulario
+      edit: Editar formulario
+      viewResponses: Respuestas del formulario
+      archive: Archivo
+      unarchive: Desarchivar
+      clone: Clon
+    archive:
+      title: Formulario de archivo
+      description: ¿Archivar formulario {name}? Estará oculto en su sitio web y no se podrán agregar nuevas respuestas.
+      confirm: Archivo
+    unarchive:
+      title: Desarchivar formulario
+      description: ¿Desarchivar el formulario {name}? Volverá a ser visible y aceptará nuevas respuestas.
+      confirm: Desarchivar
+    archiveSelected:
+      label: Archivo {count, plural, =1 {form} other {# forms}}
+      description: ¿Archivo {count, plural, =1 {selected form} other {# selected forms}}? Se ocultarán de su sitio web y no se podrán agregar nuevas respuestas.
+      confirm: Archivo
+    unarchiveSelected:
+      label: Desarchivar {count, plural, =1 {form} other {# forms}}
+      description: ¿Desarchivar {count, plural, =1 {selected form} other {# selected forms}}? Volverán a ser visibles y aceptarán nuevas respuestas.
+      confirm: Desarchivar
+    delete:
+      title: Eliminar formulario
+      description: ¿Está seguro de que desea eliminar el formulario {name}? Esta acción no se puede deshacer.
+      confirm: Si, eliminar
+      cancel: No, mantén
+    deleteSelected:
+      label: Eliminar seleccionado {count, plural, =1 {form} other {# forms}}
+      description: ¿Está seguro de que desea eliminar {count, plural, =1 {selected form} other {# selected forms}}? Esta acción no se puede deshacer.
+      confirm: Eliminar {count, plural, =1 {selected form} other {# selected forms}}
+    toast:
+      delete: Formulario {name} eliminado exitosamente
+      deleteError: No se pudo eliminar el formulario
+      formArchived: Formulario {name} archivado
+      formUnarchived: Formulario {name} desarchivado
+      formsArchived: "{count, plural, =1 {Form} other {# forms}} archivado"
+      formsUnarchived: "{count, plural, =1 {Form} other {# forms}} desarchivado"
+      archiveError: No se pudo archivar el formulario
+      unarchiveError: No se pudo desarchivar el formulario
+      formsDeleted: "{count, plural, =1 {Form} other {# forms}} eliminado exitosamente"
+    columns:
+      name: Nombre
+      responsesCount: Respuestas
+      createdAt: Creado en
+      lastResponse: Última respuesta
+      noResponses: Aún no hay respuestas
+responses:
+  table:
+    filters:
+      form: Forma
+      customer: Cliente
+    columns:
+      form: Forma
+      answersPreview: Avance
+      previewTitle: Ver respuesta completa
+      customer: Cliente
+      createdAt: Enviado
+    actions:
+      create: Nueva respuesta
+      viewEdit: Ver / Editar
+      reassignCustomer: Reasignar cliente
+      delete: Borrar
+    delete:
+      title: Eliminar respuesta
+      description: ¿Estás seguro de que deseas eliminar esta respuesta?
+      confirm: Si, eliminar
+    reassign:
+      title: Reasignar cliente
+      description: Elija un cliente al que asignarle esta respuesta. Puede borrar la selección para cancelar la asignación.
+      cancel: Cancelar
+      confirm: Reasignar
+    reassignSelected:
+      label: Reasignar cliente ({count, plural, =1 {# response} other {# responses}})
+      title: Reasignar cliente para {count, plural, =1 {selected response} other {# selected responses}}
+      description: Elija un cliente al que asignarle las respuestas seleccionadas. Puede borrar la asignación.
+      cancel: Cancelar
+      confirm: Reasignar
+    deleteSelected:
+      label: Eliminar seleccionado {count, plural, =1 {response} other {# responses}}
+      description: ¿Está seguro de que desea eliminar {count, plural, =1 {selected response} other {# selected responses}}? Esta acción no se puede deshacer.
+      confirm: Eliminar {count, plural, =1 {selected response} other {# selected responses}}
+    toast:
+      delete: Respuesta eliminada
+      deleteError: No se pudo eliminar la respuesta
+      reassigned: Cliente reasignado
+      reassignError: No se pudo reasignar al cliente
+      responsesDeleted: "{count, plural, =1 {Response} other {# responses}} eliminado exitosamente"
+      responsesReassigned: "{count, plural, =1 {Response} other {# responses}} reasignado exitosamente"
+  edit:
+    title: Editar respuesta
+    formLabel: Forma
+    answersTitle: Respuestas
+    customerTitle: Cliente
+    customerLabel: Asignar al cliente
+    customerRequired: Seleccione un cliente para esta respuesta.
+    customerRequiredNotice: Este formulario sólo acepta respuestas de participantes identificados. Se debe asignar un cliente.
+    toast:
+      saved: Respuesta guardada
+      error: No se pudo guardar
+    notFound: Respuesta no encontrada
+  new:
+    title: Nueva respuesta
+    selectForm: Seleccionar formulario
+    formLabel: Forma
+    selectPlaceholder: Seleccionar…
+    submit: Entregar
+    toast:
+      created: Respuesta creada
+      error: No se pudo crear la respuesta
+  dialog:
+    cancel: Cancelar
+    continue: Continuar
+  events:
+    responseCreated:
+      title: Formulario de respuesta enviado
+      description: "{formName} · respuesta"
+form:
+  archivedNotice: Este formulario está archivado. Sólo se puede editar el nombre.
+  notifications:
+    enabled:
+      label: Habilitar notificaciones por correo electrónico
+      description: Enviar notificaciones por correo electrónico a la dirección de correo electrónico cuando se envía un formulario
+    email:
+      label: Dirección de correo electrónico
+      description: Dirección de correo electrónico opcional a la que enviar notificaciones. Si no se proporciona, se utilizará la dirección de correo electrónico predeterminada.
+  requireCustomerId:
+    label: Restringir a participantes identificados
+    description: Solo permita envíos de personas que haya invitado o que tengan un enlace de acceso. Ideal para formularios de admisión, solicitudes o cualquier formulario que no deba ser completado por visitantes anónimos.
+  name:
+    label: Nombre del formulario
+    placeholder: Nombre del formulario
+  description: Descripción
+  submit: Entregar
+  toasts:
+    changesSaved: Cambios de formulario guardados
+    requestError: Hubo un problema con tu solicitud.
+  fields:
+    title: Campos
+    invalid: Inválido
+    addNew: Agregar nuevo campo
+    moveField: Mover campo
+    removeField: Eliminar campo
+    deleteConfirmTitle: ¿Estás absolutamente seguro?
+    deleteConfirmDescription: ¿Está seguro de que desea eliminar este campo?
+    name:
+      label: Nombre del campo
+      placeholder: mi campo
+      description: ID único del campo. Solo puede contener letras, dígitos y guiones bajos (_)
+    label:
+      label: Etiqueta de campo
+      placeholder: mi campo
+      description: Etiqueta que se mostrará al usuario
+    description:
+      label: Descripción del campo
+      placeholder: Esta es una descripción del campo.
+      description: Texto de ayuda que se mostrará al usuario.
+    type:
+      label: Tipo de campo
+      placeholder: Tipo de campo
+      description: tipo de campo
+      labels:
+        name: Nombre
+        email: Correo electrónico
+        phone: Teléfono
+        oneLine: una linea
+        multiLine: Línea múltiple
+        checkbox: Caja
+        select: Seleccionar
+        file: Archivo
+        radio: Radio
+        multiSelect: Selección múltiple
+    required:
+      label: Requerido
+      description: Si el campo es obligatorio. Si el campo tiene varias opciones, se requiere al menos una selección
+    select:
+      options:
+        label: Opciones de campo
+        placeholder: Opciones de campo
+        moveOption: Opción de mover
+        option: Opción
+        removeOption: Eliminar opción
+        deleteConfirmTitle: ¿Estás absolutamente seguro?
+        deleteConfirmDescription: ¿Estás seguro de que deseas eliminar esta opción?
+    multiSelect:
+      label: Selección múltiple de campo
+      placeholder: Selección múltiple de campo
+      minSelected:
+        label: Mínimo seleccionado
+        description: Número mínimo opcional de opciones seleccionadas.
+        placeholder: "0"
+      maxSelected:
+        label: Máximo seleccionado
+        description: Número máximo opcional de opciones seleccionadas.
+        placeholder: "3"
+      choices: opciones
+    file:
+      label: Archivo de campo
+      placeholder: Archivo de campo
+      maxSizeMb:
+        label: Tamaño máximo de archivo (MB)
+        description: Tamaño de archivo máximo permitido en megabytes
+        placeholder: "5"
+      accept:
+        label: Tipos de archivos aceptados
+        description: Tipos de archivos permitidos para cargar
+        placeholder: imagen/*, vídeo/*, audio/*
+    text:
+      characters: personajes
+      minLength:
+        label: Longitud mínima
+        description: Longitud mínima opcional del texto.
+        placeholder: "0"
+      maxLength:
+        label: Longitud máxima
+        oneLineDescription: Longitud máxima opcional del texto. El valor predeterminado es 64 caracteres.
+        multiLineDescription: Longitud máxima opcional del texto. El valor predeterminado es 1024 caracteres.
+        placeholder: "64"
+notifications:
+  newResponse: Nueva respuesta del formulario
+  newResponseMessage: Se ha creado un nuevo formulario de respuesta.
+  viewResponse: Ver respuesta
+handlers:
+  formResponseCreated: "Formularios: respuesta del formulario creada"
+validation:
+  form:
+    fields:
+      name:
+        required: El nombre del campo debe tener al menos 2 caracteres.
+        max: El nombre del campo no debe tener más de 64 caracteres.
+        invalid: El nombre del campo debe comenzar con letra y contener solo letras, dígitos y guión bajo (_)
+      label:
+        required: Se requiere etiqueta
+        max: La etiqueta no debe exceder los 64 caracteres.
+      description:
+        min: La descripción debe tener al menos 10 caracteres.
+        max: La descripción no debe tener más de 256 caracteres.
+      type:
+        invalid: El tipo de campo es obligatorio
+      options:
+        value:
+          min: La opción debe tener al menos 2 caracteres.
+          max: La opción no debe tener más de 256 caracteres.
+        min: Se requieren al menos 2 opciones
+        max: Se permiten un máximo de 32 opciones.
+        unique: Las opciones deben ser únicas
+      text:
+        minLength:
+          invalid: La longitud mínima debe ser un número entero positivo.
+        maxLength:
+          invalid: La longitud máxima debe ser un número entero positivo.
+        minMaxRange:
+          invalid: La longitud mínima no debe ser mayor que el valor de longitud máxima
+      oneLine:
+        maxLength:
+          max: La longitud máxima no debe ser superior a 256 caracteres.
+      multiLine:
+        maxLength:
+          max: La longitud máxima no debe ser superior a 4096 caracteres.
+      multiSelect:
+        minSelected:
+          invalid: Debe ser un número entero positivo
+        maxSelected:
+          invalid: Debe ser un número entero positivo
+          min: Debe ser al menos 1
+        minMaxRange:
+          invalid: El mínimo seleccionado no debe ser mayor que el valor máximo seleccionado
+      file:
+        accept:
+          invalid: Debe ser un tipo MIME válido
+          unique: Los tipos de archivos deben ser únicos
+        maxSizeMb:
+          min: El tamaño máximo del archivo debe ser de al menos 1 MB.
+          max: El tamaño máximo del archivo no debe ser superior a 100 MB.
+      min: El formulario debe tener al menos 1 campo.
+      unique: Los campos del formulario deben tener nombres y etiquetas únicos
+    notifications:
+      email:
+        invalid: Debe ser una dirección de correo electrónico válida.
+    name:
+      min: El nombre del formulario es obligatorio.
+      max: El nombre del formulario no debe tener más de 64 caracteres.
+      unique: El nombre del formulario debe ser único
+  response:
+    formId:
+      required: Se requiere identificación del formulario
+    answer:
+      fieldId:
+        required: Se requiere identificación
+

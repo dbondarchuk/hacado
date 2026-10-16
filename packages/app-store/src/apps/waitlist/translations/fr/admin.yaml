@@ -1,0 +1,194 @@
+pageTitle: Liste d'attente (depuis l'application)
+table:
+  columns:
+    status: Statut
+    createdAt: Créé à
+    dateAndTime: Date et heure
+    createAppointment: Créer un rendez-vous
+    customer: Client
+    option: Service
+    member: Membre de l'équipe
+    note: Note
+  actions:
+    createAppointment: Créer un rendez-vous
+    sendMessage: Envoyer un message
+    viewNote: Afficher la note
+    close: Fermer
+  dismiss:
+    label: Ignorer {count, plural, =1 {waitlist entry} other {# waitlist entries}}
+    title: Etes-vous absolument sûr ?
+    description: Cette action ne peut pas être annulée. Cela rejettera l'entrée sur la liste d'attente
+    confirm: Rejeter
+    cancel: Annuler
+    action: Rejeter
+  toast:
+    waitlist_entry_dismissed: Entrée sur la liste d'attente rejetée avec succès
+    error_deleting_waitlist_entry: Erreur lors du rejet de l'entrée sur la liste d'attente
+    waitlist_entries_dismissed: Entrées sur la liste d'attente rejetées avec succès
+    error_deleting_waitlist_entries: Erreur lors du rejet des entrées sur la liste d'attente
+    error_loading_waitlist_entries: Erreur lors du chargement des entrées sur la liste d'attente
+statuses:
+  active: Actif
+  dismissed: Rejeté
+  expired: Expiré
+view:
+  asSoonAsPossible: Dès que possible
+  dateTimeTitle: Date et heure
+  duration: Durée
+  addons: Modules complémentaires
+  unknown: Inconnu
+  note: Note du client
+  viewNote: Afficher la note
+  submitted: Soumis {date}
+  dismiss: Rejeter
+  createAppointment: Créer un rendez-vous
+  sendMessage: Envoyer un message
+  viewAll: Voir tout
+  dates: Dates
+  byFormat: par <link>{name}</link>
+  badge: Liste d'attente
+  preferredAvailability: Disponibilité préférée
+  member: Membre de l'équipe
+  noSpecificDates: Pas de dates précises
+  toast:
+    dismissed: Entrée sur la liste d'attente rejetée
+  times:
+    descriptions:
+      morning: Matin (avant 12h00)
+      afternoon: Après-midi (12h00 - 16h00)
+      evening: Soir (après 16h00)
+    short:
+      morning: Matin
+      afternoon: Après-midi
+      evening: Soirée
+settings:
+  tooltip: Paramètres
+  title: Paramètres
+  description: Configurer les paramètres de liste d'attente et de notification
+tab:
+  title: Liste d'attente
+  subtitle: Examinez les demandes de liste d’attente et convertissez-les en rendez-vous.
+  noWaitlistEntries: Aucune entrée sur la liste d'attente
+  caughtUp: Vous avez rattrapé toutes les demandes. Bon travail!
+app:
+  displayName: Liste d'attente
+  description: |-
+    La liste d'attente vous aide à capturer et à gérer la demande des clients lorsque votre emploi du temps est chargé.
+    Permettez facilement aux clients de rejoindre une liste d’attente pour des services, des dates ou des heures spécifiques
+  customerTab:
+    waitlist: Liste d'attente
+  pages:
+    main:
+      label: Liste d'attente
+      title: Liste d'attente
+      description: Gérer les entrées sur la liste d'attente
+setup:
+  update: Mettre à jour <app></app>
+  form:
+    notifyMemberOnNewEntry:
+      label: Envoyer un e-mail au membre de l'équipe affecté
+      description: Envoyer un e-mail au membre de l'équipe affecté lorsqu'un client rejoint sa liste d'attente
+    notifyCoordinatorsOnNewEntry:
+      label: Coordonnateurs de courrier électronique et supérieurs
+      description: Envoyer un e-mail aux coordinateurs, aux administrateurs et au propriétaire lorsqu'un client rejoint la liste d'attente
+newEntry:
+  trigger: Nouvelle entrée
+  title: Nouvelle entrée sur la liste d'attente
+  description: Créer une nouvelle entrée sur la liste d'attente
+  confirm: Créer
+  toasts:
+    success: Entrée sur la liste d'attente créée avec succès
+    error: Erreur lors de la création d'une entrée sur la liste d'attente
+  form:
+    customerId:
+      label: Client
+    optionId:
+      label: Service
+    addonsIds:
+      label: Modules complémentaires
+    duration:
+      label: Durée
+    note:
+      label: Note
+      placeholder: Note
+    when:
+      label: Quand
+    asSoonAsPossible:
+      label: Dès que possible
+    dates:
+      label: Dates
+      label_count: Dates ({count})
+notifications:
+  newEntries: Nouvelles entrées sur la liste d'attente
+  viewWaitlist: Afficher la liste d'attente
+  message: Vous avez {count, plural, =1 {one new waitlist entry} other {# new waitlist entries}}
+  newEntry: Nouvelle demande de liste d'attente
+  newEntryMessage: Vous avez une nouvelle demande de liste d'attente
+activity:
+  newEntry:
+    title: Nouvelle demande de liste d'attente
+    description: "{customerName} a demandé à être ajouté à la liste d'attente pour {serviceName}"
+  entriesDismissed:
+    title: Entrées sur la liste d'attente rejetées
+    description: "{count, plural, =1 {One waitlist entry was dismissed} other {# waitlist entries were dismissed}}"
+handlers:
+  newWaitlistEntry: Notification de liste d'attente - Nouvelle entrée
+statusText:
+  successfully_set_up: Création réussie d'une liste d'attente
+  error_processing_configuration: Erreur lors du traitement de la configuration de la liste d'attente
+emails:
+  newEntry:
+    subject: Nouvelle entrée sur la liste d'attente par {customerName} pour {serviceName}
+    title: Nouvelle demande de liste d'attente
+    body: |-
+      Bonjour {userName},
+
+      Un client s'est inscrit sur la liste d'attente.
+
+      **Client :** {customerName} ({customerEmail})
+      **Téléphone :** {customerPhone}
+      **Service :** {serviceName}
+      **Membre de l'équipe :** {memberName}
+      **Modules complémentaires :** {addons}
+      **Quand :** {when}
+      **Durée :** {duration}
+      **Remarque :** {note}
+    none: Aucun
+    view: Afficher la liste d'attente
+    createAppointment: Créer un rendez-vous
+    dismiss: Rejeter
+block:
+  simple:
+    waitlist:
+      displayName: Liste d'attente (simple)
+    bookingWithWaitlist:
+      displayName: Réservation avec liste d'attente (Simple)
+  modern:
+    waitlist:
+      displayName: Liste d'attente (moderne)
+    bookingWithWaitlist:
+      displayName: Réservation avec liste d'attente (Moderne)
+  shortcuts:
+    gap:
+      label: Écart
+      gaps:
+        none: Aucun
+        small: Petit
+        medium: Moyen
+        large: Grand
+        x-large: Très grand
+  waitlistAppId:
+    label: Application de liste d'attente
+    tooltip: L'application qui sera utilisée pour travailler avec la liste d'attente. Nécessaire pour que le flux de liste d’attente fonctionne.
+validation:
+  createWaitlistEntry:
+    customerId:
+      required: Le client est requis
+    note:
+      max: La note ne doit pas comporter plus de 1 024 caractères
+    asSoonAsPossible:
+      required: Le plus tôt possible est requis
+    dates:
+      required: Des dates sont requises
+      max: Les dates ne doivent pas dépasser 30 dates
+

@@ -1,0 +1,20 @@
+title: Renvoyeur de messages texte
+app:
+  displayName: Renvoyeur de messages texte
+  description: Assurez-vous de ne jamais manquer une réponse client. Lorsqu'un client répond à un message texte, sa réponse est automatiquement transmise au membre de l'équipe désigné - ou à un membre par défaut que vous choisissez - pour une communication transparente et personnelle.
+form:
+  defaultMemberId:
+    label: Membre par défaut
+    tooltip: Membre de l'équipe qui reçoit les réponses des clients lorsque le message d'origine n'a aucun membre affecté. Leur numéro de téléphone est utilisé. Laissez vide pour utiliser le téléphone du programme d'installation de l'application.
+    placeholder: Sélectionnez un membre
+  connectWith: Connectez-vous avec <app></app>
+statusText:
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Erreur lors du traitement de la configuration du système de renvoi de messages texte
+  error_processing_reply: Erreur lors du traitement de la réponse du destinataire du message texte
+handlers:
+  resendToCustomer: Renvoyeur de message texte - Renvoyer au client
+  processUserReply: Renvoyeur de message texte - Traiter la réponse de l'utilisateur
+  resendToUser: Renvoyeur de message texte - Renvoyer à l'utilisateur
+  processCustomerReply: Renvoyeur de messages texte - Traiter la réponse du client
+

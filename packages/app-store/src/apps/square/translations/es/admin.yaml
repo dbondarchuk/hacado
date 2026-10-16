@@ -1,0 +1,45 @@
+title: Cuadrado
+app:
+  displayName: Cuadrado
+  description: |-
+    **Square** es un servicio de pago que las empresas utilizan para aceptar **tarjetas de crédito y débito** y **billeteras digitales** (incluido **Google Pay** cuando esté disponible) en línea.
+
+    **Hacado** se conecta a su cuenta de Square para que los clientes puedan **pagar cuando reservan** (tarjetas y Google Pay al finalizar la compra) mientras el cargo real se ejecuta a través de Square.
+form:
+  connect: Conectar <app></app>
+  reconnect: Reconectar <app></app>
+  pendingAuthorization: Esperando la autorización de Square...
+  inStoreSync:
+    label: Sincronizar pagos con tarjeta en persona
+    description: Importe automáticamente pagos con tarjeta de Square en persona a través del webhook actualizado de pago y luego vincúlelos con las citas.
+    save: Guardar configuración de sincronización
+    saveSuccess: Se guardaron las configuraciones de sincronización de Square en la tienda
+    saveError: Error al guardar la configuración de sincronización en la tienda de Square
+  matchWindow:
+    label: Ventana de partido (minutos)
+    description: Qué tan lejos puede estar la hora de finalización de una cita desde la hora de pago para seguir considerándose una coincidencia.
+statusText:
+  sync_settings_saved: Se guardaron las configuraciones de sincronización de Square en la tienda
+  redirect_missing_app_id: A la respuesta de autorización le falta el ID de la aplicación
+  redirect_missing_code: A la respuesta de autorización le falta el código de autorización
+  access_denied: Se denegó el acceso a la plaza.
+  oauth_error: Square devolvió un error de OAuth
+  not_authorized: Square no devolvió los tokens requeridos
+  no_locations: No se encontraron ubicaciones Square para esta cuenta
+  missing_oauth_config: Square OAuth no está configurado en el servidor
+  token_refresh_failed: No se pudo actualizar el token de acceso de Square
+  app_not_configured: El cuadrado no está conectado.
+  payment_failed: Square no pudo procesar el pago
+  payment_incomplete: El pago de Square no se completó
+  apple_pay_domain_registration_failed: No se pudo registrar el dominio Apple Pay
+  cannot_uninstall_has_payments: No se puede eliminar Square porque existen pagos creados con esta aplicación
+validation:
+  locationId:
+    required: Se requiere identificación de ubicación de Square
+  merchantId:
+    required: Se requiere identificación de comerciante de Square
+  paymentIntentId:
+    required: Se requiere identificación de intención de pago
+  sourceId:
+    required: Se requiere identificación de la fuente de pago
+

@@ -8,6 +8,6 @@ export type TextMessageNotificationMessage = {
   appointmentDeclined: string;
 };
 
-export type TextMessageNotificationMessages = {
-  [key in Language]: TextMessageNotificationMessage;
-};
+export type TextMessageNotificationMessages = Partial<
+  Record<Language, TextMessageNotificationMessage>
+>;

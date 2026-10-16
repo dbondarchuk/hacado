@@ -1,0 +1,31 @@
+app:
+  displayName: Notificación por correo electrónico
+  description: Las notificaciones por correo electrónico lo mantienen informado sobre sus citas con correos electrónicos automáticos para nuevas reservas, actualizaciones y cancelaciones, cada uno de los cuales incluye un archivo adjunto de evento en el calendario para facilitar la programación.
+navigation:
+  title: Notificación por correo electrónico
+form:
+  email:
+    label: Enviar al correo electrónico
+    tooltip: Dirección de correo electrónico a la que se debe enviar la notificación por correo electrónico. Déjelo vacío para usar su dirección de correo electrónico predeterminada.
+    placeholder: juan@ejemplo.com
+  processOtherMembersAppointments:
+    label: Procesar los nombramientos de otros miembros
+    description: Cuando esté habilitado, también envíe notificaciones de citas asignadas a otros miembros del equipo.
+  update: Actualización <app></app>
+  add: Agregar <app></app>
+statusText:
+  email_app_not_configured: El remitente de correo electrónico predeterminado no está configurado
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Error al procesar la configuración de notificación por correo electrónico
+  error_sending_email_notification_for_new_appointment: Error al enviar una notificación por correo electrónico para una nueva cita
+  error_sending_email_notification_for_status_change: Error al enviar una notificación por correo electrónico para el cambio de estado
+  error_sending_email_notification_for_rescheduled_appointment: Error al enviar una notificación por correo electrónico para una cita reprogramada
+handlers:
+  newRequest: "Notificación por correo electrónico: nueva solicitud"
+  pending: "Notificación por correo electrónico: pendiente"
+  confirmed: "Notificación por correo electrónico: confirmada"
+  declined: "Notificación por correo electrónico: rechazada"
+  canceled: "Notificación por correo electrónico: cancelada"
+  noShow: "Notificación por correo electrónico: no presentarse"
+  rescheduled: "Notificación por correo electrónico: reprogramada"
+

@@ -1,0 +1,66 @@
+page:
+  title: Pago
+  missingId: Este enlace de pago no es válido o está incompleto.
+  loadError: No se puede cargar este pago. Inténtelo de nuevo más tarde.
+  pay: Paga ahora
+  amount: Cantidad
+  tip: Consejo
+  total: Total
+  description: Descripción
+descriptions:
+  giftCard: Pago con tarjeta de regalo
+status:
+  paid:
+    title: Pago completo
+    description: Gracias. Este pago ya se ha completado.
+  cancelled:
+    title: Pago cancelado
+    description: Este enlace de pago ya no está disponible.
+  expired:
+    title: El enlace de pago expiró
+    description: Este enlace de pago ha caducado. Comuníquese con la empresa para obtener un nuevo enlace.
+  pending:
+    title: Completa tu pago
+verification:
+  contactMatch:
+    title: Verifica tus datos
+    description: Ingrese el correo electrónico o el teléfono asociado con este pago.
+    email: Correo electrónico
+    phone: Teléfono
+    emailPlaceholder: Correo electrónico
+    phonePlaceholder: Teléfono
+    emailInvalid: Por favor, introduce una dirección de correo electrónico válida.
+    phoneInvalid: Por favor ingrese un número de teléfono válido.
+    submit: Continuar
+    mismatch: Los datos que ingresó no coinciden con este pago.
+    error: La verificación falló. Por favor inténtalo de nuevo.
+  otp:
+    descriptionEmailOnly: Ingrese su correo electrónico para verificar y completar este pago.
+    descriptionPhoneOnly: Ingrese su teléfono para verificar y completar este pago.
+    descriptionEmailOrPhone: Ingrese su correo electrónico o teléfono para verificar y completar este pago.
+    email: Correo electrónico
+    phone: Teléfono
+    emailPlaceholder: Correo electrónico
+    phonePlaceholder: Teléfono
+    emailInvalid: Por favor, introduce una dirección de correo electrónico válida.
+    phoneInvalid: Por favor ingrese un número de teléfono válido.
+    request: Enviar código
+    requestBlocked: Solicitar nuevo código en {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    hint: Ingresa el código de 6 dígitos que te enviamos
+    verify: Verificar código
+    sent: Si encontramos una coincidencia, enviamos un código.
+    invalid: código no válido
+    requestError: Algo salió mal. Por favor inténtalo de nuevo.
+    verifyError: La verificación OTP falló. Por favor verifique su código e inténtelo nuevamente.
+    wrongCustomer: Inicie sesión con el contacto utilizado para este pago.
+tips:
+  title: Añadir una propina
+  none: Sin propina
+  custom: Costumbre
+  customAmount: Monto de propina
+  preset: "{percent}%"
+payment:
+  error: No se pudo iniciar el pago. Por favor inténtalo de nuevo.
+  completeError: No se pudo completar el pago. Por favor inténtalo de nuevo.
+  success: Pago exitoso
+

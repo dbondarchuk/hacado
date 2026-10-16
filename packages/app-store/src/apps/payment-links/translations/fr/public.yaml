@@ -1,0 +1,66 @@
+page:
+  title: Paiement
+  missingId: Ce lien de paiement est invalide ou incomplet.
+  loadError: Impossible de charger ce paiement. Veuillez réessayer plus tard.
+  pay: Payez maintenant
+  amount: Montant
+  tip: Conseil
+  total: Total
+  description: Description
+descriptions:
+  giftCard: Paiement par carte cadeau
+status:
+  paid:
+    title: Paiement terminé
+    description: Merci. Ce paiement a déjà été effectué.
+  cancelled:
+    title: Paiement annulé
+    description: Ce lien de paiement n'est plus disponible.
+  expired:
+    title: Lien de paiement expiré
+    description: Ce lien de paiement a expiré. Veuillez contacter l'entreprise pour un nouveau lien.
+  pending:
+    title: Complétez votre paiement
+verification:
+  contactMatch:
+    title: Vérifiez vos coordonnées
+    description: Saisissez l'email ou le téléphone associé à ce paiement.
+    email: E-mail
+    phone: Téléphone
+    emailPlaceholder: E-mail
+    phonePlaceholder: Téléphone
+    emailInvalid: S'il vous plaît, mettez une adresse email valide.
+    phoneInvalid: Veuillez entrer un numéro de téléphone valide.
+    submit: Continuer
+    mismatch: Les informations que vous avez saisies ne correspondent pas à ce paiement.
+    error: La vérification a échoué. Veuillez réessayer.
+  otp:
+    descriptionEmailOnly: Entrez votre email pour vérifier et finaliser ce paiement.
+    descriptionPhoneOnly: Entrez votre téléphone pour vérifier et finaliser ce paiement.
+    descriptionEmailOrPhone: Entrez votre e-mail ou votre téléphone pour vérifier et finaliser ce paiement.
+    email: E-mail
+    phone: Téléphone
+    emailPlaceholder: E-mail
+    phonePlaceholder: Téléphone
+    emailInvalid: S'il vous plaît, mettez une adresse email valide.
+    phoneInvalid: Veuillez entrer un numéro de téléphone valide.
+    request: Envoyer le code
+    requestBlocked: Demander un nouveau code dans {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    hint: Entrez le code à 6 chiffres que nous vous avons envoyé
+    verify: Vérifier le code
+    sent: Si nous trouvons une correspondance, nous envoyons un code
+    invalid: Code invalide
+    requestError: Quelque chose s'est mal passé. Veuillez réessayer.
+    verifyError: La vérification OTP a échoué. Veuillez vérifier votre code et réessayer.
+    wrongCustomer: Veuillez vous connecter avec le contact utilisé pour ce paiement.
+tips:
+  title: Ajouter un conseil
+  none: Pas de pourboire
+  custom: Coutume
+  customAmount: Montant du pourboire
+  preset: "{percent}%"
+payment:
+  error: Le paiement n'a pas pu démarrer. Veuillez réessayer.
+  completeError: Le paiement n'a pas pu être effectué. Veuillez réessayer.
+  success: Paiement réussi
+

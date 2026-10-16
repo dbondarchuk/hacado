@@ -5,6 +5,6 @@ export type TextMessageResenderMessage = {
   resendToUserFromUnknown: string;
 };
 
-export type TextMessageResenderMessages = {
-  [key in Language]: TextMessageResenderMessage;
-};
+export type TextMessageResenderMessages = Partial<
+  Record<Language, TextMessageResenderMessage>
+>;

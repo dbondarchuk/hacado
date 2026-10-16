@@ -1,0 +1,353 @@
+pageTitle: Blogue
+quickLinks:
+  writePost: Écrire un nouveau message
+table:
+  columns:
+    title: Titre
+    slug: Limace
+    status: Statut
+    publicationDate: Date de publication
+    tags: Balises
+    comments: Commentaires
+    published: Publié
+    draft: Brouillon
+  actions:
+    create: Créer un message
+    edit: Modifier
+    clone: Cloner
+  delete:
+    title: Etes-vous absolument sûr ?
+    description: Cette action ne peut pas être annulée. Cela supprimera définitivement le billet de blog.
+    confirm: Supprimer
+    cancel: Annuler
+    action: Supprimer
+  deleteSelected:
+    label: Supprimer le {count, plural, =1 {blog post} other {# blog posts}} sélectionné
+    description: Êtes-vous sûr de vouloir supprimer {count, plural, =1 {selected blog post} other {# selected blog posts}} ? Cette action ne peut pas être annulée.
+    confirm: Supprimer {count, plural, =1 {selected blog post} other {# selected blog posts}}
+  toast:
+    blog_post_deleted: Article de blog supprimé avec succès
+    blog_posts_deleted: "{count, plural, =1 {Blog post} other {# blog posts}} supprimé avec succès"
+    error_deleting_blog_post: Erreur lors de la suppression du billet de blog
+    error_loading_blog_posts: Erreur lors du chargement des articles de blog
+form:
+  title: Titre
+  titleTooltip: Le titre de l'article de blog
+  titlePlaceholder: Entrez le titre du message
+  slug: Limace
+  slugTooltip: Version URL du titre
+  slugPlaceholder: post-limace
+  content: Contenu
+  contentTooltip: Le contenu principal du billet de blog
+  isPublished:
+    label: Statut
+    tooltip: Si cet article est publié et visible par le public
+    published: Publié
+    draft: Brouillon
+  publicationDate: Date de publication
+  publicationDateTooltip: Quand cet article devrait être publié
+  tags: Balises
+  tagsTooltip: Balises pour catégoriser cet article
+  featuredImage:
+    label: Image en vedette
+    tooltip: Image affichée sur la page de publication lors de l'utilisation du bloc Image en vedette de l'article de blog
+    placeholder: Sélectionnez une image
+  author:
+    label: Auteur
+    tooltip: Qui a écrit ce billet de blog
+    source:
+      user: Utilisateur de l'organisation
+      custom: Nom personnalisé
+    user: Utilisateur
+    userPlaceholder: Sélectionnez un utilisateur
+    customName: Nom de l'auteur
+    customNamePlaceholder: Entrez le nom de l'auteur
+  toasts:
+    changesSaved: Article de blog enregistré avec succès
+    requestError: Erreur lors de l'enregistrement de l'article de blog
+app:
+  displayName: Blogue
+  description: Créez et gérez des articles de blog avec un contenu riche, des balises et des dates de publication
+  pages:
+    main:
+      label: Blogue
+      title: Articles de blog
+      description: Gérez vos articles de blog
+    new:
+      label: Nouveau message
+      title: Créer un nouvel article de blog
+      description: Créer un nouvel article de blog
+    edit:
+      label: Modifier le message
+      title: Modifier l'article de blog
+      description: Modifier l'article de blog
+      notFound: Article de blog introuvable
+    comments:
+      label: Commentaires
+      title: Commentaires du blog
+      description: Modérer les commentaires sur vos articles de blog
+    settings:
+      label: Paramètres
+      title: Paramètres du blog
+      description: Configurer les commentaires et autres options du blog
+settings:
+  toasts:
+    saved: Paramètres enregistrés avec succès
+    error: Erreur lors de l'enregistrement des paramètres
+setup:
+  update: Mettre à jour <app></app>
+  commentsEnabled:
+    label: Activer les commentaires
+    description: Autoriser les visiteurs à laisser des commentaires sur les articles de blog
+  commentsPremoderation:
+    label: Exiger la modération des commentaires
+    description: Les nouveaux commentaires restent masqués jusqu'à ce que vous les approuviez
+  sendEmailOnNewComment:
+    label: E-mail lors d'un nouveau commentaire
+    description: Envoyer un e-mail aux administrateurs de l'organisation lorsqu'un visiteur laisse un commentaire
+emails:
+  newComment:
+    subject: Nouveau commentaire sur "{postTitle}"
+    title: Nouveau commentaire sur "{postTitle}"
+    body: |-
+      Bonjour {userName},
+
+      Un nouveau commentaire a été laissé sur votre article de blog "{postTitle}" par **{authorName}** ({authorEmail}) :
+
+      {commentBody}
+    approve: Approuver
+    reject: Rejeter
+    view: Afficher dans le tableau de bord
+handlers:
+  newCommentEmail: Blog - Notification de nouveaux commentaires
+events:
+  postCreated:
+    title: Nouvel article de blog créé
+    description: Le message "{postTitle}" a été créé
+  postUpdated:
+    title: Article de blog mis à jour
+    description: Le message "{postTitle}" a été mis à jour
+  postDeleted:
+    title: Article de blog supprimé
+    description: Le message a été supprimé
+  commentCreated:
+    title: Nouveau commentaire sur le blog
+    description: '"{authorName}" a commenté "{postTitle}"'
+  commentDeleted:
+    title: Commentaire du blog supprimé
+    description: Le commentaire a été supprimé
+  commentStatusChanged:
+    title: Le statut du commentaire du blog a été modifié
+    description: Le commentaire de "{authorName}" était {status}
+notifications:
+  newComment: Nouveau commentaire sur le blog
+  newCommentMessage: Un visiteur a laissé un commentaire sur votre blog
+  viewComment: Afficher le commentaire
+comments:
+  status:
+    pending: En attente
+    approved: Approuvé
+    rejected: Rejeté
+  table:
+    searchPlaceholder: Recherchez par nom, e-mail ou commentaire…
+    filters:
+      post: Article de blog
+      status: Statut
+      dateRange: Plage de dates
+    columns:
+      post: Poste
+      authorName: Nom
+      authorEmail: E-mail
+      body:
+        label: Commentaire
+        dialogTitle: Corps du commentaire
+      status: Statut
+      createdAt: Soumis
+    actions:
+      approve: Approuver
+      reject: Rejeter
+      delete: Supprimer
+    delete:
+      title: Supprimer le commentaire ?
+      description: Cette action ne peut pas être annulée.
+      confirm: Supprimer
+    approveSelected:
+      label: Approuver la sélection ({count})
+    rejectSelected:
+      label: Rejeter la sélection ({count})
+    deleteSelected:
+      label: Supprimer la sélection ({count})
+      description: Supprimer {count, plural, =1 {selected comment} other {# selected comments}} ? Cela ne peut pas être annulé.
+      confirm: Supprimer la sélection
+    toast:
+      approved: Le commentaire de {authorName} a été approuvé
+      rejected: Le commentaire de {authorName} a été rejeté
+      deleted: Le commentaire de {authorName} a été supprimé
+      commentsApproved: "{count, plural, =1 {Comment approved} other {# comments approved}}"
+      commentsRejected: "{count, plural, =1 {Comment rejected} other {# comments rejected}}"
+      commentsDeleted: "{count, plural, =1 {Comment deleted} other {# comments deleted}}"
+      error: Quelque chose s'est mal passé
+statusText:
+  successfully_set_up: Création réussie du blog
+  error_processing_configuration: Erreur lors du traitement de la configuration du blog
+block:
+  postContainer:
+    displayName: Conteneur d'articles de blog
+    postUrl:
+      label: URL de la publication
+      helperText: L'URL de l'article de blog. Utilisez [slug] comme espace réservé pour le post slug.
+    errors:
+      postUrl:
+        required: L'URL du message est obligatoire
+        slug: L'URL de la publication doit contenir un espace réservé [slug]
+  postTitle:
+    displayName: Titre de l’article de blog
+  postContent:
+    displayName: Contenu de l'article de blog
+    showShort:
+      label: Afficher le contenu court
+      description: S'il faut afficher le contenu court de l'article de blog
+    maxParagraphs:
+      label: Nombre maximum de paragraphes
+      description: Nombre maximum de blocs de contenu à afficher dans la version courte
+    showOnlyTextParagraphs:
+      label: Paragraphes de texte uniquement
+      description: Lorsqu'il est activé, seuls les blocs de paragraphe sont inclus dans la version courte
+  postTag:
+    displayName: Balise d'article de blog
+    blogListUrl:
+      label: URL de la liste des blogs
+      description: URL facultative pour la page de liste des articles de blog. Si elles sont définies, les balises seront liées à cette URL avec un paramètre de requête de balise. Si elles ne sont pas définies, les balises seront liées à la page actuelle avec un paramètre de requête de balise.
+  postPublishDate:
+    displayName: Date de publication de l'article de blog
+    dateFormat:
+      label: Format des dates
+    dateFormats:
+      dateFull: Date complète
+      dateHuge: Rendez-vous énorme
+      dateMed: Date moyenne
+      dateMedWithWeekday: Moyen avec jour de la semaine
+      dateShort: Date courte
+      datetimeFull: DateHeure complète
+      datetimeHuge: DateHeure énorme
+      datetimeMed: DateHeure moyenne
+      datetimeMedWithWeekday: DateHeure moyenne avec jour de la semaine
+      datetimeShort: DateHeure courte
+      customMmmmdYyyy: "Personnalisé : MMMM j, aaaa"
+      customMmmdYyyy: "Personnalisé : MMM j, aaaa"
+      customDdMmYyyy: "Personnalisé : jj/MM/aaaa"
+      customMmDdYyyy: "Personnalisé : MM/jj/aaaa"
+      customYyyyMmDd: "Personnalisé : aaaa-MM-jj"
+  postReadTime:
+    displayName: Temps de lecture de l’article de blog
+    format:
+      label: Format de l'heure de lecture
+    wordsPerMinute:
+      label: Mots par minute
+  postAuthor:
+    displayName: Auteur du billet de blog
+    format:
+      label: Format de l'auteur
+  postCommentCount:
+    displayName: Nombre de commentaires sur les articles de blog
+    format:
+      label: Format du nombre de commentaires
+  commentsContainer:
+    displayName: Conteneur de commentaires de blog
+    settings:
+      title: Liste des commentaires
+    commentsPerPage:
+      label: Commentaires par page
+  commentContainer:
+    displayName: Conteneur de commentaires de blog
+  commentAuthor:
+    displayName: Auteur du commentaire du blog
+  commentDate:
+    displayName: Date du commentaire sur le blog
+  commentBody:
+    displayName: Corps du commentaire du blog
+  commentNavigationButton:
+    displayName: Bouton de navigation des commentaires du blog
+    direction:
+      label: Direction
+      prev: Précédent
+      next: Suivant
+  postCommentForm:
+    displayName: Formulaire de commentaires sur les articles de blog
+    nameLabel: Libellé du champ Nom
+    namePlaceholder: Espace réservé au nom
+    emailLabel: Libellé du champ de courrier électronique
+    emailPlaceholder: Espace réservé pour l'e-mail
+    bodyLabel: Libellé du champ de message
+    bodyPlaceholder: Espace réservé au message
+    submitLabel: Libellé du bouton Soumettre
+    successMessage: Message de réussite
+  postsContainer:
+    displayName: Conteneur d'articles de blog
+    postsPerPage:
+      label: Articles par page
+      description: Le nombre de posts à afficher par page
+  postNavigationButton:
+    displayName: Bouton de navigation des articles de blog
+    direction:
+      label: Direction
+      options:
+        prev: Précédent
+        next: Suivant
+  category:
+    blog: Blogue
+  templates:
+    postFeaturedImage:
+      displayName: Article de blog Image en vedette
+    postReadMore:
+      displayName: Article de blog Lire la suite Lien
+    postTitleHeader:
+      displayName: En-tête du titre de l’article de blog
+    postTags:
+      displayName: Balises des articles de blog
+    postMeta:
+      displayName: Méta du billet de blog
+    post:
+      displayName: Article de blog
+    postsList:
+      displayName: Liste des articles de blog
+    postsListNavigation:
+      displayName: Navigation dans la liste des articles de blog
+    commentsList:
+      displayName: Liste des commentaires du blog
+    commentsListNavigation:
+      displayName: Navigation dans la liste des commentaires du blog
+  blogAppId:
+    label: Application de blog
+    helperText: L'application qui sera utilisée pour travailler avec les articles du blog
+validation:
+  post:
+    tag:
+      max: La balise ne doit pas dépasser 64 caractères
+      min: La balise doit comporter au moins 2 caractères
+      unique: Les balises doivent être uniques
+    title:
+      required: Le titre est requis
+      max: Le titre ne doit pas dépasser 256 caractères
+    slug:
+      required: La limace est obligatoire
+      max: Slug ne doit pas dépasser 256 caractères
+      pattern: Slug ne doit contenir que des lettres, des chiffres, des traits d'union et des traits de soulignement.
+      unique: Slug devrait être unique
+    publicationDate:
+      required: La date de publication est requise
+    author:
+      required: L'auteur est requis
+    authorName:
+      max: Le nom de l'auteur ne doit pas dépasser 256 caractères
+  comment:
+    postId:
+      required: Le message est obligatoire
+    authorName:
+      required: Le nom est requis
+    body:
+      required: Un commentaire est requis
+  postContent:
+    maxParagraphs:
+      validation: Le nombre maximum de paragraphes est obligatoire et doit être un nombre entier compris entre 1 et 10
+

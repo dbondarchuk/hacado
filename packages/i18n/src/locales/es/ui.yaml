@@ -1,0 +1,342 @@
+common:
+  openMenu: abrir menú
+  selectAll: Seleccionar todo
+  selectRow: Seleccionar fila
+  close: Cerca
+  clear: Claro
+  move: Mover
+  search: Buscar
+  noResults: No se encontraron resultados
+  requestFailed: La solicitud ha fallado.
+  save: Ahorrar
+  cancel: Cancelar
+  placeholder: Seleccionar opción
+  hours: Horas
+  minutes: Minutos
+  seconds: Artículos de segunda clase
+  toasts:
+    error: Hubo un problema con tu solicitud.
+actions:
+  delete: Borrar
+  update: Actualizar
+  label: Comportamiento
+table:
+  filters: Filtros
+booleanSelect:
+  yes: Sí
+  no: No
+multiSelect:
+  placeholder: Seleccionar opciones
+templateSelector:
+  placeholder: Seleccionar plantilla
+  requestFailed: La solicitud para recuperar plantillas ha fallado
+  loadingTemplates: Cargando plantillas...
+optionSelector:
+  placeholder: Seleccionar opción
+  requestFailed: La solicitud para recuperar opciones ha fallado
+packageSelector:
+  placeholder: Seleccionar paquete
+  requestFailed: La solicitud para recuperar paquetes ha fallado
+customerPackageSelector:
+  placeholder: Seleccionar paquete de cliente
+  needCustomerAndService: Seleccione primero el cliente, el servicio y el personal
+  remaining: "{remaining} de {total} restantes"
+assetSelector:
+  title: Seleccionar activo
+  upload: Subir
+  assets: Activos
+  unsplash: desempaquetar
+  pexels: Pexels
+  photos: Fotos
+  videos: Vídeos
+  unsplashSearch: Buscar en Unsplash
+  pexelsSearch: Buscar en Pexels
+  photoBy: Foto por
+  videoBy: Vídeo de
+  on: en
+  unsplashEmpty: No se encontraron fotos
+  pexelsEmpty: No se encontraron medios
+  constraintErrors:
+    not_square: La imagen debe ser cuadrada.
+    too_small: La imagen debe tener al menos {minSize}×{minSize} píxeles.
+    unsupported_type: Tipo de imagen no admitido.
+    unreadable: No se pudo leer la imagen.
+pageSelector:
+  title: Seleccionar página
+  placeholder: Seleccionar página
+  requestFailed: La solicitud para recuperar páginas ha fallado
+addressAutocomplete:
+  findAddress: encontrar dirección
+  description: ¿Prefieres buscarlo?
+  title: encontrar dirección
+  dialogDescription: Busque y seleccione una dirección para completar automáticamente los campos a continuación.
+  search: Buscar por calle, ciudad o código postal
+  empty: No se encontraron direcciones
+  minCharacters: Escribe al menos 2 caracteres para buscar
+promoCodeSelector:
+  placeholder: Seleccionar código promocional
+  notActive: No activo
+  requestFailed: La solicitud para recuperar códigos promocionales ha fallado
+alertModal:
+  defaultTitle: ¿Está seguro?
+  defaultDescription: Esta acción no se puede deshacer.
+  continueButton: Continuar
+saveButton:
+  defaultText: Ahorrar
+  fixErrorsTitle: Por favor corrija los siguientes errores
+  fixErrorsDescription: "Corrija los siguientes errores antes de guardar:"
+toast:
+  close: Cerca
+form:
+  submit: Entregar
+  reset: Reiniciar
+  confirm: Confirmar
+  back: Atrás
+  next: Próximo
+  previous: Anterior
+  addItem: Agregar artículo
+  select: Seleccionar
+dateRangePicker:
+  placeholder: Seleccionar rango de fechas
+  rangeOptions:
+    thisMonth: este mes
+    lastMonth: Mes pasado
+    thisWeek: Esta semana
+    lastWeek: La semana pasada
+    nextWeek: La próxima semana
+    nextMonth: Mes próximo
+    thisYear: este año
+    lastYear: El año pasado
+    allTime: Todo el tiempo
+dialog:
+  close: Cerca
+loading:
+  loading: Cargando...
+  saving: Ahorro...
+  deleting: Eliminando...
+  updating: Actualizando...
+validation:
+  required: Este campo es obligatorio
+  invalid: Valor no válido
+  minLength: La longitud mínima es {min} caracteres
+  maxLength: La longitud máxima es {max} caracteres
+  email: Por favor, introduce una dirección de correo electrónico válida
+  url: Por favor ingresa una URL válida
+calendar:
+  mon: Lun
+  tue: Mar
+  wed: Casarse
+  thu: Jue
+  fri: Vie
+  sat: Se sentó
+  sun: Sol
+  monday: Lunes
+  tuesday: Martes
+  wednesday: Miércoles
+  thursday: Jueves
+  friday: Viernes
+  saturday: Sábado
+  sunday: Domingo
+  month: Mes
+  year: Año
+  previousMonth: Mes anterior
+  nextMonth: Mes próximo
+  today: Hoy
+sidebar:
+  toggleSidebar: Alternar barra lateral
+durationInput:
+  hr: hora
+  min: mín.
+  sec: segundo
+  weeks: semanas
+  days: días
+monthsInput:
+  years: años
+  months: meses
+dataTable:
+  searchPlaceholder: Buscar...
+  selectedRows: "{selected} de {total} fila(s) seleccionada(s)."
+  previous: Anterior
+  next: Próximo
+  rowsPerPage: Filas por página
+  showingEntries: Mostrando de {start} a {end} de {total} entradas
+  noEntriesFound: No se encontraron entradas
+  pageOf: Página {page} de {totalPages}
+  noPages: Sin páginas
+  goToFirstPage: Ir a la primera página
+  goToPreviousPage: Ir a la página anterior
+  goToNextPage: Ir a la página siguiente
+  goToLastPage: Ir a la última página
+  resetFilters: Restablecer filtros
+  selectedCount: "{selected} seleccionado"
+breadcrumb:
+  more: Más
+carousel:
+  previousSlide: Diapositiva anterior
+  nextSlide: Siguiente diapositiva
+dndFileInput:
+  dropFilesHere: Suelta los archivos aquí...
+  dragAndDropOrClick: Arrastre y suelte algunos archivos aquí o haga clic para seleccionar archivos
+markdownTooltip:
+  supports: Este campo admite {type}
+  learnMore: Más información
+scheduler:
+  invalidTimeRange: Rango de tiempo no válido
+  startTimeBeforeEndTime: La hora de inicio debe ser anterior a la hora de finalización.
+  shifts: "{count, plural, =1 {1 shift} other {# shifts}}"
+  startTime: Hora de inicio
+  endTime: Hora de finalización
+  edit: Editar
+  addShift: Agregar turno
+  time: Tiempo
+timePicker:
+  seconds: Artículos de segunda clase
+  am: SOY
+  pm: P.M
+  format: MM/dd/aaaa hh:mm a
+currencyInput:
+  amount: "Importe: {amount}"
+  max: "Máx: {max}"
+stepper:
+  step_of_total: Paso {step} de {total}
+currency:
+  USD: dólar estadounidense
+  EUR: Euro
+  GBP: Libra británica
+  JPY: yen japonés
+  CAD: Dólar canadiense
+  AUD: dólar australiano
+  CHF: franco suizo
+  CNY: yuan chino
+  HKD: dólar de hong kong
+  INR: rupia india
+  MXN: peso mexicano
+  NZD: dólar neozelandés
+  SEK: corona sueca
+  SGD: dólar de singapur
+  NOK: corona noruega
+  TRY: lira turca
+  ZAR: rand sudafricano
+  PLN: Zloty polaco
+  CZK: corona checa
+  HUF: florín húngaro
+  ILS: Shekel israelí
+  ISK: corona islandesa
+country:
+  US: Estados Unidos
+  CA: Canadá
+  GB: Reino Unido
+  JP: Japón
+  AU: Australia
+  CH: Suiza
+  CN: Porcelana
+  HK: Hong Kong
+  IN: India
+  MX: México
+  NZ: Nueva Zelanda
+  SE: Suecia
+  SG: Singapur
+  NO: Noruega
+  TR: Pavo
+  ZA: Sudáfrica
+  IS: Islandia
+  LV: Letonia
+  LT: Lituania
+  LU: Luxemburgo
+  MT: Malta
+  NL: Países Bajos
+  PL: Polonia
+  PT: Portugal
+  RO: Rumania
+  SK: Eslovaquia
+  SI: Eslovenia
+  SM: San Marino
+  UA: Ucrania
+  AT: Austria
+  BE: Bélgica
+  BG: Bulgaria
+  CY: Chipre
+  DE: Alemania
+  DK: Dinamarca
+  EE: Estonia
+  ES: España
+  FI: Finlandia
+  FR: Francia
+  GR: Grecia
+  HR: Croacia
+  IE: Irlanda
+  IT: Italia
+industry:
+  category:
+    beauty: Belleza y cuidado personal
+    wellness: Bienestar y spa
+    fitness: Aptitud física
+    medical: Medicina y salud
+    home-services: Servicios a domicilio
+    professional: Servicios profesionales
+    creative: Servicios creativos
+    education: Educación y formación
+    coaching: Entrenamiento
+    pet: Servicios para mascotas
+    events: Eventos
+    meetings: Reuniones y consultas
+    other: Otro
+  beauty: Belleza y cuidado personal (general)
+  beauty-salon: Salón de belleza
+  hair-salon: Peluquería
+  nail-salon: salón de uñas
+  tattoo-parlor: salón de tatuajes
+  wellness: Bienestar y spa (general)
+  day-spa: spa de día
+  fitness: aptitud física (general)
+  health-club: club de salud
+  exercise-gym: Gimnasia
+  sports-club: club deportivo
+  golf-course: Campo de golf
+  public-swimming-pool: Piscina
+  medical: Medicina y salud (general)
+  medical-clinic: clinica medica
+  dentist: Dentista
+  physician: Médico
+  optician: Óptico
+  pharmacy: Farmacia
+  home-services: Servicios a domicilio (generales)
+  electrician: Electricista
+  plumber: Plomero
+  hvac: climatización
+  house-painter: pintor de casas
+  locksmith: Cerrajero
+  moving-company: empresa de mudanzas
+  roofing-contractor: contratista de techado
+  general-contractor: contratista general
+  professional: Servicios profesionales (generales)
+  attorney: Abogado
+  notary: Notario
+  accounting-service: Contabilidad
+  insurance-agency: agencia de seguros
+  real-estate-agent: agente inmobiliario
+  creative: Servicios creativos (generales)
+  photography: Fotografía
+  art-gallery: Galería de arte
+  education: Educación y formación
+  coaching: Entrenamiento
+  pet: Servicios para mascotas (generales)
+  pet-store: Tienda de mascotas/peluquería
+  veterinary-care: atención veterinaria
+  event: Eventos (generales)
+  entertainment: Entretenimiento
+  comedy-club: club de comedia
+  meetings: Reuniones y consultas
+  other: Otro
+marketingFeaturesShowcase:
+  learnMore: Más información
+  clickToClose: Haga clic para cerrar
+marketingBrowserCarousel:
+  goToSlide: Ir a la diapositiva {slide}
+  imageAlt: "{name} vista previa"
+  emptySlides: Aún no se han agregado diapositivas
+imageZoom:
+  zoomIn: Dar un golpe de zoom
+  zoomOut: alejar
+  resetZoom: Restablecer zoom
+

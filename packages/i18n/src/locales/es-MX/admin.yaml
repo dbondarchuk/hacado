@@ -1,0 +1,14 @@
+common:
+  labels:
+    languages:
+      en: English
+      en-CA: English (Canada)
+      fr: Français
+      fr-CA: Français (Canada)
+      es: Español
+      es-MX: Español (México)
+      uk: Українська
+appointments:
+  scheduleAppointment: Agendar cita
+  status:
+    canceled: Cancelada

@@ -1,0 +1,4037 @@
+common:
+  usesTemplatedValues: "* Utilise des valeurs modèles"
+  featureUpgradeRequired: Cette fonctionnalité nécessite un abonnement Solo.
+  upgradeLink: Mise à niveau dans les paramètres de la marque
+  toasts:
+    saved: Sauvé !
+    error: Il y a eu un problème avec votre demande.
+  openMenu: Ouvrir le menu
+  selectAll: Tout sélectionner
+  selectRow: Sélectionner une ligne
+  labels:
+    languages:
+      en: English
+      en-CA: English (Canada)
+      fr: Français
+      fr-CA: Français (Canada)
+      es: Español
+      es-MX: Español (México)
+      uk: Українська
+    channel:
+      text-message: SMS
+      email: E-mail
+    direction:
+      inbound: Entrant
+      outbound: Sortant
+    participantType:
+      user: Utilisateur
+      member: Membre
+      customer: Client
+    fieldType:
+      email: E-mail
+      name: Nom
+      phone: Téléphone
+      oneLine: Une ligne
+      multiLine: Multiligne
+      checkbox: Case à cocher
+      select: Sélectionner
+      file: Déposer
+    allowPromoCodeType:
+      always: Toujours
+      never: Jamais
+      allow-if-has-active: Seulement si vous bénéficiez de réductions actives
+    discountType:
+      amount: Montant fixe
+      percentage: Pourcentage
+    discountStatus:
+      disabled: Désactivé
+      active: Actif
+    giftCardStatus:
+      inactive: Inactif
+      active: Actif
+    paymentStatus:
+      paid: Payé
+      refunded: Remboursé
+      pending: En attente
+      cancelled: Annulé
+    appointmentHistoryType:
+      statusChanged: Statut modifié
+      rescheduled: Reprogrammé
+      created: Créé
+      paymentAdded: Paiement ajouté
+      paymentRefunded: Paiement remboursé
+      updated: Mis à jour
+    paymentMethod:
+      cash: Espèces
+      in-person-card: Carte en personne
+      gift-card: Carte cadeau
+      online: En ligne
+      payment-link: Lien de paiement
+    filters: Filtres
+    loading: Chargement
+    unknown: Inconnu
+  buttons:
+    delete: Supprimer
+    cancel: Annuler
+    close: Fermer
+    addNew: Ajouter un nouveau
+    update: Mise à jour
+    more: Plus
+    save: Sauvegarder
+  optional: Facultatif
+  timeDuration: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  custom: Coutume
+  navigationGuard:
+    title: Êtes-vous sûr de vouloir quitter cette page ?
+    description: Vous avez des modifications non enregistrées. Êtes-vous sûr de vouloir quitter cette page ?
+    cancel: Annuler
+    leave: Partir
+  pricePerHour: "{price}/heure"
+platformEvents:
+  customer:
+    created:
+      title: Nouveau client
+      description: "{customerName}"
+    updated:
+      title: Client mis à jour
+      description: "{customerName}"
+    deleted:
+      title: Clients supprimés
+      description: "{count, plural, =1 {# customer} other {# customers}} - {names}"
+  payment:
+    created:
+      title: Paiement enregistré
+      description: "{type} · {amount}"
+    updated:
+      title: Paiement mis à jour
+      description: "{status} · {amount}"
+    deleted:
+      title: Paiement supprimé
+      description: "{amount}"
+    refunded:
+      title: Paiement remboursé
+      description: "{refundAmount} de {amount}"
+    linkCreated:
+      title: Lien de paiement créé
+      description: "{amount}"
+    linkSent:
+      title: Lien de paiement envoyé
+      description: "{amount}"
+    linkPaid:
+      title: Lien de paiement payé
+      description: "{amount}"
+    linkCancelled:
+      title: Lien de paiement annulé
+      description: "{amount}"
+  syncedPayment:
+    ingested:
+      title: Paiement en magasin synchronisé
+      description: "{amount} de {provider} · {status}"
+    confirmed:
+      title: Paiement synchronisé confirmé
+      description: "{amount}"
+    rejected:
+      title: Paiement synchronisé rejeté
+      description: "{amount}"
+    assigned:
+      title: Paiement synchronisé attribué
+      description: "{amount} affecté à un rendez-vous"
+    reassigned:
+      title: Paiement synchronisé réaffecté
+      description: "{amount} déplacé vers un autre rendez-vous"
+    unassigned:
+      title: Paiement synchronisé non attribué
+      description: "{amount} retiré du rendez-vous"
+    unrecorded:
+      title: Enregistrement de paiement synchronisé supprimé
+      description: "{amount} dissocié du client"
+    ignored:
+      title: Paiement synchronisé ignoré
+      description: "{amount}"
+    amountsUpdated:
+      title: Montants des paiements synchronisés mis à jour
+      description: Paiement {paymentAmount}, pourboire {tip}
+  giftCard:
+    created:
+      title: Carte cadeau émise
+      description: "{code}"
+    updated:
+      title: Carte cadeau mise à jour
+      description: "{code}"
+    statusChanged:
+      title: Le statut de la carte cadeau a changé
+      description: "{count, plural, =1 {# card} other {# cards}} → {status}"
+    deleted:
+      title: Cartes cadeaux supprimées
+      description: "{count, plural, =1 {# card} other {# cards}}"
+  appointmentPackage:
+    created:
+      title: Package créé
+      description: "{name}"
+    updated:
+      title: Forfait mis à jour
+      description: "{name}"
+    deleted:
+      title: Paquets supprimés
+      description: "{count, plural, =1 {# package} other {# packages}}"
+  customerPackage:
+    issued:
+      title: Forfait acheté
+      description: "{name}"
+    redeemed:
+      title: Crédit du forfait utilisé
+      description: "{name}"
+    restored:
+      title: Crédit du forfait restauré
+      description: "{name}"
+    adjusted:
+      title: Solde du forfait ajusté
+      description: "{name}"
+    exhausted:
+      title: Colis épuisé
+      description: "{name}"
+    cancelled:
+      title: Forfait annulé
+      description: "{name}"
+    expired:
+      title: Forfait expiré
+      description: "{name}"
+  field:
+    created:
+      title: Champ créé
+      description: "{name}"
+    updated:
+      title: Champ mis à jour
+      description: "{name}"
+    deleted:
+      title: Champs supprimés
+      description: "{count, plural, =1 {# field} other {# fields}}"
+  addon:
+    created:
+      title: Module complémentaire créé
+      description: "{name}"
+    updated:
+      title: Module complémentaire mis à jour
+      description: "{name}"
+    deleted:
+      title: Modules complémentaires supprimés
+      description: "{count, plural, =1 {# add-on} other {# add-ons}}"
+  appointmentOption:
+    created:
+      title: Option de service créée
+      description: "{name}"
+    updated:
+      title: Option de service mise à jour
+      description: "{name}"
+    deleted:
+      title: Options de service supprimées
+      description: "{count, plural, =1 {# option} other {# options}}"
+  discount:
+    created:
+      title: Remise créée
+      description: "{name}"
+    updated:
+      title: Remise mise à jour
+      description: "{name}"
+    deleted:
+      title: Remises supprimées
+      description: "{count, plural, =1 {# discount} other {# discounts}}"
+    applied:
+      title: Remise appliquée
+      description: "{customerName} · {discountName} ({value})"
+  template:
+    created:
+      title: Modèle créé
+      description: "{name}"
+    updated:
+      title: Modèle mis à jour
+      description: "{name}"
+    deleted:
+      title: Modèles supprimés
+      description: "{count, plural, =1 {# template} other {# templates}}"
+  page:
+    created:
+      title: Page créée
+      description: "{title}"
+    updated:
+      title: Page mise à jour
+      description: "{title}"
+    deleted:
+      title: Pages supprimées
+      description: "{count, plural, =1 {# page} other {# pages}}"
+  pageHeader:
+    created:
+      title: En-tête créé
+      description: "{name}"
+    updated:
+      title: En-tête mis à jour
+      description: "{name}"
+    deleted:
+      title: En-têtes supprimés
+      description: "{count, plural, =1 {# header} other {# headers}}"
+  pageFooter:
+    created:
+      title: Pied de page créé
+      description: "{name}"
+    updated:
+      title: Pied de page mis à jour
+      description: "{name}"
+    deleted:
+      title: Pieds de page supprimés
+      description: "{count, plural, =1 {# footer} other {# footers}}"
+  settings:
+    updated:
+      title: Paramètres mis à jour
+      description: "{key}"
+  schedule:
+    changed:
+      title: Calendrier mis à jour
+      description: Les horaires de travail ont été mis à jour
+  organization:
+    domainChanged:
+      title: Le domaine de l'organisation a été modifié
+      description: "{previousDomain} → {newDomain}"
+  asset:
+    created:
+      title: Élément téléchargé
+      description: "{filename}"
+    updated:
+      title: Actif mis à jour
+      description: "{filename}"
+    deleted:
+      title: Éléments supprimés
+      description: "{count, plural, =1 {# asset} other {# assets}}"
+  member:
+    created:
+      title: Un membre de l'équipe a rejoint
+      description: "{memberName} · {role}"
+    deactivated:
+      title: Membre de l'équipe désactivé
+      description: "{memberName} · {reason}"
+    reactivated:
+      title: Membre de l'équipe réactivé
+      description: "{memberName}"
+    roleChanged:
+      title: Le rôle du membre de l'équipe a été modifié
+      description: "{memberName} : {previousRole} → {role}"
+    profileUpdated:
+      title: Profil des membres de l'équipe mis à jour
+      description: "{memberName}"
+  invitation:
+    created:
+      title: Invitation d'équipe envoyée
+      description: "{email} · {role}"
+    canceled:
+      title: Invitation d'équipe annulée
+      description: "{email} · {role}"
+  subscription:
+    statusChanged:
+      title: Statut d'abonnement modifié
+      description: "{product} · {oldStatus} → {newStatus}"
+  billing:
+    smsCreditsLow:
+      title: Les crédits SMS sont faibles
+      description: Le solde des SMS est tombé à {balance}. Pensez à recharger avant que les crédits ne soient épuisés.
+    smsCreditsExhausted:
+      title: Crédits SMS épuisés
+      description: Le solde des SMS a atteint {balance}. Rechargez des crédits pour continuer à envoyer des messages.
+    smsTopupPurchased:
+      title: Recharge SMS ajoutée
+      description: "{credits, plural, =1 {1 top-up message credit} other {# top-up message credits}} ajouté à votre compte."
+billing:
+  emails:
+    subscriptionAlert:
+      subject: Action nécessaire – mise à jour de l'abonnement
+      preview: Le statut de votre forfait a changé
+      title: Mise à jour du statut de l'abonnement
+      body: Le statut de votre abonnement est désormais {newStatus} (auparavant {oldStatus}) pour {product}. Vérifiez la facturation pour éviter toute interruption de service.
+      button: Ouvrir les paramètres de facturation
+      handledBy: Facturation (abonnement)
+    smsCreditsLow:
+      subject: Les crédits SMS s'épuisent
+      preview: Il vous reste 10 crédits SMS
+      title: Faible solde de crédit SMS
+      body: Votre solde de messagerie texte s'élève désormais à {balance} crédits. Si vous souhaitez envoyer plus de messages, achetez plus de crédits dans les paramètres de facturation.
+      button: Ouvrir les paramètres de facturation
+      purchaseButton: Acheter des crédits SMS
+      handledBy: Facturation (solde SMS)
+    smsCreditsExhausted:
+      subject: Crédits SMS épuisés
+      preview: Vous n'avez plus de crédits SMS
+      title: Crédits SMS épuisés
+      body: Votre solde de messagerie texte est de 0. Si vous souhaitez envoyer plus de messages, achetez plus de crédits dans les paramètres de facturation.
+      button: Ouvrir les paramètres de facturation
+      purchaseButton: Acheter des crédits SMS
+      handledBy: Facturation (solde SMS)
+    appointmentLimitReached:
+      subject: Limite de rendez-vous du plan gratuit atteinte
+      preview: Vous avez utilisé tous les rendez-vous pour ce cycle de facturation
+      title: Limite de rendez-vous atteinte pour ce cycle
+      body: Vous avez utilisé tous les {limit} rendez-vous inclus dans le forfait gratuit pour ce cycle de facturation. Les nouvelles réservations sont bloquées jusqu'à la réinitialisation de votre cycle. Passez à Solo pour des rendez-vous illimités.
+      button: Passer à Solo
+      handledBy: Facturation (limite de rendez-vous)
+  notifications:
+    smsCreditsLow:
+      title: Les crédits SMS sont faibles
+      message: Le solde des SMS est désormais de {balance}. Rechargez pour éviter les interruptions de livraison.
+      action: Ouvrir les paramètres de facturation
+    smsCreditsExhausted:
+      title: Crédits SMS épuisés
+      message: Le solde des SMS est de {balance}. Si vous souhaitez envoyer plus de messages, achetez plus de crédits dans les paramètres de facturation.
+      action: Ouvrir les paramètres de facturation
+    smsTopupPurchased:
+      title: Recharge SMS terminée
+      message: Ajout de {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Ils sont utilisés après votre pool d'abonnement inclus.
+      action: Ouvrir les paramètres de facturation
+navigation:
+  overview: Aperçu
+  dashboard: Tableau de bord
+  activity: Activité
+  appointments: Rendez-vous
+  financials: Données financières
+  payments: Paiements
+  paymentsInbox: Boîte de réception des paiements
+  financialOverview: Aperçu
+  customerAccess: Accès client
+  schedule: Calendrier
+  defaultSchedule: Calendrier par défaut
+  services: Services
+  fields: Champs
+  addons: Modules complémentaires
+  options: Possibilités
+  discounts: Réductions
+  giftCards: Cartes cadeaux
+  packages: Forfaits
+  soldPackages: Forfaits vendus
+  syncedPayments: Paiements synchronisés
+  customers: Clients
+  website: Site web
+  pages: Pages
+  pageHeaders: En-têtes
+  pageFooters: Pieds de page
+  assets: Actifs
+  appearance: Apparence
+  styling: Stylisme
+  header: En-tête
+  footer: Pied de page
+  settings: Paramètres
+  general: Général
+  brand: Marque
+  social: Sociale
+  scripts: Scripts
+  communications: Communications
+  templates: Modèles
+  logs: Journaux
+  communicationLogs: Journaux de communications
+  monitorMessages: Surveiller tous les messages envoyés et reçus
+  apps: Applications
+  installedApps: Applications installées
+  store: Magasin
+  defaultApps: Applications par défaut
+  logout: Se déconnecter
+  viewWebsite: Voir le site Web
+  profile: Profil
+  team: Équipe
+team:
+  title: Équipe
+  description: Gérez les membres, les rôles et les sièges utilisateur pour votre entreprise.
+  invite: Inviter un membre
+  inviteEmail: Adresse email
+  inviteRole: Rôle
+  sendInvite: Envoyer une invitation
+  pendingInvitations: Invitations en attente
+  cancelInvite: Annuler
+  members: Membres
+  seats: "{active} sur {available, plural, =1 {1 seat} other {# seats}} utilisés"
+  seatsUnlimited: "{active, plural, =1 {1 member} other {# members}} · aucune limite de places"
+  purchaseSeats: Acheter des places
+  purchaseSeatsDescription: Ajoutez des sièges d'utilisateurs récurrents à votre abonnement.
+  seatsPurchase:
+    buyButton: Acheter des places
+    dialogTitle: Acheter des places
+    dialogSubtitle: Choisissez le nombre de postes supplémentaires à ajouter à votre abonnement.
+    dialogNote: Les places sont facturées avec votre abonnement et débloquent davantage d'invitations d'équipe.
+    bestValueBadge: Meilleur rapport qualité-prix
+    securePaymentLabel: Paiement sécurisé
+    billedRecurring: Récurrent · Ajouté à votre abonnement
+    savePercent: Économisez {percent} %
+    continue: Continuer
+    loadError: Impossible de charger les options de siège. Veuillez réessayer.
+    empty: Aucun produit de siège n'est encore disponible.
+    seatsLine: "{count, plural, =1 {1 seat} other {# seats}}"
+    checkoutError: Impossible de démarrer le paiement. Réessayez plus tard.
+    purchaseSuccess: Votre achat est en cours de traitement. La mise à jour des sièges peut prendre un moment.
+  noSlots: Aucune place disponible. Achetez plus de sièges pour inviter des membres.
+  upgradeRequired: Aucune place disponible. Passez au forfait Studio pour inviter plus de membres.
+  upgradeLink: Passer au Studio
+  inactive: Inactif
+  inactiveReason:
+    downgrade: Inactif (rétrogradation du forfait)
+    removed: Inactif (supprimé)
+  deactivate: Désactiver
+  deactivateTitle: Désactiver le membre ?
+  deactivateBody: Ce membre a des rendez-vous à venir. Réaffectez-les avant de les désactiver, ou désactivez-les quand même.
+  reassignAppointments: Réaffecter les rendez-vous
+  deactivateAnyway: Désactiver quand même
+  roleUpdated: Rôle mis à jour
+  inviteSent: Invitation envoyée
+  editProfile:
+    title: Modifier le profil du membre
+    description: Mettez à jour les détails du profil pour {name}.
+  inviteUserAlreadyInOrganization: L'utilisateur fait partie d'une autre organisation. Veuillez utiliser une autre adresse e-mail
+  acceptInvitation:
+    title: Accepter l'invitation
+    description: Vous avez été invité à rejoindre {organizationName}. Veuillez d'abord vous inscrire.
+    descriptionLoggedIn: Vous avez été invité à rejoindre {organizationName}. Acceptez de rejoindre l'équipe et ouvrez votre tableau de bord.
+    submit: Accepter l'invitation
+    success: Vous avez rejoint l'équipe
+    error: Impossible d'accepter l'invitation. Veuillez réessayer.
+    invalid: Cette invitation n'est pas valide ou a expiré.
+    missing: Le lien d'invitation est incomplet.
+    emailMismatch: Cette invitation a été envoyée à une autre adresse e-mail. Déconnectez-vous et ouvrez à nouveau le lien, ou connectez-vous avec l'e-mail d'invitation.
+    signInLink: Vous avez déjà un compte ? <link>Se connecter</link>
+  showInactive: Afficher les membres inactifs
+  assignTo: Attribuer à
+  name: Nom
+  email: E-mail
+  role: Rôle
+  status: Statut
+  actions: Actes
+  priceOverride: Suppression du prix
+  durationOverride: Remplacement de la durée (min)
+  clearStaff: Effacer les affectations
+  table:
+    columns:
+      name: Nom
+      jobTitle: Titre
+      email: E-mail
+      role: Rôle
+      status: Statut
+      joinedAt: Rejoint
+      cellAction:
+        actions: Actes
+        setRole: "Définir le rôle : {role}"
+        editProfile: Modifier le profil
+    status:
+      active: Actif
+userSlots:
+  title: Sièges utilisateur
+  included: Sièges inclus
+  additional: Sièges supplémentaires
+  available: Places disponibles
+  allowAdditional: Ce plan permet d'acheter des sièges supplémentaires.
+  notAllowed: Votre forfait ne permet pas de sièges supplémentaires.
+deactivation:
+  banner:
+    message: "Les membres inactifs ont encore des rendez-vous à venir qui nécessitent une attention : {members}."
+    viewAppointments: Afficher les rendez-vous
+roles:
+  owner: Propriétaire
+  admin: Administrateur
+  staff: Personnel
+  coordinator: Coordinateur
+  member: Membre
+themeToggle:
+  toggleTheme: Changer de thème
+  light: Lumière
+  dark: Sombre
+  system: Système
+paymentsInbox:
+  title: Boîte de réception des paiements
+  description: Examinez les paiements par carte en magasin synchronisés à partir des applications de paiement connectées et confirmez leur correspondance avec les rendez-vous.
+financialOverview:
+  description: Revenus, paiements, mesures de l'entonnoir de réservation et tendances de votre entreprise.
+  view:
+    title: Aperçu financier
+    estimatedRevenue: Revenu estimé
+    totalPayments: Paiements totaux
+    netPayments: Paiements nets
+    activeAppointments: Rendez-vous actifs
+    confirmedAppointments: Rendez-vous confirmés
+    declinedAppointments: Rendez-vous refusés
+    canceledAppointments: Rendez-vous annulés
+    noShowAppointments: Non-présentation
+    recentPayments: Paiements récents
+    paymentMethods: Méthodes de paiement
+    noPayments: Aucun paiement trouvé
+    amount: Montant
+    status: Statut
+    date: Date
+    customer: Client
+    service: Service
+    dateRange: Plage de dates
+    rangeOptions:
+      thisMonth: Ce mois-ci
+      lastMonth: Mois dernier
+      thisWeek: Cette semaine
+      lastWeek: La semaine dernière
+      thisYear: Cette année
+      lastYear: L'année dernière
+      allTime: Tout le temps
+      custom: Gamme personnalisée
+    refunded: Remboursé
+    refundDate: Date de remboursement
+    refundAmount: Montant du remboursement
+    viewAppointment: Voir le rendez-vous
+    revenueAndPayments: Revenus et paiements
+    appointmentStatusDistribution: Statut du rendez-vous
+    serviceDistribution: Possibilités
+    appointmentsCount: "{count, plural, =1 {1 appointment} other {# appointments}}"
+    estimatedRevenueFormat: "Revenu estimé : {revenue}"
+    financialOverview: Aperçu financier
+    customerAcquisitionVsRetention: Clients nouveaux et clients fidèles
+    timeGrouping:
+      label: Regroupement temporel
+      daily: Tous les jours
+      weekly: Hebdomadaire
+      monthly: Mensuel
+    bookingTracking:
+      title: Suivi de l'achèvement des réservations
+      totalBookings: Total des réservations démarrées
+      abandoned: Abandonné
+      abandonmentRate: Taux d'abandon
+      completionVsAbandonment: Achèvement ou abandon au fil du temps
+      abandonmentByStep:
+        title: Abandon par étape
+        count: "{count, plural, =1 {1 abandoned} other {# abandoned}}"
+        percentage: "{percentage} % de tous les abandons"
+        noData: Aucune donnée d'abandon disponible
+      enteredByStep:
+        title: Atteint par étape
+        count: "{count, plural, =1 {1 session} other {# sessions}}"
+        noData: Aucune donnée sur la portée disponible
+      converted: Converti
+      conversionRate: Taux de conversion
+      conversionByType:
+        title: Conversion par type
+        count: "{count, plural, =1 {1 converted} other {# converted}}"
+        percentage: "{percentage} % de toutes les conversions"
+        noData: Aucune donnée de conversion disponible
+      bookingSteps:
+        optionsRequested: Options demandées
+        serviceSelected: Service sélectionné
+        specialistSelected: Spécialiste sélectionné
+        addonSelected: Module complémentaire sélectionné
+        availabilityChecked: Disponibilité vérifiée
+        availabilitySelected: Heure sélectionnée
+        duplicateChecked: Double vérifié
+        otpRequested: OTP demandé
+        otpVerified: Vérification OTP
+        paymentChecked: Paiement
+        paymentSuccess: Paiement réussi
+        paymentFailed: Échec du paiement
+        formFilled: Formulaire rempli
+        bookingConverted: Réservation convertie
+      convertedTo:
+        appointment: Rendez-vous
+        package: Emballer
+paymentsList:
+  title: Paiements
+  description: Parcourez tous les paiements enregistrés pour les rendez-vous et les clients.
+  addPayment: Ajouter un paiement
+  empty: Aucun paiement trouvé.
+  loadError: Échec du chargement des paiements.
+  filters:
+    clearAll: Effacer les filtres
+    clearDates: Effacer les dates
+    clearCustomer: Client clair
+    clearAppointment: Rendez-vous clair
+  columns:
+    date: Date
+    amount: Montant
+    type: Taper
+    method: Méthode
+    customer: Client
+    appointment: Rendez-vous
+    status: Statut
+  pagination:
+    previous: Précédent
+    next: Suivant
+    summary: Affichage {from}-{to} sur {total}
+  table:
+    filters:
+      searchPlaceholder: Rechercher des clients, des rendez-vous…
+    cellAction:
+      actions: Actes
+      update: Mise à jour
+      delete: Supprimer
+      viewAppointment: Voir le rendez-vous
+      manageSyncedPayment: Gérer le paiement synchronisé
+      refund: Remboursement
+  exportCsv: Exporter au format CSV
+  exportCsvLoading: Exporter…
+  exportCsvSuccess: Paiements exportés
+  exportCsvError: Échec de l'exportation des paiements
+  exportCsvTooMany: Trop de paiements à exporter (max {limit})
+  exportCsvColumns:
+    paidAt: Date de paiement
+    paymentId: Identifiant de paiement
+    amount: Montant
+    status: Statut
+    type: Taper
+    description: Description
+    method: Méthode
+    providerApp: Application du fournisseur
+    transactionId: ID de transaction
+    source: Source
+    customerName: Nom du client
+    customerEmail: E-mail du client
+    customerPhone: Téléphone client
+    appointmentId: Numéro de rendez-vous
+    appointmentDateTime: Date de rendez-vous
+    appointmentStatus: Statut du rendez-vous
+    optionName: Nom de l'option
+    addons: Modules complémentaires
+    appointmentTotal: Total du rendez-vous
+    feesTotal: Frais totaux
+    feesDetail: Détail des tarifs
+    totalRefunded: Total remboursé
+    amountAfterRefunds: Montant après remboursements
+    netAmount: Montant net
+    giftCardCode: Code de la carte cadeau
+    lastRefundDate: Date du dernier remboursement
+appointmentSelector:
+  placeholder: Sélectionnez un rendez-vous…
+syncedPayments:
+  title: Paiements synchronisés
+  description: Examinez les paiements par carte en magasin synchronisés à partir des applications de paiement connectées et confirmez leur correspondance avec les rendez-vous.
+  empty: Aucun paiement synchronisé à examiner.
+  loadError: Échec du chargement des paiements synchronisés.
+  filters:
+    needsReview: Besoin d'un examen
+    all: Tous
+    dateFrom: Depuis
+    dateTo: À
+    clearDates: Effacer les dates
+    singleTransaction: Affichage d'une seule transaction synchronisée.
+    viewAll: Afficher tous les paiements synchronisés
+  pagination:
+    previous: Précédent
+    next: Suivant
+    summary: Affichage {from}-{to} sur {total}
+  status:
+    matched: Correspondant
+    unmatched: Incomparable
+    confirmed: Confirmé
+    rejected: Rejeté
+    ignored: Ignoré
+  reason:
+    exact_balance: Le montant correspond au solde restant
+    partial_balance: Paiement partiel du solde
+    balance_with_tip: Solde plus un pourboire
+  fields:
+    amount: Montant
+    paymentAmount: Paiement
+    tip: Conseil
+    fees: Frais
+    transactionTime: Temps de transaction
+    appointment: Rendez-vous
+    noAppointment: Non attribué
+    suggestions: Rendez-vous suggérés
+    provider: Fournisseur
+    matchScore: Correspond à {score} %
+    customer: Client
+  badge:
+    synced: Synchronisé depuis {provider}
+  subtitle:
+    synced: Synchronisé
+  sections:
+    totalReceived: Total reçu
+    matchedTo: Correspondant à
+    recordedTo: Enregistré sur
+    suggestions: Rendez-vous suggérés
+  actions:
+    confirm: Confirmer
+    approveAll: Approuver tous les paiements correspondants
+    reject: Rejeter
+    ignore: Ignorer
+    reassign: Réaffecter ici
+    assign: Attribuer ici
+    reassignOther: Réaffecter
+    assignOther: Attribuer
+    record: Enregistrer
+    unassign: Annuler l'attribution
+    removeRecord: Supprimer l'enregistrement
+    editAmounts: Modifier les montants
+    viewAppointment: Voir le rendez-vous
+  editAmounts:
+    title: Modifier les montants
+    description: "Total facturé : {charged}. Ajustez la répartition entre le paiement et le pourboire."
+    paymentType: Type de paiement
+    paymentAmount: Montant du paiement
+    tip: Conseil
+    removeTip: Supprimer la pointe
+    total: Total
+    revert: Revenir à l'original
+    save: Sauvegarder
+    cancel: Annuler
+    notFound: Paiement synchronisé introuvable.
+  manageDialog:
+    title: Paiement synchronisé
+    description: Vérifiez et gérez ce paiement synchronisé en magasin.
+  approveAllDialog:
+    title: Approuver tous les paiements correspondants ?
+    description: Cela confirmera chaque paiement synchronisé automatiquement dans la file d'attente de révision. Les paiements sans correspondance ne sont pas affectés.
+    confirm: Tout approuver
+    cancel: Annuler
+  assignDialog:
+    title: Attribuer à un rendez-vous
+    description: Recherchez un rendez-vous et sélectionnez-en un auquel attribuer ce paiement.
+    searchPlaceholder: Recherche par client, service ou e-mail…
+    empty: Aucun rendez-vous trouvé.
+    confirm: Attribuer le paiement
+    cancel: Annuler
+    columns:
+      option: Service
+      customer: Client
+      dateTime: Date et heure
+      paymentOffset: Du paiement
+      requestedAt: Demandé à
+      price: Prix
+    paymentOffset:
+      same: Au moment du paiement
+      before:
+        daysHours: "{days, plural, one {# day} other {# days}}, {hours, plural, one {# hour} other {# hours}} avant"
+        daysOnly: "{days, plural, one {# day} other {# days}} avant"
+        hoursOnly: "{hours, plural, one {# hour} other {# hours}} avant"
+      after:
+        daysHours: "{days, plural, one {# day} other {# days}}, {hours, plural, one {# hour} other {# hours}} après"
+        daysOnly: "{days, plural, one {# day} other {# days}} après"
+        hoursOnly: "{hours, plural, one {# hour} other {# hours}} après"
+  recordDialog:
+    title: Enregistrement sans rendez-vous
+    description: Enregistrez ce paiement en magasin chez un client sans le joindre à un rendez-vous. Il apparaîtra dans les états financiers.
+    customer: Client
+    paymentType: Type de paiement
+    confirm: Enregistrer le paiement
+    cancel: Annuler
+  toast:
+    success: Paiement synchronisé mis à jour
+    error: Impossible de mettre à jour le paiement synchronisé
+    approveAllSuccess: "{count, plural, =1 {Approved # synced payment} other {Approved # synced payments}}"
+    approveAllError: Impossible d'approuver les paiements synchronisés
+  notifications:
+    ingested:
+      matched:
+        title: Paiement en magasin correspondant
+        message: "{amount} de {provider} a été automatiquement associé à un rendez-vous au {transactionTime}."
+        action: Revoir
+      unmatched:
+        title: Examen des besoins de paiement en magasin
+        message: "{amount} du {provider} au {transactionTime} n'a pas pu être associé à un rendez-vous."
+        action: Revoir
+appointments:
+  title: Rendez-vous
+  scheduleAppointment: Planifier un rendez-vous
+  addNew: Ajouter un nouveau
+  status:
+    pending: En attente
+    confirmed: Confirmé
+    declined: Refusé
+    canceled: Annulé
+    noShow: Non-présentation
+    rescheduled: Reprogrammé
+  table:
+    filters:
+      status: Statut
+      tooltip: Filtres
+      member: Membre de l'équipe
+      package: Emballer
+      soldPackageActive: Affichage des rendez-vous pour le forfait vendu "{name}"
+      soldPackageFallback: forfait sélectionné
+      clearSoldPackage: Clair
+    columns:
+      status: Statut
+      statusAriaLabel: "Statut : {status}"
+      option: Option
+      customer: Client
+      member: Membre de l'équipe
+      dateTime: Date et heure
+      requestedAt: Demandé à
+      duration: Durée
+      discount: Rabais
+      package: Emballer
+      packageRestored: restauré
+      price: Prix
+      optionName: Nom de l'option
+      optionPrice: Prix ​​des options
+      optionDuration: Durée des options
+      selectedAddons: Modules complémentaires sélectionnés
+      note: Note
+      customerName: Nom
+      customerEmail: E-mail
+      customerPhone: Téléphone
+      online: En ligne
+      meetingLink: Rejoindre la réunion
+    packageDialog:
+      purchasedAt: Acheté {date}
+      viewCatalog: Afficher le modèle de package
+      creditsRestored: "{credits, plural, =1 {# credit restored} other {# credits restored}}"
+  dialog:
+    viewFullInfo: Afficher les informations complètes sur le rendez-vous
+    by: Par
+    close: Fermer
+  card:
+    by: Par <link>{name}</link>
+    appointment: Rendez-vous
+    status: Statut
+    time: Temps
+    date: Date
+    dateTime: Date et heure
+    duration: Durée
+    hours: heures
+    minutes: minutes
+    endsAt: Se termine à
+    price: Prix
+    note: Note
+    decline: Déclin
+    confirm: Confirmer
+    addons: Modules complémentaires
+    member: Membre de l'équipe
+  declineDialog:
+    title:
+      declined: Refuser le rendez-vous
+      canceled: Annuler le rendez-vous
+      noShow: Enregistrer une non-présentation
+    description:
+      declined: Cette action ne peut pas être annulée. Cela refusera définitivement cette nomination.
+      canceled: Cette action ne peut pas être annulée. Cela enregistrera le rendez-vous comme annulé par le client.
+      noShow: Cette action ne peut pas être annulée. Cela enregistrera le client comme non-présentation et clôturera le rendez-vous.
+    appointmentDetails: Détails du rendez-vous
+    customer: Client
+    service: Service
+    dateTime: Date et heure
+    reason: Raison
+    reasons:
+      declined: Refusé par vous
+      canceled: Annulé par le client
+      noShow: Non-présentation du client
+    doNotNotifyCustomer: Ne pas informer le client
+    doNotNotifyCustomerDescription: Si coché, le client ne sera pas informé de ce changement
+    refundPayments: Paiements de remboursement
+    amount: Montant
+    transactionId: ID de transaction
+    syncedPayment: Paiement synchronisé
+    manageSyncedPayment: Gérer le paiement synchronisé
+    timePaid: Temps payé
+    fees: Frais
+    cancel: Annuler
+    confirmAndRefund:
+      declined: Refus et remboursement {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
+      canceled: Annuler et rembourser {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
+      noShow: Non-présentation et remboursement {count, plural, =1 {payment} other {# payments}}{montant, pluriel, =0 {} autre { for {amountFormatted}}}
+    confirm:
+      declined: Déclin
+      canceled: Annuler
+      noShow: Enregistrer une non-présentation
+    refunded: Remboursé
+    refundableAmount: Montant remboursable
+    refundAmount: Montant du remboursement
+    refundError: Une ou plusieurs demandes de remboursement ont échoué.
+    giftCardCode: Code de la carte cadeau
+    paymentDescription: Description
+    refundFees: Frais de remboursement
+  rescheduleDialog:
+    title: Reprogrammer le rendez-vous
+    by: par
+    dateTime: Date et heure
+    duration: Durée
+    doNotNotifyCustomer: Ne pas informer le client
+    doNotNotifyCustomerDescription: Si coché, le client ne sera pas informé du rendez-vous reprogrammé.
+    confirmOverlap: Confirmer le chevauchement
+    confirmOverlapDescription: Je comprends que le report de ce rendez-vous créera un chevauchement dans mon emploi du temps
+    close: Fermer
+    reschedule: Reprogrammer
+    confirmTitle: Etes-vous absolument sûr ?
+    confirmDescription: Cette action ne peut pas être annulée. Cela reprogrammera ce rendez-vous.
+    cancel: Annuler
+    success: Le rendez-vous a été reporté avec succès.
+    error: Il y a eu un problème avec votre demande.
+  addFile:
+    success: Le fichier a été ajouté avec succès.
+    error: Il y a eu un problème avec votre demande.
+    upload: Télécharger
+    pleaseWait: S'il vous plaît, attendez...
+  calendar:
+    loading: Chargement
+    eventTitle: "{customer} pour {service} · {member}"
+  new:
+    title: Nouveau rendez-vous
+    description: Planifier un nouveau rendez-vous au nom du client
+    waitlistEntry: Entrée sur la liste d'attente
+    waitlistEntryDescription: Rechercher les informations d'entrée sur la liste d'attente
+  edit:
+    title: Modifier le rendez-vous
+    description: Modifier un rendez-vous existant
+  view:
+    noteUpdated: La note de rendez-vous a été mise à jour.
+    requestError: Il y a eu un problème avec votre demande.
+    changesSaved: Vos modifications ont été enregistrées.
+    sendMessage: Envoyer un message
+    scheduleAgain: Programmer à nouveau
+    reschedule: Reprogrammer
+    edit: Modifier
+    decline: Déclin
+    confirm: Confirmer
+    date: Date
+    time: Temps
+    dateTime: Date et heure
+    dateAndTime: Date et heure
+    duration: Durée
+    hours: heures
+    minutes: minutes
+    timezone: Fuseau horaire
+    endsAt: Se termine à
+    requestedAt: Demandé à
+    requestedAtFormat: Demandé {requestedAt} · {timezone}
+    status: Statut
+    price: Prix
+    subtotal: "Sous-total : {subtotal}"
+    total: "Total : {total}"
+    discount:
+      label: Rabais
+      name: Nom
+      amount: Montant
+      code: Code
+    amountPaid: "Montant payé : {amountPaid}"
+    amountDue: "Montant dû : {amountDue}"
+    collectPayment: Encaisser le paiement · {amount}
+    addons: Modules complémentaires
+    payment:
+      label: Paiement
+      total: Total
+      paid: Payé
+      discount: Rabais
+      due: Exigible
+    customer: Client
+    name: Nom
+    email: E-mail
+    phone: Téléphone
+    member: Membre de l'équipe
+    fields: Champs
+    yes: Oui
+    no: Non
+    service: Service
+    selectedOption: Option sélectionnée
+    option: Option
+    description: Description
+    selectedAddons: Modules complémentaires sélectionnés
+    meetingInformation:
+      label: Informations sur les réunions en ligne
+      url: URL
+      type: Taper
+      meetingId: ID de réunion
+      meetingPassword: Mot de passe de la réunion
+    min: min
+    note: Note
+    files: Fichiers
+    upload: Télécharger
+    removeAppointmentFile: Supprimer le fichier de rendez-vous
+    confirmTitle: Etes-vous absolument sûr ?
+    confirmRemoveFile: Êtes-vous sûr de vouloir supprimer ce fichier ?
+    cancel: Annuler
+    delete: Supprimer
+    payments: Paiements
+    communications: Communications
+    history: Histoire
+    details: Détails
+  detail:
+    by: Par {name}
+  history:
+    byMember: Par membre
+    byCustomer: Par client
+    payment: Paiement {amount} via {appName}
+    paymentType: "{type} via {appName}"
+    oldStatus: "Ancien statut : {oldStatus}"
+    newStatus: "Nouveau statut : {newStatus}"
+    oldDateTime: "Ancienne date et heure : {oldDateTime}"
+    newDateTime: "Nouvelle date et heure : {newDateTime}"
+    refundedAmount: Remboursé {amount}
+    totalRefunded: Total remboursé {amount}
+    oldOption: "Ancienne option : {oldOption}"
+    newOption: "Nouvelle option : {newOption}"
+  form:
+    dateTimeRequired: La date et l'heure sont obligatoires
+    durationRequired: La durée est requise
+    durationInteger: Doit être la valeur entière
+    durationMin: La durée minimale est de 1 minute
+    durationMax: La durée maximale est de 10 jours
+    priceNumber: Le prix total doit être un nombre
+    priceMin: Le prix minimum est de 0
+    optionRequired: L'option doit être sélectionnée
+    addonRequired: Le module complémentaire doit être sélectionné
+    nameRequired: Le nom est requis
+    emailValid: Doit être un e-mail valide
+    phoneRequired: Le téléphone est requis
+    phoneValid: Un numéro de téléphone valide est requis
+    scheduledSuccess: Le rendez-vous a été planifié avec succès
+    requestError: Il y a eu un problème avec votre demande.
+    appointmentType: Type de rendez-vous
+    selectOption: Sélectionnez une option
+    min: min
+    custom: Coutume
+    dateTime: Date et heure
+    addons: Modules complémentaires
+    selectAddons: Sélectionnez les modules complémentaires...
+    customer: Client
+    package: Emballer
+    packageRemaining: "{remaining} des {total} crédits restants"
+    packageCoversPrice: Le prix est couvert par le forfait sélectionné
+    assignTo: Attribuer à
+    discount: Rabais
+    duration: Durée
+    price: Prix
+    note: Note
+    confirmAppointment: Confirmer le rendez-vous
+    confirmAppointmentDescription: Marquer le rendez-vous comme confirmé
+    confirmOverlap: Confirmer le chevauchement
+    confirmOverlapDescription: Je comprends que la planification de ce rendez-vous créera un chevauchement dans mon emploi du temps
+    unassignedMember:
+      title: Membre non affecté
+      description: Le membre de l'équipe sélectionné n'est pas affecté à une partie de ce rendez-vous. Le prix et la durée de l’option de base/du module complémentaire seront utilisés jusqu’à ce que vous les ajustiez.
+      optionNotAssigned: "Non affecté à l'option : {option}"
+      addonsNotAssigned: "Non attribué aux modules complémentaires : {addons}"
+      priceDurationHint: Veuillez vérifier que le prix total et la durée sont corrects avant de planifier.
+      ackLabel: Je reconnais que ce membre n'est pas affecté
+      ackDescription: Obligatoire lorsque le membre sélectionné n'est pas affecté à l'option ou à un ou plusieurs modules complémentaires sélectionnés. Veuillez vérifier le prix et la durée avant de planifier.
+      ackRequired: Veuillez reconnaître que le membre sélectionné n'est pas affecté à l'option ou au(x) module(s) complémentaire(s).
+      cancel: Fermer
+      confirm: J'ai compris
+    scheduleAppointment: Planifier un rendez-vous
+    doNotNotifyCustomer: Ne pas informer le client
+    doNotNotifyCustomerDescription: Si coché, le client ne sera pas informé du changement de rendez-vous
+    updateAppointment: Mettre à jour le rendez-vous
+    updatedSuccess: Le rendez-vous a été mis à jour avec succès
+  payments:
+    addPayment: Ajouter un paiement
+    noPayments: Aucun paiement
+  actionButton:
+    changesSaved: Vos modifications ont été enregistrées.
+    requestError: Il y a eu un problème avec votre demande.
+  subscriptionPastDue:
+    title: Abonnement en souffrance
+    description: Le paiement de votre abonnement est en souffrance. La création et la modification de réservations sont temporairement désactivées jusqu'à ce que la facturation soit à jour.
+    openSettings: Ouvrir les paramètres
+    openingPortal: Ouverture du portail de facturation…
+  events:
+    created:
+      title: Nouveau rendez-vous
+      description: "{customerName} demandé {serviceName}"
+    updated:
+      title: Rendez-vous mis à jour
+      description: "{customerName} - {serviceName}"
+    rescheduled:
+      title: Rendez-vous reporté
+      description: "{customerName} - {serviceName}"
+    statusChanged:
+      title: Statut du rendez-vous modifié
+      description: "{customerName} : {oldStatus} → {newStatus}"
+  notifications:
+    appointmentCreated:
+      title: Nouveau rendez-vous demandé
+      message: Un nouveau rendez-vous a été demandé par {name} pour {service} le {dateTime} pour {durationHours, plural, =0 {{durationMinutes} min} other {# hr, {durationMinutes} min}}
+      action: Voir
+    appointmentRescheduled:
+      title: Le rendez-vous a été reporté
+      message: "{name} reporté {service}."
+      action: Voir
+    appointmentCancelled:
+      title: Le rendez-vous a été annulé
+      message: "{name} annulé {service}."
+      action: Voir
+assets:
+  title: Actifs
+  new: Nouvel actif
+  edit: Modifier l'élément
+  uploadNewAssets: Télécharger de nouveaux éléments
+  addNew: Ajouter un nouveau
+  dashboard: Tableau de bord
+  newPage: Nouveau
+  editPage: Modifier
+  form:
+    asset: Actif
+    fileName: Nom de fichier
+    fileNamePlaceholder: Nom du fichier d'actif
+    description: Description
+    descriptionPlaceholder: Description de l'actif
+    assetName: Nom de l'actif
+  table:
+    columns:
+      preview: Aperçu
+      fileName: Nom de fichier
+      fileType: Type de fichier
+      fileSize: Taille du fichier
+      description: Description
+      appointment: Rendez-vous
+      customer: Client
+      uploadTime: Temps de téléchargement
+      actions: Actes
+    actions:
+      selectAll: Tout sélectionner
+      selectRow: Sélectionner une ligne
+      openMenu: Ouvrir le menu
+      actions: Actes
+      update: Mise à jour
+      delete: Supprimer
+      copyRelativeUrl: Copier l'URL relative
+      copyAbsoluteUrl: Copier l'URL absolue
+      download: Télécharger
+    delete:
+      title: Etes-vous absolument sûr ?
+      description: Cette action ne peut pas être annulée. Cela supprimera les actifs sélectionnés
+      confirm: Supprimer la sélection
+      cancel: Annuler
+      selectedCount: Supprimer le {count, plural, =1 {asset} other {# assets}} sélectionné
+      success: Les éléments sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+    filters:
+      filters: Filtres
+  toasts:
+    changesSaved: Vos modifications ont été enregistrées.
+    assetDeleted: L'actif {filename} a été supprimé avec succès.
+    copied: Copié
+    relativeUrlCopied: L'URL relative de l'actif "{url}" a été copiée dans le presse-papiers.
+    absoluteUrlCopied: L'URL absolue de l'actif "{url}" a été copiée dans le presse-papiers.
+    assetTotalSizeLimitReached: La taille totale maximale de l'actif a été atteinte.
+activity:
+  actor:
+    system: Système
+    member: "Membre : {name}"
+    visitor: "Visiteur : {name}"
+    customer: "Client : <link></link>"
+  page:
+    description: Chronologie des événements notables à l’échelle de l’organisation. L'historique quotidien est conservé 30 jours sur Free, 90 sur Solo et 365 sur Studio. Les paiements, autorisations et autres enregistrements importants n’expirent jamais.
+  header:
+    openFeed: Ouvrir le flux d'activité
+    recent: Activité récente
+    empty: Aucune activité récente pour l'instant.
+    viewAll: Voir toute l'activité
+  severity:
+    info: Informations
+    success: Succès
+    warning: Avertissement
+    error: Erreur
+  table:
+    searchPlaceholder: Recherchez par type d’événement, titre ou description…
+    dateRange: Plage de dates
+    filters:
+      severity: Gravité
+      actor: Acteur
+      eventType: Type d'événement
+      actorKind:
+        system: Système
+        member: Membre
+        customer: Client
+    columns:
+      createdAt: Date
+      severity: Gravité
+      actor: Acteur
+      eventType: Type d'événement
+      title: Titre
+      description: Description
+      link: Lien
+communicationLogs:
+  title: Journaux de communications
+  clearAll: Tout effacer
+  clearSelected: Effacer la sélection
+  clearAllTitle: Etes-vous absolument sûr ?
+  clearAllDescription: Cette action ne peut pas être annulée. Cela supprimera tous les journaux de communication
+  clearSelectedTitle: Etes-vous absolument sûr ?
+  clearSelectedDescription: Cette action ne peut pas être annulée. Cela supprimera les journaux de communication sélectionnés
+  cancel: Annuler
+  logsCleared: Vos journaux ont été effacés
+  selectedLogsCleared: Les journaux sélectionnés ont été effacés
+  clearSelectedCount: Effacer la sélection {count, plural, =1 {log} other {# logs}}
+  table:
+    columns:
+      direction: Direction
+      channel: Canal
+      participantType: Participant
+      participant: Participant
+      handler: Gestionnaire
+      subject: Sujet
+      content: Contenu
+      data: Données
+      dateTime: Date et heure
+      appointment: Rendez-vous
+      customer: Client
+      member: Membre de l'équipe
+    actions:
+      selectAll: Tout sélectionner
+      selectRow: Sélectionner une ligne
+      viewMore: Voir plus
+      view: Voir
+      close: Fermer
+      logContent: Contenu du message
+      logData: Données du journal
+    filters:
+      filters: Filtres
+      direction: Direction
+      channel: Canal
+      participant: Participant
+      member: Membre de l'équipe
+      status: Statut
+customers:
+  title: Clients
+  new: Nouveau client
+  edit: Modifier le client
+  addNew: Ajouter un nouveau
+  addNewCustomer: Ajouter un nouveau client
+  manageCustomers: Gérez vos clients
+  manageCustomer: Gérer le client
+  scheduleAppointment: Planifier un rendez-vous
+  addNewShort: Ajouter un nouveau
+  details: Détails
+  appointments: Rendez-vous
+  payments: Paiements
+  addPayment: Ajouter un paiement
+  files: Fichiers
+  communications: Communications
+  deletedCustomer: Client supprimé
+  form:
+    customerPhoto: Photo client
+    personalInformation: Informations personnelles
+    contactInformation: Coordonnées
+    additionalInformation: Informations Complémentaires
+    name: Nom
+    namePlaceholder: Nom du client
+    email: E-mail
+    emailPlaceholder: E-mail du client
+    phone: Téléphone
+    phonePlaceholder: Téléphone client
+    address: Adresse
+    addressPlaceholder: Adresse du client
+    notes: Remarques
+    notesPlaceholder: Notes client
+    dateOfBirth: Date de naissance
+    dontAllowAppointments: Ne pas autoriser les rendez-vous
+    dontAllowAppointmentsTooltip: Si coché, le client ne pourra pas prendre de rendez-vous. Le rendez-vous ne peut être pris que par vous
+    requireDeposit: Exiger un dépôt
+    requireDepositTooltip: Si ce client devrait être tenu de payer un acompte
+    depositAmount: Montant du dépôt
+    depositAmountTooltip: Montant du dépôt en pourcentage. S'il est défini sur 100, le prix total devra être payé d'avance
+    selectOption: Sélectionnez une option
+    always: Toujours
+    never: Jamais
+    inherit: Identique à l'option sélectionnée ou à la configuration générale
+    knownNames: Noms connus
+    knownNamesTooltip: Noms alternatifs fournis par les clients lors de la demande de rendez-vous
+    knownEmails: E-mails connus
+    knownEmailsTooltip: Les e-mails alternatifs aident à faire correspondre les rendez-vous avec les e-mails alternatifs que le client peut utiliser
+    knownPhones: Téléphones connus
+    knownPhonesTooltip: Les téléphones alternatifs aident à faire correspondre les rendez-vous avec des numéros de téléphone alternatifs que le client peut utiliser
+    addName: Ajouter un nom
+    addEmail: Ajouter un e-mail
+    addPhone: Ajouter un téléphone
+    remove: Retirer
+    changePhoto: Changer de photo
+    customerPhotoAlt: Photo client
+  uploadFiles:
+    title: Télécharger des fichiers
+    description: Téléchargez des fichiers pour votre client
+    descriptionPlaceholder: Description du fichier
+    upload: Télécharger
+  table:
+    columns:
+      name: Nom
+      email: E-mail
+      phone: Téléphone
+      address: Adresse
+      appointments: Rendez-vous
+      lastAppointment: Dernier rendez-vous
+      nextAppointment: Rendez-vous à venir
+      createdAt: Créé à
+      actions: Actes
+    actions:
+      selectAll: Tout sélectionner
+      selectRow: Sélectionner une ligne
+      openMenu: Ouvrir le menu
+      actions: Actes
+      edit: Modifier
+      delete: Supprimer
+      merge: Fusionner
+    delete:
+      title: Etes-vous absolument sûr ?
+      description: Cette action ne peut pas être annulée. Cela supprimera les clients sélectionnés
+      confirm: Supprimer la sélection
+      cancel: Annuler
+      selectedCount: Supprimer le {count, plural, =1 {customer} other {# customers}} sélectionné
+      success: Les clients sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      cannotDeleteWithAppointments: Impossible de supprimer les clients qui ont attribué des rendez-vous
+      deleteSelectedCustomers: Supprimer les clients sélectionnés
+    merge:
+      title: Etes-vous absolument sûr ?
+      description: Cette action ne peut pas être annulée. Cela fusionnera les clients sélectionnés avec celui cible
+      confirm: Fusionner la sélection
+      cancel: Annuler
+      selectedCount: Fusionner la sélection {count, plural, =1 {customer} other {# customers}}
+      success: Les clients sélectionnés ont été fusionnés
+      error: Il y a eu un problème avec votre demande.
+      targetCustomer: Client cible
+    filters:
+      filters: Filtres
+  toasts:
+    changesSaved: Vos modifications ont été enregistrées.
+    customerCreated: Client créé avec succès.
+    customerUpdated: Le client a été mis à jour avec succès.
+    customerDeleted: Le client {name} a été supprimé.
+pages:
+  title: Pages
+  new: Nouvelle page
+  edit: Modifier la page
+  addNew: Ajouter un nouveau
+  addNewPage: Ajouter une nouvelle page
+  managePages: Gérer les pages
+  upgradeRequired: Le forfait gratuit comprend jusqu'à 10 pages. Passez à Solo pour en ajouter davantage.
+  upgradeLink: Passer à Solo
+  viewPage: Afficher la page
+  form:
+    pageContent: Contenu des pages
+    pageContentTooltip: Contenu de la page au format MDX. En savoir plus sur MDX
+    learnMoreAboutMdx: En savoir plus sur MDX
+    pageSlug: Limace de page
+    pageSlugTooltip: URL relative de la page. Par exemple, la page avec le slug « ma-nouvelle-page » sera disponible sur « votredomaine.com/my-new-page ».
+    pageSlugPlaceholder: Limace de page
+    published: Publié ?
+    publishedTooltip: La page est-elle visible par vos visiteurs
+    publishDate: Date de publication
+    publishDateTooltip: La date de publication sera utilisée pour le référencement, pour déterminer l'ordre chronologique et pour déterminer si elle est déjà visible par les visiteurs.
+    tags: Balises
+    tagsPlaceholder: Entrez les balises séparées par des virgules
+    tagsTooltip: Balises de page pour une distinction facile
+    title: Titre
+    titlePlaceholder: Titre de la page
+    doNotCombineTitle: Ne combinez pas le titre
+    doNotCombineTitleTooltip: Le titre de la page doit-il être combiné avec le titre du site Web pour le référencement, comme « Titre de la page | Nom du site Web'
+    description: Description
+    descriptionPlaceholder: Description des pages
+    descriptionTooltip: Il est également utilisé par le composant de liste de pages (alias liste de blogs) pour afficher l'aperçu
+    featuredImage: Image en vedette
+    featuredImagePlaceholder: Sélectionnez l'image sélectionnée
+    featuredImageTooltip: Utilisé comme image Open Graph lorsque cette page est partagée sur les réseaux sociaux. Remplace les images présentées par les applications (par exemple, une image d'article de blog).
+    doNotCombineDescription: Ne combinez pas la description
+    doNotCombineDescriptionTooltip: La description de la page doit-elle être combinée avec la description du site Web pour le référencement
+    keywords: Mots-clés
+    keywordsTooltip: Mots-clés de la page séparés par une virgule
+    keywordValidation: Le mot clé doit comporter au moins 2 caractères
+    doNotCombineKeywords: Ne combinez pas de mots-clés
+    doNotCombineKeywordsTooltip: Les mots-clés de la page doivent-ils être combinés avec les mots-clés du site Web
+    fullWidthPage: Page pleine largeur
+    fullWidthPageTooltip: Si cette option est activée, la page ne sera pas enveloppée dans l'élément Container
+    language: Langue
+    defaultLanguage: Défaut
+    settingsTabLabel: Paramètres
+    header: En-tête
+    footer: Pied de page
+  table:
+    columns:
+      title: Titre
+      slug: Limace
+      published: Publié
+      publishDate: Date de publication
+      createdAt: Créé à
+      updatedAt: Mis à jour à
+      tags: Balises
+      actions: Actes
+    actions:
+      selectAll: Tout sélectionner
+      selectRow: Sélectionner une ligne
+      openMenu: Ouvrir le menu
+      actions: Actes
+      edit: Modifier
+      delete: Supprimer
+      view: Voir
+      clone: Cloner
+      copyRelativeUrl: Copier l'URL relative
+      copyAbsoluteUrl: Copier l'URL absolue
+      copyShortUrl: Copier l'URL courte
+      generateQrCode: Générer un code QR
+    qrCode:
+      title: Code QR
+      description: Scannez pour ouvrir cette page
+      copy: Copie
+      download: Télécharger
+      alt: Code QR pour {url}
+      copyUrl: Copier l'URL
+    delete:
+      title: Etes-vous absolument sûr ?
+      description: Cette action ne peut pas être annulée. Cela supprimera les pages sélectionnées
+      confirm: Supprimer la sélection
+      cancel: Annuler
+      selectedCount: Supprimer le {count, plural, =1 {page} other {# pages}} sélectionné
+      success: Les pages sélectionnées ont été supprimées
+      error: Il y a eu un problème avec votre demande.
+    filters:
+      filters: Filtres
+      status: Statut
+      published: Publié
+      draft: Brouillon
+  toasts:
+    changesSaved: Vos modifications ont été enregistrées.
+    pageCreated: Page créée avec succès.
+    pageUpdated: Page mise à jour avec succès.
+    pageDeleted: La page "{title}" a été supprimée.
+    relativeUrlCopied: L'URL relative de la page "{url}" a été copiée dans le presse-papiers.
+    absoluteUrlCopied: L'URL absolue de la page "{url}" a été copiée dans le presse-papiers.
+    shortUrlCopied: L'URL courte de la page "{url}" a été copiée dans le presse-papiers.
+    shortUrlCopyError: Impossible de créer une URL courte.
+    qrCodeCopied: Code QR copié dans le presse-papiers.
+    qrCodeCopyError: Impossible de copier le code QR.
+    qrCodeDownloadError: Impossible de télécharger le code QR.
+    urlCopied: URL copiée dans le presse-papiers.
+    urlCopyError: Impossible de copier l'URL.
+  headers:
+    title: En-têtes de page
+    new: Nouvel en-tête de page
+    edit: Modifier l'en-tête de la page
+    addNew: Ajouter un nouveau
+    addNewPageHeader: Ajouter un nouvel en-tête de page
+    managePageHeaders: Gérer les en-têtes de page
+    managePageHeader: Gérer l'en-tête de la page
+    form:
+      name: Nom
+      namePlaceholder: Nom de l'en-tête de la page
+      nameTooltip: Nom d'en-tête de page unique
+      menuTooltip: Éléments de menu pour l'en-tête de la page
+      showLogoTooltip: S'il faut afficher le logo dans l'en-tête de la page
+      sticky: Collant
+      stickyTooltip: S'il faut rendre l'en-tête de la page collant
+      showLogo: Afficher le logo
+      showLogoDescription: Le logo devrait être affiché dans l'en-tête
+      hideName: Masquer le nom
+      hideNameDescription: Masquer le nom de l'entreprise à côté du logo
+      fullWidth: Pleine largeur
+      fullWidthDescription: Étendre le contenu de l'en-tête sur toute la fenêtre d'affichage au lieu du conteneur de page
+      logoSize:
+        label: Taille du logo
+        tooltip: Taille du logo
+        values:
+          small: Petit
+          medium: Moyen
+          large: Grand
+          x-large: X-large
+      logoNameFontSize:
+        label: Taille de la police du logo
+        tooltip: Taille de la police du nom du logo
+        values:
+          small: Petit
+          medium: Moyen
+          large: Grand
+          x-large: X-large
+      logoNameFontWeight:
+        label: Poids de la police du nom du logo
+        tooltip: Poids de la police du nom du logo
+        values:
+          light: Lumière
+          regular: Régulier
+          medium: Moyen
+          semibold: Semi-gras
+          bold: Audacieux
+      customLogoText:
+        label: Texte du logo personnalisé
+        tooltip: Texte personnalisé à afficher à la place du nom de la marque de l'entreprise
+      stickyHeader: En-tête collant
+      stickyHeaderDescription: L'en-tête doit-il bouger avec le défilement de la page
+      backdropBlur: Flou de fond
+      backdropBlurDescription: Givrez l'en-tête pour que le contenu de la page apparaisse lors du défilement
+      headerShadow: Ombre d'en-tête
+      headerShadowDescription: Afficher une ombre portée sur l'en-tête
+      menu: Menu
+      tabs:
+        style: Style
+        items: Articles
+      preview:
+        label: Aperçu
+        desktop: Bureau
+        mobile: Mobile
+        rest: En haut
+        scrolled: Défilé
+      position:
+        label: Position
+        tooltip: Comment l'en-tête se trouve sur la page
+        values:
+          static: Statique
+          sticky: Collant
+          fixed: Fixé
+        descriptions:
+          static: <b>Statique :</b> Défile avec le contenu de la page
+          sticky: <b>Sticky :</b> Reste en haut lors du défilement, prend toujours de la place dans la mise en page
+          fixed: <b>Corrigé :</b> Superpose le contenu de la page et reste épinglé à la fenêtre d'affichage
+      backgroundColor:
+        label: Arrière-plan
+        tooltip: Couleur d’arrière-plan de l’en-tête
+      textColor:
+        label: Couleur du texte
+        tooltip: Couleur du nom du logo et du texte du menu
+      defaultColumn: Défaut
+      onScrollColumn: Au défilement
+      onScrollSection: Sur l'apparence du défilement
+      onScrollSectionDescription: Remplacements facultatifs appliqués après le défilement de la page
+      mobileSection: Apparence mobile
+      mobileSectionDescription: Remplacements facultatifs appliqués aux fenêtres mobiles
+      overrideYes: Oui
+      overrideNo: Non
+      inheritDefault: Hériter par défaut
+    positionType:
+      static: Statique
+      sticky: Collant
+      fixed: Fixé
+    table:
+      columns:
+        name: Nom
+        usedCount: Utilisé dans les pages
+        updatedAt: Mis à jour à
+      actions:
+        selectAll: Tout sélectionner
+        selectRow: Sélectionner une ligne
+        openMenu: Ouvrir le menu
+        actions: Actes
+        edit: Modifier
+        delete: Supprimer
+        clone: Cloner
+      delete:
+        title: Etes-vous absolument sûr ?
+        description: Cette action ne peut pas être annulée. Cela supprimera les en-têtes de page sélectionnés
+        confirm: Supprimer la sélection
+        cancel: Annuler
+        selectedCount: Supprimer le {count, plural, =1 {page header} other {# page headers}} sélectionné
+        success: Les en-têtes de page sélectionnés ont été supprimés
+        error: Il y a eu un problème avec votre demande.
+    toasts:
+      pageHeaderDeleted: L'en-tête de page "{name}" a été supprimé.
+      changesSaved: Vos modifications ont été enregistrées.
+    usedOnPages: Utilisé le {count, plural, =1 {one page} other {# pages}}
+  footers:
+    title: Pieds de page
+    new: Nouveau pied de page
+    edit: Modifier le pied de page
+    addNew: Ajouter un nouveau
+    addNewPageFooter: Ajouter un nouveau pied de page
+    managePageFooters: Gérer les pieds de page
+    managePageFooter: Gérer le pied de page
+    usedOnPages: Utilisé le {count, plural, =1 {one page} other {# pages}}
+    form:
+      name: Nom
+      namePlaceholder: Nom du pied de page
+      nameTooltip: Nom unique du pied de page
+      content: Contenu
+    toasts:
+      pageFooterDeleted: Le pied de page « {name} » a été supprimé.
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+    table:
+      columns:
+        name: Nom
+        usedCount: Utilisé dans les pages
+        updatedAt: Mis à jour à
+        actions: Actes
+      actions:
+        selectAll: Tout sélectionner
+        selectRow: Sélectionner une ligne
+        openMenu: Ouvrir le menu
+        actions: Actes
+        edit: Modifier
+        delete: Supprimer
+        clone: Cloner
+      delete:
+        title: Etes-vous absolument sûr ?
+        description: Cette action ne peut pas être annulée. Cela supprimera les pieds de page sélectionnés
+        confirm: Supprimer la sélection
+        cancel: Annuler
+        selectedCount: Supprimer le {count, plural, =1 {page footer} other {# page footers}} sélectionné
+        success: Les pieds de page sélectionnés ont été supprimés
+        error: Il y a eu un problème avec votre demande.
+services:
+  fieldSelector:
+    loading: Chargement des champs...
+    selectField: Sélectionner un champ
+  fieldSelectCard:
+    moveField: Déplacer le champ {type}
+    field: Champ
+    required: Requis
+    requiredTooltip: Champ de marquage obligatoire
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce champ de ce {type} ?
+    cancel: Annuler
+    delete: Supprimer
+  addonSelectCard:
+    moveAddon: Module complémentaire d'option de déplacement
+    addon: Ajouter sur
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce module complémentaire de cette option ?
+    cancel: Annuler
+    delete: Supprimer
+  addonSelector:
+    loading: Chargement des modules complémentaires...
+    selectAddon: Sélectionnez le module complémentaire
+  memberSelector:
+    loading: Chargement des membres...
+    selectMember: Sélectionner un membre
+  options:
+    title: Services
+    description: Gérer les services que vous fournissez
+    addNew: Ajouter un nouveau
+    addFromTemplate: Ajouter à partir du modèle
+    addFromTemplateDialog:
+      title: Ajouter une nouvelle option à partir du modèle
+      description: Choisissez une profession et un modèle pour pré-remplir la nouvelle option.
+      pickServiceLabel: Choisissez un modèle de service pour pré-remplir la nouvelle option.
+    createFromTemplate: Créer
+    upgradeRequired: Le forfait gratuit comprend un service. Passez à Solo pour en ajouter davantage.
+    upgradeLink: Mise à niveau dans les paramètres de la marque
+    new: Nouveau
+    newTitle: Nouvelle option de service
+    newDescription: Ajoutez un nouveau service que vous fournissez
+    editDescription: Modifier l'option
+    form:
+      name: Nom
+      namePlaceholder: Nom de l'option
+      description: Brève description
+      descriptionTooltip: Texte court qui sera visible lors de la réservation
+      duration: Durée
+      price: Prix
+      durationType:
+        label: Type de durée
+        tooltip: Type de durée
+        fixed: Fixé
+        flexible: Flexible
+        placeholder: Sélectionnez le type de durée
+      durationMin:
+        label: Durée minimale
+        tooltip: Durée minimale de l'option
+        placeholder: Sélectionnez la durée min
+      durationMax:
+        label: Durée maximale
+        tooltip: Durée maximale de l'option
+        placeholder: Sélectionnez la durée maximale
+      pricePerHour:
+        label: Prix ​​par heure
+        tooltip: Prix ​​horaire de l'option
+        placeholder: Sélectionnez le prix par heure
+        suffix: /heure
+      durationStep:
+        label: Pas de durée
+        tooltip: Etape de la durée
+        placeholder: Sélectionnez l'étape de durée
+        steps:
+          "1": 1 minute
+          "5": 5 minutes
+          "10": 10 minutes
+          "15": 15 minutes
+          "20": 20 minutes
+          "30": 30 minutes
+          "60": 1 heure
+          "120": 2 heures
+          "180": 3 heures
+          "360": 6 heures
+      isAutoConfirm:
+        label: Confirmation automatique
+        tooltip: S'il faut confirmer automatiquement le rendez-vous instantanément
+        always: Toujours
+        never: Jamais
+        inherit: Identique à la configuration générale
+      onlineSettings:
+        title: Paramètres de rendez-vous virtuel
+        isOnline:
+          label: Type de rendez-vous
+          tooltip: Indique si ce rendez-vous a lieu via réunion vidéo ou audio, appel téléphonique, etc.
+          labels:
+            "false": En personne
+            "true": Virtuel
+        meetingUrlProviderAppId:
+          label: Application de fournisseur d'URL de réunion
+          tooltip: Application qui sera utilisée pour fournir l'URL de la réunion
+      paymentSettings:
+        title: Paramètres de paiement
+        requireDeposit:
+          label: Exiger un dépôt
+          tooltip: Si cette option nécessite un dépôt<br></br>Nécessite une application de paiement configurée
+          always: Toujours, sauf si cela n'est pas requis par le client
+          never: Jamais, sauf si le client l'exige
+          inherit: Identique à la configuration générale ou configuré pour le client
+        paymentType:
+          label: Type de calcul du paiement
+          tooltip: Choisissez si le paiement est un montant fixe ou un pourcentage du prix
+          labels:
+            amount: Montant fixe
+            percentage: Pourcentage du prix
+          placeholder: Sélectionnez le type de calcul du paiement
+        depositAmount:
+          label: Montant du dépôt
+          tooltip: Montant du dépôt fixe (ne sera pas supérieur au prix final)
+        depositPercentage:
+          label: Pourcentage de dépôt
+          tooltip: Pourcentage de dépôt<br></br>S'il est défini sur 100, le prix total devra être payé d'avance<br></br>Peut être annulé pour chaque client
+        tipsMode:
+          label: Conseils lors de la réservation
+          tooltip: Remplacer les paramètres des astuces de l'organisation pour ce service
+          values:
+            inherit: Identique à la configuration générale
+            off: Désactivé
+            on: Sur
+            full-payment-only: Uniquement pour les paiements complets
+        tipPresets:
+          label: Préréglages de conseils
+          description: Jusqu'à 4 options de pourcentage présentées aux clients. Faites glisser pour réorganiser.
+          percentage: "%"
+          add: Ajouter un préréglage
+          move: Déplacer le préréglage
+          remove: Retirer
+      cancellationPolicy:
+        title: Annulations
+        type:
+          label: Type de politique d'annulation
+          tooltip: Type de politique d'annulation
+          inherit: Identique à la configuration générale
+          custom: Politique personnalisée
+          placeholder: Sélectionnez le type de politique d'annulation
+        enabled:
+          label: Activé
+          tooltip: S'il faut autoriser l'annulation pour l'option
+          labels:
+            disabled: Désactivé
+            enabled: Activé
+        withDeposit:
+          title: Pour rendez-vous avec acompte
+          description: Configurer la politique d'annulation pour l'option lorsqu'un dépôt est requis
+          enabled: Activé
+          enabledTooltip: S'il faut autoriser l'annulation pour l'option lorsqu'un dépôt est requis
+        withoutDeposit:
+          title: Pour rendez-vous sans acompte
+          description: Configurer la politique d'annulation pour l'option lorsque le dépôt n'est pas requis
+          enabled: Activé
+          enabledTooltip: S'il faut autoriser l'annulation pour l'option lorsque le dépôt n'est pas requis
+      reschedulePolicy:
+        title: Reprogramme
+        type:
+          label: Type de stratégie de reprogrammation
+          tooltip: Type de politique de reprogrammation
+          inherit: Identique à la configuration générale
+          custom: Politique personnalisée
+          placeholder: Sélectionnez le type de politique de reprogrammation
+        enabled:
+          label: Activé
+          tooltip: S'il faut autoriser la reprogrammation pour l'option
+          labels:
+            disabled: Désactivé
+            enabled: Activé
+        default:
+          title: Politique par défaut
+          tooltip: Configurer la stratégie par défaut qui sera appliquée si aucune autre stratégie n'est applicable
+      selectOption: Sélectionnez une option
+      fields: Champs
+      addons: Modules complémentaires
+      staff:
+        title: Personnel
+        hint: Les services sans membres ne sont pas disponibles à la réservation.
+        add: Ajouter un nouveau membre
+        memberSelectCard:
+          moveMember: Déplacer un militaire
+          member: Membre
+          meetingUrlProviderWarning: Ce membre n'a pas défini de fournisseur d'URL de réunion sur son profil. Les rendez-vous ne créeront donc pas d'URL de réunion.
+          deleteConfirmTitle: Etes-vous absolument sûr ?
+          deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce membre de ce service ?
+          cancel: Annuler
+          delete: Supprimer
+          overrides:
+            price: Suppression du prix
+            duration: Remplacement de la durée
+      tabs:
+        general: Général
+        payments: Paiements
+        virtual: Virtuel
+        duplicates: Doublons
+        fields: Champs
+        addons: Modules complémentaires
+        staff: Personnel
+      duplicateAppointmentCheck:
+        title: Réservations en double pour le même service
+        enabled: Vérifier les réservations en double
+        enabledTooltip: S'il faut demander une confirmation/ne pas autoriser la planification si le client a déjà un futur rendez-vous pour le même service à proximité de la date/heure sélectionnée
+        doNotAllowScheduling:
+          label: Action à entreprendre
+          tooltip: Que faire si le client a déjà un prochain rendez-vous pour le même service à proximité de la date/heure sélectionnée
+          labels:
+            "false": Demander au client de confirmer
+            "true": Ne pas autoriser la planification
+        days: Plage de jours
+        daysSuffix: jours
+        daysTooltip: Nombre de jours avant ou après la date/heure sélectionnée pour vérifier un rendez-vous existant
+        message: Message de confirmation
+        messageTooltip: "Message affiché au client.<br></br>Espaces réservés :<br></br>- <i>'{{days}}'</i> : plage de jours<br></br>- <i>'{{name}}'</i> : client nom<br></br>- <i>'{{service}}'</i> : service nom<br></br>- <i>'{{date}}'</i> : date du rendez-vous existant"
+        messageExamples:
+          label: Exemples <chevron></chevron>
+          friendly: Bonjour « {{name}} », vous avez déjà réservé « {{service}} » le « {{date}} » dans les « {{days}} » jours. Souhaitez-vous créer une autre réservation pour ce service ?
+          neutral: Vous avez déjà prévu « {{service}} » le « {{date}} » (dans les « {{days}} jours). Souhaitez-vous réserver à nouveau le même service ?
+          formal: Bonjour « {{name}} », nos enregistrements montrent que vous avez « {{service}} » sur « {{date}} ». Êtes-vous sûr de vouloir effectuer une autre réservation pour le même service dans les « {{days}} » jours ?
+      validation:
+        nameUnique: Le nom de l'option doit être unique
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+      addToAvailabilityDialog:
+        title: Ajouter cette option aux disponibilités de réservation ?
+        description: Voulez-vous que <em>{name}</em> soit disponible pour des rendez-vous maintenant ?
+        manageHint: Vous pouvez toujours gérer les options disponibles dans <link>Paramètres -> Rendez-vous</link>
+        actions:
+          skip: Pas maintenant
+          add: Ajouter aux options disponibles
+        toasts:
+          added: La disponibilité des options a été mise à jour.
+          requestError: Il y a eu un problème avec votre demande.
+    table:
+      columns:
+        name: Nom
+        updatedAt: Mis à jour à
+        cellAction:
+          optionDeleted: L'option "{name}" a été supprimée.
+          deleteError: Il y a eu un problème avec votre demande.
+          actions: Actes
+          update: Mise à jour
+          delete: Supprimer
+          clone: Cloner
+    deleteSelected:
+      success: Les options sélectionnées ont été supprimées
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {option} other {# options}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+  fields:
+    title: Champs
+    description: Gérer les champs personnalisés
+    addNew: Ajouter un nouveau
+    new: Nouveau
+    newTitle: Nouveau champ
+    newDescription: Ajouter un nouveau champ personnalisé
+    editDescription: Modifier le champ personnalisé
+    form:
+      name: Nom
+      namePlaceholder: Nom du champ
+      nameTooltip: ID unique du champ. Ne peut contenir que des lettres, des chiffres et un trait de soulignement
+      label: Étiquette
+      labelPlaceholder: Libellé du champ
+      labelTooltip: Étiquette qui sera montrée à l'utilisateur
+      type: Taper
+      typePlaceholder: Sélectionnez le type de champ
+      typeTooltip: Type de champ
+      description: Description
+      descriptionPlaceholder: Description du champ
+      descriptionTooltip: Brève description du domaine
+      required: Requis
+      requiredTooltip: Champ de marquage obligatoire
+      options: Possibilités
+      addOption: Ajouter une option
+      fileTypes: Types de fichiers
+      fileTypesTooltip: Types de fichiers autorisés pour le téléchargement
+      validation:
+        nameUnique: Le nom du champ doit être unique
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+      optionsTitle: Possibilités
+      maxSizeMbLabel: Taille maximale du fichier (Mo)
+      maxSizeMbTooltip: Taille de fichier maximale autorisée en mégaoctets.
+      maxSizeMbPlaceholder: "5"
+      acceptedFilesLabel: Fichiers acceptés
+      acceptedFilesTooltip: Liste des fichiers et types de fichiers acceptés. Voir MDN pour plus de détails.
+      acceptedFilesPlaceholder: Cliquez sur le bouton plus pour ajouter un nouveau type de fichier
+    table:
+      columns:
+        name: Nom
+        type: Taper
+        label: Étiquette
+        updatedAt: Mis à jour à
+        addons: Modules complémentaires
+        options: Possibilités
+        addonsInDialog: "{label} dans les modules complémentaires"
+        optionsInDialog: "{label} en options"
+      cellAction:
+        fieldDeleted: Le champ d'option "{label}" a été supprimé.
+        deleteError: Il y a eu un problème avec votre demande.
+        actions: Actes
+        update: Mise à jour
+        delete: Supprimer
+        clone: Cloner
+    deleteSelected:
+      success: Les champs sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {field} other {# fields}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les champs sélectionnés et les supprimera de toutes les options et modules complémentaires qui les utilisent
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+    selectFieldOptionCard:
+      moveOption: Option de déplacement
+      option: Option
+      deleteConfirmTitle: Etes-vous absolument sûr ?
+      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette option ?
+  discounts:
+    title: Réductions
+    description: Gérer les remises
+    addNew: Ajouter un nouveau
+    new: Nouveau
+    newTitle: Nouvelle remise
+    newDescription: Ajouter une nouvelle remise
+    editDescription: Modifier la remise
+    form:
+      name: Nom
+      namePlaceholder: Nom de la remise
+      nameTooltip: Nom de réduction unique
+      description: Description
+      descriptionPlaceholder: Description de la remise
+      descriptionTooltip: Brève description de la réduction
+      type: Taper
+      typePlaceholder: Sélectionnez le type de réduction
+      typeTooltip: Type de remise
+      value: Valeur
+      valuePlaceholder: Valeur de remise
+      valueTooltip: Montant ou pourcentage de la remise
+      enabled: Activé
+      enabledTooltip: Si cette réduction est active
+      status: Statut
+      active: Actif
+      disabled: Désactivé
+      codes: Codes
+      codesPlaceholder: Codes de réduction
+      codesTooltip: Codes pouvant être utilisés pour appliquer cette réduction
+      addCode: Ajouter du code
+      removeCode: Supprimer le code
+      startDate: Date de début
+      startDatePlaceholder: Quand la réduction devient active
+      startDateTooltip: Date à laquelle la réduction commence à être valable
+      endDate: Date de fin
+      endDatePlaceholder: Quand la réduction expire
+      endDateTooltip: Date à laquelle la réduction cesse d'être valable
+      appointmentStartDate: Date de rendez-vous éligible la plus proche
+      appointmentStartDateTooltip: La première date de rendez-vous (incluse) pour laquelle cette réduction peut être appliquée. Les rendez-vous prévus avant cette date ne seront pas éligibles au rabais.
+      appointmentEndDate: Date du dernier rendez-vous éligible
+      appointmentEndDateTooltip: La dernière date de rendez-vous (incluse) pour laquelle cette réduction peut être appliquée. Les rendez-vous prévus après cette date ne seront pas éligibles au rabais.
+      maxUsage: Utilisations totales maximales
+      maxUsageTooltip: Nombre total de fois où cette remise peut être utilisée par tous les clients. Une fois cette limite atteinte, la réduction ne sera plus disponible.
+      maxUsagePerCustomer: Utilisations maximales par client
+      maxUsagePerCustomerTooltip: Le nombre maximum de fois qu'un client individuel peut utiliser cette réduction. Toute nouvelle tentative d'utilisation de la réduction par ce client sera rejetée une fois cette limite atteinte.
+      limitTo: Limiter à
+      limitToTooltip: Restreindre la remise à des options, modules complémentaires et forfaits spécifiques
+      addLimit: Ajouter une limite
+      removeLimit: Supprimer la limite
+      anyOption: N'importe quelle option
+      anyAddon: Tout module complémentaire
+      anyPackage: N'importe quel forfait
+      anyOptionOrAddon: Toute option ou module complémentaire
+      addNew: Ajouter un nouveau
+      optionsLabel: "L'une des options suivantes :"
+      addonsLabel: "L’un des packs complémentaires suivants :"
+      packagesLabel: "L'un des forfaits suivants :"
+      withLabel: Avec
+      orLabel: Ou
+      removeLimitTitle: Etes-vous absolument sûr ?
+      removeLimitDescription: Êtes-vous sûr de vouloir supprimer cette limite ?
+      limitToDescription: Vous pouvez limiter cette remise à des options, modules complémentaires et forfaits spécifiques.
+      cancel: Annuler
+      delete: Supprimer
+      validation:
+        nameUnique: Le nom de la remise doit être unique
+        codeUnique: Le code de réduction doit être unique
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+    table:
+      columns:
+        name: Nom
+        codes: Codes
+        type: Taper
+        value: Valeur
+        enabled: Statut
+        startDate: Depuis
+        endDate: À
+        usedCount: Utilisation totale
+        updatedAt: Mis à jour à
+      cellAction:
+        discountDeleted: La remise {name} a été supprimée.
+        deleteError: Il y a eu un problème avec votre demande.
+        actions: Actes
+        update: Mise à jour
+        delete: Supprimer
+        clone: Cloner
+    deleteSelected:
+      success: Les réductions sélectionnées ont été supprimées
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {discount} other {# discounts}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les réductions sélectionnées.
+      confirmDescription2: Cela n'affectera pas les rendez-vous existants qui utilisent ces réductions
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+  packages:
+    title: Forfaits
+    description: Forfaits de rendez-vous prépayés
+    addNew: Ajouter un nouveau
+    new: Nouveau
+    newTitle: Nouveau forfait
+    newDescription: Ajouter un forfait de rendez-vous prépayé
+    editDescription: Modifier le package
+    sell: Vendre un forfait
+    sellTitle: Vendre un forfait
+    sellDescription: Délivrez ce colis à un client et enregistrez un paiement en magasin
+    sellForm:
+      package: Emballer
+      customer: Client
+      price: Prix
+      paymentMethod: Mode de paiement
+    sold:
+      title: Forfaits vendus
+      description: Colis délivrés aux clients
+      statusBadges:
+        active: Actif
+        exhausted: Épuisé
+        expired: Expiré
+        cancelled: Annulé
+      table:
+        columns:
+          name: Emballer
+          customer: Client
+          price: Prix
+          remaining: Restant
+          used: Utilisé
+          status: Statut
+          purchasedAt: Acheté
+          expiresAt: Expire
+        cellAction:
+          viewCustomer: Voir le client
+          viewAppointments: Afficher les rendez-vous
+          scheduleAppointment: Planifier un rendez-vous
+        filters:
+          package: Emballer
+    table:
+      columns:
+        name: Nom
+        price: Prix
+        credits: Crédits
+        soldCount: Vendu
+        status: Statut
+        isPublic: Publique
+        updatedAt: Mis à jour à
+      statusBadges:
+        active: Actif
+        inactive: Inactif
+      cellAction:
+        packageDeleted: Le package {name} a été supprimé.
+        deleteError: Il y a eu un problème avec votre demande.
+        hasPurchases: Ce package contient des achats et ne peut pas être supprimé.
+        actions: Actes
+        update: Mise à jour
+        delete: Supprimer
+        sell: Vendre
+        setActive: Activer
+        setInactive: Désactiver
+    deleteSelected:
+      success: Les packages sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {package} other {# packages}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cela supprimera les packages sélectionnés qui n'ont aucun achat.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+    form:
+      name:
+        label: Nom
+        placeholder: 10x Massages
+        tooltip: Nom interne affiché au personnel et aux clients
+      description:
+        label: Brève description
+        tooltip: Texte court qui sera visible lors de la réservation
+      price:
+        label: Prix
+        placeholder: "200"
+        tooltip: Prix ​​prépayé du forfait
+      credits:
+        label: Séances
+        suffix: séances
+        tooltip: Combien de visites sont incluses
+      option:
+        label: Service
+        tooltip: Service pouvant être réservé avec ce forfait
+      validityMonths:
+        label: Validité
+        tooltip: Combien de temps les crédits restent valables après l'achat. Partez à 0 ans et 0 mois sans expiration.
+      maxPurchasesPerCustomer:
+        label: Achats maximum par client
+        suffix: achats
+        tooltip: Laissez vide pour aucune limite sur le nombre de fois qu'un client peut acheter ce forfait
+      isAutoConfirm:
+        label: Confirmation automatique des rendez-vous
+        tooltip: Lorsqu'une visite est réservée avec ce forfait, ce paramètre remplace la règle de confirmation automatique de l'option de service.
+        always: Toujours
+        never: Jamais
+        inherit: Hériter des paramètres de réservation
+      eligibleStaff:
+        title: Personnel éligible
+        hint: Par défaut, tout membre affecté au service peut effectuer ce package. Ajoutez des membres uniquement si vous souhaitez restreindre les personnes pouvant effectuer des visites.
+        add: Ajouter un membre
+        tooltip: Restreindre le personnel pouvant effectuer des visites payées avec ce forfait
+        member: Membre
+        deleteConfirmTitle: Etes-vous absolument sûr ?
+        deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce membre du personnel ?
+        cancel: Annuler
+        delete: Supprimer
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        created: Package créé.
+        sold: Colis vendu.
+        requestError: Il y a eu un problème avec votre demande.
+    customer:
+      title: Forfaits
+      remaining: "{remaining} sur {total} restants"
+      used: "{used} sur {total} utilisé"
+      expires: Expire {date}
+      noPackages: Aucun forfait
+      scheduleAppointment: Planifier un rendez-vous
+      viewAppointments: Afficher les rendez-vous
+      cancel:
+        button: Annuler le forfait
+        confirmTitle: Annuler ce forfait ?
+        confirmDescription: Cela annulera {name}. Les crédits restants sont conservés et peuvent être restaurés en les réactivant.
+        success: Forfait annulé.
+      reactivate:
+        button: Réactiver le package
+        confirmTitle: Réactiver ce package ?
+        confirmDescription: Cela réactivera {name}. Les crédits restants restent tels quels.
+        success: Forfait réactivé.
+    appointment:
+      used: "Forfait : {name}"
+      label: Emballer
+      view: Voir le forfait
+      creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
+    adjust:
+      title: Ajuster les crédits utilisés
+      description: Définissez le nombre de crédits de {name} qui ont été utilisés (0–{total}).
+      usedLabel: Crédits utilisés
+      reason: Raison
+      reasonPlaceholder: Remarque facultative
+      save: Sauvegarder
+      decrease: Diminuer les crédits utilisés
+      increase: Augmenter les crédits utilisés
+      ofTotal: du {total}
+    notifications:
+      issued:
+        title: Colis émis
+        message: "{name} a été émis à un client"
+        action: Voir le client
+    emails:
+      purchasedOwner:
+        subject: Achat d'un nouveau forfait - {packageName}
+        preview: "{customerName} acheté {packageName}"
+        title: Achat d'un nouveau forfait
+        body: "{customerName} a acheté {packageName} pour {price}."
+        button: Afficher les forfaits clients
+        handledBy: Forfaits (achat client)
+  giftCards:
+    title: Cartes cadeaux
+    description: Gérer les cartes cadeaux
+    addNew: Ajouter un nouveau
+    new: Nouveau
+    newTitle: Nouvelle carte cadeau
+    newDescription: Ajouter une nouvelle carte cadeau
+    editDescription: Modifier la carte cadeau
+    table:
+      payments:
+        title: Paiements
+        description: Paiements effectués avec cette carte cadeau
+        noPayments: Aucun paiement trouvé
+        addPayment: Ajouter un paiement
+      columns:
+        code: Code
+        amount: Montant
+        amountLeft: Montant restant
+        expiresAt: Expire à
+        status: Statut
+        createdAt: Créé à
+        updatedAt: Mis à jour à
+        payments: Paiements
+        paymentMethod: Mode de paiement
+        customer: Client
+      cellAction:
+        giftCardDeleted: La carte cadeau {code} a été supprimée.
+        giftCardSetActive: La carte cadeau {code} a été activée.
+        giftCardSetInactive: La carte cadeau {code} a été désactivée.
+        actions: Actes
+        update: Mise à jour
+        delete: Supprimer
+        deleteFromSource: Peut être supprimé uniquement à partir de {appName}
+        setActive: Activer
+        setInactive: Désactiver
+      statusBadges:
+        active: Actif
+        inactive: Inactif
+        expired: Expiré
+        noAmountLeft: Il ne reste plus aucun montant
+    setStatusSelected:
+      setActive: Activer
+      setInactive: Désactiver
+      buttonActive: Activer {count, plural, =1 {gift card} other {# gift cards}}
+      buttonInactive: Désactiver {count, plural, =1 {gift card} other {# gift cards}}
+      confirmTitleActive: Activer les cartes cadeaux sélectionnées ?
+      confirmTitleInactive: Désactiver les cartes cadeaux sélectionnées ?
+      confirmDescription: Cela modifiera le statut des cartes cadeaux sélectionnées.
+      successActive: Les cartes cadeaux sélectionnées ont été activées.
+      successInactive: Les cartes cadeaux sélectionnées ont été désactivées.
+      error: Il y a eu un problème avec votre demande.
+      cancel: Annuler
+    deleteSelected:
+      success: Les cartes cadeaux sélectionnées ont été supprimées
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {gift card} other {# gift cards}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les cartes-cadeaux sélectionnées.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+    form:
+      code:
+        label: Code
+        placeholder: XXX-XXX-XXX
+        tooltip: Code unique pour la carte cadeau
+        generateTooltip: Générer un nouveau code pour la carte cadeau
+        copied: Code copié dans le presse-papier
+        copyToClipboardTooltip: Copier le code dans le presse-papier
+      amount:
+        label: Montant
+        placeholder: "50"
+        tooltip: Montant de la carte cadeau
+      expiresAt:
+        label: Expire à
+        tooltip: Date d'expiration de la carte cadeau
+      paymentMethod:
+        label: Mode de paiement
+        tooltip: Mode de paiement utilisé pour acheter la carte cadeau
+      status:
+        label: Statut
+        tooltip: Statut de la carte cadeau
+        options:
+          active: Actif
+          inactive: Inactif
+      customerId:
+        label: Client
+        tooltip: Client qui a acheté la carte cadeau
+      toasts:
+        created: Carte cadeau créée avec succès
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+  addons:
+    title: Modules complémentaires
+    description: Gérer les modules complémentaires
+    addNew: Ajouter un nouveau
+    new: Nouveau
+    newTitle: Nouveau module complémentaire
+    newDescription: Ajouter un nouveau module complémentaire
+    editDescription: Modifier le module complémentaire
+    form:
+      name: Nom
+      namePlaceholder: Nom du module complémentaire
+      nameTooltip: Nom unique du module complémentaire
+      description: Brève description
+      descriptionTooltip: Texte court qui sera visible lors de la réservation
+      duration: Durée
+      durationTooltip: Durée du module complémentaire
+      price: Prix
+      pricePlaceholder: "20"
+      priceTooltip: Prix ​​du module complémentaire
+      fields: Champs
+      fieldsTooltip: Champs obligatoires pour ce module complémentaire
+      staffOverrides:
+        title: Remplacements de membres
+        hint: Par défaut, tout membre pouvant effectuer le service parent peut proposer ce module complémentaire au prix et à la durée de base. Ajoutez un membre uniquement pour définir un prix ou une durée différente, ou pour indiquer qu'il ne peut pas proposer ce module complémentaire.
+        add: Ajouter un remplacement
+        memberOverrideCard:
+          member: Membre
+          unavailable: Impossible de proposer ce module complémentaire
+          unavailableHint: Lorsqu'il est activé, ce membre ne pourra pas proposer ce module complémentaire lors de la réservation.
+          deleteConfirmTitle: Etes-vous absolument sûr ?
+          deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de membre ?
+          cancel: Annuler
+          delete: Supprimer
+          overrides:
+            price: Suppression du prix
+            duration: Remplacement de la durée
+      validation:
+        nameUnique: Le nom du module complémentaire doit être unique
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+    table:
+      columns:
+        name: Nom
+        updatedAt: Mis à jour à
+        options: Possibilités
+        optionsInDialog: "{name} en options"
+      cellAction:
+        addonDeleted: Le module complémentaire "{name}" a été supprimé.
+        deleteError: Il y a eu un problème avec votre demande.
+        actions: Actes
+        update: Mise à jour
+        delete: Supprimer
+        clone: Cloner
+    deleteSelected:
+      success: Les modules complémentaires sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {add-on} other {# add-ons}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modules complémentaires sélectionnés et les supprimera de toutes les options qui les utilisent
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+templates:
+  page:
+    title: Modèles de communication
+  formPage:
+    typeTemplates: "{type} modèles"
+    new: Nouveau
+  newPage:
+    title: Nouveau modèle {type}
+  editPage:
+    title: Mettre à jour le modèle
+    clone: Cloner
+  addNew:
+    emptyTemplate: Modèle vide
+    add: Ajouter
+    addNewTemplate: Ajouter un nouveau modèle
+    type: Taper
+    selectTemplateType: Sélectionnez le type de modèle
+    template: Modèle
+    close: Fermer
+  form:
+    subject: Objet de l'e-mail
+    subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
+    subjectPlaceholder: Sujet
+    name: Nom du modèle
+    nameTooltip: Nom de modèle unique
+    namePlaceholder: Nom du modèle
+    validation:
+      templateNotValid: Le modèle n'est pas valide
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  textMessageBuilder:
+    content: Contenu du message texte
+    viewContext: Afficher le contexte
+    contextValues: Valeurs contextuelles
+    copied: Copié
+    copyPath: Copier le chemin
+    close: Fermer
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Aperçu
+  table:
+    filters:
+      type: Taper
+      filters: Filtres
+    columns:
+      type: Taper
+      name: Nom
+      updatedAt: Mis à jour à
+    cellAction:
+      templateDeleted: Le modèle « {name} » a été supprimé.
+      deleteError: Il y a eu un problème avec votre demande.
+      actions: Actes
+      update: Mise à jour
+      delete: Supprimer
+      clone: Cloner
+    deleteSelected:
+      success: Les modèles sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {template} other {# templates}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modèles sélectionnés et pourrait interrompre les notifications qui les utilisent.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+appearance:
+  styling:
+    title: Stylisme
+    description: Ajuster le style général
+    form:
+      primaryFont: Police principale
+      secondaryFont: Police secondaire
+      tertiaryFont: Police tertiaire
+      selectFont: Sélectionnez la police
+      colorOverrides: Remplacements de couleur
+      invalidField: Champ invalide
+      duplicateType: Type en double
+      remove: Retirer
+      deleteConfirmTitle: Etes-vous absolument sûr ?
+      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de couleur ?
+      cancel: Annuler
+      delete: Supprimer
+      type: Taper
+      selectColorOverrideType: Sélectionnez le type de remplacement de couleur
+      color: Couleur
+      colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
+      additionalCss: CSS supplémentaire
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+      fonts:
+        seeOnGoogleFonts: Voir sur Google Fonts
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variantes : {variants}"
+          regular: Régulier
+          italic: Italique
+          bold: Audacieux
+          medium: Moyen
+          semibold: Semi-gras
+          extrabold: Extra-audacieux
+          100italic: 100 italique
+          200italic: 200 italique
+          300italic: 300 italique
+          400italic: 400 italique
+          500italic: 500 italique
+          600italic: 600 italique
+          700italic: 700 italique
+          800italic: 800 italique
+          900italic: 900 italique
+        subsets:
+          label: "Sous-ensembles : {subsets}"
+          latin: latin
+          latin-ext: Latin étendu
+          vietnamese: vietnamien
+          cyrillic: cyrillique
+          cyrillic-ext: Cyrillique étendu
+          greek: grec
+          greek-ext: Grec étendu
+          hebrew: hébreu
+          math: Mathématiques
+          symbols: Symboles
+        category:
+          label: "Catégorie : {category}"
+          sans-serif: Sans empattement
+          serif: Serif
+          monospace: Monospace
+          display: Afficher
+          handwriting: Écriture
+          script: Scénario
+          fantasy: Fantaisie
+    colors:
+      default: Défaut
+      custom: Couleur personnalisée
+      background: Arrière-plan
+      foreground: Texte
+      card: Carte
+      card-foreground: Texte de la carte
+      popover: Popover
+      popover-foreground: Texte contextuel
+      primary: Primaire
+      primary-foreground: Texte principal
+      secondary: Secondaire
+      secondary-foreground: Texte secondaire
+      muted: En sourdine
+      muted-foreground: Texte en sourdine
+      accent: Accent
+      accent-foreground: Texte accentué
+      destructive: Destructeur
+      destructive-foreground: Texte destructeur
+      border: Frontière
+  footer:
+    title: Pied de page
+    description: Ajuster les liens dans le pied de page
+    form:
+      useCustomFooter: Utiliser un pied de page personnalisé
+      footerContent: Contenu du pied de page
+      preview: Aperçu
+      contactUsLabel: Étiquette Contactez-nous
+      contactUsLabelTooltip: La valeur par défaut est « Contactez-nous »
+      contactUsPlaceholder: Contactez-nous
+      links: Links
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+apps:
+  heading: Applications connectées
+  description: Gérez vos applications connectées
+  defaultApps: Applications par défaut
+  appStore: Magasin d'applications
+  searchPlaceholder: Rechercher les applications installées
+  noResults: Aucune application trouvée pour votre recherche
+  noConnectedApps: Vous n'avez aucune application connectée
+  defaultAppsForm:
+    payment:
+      label: Processeur de paiement
+      placeholder: Désactiver les paiements
+    emailSender:
+      label: Expéditeur d'e-mail
+      placeholder: Utiliser l'expéditeur de courrier électronique par défaut
+    textMessageSender:
+      label: Expéditeur de SMS
+      placeholder: Utiliser l'expéditeur de message texte par défaut
+    textMessageResponder:
+      label: Répondeur aux SMS
+      tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
+    assetsStorage: Stockage des actifs
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  defaultAppsDescription: Sélectionnez les applications par défaut
+  migrateAssetsDialog:
+    migrateAssets: Migrer les actifs
+    title: Migrer les actifs existants
+    description: Migrez vos actifs existants depuis votre stockage précédent
+    sourceApp: Application de stockage des actifs sources
+    done: "Terminé : {count}"
+    success: "Succès : {count}"
+    error: "Erreur : {count}"
+    total: "Total : {count}"
+    migrate: Émigrer
+    toasts:
+      requestError: Votre demande a échoué
+  events:
+    installed:
+      title: Application installée
+      description: "{appDisplayName} a été installé."
+    connected:
+      title: Application connectée
+      description: "{appDisplayName} connecté."
+    uninstalled:
+      title: Application désinstallée
+      description: "{appDisplayName} a été désinstallé."
+    failed:
+      title: L'application a échoué
+      description: "{appDisplayName} n'a pas réussi à se connecter."
+  notifications:
+    failed:
+      title: La connexion à l'application a échoué
+      message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
+      action: Ouvrir des applications
+  emails:
+    failed:
+      subject: "{appDisplayName} - échec de la connexion"
+      preview: "{appDisplayName} n'a pas pu rester connecté"
+      title: Nous n'avons pas pu garder votre application connectée
+      body: |-
+        Bonjour {userName},
+
+        **{appDisplayName}** a signalé un problème de connexion ou n'a pas terminé la configuration avec succès. Ouvrez **Apps** dans votre tableau de bord pour vérifier les informations d'identification et les paramètres, puis réessayez de vous connecter.
+
+        Si tout semble déjà correct, vous pouvez ignorer cet e-mail.
+      button: Ouvrir des applications
+      handledBy: "Échec de la connexion à l'application : {appDisplayName}"
+settings:
+  general:
+    title: Paramètres généraux
+    description: Nom de l'entreprise, coordonnées, emplacement et paramètres régionaux par défaut de votre organisation.
+    billing:
+      sectionTitle: Abonnement et facturation
+      status:
+        active: Actif
+        trialing: Essai
+        past_due: En souffrance
+        canceled: Annulé
+        incomplete: Incomplet
+        incomplete_expired: Incomplet expiré
+        unpaid: Non rémunéré
+        revoked: Révoqué
+        other: "{status}"
+        none: Aucun abonnement au dossier
+        label: Statut
+        feesExempt:
+          label: Aucun abonnement requis
+          hint: Cet espace de travail est exonéré de facturation d'abonnement Hacado.
+      openPortal: Portail de facturation ouvert
+      managePlanInPortal: Gérer le forfait
+      choosePlan: Choisissez un forfait
+      portalError: Impossible d'ouvrir le portail de facturation. Réessayez plus tard.
+      portalReturnHint: Vous reviendrez ici après avoir géré la facturation dans Polar.
+      portalManageHint: Mettez à niveau, rétrogradez ou annulez votre forfait sur le portail client Polar.
+      planTier:
+        free: Forfait gratuit
+        solo: Forfait solo
+        studio: Plan studio
+      freeTierHint: Mettez à niveau le portail de facturation pour débloquer les fonctionnalités Solo.
+      planLabel: Plan
+      priceLabel: Prix
+      nextBillingLabel: Prochaine facturation
+      priceWithIntervalLabel:
+        month: "{price}/mois"
+        year: "{price}/an"
+        week: "{price}/semaine"
+        day: "{price}/ jour"
+      smsCreditsSectionTitle: Crédits SMS
+      seatsSectionTitle: Sièges d'équipe
+      seatsIncluded:
+        title: Inclus (abonnement)
+        includedLabel: Sièges inclus
+        availableLabel: Total disponible
+      seatsAdditional:
+        title: Sièges supplémentaires
+        additionalLabel: Places achetées
+        addonSeats: "{count, plural, =1 {1 seat} other {# seats}}"
+        unnamedAddon: "{count, plural, =1 {1 additional seat} other {# additional seats}}"
+        emptyAllowed: Aucun abonnement de siège supplémentaire pour l'instant. Achetez des sièges pour inviter plus de membres de l’équipe.
+        emptyNotAllowed: Votre forfait actuel n'inclut pas d'abonnements de sièges supplémentaires.
+      seatsPurchaseHint: Les places supplémentaires sont facturées avec votre abonnement. Gérez-les ou annulez-les dans le portail de facturation.
+      seatsUpgradeHint: Besoin de plus de membres d’équipe ? Passez à un forfait prenant en charge plusieurs utilisateurs et des sièges supplémentaires.
+      seatsUpgradeButton: Plan de mise à niveau
+      smsIncluded:
+        title: Inclus (abonnement)
+        balanceLabel: Équilibre
+        perCycleLabel: Crédits par cycle
+        nextCycleLabel: Cycle suivant
+      smsTopupPool:
+        title: Recharge
+        balanceLabel: Équilibre
+        usageHint: Ces crédits sont utilisés une fois que le montant inclus pour ce cycle est utilisé et n'expirent jamais.
+        depletionOrderHint: Les messages utilisent d'abord vos crédits d'abonnement inclus, puis tout solde complémentaire.
+      smsTopup:
+        buyButton: Acheter des crédits SMS
+        dialogTitle: Acheter des crédits SMS
+        dialogSubtitle: Choisissez une option de recharge pour ajouter des crédits SMS à votre compte.
+        dialogCreditsNote: Les crédits n'expirent jamais. Payez une fois, utilisez à tout moment.
+        bestValueBadge: Meilleur rapport qualité-prix
+        securePaymentLabel: Paiement sécurisé
+        billedOnceNoSubscription: Facturé une seule fois · Pas d'abonnement
+        savePercent: Économisez {percent} %
+        continue: Continuer
+        loadError: Impossible de charger les produits. Veuillez réessayer.
+        empty: Aucun produit de recharge SMS n'est encore disponible.
+        creditsLine: "{count} messages"
+        checkoutError: Impossible de démarrer le paiement. Réessayez plus tard.
+        purchaseSuccess: Votre achat est en cours de traitement. La mise à jour du solde de recharge peut prendre un certain temps.
+    form:
+      name: Nom de l'entreprise
+      namePlaceholder: Le nom de votre entreprise
+      industry: Industrie
+      industryPlaceholder: Sélectionnez l'industrie
+      industryTooltip: Utilisé pour les listes de recherche et l’optimisation des moteurs de recherche.
+      phone: Numéro de téléphone professionnel
+      email: Adresse e-mail professionnelle
+      emailPlaceholder: Votre adresse e-mail professionnelle
+      address: Adresse
+      addressTooltip: Adresse physique du bureau utilisée sur votre site et dans les listes de recherche
+      addressPlaceholder: Adresse physique du bureau
+      streetAddress: Adresse de la rue
+      streetAddressPlaceholder: par ex. 123, rue Principale
+      addressLine2: Ligne d'adresse 2
+      addressLine2Placeholder: par ex. Suite 205E
+      addressSearch: Trouver une adresse
+      addressLocality: Ville
+      addressLocalityPlaceholder: Ville
+      addressRegion: État/région
+      addressRegionPlaceholder: État ou région
+      postalCode: Code Postal
+      postalCodePlaceholder: Code postal ou ZIP
+      country: Pays
+      countryTooltip: Pays de présence
+      countryPlaceholder: Sélectionnez un pays
+      currency: Devise
+      currencyTooltip: Devise utilisée pour les paiements
+      currencyPlaceholder: Sélectionnez la devise
+      currencyLabelFormat: "{currency} ({code}, {symbol})"
+      timeZone: Fuseau horaire
+      selectTimeZone: Sélectionnez le fuseau horaire
+      useClientTimezone: Utiliser le fuseau horaire du client
+      useClientTimezoneTooltip: Sélectionnez cette option si vous souhaitez utiliser par défaut le fuseau horaire du client pour la page de prise de rendez-vous/modification de rendez-vous.<br></br>Par défaut, le fuseau horaire sera celui de l'entreprise.
+      customDomain:
+        title: Domaine personnalisé
+        empty: Aucun domaine personnalisé configuré
+        label: Domaine
+        placeholder: exemple.com
+        change: Changer de domaine
+        save: Enregistrer le domaine
+        dialog:
+          title: Changer de domaine personnalisé
+          description: Définissez le domaine public pour votre organisation.
+        toasts:
+          changesSaved: Domaine personnalisé enregistré.
+          requestError: Un problème est survenu lors de la mise à jour du domaine personnalisé.
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+  brand:
+    title: Site et marque
+    description: Détails de l'entreprise, site Web et référencement, liens sociaux et style.
+    form:
+      visualSectionTitle: Identité visuelle
+      websiteSectionTitle: Site web
+      seoSectionTitle: Référencement
+      title: Titre du site
+      titlePlaceholder: Titre affiché dans le navigateur et les résultats de recherche
+      description: Méta description
+      descriptionPlaceholder: Brève description pour les moteurs de recherche
+      keywords: Mots-clés
+      keywordsTooltip: Mots-clés de site Web pour aider les moteurs de recherche à comprendre votre site
+      keywordValidation: Le mot clé doit comporter au moins 2 caractères
+      domain: Domaine personnalisé
+      domainTooltip: Facultatif. Domaine de votre site public sans https://
+      domainPlaceholder: exemple.com
+      logo: Logo
+      logoTooltip: Image utilisée dans l'en-tête et les aperçus du site
+      logoPlaceholder: URL du logo
+      noLogo: Pas de logo
+      favicon: Icône de favori
+      faviconTooltip: Image carrée d'au moins 512 × 512 px (PNG, JPEG, WebP, GIF) ou SVG. Affiché dans les onglets du navigateur et les résultats de recherche.
+      faviconPlaceholder: URL de l'icône de favori
+      faviconErrors:
+        not_square: Le favicon doit être une image carrée.
+        too_small: Le favicon doit mesurer au moins 512 × 512 pixels.
+        unsupported_type: Le favicon doit être au format PNG, JPEG, WebP, GIF ou SVG.
+        unreadable: Impossible de lire l'image du favicon.
+        invalid: Le favicon doit être une image carrée d'au moins 512 × 512 px, ou un SVG.
+      language: Langue du site par défaut
+      hacadoAddress:
+        sectionTitle: Votre adresse Hacado
+        websiteUrlLabel: URL du site Web
+        connectCustomDomain: Connecter un domaine personnalisé
+        disconnectCustomDomain: Déconnecter le domaine personnalisé
+        organizationSlugLabel: Limace d'organisation
+        updateSlugComingSoon: Mise à jour (à venir)
+        connectDialogTitle: Connecter un domaine personnalisé
+        connectDialogDescription: Connectez votre propre domaine à Hacado pour prendre le contrôle total de votre marque.
+        connectDialogDnsTitle: Configurez d'abord le DNS
+        connectDialogDnsARecord: Chez votre fournisseur DNS, créez un enregistrement A pour @ (apex) ou votre sous-domaine pointant vers <value></value>.
+        connectDialogDnsCname: Ou créez un enregistrement CNAME pointant vers <value></value> - le nom d'hôte de votre site Hacado.
+        connectDialogDnsAlias: Si votre fournisseur DNS prend en charge les enregistrements ALIAS ou ANAME, vous pouvez utiliser l'un de ceux pointant vers <value></value> à la place – utile pour le sommet (@) où CNAME ne peut souvent pas être utilisé.
+        domainLabel: Domaine
+        connectButton: Connecter
+        connectButtonValidating: Validation...
+        customDomainUpgradeRequired: Les domaines personnalisés sont disponibles sur Solo.
+        customDomainUpgradeLink: Mise à niveau dans les paramètres de la marque
+        copyWebsiteUrlAriaLabel: Copier l'URL du site Web
+        copyDnsValueAriaLabel: Copier {value}
+        websiteUrlCopied: URL du site Web copiée dans le presse-papiers.
+        websiteUrlCopyFailed: Impossible de copier l'URL.
+        dnsValueCopied: Copié dans le presse-papiers.
+        dnsValueCopyFailed: Impossible de copier la valeur.
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+        invalidFavicon: Le favicon doit être une image carrée d'au moins 512 × 512 px, ou un SVG.
+  appointments:
+    title: Paramètres de rendez-vous
+    description: Ajuster les paramètres de rendez-vous
+    form:
+      tabs:
+        main: Principal
+        options: Possibilités
+        payments: Paiements
+        cancellations: Annulations
+        reschedules: Reprogramme
+      main:
+        add: Ajouter
+        scheduleProviderApp: Application du fournisseur de planification
+        scheduleProviderAppTooltip: Sélectionnez une application facultative pour fournir votre horaire de travail.<br></br>Si aucune application n'est sélectionnée, l'horaire de base sera appliqué.
+        availabilityProviderApp: Application du fournisseur de disponibilité
+        availabilityProviderAppTooltip: Sélectionnez une application facultative pour indiquer votre disponibilité.<br></br>Si aucune application n'est sélectionnée, l'application de disponibilité de base sera appliquée.
+        autoConfirmAppointments: Confirmation automatique des rendez-vous
+        requireCustomerOtp: Exiger une vérification du client
+        requireCustomerOtpTooltip: Lorsqu'il est activé, les clients doivent vérifier leur e-mail ou leur téléphone avec un code à usage unique avant de payer ou de confirmer une réservation. L’utilisation d’un forfait prépayé nécessite toujours une session vérifiée.
+        autoConfirmTooltip: Sélectionnez cette option si vous souhaitez confirmer automatiquement tous les rendez-vous créés par les clients.<br></br>Par défaut, vous devrez confirmer manuellement chaque rendez-vous.
+        allowStaffCalendarSources: Autoriser le personnel à gérer les sources de calendrier
+        allowStaffCalendarSourcesTooltip: Lorsque cette option est activée, les membres du personnel peuvent connecter des sources de calendrier personnel sur leur profil et ces calendriers sont utilisés lors de la vérification de la disponibilité. Lorsqu'il est désactivé, le personnel ne peut pas gérer les sources de calendrier et les périodes de pointe ignorent leurs calendriers personnels.
+        showPromoCodeField: Afficher le champ du code promotionnel
+        showPromoCodeTooltip: Configurez si le champ du code promotionnel doit être affiché lors de la réservation
+        maxWeeksInFuture: Nombre maximum de semaines dans le futur
+        maxWeeksInFutureTooltip: Spécifie le nombre maximum de semaines dans le futur pendant lesquelles un utilisateur peut planifier des rendez-vous.<br></br><b>Exemple :</b> Si la valeur est définie sur 6, les utilisateurs ne peuvent planifier des événements que jusqu'à 6 semaines à compter de la date actuelle.<br></br><b>Valeur par défaut :</b> 8 semaines.
+        minBreakTime: Temps de pause minimum
+        minBreakTimeTooltip: Définit l'intervalle de temps minimum requis qui doit être laissé disponible avant et après un créneau horaire planifié.<br></br>Ce champ garantit qu'il y a une période tampon avant et après chaque créneau pour tenir compte des pauses, du temps de préparation ou pour éviter les conflits d'horaire.<br></br><b>Exemple :</b> S'il est défini sur 30, il doit y avoir au moins 30 minutes de temps libre avant et après chaque créneau planifié avant que le créneau suivant puisse commencer.<br></br><b>Valeur par défaut :</b> 0 minutes.
+        minHoursBeforeBooking: Nombre minimum d'heures avant de réserver
+        minHoursBeforeBookingTooltip: Spécifie le nombre minimum d'heures requis à l'avance pour qu'une réservation soit effectuée.<br></br>Ce paramètre permet de garantir que les utilisateurs ne peuvent pas prendre rendez-vous avec un préavis inférieur au délai imparti, vous permettant ainsi de vous préparer en conséquence.<br></br><b>Exemple :</b> Si la valeur est définie sur 24, une réservation ne peut être effectuée que si elle est au moins 24 heures avant le début souhaité. time.<br></br><b>Valeur par défaut :</b> 0 heures.
+        allowedSlotStartTimes: Heures de début des créneaux autorisées
+        allowedSlotStartTimesTooltip: Définit à quelles heures les rendez-vous peuvent commencer
+        customTimeSlots: Plages horaires personnalisées
+        customTimeSlotsTooltip: Définit à quelles heures les rendez-vous peuvent commencer
+        customTimeSlotsPlaceholder: Cliquez sur le bouton plus pour ajouter un créneau horaire
+        selectStep: Sélectionnez l'étape
+        example: Exemple
+        default: Défaut
+        weeks: semaines
+        minutes: minutes
+        hours: heures
+        stepLabels:
+          everyHour: Toutes les heures à XXh00
+          custom: Coutume
+          five: Toutes les heures à XX:05, XX:10, XX:15, XX:20, XX:25, XX:30, XX:35, XX:40, XX:45, XX:50, XX:55
+          ten: Toutes les heures à XX:00, XX:10, XX:20, XX:30, XX:40, XX:50
+          fifteen: Toutes les heures à XX:00, XX:15, XX:30, XX:45
+          twenty: Toutes les heures à XX:00, XX:20, XX:40
+          thirty: Toutes les heures à XXh00, XXh30
+      options:
+        title: Catalogue
+        addGroup: Ajouter un groupe
+        addService: Ajouter un service
+        addPackage: Ajouter un paquet
+        groupName: Nom du groupe
+        groupDescription: Brève description
+        emptyGroup: Ce groupe est vide
+        package: Emballer
+      payments:
+        enableDeposits: Activer les dépôts
+        enableDepositsTooltip: Permet de demander un acompte pour prendre rendez-vous. L'application de paiement par défaut doit être configurée dans la section des applications par défaut.
+        enable: Activer
+        disable: Désactiver
+        paymentsApp: Application de paiement
+        appointments: rendez-vous
+        paymentsAppTooltip: Quel processeur de paiement utiliser pour les paiements
+        requireDeposit: Exiger un dépôt
+        requireDepositTooltip1: Si activé, chaque client devra payer un acompte pour prendre rendez-vous
+        requireDepositTooltip2: Peut être remplacé par chaque client
+        require: Exiger
+        doNotRequire: Ne nécessite pas
+        depositAmount: Montant du dépôt
+        depositAmountTooltip: <p>Montant du dépôt en pourcentage du prix total</p><p><strong>Exemple :</strong> S'il est défini sur 100, le prix total devra être payé d'avance</p><p><strong>Facultatif</strong></p>
+        dontRequireIfCompletedMinNumberOfAppointments: Nombre minimum de rendez-vous pour ne pas exiger de dépôt
+        dontRequireIfCompletedMinNumberOfAppointmentsTooltip: <p>Ne pas exiger d'acompte pour les clients qui ont au moins un nombre spécifié de rendez-vous complétés</p><p><strong>Exemple :</strong> Si la valeur est définie sur 3, les clients qui réservent leur premier, deuxième ou troisième rendez-vous devront payer un acompte. Tandis que les clients qui prennent leur 4e rendez-vous ou plus ne seront pas tenus de payer d'acompte, sauf si cela est spécifiquement requis pour le client</p><p><strong>Facultatif</strong></p>
+        fullPaymentAmountThreshold: Montant minimum pour exiger le paiement intégral
+        fullPaymentAmountThresholdTooltip: <p>Si le dépôt calculé est inférieur à ce montant, les clients devront payer le <strong>prix complet du rendez-vous</strong> au lieu d'un dépôt partiel.</p><p><strong>Exemple :</strong> Si le seuil est de 5 $ et le dépôt est de 2 $, le client paiera la totalité du rendez-vous. prix.</p><p><strong>Facultatif</strong></p>
+        tipsMode:
+          label: Conseils lors de la réservation
+          tooltip: Permettre aux clients d'ajouter un pourboire lors du paiement en ligne lors de la réservation
+          values:
+            off: Désactivé
+            on: Sur
+            full-payment-only: Uniquement pour les paiements complets
+        tipPresets:
+          label: Préréglages de conseils
+          description: Jusqu'à 4 options de pourcentage présentées aux clients. Faites glisser pour réorganiser.
+          percentage: "%"
+          add: Ajouter un préréglage
+          move: Déplacer le préréglage
+          remove: Retirer
+      cancellationsAndReschedules:
+        title: Annulations et reprogrammations
+        cancellations:
+          title: Annulations
+          withDeposit:
+            title: Pour rendez-vous avec acompte
+          withoutDeposit:
+            title: Pour rendez-vous sans acompte
+          enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+          doNotAllowIfRescheduled:
+            label: Autoriser si reprogrammé
+            tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
+            labels:
+              "true": Ne permettez pas
+              "false": Permettre
+        reschedules:
+          title: Reprogramme
+          enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+          minutesToAppointment:
+            label: Délai minimum pour prendre rendez-vous
+            tooltip: Configurer la durée minimale du rendez-vous pour permettre la reprogrammation
+          maxReschedules:
+            label: Nombre maximum de reprogrammations
+            tooltip: Configurer combien de fois un client peut reprogrammer un rendez-vous
+        enabled:
+          label: Activé
+          selectPlaceholder: Sélectionnez une option
+          labels:
+            disabled: Désactivé
+            enabled: Activé
+            notAllowedWithoutDeposit: Non autorisé sans dépôt
+        cancellationPolicy:
+          default:
+            title: Règle par défaut
+            tooltip: Configurer la règle par défaut qui sera appliquée si aucune autre règle n'est applicable
+          policies:
+            title: Remplacer les règles
+            add: Ajouter une règle
+          policy: Règle
+        reschedulePolicy:
+          default:
+            title: Règle par défaut
+            tooltip: Configurer la règle par défaut qui sera appliquée si aucune autre règle n'est applicable
+          policies:
+            title: Remplacer les règles
+            add: Ajouter une règle
+          policy: Règle
+      cards:
+        optionSelect:
+          roleDescription: Option
+          moveOption: Option de déplacement
+          option: Option
+          deleteConfirmTitle: Etes-vous absolument sûr ?
+          deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette option de la liste des options disponibles ?
+          cancel: Annuler
+          delete: Supprimer
+        optionSelector:
+          time: "{hours}h {minutes}min"
+          requestFailed: La demande a échoué.
+          loadingOptions: Options de chargement...
+          selectOption: Sélectionnez une option
+        cancellationPolicy:
+          action:
+            label: Action
+            tooltip: Configurer l'action à entreprendre lorsqu'une annulation est demandée
+            placeholder: Sélectionnez une action
+            labels:
+              notAllowed: Non autorisé
+              forfeitDeposit: Dépôt perdu
+              partialRefund: Remboursement partiel
+              fullRefund: Remboursement intégral
+              paymentRequired: Paiement requis
+              paymentToFullPriceRequired: Paiement au prix total requis
+              allowed: Autorisé
+          paymentType:
+            label: Type de calcul du paiement
+            tooltip: Choisissez si le paiement est un montant fixe ou un pourcentage du prix
+            labels:
+              amount: Montant fixe
+              percentage: Pourcentage du prix
+            placeholder: Sélectionnez le type de calcul du paiement
+          refundFees:
+            label: Frais de remboursement
+            tooltip: Configurer si les frais doivent être remboursés lorsqu'une annulation est demandée
+          refundPercentage:
+            label: Pourcentage de remboursement
+            tooltip: Configurer le pourcentage de l'acompte qui sera remboursé lorsqu'une annulation est demandée
+          paymentPercentage:
+            label: Pourcentage de paiement
+            tooltip: Configurer le pourcentage du prix du rendez-vous qui devra être payé lorsqu'une annulation est demandée
+          calculateFromOriginalPrice:
+            label: Utiliser le prix avant remises pour le calcul du paiement
+            tooltip: Utilise le prix du rendez-vous avant les réductions au lieu du total réduit
+          paymentAmount:
+            label: Montant du paiement
+            tooltip: Configurer le montant qui devra être payé lorsqu'une annulation est demandée
+          minutesToAppointment:
+            label: Première heure applicable
+            tooltip: Le temps minimum avant un rendez-vous lorsque cette politique s’applique. S’il existe une autre politique avec une valeur plus élevée et que le rendez-vous a lieu suffisamment longtemps à l’avance, cette politique prendra effet à la place.
+          remove: Retirer
+          deleteConfirmTitle: Etes-vous absolument sûr ?
+          deleteCancellationPolicyConfirmDescription: Etes-vous sûr de vouloir supprimer ces conditions d'annulation ?
+          cancel: Annuler
+          delete: Supprimer
+        reschedulePolicy:
+          action:
+            label: Action
+            tooltip: Configurer l'action à entreprendre lorsqu'une reprogrammation est demandée
+            placeholder: Sélectionnez une action
+            labels:
+              notAllowed: Non autorisé
+              allowed: Autorisé
+              paymentRequired: Paiement requis
+          paymentType:
+            label: Type de calcul du paiement
+            tooltip: Choisissez si le paiement est un montant fixe ou un pourcentage du prix
+            labels:
+              amount: Montant fixe
+              percentage: Pourcentage du prix
+            placeholder: Sélectionnez le type de calcul du paiement
+          paymentAmount:
+            label: Montant du paiement
+            tooltip: Configurer le montant qui devra être payé lorsqu'un report est demandé
+          paymentPercentage:
+            label: Pourcentage de paiement
+            tooltip: Configurer le pourcentage du prix du rendez-vous qui devra être payé lorsqu'un report est demandé
+          calculateFromOriginalPrice:
+            label: Utiliser le prix avant remises pour le calcul du paiement
+            tooltip: Utilise le prix du rendez-vous avant les réductions au lieu du total réduit
+          minutesToAppointment:
+            label: Première heure applicable
+            tooltip: Le temps minimum avant un rendez-vous lorsque cette politique s’applique. S’il existe une autre politique avec une valeur plus élevée et que le rendez-vous a lieu suffisamment longtemps à l’avance, cette politique prendra effet à la place.
+          remove: Retirer
+          deleteConfirmTitle: Etes-vous absolument sûr ?
+          deleteReschedulePolicyConfirmDescription: Êtes-vous sûr de vouloir supprimer cette politique de reprogrammation ?
+          cancel: Annuler
+          delete: Supprimer
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+  social:
+    title: Paramètres sociaux
+    description: Ajuster les paramètres des liens sociaux
+    form:
+      socialLinks: Liens sociaux
+      card:
+        roleDescription: Lien social
+        moveOption: Déplacer le lien social
+        invalidType: Type invalide
+        remove: Retirer
+        deleteConfirmTitle: Etes-vous absolument sûr ?
+        deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce lien ?
+        cancel: Annuler
+        delete: Supprimer
+        type: Taper
+        selectType: Sélectionnez le type de lien social
+        url: URL
+        urlTooltip: Lien complet vers votre profil
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+  customerAccess:
+    title: Accès client
+    description: Modèles OTP et canaux de vérification pour les flux orientés client
+    form:
+      otpEmailTemplateId:
+        label: Modèle d'e-mail OTP
+      otpChannels:
+        label: Canal de vérification OTP
+        options:
+          email: E-mail uniquement
+          phone: Téléphone uniquement
+          email_or_phone: Email ou téléphone
+      otpTextTemplateId:
+        label: Modèle de message texte OTP
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+    handlers:
+      otpRequest: Demande d'OTP
+  schedule:
+    title: Calendrier par défaut
+    description: Définissez votre horaire de base
+    form:
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+  scripts:
+    title: Scripts
+    description: Ajouter des scripts tiers supplémentaires au site Web
+    form:
+      headerScripts: Scripts d'en-tête
+      footerScripts: Scripts de pied de page
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+form:
+  dateTimeRequired: La date et l'heure sont obligatoires
+  durationRequired: La durée est requise
+  durationInteger: Doit être la valeur entière
+  durationMin: La durée minimale est de 1 minute
+  durationMax: La durée maximale est de 10 jours
+  priceNumber: Le prix total doit être un nombre
+  priceMin: Le prix minimum est de 0
+  optionRequired: L'option doit être sélectionnée
+  addonRequired: Le module complémentaire doit être sélectionné
+  nameRequired: Le nom est requis
+  emailValid: Doit être un e-mail valide
+  phoneRequired: Le téléphone est requis
+  phoneValid: Un numéro de téléphone valide est requis
+  scheduledSuccess: Le rendez-vous a été planifié avec succès
+  requestError: Il y a eu un problème avec votre demande.
+  appointmentType: Type de rendez-vous
+  selectOption: Sélectionnez une option
+  min: min
+  custom: Coutume
+  dateTime: Date et heure
+  addons: Modules complémentaires
+  selectAddons: Sélectionnez les modules complémentaires...
+  customer: Client
+  discount: Rabais
+  duration: Durée
+  price: Prix
+  note: Note
+  confirmAppointment: Confirmer le rendez-vous
+  confirmAppointmentDescription: Marquer le rendez-vous comme confirmé
+  confirmOverlap: Confirmer le chevauchement
+  confirmOverlapDescription: Je comprends que la planification de ce rendez-vous créera un chevauchement dans mon emploi du temps
+  scheduleAppointment: Planifier un rendez-vous
+table:
+  filters:
+    status: Statut
+dashboard:
+  forbidden:
+    title: Accès refusé
+    description: Vous n'êtes pas autorisé à afficher cette page.
+    backToDashboard: Retour au tableau de bord
+  greeting:
+    morning: Bonjour, {name}
+    afternoon: Bonjour, {name}
+    evening: Bonsoir, {name}
+    fallbackName: là
+    subtitleOverview: Votre briefing pour aujourd'hui et cette semaine.
+    subtitleCalendar: Parcourez et gérez votre emploi du temps.
+    subtitlePending: Examiner et répondre aux demandes de rendez-vous en attente.
+    newAppointment: Nouveau rendez-vous
+  kpi:
+    todayAppointments: Les rendez-vous d'aujourd'hui
+    upcomingToday: "{count, plural, =0 {None upcoming} =1 {1 upcoming} other {# upcoming}}"
+    thisWeek: Cette semaine
+    thisWeekRevenue: Revenus de cette semaine
+    avgBookingValue: Moy. Valeur de réservation
+    vsLastWeek: vs la semaine dernière
+  overview:
+    openCalendar: Ouvrir le calendrier
+    weekSnapshot: Cette semaine
+    appointmentsThisWeek: Rendez-vous
+    appointments: Rendez-vous
+    newVsReturning: Nouveau vs retour
+    newCustomers: Nouveau
+    returningCustomers: De retour
+    quickLinks: Liens rapides
+  needsAttention:
+    title: A besoin d'attention
+    dismiss: Rejeter
+    allClear:
+      title: Vous êtes tous rattrapés
+      description: Rien n'a besoin de votre attention pour le moment.
+    pending:
+      title: Demandes de rendez-vous en attente
+      description: "{count, plural, =1 {You have one request waiting for a response.} other {You have # requests waiting for a response.}}"
+      action: Revoir
+    inactiveMembers:
+      title: Les membres inactifs de l'équipe ont des rendez-vous à venir
+      description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
+      action: Afficher les rendez-vous
+    failedApp:
+      title: "{appName} a besoin d'attention"
+      description: "{appName} ne fonctionne pas correctement et devra peut-être être reconnecté."
+      action: Réparer la connexion
+  subscriptionPastDueBanner:
+    message: Paiement de l'abonnement en souffrance - les nouvelles réservations et les modifications sont actuellement bloquées.
+    goToSettings: Allez dans les paramètres →
+  freeTierUpgradeBanner:
+    message: Vous êtes sur le forfait Gratuit. Passez à Solo pour des services et rendez-vous illimités, des intégrations de paiement et bien plus encore.
+    upgrade: Passer à Solo →
+  inactiveMembersBanner:
+    message: "{count, plural, =1 {# inactive team member has} other {# inactive team members have}} rendez-vous à venir qui doivent être réaffectés."
+    viewAppointments: Afficher les rendez-vous →
+  subscriptionInactive:
+    title: Abonnement annulé
+    description: Cet abonnement à l'espace de travail n'est pas actif. Contactez-nous pour restaurer l'accès.
+  appointments:
+    noAppointments: Aucun rendez-vous n'est prévu
+    noPendingAppointments: Aucun rendez-vous en attente
+    caughtUp: Vous avez rattrapé toutes les demandes. Bon travail!
+    pendingToast: Nouveaux rendez-vous en attente
+    pendingToastMessage: Vous avez {count, plural, =1 {one pending appointment} other {# pending appointments}}
+    view: Voir
+    nextAppointments: Rendez-vous à venir
+  tabs:
+    overview: Aperçu
+    calendar: Calendrier
+    pendingAppointments: Rendez-vous en attente
+communications:
+  viewMore: Voir plus
+  payloadLoadError: Impossible de charger le message complet.
+  logContent: Contenu du message
+  handler: "Gestionnaire : {handler}"
+  data: Données
+  logData: Données du journal
+  sendNew: Envoyer nouveau
+  requestError: Il y a eu un problème avec votre demande.
+  sendNewMessage: Envoyer un nouveau message
+  sendNewMessageDescription: Envoyer un nouvel e-mail ou SMS au client
+  closeDialogWarning: Vous perdrez tout le contenu si vous fermez la boîte de dialogue
+  contentNotValid: Le contenu n'est pas valide
+  messageSent: Votre message a été envoyé avec succès.
+  wrongTemplateType: Mauvais type de modèle
+  channel: Canal
+  selectTemplate: Sélectionnez un modèle
+  selectExistingTemplate: Sélectionnez un modèle existant
+  template: Modèle
+  attention: Attention
+  templateReplaceWarning: La sélection d'un modèle remplacera votre contenu actuel.
+  select: Sélectionner
+  emailSubject: Objet de l'e-mail
+  emailSubjectDescription: Objet de l'e-mail, que vos clients verront.
+  usesTemplatedValues: "* Utilise des valeurs modèles"
+  subject: Sujet
+  content: Contenu
+  send: Envoyer
+  participant: "Participant : {participant}"
+calendar:
+  today: Aujourd'hui
+  selectView: Sélectionnez la vue
+  monthly: Mensuel
+  weekly: Hebdomadaire
+  daily: Tous les jours
+  day: Jour
+  week: Semaine
+  month: Mois
+  agenda: Ordre du jour
+  eventTitle: "{customer} · {service} · {member}"
+  appointment: Rendez-vous
+  member: Membre
+  allMembers: Tous les membres de l'équipe
+  customer: Client
+  status: Statut
+  price: Prix
+  note: Note
+  loading: Chargement
+  workingHours: Heures de travail
+  workingDay: Jour ouvrable
+  work: Travail
+  hour: heure
+  minute: min
+  event: événement
+  events: événements
+  allDay: Toute la journée
+  noEventsScheduled: Aucun événement programmé
+  noEventsInRange: Aucun événement dans la plage de dates sélectionnée
+  collapseAll: Réduire tout
+  expandAll: Développer tout
+  mon: Lun
+  tue: Mar
+  wed: Épouser
+  thu: Jeu
+  fri: Ven
+  sat: Assis
+  sun: Soleil
+auth:
+  email: E-mail
+  password: Mot de passe
+  email_or_password_incorrect: L'e-mail ou le mot de passe est incorrect
+  signIn: Se connecter
+  sign_in_sign_up_link: Vous n'avez pas de compte ? <link>Inscrivez-vous</link> maintenant !
+  sign_up_sign_in_link: Vous avez déjà un compte ? <link>Connectez-vous</link> maintenant !
+  signInDescription: Entrez votre email ci-dessous pour vous connecter à votre compte
+  quote: Je l'aime!
+  quoteAuthor: Olesia Bondartchouk
+  forgotPasswordLink: <link>Mot de passe oublié ?</link>
+  social:
+    continueWithGoogle: Continuer avec Google
+    continueWithMicrosoft: Continuer avec Microsoft
+    continueWithZoom: Continuer avec Zoom
+    orContinueWithEmail: Ou continuez par e-mail
+    lastUsed: Dernière utilisation
+    errors:
+      emailMismatch: L'adresse e-mail du compte social ne correspond pas à l'adresse e-mail de votre compte
+      linkFailed: Impossible d'associer le compte social
+      regionBlocked: L'inscription n'est pas disponible dans votre région
+  error:
+    title: Quelque chose s'est mal passé
+    description: Nous n'avons pas pu finaliser la demande de connexion
+    genericDescription: Il y a eu un problème avec l'authentification. Veuillez réessayer.
+    backToSignIn: Retour pour vous connecter
+    backToSignUp: Retour pour m'inscrire
+    backToProfile: Retour au profil
+    codes:
+      accountAlreadyLinked: Ce compte social est déjà connecté à un autre utilisateur. Connectez-vous avec ce compte ou dissociez-le d'abord.
+      unableToLink: Impossible d'associer ce compte social. Veuillez réessayer.
+      emailMismatch: L'adresse e-mail du compte social ne correspond pas à l'adresse e-mail de votre compte
+      emailNotVerified: Veuillez vérifier votre email avant de continuer
+      emailNotFound: Le prestataire social n'a pas renvoyé d'adresse e-mail
+      signupDisabled: L'inscription n'est pas disponible pour le moment
+      userAlreadyExists: Un compte avec cette adresse email existe déjà. Veuillez plutôt vous connecter.
+      accessDenied: L'accès a été refusé par le prestataire social
+      stateMismatch: La session de connexion a expiré. Veuillez réessayer.
+      providerError: Impossible d'obtenir les détails du compte auprès du fournisseur de services sociaux
+      invalidToken: Jeton d'authentification invalide ou expiré
+  completeProfile:
+    title: Complétez votre profil
+    description: Ajoutez votre nom et votre numéro de téléphone pour terminer la configuration de votre compte
+    submit: Continuer
+    progress:
+      steps:
+        profile: Au propos de vous
+        phone: Téléphone
+        phoneOtp: Vérifier le téléphone
+    toasts:
+      success: Profil enregistré
+      error: Impossible d'enregistrer le profil. Veuillez réessayer.
+  captcha:
+    error: La vérification du Captcha a échoué. Veuillez réessayer.
+  verification:
+    notVerified: Votre email n'a pas été vérifié. Entrez le code que nous avons envoyé à votre adresse e-mail.
+    resendVerificationEmail: Renvoyer le code
+    sendCode: Envoyer le code de vérification
+    verify: Vérifier l'e-mail
+    otpLabel: Le code de vérification
+    otpSent: Nous avons envoyé un code de vérification à votre adresse e-mail.
+    success: Code de vérification envoyé. Veuillez vérifier votre courrier électronique.
+    error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+    invalidToken: Code invalide ou expiré. Veuillez en demander un nouveau.
+    invalidCode: Code de vérification invalide
+    verified: Votre email a été vérifié. Vous pouvez maintenant vous connecter à votre compte.
+  phoneOtp:
+    title: Vérifiez votre téléphone
+    description: Entrez le code que nous avons envoyé sur votre téléphone
+    sendCode: Envoyer le code
+    resendCode: Renvoyer le code
+    verify: Vérifier
+    otpLabel: Le code de vérification
+    cooldown: Renvoyer dans {seconds}s
+    smsBody: Votre code de vérification Hacado est {otp}. Valable 5 minutes. Ne partagez pas ce code.
+    errors:
+      phoneInUse: Ce numéro de téléphone est déjà utilisé
+      rateLimited: Trop de demandes. Veuillez réessayer plus tard.
+      cooldown: Veuillez patienter avant de demander un autre code
+      invalidCode: Code de vérification invalide
+      expired: Code expiré. Veuillez en demander un nouveau.
+      tooManyAttempts: Trop de tentatives. Veuillez demander un nouveau code.
+      smsFailed: Impossible d'envoyer des SMS. Veuillez réessayer.
+      notVerified: Le numéro de téléphone n'a pas été vérifié
+      invalidPhone: Numéro de téléphone invalide
+  emailOtp:
+    title: Vérifiez votre email
+    description: Entrez le code que nous avons envoyé à votre email
+    otpLabel: Le code de vérification
+    sendCode: Envoyer le code
+    resendCode: Renvoyer le code
+    verify: Vérifier
+    errors:
+      invalidCode: Code de vérification invalide
+      tooManyAttempts: Trop de tentatives. Veuillez demander un nouveau code.
+      error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+  forgotPassword:
+    title: Mot de passe oublié
+    description: Entrez votre email pour recevoir un code de réinitialisation
+    email: E-mail
+    emailPlaceholder: Votre email
+    submit: Envoyer le code
+    error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+    success: Si un compte existe pour cet email, un code de réinitialisation a été envoyé.
+    rememberPassword: Vous vous souvenez de votre mot de passe ? <link>Se connecter</link>
+    progress:
+      steps:
+        email: E-mail
+        otp: Vérifier l'e-mail
+        password: Nouveau mot de passe
+  resetPassword:
+    title: Réinitialiser le mot de passe
+    description: Entrez le code de votre email et choisissez un nouveau mot de passe
+    email: E-mail
+    emailPlaceholder: Votre email
+    otpLabel: Réinitialiser le code
+    password: Nouveau mot de passe
+    passwordPlaceholder: Votre nouveau mot de passe
+    confirmPassword: Confirmez le mot de passe
+    confirmPasswordPlaceholder: Confirmez votre nouveau mot de passe
+    submit: Réinitialiser le mot de passe
+    error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+    success: Le mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter à votre compte.
+    invalidCode: Code invalide ou expiré
+  signUp:
+    title: S'inscrire
+    description: Créez un compte pour commencer
+    name: Nom
+    namePlaceholder: Votre nom
+    language: Langue
+    languagePlaceholder: Sélectionnez la langue
+    email: E-mail
+    emailPlaceholder: Votre email
+    phone: Téléphone
+    phonePlaceholder: Votre téléphone
+    password: Mot de passe
+    passwordPlaceholder: Votre mot de passe
+    confirmPassword: Confirmez le mot de passe
+    confirmPasswordPlaceholder: Confirmez votre mot de passe
+    submit: S'inscrire
+    continue: Continuer
+    back: Dos
+    progress:
+      stepOf: Étape {step} de {total}
+      steps:
+        profile: Au propos de vous
+        credentials: Compte
+        emailOtp: Vérifier l'e-mail
+        phone: Téléphone
+        phoneOtp: Vérifier le téléphone
+    regionBlocked:
+      title: L'inscription n'est pas disponible dans votre région
+      description: L'inscription publique est limitée à l'Amérique du Nord et à l'Europe. Si vous avez été invité dans une équipe, utilisez le lien d'invitation contenu dans votre e-mail.
+      toast: L'inscription n'est pas disponible dans votre région
+    toasts:
+      success: Nous avons envoyé un code de vérification à votre adresse e-mail. Veuillez vérifier votre courrier électronique et saisir le code pour vérifier votre compte.
+      accountReady: Votre compte est prêt. Suite…
+      error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+      userAlreadyExists: Un utilisateur avec cette adresse e-mail existe déjà. Veuillez utiliser un autre e-mail.
+      emailBlocked: Nous ne pouvons pas accepter cette adresse e-mail. Veuillez utiliser un e-mail de travail permanent ou personnel.
+  validation:
+    name:
+      required: Le nom est requis
+      max: Le nom ne doit pas comporter plus de 256 caractères
+    language:
+      invalid: Langue inconnue
+    confirmPassword:
+      required: Les mots de passe ne correspondent pas
+    password:
+      required: Le mot de passe est requis
+      minLength: Le mot de passe doit comporter au moins 8 caractères
+      maxLength: Le mot de passe ne doit pas comporter plus de 128 caractères
+    organizationName:
+      required: Le nom de l'entreprise est requis
+    organizationSlug:
+      required: Le sous-domaine est requis
+      regex: Le sous-domaine doit contenir uniquement des lettres minuscules et des chiffres latins
+      unique: Le sous-domaine est déjà pris
+      length: Le sous-domaine doit comporter entre 3 et 20 caractères
+menuItem:
+  labels:
+    icon: Icône
+    link: Lien
+    button: Bouton
+    spacer: Entretoise
+    submenu: Sous-menu
+  linkVariants:
+    none: Aucun
+    default: Défaut
+    underline: Souligner
+    standalone: Autonome
+    dashed: En pointillés
+  buttonVariants:
+    default: Défaut
+    primary: Primaire
+    secondary: Secondaire
+    destructive: Destructeur
+    outline: Contour
+    ghost: Fantôme
+    link: Lien
+    link-underline: Lien souligné
+    link-dashed: Lien en pointillé
+  sizes:
+    none: Aucun
+    icon: Icône
+    xs: Très petit
+    default: Défaut
+    sm: Petit
+    md: Moyen
+    lg: Grand
+    xl: Très grand
+  weights:
+    default: Défaut
+    light: Lumière
+    thin: Mince
+    normal: Normale
+    medium: Moyen
+    semibold: Semi-gras
+    bold: Audacieux
+    extrabold: Extra-audacieux
+    black: Noir
+    extralight: Extra-léger
+  fonts:
+    default: Défaut
+    primary: Primaire
+    secondary: Secondaire
+    tertiary: Tertiaire
+  fields:
+    url: URL
+    urlPlaceholder: Lien
+    label: Étiquette
+    labelPlaceholder: Étiquette
+    icon: Icône
+    variant: Variante
+    selectVariant: Sélectionner une variante de lien
+    size: Taille
+    selectSize: Sélectionnez la taille
+    selectButtonVariant: Sélectionner une variante de bouton
+    textFont: Police du texte
+    selectTextFont: Sélectionnez la police du texte
+    textSize: Taille du texte
+    selectTextSize: Sélectionnez la taille du texte
+    textWeight: Poids du texte
+    selectTextWeight: Sélectionnez le poids du texte
+    prefixIcon: Icône de préfixe
+    suffixIcon: Icône de suffixe
+    additionalClasses: Cours supplémentaires
+    additionalClassesPlaceholder: police-gras
+    doNotCombineClassName: Ne pas combiner avec les valeurs par défaut
+    doNotCombineClassNameDescription: Lorsqu'elle est activée, seules vos classes supplémentaires sont appliquées (les classes par défaut sont ignorées)
+    textColor: Couleur du texte
+    textColorDescription: Remplacer la couleur du texte de l'élément de menu
+    showOnMobileHeader: Afficher sur l'en-tête mobile
+    showOnMobileHeaderDescription: Gardez cet élément visible dans l’en-tête sur mobile (à côté du bouton de menu). Un seul objet peut l’utiliser ; il apparaît toujours dans le tiroir.
+  card:
+    moveMenuItem: Déplacer un élément de menu
+    itemType: Type d'article
+    selectType: Sélectionnez le type
+    invalid: Invalide
+  subMenu:
+    title: Sous-menu
+    moveMenuItem: Déplacer un élément de menu
+    invalid: Invalide
+    twoColumns: Divisé en deux colonnes
+    twoColumnsDescription: Afficher les liens des sous-menus dans une liste déroulante à deux colonnes
+    hideChevron: Masquer le chevron
+    hideChevronDescription: Ne pas afficher la flèche déroulante à côté de l'étiquette du sous-menu
+  iconSelect:
+    selectIcon: Sélectionner l'icône
+  types:
+    icon: Icône
+    link: Lien
+    button: Bouton
+    submenu: Sous-menu
+resource:
+  card:
+    moveResource: Déplacer la ressource
+    sourceType: Type de source
+    selectSourceType: Sélectionnez le type de source
+    url: URL
+    urlPlaceholder: URL
+    value: Valeur
+    invalid: Invalide
+    remove: Retirer
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette ressource ?
+    cancel: Annuler
+    delete: Supprimer
+payment:
+  card:
+    amount: Montant
+    giftCardCode: Code de la carte cadeau
+    transactionId: ID de transaction
+    customer: Client
+    type: Taper
+    timePaid: Temps payé
+    timeRefunded: Temps remboursé
+    amountLeft: Montant restant
+    refund: Remboursement
+    refunded: Remboursé
+    confirmRefund: Confirmer le remboursement
+    confirmRefundDescription: Cette action ne peut pas être annulée
+    refundDetails: Détails du remboursement
+    paymentMethod: Mode de paiement
+    originalAmount: Montant initial
+    totalRefunded: Total remboursé
+    refundAmount: Montant du remboursement
+    cancel: Annuler
+    confirmRefundButton: Confirmer le remboursement {amountFormatted}
+    customerName: Client
+    appointment: Rendez-vous
+    delete: Supprimer
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce paiement pour {amountFormatted}, payé le {date} ?
+    deleteSuccess: Le paiement a été supprimé
+    update: Mise à jour
+    description: Description
+    fees: Frais
+    tip: Conseil
+    paymentAmount: Paiement
+    netAmount: Montant net
+    refundFees: Frais de remboursement
+    syncedPayment: Paiement synchronisé
+    manageSyncedPayment: Gérer
+    copyLink: Copier le lien
+    showQrCode: Afficher le code QR
+    resendLink: Renvoyer
+    cancelLink: Annuler le lien
+    linkCopied: Lien de paiement copié
+    sendVia: Envoyer via
+    destination: Destination
+    resendLinkDescription: Renvoyer le lien de paiement au client
+    qrCode:
+      title: Code QR du lien de paiement
+      description: Montrez ce code au client afin qu'il puisse le scanner et payer
+      copy: Copie
+      download: Télécharger
+      alt: Code QR pour {url}
+      copyUrl: Copier l'URL
+      copied: Code QR copié dans le presse-papiers
+      copyError: Impossible de copier le code QR
+      downloadError: Impossible de télécharger le code QR
+      loadError: Impossible de charger le lien de paiement
+  addUpdatePayment:
+    addPayment: Ajouter un paiement
+    updatePayment: Mettre à jour le paiement
+    addPaymentDescription: Ajouter un paiement en magasin
+    updatePaymentDescription: Mettre à jour un paiement en magasin
+    form:
+      amount: Montant
+      description: Description
+      paidAt: Payé à
+      method:
+        label: Méthode
+        cash: Espèces
+        in-person-card: Carte
+        gift-card: Carte cadeau
+        payment-link: Lien de paiement
+      type:
+        label: Taper
+      giftCardId:
+        label: Carte cadeau
+      customerId:
+        label: Client
+      appointmentId:
+        label: Rendez-vous
+        assign: Attribuer un rendez-vous
+        change: Changement
+        clear: Clair
+        none: Non attribué
+      paymentLinkAppId:
+        label: Application
+      channel:
+        label: Envoyer via
+        email: E-mail
+        sms: SMS
+        copy: Copier le lien
+      to:
+        label: Destination
+  toasts:
+    refundSuccess: Le paiement a été remboursé
+    refundSuccessDescription: Le paiement a été remboursé avec succès
+    refundError: Le remboursement du paiement a échoué
+    refundErrorDescription: Le remboursement du paiement a échoué. Veuillez consulter les détails sur la console du navigateur
+    paymentAppRequired: Configurez une application de paiement par défaut dans Applications → Applications par défaut avant de créer des liens de paiement.
+  descriptions:
+    fullPayment: Paiement intégral
+    deposit: Dépôt
+    rescheduleFee: Frais de report
+    cancellationFee: Frais d'annulation
+    giftCard: Achat de carte cadeau
+    syncedPayment: Paiement synchronisé
+    syncedTip: Astuce synchronisée
+  types:
+    deposit: Dépôt
+    rescheduleFee: Frais de report
+    cancellationFee: Frais d'annulation
+    payment: Paiement
+    tips: Conseils
+    other: Autre
+  methods:
+    cash: Espèces
+    card: Carte
+    giftCard: Carte cadeau
+  feeTypes:
+    transaction: Frais de transaction
+    platform: Frais de plateforme
+    other: Autre
+onlineMeeting:
+  types: {}
+textbelt-webhook:
+  handledBy: Réponse par message texte - informer l'utilisateur
+cancellationsAndReschedules:
+  timeBeforeAppointment:
+    header: Quand il est au moins {duration} avant le rendez-vous
+    week: "{count, plural, =1 {1 week} other {# weeks}}"
+    day: "{count, plural, =1 {1 day} other {# days}}"
+    hour: "{count, plural, =1 {1 hour} other {# hours}}"
+    minute: "{count, plural, =0 {0 minutes} =1 {1 minute} other {# minutes}}"
+  cancellationPolicy:
+    title: Annulations
+    withDeposit:
+      title: Pour rendez-vous avec acompte
+    withoutDeposit:
+      title: Pour rendez-vous sans acompte
+    enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+    doNotAllowIfRescheduled:
+      label: Autoriser si reprogrammé
+      tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
+      labels:
+        "true": Ne permettez pas
+        "false": Permettre
+    default:
+      title: Règle par défaut
+      tooltip: Configurer la stratégie par défaut qui sera appliquée si aucune autre stratégie n'est applicable
+      label: S'applique lorsqu'aucune autre règle n'est applicable
+    policies:
+      title: Remplacer les règles
+      add: Ajouter une règle
+      badge: Règles basées sur le temps
+    policy: Règle
+    action:
+      label: Action
+      tooltip: Configurer l'action à entreprendre lorsqu'une annulation est demandée
+      placeholder: Sélectionnez une action
+      labels:
+        notAllowed: Non autorisé
+        forfeitDeposit: Dépôt perdu
+        partialRefund: Remboursement partiel
+        fullRefund: Remboursement intégral
+        paymentRequired: Paiement requis
+        paymentToFullPriceRequired: Paiement au prix total requis
+        allowed: Autorisé
+    paymentType:
+      label: Type de calcul du paiement
+      tooltip: Choisissez si le paiement est un montant fixe ou un pourcentage du prix
+      labels:
+        amount: Montant fixe
+        percentage: Pourcentage du prix
+      placeholder: Sélectionnez le type de calcul du paiement
+    refundFees:
+      label: Frais de remboursement
+      tooltip: Configurer si les frais doivent être remboursés lorsqu'une annulation est demandée
+    refundPercentage:
+      label: Pourcentage de remboursement
+      tooltip: Configurer le pourcentage de l'acompte qui sera remboursé lorsqu'une annulation est demandée
+    calculateFromOriginalPrice:
+      label: Utiliser le prix avant remises pour le calcul du paiement
+      tooltip: Utilise le prix du rendez-vous avant les réductions au lieu du total réduit
+    paymentPercentage:
+      label: Pourcentage de paiement
+      tooltip: Configurer le pourcentage du prix du rendez-vous qui devra être payé lorsqu'une annulation est demandée
+    paymentAmount:
+      label: Montant du paiement
+      tooltip: Configurer le montant qui devra être payé lorsqu'une annulation est demandée
+    minutesToAppointment:
+      label: Première heure applicable
+      tooltip: Le temps minimum avant un rendez-vous lorsque cette politique s’applique. S’il existe une autre politique avec une valeur plus élevée et que le rendez-vous a lieu suffisamment longtemps à l’avance, cette politique prendra effet à la place.
+    remove: Retirer
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteCancellationPolicyConfirmDescription: Etes-vous sûr de vouloir supprimer ces conditions d'annulation ?
+    cancel: Annuler
+    delete: Supprimer
+  reschedulePolicy:
+    title: Reprogramme
+    enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+    default:
+      title: Règle par défaut
+      tooltip: Configurer la règle par défaut qui sera appliquée si aucune autre règle n'est applicable
+      label: S'applique lorsqu'aucune autre règle n'est applicable
+    policies:
+      title: Remplacer les règles
+      add: Ajouter une règle
+      badge: Règles basées sur le temps
+    policy: Règle
+    action:
+      label: Action
+      tooltip: Configurer l'action à entreprendre lorsqu'une reprogrammation est demandée
+      placeholder: Sélectionnez une action
+      labels:
+        notAllowed: Non autorisé
+        allowed: Autorisé
+        paymentRequired: Paiement requis
+    paymentType:
+      label: Type de calcul du paiement
+      tooltip: Choisissez si le paiement est un montant fixe ou un pourcentage du prix
+      labels:
+        amount: Montant fixe
+        percentage: Pourcentage du prix
+      placeholder: Sélectionnez le type de calcul du paiement
+    calculateFromOriginalPrice:
+      label: Utiliser le prix avant remises pour le calcul du paiement
+      tooltip: Utilise le prix du rendez-vous avant les réductions au lieu du total réduit
+    paymentAmount:
+      label: Montant du paiement
+      tooltip: Configurer le montant qui devra être payé lorsqu'un report est demandé
+    paymentPercentage:
+      label: Pourcentage de paiement
+      tooltip: Configurer le pourcentage du prix du rendez-vous qui devra être payé lorsqu'un report est demandé
+    minutesToAppointment:
+      label: Première heure applicable
+      tooltip: Le temps minimum avant un rendez-vous lorsque cette politique s’applique. S’il existe une autre politique avec une valeur plus élevée et que le rendez-vous a lieu suffisamment longtemps à l’avance, cette politique prendra effet à la place.
+    remove: Retirer
+    deleteConfirmTitle: Etes-vous absolument sûr ?
+    deleteReschedulePolicyConfirmDescription: Êtes-vous sûr de vouloir supprimer cette politique de reprogrammation ?
+    cancel: Annuler
+    delete: Supprimer
+    maxReschedules:
+      label: Nombre maximum de reprogrammations
+      tooltip: Configurer combien de fois un client peut reprogrammer un rendez-vous
+  enabled:
+    label: Activé
+    selectPlaceholder: Sélectionnez une option
+    labels:
+      disabled: Désactivé
+      enabled: Activé
+      notAllowedWithoutDeposit: Non autorisé sans dépôt
+bookingTracking:
+  convertedTo:
+    appointment: Rendez-vous
+    package: Emballer
+customerSelector:
+  placeholder: Sélectionner un client
+  requestFailed: La demande de récupération de clients a échoué
+  addNew: Créer nouveau
+  dialog:
+    title: Créer un nouveau client
+    description: Saisissez les coordonnées du nouveau client
+    form:
+      name: Nom
+      email: E-mail
+      phone: Téléphone
+    confirm: Créer
+memberSelector:
+  placeholder: Sélectionner un membre de l'équipe
+  unassigned: Non attribué
+  requestFailed: La demande de récupération des membres de l'équipe a échoué
+giftCardSelector:
+  amountLabel: "{amount} (montant restant : {amountLeft})"
+  expiresAt: Expire à {expiresAt}
+  placeholder: Sélectionnez une carte cadeau
+users:
+  profile:
+    title: Profil
+    description: Gérer les détails et les préférences de votre compte
+    form:
+      photoSectionTitle: Photo de profil
+      detailsSectionTitle: Détails du profil
+      name: Nom
+      namePlaceholder: Entrez votre nom
+      jobTitle: Titre
+      jobTitlePlaceholder: par ex. Spécialiste cheveux senior
+      jobTitleTooltip: Affiché sous le nom sur le formulaire de réservation
+      email: E-mail
+      emailPlaceholder: Entrez votre email
+      phone: Téléphone
+      language: Langue
+      image: Photo
+      imageAlt: Photo de profil
+      imagePlaceholder: Sélectionnez une image d'avatar
+      bio: Biographie
+      bioPlaceholder: Parlez-nous un peu de vous
+      calendarSources:
+        title: Sources de calendrier
+        add: Ajouter une source
+        cards:
+          calendarSource:
+            app: Application Calendrier
+            appTooltip: Sélectionnez l'application de calendrier connectée utilisée comme source de disponibilité pour votre disponibilité.
+            remove: Retirer
+            deleteConfirmTitle: Etes-vous absolument sûr ?
+            deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette source de calendrier ?
+            cancel: Annuler
+            delete: Supprimer
+            noAppSelected: Veuillez sélectionner une application de calendrier
+      meetingUrlProvider:
+        title: Fournisseur d'URL de réunion
+        app: Application de réunion
+        appTooltip: Sélectionnez l'application connectée utilisée pour créer des liens de réunion en ligne pour vos rendez-vous virtuels.
+      changePhoto: Changer de photo
+      removePhoto: Retirer
+    security:
+      title: Compte et sécurité
+      email: Adresse email
+      changeEmail: Changer d'e-mail
+      phone: Numéro de téléphone
+      changePhone: Changer de téléphone
+      password: Mot de passe
+      passwordDescription: Mettez à jour le mot de passe que vous utilisez pour votre compte
+      changePassword: Changer le mot de passe
+      setPassword: Définir le mot de passe
+      setPasswordDescription: Ajoutez un mot de passe pour pouvoir vous connecter par e-mail
+      connectedAccounts: Comptes connectés
+      connectGoogle: Connectez Google
+      googleConnected: Google est connecté
+      googleNotConnected: Google n'est pas connecté
+      unlinkGoogle: Dissocier Google
+      linkGoogleSuccess: Compte Google associé avec succès
+      unlinkGoogleSuccess: Compte Google dissocié
+      unlinkGoogleError: Impossible de dissocier le compte Google
+      connectMicrosoft: Connectez Microsoft
+      microsoftConnected: Microsoft est connecté
+      microsoftNotConnected: Microsoft n'est pas connecté
+      unlinkMicrosoft: Dissocier Microsoft
+      linkMicrosoftSuccess: Compte Microsoft lié avec succès
+      unlinkMicrosoftSuccess: Compte Microsoft dissocié
+      unlinkMicrosoftError: Impossible de dissocier le compte Microsoft
+      connectZoom: Connecter Zoom
+      zoomConnected: Zoom est connecté
+      zoomNotConnected: Le zoom n'est pas connecté
+      unlinkZoom: Dissocier le zoom
+      linkZoomSuccess: Compte Zoom lié avec succès
+      unlinkZoomSuccess: Compte Zoom dissocié
+      unlinkZoomError: Impossible de dissocier le compte Zoom
+    unlinkGoogle:
+      title: Dissocier Google
+      description: Entrez votre mot de passe pour confirmer la dissociation de votre compte Google
+      form:
+        password: Mot de passe
+      confirm: Dissocier Google
+      toasts:
+        invalidPassword: Le mot de passe est incorrect
+      validation:
+        password:
+          required: Le mot de passe est requis
+    unlinkMicrosoft:
+      title: Dissocier Microsoft
+      description: Entrez votre mot de passe pour confirmer la dissociation de votre compte Microsoft
+      form:
+        password: Mot de passe
+      confirm: Dissocier Microsoft
+      toasts:
+        invalidPassword: Le mot de passe est incorrect
+      validation:
+        password:
+          required: Le mot de passe est requis
+    unlinkZoom:
+      title: Dissocier le zoom
+      description: Entrez votre mot de passe pour confirmer la dissociation de votre compte Zoom
+      form:
+        password: Mot de passe
+      confirm: Dissocier le zoom
+      toasts:
+        invalidPassword: Le mot de passe est incorrect
+      validation:
+        password:
+          required: Le mot de passe est requis
+    unlinkSocial:
+      validation:
+        password:
+          required: Le mot de passe est requis
+    emailChange:
+      title: Changer d'e-mail
+      description: Vérifiez avec un code envoyé à votre e-mail pour mettre à jour votre adresse
+      form:
+        email: Nouvel e-mail
+        emailPlaceholder: Entrez votre nouvel email
+        helpText: Vous utilisez actuellement {currentEmail}
+        currentOtp: Code envoyé à votre adresse email actuelle
+        newOtp: Code envoyé à votre nouvel e-mail
+      sendCurrentCode: Envoyer le code à l'e-mail actuel
+      sendNewCode: Envoyer le code à un nouvel e-mail
+      confirm: Changer d'e-mail
+      toasts:
+        currentCodeSent: Vérifiez votre e-mail actuel pour un code de vérification
+        newCodeSent: Vérifiez votre nouvel e-mail pour un code de vérification
+        emailChangedSuccessfully: Votre adresse e-mail a été modifiée avec succès
+        error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+        emailAlreadyInUse: L'adresse e-mail est déjà utilisée
+        emailIsTheSame: L'adresse email est la même que l'adresse email actuelle
+        invalidCode: Code de vérification invalide
+    phoneChange:
+      title: Changer de téléphone
+      description: Entrez votre nouveau numéro de téléphone et vérifiez avec un code SMS
+      form:
+        phone: Nouveau numéro de téléphone
+        otp: Le code de vérification
+        helpText: Vous utilisez actuellement {currentPhone}
+      sendCode: Envoyer le code
+      confirm: Changer de téléphone
+      toasts:
+        codeSent: Nous avons envoyé un code de vérification sur votre téléphone
+        success: Votre numéro de téléphone a été mis à jour
+        error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+        phoneInUse: Ce numéro de téléphone est déjà utilisé
+        invalidCode: Code de vérification invalide
+    passwordChange:
+      title: Changer le mot de passe
+      description: Mettez à jour votre mot de passe à utiliser pour votre compte
+      form:
+        currentPassword: Mot de passe actuel
+        currentPasswordPlaceholder: Entrez votre mot de passe actuel
+        newPassword: Nouveau mot de passe
+        newPasswordPlaceholder: Entrez votre nouveau mot de passe
+        confirmPassword: Confirmer le nouveau mot de passe
+        confirmPasswordPlaceholder: Confirmez votre nouveau mot de passe
+      confirm: Confirmer
+      toasts:
+        passwordChangedSuccessfully: Votre mot de passe a été modifié avec succès.
+        error: Il y a eu un problème avec votre demande. Veuillez réessayer.
+        invalidPassword: Le mot de passe actuel est incorrect
+      validation:
+        currentPassword:
+          required: Le mot de passe actuel est requis
+        newPassword:
+          required: Un nouveau mot de passe est requis
+          minLength: Le nouveau mot de passe doit comporter au moins 8 caractères
+          maxLength: Le nouveau mot de passe ne doit pas comporter plus de 128 caractères
+        confirmPassword:
+          required: Confirmer que le mot de passe ne correspond pas au nouveau mot de passe
+    setPassword:
+      title: Définir le mot de passe
+      submit: Enregistrer le mot de passe
+      form:
+        newPassword: Nouveau mot de passe
+        confirmPassword: Confirmez le mot de passe
+      toasts:
+        success: Mot de passe défini avec succès
+        error: Impossible de définir le mot de passe. Veuillez réessayer.
+        credentialExists: Vous avez déjà un mot de passe défini
+      validation:
+        newPassword:
+          required: Un nouveau mot de passe est requis
+          minLength: Le nouveau mot de passe doit comporter au moins 8 caractères
+          maxLength: Le nouveau mot de passe ne doit pas comporter plus de 128 caractères
+        confirmPassword:
+          required: Confirmer que le mot de passe est requis
+          mismatch: Les mots de passe ne correspondent pas
+    toasts:
+      changesSaved: Les modifications du profil ont été enregistrées
+      requestError: Échec de l'enregistrement des modifications de profil
+  validation:
+    name:
+      required: Le nom doit comporter au moins 2 caractères
+      max: Le nom ne doit pas comporter plus de 256 caractères
+    language:
+      invalid: Langue inconnue
+    jobTitle:
+      max: Le titre ne doit pas comporter plus de 80 caractères
+    bio:
+      max: La biographie ne doit pas contenir plus de 1 024 caractères
+

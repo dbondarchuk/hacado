@@ -1,0 +1,88 @@
+app:
+  displayName: Enlaces de pago
+  description: |-
+    **Enlaces de pago** le permite cobrar el pago en cualquier momento, sin tener que esperar a realizar la compra al realizar la reserva.
+
+    Cree una página de pago alojada para una cita, saldo de cliente, tarjeta de regalo o monto personalizado, luego compártala por **correo electrónico**, **SMS** o **copiando el enlace**. Los clientes abren el enlace y pagan en línea a través de su proveedor de pagos conectado.
+
+    Úselo para:
+    - Envíe solicitudes de pago de citas, clientes o tarjetas regalo con unos pocos clics.
+    - Opcionalmente, solicite **verificación de identidad** (coincidencia de contacto u OTP) antes de pagar.
+    - Ofrezca **consejos**, establezca **caducidad del enlace** y marque la página con su encabezado y pie de página.
+    - Realice un seguimiento de los enlaces pendientes y pagados junto con sus otros pagos.
+statusText:
+  successfully_set_up: Configurar correctamente los enlaces de pago
+  error_processing_configuration: Error al procesar la configuración de enlaces de pago
+form:
+  connect: Conectar <app></app>
+  update: Actualización <app></app>
+  paymentAppRequired: Configure una aplicación de pago predeterminada en Aplicaciones → Aplicaciones predeterminadas antes de conectar Enlaces de pago.
+  paymentAppRequiredLink: Abrir aplicaciones predeterminadas
+  verification:
+    label: Verificación
+    description: Cómo los clientes demuestran quiénes son antes de pagar
+    values:
+      none: Sin verificación
+      contact-match: Coincidir correo electrónico o teléfono
+      otp: Código de un solo uso (OTP)
+  emailTemplateId:
+    label: Plantilla de correo electrónico
+    description: Plantilla utilizada al enviar el enlace de pago por correo electrónico
+  smsTemplateId:
+    label: plantilla de sms
+    description: Plantilla utilizada al enviar el enlace de pago por SMS
+  linkExpiryDays:
+    label: Caducidad del enlace (días)
+    description: Opcional. Los enlaces caducan después de estos días si se configuran.
+    placeholder: "7"
+  tipsEnabled:
+    label: Habilitar sugerencias
+    description: Permitir que los clientes agreguen una propina en la página de pago pública
+  tipPresets:
+    label: Preajustes de punta
+    description: Hasta 4 opciones de porcentaje mostradas a los clientes (además de Ninguna y Personalizada)
+    add: Agregar preajuste
+    percentage: "% del importe"
+    remove: Eliminar
+  headerId:
+    label: Encabezado de página
+    description: Encabezado opcional que se muestra en la página de pago pública
+    placeholder: Seleccionar encabezado
+  footerId:
+    label: Pie de página
+    description: Pie de página opcional que se muestra en la página de pago pública
+    placeholder: Seleccionar pie de página
+  notifyOnPaid:
+    label: Envíe un correo electrónico al personal cuando le paguen
+    description: Envíe un correo electrónico a la persona que creó el enlace y al miembro del equipo asignado a la cita cuando el cliente pague
+  notifyCoordinatorsOnPaid:
+    label: Coordinadores de correo electrónico y superiores
+    description: También envíe un correo electrónico a los coordinadores, administradores y al propietario cuando se pague un enlace de pago.
+handlers:
+  send-email: Envió correo electrónico con enlace de pago a {name}
+  send-sms: SMS de enlace de pago enviado a {name}
+  paymentPaid: Enlaces de pago - Pago pagado
+activity:
+  paymentPaid:
+    title: Enlace de pago pagado
+    description: Se recibió el pago de {amount}
+emails:
+  paid:
+    subject: "Pago recibido: {amount} de {customerName}"
+    title: Enlace de pago pagado
+    body: |-
+      Hola {userName},
+
+      Se pagó un enlace de pago.
+
+      **Cliente:** {customerLink}
+
+      **Cantidad:** {amount}
+      {tipLine}
+
+      **Pagado en:** {paidAt}
+
+      **Cita:** {appointmentLink}
+    tipLine: "**Consejo:** {tip}"
+    viewPayment: Ver pago
+

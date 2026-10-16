@@ -1,0 +1,37 @@
+app:
+  displayName: Notification par SMS du client
+  description: Envoyez des notifications personnalisées par SMS aux clients concernant leurs rendez-vous - y compris les confirmations, les mises à jour et les annulations - afin qu'ils restent informés à chaque étape du processus.
+navigation:
+  title: Notification par SMS du client
+new: Notification par SMS d’un nouveau client
+edit: Modifier la notification par SMS du client
+newDescription: Créer une nouvelle notification par SMS client
+editDescription: Mettre à jour la notification par SMS du client
+form:
+  template:
+    label: "{type} modèle de message texte"
+    tooltip: Corps du message texte, que vos clients verront lorsque {whenText}
+    tooltipEmpty: Laissez vide pour ne pas envoyer de SMS lorsque {whenText}
+whenText:
+  pending: ils prennent un nouveau rendez-vous
+  confirmed: le rendez-vous a été confirmé
+  declined: le rendez-vous a été refusé
+  canceled: le client a annulé le rendez-vous
+  noShow: vous avez marqué le rendez-vous comme une non-présentation
+  rescheduled: le rendez-vous a été reporté
+statusText:
+  text_message_app_not_configured: L'application par défaut de l'expéditeur de messages texte n'est pas configurée
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Erreur lors du traitement de la configuration de la notification par SMS du client
+  error_sending_customer_text_message_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par SMS au client pour un nouveau rendez-vous
+  error_sending_customer_text_message_notification_for_status_change: Erreur lors de l'envoi d'une notification par SMS au client pour un changement de statut
+  error_sending_customer_text_message_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par SMS au client pour un rendez-vous reprogrammé
+handlers:
+  newRequest: Notification par message texte client - Nouvelle demande
+  pending: Notification par message texte client - En attente
+  confirmed: Notification par message texte client - Confirmé
+  declined: Notification par message texte client – ​​Refusé
+  canceled: Notification par message texte client – ​​Annulée
+  noShow: Notification par SMS du client – ​​Non-présentation
+  rescheduled: Notification par message texte client – ​​Reprogrammée
+

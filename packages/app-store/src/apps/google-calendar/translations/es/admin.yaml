@@ -1,0 +1,41 @@
+title: Calendario de Google
+app:
+  displayName: Calendario de Google
+  description: Google Calendar es un servicio de gestión y programación del tiempo desarrollado por Google. Permite a los usuarios crear y editar eventos, con opciones disponibles para tipo y hora. Disponible para cualquier persona que tenga una cuenta de Gmail tanto en la versión móvil como en la web.
+primaryCalendar: Primario
+form:
+  selectCalendar:
+    label: Seleccionar calendario
+    searchLabel: Seleccionar calendario
+    tooltip: Elige qué Google Calendar usar para tus citas
+  connect: Conéctese con <app></app>
+  reconnect: Reconectar <app></app>
+  pendingAuthorization: Autorización pendiente
+statusText:
+  successfully_set_up: Conectado exitosamente a Google Calendar
+  error_processing_configuration: Error al procesar la configuración de Google Calendar
+  failed_to_retrieve_calendar_list: No se pudo recuperar la lista del calendario
+  calendar_list_retrieved: Lista de calendario recuperada exitosamente
+  calendar_set: Calendario configurado correctamente
+  error_retrieving_calendar_list: Error al recuperar la lista de calendarios
+  error_setting_calendar: Error al configurar el calendario
+  error_creating_calendar_event: Error al crear evento de calendario
+  error_updating_calendar_event: Error al actualizar el evento del calendario
+  error_deleting_calendar_event: Error al eliminar evento del calendario
+  error_getting_busy_times: Error al obtener horas punta de Google Calendar
+  oauth_error: Error de autenticación de OAuth
+  invalid_credentials: Credenciales no válidas
+  calendar_not_found: Calendario no encontrado
+  event_created: Evento de calendario creado exitosamente
+  event_updated: Evento del calendario actualizado exitosamente
+  event_deleted: Evento del calendario eliminado correctamente
+  redirect_request_does_not_contain_app_id: La solicitud de redireccionamiento no contiene el ID de la aplicación
+  redirect_request_does_not_contain_authorization_code: La solicitud de redireccionamiento no contiene el código de autorización
+  app_was_not_authorized_properly: La aplicación no fue autorizada correctamente
+  app_was_not_given_required_scopes: A la aplicación no se le asignaron los alcances requeridos
+  failed_to_get_user_email: No se pudo obtener el correo electrónico del usuario
+toast:
+  changes_saved: Tus cambios fueron guardados.
+  request_error: Hubo un problema con tu solicitud.
+  calendar_list_error: No se pudo recuperar la lista del calendario
+

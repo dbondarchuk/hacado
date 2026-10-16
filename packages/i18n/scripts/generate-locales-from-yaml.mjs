@@ -3,11 +3,20 @@
  * Emits {namespace}.generated.ts next to each YAML (with .json fallback when YAML is empty)
  * for central locales under packages/i18n, and for each app under packages/app-store
  * (apps ... / translations / {locale}).
+ *
+ * Regional / partial locales deep-merge their parent chain into the generated file
+ * so runtime loaders always see a complete message tree.
  */
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { parse as parseYaml } from "yaml";
+import {
+  deepMergeMessages,
+  fallbackLanguage,
+  getLocaleChain,
+  localeParents,
+} from "../src/locale-catalog.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LOCALES_DIR = path.join(__dirname, "../src/locales");
@@ -54,6 +63,22 @@ function loadSourceObject(localeDir, stem) {
     return JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   }
   return {};
+}
+
+/**
+ * Deep-merge parent chain (root -> leaf) for one namespace.
+ * @param {string} baseRoot
+ * @param {string} locale
+ * @param {string} stem
+ */
+function loadMergedSourceObject(baseRoot, locale, stem) {
+  const chain = getLocaleChain(locale);
+  let result = {};
+  for (const loc of [...chain].reverse()) {
+    const data = loadSourceObject(path.join(baseRoot, loc), stem);
+    result = deepMergeMessages(result, data);
+  }
+  return result;
 }
 
 function getStemsInLocaleDir(localeDir) {
@@ -135,6 +160,9 @@ export default messages;
  * @param {string[]} stems
  */
 function writeNamespaceLoadersFile(localeDir, stems) {
+  if (!fs.existsSync(localeDir)) {
+    fs.mkdirSync(localeDir, { recursive: true });
+  }
   const entries = stems
     .map((stem) => `  ${stem}: () => import("./${stem}.generated")`)
     .join(",\n");
@@ -162,17 +190,36 @@ function writeLocaleNamespaceLoadersRegistry(transRoot, localeCodes) {
       return `  ${key}: () => import("./${loc}/namespace-loaders.generated")`;
     })
     .join(",\n");
+  const parentEntries = Object.entries(localeParents)
+    .map(([child, parent]) => {
+      const childKey = isSafeIdent(child) ? child : JSON.stringify(child);
+      return `  ${childKey}: ${JSON.stringify(parent)}`;
+    })
+    .join(",\n");
   const body = `${loaderHeader}export type MessageLocale = keyof typeof localeNamespaceLoaders;
 
 export const localeNamespaceLoaders = {
 ${loaderEntries},
 } as const;
 
+const localeParents: Record<string, string> = {
+${parentEntries},
+};
+
 export function resolveMessageLocale(locale: string): MessageLocale {
-  if (locale in localeNamespaceLoaders) {
-    return locale as MessageLocale;
+  const seen = new Set<string>();
+  let current: string | undefined = locale;
+  while (current && !seen.has(current)) {
+    seen.add(current);
+    if (current in localeNamespaceLoaders) {
+      return current as MessageLocale;
+    }
+    current = localeParents[current];
   }
-  return "en";
+  if (${JSON.stringify(fallbackLanguage)} in localeNamespaceLoaders) {
+    return ${JSON.stringify(fallbackLanguage)} as MessageLocale;
+  }
+  return Object.keys(localeNamespaceLoaders)[0] as MessageLocale;
 }
 `;
   fs.writeFileSync(
@@ -208,7 +255,7 @@ function generateForTranslationTree(options) {
   for (const locale of locales) {
     const localeDir = path.join(baseRoot, locale);
     for (const stem of stems) {
-      const data = loadSourceObject(localeDir, stem);
+      const data = loadMergedSourceObject(baseRoot, locale, stem);
       const outPath = path.join(localeDir, `${stem}.generated.ts`);
       writeGeneratedFile(outPath, data);
       count++;

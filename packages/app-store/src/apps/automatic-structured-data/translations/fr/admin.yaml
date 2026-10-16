@@ -1,0 +1,8 @@
+app:
+  displayName: Données structurées automatiques
+  description: Aide Google et les autres moteurs de recherche à comprendre votre entreprise, vos services et vos pages afin que vous apparaissez plus clairement dans les résultats de recherche. Fonctionne automatiquement sans configuration.
+statusText:
+  successfully_set_up: Configuration réussie des données structurées automatiques
+setup:
+  connect: Connectez <app></app>
+

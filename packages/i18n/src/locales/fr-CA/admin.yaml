@@ -1,0 +1,16 @@
+common:
+  labels:
+    languages:
+      en: English
+      en-CA: English (Canada)
+      fr: Français
+      fr-CA: Français (Canada)
+      es: Español
+      es-MX: Español (México)
+      uk: Українська
+  buttons:
+    cancel: Annuler
+appointments:
+  status:
+    canceled: Annulé
+  scheduleAppointment: Prendre rendez-vous

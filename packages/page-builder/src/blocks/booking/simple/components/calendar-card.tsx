@@ -1,4 +1,4 @@
-import { useI18n, useLocale } from "@hacado/i18n/client";
+import { toDateFnsLocale, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   getStaffBookingTotals,
   HourNumbers,
@@ -362,7 +362,7 @@ export const CalendarCard: React.FC = () => {
     ),
   });
 
-  const language = locale === "en" ? "enUS" : locale;
+  const language = toDateFnsLocale(locale);
   // @ts-ignore not correct english locale
   const calendarLocale = Locales[language];
 

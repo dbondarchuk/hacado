@@ -1,0 +1,99 @@
+title: PayPal
+app:
+  displayName: PayPal
+  description: |-
+    **PayPal** es un servicio de pago que las personas utilizan para pagar en línea con su **saldo de PayPal**, una **cuenta bancaria** vinculada, **billeteras digitales** (**Google Pay** y **Apple Pay** donde esté disponible) o **tarjetas** guardadas en PayPal.
+
+    **Hacado** se conecta a su cuenta de **PayPal comercial** para que los clientes puedan **pagar cuando reservan** mediante el proceso de pago de PayPal, y el pago se completa a través de PayPal.
+form:
+  clientId:
+    label: ID de cliente
+    placeholder: ID de cliente
+  secretKey:
+    label: clave secreta
+    placeholder: clave secreta
+  buttonStyle:
+    color:
+      label: Color del botón de PayPal
+      values:
+        blue: Azul
+        black: Negro
+        white: Blanco
+        silver: Plata
+        gold: Oro
+    shape:
+      label: Forma del botón de PayPal
+      values:
+        rect: Rectangular
+        pill: Píldora
+        circle: Círculo
+        sharp: Afilado
+    layout:
+      label: Diseño del botón de PayPal
+      values:
+        horizontal: Horizontal
+        vertical: Vertical
+    label:
+      label: Etiqueta del botón de PayPal
+      values:
+        pay: Pagar con PayPal
+        paypal: PayPal
+  googlePay:
+    label: Habilitar Google Pay
+    description: Permita que los clientes paguen con Google Pay a través de PayPal. Primero debe <link>habilitar Google Pay en su cuenta PayPal</link>.
+  applePay:
+    label: Habilitar Apple Pay
+    description: Permita que los clientes paguen con Apple Pay a través de PayPal. Primero debe <link>habilitar Apple Pay en su cuenta PayPal</link> y ​​asegurarse de que su dominio esté verificado.
+  inStoreSync:
+    label: Sincronizar pagos con tarjeta en persona
+    description: Importe automáticamente pagos con tarjeta de PayPal en persona a través de webhook y sondeo cada hora, luego vincúlelos con las citas.
+  matchWindow:
+    label: Ventana de partido (minutos)
+    placeholder: "240"
+    description: Qué tan lejos puede estar la hora de finalización de una cita desde la hora de pago para seguir considerándose una coincidencia.
+  selectPlaceholder: Seleccionar vista
+  connectWith: Conéctese con <app></app>
+statusText:
+  successfully_set_up: Conectado exitosamente a PayPal
+  error_processing_configuration: Error al procesar la configuración de PayPal
+  invalid_configuration_data: Datos de configuración de PayPal no válidos
+  connection_failed: No se pudo conectar a PayPal
+  successfully_connected: Conectado exitosamente a PayPal
+  error_creating_order: Error al crear el pedido de PayPal
+  order_created: Pedido de PayPal creado con éxito
+  error_capturing_order: Error al capturar el pedido de PayPal
+  order_captured: Pedido de PayPal capturado con éxito
+  error_refunding_payment: Error al reembolsar el pago de PayPal
+  payment_refunded: Pago de PayPal reembolsado exitosamente
+  app_not_configured: La aplicación PayPal no está configurada
+  no_data: No se proporcionaron datos de configuración de PayPal
+  cannot_uninstall_has_payments: No se puede eliminar PayPal porque existen pagos creados con esta aplicación
+toast:
+  configuration_saved: La configuración de PayPal se guardó correctamente
+  configuration_error: Error al guardar la configuración de PayPal
+  order_created: Orden creada exitosamente
+  order_capture_failed: No se pudo capturar el pedido
+  order_captured: Orden capturada exitosamente
+  refund_success: Pago reembolsado exitosamente
+  refund_error: Error al reembolsar el pago
+validation:
+  clientId:
+    required: Se requiere identificación de cliente de PayPal
+    max: El ID de cliente de PayPal debe tener como máximo 256 caracteres
+  secretKey:
+    required: Se requiere clave API de PayPal
+    max: La clave API de PayPal debe tener como máximo 256 caracteres
+  buttonStyle:
+    shape:
+      invalid: Forma desconocida
+    layout:
+      invalid: Diseño desconocido
+    color:
+      invalid: color desconocido
+    label:
+      invalid: Etiqueta desconocida
+  paymentIntentId:
+    required: Se requiere ID de intención de pago
+  orderId:
+    required: Se requiere ID de pedido
+

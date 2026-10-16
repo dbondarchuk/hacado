@@ -1,0 +1,40 @@
+app:
+  displayName: Eventos de URL ocupada
+  description: Conéctese a una URL externa para obtener datos de eventos ocupados para la integración del calendario.
+form:
+  url:
+    label: URL
+    placeholder: https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'
+    description: "Utilice marcadores de posición que se reemplazan cuando se llama a la URL: <code>'{{start}}'</code> y <code>'{{end}}'</code> (fechas y horas ISO).<br></br>Ejemplo: <code>https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'</code>."
+    tooltip: El punto final de URL que proporciona datos de eventos ocupados. No se agrega nada automáticamente; incluya marcadores de posición cuando sea necesario.
+  headers:
+    label: Encabezados
+    addButton: Agregar encabezado
+    keyLabel: Nombre del encabezado
+    keyPlaceholder: Autorización
+    valueLabel: Valor del encabezado
+    valuePlaceholder: ficha al portador
+    removeButton: Eliminar
+    description: "Los nombres y valores de encabezado admiten los mismos marcadores de posición: <code>'{{start}}'</code> y ​​<code>'{{end}}'</code>."
+    tooltip: Encabezados HTTP opcionales. Los marcadores de posición se reemplazan según la solicitud al llamar.
+  connect: Conéctese con <app></app>
+validation:
+  form:
+    url:
+      required: La URL es obligatoria
+      url: Por favor ingresa una URL válida
+      max: La URL debe tener como máximo 2048 caracteres.
+    headers:
+      key:
+        required: El nombre del encabezado es obligatorio.
+        unique: El nombre del encabezado debe ser único.
+        max: El nombre del encabezado debe tener como máximo 256 caracteres.
+      value:
+        required: El valor del encabezado es obligatorio.
+        max: El valor del encabezado debe tener como máximo 4096 caracteres.
+statusText:
+  successfully_connected: Conexión exitosa al proveedor de eventos URL ocupados
+  error_processing_configuration: Configuración de procesamiento de errores
+  error_fetching_busy_times: Error al obtener horas punta desde la URL
+  invalid_response_format: Formato de respuesta no válido de la URL
+

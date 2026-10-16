@@ -1,0 +1,79 @@
+designSelector:
+  placeholder: Selecciona un diseño
+block:
+  title: Compra una tarjeta de regalo
+  description: Compra una tarjeta regalo para ti o para otra persona
+  steps:
+    details: Detalles
+    payment: Pago
+  details:
+    design: Diseño
+    amount: Cantidad
+    yourName: Su nombre
+    email: Correo electrónico
+    phone: Teléfono
+    sendToSomeoneElse: Envía esta tarjeta de regalo a otra persona
+    toName: Nombre del destinatario
+    toEmail: Correo electrónico del destinatario
+    toEmailDescription: Si no quieres enviar la tarjeta regalo a otra persona, introduce el mismo correo electrónico que el tuyo.
+    message: Mensaje
+    preview: Avance
+    previewLabel: AVANCE
+    messagePlaceholder: Introduzca un mensaje para el destinatario
+    previewLoading: Generando vista previa...
+    previewPlaceholder: Seleccione un diseño y cantidad para ver una vista previa...
+    previewError: No se pudo generar la vista previa
+  buttons:
+    back: Atrás
+    next: Próximo
+    continueToPayment: Continuar con el pago
+  errors:
+    noAppId: Configure este bloque con una aplicación Gift Card Studio.
+    previewFailed: No se pudo generar la vista previa
+    noDesigns: No se encontraron diseños públicos
+    createOrUpdateIntentFailed: No se pudo obtener la información de pago
+    purchaseFailed: No se pudo comprar la tarjeta de regalo
+  payment:
+    pay: Pagar
+    title: Pago
+    description: Se comprará una tarjeta de regalo de ${amount}. Por favor ingrese su información de pago a continuación.
+    total: Total
+  success:
+    title: ¡Gracias!
+    description: Tu tarjeta regalo se ha comprado correctamente. En breve recibirás un correo electrónico con la tarjeta regalo y la factura. Si elige enviar la tarjeta de regalo a otra persona, recibirá un correo electrónico con la tarjeta de regalo en breve. Si tiene alguna pregunta, comuníquese con nosotros.
+    newPurchaseButton: Compra otra tarjeta de regalo
+  showcase:
+    sections:
+      amount: Elige cantidad
+      recipient: Detalles del destinatario
+      message: Añade un mensaje personal (opcional)
+    messagePlaceholder: Escribe tu mensaje aquí...
+    messageCount: "{count} / {max}"
+    presetsLabel: Cantidades sugeridas
+    noDesign: Los diseños de tarjetas de regalo aún no están disponibles.
+  showcaseDefaults:
+    title: Un regalo reflexivo
+    description: Nuestras tarjetas regalo se pueden utilizar en toda la gama. El regalo perfecto, siempre.
+    deliveryTitle: Entrega instantánea
+    deliveryDescription: Enviado por correo electrónico
+    validityTitle: Válido por 12 meses
+    validityDescription: Canjear en la tienda o en línea
+    secureTitle: Seguro y flexible
+    secureDescription: Seguro para gastar a tu manera
+validation:
+  purchase:
+    designId:
+      required: Se requiere diseño
+    amount:
+      required: Se requiere cantidad
+      min: El monto debe ser de al menos ${min}
+      max: El monto debe ser como máximo ${max}
+    name:
+      required: El nombre es obligatorio
+      max: El nombre debe tener menos de 64 caracteres.
+    sendToSomeoneElse:
+      required: Si se envía a otra persona, se requieren el nombre y el correo electrónico del destinatario.
+    toName:
+      required: Se requiere nombrar
+      max: El nombre debe tener menos de 64 caracteres.
+

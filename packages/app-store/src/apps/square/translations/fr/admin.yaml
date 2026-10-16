@@ -1,0 +1,45 @@
+title: Carré
+app:
+  displayName: Carré
+  description: |-
+    **Square** est un service de paiement que les entreprises utilisent pour accepter des **cartes de crédit et de débit** et des **portefeuilles numériques** (y compris **Google Pay** lorsqu'il est disponible) en ligne.
+
+    **Hacado** se connecte à votre compte Square afin que les clients puissent **payer lorsqu'ils réservent** (cartes et Google Pay à la caisse) pendant que les frais réels passent par Square.
+form:
+  connect: Connectez <app></app>
+  reconnect: Reconnecter <app></app>
+  pendingAuthorization: En attente de l’autorisation Square…
+  inStoreSync:
+    label: Synchronisez les paiements par carte en personne
+    description: Importez automatiquement les paiements par carte Square en personne via le webhook payment.updated, puis associez-les aux rendez-vous.
+    save: Enregistrer les paramètres de synchronisation
+    saveSuccess: Paramètres de synchronisation Square en magasin enregistrés
+    saveError: Erreur lors de l’enregistrement des paramètres de synchronisation Square en magasin
+  matchWindow:
+    label: Fenêtre de match (minutes)
+    description: Dans quelle mesure l'heure de fin d'un rendez-vous peut-elle être éloignée de l'heure de paiement pour être considérée comme une correspondance.
+statusText:
+  sync_settings_saved: Paramètres de synchronisation Square en magasin enregistrés
+  redirect_missing_app_id: La réponse d'autorisation ne contient pas l'identifiant de l'application
+  redirect_missing_code: La réponse d'autorisation ne contient pas le code d'autorisation
+  access_denied: L'accès à Square a été refusé
+  oauth_error: Square a renvoyé une erreur OAuth
+  not_authorized: Square n'a pas renvoyé les jetons requis
+  no_locations: Aucun emplacement Square n'a été trouvé pour ce compte
+  missing_oauth_config: Square OAuth n'est pas configuré sur le serveur
+  token_refresh_failed: Impossible d'actualiser le jeton d'accès Square
+  app_not_configured: Square n'est pas connecté
+  payment_failed: Square n'a pas pu traiter le paiement
+  payment_incomplete: Le paiement Square n’a pas été effectué
+  apple_pay_domain_registration_failed: Impossible d'enregistrer le domaine Apple Pay
+  cannot_uninstall_has_payments: Impossible de supprimer Square car les paiements créés avec cette application existent
+validation:
+  locationId:
+    required: L'identifiant de l'emplacement carré est requis
+  merchantId:
+    required: L’identifiant du commerçant Square est requis
+  paymentIntentId:
+    required: L'identifiant de l'intention de paiement est requis
+  sourceId:
+    required: L'identifiant de la source de paiement est requis
+

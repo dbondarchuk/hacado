@@ -1,0 +1,9 @@
+form:
+  cardFieldsProviderError: Impossible de trouver des composants enfants dans <PayPalCardFieldsProvider />
+  ui:
+    payButton: Payer
+    or: ou
+toast:
+  payment_failed: Le paiement a échoué
+  payment_failed_description: Votre paiement a échoué. Veuillez réessayer. Si le problème persiste, veuillez nous appeler
+

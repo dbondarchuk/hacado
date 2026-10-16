@@ -1,3 +1,4 @@
+import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLocale } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
@@ -424,7 +425,7 @@ export class GiftCardStudioConnectedApp
       for (const [id, templatesByLang] of Object.entries(
         GiftCardStudioTemplates,
       )) {
-        const source = templatesByLang[language] ?? templatesByLang.en;
+        const source = resolveLanguageFromMap(templatesByLang, language);
         if (!source) {
           logger.warn(
             { appId: appData._id, id, language },

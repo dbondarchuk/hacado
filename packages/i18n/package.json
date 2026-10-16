@@ -8,10 +8,13 @@
     "type-check:ci": "tsc-absolute --pretty --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "generate-locales": "node scripts/generate-locales-from-yaml.mjs",
-    "typegen": "node scripts/generate-locales-from-yaml.mjs",
-    "check-translations": "node scripts/check-translations.js",
-    "translate": "node scripts/translate-missing-locale-keys.js"
+    "generate-locales": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-locales-from-yaml.mjs",
+    "typegen": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-locales-from-yaml.mjs",
+    "check-translations": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-translations.js",
+    "translate": "node scripts/translate-missing-locale-keys.js",
+    "translate-locale-batch": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/translate-locale-batch.mjs",
+    "translate-templates-batch": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/translate-templates-batch.mjs",
+    "translate-ts-emails": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/translate-ts-emails.mjs"
   },
   "exports": {
     ".": "./src/index.ts",

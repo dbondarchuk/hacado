@@ -2,7 +2,7 @@ import {
   EMAIL_BRAND,
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
-import { Language } from "@hacado/i18n";
+import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
 import { template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 import { EmailTemplateKey } from "./types";
@@ -15,14 +15,15 @@ export const getEmailTemplate = async (
   appointmentId?: string,
   customerId?: string,
 ) => {
-  const templateContent =
-    UserEmailTemplates[language]?.[type] ?? UserEmailTemplates["en"][type];
+  const templates =
+    resolveLanguageFromMap(UserEmailTemplates, language) ??
+    UserEmailTemplates.en!;
+
+  const templateContent = templates[type];
 
   const subjectTemplate = templateContent.subject;
 
-  const buttonTexts =
-    UserEmailTemplates[language]?.buttonTexts ??
-    UserEmailTemplates["en"].buttonTexts;
+  const buttonTexts = templates.buttonTexts;
 
   const subject = template(subjectTemplate, args);
 

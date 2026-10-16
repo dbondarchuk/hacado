@@ -1,4 +1,4 @@
-import type { Language } from "@hacado/i18n";
+import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
 
 import {
   Appointment,
@@ -25,26 +25,36 @@ import { durationToTime } from "./time";
 
 const AppointmentStatusTexts: Record<
   AppointmentStatus,
-  Record<Language, string>
+  Partial<Record<Language, string>>
 > = {
   pending: {
     en: "Pending",
+    fr: "En attente",
+    es: "Pendiente",
     uk: "Очікуєт підтвердження",
   },
   confirmed: {
     en: "Confirmed",
+    fr: "Confirmé",
+    es: "Confirmada",
     uk: "Підтверджено",
   },
   declined: {
     en: "Declined",
+    fr: "Refusé",
+    es: "Rechazada",
     uk: "Відхилено",
   },
   canceled: {
     en: "Canceled",
+    fr: "Annulé",
+    es: "Cancelada",
     uk: "Скасовано",
   },
   noShow: {
     en: "No-show",
+    fr: "Absence",
+    es: "No se presentó",
     uk: "Неявка",
   },
 };
@@ -256,8 +266,10 @@ export const getArguments = <
           cid: file._id,
         })) || [],
     statusText: appointment?.status
-      ? AppointmentStatusTexts[appointment.status][locale as Language] ||
-        AppointmentStatusTexts[appointment.status]["en"]
+      ? resolveLanguageFromMap(
+          AppointmentStatusTexts[appointment.status],
+          locale ?? "en",
+        ) || AppointmentStatusTexts[appointment.status].en
       : undefined,
     confirmed: appointment?.status === "confirmed",
     declined: appointment?.status === "declined",

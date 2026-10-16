@@ -1,0 +1,24 @@
+title: Contactos de CardDAV
+app:
+  displayName: Contactos de CardDAV
+  description: CardDAV es un protocolo que permite que diferentes clientes/servidores accedan a información de contacto en servidores remotos. Amplía la especificación WebDAV y utiliza el formato vCard para los datos. Esta aplicación le permite acceder a su lista de clientes a través del protocolo CardDAV.
+statusText:
+  successfullySetUp: El servidor CardDAV está listo. Acceda a sus contactos en la URL proporcionada.
+  connectionFailed: No se pudo configurar el servidor CardDAV
+toast:
+  copiedToClipboard: Copiado al portapapeles
+  regenerateSuccess: Contraseña regenerada exitosamente
+  regenerateError: No se pudo regenerar la contraseña
+form:
+  carddavUrl:
+    label: URL de tarjeta DAV
+  username:
+    label: Nombre de usuario
+  password:
+    label: Contraseña
+    regenerateTooltip: Regenerar contraseña
+  connect: Habilitar <app></app>
+  update: Actualización <app></app>
+  info: "Puede acceder a su lista de clientes a través de CardDAV utilizando los siguientes detalles:"
+validation: {}
+

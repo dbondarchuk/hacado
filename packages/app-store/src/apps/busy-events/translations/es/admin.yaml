@@ -1,0 +1,23 @@
+app:
+  displayName: Eventos ocupados
+  description: Bloquea fechas y horas específicas en tu agenda
+navigation:
+  busyEvents:
+    label: Eventos ocupados
+    title: Eventos ocupados
+    description: Bloquea fechas y horas específicas en tu agenda
+new: Nuevo evento ocupado
+edit: Editar evento ocupado
+newDescription: Crear nuevo evento ocupado
+editDescription: Actualizar evento ocupado
+errors:
+  failed_to_load_schedule: No se pudo cargar el cronograma
+thisWeek: Esta semana
+previousWeek: Semana anterior
+nextWeek: La próxima semana
+eventTitle: Ocupado
+addShift: Agregar evento
+shifts: "{count, plural, =1 {1 event} other {# events}}"
+statusText:
+  successfully_set_up: Configurado exitosamente
+

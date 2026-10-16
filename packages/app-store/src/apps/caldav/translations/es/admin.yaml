@@ -1,0 +1,42 @@
+title: Calendario CalDAV
+app:
+  displayName: Calendario CalDAV
+  description: |-
+    Caldav es un protocolo que permite a diferentes clientes/servidores acceder a información de programación en servidores remotos, así como programar reuniones con otros usuarios en el mismo servidor u otros servidores.
+    Amplía la especificación WebDAV y utiliza el formato iCalendar para los datos.
+statusText:
+  successfullySetUp: Calendario {calendarName} obtenido correctamente
+  calendarNotFound: No se encontró el calendario "{calendarName}"
+  calendarNotSet: El nombre del calendario no se estableció
+  failedToFetchCalendars: No se pudieron recuperar los calendarios de {serverUrl}
+  successfullyFetchedCalendars: Calendarios obtenidos correctamente del servidor{serverUrl}
+toast:
+  failedToFetchCalendars: No se pudieron recuperar los calendarios de {serverUrl}
+  failedToFetchCalendarsDescription: No se pudieron recuperar los calendarios de {serverUrl}. Compruebe si la URL del servidor es correcta y si se puede acceder al servidor.
+form:
+  serverUrl:
+    label: Servidor CalDAV
+    tooltip: URL al servidor CalDAV
+  username:
+    label: Nombre de usuario
+    tooltip: Nombre de usuario opcional
+  password:
+    label: Contraseña
+    tooltip: Contraseña opcional
+  calendar:
+    label: Calendario
+    placeholder: Seleccionar calendario
+  fetch: Buscar
+  connect: Conéctese con <app></app>
+validation:
+  calendarName:
+    required: El nombre del calendario es obligatorio.
+    max: El nombre del calendario no debe tener más de 256 caracteres.
+  serverUrl:
+    url: La URL del servidor debe ser una URL válida
+    max: La URL del servidor no debe tener más de 4096 caracteres.
+  username:
+    max: El nombre de usuario no debe tener más de 256 caracteres.
+  password:
+    max: La contraseña no debe tener más de 256 caracteres.
+

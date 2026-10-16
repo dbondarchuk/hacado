@@ -2,7 +2,7 @@ import {
   EMAIL_BRAND,
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
-import { Language } from "@hacado/i18n";
+import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
 import { Appointment, isClosedAppointmentStatus } from "@hacado/types";
 import { AppointmentStatusToICalMethodMap, template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
@@ -18,19 +18,17 @@ export const getEmailTemplate = async (
   appointment: Appointment,
   args: Record<string, any>,
 ) => {
-  const templateContent =
-    UserEmailTemplates[language]?.[status] ?? UserEmailTemplates["en"][status];
+  const templates =
+    resolveLanguageFromMap(UserEmailTemplates, language) ??
+    UserEmailTemplates.en!;
 
-  const subjectTemplate =
-    UserEmailTemplates[language]?.subject ?? UserEmailTemplates["en"].subject;
+  const templateContent = templates[status];
 
-  const buttonTexts =
-    UserEmailTemplates[language]?.buttonTexts ??
-    UserEmailTemplates["en"].buttonTexts;
+  const subjectTemplate = templates.subject;
 
-  const eventTitleTemplate =
-    UserEmailTemplates[language]?.eventTitle ??
-    UserEmailTemplates["en"].eventTitle;
+  const buttonTexts = templates.buttonTexts;
+
+  const eventTitleTemplate = templates.eventTitle;
 
   const eventTitle = template(eventTitleTemplate, args);
   const subject = template(subjectTemplate, args);

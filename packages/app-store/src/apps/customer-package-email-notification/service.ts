@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   AppJobRequest,
@@ -114,7 +115,7 @@ export default class CustomerPackageEmailNotificationConnectedApp
     ][]) {
       const templatesByLang =
         CustomerPackageEmailNotificationTemplates[builtinId];
-      const source = templatesByLang[language] ?? templatesByLang.en;
+      const source = resolveLanguageFromMap(templatesByLang, language);
       if (!source) continue;
 
       const uniqueName = await getUniqueName(source.name);

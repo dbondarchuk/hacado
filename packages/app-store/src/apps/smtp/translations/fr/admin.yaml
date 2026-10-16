@@ -1,0 +1,52 @@
+title: SMTP
+app:
+  displayName: SMTP
+  description: SMTP (Simple Mail Transfer Protocol) est une norme Internet pour le courrier électronique prise en charge par la plupart des serveurs de traitement de courrier électronique. Connectez-vous à SMTP pour envoyer un e-mail.
+form:
+  host:
+    label: Hôte SMTP
+    placeholder: smtp.email.com
+  port:
+    label: Port SMTP
+    placeholder: "465"
+  secure:
+    label: SMTP-SSL
+    yes: Activé
+    no: Désactivé
+  email:
+    label: E-mail de l'expéditeur
+    placeholder: john@exemple.com
+    tooltip: Adresse e-mail à partir de laquelle tous les e-mails seront envoyés
+  authUser:
+    label: Utilisateur d'authentification SMTP
+    placeholder: John
+    tooltip: Nom d'utilisateur pour se connecter au serveur SMTP
+  authPass:
+    label: Mot de passe d'authentification SMTP
+    tooltip: Mot de passe pour vous connecter au serveur SMTP
+  connect: Connectez-vous avec <app></app>
+  update: Mettre à jour <app></app>
+statusText:
+  successfully_connected: Connexion réussie au serveur
+  error_processing_configuration: Erreur lors du traitement de la demande de configuration SMTP
+  connection_verification_failed: Échec de la connexion
+  error_sending_email: Erreur lors de l'envoi d'un e-mail via SMTP
+  error_parsing_ical_event: Échec de l'analyse de l'événement iCal
+  something_went_wrong: Quelque chose s'est mal passé
+validation:
+  host:
+    required: Un hôte SMTP est requis
+    min: Un hôte SMTP est requis
+    max: L'hôte SMTP doit contenir au maximum 256 caractères
+  auth:
+    user:
+      max: L'utilisateur d'authentification SMTP doit comporter au maximum 256 caractères.
+    pass:
+      max: Le mot de passe d'authentification SMTP doit comporter au maximum 256 caractères
+  port:
+    integer: Doit être la valeur entière
+    min: Le numéro de port SMTP doit être compris entre 1 et 99999
+    max: Le numéro de port SMTP doit être compris entre 1 et 99999
+  email:
+    invalid: L'e-mail doit être une adresse e-mail correcte
+

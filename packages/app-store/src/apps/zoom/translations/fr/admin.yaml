@@ -1,0 +1,26 @@
+title: Zoom
+app:
+  displayName: Zoom
+  description: Zoom est une plateforme vidéo sécurisée et fiable qui prend en charge tous vos besoins de communication en ligne. Il peut tout fournir, depuis les réunions individuelles, le chat, le téléphone, les webinaires et les événements en ligne à grande échelle. Disponible avec les versions de bureau, Web et mobile.
+form:
+  connect: Connectez-vous avec <app></app>
+  reconnect: Reconnecter <app></app>
+  pendingAuthorization: En attente d'autorisation
+statusText:
+  successfully_set_up: Connecté avec succès à Zoom
+  error_processing_configuration: Erreur lors du traitement de la configuration de Zoom
+  oauth_error: Erreur d'authentification OAuth
+  refresh_token_not_set: Le jeton d'actualisation n'est pas défini
+  invalid_credentials: Identifiants invalides
+  redirect_request_does_not_contain_app_id: La demande de redirection ne contient pas d'ID d'application
+  redirect_request_does_not_contain_authorization_code: La demande de redirection ne contient pas de code d'autorisation
+  app_was_not_authorized_properly: L'application n'a pas été correctement autorisée
+  failed_to_get_user_email: Impossible d'obtenir l'e-mail de l'utilisateur
+  error_getting_busy_times: "Erreur lors de l'obtention des heures occupées depuis Zoom : {error}"
+  error_getting_meeting_url: "Erreur lors de l'obtention de l'URL de la réunion depuis Zoom : {error}"
+  error_rescheduling_zoom_meeting: "Erreur lors de la reprogrammation de la réunion Zoom : {error}"
+  error_deleting_zoom_meeting: "Erreur lors de la suppression de la réunion Zoom : {error}"
+toast:
+  changes_saved: Vos modifications ont été enregistrées.
+  request_error: Il y a eu un problème avec votre demande.
+

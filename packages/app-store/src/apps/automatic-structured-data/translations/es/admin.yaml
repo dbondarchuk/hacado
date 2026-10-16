@@ -1,0 +1,8 @@
+app:
+  displayName: Datos estructurados automáticos
+  description: Ayuda a Google y otros motores de búsqueda a comprender su empresa, sus servicios y sus páginas para que aparezca más claramente en los resultados de búsqueda. Funciona automáticamente sin configuración.
+statusText:
+  successfully_set_up: Configure correctamente los datos estructurados automáticos
+setup:
+  connect: Conectar <app></app>
+

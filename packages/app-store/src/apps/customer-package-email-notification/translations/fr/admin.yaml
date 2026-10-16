@@ -1,0 +1,51 @@
+app:
+  displayName: Notification par e-mail du colis client
+  description: Envoyez un e-mail aux clients lorsqu'ils achètent un forfait et lorsque leur forfait est épuisé, annulé, expiré ou sur le point d'expirer
+navigation:
+  title: E-mails de colis client
+form:
+  purchased:
+    templateId:
+      label: Modèle d'e-mail acheté
+      description: Envoyé lorsqu'un colis est émis à un client
+  exhausted:
+    templateId:
+      label: Modèle d'e-mail épuisé
+      description: Envoyé lorsque tous les crédits du forfait sont utilisés
+  cancelled:
+    templateId:
+      label: Modèle d'e-mail annulé
+      description: Envoyé lorsqu'un forfait actif est annulé
+  expired:
+    templateId:
+      label: Modèle d'e-mail expiré
+      description: Envoyé lorsqu'un colis atteint sa date d'expiration
+  expiringSoon:
+    enabled:
+      label: Envoyer un email expirant bientôt
+      description: Avertir les clients avant l'expiration de leur forfait
+    thresholdMinutes:
+      label: Notifier avant expiration
+      description: Combien de temps avant l'expiration du colis pour envoyer le rappel
+    templateId:
+      label: Modèle d'e-mail expirant bientôt
+      description: Envoyé lorsqu'un colis approche de sa date d'expiration
+statusText:
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Configuration du traitement des erreurs
+  error_sending_package_email: Erreur lors de l'envoi de l'e-mail du colis client
+handlers:
+  purchased: E-mail du colis client - Acheté
+  exhausted: E-mail du colis client - Épuisé
+  cancelled: E-mail du colis client - Annulé
+  expired: E-mail du package client - Expiré
+  expiringSoon: E-mail du package client - Expire bientôt
+validation:
+  emailTemplate:
+    templateId:
+      required: Le modèle d'e-mail est requis
+      min: Le modèle d'e-mail est requis
+  expiringSoon:
+    thresholdMinutes:
+      min: Choisissez combien de temps avant l'expiration envoyer le rappel
+

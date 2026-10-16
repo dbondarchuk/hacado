@@ -1,0 +1,19 @@
+title: Respuesta automática de mensajes de texto
+app:
+  displayName: Respuesta automática de mensajes de texto
+  description: Responde automáticamente a los mensajes de texto entrantes.
+form:
+  autoReplyTemplate:
+    label: Plantilla de respuesta automática
+    tooltip: La plantilla que se utilizará para enviar la respuesta.
+  connectWith: Conéctese con <app></app>
+statusText:
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Error al procesar la configuración de respuesta automática de mensajes de texto
+  template_not_found: Plantilla no encontrada
+handler: Respuesta automática de mensaje de texto
+validation:
+  autoReplyTemplateId:
+    required: Se requiere plantilla
+    min: Se requiere plantilla
+

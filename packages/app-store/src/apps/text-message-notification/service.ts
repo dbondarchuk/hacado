@@ -30,7 +30,7 @@ import {
   subscriptionAllowsMultipleUsers,
   template,
 } from "@hacado/utils";
-import { TextMessageNotificationMessages } from "./messages";
+import { getTextMessageNotificationMessages } from "./messages";
 import {
   TextMessageNotificationConfiguration,
   textMessageNotificationConfigurationSchema,
@@ -271,9 +271,8 @@ export class TextMessageNotificationConnectedApp
       });
 
       const body = template(
-        TextMessageNotificationMessages[config.brand.language]
-          .newAppointmentRequested ??
-          TextMessageNotificationMessages["en"].newAppointmentRequested,
+        getTextMessageNotificationMessages(config.brand.language)
+          .newAppointmentRequested,
         args,
       );
 
@@ -427,9 +426,8 @@ export class TextMessageNotificationConnectedApp
         }
 
         const body = template(
-          TextMessageNotificationMessages[config.brand.language]
-            .unknownAppointment ??
-            TextMessageNotificationMessages["en"].unknownAppointment,
+          getTextMessageNotificationMessages(config.brand.language)
+            .unknownAppointment,
           {
             config,
             user,
@@ -549,9 +547,8 @@ export class TextMessageNotificationConnectedApp
         });
 
         const body = template(
-          TextMessageNotificationMessages[config.brand.language]
-            .unknownAppointment ??
-            TextMessageNotificationMessages["en"].unknownOption,
+          getTextMessageNotificationMessages(config.brand.language)
+            .unknownAppointment,
           args,
         );
 
@@ -662,16 +659,11 @@ export class TextMessageNotificationConnectedApp
       });
 
       const responseBody = template(
-        TextMessageNotificationMessages[config.brand.language][
+        getTextMessageNotificationMessages(config.brand.language)[
           newStatus === "confirmed"
             ? "appointmentConfirmed"
             : "appointmentDeclined"
-        ] ??
-          TextMessageNotificationMessages["en"][
-            newStatus === "confirmed"
-              ? "appointmentConfirmed"
-              : "appointmentDeclined"
-          ],
+        ],
         args,
       );
 

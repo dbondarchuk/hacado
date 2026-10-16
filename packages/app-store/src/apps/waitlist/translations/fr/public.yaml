@@ -1,0 +1,106 @@
+block:
+  selectAddonsLabel: Sélectionnez les modules complémentaires
+  durationFormat: "Durée : {hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  durationHourMinFormat: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  priceFormat: Prix : _{price} $
+  customDurationLabel: "Durée : personnalisée"
+  customDuration: Coutume
+  durationSelectTitle: De combien de temps avez-vous besoin ?
+  steps:
+    option: Service
+    specialist: Spécialiste
+    addons: Modules complémentaires
+    calendar: Date et heure
+    form: Détails
+    payment: Paiement
+    review: Résumé
+    otp: Vérifier
+    waitlist-form: Détails
+    waitlist-review: Revoir
+  layout:
+    booking:
+      title: Prenez votre rendez-vous
+      description: Suivez les étapes ci-dessous pour planifier votre session
+    waitlist:
+      title: Rejoindre la liste d'attente
+      description: Nous vous informerons lorsqu'un créneau sera disponible
+  calendar:
+    waitlist:
+      title: Vous ne trouvez pas de moment approprié ?
+      description: Rejoignez notre liste d'attente et nous vous informerons lorsqu'un créneau correspondant à vos préférences sera disponible.
+      button: Rejoignez plutôt la liste d’attente
+      link: Vous ne voyez pas un moment que vous aimez ? Cliquez <link>ici</link> pour rejoindre notre liste d'attente.
+  review:
+    waitlistTitle: Examinez votre demande de liste d'attente
+  summary:
+    title: Votre demande de liste d'attente
+    empty: Rien de sélectionné pour l'instant.
+    showMore: Afficher tout ({count})
+    showLess: Afficher moins
+  waitlist_form:
+    title: Vos coordonnées
+    description: Veuillez fournir vos coordonnées et vos préférences
+    back_to_booking: Retour à la sélection de dates
+    back_to_booking_description: Revenez en arrière pour sélectionner une date et une heure spécifiques pour votre rendez-vous.
+    back_to_booking_title: Vous souhaitez réserver un créneau spécifique ?
+  errors:
+    submit:
+      title: Euh oh ! Quelque chose s'est mal passé.
+      description: Une erreur s'est produite pendant que nous essayions de vous ajouter à la liste d'attente. Veuillez nous contacter
+  loadingPlaceholder: S'il vous plaît, attendez...
+  buttons:
+    steps:
+      back: Dos
+      next: Continuer
+    confirm: Confirmer la réservation
+    joinWaitlist: Rejoindre la liste d'attente
+    bookAnotherAppointment: Prendre un autre rendez-vous
+    close: Fermer
+    addTime: Ajouter du temps
+  note:
+    label: Note
+    placeholder: Vous pouvez laisser un message ici
+    max: Vous pouvez saisir jusqu'à 1024 caractères
+  confirmation:
+    waitlist:
+      title: Votre demande a été reçue !
+      message: Merci, {name}. Votre demande d'inscription sur la liste d'attente pour {service} a été reçue. Nous vous contacterons dès qu’un créneau horaire sera disponible.
+      waitlist_details: Détails de la liste d'attente
+  title: Rejoignez notre liste d'attente
+  description: Veuillez fournir vos coordonnées pour être ajouté à la liste d'attente
+  times:
+    label: Plages horaires
+    morning: Matin
+    afternoon: Après-midi
+    evening: Soirée
+    required: Veuillez sélectionner une heure
+    descriptions:
+      morning: avant 12h00
+      afternoon: 12h00 - 16h00
+      evening: après 16h00
+    add: Ajouter du temps
+    addDescription: Veuillez sélectionner les plages horaires que vous souhaitez ajouter
+  email:
+    required: L'e-mail est requis
+  name:
+    required: Le nom est requis
+    max: Le nom doit comporter au maximum 256 caractères
+  date:
+    label: Date
+    required: Une date valide est requise
+  dates:
+    label: Date et heure souhaitées
+    label_count: Date et heure souhaitées ({count})
+    required: Des dates sont requises
+    max: Vous pouvez ajouter jusqu'à 30 dates
+    groupLabel: ({count} dates)
+  when:
+    label: Quand
+  asSoonAsPossible:
+    label: Dès que possible
+    required: Le plus tôt possible est requis
+errors:
+  waitlistAppNotConfigured:
+    title: L'application de liste d'attente n'est pas définie
+    description: L'application de liste d'attente n'est pas définie. Veuillez configurer l'application de liste d'attente pour qu'elle utilise ce bloc.
+

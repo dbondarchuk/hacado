@@ -1,0 +1,72 @@
+notInBlogContext: Pas dans un contexte de blog
+notInBlogTagContext: Pas dans un contexte de balise de blog
+blogPostNotFound: Article de blog introuvable
+readMore: En savoir plus
+block:
+  postsList:
+    title: Articles de blog
+    noPosts: Aucun article de blog trouvé
+    previous: Précédent
+    next: Suivant
+    readMore: En savoir plus
+  postContent:
+    notFound: Article de blog introuvable
+    publishedOn: Publié le
+  postReadTime:
+    formats:
+      minRead: "{minutes} min de lecture"
+      min: "{minutes} minutes"
+      minutesRead: "{minutes, plural, =0 {{minutes} minute} one {{minutes} minute} other {{minutes} minutes}}_ lire"
+  postAuthor:
+    missingAuthor: Auteur non configuré
+    formats:
+      name: "{name}"
+      publishedBy: Publié par {name}
+      by: Par {name}
+      author: "Auteur : {name}"
+  postCommentCount:
+    disabled: Commentaires désactivés
+    formats:
+      count: "{count, plural, =0 {No comments} one {1 comment} other {# comments}}"
+      commentsCount: "{count, plural, =0 {No comments} one {1 comment} other {# comments}}"
+  postCommentsList:
+    heading: Commentaires
+    empty: Pas encore de commentaires. Soyez le premier à commenter.
+    disabled: Les commentaires sont désactivés pour ce blog.
+  commentsList:
+    previous: Précédent
+    next: Suivant
+  postCommentForm:
+    addText: Ajouter un commentaire
+    disabled: Les commentaires sont désactivés pour ce blog.
+    nameLabel: Nom
+    namePlaceholder: Votre nom
+    emailLabel: E-mail
+    emailPlaceholder: votre@email.com
+    bodyLabel: Commentaire
+    bodyPlaceholder: Écrivez votre commentaire…
+    submitLabel: Publier un commentaire
+    success: Merci! Votre commentaire a été publié.
+    successPending: Merci! Votre commentaire est en attente de modération.
+    error: Impossible de soumettre votre commentaire. Veuillez réessayer.
+    validation:
+      postId:
+        required: Message invalide
+      name:
+        required: Le nom est requis
+        max: Le nom doit comporter au maximum 256 caractères
+      email:
+        required: L'e-mail est requis
+        invalid: Entrez une adresse e-mail valide
+        max: L'e-mail doit comporter au maximum 256 caractères
+      body:
+        required: Un commentaire est requis
+        max: Le commentaire doit comporter au maximum 2 048 caractères.
+  tagList:
+    title: Balises
+    noTags: Aucune balise disponible
+errors:
+  blogAppNotConfigured:
+    title: Application de blog non configurée
+    description: Application de blog non configurée. Veuillez configurer l'application de blog pour utiliser ce bloc.
+

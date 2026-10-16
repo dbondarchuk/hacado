@@ -377,6 +377,53 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ * Shield ICU placeholders `{...}` (including nested) and simple HTML tags so
+ * machine translation does not rewrite them.
+ */
+function shieldTranslatableTokens(text) {
+  const tokens = [];
+  const push = (match) => {
+    const id = `___PH_${tokens.length}___`;
+    tokens.push(match);
+    return id;
+  };
+
+  let shielded = String(text).replace(
+    /<\/?[a-zA-Z][a-zA-Z0-9]*(?:\s[^>]*)?\s*\/?>/g,
+    push,
+  );
+
+  let previous;
+  do {
+    previous = shielded;
+    shielded = shielded.replace(/\{[^{}]+\}/g, push);
+  } while (shielded !== previous);
+
+  return { shielded, tokens };
+}
+
+function unshieldTranslatableTokens(text, tokens) {
+  // Nested ICU shields embed ___PH_N___ inside outer token values, so expand
+  // repeatedly until stable (a single replace pass leaves inner markers).
+  let result = String(text);
+  let previous;
+  do {
+    previous = result;
+    result = result.replace(/___PH_(\d+)___/g, (_, index) => {
+      const token = tokens[Number(index)];
+      return token === undefined ? `___PH_${index}___` : token;
+    });
+  } while (result !== previous);
+  return result;
+}
+
+/** Map BCP 47 codes to provider language codes (e.g. fr-CA -> fr). */
+function providerLanguageCode(language) {
+  const base = String(language).split("-")[0];
+  return base || language;
+}
+
 async function translateText(text, options) {
   const trimmed = String(text).trim();
   console.log("Translating text:", trimmed);
@@ -385,6 +432,9 @@ async function translateText(text, options) {
     return text;
   }
 
+  const { shielded, tokens } = shieldTranslatableTokens(trimmed);
+  const targetLang = providerLanguageCode(options.language);
+
   const cacheKey = `en|${options.language}|${options.provider}|${trimmed}`;
   if (options.cache[cacheKey]) {
     console.log("Cache hit for:", cacheKey);
@@ -392,12 +442,12 @@ async function translateText(text, options) {
   }
 
   let translated = "";
-  for (let i = 0; i < trimmed.length; i += MAX_CHUNK) {
-    const chunk = trimmed.slice(i, i + MAX_CHUNK);
+  for (let i = 0; i < shielded.length; i += MAX_CHUNK) {
+    const chunk = shielded.slice(i, i + MAX_CHUNK);
     const part =
       options.provider === "mymemory"
-        ? await fetchFromMyMemory(chunk, options.language)
-        : await fetchFromGoogle(chunk, options.language);
+        ? await fetchFromMyMemory(chunk, targetLang)
+        : await fetchFromGoogle(chunk, targetLang);
 
     console.log("Translated chunk:", chunk, "->", part);
 
@@ -405,34 +455,56 @@ async function translateText(text, options) {
     await sleep(options.provider === "mymemory" ? 550 : 150);
   }
 
+  translated = unshieldTranslatableTokens(translated, tokens);
   console.log("Final translated text:", translated);
   options.cache[cacheKey] = translated;
   saveCache(options.cachePath, options.cache);
   return translated;
 }
 
+const GOOGLE_CLIENTS = ["dict-chrome-ex", "te", "webapp", "t", "gtx"];
+let googleClientIndex = 0;
+
+function currentGoogleClient() {
+  return GOOGLE_CLIENTS[googleClientIndex % GOOGLE_CLIENTS.length];
+}
+
+function rotateGoogleClient() {
+  googleClientIndex = (googleClientIndex + 1) % GOOGLE_CLIENTS.length;
+  return currentGoogleClient();
+}
+
 async function fetchFromGoogle(text, language) {
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(language)}&dt=t&q=${encodeURIComponent(text)}`;
-  return retryingFetch(url, (data) => {
-    console.log("Fetching from Google:", text, "->", language);
-    if (!Array.isArray(data) || !Array.isArray(data[0])) {
-      console.log("Bad response shape:", data);
-      throw new Error("Bad response shape");
-    }
+  return retryingFetch(
+    () =>
+      `https://translate.googleapis.com/translate_a/single?client=${encodeURIComponent(currentGoogleClient())}&sl=en&tl=${encodeURIComponent(language)}&dt=t&q=${encodeURIComponent(text)}`,
+    (data) => {
+      console.log(
+        "Fetching from Google:",
+        text,
+        "->",
+        language,
+        `(client=${currentGoogleClient()})`,
+      );
+      if (!Array.isArray(data) || !Array.isArray(data[0])) {
+        console.log("Bad response shape:", data);
+        throw new Error("Bad response shape");
+      }
 
-    console.log("Good response shape:", data);
-    const translated = data[0]
-      .map((row) => (Array.isArray(row) ? row[0] : ""))
-      .join("");
+      console.log("Good response shape:", data);
+      const translated = data[0]
+        .map((row) => (Array.isArray(row) ? row[0] : ""))
+        .join("");
 
-    if (!translated) {
-      console.log("Empty translation:", translated);
-      throw new Error("Empty translation");
-    }
+      if (!translated) {
+        console.log("Empty translation:", translated);
+        throw new Error("Empty translation");
+      }
 
-    console.log("Good translation:", translated);
-    return translated;
-  });
+      console.log("Good translation:", translated);
+      return translated;
+    },
+  );
 }
 
 async function fetchFromMyMemory(text, language) {
@@ -450,10 +522,19 @@ async function fetchFromMyMemory(text, language) {
   });
 }
 
-async function retryingFetch(url, parseResponse) {
+async function retryingFetch(buildUrl, parseResponse) {
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
+      const url = typeof buildUrl === "function" ? buildUrl() : buildUrl;
       const response = await fetch(url);
+      if (response.status === 429 || response.status === 503) {
+        const next = rotateGoogleClient();
+        console.log(
+          `\nRate limited (${response.status}), switching client → ${next}`,
+        );
+        await sleep(RETRY_WAIT_MS * attempt);
+        continue;
+      }
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }

@@ -1,0 +1,79 @@
+app:
+  displayName: Notificación por correo electrónico del cliente
+  description: Envíe correos electrónicos personalizados a los clientes sobre sus citas, incluidas confirmaciones, actualizaciones y cancelaciones, para que se mantengan informados en cada paso del camino.
+navigation:
+  title: Notificación por correo electrónico del cliente
+new: Notificación por correo electrónico de nuevo cliente
+edit: Editar notificación por correo electrónico del cliente
+newDescription: Crear notificación por correo electrónico de nuevo cliente
+editDescription: Actualizar la notificación por correo electrónico del cliente
+form:
+  pending:
+    templateId:
+      label: Plantilla de correo electrónico pendiente
+      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando solicitaron una cita y su cita está pendiente.
+  confirmed:
+    templateId:
+      label: Plantilla de correo electrónico confirmada
+      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando se confirme su cita.
+  pendingPackage:
+    templateId:
+      label: Correo electrónico de cita de paquete pendiente (opcional)
+      description: Opcional. Se utiliza en lugar de la plantilla pendiente cuando la cita está cubierta por un paquete. Déjelo vacío para usar la plantilla pendiente normal.
+  confirmedPackage:
+    templateId:
+      label: Correo electrónico de cita de paquete confirmada (opcional)
+      description: Opcional. Se utiliza en lugar de la plantilla confirmada cuando la cita está cubierta por un paquete. Déjelo vacío para utilizar la plantilla confirmada habitual.
+  declined:
+    templateId:
+      label: Plantilla de correo electrónico rechazada
+      description: Enviado cuando rechazas una solicitud de reserva
+  canceled:
+    templateId:
+      label: Plantilla de correo electrónico cancelada
+      description: Enviado cuando el cliente cancela, o cuando registra la cita como cancelada por el cliente
+  noShow:
+    templateId:
+      label: Plantilla de correo electrónico de no presentación
+      description: Opcional. Se envía cuando marcas al cliente como no presentado. Déjelo vacío para no enviar nada o marque "No notificar al cliente" en la cita.
+  rescheduled:
+    templateId:
+      label: Plantilla de correo electrónico reprogramada
+      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando se reprogramó su cita.
+  calendarEventTemplate:
+    templateId:
+      label: Plantilla de eventos de calendario
+      description: Contenido del evento, que tus clientes verán en su calendario
+statusText:
+  email_app_not_configured: El remitente de correo electrónico predeterminado no está configurado
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Configuración de procesamiento de errores
+  error_sending_customer_email_notification_for_new_appointment: Error al enviar una notificación por correo electrónico al cliente para una nueva cita
+  error_sending_customer_email_notification_for_status_change: Error al enviar una notificación por correo electrónico al cliente sobre el cambio de estado
+  error_sending_customer_email_notification_for_rescheduled_appointment: Error al enviar una notificación por correo electrónico al cliente para una cita reprogramada
+handlers:
+  newRequest: "Notificación por correo electrónico del cliente: nueva solicitud"
+  pending: "Notificación por correo electrónico del cliente: pendiente"
+  confirmed: "Notificación por correo electrónico del cliente: confirmada"
+  declined: "Notificación por correo electrónico del cliente: rechazada"
+  canceled: "Notificación por correo electrónico del cliente: cancelada"
+  noShow: "Notificación por correo electrónico del cliente: no presentarse"
+  rescheduled: "Notificación por correo electrónico del cliente: reprogramada"
+validation:
+  eventTemplate:
+    summary:
+      required: Se requiere resumen del evento
+      min: Se requiere resumen del evento
+      max: El resumen del evento no debe tener más de 256 caracteres.
+    templateId:
+      required: Se requiere plantilla de evento
+      min: Se requiere plantilla de evento
+  emailTemplate:
+    subject:
+      required: El asunto del correo electrónico es obligatorio.
+      min: El asunto del correo electrónico es obligatorio.
+      max: El asunto del correo electrónico no debe tener más de 256 caracteres.
+    templateId:
+      required: Se requiere plantilla de correo electrónico
+      min: Se requiere plantilla de correo electrónico
+

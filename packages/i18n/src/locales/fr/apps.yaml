@@ -1,0 +1,147 @@
+common:
+  details: Détails
+  statusMessage: "Statut : {status}, {statusText}"
+  featured: En vedette
+  addApp: Ajouter une application
+  alreadyInstalled: Déjà installé
+  upgradeRequired: Cette application nécessite un abonnement Solo.
+  upgradeLink: Mise à niveau dans les paramètres de la marque
+  appStore: Magasin d'applications
+  addNewApps: Ajouter de nouvelles applications
+  search: Recherche
+  mostPopular: Les plus populaires
+  allApps: Toutes les applications
+  all: Tous
+  statusText:
+    successfully_set_up: Configuration réussie
+    error: Quelque chose s'est mal passé
+    pending: En attente
+    connected: Connecté
+    installed: Installé
+  usesTemplatedValues: "* Utilise des valeurs modèles"
+  toasts:
+    saved: Sauvé !
+    error: Il y a eu un problème avec votre demande.
+  openMenu: Ouvrir le menu
+  selectAll: Tout sélectionner
+  selectRow: Sélectionner une ligne
+  connectedAppSetup:
+    success:
+      title: Succès!
+      description: Votre application a été connectée avec succès
+    error:
+      title: Euh oh ! Quelque chose s'est mal passé.
+      description: La demande de connexion à l'application a échoué. Veuillez réessayer.
+  defaultDescription: Mettre à jour les paramètres {appName}
+  updateApp: Mettre à jour l'application
+  connectNewApp: Connecter une nouvelle application
+  close: Fermer
+  pleaseWait: S'il vous plaît, attendez...
+  disconnectApp: Déconnecter l'application
+  disconnect:
+    trigger: Déconnecter l'application
+    label: Déconnecter
+    confirmationDialog:
+      title: Etes-vous absolument sûr ?
+      description: Cette action ne peut pas être annulée. Cela supprimera cette application et pourrait interrompre les services qui l'utilisent.
+      cancel: Annuler
+    toast:
+      success: L'application a été déconnectée avec succès.
+      error:
+        title: Euh oh ! Quelque chose s'est mal passé.
+        defaultDescription: Il y a eu un problème avec votre demande.
+  requestFailed: La demande a échoué.
+  loadingApps: Chargement des applications...
+  selectApp: Sélectionnez l'application
+  eventSubscriptions:
+    viewPatterns: Événements abonnés
+    modalTitle: Modèles d'événements
+    modalDescription: Cette application reçoit les événements d'organisation dont le type correspond à l'un de ces modèles (y compris les caractères génériques tels que *).
+  installTargetsPrompt:
+    title: Utiliser cette application pour ces cibles ?
+    description: Sélectionnez où vous souhaitez utiliser cette application nouvellement installée.
+    targets:
+      payment: Traitement des paiements
+      mail-send: Envoi d'email
+      text-message-send: Envoi de SMS
+      text-message-respond: Réponses par SMS
+      calendar-read: Sources de calendrier
+      schedule: Fournisseur d'horaires
+      availability-provider: Fournisseur de disponibilité
+      meeting-url-provider: Fournisseur d'URL de réunion
+    actions:
+      skip: Pas maintenant
+      apply: Appliquer la sélection
+    toasts:
+      setSuccess: Cibles d'application mises à jour.
+      setError: Un problème est survenu lors de la mise à jour des cibles de l'application.
+installedApps:
+  searchPlaceholder: Rechercher les applications installées
+  noInstalledApps: Vous n'avez aucune application installée
+  noResults: Aucune application trouvée pour votre recherche
+scopes:
+  calendar-read: Source du calendrier
+  calendar-write: Magasin de calendriers
+  mail-send: E-mail
+  text-message-send: SMS
+  text-message-respond: Répondeur aux SMS
+  event-subscriber: Abonné à l'événement
+  scheduled: Programmé
+  schedule: Fournisseur d'horaires
+  assets-storage: Stockage des actifs
+  payment: Paiements
+  payment-link: Liens de paiement
+  dashboard-tab: Onglet Tableau de bord
+  customer-tab: Onglet Client
+  ui-components: Composants de l'interface utilisateur
+  availability-provider: Fournisseur de disponibilité
+  meeting-url-provider: Fournisseur d'URL de réunion
+  dashboard-notifier: Notificateur de tableau de bord
+  needs-attention-provider: A besoin d'attention d'un fournisseur
+  quick-link-provider: Fournisseur de liens rapides
+  demo-arguments-provider: Fournisseur d'arguments de démonstration
+  communication-templates-provider: Fournisseur de modèles de communication
+  sitemap-items-provider: Fournisseur d'éléments de plan du site
+  page-seo-arguments-provider: Fournisseur d’arguments SEO de page
+  script-provider: Fournisseur de scripts
+  page-metadata-provider: Fournisseur de métadonnées de page
+  llms-full-txt-provider: Fournisseur de texte intégral LLM
+  public-event-context-provider: Fournisseur de contexte d'événement public
+  public-page-provider: Fournisseur de pages publiques
+target:
+  company: Entreprise
+  member: Membre
+status:
+  connected: Connecté
+  failed: La connexion a échoué
+  pending: En attente
+categories:
+  notifications: Notifications
+  schedule: Calendrier
+  storage: Stockage
+  calendar: Calendrier
+  communications: Communications
+  utilities: Utilitaires
+  payment: Paiements
+  appointments: Rendez-vous
+  customers: Clients
+  content: Contenu
+  marketing: Commercialisation
+fileSystemAssetsStorage:
+  title: Stockage des actifs du système de fichiers
+  displayName: Stockage des actifs du système de fichiers
+  description: Stockez les actifs dans le système de fichiers.
+  statusText:
+    successfully_set_up: Configuration réussie
+    error_processing_configuration: Erreur lors du traitement de la configuration du stockage des actifs du système de fichiers
+    file_not_found: Le fichier {filename} n'existe pas
+    file_saved: Fichier {filename} enregistré avec succès
+    file_deleted: Fichier {filename} supprimé avec succès
+    error_getting_file: Erreur lors de l'obtention du fichier {filename}
+    error_saving_file: Erreur lors de l'enregistrement du fichier {filename}
+    error_deleting_file: Erreur lors de la suppression du fichier {filename}
+communications:
+  handledBy:
+    customer: Envoyer un message client
+    appointment: Envoyer un message de rendez-vous
+

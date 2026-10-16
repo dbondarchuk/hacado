@@ -1,0 +1,42 @@
+title: Calendrier CalDAV
+app:
+  displayName: Calendrier CalDAV
+  description: |-
+    Caldav est un protocole qui permet à différents clients/serveurs d'accéder aux informations de planification sur des serveurs distants ainsi que de planifier des réunions avec d'autres utilisateurs sur le même serveur ou sur d'autres serveurs.
+    Il étend la spécification WebDAV et utilise le format iCalendar pour les données.
+statusText:
+  successfullySetUp: Calendrier {calendarName} récupéré avec succès
+  calendarNotFound: L'agenda "{calendarName}" est introuvable
+  calendarNotSet: Le nom du calendrier n'a pas été défini
+  failedToFetchCalendars: Échec de la récupération des agendas de {serverUrl}
+  successfullyFetchedCalendars: Calendriers récupérés avec succès à partir du serveur{serverUrl}
+toast:
+  failedToFetchCalendars: Échec de la récupération des agendas de {serverUrl}
+  failedToFetchCalendarsDescription: Échec de la récupération des agendas de {serverUrl}. Veuillez vérifier si l'URL du serveur est correcte et si le serveur est accessible.
+form:
+  serverUrl:
+    label: Serveur CalDAV
+    tooltip: URL vers le serveur CalDAV
+  username:
+    label: Nom d'utilisateur
+    tooltip: Nom d'utilisateur facultatif
+  password:
+    label: Mot de passe
+    tooltip: Mot de passe facultatif
+  calendar:
+    label: Calendrier
+    placeholder: Sélectionnez le calendrier
+  fetch: Aller chercher
+  connect: Connectez-vous avec <app></app>
+validation:
+  calendarName:
+    required: Le nom du calendrier est obligatoire
+    max: Le nom du calendrier ne doit pas comporter plus de 256 caractères
+  serverUrl:
+    url: L'URL du serveur doit être une URL valide
+    max: L'URL du serveur ne doit pas dépasser 4 096 caractères.
+  username:
+    max: Le nom d'utilisateur ne doit pas comporter plus de 256 caractères
+  password:
+    max: Le mot de passe ne doit pas contenir plus de 256 caractères
+

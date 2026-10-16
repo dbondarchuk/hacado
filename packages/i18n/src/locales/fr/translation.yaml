@@ -1,0 +1,459 @@
+common:
+  buttons:
+    next: Continuer
+    back: Dos
+    confirmBooking: Confirmer la réservation
+    apply: Appliquer
+    close: Fermer
+    add: Ajouter
+  formats:
+    durationMin: "{duration} minutes"
+    durationHourMin: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    durationMinutes: "{duration} minutes"
+    durationHourMinutes: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    timezone: GMT{timezone}
+    formDateLabel: "Date : {date}"
+    formTimeLabel: "Heure : {start} - {end}"
+    customDurationLabel: "Durée : personnalisée"
+    formDurationLabel: "Durée : {duration} min"
+    formDurationHourMinutesLabel: "Durée : {hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+    formPriceLabel: "Prix : {price}"
+    selectTimezoneLabel: Toutes les heures sont indiquées dans le fuseau horaire <timeZoneCombobox></timeZoneCombobox>.
+  labels:
+    durationCustom: Coutume
+    selectDateTime: Sélectionnez la date et l'heure
+    selectDateFirst: Veuillez d'abord sélectionner la date
+    selectTimeFirst: Veuillez d'abord sélectionner l'heure
+    availableTimes: Horaires disponibles
+    loadingAvailableTimes: Chargement des horaires disponibles...
+    noAvailableTimeSlots: Aucun créneau horaire disponible ce jour
+    durationSelectTitle: De combien de temps avez-vous besoin ?
+    formTitle: Entrez vos coordonnées
+    formName: Nom
+    formEmail: E-mail
+    formPhone: Téléphone
+    formPromoCode: Code promotionnel
+    formSelectOption: Sélectionnez une option
+    searchCountryCode: Rechercher un pays...
+    searchTimezone: Rechercher pour changer le fuseau horaire
+  aria:
+    loading: Chargement...
+booking:
+  title: Prenez votre rendez-vous
+  description: Suivez les étapes ci-dessous pour planifier votre session
+  steps:
+    option: Service
+    specialist: Spécialiste
+    addons: Modules complémentaires
+    calendar: Date et heure
+    form: Détails
+    payment: Paiement
+    otp: Vérifier
+    review: Résumé
+  summary:
+    title: Votre réservation
+    empty: Rien de sélectionné pour l'instant.
+    with: Avec
+    when: Quand
+    total: Total
+    estimates:
+      amount: Montant
+      duration: Durée
+      dateTime: Date et heure
+  option:
+    title: Sélectionnez un service
+    description: Choisissez le type de séance qui vous convient le mieux
+    duration:
+      custom:
+        title: Durée de la séance
+        min_max: "Min : {min} • Max : {max}"
+    price_per_hour: "{price}/heure"
+  specialist:
+    title: Sélectionnez un spécialiste
+    choose: Choisissez avec qui vous souhaitez réserver
+    fromPrice: À partir du {price}
+    fromDuration: À partir du {duration}
+    any:
+      title: Tout spécialiste
+      description: Consultez la disponibilité de tous les spécialistes et choisissez ce qui fonctionne le mieux
+  addons:
+    title: Améliorez votre expérience
+    description: Modules complémentaires optionnels pour tirer le meilleur parti de votre session
+    no_addons_available: Aucun module complémentaire disponible pour ce service
+    selectLabel: Sélectionnez des services supplémentaires
+  calendar:
+    title: Sélectionnez la date et l'heure
+    description: Choisissez votre créneau de rendez-vous préféré
+    firstAppointmentTitle: Sélectionnez la date et l'heure de votre premier rendez-vous
+    firstAppointmentDescription: Choisissez un créneau pour la première séance incluse dans votre forfait
+    packageAppointmentTitle: Sélectionnez la date et l'heure de votre rendez-vous {serviceName}
+    nextPackageAppointmentTitle: Sélectionnez la date et l'heure de votre prochain rendez-vous
+    nextPackageAppointmentDescription: Choisissez un créneau en utilisant les crédits de votre forfait
+    loading: Chargement des horaires disponibles...
+    no_available_times: Pas d'heures disponibles pour cette date
+  form:
+    title: Vos coordonnées
+    description: Veuillez fournir vos coordonnées
+    namePlaceholder: Votre nom
+  review:
+    title: Vérifiez votre réservation
+    description: Veuillez confirmer que tous les détails sont corrects
+    duplicate:
+      title: Rendez-vous en double potentiel
+      description: "Nous avons trouvé des rendez-vous existants qui pourraient entrer en conflit avec cette réservation :"
+      closestAppointment: "Rendez-vous le plus proche :"
+      confirm: Je comprends et je veux continuer quand même
+      confirmationTitle: Es-tu sûr?
+      confirmationCheckboxLabel: Je confirme que je comprends et souhaite prendre ce rendez-vous
+    specialist:
+      title: Spécialiste
+    addons:
+      title: Modules complémentaires
+    date:
+      title: Date et heure
+      duration: "Durée estimée : {duration}"
+    contact:
+      title: Coordonnées
+      name: "Nom : {name}"
+      email: "Courriel : {email}"
+      phone: "Téléphone : {phone}"
+      other: "{label} : {value}"
+      yes: Oui
+      no: Non
+    price:
+      total: Total dû
+      discount: Rabais
+      original: Total
+      giftCards: Cartes cadeaux
+      package: Emballer
+  otp:
+    title: Vérifiez vos coordonnées
+    description: Entrez le code que nous avons envoyé pour confirmer cette réservation
+    descriptionEmailOnly: Nous vous enverrons un code de vérification à votre adresse e-mail
+    descriptionPhoneOnly: Nous enverrons un code de vérification sur votre téléphone
+    descriptionEmailOrPhone: Choisissez l'e-mail ou le téléphone pour recevoir un code de vérification
+    email: E-mail
+    phone: Téléphone
+    emailPlaceholder: vous@exemple.com
+    phonePlaceholder: Téléphone
+    emailInvalid: S'il vous plaît, mettez une adresse email valide.
+    phoneInvalid: Veuillez entrer un numéro de téléphone valide.
+    send: Envoyer le code
+    request: Envoyer le code
+    verify: Vérifier le code
+    hint: Entrez le code à 6 chiffres que nous vous avons envoyé
+    sent: Nous avons envoyé un code de vérification
+    sentIfMatch: Si nous trouvions une correspondance, nous envoyions le code
+    invalid: Code invalide
+    requestError: Impossible d'envoyer le code. Veuillez réessayer.
+    verifyError: La vérification OTP a échoué. Veuillez vérifier votre code et réessayer.
+    resendBlocked: Demander un nouveau code dans {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    changeContact: Les coordonnées ont changé. Veuillez vérifier à nouveau.
+    skip: Déjà vérifié
+    name: Nom
+    nameRequired: Entrez votre nom pour continuer
+    namePlaceholder: Votre nom
+  package:
+    useCredits: Utiliser les crédits du forfait
+    verifyToUseCredits: Vérifiez pour utiliser les crédits du forfait
+    verifyToUseCreditsDescription: Connectez-vous avec un code à usage unique pour appliquer les crédits d'un package que vous possédez déjà.
+    bookWithPackage: Je souhaite prendre rendez-vous pour mon colis
+    bookWithPackageDescription: Vérifiez votre identité pour utiliser les crédits d'un forfait que vous avez déjà acheté.
+    selectPackage: Sélectionnez un forfait
+    selectPackageDescription: Choisissez les crédits de forfait à utiliser pour ce rendez-vous
+    noPackages: Aucun forfait avec des crédits restants n'a été trouvé pour votre compte.
+    buyPackage: Acheter un forfait
+    remaining: "{remaining} restant"
+    purchaseAndBook: Acheter un forfait et réserver
+    payFull: Payez sans crédits de forfait
+    bookIndependently: Réservez sans utiliser de forfait
+    purchaseTitle: Vous achetez un forfait
+    firstAppointmentNote: Cela prend le premier rendez-vous inclus dans le forfait.
+    included: Ce qui est inclus
+    includedItem: "{count}× {name}"
+  catalog:
+    group: Catégorie
+    package: Emballer
+    packages: Forfaits
+    empty: Aucun service dans cette catégorie
+  payment:
+    amount:
+      full: Montant total du paiement
+      deposit: Montant du dépôt
+    subtotal: Total
+    discount: Rabais
+    total: Total dû
+    deposit: Dépôt (à payer maintenant)
+    fullPayment: Paiement intégral (à payer maintenant)
+    remainingBalance: Solde restant
+    remainingBalanceDescription: Le solde restant de {remainingBalance} sera dû au moment de votre rendez-vous.
+    giftCards: Cartes cadeaux
+    informationFetchFailedTitle: Euh oh ! Quelque chose s'est mal passé.
+    informationFetchFailedDescription: Quelque chose s'est mal passé pendant que nous essayions d'obtenir les informations nécessaires pour prendre votre rendez-vous. Veuillez nous contacter
+    depositRequiredTitle: Un dépôt est requis
+    depositRequiredDescription: Afin de prendre ce rendez-vous, un dépôt de {percentage}% ({amount}) est requis. Merci de payer en utilisant le formulaire ci-dessous
+    fixedAmountRequiredDescription: Afin de prendre ce rendez-vous, un dépôt de {amount} est requis. Merci de payer en utilisant le formulaire ci-dessous
+    fullPaymentRequiredTitle: Le paiement intégral est requis
+    fullPaymentRequiredDescription: Afin de prendre ce rendez-vous, le paiement intégral de {amount} est requis. Merci de payer en utilisant le formulaire ci-dessous
+    tips:
+      title: Ajouter un conseil
+      none: Pas de pourboire
+      custom: Coutume
+      customAmount: Montant du pourboire
+      preset: "{percent}%"
+      tip: Conseil
+      total: Total dû maintenant
+  promoCode:
+    trigger: Vous avez un code promo ?
+    title: Code promotionnel
+    code: Code promotionnel
+    codePlaceholder: Saisissez le code promotionnel (par exemple XXX-XXX-XXX)
+    description: Jusqu'à 2 codes promotionnels peuvent être appliqués
+    success: Le code promotionnel {code} (-{discount}) a été appliqué avec succès.
+    successMessage: Le code promotionnel {code} (-{discount}) a été appliqué avec succès.
+    error: Le code promotionnel {code} n'est pas valide ou a expiré.
+    errorInvalid: Le code promotionnel n'est pas valide.
+    apply: Appliquer
+  giftCard:
+    trigger: Vous avez une carte cadeau ?
+    title: Carte cadeau
+    code: Code de la carte cadeau
+    description: Jusqu'à 2 cartes cadeaux peuvent être appliquées
+    success: La carte-cadeau {code} (-{appliedAmount}) a été appliquée avec succès.
+    error: La carte cadeau {code} n'est pas valide ou a expiré.
+    codeRequired: Le code de la carte cadeau est requis
+    apply: Appliquer
+    codePlaceholder: Saisissez le code de la carte cadeau (par exemple XXX-XXX-XXX)
+    giftCardAppliedAmount: -{appliedAmount} appliqué.
+    giftCardAmountLeftLabel: Solde restant sur la carte après la réservation
+    giftCardAmountLeft: "{amountLeft} laissé sur la carte"
+    remove: Supprimer la carte cadeau
+  confirmation:
+    price:
+      original: "Sous-total : {original}"
+      discount: "Remise : -{discount}"
+      total: "Total : {total}"
+    successTitle: Votre demande a été reçue !
+    successMessage: Merci, {name} ! Votre demande de {service} a été reçue et vous recevrez une confirmation sous peu.
+    fetchFailedTitle: Nous ne trouvons pas votre rendez-vous
+    appointmentDetails: Détails du rendez-vous
+    duration: "Durée : {duration}"
+    specialist: "Spécialiste : {name}"
+    package: "Partie du forfait : {name}"
+    newBookingButton: Prendre un autre rendez-vous
+  availability:
+    fetchFailedTitle: Euh oh ! Quelque chose s'est mal passé.
+    fetchFailedDescription: Quelque chose s'est mal passé pendant que nous obtenions les horaires disponibles. Veuillez nous contacter
+  restriction:
+    limitReachedTitle: Réservation en ligne indisponible
+    limitReachedDescription: Cette entreprise n'accepte pas de nouvelles nominations pour le moment. Veuillez réessayer plus tard ou contactez-les directement.
+  submitEvent:
+    failedTitle: Euh oh ! Quelque chose s'est mal passé.
+    failedDescription: Quelque chose s'est mal passé pendant que nous essayions de prendre votre rendez-vous. Veuillez nous contacter
+    timeNotAvailableDescription: On dirait que le temps n'est plus disponible. Veuillez sélectionner un autre créneau horaire
+    limitReachedTitle: Impossible de prendre rendez-vous
+    limitReachedDescription: Cette entreprise a atteint sa limite de rendez-vous pour cette période. Veuillez réessayer plus tard ou contactez-les directement.
+modification:
+  title: Gérez votre rendez-vous
+  pageTitle: Modifier rendez-vous
+  description: Annuler ou reprogrammer votre rendez-vous existant
+  steps:
+    type: Action
+    otp: Vérifier
+    form: Trouver
+    calendar: Nouvelle heure
+    review: Résumé
+    payment: Paiement
+  otp:
+    descriptionEmailOnly: Entrez votre email pour recevoir un code de vérification
+    descriptionPhoneOnly: Entrez votre téléphone pour recevoir un code de vérification
+    descriptionEmailOrPhone: Entrez votre e-mail ou votre téléphone pour recevoir un code de vérification
+    email: E-mail
+    phone: Téléphone
+    emailPlaceholder: vous@exemple.com
+    request: Envoyer le code
+    verify: Vérifier le code
+    resend: Renvoyer le code
+    resendBlocked: Demander un nouveau code dans {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    hint: Entrez le code à 6 chiffres que nous vous avons envoyé
+    sent: Si nous trouvons une correspondance, nous envoyons un code
+    invalid: Code invalide
+    requestError: Impossible d'envoyer le code. Veuillez réessayer.
+  summary:
+    estimates:
+      dateTime: Date et heure
+      newDateTime: Nouvelle date et heure
+  type:
+    cancel:
+      title: Annuler le rendez-vous
+      description: Annuler votre prochain rendez-vous
+    reschedule:
+      title: Reprogrammer un rendez-vous
+      description: Reprogrammez votre prochain rendez-vous
+    title: Qu'aimeriez-vous faire ?
+    description: Choisissez d'annuler ou de reprogrammer votre rendez-vous
+  form:
+    title: Trouvez votre rendez-vous
+    description: Entrez la date et l'heure de votre rendez-vous
+    typeLabel: Email ou téléphone
+    cancelTitle: Trouvons votre rendez-vous. Veuillez fournir les détails du rendez-vous que vous souhaitez annuler
+    rescheduleTitle: Trouvons votre rendez-vous. Veuillez fournir les détails du rendez-vous que vous souhaitez reporter
+    type:
+      email: E-mail
+      phone: Téléphone
+      label: Comment souhaitez-vous trouver votre rendez-vous ?
+    email:
+      label: Adresse email
+      placeholder: john.doe@example.com
+    phone:
+      label: Numéro de téléphone
+      placeholder: "+1234567890"
+    date:
+      label: Date et heure
+      placeholder: Sélectionnez une date
+    time:
+      label: Temps
+      placeholder: Sélectionnez l'heure
+    dateTime:
+      label: Date et heure
+    notAllowed:
+      cancel:
+        title: L'annulation n'est pas autorisée pour ce rendez-vous
+        message: <p>Bonjour {name}, nous ne pouvons malheureusement pas annuler ce rendez-vous pour le moment. Veuillez nous contacter pour annuler.</p><ul><li>{reason}</li></ul>
+      reschedule:
+        title: Le report n'est pas autorisé pour ce rendez-vous
+        message: <p>Bonjour {name}, nous ne pouvons malheureusement pas reporter ce rendez-vous pour le moment. Veuillez nous contacter pour reprogrammer.</p><ul><li>{reason}</li></ul>
+    searchError:
+      notFound: Aucun rendez-vous n'a été trouvé avec les détails fournis. Veuillez vérifier et réessayer.
+      notAllowed:
+        cancel: <p>Bonjour {name}, nous ne pouvons malheureusement pas annuler ce rendez-vous pour le moment. Veuillez nous contacter pour annuler.</p><ul><li>{reason}</li></ul>
+        reschedule: <p>Bonjour {name}, nous ne pouvons malheureusement pas reporter ce rendez-vous pour le moment. Veuillez nous contacter pour reprogrammer.</p><ul><li>{reason}</li></ul>
+        reason:
+          max_reschedules_reached: Vous avez atteint le nombre maximum de reprogrammations pour ce rendez-vous.
+          original_appointment_deposit_required: Le dépôt de rendez-vous original est requis pour reprogrammer ce rendez-vous.
+          time_not_available: L’heure n’est pas disponible pour une reprogrammation.
+          invalid_request_type: Le type de demande n'est pas valide.
+          cancellation_not_allowed: Les annulations ne sont pas autorisées.
+          reschedule_not_allowed: Les reports ne sont pas autorisés.
+          cancellation_not_allowed_by_policy: L'annulation n'est pas autorisée pour ce rendez-vous.
+          reschedule_not_allowed_by_policy: Les reports ne sont pas autorisés pour ce rendez-vous.
+          rescheduled_appointment_not_allowed: L'annulation n'est pas autorisée pour ce rendez-vous car il a été reporté.
+          online_payment_unavailable: Ce changement nécessite des frais, mais les paiements en ligne ne sont pas disponibles. Veuillez nous contacter.
+          unknown: Raison inconnue
+  calendar:
+    title: Sélectionnez une nouvelle date et heure
+    description: Choisissez une nouvelle heure pour votre rendez-vous {serviceName}
+  review:
+    cancel:
+      title: Annulation de l'avis
+      description: Veuillez confirmer les détails du rendez-vous ci-dessous
+      alert:
+        title: Vous êtes sur le point d'annuler ce rendez-vous
+        subTitle: Cette action ne peut pas être annulée
+        forfeitDepositDescription: Si vous le faites, votre dépôt ne sera pas remboursé.
+      checkboxLabel: Je confirme que je comprends et souhaite annuler ce rendez-vous
+      confirmationTitle: Es-tu sûr?
+      confirmationForfeitDepositDescription: Bonjour {name}, êtes-vous sûr de vouloir annuler votre rendez-vous pour <b>{service}</b> le <i>{dateTime}</i>?<br></br>Si vous le faites, votre dépôt <b>ne sera pas remboursé</b>.
+      partialRefundDescription: Bonjour {name}, êtes-vous sûr de vouloir annuler votre rendez-vous pour <b>{service}</b> le <i>{dateTime}</i>?<br></br>Si vous le faites, <b>{refundPercentage}%</b> de votre dépôt{refundFees, pluriel, =1 {} les autres {{feesAmount, plural, =0 {} other { (except <b>{feesAmount} fees</b>)}}}} seront remboursés (<b>{refundAmount}</b>).
+      fullRefundDescription: Bonjour {name}, êtes-vous sûr de vouloir annuler votre rendez-vous pour <b>{service}</b> le <i>{dateTime}</i>?<br></br>Si vous le faites, votre dépôt{refundFees, pluriel, =1 {} autre {{feesAmount, pluriel, =0 {} autre { (except <b>{feesAmount} fees</b>)}}}} sera remboursé <b>entièrement</b> (<b>{refundAmount}</b>).
+      paymentPartialRequiredDescription: Bonjour {name}, êtes-vous sûr de vouloir annuler votre rendez-vous pour <b>{service}</b> le <i>{dateTime}</i> ?
+      paymentFullPriceRequiredDescription: Bonjour {name}, êtes-vous sûr de vouloir annuler votre rendez-vous pour <b>{service}</b> le <i>{dateTime}</i> ?
+      confirmationCheckboxLabel: Je confirme que je comprends et souhaite annuler ce rendez-vous
+      refundAmount: Montant du remboursement
+      fee: Frais d'annulation
+    reschedule:
+      title: Examiner les modifications
+      description: Confirmez les détails de votre rendez-vous reprogrammé
+      checkboxLabel: Je confirme que je comprends et souhaite reporter ce rendez-vous
+      confirmationTitle: Es-tu sûr?
+      confirmationDescription: Bonjour {name}, êtes-vous sûr de vouloir reprogrammer votre rendez-vous du <b>{service}</b> le <i>{dateTime}</i> au <i>{newDateTime}</i> ?
+      confirmationCheckboxLabel: Je confirme que je comprends et souhaite reporter ce rendez-vous
+      fee: Frais de report
+    service: Service
+    addons: Modules complémentaires
+    originalDate: Date d'origine
+    newDate: Nouvelle date
+    originalTime: Heure d'origine
+    newTime: Nouvelle heure
+    timezone: Fuseau horaire
+    duration: Durée
+    originalPrice: Prix ​​d'origine
+    confirm: Confirmer
+  payment:
+    cancel:
+      title: Frais d'annulation
+      description: Veuillez payer les frais requis pour continuer
+    reschedule:
+      title: Frais de report
+      description: Veuillez payer les frais requis pour continuer
+    paymentReview: Récapitulatif du paiement
+    amountDue: Montant dû
+  confirmation:
+    cancel:
+      title: Rendez-vous annulé
+      description: Votre rendez-vous a été annulé avec succès.
+      successTitle: Votre rendez-vous a été annulé
+      successMessage: Merci, {name} ! Votre rendez-vous pour {service} a été annulé et vous recevrez une confirmation sous peu.
+    reschedule:
+      title: Rendez-vous reporté
+      description: Votre rendez-vous a été reprogrammé avec succès.
+      successTitle: Votre rendez-vous a été reporté
+      successMessage: Merci, {name} ! Votre rendez-vous pour le {service} a été reporté au {newDateTime} et vous recevrez une confirmation sous peu.
+    appointmentDetails: Détails du rendez-vous
+  appointmentFetchFailed:
+    title: Nous ne trouvons pas votre rendez-vous
+    description: Nous ne trouvons pas votre rendez-vous. Assurez-vous d'avoir la date et l'heure correctes, ainsi qu'un e-mail ou un numéro de téléphone, puis réessayez. Ou contactez-nous pour modifier votre rendez-vous.
+  submitFailed:
+    cancel:
+      title: Euh oh ! Quelque chose s'est mal passé.
+      description: Quelque chose s'est mal passé pendant que nous essayions d'annuler votre rendez-vous. Veuillez nous contacter
+    reschedule:
+      title: Euh oh ! Quelque chose s'est mal passé.
+      description: Quelque chose s'est mal passé pendant que nous essayions de reprogrammer votre rendez-vous. Veuillez nous contacter
+  feeRequired:
+    cancel:
+      title: Des frais d'annulation sont requis
+      description: Afin d'annuler ce rendez-vous, des frais de {amount} sont requis. Merci de payer en utilisant le formulaire ci-dessous
+    reschedule:
+      title: Des frais de report sont requis
+      description: Afin de reprogrammer ce rendez-vous, des frais de {amount} sont requis. Merci de payer en utilisant le formulaire ci-dessous
+validation:
+  name:
+    required: Le nom est requis
+    max: Le nom ne doit pas comporter plus de 256 caractères
+  email:
+    invalid: E-mail invalide
+    required: L'e-mail est requis
+    max: L'e-mail ne doit pas contenir plus de 256 caractères
+  phone:
+    invalid: Numéro de téléphone invalide
+    required: Le téléphone est requis
+    max: Le téléphone ne doit pas contenir plus de 32 caractères
+  text:
+    required: Veuillez fournir la réponse
+    maxOneLine: Le texte ne doit pas comporter plus de 256 caractères
+    maxMultiLine: Le texte ne doit pas contenir plus de 4 096 caractères
+  checkbox:
+    required: Veuillez cocher la case
+  select:
+    required: Veuillez sélectionner une option
+  file:
+    required: Veuillez télécharger un fichier
+    maxSize: Le fichier est trop volumineux
+    type: Fichier attendu
+  giftCard:
+    code:
+      required: Le code de la carte cadeau est requis
+footer:
+  contactUsLabel: Contactez-nous
+  phone: Téléphone
+  email: E-mail
+  address: Adresse
+header:
+  menu: Menu
+  close: Fermer
+notFound:
+  title: Page introuvable
+  description: La page que vous recherchez n'existe pas.
+  button: Retourne à la maison
+

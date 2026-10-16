@@ -1,0 +1,41 @@
+title: Google Agenda
+app:
+  displayName: Google Agenda
+  description: Google Calendar est un service de gestion du temps et de planification développé par Google. Permet aux utilisateurs de créer et de modifier des événements, avec des options disponibles pour le type et l'heure. Disponible pour toute personne disposant d'un compte Gmail sur les versions mobile et Web.
+primaryCalendar: Primaire
+form:
+  selectCalendar:
+    label: Sélectionnez le calendrier
+    searchLabel: Sélectionnez le calendrier
+    tooltip: Choisissez quel agenda Google utiliser pour vos rendez-vous
+  connect: Connectez-vous avec <app></app>
+  reconnect: Reconnecter <app></app>
+  pendingAuthorization: En attente d'autorisation
+statusText:
+  successfully_set_up: Connexion réussie à Google Agenda
+  error_processing_configuration: Erreur lors du traitement de la configuration de Google Agenda
+  failed_to_retrieve_calendar_list: Échec de la récupération de la liste des calendriers
+  calendar_list_retrieved: Liste de calendriers récupérée avec succès
+  calendar_set: Calendrier défini avec succès
+  error_retrieving_calendar_list: Erreur lors de la récupération de la liste des calendriers
+  error_setting_calendar: Erreur lors de la configuration du calendrier
+  error_creating_calendar_event: Erreur lors de la création d'un événement d'agenda
+  error_updating_calendar_event: Erreur lors de la mise à jour de l'événement d'agenda
+  error_deleting_calendar_event: Erreur lors de la suppression d'un événement d'agenda
+  error_getting_busy_times: Erreur lors de l'obtention des heures d'occupation à partir de Google Agenda
+  oauth_error: Erreur d'authentification OAuth
+  invalid_credentials: Identifiants invalides
+  calendar_not_found: Calendrier introuvable
+  event_created: Événement d'agenda créé avec succès
+  event_updated: L'événement du calendrier a été mis à jour avec succès
+  event_deleted: Événement d'agenda supprimé avec succès
+  redirect_request_does_not_contain_app_id: La demande de redirection ne contient pas d'ID d'application
+  redirect_request_does_not_contain_authorization_code: La demande de redirection ne contient pas de code d'autorisation
+  app_was_not_authorized_properly: L'application n'a pas été correctement autorisée
+  app_was_not_given_required_scopes: L'application n'a pas reçu les étendues requises
+  failed_to_get_user_email: Impossible d'obtenir l'e-mail de l'utilisateur
+toast:
+  changes_saved: Vos modifications ont été enregistrées.
+  request_error: Il y a eu un problème avec votre demande.
+  calendar_list_error: Échec de la récupération de la liste des calendriers
+

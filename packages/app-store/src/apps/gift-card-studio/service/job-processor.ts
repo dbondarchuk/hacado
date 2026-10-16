@@ -20,7 +20,7 @@ import { Readable } from "stream";
 import { png2pdf, renderGiftCard } from "../designer/lib/render/render";
 import { GiftCardStudioSettings, PurchasedGiftCardListModel } from "../models";
 import { GiftCardStudioJobPayload } from "../models/app";
-import { giftCardStudioInvoiceTranslations } from "../translations/invoice";
+import { getGiftCardStudioInvoiceTranslations } from "../translations/invoice";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 import { GiftCardStudioRepositoryService } from "./repository-service";
 import { getFileName } from "./utils";
@@ -312,9 +312,7 @@ export class GiftCardStudioJobProcessor {
 
       const invoiceNumber = `GC-${purchasedGiftCardId}`;
 
-      const t =
-        giftCardStudioInvoiceTranslations[brand.language] ??
-        giftCardStudioInvoiceTranslations.en;
+      const t = getGiftCardStudioInvoiceTranslations(brand.language);
 
       let logoBuffer: Buffer | null = null;
       if (brand.logo) {

@@ -1,0 +1,147 @@
+common:
+  details: Detalles
+  statusMessage: "Estado: {status}, {statusText}"
+  featured: Presentado
+  addApp: Agregar aplicación
+  alreadyInstalled: Ya instalado
+  upgradeRequired: Esta aplicación requiere una suscripción Solo.
+  upgradeLink: Actualizar en la configuración de marca
+  appStore: tienda de aplicaciones
+  addNewApps: Agregar nuevas aplicaciones
+  search: Buscar
+  mostPopular: Más Popular
+  allApps: Todas las aplicaciones
+  all: Todo
+  statusText:
+    successfully_set_up: Configurado exitosamente
+    error: algo salió mal
+    pending: Pendiente
+    connected: Conectado
+    installed: Instalado
+  usesTemplatedValues: "* Utiliza valores de plantilla"
+  toasts:
+    saved: ¡Salvado!
+    error: Hubo un problema con tu solicitud.
+  openMenu: abrir menú
+  selectAll: Seleccionar todo
+  selectRow: Seleccionar fila
+  connectedAppSetup:
+    success:
+      title: ¡Éxito!
+      description: Tu aplicación se conectó exitosamente
+    error:
+      title: ¡Oh, oh! Algo salió mal.
+      description: La solicitud para conectar la aplicación falló. Por favor inténtalo de nuevo.
+  defaultDescription: Actualizar la configuración de {appName}
+  updateApp: Actualizar aplicación
+  connectNewApp: Conectar nueva aplicación
+  close: Cerca
+  pleaseWait: Espere por favor...
+  disconnectApp: Desconectar aplicación
+  disconnect:
+    trigger: Desconectar aplicación
+    label: Desconectar
+    confirmationDialog:
+      title: ¿Estás absolutamente seguro?
+      description: Esta acción no se puede deshacer. Esto eliminará esta aplicación y puede interrumpir los servicios que la utilizan.
+      cancel: Cancelar
+    toast:
+      success: La aplicación se desconectó correctamente.
+      error:
+        title: ¡Oh, oh! Algo salió mal.
+        defaultDescription: Hubo un problema con tu solicitud.
+  requestFailed: La solicitud falló.
+  loadingApps: Cargando aplicaciones...
+  selectApp: Seleccionar aplicación
+  eventSubscriptions:
+    viewPatterns: Eventos suscritos
+    modalTitle: Patrones de eventos
+    modalDescription: Esta aplicación recibe eventos de organización cuyo tipo coincida con uno de estos patrones (incluidos comodines como *).
+  installTargetsPrompt:
+    title: ¿Utiliza esta aplicación para estos objetivos?
+    description: Seleccione dónde desea utilizar esta aplicación recién instalada.
+    targets:
+      payment: Procesamiento de pagos
+      mail-send: Envío de correo electrónico
+      text-message-send: Envío de mensajes de texto
+      text-message-respond: Respuestas de mensajes de texto
+      calendar-read: Fuentes del calendario
+      schedule: Proveedor de horarios
+      availability-provider: Proveedor de disponibilidad
+      meeting-url-provider: Proveedor de URL de reunión
+    actions:
+      skip: Ahora no
+      apply: Aplicar seleccionado
+    toasts:
+      setSuccess: Objetivos de la aplicación actualizados.
+      setError: Hubo un problema al actualizar los destinos de la aplicación.
+installedApps:
+  searchPlaceholder: Buscar aplicaciones instaladas
+  noInstalledApps: No tienes ninguna aplicación instalada
+  noResults: No se encontraron aplicaciones para tu búsqueda
+scopes:
+  calendar-read: Fuente del calendario
+  calendar-write: tienda de calendario
+  mail-send: Correo electrónico
+  text-message-send: mensaje de texto
+  text-message-respond: Respondedor de mensajes de texto
+  event-subscriber: suscriptor del evento
+  scheduled: Programado
+  schedule: Proveedor de horarios
+  assets-storage: Almacenamiento de activos
+  payment: Pagos
+  payment-link: Enlaces de pago
+  dashboard-tab: Pestaña Panel de control
+  customer-tab: Pestaña de cliente
+  ui-components: Componentes de la interfaz de usuario
+  availability-provider: Proveedor de disponibilidad
+  meeting-url-provider: Proveedor de URL de reunión
+  dashboard-notifier: Notificador del panel
+  needs-attention-provider: Necesita proveedor de atención
+  quick-link-provider: Proveedor de enlace rápido
+  demo-arguments-provider: Proveedor de argumentos de demostración
+  communication-templates-provider: Proveedor de plantillas de comunicación
+  sitemap-items-provider: Proveedor de elementos del mapa del sitio
+  page-seo-arguments-provider: Proveedor de argumentos SEO de página
+  script-provider: Proveedor de guiones
+  page-metadata-provider: Proveedor de metadatos de página
+  llms-full-txt-provider: Proveedor de texto completo de LLM
+  public-event-context-provider: Proveedor de contexto de evento público
+  public-page-provider: Proveedor de página pública
+target:
+  company: Compañía
+  member: Miembro
+status:
+  connected: Conectado
+  failed: La conexión falló
+  pending: Pendiente
+categories:
+  notifications: Notificaciones
+  schedule: Cronograma
+  storage: Almacenamiento
+  calendar: Calendario
+  communications: Comunicaciones
+  utilities: Utilidades
+  payment: Pagos
+  appointments: Equipo
+  customers: Clientes
+  content: Contenido
+  marketing: Marketing
+fileSystemAssetsStorage:
+  title: Almacenamiento de activos del sistema de archivos
+  displayName: Almacenamiento de activos del sistema de archivos
+  description: Almacene activos en el sistema de archivos.
+  statusText:
+    successfully_set_up: Configurado exitosamente
+    error_processing_configuration: Error al procesar la configuración de almacenamiento de activos del sistema de archivos
+    file_not_found: El archivo {filename} no existe
+    file_saved: Archivo {filename} guardado exitosamente
+    file_deleted: Archivo {filename} eliminado exitosamente
+    error_getting_file: Error al obtener el archivo {filename}
+    error_saving_file: Error al guardar el archivo {filename}
+    error_deleting_file: Error al eliminar el archivo {filename}
+communications:
+  handledBy:
+    customer: Enviar mensaje al cliente
+    appointment: Enviar mensaje de cita
+

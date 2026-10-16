@@ -1,0 +1,42 @@
+title: Raya
+app:
+  displayName: Raya
+  description: |-
+    **Stripe** permite a las empresas aceptar **tarjetas**, **billeteras** y otros métodos de pago en línea.
+
+    **Hacado** se conecta a tu cuenta **Stripe** a través de **Stripe Connect** para que los clientes puedan **pagar cuando reservan**.
+form:
+  connect: Conectar <app></app>
+  reconnect: Reconectar <app></app>
+  pendingAuthorization: Esperando la autorización de Stripe...
+  inStoreSync:
+    label: Sincronizar pagos con tarjeta en persona
+    description: Importe automáticamente pagos con tarjeta Stripe en persona a través del webhook charge.succeeded y luego vincúlelos con las citas.
+    save: Guardar configuración de sincronización
+    saveSuccess: Configuración de sincronización de Stripe en la tienda guardada
+    saveError: Error al guardar la configuración de sincronización de Stripe en la tienda
+  matchWindow:
+    label: Ventana de partido (minutos)
+    description: Qué tan lejos puede estar la hora de finalización de una cita desde la hora de pago para seguir considerándose una coincidencia.
+statusText:
+  sync_settings_saved: Configuración de sincronización de Stripe en la tienda guardada
+  redirect_missing_app_id: A la respuesta de autorización le falta el ID de la aplicación
+  redirect_missing_code: A la respuesta de autorización le falta el código de autorización
+  access_denied: Se denegó el acceso a Stripe
+  oauth_error: Stripe devolvió un error de OAuth
+  not_authorized: Stripe no devolvió los tokens requeridos
+  missing_oauth_config: Stripe Connect OAuth no está configurado en el servidor
+  token_refresh_failed: No se pudo actualizar el token de acceso de Stripe
+  app_not_configured: La raya no está conectada
+  payment_failed: Stripe no pudo procesar el pago
+  payment_incomplete: El pago de Stripe no se completó
+  webhook_not_configured: Los webhooks de Stripe no están configurados en el servidor
+  invalid_webhook_signature: Firma de webhook de Stripe no válida
+  apple_pay_domain_registration_failed: No se pudo registrar el dominio Apple Pay con Stripe
+  cannot_uninstall_has_payments: No se puede eliminar Stripe porque existen pagos creados con esta aplicación
+validation:
+  accountId:
+    required: Se requiere identificación de cuenta de Stripe
+  paymentIntentId:
+    required: Se requiere identificación de intención de pago
+

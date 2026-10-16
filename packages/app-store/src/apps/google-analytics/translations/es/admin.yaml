@@ -1,0 +1,34 @@
+title: Google Analytics
+app:
+  displayName: Google Analytics
+  description: Conecte Google Analytics 4 para realizar un seguimiento de las visitas a su sitio web público y registrar reservas, uniones a listas de espera, compras de tarjetas de regalo, ventas de paquetes y envíos de formularios como conversiones.
+form:
+  selectStream:
+    label: Seleccionar flujo de datos
+    searchLabel: Buscar flujos de datos
+    tooltip: Elija qué flujo de datos web GA4 usar para este sitio web
+  connect: Conéctese con <app></app>
+  reconnect: Reconectar <app></app>
+  pendingAuthorization: Autorización pendiente
+statusText:
+  successfully_set_up: Conectado exitosamente a Google Analytics
+  requires_data_stream: Seleccione un flujo de datos para finalizar la configuración
+  redirect_request_does_not_contain_app_id: La solicitud de redireccionamiento no contiene el ID de la aplicación
+  redirect_request_does_not_contain_authorization_code: La solicitud de redireccionamiento no contiene el código de autorización
+  app_was_not_authorized_properly: La aplicación no fue autorizada correctamente
+  app_was_not_given_required_scopes: A la aplicación no se le asignaron los alcances requeridos
+  failed_to_get_user_email: No se pudo obtener el correo electrónico del usuario
+  failed_to_retrieve_data_stream_list: No se pudo recuperar la lista de flujo de datos
+  failed_to_set_data_stream: No se pudo configurar el flujo de datos
+  failed_to_create_measurement_protocol_secret: No se pudo crear el secreto del protocolo de medición
+  missing_oauth_config: Google Analytics OAuth no está configurado. Establezca GOOGLE_ANALYTICS_APP_CLIENT_ID y GOOGLE_ANALYTICS_APP_CLIENT_SECRET.
+toast:
+  changes_saved: Tus cambios fueron guardados.
+  request_error: Hubo un problema con tu solicitud.
+  stream_list_error: No se pudo recuperar la lista de flujo de datos
+needsAttention:
+  dataStream:
+    title: Finalizar la configuración de Google Analytics
+    description: Seleccione un flujo de datos para que pueda comenzar el seguimiento de conversiones y sitios web.
+    action: Configurar
+

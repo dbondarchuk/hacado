@@ -1,0 +1,79 @@
+designSelector:
+  placeholder: Sélectionnez un modèle
+block:
+  title: Acheter une carte-cadeau
+  description: Achetez une carte-cadeau pour vous-même ou pour quelqu'un d'autre
+  steps:
+    details: Détails
+    payment: Paiement
+  details:
+    design: Conception
+    amount: Montant
+    yourName: Votre nom
+    email: E-mail
+    phone: Téléphone
+    sendToSomeoneElse: Envoyez cette carte-cadeau à quelqu'un d'autre
+    toName: Nom du destinataire
+    toEmail: E-mail du destinataire
+    toEmailDescription: Si vous ne souhaitez pas envoyer la carte cadeau à une autre personne, saisissez le même email que le vôtre.
+    message: Message
+    preview: Aperçu
+    previewLabel: APERÇU
+    messagePlaceholder: Saisissez un message pour le destinataire
+    previewLoading: Génération d'un aperçu...
+    previewPlaceholder: Sélectionnez un design et un montant pour voir un aperçu...
+    previewError: Échec de la génération de l'aperçu
+  buttons:
+    back: Dos
+    next: Suivant
+    continueToPayment: Continuer vers le paiement
+  errors:
+    noAppId: Configurez ce bloc avec une application Gift Card Studio.
+    previewFailed: Échec de la génération de l'aperçu
+    noDesigns: Aucune conception publique trouvée
+    createOrUpdateIntentFailed: Échec de l'obtention des informations de paiement
+    purchaseFailed: Échec de l'achat d'une carte cadeau
+  payment:
+    pay: Payer
+    title: Paiement
+    description: Une carte-cadeau de {amount} $ sera achetée pour vous. Veuillez saisir vos informations de paiement ci-dessous.
+    total: Total
+  success:
+    title: Merci!
+    description: Votre carte cadeau a été achetée avec succès. Vous recevrez sous peu un e-mail avec la carte cadeau et la facture. Si vous choisissez d'envoyer la carte-cadeau à quelqu'un d'autre, cette personne recevra sous peu un e-mail contenant la carte-cadeau. Si vous avez des questions, veuillez nous contacter.
+    newPurchaseButton: Acheter une autre carte-cadeau
+  showcase:
+    sections:
+      amount: Choisissez le montant
+      recipient: Détails du destinataire
+      message: Ajouter un message personnel (facultatif)
+    messagePlaceholder: Écrivez votre message ici...
+    messageCount: "{count} / {max}"
+    presetsLabel: Montants suggérés
+    noDesign: Les modèles de cartes cadeaux ne sont pas encore disponibles.
+  showcaseDefaults:
+    title: Un cadeau attentionné
+    description: Nos cartes cadeaux sont utilisables sur toute la gamme. Le cadeau parfait, à chaque fois.
+    deliveryTitle: Livraison instantanée
+    deliveryDescription: Envoyé par email
+    validityTitle: Valable 12 mois
+    validityDescription: Échangez en magasin ou en ligne
+    secureTitle: Sécurisé et flexible
+    secureDescription: Dépensez votre chemin en toute sécurité
+validation:
+  purchase:
+    designId:
+      required: La conception est requise
+    amount:
+      required: Le montant est requis
+      min: Le montant doit être d'au moins {min} $
+      max: Le montant doit être d'au plus {max} $
+    name:
+      required: Le nom est requis
+      max: Le nom doit comporter moins de 64 caractères
+    sendToSomeoneElse:
+      required: Si vous envoyez à quelqu'un d'autre, le nom et l'e-mail du destinataire sont requis
+    toName:
+      required: Nommer est obligatoire
+      max: Le nom doit contenir moins de 64 caractères
+

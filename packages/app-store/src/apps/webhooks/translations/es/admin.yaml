@@ -1,0 +1,141 @@
+title: Ganchos web
+app:
+  displayName: Ganchos web
+  description: |-
+    Webhooks le permite conectar su cuenta con sistemas externos y automatizar flujos de trabajo en tiempo real.
+    Envíe instantáneamente eventos de citas, clientes o pagos a sus propias aplicaciones o servicios de terceros, lo que permite integraciones potentes y una sincronización de datos perfecta.
+form:
+  url:
+    label: URL de webhook
+    placeholder: https://tu-servidor.com/webhook
+    tooltip: Ingrese la URL donde se enviarán los eventos de webhook mediante solicitudes POST.
+  secret:
+    label: Secreto de webhook (opcional)
+    placeholder: Introduzca el secreto del webhook
+    tooltip: Si se proporcionan, las cargas útiles del webhook se firmarán con HMAC-SHA256. Déjelo vacío para enviar webhooks sin firmas.
+    editButton: Editar secreto
+  eventTypes:
+    label: Tipos de eventos
+    tooltip: Seleccione qué eventos deberían activar webhooks a esta URL
+    placeholder: Seleccionar eventos
+    loading: Cargando tipos de eventos…
+  connect: Conéctese con <app></app>
+  unselectEvent: Deseleccionar evento
+eventTypes:
+  appointment:
+    created:
+      label: Cita creada
+      description: Emitido cuando se crea una nueva cita
+    rescheduled:
+      label: Cita actualizada
+      description: Emitido cuando se actualiza una cita (guardado completo del evento, incluidos los campos de reprogramación)
+    slotRescheduled:
+      label: Cita reprogramada
+      description: Emitido cuando solo cambia la hora o la duración de la cita
+    statusChanged:
+      label: El estado de la cita cambió
+      description: Emitido cuando cambia el estado de la cita
+  customer:
+    created:
+      label: Cliente creado
+      description: Emitido cuando se crea un nuevo cliente
+    updated:
+      label: Cliente actualizado
+      description: Emitido cuando se actualizan los datos del cliente.
+    deleted:
+      label: Clientes eliminados
+      description: Emitido cuando se eliminan uno o más clientes
+  payment:
+    created:
+      label: Pago creado
+      description: Emitido cuando se crea un pago
+    updated:
+      label: Pago actualizado
+      description: Emitido cuando se actualiza un pago
+    deleted:
+      label: Pago eliminado
+      description: Emitido cuando se elimina un pago
+    refunded:
+      label: Pago reembolsado
+      description: Emitido cuando se reembolsa un pago
+  giftCard:
+    created:
+      label: Tarjeta regalo creada
+      description: Emitido cuando se crea una tarjeta de regalo
+    updated:
+      label: Tarjeta regalo actualizada
+      description: Emitido cuando se actualiza una tarjeta de regalo
+    deleted:
+      label: Tarjetas de regalo eliminadas
+      description: Emitido cuando se eliminan las tarjetas de regalo
+    statusChanged:
+      label: El estado de las tarjetas de regalo cambió
+      description: Emitido cuando cambia el estado de la tarjeta de regalo
+  field:
+    created:
+      label: Campo creado
+      description: Emitido cuando se crea un campo de reserva
+    updated:
+      label: Campo actualizado
+      description: Emitido cuando se actualiza un campo de reserva
+    deleted:
+      label: Campos eliminados
+      description: Emitido cuando se eliminan los campos de reserva
+  addon:
+    created:
+      label: Complemento creado
+      description: Emitido cuando se crea un complemento
+    updated:
+      label: Complemento actualizado
+      description: Emitido cuando se actualiza un complemento
+    deleted:
+      label: Complementos eliminados
+      description: Emitido cuando se eliminan complementos
+  appointmentOption:
+    created:
+      label: Opción de cita creada
+      description: Emitido cuando se crea un servicio/opción
+    updated:
+      label: Opción de cita actualizada
+      description: Emitido cuando se actualiza un servicio/opción
+    deleted:
+      label: Opciones de cita eliminadas
+      description: Emitido cuando se eliminan servicios/opciones
+  discount:
+    created:
+      label: Descuento creado
+      description: Emitido cuando se crea un descuento.
+    updated:
+      label: Descuento actualizado
+      description: Emitido cuando se actualiza un descuento.
+    deleted:
+      label: Descuentos eliminados
+      description: Emitido cuando se eliminan los descuentos.
+    applied:
+      label: Descuento aplicado a la cita.
+      description: Emitido cuando se aplica un descuento durante la reserva
+  waitlist:
+    entry:
+      created:
+        label: Entrada en la lista de espera creada
+        description: Emitido cuando se crea una entrada en la lista de espera (aplicación Lista de espera)
+      dismissed:
+        label: Entradas en la lista de espera descartadas
+        description: Emitido cuando se descartan las entradas de la lista de espera (aplicación Lista de espera)
+  form:
+    response:
+      created:
+        label: Respuesta del formulario creada
+        description: Emitido cuando se envía una respuesta de formulario (aplicación Formularios)
+statusText:
+  successfullyConfigured: Webhook configurado correctamente
+  webhook_request_failed: "Error en la solicitud de webhook: {status} {statusText}"
+validation:
+  url:
+    invalid: Por favor ingresa una URL válida
+    max: La URL del webhook debe tener como máximo 2048 caracteres.
+  secret:
+    max: El secreto del webhook debe tener como máximo 256 caracteres.
+  eventTypes:
+    required: Por favor seleccione al menos un tipo de evento
+

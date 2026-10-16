@@ -1,0 +1,51 @@
+app:
+  displayName: Notificación por correo electrónico del paquete del cliente
+  description: Envíe correos electrónicos a los clientes cuando compren un paquete y cuando su paquete esté agotado, cancelado, vencido o a punto de caducar.
+navigation:
+  title: Correos electrónicos de paquetes de clientes
+form:
+  purchased:
+    templateId:
+      label: Plantilla de correo electrónico comprada
+      description: Enviado cuando se emite un paquete a un cliente
+  exhausted:
+    templateId:
+      label: Plantilla de correo electrónico agotada
+      description: Enviado cuando se utilizan todos los créditos del paquete
+  cancelled:
+    templateId:
+      label: Plantilla de correo electrónico cancelada
+      description: Enviado cuando se cancela un paquete activo
+  expired:
+    templateId:
+      label: Plantilla de correo electrónico caducada
+      description: Enviado cuando un paquete llega a su fecha de vencimiento
+  expiringSoon:
+    enabled:
+      label: Enviar correo electrónico que expirará pronto
+      description: Notificar a los clientes antes de que caduque su paquete
+    thresholdMinutes:
+      label: Notificar antes del vencimiento
+      description: Cuánto tiempo antes de que caduque el paquete para enviar el recordatorio
+    templateId:
+      label: Plantilla de correo electrónico que expirará pronto
+      description: Enviado cuando un paquete se acerca a su fecha de vencimiento
+statusText:
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Configuración de procesamiento de errores
+  error_sending_package_email: Error al enviar el correo electrónico del paquete del cliente
+handlers:
+  purchased: "Correo electrónico del paquete del cliente: comprado"
+  exhausted: "Correo electrónico del paquete del cliente: agotado"
+  cancelled: "Correo electrónico del paquete del cliente: cancelado"
+  expired: "Correo electrónico del paquete del cliente: caducado"
+  expiringSoon: "Correo electrónico del paquete del cliente: caducará pronto"
+validation:
+  emailTemplate:
+    templateId:
+      required: Se requiere plantilla de correo electrónico
+      min: Se requiere plantilla de correo electrónico
+  expiringSoon:
+    thresholdMinutes:
+      min: Elija cuánto tiempo antes del vencimiento desea enviar el recordatorio
+

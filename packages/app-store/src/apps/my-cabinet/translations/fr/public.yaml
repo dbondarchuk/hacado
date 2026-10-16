@@ -1,0 +1,109 @@
+errors:
+  appNotConfigured:
+    title: Mon Cabinet n'est pas configuré
+    description: Veuillez sélectionner une instance de l'application Mon Cabinet dans les paramètres de blocage.
+  sessionExpired: Votre session a expiré. Veuillez vous reconnecter.
+page:
+  title: Mon Cabinet
+block:
+  title: Mon Cabinet
+  auth:
+    descriptionEmailOnly: Entrez votre email pour consulter et gérer vos rendez-vous.
+    descriptionPhoneOnly: Entrez votre téléphone pour vérifier et gérer vos rendez-vous.
+    descriptionEmailOrPhone: Entrez votre email ou votre téléphone pour consulter et gérer vos rendez-vous.
+    type:
+      email: E-mail
+      phone: Téléphone
+    emailPlaceholder: E-mail
+    phonePlaceholder: Téléphone
+    requestOtp: Envoyer le code
+    requestOtpBlocked: Demander un nouveau code dans {minutes, plural, =0 {{seconds} s} other {#:{seconds}}}
+    secondsLeft: "{seconds} secondes"
+    minutesLeft: "{time} minutes"
+    verifyOtp: Vérifier le code
+    otpHint: Entrez le code à 6 chiffres que nous vous avons envoyé
+    otpSent: Si nous trouvons une correspondance, nous envoyons un code
+    otpInvalid: Code invalide
+    emailInvalid: S'il vous plaît, mettez une adresse email valide.
+    phoneInvalid: Veuillez entrer un numéro de téléphone valide.
+    requestOtpError: Quelque chose s'est mal passé. Veuillez réessayer.
+    verifyOtpError: La vérification OTP a échoué. Veuillez vérifier votre code et réessayer.
+  appointments:
+    heading: Mes rendez-vous
+    welcome: Content de te revoir,
+    counts: "{upcoming} à venir · {completed} terminé"
+    customerFallback: Client
+    upcoming: Rendez-vous à venir
+    past: Rendez-vous passés
+    prev: Précédent
+    next: Suivant
+    page: Page {page}
+    duration: Durée
+    time: Temps
+    price: Prix
+    amountDue: Montant dû
+    timeEnd: Fin
+    loadError: Une erreur s'est produite lors du chargement de vos rendez-vous.
+    emptyUpcoming: Aucun rendez-vous à venir
+    emptyPast: Aucun rendez-vous passé
+    appointmentFallback: Rendez-vous
+    reschedule: Reprogrammer
+    cancel: Annuler
+    joinMeeting: Rejoindre la réunion
+    meetingDetails: Réunion en ligne
+    meetingId: ID de réunion
+    meetingPassword: Mot de passe
+    meetingUrl: Lien
+    copy: Copier {label}
+    copied: "{label} copié"
+    status:
+      pending: En attente
+      confirmed: Confirmé
+      declined: Refusé
+      canceled: Annulé
+      noShow: Annulé
+  modify:
+    title: Modifier rendez-vous
+    step:
+      calendar: Calendrier
+      review: Revoir
+      payment: Paiement
+      success: Succès
+    selectedAppointment: Rendez-vous sélectionné
+    selectedAction: Action sélectionnée
+    originalDateTime: Date et heure d'origine
+    newDateTime: Nouvelle date et heure
+    amountDue: Montant dû
+    paymentPlaceholder: Le formulaire de paiement sera affiché ici
+    payAndConfirm: Payer et confirmer
+    next: Suivant
+    actionCancel: Annuler
+    actionReschedule: Reprogrammer
+    rescheduleDateLabel: Nouvelle date et heure
+    submit: Confirmer
+    back: Retour aux rendez-vous
+    backToAppointments: Retour à mes rendez-vous
+    completed: Fait
+  book:
+    backToAppointments: Retour à mes rendez-vous
+  packages:
+    title: Forfaits
+    remaining: "{remaining} sur {total} restants"
+    book: Prendre rendez-vous
+    empty: Pas encore de colis
+    used: Une partie de {name}
+    view: Voir le forfait
+    expired: Expiré
+  waitlist:
+    heading: Liste d'attente
+    empty: Vous n'êtes pas sur la liste d'attente
+    asSoonAsPossible: Dès que possible
+    dismiss: Partir
+    dismissAll: Laissez tout
+    dismissError: Impossible de mettre à jour votre liste d'attente
+    loadError: Une erreur s'est produite lors du chargement de votre liste d'attente.
+    dismissed: Retiré de la liste d'attente
+    morning: Matin
+    afternoon: Après-midi
+    evening: Soirée
+

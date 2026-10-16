@@ -1,0 +1,480 @@
+app:
+  displayName: Estudio de tarjetas de regalo
+  description: Administre diseños de tarjetas de regalo y venda tarjetas de regalo a través de su sitio web.
+  uninstallError:
+    has_purchases: No se puede eliminar Gift Card Studio porque existen compras creadas con esta aplicación
+  pages:
+    main:
+      title: Diseños
+      description: Administrar diseños de tarjetas de regalo
+    new:
+      label: Nuevo diseño
+      title: Crear diseño
+      description: Crear un nuevo diseño de tarjeta de regalo
+    edit:
+      title: Editar diseño
+      description: Editar diseño de tarjeta de regalo
+      notFound: Diseño no encontrado
+    purchases:
+      title: Tarjetas de regalo compradas
+      description: Ver todas las tarjetas regalo compradas
+    purchasesNew:
+      title: Compra manual de tarjeta de regalo
+      description: Crear una compra con tarjeta de regalo manualmente
+    settings:
+      title: Ajustes
+      description: Configuración de Gift Card Studio
+designs:
+  table:
+    filters:
+      status: Estado
+      active: Activo
+      archived: Archivado
+    actions:
+      create: Crear diseño
+      edit: Editar
+      archive: Archivo
+      unarchive: Desarchivar
+      delete: Borrar
+      purchase: Compra
+      clone: Clon
+    archiveSelected:
+      label: Archivo seleccionado {count, plural, =1 {design} other {# designs}}
+      description: ¿Archivo {count, plural, =1 {selected design} other {# selected designs}}? Estarán ocultos para los clientes en su sitio web.
+      confirm: Archivo {count, plural, =1 {selected design} other {# selected designs}}
+    unarchiveSelected:
+      label: Desarchivar seleccionado {count, plural, =1 {design} other {# designs}}
+      description: ¿Desarchivar {count, plural, =1 {selected design} other {# selected designs}}? Serán visibles nuevamente en su sitio web.
+      confirm: Desarchivar {count, plural, =1 {selected design} other {# selected designs}}
+    deleteSelected:
+      label: Eliminar seleccionado {count, plural, =1 {design} other {# designs}}
+      description: ¿Está seguro de que desea eliminar {count, plural, =1 {selected design} other {# selected designs}}? Esta acción no se puede deshacer.
+      confirm: Eliminar {count, plural, =1 {selected design} other {# selected designs}}
+    archive:
+      title: Diseño de archivos
+      description: ¿Diseño de archivo {name}? Estará oculto para los clientes en su sitio web.
+      confirm: Archivo
+    unarchive:
+      title: Desarchivar diseño
+      description: ¿Desarchivar el diseño {name}? Será visible nuevamente en su sitio web.
+      confirm: Desarchivar
+    delete:
+      title: Eliminar diseño
+      description: ¿Está seguro de que desea eliminar el diseño {name}? Esta acción no se puede deshacer.
+      confirm: Si, eliminar
+      cannotDelete: "No se puede eliminar: se han comprado tarjetas de regalo con este diseño."
+    toast:
+      delete: Diseño {name} eliminado exitosamente
+      deleteError: No se pudo eliminar el diseño
+      archived: Diseño {name} archivado
+      unarchived: Diseño {name} sin archivar
+      archiveError: No se pudo archivar el diseño
+      unarchiveError: No se pudo desarchivar el diseño
+      designsArchived: "{count, plural, =1 {Design} other {# designs}} archivado"
+      designsUnarchived: "{count, plural, =1 {Design} other {# designs}} desarchivado"
+      designsDeleted: "{count, plural, =1 {Design} other {# designs}} eliminado"
+    columns:
+      name: Nombre
+      status: Estado
+      purchasesCount: Compras
+      createdAt: Creado en
+    status:
+      archived: Archivado
+      active: Activo
+  form:
+    name: Nombre
+    namePlaceholder: Nombre del diseño
+    design: Diseño de tarjeta
+    archivedNotice: Este diseño está archivado y no será visible para los clientes.
+    toasts:
+      updated: Diseño {name} actualizado exitosamente
+      updatedError: No se pudo actualizar el diseño
+      created: Diseño {name} creado exitosamente
+      createdError: No se pudo crear el diseño
+designer:
+  toolbar:
+    validationTitle: Validación de diseño
+    missingRequiredField: "Falta campo obligatorio: {label}"
+    allRequiredPresent: ¡Todos los campos obligatorios están presentes!
+    edit: Editar
+    preview: Avance
+    undo: Deshacer
+    redo: Rehacer
+    zoomOut: Alejar
+    zoomIn: Dar un golpe de zoom
+    openElementsPanel: Elementos y formas
+    openPropertiesPanel: Propiedades y capas
+    closeElementsPanel: Cerrar panel de elementos
+    closePropertiesPanel: Cerrar panel de propiedades
+  layout:
+    elementsSheetTitle: Elementos
+    propertiesSheetTitle: Propiedades y capas
+  pasteImage:
+    uploading: Subiendo imagen…
+    success: Imagen agregada al diseño.
+    error: Error al subir la imagen
+  sidebar:
+    elements: Elementos
+    addText: Agregar texto
+    addImage: Agregar imagen
+    addIcon: Agregar icono
+    dynamicFields: Campos dinámicos
+    addDynamicField: Agregar campo dinámico
+    required: (Requerido)
+    shapes: formas
+    rectangle: Rectángulo
+    circle: Círculo
+    line: Línea
+  dynamicFields:
+    amount: Monto de la tarjeta de regalo
+    code: Código de tarjeta de regalo
+    expiresAt: Fecha de expiración
+    to: A
+    from: De
+    message: Mensaje
+  sampleValues:
+    code: REGALO-2026-ABCD
+    to: Juan Pérez
+    from: Jane Doe
+    message: ¡Feliz cumpleaños!
+  canvasSetup:
+    title: Configuración del lienzo
+    description: Configure las dimensiones y el tema del lienzo de su tarjeta de regalo
+    canvasTheme: Tema de lienzo
+    light: Luz
+    dark: Oscuro
+    themeHint: Establece el color de fondo de tu tarjeta de regalo
+    aspectRatio: Relación de aspecto
+    widthPx: Ancho (px)
+    heightPx: Altura (píxeles)
+    currentSize: "Actual: {width} × {height} px • {theme} tema"
+    themeLight: Luz
+    themeDark: Oscuro
+    cancel: Cancelar
+    apply: Aplicar
+    aspectRatioCustom: Costumbre
+    aspectRatio3_2: 3:2
+    aspectRatio4_3: 4:3
+    aspectRatio1_1: 1:1
+    aspectRatio16_9: 16:9
+  properties:
+    title: Propiedades
+    canvasBackground: Fondo del lienzo
+    elementsSelected: "{count} elementos seleccionados"
+    singleElementHint: Las propiedades solo están disponibles cuando se selecciona un solo elemento
+    backgroundType: Tipo de fondo
+    transparent: Transparente
+    solidColor: Color sólido
+    gradient: Gradiente
+    image: Imagen
+    backgroundColor: Color de fondo
+    gradientType: Tipo de gradiente
+    linear: Lineal
+    radial: Radial
+    color1: Color 1
+    color2: Color 2
+    angle: Ángulo
+    imageUrl: URL de la imagen
+    imageUrlPlaceholder: https://...
+    imageFit: Ajuste de imagen
+    cover: Cubrir
+    contain: Contener
+    fill: Llenar
+    dynamicField: Campo dinámico
+    fieldLabel: "Campo: {key}"
+    content: Contenido
+    dateFormat: Formato de fecha
+    sampleValue: Valor de muestra
+    sampleValuePlaceholder: Valor de vista previa
+    fontSize: Tamaño de fuente
+    fontWeight: Peso de fuente
+    light: Luz
+    regular: Regular
+    medium: Medio
+    semiBold: Semi negrita
+    bold: Atrevido
+    textAlign: Alinear texto
+    left: Izquierda
+    center: Centro
+    right: Bien
+    color: Color
+    paintFill: Llenar
+    paintStroke: Ataque
+    none: Ninguno
+    strokeWidth: Ancho de trazo
+    borderRadius: Radio del borde
+    lineThickness: Grosor de línea
+    objectFit: Ajuste de objeto
+    icon: Icono
+    toFront: Al frente
+    toBack: Hacia atrás
+    lock: Cerrar
+    opacity: Opacidad
+    rotation: Rotación
+    elementSpecific: Elemento específico
+    x: incógnita
+    y: Y
+    width: Ancho
+    height: Altura
+    fontFamily: Familia de fuentes
+  layers:
+    title: capas
+    group: Grupo
+    noElements: Aún no hay elementos
+    text: Texto
+    icon: Icono
+    image: Imagen
+    shape: Forma
+    groupLabel: Grupo
+    req: SOLICITAR
+    dynamic: Dinámica
+  contextMenu:
+    copy: Copiar
+    delete: Borrar
+    paste: Pasta
+    bringToFront: Traer al frente
+    sendToBack: Enviar atrás
+    ungroup: Desagrupar
+    group: Grupo
+  newTextDefault: Nuevo texto
+  shortcuts:
+    label: "Atajos: {arrows} • {shiftArrows} • {ctrlC} • {ctrlV} • {ctrlZ} • {ctrlShiftZ} • {ctrlD} • {del}"
+    arrows: Flechas (mover)
+    shiftArrows: Mayús+Flechas (Mover 10px)
+    ctrlC: "{ctrl}+C (Copia)"
+    ctrlV: "{ctrl}+V (Pegar)"
+    ctrlZ: "{ctrl}+Z (Deshacer)"
+    ctrlShiftZ: "{ctrl}+Mayús+Z (Rehacer)"
+    ctrlD: "{ctrl}+D (Duplicado)"
+    del: Del (eliminar)
+purchases:
+  table:
+    searchPlaceholder: Búsqueda por código, cliente, diseño…
+    filters:
+      design: Diseño
+      customer: Cliente
+    actions:
+      create: Compra Manual
+      setActive: Marcar como activo
+      setInactive: Marcar como inactivo
+      regenerateGiftCard: Regenerar tarjeta regalo
+      regenerateInvoice: Regenerar factura
+      resendEmailToCustomer: Reenviar correo electrónico al cliente
+      resendEmailToRecipient: Reenviar correo electrónico al destinatario
+      delete: Borrar
+    delete:
+      title: Eliminar tarjeta regalo comprada
+      description: ¿Está seguro de que desea eliminar esta tarjeta de regalo comprada {code}? Esta acción no se puede deshacer.
+      confirm: Si, eliminar
+      toast:
+        success: Tarjeta de regalo comprada {code} eliminada correctamente
+    resendEmail:
+      customer:
+        title: Reenviar correo electrónico al cliente
+        description: ¿Está seguro de que desea reenviar el correo electrónico con la tarjeta de regalo {code} al cliente? Esto enviará la tarjeta de regalo y la factura al correo electrónico del cliente ({email}).
+        confirm: Sí, reenviar
+        toast:
+          success: Se programó el correo electrónico al cliente ({email})
+      recipient:
+        title: Reenviar correo electrónico al destinatario
+        description: ¿Está seguro de que desea reenviar el correo electrónico con la tarjeta de regalo {code} al destinatario? Esto enviará la tarjeta de regalo al correo electrónico del destinatario ({email}).
+        confirm: Sí, reenviar
+        toast:
+          success: Se programó el correo electrónico al destinatario ({email})
+    columns:
+      code: Código de tarjeta de regalo
+      amountPurchased: Cantidad comprada
+      amountLeft: Cantidad restante
+      customer: Cliente
+      toName: Nombre del destinatario
+      toEmail: Correo electrónico del destinatario
+      design: Diseño
+      createdAt: Creado
+      status: Estado
+      giftCardPdf: Tarjeta de regalo
+      invoicePdf: Factura
+      paymentMethod: Método de pago
+      paymentsCount: Pagos
+    status:
+      active: Activo
+      inactive: Inactivo
+    download:
+      giftCard: Descargar
+      invoice: Descargar
+    toast:
+      setActive: Tarjeta regalo {code} marcada como activa
+      setInactive: Tarjeta regalo {code} marcada como inactiva
+      regeneratedGiftCard: Regeneración de activos de tarjetas de regalo programada
+      regeneratedInvoice: Regeneración de facturas programada
+    detail:
+      title: Detalles de compra
+      preview: Vista previa de la tarjeta de regalo
+      downloadGiftCardPdf: Descargar Tarjeta Regalo PDF
+      downloadInvoice: Descargar Factura
+      generating: Generando...
+      awaitingPayment: En espera de pago
+    giftCardDetail:
+      title: Detalles de la tarjeta de regalo
+      description: Ver los detalles de la tarjeta regalo
+      preview: Vista previa de la tarjeta de regalo
+      code: Código de tarjeta de regalo
+      amountPurchased: Cantidad comprada
+      amountLeft: Cantidad restante
+      expiresAt: Vence en
+      paymentsCount: Pagos
+      paymentMethod: Método de pago
+      customer: Cliente
+      recipient: Beneficiario
+      recipientEmail: Correo electrónico del destinatario
+      message: Mensaje
+      downloadGiftCardPdf: Descargar Tarjeta Regalo PDF
+      downloadInvoice: Descargar Factura
+      status: Estado
+  manualForm:
+    design: Diseño
+    designPlaceholder: Seleccionar diseño
+    previewPlaceholder: Selecciona diseño y cantidad para ver vista previa
+    amount: Cantidad
+    customer: Cliente
+    toName: Nombre del destinatario
+    toEmail: Correo electrónico del destinatario
+    message: Mensaje
+    paymentType: Método de pago
+    sendToAnotherRecipient: Enviar a otro destinatario
+    sendCustomerEmail: Enviar tarjeta de regalo y factura al cliente.
+    sendRecipientEmail: Enviar tarjeta de regalo al destinatario
+    toast:
+      success: Compra de tarjeta de regalo creada correctamente
+      error: No se pudo crear la compra de la tarjeta de regalo
+settings:
+  notifyOwnerOnPurchase:
+    label: Correo electrónico sobre nueva compra
+    description: Envíe un correo electrónico a los administradores de la organización cuando un cliente compre una tarjeta de regalo en su sitio web.
+  emailTemplateToPurchaser: Plantilla de correo electrónico (tarjeta de regalo para el comprador)
+  emailTemplateToRecipient: Plantilla de correo electrónico (tarjeta de regalo para el destinatario)
+  minAmount: Importe mínimo de la tarjeta regalo
+  maxAmount: Importe máximo de la tarjeta regalo
+  expirationMonths: Vencimiento
+  toasts:
+    saved: Configuración guardada
+    error: No se pudo guardar la configuración
+block:
+  giftCardPurchase:
+    displayName: Compra de tarjeta de regalo
+    category: Tarjetas de regalo
+    configuration:
+      app:
+        label: Aplicación Estudio de tarjetas de regalo
+        helperText: Seleccione la aplicación Gift Card Studio que se utilizará.
+      hideTitle:
+        label: Ocultar título y descripción
+      hideSteps:
+        label: Ocultar pasos
+    validation:
+      appId:
+        required: Se requiere la aplicación Gift Card Studio
+  giftCardPurchaseShowcase:
+    displayName: Compra de tarjeta de regalo (escaparate)
+    configuration:
+      previewPosition:
+        label: Posición de vista previa
+        left: Izquierda
+        right: Bien
+        helperText: En un diseño estrecho, la vista previa permanece debajo del formulario.
+      abovePreviewFirstOnMobile:
+        label: Mostrar texto de introducción encima del formulario en el móvil
+      amountPresets:
+        label: Preajustes de cantidad
+        helperText: Hasta 5 cantidades rápidas.
+        add: Agregar preajuste
+        remove: Quitar preajuste
+validation:
+  design:
+    name:
+      min: El nombre debe tener al menos 1 carácter.
+      max: El nombre debe tener menos de 64 caracteres.
+      unique: Ya existe un diseño con este nombre.
+  manualForm:
+    designId:
+      required: Se requiere diseño
+    amountPurchased:
+      required: Se requiere cantidad
+      positive: La cantidad debe ser un número positivo.
+      min: El monto debe ser mayor que {min}
+      max: El monto debe ser menor que {max}
+    customerId:
+      required: Se requiere cliente
+    message:
+      required: Se requiere mensaje
+      max: El mensaje debe tener menos de 1024 caracteres.
+    paymentType:
+      required: Se requiere tipo de pago
+    paymentLinkAppId:
+      required: Se requiere la aplicación de enlace de pago
+    to:
+      required: Se requiere destino
+    sendToAnotherRecipient:
+      required: Se requiere información del destinatario
+    toName:
+      min: El nombre del destinatario debe tener al menos 1 carácter.
+      max: El nombre del destinatario debe tener menos de 64 caracteres.
+  settings:
+    expirationMonths:
+      min: Los meses de vencimiento deben ser de al menos 1 mes.
+      max: Los meses de vencimiento deben ser inferiores a 120 meses.
+    emailTemplateIdToPurchaser:
+      required: Se requiere plantilla de correo electrónico
+    emailTemplateIdToRecipient:
+      required: Se requiere plantilla de correo electrónico
+    minAmount:
+      required: Se requiere una cantidad mínima
+      positive: El importe mínimo debe ser un número positivo.
+      min: La cantidad mínima debe ser mayor a 5
+      max: La cantidad mínima debe ser inferior a 1000000
+      minMax: El monto mínimo debe ser menor que el monto máximo
+    maxAmount:
+      required: Se requiere cantidad máxima
+      positive: El importe máximo debe ser un número positivo.
+      min: El importe máximo debe ser superior a 5
+      max: La cantidad máxima debe ser inferior a 1000000
+handlers:
+  send-email-to-recipient: Enviar correo electrónico al destinatario
+  send-email-to-customer: Enviar correo electrónico al cliente
+  newPurchaseEmail: Gift Card Studio - Notificación de nueva compra
+events:
+  designCreated:
+    title: Diseño de tarjeta de regalo creado.
+    description: Se creó el diseño "{designName}"
+  designUpdated:
+    title: Diseño de tarjeta de regalo actualizado
+    description: Se actualizó el diseño "{designName}"
+  designDeleted:
+    title: Diseño de tarjeta de regalo eliminado
+    description: Se eliminó el diseño "{designName}"
+  purchaseCreated:
+    title: Tarjeta de regalo comprada
+    description: '{customerName} compró "{designName}" por {amount}'
+  purchaseDeleted:
+    title: Compra con tarjeta de regalo eliminada
+    description: Se eliminó un registro de tarjeta de regalo comprada.
+notifications:
+  newPurchase:
+    title: Nueva compra de tarjeta regalo
+    message: Un cliente compró una tarjeta regalo en su sitio web
+    view: Ver compras
+emails:
+  newPurchase:
+    subject: "Nueva compra de tarjeta de regalo: {designName}"
+    title: Nueva tarjeta regalo comprada
+    body: |-
+      Hola {userName},
+
+      Un cliente compró una tarjeta de regalo en su sitio web.
+
+      **Diseño:** {designName}
+      **Cantidad:** {amount}
+      **Código de tarjeta de regalo:** {giftCardCode}
+      **Cliente:** {customerName} ({customerEmail})
+      **Destinatario:** {recipientName} ({recipientEmail})
+    view: Ver compra
+

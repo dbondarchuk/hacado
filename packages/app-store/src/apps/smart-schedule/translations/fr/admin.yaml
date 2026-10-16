@@ -1,0 +1,22 @@
+title: Calendrier intelligent
+app:
+  displayName: Calendrier intelligent
+  description: Smart Schedule optimise intelligemment votre disponibilité pour vous aider à prendre plus de rendez-vous.
+form:
+  allowSkipBreak: Autoriser le saut de pause
+  allowSkipBreakTooltip: Permet de sauter une pause lorsqu'aucune autre n'a été trouvée
+  preferBackToBack: Préférez les rendez-vous consécutifs
+  preferBackToBackTooltip: Donnera une plus grande préférence aux plages horaires, ce qui permettra des rendez-vous consécutifs
+  preferLaterStartsEarlierEnds: Préférer les débuts plus tardifs et les fins plus tôt
+  preferLaterStartsEarlierEndsTooltip: Donnera une préférence plus élevée aux plages horaires, ce qui permettra des débuts plus tardifs et des fins de quart de travail plus tôt
+  allowSmartSlotStarts: Autoriser les heures de début des créneaux intelligents
+  allowSmartSlotStartsTooltip: Si aucune heure de début de créneau autorisée n'est trouvée, nous essaierons de trouver un créneau horaire non conventionnel.
+  preferredService: Service préféré
+  preferredServiceTooltip: Si sélectionné, donnera la priorité aux plages horaires qui produiront un nombre maximum de rendez-vous pour le service sélectionné.
+  add: Ajouter <app></app>
+  update: Mettre à jour <app></app>
+statusText:
+  successfully_connected: Smart Schedule configuré avec succès
+  error_processing_configuration: Erreur lors du traitement de la demande de configuration de Smart Schedule
+  something_went_wrong: Quelque chose s'est mal passé
+

@@ -1,0 +1,2223 @@
+page:
+  title: Configurez votre compte
+  description: Créez votre compte pour commencer
+checkout:
+  pageTitle: Choisissez un forfait
+  pageDescription: Abonnez-vous avant de terminer la configuration de l'espace de travail
+  title: Choisissez votre forfait
+  subtitle: Les abonnements sont facturés en toute sécurité via Polar. Vous pouvez modifier votre forfait à tout moment depuis votre portail de facturation dans les paramètres de la marque.
+  cancellationPolicy: Vous pouvez mettre à niveau, rétrograder ou annuler à tout moment depuis votre portail client Polar - pas de contrat à long terme, pas de frais cachés.
+  includedLabel: Ce qui est inclus
+  everythingInPlus: "Tout dans {tier}, plus :"
+  pricePerMonth: / mois
+  pricePerYear: / année
+  pricePerWeek: / semaine
+  pricePerDay: / jour
+  disclaimer: Annulez à tout moment. Pas de frais cachés.
+  cta: Continuer à payer
+  plans:
+    free:
+      title: Gratuit
+      subtitle: Commencez sans frais
+      cta: Commencez avec Gratuit
+      benefits:
+        bookings: Jusqu'à 15 rendez-vous par cycle de facturation
+        services: 1 prestation réservable
+        pages: Jusqu'à 10 pages
+        branding: Page de réservation personnalisée avec votre marque
+        calendar: Synchronisation du calendrier (Google, Outlook, CalDAV)
+        emailNotifications: Notifications par courrier électronique
+        textNotifications: Notifications par SMS (crédits SMS achetés séparément)
+        activityHistory: 30 jours d'historique d'activité. Les paiements, autorisations et autres enregistrements importants n’expirent jamais.
+    solo:
+      title: Solo
+      subtitle: Tout ce dont vous avez besoin pour évoluer
+      badge: Recommandé
+      cta: Abonnez-vous à Solo
+      benefits:
+        payments: Acceptez les paiements en ligne – Square, Stripe, PayPal et plus encore
+        syncedPayments: Synchronisez automatiquement les paiements par carte en magasin - suivez comment vous êtes payé
+        domain: Connectez votre propre domaine pour vous démarquer de vos concurrents
+        unlimited: Réservations, services et clients illimités, toujours
+        promotions: Cartes-cadeaux de marque, remises et promotions
+        packages: Forfaits de rendez-vous prépayés que les clients peuvent acheter et réserver
+        apps: Liste d'attente de rendez-vous proposant des créneaux ouverts, des formulaires d'admission, un blog
+        clientPortal: Portail client en libre-service pour les réservations et les profils
+        smsCredits: 100 crédits SMS inclus chaque mois
+        activityHistory: 90 jours d'historique d'activité (au lieu de 30)
+    studio:
+      title: Studio
+      subtitle: Pour les entreprises comptant plusieurs salariés
+      badge: Bon pour les affaires
+      cta: Abonnez-vous au studio
+      benefits:
+        teamMembers: 5 membres de l'équipe inclus
+        additionalSeats: Sièges supplémentaires à partir de 4$/mois chacun
+        individualCalendars: Calendriers et horaires individuels par membre de l'équipe
+        smsCredits: 300 crédits SMS inclus chaque mois
+        activityHistory: 365 jours d'historique d'activité (au lieu de 90)
+  checkoutError: Impossible de démarrer le paiement. Réessayez sous peu.
+wizard:
+  progressLabel: Progression de votre configuration
+  common:
+    continue: Continuer
+    back: Dos
+    cancel: Annuler
+    finish: Terminer la configuration
+  steps:
+    business: Entreprise
+    personalization: Marque
+    service: Services
+    schedule: Calendrier
+    integrations: Connecter
+    payments: Paiements
+    website: Site web
+    done: Fait
+  verify:
+    title: Confirmez votre email pour continuer
+    description: Nous avons besoin d'une adresse e-mail vérifiée avant de pouvoir terminer la configuration de votre espace de travail Hacado. Entrez le code que nous avons envoyé à votre adresse e-mail.
+    otpLabel: Le code de vérification
+    submit: Vérifier l'e-mail
+    resend: Renvoyer le code
+    resendSuccess: Code de vérification envoyé
+    resendError: Impossible d'envoyer le code. Réessayez sous peu.
+    invalidCode: Code de vérification invalide
+    verified: E-mail vérifié
+    spamHint: Vous ne l'avez pas reçu ? Vérifiez votre dossier spam ou promotions.
+    polling: Après vérification, cette page continue automatiquement.
+  categories:
+    beauty: Beauté et soins personnels
+    health: Santé et bien-être
+    professional: Services professionnels
+    fitness: Remise en forme et coaching
+    education: Éducation et formation
+    other: Autre
+  industry:
+    massage: Massothérapeute
+    hair: Coiffeur
+    consulting: Consultant
+    intro_calls: Appels d'introduction et démos
+    interviews: Entretiens
+  business:
+    title: Détails commerciaux de base
+    subtitle: C'est ainsi que les clients vous reconnaîtront. Vous pourrez tout peaufiner plus tard.
+    name: Nom de l'entreprise ou de la marque
+    namePlaceholder: par ex. Studio de massage au saule
+    logo: Logo
+    removeLogo: Supprimer le logo
+    logoPreviewAlt: Aperçu du logo
+    logoPlaceholder: Chemin du logo ou télécharger une image
+    address: Adresse professionnelle (facultatif)
+    addressPlaceholder: par ex. 123, rue Main, Springfield
+    streetAddress: Adresse postale (facultatif)
+    streetAddressPlaceholder: par ex. 123, rue Principale
+    addressLine2: Ligne d'adresse 2 (facultatif)
+    addressLine2Placeholder: par ex. Suite 205E
+    addressSearch: Rechercher l'adresse (facultatif)
+    addressLocality: Ville (facultatif)
+    addressLocalityPlaceholder: Ville
+    addressRegion: État/région (facultatif)
+    addressRegionPlaceholder: État ou région
+    postalCode: Code postal (facultatif)
+    postalCodePlaceholder: Code postal ou ZIP
+    slug: Adresse publique de réservation
+    slugPlaceholder: nom-de-votre-studio
+    slugHint: "Aperçu : {url}"
+    slugHelp: Utilisez au moins 3 lettres minuscules, chiffres et tirets. Vous pourrez modifier cela plus tard.
+    slugTooShort: Utilisez au moins 3 caractères.
+    slugReserved: Cette adresse est réservée. Essayez-en un autre.
+    slugChecking: Vérification de la disponibilité…
+    slugAvailable: Cette adresse est disponible.
+    slugTaken: Cette adresse est déjà prise.
+    timeZone: Fuseau horaire
+    selectTimeZone: Rechercher le fuseau horaire
+    category: Industrie
+    selectCategory: Choisissez votre secteur d'activité
+    industry: Industrie
+    selectIndustry: Choisissez votre secteur d'activité
+    industryHint: Aide les moteurs de recherche à reconnaître votre entreprise et suggère des modèles de services et de sites Web.
+    saved: Espace de travail créé
+    updated: Espace de travail mis à jour
+    language: Langue du site Web
+    country: Pays
+    currency: Devise
+  personalization:
+    title: Personnalisez votre marque
+    subtitle: Choisissez des couleurs, des polices et un logo pour vos pages publiques. Vous pourrez tout modifier ultérieurement dans Apparence et paramètres.
+    primaryColor: Couleur primaire
+    secondaryColor: Couleur secondaire
+    primaryFont: Police principale
+    secondaryFont: Police secondaire
+    logo: Logo
+    removeLogo: Supprimer le logo
+    logoPreviewAlt: Aperçu du logo
+    logoPlaceholder: Chemin du logo ou télécharger une image
+    selectFont: Rechercher des polices
+    editLater: Affinez la typographie, plus de couleurs et d'actifs à tout moment dans le tableau de bord.
+    saved: Paramètres de marque enregistrés
+    saveError: Impossible d'enregistrer les paramètres de la marque. Essayer à nouveau.
+    invalidColor: "Utilisez une couleur hexadécimale (par exemple #2563eb)."
+    invalidLogo: Le logo doit être un chemin d’accès ou une URL valide.
+  service:
+    title: Vos prestations
+    subtitle: Ajoutez des services à partir de modèles de catalogue ou écrivez les vôtres. Vous pouvez modifier chaque ligne. Continuer les enregistre dans votre flux de réservation (en remplaçant tous les services précédents de cette étape).
+    searchProfessions: Recherche
+    searchPlaceholder: Rechercher par nom de profession ou par tags
+    professionLabel: Choisissez votre métier
+    noProfessionsMatch: Aucun métier ne correspond à votre recherche. Essayez un autre mot-clé.
+    refineSearchMore: Affinez votre recherche pour voir plus de résultats.
+    industryLabel: Que proposez-vous principalement ?
+    pickMain: Choisissez votre service principal
+    recommended: Recommandé
+    durationMinutes: "{minutes} minutes"
+    fromPrice: À partir du {price}
+    duration: Durée
+    price: Prix
+    priceType: Tarifs
+    priceTypeFixed: Total fixe
+    priceTypePerHour: Par heure
+    priceTotal: Prix ​​total
+    pricePerHourLabel: Tarif horaire
+    perHourDurationHint: Cette durée est la durée minimale que les clients peuvent réserver. Un maximum plus long et des étapes de 15 minutes sont définis automatiquement (vous pourrez les modifier ultérieurement dans Services).
+    priceOptional: Facultatif - laissez vide gratuitement
+    addons: Modules complémentaires optionnels
+    addonsOptional: Passer pour l'instant si vous préférez
+    editLater: Vous pouvez ajouter d'autres services, champs et stratégies à tout moment dans le tableau de bord.
+    updated: Service mis à jour
+    saved: Service publié dans votre flux de réservation
+    savedAll: Services enregistrés dans votre flux de réservation
+    useCustom: Utiliser mon propre service
+    useCustomDescription: Ignorez les modèles et écrivez votre propre nom et description de service.
+    addService: Ajouter un service
+    addDialogTitle: Ajouter un service à partir d'un modèle
+    addTemplateHint: Choisissez une profession, puis choisissez un modèle. Pour un service vide, fermez cette boîte de dialogue et utilisez « Service personnalisé ».
+    addFromTemplate: À partir du modèle
+    addCustom: Service personnalisé
+    emptyList: Aucun service pour l'instant. Ajoutez-en au moins un pour continuer.
+    removeService: Supprimer le service
+    fromCatalogBadge: Du catalogue
+    serviceNameLabel: Nom du service
+    serviceNamePlaceholder: par ex. Consultation de 30 minutes
+    serviceDescriptionLabel: Description
+    serviceDescriptionPlaceholder: À quoi doivent s’attendre les clients ? (2+ caractères)
+    backToProfessions: Un métier différent
+  schedule:
+    title: Vos horaires de travail
+    subtitle: Définissez quand les clients peuvent vous réserver. Nous commençons du lundi au vendredi, de 9h00 à 17h00 ; ajustez n’importe quel jour ou ajoutez des quarts de travail si nécessaire.
+    editLater: Vous pouvez modifier les heures, les pauses et les remplacements à tout moment sous Paramètres → Calendrier.
+    weeklyScheduleAppHint: Besoin d'horaires différents chaque semaine ? Installez ultérieurement l'application de planification hebdomadaire depuis Tableau de bord → Applications pour définir la disponibilité semaine par semaine (vacances, événements et changements de routine).
+    saved: Heures de travail économisées
+    saveError: Impossible d'enregistrer votre emploi du temps. Essayer à nouveau.
+    noWorkingHours: Ajoutez au moins un quart de travail avant de continuer.
+  integrations:
+    title: Connecter le calendrier et les applications
+    subtitle: Connectez les calendriers et les applications ici. Vous pouvez gérer chaque connexion ultérieurement sous Tableau de bord → Applications.
+    google: Google Agenda
+    googleDesc: Synchronisez les heures de pointe de vos agendas Google.
+    googleLimit: Connectez votre agenda Google pour une synchronisation bidirectionnelle.
+    apple: Calendrier Apple (ICS)
+    appleDesc: Abonnez-vous ou publiez la disponibilité à l'aide de flux de calendrier standard.
+    appleLimit: Les flux ICS sont souvent en lecture seule ; parfait pour bloquer le temps.
+    outlook: Outlook/Microsoft 365
+    outlookDesc: Connectez votre calendrier professionnel ou personnel pour une synchronisation bidirectionnelle.
+    outlookLimit: Les autorisations varient selon le locataire ; consultez l’écran de connexion pour plus de détails.
+    caldavDesc: Connectez un serveur CalDAV pour une synchronisation bidirectionnelle (protocole standard utilisé par de nombreuses applications de calendrier).
+    caldavLimit: Utilise l'URL et les informations d'identification de votre serveur ; consultez le formulaire de configuration pour les champs obligatoires.
+    connect: Connecter
+    connected: Connecté
+    notConnected: Non connecté
+    inviteHow: Comment devrions-nous intégrer les réservations à votre calendrier ?
+    inviteNone: Ne pas envoyer de réservations à mon calendrier
+    inviteEmail: Envoyer les réservations à mon calendrier par email
+    inviteCalendarWriter: Écrire directement les réservations dans mon calendrier
+    calendarWriterDisabled: Connectez d'abord Google, Outlook ou CalDAV. ICS est en lecture seule et ne peut pas être utilisé pour Calendar Writer.
+    calendarWriterTarget: Calendrier auquel ajouter des réservations
+    calendarWriterPickApp: Sélectionnez le calendrier connecté
+    calendarWriterSelectRequired: Sélectionnez une application de calendrier connectée pour continuer.
+    optionalApps: Applications facultatives
+    customerEmailNotifications: Notifications par e-mail des clients
+    customerEmailNotificationsDesc: Envoyez des confirmations de réservation et des mises à jour aux clients par e-mail.
+    customerPackageEmailNotifications: E-mails de colis client
+    customerPackageEmailNotificationsDesc: Envoyez un e-mail aux clients lorsque les forfaits sont achetés, épuisés, annulés ou expirés.
+    customerTextNotifications: Notifications par SMS des clients
+    customerTextNotificationsDesc: Envoyez une confirmation de réservation et des mises à jour aux clients par SMS.
+    appointmentNotifications: Rappels et suivis de rendez-vous
+    appointmentNotificationsDesc: Envoyez des rappels et des suivis aux clients par e-mail et SMS.
+    waitlist: Liste d'attente
+    waitlistDesc: Permettez aux clients de s'inscrire sur une liste d'attente pour les périodes indisponibles.
+    waitlistNotifications: Notifications de liste d'attente des clients
+    waitlistNotificationsDesc: Envoyez un e-mail aux clients lorsqu'ils rejoignent votre liste d'attente et informez-les lorsqu'une heure de correspondance s'ouvre.
+    blog: Blogue
+    blogDesc: Partagez des mises à jour et des histoires sur votre site.
+    forms: Formulaires
+    formsDesc: Créez des formulaires d'admission, des formulaires de contact et bien plus encore.
+    giftCardStudio: Studio de cartes cadeaux
+    giftCardStudioDesc: Concevez, vendez et gérez des cartes-cadeaux.
+    myCabinet: Mon compte
+    myCabinetDesc: Permettez aux clients de se connecter par e-mail ou par téléphone OTP pour gérer leurs rendez-vous.
+    skipHint: Vous pouvez ajouter ou modifier des applications à tout moment à partir de la section Tableau de bord → Applications.
+    saveError: Impossible d'enregistrer les choix d'intégration. Essayer à nouveau.
+  payments:
+    title: Paiements et politiques
+    subtitle: Restez simple maintenant ; les règles détaillées restent flexibles dans les paramètres.
+    acceptPayments: Acceptez les paiements en ligne
+    acceptPaymentsHint: Connectez votre fournisseur de paiement.
+    cardPayments: Paiements par carte
+    browseProviders: Parcourir les applications de paiement
+    paypalDesc: Laissez les clients payer avec PayPal.
+    squareDesc: Laissez les clients payer avec Square.
+    stripeDesc: Permettez aux clients de payer avec Stripe (cartes, Apple Pay, Google Pay, etc.) via Stripe Connect.
+    paymentAppRequired: Connectez une application de paiement pour continuer les paiements en ligne.
+    onePaymentAppHint: Une seule application de paiement peut être connectée. Déconnectez d’abord l’autre fournisseur, puis connectez celui-ci.
+    deposit: Exiger un dépôt
+    depositPercent: Pourcentage de dépôt
+    depositHelp: Les dépôts aident à protéger votre temps ; les règles exactes restent modifiables plus tard.
+    autoConfirmBookings: Confirmation automatique des réservations
+    autoConfirmBookingsHint: Confirmez automatiquement les nouvelles réservations sans approbation manuelle.
+    cancelPolicy: Autoriser les annulations et les reprogrammations
+    cancelHelp: Vous pourrez définir des fenêtres et des frais dans les paramètres de rendez-vous ultérieurement.
+    flex: Tout cela peut être modifié à tout moment – ​​nous ne faisons que commencer.
+    acceptPaymentsUpgradeHint: Passez à Solo pour accepter les paiements en ligne.
+  website:
+    title: Choisissez votre site Web
+    subtitle: Choisissez une mise en page de départ pour vos pages publiques. Vous pouvez modifier chaque bloc ultérieurement dans le générateur de pages.
+    suggested: suggéré pour vous
+    browseAll: Parcourez tous les modèles
+    useThisDesign: Utilisez cette conception
+    selectDesign: Sélectionnez ce modèle
+    preview: Aperçu
+    previewPages:
+      home: Maison
+      booking: Livre
+      service: Service
+      about: À propos
+      terms: Termes
+    closePreview: Fermer
+    loadingPreview: Chargement de l'aperçu…
+    continue: Continuer
+    finish: Terminer la configuration
+    selectRequired: Choisissez un design de site Web pour continuer
+    stylingError: Impossible d'appliquer les couleurs et les polices du modèle. Essayer à nouveau.
+  finish:
+    taskPage: Création de votre page de réservation
+    taskAvailability: Application des valeurs de disponibilité par défaut
+    taskCalendar: Préparation des connexions au calendrier
+    taskFinalize: Finalisation de la configuration
+    buildingExperience: Nous construisons votre expérience de réservation maintenant.
+    readyTitle: Votre Hacado est prêt
+    readySubtitle: Accédez au tableau de bord pour gérer les réservations ou partager votre page publique.
+    ctaDashboard: Gérer mon Hacado
+    ctaBooking: Voir ma page de réservation
+    finalizeError: Impossible de finaliser l'installation. Veuillez réessayer.
+    retry: Réessayer
+    pageDefaults:
+      header:
+        bookLabel: Livre
+        blogLabel: Blogue
+        myCabinetLabel: Mes rendez-vous
+      footer:
+        contactUsLabel: Contactez-nous
+        phoneLabel: Téléphone
+        emailLabel: E-mail
+        addressLabel: Adresse
+        bookNowLabel: Réservez maintenant
+        cancelOrRescheduleLabel: Annuler ou reprogrammer
+        policiesLabel: Politiques
+      home:
+        title: Réservez votre prochaine visite
+        description: Choisissez un service et réservez votre temps en quelques minutes.
+        cancelOrRescheduleLabel: Annuler ou reprogrammer
+        bookNowLabel: Réservez maintenant
+        ourServicesLabel: Nos prestations
+        galleryLabel: Galerie
+        learnMoreLabel: Apprendre encore plus
+      book:
+        bookNowLabel: Réservez maintenant
+        manageYourAppointment: Gérer votre rendez-vous
+        policiesText: En réservant, vous acceptez nos politiques de réservation.
+      appointmentNotifications:
+        defaultReminderName: Rappel de rendez-vous (1 jour avant)
+      giftCards:
+        title: Cartes cadeaux
+      myCabinet:
+        title: Mes rendez-vous
+  errors:
+    fixStep: Veuillez remplir les champs obligatoires avant de continuer.
+    slugTaken: Cette adresse de réservation n'est plus disponible.
+    slugReserved: Cette adresse est réservée. Essayez-en un autre.
+    slugInvalid: Cette adresse de réservation n'est pas valide. Essayez-en un autre.
+    workspace: Nous n'avons pas pu créer votre espace de travail. Essayer à nouveau.
+    service: Nous n'avons pas pu sauvegarder vos services. Essayer à nouveau.
+    serviceNeedOne: Ajoutez au moins un service pour continuer.
+    serviceDuplicateName: Chaque service a besoin d'un nom unique. Changez un nom et réessayez.
+    serviceLimitReached: Le forfait gratuit comprend un service. Passez à Solo pour en ajouter davantage, ou supprimez un service supplémentaire et réessayez.
+catalog:
+  categories:
+    beauty: Beauté
+    coaching: Entraînement
+    creative: Créatif
+    education: Éducation
+    event: Événement
+    fitness: Aptitude
+    home-services: Services à domicile
+    medical: Médical
+    meetings: Réunions
+    misc: Divers
+    pet: Animal de compagnie
+    professional: Professionnel
+    wellness: Bien-être
+  tags:
+    beauty: Beauté
+    hair: Cheveux
+    salon: Salon
+    nails: Clous
+    spa: Spa
+    skin: Peau
+    makeup: Se maquiller
+    events: Événements
+    lashes: Cils
+    brows: Sourcils
+    tan: Tanné
+    waxing: Fartage
+    coaching: Entraînement
+    personal: Personnel
+    wellness: Bien-être
+    business: Entreprise
+    strategy: Stratégie
+    career: Carrière
+    jobs: Emplois
+    health: Santé
+    creative: Créatif
+    photo: Photo
+    video: Vidéo
+    design: Conception
+    freelance: Free-lance
+    illustration: Illustration
+    education: Éducation
+    teaching: Enseignement
+    tutor: Tuteur
+    music: Musique
+    lessons: Leçons
+    language: Langue
+    dance: Danse
+    classes: Cours
+    planning: Planification
+    weddings: Mariages
+    party: Faire la fête
+    entertainment: Divertissement
+    fitness: Aptitude
+    trainer: Entraîneur
+    yoga: Yoga
+    pilates: Pilates
+    group: Groupe
+    running: En cours d'exécution
+    home: Maison
+    services: Services
+    cleaning: Nettoyage
+    repairs: Réparations
+    electric: Électrique
+    plumbing: Plomberie
+    medical: Médical
+    clinic: Clinique
+    dental: Dentaire
+    vision: Vision
+    rehab: Réadaptation
+    therapy: Thérapie
+    meetings: Réunions
+    calls: Appels
+    hiring: Embauche
+    recruiting: Recrutement
+    sales: Ventes
+    demo: Démo
+    onboarding: Intégration
+    product: Produit
+    consulting: Consultant
+    photography: Photographie
+    translation: Traduction
+    virtual: Virtuel
+    assistant: Assistant
+    pets: Animaux de compagnie
+    dog: Chien
+    care: Soins
+    grooming: Toilettage
+    veterinary: Vétérinaire
+    professional: Professionnel
+    finance: Finance
+    accounting: Comptabilité
+    legal: Légal
+    real_estate: Immobilier
+    massage: Massage
+    acupuncture: Acupuncture
+    chiropractic: Chiropratique
+    nutrition: Nutrition
+    sleep: Dormir
+    holistic: Holistique
+  beauty:
+    hair_stylist:
+      label: Coiffeur
+      services:
+        women_s_haircut_style:
+          name: Coupe de cheveux et style pour femmes
+          description: "**Une coupe de cheveux personnalisée** adaptée à votre style et à la forme de votre visage. Comprend un lavage, une coupe de précision et une éruption pour un look fini."
+          addons:
+            women_s_haircut_style-addon-beauty-1:
+              name: Rafraîchissement du gloss tonifiant
+              description: "**Gloss semi-permanent** pour raviver la brillance et le tonus entre les visites complètes."
+            women_s_haircut_style-addon-hair-2:
+              name: Masque revitalisant en profondeur
+              description: "**Traitement hydratant intensif** après votre coupe pour des cheveux plus doux et plus lisses."
+        men_s_haircut:
+          name: Coupe de cheveux pour hommes
+          description: "**Une coupe de cheveux nette et précise** incluant consultation et coiffage. Parfait pour un entretien régulier et des looks mis à jour."
+          addons:
+            men_s_haircut-addon-beauty-1:
+              name: Taille et alignement de la barbe
+              description: "**Bords propres et mise en forme de la barbe** pour que votre coupe de cheveux et votre barbe correspondent."
+        full_color:
+          name: Pleine couleur
+          description: "**Application complète de la couleur** avec consultation et finition professionnelle. Idéal pour les colorations complètes ou les transformations majeures."
+          addons:
+            full_color-addon-beauty-1:
+              name: Traitement de renforcement des liens
+              description: "**Étape de renforcement** pour aider à protéger les cheveux pendant le traitement chimique."
+            full_color-addon-hair-2:
+              name: Module complémentaire d'actualisation de la racine
+              description: "**Petite retouche racinaire ciblée** lorsqu'elle est réservée avec une couleur (portée limitée)."
+    nail_technician:
+      label: Technicienne en ongles
+      services:
+        basic_manicure:
+          name: Manucure de base
+          description: "**Mise en forme et soin des ongles**, y compris le traitement et le vernis des cuticules. Un service de maintenance rapide et rafraîchissant."
+          addons:
+            basic_manicure-addon-beauty-1:
+              name: Trempage de cire de paraffine
+              description: "**Traitement à la cire chaude** pour des mains et des cuticules plus douces avant le polissage."
+            basic_manicure-addon-nails-2:
+              name: Accents de nail art
+              description: "**Conception simple ou astuces françaises** sur deux ongles accentués."
+        gel_manicure:
+          name: Manucure Gel
+          description: "**Application de vernis gel durable** avec durcissement professionnel. Comprend une préparation des ongles et une finition longue durée."
+          addons:
+            gel_manicure-addon-beauty-1:
+              name: Élimination du gel
+              description: "**Trempage en toute sécurité** lors du retrait du gel existant avant une nouvelle série."
+            gel_manicure-addon-nails-2:
+              name: Massage prolongé des mains
+              description: "**Durée de massage supplémentaire** au-delà du service de gel standard."
+        acrylic_full_set:
+          name: Ensemble complet en acrylique
+          description: "**Amélioration des ongles en acrylique** avec mise en forme et vernis personnalisés. Idéal pour les clients souhaitant une longueur ou un design supplémentaire."
+          addons:
+            acrylic_full_set-addon-beauty-1:
+              name: Amélioration de la longueur ou de la forme
+              description: "**Extensions plus longues ou forme spéciale** lorsque discuté à l'avance."
+            acrylic_full_set-addon-nails-2:
+              name: Accents de cristal ou de feuille
+              description: "**Accents décoratifs** sur quelques ongles pour des événements ou des photos."
+    esthetician:
+      label: Esthéticienne
+      services:
+        classic_facial:
+          name: Soin du visage classique
+          description: "**Soin du visage nettoyant en profondeur** pour rafraîchir le teint et la texture de la peau. Comprend un nettoyage, une exfoliation, un masque et une hydratation."
+          addons:
+            classic_facial-addon-beauty-1:
+              name: Traitement haute fréquence
+              description: "**Module complémentaire d'appareil** souvent utilisé dans les zones sujettes aux éruptions cutanées ou encombrées."
+            classic_facial-addon-skin-2:
+              name: Boost LED
+              description: "**Séance LED ciblée** pour soutenir les objectifs apaisants ou éclaircissants."
+        microdermabrasion:
+          name: Microdermabrasion
+          description: "**Resurfaçage non invasif** pour réduire les ridules et les textures inégales. Comprend des conseils avant et après les soins."
+          addons:
+            microdermabrasion-addon-beauty-1:
+              name: Masque rafraîchissant
+              description: "**Masque apaisant** après exfoliation pour calmer les rougeurs."
+            microdermabrasion-addon-skin-2:
+              name: Cou et décolleté
+              description: "**Étendez le resurfaçage** au cou et au haut de la poitrine au cours de la même visite."
+        acne_treatment:
+          name: Traitement de l'acné
+          description: "**Thérapie ciblée contre l'acné** utilisant des produits de qualité clinique et une extraction minutieuse si nécessaire. Destiné à calmer la peau et à réduire les éruptions cutanées."
+          addons:
+            acne_treatment-addon-beauty-1:
+              name: Mise au point haute fréquence
+              description: "**Temps supplémentaire sur les zones encombrées** avec réglage antibactérien."
+            acne_treatment-addon-skin-2:
+              name: Massage cryo-globe
+              description: "**Massage frais** pour apaiser la peau après les extractions."
+    makeup_artist:
+      label: Maquilleur
+      services:
+        natural_day_makeup:
+          name: Maquillage de jour naturel
+          description: "**Maquillage frais et naturel** conçu pour les événements et les réunions de jour. Comprend des produits de préparation de la peau et de longue tenue."
+          addons:
+            natural_day_makeup-addon-beauty-1:
+              name: Cils en bandes naturelles
+              description: "**Cils légers** pour une définition subtile à la lumière du jour."
+            natural_day_makeup-addon-makeup-2:
+              name: Mini kit de retouche
+              description: "**Papiers buvards et échantillon de lèvres** à rafraîchir après votre rendez-vous."
+        bridal_makeup:
+          name: Maquillage De Mariée
+          description: "**Maquillage de mariée complet** avec essai et jour d'application. Garantit des résultats durables et prêts à photographier."
+          addons:
+            bridal_makeup-addon-beauty-1:
+              name: Essai de deuxième regard
+              description: "**Direction alternative des lèvres ou des yeux** afin que vous puissiez comparer avant le mariage."
+            bridal_makeup-addon-makeup-2:
+              name: Synchronisation de la chronologie le jour
+              description: "**Court examen de la planification** en gardant à l'esprit le timing des cheveux et des photos."
+        event_glam:
+          name: Événement glamour
+          description: "**Maquillage de soirée audacieux** parfait pour les photos et les événements spéciaux. Comprend des cils et un réglage pour plus de durabilité."
+          addons:
+            event_glam-addon-beauty-1:
+              name: Cils glamour complets
+              description: "**Application spectaculaire des cils** pour l'éclairage et les photos du soir."
+            event_glam-addon-makeup-2:
+              name: Tampon de séjour pré-événement
+              description: "**Minutes de finition supplémentaires** juste avant de sortir."
+    lash_technician:
+      label: Technicien en cils
+      services:
+        classic_lash_extensions:
+          name: Extensions de cils classiques
+          description: "**Extensions de cils d'aspect naturel** appliquées une par une pour une amélioration subtile. Comprend une cartographie des cils et des conseils de suivi."
+          addons:
+            classic_lash_extensions-addon-beauty-1:
+              name: Remplissage des cils inférieurs
+              description: "**Léger rehaussement des cils inférieurs** pour un cadrage équilibré."
+            classic_lash_extensions-addon-lashes-2:
+              name: Mise à niveau de l'adhésif sensible
+              description: "**Adhésif doux** lorsque les yeux sont facilement irrités."
+        volume_lash_extensions:
+          name: Extensions de cils volumineuses
+          description: "**Ensemble de cils plein volume** pour une finition spectaculaire. Ventilateurs personnalisés et technique légère pour le confort."
+          addons:
+            volume_lash_extensions-addon-beauty-1:
+              name: Mélange méga-volume
+              description: "**Ventilateurs plus denses** dans des zones sélectionnées pour un drame supplémentaire."
+            volume_lash_extensions-addon-lashes-2:
+              name: Tutoriel bain de cils
+              description: "**Leçon rapide** sur le nettoyage des extensions sans les endommager."
+        lash_fill:
+          name: Remplissage des cils
+          description: "**Recharge d'entretien** pour redonner de la plénitude et remplacer les cils poussés. Meilleur toutes les 2 à 3 semaines."
+          addons:
+            lash_fill-addon-beauty-1:
+              name: Actualisation de la teinte des couleurs
+              description: "**Approfondissez ou tonifiez** vos cils naturels entre les séries complètes."
+            lash_fill-addon-lashes-2:
+              name: Module complémentaire de suppression de vapeur
+              description: "**Séance de retrait en toute sécurité** lorsque vous repartez à zéro avec un nouveau style."
+    brow_artist:
+      label: Artiste des sourcils
+      services:
+        brow_shaping:
+          name: Mise en forme des sourcils
+          description: "**Formation précise des sourcils** par épilation ou pincement selon vos préférences. Comprend une consultation sur l’arche et l’épaisseur."
+          addons:
+            brow_shaping-addon-beauty-1:
+              name: Teinture des sourcils
+              description: "**Teinte végétale** pour approfondir la couleur des sourcils pendant plusieurs semaines."
+            brow_shaping-addon-brows-2:
+              name: Cartographie des sourcils
+              description: "**Contour précis et symétrie** vérifier avant la cire ou l'enfilage."
+        brow_lamination:
+          name: Stratification des sourcils
+          description: "**Laminage des sourcils** pour une forme plus complète et une direction uniforme. Idéal pour dompter les poils indisciplinés et améliorer leur forme."
+          addons:
+            brow_lamination-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour améliorer les résultats lors de la stratification des sourcils."
+            brow_lamination-addon-brows-2:
+              name: Finition étendue
+              description: "**Temps de détail supplémentaire** à la fin de la stratification des sourcils."
+        tint_shape:
+          name: Teinte et forme
+          description: "**Teinture et mise en forme** pour améliorer la couleur et la symétrie naturelles des sourcils. Un complément rapide à une routine beauté complète."
+          addons:
+            tint_shape-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour améliorer les résultats lors de Tint & Shape."
+            tint_shape-addon-brows-2:
+              name: Finition étendue
+              description: "**Temps de détail supplémentaire** à la fin de Tint & Shape."
+    spray_tan_technician:
+      label: Technicien en bronzage par pulvérisation
+      services:
+        full_body_spray_tan:
+          name: Bronzage en spray pour tout le corps
+          description: "**Teinte de bronzage en spray personnalisée** adaptée au teint et à la profondeur souhaitée. Comprend des instructions de suivi pour une meilleure longévité."
+          addons:
+            full_body_spray_tan-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour améliorer les résultats lors du Full Body Spray Tan."
+            full_body_spray_tan-addon-tan-2:
+              name: Finition étendue
+              description: "**Temps de détail supplémentaire** à la fin du Full Body Spray Tan."
+        express_spray_tan:
+          name: Bronzage express en spray
+          description: "**Bronzage à développement rapide** pour les clients à court de temps. Développement légèrement plus rapide tout en offrant une finition naturelle."
+          addons:
+            express_spray_tan-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour booster les résultats lors de l'Express Spray Tan."
+        touch_up:
+          name: Retouche
+          description: "**Retouche rapide** pour rafraîchir les zones estompées avant les événements. Rapide et pratique."
+          addons:
+            touch_up-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour booster les résultats lors des retouches."
+    waxing_specialist:
+      label: Spécialiste de l'épilation à la cire
+      services:
+        bikini_wax:
+          name: Cire pour bikini
+          description: "**Épilation du bikini minutieuse** avec des normes d'hygiène élevées. Comprend des conseils post-soins apaisants pour plus de confort."
+          addons:
+            bikini_wax-addon-beauty-1:
+              name: Gel apaisant post-épilation
+              description: "**Application apaisante** après l'épilation des zones sensibles."
+            bikini_wax-addon-waxing-2:
+              name: Traitement des taches incarnées
+              description: "**Exfoliation douce** sur les zones à problèmes de la ligne du bikini."
+        full_body_wax:
+          name: Cire pour tout le corps
+          description: "**Épilation complète sur plusieurs zones** effectuée efficacement. Recommandé pour les clients expérimentés en épilation."
+          addons:
+            full_body_wax-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour améliorer les résultats lors de l'épilation complète du corps."
+            full_body_wax-addon-waxing-2:
+              name: Finition étendue
+              description: "**Temps de détail supplémentaire** à la fin de Full Body Wax."
+        underarm_wax:
+          name: Cire sous les bras
+          description: "**Épilation rapide des aisselles** avec des techniques douces. Rapide et efficace pour des résultats fluides."
+          addons:
+            underarm_wax-addon-beauty-1:
+              name: Mise à niveau du produit ou de l'outil
+              description: "**Produit premium ou technique ciblée** pour améliorer les résultats lors de l'épilation des aisselles."
+  coaching:
+    life_coach:
+      label: Coach de vie
+      services:
+        discovery_session:
+          name: Séance découverte
+          description: "**Séance découverte d'introduction** pour clarifier les objectifs et l'adéquation. Comprend les prochaines étapes suggérées et un court plan d’action."
+          addons:
+            discovery_session-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que la session de découverte démarre avec clarté."
+            discovery_session-addon-personal-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes de la session de découverte."
+        coaching_session:
+          name: Séance de coaching
+          description: "**Séance de coaching ciblée** pour aborder les priorités et la responsabilité. Outils pratiques et actions de suivi inclus."
+          addons:
+            coaching_session-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que la séance de coaching commence avec clarté."
+            coaching_session-addon-personal-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes des séances de coaching."
+    business_coach:
+      label: Coach d'affaires
+      services:
+        strategy_audit:
+          name: Audit de stratégie
+          description: "**Examen stratégique de haut niveau** avec des recommandations concrètes. Comprend les prochaines étapes prioritaires en matière de croissance ou d’efficacité."
+          addons:
+            strategy_audit-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que l'audit stratégique commence avec clarté."
+            strategy_audit-addon-business-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes d'audit de stratégie."
+        executive_coaching:
+          name: Coaching exécutif
+          description: "**Coaching exécutif individuel** axé sur le leadership et la prise de décision. Adapté aux objectifs de développement professionnel."
+          addons:
+            executive_coaching-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que le coaching exécutif commence avec clarté."
+            executive_coaching-addon-business-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes de coaching exécutif."
+        team_workshop:
+          name: Atelier d'équipe
+          description: "**Atelier d'équipe interactif** pour aligner les objectifs et améliorer la collaboration. Comprend des exercices et des ressources de suivi."
+          addons:
+            team_workshop-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que Team Workshop démarre avec clarté."
+            team_workshop-addon-business-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes de l'atelier d'équipe."
+    career_coach:
+      label: Coach de carrière
+      services:
+        resume_review:
+          name: Reprendre l'examen
+          description: "**Révision de CV professionnel** avec des modifications et des suggestions concrètes. Aide à mettre en valeur les points forts et à s'adapter aux rôles."
+          addons:
+            resume_review-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que la révision du CV commence avec clarté."
+            resume_review-addon-career-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes d'examen du curriculum vitae."
+        interview_prep:
+          name: Préparation à l'entretien
+          description: "**Mocks d'entretiens et commentaires** adaptés au rôle et au secteur d'activité. Conseils pratiques pour améliorer les performances."
+          addons:
+            interview_prep-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que la préparation à l'entretien commence avec clarté."
+            interview_prep-addon-career-2:
+              name: Enregistrement entre les sessions
+              description: "**Point de contact court sur la responsabilité** entre les réunions complètes de préparation à l'entretien."
+        career_strategy_session:
+          name: Séance de stratégie de carrière
+          description: "**Séance de stratégie longue durée** pour le ciblage des rôles et la planification de la croissance. Comprend les étapes d’action recommandées."
+          addons:
+            career_strategy_session-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que la session de stratégie de carrière commence avec clarté."
+            career_strategy_session-addon-career-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes des sessions de stratégie de carrière."
+    health_coach:
+      label: Coach santé
+      services:
+        initial_health_assessment:
+          name: Bilan de santé initial
+          description: "**Apport santé complet** avec révision du mode de vie et des objectifs. Plan sur mesure et petites étapes réalisables fournis."
+          addons:
+            initial_health_assessment-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que l'évaluation de santé initiale commence avec clarté."
+            initial_health_assessment-addon-health-2:
+              name: Enregistrement entre les sessions
+              description: "**Court point de contact sur la responsabilité** entre les réunions complètes d'évaluation initiale de la santé."
+        follow_up_coaching:
+          name: Coaching de suivi
+          description: "**Enregistrements réguliers** pour soutenir les objectifs et résoudre les obstacles. Responsabilité et ajustements ciblés."
+          addons:
+            follow_up_coaching-addon-coaching-1:
+              name: Feuille de travail de pré-session
+              description: "**Invites de préparation** pour que le coaching de suivi commence avec clarté."
+            follow_up_coaching-addon-health-2:
+              name: Enregistrement entre les sessions
+              description: "**Point de contact de responsabilité court** entre les réunions complètes de coaching de suivi."
+  creative:
+    photographer:
+      label: Photographe
+      services:
+        portrait_session:
+          name: Séance de portraits
+          description: "**Séance de portrait professionnelle** avec retouche incluse. Convient aux portraits, aux portraits et aux photos de marque."
+          addons:
+            portrait_session-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de peaufinage** sur les livrables de Portrait Session."
+            portrait_session-addon-photo-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais des séances de portrait sont serrés."
+        event_photography_per_hour:
+          name: Photographie d'événement (par heure)
+          description: "**Couverture d'événements à l'heure** avec forfaits optionnels. Comprend une édition de base et un calendrier de livraison."
+          addons:
+            event_photography_per_hour-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Une passe de polissage supplémentaire** sur les livrables de la photographie d'événements (par heure)."
+            event_photography_per_hour-addon-photo-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais de photographie d'événement (par heure) sont serrés."
+        product_shoot:
+          name: Prise de vue produit
+          description: "**Photographie de produits en studio ou sur place** pour le commerce électronique et les catalogues. Comprend l’éclairage et les retouches professionnels."
+          addons:
+            product_shoot-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de peaufinage** sur les livrables de Product Shoot."
+            product_shoot-addon-photo-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais de prise de vue produit sont serrés."
+    videographer:
+      label: Vidéaste
+      services:
+        promo_video_up_to_2_min:
+          name: Vidéo promotionnelle (jusqu'à 2 minutes)
+          description: "**Courte vidéo promotionnelle** pour la marque ou le produit. Comprend l'édition et les graphiques animés de base."
+          addons:
+            promo_video_up_to_2_min-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Une passe de peaufinage supplémentaire** sur les livrables de la vidéo promotionnelle (jusqu'à 2 minutes)."
+            promo_video_up_to_2_min-addon-video-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais des vidéos promotionnelles (jusqu'à 2 minutes) sont serrés."
+        event_videography:
+          name: Vidéographie événementielle
+          description: "**Couverture des événements** avec post-production incluse. Fournit des séquences phares et des séquences complètes."
+          addons:
+            event_videography-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de peaufinage** sur les livrables d'Event Videography."
+            event_videography-addon-video-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais de vidéographie événementielle sont serrés."
+        interview_recording:
+          name: Enregistrement d'entrevue
+          description: "**Capture d'entretien professionnelle** avec des configurations multi-caméras ou mono-caméra. Comprend l'édition de base."
+          addons:
+            interview_recording-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de peaufinage** sur les livrables de l'enregistrement d'interview."
+            interview_recording-addon-video-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais d'enregistrement des entretiens sont serrés."
+    graphic_designer:
+      label: Graphiste
+      services:
+        logo_design_basic:
+          name: Création de logo (de base)
+          description: "**Concept de logo et fichiers simples** pour une utilisation immédiate de la marque. Comprend quelques variations et révisions mineures."
+          addons:
+            logo_design_basic-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de polissage** sur les livrables de Logo Design (de base)."
+            logo_design_basic-addon-design-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais de conception de logo (de base) sont serrés."
+        brand_kit:
+          name: Trousse de marque
+          description: "**Kit de marque complet** comprenant le logo, la palette de couleurs et les polices. Conçu pour une identité cohérente sur tous les canaux."
+          addons:
+            brand_kit-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de polissage** sur les livrables de Brand Kit."
+            brand_kit-addon-design-2:
+              name: Livraison urgente
+              description: "**Délais d'exécution plus rapide** lorsque les délais du Brand Kit sont serrés."
+        social_media_graphics_pack:
+          name: Graphiques de médias sociaux (pack)
+          description: "**Modèles de réseaux sociaux personnalisés** optimisés pour les plateformes. Livré sous forme de fichiers modifiables pour des mises à jour rapides."
+          addons:
+            social_media_graphics_pack-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de polissage** sur les livrables de Social Media Graphics (pack)."
+            social_media_graphics_pack-addon-design-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais pour les graphiques de médias sociaux (packs) sont serrés."
+    illustrator:
+      label: Illustrateur
+      services:
+        custom_illustration_single:
+          name: Illustration personnalisée (unique)
+          description: "**Illustration personnalisée unique** adaptée à votre brief. Livré sous forme de fichiers haute résolution prêts à l’emploi."
+          addons:
+            custom_illustration_single-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de polissage** sur les livrables de l'illustration personnalisée (unique)."
+            custom_illustration_single-addon-illustration-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais pour les illustrations personnalisées (uniques) sont serrés."
+        series_of_illustrations:
+          name: Série d'illustrations
+          description: "**Série d'illustrations en plusieurs parties** pour des livres, des campagnes ou des sites Web. Comprend les révisions et la correspondance de style."
+          addons:
+            series_of_illustrations-addon-creative-1:
+              name: Cycle de révision supplémentaire
+              description: "**Encore une passe de polissage** sur les livrables de la série d'illustrations."
+            series_of_illustrations-addon-illustration-2:
+              name: Livraison urgente
+              description: "**Délai d'exécution plus rapide** lorsque les délais des séries d'illustrations sont serrés."
+  education:
+    tutor:
+      label: Tuteur
+      services:
+        one_on_one_tutoring:
+          name: Tutorat individuel
+          description: "**Séance de tutorat personnalisé** adaptée au niveau de l'élève. Axé sur la compréhension et les exercices pratiques."
+          addons:
+            one_on_one_tutoring-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans le tutorat individuel."
+            one_on_one_tutoring-addon-teaching-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après un tutorat individuel."
+        exam_prep_per_session:
+          name: Préparation aux examens (par session)
+          description: "**Préparation ciblée aux examens** avec des stratégies et des examens pratiques. Conçu pour améliorer la confiance et les performances."
+          addons:
+            exam_prep_per_session-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans la préparation à l'examen (par session)."
+            exam_prep_per_session-addon-teaching-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la préparation à l'examen (par session)."
+        homework_help:
+          name: Aide aux devoirs
+          description: "**Aide rapide aux devoirs** pour répondre aux questions et renforcer les compétences. Idéal pour une aide et des conseils de dernière minute."
+          addons:
+            homework_help-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans l'aide aux devoirs."
+            homework_help-addon-teaching-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un parrain après l'aide aux devoirs."
+    music_teacher:
+      label: Professeur de musique
+      services:
+        private_lesson_30min:
+          name: Leçon Particulière (30min)
+          description: "**Cours particulier ciblé** pour instrument ou voix. Comprend la technique, le répertoire et les conseils pratiques."
+          addons:
+            private_lesson_30min-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez en cours particulier (30 min)."
+            private_lesson_30min-addon-music-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après le cours particulier (30min)."
+        advanced_lesson_60min:
+          name: Leçon avancée (60min)
+          description: "**Séance étendue pour les étudiants avancés** avec un travail de répertoire plus approfondi. Comprend le coaching de performance et la critique."
+          addons:
+            advanced_lesson_60min-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans la leçon avancée (60 min)."
+            advanced_lesson_60min-addon-music-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la leçon avancée (60 min)."
+        monthly_lesson_package:
+          name: Forfait de cours mensuel
+          description: "**Ensemble de leçons pour des progrès réguliers** et un apprentissage structuré. Idéal pour les étudiants réguliers."
+          addons:
+            monthly_lesson_package-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous couvrez dans le forfait de cours mensuel."
+            monthly_lesson_package-addon-music-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après le forfait de cours mensuel."
+    language_tutor:
+      label: Tuteur de langue
+      services:
+        conversational_session:
+          name: Séance conversationnelle
+          description: "**Conversation axée sur la pratique** pour renforcer la maîtrise et la confiance. Utile pour les apprenants de tous niveaux."
+          addons:
+            conversational_session-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez lors de la session conversationnelle."
+            conversational_session-addon-language-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la séance conversationnelle."
+        grammar_writing:
+          name: Grammaire et écriture
+          description: "**Cours structurés** axés sur la grammaire et les compétences rédactionnelles. Comprend des exercices et des commentaires."
+          addons:
+            grammar_writing-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez en grammaire et écriture."
+            grammar_writing-addon-language-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la grammaire et l'écriture."
+        exam_prep:
+          name: Préparation aux examens
+          description: "**Préparation aux examens de compétence linguistique** avec pratique ciblée. Comprend des tests simulés et une révision."
+          addons:
+            exam_prep-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans la préparation à l'examen."
+            exam_prep-addon-language-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la préparation à l'examen."
+    dance_instructor:
+      label: Professeur de danse
+      services:
+        private_dance_lesson:
+          name: Cours de danse privé
+          description: "**Cours de danse individuels** adaptés au style et aux capacités. Concentrez-vous sur la technique, la chorégraphie et la performance."
+          addons:
+            private_dance_lesson-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez dans le cours de danse privé."
+            private_dance_lesson-addon-dance-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après le cours privé de danse."
+        group_class:
+          name: Cours de groupe
+          description: "**Cours de danse en groupe communautaire** avec routines dirigées par un instructeur. Idéal pour le fitness et l’apprentissage de nouveaux styles."
+          addons:
+            group_class-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez en cours de groupe."
+            group_class-addon-dance-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après le cours en groupe."
+        choreography_session:
+          name: Séance de chorégraphie
+          description: "**Création de chorégraphies sur mesure** pour des performances ou des événements. Comprend une cartographie et des conseils pratiques."
+          addons:
+            choreography_session-addon-education-1:
+              name: Ensemble de pratique
+              description: "**Exercices ciblés** correspondant à ce que vous abordez lors de la séance de chorégraphie."
+            choreography_session-addon-dance-2:
+              name: Résumé des progrès
+              description: "**Court récapitulatif écrit** pour un parent ou un sponsor après la séance de chorégraphie."
+  event:
+    event_planner:
+      label: Planificateur d'événements
+      services:
+        consultation:
+          name: Consultation
+          description: "**Consultation de planification initiale** pour discuter de la vision et du budget. Comprend les prochaines étapes et les échéanciers potentiels."
+          addons:
+            consultation-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus de la consultation."
+            consultation-addon-planning-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour de la Consultation."
+        partial_planning_package:
+          name: Forfait de planification partielle
+          description: "**Aide à la planification partielle** pour des parties spécifiques d'un événement. Comprend la coordination des fournisseurs et la logistique."
+          addons:
+            partial_planning_package-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de la disposition** en plus du package de planification partielle."
+            partial_planning_package-addon-planning-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute concernant le package de planification partielle."
+        full_service_planning:
+          name: Planification de services complets
+          description: "**Planification de bout en bout** et gestion des grands événements. Assure une exécution fluide et une surveillance des fournisseurs."
+          addons:
+            full_service_planning-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus de la planification du service complet."
+            full_service_planning-addon-planning-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour de la planification du service complet."
+    dj:
+      label: DJ
+      services:
+        event_dj_per_hour:
+          name: DJ événementiel (par heure)
+          description: "**Services DJ pour événements** avec curation de sons professionnels et de playlists. Forfaits disponibles pour des événements de plusieurs heures."
+          addons:
+            event_dj_per_hour-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus du DJ de l'événement (par heure)."
+            event_dj_per_hour-addon-music-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour d'Event DJ (par heure)."
+        ceremony_dj:
+          name: DJ de cérémonie
+          description: "**Services DJ pour les cérémonies** avec timing, signaux et configuration audio. Assure des transitions fluides et une qualité sonore."
+          addons:
+            ceremony_dj-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus du DJ de la cérémonie."
+            ceremony_dj-addon-music-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour de Ceremony DJ."
+        mc_dj_package:
+          name: Forfait MC & DJ
+          description: "**Service combiné MC et DJ** pour héberger et fournir de la musique pour votre événement. Comprend la planification et la coordination du calendrier."
+          addons:
+            mc_dj_package-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus du forfait MC & DJ."
+            mc_dj_package-addon-music-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour du Package MC & DJ."
+    photobooth_operator:
+      label: Opérateur de photobooth
+      services:
+        basic_booth_2_hours:
+          name: Stand de base (2 heures)
+          description: "**Location de photomaton** incluant les accessoires et l'opérateur sur place. Ajout amusant aux fêtes et aux mariages."
+          addons:
+            basic_booth_2_hours-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus du stand de base (2 heures)."
+            basic_booth_2_hours-addon-photo-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour du stand Basic (2 heures)."
+        custom_backdrop:
+          name: Toile de fond personnalisée
+          description: "**Conception et installation de toiles de fond personnalisées** pour des événements de marque ou à thème. Améliore l'expérience photo."
+          addons:
+            custom_backdrop-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de la disposition** en plus de la toile de fond personnalisée."
+            custom_backdrop-addon-photo-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les modifications de dernière minute concernant la toile de fond personnalisée."
+        booth_package_4_hours:
+          name: Forfait stand (4 heures)
+          description: "**Forfait stand étendu** pour les événements d'une demi-journée. Comprend des copies numériques et une impression de base si nécessaire."
+          addons:
+            booth_package_4_hours-addon-events-1:
+              name: Visite guidée du site
+              description: "**Vérification du lieu ou de l'aménagement** en plus du forfait stand (4 heures)."
+            booth_package_4_hours-addon-photo-2:
+              name: Tampon d'exécution
+              description: "**Temps réservé** pour les changements de dernière minute autour du forfait Booth (4 heures)."
+  fitness:
+    personal_trainer:
+      label: Entraîneur personnel
+      services:
+        initial_fitness_assessment:
+          name: Évaluation initiale de la condition physique
+          description: "**Évaluation complète de la condition physique** comprenant des tests de base et l'établissement d'objectifs. Fournit un plan de formation personnalisé."
+          addons:
+            initial_fitness_assessment-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Contrôles rapides de la mobilité ou de la posture** intégrés à l'évaluation initiale de la condition physique."
+            initial_fitness_assessment-addon-trainer-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou stimulation** à utiliser entre les séances d'évaluation initiale de la condition physique."
+        one_on_one_training:
+          name: Formation individuelle
+          description: "**Séances d'entraînement individuelles** axées sur la force, la mobilité ou le conditionnement. Entraînements sur mesure et suivi des progrès."
+          addons:
+            one_on_one_training-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à une formation individuelle."
+            one_on_one_training-addon-trainer-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances d'entraînement individuel."
+        nutrition_training_plan:
+          name: Plan Nutrition + Entraînement
+          description: "**Pack de coaching combiné** avec formation et conseils nutritionnels. Comprend les enregistrements de suivi et les ajustements du plan."
+          addons:
+            nutrition_training_plan-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Contrôles rapides de la mobilité ou de la posture** intégrés au plan de nutrition + entraînement."
+            nutrition_training_plan-addon-trainer-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances de nutrition + plan d'entraînement."
+    yoga_instructor:
+      label: Instructeur de yoga
+      services:
+        private_yoga_session:
+          name: Séance de Yoga Privée
+          description: "**Pratique de yoga personnalisée** adaptée à votre niveau et vos objectifs. Concentrez-vous sur la respiration, l’alignement et la mobilité."
+          addons:
+            private_yoga_session-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à une séance de yoga privée."
+            private_yoga_session-addon-yoga-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances de yoga privées."
+        small_group_class:
+          name: Cours en petit groupe
+          description: "**Séances de groupe intimes** avec instruction et attention partagées. Idéal pour les amis ou les petites équipes."
+          addons:
+            small_group_class-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Contrôles rapides de mobilité ou de posture** intégrés dans un cours en petit groupe."
+            small_group_class-addon-yoga-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances de cours en petit groupe."
+        yoga_workshop:
+          name: Atelier de Yoga
+          description: "**Atelier approfondi** sur les techniques et la pratique. Idéal pour améliorer la forme et comprendre les principes."
+          addons:
+            yoga_workshop-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à l'atelier de yoga."
+            yoga_workshop-addon-yoga-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances d'atelier de yoga."
+    pilates_instructor:
+      label: Instructeur de Pilates
+      services:
+        mat_pilates_private:
+          name: Tapis Pilates Privé
+          description: "**Séance de Pilates ciblée sur tapis** pour renforcer le tronc et améliorer la posture. Comprend des progressions sur mesure."
+          addons:
+            mat_pilates_private-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à Mat Pilates Private."
+            mat_pilates_private-addon-pilates-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou stimulation** à utiliser entre les séances privées de Mat Pilates."
+        reformer_session:
+          name: Session des réformateurs
+          description: "**Séance de réforme basée sur l'équipement** pour la stabilité et la force. Utile pour la rééducation et la performance."
+          addons:
+            reformer_session-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à la session Reformer."
+            reformer_session-addon-pilates-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les sessions Reformer Session."
+    group_fitness_instructor:
+      label: Instructeur de conditionnement physique en groupe
+      services:
+        bootcamp_class:
+          name: Cours de bootcamp
+          description: "**Bootcamp de groupe à haute intensité** alliant cardio et force. Convient aux participants de condition physique variée."
+          addons:
+            bootcamp_class-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées au cours Bootcamp."
+            bootcamp_class-addon-group-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les sessions de cours Bootcamp."
+        circuit_training:
+          name: Entraînement en circuit
+          description: "**Cours en circuit structuré** avec entraînements en station. Équilibré pour la force et le conditionnement."
+          addons:
+            circuit_training-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à l'entraînement en circuit."
+            circuit_training-addon-group-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances d'entraînement en circuit."
+        corporate_wellness_session:
+          name: Séance de bien-être en entreprise
+          description: "**Bien-être en groupe sur place ou virtuel** adapté aux équipes. Concentrez-vous sur la mobilité, l’énergie et la réduction du stress."
+          addons:
+            corporate_wellness_session-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Contrôles rapides de la mobilité ou de la posture** intégrés à la séance de bien-être en entreprise."
+            corporate_wellness_session-addon-group-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances de session de bien-être en entreprise."
+    running_coach:
+      label: Entraîneur de course à pied
+      services:
+        gait_analysis_plan:
+          name: Analyse et plan de la démarche
+          description: "**Analyse du formulaire de course** et plan d'entraînement personnalisé. Aide à prévenir les blessures et à améliorer l'efficacité."
+          addons:
+            gait_analysis_plan-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à l'analyse et au plan de démarche."
+            gait_analysis_plan-addon-running-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou stimulation** à utiliser entre les sessions d'analyse et de plan de marche."
+        one_on_one_coaching:
+          name: Coaching individuel
+          description: "**Séances de coaching individuelles** axées sur le rythme, l'endurance et les exercices. Adapté aux objectifs de course ou aux niveaux de forme physique."
+          addons:
+            one_on_one_coaching-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Contrôles rapides de la mobilité ou de la posture** intégrés dans un coaching individuel."
+            one_on_one_coaching-addon-running-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les séances de coaching individuel."
+        group_run_session:
+          name: Séance de groupe
+          description: "**Séance de course communautaire** avec rythme et exercices dirigés par un entraîneur. Idéal pour la motivation et la pratique technique."
+          addons:
+            group_run_session-addon-fitness-1:
+              name: Module complémentaire d'écran de mouvement
+              description: "**Vérifications rapides de la mobilité ou de la posture** intégrées à la session d'exécution de groupe."
+            group_run_session-addon-running-2:
+              name: Plan de formation à emporter
+              description: "**Exercices ou rythme** à utiliser entre les sessions de session d'exécution de groupe."
+  home-services:
+    cleaner:
+      label: Nettoyeur
+      services:
+        standard_home_cleaning:
+          name: Nettoyage domestique standard
+          description: "**Service de nettoyage de routine** couvrant les surfaces, l'aspirateur et les salles de bains. Idéal pour un entretien régulier."
+          addons:
+            standard_home_cleaning-addon-home-1:
+              name: À l'intérieur du four ou du réfrigérateur
+              description: "**Nettoyage en profondeur de l'intérieur d'un appareil** ajouté à votre nettoyage standard."
+            standard_home_cleaning-addon-services-2:
+              name: Mise à niveau du produit écologique
+              description: "**Produits labellisés verts** pour toute la visite quand vous les préférez."
+        deep_clean:
+          name: Nettoyage en profondeur
+          description: "**Nettoyage en profondeur** pour les cuisines, les salles de bains et les zones négligées. Idéal pour les rafraîchissements ou les emménagements occasionnels."
+          addons:
+            deep_clean-addon-home-1:
+              name: Fenêtres intérieures (accessibles)
+              description: "**Verre et rails** pour les pièces incluses dans le nettoyage en profondeur."
+            deep_clean-addon-services-2:
+              name: Gommage carrelage et coulis
+              description: "**Gommage ciblé** sur les lignes de coulis de salle de bain ou de cuisine."
+        move_out_cleaning:
+          name: Nettoyage de déménagement
+          description: "**Nettoyage de déménagement** pour préparer une maison pour les nouveaux locataires. Comprend le nettoyage détaillé et la touche finale."
+          addons:
+            move_out_cleaning-addon-home-1:
+              name: Intérieurs d'armoires
+              description: "**Essuyage de l'armoire vide** avant la remise ou l'inspection."
+            move_out_cleaning-addon-services-2:
+              name: Balayage de garage
+              description: "**Balayage de base du sol du garage** et vadrouille si le nettoyage est effectué en premier."
+    handyman:
+      label: Bricoleur
+      services:
+        small_repair_visit:
+          name: Petite visite de réparation
+          description: "**Visite rapide d'un bricoleur** pour résoudre des problèmes mineurs comme des luminaires ou de petites installations. Efficace et pratique."
+          addons:
+            small_repair_visit-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour une petite visite de réparation, détaillés le cas échéant."
+            small_repair_visit-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation d'une petite visite de réparation."
+        assembly_service:
+          name: Service d'assemblage
+          description: "**Assemblage de meubles ou d'équipements** avec expérience et outils. Comprend le nettoyage une fois terminé."
+          addons:
+            assembly_service-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour le service d'assemblage, détaillés le cas échéant."
+            assembly_service-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation du service de montage."
+    electrician:
+      label: Électricien
+      services:
+        diagnostic_visit:
+          name: Visite diagnostique
+          description: "**Service de dépannage et de diagnostic** pour identifier les problèmes électriques. Comprend un résumé et les correctifs recommandés."
+          addons:
+            diagnostic_visit-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour la visite de diagnostic, détaillés le cas échéant."
+            diagnostic_visit-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation d'une visite de diagnostic."
+        repair_per_hour:
+          name: Réparation (par heure)
+          description: "**Travaux de réparation qualifiés** pour le câblage, les prises ou les luminaires. Facturé à l'heure ou par tâche en fonction de la portée."
+          addons:
+            repair_per_hour-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour la réparation (par heure), détaillés le cas échéant."
+            repair_per_hour-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation d'une réparation (par heure)."
+        installation:
+          name: Installation
+          description: "**Services d'installation complets** pour les électroménagers ou l'éclairage. Comprend les contrôles de sécurité et le nettoyage."
+          addons:
+            installation-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour l'installation, détaillés le cas échéant."
+            installation-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation de l'installation."
+    plumber:
+      label: Plombier
+      services:
+        leak_repair:
+          name: Réparation de fuite
+          description: "**Détection et réparation rapides des fuites** pour éviter les dégâts des eaux. Comprend des tests et des conseils de suivi."
+          addons:
+            leak_repair-addon-home-1:
+              name: Pièces et matériaux
+              description: "**Conduites d'alimentation, rondelles ou mastic** utilisés sur place, détaillés."
+            leak_repair-addon-services-2:
+              name: Urgence en dehors des heures d'ouverture
+              description: "**Arrivée prioritaire le soir ou le week-end** lorsque vous avez besoin d'eau rapidement."
+        fixture_installation:
+          name: Installation des luminaires
+          description: "**Installation professionnelle d'éviers ou de toilettes** avec étanchéité et tests appropriés. Assure une fiabilité à long terme."
+          addons:
+            fixture_installation-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour l'installation du luminaire, détaillés le cas échéant."
+            fixture_installation-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation de l'installation des luminaires."
+        drain_cleaning:
+          name: Nettoyage des canalisations
+          description: "**Débouchage efficace des canalisations** à l'aide d'outils professionnels. Idéal pour les canalisations lentes ou bouchées."
+          addons:
+            drain_cleaning-addon-home-1:
+              name: Matériels et fournitures
+              description: "**Pièces, nettoyants ou matériel** utilisés pour le nettoyage des canalisations, détaillés le cas échéant."
+            drain_cleaning-addon-services-2:
+              name: Planification prioritaire
+              description: "**Fenêtre d'arrivée plus tôt ou plus large** lors de la réservation du nettoyage des canalisations."
+  medical:
+    general_practitioner:
+      label: Généraliste
+      services:
+        new_patient_visit:
+          name: Visite d'un nouveau patient
+          description: "**Visite initiale complète** pour examiner les antécédents médicaux et les préoccupations. Comprend un examen et des tests de base si nécessaire."
+          addons:
+            new_patient_visit-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque la visite d'un nouveau patient nécessite un examen plus approfondi."
+            new_patient_visit-addon-health-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées à la visite d'un nouveau patient."
+        follow_up_visit:
+          name: Visite de suivi
+          description: "**Court suivi** pour examiner les résultats des tests ou les ajustements de médicaments. Des soins efficaces et ciblés."
+          addons:
+            follow_up_visit-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque la visite de suivi nécessite un examen plus approfondi."
+        telehealth_consultation:
+          name: Consultation en télésanté
+          description: "**Consultation à distance** pour des problèmes médicaux non urgents. Pratique pour des suivis et un tri rapides."
+          addons:
+            telehealth_consultation-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du fournisseur** lorsque la consultation de télésanté nécessite un examen plus approfondi."
+    dentist:
+      label: Dentiste
+      services:
+        initial_exam_cleaning:
+          name: Examen initial et nettoyage
+          description: "**Examen dentaire complet** avec nettoyage professionnel. Comprend des conseils en matière de santé buccodentaire et un suivi recommandé."
+          addons:
+            initial_exam_cleaning-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du fournisseur** lorsque l'examen initial et le nettoyage nécessitent un examen plus approfondi."
+            initial_exam_cleaning-addon-dental-2:
+              name: Instructions après la visite
+              description: "**Étapes d'entretien écrites détaillées** adaptées à l'examen initial et au nettoyage."
+        cavity_filling:
+          name: Remplissage de cavité
+          description: "**Procédure de restauration** pour traiter les caries. Comprend des instructions sur l'anesthésie locale et les soins postopératoires."
+          addons:
+            cavity_filling-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du fournisseur** lorsque le remplissage de cavité nécessite un examen plus approfondi."
+            cavity_filling-addon-dental-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées au remplissage des cavités."
+        emergency_visit:
+          name: Visite d'urgence
+          description: "**Soins dentaires urgents** en cas de douleur ou de traumatisme. Évaluation rapide et traitement temporaire ou définitif fourni."
+          addons:
+            emergency_visit-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque la visite d'urgence nécessite un examen plus approfondi."
+            emergency_visit-addon-dental-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées à la visite d'urgence."
+    optometrist:
+      label: Optométriste
+      services:
+        comprehensive_eye_exam:
+          name: Examen complet de la vue
+          description: "**Examen complet de la vision et de la santé oculaire** incluant la réfraction. Recommandations pour les lunettes, les lentilles de contact ou les références incluses."
+          addons:
+            comprehensive_eye_exam-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque l'examen complet de la vue nécessite un examen plus approfondi."
+            comprehensive_eye_exam-addon-vision-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées à l'examen complet de la vue."
+        contact_lens_fitting:
+          name: Ajustement des lentilles de contact
+          description: "**Ajustement professionnel des lentilles de contact** avec lentilles d'essai et instructions. Assure le confort et une bonne prescription."
+          addons:
+            contact_lens_fitting-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du fournisseur** lorsque l'ajustement des lentilles de contact nécessite un examen plus approfondi."
+            contact_lens_fitting-addon-vision-2:
+              name: Instructions après la visite
+              description: "**Étapes d'entretien écrites détaillées** adaptées à l'ajustement des lentilles de contact."
+        follow_up_exam:
+          name: Examen de suivi
+          description: "**Suivi rapide** pour évaluer l'ajustement ou la progression du traitement. Contrôle efficace pour garantir des résultats optimaux."
+          addons:
+            follow_up_exam-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque l'examen de suivi nécessite un examen plus approfondi."
+    physiotherapist:
+      label: Physiothérapeute
+      services:
+        assessment_plan:
+          name: Évaluation et plan
+          description: "**Évaluation initiale des mouvements et des blessures** avec plan de rééducation. Comprend des tests pratiques et un programme d'exercices à domicile."
+          addons:
+            assessment_plan-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du fournisseur** lorsque l'évaluation et le plan nécessitent un examen plus approfondi."
+            assessment_plan-addon-rehab-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées à l'évaluation et au plan."
+        therapy_session:
+          name: Séance de thérapie
+          description: "**Séance de thérapie ciblée** visant à restaurer la fonction et à réduire la douleur. Intègre des techniques manuelles et des exercices."
+          addons:
+            therapy_session-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque la séance de thérapie nécessite un examen plus approfondi."
+            therapy_session-addon-rehab-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées à la séance de thérapie."
+        post_op_rehab_package:
+          name: Forfait de réadaptation postopératoire
+          description: "**Rééducation postopératoire structurée** sur plusieurs visites. Axé sur la restauration de la mobilité et de la force."
+          addons:
+            post_op_rehab_package-addon-medical-1:
+              name: Temps clinique prolongé
+              description: "**Minutes supplémentaires du prestataire** lorsque le package de réadaptation postopératoire nécessite un examen plus approfondi."
+            post_op_rehab_package-addon-rehab-2:
+              name: Instructions après la visite
+              description: "**Étapes de soins écrites détaillées** adaptées au forfait de réadaptation postopératoire."
+  meetings:
+    general_meeting:
+      label: Assemblée générale
+      services:
+        intro_call:
+          name: Appel d'introduction
+          description: "**Un court appel d'introduction** pour vous connecter et évaluer l'adéquation. Parfait pour des introductions rapides ou une découverte."
+          addons:
+            intro_call-addon-meetings-1:
+              name: Questionnaire sur les objectifs
+              description: "**Admission courte** afin que votre appel d'introduction commence par un contexte et un ordre du jour clair."
+        discovery_call:
+          name: Appel découverte
+          description: "**Une conversation plus approfondie** pour explorer les besoins et les prochaines étapes. Utile pour l’accueil des clients et la cadrage."
+          addons:
+            discovery_call-addon-meetings-1:
+              name: Ordre du jour et pré-lecture
+              description: "**Aperçu du sujet et documents** partagés avant votre appel de découverte."
+            discovery_call-addon-business-2:
+              name: Récapitulatif écrit
+              description: "**Résumé des décisions et prochaines étapes** après votre appel de découverte."
+        follow_up_meeting:
+          name: Réunion de suivi
+          description: "**Une séance de suivi** pour examiner les progrès et convenir des prochaines actions. Idéal pour les points de contact de projets en cours."
+          addons:
+            follow_up_meeting-addon-meetings-1:
+              name: Ordre du jour et pré-lecture
+              description: "**Aperçu du sujet et documents** partagés avant votre réunion de suivi."
+            follow_up_meeting-addon-business-2:
+              name: Récapitulatif écrit
+              description: "**Résumé des décisions et prochaines étapes** après votre réunion de suivi."
+    interview_slot:
+      label: Emplacement d'entrevue
+      services:
+        initial_screening:
+          name: Dépistage initial
+          description: "**Court entretien de sélection** pour évaluer l'adéquation de base et la disponibilité. Efficace pour l’embauche précoce."
+          addons:
+            initial_screening-addon-meetings-1:
+              name: Tableau de bord structuré
+              description: "**Catégorie spécifique au rôle** utilisée lors de la sélection pour des notes cohérentes et justes."
+        technical_interview:
+          name: Entretien technique
+          description: "**Entretien technique approfondi** axé sur les compétences et la résolution de problèmes. Peut inclure des tâches ou des questions en direct."
+          addons:
+            technical_interview-addon-meetings-1:
+              name: Tableau de bord structuré
+              description: "** Rubrique spécifique au rôle ** pour des notes cohérentes lors de l'entretien technique."
+            technical_interview-addon-hiring-2:
+              name: Modèle de débriefing de l’équipe d’embauche
+              description: "**Format de résumé écrit** pour les parties prenantes après l'entretien technique."
+        final_interview:
+          name: Entretien final
+          description: "**Entretien final complet** avec plusieurs parties prenantes. Utilisé pour les décisions finales d’embauche et l’adéquation au rôle."
+          addons:
+            final_interview-addon-meetings-1:
+              name: Tableau de bord structuré
+              description: "** Rubrique spécifique au rôle ** pour des notes cohérentes lors de l'entretien final."
+            final_interview-addon-hiring-2:
+              name: Modèle de débriefing de l’équipe d’embauche
+              description: "**Format de résumé écrit** pour les parties prenantes après l'entretien final."
+    demo_call:
+      label: Démo du produit
+      services:
+        quick_demo:
+          name: Démo rapide
+          description: "**Courte présentation du produit** mettant en évidence les principales fonctionnalités. Idéal pour l’intérêt initial et la qualification."
+          addons:
+            quick_demo-addon-meetings-1:
+              name: Connexion des parties prenantes
+              description: "**créneau de 5 minutes** pour briefer un deuxième décideur qui rejoint brièvement à la fin."
+        full_demo_q_a:
+          name: Démo complète et questions-réponses
+          description: "**Démo complète** comprenant une exploration approfondie des fonctionnalités et des questions-réponses. Utile pour les décideurs."
+          addons:
+            full_demo_q_a-addon-meetings-1:
+              name: Construction de cas d'utilisation personnalisée
+              description: "**Configuration courte** montrant vos données ou votre flux de travail dans la démo pour la démo complète et les questions-réponses."
+            full_demo_q_a-addon-sales-2:
+              name: FAQ sur la sécurité et l'administration
+              description: "**Bloc de questions-réponses supplémentaire** sur l'informatique, le SSO ou la conformité pour une démonstration complète et des questions-réponses."
+        pilot_kickoff:
+          name: Lancement du projet pilote
+          description: "**Lancement des projets d'essai ou pilotes** avec configuration et prochaines étapes. Assure l’alignement et les critères de réussite."
+          addons:
+            pilot_kickoff-addon-meetings-1:
+              name: Construction de cas d'utilisation personnalisée
+              description: "**Configuration courte** montrant vos données ou votre flux de travail dans la démo de Pilot Kickoff."
+            pilot_kickoff-addon-sales-2:
+              name: FAQ sur la sécurité et l'administration
+              description: "**Bloc de questions et réponses supplémentaire** sur l'informatique, le SSO ou la conformité pour le lancement du projet pilote."
+    cohort_onboarding:
+      label: Session d'intégration
+      services:
+        new_user_onboarding:
+          name: Intégration de nouveaux utilisateurs
+          description: "**Séance d'intégration guidée** pour démarrer rapidement. Couvre les fonctionnalités clés et les étapes de configuration."
+          addons:
+            new_user_onboarding-addon-meetings-1:
+              name: Configuration de l'environnement Sandbox
+              description: "**Espace de test préchargé** avant l'intégration des nouveaux utilisateurs afin que le temps soit consacré à la pratique."
+            new_user_onboarding-addon-onboarding-2:
+              name: Liens d’enregistrement et de ressources
+              description: "**Enregistrement de session** (si autorisé) plus liens partagés après l'intégration d'un nouvel utilisateur."
+        team_onboarding:
+          name: Intégration de l'équipe
+          description: "**Intégration de groupe pour les équipes**, y compris la configuration spécifique au rôle. Aide à intégrer la plateforme dans les flux de travail."
+          addons:
+            team_onboarding-addon-meetings-1:
+              name: Configuration de l'environnement Sandbox
+              description: "**Espace de test préchargé** avant l'intégration de l'équipe afin que le temps soit consacré à la pratique."
+            team_onboarding-addon-onboarding-2:
+              name: Liens d’enregistrement et de ressources
+              description: "**Enregistrement de session** (si autorisé) plus liens partagés après l'intégration de l'équipe."
+        training_workshop:
+          name: Atelier de formation
+          description: "**Atelier de formation pratique** pour une adoption et des cas d'utilisation plus approfondis. Comprend des questions et réponses et des ressources de suivi."
+          addons:
+            training_workshop-addon-meetings-1:
+              name: Configuration de l'environnement Sandbox
+              description: "**Espace de test préchargé** avant l'atelier de formation afin que le temps soit consacré à la pratique."
+            training_workshop-addon-onboarding-2:
+              name: Liens d’enregistrement et de ressources
+              description: "**Enregistrement de session** (si autorisé) plus liens partagés après l'atelier de formation."
+  misc:
+    photography_consult:
+      label: Consultation en photographie
+      services:
+        portfolio_review:
+          name: Examen du portefeuille
+          description: "**Examen de portfolio professionnel** avec commentaires et suggestions. Utile pour créer des présentations plus solides."
+          addons:
+            portfolio_review-addon-creative-1:
+              name: Clarification de la portée
+              description: "**Temps supplémentaire dès le départ** pour verrouiller les exigences relatives à l'examen du portefeuille."
+            portfolio_review-addon-consulting-2:
+              name: Forfait de transfert
+              description: "**Fichiers ou liste de contrôle** livrés après la revue du portefeuille."
+        creative_direction_session:
+          name: Séance de direction créative
+          description: "**Conseil en direction créative** pour les tournages et les campagnes. Comprend des tableaux d'humeur et des approches recommandées."
+          addons:
+            creative_direction_session-addon-creative-1:
+              name: Clarification de la portée
+              description: "**Temps supplémentaire à l'avance** pour verrouiller les exigences de la session de direction créative."
+            creative_direction_session-addon-consulting-2:
+              name: Forfait de transfert
+              description: "**Fichiers ou liste de contrôle** livrés après la session de direction créative."
+    translation_service:
+      label: Service de traduction
+      services:
+        document_translation_per_500_words:
+          name: Traduction de documents (par 500 mots)
+          description: "**Traduction professionnelle par mot ou segment** avec une révision minutieuse. Intervention rapide et souci de précision."
+          addons:
+            document_translation_per_500_words-addon-services-1:
+              name: Cachet de traduction certifiée
+              description: "**Page notariée ou certifiée** lorsque les autorités l'exigent."
+            document_translation_per_500_words-addon-translation-2:
+              name: Rush le jour même
+              description: "**Délais d'exécution accéléré** lorsque votre délai est serré."
+        localization_consultation:
+          name: Consultation de localisation
+          description: "**Conseils sur la stratégie de localisation** et l'adaptation du contenu. Aide à atteindre efficacement les publics régionaux."
+          addons:
+            localization_consultation-addon-services-1:
+              name: Clarification de la portée
+              description: "**Temps supplémentaire à l'avance** pour verrouiller les exigences en matière de consultation de localisation."
+            localization_consultation-addon-translation-2:
+              name: Forfait de transfert
+              description: "**Fichiers ou liste de contrôle** livrés après consultation de localisation."
+    virtual_assistant:
+      label: Assistant virtuel
+      services:
+        task_block_1_hour:
+          name: Bloc de tâches (1 heure)
+          description: "**Bloc de tâches court** pour l'administration, la recherche et la planification. Option efficace pour les tâches discrètes."
+          addons:
+            task_block_1_hour-addon-services-1:
+              name: Vérification du calendrier
+              description: "**Boîte de réception et balayage du calendrier** intégrés à votre heure lorsque vous en avez besoin."
+            task_block_1_hour-addon-virtual-2:
+              name: Pass de réservation de voyage
+              description: "**Une construction d'itinéraire** avec des confirmations dans votre heure."
+  pet:
+    dog_walker:
+      label: Promeneur de chiens
+      services:
+        30_min_walk:
+          name: 30 minutes de marche
+          description: "**Courte promenade dans le quartier** pour faire de l'exercice et aller aux toilettes. Comprend la prise en charge et le retour selon arrangement."
+          addons:
+            30_min_walk-addon-pets-1:
+              name: Deuxième chien (même promenade)
+              description: "**Promenade en laisse pour un autre chien** dans le même foyer lors de cette visite."
+            30_min_walk-addon-dog-2:
+              name: Alimentation et recharge d'eau
+              description: "**Service de repas** plus eau fraîche et un petit mot pour vous après la promenade."
+        60_min_walk:
+          name: 60 minutes de marche
+          description: "**Marche prolongée** avec récréation et entraînement de base. Idéal pour les chiens énergiques ou de grande race."
+          addons:
+            60_min_walk-addon-pets-1:
+              name: Extension du jeu dans le parc
+              description: "**Temps de jeu supplémentaire** dans un parc ou un espace vert approuvé."
+            60_min_walk-addon-dog-2:
+              name: Essuyage et brossage des pattes
+              description: "**Nettoyage rapide** avant le dépôt afin que moins de saleté pénètre à l'intérieur."
+        pet_sitting_overnight:
+          name: Garde d'animaux (nuit)
+          description: "**Garde d'animaux de nuit** avec alimentation, marche et présence à domicile. Offre une tranquillité d'esprit pendant votre absence."
+          addons:
+            pet_sitting_overnight-addon-pets-1:
+              name: Administration des médicaments
+              description: "**Médicaments programmés** selon vos instructions écrites pendant le séjour."
+            pet_sitting_overnight-addon-dog-2:
+              name: Chèque d'usine ou de courrier
+              description: "**Chèques ménage légers** convenus à l'avance pour plus de tranquillité."
+    pet_groomer:
+      label: Toiletteur pour animaux de compagnie
+      services:
+        full_groom:
+          name: Marié complet
+          description: "**Toilettage complet** comprenant le bain, la coupe et le soin des ongles. Adapté par race et type de pelage."
+          addons:
+            full_groom-addon-pets-1:
+              name: Traitement anti-chute
+              description: "**Enlèvement supplémentaire de la sous-couche** pour les excréteurs lourds."
+            full_groom-addon-grooming-2:
+              name: Brossage des dents
+              description: "**Brossage sans danger pour les animaux** pour rafraîchir l'haleine le même jour que le toilettage."
+        bath_brush:
+          name: Bain et Brosse
+          description: "**Bain rapide et brosse** pour rafraîchir le pelage et éliminer les poils morts. Bon pour un entretien régulier."
+          addons:
+            bath_brush-addon-pets-1:
+              name: Rinçage aux puces
+              description: "**Rinçage médicamenteux ou doux** lorsque votre animal a besoin d'une protection supplémentaire."
+            bath_brush-addon-grooming-2:
+              name: Meulage des ongles
+              description: "**Bords des ongles lisses** après un bain pour des pas plus silencieux."
+        nail_trim:
+          name: Coupe-ongles
+          description: "**Service de coupe d'ongles** pour le confort et la santé. Peut être combiné avec d'autres services de toilettage."
+          addons:
+            nail_trim-addon-pets-1:
+              name: Nettoyage des oreilles
+              description: "**Essuyage doux des oreilles** et inspection lors de la même visite."
+    veterinarian:
+      label: Vétérinaire
+      services:
+        wellness_exam:
+          name: Examen de bien-être
+          description: "**Bilan de santé de routine** pour les animaux de compagnie, y compris les vaccinations et le dépistage de base. Aide à maintenir le bien-être à long terme."
+          addons:
+            wellness_exam-addon-pets-1:
+              name: Panel d'analyses sanguines senior
+              description: "**Module complémentaire de tirage en laboratoire** lorsque l'âge ou les antécédents justifient un dépistage."
+            wellness_exam-addon-veterinary-2:
+              name: Certificat de santé en voyage
+              description: "**Documentation** pour les compagnies aériennes ou les règles frontalières le cas échéant."
+        sick_visit:
+          name: Visite de malade
+          description: "**Évaluation urgente en cas de maladie ou de blessure** avec diagnostic et plan de traitement. Comprend des recommandations de suivi."
+          addons:
+            sick_visit-addon-pets-1:
+              name: Support liquidien IV
+              description: "**Thérapie d'hydratation** lorsque le clinicien le recommande le jour même."
+            sick_visit-addon-veterinary-2:
+              name: Emplacement de revérification prioritaire
+              description: "**Visite de suivi plus rapide** dans le cadre de la politique du cabinet."
+        vaccination_visit:
+          name: Visite de vaccination
+          description: "**Visite de vaccination préventive** pour se protéger contre les maladies courantes. Comprend des mises à jour des dossiers et des conseils."
+          addons:
+            vaccination_visit-addon-pets-1:
+              name: Placement de la micropuce
+              description: "**Puce d'identification** lors du même rendez-vous sur demande."
+  professional:
+    consultant:
+      label: Consultant
+      services:
+        strategy_session:
+          name: Séance de stratégie
+          description: "**Réunion stratégique ciblée** pour relever des défis commerciaux spécifiques. Comprend des étapes d’action et des recommandations hiérarchisées."
+          addons:
+            strategy_session-addon-professional-1:
+              name: Examen du deck pré-lu
+              description: "**Révision préalable** de votre matériel afin que la session aborde les questions difficiles plus tôt."
+            strategy_session-addon-consulting-2:
+              name: Modèle de journal de décision
+              description: "**Modèle de résumé d'une page** que vous pouvez réutiliser après la session."
+        project_advisory:
+          name: Conseil en matière de projet
+          description: "**Soutien-conseil continu** pour les projets stratégiques. Livré avec des enregistrements et des livrables réguliers."
+          addons:
+            project_advisory-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire les mémoires, les chiffres ou les brouillons** liés à votre avis de projet."
+            project_advisory-addon-consulting-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de Project Advisory."
+        workshop_facilitation:
+          name: Animation d'atelier
+          description: "**Séances facilitées** permettant aux équipes de résoudre des problèmes ou d'élaborer une stratégie. Comprend des notes de travail préliminaire et de synthèse."
+          addons:
+            workshop_facilitation-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire des mémoires, des numéros ou des ébauches** liés à l'animation de votre atelier."
+            workshop_facilitation-addon-consulting-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de l'animation de l'atelier."
+    accountant:
+      label: Comptable
+      services:
+        tax_consultation:
+          name: Consultation fiscale
+          description: "**Consultation en planification fiscale** pour examiner les dossiers et les opportunités. Utile pour les particuliers et les petites entreprises."
+          addons:
+            tax_consultation-addon-professional-1:
+              name: Analyse des déclarations de l'année précédente
+              description: "**Regard rétrospectif ciblé** sur les déclarations de l'année dernière pour les éléments manqués."
+            tax_consultation-addon-finance-2:
+              name: Calendrier de paiement estimé
+              description: "**Barème trimestriel** avec des montants adaptés à votre situation."
+        bookkeeping_setup:
+          name: Configuration de la comptabilité
+          description: "**Configuration comptable et intégration** pour les systèmes de comptabilité. Comprend la formation et les rapprochements initiaux."
+          addons:
+            bookkeeping_setup-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire des mémoires, des chiffres ou des brouillons** liés à votre configuration de comptabilité."
+            bookkeeping_setup-addon-finance-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de la configuration de la comptabilité."
+        monthly_accounting_support:
+          name: Support comptable mensuel
+          description: "**Services de comptabilité mensuels continus** avec rapports et rapprochement. Idéal pour une surveillance financière cohérente."
+          addons:
+            monthly_accounting_support-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire des mémoires, des chiffres ou des brouillons** liés à votre support comptable mensuel."
+            monthly_accounting_support-addon-finance-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats du support comptable mensuel."
+    lawyer:
+      label: Avocat
+      services:
+        initial_consultation:
+          name: Consultation initiale
+          description: "**Consultation juridique confidentielle** pour évaluer les problèmes et les options. Discute des prochaines étapes possibles et des délais probables."
+          addons:
+            initial_consultation-addon-professional-1:
+              name: Conflits, vérification de l'admission
+              description: "**Diligence supplémentaire** avant conseil lorsque plusieurs parties sont impliquées."
+            initial_consultation-addon-legal-2:
+              name: Lettre de mission écrite
+              description: "**Portée et aperçu des frais** rédigés pour votre examen après la consultation."
+        contract_review:
+          name: Examen du contrat
+          description: "**Analyse détaillée du contrat** avec commentaires et recommandations annotés. Comprend une évaluation des risques et des suggestions de modifications."
+          addons:
+            contract_review-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire les mémoires, les chiffres ou les ébauches** liés à votre révision de contrat."
+            contract_review-addon-legal-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de l'examen du contrat."
+        retainer_package_monthly:
+          name: Forfait de rétention (mensuel)
+          description: "**Services de rétention dédiés** pour un soutien juridique continu. Idéal pour les entreprises nécessitant des conseils réguliers."
+          addons:
+            retainer_package_monthly-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire des mémoires, des chiffres ou des brouillons** liés à votre forfait de rétention (mensuel)."
+            retainer_package_monthly-addon-legal-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats du Retainer Package (mensuel)."
+    real_estate_agent:
+      label: Agent immobilier
+      services:
+        home_listing_consultation:
+          name: Consultation pour l’inscription d’une maison
+          description: "**Consultation d'annonce** pour évaluer la valeur de la propriété et la stratégie marketing. Comprend des conseils de mise en scène et des conseils en matière de prix."
+          addons:
+            home_listing_consultation-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire les mémoires, les chiffres ou les ébauches** liés à votre consultation pour l'inscription d'une maison."
+            home_listing_consultation-addon-real_estate-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de la consultation sur les inscriptions à domicile."
+        open_house_appointment:
+          name: Rendez-vous portes ouvertes
+          description: "**Visites portes ouvertes** pour les acheteurs et agents potentiels. Généralement gratuit pour les participants ; temps d'agent facturé via le forfait."
+          addons:
+            open_house_appointment-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire les mémoires, les chiffres ou les ébauches** liés à votre rendez-vous portes ouvertes."
+            open_house_appointment-addon-real_estate-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats du rendez-vous portes ouvertes."
+        buyer_consultation:
+          name: Consultation des acheteurs
+          description: "**Consultation auprès des acheteurs** pour décrire le processus et les préférences. Aide à façonner les critères de recherche et les prochaines étapes."
+          addons:
+            buyer_consultation-addon-professional-1:
+              name: Bloc de préparation de documents
+              description: "**Il est temps de lire les mémoires, les chiffres ou les brouillons** liés à votre consultation d'acheteur."
+            buyer_consultation-addon-real_estate-2:
+              name: À retenir par écrit
+              description: "**Notes, liste de contrôle ou mémo** capturant les résultats de la consultation des acheteurs."
+  wellness:
+    massage_therapist:
+      label: Massothérapeute
+      services:
+        swedish_massage:
+          name: Massage suédois
+          description: "**Massage relaxant de tout le corps** axé sur le relâchement des tensions et la circulation. Idéal pour soulager le stress et le bien-être général."
+          addons:
+            swedish_massage-addon-wellness-1:
+              name: Mélange d'aromathérapie
+              description: "**Mélange d'huiles essentielles sur mesure** diffusé ou appliqué légèrement pendant le massage."
+            swedish_massage-addon-massage-2:
+              name: Focus sur le cuir chevelu ou le pied
+              description: "**Minutes supplémentaires** pour un massage du cuir chevelu ou un travail détaillé des pieds."
+        deep_tissue_massage:
+          name: Massage des tissus profonds
+          description: "**Pression plus profonde ciblée** pour traiter les tensions musculaires chroniques. Recommandé pour les sportifs et les clients souffrant de douleurs persistantes."
+          addons:
+            deep_tissue_massage-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du massage des tissus profonds."
+            deep_tissue_massage-addon-massage-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après un massage des tissus profonds."
+        hot_stone_massage:
+          name: Massage aux pierres chaudes
+          description: "**Thérapie aux pierres chaudes** pour détendre les muscles et améliorer la circulation sanguine. Une expérience apaisante et réparatrice grâce à la thermothérapie."
+          addons:
+            hot_stone_massage-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du massage aux pierres chaudes."
+            hot_stone_massage-addon-massage-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après le massage aux pierres chaudes."
+    acupuncturist:
+      label: Acupuncteur
+      services:
+        initial_consultation_treatment:
+          name: Consultation initiale et traitement
+          description: "**Apport complet avec premier traitement** pour répondre aux préoccupations actuelles. Comprend un plan d'acupuncture individualisé."
+          addons:
+            initial_consultation_treatment-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de la consultation et du traitement initiaux."
+            initial_consultation_treatment-addon-acupuncture-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la consultation et le traitement initiaux."
+        follow_up_session:
+          name: Séance de suivi
+          description: "**Séance d'acupuncture d'entretien** adaptée aux objectifs de traitement en cours. Concentrez-vous sur la gestion des symptômes et l’équilibre."
+          addons:
+            follow_up_session-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** au cours de la session de suivi."
+            follow_up_session-addon-acupuncture-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la séance de suivi."
+        cupping_therapy:
+          name: Thérapie par ventouses
+          description: "**Ventouses thérapeutiques** pour relâcher les muscles tendus et favoriser la circulation. Souvent utilisé en parallèle de l’acupuncture."
+          addons:
+            cupping_therapy-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de la thérapie par ventouses."
+            cupping_therapy-addon-acupuncture-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après la thérapie par ventouses."
+    chiropractor:
+      label: Chiropracteur
+      services:
+        initial_assessment:
+          name: Évaluation initiale
+          description: "**Évaluation neuromusculaire et vertébrale complète** avec recommandations ciblées. Discute du plan de soins et des résultats attendus."
+          addons:
+            initial_assessment-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de l'évaluation initiale."
+            initial_assessment-addon-chiropractic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après l'évaluation initiale."
+        adjustment_session:
+          name: Séance d'ajustement
+          description: "**Ajustements de la colonne vertébrale et des articulations** pour restaurer la mobilité et réduire la douleur. Comprend des recommandations sur les tissus mous et des conseils d'exercices."
+          addons:
+            adjustment_session-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** pendant la séance d'ajustement."
+            adjustment_session-addon-chiropractic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la séance d'ajustement."
+        therapeutic_package_3_sessions:
+          name: Forfait Thérapeutique (3 séances)
+          description: "**Forfait de séances à prix réduit** pour les plans de traitement concentrés. Idéal lorsque des soins continus sont recommandés."
+          addons:
+            therapeutic_package_3_sessions-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du forfait thérapeutique (3 séances)."
+            therapeutic_package_3_sessions-addon-chiropractic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner la progression après le Forfait Thérapeutique (3 séances)."
+    physical_therapist:
+      label: Physiothérapeute
+      services:
+        initial_evaluation:
+          name: Évaluation initiale
+          description: "**Évaluation détaillée des mouvements et des fonctions** avec plan de rééducation personnalisé. Comprend une prescription d’exercices à domicile."
+          addons:
+            initial_evaluation-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de l'évaluation initiale."
+            initial_evaluation-addon-rehab-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après l'évaluation initiale."
+        therapy_session:
+          name: Séance de thérapie
+          description: "**Thérapie pratique** axée sur la mobilité et la force. Utilise la thérapie manuelle et des exercices guidés pour soutenir la récupération."
+          addons:
+            therapy_session-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** au cours de la séance de thérapie."
+            therapy_session-addon-rehab-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la séance de thérapie."
+        telehealth_follow_up:
+          name: Suivi de télésanté
+          description: "**Séance de suivi à distance** pour revoir les progrès et ajuster les exercices à domicile. Pratique pour un guidage continu."
+          addons:
+            telehealth_follow_up-addon-wellness-1:
+              name: Examen vidéo du formulaire
+              description: "**Révision asynchrone** d'un clip de mouvement que vous téléchargez avant l'appel."
+            telehealth_follow_up-addon-rehab-2:
+              name: Paquet HEP imprimé
+              description: "**Document d'exercice adapté au courrier** lorsque vous avez besoin de papier, pas seulement d'e-mail."
+    nutritionist:
+      label: Nutritionniste
+      services:
+        initial_nutrition_consultation:
+          name: Consultation nutritionnelle initiale
+          description: "**Examen diététique complet** et définition d'objectifs. Comprend des recommandations personnalisées et un plan de repas de départ."
+          addons:
+            initial_nutrition_consultation-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** lors de la consultation nutritionnelle initiale."
+            initial_nutrition_consultation-addon-nutrition-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la consultation nutritionnelle initiale."
+        follow_up_coaching:
+          name: Coaching de suivi
+          description: "**Séances de coaching continues** pour suivre les progrès et affiner les stratégies. Conseils pratiques pour de meilleures habitudes et cohérence."
+          addons:
+            follow_up_coaching-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du coaching de suivi."
+            follow_up_coaching-addon-nutrition-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après le coaching de suivi."
+        meal_plan_4_week:
+          name: Plan de repas (4 semaines)
+          description: "**Plan de repas sur mesure sur 4 semaines** avec recettes et listes de courses. Conçu pour soutenir des objectifs spécifiques comme la gestion du poids ou la performance."
+          addons:
+            meal_plan_4_week-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du plan de repas (4 semaines)."
+            meal_plan_4_week-addon-nutrition-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après le plan de repas (4 semaines)."
+    sleep_coach:
+      label: Coach du sommeil
+      services:
+        sleep_assessment:
+          name: Évaluation du sommeil
+          description: "**Évaluation des habitudes et des habitudes de sommeil** avec des recommandations personnalisées. Comprend un plan d’action pratique pour des améliorations immédiates."
+          addons:
+            sleep_assessment-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de l'évaluation du sommeil."
+            sleep_assessment-addon-sleep-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après l'évaluation du sommeil."
+        coaching_session:
+          name: Séance de coaching
+          description: "**Coaching guidé** pour mettre en œuvre de meilleures routines et comportements de sommeil. Utile pour un support et des ajustements continus."
+          addons:
+            coaching_session-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** au cours de la session de coaching."
+            coaching_session-addon-sleep-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après la séance de coaching."
+        family_sleep_plan:
+          name: Plan de sommeil familial
+          description: "**Stratégie de sommeil personnalisée pour les familles** avec des étapes concrètes. Couvre les routines, l’environnement et les conseils axés sur l’enfant."
+          addons:
+            family_sleep_plan-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du Plan de sommeil familial."
+            family_sleep_plan-addon-sleep-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après le plan de sommeil familial."
+    holistic_practitioner:
+      label: Praticien Holistique
+      services:
+        integrative_session:
+          name: Séance intégrative
+          description: "**Séance de bien-être intégrative personnalisée** combinant des modalités adaptées à vos besoins. Recommandations holistiques et plan de suivi inclus."
+          addons:
+            integrative_session-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** au cours de la session intégrative."
+            integrative_session-addon-holistic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour soutenir les progrès après la session d'intégration."
+        energy_balancing:
+          name: Équilibrage énergétique
+          description: "**Séance énergétique** visant à rétablir l'équilibre et le calme. Techniques douces adaptées à la relaxation et à la clarté mentale."
+          addons:
+            energy_balancing-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre de l'équilibrage énergétique."
+            energy_balancing-addon-holistic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner les progrès après l'équilibrage énergétique."
+        wellness_package_3_sessions:
+          name: Forfait Bien-être (3 séances)
+          description: "**Forfait multi-sessions** pour un accompagnement et des progrès soutenus. Idéal pour les clients engagés dans des soins holistiques continus."
+          addons:
+            wellness_package_3_sessions-addon-wellness-1:
+              name: Segment de soins prolongés
+              description: "**Temps pratique ou de coaching supplémentaire** dans le cadre du forfait bien-être (3 séances)."
+            wellness_package_3_sessions-addon-holistic-2:
+              name: Plan de pratique à domicile
+              description: "**Fiche d'orientation** pour accompagner la progression après le Forfait Bien-être (3 séances)."
+

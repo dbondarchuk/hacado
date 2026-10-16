@@ -1,0 +1,54 @@
+app:
+  displayName: Notifications de liste d'attente des clients
+  description: Envoyez un e-mail aux clients lorsqu'ils rejoignent votre liste d'attente et informez-les lorsqu'une heure correspondante s'ouvre afin qu'ils puissent réserver ou partir.
+navigation:
+  title: Liste d'attente des clients
+setup:
+  update: Mettre à jour <app></app>
+  add: Ajouter <app></app>
+  form:
+    customerNewEntryTemplateId:
+      label: Modèle d'e-mail de nouvelle entrée client
+      tooltip: Modèle facultatif pour l’e-mail que les clients reçoivent lorsqu’ils rejoignent la liste d’attente. Laissez vide pour ignorer l’envoi.
+      placeholder: ID du modèle
+    notifyOnSlotOpened:
+      label: Avertir lorsqu'un emplacement souhaité s'ouvre
+      tooltip: Envoyez un e-mail et/ou SMS aux clients sur la liste d'attente lorsqu'un temps correspondant devient libre. La demande la plus ancienne est proposée en premier.
+    slotOpenedEmailTemplateId:
+      label: Modèle d'e-mail d'ouverture de fente
+      tooltip: E-mail envoyé à l'ouverture d'une heure correspondante. Au moins un e-mail ou un SMS est requis lorsque les notifications de créneaux horaires sont activées.
+    slotOpenedSmsTemplateId:
+      label: Modèle SMS de fente ouverte
+      tooltip: SMS envoyé à l'ouverture d'une heure correspondante. Incluez les liens de réservation et de congé. Les réponses avec le mot-clé Remove quittent cette demande de liste d'attente.
+    leaveWaitlistSmsTemplateId:
+      label: Laisser le modèle de SMS de confirmation
+      tooltip: Envoyé après le départ du client via le lien ou le mot clé SMS. Obligatoire lorsque le SMS avec emplacement ouvert est défini.
+    bookingPageId:
+      label: Page de réservation
+      tooltip: Page utilisée pour les URL de livre à partir d'un lien. Stocké par ID de page afin que renommer le slug ne rompe pas les liens.
+      required: Sélectionnez une page de réservation
+    cooldownMinutes:
+      label: Temps de recharge entre les offres
+      tooltip: Délai minimum avant que la même demande de liste d'attente puisse se voir proposer un autre créneau ouvert.
+      required: Choisissez un temps de recharge entre 15 minutes et 30 jours
+    exclusiveAccessMinutes:
+      label: Fenêtre d'accès exclusif
+      tooltip: Combien de temps la personne actuelle doit-elle réserver avant que la personne suivante sur la liste se voie proposer le même créneau. Zero propose immédiatement la personne suivante.
+      required: Choisissez 0 à 60 minutes
+    smsRemoveKeyword:
+      label: Mot-clé de congé par SMS
+      tooltip: Les clients répondent avec ce mot (dans tous les cas) pour quitter cette demande de liste d'attente. Obligatoire lorsque le SMS avec emplacement ouvert est défini.
+      placeholder: RETIRER
+      required: Saisissez un mot-clé que les clients peuvent envoyer par SMS pour quitter
+    slotOpenedChannel:
+      required: Choisissez un modèle d'e-mail, un modèle de SMS ou les deux
+handlers:
+  newWaitlistEntry: Notification de liste d'attente client - Nouvelle entrée
+  slotOpened: Notification de liste d'attente client - Emplacement ouvert
+  leaveWaitlist: Notification de liste d'attente client - Liste d'attente quittée
+statusText:
+  successfully_set_up: Configurer avec succès les notifications de liste d'attente des clients
+  error_sending_email_notification_for_new_waitlist_entry: Erreur lors de l'envoi d'une notification par e-mail pour une nouvelle entrée sur la liste d'attente
+  email_app_not_configured: L'application par défaut de l'expéditeur d'e-mail n'est pas configurée
+  error_processing_configuration: Configuration du traitement des erreurs
+

@@ -1,0 +1,54 @@
+app:
+  displayName: Notificaciones de lista de espera de clientes
+  description: Envíe un correo electrónico a los clientes cuando se unan a su lista de espera y notifíqueles cuando se abra un horario coincidente para que puedan reservar o irse.
+navigation:
+  title: Lista de espera de clientes
+setup:
+  update: Actualización <app></app>
+  add: Agregar <app></app>
+  form:
+    customerNewEntryTemplateId:
+      label: Plantilla de correo electrónico de nueva entrada de cliente
+      tooltip: Plantilla opcional para el correo electrónico que reciben los clientes cuando se unen a la lista de espera. Déjelo vacío para omitir el envío.
+      placeholder: ID de plantilla
+    notifyOnSlotOpened:
+      label: Notificar cuando se abre una ranura deseada
+      tooltip: Envíe un correo electrónico o SMS a los clientes en la lista de espera cuando un tiempo coincidente esté libre. La solicitud más antigua se ofrece primero.
+    slotOpenedEmailTemplateId:
+      label: Plantilla de correo electrónico con ranura abierta
+      tooltip: Correo electrónico enviado cuando se abre un horario coincidente. Se requiere al menos un correo electrónico o SMS cuando las notificaciones de espacios están activadas.
+    slotOpenedSmsTemplateId:
+      label: Plantilla de SMS con ranura abierta
+      tooltip: SMS enviado cuando se abre un horario coincidente. Incluir reserva y dejar enlaces. Las respuestas con la palabra clave eliminar abandonan esta solicitud de lista de espera.
+    leaveWaitlistSmsTemplateId:
+      label: Dejar plantilla de SMS de confirmación
+      tooltip: Enviado después de que el cliente se marcha a través del enlace o la palabra clave SMS. Requerido cuando se configura SMS con ranura abierta.
+    bookingPageId:
+      label: Página de reserva
+      tooltip: Página utilizada para URL de libro desde enlace. Almacenado por ID de página para que cambiar el nombre del slug no rompa los enlaces.
+      required: Seleccione una página de reserva
+    cooldownMinutes:
+      label: Enfriamiento entre ofertas
+      tooltip: Tiempo mínimo antes de que a la misma solicitud de lista de espera se le pueda ofrecer otro espacio abierto.
+      required: Elija un tiempo de reutilización entre 15 minutos y 30 días
+    exclusiveAccessMinutes:
+      label: Ventana de acceso exclusivo
+      tooltip: Cuánto tiempo tiene la persona actual para reservar antes de que a la siguiente persona de la lista se le ofrezca el mismo espacio. Zero ofrece a la siguiente persona inmediatamente.
+      required: Elija de 0 a 60 minutos
+    smsRemoveKeyword:
+      label: SMS dejar palabra clave
+      tooltip: Los clientes responden con esta palabra (en cualquier caso) para abandonar esa solicitud de lista de espera. Requerido cuando se configura SMS con ranura abierta.
+      placeholder: ELIMINAR
+      required: Ingrese una palabra clave que los clientes puedan enviar por mensaje de texto para irse
+    slotOpenedChannel:
+      required: Elija una plantilla de correo electrónico, una plantilla de SMS o ambas
+handlers:
+  newWaitlistEntry: "Notificación de lista de espera de clientes: nueva entrada"
+  slotOpened: "Notificación de lista de espera de clientes: espacio abierto"
+  leaveWaitlist: "Notificación de lista de espera del cliente: lista de espera izquierda"
+statusText:
+  successfully_set_up: Configure correctamente las notificaciones de la lista de espera de clientes
+  error_sending_email_notification_for_new_waitlist_entry: Error al enviar una notificación por correo electrónico para una nueva entrada en la lista de espera
+  email_app_not_configured: La aplicación predeterminada del remitente de correo electrónico no está configurada
+  error_processing_configuration: Configuración de procesamiento de errores
+

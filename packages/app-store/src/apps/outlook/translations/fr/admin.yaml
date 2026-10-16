@@ -1,0 +1,35 @@
+title: Perspectives
+app:
+  displayName: Perspectives
+  description: Microsoft Office 365 est une suite d'applications qui vous aide à rester connecté avec les autres et à accomplir vos tâches. Il comprend, sans toutefois s'y limiter, Microsoft Word, PowerPoint, Excel, Teams, OneNote et OneDrive. Office 365 vous permet de travailler à distance avec d'autres membres d'une équipe et de collaborer dans un environnement en ligne. Les versions Web et les applications de bureau/mobiles sont disponibles.
+form:
+  connectWith: Connectez-vous avec <app></app>
+  pendingAuthorization: En attente d'autorisation
+statusText:
+  successfully_set_up: Connexion réussie à Outlook
+  error_processing_configuration: Erreur lors du traitement de la configuration d'Outlook
+  redirect_request_does_not_contain_app_id: La demande de redirection ne contient pas d'ID d'application
+  redirect_request_does_not_contain_authorization_code: La demande de redirection ne contient pas de code d'autorisation
+  app_was_not_authorized_properly: L'application n'a pas été correctement autorisée
+  app_was_not_given_required_scopes: L'application n'a pas reçu les étendues requises
+  failed_to_get_user_email: Impossible d'obtenir l'e-mail de l'utilisateur
+  error_creating_calendar_event: Erreur lors de la création d'un événement d'agenda
+  error_updating_calendar_event: Erreur lors de la mise à jour de l'événement d'agenda
+  error_deleting_calendar_event: Erreur lors de la suppression d'un événement d'agenda
+  error_getting_busy_times: Erreur lors de l'obtention des périodes d'occupation depuis Outlook
+  error_sending_email: Erreur lors de l'envoi de l'e-mail
+  error_refreshing_access_token: Erreur lors de l'actualisation du jeton d'accès
+  failed_to_find_event_id_for_uid: Impossible de trouver l'ID d'événement Outlook pour l'UID {uid}
+  event_created: Événement d'agenda créé avec succès
+  event_updated: L'événement du calendrier a été mis à jour avec succès
+  event_deleted: Événement d'agenda supprimé avec succès
+  email_sent: E-mail envoyé avec succès
+  authorization_result_no_access_token: Le résultat de l'autorisation ne contient pas de jeton d'accès
+  authorization_result_no_account_info: Le résultat de l'autorisation ne contient pas d'informations sur le compte
+  authorization_result_not_enough_scopes: Le résultat de l'autorisation ne contient pas suffisamment d'étendues
+  authorization_result_no_refresh_token: Le résultat de l'autorisation ne contient pas de jeton d'actualisation
+  failed_to_get_meeting_url_for_appointment: Échec de l'obtention de l'URL de la réunion pour le rendez-vous
+toast:
+  changes_saved: Vos modifications ont été enregistrées.
+  request_error: Il y a eu un problème avec votre demande.
+

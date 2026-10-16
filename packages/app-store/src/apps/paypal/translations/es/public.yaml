@@ -1,0 +1,9 @@
+form:
+  cardFieldsProviderError: No se puede encontrar ningún componente secundario en <PayPalCardFieldsProvider />
+  ui:
+    payButton: Pagar
+    or: o
+toast:
+  payment_failed: El pago ha fallado
+  payment_failed_description: Su pago ha fallado. Por favor inténtalo de nuevo. Si el problema persiste, llámenos
+

@@ -1,0 +1,29 @@
+title: SMS de cinturón de texto
+app:
+  displayName: SMS de cinturón de texto
+  description: Textbelt es una API de SMS sensata creada para desarrolladores que solo quieren enviar SMS. Miles de clientes prefieren Textbelt a otros proveedores de SMS por nuestra facilidad de configuración, paquetes de precios simples y predecibles y soporte personalizado.
+form:
+  apiKey:
+    label: clave API
+    placeholder: clave API
+    tooltip: Token de autenticación de TextBelt
+  connect: Conéctese con <app></app>
+statusText:
+  successfully_connected: Conectado correctamente a TextBelt
+  error_processing_configuration: Error al procesar la solicitud de configuración de TextBelt
+  invalid_responder_app: La aplicación proporcionada no existe o no admite responder mensajes de texto
+  failed_to_fetch_quota: "No se pudo recuperar la URL. Código de estado: {statusCode}"
+  failed_to_get_quota: No se pudo obtener la cuota restante o la cuota es cero
+  remaining_quota: La cuota restante es {quota}
+  error_sending_sms: Error al enviar mensaje de texto a través de TextBelt
+  failed_to_send_sms: "No se pudo enviar SMS: {error}"
+  something_went_wrong: algo salió mal
+webhookHandler: Webhook de TextBelt
+webhookHandlerUser: "TextBelt Webhook: notificar al usuario"
+lowQuotaHandler: TextBelt - notificar cuota baja
+validation:
+  apiKey:
+    required: Se requiere la clave API de TextBelt
+    min: Se requiere la clave API de TextBelt
+    max: La clave API de TextBelt debe tener como máximo 256 caracteres
+

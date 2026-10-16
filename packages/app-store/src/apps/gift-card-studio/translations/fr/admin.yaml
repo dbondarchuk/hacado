@@ -1,0 +1,480 @@
+app:
+  displayName: Studio de cartes cadeaux
+  description: Gérez les conceptions de cartes-cadeaux et vendez des cartes-cadeaux via votre site Web.
+  uninstallError:
+    has_purchases: Impossible de supprimer Gift Card Studio, car les achats créés avec cette application existent
+  pages:
+    main:
+      title: Dessins
+      description: Gérer les conceptions de cartes-cadeaux
+    new:
+      label: Nouveau design
+      title: Créer un design
+      description: Créer un nouveau design de carte-cadeau
+    edit:
+      title: Modifier la conception
+      description: Modifier le design de la carte-cadeau
+      notFound: Conception introuvable
+    purchases:
+      title: Cartes-cadeaux achetées
+      description: Afficher toutes les cartes-cadeaux achetées
+    purchasesNew:
+      title: Achat manuel de cartes-cadeaux
+      description: Créer manuellement un achat par carte-cadeau
+    settings:
+      title: Paramètres
+      description: Paramètres du studio de cartes-cadeaux
+designs:
+  table:
+    filters:
+      status: Statut
+      active: Actif
+      archived: Archivé
+    actions:
+      create: Créer un design
+      edit: Modifier
+      archive: Archive
+      unarchive: Désarchiver
+      delete: Supprimer
+      purchase: Achat
+      clone: Cloner
+    archiveSelected:
+      label: Archive sélectionnée {count, plural, =1 {design} other {# designs}}
+      description: Archiver {count, plural, =1 {selected design} other {# selected designs}} ? Ils seront cachés aux clients sur votre site Web.
+      confirm: Archiver {count, plural, =1 {selected design} other {# selected designs}}
+    unarchiveSelected:
+      label: Désarchiver la sélection {count, plural, =1 {design} other {# designs}}
+      description: Désarchiver {count, plural, =1 {selected design} other {# selected designs}} ? Ils seront à nouveau visibles sur votre site internet.
+      confirm: Désarchiver {count, plural, =1 {selected design} other {# selected designs}}
+    deleteSelected:
+      label: Supprimer le {count, plural, =1 {design} other {# designs}} sélectionné
+      description: Êtes-vous sûr de vouloir supprimer {count, plural, =1 {selected design} other {# selected designs}} ? Cette action ne peut pas être annulée.
+      confirm: Supprimer {count, plural, =1 {selected design} other {# selected designs}}
+    archive:
+      title: Conception d'archives
+      description: Conception des archives {name} ? Il sera caché aux clients sur votre site Web.
+      confirm: Archive
+    unarchive:
+      title: Désarchiver la conception
+      description: Désarchiver la conception {name} ? Il sera à nouveau visible sur votre site Internet.
+      confirm: Désarchiver
+    delete:
+      title: Supprimer le motif
+      description: Êtes-vous sûr de vouloir supprimer le design {name} ? Cette action ne peut pas être annulée.
+      confirm: Oui, supprimer
+      cannotDelete: "Impossible de supprimer : des cartes cadeaux ont été achetées avec ce design."
+    toast:
+      delete: Conception {name} supprimée avec succès
+      deleteError: Échec de la suppression du design
+      archived: Conception {name} archivée
+      unarchived: Conception {name} non archivée
+      archiveError: Échec de l'archivage de la conception
+      unarchiveError: Échec de la désarchive de la conception
+      designsArchived: "{count, plural, =1 {Design} other {# designs}} archivé"
+      designsUnarchived: "{count, plural, =1 {Design} other {# designs}} désarchivé"
+      designsDeleted: "{count, plural, =1 {Design} other {# designs}} supprimé"
+    columns:
+      name: Nom
+      status: Statut
+      purchasesCount: Achats
+      createdAt: Créé à
+    status:
+      archived: Archivé
+      active: Actif
+  form:
+    name: Nom
+    namePlaceholder: Nom du modèle
+    design: Conception de cartes
+    archivedNotice: Cette conception est archivée et ne sera pas visible par les clients.
+    toasts:
+      updated: Conception {name} mise à jour avec succès
+      updatedError: Échec de la mise à jour de la conception
+      created: Conception {name} créée avec succès
+      createdError: Échec de la création du design
+designer:
+  toolbar:
+    validationTitle: Validation de la conception
+    missingRequiredField: "Champ obligatoire manquant : {label}"
+    allRequiredPresent: Tous les champs obligatoires sont présents !
+    edit: Modifier
+    preview: Aperçu
+    undo: Défaire
+    redo: Refaire
+    zoomOut: Zoom arrière
+    zoomIn: Zoomer
+    openElementsPanel: Éléments et formes
+    openPropertiesPanel: Propriétés et calques
+    closeElementsPanel: Fermer le panneau des éléments
+    closePropertiesPanel: Fermer le panneau des propriétés
+  layout:
+    elementsSheetTitle: Éléments
+    propertiesSheetTitle: Propriétés et calques
+  pasteImage:
+    uploading: Téléchargement de l'image…
+    success: Image ajoutée au design
+    error: Échec du téléchargement de l'image
+  sidebar:
+    elements: Éléments
+    addText: Ajouter du texte
+    addImage: Ajouter une image
+    addIcon: Ajouter une icône
+    dynamicFields: Champs dynamiques
+    addDynamicField: Ajouter un champ dynamique
+    required: (Requis)
+    shapes: Formes
+    rectangle: Rectangle
+    circle: Cercle
+    line: Doubler
+  dynamicFields:
+    amount: Montant de la carte-cadeau
+    code: Code de carte-cadeau
+    expiresAt: Date d'expiration
+    to: À
+    from: Depuis
+    message: Message
+  sampleValues:
+    code: CADEAU-2026-ABCD
+    to: John Doe
+    from: Jane Doe
+    message: Joyeux anniversaire!
+  canvasSetup:
+    title: Paramètres du canevas
+    description: Configurez les dimensions et le thème de la toile de votre carte-cadeau
+    canvasTheme: Thème de la toile
+    light: Lumière
+    dark: Sombre
+    themeHint: Définit la couleur d'arrière-plan de votre carte-cadeau
+    aspectRatio: Rapport hauteur/largeur
+    widthPx: Largeur (px)
+    heightPx: Hauteur (px)
+    currentSize: "Actuel : {width} × {height} px • {theme} thème"
+    themeLight: Lumière
+    themeDark: Sombre
+    cancel: Annuler
+    apply: Appliquer
+    aspectRatioCustom: Coutume
+    aspectRatio3_2: 3:2
+    aspectRatio4_3: 4:3
+    aspectRatio1_1: 1:1
+    aspectRatio16_9: 16:9
+  properties:
+    title: Propriétés
+    canvasBackground: Fond de toile
+    elementsSelected: "{count} éléments sélectionnés"
+    singleElementHint: Les propriétés ne sont disponibles que lorsqu'un seul élément est sélectionné
+    backgroundType: Type d'arrière-plan
+    transparent: Transparent
+    solidColor: Couleur unie
+    gradient: Pente
+    image: Image
+    backgroundColor: Couleur d'arrière-plan
+    gradientType: Type de dégradé
+    linear: Linéaire
+    radial: Radial
+    color1: Couleur 1
+    color2: Couleur 2
+    angle: Angle
+    imageUrl: URL de l'image
+    imageUrlPlaceholder: https://...
+    imageFit: Ajustement de l'image
+    cover: Couverture
+    contain: Contenir
+    fill: Remplir
+    dynamicField: Champ dynamique
+    fieldLabel: "Champ : {key}"
+    content: Contenu
+    dateFormat: Format des dates
+    sampleValue: Exemple de valeur
+    sampleValuePlaceholder: Valeur d'aperçu
+    fontSize: Taille de la police
+    fontWeight: Poids de la police
+    light: Lumière
+    regular: Régulier
+    medium: Moyen
+    semiBold: Semi-gras
+    bold: Audacieux
+    textAlign: Aligner le texte
+    left: Gauche
+    center: Centre
+    right: Droite
+    color: Couleur
+    paintFill: Remplir
+    paintStroke: Accident vasculaire cérébral
+    none: Aucun
+    strokeWidth: Largeur de trait
+    borderRadius: Rayon de frontière
+    lineThickness: Épaisseur de ligne
+    objectFit: Ajustement de l'objet
+    icon: Icône
+    toFront: Vers l'avant
+    toBack: Retour
+    lock: Verrouillage
+    opacity: Opacité
+    rotation: Rotation
+    elementSpecific: Spécifique à l'élément
+    x: X
+    y: Oui
+    width: Largeur
+    height: Hauteur
+    fontFamily: Famille de polices
+  layers:
+    title: Calques
+    group: Groupe
+    noElements: Aucun élément pour l'instant
+    text: Texte
+    icon: Icône
+    image: Image
+    shape: Forme
+    groupLabel: Groupe
+    req: DEMANDE
+    dynamic: Dynamique
+  contextMenu:
+    copy: Copie
+    delete: Supprimer
+    paste: Coller
+    bringToFront: Mettre au premier plan
+    sendToBack: Envoyer vers l'arrière
+    ungroup: Dissocier
+    group: Groupe
+  newTextDefault: Nouveau texte
+  shortcuts:
+    label: "Raccourcis : {arrows} • {shiftArrows} • {ctrlC} • {ctrlV} • {ctrlZ} • {ctrlShiftZ} • {ctrlD} • {del}"
+    arrows: Flèches (déplacement)
+    shiftArrows: Maj+Flèches (Déplacement de 10 px)
+    ctrlC: "{ctrl}+C (Copie)"
+    ctrlV: "{ctrl}+V (Coller)"
+    ctrlZ: "{ctrl}+Z (Annuler)"
+    ctrlShiftZ: "{ctrl}+Maj+Z (Rétablir)"
+    ctrlD: "{ctrl}+D (duplicata)"
+    del: Suppr (Supprimer)
+purchases:
+  table:
+    searchPlaceholder: Recherche par code, client, design…
+    filters:
+      design: Conception
+      customer: Client
+    actions:
+      create: Achat manuel
+      setActive: Marquer comme actif
+      setInactive: Marquer comme inactif
+      regenerateGiftCard: Régénérer la carte cadeau
+      regenerateInvoice: Régénérer la facture
+      resendEmailToCustomer: Renvoyer l'e-mail au client
+      resendEmailToRecipient: Renvoyer l'e-mail au destinataire
+      delete: Supprimer
+    delete:
+      title: Supprimer la carte-cadeau achetée
+      description: Êtes-vous sûr de vouloir supprimer cette carte-cadeau achetée {code} ? Cette action ne peut pas être annulée.
+      confirm: Oui, supprimer
+      toast:
+        success: Carte-cadeau achetée {code} supprimée avec succès
+    resendEmail:
+      customer:
+        title: Renvoyer l'e-mail au client
+        description: Êtes-vous sûr de vouloir renvoyer l'e-mail contenant la carte-cadeau {code} au client ? Cela enverra la carte cadeau et la facture à l'adresse e-mail du client ({email}).
+        confirm: Oui, renvoyer
+        toast:
+          success: L'envoi d'un e-mail au client ({email}) a été programmé
+      recipient:
+        title: Renvoyer l'e-mail au destinataire
+        description: Êtes-vous sûr de vouloir renvoyer l'e-mail contenant la carte-cadeau {code} au destinataire ? Cela enverra la carte-cadeau à l'adresse e-mail du destinataire ({email}).
+        confirm: Oui, renvoyer
+        toast:
+          success: L'envoi d'un e-mail au destinataire ({email}) a été programmé
+    columns:
+      code: Code de carte-cadeau
+      amountPurchased: Montant acheté
+      amountLeft: Montant restant
+      customer: Client
+      toName: Nom du destinataire
+      toEmail: E-mail du destinataire
+      design: Conception
+      createdAt: Créé
+      status: Statut
+      giftCardPdf: Carte cadeau
+      invoicePdf: Facture
+      paymentMethod: Mode de paiement
+      paymentsCount: Paiements
+    status:
+      active: Actif
+      inactive: Inactif
+    download:
+      giftCard: Télécharger
+      invoice: Télécharger
+    toast:
+      setActive: Carte cadeau {code} marquée comme active
+      setInactive: Carte cadeau {code} marquée comme inactive
+      regeneratedGiftCard: Régénération des actifs des cartes cadeaux programmée
+      regeneratedInvoice: Régénération des factures programmée
+    detail:
+      title: Détails de l'achat
+      preview: Aperçu de la carte-cadeau
+      downloadGiftCardPdf: Télécharger la carte-cadeau PDF
+      downloadInvoice: Télécharger la facture
+      generating: Générateur...
+      awaitingPayment: En attente de paiement
+    giftCardDetail:
+      title: Détails de la carte-cadeau
+      description: Voir les détails de la carte cadeau
+      preview: Aperçu de la carte-cadeau
+      code: Code de carte-cadeau
+      amountPurchased: Montant acheté
+      amountLeft: Montant restant
+      expiresAt: Expire à
+      paymentsCount: Paiements
+      paymentMethod: Mode de paiement
+      customer: Client
+      recipient: Destinataire
+      recipientEmail: E-mail du destinataire
+      message: Message
+      downloadGiftCardPdf: Télécharger la carte-cadeau PDF
+      downloadInvoice: Télécharger la facture
+      status: Statut
+  manualForm:
+    design: Conception
+    designPlaceholder: Sélectionnez le modèle
+    previewPlaceholder: Sélectionnez le design et le montant pour voir l'aperçu
+    amount: Montant
+    customer: Client
+    toName: Nom du destinataire
+    toEmail: E-mail du destinataire
+    message: Message
+    paymentType: Mode de paiement
+    sendToAnotherRecipient: Envoyer à un autre destinataire
+    sendCustomerEmail: Envoyer une carte cadeau et une facture au client
+    sendRecipientEmail: Envoyer une carte-cadeau au destinataire
+    toast:
+      success: Achat de carte cadeau créé avec succès
+      error: Échec de la création d'un achat par carte-cadeau
+settings:
+  notifyOwnerOnPurchase:
+    label: E-mail lors d'un nouvel achat
+    description: Envoyer un e-mail aux administrateurs de l'organisation lorsqu'un client achète une carte-cadeau sur votre site Web
+  emailTemplateToPurchaser: Modèle d'e-mail (carte-cadeau à l'acheteur)
+  emailTemplateToRecipient: Modèle d'e-mail (carte-cadeau au destinataire)
+  minAmount: Montant minimum de la carte-cadeau
+  maxAmount: Montant maximum de la carte cadeau
+  expirationMonths: Expiration
+  toasts:
+    saved: Paramètres enregistrés
+    error: Échec de l'enregistrement des paramètres
+block:
+  giftCardPurchase:
+    displayName: Achat de carte-cadeau
+    category: Cartes-cadeaux
+    configuration:
+      app:
+        label: Application Studio de cartes-cadeaux
+        helperText: Sélectionnez l’application Gift Card Studio qui sera utilisée.
+      hideTitle:
+        label: Masquer le titre et la description
+      hideSteps:
+        label: Masquer les étapes
+    validation:
+      appId:
+        required: L'application Gift Card Studio est requise
+  giftCardPurchaseShowcase:
+    displayName: Achat de carte-cadeau (Vitrine)
+    configuration:
+      previewPosition:
+        label: Position d'aperçu
+        left: Gauche
+        right: Droite
+        helperText: Sur une mise en page étroite, l'aperçu reste sous le formulaire.
+      abovePreviewFirstOnMobile:
+        label: Afficher le texte d'introduction au-dessus du formulaire sur mobile
+      amountPresets:
+        label: Préréglages de montant
+        helperText: Jusqu'à 5 montants rapides.
+        add: Ajouter un préréglage
+        remove: Supprimer le préréglage
+validation:
+  design:
+    name:
+      min: Le nom doit contenir au moins 1 caractère
+      max: Le nom doit comporter moins de 64 caractères
+      unique: Un design portant ce nom existe déjà
+  manualForm:
+    designId:
+      required: La conception est requise
+    amountPurchased:
+      required: Le montant est requis
+      positive: Le montant doit être un nombre positif
+      min: Le montant doit être supérieur à {min}
+      max: Le montant doit être inférieur à {max}
+    customerId:
+      required: Le client est requis
+    message:
+      required: Le message est requis
+      max: Le message doit contenir moins de 1 024 caractères
+    paymentType:
+      required: Le type de paiement est requis
+    paymentLinkAppId:
+      required: L'application de lien de paiement est requise
+    to:
+      required: La destination est obligatoire
+    sendToAnotherRecipient:
+      required: Les informations sur le destinataire sont requises
+    toName:
+      min: Le nom du destinataire doit comporter au moins 1 caractère
+      max: Le nom du destinataire doit comporter moins de 64 caractères
+  settings:
+    expirationMonths:
+      min: Les mois d'expiration doivent être d'au moins 1 mois
+      max: Les mois d'expiration doivent être inférieurs à 120 mois
+    emailTemplateIdToPurchaser:
+      required: Le modèle d'e-mail est requis
+    emailTemplateIdToRecipient:
+      required: Le modèle d'e-mail est requis
+    minAmount:
+      required: Un montant minimum est requis
+      positive: Le montant minimum doit être un nombre positif
+      min: Le montant minimum doit être supérieur à 5
+      max: Le montant minimum doit être inférieur à 1 000 000
+      minMax: Le montant minimum doit être inférieur au montant maximum
+    maxAmount:
+      required: Un montant maximum est requis
+      positive: Le montant maximum doit être un nombre positif
+      min: Le montant maximum doit être supérieur à 5
+      max: Le montant maximum doit être inférieur à 1 000 000
+handlers:
+  send-email-to-recipient: Envoyer un e-mail au destinataire
+  send-email-to-customer: Envoyer un e-mail au client
+  newPurchaseEmail: Gift Card Studio - Notification de nouvel achat
+events:
+  designCreated:
+    title: Conception de carte-cadeau créée
+    description: Le design "{designName}" a été créé
+  designUpdated:
+    title: Conception de la carte-cadeau mise à jour
+    description: Le design "{designName}" a été mis à jour
+  designDeleted:
+    title: Modèle de carte-cadeau supprimé
+    description: Le motif "{designName}" a été supprimé
+  purchaseCreated:
+    title: Carte cadeau achetée
+    description: '{customerName} a acheté "{designName}" pour {amount}'
+  purchaseDeleted:
+    title: Achat de carte-cadeau supprimé
+    description: Un enregistrement de carte-cadeau achetée a été supprimé
+notifications:
+  newPurchase:
+    title: Nouvel achat de carte cadeau
+    message: Un client a acheté une carte cadeau sur votre site Web
+    view: Afficher les achats
+emails:
+  newPurchase:
+    subject: "Nouvel achat de carte-cadeau : {designName}"
+    title: Nouvelle carte cadeau achetée
+    body: |-
+      Bonjour {userName},
+
+      Un client a acheté une carte cadeau sur votre site Web.
+
+      **Conception :** {designName}
+      **Montant :** {amount}
+      **Code de la carte cadeau :** {giftCardCode}
+      **Client :** {customerName} ({customerEmail})
+      **Destinataire :** {recipientName} ({recipientEmail})
+    view: Voir l'achat
+

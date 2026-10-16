@@ -1,0 +1,53 @@
+block:
+  customerAccess:
+    label: Votre code d'accès
+    description: Entrez le code d'accès de votre invitation ou ouvrez ce formulaire en utilisant le lien que nous avons pu vous envoyer.
+    placeholder: Code d'accès
+    readonlyFromLink: Vous soumettez en tant que participant invité.
+    required: Veuillez entrer votre code d'accès ou utiliser le lien si vous en avez reçu un.
+  formNotFound:
+    title: Formulaire non disponible
+    description: Ce formulaire n'est plus disponible ou a été archivé.
+  formSubmit:
+    submit: Soumettre
+    submitting: Soumission…
+    success: Merci! Votre réponse a été soumise.
+    error: Quelque chose s'est mal passé. Veuillez réessayer.
+    successScreen:
+      title: Merci
+      description: Votre réponse a été reçue.
+validation:
+  fields:
+    customerAccess:
+      required: Veuillez entrer votre code d'accès ou utiliser le lien si vous en avez reçu un.
+      invalid: Code d'accès invalide
+    required: Ce champ est obligatoire
+    minLength: Ce champ doit contenir au moins {length} caractères
+    maxLength: Ce champ doit contenir moins de {length} caractères.
+    email:
+      invalid: Adresse e-mail invalide
+    name:
+      min: Le nom doit comporter au moins 2 caractères
+      max: Le nom doit comporter moins de 64 caractères
+    checkbox:
+      required: Ce champ doit être coché
+    select:
+      required: Ce champ doit avoir au moins une option sélectionnée
+      unknownOption: Option invalide
+    multiSelect:
+      unique: Les options doivent être uniques
+      required: Ce champ doit avoir au moins une option sélectionnée
+      unknownOption: Option invalide
+      minSelected: Ce champ doit avoir au moins {minSelected} options sélectionnées
+      maxSelected: Ce champ doit avoir au plus {maxSelected} options sélectionnées
+    file:
+      required: Ce champ est obligatoire
+      type: Type de fichier invalide
+      maxSize: La taille du fichier doit être inférieure à {maxSizeMb} Mo
+      accept: Type de fichier invalide
+responses:
+  fields:
+    select:
+      noneOption: Aucun
+      placeholder: Sélectionnez une option
+

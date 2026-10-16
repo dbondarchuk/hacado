@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
+import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
@@ -213,7 +214,7 @@ export class PaymentLinksConnectedApp
       for (const [id, templatesByLang] of Object.entries(
         PaymentLinksTemplates,
       )) {
-        const source = templatesByLang[language] ?? templatesByLang.en;
+        const source = resolveLanguageFromMap(templatesByLang, language);
         if (!source) {
           logger.warn(
             { appId: appData._id, id, language },

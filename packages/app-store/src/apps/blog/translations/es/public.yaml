@@ -1,0 +1,72 @@
+notInBlogContext: No en el contexto de un blog
+notInBlogTagContext: No en el contexto de una etiqueta de blog
+blogPostNotFound: Publicación de blog no encontrada
+readMore: Leer más
+block:
+  postsList:
+    title: Publicaciones de blog
+    noPosts: No se encontraron publicaciones de blog
+    previous: Anterior
+    next: Próximo
+    readMore: Leer más
+  postContent:
+    notFound: Publicación de blog no encontrada
+    publishedOn: Publicado el
+  postReadTime:
+    formats:
+      minRead: "{minutes} lectura mínima"
+      min: "{minutes} min"
+      minutesRead: "{minutes, plural, =0 {{minutes} minute} one {{minutes} minute} other {{minutes} minutes}} leer"
+  postAuthor:
+    missingAuthor: Autor no configurado
+    formats:
+      name: "{name}"
+      publishedBy: Publicado por {name}
+      by: Por {name}
+      author: "Autor: {name}"
+  postCommentCount:
+    disabled: Comentarios deshabilitados
+    formats:
+      count: "{count, plural, =0 {No comments} one {1 comment} other {# comments}}"
+      commentsCount: "{count, plural, =0 {No comments} one {1 comment} other {# comments}}"
+  postCommentsList:
+    heading: Comentarios
+    empty: Aún no hay comentarios. Sé el primero en comentar.
+    disabled: Los comentarios están deshabilitados para este blog.
+  commentsList:
+    previous: Anterior
+    next: Próximo
+  postCommentForm:
+    addText: Añadir comentario
+    disabled: Los comentarios están deshabilitados para este blog.
+    nameLabel: Nombre
+    namePlaceholder: Su nombre
+    emailLabel: Correo electrónico
+    emailPlaceholder: tu@correo electrónico.com
+    bodyLabel: Comentario
+    bodyPlaceholder: Escribe tu comentario…
+    submitLabel: Publicar comentario
+    success: ¡Gracias! Tu comentario ha sido publicado.
+    successPending: ¡Gracias! Tu comentario está esperando ser moderado.
+    error: No se pudo enviar tu comentario. Por favor inténtalo de nuevo.
+    validation:
+      postId:
+        required: Publicación no válida
+      name:
+        required: El nombre es obligatorio
+        max: El nombre debe tener como máximo 256 caracteres.
+      email:
+        required: Se requiere correo electrónico
+        invalid: Introduzca una dirección de correo electrónico válida
+        max: El correo electrónico debe tener como máximo 256 caracteres.
+      body:
+        required: Se requiere comentario
+        max: El comentario debe tener como máximo 2048 caracteres.
+  tagList:
+    title: Etiquetas
+    noTags: No hay etiquetas disponibles
+errors:
+  blogAppNotConfigured:
+    title: Aplicación de blog no configurada
+    description: Aplicación de blog no configurada. Configure la aplicación de blog para usar este bloque.
+

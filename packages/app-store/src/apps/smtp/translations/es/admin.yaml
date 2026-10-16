@@ -1,0 +1,52 @@
+title: SMTP
+app:
+  displayName: SMTP
+  description: SMTP (Protocolo simple de transferencia de correo) es un estándar de Internet para correo electrónico compatible con la mayoría de los servidores de procesamiento de correo electrónico. Conéctese a SMTP para enviar correo electrónico.
+form:
+  host:
+    label: Anfitrión SMTP
+    placeholder: smtp.correo electrónico.com
+  port:
+    label: Puerto SMTP
+    placeholder: "465"
+  secure:
+    label: SSL SMTP
+    yes: Activado
+    no: Desactivado
+  email:
+    label: Correo electrónico del remitente
+    placeholder: juan@ejemplo.com
+    tooltip: Dirección de correo electrónico desde la que se enviarán todos los correos electrónicos.
+  authUser:
+    label: Usuario de autenticación SMTP
+    placeholder: John
+    tooltip: Nombre de usuario para iniciar sesión en el servidor SMTP
+  authPass:
+    label: Contraseña de autenticación SMTP
+    tooltip: Contraseña para iniciar sesión en el servidor SMTP
+  connect: Conéctese con <app></app>
+  update: Actualización <app></app>
+statusText:
+  successfully_connected: Conectado exitosamente al servidor
+  error_processing_configuration: Error al procesar la solicitud de configuración SMTP
+  connection_verification_failed: No se pudo conectar
+  error_sending_email: Error al enviar correo electrónico a través de SMTP
+  error_parsing_ical_event: No se pudo analizar el evento de iCal
+  something_went_wrong: algo salió mal
+validation:
+  host:
+    required: Se requiere un servidor SMTP
+    min: Se requiere un servidor SMTP
+    max: El host SMTP debe tener como máximo 256 caracteres
+  auth:
+    user:
+      max: El usuario de autenticación SMTP debe tener como máximo 256 caracteres
+    pass:
+      max: La contraseña de autenticación SMTP debe tener como máximo 256 caracteres
+  port:
+    integer: debe ser el valor entero
+    min: El número de puerto SMTP debe estar entre 1 y 99999
+    max: El número de puerto SMTP debe estar entre 1 y 99999
+  email:
+    invalid: El correo electrónico debe ser una dirección de correo electrónico correcta.
+

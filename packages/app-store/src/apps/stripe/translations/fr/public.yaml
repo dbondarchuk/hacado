@@ -1,0 +1,8 @@
+form:
+  payButton: Payez maintenant
+  totalLabel: Total
+  or: ou
+toast:
+  payment_failed: Échec du paiement
+  payment_failed_description: Nous n'avons pas pu débiter votre carte. Veuillez réessayer.
+

@@ -1,0 +1,29 @@
+title: Flux ICS
+app:
+  displayName: Flux ICS
+  description: Gardez votre emploi du temps à jour en important automatiquement les événements à partir de liens de calendrier externes (.ics)
+form:
+  link:
+    label: Lien ICS
+    placeholder: https://
+    tooltip: URL vers le calendrier ICS
+  connect: Connectez-vous avec
+  validation: {}
+statusText:
+  successfully_set_up: Calendrier récupéré avec succès
+  error_processing_configuration: Erreur lors du traitement de la configuration ICS
+  successfully_fetched_events: Événements récupérés avec succès
+  error_fetching_calendar: Erreur lors de la récupération du calendrier
+  error_parsing_calendar: Erreur lors de l'analyse du calendrier ICS
+  error_getting_busy_times: Erreur lors de l'obtention des heures occupées à partir du calendrier ICS
+  http_error: "Échec de la récupération de l'URL. Code d'état : {statusCode}"
+  calendar_fetch_error: "Échec de la récupération du calendrier ICS. Code d'état : {statusCode}"
+  invalid_url: URL ICS invalide
+  connection_failed: La connexion au calendrier ICS a échoué
+toast:
+  connection_success: Connexion réussie au calendrier ICS
+  connection_error: Échec de la connexion au calendrier ICS
+  fetch_error: Erreur lors de la récupération des données du calendrier ICS
+validation:
+  invalidUrl: ICS doit être une URL valide vers votre calendrier
+

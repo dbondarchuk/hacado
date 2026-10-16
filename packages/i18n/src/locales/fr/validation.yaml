@@ -1,0 +1,600 @@
+common:
+  email:
+    invalid: E-mail invalide
+    required: Une adresse e-mail valide est requise
+    max: L'e-mail ne doit pas contenir plus de 256 caractères
+    unique: L'e-mail doit être unique
+  phone:
+    invalid: Numéro de téléphone invalide
+    required: Le numéro de téléphone est requis
+    max: Le numéro de téléphone ne doit pas comporter plus de 32 caractères
+  number:
+    integer: La valeur doit être un entier
+  url:
+    invalid: URL invalide
+    max: L'URL ne doit pas comporter plus de 2 048 caractères
+  objectId:
+    required: L'ID de l'objet est requis
+    invalid: ID d'objet invalide
+  string:
+    invalid: Chaîne invalide
+  asset:
+    invalid: Il doit s'agir d'un nom d'élément ou d'une URL valide
+    minLength: Le nom de l'élément doit comporter au moins 3 caractères
+    maxLength: Le nom de l'élément doit comporter au maximum 1 024 caractères.
+  favicon:
+    notSquare: Le favicon doit être une image carrée
+    tooSmall: Le favicon doit mesurer au moins 512 × 512 pixels
+    unsupportedType: Le favicon doit être au format PNG, JPEG, WebP, GIF ou SVG
+    unreadable: Impossible de lire l'image du favicon
+    invalid: Le favicon doit être une image carrée d'au moins 512 × 512 px, ou un SVG
+assets:
+  fileRequired: Le fichier doit être joint
+  fileNameMinLength: Le nom du fichier doit contenir au moins 3 caractères
+  fileNameMaxLength: Le nom du fichier doit comporter au maximum 64 caractères
+  fileNameExtension: Le nom du fichier doit avoir une extension
+  fileNameUnique: Le nom du fichier doit être unique
+  descriptionMaxLength: La description ne doit pas comporter plus de 1 024 caractères
+customers:
+  emailAlreadyExists: Il y a déjà un client avec un ou plusieurs e-mails
+  phoneAlreadyExists: Il y a déjà un client avec un ou plusieurs téléphones
+templates:
+  nameMustBeUnique: Le nom du modèle doit être unique
+services:
+  discounts:
+    nameUnique: Le nom de la remise doit être unique
+    codeUnique: Le code de réduction doit être unique
+  fields:
+    nameUnique: Le nom du champ doit être unique
+  options:
+    nameUnique: Le nom de l'option doit être unique
+  addons:
+    nameUnique: Le nom du module complémentaire doit être unique
+install:
+  nameMin: Le nom doit comporter au moins 3 caractères
+  titleMin: Le titre doit comporter au moins 3 caractères
+appointments:
+  request:
+    optionId:
+      required: L'identifiant de l'option est requis
+    addonsIds:
+      required: Les identifiants des modules complémentaires sont requis
+      unique: Les identifiants des modules complémentaires doivent être uniques
+    dateTime:
+      required: La date et l'heure sont obligatoires
+    duration:
+      required: La durée est requise
+      positive: La durée doit être un nombre entier supérieur ou égal à 1 minute
+      max: La durée doit être d'au plus 1 jour
+    fields:
+      email:
+        required: Une adresse e-mail valide est requise
+      phone:
+        required: Le téléphone est requis
+      name:
+        required: Le nom est requis
+    promoCode:
+      min: Le code promotionnel doit être indéfini ou contenir au moins 1 caractère
+    paymentIntentId:
+      min: L'ID d'intention de paiement doit être indéfini ou contenir au moins un caractère.
+    giftCards:
+      required: Le code de la carte cadeau est requis
+      unique: Les codes de carte-cadeau doivent être uniques
+      min: Au moins un code de carte cadeau est requis
+      max: Un maximum de 2 codes de carte-cadeau peuvent être appliqués
+    appointmentId:
+      required: Un identifiant de rendez-vous est requis
+  option:
+    name:
+      required: Le nom de l'option doit comporter au moins 2 caractères
+      max: Le nom de l'option ne doit pas comporter plus de 256 caractères.
+    description:
+      required: La description de l'option est requise
+      max: La description de l'option ne doit pas comporter plus de 1 024 caractères.
+    duration:
+      required: La durée est requise
+      positive: La durée doit être un nombre entier supérieur ou égal à 1 minute
+    durationType:
+      required: Le type de durée est requis
+    durationMin:
+      required: Une durée minimale est requise
+      positive: La durée min doit être un nombre entier supérieur ou égal à 1 minute
+    durationMax:
+      required: La durée maximale est requise
+      positive: La durée maximale doit être un nombre entier supérieur ou égal à 1 minute
+      max: La durée maximale doit être d'au plus 1 jour
+    durationStep:
+      required: Un pas de durée est requis
+      positive: Le pas de durée doit être un nombre entier supérieur ou égal à 1 minute
+    pricePerHour:
+      required: Le prix par heure est requis
+      min: Le prix par heure doit être d'au moins 1
+    price:
+      min: Le prix doit être d'au moins 1
+    paymentType:
+      required: Le type de calcul du paiement est requis
+    addons:
+      id:
+        required: L'ID du module complémentaire est requis
+        unique: Les identifiants des modules complémentaires doivent être uniques
+    fields:
+      id:
+        required: L'ID du champ est obligatoire
+        unique: Les identifiants de champ doivent être uniques
+    isOnline:
+      required: Si cette option est sélectionnée, l'application du fournisseur d'URL de réunion est requise
+    meetingUrlProviderAppId:
+      required: L'application du fournisseur d'URL de réunion est requise si elle est sélectionnée
+    requireDeposit:
+      required: Le montant du dépôt est requis s’il est défini sur toujours
+    depositAmount:
+      required: Le montant du dépôt doit être un nombre positif
+    depositPercentage:
+      required: Le pourcentage de dépôt doit être un nombre entier compris entre 10 et 100
+    tipsMode:
+      required: Le mode Conseils est requis
+    duplicateAppointmentCheck:
+      enabled:
+        required: Un nombre de jours avant ou après le rendez-vous pour demander une confirmation est requis
+      days:
+        min: Le nombre de jours doit être compris entre 1 et 30
+        max: Le nombre de jours doit être compris entre 1 et 30
+      message:
+        required: Le message est requis
+    cancellationPolicyType:
+      required: Le type de politique d’annulation est requis
+addons:
+  name:
+    required: Le nom du module complémentaire doit comporter au moins 2 caractères
+    max: Le nom du module complémentaire ne doit pas comporter plus de 256 caractères
+  description:
+    required: Une description complémentaire est requise
+    max: La description du module complémentaire ne doit pas comporter plus de 1 024 caractères.
+  duration:
+    positive: La durée doit être un nombre entier supérieur ou égal à 1 minute
+  price:
+    min: Le prix doit être d'au moins 1
+  fields:
+    id:
+      required: L'ID du champ est obligatoire
+      unique: Les identifiants de champ doivent être uniques
+staff:
+  memberId:
+    required: Le membre est requis
+  priceOverride:
+    min: Le remplacement du prix doit être d'au moins 0
+  durationOverride:
+    int: Le remplacement de la durée doit être un nombre entier
+    min: Le remplacement de la durée doit être d'au moins 1 minute
+discount:
+  name:
+    required: Le nom de la remise doit comporter au moins 2 caractères
+    max: Le nom de la remise ne doit pas comporter plus de 256 caractères
+  code:
+    required: Le code de réduction doit comporter au moins 2 caractères
+    max: Le code de réduction ne doit pas comporter plus de 256 caractères
+  maxUsage:
+    min: L'utilisation maximale doit être un nombre entier supérieur ou égal à 1
+  maxUsagePerCustomer:
+    min: L'utilisation maximale par client doit être un nombre entier supérieur ou égal à 1
+  limitTo:
+    addons:
+      required: L'ID du module complémentaire est requis
+      unique: Les identifiants des modules complémentaires doivent être uniques
+      min: Au moins un module complémentaire est requis
+    options:
+      required: L'identifiant de l'option est requis
+      unique: Les ID d'option doivent être uniques
+    packages:
+      required: L'ID du package est requis
+      unique: Les ID de package doivent être uniques
+  value:
+    required: La valeur du code promotionnel doit être un nombre positif
+    max: La valeur ne peut pas être supérieure à 100
+  codes:
+    min: Au moins un code promotionnel doit être ajouté
+    max: Un maximum de 10 codes promotionnels par remise est autorisé
+    minLength: Le code promotionnel doit comporter au moins 3 caractères
+    maxLength: Le code promotionnel ne doit pas comporter plus de 256 caractères
+    unique: Les codes promotionnels doivent être uniques
+  endDate:
+    min: La date de fin doit être supérieure à la date de début
+  applyRequest:
+    optionId:
+      required: L'identifiant de l'option est requis
+    packageId:
+      required: L'ID du package est requis
+    dateTime:
+      required: Une date et une heure valides sont requises
+    addons:
+      required: L'ID du module complémentaire est requis
+      unique: Les identifiants des modules complémentaires doivent être uniques
+    code:
+      required: Le code promotionnel est requis
+fields:
+  type:
+    invalid: Type de champ inconnu
+  label:
+    required: L’étiquette du champ est obligatoire
+    max: L'étiquette du champ ne doit pas comporter plus de 256 caractères.
+  description:
+    min: La description du champ doit comporter au moins 3 caractères
+    max: La description du champ ne doit pas contenir plus de 1 024 caractères.
+  name:
+    required: Le nom du champ doit comporter au moins 2 caractères
+    max: Le nom du champ ne doit pas comporter plus de 64 caractères
+    invalid: Le nom du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et un trait de soulignement (_).
+  option:
+    required: La valeur de l'option est requise
+    unique: Les valeurs des options doivent être uniques
+    max: La valeur de l'option ne doit pas comporter plus de 256 caractères.
+  accept:
+    min: L'élément accepté doit contenir au moins un caractère
+    invalid: Type d'acceptation invalide
+  maxSizeMb:
+    min: La valeur doit être au moins 1
+    max: La taille maximale autorisée est de 100 Mo
+giftCard:
+  code:
+    required: Le code de la carte cadeau doit comporter au moins 3 caractères
+    max: Le code de la carte cadeau ne doit pas comporter plus de 16 caractères
+    unique: Le code de la carte cadeau doit être unique
+  amount:
+    min: Le montant de la carte cadeau doit être d'au moins 0,01
+  customerId:
+    required: Le client est requis
+  status:
+    required: Le statut de la carte cadeau est requis
+  paymentId:
+    required: Le paiement est requis
+  paymentMethod:
+    required: Le mode de paiement est requis
+  applyRequest:
+    code:
+      required: Le code de la carte cadeau est requis
+      unique: Les codes des cartes cadeaux doivent être uniques
+      min: Au moins un code de carte cadeau est requis
+      max: Un maximum de 2 codes de carte-cadeau peuvent être appliqués
+    amount:
+      required: Le montant de la carte cadeau est requis
+      min: Le montant de la carte cadeau doit être d'au moins 0,01
+communication:
+  template:
+    required: Le modèle est requis
+  appointment:
+    required: Un identifiant de rendez-vous est requis
+  customer:
+    required: L'identifiant client est requis
+  message:
+    required: Le contenu du message est obligatoire
+  email:
+    subject:
+      required: L'objet de l'e-mail est obligatoire
+    content:
+      required: Le contenu de l'e-mail est requis
+  appointmentOrCustomer:
+    required: Un identifiant de rendez-vous ou un identifiant client est requis
+    onlyOne: Un seul parmi customerId ou rendez-Id doit être présent
+configuration:
+  customerAuth:
+    otpEmailTemplateId:
+      required: Le modèle d'e-mail OTP est requis
+    otpTextTemplateId:
+      required: Le modèle de message texte OTP est requis lorsque l'OTP du téléphone est activé
+    otpChannels:
+      required: Le canal de vérification OTP est requis
+  apps:
+    email:
+      required: L'application de l'expéditeur d'e-mail est requise
+    assetsStorage:
+      required: L'application de stockage d'actifs est requise
+  booking:
+    calendarSource:
+      required: L'application source du calendrier est requise
+    customTimeSlot:
+      required: Il faut du temps
+      invalid: Heure invalide
+    maxWeeksInFuture:
+      min: Le nombre maximum de semaines à l'avenir doit être d'au moins 2
+      max: Le nombre maximum de semaines à l'avenir doit être d'au plus 20
+      integer: Le nombre maximum de semaines à venir doit être un nombre entier
+    minHoursBeforeBooking:
+      min: Le nombre minimum d'heures avant la réservation doit être d'au moins 0
+      max: Le nombre minimum d'heures avant la réservation doit être d'au plus 72 heures.
+      integer: Le nombre minimum d'heures avant la réservation doit être un nombre entier.
+    breakDuration:
+      min: La durée de la pause doit être d'au moins 0
+      max: La durée de la pause doit être au maximum de 120
+      integer: La durée de la pause doit être un nombre entier
+    slotStart:
+      unknown: Option inconnue
+    catalog:
+      unique: Chaque service et forfait ne peut apparaître qu'une seule fois dans le catalogue
+      groupName:
+        required: Le nom du groupe est obligatoire
+        max: Le nom du groupe ne doit pas comporter plus de 256 caractères
+      groupDescription:
+        max: La description du groupe ne doit pas dépasser 1 024 caractères.
+      optionId:
+        required: Le service est requis
+        unique: Ce service est déjà dans le catalogue
+      packageId:
+        required: Le forfait est requis
+        unique: Ce package est déjà dans le catalogue
+    customSlotTimes:
+      required: Des plages horaires personnalisées sont requises
+    payments:
+      customerId:
+        required: Le client est requis
+      paymentAppId:
+        required: L'application de paiement est requise si elle est activée
+      requireDeposit:
+        required: Le montant du dépôt est requis si activé
+      depositPercentage:
+        required: Le pourcentage de dépôt doit être un nombre entier compris entre 10 et 100
+        min: Le pourcentage de dépôt doit être d'au moins 10
+        max: Le pourcentage de dépôt doit être d'au plus 100
+        integer: Le pourcentage de dépôt doit être un nombre entier
+      dontRequireIfCompletedMinNumberOfAppointments:
+        min: Le nombre minimum de rendez-vous doit être d'au moins 1
+        integer: Le nombre minimum de rendez-vous doit être un nombre entier
+      fullPaymentAmountThreshold:
+        required: Le seuil du montant total du paiement doit être un nombre positif
+        min: Le seuil du montant total du paiement doit être d'au moins 1
+      tipsMode:
+        required: Le mode Conseils est requis
+      tipPresets:
+        min: Le pourboire prédéfini doit être d'au moins 1 %
+        max: Le préréglage du pourboire doit être au maximum de 100 %
+        maxItems: Vous pouvez ajouter au maximum 4 préréglages de conseils
+        unique: Les préréglages de conseils doivent être uniques
+  general:
+    name:
+      min: Le nom de l'entreprise doit comporter au moins 3 caractères
+      max: Le nom de l'entreprise doit comporter au maximum 64 caractères.
+    title:
+      min: Le titre du site Web doit comporter au moins 3 caractères
+      max: Le titre du site Web doit comporter au maximum 64 caractères
+    description:
+      min: La description du site Web doit comporter au moins 3 caractères
+      max: La description du site Web doit comporter au maximum 1 024 caractères.
+    keywords:
+      min: Les mots-clés du site Web doivent comporter au moins 3 caractères
+      max: Les mots-clés du site Web doivent comporter au maximum 1 024 caractères
+    url:
+      invalid: L'URL du site Web doit être une adresse URL valide
+      min: L'URL du site Web doit comporter au moins 3 caractères
+    address:
+      max: L'adresse doit comporter au maximum 1 024 caractères
+      streetAddress:
+        max: L'adresse postale doit comporter au maximum 256 caractères.
+      addressLine2:
+        max: La ligne d'adresse 2 doit comporter au maximum 128 caractères.
+      addressLocality:
+        max: La ville doit comporter au maximum 128 caractères.
+      addressRegion:
+        max: L'état/la région doit comporter au maximum 128 caractères.
+      postalCode:
+        max: Le code postal doit comporter au maximum 32 caractères
+    domain:
+      invalid: Le domaine doit être un nom de domaine valide
+    currency:
+      invalid: Devise invalide
+    country:
+      invalid: Pays invalide
+    industry:
+      invalid: Secteur d'activité invalide
+  brand:
+    title:
+      min: Le titre du site doit comporter au moins 3 caractères
+      max: Le titre du site doit comporter au maximum 64 caractères
+    description:
+      min: La méta description doit comporter au moins 3 caractères
+      max: La méta description doit comporter au maximum 1 024 caractères
+    keywords:
+      min: Les mots clés doivent comporter au moins 3 caractères
+      max: Les mots clés doivent comporter au maximum 1 024 caractères.
+    domain:
+      invalid: Le domaine doit être un nom de domaine valide
+      dnsNotConfigured: "Le DNS n'est pas défini correctement pour ce domaine. Vérifiez vos enregistrements A, CNAME ou ALIAS et réessayez : les modifications peuvent prendre quelques minutes pour se propager."
+    language:
+      invalid: Langue invalide
+  resources:
+    type:
+      invalid: Type de ressource inconnu
+    value:
+      required: La valeur de la ressource est requise
+  schedule:
+    override:
+      week:
+        integer: La semaine doit être un nombre entier
+        positive: La semaine doit être un entier positif
+    shifts:
+      weekDay:
+        min: Le jour de la semaine doit commencer à 1 pour le lundi
+        max: Le jour de la semaine ne doit pas être supérieur à 7 pour le dimanche
+      time:
+        invalid: L'heure doit être au format HH:mm
+  social:
+    type:
+      invalid: Type social inconnu
+  styling:
+    footer:
+      contactUsLabel:
+        min: L'étiquette Contactez-nous doit contenir au moins 2 symboles
+    menuItem:
+      icon:
+        required: L'icône est obligatoire
+      label:
+        required: L'étiquette est obligatoire
+        max: L'étiquette ne doit pas comporter plus de 256 caractères
+      submenu:
+        min: Le sous-menu doit contenir au moins un élément
+    fonts:
+      unknown: Police inconnue
+    colors:
+      invalid: Paramètre de couleur inconnu
+      value:
+        invalid: "La couleur doit être une valeur HEX valide, commençant par #"
+      unique: Les couleurs doivent être uniques
+customer:
+  name:
+    required: Le nom est requis
+    max: Le nom ne doit pas comporter plus de 256 caractères
+  email:
+    required: Une adresse e-mail valide est requise
+  phone:
+    required: Le téléphone est requis
+  knownNames:
+    unique: Les noms doivent être uniques
+  knownEmails:
+    unique: Les e-mails doivent être uniques
+  knownPhones:
+    unique: Les téléphones doivent être uniques
+  requireDeposit:
+    required: Le montant du dépôt est requis si activé
+  depositPercentage:
+    required: Le pourcentage de dépôt doit être un nombre entier compris entre 10 et 100
+    min: Le pourcentage de dépôt doit être d'au moins 10
+    max: Le pourcentage de dépôt doit être d'au plus 100
+    integer: Le pourcentage de dépôt doit être un nombre entier
+page:
+  title:
+    required: Le titre de la page doit comporter au moins 2 caractères
+    max: Le titre de la page ne doit pas comporter plus de 256 caractères
+  content:
+    required: Le contenu de la page est requis
+  slug:
+    required: Le slug de page est requis
+    invalid: Le slug de page doit contenir uniquement des lettres minuscules latines, des chiffres, des barres obliques et des traits d'union.
+    unique: Le slug de page doit être unique
+    notAllowed: Le slug de page ne peut pas être utilisé pour les pages internes
+    max: Le slug de page ne doit pas contenir plus de 1 024 caractères.
+  description:
+    required: La description de la page est requise
+    max: La description de la page ne doit pas comporter plus de 1 024 caractères.
+  keywords:
+    required: Les mots-clés de la page sont obligatoires
+    min: Les mots-clés de la page doivent comporter au moins 2 caractères
+    max: Les mots-clés de la page ne doivent pas comporter plus de 1 024 caractères.
+  publishDate:
+    required: La date de publication est requise
+  tag:
+    min: La balise doit comporter au moins 3 caractères
+    max: La balise ne doit pas comporter plus de 64 caractères
+  headers:
+    name:
+      required: Le nom de l'en-tête de la page est obligatoire
+      min: Le nom de l’en-tête de la page doit comporter au moins 2 caractères
+      max: Le nom de l’en-tête de la page ne doit pas comporter plus de 256 caractères.
+      unique: Le nom de l'en-tête de la page doit être unique
+  footers:
+    name:
+      required: Le nom du pied de page est obligatoire
+      min: Le nom du pied de page doit comporter au moins 2 caractères.
+      max: Le nom du pied de page ne doit pas comporter plus de 256 caractères.
+      unique: Le nom du pied de page doit être unique
+template:
+  name:
+    required: Le nom du modèle est obligatoire et doit comporter au moins 3 caractères.
+    unique: Le nom du modèle doit être unique
+    max: Le nom du modèle ne doit pas comporter plus de 256 caractères
+  type:
+    invalid: Type inconnu
+  value:
+    required: La valeur du modèle est obligatoire
+    subject:
+      required: Le sujet du modèle est obligatoire
+      max: Le sujet du modèle ne doit pas comporter plus de 256 caractères.
+  textMessage:
+    value:
+      required: La valeur du message texte est obligatoire et doit comporter au moins 1 caractère.
+      max: La valeur du message texte ne doit pas dépasser 500 caractères
+payments:
+  amount:
+    required: Le montant est requis
+    positive: Le montant doit être un nombre positif
+  paidAt:
+    required: Payé à est requis
+  description:
+    max: La description ne doit pas comporter plus de 1 024 caractères
+  method:
+    required: La méthode est requise
+  type:
+    required: Le type de paiement est requis
+  customerId:
+    required: Le client est requis
+  giftCardId:
+    required: Une carte cadeau est obligatoire
+  giftCardAmount:
+    max: Le montant de la carte-cadeau doit correspondre au maximum au solde restant de la carte.
+  paymentLinkAppId:
+    required: L'application de lien de paiement est requise
+  to:
+    required: L'adresse e-mail ou le téléphone de destination est requis
+cancellation:
+  policy:
+    enabled:
+      required: Activé est requis
+    minutesToAppointment:
+      required: L’heure du rendez-vous doit être un entier positif
+    action:
+      required: Une action est requise
+    refundPercentage:
+      required: Le pourcentage de remboursement doit être un nombre entier compris entre 0 et 100
+      min: Le pourcentage de remboursement doit être d'au moins 0
+      max: Le pourcentage de remboursement doit être au maximum de 100
+    paymentPercentage:
+      required: Le pourcentage de paiement doit être un nombre entier compris entre 0 et 100
+      min: Le pourcentage de paiement doit être d'au moins 0
+      max: Le pourcentage de paiement doit être au maximum de 100
+    paymentAmount:
+      required: Le montant du paiement doit être d'au moins 1
+      min: Le montant du paiement doit être d'au moins 1
+    paymentType:
+      required: Le type de paiement est requis
+    note:
+      max: La note doit comporter au maximum 500 caractères
+    min: Au moins une politique d'annulation doit être ajoutée
+    increasing: Le temps de chaque politique doit être strictement supérieur à celui de la précédente.
+    maxReschedules:
+      required: Le nombre maximum de reprogrammations doit être un entier positif
+package:
+  name:
+    required: Le nom du package est requis
+    max: Le nom du package ne doit pas comporter plus de 256 caractères
+  description:
+    required: La description du colis est requise
+    max: La description du colis ne doit pas dépasser 1 024 caractères
+  price:
+    min: Le prix du forfait doit être d'au moins 0
+  items:
+    min: Au moins un service est requis
+    optionId:
+      required: Le service est requis
+    credits:
+      integer: Les crédits doivent être un nombre entier
+      min: Les crédits doivent être au moins 1
+    creditsPerRedemption:
+      integer: Les crédits par visite doivent être un nombre entier
+      min: Les crédits par visite doivent être d'au moins 1
+  validityMonths:
+    integer: Les mois de validité doivent être un nombre entier
+    min: La validité doit être d'au moins 1 mois
+    max: La validité doit être au maximum de 120 mois
+  maxPurchasesPerCustomer:
+    integer: Le nombre maximum d'achats doit être un nombre entier
+    min: Le maximum d'achats doit être d'au moins 1
+  eligibleMemberIds:
+    required: Un membre du personnel est requis
+    unique: Les membres du personnel doivent être uniques
+  sell:
+    packageId:
+      required: Le forfait est requis
+    customerId:
+      required: Le client est requis
+    paymentMethod:
+      required: Le mode de paiement est requis
+    price:
+      min: Le prix de vente doit être au moins égal à 0
+

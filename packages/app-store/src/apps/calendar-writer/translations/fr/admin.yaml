@@ -1,0 +1,24 @@
+title: Rédacteur de calendrier
+app:
+  displayName: Rédacteur de calendrier
+  description: Gardez votre emploi du temps synchronisé en ajoutant, mettant à jour ou supprimant automatiquement des événements dans vos calendriers connectés (Google, Outlook, CalDAV, etc.) chaque fois que des rendez-vous sont créés, reprogrammés ou annulés.
+statusText:
+  successfully_set_up: Configuration réussie
+  calendar_app_not_found: L'application Calendrier est introuvable ou ne prend pas en charge l'écriture
+  target_app_removed_select_new_app: L'application cible a été supprimée, veuillez sélectionner une nouvelle application
+  error_creating_calendar_event_for_new_appointment: Erreur lors de la création d'un événement de calendrier pour un nouveau rendez-vous
+  error_updating_calendar_event_for_status_change: Erreur lors de la mise à jour de l'événement de calendrier pour le changement de statut
+  error_updating_calendar_event_for_rescheduled_appointment: Erreur lors de la mise à jour de l'événement du calendrier pour un rendez-vous reprogrammé
+form:
+  calendarStorage:
+    label: Stockage du calendrier
+    tooltip: Sélectionnez le calendrier que vous souhaitez utiliser comme stockage cible pour vos événements de rendez-vous.
+  processOtherMembersAppointments:
+    label: Traiter les nominations des autres membres
+    description: Lorsqu'il est activé, écrivez également des événements de calendrier pour les rendez-vous attribués aux autres membres de l'équipe.
+  update: Mettre à jour avec <app></app>
+  add: Ajouter <app></app>
+validation:
+  appId:
+    required: L'application Calendrier est requise
+

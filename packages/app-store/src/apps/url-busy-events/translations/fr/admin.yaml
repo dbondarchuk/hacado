@@ -1,0 +1,40 @@
+app:
+  displayName: Événements d'URL occupés
+  description: Connectez-vous à une URL externe pour récupérer les données des événements occupés pour l'intégration du calendrier.
+form:
+  url:
+    label: URL
+    placeholder: https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'
+    description: "Utilisez des espaces réservés qui sont remplacés lorsque l'URL est appelée : <code>'{{start}}'</code> et <code>'{{end}}'</code> (dates et heures ISO).<br></br>Exemple : <code>https://example.com/api/busy-events?start='{{start}}'&end='{{end}}'</code>."
+    tooltip: Point de terminaison de l'URL qui fournit des données sur les événements occupés. Rien n'est ajouté automatiquement - incluez des espaces réservés si nécessaire.
+  headers:
+    label: En-têtes
+    addButton: Ajouter un en-tête
+    keyLabel: Nom de l'en-tête
+    keyPlaceholder: Autorisation
+    valueLabel: Valeur d'en-tête
+    valuePlaceholder: Jeton du porteur
+    removeButton: Retirer
+    description: "Les noms et valeurs d'en-tête prennent en charge les mêmes espaces réservés : <code>'{{start}}'</code> et <code>'{{end}}'</code>."
+    tooltip: En-têtes HTTP facultatifs. Les espaces réservés sont remplacés par demande lors de l'appel.
+  connect: Connectez-vous avec <app></app>
+validation:
+  form:
+    url:
+      required: L'URL est obligatoire
+      url: Veuillez saisir une URL valide
+      max: L'URL doit comporter au maximum 2 048 caractères.
+    headers:
+      key:
+        required: Le nom de l'en-tête est obligatoire
+        unique: Le nom de l'en-tête doit être unique
+        max: Le nom de l'en-tête doit comporter au maximum 256 caractères.
+      value:
+        required: La valeur d'en-tête est obligatoire
+        max: La valeur de l'en-tête doit comporter au maximum 4 096 caractères.
+statusText:
+  successfully_connected: Connexion réussie au fournisseur d'événements URL occupés
+  error_processing_configuration: Configuration du traitement des erreurs
+  error_fetching_busy_times: Erreur lors de la récupération des heures d'occupation à partir de l'URL
+  invalid_response_format: Format de réponse invalide de l'URL
+

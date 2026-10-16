@@ -1,0 +1,35 @@
+title: Perspectiva
+app:
+  displayName: Perspectiva
+  description: Microsoft Office 365 es un conjunto de aplicaciones que le ayudan a mantenerse conectado con otras personas y realizar sus tareas. Incluye, entre otros, Microsoft Word, PowerPoint, Excel, Teams, OneNote y OneDrive. Office 365 le permite trabajar de forma remota con otras personas de un equipo y colaborar en un entorno en línea. Están disponibles tanto versiones web como aplicaciones de escritorio/móviles.
+form:
+  connectWith: Conéctese con <app></app>
+  pendingAuthorization: Autorización pendiente
+statusText:
+  successfully_set_up: Conectado exitosamente a Outlook
+  error_processing_configuration: Error al procesar la configuración de Outlook
+  redirect_request_does_not_contain_app_id: La solicitud de redireccionamiento no contiene el ID de la aplicación
+  redirect_request_does_not_contain_authorization_code: La solicitud de redireccionamiento no contiene el código de autorización
+  app_was_not_authorized_properly: La aplicación no fue autorizada correctamente
+  app_was_not_given_required_scopes: A la aplicación no se le asignaron los alcances requeridos
+  failed_to_get_user_email: No se pudo obtener el correo electrónico del usuario
+  error_creating_calendar_event: Error al crear evento de calendario
+  error_updating_calendar_event: Error al actualizar el evento del calendario
+  error_deleting_calendar_event: Error al eliminar evento del calendario
+  error_getting_busy_times: Error al obtener horas ocupadas desde Outlook
+  error_sending_email: Error al enviar correo electrónico
+  error_refreshing_access_token: Error al actualizar el token de acceso
+  failed_to_find_event_id_for_uid: No se pudo encontrar el ID de evento de Outlook para el UID {uid}
+  event_created: Evento de calendario creado exitosamente
+  event_updated: Evento del calendario actualizado exitosamente
+  event_deleted: Evento del calendario eliminado correctamente
+  email_sent: Correo electrónico enviado correctamente
+  authorization_result_no_access_token: El resultado de la autorización no contiene el token de acceso
+  authorization_result_no_account_info: El resultado de la autorización no contiene información de la cuenta.
+  authorization_result_not_enough_scopes: El resultado de la autorización no contiene suficientes alcances
+  authorization_result_no_refresh_token: El resultado de la autorización no contiene el token de actualización
+  failed_to_get_meeting_url_for_appointment: No se pudo obtener la URL de la reunión para la cita
+toast:
+  changes_saved: Tus cambios fueron guardados.
+  request_error: Hubo un problema con tu solicitud.
+

@@ -1,0 +1,106 @@
+block:
+  selectAddonsLabel: Seleccionar complementos
+  durationFormat: "Duración: {hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  durationHourMinFormat: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  priceFormat: "Precio: ${price}"
+  customDurationLabel: "Duración: personalizado"
+  customDuration: Costumbre
+  durationSelectTitle: ¿Cuanto tiempo necesitas?
+  steps:
+    option: Servicio
+    specialist: Especialista
+    addons: Complementos
+    calendar: Fecha y hora
+    form: Detalles
+    payment: Pago
+    review: Resumen
+    otp: Verificar
+    waitlist-form: Detalles
+    waitlist-review: Revisar
+  layout:
+    booking:
+      title: Reserve su cita
+      description: Complete los pasos a continuación para programar su sesión
+    waitlist:
+      title: Unirse a la lista de espera
+      description: Te avisaremos cuando haya un espacio disponible
+  calendar:
+    waitlist:
+      title: ¿No encuentras un momento adecuado?
+      description: Únase a nuestra lista de espera y le notificaremos cuando esté disponible un espacio que coincida con sus preferencias.
+      button: Únase a la lista de espera
+      link: ¿No ves un momento que te guste? Haga clic <link>aquí</link> para unirse a nuestra lista de espera.
+  review:
+    waitlistTitle: Revise su solicitud de lista de espera
+  summary:
+    title: Su solicitud de lista de espera
+    empty: Aún no hay nada seleccionado.
+    showMore: Mostrar todo ({count})
+    showLess: Mostrar menos
+  waitlist_form:
+    title: Tus detalles
+    description: Por favor proporcione su información de contacto y preferencias.
+    back_to_booking: Volver a la selección de fecha
+    back_to_booking_description: Regrese para seleccionar una fecha y hora específicas para su cita.
+    back_to_booking_title: ¿Quieres reservar un espacio específico?
+  errors:
+    submit:
+      title: ¡Oh, oh! Algo salió mal.
+      description: Algo salió mal mientras intentábamos agregarte a la lista de espera. Por favor contáctenos
+  loadingPlaceholder: Espere por favor...
+  buttons:
+    steps:
+      back: Atrás
+      next: Continuar
+    confirm: Confirmar reserva
+    joinWaitlist: Unirse a la lista de espera
+    bookAnotherAppointment: Reserve otra cita
+    close: Cerca
+    addTime: Agregar hora
+  note:
+    label: Nota
+    placeholder: Puedes dejar una nota aquí.
+    max: Puede ingresar hasta 1024 caracteres
+  confirmation:
+    waitlist:
+      title: ¡Tu solicitud ha sido recibida!
+      message: Gracias, {name}. Se recibió su solicitud para unirse a la lista de espera para {service}. Nos comunicaremos con usted una vez que se abra un horario.
+      waitlist_details: Detalles de la lista de espera
+  title: Únase a nuestra lista de espera
+  description: Por favor proporcione sus datos para ser agregado a la lista de espera
+  times:
+    label: Franjas horarias
+    morning: Mañana
+    afternoon: Tarde
+    evening: Noche
+    required: Por favor seleccione una hora
+    descriptions:
+      morning: antes de las 12:00 p.m.
+      afternoon: 12:00 p. m. - 4:00 p. m.
+      evening: después de las 4:00 p.m.
+    add: Agregar hora
+    addDescription: Por favor seleccione las franjas horarias que desea agregar
+  email:
+    required: Se requiere correo electrónico
+  name:
+    required: El nombre es obligatorio
+    max: El nombre debe tener como máximo 256 caracteres.
+  date:
+    label: Fecha
+    required: Se requiere fecha válida
+  dates:
+    label: Fecha y hora deseadas
+    label_count: Fecha y hora deseadas ({count})
+    required: Se requieren fechas
+    max: Puedes agregar hasta 30 fechas
+    groupLabel: ({count} fechas)
+  when:
+    label: Cuando
+  asSoonAsPossible:
+    label: Lo antes posible
+    required: Se requiere lo antes posible
+errors:
+  waitlistAppNotConfigured:
+    title: Aplicación de lista de espera no configurada
+    description: La aplicación de lista de espera no está configurada. Configure la aplicación de lista de espera para usar este bloqueo.
+

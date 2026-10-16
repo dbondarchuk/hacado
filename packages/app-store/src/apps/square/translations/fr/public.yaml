@@ -1,0 +1,11 @@
+form:
+  totalLabel: Total du paiement
+  or: ou
+  payButton: Payer par carte
+  loading: Chargement du formulaire de paiement…
+  loadError: Impossible de charger le formulaire de paiement Square
+  tokenizeError: Impossible de tokeniser la carte
+toast:
+  payment_failed: Le paiement a échoué
+  payment_failed_description: Votre paiement n'a pas pu être finalisé. Veuillez réessayer ou contactez-nous.
+

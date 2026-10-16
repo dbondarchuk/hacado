@@ -1,0 +1,79 @@
+app:
+  displayName: Notification par e-mail du client
+  description: Envoyez des e-mails personnalisés aux clients concernant leurs rendez-vous - y compris des confirmations, des mises à jour et des annulations - afin qu'ils restent informés à chaque étape du processus.
+navigation:
+  title: Notification par e-mail du client
+new: Notification par e-mail d'un nouveau client
+edit: Modifier la notification par e-mail du client
+newDescription: Créer une nouvelle notification par e-mail client
+editDescription: Mettre à jour la notification par e-mail du client
+form:
+  pending:
+    templateId:
+      label: Modèle d'e-mail en attente
+      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsqu'ils ont demandé un rendez-vous et que leur rendez-vous est en attente
+  confirmed:
+    templateId:
+      label: Modèle d'e-mail confirmé
+      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsque leur rendez-vous a été confirmé
+  pendingPackage:
+    templateId:
+      label: E-mail de rendez-vous pour le forfait en attente (facultatif)
+      description: Facultatif. Utilisé à la place du modèle en attente lorsque le rendez-vous est couvert par un forfait. Laissez vide pour utiliser le modèle en attente normal.
+  confirmedPackage:
+    templateId:
+      label: E-mail de rendez-vous confirmé pour le forfait (facultatif)
+      description: Facultatif. Utilisé à la place du modèle confirmé lorsque le rendez-vous est couvert par un forfait. Laissez vide pour utiliser le modèle confirmé habituel.
+  declined:
+    templateId:
+      label: Modèle d'e-mail refusé
+      description: Envoyé lorsque vous refusez une demande de réservation
+  canceled:
+    templateId:
+      label: Modèle d'e-mail annulé
+      description: Envoyé lorsque le client annule ou lorsque vous enregistrez le rendez-vous comme annulé par le client
+  noShow:
+    templateId:
+      label: Modèle d'e-mail de non-présentation
+      description: Facultatif. Envoyé lorsque vous marquez le client comme non-présenté. Laissez vide pour ne rien envoyer, ou cochez « Ne pas informer le client » sur le rendez-vous.
+  rescheduled:
+    templateId:
+      label: Modèle d'e-mail reprogrammé
+      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsque leur rendez-vous a été reprogrammé
+  calendarEventTemplate:
+    templateId:
+      label: Modèle d'événement de calendrier
+      description: Contenu de l'événement, que vos clients verront dans leur calendrier
+statusText:
+  email_app_not_configured: L'expéditeur d'e-mail par défaut n'est pas configuré
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Configuration du traitement des erreurs
+  error_sending_customer_email_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par e-mail au client pour un nouveau rendez-vous
+  error_sending_customer_email_notification_for_status_change: Erreur lors de l'envoi d'une notification par e-mail au client pour un changement de statut
+  error_sending_customer_email_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par e-mail au client pour un rendez-vous reprogrammé
+handlers:
+  newRequest: Notification par e-mail client – ​​Nouvelle demande
+  pending: Notification par e-mail du client – En attente
+  confirmed: Notification par e-mail client - Confirmé
+  declined: Notification par e-mail du client – Refusé
+  canceled: Notification par e-mail client – ​​Annulée
+  noShow: Notification par e-mail du client – ​​Non-présentation
+  rescheduled: Notification par e-mail client – ​​Reprogrammée
+validation:
+  eventTemplate:
+    summary:
+      required: Un résumé de l'événement est requis
+      min: Un résumé de l'événement est requis
+      max: Le résumé de l'événement ne doit pas dépasser 256 caractères
+    templateId:
+      required: Le modèle d'événement est requis
+      min: Le modèle d'événement est requis
+  emailTemplate:
+    subject:
+      required: L'objet de l'e-mail est obligatoire
+      min: L'objet de l'e-mail est obligatoire
+      max: L'objet de l'e-mail ne doit pas comporter plus de 256 caractères
+    templateId:
+      required: Le modèle d'e-mail est requis
+      min: Le modèle d'e-mail est requis
+

@@ -1,0 +1,42 @@
+app:
+  displayName: Mon Cabinet
+  description: |-
+    **Mon Cabinet** permet aux clients fidèles de se connecter avec un code court pour afficher et gérer leurs rendez-vous.
+
+    Une fois installé, le cabinet est disponible sur votre site Web à l'adresse **`/my-cabinet`**. Marquez la page avec l'en-tête et le pied de page de votre site à partir des paramètres de l'application.
+
+    Utilisez-le pour :
+    - Laissez les clients consulter les rendez-vous à venir et passés.
+    - Autorisez la réservation en libre-service, l'annulation et la reprogrammation lorsque vos paramètres le permettent.
+    - Proposez automatiquement des actions sur la liste d'attente lorsque l'application Waitlist est installée.
+statusText:
+  successfully_set_up: Configuration réussie de Mon Cabinet
+  error_processing_configuration: Erreur lors du traitement de la configuration de Mon armoire
+form:
+  connect: Connectez <app></app>
+  update: Mettre à jour <app></app>
+  publicPageDisabled:
+    label: Désactiver la page publique sur /my-cabinet
+    description: Lorsqu'elle est activée, l'application ne revendique pas /my-cabinet. Utilisez plutôt une page CMS avec le bloc Mon Cabinet. L'en-tête et le pied de page ci-dessous s'appliquent uniquement lorsque la page publique est active.
+  headerId:
+    label: En-tête de page
+    description: En-tête facultatif affiché sur la page publique Mon Cabinet à l'adresse /my-cabinet
+    placeholder: Sélectionnez l'en-tête
+  footerId:
+    label: Pied de page
+    description: Pied de page facultatif affiché sur la page publique Mon Cabinet à l'adresse /my-cabinet
+    placeholder: Sélectionner le pied de page
+block:
+  displayName: Mon Cabinet
+  category: Réservation
+  showTitle:
+    label: Afficher le titre
+  scrollToTop:
+    label: Faire défiler vers le haut lors du changement d'étape
+  myCabinetAppId:
+    label: Application Mon Cabinet
+    helperText: Sélectionnez quelle instance de l'application Mon Cabinet ce bloc doit utiliser.
+  waitlistAppId:
+    label: Application de liste d'attente
+    helperText: Facultatif. Permet de rejoindre la liste d'attente à partir de la réservation en cabinet.
+

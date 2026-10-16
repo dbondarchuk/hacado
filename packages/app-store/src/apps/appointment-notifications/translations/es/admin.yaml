@@ -1,0 +1,173 @@
+title: Notificaciones de citas
+app:
+  displayName: Notificaciones de citas
+  description: |-
+    Automatice la comunicación con sus clientes con recordatorios y seguimientos inteligentes.
+    La aplicación **Notificaciones de citas** le permite enviar automáticamente correos electrónicos o mensajes de texto personalizados **antes o después** de las citas, sin necesidad de trabajo manual.
+    Úselo para:
+    - Envía **recordatorios de citas** unas horas o días antes de cada reserva.
+    - Programe **mensajes de seguimiento** después de las citas para agradecer a los clientes, solicitar revisiones o compartir los próximos pasos.
+    - Elija entre opciones de horarios flexibles como "2 horas antes", "1 día después" o "a las 7:00 p. m. del día anterior".
+    - Personalizar plantillas de mensajes para canales de correo electrónico y SMS.
+    - Mantenga informados a sus clientes, reduzca las ausencias y establezca relaciones más sólidas después de la cita, todo de forma automática.
+navigation:
+  main:
+    title: Notificaciones de citas
+    description: Automatice la comunicación de las citas de sus clientes con recordatorios y seguimientos inteligentes.
+  new:
+    title: Notificación de nueva cita
+    description: Crear nueva notificación de cita
+  edit:
+    title: Editar notificación de cita
+    description: Actualizar notificación de cita
+form:
+  name:
+    label: Nombre
+    placeholder: Nombre de notificación de cita
+    tooltip: Un nombre descriptivo para esta notificación de cita.
+    validation:
+      unique: El nombre de la notificación de cita debe ser único
+  type:
+    label: Tipo
+    searchLabel: Seleccionar tipo
+  appointmentCount:
+    type:
+      label: Tipo de recuento de citas
+      tooltip: Determina si el cliente necesita tener un número específico de citas.
+      placeholder: Seleccione el tipo de recuento de citas
+      types:
+        none: Todas las citas
+        lessThan: Menos que
+        equalTo: igual a
+        greaterThan: Más que
+        lessThanOrEqualTo: Menor o igual a
+        greaterThanOrEqualTo: Mayor o igual a
+    count:
+      label: Recuento de citas
+      tooltip: Enviar notificación de cita después de tantas citas con clientes
+      placeholder: Recuento de citas
+  weeksBefore:
+    label: Semanas
+    tooltip: Cuantas semanas antes de la cita enviar el recordatorio
+  daysBefore:
+    label: Días
+    tooltip: Cuantos días antes de la cita enviar el recordatorio
+  hoursBefore:
+    label: Horas
+    tooltip: Cuantas horas antes de la cita enviar el recordatorio
+  minutesBefore:
+    label: Minutos
+    tooltip: Cuantos minutos antes de la cita enviar el recordatorio
+  weeksAfter:
+    label: Semanas
+    tooltip: Cuántas semanas después de la cita enviar la notificación de la cita
+  daysAfter:
+    label: Días
+    tooltip: Cuantos días después de la cita para enviar la notificación de la cita
+  hoursAfter:
+    label: Horas
+    tooltip: Cuantas horas después de la cita enviar la notificación de la cita
+  minutesAfter:
+    label: Minutos
+    tooltip: Cuantos minutos después de la cita para enviar la notificación de la cita
+  time:
+    label: Tiempo
+    tooltip: ¿A qué hora enviar la notificación de la cita?
+  channel:
+    label: tipo de canal
+    tooltip: Determina cómo enviar la notificación de la cita.
+    searchLabel: Seleccionar tipo de canal
+  template:
+    label: Plantilla
+    tooltip: Cuerpo de notificación de citas, que verán tus clientes.
+  save: Ahorrar
+  update: Actualizar
+  cancel: Cancelar
+triggers:
+  timeBefore: Tiempo antes del inicio de la cita
+  atTimeBefore: A la hora anterior al inicio de la cita
+  timeAfter: Tiempo después del final de la cita
+  atTimeAfter: A la hora posterior al final de la cita
+channels:
+  email: Correo electrónico
+  text-message: mensaje de texto
+table:
+  columns:
+    name: Nombre
+    type: Tipo
+    channel: Canal
+    updatedAt: Actualizado en
+    actions: Comportamiento
+  actions:
+    label: Comportamiento
+    edit: Editar
+    delete: Borrar
+    clone: Clon
+    add: Agregar
+  delete:
+    title: Eliminar notificación de cita
+    description: ¿Está seguro de que desea eliminar esta notificación de cita? Esta acción no se puede deshacer.
+    confirm: Borrar
+    cancel: Cancelar
+  deleteSelected:
+    label: Eliminar seleccionado {count, plural, =1 {appointment notification} other {# appointment notifications}}
+    description: ¿Está seguro de que desea eliminar {count, plural, =1 {selected appointment notification} other {# selected appointment notifications}}? Esta acción no se puede deshacer.
+    confirm: Eliminar {count, plural, =1 {selected appointment notification} other {# selected appointment notifications}}
+  all: Todo
+  search: Buscar notificaciones de citas...
+statusText:
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Error al procesar la configuración de notificaciones de citas
+  email_app_not_configured: La aplicación predeterminada del remitente de correo electrónico no está configurada
+  appointment_notification_created: Notificación de cita creada exitosamente
+  appointment_notification_updated: Notificación de cita actualizada con éxito
+  appointment_notification_deleted: Notificación de cita eliminada exitosamente
+  appointment_notifications_deleted: "{count, plural, =1 {Appointment notification} other {# appointment notifications}} eliminado exitosamente"
+  error_creating_appointment_notification: Error al crear la notificación de cita
+  error_updating_appointment_notification: Error al actualizar la notificación de cita
+  error_deleting_appointment_notification: Error al eliminar la notificación de cita
+  error_deleting_appointment_notifications: Error al eliminar notificaciones de citas
+  error_loading_appointment_notifications: Hubo un error al cargar las notificaciones de citas.
+  error_loading_appointment_notification: No se pudo cargar la notificación de la cita
+handler: "Notificación de cita: {appointmentNotificationName}"
+validation:
+  form:
+    name:
+      required: El nombre de la notificación de cita debe tener al menos 2 caracteres
+      min: El nombre de la notificación de cita debe tener al menos 2 caracteres
+      max: El nombre de la notificación de la cita debe tener como máximo 256 caracteres
+    weeks:
+      min: La cantidad mínima de semanas es 0
+      max: La cantidad máxima de semanas es 10.
+    days:
+      min: La cantidad mínima de días es 0
+      max: La cantidad máxima de días es 31.
+    hours:
+      min: La cantidad mínima de horas es 0
+      max: La cantidad máxima de horas es 120.
+    minutes:
+      min: La cantidad mínima de minutos es 0
+      max: La cantidad máxima de minutos es 600
+    time:
+      hour:
+        min: La hora debe estar entre 0 y 23.
+        max: La hora debe estar entre 0 y 23.
+      minute:
+        min: El minuto debe estar entre 0 y 59.
+        max: El minuto debe estar entre 0 y 59.
+    templateId:
+      required: Se requiere plantilla
+    atTimeBefore:
+      days:
+        min: La notificación de la cita debe enviarse al menos 1 día antes de la cita.
+      minutes:
+        min: La notificación de la cita debe enviarse al menos 1 minuto antes de la cita.
+    atTimeAfter:
+      days:
+        min: La notificación de la cita debe enviarse al menos 1 día después de la cita.
+      minutes:
+        min: La notificación de la cita debe enviarse al menos 1 minuto después de la cita.
+    appointmentCount:
+      min: El número mínimo de citas es 1.
+      type: Se requiere el tipo de recuento de citas
+

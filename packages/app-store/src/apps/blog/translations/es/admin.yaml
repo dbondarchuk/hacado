@@ -1,0 +1,353 @@
+pageTitle: Blog
+quickLinks:
+  writePost: Escribir nueva publicación
+table:
+  columns:
+    title: Título
+    slug: Babosa
+    status: Estado
+    publicationDate: Fecha de publicación
+    tags: Etiquetas
+    comments: Comentarios
+    published: Publicado
+    draft: Borrador
+  actions:
+    create: Crear publicación
+    edit: Editar
+    clone: Clon
+  delete:
+    title: ¿Estás absolutamente seguro?
+    description: Esta acción no se puede deshacer. Esto eliminará permanentemente la publicación del blog.
+    confirm: Borrar
+    cancel: Cancelar
+    action: Borrar
+  deleteSelected:
+    label: Eliminar seleccionado {count, plural, =1 {blog post} other {# blog posts}}
+    description: ¿Está seguro de que desea eliminar {count, plural, =1 {selected blog post} other {# selected blog posts}}? Esta acción no se puede deshacer.
+    confirm: Eliminar {count, plural, =1 {selected blog post} other {# selected blog posts}}
+  toast:
+    blog_post_deleted: Publicación de blog eliminada exitosamente
+    blog_posts_deleted: "{count, plural, =1 {Blog post} other {# blog posts}} eliminado exitosamente"
+    error_deleting_blog_post: Error al eliminar la publicación del blog
+    error_loading_blog_posts: Error al cargar publicaciones de blog
+form:
+  title: Título
+  titleTooltip: El título de la entrada del blog.
+  titlePlaceholder: Ingrese el título de la publicación
+  slug: Babosa
+  slugTooltip: Versión del título compatible con URL
+  slugPlaceholder: post-babosa
+  content: Contenido
+  contentTooltip: El contenido principal de la publicación del blog.
+  isPublished:
+    label: Estado
+    tooltip: Si esta publicación está publicada y es visible para el público.
+    published: Publicado
+    draft: Borrador
+  publicationDate: Fecha de publicación
+  publicationDateTooltip: Cuándo debería publicarse esta publicación
+  tags: Etiquetas
+  tagsTooltip: Etiquetas para categorizar esta publicación
+  featuredImage:
+    label: Imagen destacada
+    tooltip: Imagen que se muestra en la página de publicación cuando se utiliza el bloque Imagen destacada de publicación de blog
+    placeholder: Seleccione una imagen
+  author:
+    label: Autor
+    tooltip: ¿Quién escribió esta publicación de blog?
+    source:
+      user: Usuario de la organización
+      custom: Nombre personalizado
+    user: Usuario
+    userPlaceholder: Seleccione un usuario
+    customName: Nombre del autor
+    customNamePlaceholder: Introduzca el nombre del autor
+  toasts:
+    changesSaved: Publicación de blog guardada exitosamente
+    requestError: Error al guardar la publicación del blog
+app:
+  displayName: Blog
+  description: Cree y administre publicaciones de blog con contenido enriquecido, etiquetas y fechas de publicación.
+  pages:
+    main:
+      label: Blog
+      title: Publicaciones de blog
+      description: Administra las publicaciones de tu blog
+    new:
+      label: Nueva publicación
+      title: Crear nueva publicación de blog
+      description: Crear una nueva publicación de blog
+    edit:
+      label: Editar publicación
+      title: Editar publicación de blog
+      description: Editar publicación de blog
+      notFound: Publicación de blog no encontrada
+    comments:
+      label: Comentarios
+      title: Comentarios del blog
+      description: Moderar comentarios en las publicaciones de tu blog
+    settings:
+      label: Ajustes
+      title: Configuración del blog
+      description: Configurar comentarios y otras opciones del blog.
+settings:
+  toasts:
+    saved: Configuración guardada exitosamente
+    error: Error al guardar la configuración
+setup:
+  update: Actualización <app></app>
+  commentsEnabled:
+    label: Habilitar comentarios
+    description: Permitir a los visitantes dejar comentarios en las publicaciones del blog.
+  commentsPremoderation:
+    label: Requerir moderación de comentarios
+    description: Los nuevos comentarios permanecen ocultos hasta que los apruebes
+  sendEmailOnNewComment:
+    label: Correo electrónico sobre nuevo comentario
+    description: Enviar un correo electrónico a los administradores de la organización cuando un visitante deje un comentario
+emails:
+  newComment:
+    subject: Nuevo comentario en "{postTitle}"
+    title: Nuevo comentario en "{postTitle}"
+    body: |-
+      Hola {userName},
+
+      **{authorName}** ({authorEmail}) dejó un nuevo comentario en la publicación de su blog "{postTitle}":
+
+      {commentBody}
+    approve: Aprobar
+    reject: Rechazar
+    view: Ver en el panel
+handlers:
+  newCommentEmail: Blog - Notificación de nuevo comentario
+events:
+  postCreated:
+    title: Nueva publicación de blog creada
+    description: Se creó la publicación "{postTitle}"
+  postUpdated:
+    title: Publicación de blog actualizada
+    description: Se actualizó la publicación "{postTitle}"
+  postDeleted:
+    title: Publicación de blog eliminada
+    description: La publicación fue eliminada
+  commentCreated:
+    title: Nuevo comentario en el blog
+    description: '"{authorName}" comentó en "{postTitle}"'
+  commentDeleted:
+    title: comentario del blog eliminado
+    description: El comentario fue eliminado.
+  commentStatusChanged:
+    title: El estado del comentario del blog cambió
+    description: El comentario de "{authorName}" fue {status}
+notifications:
+  newComment: Nuevo comentario en el blog
+  newCommentMessage: Un visitante dejó un comentario en tu blog.
+  viewComment: Ver comentario
+comments:
+  status:
+    pending: Pendiente
+    approved: Aprobado
+    rejected: Rechazado
+  table:
+    searchPlaceholder: Busque por nombre, correo electrónico o comentario…
+    filters:
+      post: Publicación de blog
+      status: Estado
+      dateRange: Rango de fechas
+    columns:
+      post: Correo
+      authorName: Nombre
+      authorEmail: Correo electrónico
+      body:
+        label: Comentario
+        dialogTitle: Cuerpo del comentario
+      status: Estado
+      createdAt: Enviado
+    actions:
+      approve: Aprobar
+      reject: Rechazar
+      delete: Borrar
+    delete:
+      title: ¿Eliminar comentario?
+      description: Esta acción no se puede deshacer.
+      confirm: Borrar
+    approveSelected:
+      label: Aprobar seleccionado ({count})
+    rejectSelected:
+      label: Rechazar seleccionado ({count})
+    deleteSelected:
+      label: Eliminar seleccionado ({count})
+      description: ¿Eliminar {count, plural, =1 {selected comment} other {# selected comments}}? Esto no se puede deshacer.
+      confirm: Eliminar seleccionado
+    toast:
+      approved: Se aprobó el comentario de {authorName}
+      rejected: El comentario de {authorName} fue rechazado
+      deleted: El comentario de {authorName} fue eliminado
+      commentsApproved: "{count, plural, =1 {Comment approved} other {# comments approved}}"
+      commentsRejected: "{count, plural, =1 {Comment rejected} other {# comments rejected}}"
+      commentsDeleted: "{count, plural, =1 {Comment deleted} other {# comments deleted}}"
+      error: algo salió mal
+statusText:
+  successfully_set_up: Blog configurado correctamente
+  error_processing_configuration: Error al procesar la configuración del blog
+block:
+  postContainer:
+    displayName: Contenedor de publicaciones de blog
+    postUrl:
+      label: URL de publicación
+      helperText: La URL de la publicación del blog. Utilice [slug] como marcador de posición para el slug de publicación.
+    errors:
+      postUrl:
+        required: La URL de la publicación es obligatoria
+        slug: La URL de la publicación debe contener un marcador de posición [slug]
+  postTitle:
+    displayName: Título de la publicación del blog
+  postContent:
+    displayName: Contenido de la publicación del blog
+    showShort:
+      label: Mostrar contenido breve
+      description: Ya sea para mostrar el contenido breve de la publicación del blog.
+    maxParagraphs:
+      label: Párrafos máximos
+      description: Número máximo de bloques de contenido para mostrar en la versión corta
+    showOnlyTextParagraphs:
+      label: Sólo párrafos de texto
+      description: Cuando está habilitado, solo se incluyen bloques de párrafos en la versión corta
+  postTag:
+    displayName: Etiqueta de publicación de blog
+    blogListUrl:
+      label: URL de la lista de blogs
+      description: URL opcional para la página de lista de publicaciones del blog. Si se configuran, las etiquetas se vincularán a esta URL con un parámetro de consulta de etiqueta. Si no se configuran, las etiquetas se vincularán a la página actual con un parámetro de consulta de etiquetas.
+  postPublishDate:
+    displayName: Fecha de publicación de la publicación del blog
+    dateFormat:
+      label: Formato de fecha
+    dateFormats:
+      dateFull: Fecha completa
+      dateHuge: gran cita
+      dateMed: Fecha media
+      dateMedWithWeekday: Medio con día laborable
+      dateShort: cita corta
+      datetimeFull: Fecha y hora completas
+      datetimeHuge: Enorme fecha y hora
+      datetimeMed: Fecha y hora medias
+      datetimeMedWithWeekday: Fecha y hora media con día laborable
+      datetimeShort: Fecha y hora cortas
+      customMmmmdYyyy: "Personalizado: MMMM d, aaaa"
+      customMmmdYyyy: "Personalizado: MMM d, aaaa"
+      customDdMmYyyy: "Personalizado: dd/MM/aaaa"
+      customMmDdYyyy: "Personalizado: MM/dd/aaaa"
+      customYyyyMmDd: "Personalizado: aaaa-MM-dd"
+  postReadTime:
+    displayName: Tiempo de lectura de la publicación del blog
+    format:
+      label: Leer formato de hora
+    wordsPerMinute:
+      label: Palabras por minuto
+  postAuthor:
+    displayName: Autor de la publicación del blog
+    format:
+      label: Formato de autor
+  postCommentCount:
+    displayName: Recuento de comentarios de publicaciones de blog
+    format:
+      label: Formato de recuento de comentarios
+  commentsContainer:
+    displayName: Contenedor de comentarios del blog
+    settings:
+      title: Lista de comentarios
+    commentsPerPage:
+      label: Comentarios por página
+  commentContainer:
+    displayName: Contenedor de comentarios de blog
+  commentAuthor:
+    displayName: Autor del comentario del blog
+  commentDate:
+    displayName: Fecha del comentario del blog
+  commentBody:
+    displayName: Cuerpo del comentario del blog
+  commentNavigationButton:
+    displayName: Botón de navegación de comentarios del blog
+    direction:
+      label: Dirección
+      prev: Anterior
+      next: Próximo
+  postCommentForm:
+    displayName: Formulario de comentarios de publicaciones de blog
+    nameLabel: Etiqueta del campo de nombre
+    namePlaceholder: Marcador de posición de nombre
+    emailLabel: Etiqueta de campo de correo electrónico
+    emailPlaceholder: Marcador de posición de correo electrónico
+    bodyLabel: Etiqueta del campo de mensaje
+    bodyPlaceholder: Marcador de posición de mensaje
+    submitLabel: Enviar etiqueta del botón
+    successMessage: Mensaje de éxito
+  postsContainer:
+    displayName: Contenedor de publicaciones de blog
+    postsPerPage:
+      label: Publicaciones por página
+      description: El número de publicaciones que se mostrarán por página.
+  postNavigationButton:
+    displayName: Botón de navegación de publicaciones de blog
+    direction:
+      label: Dirección
+      options:
+        prev: Anterior
+        next: Próximo
+  category:
+    blog: Blog
+  templates:
+    postFeaturedImage:
+      displayName: Imagen destacada de la publicación del blog
+    postReadMore:
+      displayName: Publicación del blog Leer más Enlace
+    postTitleHeader:
+      displayName: Encabezado del título de la publicación del blog
+    postTags:
+      displayName: Etiquetas de publicaciones de blog
+    postMeta:
+      displayName: Meta de publicación de blog
+    post:
+      displayName: Publicación de blog
+    postsList:
+      displayName: Lista de publicaciones de blog
+    postsListNavigation:
+      displayName: Navegación por la lista de publicaciones de blog
+    commentsList:
+      displayName: Lista de comentarios del blog
+    commentsListNavigation:
+      displayName: Navegación por la lista de comentarios del blog
+  blogAppId:
+    label: Aplicación de blog
+    helperText: La aplicación que se utilizará para trabajar con las publicaciones del blog.
+validation:
+  post:
+    tag:
+      max: La etiqueta no debe exceder los 64 caracteres.
+      min: La etiqueta debe tener al menos 2 caracteres.
+      unique: Las etiquetas deben ser únicas
+    title:
+      required: Se requiere título
+      max: El título no debe exceder los 256 caracteres.
+    slug:
+      required: Se requiere babosa
+      max: Slug no debe exceder los 256 caracteres
+      pattern: Slug debe contener solo letras, números, guiones y guiones bajos.
+      unique: La babosa debe ser única
+    publicationDate:
+      required: Se requiere fecha de publicación
+    author:
+      required: Se requiere autor
+    authorName:
+      max: El nombre del autor no debe exceder los 256 caracteres.
+  comment:
+    postId:
+      required: Se requiere publicación
+    authorName:
+      required: El nombre es obligatorio
+    body:
+      required: Se requiere comentario
+  postContent:
+    maxParagraphs:
+      validation: Se requiere un máximo de párrafos y debe ser un número entero entre 1 y 10.
+

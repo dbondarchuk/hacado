@@ -1,0 +1,8 @@
+app:
+  displayName: Descubrimiento automático de IA
+  description: Ayuda a ChatGPT y otros asistentes de IA a encontrar y comprender su negocio desde su sitio web. Publica automáticamente un resumen de texto claro de sus páginas, servicios y equipo.
+statusText:
+  successfully_set_up: Configure correctamente el descubrimiento automático de IA
+setup:
+  connect: Conectar <app></app>
+

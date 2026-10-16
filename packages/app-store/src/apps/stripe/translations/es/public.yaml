@@ -1,0 +1,8 @@
+form:
+  payButton: Paga ahora
+  totalLabel: Total
+  or: o
+toast:
+  payment_failed: Pago fallido
+  payment_failed_description: No pudimos cargar tu tarjeta. Por favor inténtalo de nuevo.
+

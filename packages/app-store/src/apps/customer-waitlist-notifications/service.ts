@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
-import { AllKeys } from "@hacado/i18n";
+import { AllKeys, resolveLanguageFromMap } from "@hacado/i18n";
 import { LoggerFactory, getLoggerFactory } from "@hacado/logger";
 import {
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
@@ -713,7 +713,7 @@ export class CustomerWaitlistNotificationsConnectedApp
     );
 
     const templatesByLang = CustomerWaitlistNotificationsTemplates[builtinId];
-    const source = templatesByLang[language] ?? templatesByLang.en;
+    const source = resolveLanguageFromMap(templatesByLang, language);
     if (!source) {
       logger.debug(
         { builtinId, language, options },

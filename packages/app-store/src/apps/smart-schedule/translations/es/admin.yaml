@@ -1,0 +1,22 @@
+title: Horario inteligente
+app:
+  displayName: Horario inteligente
+  description: Smart Schedule optimiza de forma inteligente su disponibilidad para ayudarle a reservar más citas.
+form:
+  allowSkipBreak: Permitir saltarse el descanso
+  allowSkipBreakTooltip: Permite saltarse el descanso cuando no se ha encontrado otro
+  preferBackToBack: Prefiere citas consecutivas
+  preferBackToBackTooltip: Dará mayor preferencia a las franjas horarias, lo que permitirá citas consecutivas
+  preferLaterStartsEarlierEnds: Prefiere comienzos más tardíos y finales más tempranos.
+  preferLaterStartsEarlierEndsTooltip: Dará mayor preferencia a las franjas horarias, lo que permitirá comenzar más tarde y finalizar el turno más temprano.
+  allowSmartSlotStarts: Permitir horarios de inicio de tragamonedas inteligentes
+  allowSmartSlotStartsTooltip: Si no se encontraron horarios de inicio de franjas horarias permitidas, se intentará encontrar franjas horarias no convencionales.
+  preferredService: Servicio preferido
+  preferredServiceTooltip: Si se selecciona, priorizará los tramos horarios que producirán el máximo número de citas del servicio seleccionado.
+  add: Agregar <app></app>
+  update: Actualización <app></app>
+statusText:
+  successfully_connected: Programación inteligente configurada correctamente
+  error_processing_configuration: Error al procesar la solicitud de configuración de Smart Schedule
+  something_went_wrong: algo salió mal
+

@@ -1,0 +1,30 @@
+common:
+  labels:
+    languages:
+      en: English
+      en-CA: English (Canada)
+      fr: Français
+      fr-CA: Français (Canada)
+      es: Español
+      es-MX: Español (México)
+      uk: Українська
+appointments:
+  status:
+    canceled: Cancelled
+  declineDialog:
+    reasons:
+      canceled: Cancelled by customer
+  notifications:
+    appointmentCancelled:
+      title: Appointment was cancelled
+      message: "{name} cancelled {service}."
+platformEvents:
+  customerPackage:
+    cancelled:
+      title: Package cancelled
+  invitation:
+    canceled:
+      title: Team invitation cancelled
+dashboard:
+  subscriptionInactive:
+    title: Subscription cancelled

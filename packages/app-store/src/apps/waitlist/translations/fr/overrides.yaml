@@ -1,0 +1,5 @@
+admin:
+  bookingTracking:
+    convertedTo:
+      waitlist: Liste d'attente
+

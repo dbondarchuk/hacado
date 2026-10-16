@@ -1,0 +1,31 @@
+app:
+  displayName: Notification par courrier électronique
+  description: Les notifications par e-mail vous tiennent informé de vos rendez-vous grâce à des e-mails automatiques pour les nouvelles réservations, les mises à jour et les annulations, chacun comprenant une pièce jointe d'événement de calendrier pour une planification facile.
+navigation:
+  title: Notification par courrier électronique
+form:
+  email:
+    label: Envoyer par e-mail
+    tooltip: Adresse e-mail à laquelle la notification par e-mail doit être envoyée. Laissez vide pour utiliser votre adresse e-mail par défaut.
+    placeholder: john@exemple.com
+  processOtherMembersAppointments:
+    label: Traiter les nominations des autres membres
+    description: Lorsqu'il est activé, envoyez également des notifications pour les rendez-vous attribués aux autres membres de l'équipe.
+  update: Mettre à jour <app></app>
+  add: Ajouter <app></app>
+statusText:
+  email_app_not_configured: L'expéditeur d'e-mail par défaut n'est pas configuré
+  successfully_set_up: Configuration réussie
+  error_processing_configuration: Erreur lors du traitement de la configuration de la notification par e-mail
+  error_sending_email_notification_for_new_appointment: Erreur lors de l'envoi d'une notification par e-mail pour un nouveau rendez-vous
+  error_sending_email_notification_for_status_change: Erreur lors de l'envoi d'une notification par e-mail pour un changement de statut
+  error_sending_email_notification_for_rescheduled_appointment: Erreur lors de l'envoi d'une notification par e-mail pour un rendez-vous reprogrammé
+handlers:
+  newRequest: Notification par e-mail – Nouvelle demande
+  pending: Notification par e-mail – En attente
+  confirmed: Notification par e-mail - Confirmé
+  declined: Notification par e-mail – Refusé
+  canceled: Notification par e-mail – Annulée
+  noShow: Notification par e-mail – Non-présentation
+  rescheduled: Notification par e-mail – Reprogrammée
+

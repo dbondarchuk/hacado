@@ -1,0 +1,30 @@
+title: Notificación de mensaje de texto
+app:
+  displayName: Notificaciones de citas por mensaje de texto
+  description: Manténgase actualizado sobre la actividad de citas a través de SMS. Reciba alertas de texto sobre nuevas reservas, cambios y cancelaciones, para estar siempre informado, incluso cuando esté en movimiento
+form:
+  phone:
+    label: Número de teléfono
+    tooltip: Anulación de número de teléfono opcional para usar en notificaciones. Su teléfono se utiliza de forma predeterminada
+    placeholder: Teléfono
+  processOtherMembersAppointments:
+    label: Procesar los nombramientos de otros miembros
+    description: Cuando esté habilitado, también envíe notificaciones de citas asignadas a otros miembros del equipo.
+  update: Actualización <app></app>
+  add: Agregar <app></app>
+statusText:
+  text_message_app_not_configured: La aplicación predeterminada del remitente de mensajes de texto no está configurada
+  successfully_set_up: Configurado exitosamente
+  error_processing_configuration: Error al procesar la configuración de notificación de mensajes de texto
+  error_sending_owner_text_message_notification_for_new_appointment: Error al enviar una notificación por mensaje de texto al propietario para una nueva cita
+  error_sending_owner_text_message_notification_for_status_change: Error al enviar notificación por mensaje de texto al propietario para cambio de estado
+  error_sending_owner_text_message_notification_for_rescheduled_appointment: Error al enviar una notificación por mensaje de texto al propietario para una cita reprogramada
+  error_processing_text_message_reply: Error al procesar la respuesta del mensaje de texto
+handlers:
+  newRequest: "Notificación por mensaje de texto: nueva solicitud"
+  pending: "Notificación por mensaje de texto: pendiente"
+  confirmed: "Notificación por mensaje de texto: confirmada"
+  declined: "Notificación de mensaje de texto: rechazada"
+  rescheduled: "Notificación por mensaje de texto: reprogramada"
+  autoReply: "Respuesta de mensaje de texto: respuesta automática"
+

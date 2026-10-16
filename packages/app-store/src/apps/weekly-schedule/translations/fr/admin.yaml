@@ -1,0 +1,100 @@
+title: Horaire hebdomadaire
+app:
+  displayName: Horaire hebdomadaire
+  description: |-
+    Définissez les jours fériés de l'entreprise et les exceptions hebdomadaires par membre en plus de vos horaires par défaut.
+    Marquez les jours fériés pour fermer tout le monde ; sinon, les membres peuvent modifier les heures d'ouverture de l'entreprise.
+navigation:
+  main:
+    title: Horaire hebdomadaire
+    description: Gérez votre emploi du temps hebdomadaire
+quickLinks:
+  adjust: Ajuster le calendrier
+form:
+  thisWeek: Cette semaine
+  previousWeek: La semaine précédente
+  nextWeek: La semaine prochaine
+  setCustomWeeklySchedule: Définir un horaire hebdomadaire personnalisé
+  selectMember: Sélectionner un membre de l'équipe
+  companySchedule: Entreprise (tous les membres)
+  legend: "Les heures proviennent de :"
+  source:
+    default: Défaut
+    company: Entreprise
+    member: Membre
+    app: Application
+    holiday: Vacances
+  recurrence:
+    badge: Récurrent toutes les {everyWeeks} semaines jusqu'au {until}
+    weekOverride: Cette semaine, il y a un remplacement unique en haut de la série
+  holidays:
+    title: Vacances d'entreprise
+    description: Des fermetures dures pour tout le monde. Les heures de compensation ci-dessous ne sont pas des jours fériés - les horaires des membres peuvent toujours être définis.
+    closeWeek: Fermer toute la semaine
+    clear: Jours fériés clairs
+dialogs:
+  reset:
+    title: Etes-vous absolument sûr ?
+    description: Cette action ne peut pas être annulée. Cela réinitialisera le calendrier de la semaine du {week} à celui par défaut.
+    descriptionCompany: Cette action ne peut pas être annulée. Cela réinitialisera l’horaire de la semaine du {week} à l’horaire de l’entreprise.
+    descriptionFromSeries: Cette action ne peut pas être annulée. Cela supprimera la semaine du {week} du calendrier récurrent (toutes les {everyWeeks} semaines). Les horaires reviendront à l'horaire par défaut. Les autres semaines de la série restent.
+    descriptionFromSeriesCompany: Cette action ne peut pas être annulée. Cela supprimera la semaine du {week} du calendrier récurrent (toutes les {everyWeeks} semaines). Les horaires seront ramenés à l'horaire de l'entreprise. Les autres semaines de la série restent.
+    descriptionOverrideOnSeries: Cette action ne peut pas être annulée. Cela effacera le remplacement ponctuel pour la semaine du {week} et le supprimera du planning récurrent. Les horaires reviendront à l'horaire par défaut.
+    descriptionOverrideOnSeriesCompany: Cette action ne peut pas être annulée. Cela effacera le remplacement ponctuel pour la semaine du {week} et le supprimera du planning récurrent. Les horaires seront ramenés à l'horaire de l'entreprise.
+    success: Le planning hebdomadaire pour la semaine du {week} a été réinitialisé avec succès à sa valeur par défaut.
+    successCompany: L'horaire hebdomadaire pour la semaine du {week} a été réinitialisé avec succès sur l'horaire de l'entreprise.
+    successFromSeries: La semaine du {week} a été supprimée du planning récurrent
+    cancel: Annuler
+    reset: Réinitialiser
+    resetThisWeekToDefault: Réinitialiser cette semaine aux valeurs par défaut
+    resetThisWeekToCompany: Réinitialiser cette semaine à l'entreprise
+    removeThisWeekFromSeries: Supprimer cette semaine de la série
+    resetToDefault: Réinitialiser aux valeurs par défaut
+    resetToCompany: Réinitialiser à l'entreprise
+    defaultSchedule: Calendrier par défaut
+    companySchedule: Calendrier de l'entreprise
+    removeSeries: Supprimer le planning récurrent
+    removeSeriesDescription: Cela supprimera le programme récurrent (toutes les {everyWeeks} semaines jusqu'au {until}). Toutes les semaines de cette série reviendront au calendrier {fallback}. Les dérogations hebdomadaires ponctuelles sont conservées.
+    removeSeriesSuccess: Le calendrier récurrent a été supprimé
+    fallbackDefault: défaut
+    fallbackCompany: entreprise
+  resetAll:
+    title: Etes-vous absolument sûr ?
+    description: Cette action ne peut pas être annulée. Cela réinitialisera toutes les programmations de la semaine du {week} à celle par défaut, y compris les séries récurrentes qui commencent cette semaine ou après (les séries précédentes sont tronquées).
+    descriptionCompany: Cette action ne peut pas être annulée. Cela réinitialisera tous les programmes de la semaine du {week} au calendrier de l'entreprise, y compris les séries récurrentes qui commencent à partir de cette semaine (les séries précédentes sont coupées).
+    success: Tous les plannings de la semaine du {week} ont été réinitialisés avec succès aux valeurs par défaut.
+    successCompany: Tous les horaires de la semaine du {week} ont été réinitialisés avec succès sur l'horaire de l'entreprise.
+    cancel: Annuler
+    reset: Réinitialiser
+    resetAllToDefault: Tout réinitialiser de cette semaine aux valeurs par défaut
+    resetAllToCompany: Tout réinitialiser de cette semaine à l'entreprise
+  copy:
+    title: Copier le calendrier
+    description: Copiez les heures de cette semaine sur une autre semaine sous forme d'horaire unique (et non de série récurrente).
+    success: Le planning a été copié avec succès
+    cancel: Annuler
+    copy: Copie
+    copySchedule: Copier le calendrier
+  repeat:
+    title: Répéter le programme
+    description: Créez un nouvel horaire répétitif à partir des heures de cette semaine. Cela ne modifie pas une série existante.
+    success: Nouvel horaire récurrent à partir de la semaine {week} toutes les {interval} semaines jusqu'à la création de {maxWeek}
+    cancel: Annuler
+    copy: Créer
+    repeatSchedule: Répéter le programme
+    repeatEvery: Répétez tous les
+    repeatUntil: Répétez jusqu'à ce que
+    repeatUntilTooltip: La dernière semaine (incluse) jusqu'à laquelle répéter le planning
+    weeks: semaines
+    replaceExisting: Remplacer les remplacements de semaine existants
+    replaceExistingDescription: Si cette case est cochée, les programmes ponctuels pour les semaines de la nouvelle série sont effacés afin que le nouveau modèle répétitif s'applique.
+    close: Fermer
+    confirmTitle: Etes-vous absolument sûr ?
+    confirmDescription: Cela créera un nouvel horaire répétitif à partir de la semaine du {week} toutes les {interval} semaines jusqu'à la semaine du {maxWeek}. Les séries existantes ne sont pas éditées ; la série la plus récente gagne là où elles se chevauchent.
+statusText:
+  successfully_installed: L'application a été installée avec succès
+  error_processing_request: Erreur lors du traitement de la demande d'horaire hebdomadaire
+  failed_to_load_schedule: Échec du chargement du planning
+  saved: Sauvé !
+  request_error: Il y a eu un problème avec votre demande.
+

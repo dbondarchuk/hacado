@@ -104,6 +104,15 @@ export type I18nFn<
 
 // export const defaultNamespace: I18nNamespaces = "translation";
 
-export const languages = ["en", "uk"] as const;
-export type Language = (typeof languages)[number];
-export const fallbackLanguage: Language = "en";
+export {
+  fallbackLanguage,
+  getLocaleChain,
+  isPartialLocale,
+  languages,
+  localeParents,
+  partialLocales,
+  resolveLanguageFromMap,
+  toDateFnsLocale,
+  type Language,
+  type PartialLocale,
+} from "./locale-catalog";

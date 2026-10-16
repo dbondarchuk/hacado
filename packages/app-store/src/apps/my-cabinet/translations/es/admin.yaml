@@ -1,0 +1,42 @@
+app:
+  displayName: mi gabinete
+  description: |-
+    **My Cabinet** permite a los clientes que regresan iniciar sesión con un código corto para ver y administrar sus citas.
+
+    Una vez instalado, el gabinete está disponible en su sitio web en **`/my-cabinet`**. Marca la página con el encabezado y pie de página de tu sitio desde la configuración de la aplicación.
+
+    Úselo para:
+    - Permitir que los clientes revisen las citas pasadas y futuras.
+    - Permitir reserva, cancelación y reprogramación de autoservicio cuando su configuración lo permita.
+    - Ofrezca acciones de lista de espera automáticamente cuando se instale la aplicación Lista de espera.
+statusText:
+  successfully_set_up: Configurar exitosamente Mi Gabinete
+  error_processing_configuration: Error al procesar la configuración de Mi Gabinete
+form:
+  connect: Conectar <app></app>
+  update: Actualización <app></app>
+  publicPageDisabled:
+    label: Deshabilitar la página pública en /my-cabinet
+    description: Cuando está habilitada, la aplicación no reclama /mi-gabinete. En su lugar, utilice una página CMS con el bloque Mi gabinete. El encabezado y pie de página a continuación se aplican solo cuando la página pública está activa.
+  headerId:
+    label: Encabezado de página
+    description: Encabezado opcional que se muestra en la página pública Mi gabinete en /my-cabinet
+    placeholder: Seleccionar encabezado
+  footerId:
+    label: Pie de página
+    description: Pie de página opcional que se muestra en la página pública Mi gabinete en /my-cabinet
+    placeholder: Seleccionar pie de página
+block:
+  displayName: mi gabinete
+  category: Reserva
+  showTitle:
+    label: Mostrar título
+  scrollToTop:
+    label: Desplácese hacia arriba en el cambio de paso
+  myCabinetAppId:
+    label: Aplicación Mi Gabinete
+    helperText: Seleccione qué instancia de la aplicación My Cabinet debe usar este bloque.
+  waitlistAppId:
+    label: Aplicación de lista de espera
+    helperText: Opcional. Permite unirse a la lista de espera desde la reserva en el gabinete.
+

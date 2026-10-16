@@ -1,0 +1,53 @@
+block:
+  customerAccess:
+    label: Tu código de acceso
+    description: Ingrese el código de acceso de su invitación o abra este formulario usando el enlace que posiblemente le hayamos enviado.
+    placeholder: código de acceso
+    readonlyFromLink: Estás enviando como participante invitado.
+    required: Ingrese su código de acceso o use el enlace si le enviaron uno.
+  formNotFound:
+    title: Formulario no disponible
+    description: Este formulario ya no está disponible o ha sido archivado.
+  formSubmit:
+    submit: Entregar
+    submitting: Sumisión…
+    success: ¡Gracias! Su respuesta ha sido enviada.
+    error: Algo salió mal. Por favor inténtalo de nuevo.
+    successScreen:
+      title: Gracias
+      description: Su respuesta ha sido recibida.
+validation:
+  fields:
+    customerAccess:
+      required: Ingrese su código de acceso o use el enlace si le enviaron uno.
+      invalid: Código de acceso no válido
+    required: Este campo es obligatorio
+    minLength: Este campo debe tener al menos {length} caracteres
+    maxLength: Este campo debe tener menos de {length} caracteres
+    email:
+      invalid: Dirección de correo electrónico no válida
+    name:
+      min: El nombre debe tener al menos 2 caracteres
+      max: El nombre debe tener menos de 64 caracteres.
+    checkbox:
+      required: Este campo debe ser marcado
+    select:
+      required: Este campo debe tener al menos una opción seleccionada
+      unknownOption: Opción no válida
+    multiSelect:
+      unique: Las opciones deben ser únicas
+      required: Este campo debe tener al menos una opción seleccionada
+      unknownOption: Opción no válida
+      minSelected: Este campo debe tener al menos {minSelected} opciones seleccionadas
+      maxSelected: Este campo debe tener como máximo {maxSelected} opciones seleccionadas
+    file:
+      required: Este campo es obligatorio
+      type: Tipo de archivo no válido
+      maxSize: El tamaño del archivo debe ser inferior a {maxSizeMb} MB
+      accept: Tipo de archivo no válido
+responses:
+  fields:
+    select:
+      noneOption: Ninguno
+      placeholder: Seleccione una opción
+

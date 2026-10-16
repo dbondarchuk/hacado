@@ -1,0 +1,23 @@
+app:
+  displayName: Des événements chargés
+  description: Bloquez des dates et des heures spécifiques dans votre emploi du temps
+navigation:
+  busyEvents:
+    label: Des événements chargés
+    title: Des événements chargés
+    description: Bloquez des dates et des heures spécifiques dans votre emploi du temps
+new: Nouvel événement chargé
+edit: Modifier un événement occupé
+newDescription: Créer un nouvel événement chargé
+editDescription: Mettre à jour l'événement occupé
+errors:
+  failed_to_load_schedule: Échec du chargement du planning
+thisWeek: Cette semaine
+previousWeek: La semaine précédente
+nextWeek: La semaine prochaine
+eventTitle: Occupé
+addShift: Ajouter un événement
+shifts: "{count, plural, =1 {1 event} other {# events}}"
+statusText:
+  successfully_set_up: Configuration réussie
+

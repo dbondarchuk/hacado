@@ -1,0 +1,24 @@
+title: Escritor de calendario
+app:
+  displayName: Escritor de calendario
+  description: Mantenga su agenda sincronizada agregando, actualizando o eliminando eventos automáticamente en sus calendarios conectados (Google, Outlook, CalDAV, etc.) cada vez que se crean, reprograman o cancelan citas.
+statusText:
+  successfully_set_up: Configurado exitosamente
+  calendar_app_not_found: La aplicación Calendario no se encuentra o no admite escritura
+  target_app_removed_select_new_app: Se eliminó la aplicación de destino; seleccione una aplicación nueva.
+  error_creating_calendar_event_for_new_appointment: Error al crear un evento de calendario para una nueva cita
+  error_updating_calendar_event_for_status_change: Error al actualizar el evento del calendario para el cambio de estado
+  error_updating_calendar_event_for_rescheduled_appointment: Error al actualizar el evento del calendario para una cita reprogramada
+form:
+  calendarStorage:
+    label: Almacenamiento de calendario
+    tooltip: Seleccione el calendario que le gustaría usar como almacenamiento de destino para los eventos de sus citas.
+  processOtherMembersAppointments:
+    label: Procesar los nombramientos de otros miembros
+    description: Cuando esté habilitado, también escriba eventos de calendario para citas asignadas a otros miembros del equipo.
+  update: Actualizar con <app></app>
+  add: Agregar <app></app>
+validation:
+  appId:
+    required: Se requiere la aplicación de calendario
+
