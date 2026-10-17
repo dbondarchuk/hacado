@@ -5,7 +5,7 @@ description: Platform SMS for United States and Canada numbers through Telnyx.
 
 # Platform SMS
 
-Hacado sends appointment texts for United States and Canada numbers from one toll-free number. A workspace that still has the Textbelt app selected as its text sender keeps using that app. Consent and STOP opt-out apply before either sender. The country check applies only to the platform number.
+Hacado sends appointment texts for United States and Canada numbers from one toll-free number. Set `SMS_PROVIDER` to `telnyx` (the default) or `textbelt` on notification-sender. Textbelt sends with the platform Textbelt key, skips the rates sentence and the STOP footer, and cannot carry a link: a manage or booking URL is left out, and a payment text that is only the link is not sent. A workspace that still has the Textbelt app selected as its text sender keeps using that app. Consent and STOP opt-out apply before either sender. The country check applies only to the Telnyx platform number.
 
 ## Manual Telnyx setup
 

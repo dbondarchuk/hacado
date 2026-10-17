@@ -117,7 +117,8 @@
     "MARKETING_URL",
     "UNSPLASH_ACCESS_KEY",
     "PEXELS_API_KEY",
-    "GEOAPIFY_API_KEY"
+    "GEOAPIFY_API_KEY",
+    "SMS_PROVIDER"
   ],
   "tasks": {
     "build": {

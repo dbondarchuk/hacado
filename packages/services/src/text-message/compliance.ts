@@ -72,6 +72,61 @@ export const appendStopFooter = (body: string): string => {
   return `${body.trimEnd()}\n${SMS_STOP_FOOTER}`;
 };
 
+const smsUrlPattern = () => /(?:https?:\/\/|www\.)[^\s<>"']+/gi;
+
+const stripUrl = (url: string): string => {
+  const core = url.replace(/[),.;:!?]+$/u, "");
+  return url.slice(core.length);
+};
+
+const TRAILING_LINK_INTRODUCER =
+  /\s+(?:[\p{L}\p{N}][\p{L}\p{N}'’-]*)(?:\s+[\p{L}\p{N}][\p{L}\p{N}'’-]*){0,11}:\s*$/u;
+
+const SMS_GREETING = /^(?:hi|hello|hey|hola|bonjour|salut|привіт)\b[,\s]*/iu;
+
+const GREETING_NAME =
+  /^[\p{L}][\p{L}'’.-]{0,40}(?:\s+[\p{L}][\p{L}'’.-]{0,40})?,?\s*/u;
+
+export type PreparedTextbeltSmsBody =
+  | { send: true; message: string }
+  | { send: false; reason: string };
+
+const hasUsefulSmsContent = (text: string): boolean => {
+  let rest = text.replace(/[,\s]+$/u, "").trim();
+  if (!rest) {
+    return false;
+  }
+
+  rest = rest.replace(/^[^:\n]{1,80}:\s+/u, "").trim();
+  const greeting = rest.match(SMS_GREETING);
+  if (greeting) {
+    rest = rest.slice(greeting[0].length).replace(GREETING_NAME, "").trim();
+  }
+
+  return /[\p{L}\p{N}]/u.test(rest);
+};
+
+export const prepareTextbeltSmsBody = (
+  body: string,
+): PreparedTextbeltSmsBody => {
+  if (!/(?:https?:\/\/|www\.)/i.test(body)) {
+    return { send: true, message: body };
+  }
+
+  const withoutUrls = body
+    .replace(smsUrlPattern(), stripUrl)
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]+([.,])/g, "$1")
+    .replace(TRAILING_LINK_INTRODUCER, "")
+    .trim();
+
+  if (!hasUsefulSmsContent(withoutUrls)) {
+    return { send: false, reason: "message had only a link" };
+  }
+
+  return { send: true, message: withoutUrls };
+};
+
 export const shouldSkipDuplicateSend = (
   existing: { status: string } | null | undefined,
 ): boolean =>

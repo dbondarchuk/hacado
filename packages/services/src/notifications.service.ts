@@ -37,6 +37,7 @@ import {
   shouldSkipDuplicateSend,
 } from "./text-message/compliance";
 import { SmsTransientError } from "./text-message/errors";
+import { getSmsProvider } from "./text-message/factory";
 import { consumeSmsPlatformLimit } from "./text-message/rate-limit";
 import { SmsStore } from "./text-message/sms-store";
 
@@ -316,7 +317,7 @@ export class NotificationService implements INotificationService {
         return { success: true, skipped: true, error: limit };
       }
 
-      if (participantType === "customer") {
+      if (participantType === "customer" && getSmsProvider() === "telnyx") {
         const alreadySent = await this.smsStore.hasAcceptedCustomerSend(
           this.organizationId,
           trimmedPhone,
@@ -408,7 +409,7 @@ export class NotificationService implements INotificationService {
       } else {
         logger.info(
           {
-            textMessageSender: "built-in-telnyx",
+            textMessageSender: `built-in-${getSmsProvider()}`,
             textMessageSenderParticipant: handledBy,
             textMessageSenderPhone: maskify(trimmedPhone),
             appointmentId,

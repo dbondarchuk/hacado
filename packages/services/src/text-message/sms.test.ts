@@ -6,11 +6,13 @@ import {
   appendStopFooter,
   canSendCustomerSms,
   latestConsentAllowsSms,
+  prepareTextbeltSmsBody,
   shouldRecordOwnerAttestation,
   shouldSkipDuplicateSend,
   SMS_RATES_SENTENCE,
   SMS_STOP_FOOTER,
 } from "./compliance";
+import { createDefaultTextMessageSender, getSmsProvider } from "./factory";
 import { countSmsSegments } from "./segments";
 import { resolveSender } from "./telnyx/sender";
 
@@ -199,6 +201,97 @@ describe("SMS consent", () => {
   it("records owner attestation only when the box is checked", () => {
     assert.equal(shouldRecordOwnerAttestation(true), true);
     assert.equal(shouldRecordOwnerAttestation(false), false);
+  });
+});
+
+describe("Textbelt link stripping", () => {
+  it("keeps an appointment text and drops the manage link", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "Ada Salon: Hi Jessica, your Cut is confirmed for Fri, Oct 17, 3:00 PM. Manage: https://ada.hacado.me/my-cabinet",
+    );
+
+    assert.deepEqual(prepared, {
+      send: true,
+      message:
+        "Ada Salon: Hi Jessica, your Cut is confirmed for Fri, Oct 17, 3:00 PM.",
+    });
+  });
+
+  it("keeps a waitlist opening and drops the booking link", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "Ada Salon: Hi Jessica, there is an opening for Cut on Sat, Oct 24, 2:00 PM. Book: https://ada.hacado.me/book",
+    );
+
+    assert.deepEqual(prepared, {
+      send: true,
+      message:
+        "Ada Salon: Hi Jessica, there is an opening for Cut on Sat, Oct 24, 2:00 PM.",
+    });
+  });
+
+  it("skips a payment text that is only the link", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "Ada Salon: Hi Jessica, here is your payment link: https://ada.hacado.me/payment?id=abc",
+    );
+
+    assert.deepEqual(prepared, {
+      send: false,
+      reason: "message had only a link",
+    });
+  });
+
+  it("leaves a text without a link unchanged", () => {
+    const body =
+      "Ada Salon: Hi Jessica, you were removed from the waitlist for Cut.";
+    assert.deepEqual(prepareTextbeltSmsBody(body), {
+      send: true,
+      message: body,
+    });
+  });
+
+  it("keeps a follow-up and drops a review link", () => {
+    const prepared = prepareTextbeltSmsBody(
+      "Thanks for visiting Ada Salon. Leave a review: www.ada.example/review",
+    );
+
+    assert.deepEqual(prepared, {
+      send: true,
+      message: "Thanks for visiting Ada Salon.",
+    });
+  });
+});
+
+describe("SMS provider", () => {
+  it("defaults to telnyx and accepts textbelt", () => {
+    assert.equal(getSmsProvider(""), "telnyx");
+    assert.equal(getSmsProvider("  Telnyx "), "telnyx");
+    assert.equal(getSmsProvider("textbelt"), "textbelt");
+  });
+
+  it("rejects an unknown provider", () => {
+    assert.throws(() => getSmsProvider("twilio"), /Unsupported SMS_PROVIDER/);
+  });
+
+  it("builds the sender named by SMS_PROVIDER", () => {
+    const previous = process.env.SMS_PROVIDER;
+    try {
+      process.env.SMS_PROVIDER = "textbelt";
+      assert.equal(
+        createDefaultTextMessageSender().constructor.name,
+        "TextBeltService",
+      );
+      process.env.SMS_PROVIDER = "telnyx";
+      assert.equal(
+        createDefaultTextMessageSender().constructor.name,
+        "TelnyxService",
+      );
+    } finally {
+      if (previous === undefined) {
+        delete process.env.SMS_PROVIDER;
+      } else {
+        process.env.SMS_PROVIDER = previous;
+      }
+    }
   });
 });
 
