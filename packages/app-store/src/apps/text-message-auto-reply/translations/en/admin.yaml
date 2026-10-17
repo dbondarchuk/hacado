@@ -3,9 +3,9 @@ app:
   displayName: Text message auto reply
   description: Automatically reply to incoming text messages.
 form:
-  autoReplyTemplate:
-    label: Auto reply template
-    tooltip: The template that will be used to send reply.
+  autoReply:
+    label: Auto reply
+    description: Sent when a customer texts this number. Use the same variables as a text template, up to 300 characters. The unsubscribe line is added automatically.
   connectWith: Connect with <app></app>
 statusText:
   successfully_set_up: Successfully set up
@@ -13,6 +13,8 @@ statusText:
   template_not_found: Template not found
 handler: Text Message Auto Reply
 validation:
+  replyText:
+    max: Auto reply text must be 300 characters or fewer
   autoReplyTemplateId:
     required: Template is required
     min: Template is required

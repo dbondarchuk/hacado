@@ -80,6 +80,18 @@ form:
   template:
     label: Template
     tooltip: Appointment notification body, that your customers will see.
+  textMessage:
+    label: Send text message
+    description: Turn this on to text the customer at the time you set. Pick a reminder or write a follow-up.
+    kind:
+      label: Message
+      reminder: Reminder
+      followUp: Follow-up
+    reminderDescription: Sent at the time you set. United States and Canada numbers receive a built-in reminder with the business name, service, time, and a manage link when one exists.
+    followUp:
+      label: Follow-up text
+      description: Use the same variables as a text template, up to 300 characters. The unsubscribe line is added automatically.
+      placeholder: Thank you for visiting. We hope to see you again.
   save: Save
   update: Update
   cancel: Cancel
@@ -157,6 +169,11 @@ validation:
         max: Minute should be between 0 and 59
     templateId:
       required: Template is required
+    smsKind:
+      invalid: Choose a reminder or a follow-up
+    followUpText:
+      required: Follow-up text is required
+      max: Follow-up text must be 300 characters or fewer
     atTimeBefore:
       days:
         min: Appointment notification should be sent at least 1 day before the appointment

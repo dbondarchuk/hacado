@@ -219,9 +219,14 @@ export default class TextMessageResenderConnectedApp
           "Processing reply from user - resending to customer",
         );
 
+        const businessName = config.general.name?.trim();
+        const body = businessName
+          ? `${businessName}: ${reply.message}`
+          : reply.message;
+
         this.props.services.notificationService.sendTextMessage({
           phone: textMessageReply.data.data,
-          body: reply.message,
+          body,
           webhookData: {
             ...reply.data,
             data: undefined,

@@ -38,14 +38,6 @@ export const customerAuthConfigurationSchema = z
         message: "configuration.customerAuth.otpEmailTemplateId.required",
       });
     }
-
-    if (customerOtpAllowsPhone(value.otpChannels) && !value.otpTextTemplateId) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["otpTextTemplateId"],
-        message: "configuration.customerAuth.otpTextTemplateId.required",
-      });
-    }
   });
 
 export type CustomerAuthConfiguration = z.infer<

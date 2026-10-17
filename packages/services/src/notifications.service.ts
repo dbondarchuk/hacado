@@ -1,6 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
   BillingPlanTier,
+  CustomerSmsConsentStatus,
   Email,
   EmailNotificationRequest,
   EmailResponse,
@@ -17,15 +18,27 @@ import {
   ISystemNotificationService,
   ITextMessageSender,
   ITextMessageSenderApp,
-  SmsCreditsExhaustedError,
   SubscriptionUpgradeRequiredError,
   TextMessage,
   TextMessageNotificationRequest,
   TextMessageResponse,
 } from "@hacado/types";
-import { isSmsLinkShorteningEnabled, maskify } from "@hacado/utils";
+import {
+  isSmsLinkShorteningEnabled,
+  maskify,
+  normalizeToE164,
+} from "@hacado/utils";
 import { convert } from "html-to-text";
+import type { Redis } from "ioredis";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
+import {
+  appendRatesSentence,
+  canSendCustomerSms,
+  shouldSkipDuplicateSend,
+} from "./text-message/compliance";
+import { SmsTransientError } from "./text-message/errors";
+import { consumeSmsPlatformLimit } from "./text-message/rate-limit";
+import { SmsStore } from "./text-message/sms-store";
 
 export class NotificationService implements INotificationService {
   protected readonly loggerFactory = getLoggerFactory("NotificationService");
@@ -41,7 +54,58 @@ export class NotificationService implements INotificationService {
     private readonly eventService: IEventService,
     private readonly organizationService: IOrganizationService,
     private readonly shortLinksService: IShortLinksService,
+    private readonly redisClient: Redis,
+    private readonly smsStore: SmsStore = new SmsStore(),
   ) {}
+
+  public async recordCustomerSmsConsent(input: {
+    phone: string;
+    consented: boolean;
+    source: "web_form" | "owner_attested";
+    ip?: string;
+  }): Promise<void> {
+    const phone = normalizeToE164(input.phone);
+    if (!phone) {
+      return;
+    }
+
+    await this.smsStore.recordConsent({
+      organizationId: this.organizationId,
+      phone,
+      consented: input.consented,
+      source: input.source,
+      ip: input.ip,
+    });
+  }
+
+  public async hasActiveCustomerSmsConsent(phone: string): Promise<boolean> {
+    const normalized = normalizeToE164(phone);
+    if (!normalized) {
+      return false;
+    }
+
+    if (await this.smsStore.isOptedOut(normalized)) {
+      return false;
+    }
+
+    return this.smsStore.latestConsent(this.organizationId, normalized);
+  }
+
+  public async getCustomerSmsConsentStatus(
+    phone: string,
+  ): Promise<CustomerSmsConsentStatus> {
+    const normalized = normalizeToE164(phone);
+    if (!normalized) {
+      return { consented: false, optedOut: false };
+    }
+
+    const [consented, optedOut] = await Promise.all([
+      this.smsStore.latestConsent(this.organizationId, normalized),
+      this.smsStore.isOptedOut(normalized),
+    ]);
+
+    return { consented, optedOut };
+  }
 
   public async sendEmail(props: EmailNotificationRequest): Promise<void> {
     const { email, handledBy, participantType, appointmentId, customerId } =
@@ -135,14 +199,58 @@ export class NotificationService implements INotificationService {
       appointmentId,
       customerId,
       memberId,
+      requireConsent,
+      idempotencyKey,
     } = props;
-    const trimmedPhone = phone.replaceAll(/[^+0-9]/gi, "");
     const logger = this.loggerFactory("sendTextMessage");
+    const trimmedPhone = normalizeToE164(phone);
+    if (!trimmedPhone) {
+      logger.warn(
+        { organizationId: this.organizationId, appointmentId, customerId },
+        "SMS skipped: invalid phone",
+      );
+
+      return { success: true, skipped: true, error: "invalid phone" };
+    }
 
     logger.debug(
       { appointmentId, customerId, phone: maskify(trimmedPhone) },
       "Sending text message",
     );
+
+    const consent = canSendCustomerSms({
+      requireConsent: Boolean(requireConsent) && participantType === "customer",
+      latestConsent: requireConsent
+        ? await this.smsStore.latestConsent(this.organizationId, trimmedPhone)
+        : true,
+      optedOut: await this.smsStore.isOptedOut(trimmedPhone),
+    });
+
+    if (!consent.ok) {
+      logger.info(
+        {
+          organizationId: this.organizationId,
+          appointmentId,
+          customerId,
+          reason: consent.reason,
+        },
+        "SMS skipped",
+      );
+
+      return { success: true, skipped: true, error: consent.reason };
+    }
+
+    if (idempotencyKey) {
+      const existing = await this.smsStore.findSend(idempotencyKey);
+      if (shouldSkipDuplicateSend(existing)) {
+        return {
+          success: true,
+          skipped: true,
+          textId: existing?.textId,
+          error: "already sent",
+        };
+      }
+    }
 
     const organization = await this.organizationService.getOrganization();
     const planTier = resolvePlanTierFromOrganization(organization);
@@ -151,6 +259,11 @@ export class NotificationService implements INotificationService {
       await this.configurationService.getConfiguration("defaultApps");
     const textMessageSenderAppId =
       defaultAppsConfiguration?.textMessageSenderAppId;
+
+    let messageBody = body;
+    if (isSmsLinkShorteningEnabled()) {
+      messageBody = await this.shortLinksService.shortenUrlsInText(body);
+    }
 
     let sendTextMessage: (message: TextMessage) => Promise<TextMessageResponse>;
     if (textMessageSenderAppId) {
@@ -181,8 +294,37 @@ export class NotificationService implements INotificationService {
       const availableTotal =
         await this.billingService.getCurrentSmsBalanceTotal();
       if (availableTotal !== null && availableTotal < 1) {
-        logger.warn("Sms credits exhausted");
-        throw new SmsCreditsExhaustedError();
+        logger.warn(
+          { organizationId: this.organizationId, appointmentId },
+          "SMS skipped: credits exhausted",
+        );
+
+        return { success: true, skipped: true, error: "credits exhausted" };
+      }
+
+      const limit = await consumeSmsPlatformLimit(
+        this.redisClient,
+        this.organizationId,
+      );
+
+      if (limit !== "ok") {
+        logger.warn(
+          { organizationId: this.organizationId, appointmentId, limit },
+          "SMS skipped: platform limit",
+        );
+
+        return { success: true, skipped: true, error: limit };
+      }
+
+      if (participantType === "customer") {
+        const alreadySent = await this.smsStore.hasAcceptedCustomerSend(
+          this.organizationId,
+          trimmedPhone,
+        );
+
+        if (!alreadySent) {
+          messageBody = appendRatesSentence(messageBody);
+        }
       }
 
       sendTextMessage = async (message: TextMessage) => {
@@ -191,20 +333,35 @@ export class NotificationService implements INotificationService {
           this.organizationId,
         );
 
-        if (!response.error) {
-          await this.billingService.consumeSmsCredits({
-            amount: 1,
-            direction: "outbound",
-            textId: response.textId,
-          });
+        if (response.errorCode === "40300") {
+          await this.smsStore.optOut(trimmedPhone, "telnyx_40300");
         }
+
+        if (response.skipped || response.error || !response.success) {
+          return response;
+        }
+
+        await this.billingService.consumeSmsCredits({
+          amount: 1,
+          direction: "outbound",
+          textId: response.textId,
+        });
+
+        await this.smsStore.recordAccepted({
+          organizationId: this.organizationId,
+          idempotencyKey:
+            idempotencyKey ||
+            `sms_${this.organizationId}_${trimmedPhone}_${response.textId || Date.now()}`,
+          phone: trimmedPhone,
+          participantType,
+          appointmentId,
+          customerId,
+          appId: webhookData?.appId,
+          data: webhookData?.data,
+          textId: response.textId,
+        });
         return response;
       };
-    }
-
-    let messageBody = body;
-    if (isSmsLinkShorteningEnabled()) {
-      messageBody = await this.shortLinksService.shortenUrlsInText(body);
     }
 
     try {
@@ -216,8 +373,25 @@ export class NotificationService implements INotificationService {
         memberId,
       });
 
-      if (response.error) {
-        throw Error(response.error);
+      if (response.skipped) {
+        return response;
+      }
+
+      if (response.error || !response.success) {
+        if (response.retryable) {
+          throw new SmsTransientError(response.error || "SMS send failed");
+        }
+
+        logger.error(
+          {
+            organizationId: this.organizationId,
+            appointmentId,
+            errorCode: response.errorCode,
+          },
+          "SMS send failed",
+        );
+
+        return response;
       }
 
       if (textMessageSenderAppId) {
@@ -234,13 +408,13 @@ export class NotificationService implements INotificationService {
       } else {
         logger.info(
           {
-            textMessageSender: "built-in-textbelt",
+            textMessageSender: "built-in-telnyx",
             textMessageSenderParticipant: handledBy,
             textMessageSenderPhone: maskify(trimmedPhone),
             appointmentId,
             customerId,
           },
-          "Text Message sent via built-in TextBelt",
+          "Text Message sent via built-in SMS service",
         );
       }
 

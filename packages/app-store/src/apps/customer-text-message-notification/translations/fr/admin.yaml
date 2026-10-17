@@ -8,17 +8,14 @@ edit: Modifier la notification par SMS du client
 newDescription: Créer une nouvelle notification par SMS client
 editDescription: Mettre à jour la notification par SMS du client
 form:
-  template:
-    label: "{type} modèle de message texte"
-    tooltip: Corps du message texte, que vos clients verront lorsque {whenText}
-    tooltipEmpty: Laissez vide pour ne pas envoyer de SMS lorsque {whenText}
-whenText:
-  pending: ils prennent un nouveau rendez-vous
-  confirmed: le rendez-vous a été confirmé
-  declined: le rendez-vous a été refusé
-  canceled: le client a annulé le rendez-vous
-  noShow: vous avez marqué le rendez-vous comme une non-présentation
-  rescheduled: le rendez-vous a été reporté
+  message:
+    description:
+      pending: "Envoyé quand une réservation est créée et attend encore une confirmation. Le texte indique l'entreprise, le service et l'heure, et un lien de gestion lorsqu'il existe."
+      confirmed: "Envoyé quand une réservation est confirmée tout de suite, ou quand vous confirmez plus tard une demande en attente. Le texte indique l'entreprise, le service et l'heure."
+      declined: "Envoyé quand vous refusez le rendez-vous. Le texte indique l'entreprise, le service et l'heure."
+      canceled: "Envoyé quand le rendez-vous est annulé. Le texte indique l'entreprise, le service et l'heure."
+      noShow: "Envoyé quand vous marquez le rendez-vous comme une absence. Le texte indique l'entreprise, le service et l'heure."
+      rescheduled: "Envoyé quand l'heure du rendez-vous change, sauf si le changement est marqué pour ne pas prévenir le client. Le texte indique la nouvelle heure."
 statusText:
   text_message_app_not_configured: L'application par défaut de l'expéditeur de messages texte n'est pas configurée
   successfully_set_up: Configuration réussie

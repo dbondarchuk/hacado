@@ -97,6 +97,7 @@ export const BookingWithWaitlist: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response.fieldsSchema}
       showPromoCode={response.showPromoCode}
+      smsText={response.smsText}
       bookingRestriction={response.bookingRestriction}
       catalog={response.catalog}
       packages={response.packages}

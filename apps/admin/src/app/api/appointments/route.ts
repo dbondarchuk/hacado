@@ -155,6 +155,15 @@ export async function POST(request: NextRequest) {
   }
 
   const confirmed = formData.get("confirmed") === "true";
+  if (formData.get("smsConsent") === "true" && data.fields.phone) {
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    await servicesContainer.notificationService.recordCustomerSmsConsent({
+      phone: data.fields.phone,
+      consented: true,
+      source: "owner_attested",
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
+  }
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");

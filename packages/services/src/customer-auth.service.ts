@@ -25,9 +25,11 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  template,
   templateSafeWithError,
 } from "@hacado/utils";
 import { createHmac, randomInt, randomUUID } from "node:crypto";
+import { getCustomerOtpSms } from "./customer-auth/messages";
 import { BaseService } from "./services/base.service";
 
 // Re-export for consumers
@@ -450,38 +452,18 @@ export class CustomerAuthService
     args: ReturnType<typeof getArguments>,
   ) {
     const logger = this.loggerFactory("sendOtpText");
-    const templateId = config.otpTextTemplateId;
-
-    if (!templateId) {
-      logger.warn({ customerId }, "OTP text template not configured");
-      return;
-    }
-
-    const template =
-      await this.services.templatesService.getTemplate(templateId);
-    if (!template || template.type !== "text-message") {
-      logger.warn(
-        { customerId, templateId, templateType: template?.type },
-        "OTP text template missing or wrong type",
-      );
-      return;
-    }
-
-    logger.debug({ customerId, templateId }, "Sending OTP text message");
+    logger.debug({ customerId }, "Sending OTP text message");
 
     await this.services.notificationService.sendTextMessage({
       phone,
-      body: templateSafeWithError(template.value as string, args, true),
+      body: template(getCustomerOtpSms(args.locale ?? "en"), args, true),
       handledBy:
         "admin.settings.customerAccess.handlers.otpRequest" satisfies BaseAllKeys,
       participantType: "customer",
       customerId,
     });
 
-    logger.info(
-      { customerId, templateId },
-      "OTP text message queued for delivery",
-    );
+    logger.info({ customerId }, "OTP text message queued for delivery");
   }
 
   private async consumeRateLimit(

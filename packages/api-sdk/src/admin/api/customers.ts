@@ -1,6 +1,7 @@
 import {
   Customer,
   CustomerListModel,
+  CustomerSmsConsentStatus,
   CustomerUpdateModel,
   okStatus,
   WithTotal,
@@ -136,6 +137,14 @@ export const mergeCustomers = async (targetId: string, ids: string[]) => {
   console.debug("Customers merged successfully");
 
   return data;
+};
+
+export const setCustomerSmsConsent = async (id: string, consented: boolean) => {
+  const response = await fetchAdminApi(`/customers/${id}/sms-consent`, {
+    method: "POST",
+    body: JSON.stringify({ consented }),
+  });
+  return response.json<CustomerSmsConsentStatus>();
 };
 
 export const checkCustomerUniqueEmailAndPhone = async (

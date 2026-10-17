@@ -30,6 +30,7 @@ export const CustomerWaitlistNotificationsApp: App<
     "scheduled",
     "communication-templates-provider",
     "demo-arguments-provider",
+    "customer-waitlist-text-message",
   ],
   type: "complex",
   target: "company",

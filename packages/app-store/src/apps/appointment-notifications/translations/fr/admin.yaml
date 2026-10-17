@@ -80,6 +80,18 @@ form:
   template:
     label: Modèle
     tooltip: Corps de notification de rendez-vous, que vos clients verront.
+  textMessage:
+    label: Envoyer un SMS
+    description: "Activez cette option pour envoyer un SMS au client à l'heure choisie. Choisissez un rappel ou écrivez un suivi."
+    kind:
+      label: Message
+      reminder: Rappel
+      followUp: Suivi
+    reminderDescription: "Envoyé à l'heure choisie. Les numéros des États-Unis et du Canada reçoivent un rappel intégré avec l'entreprise, le service, l'heure et un lien de gestion lorsqu'il existe."
+    followUp:
+      label: Texte de suivi
+      description: "Utilisez les mêmes variables qu'un modèle de SMS, jusqu'à 300 caractères. La ligne de désabonnement est ajoutée automatiquement."
+      placeholder: Merci de votre visite. Au plaisir de vous revoir.
   save: Sauvegarder
   update: Mise à jour
   cancel: Annuler
@@ -157,6 +169,11 @@ validation:
         max: La minute doit être comprise entre 0 et 59
     templateId:
       required: Le modèle est requis
+    smsKind:
+      invalid: Choisissez un rappel ou un suivi
+    followUpText:
+      required: Le texte de suivi est requis
+      max: Le texte de suivi doit compter 300 caractères ou moins
     atTimeBefore:
       days:
         min: La notification de rendez-vous doit être envoyée au moins 1 jour avant le rendez-vous

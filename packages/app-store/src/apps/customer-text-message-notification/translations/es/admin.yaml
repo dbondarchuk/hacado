@@ -8,17 +8,14 @@ edit: Editar notificación de mensaje de texto del cliente
 newDescription: Crear notificación de mensaje de texto de nuevo cliente
 editDescription: Actualizar notificación de mensaje de texto del cliente
 form:
-  template:
-    label: "{type} plantilla de mensaje de texto"
-    tooltip: Cuerpo del mensaje de texto que tus clientes verán cuando {whenText}
-    tooltipEmpty: Déjelo vacío para no enviar mensaje de texto cuando {whenText}
-whenText:
-  pending: reservan nueva cita
-  confirmed: la cita fue confirmada
-  declined: la cita fue rechazada
-  canceled: el cliente canceló la cita
-  noShow: Marcaste la cita como no presentada.
-  rescheduled: la cita fue reprogramada
+  message:
+    description:
+      pending: Se envía cuando se crea una reserva que aún necesita confirmación. El texto incluye el negocio, el servicio y la hora, y un enlace para gestionarla cuando existe.
+      confirmed: Se envía cuando una reserva se confirma al momento, o cuando más tarde confirmas una cita pendiente. El texto incluye el negocio, el servicio y la hora.
+      declined: Se envía cuando rechazas la cita. El texto incluye el negocio, el servicio y la hora.
+      canceled: Se envía cuando la cita se cancela. El texto incluye el negocio, el servicio y la hora.
+      noShow: Se envía cuando marcas la cita como ausencia. El texto incluye el negocio, el servicio y la hora.
+      rescheduled: Se envía cuando cambia la hora de la cita, salvo que el cambio esté marcado para no avisar al cliente. El texto incluye la nueva hora.
 statusText:
   text_message_app_not_configured: La aplicación predeterminada del remitente de mensajes de texto no está configurada
   successfully_set_up: Configurado exitosamente

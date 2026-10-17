@@ -12,15 +12,17 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import {
+  AppointmentSmsConsent,
+  appointmentSmsConsentKind,
   Button,
+  cn,
   Form,
   FormItem,
   Input,
   Label,
   Spinner,
-  cn,
   useCurrencyFormat,
-  usePrevious,
+  useSmsConsentState,
 } from "@hacado/ui";
 
 import { clientApi } from "@hacado/api-sdk";
@@ -43,6 +45,7 @@ export const FormCard: React.FC = () => {
     formFields,
     discount,
     showPromoCode,
+    smsText,
     basePrice,
     price,
     setDiscount,
@@ -67,6 +70,9 @@ export const FormCard: React.FC = () => {
 
   const fields = getFields(formFields);
   const lockContact = !!isCustomerPackageLocked;
+  const [smsConsent, setSmsConsent] = useSmsConsentState(
+    propsFields.smsConsent,
+  );
 
   const formSchema = useMemo(
     () =>
@@ -90,12 +96,22 @@ export const FormCard: React.FC = () => {
   });
 
   const values = form.watch();
-  const previousValues = usePrevious(values, values);
   React.useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      setFields(values as AppointmentFields);
+    const next = {
+      ...(values as AppointmentFields),
+      ...(lockContact
+        ? {
+            name: propsFields.name,
+            email: propsFields.email,
+            phone: propsFields.phone,
+          }
+        : {}),
+      smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
+    };
+    if (!deepEqual(next, propsFields)) {
+      setFields(next);
     }
-  }, [values]);
+  }, [values, smsConsent, propsFields, smsText, lockContact]);
 
   const isFormValid = form.formState.isValid;
   React.useEffect(() => {
@@ -247,8 +263,26 @@ export const FormCard: React.FC = () => {
                       field.name === "email" ||
                       field.name === "phone"),
                 )}
+                {field.name === "email" && (
+                  <p className="text-xs text-muted-foreground">
+                    {i18n("booking.form.emailNotice")}
+                  </p>
+                )}
               </React.Fragment>
             ))}
+            <AppointmentSmsConsent
+              id="waitlist-booking-sms-consent-simple"
+              offer={smsText}
+              phone={String((form.watch() as AppointmentFields).phone ?? "")}
+              profilePhone={propsFields.phone}
+              profileConsent={propsFields.smsConsent === true}
+              checked={smsConsent}
+              onCheckedChange={setSmsConsent}
+              lookup={async (phone) => {
+                const result = await clientApi.booking.getSmsConsent(phone);
+                return result.consented === true;
+              }}
+            />
 
             {showPromoCode && !!basePrice && !isCustomerPackageLocked && (
               <FormItem>

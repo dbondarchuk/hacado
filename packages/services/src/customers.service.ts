@@ -17,7 +17,7 @@ import {
   type EventSource,
   type ICustomersService,
 } from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery, escapeRegex, normalizeToE164 } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,
@@ -25,6 +25,7 @@ import {
 } from "./collections";
 import { getDbConnection } from "./database";
 import { BaseService } from "./services/base.service";
+import { SmsStore } from "./text-message/sms-store";
 
 function enrichEventSourceWithCustomerId(
   eventSource: EventSource,
@@ -299,9 +300,12 @@ export class CustomersService extends BaseService implements ICustomersService {
       ])
       .toArray();
 
+    const items: CustomerListModel[] = result.paginatedResults || [];
+    await this.attachSmsConsent(items);
+
     const response = {
       total: result.totalCount?.[0]?.count || 0,
-      items: result.paginatedResults || [],
+      items,
     };
 
     logger.debug(
@@ -313,6 +317,30 @@ export class CustomersService extends BaseService implements ICustomersService {
     );
 
     return response;
+  }
+
+  private async attachSmsConsent(items: CustomerListModel[]): Promise<void> {
+    const phoneByCustomerId = new Map<string, string>();
+    for (const item of items) {
+      const phone = item.phone ? normalizeToE164(item.phone) : null;
+      if (phone) {
+        phoneByCustomerId.set(item._id, phone);
+      }
+    }
+
+    const phones = [...new Set(phoneByCustomerId.values())];
+    const store = new SmsStore();
+    const [consents, optedOut] = await Promise.all([
+      store.latestConsentByPhones(this.organizationId, phones),
+      store.optedOutPhones(phones),
+    ]);
+
+    for (const item of items) {
+      const phone = phoneByCustomerId.get(item._id);
+      item.smsConsent = Boolean(
+        phone && consents.get(phone) === true && !optedOut.has(phone),
+      );
+    }
   }
 
   public async findCustomer(

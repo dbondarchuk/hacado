@@ -12,6 +12,7 @@ import type {
   BookingCatalogNode,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
+  CustomerAppointmentTextOffer,
   DateTime,
   FieldSchema,
   PublicStaffMember,
@@ -64,6 +65,7 @@ export type ScheduleProps = {
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   className?: string;
   id?: string;
   isEditor?: boolean;
@@ -96,6 +98,7 @@ export const Schedule: React.FC<
   successPage,
   fieldsSchema,
   showPromoCode,
+  smsText,
   className,
   id,
   isEditor,
@@ -541,6 +544,9 @@ export const Schedule: React.FC<
         name: fields.name,
         phone: fields.phone,
         note: fields.note,
+        ...(typeof fields.smsConsent === "boolean"
+          ? { smsConsent: fields.smsConsent }
+          : {}),
         optionId: selectedAppointmentOption._id,
         memberId: selectedMemberId,
         addonsIds: selectedAddons?.map((addon) => addon._id),
@@ -604,8 +610,14 @@ export const Schedule: React.FC<
         giftCards: giftCards?.map((giftCard) => giftCard.code),
         customerPackageId,
         purchasePackageId,
+        ...(typeof fields.smsConsent === "boolean"
+          ? { smsConsent: fields.smsConsent }
+          : {}),
         fields: Object.entries(fields)
-          .filter(([_, value]) => !((value as any) instanceof File))
+          .filter(
+            ([key, value]) =>
+              key !== "smsConsent" && !((value as any) instanceof File),
+          )
           .reduce(
             (obj, cur) => ({
               ...obj,
@@ -1066,6 +1078,7 @@ export const Schedule: React.FC<
       flow,
       setFlow,
       showPromoCode,
+      smsText,
       formFields,
       availabilityByMember,
       paymentInformation,
@@ -1146,6 +1159,7 @@ export const Schedule: React.FC<
       flow,
       setFlow,
       showPromoCode,
+      smsText,
       formFields,
       availabilityByMember,
       paymentInformation,

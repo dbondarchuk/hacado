@@ -114,6 +114,7 @@ export const BookingWithWaitlist: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      smsText={response?.smsText}
       isEditor={isEditor}
       waitlistAppId={appId}
       isOnlyWaitlist={isOnlyWaitlist ?? false}

@@ -141,28 +141,6 @@ export const CustomerAccessSettingsForm: React.FC<{
             )}
           />
         )}
-        {customerOtpAllowsPhone(otpChannels) && (
-          <FormField
-            control={form.control}
-            name="otpTextTemplateId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("settings.customerAccess.form.otpTextTemplateId.label")}
-                </FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type="text-message"
-                    disabled={loading}
-                    value={field.value}
-                    onItemSelect={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
         <SaveButton form={form} disabled={loading} isLoading={loading} />
       </form>
     </Form>

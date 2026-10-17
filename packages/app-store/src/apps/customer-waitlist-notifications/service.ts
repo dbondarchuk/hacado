@@ -39,10 +39,15 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  isSmsEnabled,
   templateSafeWithError,
 } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { ObjectId } from "mongodb";
+import {
+  CustomerWaitlistTextOffer,
+  ICustomerWaitlistTextMessage,
+} from "../waitlist/customer-waitlist-text";
 import { demoWaitlistEntry } from "../waitlist/demo-arguments";
 import {
   WAITLIST_ENTRY_CREATED_EVENT_TYPE,
@@ -85,7 +90,8 @@ export class CustomerWaitlistNotificationsConnectedApp
     IScheduled,
     ICommunicationTemplatesProvider,
     IDemoArgumentsProvider,
-    ITextMessageResponder
+    ITextMessageResponder,
+    ICustomerWaitlistTextMessage
 {
   protected readonly loggerFactory: LoggerFactory;
   protected readonly jobProcessor: CustomerWaitlistNotificationsJobProcessor;
@@ -97,6 +103,25 @@ export class CustomerWaitlistNotificationsConnectedApp
     );
 
     this.jobProcessor = new CustomerWaitlistNotificationsJobProcessor(props);
+  }
+
+  public async getCustomerWaitlistTextOffer(
+    appData: ConnectedAppData,
+  ): Promise<CustomerWaitlistTextOffer> {
+    const data = (appData.data ??
+      {}) as Partial<CustomerWaitlistNotificationsConfiguration>;
+    const openSlot =
+      data.notifyOnSlotOpened === true &&
+      isSmsEnabled(data.slotOpenedSmsEnabled, data.slotOpenedSmsTemplateId);
+
+    return {
+      notifications: false,
+      openSlot,
+      other: isSmsEnabled(
+        data.leaveWaitlistSmsEnabled,
+        data.leaveWaitlistSmsTemplateId,
+      ),
+    };
   }
 
   public async onEvent(

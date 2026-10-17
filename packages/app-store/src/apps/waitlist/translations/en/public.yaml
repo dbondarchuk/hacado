@@ -82,6 +82,14 @@ block:
     addDescription: Please select the time slots you want to add
   email:
     required: Email is required
+    notice: We'll email waitlist updates to this address.
+  smsConsent:
+    label:
+      notifications: Text me notifications about my waitlist request.
+      slot: Text me when a matching slot opens.
+      slotAndNotifications: Text me notifications when a matching slot opens.
+    disclosure: Messages are from Hacado on behalf of {businessName}. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. <terms>Terms</terms>, <privacy>Privacy</privacy>, and <sms>SMS Privacy and Policy</sms>.
+    already: "✓ SMS notifications will be sent to this number. (Reply STOP anytime to opt out)"
   name:
     required: Name is required
     max: Name must be at most 256 characters long

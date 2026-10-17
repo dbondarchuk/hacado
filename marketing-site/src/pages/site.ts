@@ -3,6 +3,8 @@ import { integrationGroups } from "../content/integrations";
 import {
   privacySections,
   privacyUpdated,
+  smsPolicySections,
+  smsPolicyUpdated,
   termsSections,
   termsUpdated,
   type LegalSection,
@@ -477,6 +479,14 @@ function legalArticle(updated: string, sections: LegalSection[]) {
           ),
         );
       }
+      if (s.links?.length) {
+        blocks.push(
+          container(
+            s.links.map((link) => button(link.label, link.href, "outline")),
+            { gap: sv({ value: 0.5, unit: "rem" }) },
+          ),
+        );
+      }
       return blocks;
     }),
   ]);
@@ -496,6 +506,24 @@ export function privacyPage() {
         body: "How Hacado collects, uses, and protects personal data for workspace owners and the clients they serve.",
       }),
       legalArticle(privacyUpdated, privacySections),
+    ],
+  });
+}
+
+export function smsPolicyPage() {
+  return pageDoc({
+    title: "SMS Privacy and Policy",
+    slug: "sms-policy",
+    description:
+      "How Hacado sends appointment texts for a business, what we store, and how to opt out.",
+    keywords: keywords("sms", "text messages", "privacy"),
+    children: [
+      pageHero({
+        eyebrow: "Legal",
+        title: "SMS Privacy and Policy",
+        body: "How Hacado sends appointment texts for a business, what we store, and how to opt out.",
+      }),
+      legalArticle(smsPolicyUpdated, smsPolicySections),
     ],
   });
 }

@@ -62,6 +62,8 @@ export * from "./sheet";
 export * from "./sidebar";
 export * from "./skeleton";
 export * from "./slider";
+export * from "./sms-consent-choice";
+export * from "./sms-consent-field";
 export * from "./sonner";
 export * from "./spinner";
 export * from "./split-button";

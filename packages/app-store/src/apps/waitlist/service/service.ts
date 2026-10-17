@@ -40,6 +40,7 @@ import {
   GetWaitlistEntriesActionType,
   GetWaitlistEntryAction,
   GetWaitlistEntryActionType,
+  GetWaitlistSmsTextActionType,
   RequestAction,
   requestActionSchema,
   SetConfigurationAction,
@@ -52,6 +53,12 @@ import {
   waitlistRequestSchema,
 } from "../models";
 
+import {
+  CUSTOMER_WAITLIST_TEXT_MESSAGE_SCOPE,
+  CustomerWaitlistTextOffer,
+  emptyCustomerWaitlistTextOffer,
+  ICustomerWaitlistTextMessage,
+} from "../customer-waitlist-text";
 import { demoWaitlistEntry } from "../demo-arguments";
 import { WaitlistTemplates } from "../templates";
 import {
@@ -149,7 +156,52 @@ export class WaitlistConnectedApp
           data,
           memberId,
         );
+      case GetWaitlistSmsTextActionType:
+        return this.getCustomerWaitlistTextOffer();
     }
+  }
+
+  public async getCustomerWaitlistTextOffer(): Promise<CustomerWaitlistTextOffer> {
+    const logger = this.loggerFactory("getCustomerWaitlistTextOffer");
+    const offer = emptyCustomerWaitlistTextOffer();
+
+    try {
+      const apps =
+        await this.props.services.connectedAppsService.getAppsByScope(
+          CUSTOMER_WAITLIST_TEXT_MESSAGE_SCOPE,
+        );
+
+      for (const connected of apps) {
+        if (connected.status !== "connected") continue;
+
+        try {
+          const { service, app } =
+            await this.props.services.connectedAppsService.getAppService<ICustomerWaitlistTextMessage>(
+              connected._id,
+            );
+
+          const part = await service.getCustomerWaitlistTextOffer(app);
+          offer.notifications ||= part.notifications;
+          offer.openSlot ||= part.openSlot;
+          offer.other ||= part.other;
+        } catch (error: any) {
+          logger.error(
+            {
+              appId: connected._id,
+              error: error?.message || error?.toString(),
+            },
+            "Failed to read waitlist text offer",
+          );
+        }
+      }
+    } catch (error: any) {
+      logger.error(
+        { error: error?.message || error?.toString() },
+        "Failed to load waitlist text apps",
+      );
+    }
+
+    return offer;
   }
 
   public async install(appData: ConnectedAppData): Promise<void> {
@@ -236,6 +288,10 @@ export class WaitlistConnectedApp
 
     if (request.method.toUpperCase() === "GET" && action === "waitlist-offer") {
       return this.getWaitlistOfferPrefill(appData, request);
+    }
+
+    if (request.method.toUpperCase() === "GET" && action === "sms-text") {
+      return Response.json(await this.getCustomerWaitlistTextOffer());
     }
 
     return Response.json(
@@ -575,6 +631,16 @@ export class WaitlistConnectedApp
       return Response.json({ success: false, error }, { status: 400 });
     }
 
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    if (typeof data.smsConsent === "boolean") {
+      await this.props.services.notificationService.recordCustomerSmsConsent({
+        phone: data.phone,
+        consented: data.smsConsent,
+        source: "web_form",
+        ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+      });
+    }
+
     logger.debug({ data }, "Creating waitlist entry");
 
     const options =
@@ -719,7 +785,7 @@ export class WaitlistConnectedApp
       );
     }
 
-    const { customerId, ...waitlistRequestData } = data.entry;
+    const { customerId, smsConsent, ...waitlistRequestData } = data.entry;
 
     const customer =
       await this.props.services.customersService.getCustomer(customerId);
@@ -732,6 +798,14 @@ export class WaitlistConnectedApp
         400,
         "Customer not found",
       );
+    }
+
+    if (smsConsent === true && customer.phone) {
+      await this.props.services.notificationService.recordCustomerSmsConsent({
+        phone: customer.phone,
+        consented: true,
+        source: "owner_attested",
+      });
     }
 
     const duration = data.entry.duration

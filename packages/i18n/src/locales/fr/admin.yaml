@@ -1084,6 +1084,8 @@ appointments:
     note: Note
     confirmAppointment: Confirmer le rendez-vous
     confirmAppointmentDescription: Marquer le rendez-vous comme confirmé
+    smsConsent: "J'atteste que le client a accepté de recevoir des textos"
+    smsConsentAlready: Ce client a déjà accepté de recevoir des textos.
     confirmOverlap: Confirmer le chevauchement
     confirmOverlapDescription: Je comprends que la planification de ce rendez-vous créera un chevauchement dans mon emploi du temps
     unassignedMember:
@@ -1287,6 +1289,17 @@ customers:
   addPayment: Ajouter un paiement
   files: Fichiers
   communications: Communications
+  smsConsent:
+    title: Messages texte
+    active: Ce client a déjà accepté de recevoir des textos.
+    inactive: Ce client n'a pas accepté de recevoir des textos.
+    optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+    noPhone: Ajoutez un numéro de téléphone pour gérer le consentement SMS.
+    attest: "J'atteste que le client a accepté de recevoir des textos"
+    revoke: Révoquer le consentement
+    attested: Consentement enregistré
+    revoked: Consentement révoqué
+    error: Impossible de mettre à jour le consentement SMS
   deletedCustomer: Client supprimé
   form:
     customerPhoto: Photo client
@@ -3216,7 +3229,7 @@ communications:
   sendNew: Envoyer nouveau
   requestError: Il y a eu un problème avec votre demande.
   sendNewMessage: Envoyer un nouveau message
-  sendNewMessageDescription: Envoyer un nouvel e-mail ou SMS au client
+  sendNewMessageDescription: Envoyer un nouvel e-mail au client
   closeDialogWarning: Vous perdrez tout le contenu si vous fermez la boîte de dialogue
   contentNotValid: Le contenu n'est pas valide
   messageSent: Votre message a été envoyé avec succès.
@@ -3685,6 +3698,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Réponse par message texte - informer l'utilisateur
+text-message-reply:
+  handledBy: Réponse par message texte
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Quand il est au moins {duration} avant le rendez-vous
@@ -4034,4 +4049,3 @@ users:
       max: Le titre ne doit pas comporter plus de 80 caractères
     bio:
       max: La biographie ne doit pas contenir plus de 1 024 caractères
-

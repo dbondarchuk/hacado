@@ -17,6 +17,7 @@ export interface IPagesService {
   /** Pages */
 
   getPage(id: string): Promise<Page | null>;
+  findManageAppointmentUrl(websiteUrl: string): Promise<string | undefined>;
   getPageBySlug(slug: string): Promise<Page | null>;
   resolvePage(rawSlug: string): Promise<PageMatchResult | null>;
   getPages(

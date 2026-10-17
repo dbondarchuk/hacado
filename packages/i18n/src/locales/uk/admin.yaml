@@ -1074,6 +1074,8 @@ appointments:
     note: Примітка
     confirmAppointment: Підтвердити запис
     confirmAppointmentDescription: Позначити запис як підтверджений
+    smsConsent: Я підтверджую, що клієнт погодився отримувати текстові повідомлення
+    smsConsentAlready: Цей клієнт уже погодився отримувати текстові повідомлення.
     confirmOverlap: Підтвердити накладення
     confirmOverlapDescription: Я розумію, що планування цього запису створить накладення в моєму розкладі
     unassignedMember:
@@ -1297,6 +1299,17 @@ customers:
   addPayment: Додати платіж
   files: Файли
   communications: Комунікації
+  smsConsent:
+    title: Текстові повідомлення
+    active: Цей клієнт уже погодився отримувати текстові повідомлення.
+    inactive: Цей клієнт не погодився отримувати текстові повідомлення.
+    optedOut: Цей номер відписався. Клієнт має надіслати START, щоб знову отримувати нагадування.
+    noPhone: Додайте номер телефону, щоб керувати згодою на SMS.
+    attest: Я підтверджую, що клієнт погодився отримувати текстові повідомлення
+    revoke: Відкликати згоду
+    attested: Згоду записано
+    revoked: Згоду відкликано
+    error: Не вдалося оновити згоду на SMS
   deletedCustomer: Видалений клієнт
   form:
     customerPhoto: Фото клієнта
@@ -3234,7 +3247,7 @@ communications:
   sendNew: Надіслати нове
   requestError: Виникла проблема з вашим запитом.
   sendNewMessage: Надіслати нове повідомлення
-  sendNewMessageDescription: Надіслати новий email або текстове повідомлення клієнту
+  sendNewMessageDescription: Надіслати новий email клієнту
   closeDialogWarning: Ви втратите весь вміст, якщо закриєте діалог
   contentNotValid: Вміст недійсний
   messageSent: Ваше повідомлення було успішно надіслано.
@@ -3710,6 +3723,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Відповідь на текстове повідомлення - повідомити користувача
+text-message-reply:
+  handledBy: Відповідь на текстове повідомлення
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Коли до запису залишилось принаймні {duration}

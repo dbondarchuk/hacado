@@ -392,6 +392,7 @@ export const BookingLayout = ({
             name: result.name || fields.name,
             email: result.email || fields.email,
             phone: result.phone || fields.phone,
+            smsConsent: result.smsConsent === true,
           });
           setOtpVerified(true);
 

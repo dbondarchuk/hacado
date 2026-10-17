@@ -1084,6 +1084,8 @@ appointments:
     note: Nota
     confirmAppointment: Confirmar cita
     confirmAppointmentDescription: Marcar cita como confirmada
+    smsConsent: Certifico que el cliente aceptó recibir mensajes de texto
+    smsConsentAlready: Este cliente ya aceptó recibir mensajes de texto.
     confirmOverlap: Confirmar superposición
     confirmOverlapDescription: Entiendo que programar esta cita creará una superposición en mi agenda.
     unassignedMember:
@@ -1287,6 +1289,17 @@ customers:
   addPayment: Agregar pago
   files: Archivos
   communications: Comunicaciones
+  smsConsent:
+    title: Mensajes de texto
+    active: Este cliente ya aceptó recibir mensajes de texto.
+    inactive: Este cliente no ha aceptado recibir mensajes de texto.
+    optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+    noPhone: Agregue un número de teléfono para gestionar el consentimiento de SMS.
+    attest: Certifico que el cliente aceptó recibir mensajes de texto
+    revoke: Revocar el consentimiento
+    attested: Consentimiento registrado
+    revoked: Consentimiento revocado
+    error: No se pudo actualizar el consentimiento de SMS
   deletedCustomer: Cliente eliminado
   form:
     customerPhoto: Foto del cliente
@@ -3216,7 +3229,7 @@ communications:
   sendNew: Enviar nuevo
   requestError: Hubo un problema con tu solicitud.
   sendNewMessage: Enviar nuevo mensaje
-  sendNewMessageDescription: Enviar un nuevo correo electrónico o mensaje de texto al cliente
+  sendNewMessageDescription: Enviar un nuevo correo electrónico al cliente
   closeDialogWarning: Perderás todo el contenido si cierras el diálogo.
   contentNotValid: El contenido no es válido.
   messageSent: Su mensaje fue enviado exitosamente.
@@ -3685,6 +3698,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: "Respuesta de mensaje de texto: notificar al usuario"
+text-message-reply:
+  handledBy: Respuesta de mensaje de texto
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Cuando faltan al menos {duration} antes de la cita
@@ -4034,4 +4049,3 @@ users:
       max: El título no debe tener más de 80 caracteres.
     bio:
       max: La biografía no debe tener más de 1024 caracteres.
-

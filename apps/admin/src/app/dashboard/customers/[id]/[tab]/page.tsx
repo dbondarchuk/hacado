@@ -3,6 +3,7 @@ import { AppointmentsTable } from "@/components/admin/appointments/table/table";
 import { AppointmentsTableAction } from "@/components/admin/appointments/table/table-action";
 import { CommunicationLogsTableAction } from "@/components/admin/communication-logs/table/table-action";
 import { CustomerForm } from "@/components/admin/customers/form";
+import { CustomerSmsConsent } from "@/components/admin/customers/sms-consent";
 import PageContainer from "@/components/admin/layout/page-container";
 import { PaymentsTable } from "@/components/admin/payments/table/table";
 import { PaymentsTableAction } from "@/components/admin/payments/table/table-action";
@@ -256,7 +257,22 @@ export default async function CustomerPage(props: Props) {
               </ResponsiveTabsList>
               <TabsContent value={detailsTab}>
                 {activeTab === detailsTab && (
-                  <CustomerForm initialData={customer} />
+                  <div className="flex flex-col gap-4">
+                    <CustomerForm initialData={customer} />
+                    <CustomerSmsConsent
+                      customerId={customer._id}
+                      hasPhone={Boolean(customer.phone)}
+                      canUpdate={canUpdateCustomer}
+                      isDeleted={customer.isDeleted}
+                      status={
+                        customer.phone
+                          ? await servicesContainer.notificationService.getCustomerSmsConsentStatus(
+                              customer.phone,
+                            )
+                          : { consented: false, optedOut: false }
+                      }
+                    />
+                  </div>
                 )}
               </TabsContent>
               {activeTab === appointmentsTab && (

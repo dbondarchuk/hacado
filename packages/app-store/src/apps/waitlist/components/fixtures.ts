@@ -158,6 +158,7 @@ export const demoBookingOptionsResponse: GetAppointmentOptionsResponse = {
   ],
   fieldsSchema: {},
   showPromoCode: true,
+  smsText: { notifications: true, reminders: true, other: false },
   members: [
     {
       id: "member-1",

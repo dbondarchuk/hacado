@@ -62,6 +62,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(parseError, { status: 400 });
   }
 
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (typeof appointmentRequest.smsConsent === "boolean") {
+    await servicesContainer.notificationService.recordCustomerSmsConsent({
+      phone: appointmentRequest.fields.phone,
+      consented: appointmentRequest.smsConsent,
+      source: "web_form",
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
+  }
+
   const otpGate = await assertBookingCustomerAccess(appointmentRequest, logger);
   if (otpGate) return otpGate;
 

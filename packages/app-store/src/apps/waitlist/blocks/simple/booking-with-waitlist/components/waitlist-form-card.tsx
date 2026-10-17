@@ -1,4 +1,5 @@
 "use client";
+import { clientApi } from "@hacado/api-sdk";
 import { AppointmentFields } from "@hacado/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useMemo } from "react";
@@ -19,12 +20,18 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   usePrevious,
+  useSyncSmsConsentField,
+  waitlistSmsConsentKind,
 } from "@hacado/ui";
 
 import {
   waitlistRequestDates,
   waitlistRequestFormSchemaBase,
 } from "../../../../models/waitlist";
+import {
+  useWaitlistSmsText,
+  WaitlistSmsConsent,
+} from "../../../waitlist-sms-consent";
 
 import { useI18n } from "@hacado/i18n/client";
 import { deepEqual } from "@hacado/utils";
@@ -62,7 +69,6 @@ export const WaitlistFormCard: React.FC = () => {
   const t = useI18n<WaitlistPublicNamespace, WaitlistPublicKeys>(
     waitlistPublicNamespace,
   );
-
   const minDate = useMemo(
     () => LuxonDateTime.now().startOf("day").toJSDate(),
     [],
@@ -74,7 +80,9 @@ export const WaitlistFormCard: React.FC = () => {
     setIsFormValid,
     setWaitlistTimes,
     waitlistTimes,
+    waitlistAppId,
   } = useScheduleContext();
+  const smsText = useWaitlistSmsText(waitlistAppId);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,19 +96,33 @@ export const WaitlistFormCard: React.FC = () => {
       }),
       asSoonAsPossible: waitlistTimes.asSoonAsPossible ?? true,
       dates: waitlistTimes.dates || [],
+      smsConsent: propsFields?.smsConsent === true,
     } as z.infer<typeof formSchema>,
   });
 
   const values = form.watch();
+  useSyncSmsConsentField(
+    (value) => form.setValue("smsConsent", value),
+    propsFields?.smsConsent,
+    values.smsConsent,
+  );
   const previousValues = usePrevious(values, values);
+  const smsKind = waitlistSmsConsentKind(smsText) ?? "";
+  const previousSmsKind = usePrevious(smsKind, smsKind);
   React.useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      const { asSoonAsPossible, dates, ...rest } = values;
+    if (deepEqual(values, previousValues) && smsKind === previousSmsKind) {
+      return;
+    }
+    {
+      const { asSoonAsPossible, dates, smsConsent, ...rest } = values;
 
-      setFields(rest as AppointmentFields);
+      setFields({
+        ...rest,
+        ...(waitlistSmsConsentKind(smsText) ? { smsConsent } : {}),
+      } as AppointmentFields);
       setWaitlistTimes({ asSoonAsPossible, dates });
     }
-  }, [values]);
+  }, [values, smsKind, previousValues, previousSmsKind]);
 
   const isFormValid = form.formState.isValid;
   React.useEffect(() => {
@@ -128,6 +150,9 @@ export const WaitlistFormCard: React.FC = () => {
             disabled={false}
             namespace={undefined}
           />
+          <p className="text-xs text-muted-foreground">
+            {t("block.email.notice")}
+          </p>
           <PhoneField
             control={form.control}
             name="phone"
@@ -135,6 +160,33 @@ export const WaitlistFormCard: React.FC = () => {
             data={{ label: "common.labels.formPhone" }}
             disabled={false}
             namespace={undefined}
+          />
+          <FormField
+            control={form.control}
+            name="smsConsent"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <WaitlistSmsConsent
+                    offer={smsText}
+                    id="waitlist-sms-consent-simple"
+                    phone={String(form.watch("phone") ?? "")}
+                    profilePhone={propsFields?.phone}
+                    profileConsent={propsFields?.smsConsent === true}
+                    checked={field.value === true}
+                    onCheckedChange={(value) => {
+                      field.onChange(value);
+                      field.onBlur();
+                    }}
+                    lookup={async (phone) => {
+                      const result =
+                        await clientApi.booking.getSmsConsent(phone);
+                      return result.consented === true;
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
           />
           <FormField
             control={form.control}

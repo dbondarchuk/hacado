@@ -54,6 +54,7 @@ export const OtpCard: React.FC = () => {
             name: result.name || fields.name,
             email: result.email || fields.email,
             phone: result.phone || fields.phone,
+            smsConsent: result.smsConsent === true,
           });
           const payment = await fetchPaymentInformation();
           setPaymentInformation(payment);

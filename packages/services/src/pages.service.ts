@@ -42,6 +42,7 @@ import { DateTime } from "luxon";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";
 import {
+  CONNECTED_APPS_COLLECTION_NAME,
   PAGES_COLLECTION_NAME,
   PAGE_FOOTERS_COLLECTION_NAME,
   PAGE_HEADERS_COLLECTION_NAME,
@@ -80,6 +81,55 @@ export class PagesService extends BaseService implements IPagesService {
     if (count >= FREE_TIER_LIMITS.pages) {
       throw new PageLimitReachedError(FREE_TIER_LIMITS.pages);
     }
+  }
+
+  public async findManageAppointmentUrl(
+    websiteUrl: string,
+  ): Promise<string | undefined> {
+    const db = await getDbConnection();
+    const base = websiteUrl.replace(/\/$/, "");
+    const cabinet = await db
+      .collection<{
+        data?: { publicPageDisabled?: boolean };
+      }>(CONNECTED_APPS_COLLECTION_NAME)
+      .findOne({
+        organizationId: this.organizationId,
+        name: "my-cabinet",
+      });
+
+    if (cabinet && cabinet.data?.publicPageDisabled !== true) {
+      return `${base}/my-cabinet`;
+    }
+
+    const pages = await db
+      .collection<Page>(PAGES_COLLECTION_NAME)
+      .find({ organizationId: this.organizationId, published: true })
+      .project({ slug: 1, content: 1 })
+      .toArray();
+
+    let cabinetPage: (typeof pages)[number] | undefined;
+    let modifyPage: (typeof pages)[number] | undefined;
+    for (const item of pages) {
+      const serialized = JSON.stringify(item.content ?? "");
+      if (!cabinetPage && serialized.includes('"MyCabinet"')) {
+        cabinetPage = item;
+      }
+
+      if (
+        !modifyPage &&
+        (serialized.includes("ModifyAppointmentFormSimple") ||
+          serialized.includes("ModifyAppointmentFormModern"))
+      ) {
+        modifyPage = item;
+      }
+    }
+
+    const page = cabinetPage ?? modifyPage;
+    if (!page?.slug) {
+      return undefined;
+    }
+
+    return `${base}/${String(page.slug).replace(/^\//, "")}`;
   }
 
   public async getPage(id: string): Promise<Page | null> {

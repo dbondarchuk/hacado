@@ -1,4 +1,8 @@
 import { Appointment, FieldType, ServiceField } from "@hacado/types";
+import {
+  parsePhoneNumberFromString,
+  type CountryCode,
+} from "libphonenumber-js";
 
 export const getPhoneField = (
   appointment: Appointment,
@@ -23,4 +27,26 @@ export const getPhoneField = (
   }
 
   return phone;
+};
+
+export const normalizeToE164 = (
+  phone: string,
+  defaultCountry: CountryCode = "US",
+): string | null => {
+  const trimmed = phone?.trim();
+  if (!trimmed || trimmed.includes("_")) {
+    return null;
+  }
+
+  const parsed = parsePhoneNumberFromString(trimmed, defaultCountry);
+  if (!parsed?.isValid()) {
+    return null;
+  }
+
+  return parsed.number;
+};
+
+export const getPhoneCountry = (phone: string): string | undefined => {
+  const parsed = parsePhoneNumberFromString(phone);
+  return parsed?.country;
 };

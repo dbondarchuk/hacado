@@ -12,6 +12,7 @@ export type AppScope = Extandable<
   | "mail-send"
   | "text-message-send"
   | "text-message-respond"
+  | "customer-appointment-text-message"
   | "event-subscriber"
   | "scheduled"
   | "schedule"

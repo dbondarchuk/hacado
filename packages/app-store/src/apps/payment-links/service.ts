@@ -47,11 +47,16 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+  smsCustomerName,
+  template,
   templateSafeWithError,
 } from "@hacado/utils";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { PAYMENT_LINK_VERIFIED_COOKIE } from "./const";
+import { getPaymentLinkSms } from "./messages";
 import { PaymentLinksSettings, paymentLinksSettingsSchema } from "./models";
 import {
   PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE,
@@ -478,6 +483,7 @@ export class PaymentLinksConnectedApp
           description,
         },
         paymentLinkUrl,
+        customerName: smsCustomerName(customer?.name),
       },
     });
 
@@ -569,13 +575,39 @@ export class PaymentLinksConnectedApp
       "Sending SMS",
     );
 
-    const templateId = settings.smsTemplateId;
-    if (!templateId) {
+    const smsOn = isSmsEnabled(settings.smsEnabled, settings.smsTemplateId);
+    if (!smsOn) {
       logger.error(
         { paymentId: payment._id, appId: appData._id },
-        "SMS template missing",
+        "SMS is disabled",
       );
 
+      throw new ConnectedAppRequestError(
+        "sms_disabled",
+        { appId: appData._id },
+        400,
+      );
+    }
+
+    let body: string;
+    if (isPlatformSmsCountry(request.to)) {
+      body = template(getPaymentLinkSms(args.config.language), args, true);
+    } else if (settings.smsTemplateId) {
+      const smsTemplate =
+        await this.props.services.templatesService.getTemplate(
+          settings.smsTemplateId,
+        );
+
+      if (!smsTemplate || smsTemplate.type !== "text-message") {
+        throw new ConnectedAppRequestError(
+          "sms_template_invalid",
+          { templateId: settings.smsTemplateId },
+          400,
+        );
+      }
+
+      body = templateSafeWithError(smsTemplate.value as string, args, true);
+    } else {
       throw new ConnectedAppRequestError(
         "sms_template_missing",
         { appId: appData._id },
@@ -583,26 +615,10 @@ export class PaymentLinksConnectedApp
       );
     }
 
-    const smsTemplate =
-      await this.props.services.templatesService.getTemplate(templateId);
-    if (!smsTemplate || smsTemplate.type !== "text-message") {
-      logger.error(
-        { paymentId: payment._id, appId: appData._id, templateId },
-        "SMS template invalid",
-      );
-
-      throw new ConnectedAppRequestError(
-        "sms_template_invalid",
-        { templateId },
-        400,
-      );
-    }
-
-    const body = templateSafeWithError(smsTemplate.value as string, args, true);
-
     await this.props.services.notificationService.sendTextMessage({
       phone: request.to,
       body,
+      requireConsent: true,
       participantType: "customer",
       customerId: customer._id,
       handledBy: {

@@ -1,7 +1,11 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
   getTextBeltConfiguration,
+  InboundTextMessageService,
   ServicesContainer,
+  SmsStore,
+  TelnyxMessagingWebhookService,
+  TelnyxService,
   TextBeltWebhookService,
 } from "@hacado/services";
 import dotenv from "dotenv";
@@ -99,7 +103,36 @@ async function handlePlatformTextbeltWebhook(
   return webhookService.processWebhook(request);
 }
 
+async function handlePlatformTelnyxWebhook(
+  request: Request,
+): Promise<Response> {
+  const webhook = new TelnyxMessagingWebhookService(
+    new SmsStore(),
+    new TelnyxService(),
+    (organizationId) => {
+      const services = ServicesContainer(organizationId);
+      return new InboundTextMessageService(
+        organizationId,
+        services.configurationService,
+        services.connectedAppsService,
+        services.bookingService,
+        services.customersService,
+        services.communicationLogsService,
+        services.notificationService,
+        services.organizationService,
+        services.teamService,
+      );
+    },
+  );
+
+  return webhook.processWebhook(request);
+}
+
 const routes: Route[] = [
+  {
+    pattern: /^\/api\/webhooks\/platform\/telnyx\/messaging\/?$/,
+    process: async (_match, request) => handlePlatformTelnyxWebhook(request),
+  },
   {
     // /api/webhooks/platform/textbelt/:organizationId
     pattern: /^\/api\/webhooks\/platform\/textbelt\/([^/]+)\/?$/,
@@ -202,7 +235,7 @@ async function startServer(): Promise<void> {
         JSON.stringify({
           error: "Not found",
           message:
-            "Expected path format: /api/webhooks/platform/textbelt/{organizationId}, /api/webhooks/apps/name/{appName}, /api/webhooks/apps/id/{organizationId}/{appId}, or /api/apps/{organizationId}/{appId}/[...slug]",
+            "Expected path format: /api/webhooks/platform/telnyx/messaging, /api/webhooks/platform/textbelt/{organizationId}, /api/webhooks/apps/name/{appName}, /api/webhooks/apps/id/{organizationId}/{appId}, or /api/apps/{organizationId}/{appId}/[...slug]",
         }),
       );
     } catch (error: any) {

@@ -18,6 +18,7 @@ export type VerifyOtpResponse = {
   email?: string;
   phone?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export type AuthOptionsResponse = {
@@ -31,6 +32,7 @@ export type CheckSessionResponse = {
   email?: string;
   phone?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export const getAuthOptions = async () => {

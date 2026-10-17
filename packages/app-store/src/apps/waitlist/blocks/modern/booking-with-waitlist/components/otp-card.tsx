@@ -85,6 +85,7 @@ export const OtpCard: React.FC = () => {
               name: result.name || localName.trim() || fields.name,
               email: result.email || fields.email,
               phone: result.phone || fields.phone,
+              smsConsent: result.smsConsent === true,
             });
 
             if (otpReturnStep === "packages" || otpReturnStep === "review") {

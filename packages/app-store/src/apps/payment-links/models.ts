@@ -18,6 +18,7 @@ export const paymentLinksSettingsSchema = z.object({
   verification: z.enum(paymentLinksVerificationModes),
   emailTemplateId: z.string().optional(),
   smsTemplateId: z.string().optional(),
+  smsEnabled: z.boolean().optional(),
   headerId: z.string().optional(),
   footerId: z.string().optional(),
   linkExpiryDays: z.coerce.number<number>().int().min(1).max(365).optional(),

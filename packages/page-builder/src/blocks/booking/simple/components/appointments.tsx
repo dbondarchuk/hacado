@@ -9,6 +9,7 @@ import {
   BookingRestriction,
   catalogNodesAtPath,
   creditsPerRedemptionForItem,
+  CustomerAppointmentTextOffer,
   CustomerPackage,
   FieldSchema,
   filterCatalogNodes,
@@ -37,6 +38,7 @@ export type AppointmentsProps = {
   successPage?: string;
   fieldsSchema: Record<string, FieldSchema>;
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   bookingRestriction?: BookingRestriction;
   catalog?: BookingCatalogNode[];
   packages?: AppointmentPackage[];
@@ -61,6 +63,7 @@ export const Appointments: React.FC<
   successPage,
   fieldsSchema,
   showPromoCode,
+  smsText,
   bookingRestriction,
   catalog,
   packages,
@@ -149,6 +152,7 @@ export const Appointments: React.FC<
           name: session.name || "",
           email: session.email || "",
           phone: session.phone || "",
+          smsConsent: session.smsConsent === true,
         });
         await refreshBookingOptions?.();
         return;
@@ -243,6 +247,7 @@ export const Appointments: React.FC<
         }
         fieldsSchema={fieldsSchema}
         showPromoCode={showPromoCode}
+        smsText={smsText}
         bookingRestriction={bookingRestriction}
         id={id}
         isEditor={isEditor}
@@ -388,6 +393,7 @@ export const Appointments: React.FC<
             name: result.name || "",
             email: result.email || "",
             phone: result.phone || "",
+            smsConsent: result.smsConsent === true,
           });
           await refreshBookingOptions?.();
         }}

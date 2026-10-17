@@ -1,7 +1,12 @@
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentAddon, AppointmentOption } from "@hacado/types";
+import {
+  AppointmentAddon,
+  AppointmentOption,
+  CustomerListModel,
+} from "@hacado/types";
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -23,6 +28,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   toastPromise,
+  waitlistSmsConsentKind,
 } from "@hacado/ui";
 import {
   AddonSelector,
@@ -30,13 +36,15 @@ import {
   OptionSelector,
   useReload,
 } from "@hacado/ui-admin";
+import { normalizeToE164 } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createWaitlistEntry } from "../actions";
+import { createWaitlistEntry, getWaitlistSmsText } from "../actions";
 import { WaitlistDatePicker } from "../components/waitlist-date-picker";
+import { CustomerWaitlistTextOffer } from "../customer-waitlist-text";
 import {
   CreateWaitlistEntryRequest,
   createWaitlistEntryRequestSchema,
@@ -56,6 +64,12 @@ export const NewEntryDialog = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [customer, setCustomer] = useState<CustomerListModel>();
+  const [attest, setAttest] = useState(false);
+  const [smsText, setSmsText] = useState<CustomerWaitlistTextOffer | null>(
+    null,
+  );
+
   const { reload } = useReload();
 
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
@@ -103,6 +117,23 @@ export const NewEntryDialog = ({
     }
   }, [calculatedDuration, optionId, form]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let cancelled = false;
+    getWaitlistSmsText(appId)
+      .then((value) => {
+        if (!cancelled) setSmsText(value);
+      })
+      .catch(() => {
+        if (!cancelled) setSmsText(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, appId]);
+
   const onSubmit = async (data: CreateWaitlistEntryRequest) => {
     setIsLoading(true);
 
@@ -111,12 +142,15 @@ export const NewEntryDialog = ({
         ...data,
         duration:
           data.duration && data.duration >= 1 ? data.duration : undefined,
+        ...(attest ? { smsConsent: true } : {}),
       };
       await toastPromise(createWaitlistEntry(appId, payload), {
         success: t("newEntry.toasts.success"),
         error: t("newEntry.toasts.error"),
       });
       form.reset();
+      setAttest(false);
+      setCustomer(undefined);
       reload();
       setIsOpen(false);
     } catch (error: any) {
@@ -159,6 +193,10 @@ export const NewEntryDialog = ({
                         <CustomerSelector
                           disabled={!!customerIdLock || isLoading}
                           value={field.value}
+                          onValueChange={(value) => {
+                            setCustomer(value);
+                            if (value?.smsConsent) setAttest(false);
+                          }}
                           onItemSelect={(val) => {
                             field.onChange(val);
                             field.onBlur();
@@ -169,6 +207,28 @@ export const NewEntryDialog = ({
                     </FormItem>
                   )}
                 />
+                {Boolean(normalizeToE164(customer?.phone ?? "")) &&
+                  waitlistSmsConsentKind(smsText) &&
+                  (customer?.smsConsent ? (
+                    <p className="text-sm text-muted-foreground">
+                      {tAdmin("appointments.form.smsConsentAlready")}
+                    </p>
+                  ) : (
+                    <div className="flex flex-row items-center gap-2">
+                      <Checkbox
+                        id="waitlist-sms-consent"
+                        disabled={isLoading}
+                        checked={attest}
+                        onCheckedChange={(value) => setAttest(value === true)}
+                      />
+                      <label
+                        htmlFor="waitlist-sms-consent"
+                        className="text-sm cursor-pointer"
+                      >
+                        {tAdmin("appointments.form.smsConsent")}
+                      </label>
+                    </div>
+                  ))}
                 <FormField
                   control={form.control}
                   name="optionId"
