@@ -1,6 +1,6 @@
-title: Bande
+title: Stripe
 app:
-  displayName: Bande
+  displayName: Stripe
   description: |-
     **Stripe** permet aux entreprises d'accepter les **cartes**, les **portefeuilles** et d'autres méthodes de paiement en ligne.
 

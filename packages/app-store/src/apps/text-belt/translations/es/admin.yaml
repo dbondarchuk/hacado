@@ -1,6 +1,6 @@
-title: SMS de cinturón de texto
+title: TextBelt SMS
 app:
-  displayName: SMS de cinturón de texto
+  displayName: TextBelt SMS
   description: Textbelt es una API de SMS sensata creada para desarrolladores que solo quieren enviar SMS. Miles de clientes prefieren Textbelt a otros proveedores de SMS por nuestra facilidad de configuración, paquetes de precios simples y predecibles y soporte personalizado.
 form:
   apiKey:

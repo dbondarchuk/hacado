@@ -1,6 +1,6 @@
-title: Paypal
+title: PayPal
 app:
-  displayName: Paypal
+  displayName: PayPal
   description: |-
     **PayPal** est un service de paiement que les gens utilisent pour payer en ligne avec leur **solde PayPal**, un **compte bancaire** associé, des **portefeuilles numériques** (**Google Pay** et **Apple Pay** lorsqu'ils sont disponibles) ou des **cartes** enregistrées dans PayPal.
 
@@ -37,7 +37,7 @@ form:
       label: Étiquette du bouton PayPal
       values:
         pay: Payer avec PayPal
-        paypal: Paypal
+        paypal: PayPal
   googlePay:
     label: Activer Google Pay
     description: Permettez aux clients de payer avec Google Pay via PayPal. Vous devez d'abord <link>activer Google Pay sur votre compte PayPal</link>.

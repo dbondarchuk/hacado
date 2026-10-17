@@ -1,6 +1,6 @@
-title: Reenviar
+title: Resend
 app:
-  displayName: Reenviar
+  displayName: Resend
   description: Resend es una API de correo electrónico moderna para desarrolladores. Conecte su cuenta de Resend con OAuth para enviar correo electrónico transaccional desde su dominio verificado.
 form:
   connect: Conéctese con <app></app>
@@ -9,7 +9,7 @@ form:
   fromEmail:
     label: Correo electrónico del remitente
     placeholder: hola@tudominio.com
-    tooltip: Debe ser una dirección en un dominio verificado en su cuenta de Reenvío
+    tooltip: Debe ser una dirección en un dominio verificado en su cuenta de Resend
   fromName:
     label: Nombre del remitente
     placeholder: tu negocio
@@ -18,11 +18,11 @@ form:
   saveSuccess: Configuración del remitente guardada
   saveError: No se pudo guardar la configuración del remitente
 statusText:
-  successfully_connected: Conectado exitosamente a Reenviar
+  successfully_connected: Conectado exitosamente a Resend
   successfully_configured: Configuración del remitente guardada
-  error_processing_configuration: Error al procesar Reenviar configuración
+  error_processing_configuration: Error al procesar la configuración de Resend
   oauth_error: Error de autenticación de OAuth
-  missing_oauth_config: El cliente de reenvío OAuth no está configurado
+  missing_oauth_config: El cliente OAuth de Resend no está configurado
   refresh_token_not_set: El token de actualización no está configurado
   redirect_request_does_not_contain_app_id: La solicitud de redireccionamiento no contiene el ID de la aplicación
   redirect_request_does_not_contain_authorization_code: La solicitud de redireccionamiento no contiene el código de autorización
@@ -30,7 +30,7 @@ statusText:
   pkce_verifier_missing: Falta el verificador OAuth PKCE. Inicie la conexión nuevamente.
   requires_sender_settings: Requiere configuración del remitente
   from_email_not_configured: El correo electrónico del remitente no está configurado
-  error_sending_email: Error al enviar el correo electrónico a través de Reenviar
+  error_sending_email: Error al enviar el correo electrónico a través de Resend
   error_parsing_ical_event: No se pudo analizar el evento de iCal
 validation:
   fromEmail:
@@ -39,7 +39,7 @@ validation:
     max: El nombre del remitente debe tener como máximo 256 caracteres.
 needsAttention:
   sender:
-    title: Finalizar la configuración de reenvío
+    title: Finalizar la configuración de Resend
     description: Agregue la configuración del remitente para que se pueda enviar correo electrónico transaccional.
     action: Configurar
 

@@ -212,9 +212,9 @@ wizard:
   integrations:
     title: Connecter le calendrier et les applications
     subtitle: Connectez les calendriers et les applications ici. Vous pouvez gérer chaque connexion ultérieurement sous Tableau de bord → Applications.
-    google: Google Agenda
+    google: Google Calendar
     googleDesc: Synchronisez les heures de pointe de vos agendas Google.
-    googleLimit: Connectez votre agenda Google pour une synchronisation bidirectionnelle.
+    googleLimit: Connectez votre Google Calendar pour une synchronisation bidirectionnelle.
     apple: Calendrier Apple (ICS)
     appleDesc: Abonnez-vous ou publiez la disponibilité à l'aide de flux de calendrier standard.
     appleLimit: Les flux ICS sont souvent en lecture seule ; parfait pour bloquer le temps.

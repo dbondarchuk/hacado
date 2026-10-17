@@ -1,6 +1,6 @@
-title: Perspectives
+title: Outlook
 app:
-  displayName: Perspectives
+  displayName: Outlook
   description: Microsoft Office 365 est une suite d'applications qui vous aide à rester connecté avec les autres et à accomplir vos tâches. Il comprend, sans toutefois s'y limiter, Microsoft Word, PowerPoint, Excel, Teams, OneNote et OneDrive. Office 365 vous permet de travailler à distance avec d'autres membres d'une équipe et de collaborer dans un environnement en ligne. Les versions Web et les applications de bureau/mobiles sont disponibles.
 form:
   connectWith: Connectez-vous avec <app></app>

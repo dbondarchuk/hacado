@@ -1,8 +1,8 @@
-title: Webhooks
+title: Crochets web
 app:
-  displayName: Webhooks
+  displayName: Crochets web
   description: |-
-    Les Webhooks vous permettent de connecter votre compte à des systèmes externes et d'automatiser les flux de travail en temps réel.
+    Les crochets web vous permettent de connecter votre compte à des systèmes externes et d'automatiser les flux de travail en temps réel.
     Envoyez instantanément des événements de rendez-vous, de client ou de paiement vers vos propres applications ou services tiers, permettant ainsi des intégrations puissantes et une synchronisation transparente des données.
 form:
   url:

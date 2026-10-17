@@ -3901,7 +3901,7 @@ users:
       unlinkMicrosoftSuccess: Cuenta de Microsoft desvinculada
       unlinkMicrosoftError: No se pudo desvincular la cuenta de Microsoft
       connectZoom: Conectar Zoom
-      zoomConnected: zoom está conectado
+      zoomConnected: Zoom está conectado
       zoomNotConnected: Zoom no está conectado
       unlinkZoom: Desvincular Zoom
       linkZoomSuccess: Cuenta de Zoom vinculada correctamente

@@ -1,6 +1,6 @@
-title: Alimentación ICS
+title: Fuente ICS
 app:
-  displayName: Alimentación ICS
+  displayName: Fuente ICS
   description: Mantenga su agenda actualizada importando automáticamente eventos desde enlaces de calendario externos (.ics)
 form:
   link:

@@ -2,7 +2,7 @@ title: Ganchos web
 app:
   displayName: Ganchos web
   description: |-
-    Webhooks le permite conectar su cuenta con sistemas externos y automatizar flujos de trabajo en tiempo real.
+    Los ganchos web le permiten conectar su cuenta con sistemas externos y automatizar flujos de trabajo en tiempo real.
     Envíe instantáneamente eventos de citas, clientes o pagos a sus propias aplicaciones o servicios de terceros, lo que permite integraciones potentes y una sincronización de datos perfecta.
 form:
   url:

@@ -212,7 +212,7 @@ wizard:
   integrations:
     title: Conectar calendario y aplicaciones
     subtitle: Conecte calendarios y aplicaciones aquí. Puede administrar cada conexión más adelante en Panel → Aplicaciones.
-    google: Calendario de Google
+    google: Google Calendar
     googleDesc: Sincroniza las horas punta desde tus calendarios de Google.
     googleLimit: Conecte su Google Calendar para una sincronización bidireccional.
     apple: Calendario de Apple (ICS)

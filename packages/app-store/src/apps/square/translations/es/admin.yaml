@@ -1,6 +1,6 @@
-title: Cuadrado
+title: Square
 app:
-  displayName: Cuadrado
+  displayName: Square
   description: |-
     **Square** es un servicio de pago que las empresas utilizan para aceptar **tarjetas de crédito y débito** y **billeteras digitales** (incluido **Google Pay** cuando esté disponible) en línea.
 

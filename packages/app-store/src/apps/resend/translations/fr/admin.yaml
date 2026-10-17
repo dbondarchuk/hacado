@@ -1,6 +1,6 @@
-title: Renvoyer
+title: Resend
 app:
-  displayName: Renvoyer
+  displayName: Resend
   description: Resend est une API de messagerie moderne pour les développeurs. Connectez votre compte Resend à OAuth pour envoyer des e-mails transactionnels à partir de votre domaine vérifié.
 form:
   connect: Connectez-vous avec <app></app>
@@ -9,7 +9,7 @@ form:
   fromEmail:
     label: E-mail de l'expéditeur
     placeholder: bonjour@votredomaine.com
-    tooltip: Doit être une adresse sur un domaine vérifié dans votre compte Renvoyer
+    tooltip: Doit être une adresse sur un domaine vérifié dans votre compte Resend
   fromName:
     label: Nom de l'expéditeur
     placeholder: Votre entreprise
@@ -18,11 +18,11 @@ form:
   saveSuccess: Paramètres de l'expéditeur enregistrés
   saveError: Échec de l'enregistrement des paramètres de l'expéditeur
 statusText:
-  successfully_connected: Connexion réussie à Renvoyer
+  successfully_connected: Connexion réussie à Resend
   successfully_configured: Paramètres de l'expéditeur enregistrés
-  error_processing_configuration: Erreur de traitement Renvoyer la configuration
+  error_processing_configuration: Erreur lors du traitement de la configuration Resend
   oauth_error: Erreur d'authentification OAuth
-  missing_oauth_config: Le client de renvoi OAuth n'est pas configuré
+  missing_oauth_config: Le client OAuth Resend n'est pas configuré
   refresh_token_not_set: Le jeton d'actualisation n'est pas défini
   redirect_request_does_not_contain_app_id: La demande de redirection ne contient pas d'ID d'application
   redirect_request_does_not_contain_authorization_code: La demande de redirection ne contient pas de code d'autorisation
@@ -30,7 +30,7 @@ statusText:
   pkce_verifier_missing: Le vérificateur OAuth PKCE est manquant. Relancez la connexion.
   requires_sender_settings: Nécessite les paramètres de l'expéditeur
   from_email_not_configured: L'e-mail de l'expéditeur n'est pas configuré
-  error_sending_email: Erreur lors de l'envoi de l'e-mail via Renvoyer
+  error_sending_email: Erreur lors de l'envoi de l'e-mail via Resend
   error_parsing_ical_event: Échec de l'analyse de l'événement iCal
 validation:
   fromEmail:
@@ -39,7 +39,7 @@ validation:
     max: Le nom de l'expéditeur doit comporter au maximum 256 caractères.
 needsAttention:
   sender:
-    title: Terminer la configuration du renvoi
+    title: Terminer la configuration de Resend
     description: Ajoutez des paramètres d'expéditeur pour que les e-mails transactionnels puissent être envoyés.
     action: Configurer
 

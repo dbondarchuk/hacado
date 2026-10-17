@@ -1,19 +1,19 @@
-title: Google Agenda
+title: Google Calendar
 app:
-  displayName: Google Agenda
+  displayName: Google Calendar
   description: Google Calendar est un service de gestion du temps et de planification développé par Google. Permet aux utilisateurs de créer et de modifier des événements, avec des options disponibles pour le type et l'heure. Disponible pour toute personne disposant d'un compte Gmail sur les versions mobile et Web.
 primaryCalendar: Primaire
 form:
   selectCalendar:
     label: Sélectionnez le calendrier
     searchLabel: Sélectionnez le calendrier
-    tooltip: Choisissez quel agenda Google utiliser pour vos rendez-vous
+    tooltip: Choisissez quel Google Calendar utiliser pour vos rendez-vous
   connect: Connectez-vous avec <app></app>
   reconnect: Reconnecter <app></app>
   pendingAuthorization: En attente d'autorisation
 statusText:
-  successfully_set_up: Connexion réussie à Google Agenda
-  error_processing_configuration: Erreur lors du traitement de la configuration de Google Agenda
+  successfully_set_up: Connexion réussie à Google Calendar
+  error_processing_configuration: Erreur lors du traitement de la configuration de Google Calendar
   failed_to_retrieve_calendar_list: Échec de la récupération de la liste des calendriers
   calendar_list_retrieved: Liste de calendriers récupérée avec succès
   calendar_set: Calendrier défini avec succès
@@ -22,7 +22,7 @@ statusText:
   error_creating_calendar_event: Erreur lors de la création d'un événement d'agenda
   error_updating_calendar_event: Erreur lors de la mise à jour de l'événement d'agenda
   error_deleting_calendar_event: Erreur lors de la suppression d'un événement d'agenda
-  error_getting_busy_times: Erreur lors de l'obtention des heures d'occupation à partir de Google Agenda
+  error_getting_busy_times: Erreur lors de l'obtention des heures d'occupation à partir de Google Calendar
   oauth_error: Erreur d'authentification OAuth
   invalid_credentials: Identifiants invalides
   calendar_not_found: Calendrier introuvable

@@ -1,6 +1,6 @@
-title: Raya
+title: Stripe
 app:
-  displayName: Raya
+  displayName: Stripe
   description: |-
     **Stripe** permite a las empresas aceptar **tarjetas**, **billeteras** y otros métodos de pago en línea.
 

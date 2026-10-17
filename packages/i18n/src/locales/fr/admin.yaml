@@ -3902,8 +3902,8 @@ users:
       unlinkMicrosoftError: Impossible de dissocier le compte Microsoft
       connectZoom: Connecter Zoom
       zoomConnected: Zoom est connecté
-      zoomNotConnected: Le zoom n'est pas connecté
-      unlinkZoom: Dissocier le zoom
+      zoomNotConnected: Zoom n'est pas connecté
+      unlinkZoom: Dissocier Zoom
       linkZoomSuccess: Compte Zoom lié avec succès
       unlinkZoomSuccess: Compte Zoom dissocié
       unlinkZoomError: Impossible de dissocier le compte Zoom
@@ -3930,11 +3930,11 @@ users:
         password:
           required: Le mot de passe est requis
     unlinkZoom:
-      title: Dissocier le zoom
+      title: Dissocier Zoom
       description: Entrez votre mot de passe pour confirmer la dissociation de votre compte Zoom
       form:
         password: Mot de passe
-      confirm: Dissocier le zoom
+      confirm: Dissocier Zoom
       toasts:
         invalidPassword: Le mot de passe est incorrect
       validation:

@@ -1,6 +1,6 @@
-title: Carré
+title: Square
 app:
-  displayName: Carré
+  displayName: Square
   description: |-
     **Square** est un service de paiement que les entreprises utilisent pour accepter des **cartes de crédit et de débit** et des **portefeuilles numériques** (y compris **Google Pay** lorsqu'il est disponible) en ligne.
 
