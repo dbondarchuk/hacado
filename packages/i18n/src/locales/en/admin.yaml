@@ -386,6 +386,30 @@ billing:
       title: SMS top-up complete
       message: "Added {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. They are used after your included subscription pool."
       action: Open billing settings
+commandPalette:
+  placeholder: Search
+  typeHint: "Search one type with a prefix, such as customer: or blog:."
+  empty: No results
+  loading: Searching…
+  viewAll: View all {label}
+  groups:
+    actions: Quick actions
+    apps: Apps
+    installedApps: Installed apps
+  actions:
+    newAppointment: New appointment
+    newCustomer: New customer
+    newPage: New page
+    newHeader: New header
+    newFooter: New footer
+    newTemplate: New email template
+    newOption: New service
+    newAddon: New add-on
+    newField: New field
+    newDiscount: New discount
+    newGiftCard: New gift card
+    newPackage: New package
+    newAsset: New asset
 navigation:
   overview: Overview
   dashboard: Dashboard

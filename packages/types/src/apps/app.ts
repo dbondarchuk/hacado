@@ -34,6 +34,7 @@ export type AppScope = Extandable<
   | "public-event-context-provider"
   | "public-page-provider"
   | "payment-link"
+  | "command-search-provider"
 >;
 
 export type AppSetupProps = {

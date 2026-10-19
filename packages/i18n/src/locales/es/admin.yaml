@@ -383,6 +383,30 @@ billing:
       title: Recarga por SMS completa
       message: Se agregó {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Se utilizan después de su grupo de suscripción incluido.
       action: Abrir configuración de facturación
+commandPalette:
+  placeholder: Buscar
+  typeHint: "Busca un solo tipo con un prefijo, como customer: o blog:."
+  empty: Sin resultados
+  loading: Buscando…
+  viewAll: Ver todo {label}
+  groups:
+    actions: Acciones rápidas
+    apps: Apps
+    installedApps: Apps instaladas
+  actions:
+    newAppointment: Nueva cita
+    newCustomer: Nuevo cliente
+    newPage: Nueva página
+    newHeader: Nuevo encabezado
+    newFooter: Nuevo pie de página
+    newTemplate: Nueva plantilla de correo
+    newOption: Nuevo servicio
+    newAddon: Nuevo complemento
+    newField: Nuevo campo
+    newDiscount: Nuevo descuento
+    newGiftCard: Nueva tarjeta de regalo
+    newPackage: Nuevo paquete
+    newAsset: Nuevo archivo
 navigation:
   overview: Descripción general
   dashboard: Panel

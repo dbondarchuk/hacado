@@ -383,6 +383,30 @@ billing:
       title: Recharge SMS terminée
       message: Ajout de {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Ils sont utilisés après votre pool d'abonnement inclus.
       action: Ouvrir les paramètres de facturation
+commandPalette:
+  placeholder: Rechercher
+  typeHint: "Cherchez un seul type avec un préfixe, comme customer: ou blog:."
+  empty: Aucun résultat
+  loading: Recherche…
+  viewAll: Tout voir {label}
+  groups:
+    actions: Actions rapides
+    apps: Apps
+    installedApps: Apps installées
+  actions:
+    newAppointment: Nouveau rendez-vous
+    newCustomer: Nouveau client
+    newPage: Nouvelle page
+    newHeader: Nouvel en-tête
+    newFooter: Nouveau pied de page
+    newTemplate: Nouveau modèle d'e-mail
+    newOption: Nouveau service
+    newAddon: Nouveau supplément
+    newField: Nouveau champ
+    newDiscount: Nouvelle réduction
+    newGiftCard: Nouvelle carte-cadeau
+    newPackage: Nouveau forfait
+    newAsset: Nouveau fichier
 navigation:
   overview: Aperçu
   dashboard: Tableau de bord

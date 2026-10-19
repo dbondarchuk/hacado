@@ -383,6 +383,30 @@ billing:
       title: SMS-докупку завершено
       message: Додано {credits, plural, one {кредит} few {# кредити} many {# кредитів} other {# кредиту}}. Використовуються після включеного обсягу підписки.
       action: Відкрити білінг
+commandPalette:
+  placeholder: Пошук
+  typeHint: "Шукайте один тип з префіксом, наприклад customer: або blog:."
+  empty: Нічого не знайдено
+  loading: Пошук…
+  viewAll: Показати всі {label}
+  groups:
+    actions: Швидкі дії
+    apps: Додатки
+    installedApps: Встановлені додатки
+  actions:
+    newAppointment: Новий запис
+    newCustomer: Новий клієнт
+    newPage: Нова сторінка
+    newHeader: Новий хедер
+    newFooter: Новий футер
+    newTemplate: Новий шаблон листа
+    newOption: Нова послуга
+    newAddon: Новий додаток
+    newField: Нове поле
+    newDiscount: Нова знижка
+    newGiftCard: Нова подарункова картка
+    newPackage: Новий пакет
+    newAsset: Новий файл
 navigation:
   overview: Огляд
   dashboard: Панель керування

@@ -5,6 +5,7 @@ import {
   Appointment,
   BOOKING_TRACKING_STEP_EVENT_TYPE,
   BookingTrackingEventData,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
@@ -14,6 +15,7 @@ import {
   DemoArguments,
   effectiveAddonDuration,
   EventEnvelope,
+  ICommandSearchProvider,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -78,7 +80,8 @@ export class WaitlistConnectedApp
     IEventSubscriber,
     IDashboardNotifierApp,
     IDemoArgumentsProvider,
-    ICommunicationTemplatesProvider
+    ICommunicationTemplatesProvider,
+    ICommandSearchProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -414,6 +417,40 @@ export class WaitlistConnectedApp
 
   public async getCommunicationTemplates(): Promise<TemplateTemplatesList> {
     return WaitlistTemplates;
+  }
+
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    if (!hasPermission(input.user, "appointment", "read")) return [];
+    if (input.type && input.type !== "waitlist") return [];
+
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const entries = await repository.getWaitlistEntries({
+      search: input.query,
+      limit: input.limit,
+      offset: 0,
+    });
+
+    if (entries.items.length === 0) return [];
+
+    return [
+      {
+        id: `${appData._id}:waitlist`,
+        labelKey: "app_waitlist_admin.app.pages.main.title",
+        listHref: `/dashboard/waitlist?search=${encodeURIComponent(input.query)}`,
+        items: entries.items.map((entry) => ({
+          id: entry._id,
+          title: entry.name,
+          subtitle: waitlistSubtitle(entry.option?.name, entry.email),
+          href: `/dashboard/waitlist/appointment/new?id=${entry._id}`,
+        })),
+      },
+    ];
   }
 
   protected getRepositoryService(appId: string, organizationId: string) {
@@ -1048,4 +1085,13 @@ export class WaitlistConnectedApp
       throw error;
     }
   }
+}
+
+function waitlistSubtitle(...parts: Array<string | null | undefined>) {
+  const value = parts
+    .map((part) => part?.trim())
+    .filter((part): part is string => Boolean(part))
+    .join(" · ");
+
+  return value || undefined;
 }

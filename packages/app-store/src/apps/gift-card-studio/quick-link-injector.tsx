@@ -1,5 +1,5 @@
 import { DashboardQuickLinkInjectorApp } from "@hacado/types";
-import { Receipt, ShoppingCart } from "lucide-react";
+import { Gift, Receipt, ShoppingCart } from "lucide-react";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
 import { GiftCardStudioManualPurchaseQuickLink } from "./quick-link-manual-purchase";
 import {
@@ -20,6 +20,14 @@ export const GiftCardStudioQuickLinkInjector: DashboardQuickLinkInjectorApp<
       icon: <Receipt className="size-4" strokeWidth={1.5} />,
       notificationsCountKey: GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY,
       requiredPermission: { resource: "giftCard", action: "read" },
+    },
+    {
+      id: "gift-card-studio-new-design",
+      order: 142,
+      href: "/dashboard/gift-card-studio/new",
+      label: "app_gift-card-studio_admin.designs.table.actions.create",
+      icon: <Gift className="size-4" strokeWidth={1.5} />,
+      requiredPermission: { resource: "giftCard", action: "update" },
     },
     {
       id: "gift-card-studio-manual-purchase",

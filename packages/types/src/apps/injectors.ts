@@ -49,6 +49,8 @@ export type DashboardQuickLinkInjectorItem<
         label: string;
         icon: ReactNode;
         className?: string;
+        open?: boolean;
+        onOpenChange?: (open: boolean) => void;
       }>;
     }
 );

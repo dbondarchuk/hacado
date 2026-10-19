@@ -5,6 +5,7 @@ import { canReadActivity } from "@hacado/utils";
 import { Globe2 } from "lucide-react";
 import { ActivityFeedHeaderButton } from "./activity-feed-header-button";
 import { BreadcrumbsRender } from "./breadcrumbs";
+import { CommandPaletteTrigger } from "./command-palette";
 import { HeaderHomeAware } from "./header-home-aware";
 import ThemeToggle from "./theme-toggle/theme-toggle";
 
@@ -29,6 +30,7 @@ export default async function Header({}: {}) {
         </div>
 
         <div className="flex items-center gap-1.5">
+          <CommandPaletteTrigger />
           {showActivity ? <ActivityFeedHeaderButton /> : null}
           <ThemeToggle />
           <Link

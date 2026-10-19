@@ -8,6 +8,7 @@ import {
 import {
   AppJobRequest,
   CollectPayment,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppUninstallResult,
@@ -17,6 +18,7 @@ import {
   EventSource,
   GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
   GiftCardStatusChangedPayload,
+  ICommandSearchProvider,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -34,7 +36,7 @@ import {
   systemEventSource,
   TemplateTemplatesList,
 } from "@hacado/types";
-import { formatAmountWithCurrency } from "@hacado/utils";
+import { formatAmountWithCurrency, hasPermission } from "@hacado/utils";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
@@ -119,7 +121,8 @@ export class GiftCardStudioConnectedApp
     IDemoArgumentsProvider,
     ICommunicationTemplatesProvider,
     IDashboardNotifierApp,
-    IEventSubscriber
+    IEventSubscriber,
+    ICommandSearchProvider
 {
   protected readonly loggerFactory: LoggerFactory;
 
@@ -619,6 +622,87 @@ export class GiftCardStudioConnectedApp
       { appId: appData._id, jobData },
       "Successfully processed Gift Card Studio job",
     );
+  }
+
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    const type = input.type;
+    if (
+      type &&
+      type !== "gift-card-studio" &&
+      type !== "gift-card-designs" &&
+      type !== "gift-card-purchases"
+    ) {
+      return [];
+    }
+
+    const canUpdate = hasPermission(input.user, "giftCard", "update");
+    const canRead = hasPermission(input.user, "giftCard", "read");
+    const wantDesigns = canUpdate && type !== "gift-card-purchases";
+    const wantPurchases = canRead && type !== "gift-card-designs";
+    if (!wantDesigns && !wantPurchases) return [];
+
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const [designs, purchases] = await Promise.all([
+      wantDesigns
+        ? repository.getDesigns({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+            isArchived: [false],
+          })
+        : Promise.resolve({ items: [] }),
+      wantPurchases
+        ? repository.getPurchasedGiftCards({
+            search: input.query,
+            limit: input.limit,
+            offset: 0,
+          })
+        : Promise.resolve({ items: [] }),
+    ]);
+
+    const groups = [];
+
+    if (designs.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:gift-card-designs`,
+        labelKey: "app_gift-card-studio_admin.app.pages.main.title",
+        listHref: `/dashboard/gift-card-studio?search=${encodeURIComponent(input.query)}`,
+        items: designs.items.map((design) => ({
+          id: design._id,
+          title: design.name,
+          href: `/dashboard/gift-card-studio/edit?id=${design._id}`,
+        })),
+      });
+    }
+
+    if (purchases.items.length > 0) {
+      groups.push({
+        id: `${appData._id}:gift-card-purchases`,
+        labelKey: "app_gift-card-studio_admin.app.pages.purchases.title",
+        listHref: `/dashboard/gift-card-studio/purchases?search=${encodeURIComponent(input.query)}`,
+        items: purchases.items.map((purchase) => ({
+          id: purchase._id,
+          title:
+            purchase.giftCardCode || purchase.toName || purchase.customer?.name,
+          subtitle: [purchase.designName, purchase.customer?.name]
+            .filter(Boolean)
+            .join(" · "),
+          href: `/dashboard/gift-card-studio/purchases?search=${encodeURIComponent(purchase.giftCardCode || input.query)}`,
+          image: personImage(
+            purchase.customer?.name,
+            purchase.customer?.avatar,
+          ),
+        })),
+      });
+    }
+
+    return groups;
   }
 
   private getRepositoryService(appId: string, organizationId: string) {
@@ -2037,6 +2121,21 @@ export class GiftCardStudioConnectedApp
     const base64 = Buffer.from(svg, "utf-8").toString("base64");
     return `data:image/svg+xml;base64,${base64}`;
   }
+}
+
+function personImage(name?: string | null, src?: string | null) {
+  const label = name?.trim();
+  if (!label && !src) return undefined;
+
+  const fallback =
+    label
+      ?.split(" ")
+      .map((part) => part[0]?.toUpperCase())
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("") || "?";
+
+  return { src: src || undefined, fallback };
 }
 
 function escapeXml(s: string): string {
