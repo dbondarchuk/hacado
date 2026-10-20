@@ -20,10 +20,13 @@ import {
 import { TextMessageBuilder } from "@hacado/ui-admin-kit";
 import React from "react";
 import {
+  renderBuiltInSms,
+  SmsExample,
   smsPreviewLanguage,
   useSmsPreviewArgs,
 } from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { TextMessageAutoReplyApp } from "./app";
 import { getAutoReplySms } from "./messages";
 import {
@@ -55,6 +58,7 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
     TextMessageAutoReplyAdminKeys
   >(textMessageAutoReplyAdminNamespace);
   const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
   const messageArgs = previewArgs
     ? {
         ...previewArgs,
@@ -66,6 +70,7 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
     : undefined;
 
   React.useEffect(() => {
+    if (!allowCustom) return;
     if (!previewArgs) return;
     if (appId && isDataLoading) return;
 
@@ -80,7 +85,7 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
         shouldValidate: true,
       },
     );
-  }, [appId, form, isDataLoading, previewArgs]);
+  }, [allowCustom, appId, form, isDataLoading, previewArgs]);
 
   return (
     <>
@@ -112,13 +117,23 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
                   );
                 }}
               />
-              <FormField
-                control={form.control}
-                name="replyText"
-                render={({ field }) => (
-                  <TextMessageBuilder args={messageArgs} field={field} />
-                )}
-              />
+              {allowCustom ? (
+                <FormField
+                  control={form.control}
+                  name="replyText"
+                  render={({ field }) => (
+                    <TextMessageBuilder args={messageArgs} field={field} />
+                  )}
+                />
+              ) : (
+                <SmsExample
+                  text={renderBuiltInSms(
+                    getAutoReplySms(smsPreviewLanguage(previewArgs)),
+                    messageArgs,
+                    sharedPool,
+                  )}
+                />
+              )}
             </div>
             <Button
               disabled={isLoading || !isValid}

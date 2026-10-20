@@ -37,6 +37,7 @@ import {
   smsPreviewLanguage,
   useSmsPreviewArgs,
 } from "../../components/sms-example";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { checkUniqueName, create, update } from "./actions";
 import { getAppointmentReminderSms } from "./messages";
 import {
@@ -126,6 +127,7 @@ export const AppointmentNotificationForm: React.FC<{
   const itemChannel = form.watch("channel");
   const appointmentCountType = form.watch("appointmentCount.type");
   const smsKind = form.watch("smsKind") ?? "reminder";
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
 
   return (
     <Form {...form}>
@@ -533,7 +535,11 @@ export const AppointmentNotificationForm: React.FC<{
                     <FormLabel>{t("form.textMessage.kind.label")}</FormLabel>
                     <Select
                       disabled={loading}
-                      value={field.value ?? "reminder"}
+                      value={
+                        !allowCustom && field.value === "followUp"
+                          ? "reminder"
+                          : (field.value ?? "reminder")
+                      }
                       onValueChange={(value) => field.onChange(value)}
                     >
                       <FormControl>
@@ -545,12 +551,14 @@ export const AppointmentNotificationForm: React.FC<{
                         <SelectItem value="reminder">
                           {t("form.textMessage.kind.reminder")}
                         </SelectItem>
-                        <SelectItem value="followUp">
-                          {t("form.textMessage.kind.followUp")}
-                        </SelectItem>
+                        {allowCustom ? (
+                          <SelectItem value="followUp">
+                            {t("form.textMessage.kind.followUp")}
+                          </SelectItem>
+                        ) : null}
                       </SelectContent>
                     </Select>
-                    {smsKind === "reminder" && (
+                    {smsKind === "reminder" || !allowCustom ? (
                       <>
                         <FormDescription>
                           {t("form.textMessage.reminderDescription")}
@@ -561,15 +569,40 @@ export const AppointmentNotificationForm: React.FC<{
                               smsPreviewLanguage(messageArgs),
                             ),
                             messageArgs,
+                            sharedPool,
                           )}
                         />
                       </>
-                    )}
+                    ) : null}
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {smsKind === "followUp" && (
+              {allowCustom && smsKind !== "followUp" ? (
+                <FormField
+                  control={form.control}
+                  name="templateId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <span>{t("form.template.label")}</span>
+                        <InfoTooltip>{t("form.template.tooltip")}</InfoTooltip>
+                      </FormLabel>
+                      <FormControl>
+                        <TemplateSelector
+                          type="text-message"
+                          allowClear
+                          disabled={loading}
+                          value={field.value}
+                          onItemSelect={(value) => field.onChange(value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : null}
+              {allowCustom && smsKind === "followUp" && (
                 <FormField
                   control={form.control}
                   name="followUpText"

@@ -13,6 +13,7 @@ import {
 } from "@hacado/types";
 import { normalizeToE164 } from "@hacado/utils";
 import { Job } from "bullmq";
+import { readSmsMessagingAccess } from "../../text-message/messaging-access";
 import { SmsStore } from "../../text-message/sms-store";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQNotificationConfig } from "./types";
@@ -106,6 +107,10 @@ export class BullMQNotificationService
     }
 
     return store.latestConsent(this.organizationId, normalized);
+  }
+
+  public getSmsMessagingAccess() {
+    return readSmsMessagingAccess(this.organizationId);
   }
 
   public async getCustomerSmsConsentStatus(

@@ -14,6 +14,7 @@ import {
   type ScheduleChangedPayload,
 } from "@hacado/types";
 import {
+  appendSharedPoolSuffix,
   canUseMemberCalendarSources,
   getAdminUrl,
   getArguments,
@@ -705,11 +706,29 @@ export class CustomerWaitlistNotificationsJobProcessor {
     ) {
       let smsBody: string | undefined;
       if (isPlatformSmsCountry(entry.phone)) {
-        smsBody = template(
+        const builtIn = template(
           getWaitlistSmsBodies(args.config.language).slotOpened,
           args,
           true,
         );
+
+        const customVerified = (
+          await this.props.services.notificationService.getSmsMessagingAccess()
+        ).customVerified;
+
+        const stored =
+          customVerified && config.slotOpenedSmsTemplateId
+            ? await this.props.services.templatesService.getTemplate(
+                config.slotOpenedSmsTemplateId,
+              )
+            : null;
+
+        smsBody =
+          stored?.type === "text-message"
+            ? templateSafeWithError(stored.value, args, true)
+            : customVerified
+              ? builtIn
+              : appendSharedPoolSuffix(builtIn);
       } else if (config.slotOpenedSmsTemplateId) {
         const stored = await this.props.services.templatesService.getTemplate(
           config.slotOpenedSmsTemplateId,
@@ -808,11 +827,29 @@ export class CustomerWaitlistNotificationsJobProcessor {
 
     let smsBody: string | undefined;
     if (isPlatformSmsCountry(entry.phone)) {
-      smsBody = template(
+      const builtIn = template(
         getWaitlistSmsBodies(args.config.language).leaveConfirm,
         args,
         true,
       );
+
+      const customVerified = (
+        await this.props.services.notificationService.getSmsMessagingAccess()
+      ).customVerified;
+
+      const stored =
+        customVerified && config.leaveWaitlistSmsTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              config.leaveWaitlistSmsTemplateId,
+            )
+          : null;
+
+      smsBody =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value, args, true)
+          : customVerified
+            ? builtIn
+            : appendSharedPoolSuffix(builtIn);
     } else if (config.leaveWaitlistSmsTemplateId) {
       const stored = await this.props.services.templatesService.getTemplate(
         config.leaveWaitlistSmsTemplateId,

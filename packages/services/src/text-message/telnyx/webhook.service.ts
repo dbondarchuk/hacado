@@ -1,13 +1,13 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ITextMessageSender } from "@hacado/types";
 import { maskify, normalizeToE164 } from "@hacado/utils";
-import { Telnyx } from "telnyx";
 import { SMS_OPT_IN_KEYWORDS, SMS_OPT_OUT_KEYWORDS } from "../compliance";
 import { InboundTextMessageService } from "../inbound-reply.service";
 import { getHelpSms } from "../messages";
+import { SmsRegistrationStore } from "../registration-store";
 import { SmsStore } from "../sms-store";
-import { getTelnyxConfiguration } from "./config";
 import { TelnyxService } from "./service";
+import { TelnyxWebhookConfigError, unwrapTelnyxWebhook } from "./verify";
 
 type TelnyxMessagingEvent = {
   data?: {
@@ -42,33 +42,24 @@ export class TelnyxMessagingWebhookService {
     ) => InboundTextMessageService = () => {
       throw new Error("Inbound text handler is not configured");
     },
+    private readonly registrationStore = new SmsRegistrationStore(),
   ) {}
 
   public async processWebhook(request: Request): Promise<Response> {
     const logger = this.loggerFactory("processWebhook");
     const bodyText = await request.text();
-    const headers: Record<string, string> = {};
-    request.headers.forEach((value, key) => {
-      headers[key] = value;
-    });
-
-    const config = getTelnyxConfiguration();
-    if (!config.publicKey) {
-      logger.error("TELNYX_PUBLIC_KEY is not configured");
-      return Response.json({ success: false }, { status: 500 });
-    }
 
     let event: TelnyxMessagingEvent;
     try {
-      const client = new Telnyx({
-        apiKey: config.apiKey || "webhook",
-        publicKey: config.publicKey,
-      });
-
-      event = (await client.webhooks.unwrap(bodyText, {
-        headers,
-      })) as TelnyxMessagingEvent;
+      event = await unwrapTelnyxWebhook<TelnyxMessagingEvent>(
+        bodyText,
+        request.headers,
+      );
     } catch (error) {
+      if (error instanceof TelnyxWebhookConfigError) {
+        return Response.json({ success: false }, { status: 500 });
+      }
+
       logger.warn(
         { error: error instanceof Error ? error.message : "invalid signature" },
         "Rejected Telnyx webhook",
@@ -107,6 +98,7 @@ export class TelnyxMessagingWebhookService {
       status === "delivery_failed" ||
       status === "sending_failed" ||
       Boolean(errorCode);
+
     await this.smsStore.updateStatusByTextId(
       textId,
       failed ? "failed" : "delivered",
@@ -172,6 +164,20 @@ export class TelnyxMessagingWebhookService {
     const send = await this.smsStore.findLatestSendByPhone(phone);
     if (!send) {
       return;
+    }
+
+    const destination = normalizeToE164(payload?.to?.[0]?.phone_number ?? "");
+    if (destination) {
+      const profile =
+        await this.registrationStore.getProfileNumber(destination);
+
+      if (
+        profile &&
+        (profile.status !== "assigned" ||
+          profile.organizationId !== send.organizationId)
+      ) {
+        return;
+      }
     }
 
     await this.inboundForOrganization(send.organizationId).handle({

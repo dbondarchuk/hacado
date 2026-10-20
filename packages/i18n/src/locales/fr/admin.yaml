@@ -417,6 +417,7 @@ navigation:
   paymentsInbox: Boîte de réception des paiements
   financialOverview: Aperçu
   customerAccess: Accès client
+  textMessaging: Messages texte
   schedule: Calendrier
   defaultSchedule: Calendrier par défaut
   services: Services
@@ -3100,6 +3101,63 @@ settings:
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
+  textMessaging:
+    title: Messages texte
+    description: "Utilisez vos propres modèles depuis un numéro dédié. Les textos clients utilisent un numéro partagé jusqu'à la vérification."
+    countryOnly: "Les messages personnalisés sont offerts aux entreprises des États-Unis et du Canada."
+    status:
+      pending: "La révision est en cours. Les textos continuent d'utiliser le numéro partagé jusqu'à l'approbation."
+      verified: "Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro."
+      rejected: "La vérification n'a pas été approuvée."
+      preparing: "Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt."
+    form:
+      enabled: Activer les messages personnalisés
+      enabledDescription: "Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles."
+      disableTitle: Désactiver les messages personnalisés?
+      disableDescription: "Vous devrez soumettre la vérification de nouveau pour les réactiver. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas."
+      disableConfirm: Désactiver
+      disableCancel: Le garder actif
+      unlock: Déverrouiller
+      submit: Envoyer
+      entityType:
+        label: "Type d'entreprise"
+        PRIVATE_PROFIT: Entreprise
+        SOLE_PROPRIETOR: Propriétaire unique
+        NON_PROFIT: Organisme de bienfaisance
+      legalName:
+        label: Nom légal
+      doingBusinessAs:
+        label: Nom commercial
+        hint: Ajoutez-le lorsque le nom de réservation diffère du nom légal.
+      registrationNumber:
+        label: "EIN ou numéro d'entreprise"
+        hint: "Un EIN américain ou un numéro d'entreprise canadien."
+        soleHint: Un propriétaire unique peut laisser ce champ vide.
+      website:
+        label: Site web
+      streetAddress:
+        label: Adresse
+      addressLine2:
+        label: Adresse ligne 2
+      city:
+        label: Ville
+      state:
+        label: État ou province
+      postalCode:
+        label: Code postal
+      contactFirstName:
+        label: Prénom du contact
+      contactLastName:
+        label: Nom du contact
+      contactEmail:
+        label: E-mail du contact
+      contactPhone:
+        label: Téléphone du contact
+    toasts:
+      saved: Vos modifications ont été enregistrées.
+      submitted: "La demande de vérification a été envoyée. L'examen peut prendre jusqu'à 7 jours ouvrables."
+      preparing: Un numéro est en préparation. Nous avons enregistré vos informations.
+      error: Il y a eu un problème avec votre demande.
   customerAccess:
     title: Accès client
     description: Modèles OTP et canaux de vérification pour les flux orientés client
@@ -3215,6 +3273,10 @@ dashboard:
       title: Les membres inactifs de l'équipe ont des rendez-vous à venir
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Afficher les rendez-vous
+    smsVerification:
+      title: "Les messages texte n'ont pas été approuvés"
+      description: Mettez à jour les informations de l'entreprise et envoyez à nouveau la vérification.
+      action: Revoir
     failedApp:
       title: "{appName} a besoin d'attention"
       description: "{appName} ne fonctionne pas correctement et devra peut-être être reconnecté."

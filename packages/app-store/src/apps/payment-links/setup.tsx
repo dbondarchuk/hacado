@@ -41,6 +41,7 @@ import {
   useSmsPreviewArgs,
 } from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { PaymentLinksApp } from "./app";
 import { getPaymentLinkSms } from "./messages";
 import {
@@ -105,9 +106,11 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const tipsEnabled = form.watch("tipsEnabled");
   const tipPresets = form.watch("tipPresets") ?? [];
   const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
   const paymentSmsExample = renderBuiltInSms(
     getPaymentLinkSms(smsPreviewLanguage(previewArgs)),
     previewArgs,
+    sharedPool,
   );
 
   React.useEffect(() => {
@@ -353,6 +356,34 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                 );
               }}
             />
+            {allowCustom ? (
+              <FormField
+                control={form.control}
+                name="smsTemplateId"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
+                    <FormDescription>
+                      {t("form.smsTemplateId.description")}
+                    </FormDescription>
+                    <FormControl>
+                      {isDataLoading ? (
+                        <Skeleton className="h-10 w-full" />
+                      ) : (
+                        <TemplateSelector
+                          type="text-message"
+                          allowClear
+                          disabled={isLoading}
+                          value={field.value}
+                          onItemSelect={(value) => field.onChange(value)}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : null}
             <FormField
               control={form.control}
               name="linkExpiryDays"

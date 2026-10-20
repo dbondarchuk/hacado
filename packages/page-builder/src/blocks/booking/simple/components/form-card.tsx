@@ -30,6 +30,7 @@ import { TranslationKeys, useI18n } from "@hacado/i18n/client";
 import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui";
 import { deepEqual } from "@hacado/utils";
 import { DateTime as Luxon } from "luxon";
+import { SmsConsentLookupContext } from "../../sms-consent-lookup";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
 
@@ -61,6 +62,7 @@ export const FormCard: React.FC = () => {
 
   if (!dateTime) return null;
 
+  const consentLookup = React.useContext(SmsConsentLookupContext);
   const [promoCode, setPromoCode] = React.useState(discount?.code ?? "");
   const [promoCodeError, setPromoCodeError] = React.useState<TranslationKeys>();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -279,10 +281,13 @@ export const FormCard: React.FC = () => {
               profileConsent={propsFields.smsConsent === true}
               checked={smsConsent}
               onCheckedChange={setSmsConsent}
-              lookup={async (phone) => {
-                const result = await clientApi.booking.getSmsConsent(phone);
-                return result.consented === true;
-              }}
+              lookup={
+                consentLookup ??
+                (async (phone) => {
+                  const result = await clientApi.booking.getSmsConsent(phone);
+                  return result.consented === true;
+                })
+              }
             />
 
             {showPromoCode && !!basePrice && !isCustomerPackageLocked && (

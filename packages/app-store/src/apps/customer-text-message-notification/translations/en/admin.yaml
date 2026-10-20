@@ -8,6 +8,8 @@ edit: Edit customer text message notification
 newDescription: Create new customer text message notification
 editDescription: Update customer text message notification
 form:
+  template:
+    label: Text template
   message:
     description:
       pending: Sent when a booking is created and still needs confirmation. The text names the business, service, and time, and includes a manage link when one exists.

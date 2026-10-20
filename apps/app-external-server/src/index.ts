@@ -3,9 +3,12 @@ import {
   getTextBeltConfiguration,
   InboundTextMessageService,
   ServicesContainer,
+  SmsRegistrationStore,
   SmsStore,
+  SystemServicesContainer,
   TelnyxMessagingWebhookService,
   TelnyxService,
+  TelnyxVerificationWebhookService,
   TextBeltWebhookService,
 } from "@hacado/services";
 import dotenv from "dotenv";
@@ -128,10 +131,26 @@ async function handlePlatformTelnyxWebhook(
   return webhook.processWebhook(request);
 }
 
+async function handlePlatformTelnyxVerificationWebhook(
+  request: Request,
+): Promise<Response> {
+  const webhook = new TelnyxVerificationWebhookService(
+    new SmsRegistrationStore(),
+    (email) =>
+      SystemServicesContainer().notificationService.sendSystemEmail(email),
+  );
+  return webhook.processWebhook(request);
+}
+
 const routes: Route[] = [
   {
     pattern: /^\/api\/webhooks\/platform\/telnyx\/messaging\/?$/,
     process: async (_match, request) => handlePlatformTelnyxWebhook(request),
+  },
+  {
+    pattern: /^\/api\/webhooks\/platform\/telnyx\/verification\/?$/,
+    process: async (_match, request) =>
+      handlePlatformTelnyxVerificationWebhook(request),
   },
   {
     // /api/webhooks/platform/textbelt/:organizationId
@@ -235,7 +254,7 @@ async function startServer(): Promise<void> {
         JSON.stringify({
           error: "Not found",
           message:
-            "Expected path format: /api/webhooks/platform/telnyx/messaging, /api/webhooks/platform/textbelt/{organizationId}, /api/webhooks/apps/name/{appName}, /api/webhooks/apps/id/{organizationId}/{appId}, or /api/apps/{organizationId}/{appId}/[...slug]",
+            "Expected path format: /api/webhooks/platform/telnyx/messaging, /api/webhooks/platform/telnyx/verification, /api/webhooks/platform/textbelt/{organizationId}, /api/webhooks/apps/name/{appName}, /api/webhooks/apps/id/{organizationId}/{appId}, or /api/apps/{organizationId}/{appId}/[...slug]",
         }),
       );
     } catch (error: any) {

@@ -283,6 +283,31 @@ configuration:
       required: Le modèle de message texte OTP est requis lorsque l'OTP du téléphone est activé
     otpChannels:
       required: Le canal de vérification OTP est requis
+  textMessaging:
+    entityType:
+      required: "Le type d'entreprise est requis"
+    legalName:
+      required: Le nom légal est requis
+    website:
+      required: Le site web est requis
+    streetAddress:
+      required: "L'adresse est requise"
+    city:
+      required: La ville est requise
+    state:
+      required: "L'État ou la province est requis"
+    postalCode:
+      required: Le code postal est requis
+    contactFirstName:
+      required: Le prénom du contact est requis
+    contactLastName:
+      required: Le nom du contact est requis
+    contactEmail:
+      required: "L'e-mail du contact est requis"
+    contactPhone:
+      required: Le téléphone du contact est requis
+    registrationNumber:
+      required: "L'EIN ou le numéro d'entreprise est requis"
   apps:
     email:
       required: L'application de l'expéditeur d'e-mail est requise

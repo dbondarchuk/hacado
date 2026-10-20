@@ -43,6 +43,7 @@ import {
   TemplateTemplatesList,
 } from "@hacado/types";
 import {
+  appendSharedPoolSuffix,
   formatAmountWithCurrency,
   getAdminUrl,
   getArguments,
@@ -591,7 +592,29 @@ export class PaymentLinksConnectedApp
 
     let body: string;
     if (isPlatformSmsCountry(request.to)) {
-      body = template(getPaymentLinkSms(args.config.language), args, true);
+      const builtIn = template(
+        getPaymentLinkSms(args.config.language),
+        args,
+        true,
+      );
+
+      const customVerified = (
+        await this.props.services.notificationService.getSmsMessagingAccess()
+      ).customVerified;
+
+      const stored =
+        customVerified && settings.smsTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              settings.smsTemplateId,
+            )
+          : null;
+
+      body =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value as string, args, true)
+          : customVerified
+            ? builtIn
+            : appendSharedPoolSuffix(builtIn);
     } else if (settings.smsTemplateId) {
       const smsTemplate =
         await this.props.services.templatesService.getTemplate(

@@ -20,6 +20,14 @@ export const smsCustomerName = (name?: string | null): string | undefined => {
   return trimmed || undefined;
 };
 
+export const SHARED_POOL_SMS_SUFFIX = " Sent via Hacado";
+
+export const appendSharedPoolSuffix = (body: string) => {
+  const trimmed = body.replace(/\s+$/, "");
+  if (trimmed.endsWith("Sent via Hacado")) return trimmed;
+  return `${trimmed}${SHARED_POOL_SMS_SUFFIX}`;
+};
+
 export const isSmsEnabled = (
   enabled: boolean | undefined,
   templateId: string | undefined | null,

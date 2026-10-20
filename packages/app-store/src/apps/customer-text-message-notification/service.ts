@@ -24,6 +24,7 @@ import {
 } from "./translations/types";
 
 import {
+  appendSharedPoolSuffix,
   dispatchAppointmentEventPayload,
   getAdminUrl,
   getArguments,
@@ -471,11 +472,30 @@ export default class CustomerTextMessageNotificationConnectedApp
       );
 
       let templatedBody: string;
+      const customVerified = isPlatformSmsCountry(phone)
+        ? (
+            await this.props.services.notificationService.getSmsMessagingAccess()
+          ).customVerified
+        : false;
+
       if (isPlatformSmsCountry(phone)) {
         const bodyTemplate = getCustomerTextMessageBodies(
           config.brand.language,
         )[status];
-        templatedBody = template(bodyTemplate, args, true);
+
+        const builtIn = template(bodyTemplate, args, true);
+        const templateId = templateConfig?.templateId;
+        const stored =
+          customVerified && templateId
+            ? await this.props.services.templatesService.getTemplate(templateId)
+            : null;
+
+        templatedBody =
+          stored?.type === "text-message"
+            ? templateSafeWithError(stored.value as string, args, true)
+            : customVerified
+              ? builtIn
+              : appendSharedPoolSuffix(builtIn);
       } else {
         const templateId = templateConfig?.templateId;
         const stored = templateId

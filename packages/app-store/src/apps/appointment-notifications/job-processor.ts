@@ -11,6 +11,7 @@ import {
   IConnectedAppProps,
 } from "@hacado/types";
 import {
+  appendSharedPoolSuffix,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
@@ -371,8 +372,26 @@ export class AppointmentNotificationsJobProcessor {
             customerName: smsCustomerName(appointment.fields?.name),
           };
 
+          const platformCountry = isPlatformSmsCountry(phone);
+          const customVerified = platformCountry
+            ? (
+                await this.props.services.notificationService.getSmsMessagingAccess()
+              ).customVerified
+            : false;
+
           let smsBody: string;
           if (appointmentNotification.smsKind === "followUp") {
+            if (platformCountry && !customVerified) {
+              logger.info(
+                {
+                  appId: appData._id,
+                  appointmentNotificationId: appointmentNotification._id,
+                },
+                "Skipping follow-up text until custom messaging is verified",
+              );
+              return;
+            }
+
             const followUpText = appointmentNotification.followUpText?.trim();
             if (!followUpText) {
               logger.info(
@@ -400,12 +419,24 @@ export class AppointmentNotificationsJobProcessor {
 
               return;
             }
-          } else if (isPlatformSmsCountry(phone)) {
-            smsBody = template(
+          } else if (platformCountry) {
+            const builtIn = template(
               getAppointmentReminderSms(config.brand.language),
               smsArgs,
               true,
             );
+            const stored =
+              customVerified && appointmentNotification.templateId
+                ? await this.props.services.templatesService.getTemplate(
+                    appointmentNotification.templateId,
+                  )
+                : null;
+            smsBody =
+              stored?.type === "text-message"
+                ? templateSafeWithError(stored.value, smsArgs, true)
+                : customVerified
+                  ? builtIn
+                  : appendSharedPoolSuffix(builtIn);
           } else {
             const stored = appointmentNotification.templateId
               ? await this.props.services.templatesService.getTemplate(

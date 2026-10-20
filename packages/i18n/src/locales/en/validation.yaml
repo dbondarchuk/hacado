@@ -287,6 +287,31 @@ configuration:
       required: OTP text message template is required when phone OTP is enabled
     otpChannels:
       required: OTP verification channel is required
+  textMessaging:
+    entityType:
+      required: Business type is required
+    legalName:
+      required: Legal name is required
+    website:
+      required: Website is required
+    streetAddress:
+      required: Street address is required
+    city:
+      required: City is required
+    state:
+      required: State or province is required
+    postalCode:
+      required: Postal code is required
+    contactFirstName:
+      required: Contact first name is required
+    contactLastName:
+      required: Contact last name is required
+    contactEmail:
+      required: Contact email is required
+    contactPhone:
+      required: Contact phone is required
+    registrationNumber:
+      required: EIN or business number is required
   apps:
     email:
       required: Email sender APP is required

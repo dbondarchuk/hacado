@@ -14,6 +14,12 @@ export const getTelnyxConfiguration = (): TelnyxConfiguration => {
   };
 };
 
+export const getClientMessagingProfileId = (): string =>
+  process.env.TELNYX_CLIENT_MESSAGING_PROFILE_ID?.trim() ?? "";
+
+export const isTelnyxVerificationDryRun = (): boolean =>
+  process.env.TELNYX_VERIFICATION_DRY_RUN === "true";
+
 export const getSupportedSmsCountries = (): string[] => {
   return (process.env.SMS_SUPPORTED_COUNTRIES || "US,CA")
     .split(",")

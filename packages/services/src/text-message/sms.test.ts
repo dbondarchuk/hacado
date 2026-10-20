@@ -1,4 +1,4 @@
-import { isSmsEnabled, template } from "@hacado/utils";
+import { appendSharedPoolSuffix, isSmsEnabled, template } from "@hacado/utils";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
@@ -15,6 +15,12 @@ import {
 import { createDefaultTextMessageSender, getSmsProvider } from "./factory";
 import { countSmsSegments } from "./segments";
 import { resolveSender } from "./telnyx/sender";
+import {
+  buildTollFreeVerificationBody,
+  mapTelnyxVerificationStatus,
+  readVerificationWebhook,
+  resolvePlatformSmsRoute,
+} from "./verification";
 
 const confirmedEn =
   "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{option.name}} is confirmed for {{dateTime.sms}}.{{#manageLink}} Manage: {{manageLink}}{{/manageLink}}";
@@ -301,5 +307,180 @@ describe("idempotency", () => {
     assert.equal(shouldSkipDuplicateSend({ status: "delivered" }), true);
     assert.equal(shouldSkipDuplicateSend({ status: "failed" }), false);
     assert.equal(shouldSkipDuplicateSend(null), false);
+  });
+});
+
+describe("platform SMS route", () => {
+  it("sends US and Canada texts from the shared pool without verification", () => {
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: false,
+        dedicatedNumber: undefined,
+        platformCountry: true,
+        poolNumber: "+18005550100",
+        messagingProfileId: "client",
+      }),
+      {
+        kind: "telnyx",
+        from: "+18005550100",
+        messagingProfileId: "client",
+        shared: true,
+      },
+    );
+  });
+
+  it("sends other countries through Textbelt", () => {
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: true,
+        dedicatedNumber: "+18005550199",
+        platformCountry: false,
+        poolNumber: "+18005550100",
+        messagingProfileId: "client",
+      }),
+      { kind: "textbelt" },
+    );
+  });
+
+  it("uses a verified dedicated number for US and Canada", () => {
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: true,
+        dedicatedNumber: "+18005550199",
+        platformCountry: true,
+        poolNumber: "+18005550100",
+        messagingProfileId: "client",
+      }),
+      {
+        kind: "telnyx",
+        from: "+18005550199",
+        messagingProfileId: "client",
+        shared: false,
+      },
+    );
+  });
+
+  it("adds the shared-pool suffix once", () => {
+    assert.equal(
+      appendSharedPoolSuffix("Your cut is confirmed."),
+      "Your cut is confirmed. Sent via Hacado",
+    );
+    assert.equal(
+      appendSharedPoolSuffix("Your cut is confirmed. Sent via Hacado"),
+      "Your cut is confirmed. Sent via Hacado",
+    );
+  });
+
+  it("skips when the shared pool is empty", () => {
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: false,
+        dedicatedNumber: undefined,
+        platformCountry: true,
+        poolNumber: undefined,
+        messagingProfileId: "client",
+      }),
+      { kind: "skip", reason: "sms number not ready" },
+    );
+  });
+});
+
+describe("toll-free verification body", () => {
+  const base = {
+    legalName: "Ada Salon LLC",
+    country: "US",
+    website: "https://ada.example",
+    streetAddress: "1 Main",
+    city: "austin",
+    state: "texas",
+    postalCode: "78701",
+    contactFirstName: "Ada",
+    contactLastName: "Lovelace",
+    contactEmail: "ada@gmail.com",
+    contactPhone: "+15125550100",
+    phoneNumbers: ["+18005550100", "+18005550101"],
+    optInImageUrl: "https://cdn.example/opt-in.png",
+    webhookUrl:
+      "https://apps.example/api/webhooks/platform/telnyx/verification",
+    helpMessage: "Appointment texts for your bookings.",
+  };
+
+  it("omits the registration number for a sole proprietor", () => {
+    const body = buildTollFreeVerificationBody({
+      ...base,
+      entityType: "SOLE_PROPRIETOR",
+      doingBusinessAs: "Ada Salon",
+    });
+    assert.ok(body);
+
+    assert.equal(body.entityType, "SOLE_PROPRIETOR");
+    assert.equal(body.businessRegistrationNumber, undefined);
+    assert.equal(body.businessRegistrationType, undefined);
+    assert.equal(body.doingBusinessAs, "Ada Salon");
+    assert.equal(body.isvReseller, "Hacado");
+    assert.deepEqual(body.optInWorkflowImageURLs, [
+      { url: "https://cdn.example/opt-in.png" },
+    ]);
+    assert.deepEqual(body.phoneNumbers, [
+      { phoneNumber: "+18005550100" },
+      { phoneNumber: "+18005550101" },
+    ]);
+    assert.equal(body.businessCity, "Austin");
+    assert.equal(body.productionMessageContent.startsWith("Ada Salon:"), true);
+  });
+
+  it("includes an EIN for a company", () => {
+    const body = buildTollFreeVerificationBody({
+      ...base,
+      entityType: "PRIVATE_PROFIT",
+      businessRegistrationNumber: "12-3456789",
+    });
+    assert.ok(body);
+
+    assert.equal(body.businessRegistrationNumber, "12-3456789");
+    assert.equal(body.businessRegistrationType, "EIN");
+    assert.equal(body.businessRegistrationCountry, "US");
+  });
+
+  it("does not build a body without an opt-in image", () => {
+    assert.equal(
+      buildTollFreeVerificationBody({
+        ...base,
+        entityType: "PRIVATE_PROFIT",
+        optInImageUrl: "  ",
+      }),
+      null,
+    );
+  });
+});
+
+describe("verification webhook", () => {
+  it("maps Telnyx statuses", () => {
+    assert.equal(mapTelnyxVerificationStatus("Verified"), "verified");
+    assert.equal(mapTelnyxVerificationStatus("Rejected"), "rejected");
+    assert.equal(
+      mapTelnyxVerificationStatus("Waiting For Customer"),
+      "rejected",
+    );
+    assert.equal(mapTelnyxVerificationStatus("In Progress"), "pending");
+  });
+
+  it("reads the request id and reason", () => {
+    assert.deepEqual(
+      readVerificationWebhook({
+        data: {
+          payload: {
+            id: "req-1",
+            verification_status: "Rejected",
+            reason: "Website mismatch",
+          },
+        },
+      }),
+      {
+        requestId: "req-1",
+        status: "Rejected",
+        reason: "Website mismatch",
+      },
+    );
   });
 });

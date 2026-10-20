@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { SmsConsentLookupContext } from "../../sms-consent-lookup";
 import { useScheduleContext } from "./context";
 
 export const FormCard: React.FC = () => {
@@ -33,6 +34,7 @@ export const FormCard: React.FC = () => {
 
   if (!dateTime || !selectedAppointmentOption) return null;
 
+  const consentLookup = React.useContext(SmsConsentLookupContext);
   const fields = getFields(formFields);
 
   const [smsConsent, setSmsConsent] = useSmsConsentState(
@@ -134,10 +136,13 @@ export const FormCard: React.FC = () => {
               profileConsent={propsFields.smsConsent === true}
               checked={smsConsent}
               onCheckedChange={setSmsConsent}
-              lookup={async (phone) => {
-                const result = await clientApi.booking.getSmsConsent(phone);
-                return result.consented === true;
-              }}
+              lookup={
+                consentLookup ??
+                (async (phone) => {
+                  const result = await clientApi.booking.getSmsConsent(phone);
+                  return result.consented === true;
+                })
+              }
             />
           </div>
         </form>

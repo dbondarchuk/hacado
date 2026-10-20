@@ -457,15 +457,12 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       services.assetsStorage,
     );
 
-    const defaultTextMessageSender = createDefaultTextMessageSender();
-
     return new NotificationService(
       organizationId,
       services.configurationService,
       services.connectedAppsService,
       services.communicationLogsService,
       defaultEmailService,
-      defaultTextMessageSender,
       services.billingService,
       services.eventService,
       services.organizationService,

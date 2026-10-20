@@ -11,6 +11,7 @@ import {
   TextMessageReply,
 } from "@hacado/types";
 import {
+  appendSharedPoolSuffix,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
@@ -217,8 +218,19 @@ export default class TextMessageAutoReplyConnectedApp
         isSmsEnabled(appData.data?.enabled, appData.data?.autoReplyTemplateId)
       ) {
         const replyText = appData.data?.replyText?.trim();
+        const platformCountry = isPlatformSmsCountry(reply.from);
+        const customVerified = platformCountry
+          ? (
+              await this.props.services.notificationService.getSmsMessagingAccess()
+            ).customVerified
+          : false;
+
         let message: string | undefined;
-        if (replyText) {
+        if (platformCountry && !customVerified) {
+          message = appendSharedPoolSuffix(
+            template(getAutoReplySms(config.brand.language), args, true),
+          );
+        } else if (replyText && (!platformCountry || customVerified)) {
           try {
             message = template(replyText, args, true);
           } catch (error) {
@@ -228,7 +240,7 @@ export default class TextMessageAutoReplyConnectedApp
             );
             return null;
           }
-        } else if (isPlatformSmsCountry(reply.from)) {
+        } else if (platformCountry) {
           message = template(
             getAutoReplySms(config.brand.language),
             args,

@@ -12,7 +12,7 @@ import {
   Skeleton,
   Switch,
 } from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
 import { UseFormReturn } from "react-hook-form";
 import {
   renderBuiltInSms,
@@ -21,6 +21,7 @@ import {
   useSmsPreviewArgs,
 } from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { CustomerTextMessageNotificationApp } from "./app";
 import { getCustomerTextMessageBodies } from "./messages";
 import {
@@ -40,7 +41,8 @@ const TextMessagesTemplateForm: React.FC<{
   type: TextMessagesTemplateKeys;
   isDataLoading?: boolean;
   example?: string;
-}> = ({ form, disabled, type, isDataLoading, example }) => {
+  allowCustom?: boolean;
+}> = ({ form, disabled, type, isDataLoading, example, allowCustom }) => {
   const t = useI18n<
     CustomerTextMessageNotificationAdminNamespace,
     CustomerTextMessageNotificationAdminKeys
@@ -61,6 +63,32 @@ const TextMessagesTemplateForm: React.FC<{
               <FormDescription>
                 {t(`form.message.description.${type}`)}
               </FormDescription>
+              {allowCustom ? (
+                <FormField
+                  control={form.control}
+                  name={`templates.${type}.templateId`}
+                  render={({ field: templateField }) => (
+                    <FormItem>
+                      <FormLabel>{t("form.template.label")}</FormLabel>
+                      <FormControl>
+                        {isDataLoading ? (
+                          <Skeleton className="h-10 w-full" />
+                        ) : (
+                          <TemplateSelector
+                            type="text-message"
+                            allowClear
+                            disabled={disabled}
+                            value={templateField.value}
+                            onItemSelect={(value) =>
+                              templateField.onChange(value)
+                            }
+                          />
+                        )}
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              ) : null}
               <SmsExample text={example} />
               <FormMessage />
             </div>
@@ -93,6 +121,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
     });
 
   const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
   const bodies = getCustomerTextMessageBodies(smsPreviewLanguage(previewArgs));
 
   return (
@@ -108,42 +137,68 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="pending"
-              example={renderBuiltInSms(bodies.pending, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(
+                bodies.pending,
+                previewArgs,
+                sharedPool,
+              )}
             />
             <TextMessagesTemplateForm
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="confirmed"
-              example={renderBuiltInSms(bodies.confirmed, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(
+                bodies.confirmed,
+                previewArgs,
+                sharedPool,
+              )}
             />
             <TextMessagesTemplateForm
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="declined"
-              example={renderBuiltInSms(bodies.declined, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(
+                bodies.declined,
+                previewArgs,
+                sharedPool,
+              )}
             />
             <TextMessagesTemplateForm
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="canceled"
-              example={renderBuiltInSms(bodies.canceled, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(
+                bodies.canceled,
+                previewArgs,
+                sharedPool,
+              )}
             />
             <TextMessagesTemplateForm
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="noShow"
-              example={renderBuiltInSms(bodies.noShow, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(bodies.noShow, previewArgs, sharedPool)}
             />
             <TextMessagesTemplateForm
               form={form}
               disabled={isLoading}
               isDataLoading={isDataLoading}
               type="rescheduled"
-              example={renderBuiltInSms(bodies.rescheduled, previewArgs)}
+              allowCustom={allowCustom}
+              example={renderBuiltInSms(
+                bodies.rescheduled,
+                previewArgs,
+                sharedPool,
+              )}
             />
           </div>
           <SaveButton form={form} disabled={isLoading} isLoading={isLoading} />

@@ -28,6 +28,7 @@ import {
   useSmsPreviewArgs,
 } from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { CustomerWaitlistNotificationsApp } from "./app";
 import { getWaitlistSmsBodies } from "./messages";
 import {
@@ -60,12 +61,19 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
   const slotOpenedSmsTemplateId = form.watch("slotOpenedSmsTemplateId");
   const smsSlotOn = slotOpenedSmsEnabled ?? Boolean(slotOpenedSmsTemplateId);
   const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
   const waitlistSms = getWaitlistSmsBodies(smsPreviewLanguage(previewArgs));
   const slotOpenedExample = renderBuiltInSms(
     waitlistSms.slotOpened,
     previewArgs,
+    sharedPool,
   );
-  const leaveExample = renderBuiltInSms(waitlistSms.leaveConfirm, previewArgs);
+
+  const leaveExample = renderBuiltInSms(
+    waitlistSms.leaveConfirm,
+    previewArgs,
+    sharedPool,
+  );
 
   return (
     <>
@@ -189,6 +197,36 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                     </FormItem>
                   )}
                 />
+                {allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="slotOpenedSmsTemplateId"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>
+                          {t("setup.form.slotOpenedSmsTemplateId.label")}
+                          <InfoTooltip>
+                            {t("setup.form.slotOpenedSmsTemplateId.tooltip")}
+                          </InfoTooltip>
+                        </FormLabel>
+                        <FormControl>
+                          {isDataLoading ? (
+                            <Skeleton className="h-10 w-full" />
+                          ) : (
+                            <TemplateSelector
+                              type="text-message"
+                              allowClear
+                              disabled={isLoading}
+                              value={field.value}
+                              onItemSelect={(value) => field.onChange(value)}
+                            />
+                          )}
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
                   name="leaveWaitlistSmsEnabled"
@@ -221,6 +259,36 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                     );
                   }}
                 />
+                {allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="leaveWaitlistSmsTemplateId"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>
+                          {t("setup.form.leaveWaitlistSmsTemplateId.label")}
+                          <InfoTooltip>
+                            {t("setup.form.leaveWaitlistSmsTemplateId.tooltip")}
+                          </InfoTooltip>
+                        </FormLabel>
+                        <FormControl>
+                          {isDataLoading ? (
+                            <Skeleton className="h-10 w-full" />
+                          ) : (
+                            <TemplateSelector
+                              type="text-message"
+                              allowClear
+                              disabled={isLoading}
+                              value={field.value}
+                              onItemSelect={(value) => field.onChange(value)}
+                            />
+                          )}
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
                   name="bookingPageId"

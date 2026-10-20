@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { languages, type Language } from "@hacado/i18n";
-import { template } from "@hacado/utils";
+import { appendSharedPoolSuffix, template } from "@hacado/utils";
 import React from "react";
 
 const PLATFORM_SMS_FOOTER = "Txt STOP to unsubscribe";
@@ -76,14 +76,19 @@ export function smsPreviewLanguage(args?: Record<string, unknown>): Language {
   return "en";
 }
 
-export function renderBuiltInSms(body: string, args?: Record<string, unknown>) {
+export function renderBuiltInSms(
+  body: string,
+  args?: Record<string, unknown>,
+  shared = false,
+) {
   if (!args) return undefined;
 
   try {
     const rendered = template(body, args, true).trim();
     if (!rendered) return undefined;
+    const text = shared ? appendSharedPoolSuffix(rendered) : rendered;
 
-    return `${rendered}\n${PLATFORM_SMS_FOOTER}`;
+    return `${text}\n${PLATFORM_SMS_FOOTER}`;
   } catch {
     return undefined;
   }

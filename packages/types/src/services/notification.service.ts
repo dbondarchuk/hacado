@@ -83,6 +83,11 @@ export interface INotificationService {
   hasActiveCustomerSmsConsent(phone: string): Promise<boolean>;
 
   getCustomerSmsConsentStatus(phone: string): Promise<CustomerSmsConsentStatus>;
+
+  getSmsMessagingAccess(): Promise<{
+    customVerified: boolean;
+    canCustomize: boolean;
+  }>;
 }
 
 export interface ISystemNotificationService {

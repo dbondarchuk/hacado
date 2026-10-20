@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getOrganizationId, getServicesContainer } from "@/app/utils";
 import {
   getAccessibleConnectedApps,
   getOwnerMemberIds,
@@ -7,6 +7,7 @@ import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
+import { SmsRegistrationStore } from "@hacado/services";
 import type {
   ConnectedApp,
   INeedsAttentionApp,
@@ -19,6 +20,7 @@ import {
   canAccessConnectedApp,
   canFilterByMember,
   canUpdateAppointments,
+  hasPermission,
 } from "@hacado/utils";
 import {
   listNeedsAttentionDismissals,
@@ -120,6 +122,37 @@ async function collectCoreItems(
         },
         order: 20,
         compositeKey: compositeKey("core", "inactive-members", fingerprint),
+        appId: "core",
+      });
+    }
+  }
+
+  if (hasPermission(user, "settings", "update")) {
+    const registration = await new SmsRegistrationStore().get(
+      await getOrganizationId(),
+    );
+
+    if (registration?.status === "rejected") {
+      const fingerprint = registration.rejectionReason || "rejected";
+      items.push({
+        id: "sms-verification",
+        fingerprint,
+        level: "error",
+        title: {
+          key: "admin.dashboard.needsAttention.smsVerification.title",
+        },
+        description: {
+          key: "admin.dashboard.needsAttention.smsVerification.description",
+        },
+        action: {
+          type: "link",
+          href: "/dashboard/settings/text-messaging",
+          label: {
+            key: "admin.dashboard.needsAttention.smsVerification.action",
+          },
+        },
+        order: 15,
+        compositeKey: compositeKey("core", "sms-verification", fingerprint),
         appId: "core",
       });
     }

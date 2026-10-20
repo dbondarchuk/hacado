@@ -13,7 +13,9 @@
     ".": "./src/index.tsx",
     "./reader": "./src/reader.tsx",
     "./templates": "./src/templates/index.ts",
-    "./plain-text": "./src/plain-text/index.ts"
+    "./plain-text": "./src/plain-text/index.ts",
+    "./opt-in-preview": "./src/blocks/booking/opt-in-preview.tsx",
+    "./opt-in-preview-types": "./src/blocks/booking/opt-in-preview-types.ts"
   },
   "devDependencies": {
     "@types/node": "^20",

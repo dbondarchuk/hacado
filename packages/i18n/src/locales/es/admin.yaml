@@ -417,6 +417,7 @@ navigation:
   paymentsInbox: Bandeja de entrada de pagos
   financialOverview: Descripción general
   customerAccess: Acceso de clientes
+  textMessaging: Mensajes de texto
   schedule: Cronograma
   defaultSchedule: Horario predeterminado
   services: Servicios
@@ -3100,6 +3101,63 @@ settings:
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
+  textMessaging:
+    title: Mensajes de texto
+    description: Use sus propias plantillas desde un número dedicado. Los textos de clientes usan un número compartido hasta que esto se verifique.
+    countryOnly: Los mensajes personalizados están disponibles para negocios de Estados Unidos y Canadá.
+    status:
+      pending: La revisión está en curso. Los textos siguen usando el número compartido hasta que se apruebe.
+      verified: Los mensajes personalizados están verificados. Los textos usan su número.
+      rejected: La verificación no fue aprobada.
+      preparing: Se está preparando un número. Los mensajes personalizados se pueden enviar cuando esté listo.
+    form:
+      enabled: Activar mensajes personalizados
+      enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
+      disableTitle: "¿Desactivar los mensajes personalizados?"
+      disableDescription: Tendrá que enviar la verificación otra vez para volver a activarlo. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
+      disableConfirm: Desactivar
+      disableCancel: Mantener activo
+      unlock: Desbloquear
+      submit: Enviar
+      entityType:
+        label: Tipo de negocio
+        PRIVATE_PROFIT: Empresa
+        SOLE_PROPRIETOR: Propietario único
+        NON_PROFIT: Organización benéfica
+      legalName:
+        label: Nombre legal
+      doingBusinessAs:
+        label: Nombre comercial
+        hint: Agréguelo cuando el nombre de reserva sea distinto del nombre legal.
+      registrationNumber:
+        label: EIN o número de negocio
+        hint: Un EIN de EE. UU. o un número de negocio de Canadá.
+        soleHint: Un propietario único puede dejar esto en blanco.
+      website:
+        label: Sitio web
+      streetAddress:
+        label: Dirección
+      addressLine2:
+        label: Dirección línea 2
+      city:
+        label: Ciudad
+      state:
+        label: Estado o provincia
+      postalCode:
+        label: Código postal
+      contactFirstName:
+        label: Nombre del contacto
+      contactLastName:
+        label: Apellido del contacto
+      contactEmail:
+        label: Correo del contacto
+      contactPhone:
+        label: Teléfono del contacto
+    toasts:
+      saved: Sus cambios fueron guardados.
+      submitted: La solicitud de verificación fue enviada. La revisión puede tardar hasta 7 días hábiles.
+      preparing: Se está preparando un número. Guardamos sus datos.
+      error: Hubo un problema con su solicitud.
   customerAccess:
     title: Acceso de clientes
     description: Plantillas OTP y canales de verificación para flujos de cara al cliente
@@ -3215,6 +3273,10 @@ dashboard:
       title: Los miembros inactivos del equipo tienen próximas citas
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Ver citas
+    smsVerification:
+      title: Los mensajes de texto no fueron aprobados
+      description: Actualice los datos del negocio y envíe la verificación de nuevo.
+      action: Revisar
     failedApp:
       title: "{appName} necesita atención"
       description: "{appName} no funciona correctamente y es posible que sea necesario volver a conectarlo."

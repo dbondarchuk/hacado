@@ -12,6 +12,7 @@ export type SenderResolution =
 export const resolveSender = (
   toE164: string,
   configuration: Pick<TelnyxConfiguration, "fromNumber" | "messagingProfileId">,
+  override?: { from?: string; messagingProfileId?: string },
 ): SenderResolution => {
   const country = getPhoneCountry(toE164)?.toUpperCase();
   if (!country || !getSupportedSmsCountries().includes(country)) {
@@ -19,7 +20,8 @@ export const resolveSender = (
   }
 
   return {
-    from: configuration.fromNumber,
-    messagingProfileId: configuration.messagingProfileId,
+    from: override?.from || configuration.fromNumber,
+    messagingProfileId:
+      override?.messagingProfileId ?? configuration.messagingProfileId,
   };
 };

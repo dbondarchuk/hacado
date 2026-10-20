@@ -1,5 +1,8 @@
 import type { Asset, AssetEntity, AssetUpdate } from "../assets";
-import type { OrganizationSubscriptionStatus } from "../billing";
+import type {
+  BillingPlanTier,
+  OrganizationSubscriptionStatus,
+} from "../billing";
 import type { Appointment, AppointmentStatus } from "../booking/appointment";
 import type {
   AppointmentAddon,
@@ -417,6 +420,8 @@ export type SubscriptionStatusChangedPayload = {
   newStatus: OrganizationSubscriptionStatus;
   subscriptionId: string;
   productName: string | null;
+  oldTier: BillingPlanTier | null;
+  newTier: BillingPlanTier | null;
 };
 
 export type SmsCreditsThresholdPayload = {

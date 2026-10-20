@@ -420,6 +420,7 @@ navigation:
   paymentsInbox: Payments inbox
   financialOverview: Overview
   customerAccess: Customer access
+  textMessaging: Text messaging
   schedule: Schedule
   defaultSchedule: Default schedule
   services: Services
@@ -3354,6 +3355,63 @@ settings:
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
+  textMessaging:
+    title: Text messaging
+    description: Use your own text templates from a dedicated number. Customer texts use a shared number until this is verified.
+    countryOnly: Custom messaging is available for businesses in the United States and Canada.
+    status:
+      pending: Review is in progress. Customer texts keep using the shared number until it is approved.
+      verified: Custom messaging is verified. Customer texts use a dedicated number.
+      rejected: Verification was not approved.
+      preparing: A number is being prepared. Custom messaging can be submitted once it is ready.
+    form:
+      enabled: Enable custom messaging
+      enabledDescription: After verification, customer texts use a dedicated number and your own custom templates.
+      disableTitle: Turn off custom messaging?
+      disableDescription: You will need to submit verification again to turn this back on. You will be given a number that may be a different one, and replies to the old number will not reach you.
+      disableConfirm: Turn off
+      disableCancel: Keep it on
+      unlock: Unlock
+      submit: Submit
+      entityType:
+        label: Business type
+        PRIVATE_PROFIT: Company
+        SOLE_PROPRIETOR: Sole proprietor
+        NON_PROFIT: Charity
+      legalName:
+        label: Legal name
+      doingBusinessAs:
+        label: Trade name
+        hint: Add this when the known business name (DBA) is different from the legal name.
+      registrationNumber:
+        label: EIN or business number
+        hint: A US EIN or a Canadian business number.
+        soleHint: A sole proprietor can leave this blank.
+      website:
+        label: Website
+      streetAddress:
+        label: Street address
+      addressLine2:
+        label: Address line 2
+      city:
+        label: City
+      state:
+        label: State or province
+      postalCode:
+        label: Postal code
+      contactFirstName:
+        label: Contact first name
+      contactLastName:
+        label: Contact last name
+      contactEmail:
+        label: Contact email
+      contactPhone:
+        label: Contact phone
+    toasts:
+      saved: Your changes were saved.
+      submitted: Verification request was sent. Review may take up to 7 business days.
+      preparing: A number is being prepared. We saved your details.
+      error: There was a problem with your request.
   customerAccess:
     title: Customer access
     description: OTP templates and verification channels for customer-facing flows
@@ -3471,6 +3529,10 @@ dashboard:
       title: Inactive team members have upcoming appointments
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: View appointments
+    smsVerification:
+      title: Text messaging was not approved
+      description: Update the business details and submit the verification again.
+      action: Review
     failedApp:
       title: "{appName} needs attention"
       description: "{appName} is not working correctly and may need to be reconnected."

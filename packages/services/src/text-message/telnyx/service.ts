@@ -34,9 +34,10 @@ export class TelnyxService implements ITextMessageSender {
   public async sendTextMessage(
     message: TextMessage,
     organizationId?: string,
+    override?: { from?: string; messagingProfileId?: string },
   ): Promise<TextMessageResponse> {
     const logger = this.loggerFactory("sendTextMessage");
-    const sender = resolveSender(message.phone, this.configuration);
+    const sender = resolveSender(message.phone, this.configuration, override);
     if ("skipped" in sender) {
       logger.info(
         { organizationId, phone: maskify(message.phone) },
