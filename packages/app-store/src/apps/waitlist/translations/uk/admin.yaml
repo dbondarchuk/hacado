@@ -37,7 +37,10 @@ view:
   duration: Тривалість
   addons: Додатки
   unknown: Невідомо
-  note: Примітка від клієнта
+  note:
+    title: Примітка від клієнта
+    showMore: Показати більше
+    showLess: Показати менше
   viewNote: Переглянути примітку
   submitted: Подано {date}
   dismiss: Відхилити

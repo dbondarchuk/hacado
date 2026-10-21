@@ -37,7 +37,10 @@ view:
   duration: Duración
   addons: Complementos
   unknown: Desconocido
-  note: Nota del cliente
+  note:
+    title: Nota del cliente
+    showMore: Ver más
+    showLess: Ver menos
   viewNote: Ver nota
   submitted: Enviado {date}
   dismiss: Despedir
@@ -191,4 +194,3 @@ validation:
     dates:
       required: Se requieren fechas
       max: Las fechas no deben tener más de 30 fechas.
-

@@ -37,7 +37,10 @@ view:
   duration: Durée
   addons: Modules complémentaires
   unknown: Inconnu
-  note: Note du client
+  note:
+    title: Note du client
+    showMore: Voir plus
+    showLess: Voir moins
   viewNote: Afficher la note
   submitted: Soumis {date}
   dismiss: Rejeter
@@ -191,4 +194,3 @@ validation:
     dates:
       required: Des dates sont requises
       max: Les dates ne doivent pas dépasser 30 dates
-
