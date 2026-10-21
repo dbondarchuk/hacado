@@ -75,6 +75,7 @@ export async function GET(request: NextRequest) {
       ({
         ...asset,
         url: `${websiteUrl}/assets/${asset.filename}`,
+        source: "assets",
       }) satisfies UploadedFile,
   );
 
@@ -150,6 +151,7 @@ export async function POST(request: NextRequest) {
     const uploadedFile: UploadedFile = {
       ...asset,
       url: `${websiteUrl}/assets/${asset.filename}`,
+      source: "assets",
     };
 
     return NextResponse.json(uploadedFile, { status: 201 });

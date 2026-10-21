@@ -7,7 +7,10 @@
  *   - pages by slug (home page slug is "home"), each with its `headerName`
  *   - marketing images as org assets (S3 + assets collection), rewriting
  *     `/assets/...` source paths to `/assets/svg/...` or `/assets/marketing/...`
- *   - invalidates Redis page-route cache (`org:pages:routes:{orgId}`) so new
+ *   - organization styling (Manrope, Playfair Display, DM Mono, editorial colors)
+ *   - organization brand logo and favicon (public/logo.svg)
+ *   - invalidates Redis page-route cache (`org:pages:routes:{orgId}`) and
+ *     styling and brand cache (`org:config:{orgId}:styling|brand`) so new
  *     slugs are visible immediately
  *
  * Usage (from marketing-site):
@@ -48,6 +51,7 @@ import { fileURLToPath } from "node:url";
 import {
   createS3Client,
   uploadAndRewriteStructure,
+  uploadOrgAsset,
   validateS3Connection,
 } from "./seed-assets.mjs";
 
@@ -59,6 +63,37 @@ const HEADERS_COLLECTION = "page-headers";
 const FOOTERS_COLLECTION = "page-footers";
 const ORGS_COLLECTION = "organizations";
 const PAGE_ROUTES_REDIS_PREFIX = "org:pages:routes:";
+const CONFIG_REDIS_PREFIX = "org:config:";
+const CONFIGURATION_COLLECTION = "configuration";
+const BRAND_LOGO_FILE = path.join(__dirname, "../public/logo.svg");
+const BRAND_LOGO_ASSET = "marketing/logo.svg";
+
+/** Editorial palette. Hex values match configuration color overrides. */
+const MARKETING_COLORS = [
+  ["background", "#FFFFFF"],
+  ["foreground", "#20201D"],
+  ["border", "#E4E2DA"],
+  ["card", "#FFFFFF"],
+  ["card-foreground", "#20201D"],
+  ["popover", "#FFFFFF"],
+  ["popover-foreground", "#20201D"],
+  ["primary", "#20231F"],
+  ["primary-foreground", "#F8F6F1"],
+  ["secondary", "#F4EEE4"],
+  ["secondary-foreground", "#20201D"],
+  ["muted", "#F8F6F1"],
+  ["muted-foreground", "#77756E"],
+  ["accent", "#DCE9D5"],
+  ["accent-foreground", "#41533D"],
+  ["destructive", "#DC2626"],
+  ["destructive-foreground", "#FFFFFF"],
+];
+
+const MARKETING_FONTS = {
+  primary: "Manrope",
+  secondary: "Playfair Display",
+  tertiary: "DM Mono",
+};
 
 /** @param {string} filePath */
 function loadEnvFile(filePath, { override = true } = {}) {
@@ -424,16 +459,79 @@ async function validateRedisConnection(config) {
  * @param {string} organizationId
  * @param {RedisConfig} config
  */
+/**
+ * Write the editorial fonts and colors onto the org styling configuration.
+ * @param {import("mongodb").Db} db
+ * @param {string} organizationId
+ */
+async function upsertMarketingStyling(db, organizationId) {
+  const col = db.collection(CONFIGURATION_COLLECTION);
+  const existing = await col.findOne({
+    ...orgIdMatch(organizationId),
+    key: "styling",
+  });
+  const previous =
+    existing?.value && typeof existing.value === "object" ? existing.value : {};
+  const byType = new Map(
+    (Array.isArray(previous.colors) ? previous.colors : []).map((color) => [
+      color.type,
+      color.value,
+    ]),
+  );
+  for (const [type, value] of MARKETING_COLORS) byType.set(type, value);
+  const value = {
+    ...previous,
+    fonts: { ...(previous.fonts || {}), ...MARKETING_FONTS },
+    colors: [...byType.entries()].map(([type, color]) => ({
+      type,
+      value: color,
+    })),
+  };
+  if (existing) {
+    await col.updateOne({ _id: existing._id }, { $set: { value } });
+  } else {
+    await col.insertOne({ key: "styling", organizationId, value });
+  }
+  console.log(
+    "Styling aligned: Manrope / Playfair Display / DM Mono, ink primary with cream button text.",
+  );
+}
+
+/**
+ * Point brand logo and favicon at the uploaded symbol.
+ * @param {import("mongodb").Db} db
+ * @param {string} organizationId
+ * @param {string} logoUrl
+ */
+async function upsertMarketingBrand(db, organizationId, logoUrl) {
+  const col = db.collection(CONFIGURATION_COLLECTION);
+  const existing = await col.findOne({
+    ...orgIdMatch(organizationId),
+    key: "brand",
+  });
+  const previous =
+    existing?.value && typeof existing.value === "object" ? existing.value : {};
+  const value = { ...previous, logo: logoUrl, favicon: logoUrl };
+  if (existing) {
+    await col.updateOne({ _id: existing._id }, { $set: { value } });
+  } else {
+    await col.insertOne({ key: "brand", organizationId, value });
+  }
+  console.log(`Brand logo and favicon → ${logoUrl}`);
+}
+
 async function invalidatePageRouteCache(organizationId, config) {
   const redis = createRedisClient(config);
   try {
     await redis.connect();
     const key = `${PAGE_ROUTES_REDIS_PREFIX}${organizationId}`;
-    const n = await redis.del(key);
+    const stylingKey = `${CONFIG_REDIS_PREFIX}${organizationId}:styling`;
+    const brandKey = `${CONFIG_REDIS_PREFIX}${organizationId}:brand`;
+    const n = await redis.del(key, stylingKey, brandKey);
     console.log(
       n
-        ? `Invalidated Redis page-route cache (${key}).`
-        : `Redis page-route cache key absent (${key}); nothing to clear.`,
+        ? `Invalidated Redis page-route, styling, and brand cache (${n} key(s)).`
+        : `Redis page-route, styling, and brand cache keys absent; nothing to clear.`,
     );
   } finally {
     redis.disconnect();
@@ -548,14 +646,10 @@ async function resolveRedisConfig(rl, opts) {
 
   if (!opts.yes) {
     if (!host) {
-      host = (
-        await rl.question(`Redis host [${defaults.host}]: `)
-      ).trim();
+      host = (await rl.question(`Redis host [${defaults.host}]: `)).trim();
     }
     if (!port) {
-      port = (
-        await rl.question(`Redis port [${defaults.port}]: `)
-      ).trim();
+      port = (await rl.question(`Redis port [${defaults.port}]: `)).trim();
     }
     if (!db) {
       db = (await rl.question(`Redis DB index [${defaults.db}]: `)).trim();
@@ -693,7 +787,8 @@ async function main() {
         .map((h) => `"${h.name}"`)
         .join(", ")}), footer "${structure.footer.name}".`,
     );
-    console.log(`Connecting ${mongoUrl} / ${dbName} as org slug "${slug}"…`);
+
+    console.log(`Connecting to database "${dbName}" as org slug "${slug}"…`);
 
     const client = new MongoClient(mongoUrl);
     await client.connect();
@@ -707,6 +802,8 @@ async function main() {
       const organizationId = String(org._id);
       const now = new Date();
 
+      await upsertMarketingStyling(db, organizationId);
+
       console.log("Uploading / resolving marketing assets…");
       const rewritten = await uploadAndRewriteStructure(
         db,
@@ -718,6 +815,18 @@ async function main() {
       console.log(
         `Assets: ${rewritten.uploaded} uploaded, ${rewritten.updated} updated, ${rewritten.reused} reused.`,
       );
+
+      const brandLogo = await uploadOrgAsset(
+        db,
+        organizationId,
+        s3,
+        s3Config,
+        BRAND_LOGO_FILE,
+        BRAND_LOGO_ASSET,
+        "Marketing logo",
+      );
+      console.log(`  ${brandLogo.action} logo → ${brandLogo.url}`);
+      await upsertMarketingBrand(db, organizationId, brandLogo.url);
 
       /** @type {Record<string, string>} */
       const headerIdsByName = {};
@@ -747,8 +856,7 @@ async function main() {
       let created = 0;
       let updated = 0;
       for (const page of rewritten.pages) {
-        const headerId =
-          headerIdsByName[page.headerName] ?? fallbackHeaderId;
+        const headerId = headerIdsByName[page.headerName] ?? fallbackHeaderId;
         const result = await upsertPage(
           db.collection(PAGES_COLLECTION),
           organizationId,

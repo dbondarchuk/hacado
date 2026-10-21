@@ -305,25 +305,36 @@ export const Header: React.FC<HeaderProps> = ({
           align="start"
           sideOffset={8}
           className={cn(
-            "rounded-xl border border-border bg-card p-2 text-foreground shadow-lg",
+            "rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-lg",
             resolved.twoColumns
               ? "min-w-[28rem] grid grid-cols-2"
               : "min-w-56 flex flex-col",
           )}
+          style={{
+            backgroundColor: "hsl(var(--value-popover-color, 0 0% 100%))",
+            color: "hsl(var(--value-popover-foreground-color, 60 4.9% 12%))",
+          }}
         >
-          {resolved.children.map((subItem, jndex) => (
-            <DropdownMenuItem
-              key={jndex}
-              asChild
-              className="mx-0 cursor-pointer rounded-lg px-3 py-2 text-sm focus:bg-accent focus:text-accent-foreground"
-            >
-              {getLink(
-                resolveItem(subItem) as MenuItem,
-                false,
-                "w-full justify-start text-foreground hover:text-foreground",
-              )}
-            </DropdownMenuItem>
-          ))}
+          <ReplaceOriginalColors />
+          {resolved.children.map((subItem, jndex) => {
+            const child = resolveItem(subItem) as MenuItem;
+            return (
+              <DropdownMenuItem
+                key={jndex}
+                asChild
+                className={cn(
+                  "mx-0 cursor-pointer rounded-lg px-3 py-2 focus:bg-accent focus:text-accent-foreground",
+                  "className" in child ? child.className : undefined,
+                )}
+              >
+                {getLink(
+                  child,
+                  false,
+                  "w-full justify-start text-foreground hover:text-foreground",
+                )}
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -346,7 +357,7 @@ export const Header: React.FC<HeaderProps> = ({
       >
         <Logo
           name={name}
-          logo={logo}
+          logo={style.logo || logo}
           showLogo={style.showLogo ?? undefined}
           hideName={style.hideName ?? undefined}
           logoSize={style.logoSize}

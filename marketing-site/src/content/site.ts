@@ -509,18 +509,13 @@ export const comparePages: ComparePage[] = [
     ],
     points: [
       {
-        title: "Website",
+        title: "Where clients book",
+        hacadoTitle: "Independent website",
+        otherTitle: "Marketplace",
         hacado:
-          "A full branded site: services, gallery, FAQ, gift cards, your domain.",
+          "A full branded site: services, gallery, FAQ, gift cards, your domain. No directory. Instagram, Google, and word of mouth bring the demand. We run the book.",
         other:
-          "An app listing and booking flow under Fresha’s brand - not an independent website you own.",
-      },
-      {
-        title: "Marketplace",
-        hacado:
-          "None. Instagram, Google, and word of mouth bring demand. We run the book.",
-        other:
-          "Marketplace discovery is the product. New clients arrive beside competitors Fresha also lists.",
+          "An app listing and booking flow under Fresha’s brand, not a site you own. Marketplace discovery is the product. New clients arrive beside competitors Fresha also lists.",
       },
       {
         title: "Who owns the client",
@@ -588,17 +583,13 @@ export const comparePages: ComparePage[] = [
     ],
     points: [
       {
-        title: "Independent website",
+        title: "Where clients book",
+        hacadoTitle: "Independent website",
+        otherTitle: "Marketplace",
         hacado:
-          "White-label pages, gallery, policies, gift cards, your domain.",
+          "White-label pages, gallery, policies, gift cards, your domain. Zero directory. You bring the demand; we convert it.",
         other:
-          "Marketplace profile and in-app book flow. Clients see Booksy as much as they see you.",
-      },
-      {
-        title: "Marketplace",
-        hacado: "Zero directory. You bring the demand; we convert it.",
-        other:
-          "App-store discovery is the growth engine - and the reason your next client might book the chair next door.",
+          "A marketplace profile and in-app book flow. Clients see Booksy as much as they see you. App-store discovery is the growth engine - and the reason your next client might book the chair next door.",
       },
       {
         title: "Client ownership",
@@ -672,17 +663,13 @@ export const comparePages: ComparePage[] = [
           "Salon-suite breadth. Powerful - and heavier than a solo chair needs on day one.",
       },
       {
-        title: "Independent website",
+        title: "Where clients book",
+        hacadoTitle: "Independent website",
+        otherTitle: "Marketplace",
         hacado:
-          "Your brand, pages, and domain. Clients never land in a directory.",
+          "Your brand, pages, and domain. Clients never land in a directory. No “similar nearby.” Your Instagram and Google stay the funnel.",
         other:
-          "Marketplace discovery sits next to the ops tools. The brand clients remember is split.",
-      },
-      {
-        title: "Shared demand",
-        hacado:
-          "No “similar nearby.” Your Instagram and Google stay the funnel.",
-        other: "Marketplace pitch means shared inventory of attention.",
+          "Marketplace discovery sits next to the ops tools, so the brand clients remember is split. That pitch is a shared inventory of attention.",
       },
       {
         title: "Client list",
@@ -1098,14 +1085,13 @@ export const comparePages: ComparePage[] = [
     ],
     points: [
       {
-        title: "Marketplace",
-        hacado: "None. Instagram and Google stay the funnel.",
-        other: "Discovery and marketplace dynamics are part of how clients find you.",
-      },
-      {
-        title: "Independent website",
-        hacado: "White-label pages, gallery, policies, gift cards, your domain.",
-        other: "Booking sits next to a discovery brand clients already know.",
+        title: "Where clients book",
+        hacadoTitle: "Independent website",
+        otherTitle: "Marketplace",
+        hacado:
+          "White-label pages, gallery, policies, gift cards, your domain. No directory. Instagram and Google stay the funnel.",
+        other:
+          "Booking sits next to a discovery brand clients already know. Finding you, and finding someone nearby, is part of the product.",
       },
       {
         title: "Client ownership",
@@ -1286,14 +1272,13 @@ export const comparePages: ComparePage[] = [
     ],
     points: [
       {
-        title: "Marketplace",
-        hacado: "None. No directory commission on discovery.",
-        other: "Marketplace discovery and platform economics are core to the pitch.",
-      },
-      {
-        title: "Independent website",
-        hacado: "Your brand on every page and reminder.",
-        other: "Clients often find and rebook through the Mindbody surface.",
+        title: "Where clients book",
+        hacadoTitle: "Independent website",
+        otherTitle: "Marketplace",
+        hacado:
+          "Your brand on every page and reminder. No directory, and no commission on discovery.",
+        other:
+          "Clients often find and rebook through the Mindbody surface. Marketplace discovery and platform economics are core to the pitch.",
       },
       {
         title: "Product weight",

@@ -129,7 +129,7 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
 
   const select = async (asset: UploadedFile) => {
     const nextValue =
-      fullUrl || isAbsoluteUrl(asset.url)
+      fullUrl || asset.source !== "assets"
         ? asset.url
         : `/assets/${asset.filename}`;
 
@@ -138,6 +138,7 @@ export const AssetSelectorInput: React.FC<AssetSelectorInputProps> = ({
       mimeType: asset.mimeType,
       filename: asset.filename,
     });
+
     if (!ok) {
       return;
     }

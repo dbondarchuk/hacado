@@ -68,7 +68,8 @@ export function text(body: string, style: Record<string, unknown> = {}) {
     },
     style: {
       padding: emptyPad,
-      fontSize: size(1),
+      fontSize: size(0.95),
+      lineHeight: sv({ value: 1.7, unit: "" }),
       ...style,
     },
   });
@@ -84,7 +85,8 @@ export function texts(
     },
     style: {
       padding: emptyPad,
-      fontSize: size(1),
+      fontSize: size(0.95),
+      lineHeight: sv({ value: 1.7, unit: "" }),
       ...style,
     },
   });
@@ -101,6 +103,15 @@ export function icon(name: string, style: Record<string, unknown> = {}) {
       flexShrink: sv("0"),
       ...style,
     },
+  });
+}
+
+/** Diagonal arrow drawn as an icon, so phones do not substitute an emoji. */
+export function arrowIcon(style: Record<string, unknown> = {}) {
+  return icon("arrow-up-right", {
+    width: size(0.9),
+    height: size(0.9),
+    ...style,
   });
 }
 
@@ -169,23 +180,23 @@ export function button(
     },
     style: {
       color: sv(
-        textColor ??
-          (variant === "primary" || variant === "brand"
-            ? C.primaryFg
-            : C.foreground),
+        textColor ?? (variant === "primary" ? C.primaryFg : C.foreground),
       ),
       backgroundColor: sv(
         variant === "primary"
           ? C.primary
           : variant === "brand"
-            ? C.brand
+            ? C.background
             : "transparent",
       ),
       padding: pad(0.75, 1.5, 0.75, 1.5),
-      borderRadius: radius(8),
-      borderStyle: variant === "outline" ? sv("solid") : undefined,
-      borderWidth: variant === "outline" ? size(1, "px") : undefined,
-      borderColor: variant === "outline" ? sv(C.border) : undefined,
+      borderRadius: radius(999),
+      borderStyle:
+        variant === "outline" || variant === "brand" ? sv("solid") : undefined,
+      borderWidth:
+        variant === "outline" || variant === "brand" ? size(1, "px") : undefined,
+      borderColor:
+        variant === "outline" || variant === "brand" ? sv(C.border) : undefined,
       fontWeight: sv("600"),
       fontSize: size(0.875),
       textAlign: sv("center"),
@@ -207,23 +218,22 @@ export function actionButton(
       children: [inlineContainer([inlineText(label)])],
     },
     style: {
-      color: sv(
-        variant === "primary" || variant === "brand"
-          ? C.primaryFg
-          : C.foreground,
-      ),
+      color: sv(variant === "primary" ? C.primaryFg : C.foreground),
       backgroundColor: sv(
         variant === "primary"
           ? C.primary
           : variant === "brand"
-            ? C.brand
+            ? C.background
             : "transparent",
       ),
       padding: pad(0.5, 1, 0.5, 1),
-      borderRadius: radius(8),
-      borderStyle: variant === "outline" ? sv("solid") : undefined,
-      borderWidth: variant === "outline" ? size(1, "px") : undefined,
-      borderColor: variant === "outline" ? sv(C.border) : undefined,
+      borderRadius: radius(999),
+      borderStyle:
+        variant === "outline" || variant === "brand" ? sv("solid") : undefined,
+      borderWidth:
+        variant === "outline" || variant === "brand" ? size(1, "px") : undefined,
+      borderColor:
+        variant === "outline" || variant === "brand" ? sv(C.border) : undefined,
       fontWeight: sv("600"),
       fontSize: size(0.875),
       textAlign: sv("center"),
@@ -250,7 +260,7 @@ export function cookieAcknowledgmentBanner(
   return block("StickyBanner", {
     style: {
       width: size(100, "%"),
-      backgroundColor: sv(C.muted),
+      backgroundColor: sv(C.background),
       boxShadow: [
         {
           value: {

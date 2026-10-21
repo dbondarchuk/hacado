@@ -1541,6 +1541,10 @@ pages:
       hideNameDescription: Ocultar el nombre de la empresa junto al logo
       fullWidth: Ancho completo
       fullWidthDescription: Extienda el contenido del encabezado a través de la ventana gráfica completa en lugar del contenedor de la página
+      logo:
+        label: Imagen del logotipo
+        tooltip: Logotipo personalizado para este encabezado. Déjelo vacío para usar el logotipo de la marca. Al desplazar, déjelo vacío para conservar el logotipo predeterminado.
+        placeholder: Logotipo de la marca
       logoSize:
         label: Tamaño del logotipo
         tooltip: Tamaño del logotipo

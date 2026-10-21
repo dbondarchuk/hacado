@@ -31,4 +31,5 @@ export type AssetUpdate = z.infer<typeof assetUpdateSchema>;
 
 export type UploadedFile = Asset & {
   url: string;
+  source: "assets" | "third-party";
 };

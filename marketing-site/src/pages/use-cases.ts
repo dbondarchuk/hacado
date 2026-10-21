@@ -12,6 +12,7 @@ import {
   comparePointCard,
   comparisonTable,
   container,
+  creamCard,
   cookieAcknowledgmentBanner,
   ctaBand,
   ctaButtonWidth,
@@ -36,6 +37,7 @@ import {
   pageHero,
   planCard,
   radius,
+  relatedLinks,
   redirect,
   scrollingLogos,
   section,
@@ -58,13 +60,14 @@ import { HERO_HEADER_NAME, keywords } from "./shared";
 export function useCasesHubPage() {
   const beauty = useCases.filter((u) => u.cluster === "beauty");
   const other = useCases.filter((u) => u.cluster === "other");
-  const card = (u: (typeof useCases)[number]) =>
+  const card = (u: (typeof useCases)[number], index: number) =>
     cardLink({
       href: `/use-cases/${u.slug}`,
       title: u.title,
       body: u.summary,
       eyebrow: u.persona,
       image: u.image,
+      index,
     });
 
   return pageDoc({
@@ -150,25 +153,7 @@ export function useCasePage(u: (typeof useCases)[number]) {
       ]),
       section([
         grid(
-          u.bullets.map((b) =>
-            container([bulletRow(b)], {
-              padding: [
-                {
-                  value: {
-                    top: { value: 1, unit: "rem" },
-                    bottom: { value: 1, unit: "rem" },
-                    left: { value: 1, unit: "rem" },
-                    right: { value: 1, unit: "rem" },
-                  },
-                },
-              ],
-              borderRadius: [{ value: { value: 12, unit: "px" } }],
-              borderStyle: sv("solid"),
-              borderWidth: [{ value: { value: 1, unit: "px" } }],
-              borderColor: sv(C.border),
-              backgroundColor: sv(C.card),
-            }),
-          ),
+          u.bullets.map((b, i) => creamCard([bulletRow(b)], i)),
           "repeat(2, minmax(0, 1fr))",
         ),
       ]),
@@ -207,52 +192,7 @@ export function useCasePage(u: (typeof useCases)[number]) {
       u.related.length
         ? section([
             sectionIntro({ title: "Related" }),
-            container(
-              u.related.map((r) =>
-                link(`${r.label} →`, r.href, {
-                  color: sv(C.foreground),
-                  fontWeight: sv("500"),
-                  backgroundColor: sv(C.card),
-                  borderRadius: radius(9999999),
-                  borderStyle: sv("solid"),
-                  borderWidth: size(1, "px"),
-                  transition: [{ value: "all 0.3s ease" }],
-                  textAlign: [{ value: "center" }],
-                  borderColor: [
-                    { value: C.border },
-                    {
-                      value: C.primary,
-                      state: [
-                        {
-                          state: "hover",
-                          target: {
-                            type: "self",
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                  padding: pad(0.5, 1, 0.5, 1),
-                  gap: sv({ value: 0.5, unit: "rem" }),
-                  width: [
-                    {
-                      value: { value: 100, unit: "%" },
-                      breakpoint: ["max-sm"],
-                    },
-                  ],
-                }),
-              ),
-              {
-                display: sv("flex"),
-                flexDirection: [
-                  { value: "column" },
-                  { value: "row", breakpoint: ["sm"] },
-                ],
-                justifyContent: sv("center"),
-                alignItems: sv("center"),
-                gap: sv({ value: 0.75, unit: "rem" }),
-              },
-            ),
+            relatedLinks(u.related.map((r) => ({ label: r.label, href: r.href }))),
           ])
         : spacer(0),
       ctaBand(

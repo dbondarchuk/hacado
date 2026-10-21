@@ -115,6 +115,39 @@ export function videoSection(opts: {
 }
 
 
+/** One image at a time, centered, auto-advancing, no arrows. */
+export function imageCarousel(images: string[], alt: string) {
+  return block("Carousel", {
+    style: {
+      width: size(100, "%"),
+      carouselChildrenItemsPerSlide: [{ value: 1 }],
+      carouselChildrenAlign: [{ value: "center" }],
+    },
+    props: {
+      orientation: "horizontal",
+      navigation: false,
+      loop: true,
+      autoPlay: 4,
+      children: images.map((src) =>
+        image(src, alt, {
+          width: size(100, "%"),
+          maxWidth: size(100, "%"),
+          height: size(18, "rem"),
+          objectFit: sv("contain"),
+          objectPosition: [{ value: { x: 50, y: 50 } }],
+          display: sv("block"),
+          margin: sv({
+            top: { value: 0, unit: "rem" },
+            bottom: { value: 0, unit: "rem" },
+            left: "auto",
+            right: "auto",
+          }),
+        }),
+      ),
+    },
+  });
+}
+
 export function lightbox(images: string[], alt: string) {
   return block("Lightbox", {
     props: {

@@ -217,6 +217,12 @@ import {
   PageLayoutToolbar,
 } from "./page-layout";
 import {
+  PhraseCycleConfiguration,
+  PhraseCycleEditor,
+  PhraseCyclePropsDefaults,
+  PhraseCycleToolbar,
+} from "./phrase-cycle";
+import {
   PopupConfiguration,
   PopupEditor,
   PopupPropsDefaults,
@@ -626,6 +632,26 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     },
     capabilities: ["text", "inline"],
     tags: ["text", "typewriter", "inline"],
+  },
+  PhraseCycle: {
+    displayName:
+      "builder.pageBuilder.blocks.phraseCycle.displayName" satisfies BaseAllKeys,
+    icon: <Repeat2 className="size-4" />,
+    Editor: PhraseCycleEditor,
+    Configuration: PhraseCycleConfiguration,
+    Toolbar: PhraseCycleToolbar,
+    defaultValue: PhraseCyclePropsDefaults,
+    category:
+      "builder.pageBuilder.blocks.categories.text" satisfies BaseAllKeys,
+    disable: {
+      keyboardShortcuts: {
+        delete: true,
+        moveUp: true,
+        moveDown: true,
+      },
+    },
+    capabilities: ["text", "inline"],
+    tags: ["text", "phrase", "animation", "inline"],
   },
   Accordion: {
     displayName:

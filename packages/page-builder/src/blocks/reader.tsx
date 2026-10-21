@@ -29,6 +29,7 @@ import { ModifyAppointmentFormReader as ModifyAppointmentFormModernReader } from
 import { ModifyAppointmentFormReader as ModifyAppointmentFormSimpleReader } from "./modify-appointment-form/simple/reader";
 import { PageHeroReader } from "./page-hero/reader";
 import { PageLayoutReader } from "./page-layout/reader";
+import { PhraseCycleReader } from "./phrase-cycle/reader";
 import { PopupReader } from "./popup/reader";
 import { RedirectReader } from "./redirect/reader";
 import { EditorBlocksSchema } from "./schema";
@@ -114,6 +115,9 @@ export const ReaderBlocks: ReaderDocumentBlocksDictionary<
   },
   TypewriterText: {
     Reader: TypewriterTextReader,
+  },
+  PhraseCycle: {
+    Reader: PhraseCycleReader,
   },
   YouTubeVideo: {
     Reader: YouTubeVideoReader,

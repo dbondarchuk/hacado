@@ -86,6 +86,7 @@ const unsplashPhotoToUploadedFile = (photo: UnsplashPhoto): UploadedFile => ({
   hash: "",
   description: photo.alt ?? photo.photographer.name,
   url: photo.urls.regular,
+  source: "third-party",
 });
 
 const pexelsMediaToUploadedFile = (media: PexelsMedia): UploadedFile => ({
@@ -98,6 +99,7 @@ const pexelsMediaToUploadedFile = (media: PexelsMedia): UploadedFile => ({
   hash: "",
   description: media.alt ?? media.photographer.name,
   url: media.url,
+  source: "third-party",
 });
 
 const defaultPexelsType = (
@@ -132,12 +134,15 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
   const [pexelsType, setPexelsType] = React.useState<PexelsMediaType>(
     defaultPexelsType(allowImages, allowVideos),
   );
+
   const [selected, setSelected] = React.useState<UploadedFile | undefined>(
     undefined,
   );
+
   const [selectedUnsplash, setSelectedUnsplash] = React.useState<
     UnsplashPhoto | undefined
   >(undefined);
+
   const [selectedPexels, setSelectedPexels] = React.useState<
     PexelsMedia | undefined
   >(undefined);

@@ -39,6 +39,7 @@ import {
   pageHero,
   planCard,
   radius,
+  relatedLinks,
   redirect,
   scrollingLogos,
   section,
@@ -95,7 +96,7 @@ export function seoLandingPage(p: SeoLandingPage) {
               heading("h2", s.title, {
                 fontSize: sv({ value: 1.5, unit: "rem" }),
               }),
-              text(s.body, { color: sv(C.mutedFg), fontSize: size(1) }),
+              text(s.body, { color: sv(C.mutedFg) }),
             ],
             { gap: gap(0.75), maxWidth: size(42, "rem") },
           ),
@@ -108,24 +109,7 @@ export function seoLandingPage(p: SeoLandingPage) {
               title: "Keep reading",
               body: "Related guides, features, and compare pages.",
             }),
-            container(
-              p.links.map((r) =>
-                link(`${r.label} →`, r.href, {
-                  color: sv(C.foreground),
-                  fontWeight: sv("500"),
-                  backgroundColor: sv(C.card),
-                  borderRadius: radius(9999999),
-                  borderStyle: sv("solid"),
-                  borderWidth: size(1, "px"),
-                  padding: pad(0.5, 1, 0.5, 1),
-                }),
-              ),
-              {
-                display: sv("flex"),
-                flexWrap: sv("wrap"),
-                gap: sv({ value: 0.75, unit: "rem" }),
-              },
-            ),
+            relatedLinks(p.links),
           ])
         : spacer(0),
       p.faqs?.length

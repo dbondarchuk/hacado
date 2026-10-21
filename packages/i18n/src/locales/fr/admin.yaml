@@ -1541,6 +1541,10 @@ pages:
       hideNameDescription: Masquer le nom de l'entreprise à côté du logo
       fullWidth: Pleine largeur
       fullWidthDescription: Étendre le contenu de l'en-tête sur toute la fenêtre d'affichage au lieu du conteneur de page
+      logo:
+        label: Image du logo
+        tooltip: Logo personnalisé pour cet en-tête. Laisser vide pour utiliser le logo de la marque. Au défilement, laisser vide pour conserver le logo par défaut.
+        placeholder: Logo de la marque
       logoSize:
         label: Taille du logo
         tooltip: Taille du logo

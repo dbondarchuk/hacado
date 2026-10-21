@@ -1,18 +1,6 @@
 /** Section chrome and page wrappers. */
+import { bid, block, C, gap, pad, size, sv } from "./core";
 import {
-  assetUrl,
-  bid,
-  block,
-  C,
-  emptyPad,
-  gap,
-  pad,
-  radius,
-  size,
-  sv,
-} from "./core";
-import {
-  button,
   container,
   heading,
   icon,
@@ -65,33 +53,32 @@ export function sectionIntro(opts: {
   if (opts.eyebrow) {
     children.push(
       inlineText(opts.eyebrow, {
-        fontSize: size(0.875),
-        fontWeight: sv("600"),
-        textAlign: sv("center"),
-        color: sv(C.brand),
+        fontFamily: sv("TERTIARY"),
+        fontSize: size(0.6875),
+        fontWeight: sv("500"),
+        color: sv(C.mutedFg),
         textTransform: sv("uppercase"),
+        letterSpacing: sv({ value: 0.08, unit: "em" }),
       }),
     );
   }
   children.push(
     heading("h2", opts.title, {
       fontSize: [
-        { value: { value: 1.875, unit: "rem" } },
-        { value: { value: 2.25, unit: "rem" }, breakpoint: ["md"] },
+        { value: { value: 2, unit: "rem" } },
+        { value: { value: 2.75, unit: "rem" }, breakpoint: ["md"] },
       ],
-      textAlign: sv("center"),
       fontWeight: sv("500"),
     }),
   );
   if (opts.body) {
-    children.push(
-      text(opts.body, { textAlign: sv("center"), color: sv(C.mutedFg) }),
-    );
+    children.push(text(opts.body, { color: sv(C.mutedFg) }));
   }
   return container(children, {
-    alignItems: sv("center"),
-    gap: gap(0.5),
+    alignItems: sv("flex-start"),
+    gap: gap(0.75),
     padding: pad(0, 0, 1.5, 0),
+    maxWidth: size(40, "rem"),
   });
 }
 
@@ -127,11 +114,26 @@ export function redirect(url: string, permanent = true) {
   });
 }
 
-export function customHtml(html: string) {
+export function customHtml(
+  html: string,
+  style: Record<string, unknown> = {},
+) {
   return block("CustomHTML", {
     props: { html },
-    style: { width: size(100, "%") },
+    style: { width: size(100, "%"), ...style },
   });
+}
+
+/** Four-point star from the editorial closing band, pinned to the upper right. */
+export function ctaSpark() {
+  return customHtml(
+    `<div class="final-orbit" aria-hidden="true"><svg viewBox="0 0 100 100" width="50" height="50" fill="currentColor"><path d="M50 2 58 42 98 50 58 58 50 98 42 58 2 50 42 42Z"/></svg></div><style>.final-orbit{position:absolute;right:14%;top:22%;color:#a4b19c;transform:rotate(25deg);line-height:0;pointer-events:none;}</style>`,
+    {
+      width: size(0),
+      height: size(0),
+      overflow: sv("visible"),
+    },
+  );
 }
 
 /** Forms app block - requires the Forms connected app on the org. */

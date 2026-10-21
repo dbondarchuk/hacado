@@ -168,6 +168,73 @@ export async function validateS3Connection(client, bucket) {
 }
 
 /**
+ * Upload one file as an org asset. Reuses the existing record when the
+ * filename and hash already match.
+ *
+ * @param {import('mongodb').Db} db
+ * @param {string} organizationId
+ * @param {S3Client} client
+ * @param {S3Config} config
+ * @param {string} filePath
+ * @param {string} filename asset key, e.g. marketing/logo.svg
+ * @param {string} [description]
+ * @returns {Promise<{ url: string, action: "uploaded" | "updated" | "reused" }>}
+ */
+export async function uploadOrgAsset(
+  db,
+  organizationId,
+  client,
+  config,
+  filePath,
+  filename,
+  description = "Marketing site",
+) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing file for /assets/${filename}: ${filePath}`);
+  }
+  const body = fs.readFileSync(filePath);
+  const hash = sha256(body);
+  const mimeType = mimeFor(filePath);
+  const assets = db.collection(ASSETS_COLLECTION);
+  const now = new Date();
+  const byName = await assets.findOne({ organizationId, filename });
+
+  if (byName && byName.hash === hash) {
+    return { url: `/assets/${filename}`, action: "reused" };
+  }
+
+  await putObject(client, config, organizationId, filename, body, mimeType);
+
+  if (byName) {
+    await assets.updateOne(
+      { _id: byName._id },
+      {
+        $set: {
+          hash,
+          size: body.length,
+          mimeType,
+          uploadedAt: now,
+          description,
+        },
+      },
+    );
+    return { url: `/assets/${filename}`, action: "updated" };
+  }
+
+  await assets.insertOne({
+    _id: new ObjectId().toString(),
+    organizationId,
+    filename,
+    mimeType,
+    size: body.length,
+    hash,
+    uploadedAt: now,
+    description,
+  });
+  return { url: `/assets/${filename}`, action: "uploaded" };
+}
+
+/**
  * @param {S3Client} client
  * @param {S3Config} config
  * @param {string} organizationId
@@ -210,83 +277,22 @@ export async function uploadAndRewriteStructure(
   let uploaded = 0;
   let reused = 0;
   let updated = 0;
-  const assets = db.collection(ASSETS_COLLECTION);
-  const now = new Date();
 
   const sorted = [...paths].sort();
   for (const sourcePath of sorted) {
-    const filePath = resolvePublicFile(sourcePath);
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`Missing public file for ${sourcePath}: ${filePath}`);
-    }
-    const body = fs.readFileSync(filePath);
-    const hash = sha256(body);
-    const mimeType = mimeFor(filePath);
-    const filename = marketingAssetFilename(sourcePath);
-
-    const byName = await assets.findOne({
+    const result = await uploadOrgAsset(
+      db,
       organizationId,
-      filename,
-    });
-
-    if (byName && byName.hash === hash) {
-      pathMap.set(sourcePath, `/assets/${byName.filename}`);
-      reused += 1;
-      console.log(`  reuse (name+hash) ${sourcePath} → /assets/${filename}`);
-      continue;
-    }
-
-    const byHash = await assets.findOne({
-      organizationId,
-      hash,
-      appointmentId: { $exists: false },
-      customerId: { $exists: false },
-    });
-
-    // Only reuse by hash when the existing filename already matches the
-    // canonical folder layout (avoid locking into old flat marketing-* names).
-    if (byHash && !byName && byHash.filename === filename) {
-      pathMap.set(sourcePath, `/assets/${byHash.filename}`);
-      reused += 1;
-      console.log(
-        `  reuse (hash) ${sourcePath} → /assets/${byHash.filename}`,
-      );
-      continue;
-    }
-
-    await putObject(client, config, organizationId, filename, body, mimeType);
-
-    if (byName) {
-      await assets.updateOne(
-        { _id: byName._id },
-        {
-          $set: {
-            hash,
-            size: body.length,
-            mimeType,
-            uploadedAt: now,
-            description: "Marketing site",
-          },
-        },
-      );
-      updated += 1;
-      console.log(`  updated ${sourcePath} → /assets/${filename}`);
-    } else {
-      await assets.insertOne({
-        _id: new ObjectId().toString(),
-        organizationId,
-        filename,
-        mimeType,
-        size: body.length,
-        hash,
-        uploadedAt: now,
-        description: "Marketing site",
-      });
-      uploaded += 1;
-      console.log(`  uploaded ${sourcePath} → /assets/${filename}`);
-    }
-
-    pathMap.set(sourcePath, `/assets/${filename}`);
+      client,
+      config,
+      resolvePublicFile(sourcePath),
+      marketingAssetFilename(sourcePath),
+    );
+    pathMap.set(sourcePath, result.url);
+    if (result.action === "reused") reused += 1;
+    else if (result.action === "updated") updated += 1;
+    else uploaded += 1;
+    console.log(`  ${result.action} ${sourcePath} → ${result.url}`);
   }
 
   const headersSource = Array.isArray(structure.headers)

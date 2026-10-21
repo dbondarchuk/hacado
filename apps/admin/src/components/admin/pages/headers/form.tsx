@@ -43,7 +43,7 @@ import {
   toastPromise,
   useDebounceCacheFn,
 } from "@hacado/ui";
-import { SaveButton, Sortable } from "@hacado/ui-admin";
+import { AssetSelectorInput, SaveButton, Sortable } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -579,6 +579,68 @@ export const PageHeaderForm: React.FC<{
                             field.onChange(value);
                             field.onBlur();
                           }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              }
+            />
+
+            <RestScrollRow
+              showScrolled={showScrolled}
+              restLabel={t("pages.headers.form.defaultColumn")}
+              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              label={
+                <>
+                  {t("pages.headers.form.logo.label")}{" "}
+                  <InfoTooltip>
+                    {t("pages.headers.form.logo.tooltip")}
+                  </InfoTooltip>
+                </>
+              }
+              rest={
+                <FormField
+                  control={form.control}
+                  name="logo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <AssetSelectorInput
+                          value={field.value}
+                          disabled={loading}
+                          placeholder={t("pages.headers.form.logo.placeholder")}
+                          accept="image/*"
+                          onChange={(value) => {
+                            field.onChange(value);
+                            field.onBlur();
+                          }}
+                          onBlur={field.onBlur}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              }
+              scrolled={
+                <FormField
+                  control={form.control}
+                  name="scrolled.logo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <AssetSelectorInput
+                          value={field.value}
+                          disabled={loading}
+                          placeholder={t("pages.headers.form.inheritDefault")}
+                          accept="image/*"
+                          onChange={(value) => {
+                            field.onChange(value);
+                            field.onBlur();
+                          }}
+                          onBlur={field.onBlur}
                         />
                       </FormControl>
                       <FormMessage />

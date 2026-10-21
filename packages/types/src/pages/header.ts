@@ -5,7 +5,7 @@ import {
   zThemeColorWithTransparent,
 } from "../configuration/styling/styling";
 import { WithDatabaseId, WithOrganizationId } from "../database";
-import { asOptionalField, Prettify } from "../utils";
+import { asOptionalField, Prettify, zAssetName } from "../utils";
 
 export const pageHeaderPositionType = ["static", "sticky", "fixed"] as const;
 export type PageHeaderPosition = (typeof pageHeaderPositionType)[number];
@@ -38,11 +38,14 @@ export const zPageHeaderBackgroundColor = zThemeColorWithTransparent;
 /** System color or custom HSL `"H S% L%"` (no transparent). */
 export const zPageHeaderTextColor = zThemeColor;
 
+const zHeaderLogo = asOptionalField(zAssetName).nullable();
+
 const pageHeaderScrolledStyleSchema = z.object({
   backgroundColor: zPageHeaderBackgroundColor.optional().nullable(),
   textColor: zPageHeaderTextColor.optional().nullable(),
   hideName: z.coerce.boolean<boolean>().optional(),
   showLogo: z.coerce.boolean<boolean>().optional(),
+  logo: zHeaderLogo,
   logoSize: z.enum(pageHeaderLogoSize).optional().nullable(),
   logoNameFontSize: z.enum(pageHeaderLogoNameFontSize).optional().nullable(),
   logoNameFontWeight: z
@@ -69,6 +72,7 @@ export const pageHeaderSchema = z.object({
   textColor: zPageHeaderTextColor.optional().nullable(),
   hideName: z.coerce.boolean<boolean>().optional(),
   showLogo: z.coerce.boolean<boolean>().default(false).optional(),
+  logo: zHeaderLogo,
   logoSize: z.enum(pageHeaderLogoSize).optional(),
   logoNameFontSize: z.enum(pageHeaderLogoNameFontSize).optional(),
   logoNameFontWeight: z.enum(pageHeaderLogoNameFontWeight).optional(),
