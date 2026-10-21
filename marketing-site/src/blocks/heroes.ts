@@ -24,7 +24,7 @@ import {
   inlineText,
   text,
 } from "./primitives";
-import { badge, section } from "./layout";
+import { badge, ctaSpark, section } from "./layout";
 import { browserCarousel } from "./media";
 
 function typewriter(phrases: string[], style: Record<string, unknown> = {}) {
@@ -332,6 +332,7 @@ export function homeHero(opts: {
 export function ctaBand(title: string, body: string) {
   return container(
     [
+      ctaSpark(),
       container(
         [
           heading("h2", title, {
@@ -372,6 +373,8 @@ export function ctaBand(title: string, body: string) {
       ),
     ],
     {
+      position: sv("relative"),
+      gap: gap(0),
       padding: pad(6, 1.5, 6, 1.5),
       backgroundColor: sv(C.primary),
       color: sv(C.primaryFg),

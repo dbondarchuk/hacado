@@ -1,6 +1,6 @@
 /** Home page in the editorial visual system, built from page blocks. */
 import { bid, block, C, gap, pad, radius, size, sv } from "./core";
-import { customHtml } from "./layout";
+import { ctaSpark, customHtml } from "./layout";
 import {
   button,
   container,
@@ -230,6 +230,7 @@ export type EditorialHomeInput = {
   industries: string[];
   signupUrl: string;
   heroImage: string;
+  bookingImage: string;
   integrations: string[];
   integrationsHref: string;
   productKicker: string;
@@ -311,7 +312,7 @@ export type EditorialHomeInput = {
 
 const VISUAL_CSS = `
 .hv{--ink:hsl(var(--value-foreground-color));--muted:hsl(var(--value-muted-foreground-color));--paper:hsl(var(--value-background-color));--cream:hsl(var(--value-muted-color));--sage:hsl(var(--value-accent-color));--dark:hsl(var(--value-primary-color));--on-dark:hsl(var(--value-primary-foreground-color));--accent-ink:hsl(var(--value-accent-foreground-color));--tan:hsl(var(--value-secondary-color));--line:hsl(var(--value-border-color));--serif:var(--font-secondary-value),Georgia,serif;--sans:var(--font-primary-value),Arial,sans-serif;--mono:var(--font-tertiary-value),ui-monospace,monospace;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 70px hsl(var(--value-secondary-color) / .55);background:var(--tan);transform:rotate(-1deg);color:var(--ink);font-family:var(--sans);width:100%;}
-.hv:has(#hv-booking:checked){background:var(--sage);box-shadow:0 24px 70px hsl(var(--value-accent-foreground-color) / .16);transform:rotate(1deg);padding:9px;}
+.hv:has(#hv-booking:checked){box-shadow:0 24px 70px hsl(var(--value-accent-foreground-color) / .16);transform:rotate(1deg);}
 .hv-radio{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
 .hv-switch{position:absolute;top:18px;right:18px;z-index:2;display:flex;gap:4px;padding:4px;background:hsl(var(--value-background-color) / .78);border:1px solid var(--line);border-radius:999px;backdrop-filter:blur(10px);}
 .hv-switch label{padding:8px 11px;border-radius:999px;color:var(--muted);font:500 9px var(--mono);cursor:pointer;}
@@ -328,58 +329,15 @@ const VISUAL_CSS = `
 .hv-note small{margin-top:3px;color:var(--muted);font:9px var(--mono);}
 .hv-stamp{position:absolute;top:27px;left:25px;width:63px;height:63px;display:grid;place-content:center;text-align:center;color:var(--on-dark);background:var(--accent-ink);border-radius:50%;font:8px/1.05 var(--mono);transform:rotate(9deg);}
 .hv-stamp b{font:500 25px var(--serif);line-height:.9;}
-.hv-chrome{height:36px;padding:0 11px;display:flex;align-items:center;gap:10px;background:var(--cream);border-radius:5px 5px 0 0;color:var(--muted);font:9px var(--mono);}
-.hv-dots{display:flex;gap:5px;margin-right:auto;}
-.hv-dots i{width:8px;height:8px;border-radius:50%;background:#e2a8a2;display:block;}
-.hv-dots i:nth-child(2){background:#e5c389;}
-.hv-dots i:nth-child(3){background:#a7c0a7;}
-.hv-live{color:var(--accent-ink);font-size:8px;}
-.hv-grid{display:grid;grid-template-columns:36% 64%;min-height:350px;background:var(--paper);}
-.hv-side{padding:29px 20px;border-right:1px solid var(--line);}
-.hv-mini{display:block;font:500 8px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
-.hv-side h3{font:500 24px/1.1 var(--serif);margin:13px 0 9px;}
-.hv-side p{font-size:10px;color:var(--muted);line-height:1.6;}
-.hv-service{display:flex;align-items:center;gap:9px;padding:12px 0;margin-top:21px;border-top:1px solid var(--line);}
-.hv-service.is-on{border-top:2px solid var(--accent-ink);}
-.hv-ico{width:29px;height:29px;display:grid;place-items:center;background:var(--sage);color:var(--accent-ink);border-radius:50%;flex:none;}
-.hv-ico.is-soft{background:var(--tan);color:var(--muted);}
-.hv-service strong,.hv-service small{display:block;font-size:9px;}
-.hv-service small{color:var(--muted);margin-top:4px;font-size:8px;}
-.hv-service>span{margin-left:auto;color:var(--muted);}
-.hv-cal{padding:32px;}
-.hv-calhead{display:flex;justify-content:space-between;align-items:end;}
-.hv-calhead strong{display:block;font:500 24px var(--serif);margin-top:8px;}
-.hv-arrows{display:flex;gap:6px;}
-.hv-arrows span{width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);font-size:14px;}
-.hv-week,.hv-dates{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;}
-.hv-week{color:var(--muted);font:8px var(--mono);text-transform:uppercase;gap:5px;margin:34px 0 14px;}
-.hv-dates{row-gap:8px;color:var(--muted);font:10px var(--mono);}
-.hv-dates span{padding:9px 0;}
-.hv-dates .is-on{background:var(--sage);color:var(--accent-ink);border-radius:50%;}
-.hv-calfoot{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding-top:18px;font:8px var(--mono);color:var(--muted);}
-.hv-key{width:6px;height:6px;border-radius:50%;background:var(--accent-ink);display:inline-block;margin-right:6px;}
-.hv-calfoot span.btn{background:var(--dark);color:var(--on-dark);padding:10px 12px;font:9px var(--sans);display:inline-flex;gap:8px;align-items:center;}
-.hv-calfoot span.btn svg{display:block;flex:none;}
+.hv-book img{display:block;width:100%;height:460px;object-fit:cover;object-position:center;}
 @media (max-width:800px){
   .hv{transform:none;}
   .hv-switch{top:12px;right:12px;max-width:calc(100% - 24px);}
   .hv-switch label{padding:7px 8px;}
   .hv-stamp{width:54px;height:54px;top:14px;left:14px;}
-  .hv-studio,.hv-studio img{min-height:0;height:280px;}
-  .hv-grid{grid-template-columns:1fr;}
-  .hv-side{display:none;}
-  .hv-cal{padding:22px 16px;}
+  .hv-studio,.hv-studio img,.hv-book img{min-height:0;height:280px;}
 }
 `;
-
-function dates() {
-  const selected = new Set([9, 12, 16, 19, 23]);
-  return Array.from({ length: 30 }, (_, i) => {
-    const day = String(i + 1);
-    const cls = selected.has(i + 1) ? ` class="is-on"` : "";
-    return `<span${cls}>${day}</span>`;
-  }).join("");
-}
 
 function heroVisual(input: EditorialHomeInput) {
   return customHtml(
@@ -396,20 +354,8 @@ function heroVisual(input: EditorialHomeInput) {
 <div class="hv-stamp">MON<br><b>09</b><br>JUNE</div>
 <div class="hv-note"><span class="hv-dot"></span><strong>More time for your craft.</strong><small>Hacado handles the rest.</small></div>
 </div>
-<div class="hv-book" aria-hidden="true">
-<div class="hv-chrome"><span class="hv-dots"><i></i><i></i><i></i></span><span>yourstudio.hacado.me</span><span class="hv-live">● live</span></div>
-<div class="hv-grid">
-<div class="hv-side"><span class="hv-mini">Your studio</span><h3>Book an appointment</h3><p>Choose a service to get started.</p>
-<div class="hv-service is-on"><span class="hv-ico">✦</span><div><strong>Gel manicure</strong><small>60 min · $45</small></div><span>›</span></div>
-<div class="hv-service"><span class="hv-ico is-soft">✦</span><div><strong>Gift cards</strong><small>Give a little glow</small></div><span>›</span></div>
-</div>
-<div class="hv-cal">
-<div class="hv-calhead"><div><span class="hv-mini">Choose a date</span><strong>June 2026</strong></div><div class="hv-arrows"><span>‹</span><span>›</span></div></div>
-<div class="hv-week"><span>sun</span><span>mon</span><span>tue</span><span>wed</span><span>thu</span><span>fri</span><span>sat</span></div>
-<div class="hv-dates">${dates()}</div>
-<div class="hv-calfoot"><span><i class="hv-key"></i> Available</span><span class="btn">Continue <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span></div>
-</div>
-</div>
+<div class="hv-book">
+<img src="${e(input.bookingImage)}" alt="Barber booking page with services, prices, and a continue button">
 </div>
 </div>`,
     { minWidth: size(0), width: size(100, "%") },
@@ -853,6 +799,7 @@ function closing(input: EditorialHomeInput) {
   return withId(
     container(
       [
+        ctaSpark(),
         container(
           [
             kicker(input.ctaKicker, C.primaryFg),
@@ -883,6 +830,8 @@ function closing(input: EditorialHomeInput) {
         ),
       ],
       {
+        position: sv("relative"),
+        gap: gap(0),
         backgroundColor: sv(C.primary),
         color: sv(C.primaryFg),
         width: size(100, "%"),

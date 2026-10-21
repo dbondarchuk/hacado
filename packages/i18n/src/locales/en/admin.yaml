@@ -1568,6 +1568,10 @@ pages:
       hideNameDescription: Hide the business name next to the logo
       fullWidth: Full width
       fullWidthDescription: Stretch header content across the full viewport instead of the page container
+      logo:
+        label: Logo image
+        tooltip: Custom logo for this header. Leave empty to use the brand logo. On scroll, leave empty to keep the default logo.
+        placeholder: Brand logo
       logoSize:
         label: Logo size
         tooltip: Size of the logo

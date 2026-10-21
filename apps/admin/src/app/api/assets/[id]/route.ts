@@ -51,6 +51,7 @@ export async function GET(
     const uploadedFile: UploadedFile = {
       ...asset,
       url: `${websiteUrl}/assets/${asset.filename}`,
+      source: "assets",
     };
 
     return NextResponse.json(uploadedFile);

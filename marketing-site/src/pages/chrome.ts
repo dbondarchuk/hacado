@@ -20,13 +20,25 @@ import {
   MAIN_HEADER_NAME,
 } from "./shared";
 
-const NAV_LINK_CLASS =
-  "rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground";
+const NAV_TEXT = "text-xs";
+const NAV_LINK_CLASS = `rounded-md px-3 py-2 ${NAV_TEXT} font-medium text-muted-foreground hover:text-foreground`;
 /** Light nav over image heroes; scrolled.className reverses back to muted/foreground. */
-const HERO_NAV_LINK_CLASS =
-  "rounded-md px-3 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80";
-const HERO_NAV_LINK_SCROLLED_CLASS =
-  "text-muted-foreground hover:text-foreground";
+const HERO_NAV_LINK_CLASS = `rounded-md px-3 py-2 ${NAV_TEXT} font-medium text-primary-foreground hover:text-primary-foreground/80`;
+const HERO_NAV_LINK_SCROLLED_CLASS = `${NAV_TEXT} text-muted-foreground hover:text-foreground`;
+
+function brandLogoText() {
+  return [
+    {
+      type: "paragraph" as const,
+      content: [
+        {
+          text: "hacado",
+          marks: { fontFamily: "var(--font-secondary-value)" },
+        },
+      ],
+    },
+  ];
+}
 
 function buildMenu(opts?: { overlay?: boolean }) {
   const overlay = Boolean(opts?.overlay);
@@ -50,7 +62,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
                   label: `All ${item.label.toLowerCase()}`,
                   url: item.href,
                   variant: "none" as const,
-                  size: "sm" as const,
+                  size: "none" as const,
                   className: HERO_NAV_LINK_SCROLLED_CLASS,
                 },
               ];
@@ -68,7 +80,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
               label: child.label,
               url: child.href,
               variant: "none" as const,
-              size: "sm" as const,
+              size: "none" as const,
               className: HERO_NAV_LINK_SCROLLED_CLASS,
             })),
           ],
@@ -79,7 +91,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
         label: item.label,
         url: item.href,
         variant: "none" as const,
-        size: "sm" as const,
+        size: "none" as const,
         className: linkClass,
         ...(linkScrolled ? { scrolled: linkScrolled } : {}),
       };
@@ -89,7 +101,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
       label: "Blog",
       url: "/blog",
       variant: "none" as const,
-      size: "sm" as const,
+      size: "none" as const,
       className: linkClass,
       ...(linkScrolled ? { scrolled: linkScrolled } : {}),
     },
@@ -101,7 +113,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
       label: "Log in",
       url: SIGNIN_URL,
       variant: "none" as const,
-      size: "sm" as const,
+      size: "none" as const,
       className: linkClass,
       ...(linkScrolled ? { scrolled: linkScrolled } : {}),
     },
@@ -128,6 +140,7 @@ export function buildHeader() {
     backdropBlur: true,
     shadow: false,
     logoSize: "medium" as const,
+    customLogoText: brandLogoText(),
     scrolled: {
       shadow: true,
       backdropBlur: true,
@@ -151,11 +164,14 @@ export function buildHeroHeader() {
     backdropBlur: false,
     shadow: false,
     logoSize: "medium" as const,
+    logo: "/assets/logo-white.svg",
+    customLogoText: brandLogoText(),
     scrolled: {
       backgroundColor: "var(--value-background-color)",
       textColor: "var(--value-foreground-color)",
       backdropBlur: true,
       shadow: true,
+      logo: "/assets/logo.svg",
     },
     menu: buildMenu({ overlay: true }),
   };
@@ -227,7 +243,7 @@ export function buildFooter() {
   const year = new Date().getFullYear();
   const brandCol = container(
     [
-      heading("h3", site.name, { fontSize: sv({ value: 1.25, unit: "rem" }) }),
+      heading("h3", "hacado", { fontSize: sv({ value: 1.25, unit: "rem" }) }),
       text(site.tagline, {
         color: sv(C.mutedFg),
         fontSize: sv({ value: 0.875, unit: "rem" }),
@@ -247,7 +263,9 @@ export function buildFooter() {
           letterSpacing: sv({ value: 0.08, unit: "em" }),
           color: sv(C.mutedFg),
         }),
-        ...col.links.map((l) => link(l.label, l.href)),
+        ...col.links.map((l) =>
+          link(l.label, l.href, { fontSize: size(0.75) }),
+        ),
       ],
       { gap: sv({ value: 0.5, unit: "rem" }) },
     ),

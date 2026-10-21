@@ -430,6 +430,35 @@ jobs:
       - build-and-push-link-shortener-image
       - build-and-push-docs-image
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: marketing-site/yarn.lock
+      - name: Install marketing site dependencies
+        working-directory: marketing-site
+        run: yarn install --frozen-lockfile
+      - name: Seed marketing site
+        working-directory: marketing-site
+        env:
+          MARKETING_ORG_SLUG: ${{ secrets.MARKETING_ORG_SLUG }}
+          MONGODB_URI: ${{ secrets.MARKETING_MONGODB_URI }}
+          MONGODB_DB: ${{ secrets.MARKETING_MONGODB_DB }}
+          REDIS_HOST: ${{ secrets.MARKETING_REDIS_HOST }}
+          REDIS_PORT: ${{ secrets.MARKETING_REDIS_PORT }}
+          REDIS_DB: ${{ secrets.MARKETING_REDIS_DB }}
+          REDIS_USERNAME: ${{ secrets.MARKETING_REDIS_USERNAME }}
+          REDIS_PASSWORD: ${{ secrets.MARKETING_REDIS_PASSWORD }}
+          S3_REGION: ${{ secrets.MARKETING_S3_REGION }}
+          S3_ACCESS_KEY: ${{ secrets.MARKETING_S3_ACCESS_KEY }}
+          S3_SECRET_KEY: ${{ secrets.MARKETING_S3_SECRET_KEY }}
+          S3_BUCKET: ${{ secrets.MARKETING_S3_BUCKET }}
+          S3_ENDPOINT: ${{ secrets.MARKETING_S3_ENDPOINT }}
+          S3_FORCE_PATH_STYLE: ${{ secrets.MARKETING_S3_FORCE_PATH_STYLE }}
+        run: node scripts/seed.mjs "$MARKETING_ORG_SLUG" --yes --generate
       - name: Update version on Coolify
         run: |
           curl --request PATCH '${{ secrets.COOLIFY_UPDATE_VERSION_URL }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}' \

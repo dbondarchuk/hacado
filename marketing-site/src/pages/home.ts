@@ -1,10 +1,11 @@
 /** Home page. */
+import { buildEditorialHome, comparisonTable, pageDoc } from "../blocks";
 import {
   audienceCards,
   competitorColumns,
   competitorRows,
-  featureGroups,
   featuredFeatures,
+  featureGroups,
   homeFaqs,
   integrations,
   plans,
@@ -14,7 +15,6 @@ import {
   TEMPLATE_PREVIEWS_URL,
   testimonial,
 } from "../content/site";
-import { buildEditorialHome, comparisonTable, pageDoc } from "../blocks";
 import { keywords } from "./shared";
 
 const trustNames = [
@@ -48,7 +48,8 @@ export function homePage() {
     note: site.heroNote,
     industries: site.typewriter,
     signupUrl: SIGNUP_URL,
-    heroImage: "/assets/photos/salon-owner-hero.png",
+    heroImage: "/assets/photos/salon-barber-small.jpg",
+    bookingImage: "/assets/photos/barber-booking-form.png",
     integrations: trustNames.flatMap((name) =>
       integrations.some((item) => item.name === name) ? [name] : [],
     ),

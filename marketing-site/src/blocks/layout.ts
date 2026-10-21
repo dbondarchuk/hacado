@@ -124,6 +124,18 @@ export function customHtml(
   });
 }
 
+/** Four-point star from the editorial closing band, pinned to the upper right. */
+export function ctaSpark() {
+  return customHtml(
+    `<div class="final-orbit" aria-hidden="true"><svg viewBox="0 0 100 100" width="50" height="50" fill="currentColor"><path d="M50 2 58 42 98 50 58 58 50 98 42 58 2 50 42 42Z"/></svg></div><style>.final-orbit{position:absolute;right:14%;top:22%;color:#a4b19c;transform:rotate(25deg);line-height:0;pointer-events:none;}</style>`,
+    {
+      width: size(0),
+      height: size(0),
+      overflow: sv("visible"),
+    },
+  );
+}
+
 /** Forms app block - requires the Forms connected app on the org. */
 export function formsForm(opts: {
   formId: string;

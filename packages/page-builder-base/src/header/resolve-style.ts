@@ -10,6 +10,15 @@ type ScrolledPickSource = PageHeaderUpdateModel & {
   scrolled?: PageHeaderScrolledStyle;
 };
 
+function headerLogoOverride(value: string | null | undefined) {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  return trimmed || undefined;
+}
+
 /** Prefer scrolled override when scrolled and the override is defined (null clears to default). */
 export function pickScrolledValue<T>(
   rest: T | null | undefined,
@@ -49,6 +58,11 @@ export function resolveHeaderStyle(
     showLogo: pickScrolledValue(
       config.showLogo,
       scrolled?.showLogo,
+      isScrolled,
+    ),
+    logo: pickScrolledValue(
+      headerLogoOverride(config.logo),
+      headerLogoOverride(scrolled?.logo),
       isScrolled,
     ),
     logoSize: pickScrolledValue(

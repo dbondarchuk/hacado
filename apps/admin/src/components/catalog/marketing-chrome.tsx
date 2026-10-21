@@ -172,9 +172,7 @@ export function CatalogMarketingHeader() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.svg" alt="" className="h-8 w-8" />
-          <span className="font-display text-xl tracking-tight">
-            {site.name}
-          </span>
+          <span className="font-display text-xl tracking-tight">hacado</span>
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -297,7 +295,7 @@ export function CatalogMarketingFooter() {
             <a href={marketingHref("/")} className="flex items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.svg" alt="" className="h-8 w-8" />
-              <span className="font-display text-xl">{site.name}</span>
+              <span className="font-display text-xl">hacado</span>
             </a>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               {site.tagline}
