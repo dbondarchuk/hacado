@@ -19,12 +19,26 @@ export type PlatformSmsRoute =
     }
   | { kind: "textbelt" };
 
+export type UnverifiedSmsProvider = "textbelt" | "telnyx";
+
+export const getUnverifiedSmsProvider = (
+  value = process.env.SMS_UNVERIFIED_PROVIDER,
+): UnverifiedSmsProvider => {
+  const provider = value?.trim().toLowerCase() || "textbelt";
+  if (provider === "textbelt" || provider === "telnyx") {
+    return provider;
+  }
+
+  throw new Error(`Unsupported SMS_UNVERIFIED_PROVIDER: ${value}`);
+};
+
 export const resolvePlatformSmsRoute = (input: {
   customVerified: boolean;
   dedicatedNumber: string | undefined;
   platformCountry: boolean;
   poolNumber: string | undefined;
   messagingProfileId: string;
+  unverifiedProvider?: UnverifiedSmsProvider;
 }): PlatformSmsRoute => {
   if (input.platformCountry && input.customVerified && input.dedicatedNumber) {
     return {
@@ -34,9 +48,12 @@ export const resolvePlatformSmsRoute = (input: {
       shared: false,
     };
   }
-  if (!input.platformCountry) {
+
+  const unverifiedProvider = input.unverifiedProvider ?? "textbelt";
+  if (!input.platformCountry || unverifiedProvider === "textbelt") {
     return { kind: "textbelt" };
   }
+  
   if (!input.poolNumber) {
     return { kind: "skip", reason: "sms number not ready" };
   }

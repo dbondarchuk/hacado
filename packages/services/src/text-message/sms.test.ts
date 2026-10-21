@@ -17,6 +17,7 @@ import { countSmsSegments } from "./segments";
 import { resolveSender } from "./telnyx/sender";
 import {
   buildTollFreeVerificationBody,
+  getUnverifiedSmsProvider,
   mapTelnyxVerificationStatus,
   readVerificationWebhook,
   resolvePlatformSmsRoute,
@@ -311,7 +312,8 @@ describe("idempotency", () => {
 });
 
 describe("platform SMS route", () => {
-  it("sends US and Canada texts from the shared pool without verification", () => {
+  it("sends unverified US and Canada texts through Textbelt", () => {
+    assert.equal(getUnverifiedSmsProvider(""), "textbelt");
     assert.deepEqual(
       resolvePlatformSmsRoute({
         customVerified: false,
@@ -319,6 +321,21 @@ describe("platform SMS route", () => {
         platformCountry: true,
         poolNumber: "+18005550100",
         messagingProfileId: "client",
+      }),
+      { kind: "textbelt" },
+    );
+  });
+
+  it("sends unverified US and Canada texts from the shared pool when configured", () => {
+    assert.equal(getUnverifiedSmsProvider("telnyx"), "telnyx");
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: false,
+        dedicatedNumber: undefined,
+        platformCountry: true,
+        poolNumber: "+18005550100",
+        messagingProfileId: "client",
+        unverifiedProvider: "telnyx",
       }),
       {
         kind: "telnyx",
@@ -379,8 +396,22 @@ describe("platform SMS route", () => {
         platformCountry: true,
         poolNumber: undefined,
         messagingProfileId: "client",
+        unverifiedProvider: "telnyx",
       }),
       { kind: "skip", reason: "sms number not ready" },
+    );
+  });
+
+  it("uses Textbelt when the shared pool is empty", () => {
+    assert.deepEqual(
+      resolvePlatformSmsRoute({
+        customVerified: false,
+        dedicatedNumber: undefined,
+        platformCountry: true,
+        poolNumber: undefined,
+        messagingProfileId: "client",
+      }),
+      { kind: "textbelt" },
     );
   });
 });

@@ -46,7 +46,10 @@ import { getClientMessagingProfileId } from "./text-message/telnyx/config";
 import { TelnyxService } from "./text-message/telnyx/service";
 import { TextBeltService } from "./text-message/textbelt/service";
 import { getTextBeltConfiguration } from "./text-message/textbelt/utils";
-import { resolvePlatformSmsRoute } from "./text-message/verification";
+import {
+  getUnverifiedSmsProvider,
+  resolvePlatformSmsRoute,
+} from "./text-message/verification";
 
 export class NotificationService implements INotificationService {
   protected readonly loggerFactory = getLoggerFactory("NotificationService");
@@ -321,6 +324,7 @@ export class NotificationService implements INotificationService {
         platformCountry: isPlatformSmsCountry(trimmedPhone),
         poolNumber: poolNumbers[0],
         messagingProfileId: getClientMessagingProfileId(),
+        unverifiedProvider: getUnverifiedSmsProvider(),
       });
 
       if (route.kind === "skip") {
