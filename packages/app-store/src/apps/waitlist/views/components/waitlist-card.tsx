@@ -270,13 +270,17 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
                 : entry.note.substring(0, 50) +
                   (entry.note.length > 50 ? "..." : "")}
             </div>
-            <Button
-              variant="link-dashed"
-              onClick={() => setShowFullNote(!showFullNote)}
-              className="w-full text-center"
-            >
-              {showFullNote ? t("view.note.showMore") : t("view.note.showLess")}
-            </Button>
+            {entry.note.length > 50 && (
+              <Button
+                variant="link-dashed"
+                onClick={() => setShowFullNote(!showFullNote)}
+                className="w-full text-center"
+              >
+                {!showFullNote
+                  ? t("view.note.showMore")
+                  : t("view.note.showLess")}
+              </Button>
+            )}
           </div>
         </div>
       )}
