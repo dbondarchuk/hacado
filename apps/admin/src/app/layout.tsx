@@ -3,23 +3,30 @@ import { SonnerToaster } from "@hacado/ui";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { Fraunces, Space_Grotesk } from "next/font/google";
+import { DM_Mono, Manrope, Playfair_Display } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
 
-/** UI / body - Space Grotesk is the geometric sans. */
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
+/** Body and UI — Manrope. */
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
 
-/** Display headings - Fraunces is the warm editorial serif. */
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+/** Headings — Playfair Display. */
+const playfair = Playfair_Display({
+  subsets: ["latin", "cyrillic"],
+  style: ["normal", "italic"],
   variable: "--font-display",
+});
+
+/** Labels and mono — DM Mono. */
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -42,10 +49,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${fraunces.variable} font-sans overflow-hidden`}
+        className={`${manrope.variable} ${playfair.variable} ${dmMono.variable} font-sans overflow-hidden`}
         style={{
-          "--font-primary": spaceGrotesk.style.fontFamily,
-          "--font-secondary": fraunces.style.fontFamily,
+          "--font-primary": manrope.style.fontFamily,
+          "--font-secondary": playfair.style.fontFamily,
+          "--font-tertiary": dmMono.style.fontFamily,
         }}
         suppressHydrationWarning
       >

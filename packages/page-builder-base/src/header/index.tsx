@@ -305,12 +305,17 @@ export const Header: React.FC<HeaderProps> = ({
           align="start"
           sideOffset={8}
           className={cn(
-            "rounded-xl border border-border bg-card p-2 text-foreground shadow-lg",
+            "rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-lg",
             resolved.twoColumns
               ? "min-w-[28rem] grid grid-cols-2"
               : "min-w-56 flex flex-col",
           )}
+          style={{
+            backgroundColor: "hsl(var(--value-popover-color, 0 0% 100%))",
+            color: "hsl(var(--value-popover-foreground-color, 60 4.9% 12%))",
+          }}
         >
+          <ReplaceOriginalColors />
           {resolved.children.map((subItem, jndex) => (
             <DropdownMenuItem
               key={jndex}

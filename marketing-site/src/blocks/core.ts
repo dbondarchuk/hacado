@@ -29,6 +29,7 @@ export const C = {
   muted: "var(--value-muted-color)",
   mutedFg: "var(--value-muted-foreground-color)",
   accent: "var(--value-accent-color)",
+  accentFg: "var(--value-accent-foreground-color)",
   card: "var(--value-card-color)",
   foreground: "var(--value-foreground-color)",
   border: "var(--value-border-color)",

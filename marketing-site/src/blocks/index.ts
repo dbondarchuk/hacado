@@ -4,3 +4,4 @@ export * from "./layout";
 export * from "./media";
 export * from "./widgets";
 export * from "./heroes";
+export * from "./editorial";

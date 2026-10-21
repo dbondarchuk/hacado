@@ -28,6 +28,7 @@ import { ModifyAppointmentFormPropsSchema as ModifyAppointmentFormModernPropsSch
 import { ModifyAppointmentFormPropsSchema as ModifyAppointmentFormSimplePropsSchema } from "./modify-appointment-form/simple/schema";
 import { PageHeroPropsSchema } from "./page-hero/schema";
 import { PageLayoutPropsSchema } from "./page-layout/schema";
+import { PhraseCyclePropsSchema } from "./phrase-cycle/schema";
 import { PopupPropsSchema } from "./popup/schema";
 import { RedirectPropsSchema } from "./redirect/schema";
 import { SpacerPropsSchema } from "./spacer/schema";
@@ -62,6 +63,7 @@ export const EditorBlocksSchema = {
   StickyBanner: StickyBannerPropsSchema,
   InlineText: InlineTextPropsSchema,
   TypewriterText: TypewriterTextPropsSchema,
+  PhraseCycle: PhraseCyclePropsSchema,
   Accordion: AccordionPropsSchema,
   AccordionItem: AccordionItemPropsSchema,
   InlineContainer: InlineContainerPropsSchema,
@@ -102,6 +104,7 @@ export const EditorBlocksSchema = {
   StickyBanner: typeof StickyBannerPropsSchema;
   InlineText: typeof InlineTextPropsSchema;
   TypewriterText: typeof TypewriterTextPropsSchema;
+  PhraseCycle: typeof PhraseCyclePropsSchema;
   Accordion: typeof AccordionPropsSchema;
   AccordionItem: typeof AccordionItemPropsSchema;
   InlineContainer: typeof InlineContainerPropsSchema;

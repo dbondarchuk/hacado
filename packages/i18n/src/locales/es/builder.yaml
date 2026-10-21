@@ -5390,6 +5390,25 @@ pageBuilder:
       pauseAfterPhrase: Pausa después de que se complete la frase
       showCursor: Mostrar cursor parpadeante
       milliseconds: EM
+    phraseCycle:
+      displayName: Ciclo de frases
+      phrases: Frases
+      phraseNumber: Frase {number}
+      addPhrase: Añadir frase
+      removePhrase: Quitar frase
+      reorder: Reordenar
+      enterMotion: Animación de entrada
+      exitMotion: Animación de salida
+      enterDuration: Duración de entrada
+      exitDuration: Duración de salida
+      pauseAfterPhrase: Pausa tras la frase
+      milliseconds: ms
+      motions:
+        fade: Fundido
+        fadeUp: Fundido hacia arriba
+        fadeDown: Fundido hacia abajo
+        fadeLeft: Fundido a la izquierda
+        fadeRight: Fundido a la derecha
     accordion:
       displayName: Acordeón
       allowMultipleOpen: Permitir la apertura de varios elementos

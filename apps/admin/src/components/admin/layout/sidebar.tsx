@@ -110,7 +110,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
   const isHrefActive = (href?: string) => !!href && href === bestHref;
 
   return (
-    <Sidebar collapsible="icon" className={cn("border-r-0", className)}>
+    <Sidebar collapsible="icon" className={className}>
       <SidebarHeader className="px-3 py-4 items-center">
         <SidebarMenuButton
           size="lg"
@@ -125,7 +125,7 @@ export const AppSidebar: React.FC<SidebarProps> = ({
             </Avatar>
           </div>
           <div className="grid flex-1 text-left leading-tight">
-            <span className="truncate font-display text-base font-normal tracking-tight text-sidebar-accent-foreground">
+            <span className="truncate font-display text-base font-normal tracking-tight text-sidebar-foreground">
               {name}
             </span>
             <span className="truncate font-display text-xs tracking-tight text-muted-foreground">

@@ -9,7 +9,6 @@ import {
 import { marketingVideos } from "../content/videos";
 import {
   accordion,
-  bulletRow,
   button,
   C,
   cardLink,
@@ -17,15 +16,17 @@ import {
   ctaBand,
   ctaButtonWidth,
   featuresShowcase,
+  gap,
   grid,
   heading,
-  lightbox,
+  imageCarousel,
   marketingFeatureItem,
   pageDoc,
   pageHero,
   section,
   sectionIntro,
   size,
+  statementList,
   step,
   sv,
   templatesBrowseSection,
@@ -62,13 +63,14 @@ export function featuresHubPage() {
           grid(
             features
               .filter((f) => f.group === g.id)
-              .map((f) =>
+              .map((f, i) =>
                 cardLink({
                   href: `/features/${f.slug}`,
                   title: f.title,
                   body: f.summary,
                   eyebrow: f.eyebrow,
                   image: f.image,
+                  index: i,
                 }),
               ),
             "repeat(2, minmax(0, 1fr))",
@@ -117,7 +119,7 @@ export function featurePage(f: (typeof features)[number]) {
                 "Browse website templates",
                 TEMPLATE_PREVIEWS_URL,
                 "brand",
-                C.primaryFg,
+                undefined,
                 { width: ctaButtonWidth },
               ),
               button(
@@ -138,33 +140,56 @@ export function featurePage(f: (typeof features)[number]) {
             }),
           ]
         : []),
-      section([
-        grid(
-          [
-            container(
-              [
-                heading("h2", f.detailHeadline, {
-                  fontSize: sv({ value: 1.875, unit: "rem" }),
-                }),
-                ...f.bullets.map((b) => bulletRow(b)),
+      section(
+        [
+          heading("h2", f.detailHeadline, {
+            fontSize: [
+              { value: { value: 2.4, unit: "rem" } },
+              { value: { value: 3.5, unit: "rem" }, breakpoint: ["md"] },
+            ],
+            fontWeight: sv("500"),
+            letterSpacing: sv({ value: -0.04, unit: "rem" }),
+          }),
+          container(
+            [
+              container([statementList(f.bullets)], {
+                flexGrow: sv(1),
+                flexShrink: sv(1),
+                minWidth: size(0),
+                width: size(100, "%"),
+              }),
+              container(
+                [
+                  imageCarousel(
+                    f.gallery.length ? f.gallery : [f.image],
+                    f.title,
+                  ),
+                ],
+                {
+                  flexGrow: sv(1),
+                  flexShrink: sv(1),
+                  minWidth: size(0),
+                  width: size(100, "%"),
+                },
+              ),
+            ],
+            {
+              display: sv("flex"),
+              flexDirection: [
+                { value: "column" },
+                { value: "row", breakpoint: ["md"] },
               ],
-              { gap: sv({ value: 0.75, unit: "rem" }) },
-            ),
-            lightbox([f.image], f.title),
-          ],
-          "repeat(2, minmax(0, 1fr))",
-          { alignItems: sv("center") },
-        ),
-      ]),
-      section([lightbox(f.gallery, f.title)], {
-        display: sv("flex"),
-        flexDirection: [
-          { value: "column" },
-          { value: "row", breakpoint: ["md"] },
+              alignItems: [
+                { value: "stretch" },
+                { value: "center", breakpoint: ["md"] },
+              ],
+              gap: gap(2),
+              width: size(100, "%"),
+            },
+          ),
         ],
-        overflow: sv("auto"),
-        gap: sv({ value: 0.5, unit: "rem" }),
-      }),
+        { gap: gap(2.5) },
+      ),
       ...f.sections.map((sec) =>
         section(
           [

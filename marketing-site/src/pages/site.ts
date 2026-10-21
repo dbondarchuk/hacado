@@ -9,7 +9,6 @@ import {
 } from "../content/legal";
 import {
   aboutAudiences,
-  integrations,
   planComparisonRows,
   plans,
   pricingFaqs,
@@ -28,6 +27,7 @@ import {
   comparePointCard,
   comparisonTable,
   container,
+  creamCard,
   cookieAcknowledgmentBanner,
   ctaBand,
   ctaButtonWidth,
@@ -52,8 +52,8 @@ import {
   pageHero,
   planCard,
   radius,
+  relatedLinks,
   redirect,
-  scrollingLogos,
   section,
   sectionIntro,
   size,
@@ -104,19 +104,21 @@ export function pricingPage() {
             }),
           ),
           "repeat(3, minmax(0, 1fr))",
-          { gap: gap(2), overflow: sv("visible") },
+          { gap: gap(0.875), overflow: sv("visible") },
         ),
       ]),
       section([
         sectionIntro({ title: "Plan comparison" }),
         comparisonTable({
-          cornerHeader: "Feature",
+          cornerHeader: "",
           columns: ["Free", "Solo", "Studio"],
           rows: planComparisonRows.map((r) => ({
             feature: r.feature,
             cells: [r.free, r.solo, r.studio],
           })),
           highlightCol: 1,
+          highlightLabel: "Recommended",
+          variant: "plans",
         }),
       ]),
       section([sectionIntro({ title: "Billing FAQ" }), accordion(pricingFaqs)]),
@@ -151,10 +153,6 @@ export function integrationsPage() {
         image: "/assets/generated/mock-admin-calendar.png",
         overlay: true,
       }),
-      scrollingLogos(
-        integrations,
-        "Works with Google Calendar, Outlook, Zoom, payments, Resend, and Google Analytics",
-      ),
       ...integrationGroups.map((g) =>
         section([
           sectionIntro({ title: g.title, body: g.intro }),
@@ -169,40 +167,14 @@ export function integrationsPage() {
           title: "Deep-dive pages",
           body: "More detail on the connections people ask about most.",
         }),
-        container(
-          [
-            link("Google Calendar booking website →", "/integrations/google-calendar", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-            link("Outlook / Microsoft 365 booking →", "/integrations/outlook", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-            link("Stripe for appointments →", "/integrations/stripe", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-            link("Zoom on your booking site →", "/integrations/zoom", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-            link("SMS & email notifications →", "/integrations/sms-notifications", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-            link("Google Analytics 4 →", "/integrations/google-analytics", {
-              color: sv(C.foreground),
-              fontWeight: sv("500"),
-            }),
-          ],
-          {
-            display: sv("flex"),
-            flexDirection: sv("column"),
-            gap: gap(0.75),
-            alignItems: sv("flex-start"),
-          },
-        ),
+        relatedLinks([
+          { label: "Google Calendar booking website", href: "/integrations/google-calendar" },
+          { label: "Outlook / Microsoft 365 booking", href: "/integrations/outlook" },
+          { label: "Stripe for appointments", href: "/integrations/stripe" },
+          { label: "Zoom on your booking site", href: "/integrations/zoom" },
+          { label: "SMS & email notifications", href: "/integrations/sms-notifications" },
+          { label: "Google Analytics 4", href: "/integrations/google-analytics" },
+        ]),
       ]),
       ctaBand(
         "Connect on day one",
@@ -268,8 +240,8 @@ export function aboutPage() {
           body: "The first customer was a nail studio. We still care deeply about chairs and fills. We also build for coaches, clinics, tutors, multi-person teams, and people launching without a website. If the work is appointments, Hacado is in scope.",
         }),
         grid(
-          aboutAudiences.map((a) =>
-            cardLink({ href: a.href, title: a.title, body: a.body }),
+          aboutAudiences.map((a, i) =>
+            cardLink({ href: a.href, title: a.title, body: a.body, index: i }),
           ),
           "repeat(3, minmax(0, 1fr))",
         ),
@@ -324,40 +296,24 @@ export function supportPage() {
       }),
       section([
         grid(
-          channels.map((c) =>
-            container(
+          channels.map((c, i) =>
+            creamCard(
               [
                 icon(c.icon, {
-                  width: sv({ value: 2, unit: "rem" }),
-                  height: sv({ value: 2, unit: "rem" }),
+                  width: sv({ value: 1.5, unit: "rem" }),
+                  height: sv({ value: 1.5, unit: "rem" }),
                 }),
                 heading("h3", c.title, {
-                  fontSize: sv({ value: 1.25, unit: "rem" }),
+                  fontSize: sv({ value: 1.5, unit: "rem" }),
+                  fontWeight: sv("500"),
                 }),
                 text(c.body, { color: sv(C.mutedFg) }),
                 link(`${c.cta} →`, c.href, {
-                  color: sv(C.primary),
+                  color: sv(C.foreground),
                   fontWeight: sv("600"),
                 }),
               ],
-              {
-                padding: [
-                  {
-                    value: {
-                      top: { value: 1.5, unit: "rem" },
-                      bottom: { value: 1.5, unit: "rem" },
-                      left: { value: 1.5, unit: "rem" },
-                      right: { value: 1.5, unit: "rem" },
-                    },
-                  },
-                ],
-                borderRadius: [{ value: { value: 16, unit: "px" } }],
-                borderStyle: sv("solid"),
-                borderWidth: [{ value: { value: 1, unit: "px" } }],
-                borderColor: sv(C.border),
-                backgroundColor: sv(C.card),
-                gap: sv({ value: 0.75, unit: "rem" }),
-              },
+              i,
             ),
           ),
           "repeat(3, minmax(0, 1fr))",

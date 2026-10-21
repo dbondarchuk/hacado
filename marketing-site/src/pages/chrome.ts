@@ -1,17 +1,14 @@
 /** Headers and footer. */
 import {
   bid,
-  button,
   C,
   container,
   cookieAcknowledgmentBanner,
   DOCS_URL,
-  gap,
   grid,
   heading,
   inlineText,
   link,
-  pad,
   size,
   sv,
   text,
@@ -30,12 +27,6 @@ const HERO_NAV_LINK_CLASS =
   "rounded-md px-3 py-2 text-sm font-medium text-primary-foreground hover:text-primary-foreground/80";
 const HERO_NAV_LINK_SCROLLED_CLASS =
   "text-muted-foreground hover:text-foreground";
-
-function keywords(...parts: string[]) {
-  return ["Hacado", "booking", "appointments", ...parts]
-    .filter(Boolean)
-    .join(", ");
-}
 
 function buildMenu(opts?: { overlay?: boolean }) {
   const overlay = Boolean(opts?.overlay);
@@ -120,7 +111,7 @@ function buildMenu(opts?: { overlay?: boolean }) {
       url: SIGNUP_URL,
       variant: "primary" as const,
       size: "default" as const,
-      className: "rounded-md px-3 py-2 text-sm font-medium",
+      className: "rounded-full px-4 py-2 text-xs font-semibold",
       showOnMobileHeader: true,
     },
   ];
@@ -249,23 +240,19 @@ export function buildFooter() {
     container(
       [
         inlineText(col.title, {
-          fontWeight: sv("600"),
-          fontSize: sv({ value: 0.875, unit: "rem" }),
+          fontFamily: sv("TERTIARY"),
+          fontSize: size(0.6875),
+          fontWeight: sv("500"),
+          textTransform: sv("uppercase"),
+          letterSpacing: sv({ value: 0.08, unit: "em" }),
+          color: sv(C.mutedFg),
         }),
         ...col.links.map((l) => link(l.label, l.href)),
       ],
       { gap: sv({ value: 0.5, unit: "rem" }) },
     ),
   );
-
-  return {
-    name: MAIN_FOOTER_NAME,
-    content: {
-      data: {
-        fontFamily: "PRIMARY",
-        fullWidth: true,
-        children: [
-          container(
+  const band = container(
             [
               grid([brandCol, ...cols], "repeat(5, minmax(0, 1fr))", {
                 gridTemplateColumns: [
@@ -320,11 +307,16 @@ export function buildFooter() {
                 },
               ],
               gap: sv({ value: 2, unit: "rem" }),
-              backgroundColor: sv(C.card),
+              backgroundColor: sv(C.background),
             },
-          ),
-          cookieAcknowledgmentBanner(),
-        ],
+          );
+  return {
+    name: MAIN_FOOTER_NAME,
+    content: {
+      data: {
+        fontFamily: "PRIMARY",
+        fullWidth: true,
+        children: [band, cookieAcknowledgmentBanner()],
       },
       id: bid(),
       type: "PageLayout",

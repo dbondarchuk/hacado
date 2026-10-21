@@ -19,6 +19,7 @@ import {
   comparePointCard,
   comparisonTable,
   container,
+  creamCard,
   cookieAcknowledgmentBanner,
   ctaBand,
   ctaButtonWidth,
@@ -43,6 +44,7 @@ import {
   pageHero,
   planCard,
   radius,
+  relatedLinks,
   redirect,
   scrollingLogos,
   section,
@@ -118,8 +120,12 @@ export function compareHubPage() {
           body: "Each page is written for people searching for an alternative to that tool.",
         }),
         grid(
-          comparePages.map((c) =>
-            cardLink({ href: `/compare/${c.slug}`, title: c.navLabel }),
+          comparePages.map((c, i) =>
+            cardLink({
+              href: `/compare/${c.slug}`,
+              title: c.navLabel,
+              index: i,
+            }),
           ),
           "repeat(2, minmax(0, 1fr))",
           {
@@ -138,32 +144,16 @@ export function compareHubPage() {
           body: "We did not build full pages for these - they show up in the same buying decision.",
         }),
         grid(
-          otherTools.map((t) =>
-            container(
+          otherTools.map((t, i) =>
+            creamCard(
               [
                 heading("h3", t.name, {
-                  fontSize: sv({ value: 1.25, unit: "rem" }),
+                  fontSize: sv({ value: 1.5, unit: "rem" }),
+                  fontWeight: sv("500"),
                 }),
                 text(t.blurb, { color: sv(C.mutedFg) }),
               ],
-              {
-                padding: [
-                  {
-                    value: {
-                      top: { value: 1.5, unit: "rem" },
-                      bottom: { value: 1.5, unit: "rem" },
-                      left: { value: 1.5, unit: "rem" },
-                      right: { value: 1.5, unit: "rem" },
-                    },
-                  },
-                ],
-                borderRadius: [{ value: { value: 16, unit: "px" } }],
-                borderStyle: sv("solid"),
-                borderWidth: [{ value: { value: 1, unit: "px" } }],
-                borderColor: sv(C.border),
-                backgroundColor: sv(C.card),
-                gap: sv({ value: 0.5, unit: "rem" }),
-              },
+              i,
             ),
           ),
           "repeat(3, minmax(0, 1fr))",
@@ -213,27 +203,7 @@ export function comparePage(c: (typeof comparePages)[number]) {
               title: "If you book clients, not internal meetings",
               body: "Dedicated pages for businesses that outgrew a Calendly link.",
             }),
-            container(
-              c.related.map((r) =>
-                link(`${r.label} →`, r.href, {
-                  color: sv(C.foreground),
-                  fontWeight: sv("500"),
-                  backgroundColor: sv(C.card),
-                  borderRadius: radius(9999999),
-                  borderStyle: sv("solid"),
-                  borderWidth: size(1, "px"),
-                  padding: pad(0.5, 1, 0.5, 1),
-                }),
-              ),
-              {
-                display: sv("flex"),
-                flexDirection: [
-                  { value: "column" },
-                  { value: "row", breakpoint: ["sm"] },
-                ],
-                gap: sv({ value: 0.75, unit: "rem" }),
-              },
-            ),
+            relatedLinks(c.related.map((r) => ({ label: r.label, href: r.href }))),
           ])
         : spacer(0),
       section([

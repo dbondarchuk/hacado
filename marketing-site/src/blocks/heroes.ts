@@ -142,7 +142,8 @@ export function pageHero(opts: {
         children: opts.body
           ? [
               text(opts.body, {
-                fontSize: size(1.125),
+                fontSize: size(0.95),
+                lineHeight: sv({ value: 1.7, unit: "" }),
                 textAlign: sv("left"),
                 color: sv(hasMedia && opts.overlay ? C.primaryFg : C.mutedFg),
                 maxWidth: size(42, "rem"),
@@ -246,7 +247,8 @@ export function homeHero(opts: {
         },
       ),
       text(opts.body, {
-        fontSize: size(1.125),
+        fontSize: size(0.95),
+        lineHeight: sv({ value: 1.7, unit: "" }),
         textAlign: sv("left"),
         color: sv(C.mutedFg),
       }),
@@ -328,7 +330,7 @@ export function homeHero(opts: {
 
 
 export function ctaBand(title: string, body: string) {
-  return section(
+  return container(
     [
       container(
         [
@@ -358,14 +360,24 @@ export function ctaBand(title: string, body: string) {
           alignItems: sv("center"),
           textAlign: sv("center"),
           gap: gap(1),
-          padding: pad(3, 2, 3, 2),
-          backgroundColor: sv(C.primary),
-          borderRadius: radius(16),
-          color: sv(C.primaryFg),
+          maxWidth: size(40, "rem"),
+          width: size(100, "%"),
+          margin: sv({
+            top: { value: 0, unit: "rem" },
+            bottom: { value: 0, unit: "rem" },
+            left: "auto",
+            right: "auto",
+          }),
         },
       ),
     ],
-    { padding: pad(4, 1.5, 4, 1.5) },
+    {
+      padding: pad(6, 1.5, 6, 1.5),
+      backgroundColor: sv(C.primary),
+      color: sv(C.primaryFg),
+      alignItems: sv("center"),
+      width: size(100, "%"),
+    },
   );
 }
 
@@ -403,7 +415,7 @@ export function templatesBrowseSection(
     "Browse website templates",
     TEMPLATE_PREVIEWS_URL,
     opts.emphasis === "band" ? "brand" : "primary",
-    opts.emphasis === "band" ? C.primaryFg : undefined,
+    undefined,
     { width: ctaButtonWidth },
   );
 

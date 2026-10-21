@@ -5378,6 +5378,25 @@ pageBuilder:
       pauseAfterPhrase: Pause after phrase completes
       showCursor: Show blinking cursor
       milliseconds: ms
+    phraseCycle:
+      displayName: Phrase cycle
+      phrases: Phrases
+      phraseNumber: "Phrase {number}"
+      addPhrase: Add phrase
+      removePhrase: Remove phrase
+      reorder: Reorder
+      enterMotion: Enter animation
+      exitMotion: Exit animation
+      enterDuration: Enter duration
+      exitDuration: Exit duration
+      pauseAfterPhrase: Pause after phrase
+      milliseconds: ms
+      motions:
+        fade: Fade
+        fadeUp: Fade up
+        fadeDown: Fade down
+        fadeLeft: Fade left
+        fadeRight: Fade right
     accordion:
       displayName: Accordion
       allowMultipleOpen: Allow Multiple Items Open

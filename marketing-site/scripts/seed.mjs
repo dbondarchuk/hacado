@@ -7,7 +7,9 @@
  *   - pages by slug (home page slug is "home"), each with its `headerName`
  *   - marketing images as org assets (S3 + assets collection), rewriting
  *     `/assets/...` source paths to `/assets/svg/...` or `/assets/marketing/...`
- *   - invalidates Redis page-route cache (`org:pages:routes:{orgId}`) so new
+ *   - organization styling (Manrope, Playfair Display, DM Mono, editorial colors)
+ *   - invalidates Redis page-route cache (`org:pages:routes:{orgId}`) and
+ *     styling cache (`org:config:{orgId}:styling`) so new
  *     slugs are visible immediately
  *
  * Usage (from marketing-site):
@@ -59,6 +61,35 @@ const HEADERS_COLLECTION = "page-headers";
 const FOOTERS_COLLECTION = "page-footers";
 const ORGS_COLLECTION = "organizations";
 const PAGE_ROUTES_REDIS_PREFIX = "org:pages:routes:";
+const CONFIG_REDIS_PREFIX = "org:config:";
+const CONFIGURATION_COLLECTION = "configuration";
+
+/** Editorial palette. Hex values match configuration color overrides. */
+const MARKETING_COLORS = [
+  ["background", "#FFFFFF"],
+  ["foreground", "#20201D"],
+  ["border", "#E4E2DA"],
+  ["card", "#FFFFFF"],
+  ["card-foreground", "#20201D"],
+  ["popover", "#FFFFFF"],
+  ["popover-foreground", "#20201D"],
+  ["primary", "#20231F"],
+  ["primary-foreground", "#F8F6F1"],
+  ["secondary", "#F4EEE4"],
+  ["secondary-foreground", "#20201D"],
+  ["muted", "#F8F6F1"],
+  ["muted-foreground", "#77756E"],
+  ["accent", "#DCE9D5"],
+  ["accent-foreground", "#41533D"],
+  ["destructive", "#DC2626"],
+  ["destructive-foreground", "#FFFFFF"],
+];
+
+const MARKETING_FONTS = {
+  primary: "Manrope",
+  secondary: "Playfair Display",
+  tertiary: "DM Mono",
+};
 
 /** @param {string} filePath */
 function loadEnvFile(filePath, { override = true } = {}) {
@@ -424,16 +455,55 @@ async function validateRedisConnection(config) {
  * @param {string} organizationId
  * @param {RedisConfig} config
  */
+/**
+ * Write the editorial fonts and colors onto the org styling configuration.
+ * @param {import("mongodb").Db} db
+ * @param {string} organizationId
+ */
+async function upsertMarketingStyling(db, organizationId) {
+  const col = db.collection(CONFIGURATION_COLLECTION);
+  const existing = await col.findOne({
+    ...orgIdMatch(organizationId),
+    key: "styling",
+  });
+  const previous =
+    existing?.value && typeof existing.value === "object" ? existing.value : {};
+  const byType = new Map(
+    (Array.isArray(previous.colors) ? previous.colors : []).map((color) => [
+      color.type,
+      color.value,
+    ]),
+  );
+  for (const [type, value] of MARKETING_COLORS) byType.set(type, value);
+  const value = {
+    ...previous,
+    fonts: { ...(previous.fonts || {}), ...MARKETING_FONTS },
+    colors: [...byType.entries()].map(([type, color]) => ({
+      type,
+      value: color,
+    })),
+  };
+  if (existing) {
+    await col.updateOne({ _id: existing._id }, { $set: { value } });
+  } else {
+    await col.insertOne({ key: "styling", organizationId, value });
+  }
+  console.log(
+    "Styling aligned: Manrope / Playfair Display / DM Mono, ink primary with cream button text.",
+  );
+}
+
 async function invalidatePageRouteCache(organizationId, config) {
   const redis = createRedisClient(config);
   try {
     await redis.connect();
     const key = `${PAGE_ROUTES_REDIS_PREFIX}${organizationId}`;
-    const n = await redis.del(key);
+    const stylingKey = `${CONFIG_REDIS_PREFIX}${organizationId}:styling`;
+    const n = await redis.del(key, stylingKey);
     console.log(
       n
-        ? `Invalidated Redis page-route cache (${key}).`
-        : `Redis page-route cache key absent (${key}); nothing to clear.`,
+        ? `Invalidated Redis page-route and styling cache (${n} key(s)).`
+        : `Redis page-route and styling cache keys absent; nothing to clear.`,
     );
   } finally {
     redis.disconnect();
@@ -706,6 +776,8 @@ async function main() {
       }
       const organizationId = String(org._id);
       const now = new Date();
+
+      await upsertMarketingStyling(db, organizationId);
 
       console.log("Uploading / resolving marketing assets…");
       const rewritten = await uploadAndRewriteStructure(

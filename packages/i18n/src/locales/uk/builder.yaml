@@ -1700,6 +1700,25 @@ pageBuilder:
       pauseAfterPhrase: Пауза після завершення фрази
       showCursor: Показувати курсор
       milliseconds: мс
+    phraseCycle:
+      displayName: Цикл фраз
+      phrases: Фрази
+      phraseNumber: Фраза {number}
+      addPhrase: Додати фразу
+      removePhrase: Видалити фразу
+      reorder: Перемістити
+      enterMotion: Анімація появи
+      exitMotion: Анімація зникнення
+      enterDuration: Тривалість появи
+      exitDuration: Тривалість зникнення
+      pauseAfterPhrase: Пауза після фрази
+      milliseconds: мс
+      motions:
+        fade: Згасання
+        fadeUp: Згасання вгору
+        fadeDown: Згасання вниз
+        fadeLeft: Згасання вліво
+        fadeRight: Згасання вправо
     accordion:
       displayName: Акордеон
       allowMultipleOpen: Дозволити кілька відкритих елементів
