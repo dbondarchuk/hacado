@@ -66,6 +66,8 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
     }
   };
 
+  const [showFullNote, setShowFullNote] = useState(false);
+
   return (
     <div className="w-full flex flex-col rounded-lg border border-border bg-background overflow-hidden">
       {/* Header */}
@@ -234,10 +236,10 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
       {!!entry.note && (
         <div className="px-5 py-4 border-b border-gray-100">
           <p className="text-xs text-gray-400 uppercase tracking-wide mb-1.5">
-            {t("view.note")}
+            {t("view.note.title")}
           </p>
-          <p className="text-sm text-foreground leading-relaxed">
-            <Dialog>
+          <div className="text-sm text-foreground leading-relaxed flex flex-col gap-2">
+            {/* <Dialog>
               <DialogTrigger asChild>
                 <div className="whitespace-pre-wrap cursor-pointer">
                   {entry.note.substring(0, 50) +
@@ -261,8 +263,25 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>
-            </Dialog>
-          </p>
+            </Dialog> */}
+            <div className="whitespace-pre-wrap">
+              {showFullNote
+                ? entry.note
+                : entry.note.substring(0, 50) +
+                  (entry.note.length > 50 ? "..." : "")}
+            </div>
+            {entry.note.length > 50 && (
+              <Button
+                variant="link-dashed"
+                onClick={() => setShowFullNote(!showFullNote)}
+                className="w-full text-center"
+              >
+                {!showFullNote
+                  ? t("view.note.showMore")
+                  : t("view.note.showLess")}
+              </Button>
+            )}
+          </div>
         </div>
       )}
 

@@ -37,7 +37,6 @@ view:
   duration: Duration
   addons: Addons
   unknown: Unknown
-  note: Note from customer
   viewNote: View note
   submitted: Submitted {date}
   dismiss: Dismiss
@@ -50,6 +49,10 @@ view:
   preferredAvailability: Preferred availability
   member: Team member
   noSpecificDates: No specific dates
+  note:
+    title: Note from customer
+    showMore: Show more
+    showLess: Show less
   toast:
     dismissed: Waitlist entry dismissed
   times:
