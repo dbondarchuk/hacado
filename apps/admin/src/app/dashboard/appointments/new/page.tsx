@@ -129,6 +129,9 @@ export default async function NewAppointmentPage(props: Props) {
     "New appointment page loaded",
   );
 
+  const smsText =
+    await servicesContainer.bookingService.getCustomerAppointmentTextOffer();
+
   return (
     <PageContainer scrollable>
       <div className="flex flex-1 flex-col gap-4 w-full">
@@ -147,6 +150,7 @@ export default async function NewAppointmentPage(props: Props) {
           customer={customer}
           currentMemberId={currentMemberId}
           canAssignMember={canAssignMember}
+          smsText={smsText}
         />
       </div>
     </PageContainer>

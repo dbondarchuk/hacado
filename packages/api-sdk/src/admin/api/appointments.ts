@@ -180,6 +180,7 @@ export const createAppointment = async (
   appointment: AppointmentEventRequest,
   files: Record<string, File> | undefined,
   confirmed: boolean = false,
+  smsConsent: boolean = false,
 ) => {
   console.debug("Creating appointment", {
     optionId: appointment.optionId,
@@ -199,6 +200,9 @@ export const createAppointment = async (
     });
 
     formData.append("confirmed", confirmed.toString());
+    if (smsConsent) {
+      formData.append("smsConsent", "true");
+    }
 
     const result = await fetchAdminApi(`/appointments`, {
       method: "POST",

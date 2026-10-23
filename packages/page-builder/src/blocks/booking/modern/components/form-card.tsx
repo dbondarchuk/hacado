@@ -1,16 +1,20 @@
+import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields, getFields } from "@hacado/types";
 import {
+  AppointmentSmsConsent,
+  appointmentSmsConsentKind,
   fieldSchemaMapper,
   fieldsComponentMap,
   Form,
-  usePrevious,
+  useSmsConsentState,
 } from "@hacado/ui";
 import { deepEqual } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { SmsConsentLookupContext } from "../../sms-consent-lookup";
 import { useScheduleContext } from "./context";
 
 export const FormCard: React.FC = () => {
@@ -25,11 +29,17 @@ export const FormCard: React.FC = () => {
     setDiscount,
     setIsFormValid,
     isCustomerPackageLocked,
+    smsText,
   } = useScheduleContext();
 
   if (!dateTime || !selectedAppointmentOption) return null;
 
+  const consentLookup = React.useContext(SmsConsentLookupContext);
   const fields = getFields(formFields);
+
+  const [smsConsent, setSmsConsent] = useSmsConsentState(
+    propsFields.smsConsent,
+  );
 
   const formSchema = useMemo(
     () =>
@@ -52,13 +62,24 @@ export const FormCard: React.FC = () => {
     defaultValues: propsFields,
   });
 
+  const lockContact = isCustomerPackageLocked;
   const values = form.watch();
-  const previousValues = usePrevious(values, values);
   useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      setFields(values as AppointmentFields);
+    const next = {
+      ...(values as AppointmentFields),
+      ...(lockContact
+        ? {
+            name: propsFields.name,
+            email: propsFields.email,
+            phone: propsFields.phone,
+          }
+        : {}),
+      smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
+    };
+    if (!deepEqual(next, propsFields)) {
+      setFields(next);
     }
-  }, [values]);
+  }, [values, smsConsent, propsFields, smsText, lockContact]);
 
   const isFormValid = form.formState.isValid;
   React.useEffect(() => {
@@ -72,8 +93,6 @@ export const FormCard: React.FC = () => {
       }),
     [setDiscount],
   );
-
-  const lockContact = isCustomerPackageLocked;
 
   return (
     <div className="space-y-6 form-card card-container">
@@ -102,8 +121,29 @@ export const FormCard: React.FC = () => {
                       field.name === "email" ||
                       field.name === "phone"),
                 )}
+                {field.name === "email" && (
+                  <p className="text-xs text-muted-foreground">
+                    {t("booking.form.emailNotice")}
+                  </p>
+                )}
               </React.Fragment>
             ))}
+            <AppointmentSmsConsent
+              id="booking-sms-consent"
+              offer={smsText}
+              phone={String((form.watch() as AppointmentFields).phone ?? "")}
+              profilePhone={propsFields.phone}
+              profileConsent={propsFields.smsConsent === true}
+              checked={smsConsent}
+              onCheckedChange={setSmsConsent}
+              lookup={
+                consentLookup ??
+                (async (phone) => {
+                  const result = await clientApi.booking.getSmsConsent(phone);
+                  return result.consented === true;
+                })
+              }
+            />
           </div>
         </form>
       </Form>

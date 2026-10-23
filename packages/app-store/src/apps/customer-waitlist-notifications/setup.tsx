@@ -5,6 +5,7 @@ import {
   DurationInput,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,8 +21,16 @@ import {
   SaveButton,
   TemplateSelector,
 } from "@hacado/ui-admin";
+import {
+  renderBuiltInSms,
+  SmsExample,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { CustomerWaitlistNotificationsApp } from "./app";
+import { getWaitlistSmsBodies } from "./messages";
 import {
   CustomerWaitlistNotificationsConfiguration,
   customerWaitlistNotificationsConfigurationSchema,
@@ -48,7 +57,23 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
   >(customerWaitlistNotificationsAdminNamespace);
 
   const notifyOnSlotOpened = !!form.watch("notifyOnSlotOpened");
+  const slotOpenedSmsEnabled = form.watch("slotOpenedSmsEnabled");
   const slotOpenedSmsTemplateId = form.watch("slotOpenedSmsTemplateId");
+  const smsSlotOn = slotOpenedSmsEnabled ?? Boolean(slotOpenedSmsTemplateId);
+  const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
+  const waitlistSms = getWaitlistSmsBodies(smsPreviewLanguage(previewArgs));
+  const slotOpenedExample = renderBuiltInSms(
+    waitlistSms.slotOpened,
+    previewArgs,
+    sharedPool,
+  );
+
+  const leaveExample = renderBuiltInSms(
+    waitlistSms.leaveConfirm,
+    previewArgs,
+    sharedPool,
+  );
 
   return (
     <>
@@ -144,60 +169,126 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                 />
                 <FormField
                   control={form.control}
-                  name="slotOpenedSmsTemplateId"
+                  name="slotOpenedSmsEnabled"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        {t("setup.form.slotOpenedSmsTemplateId.label")}
-                        <InfoTooltip>
-                          {t("setup.form.slotOpenedSmsTemplateId.tooltip")}
-                        </InfoTooltip>
-                      </FormLabel>
+                    <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
+                      <div className="space-y-2">
+                        <FormLabel>
+                          {t("setup.form.slotOpenedSms.label")}
+                        </FormLabel>
+                        <FormDescription>
+                          {t("setup.form.slotOpenedSms.description")}
+                        </FormDescription>
+                        <SmsExample text={slotOpenedExample} />
+                      </div>
                       <FormControl>
                         {isDataLoading ? (
-                          <Skeleton className="w-full h-10" />
+                          <Skeleton className="h-6 w-10" />
                         ) : (
-                          <TemplateSelector
-                            type="text-message"
-                            allowClear
+                          <Switch
+                            checked={
+                              field.value ?? Boolean(slotOpenedSmsTemplateId)
+                            }
                             disabled={isLoading}
-                            value={field.value}
-                            onItemSelect={(value) => field.onChange(value)}
+                            onCheckedChange={(value) => field.onChange(value)}
                           />
                         )}
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
+                {allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="slotOpenedSmsTemplateId"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>
+                          {t("setup.form.slotOpenedSmsTemplateId.label")}
+                          <InfoTooltip>
+                            {t("setup.form.slotOpenedSmsTemplateId.tooltip")}
+                          </InfoTooltip>
+                        </FormLabel>
+                        <FormControl>
+                          {isDataLoading ? (
+                            <Skeleton className="h-10 w-full" />
+                          ) : (
+                            <TemplateSelector
+                              type="text-message"
+                              allowClear
+                              disabled={isLoading}
+                              value={field.value}
+                              onItemSelect={(value) => field.onChange(value)}
+                            />
+                          )}
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
-                  name="leaveWaitlistSmsTemplateId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        {t("setup.form.leaveWaitlistSmsTemplateId.label")}
-                        <InfoTooltip>
-                          {t("setup.form.leaveWaitlistSmsTemplateId.tooltip")}
-                        </InfoTooltip>
-                      </FormLabel>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="w-full h-10" />
-                        ) : (
-                          <TemplateSelector
-                            type="text-message"
-                            allowClear
-                            disabled={isLoading}
-                            value={field.value}
-                            onItemSelect={(value) => field.onChange(value)}
-                          />
-                        )}
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name="leaveWaitlistSmsEnabled"
+                  render={({ field }) => {
+                    const templateId = form.watch("leaveWaitlistSmsTemplateId");
+                    return (
+                      <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
+                        <div className="space-y-2">
+                          <FormLabel>
+                            {t("setup.form.leaveWaitlistSms.label")}
+                          </FormLabel>
+                          <FormDescription>
+                            {t("setup.form.leaveWaitlistSms.description")}
+                          </FormDescription>
+                          <SmsExample text={leaveExample} />
+                          <FormMessage />
+                        </div>
+                        <FormControl>
+                          {isDataLoading ? (
+                            <Skeleton className="h-6 w-10" />
+                          ) : (
+                            <Switch
+                              checked={field.value ?? Boolean(templateId)}
+                              disabled={isLoading}
+                              onCheckedChange={(value) => field.onChange(value)}
+                            />
+                          )}
+                        </FormControl>
+                      </FormItem>
+                    );
+                  }}
                 />
+                {allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="leaveWaitlistSmsTemplateId"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>
+                          {t("setup.form.leaveWaitlistSmsTemplateId.label")}
+                          <InfoTooltip>
+                            {t("setup.form.leaveWaitlistSmsTemplateId.tooltip")}
+                          </InfoTooltip>
+                        </FormLabel>
+                        <FormControl>
+                          {isDataLoading ? (
+                            <Skeleton className="h-10 w-full" />
+                          ) : (
+                            <TemplateSelector
+                              type="text-message"
+                              allowClear
+                              disabled={isLoading}
+                              value={field.value}
+                              onItemSelect={(value) => field.onChange(value)}
+                            />
+                          )}
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
                   name="bookingPageId"
@@ -283,7 +374,7 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                     </FormItem>
                   )}
                 />
-                {slotOpenedSmsTemplateId ? (
+                {smsSlotOn ? (
                   <FormField
                     control={form.control}
                     name="smsRemoveKeyword"

@@ -1,4 +1,4 @@
-import { getServicesContainer } from "@/app/utils";
+import { getOrganizationId, getServicesContainer } from "@/app/utils";
 import {
   getAccessibleConnectedApps,
   getOwnerMemberIds,
@@ -7,18 +7,21 @@ import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import type {
-  ConnectedApp,
-  INeedsAttentionApp,
-  NeedsAttentionItem,
-  NeedsAttentionLevel,
-  OrganizationMember,
-  SessionUser,
+import { SmsRegistrationStore } from "@hacado/services";
+import {
+  customerOtpAllowsPhone,
+  type ConnectedApp,
+  type INeedsAttentionApp,
+  type NeedsAttentionItem,
+  type NeedsAttentionLevel,
+  type OrganizationMember,
+  type SessionUser,
 } from "@hacado/types";
 import {
   canAccessConnectedApp,
   canFilterByMember,
   canUpdateAppointments,
+  hasPermission,
 } from "@hacado/utils";
 import {
   listNeedsAttentionDismissals,
@@ -120,6 +123,68 @@ async function collectCoreItems(
         },
         order: 20,
         compositeKey: compositeKey("core", "inactive-members", fingerprint),
+        appId: "core",
+      });
+    }
+  }
+
+  if (hasPermission(user, "settings", "update")) {
+    const organizationId = await getOrganizationId();
+    const [registration, customerAuth, smsEnabled] = await Promise.all([
+      new SmsRegistrationStore().get(organizationId),
+      services.configurationService.getConfiguration("customerAuth"),
+      services.textMessageConfigurationService.isEnabled(),
+    ]);
+
+    if (registration?.status === "rejected") {
+      const fingerprint = registration.rejectionReason || "rejected";
+      items.push({
+        id: "sms-verification",
+        fingerprint,
+        level: "error",
+        title: {
+          key: "admin.dashboard.needsAttention.smsVerification.title",
+        },
+        description: {
+          key: "admin.dashboard.needsAttention.smsVerification.description",
+        },
+        action: {
+          type: "link",
+          href: "/dashboard/settings/text-messaging/verification",
+          label: {
+            key: "admin.dashboard.needsAttention.smsVerification.action",
+          },
+        },
+        order: 15,
+        compositeKey: compositeKey("core", "sms-verification", fingerprint),
+        appId: "core",
+      });
+    }
+
+    if (
+      customerOtpAllowsPhone(customerAuth?.otpChannels ?? "email") &&
+      !smsEnabled
+    ) {
+      const fingerprint = customerAuth?.otpChannels ?? "phone";
+      items.push({
+        id: "customer-otp-phone",
+        fingerprint,
+        level: "warning",
+        title: {
+          key: "admin.dashboard.needsAttention.customerOtpPhone.title",
+        },
+        description: {
+          key: "admin.dashboard.needsAttention.customerOtpPhone.description",
+        },
+        action: {
+          type: "link",
+          href: "/dashboard/settings/customer-access",
+          label: {
+            key: "admin.dashboard.needsAttention.customerOtpPhone.action",
+          },
+        },
+        order: 16,
+        compositeKey: compositeKey("core", "customer-otp-phone", fingerprint),
         appId: "core",
       });
     }

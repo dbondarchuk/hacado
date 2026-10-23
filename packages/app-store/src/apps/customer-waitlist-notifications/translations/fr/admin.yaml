@@ -20,12 +20,19 @@ setup:
     slotOpenedSmsTemplateId:
       label: Modèle SMS de fente ouverte
       tooltip: SMS envoyé à l'ouverture d'une heure correspondante. Incluez les liens de réservation et de congé. Les réponses avec le mot-clé Remove quittent cette demande de liste d'attente.
+    slotOpenedSms:
+      label: SMS quand un créneau s'ouvre
+      description: "Envoyé quand une heure correspondante se libère et que cette demande est la suivante. Le texte indique l'entreprise, le service et l'heure, avec un lien pour réserver."
     leaveWaitlistSmsTemplateId:
       label: Laisser le modèle de SMS de confirmation
       tooltip: Envoyé après le départ du client via le lien ou le mot clé SMS. Obligatoire lorsque le SMS avec emplacement ouvert est défini.
+    leaveWaitlistSms:
+      label: SMS quand le client part
+      description: "Envoyé après que le client quitte cette demande via le lien ou en répondant avec le mot-clé de sortie."
+      required: "Activez-le lorsque les SMS de créneau ouvert sont activés, pour que le client reçoive une confirmation."
     bookingPageId:
       label: Page de réservation
-      tooltip: Page utilisée pour les URL de livre à partir d'un lien. Stocké par ID de page afin que renommer le slug ne rompe pas les liens.
+      tooltip: Page utilisée pour les URL de livre à partir d'un lien.
       required: Sélectionnez une page de réservation
     cooldownMinutes:
       label: Temps de recharge entre les offres
@@ -41,7 +48,7 @@ setup:
       placeholder: RETIRER
       required: Saisissez un mot-clé que les clients peuvent envoyer par SMS pour quitter
     slotOpenedChannel:
-      required: Choisissez un modèle d'e-mail, un modèle de SMS ou les deux
+      required: "Choisissez un modèle d'e-mail, activez un SMS, ou les deux"
 handlers:
   newWaitlistEntry: Notification de liste d'attente client - Nouvelle entrée
   slotOpened: Notification de liste d'attente client - Emplacement ouvert
@@ -51,4 +58,3 @@ statusText:
   error_sending_email_notification_for_new_waitlist_entry: Erreur lors de l'envoi d'une notification par e-mail pour une nouvelle entrée sur la liste d'attente
   email_app_not_configured: L'application par défaut de l'expéditeur d'e-mail n'est pas configurée
   error_processing_configuration: Configuration du traitement des erreurs
-

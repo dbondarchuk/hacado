@@ -37,7 +37,13 @@ async function cabinetCall<T>(fn: () => Promise<T>): Promise<T> {
 export const checkSessionAction = async (): Promise<CheckSessionResponse> => {
   const data = await clientApi.customerAuth.checkSession();
 
-  return { valid: true, name: data.name, email: data.email, phone: data.phone };
+  return {
+    valid: true,
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    smsConsent: data.smsConsent === true,
+  };
 };
 
 export const getAuthOptionsAction = async () => {

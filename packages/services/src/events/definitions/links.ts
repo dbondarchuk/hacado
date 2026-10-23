@@ -35,6 +35,7 @@ export const dashboardUrls = {
   team: "/dashboard/settings/team",
   teamMember: (id: string) => `/dashboard/settings/team/${id}/profile`,
   billing: "/dashboard/settings/brand",
+  textMessagingVerification: "/dashboard/settings/text-messaging/verification",
   /** Brand settings; opens the SMS top-up purchase dialog (see `SmsTopupPurchaseDialog`). */
   billingPurchaseSmsTopup: "/dashboard/settings/brand?purchase_sms_topup=true",
 };

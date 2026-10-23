@@ -88,6 +88,19 @@ common:
     leave: Partir
   pricePerHour: "{price}/heure"
 platformEvents:
+  smsVerification:
+    created:
+      title: Messages personnalisés envoyés
+      description: La vérification a été envoyée pour révision.
+    pending:
+      title: Messages personnalisés en révision
+      description: La vérification est en attente.
+    failed:
+      title: "Les messages personnalisés n'ont pas été approuvés"
+      description: "{reason}"
+    succeeded:
+      title: Messages personnalisés vérifiés
+      description: "Les textos utilisent {phoneNumber}."
   customer:
     created:
       title: Nouveau client
@@ -383,6 +396,30 @@ billing:
       title: Recharge SMS terminée
       message: Ajout de {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Ils sont utilisés après votre pool d'abonnement inclus.
       action: Ouvrir les paramètres de facturation
+commandPalette:
+  placeholder: Rechercher
+  typeHint: "Cherchez un seul type avec un préfixe, comme customer: ou blog:."
+  empty: Aucun résultat
+  loading: Recherche…
+  viewAll: Tout voir {label}
+  groups:
+    actions: Actions rapides
+    apps: Apps
+    installedApps: Apps installées
+  actions:
+    newAppointment: Nouveau rendez-vous
+    newCustomer: Nouveau client
+    newPage: Nouvelle page
+    newHeader: Nouvel en-tête
+    newFooter: Nouveau pied de page
+    newTemplate: Nouveau modèle d'e-mail
+    newOption: Nouveau service
+    newAddon: Nouveau supplément
+    newField: Nouveau champ
+    newDiscount: Nouvelle réduction
+    newGiftCard: Nouvelle carte-cadeau
+    newPackage: Nouveau forfait
+    newAsset: Nouveau fichier
 navigation:
   overview: Aperçu
   dashboard: Tableau de bord
@@ -393,6 +430,7 @@ navigation:
   paymentsInbox: Boîte de réception des paiements
   financialOverview: Aperçu
   customerAccess: Accès client
+  textMessaging: Messages texte
   schedule: Calendrier
   defaultSchedule: Calendrier par défaut
   services: Services
@@ -415,6 +453,10 @@ navigation:
   header: En-tête
   footer: Pied de page
   settings: Paramètres
+  descriptions:
+    templates: Modèles de courriel et de texto pour les messages aux clients.
+    store: Parcourez les applications que vous pouvez installer.
+    defaultApps: Choisissez les applications par défaut pour les paiements, les courriels et les textos.
   general: Général
   brand: Marque
   social: Sociale
@@ -1084,6 +1126,8 @@ appointments:
     note: Note
     confirmAppointment: Confirmer le rendez-vous
     confirmAppointmentDescription: Marquer le rendez-vous comme confirmé
+    smsConsent: "J'atteste que le client a accepté de recevoir des textos"
+    smsConsentAlready: Ce client a déjà accepté de recevoir des textos.
     confirmOverlap: Confirmer le chevauchement
     confirmOverlapDescription: Je comprends que la planification de ce rendez-vous créera un chevauchement dans mon emploi du temps
     unassignedMember:
@@ -1287,6 +1331,17 @@ customers:
   addPayment: Ajouter un paiement
   files: Fichiers
   communications: Communications
+  smsConsent:
+    title: Messages texte
+    active: Ce client a déjà accepté de recevoir des textos.
+    inactive: Ce client n'a pas accepté de recevoir des textos.
+    optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+    noPhone: Ajoutez un numéro de téléphone pour gérer le consentement SMS.
+    attest: "J'atteste que le client a accepté de recevoir des textos"
+    revoke: Révoquer le consentement
+    attested: Consentement enregistré
+    revoked: Consentement révoqué
+    error: Impossible de mettre à jour le consentement SMS
   deletedCustomer: Client supprimé
   form:
     customerPhoto: Photo client
@@ -2626,6 +2681,8 @@ apps:
       button: Ouvrir des applications
       handledBy: "Échec de la connexion à l'application : {appDisplayName}"
 settings:
+  hub:
+    description: Ouvrez une section des paramètres de votre entreprise.
   general:
     title: Paramètres généraux
     description: Nom de l'entreprise, coordonnées, emplacement et paramètres régionaux par défaut de votre organisation.
@@ -3067,6 +3124,112 @@ settings:
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
+  textMessaging:
+    title: Messages texte
+    description: "Activez les textos clients dans les formulaires de réservation et de liste d'attente."
+    countryOnly: "Les messages personnalisés sont offerts aux entreprises des États-Unis et du Canada."
+    verification:
+      title: Messages personnalisés
+      description: "Vérifiez votre entreprise pour que les textos clients utilisent un numéro dédié."
+      prompt: Vous voulez activer les messages personnalisés?
+      action: Vérifiez les renseignements de votre entreprise maintenant
+      verifiedPrompt: Vous avez activé les modèles de messages personnalisés.
+      verifiedAction: Voir vos renseignements
+      failedPrompt: "La vérification des messages personnalisés a échoué."
+      failedAction: Voir vos renseignements
+      pendingPrompt: "La vérification des messages personnalisés est en révision."
+      pendingAction: Voir vos renseignements
+      disabled: "Activez les messages texte avant de faire vérifier un numéro dédié."
+    notifications:
+      failed:
+        title: "Les messages personnalisés n'ont pas été approuvés"
+        message: "{reason}"
+        action: Voir les renseignements
+      succeeded:
+        title: Les messages personnalisés sont vérifiés
+        message: "Les textos utilisent maintenant votre numéro dédié."
+        action: Voir les renseignements
+    emails:
+      failed:
+        subject: "Les messages personnalisés n'ont pas été approuvés"
+        preview: "Mettez à jour les renseignements et envoyez la vérification de nouveau."
+        title: "Les messages personnalisés n'ont pas été approuvés"
+        body: "{reason} Mettez à jour le formulaire et envoyez la vérification de nouveau."
+        button: Voir les renseignements
+        handledBy: Vérification des messages texte
+      succeeded:
+        subject: Les messages personnalisés sont vérifiés
+        preview: "Les textos utilisent maintenant votre numéro dédié."
+        title: Les messages personnalisés sont vérifiés
+        body: "Les textos utilisent maintenant votre numéro dédié et vos modèles personnalisés."
+        button: Voir les renseignements
+        handledBy: Vérification des messages texte
+    status:
+      pending: "La révision est en cours. Les textos continuent d'utiliser le numéro partagé jusqu'à l'approbation."
+      verified: "Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro."
+      verifiedWithNumber: "Les messages personnalisés sont vérifiés. Les textos utilisent {number}."
+      rejected: "La vérification n'a pas été approuvée."
+      preparing: "Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt."
+    form:
+      smsEnabled: Activer les messages texte
+      smsEnabledDescription: "Les clients peuvent accepter les textos dans vos formulaires de réservation et de liste d'attente."
+      save: Enregistrer
+      enabled: Activer les messages personnalisés
+      enabledDescription: "Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles."
+      disableTitle: Désactiver les messages personnalisés?
+      disableDescription: "Le désactiver relance le processus de vérification. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas."
+      disableConfirm: Désactiver
+      disableCancel: Le garder actif
+      unlock: Déverrouiller
+      submit: Envoyer
+      entityType:
+        label: "Type d'entreprise"
+        PRIVATE_PROFIT: Entreprise privée
+        PUBLIC_PROFIT: Entreprise publique
+        SOLE_PROPRIETOR: Propriétaire unique
+        NON_PROFIT: Organisme de bienfaisance
+      legalName:
+        label: Nom légal
+      doingBusinessAs:
+        label: Nom commercial
+        hint: Ajoutez-le lorsque le nom de réservation diffère du nom légal.
+      registrationNumber:
+        label: "EIN ou numéro d'entreprise"
+        hint: "Un EIN américain ou un numéro d'entreprise canadien."
+        soleHint: Un propriétaire unique peut laisser ce champ vide.
+      website:
+        label: Site web
+      legalPages:
+        note: "Ces pages sont liées depuis les formulaires de réservation et de liste d'attente. Ajoutez-les au pied de page de votre site pour la conformité légale. La configuration a déjà ajouté des pages avec le texte SMS requis. Vous pouvez les modifier, puis les sélectionner ici."
+      privacyPage:
+        label: Politique de confidentialité
+        hint: "La page doit indiquer que les données d'adhésion mobile ne sont pas partagées avec des tiers ou des affiliés à des fins de marketing, et que les numéros servent seulement aux textos de réservation."
+      termsPage:
+        label: Conditions
+        hint: "La page doit indiquer la fréquence des messages, que des frais de messages et de données peuvent s'appliquer, que l'on peut répondre STOP pour se désinscrire et HELP pour obtenir de l'aide, et que les fournisseurs ne sont pas responsables des messages retardés ou non livrés."
+      streetAddress:
+        label: Adresse
+      addressLine2:
+        label: Adresse ligne 2
+      city:
+        label: Ville
+      state:
+        label: État ou province
+      postalCode:
+        label: Code postal
+      contactFirstName:
+        label: Prénom du contact
+      contactLastName:
+        label: Nom du contact
+      contactEmail:
+        label: E-mail du contact
+      contactPhone:
+        label: Téléphone du contact
+    toasts:
+      saved: Vos modifications ont été enregistrées.
+      submitted: "La demande de vérification a été envoyée. L'examen peut prendre jusqu'à 7 jours ouvrables."
+      preparing: Un numéro est en préparation. Nous avons enregistré vos informations.
+      error: Il y a eu un problème avec votre demande.
   customerAccess:
     title: Accès client
     description: Modèles OTP et canaux de vérification pour les flux orientés client
@@ -3079,6 +3242,8 @@ settings:
           email: E-mail uniquement
           phone: Téléphone uniquement
           email_or_phone: Email ou téléphone
+      smsDisabled: "Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, la connexion client utilise le courriel."
+      smsDisabledAction: Activer les messages texte
       otpTextTemplateId:
         label: Modèle de message texte OTP
       toasts:
@@ -3182,6 +3347,14 @@ dashboard:
       title: Les membres inactifs de l'équipe ont des rendez-vous à venir
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Afficher les rendez-vous
+    smsVerification:
+      title: "Les messages texte n'ont pas été approuvés"
+      description: Mettez à jour les informations de l'entreprise et envoyez à nouveau la vérification.
+      action: Revoir
+    customerOtpPhone:
+      title: La vérification par téléphone nécessite les messages texte
+      description: "La connexion client utilise des codes par téléphone, mais les messages texte sont désactivés. Les codes sont envoyés par courriel."
+      action: Ouvrir les paramètres OTP
     failedApp:
       title: "{appName} a besoin d'attention"
       description: "{appName} ne fonctionne pas correctement et devra peut-être être reconnecté."
@@ -3220,7 +3393,7 @@ communications:
   sendNew: Envoyer nouveau
   requestError: Il y a eu un problème avec votre demande.
   sendNewMessage: Envoyer un nouveau message
-  sendNewMessageDescription: Envoyer un nouvel e-mail ou SMS au client
+  sendNewMessageDescription: Envoyer un nouvel e-mail au client
   closeDialogWarning: Vous perdrez tout le contenu si vous fermez la boîte de dialogue
   contentNotValid: Le contenu n'est pas valide
   messageSent: Votre message a été envoyé avec succès.
@@ -3689,6 +3862,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: Réponse par message texte - informer l'utilisateur
+text-message-reply:
+  handledBy: Réponse par message texte
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Quand il est au moins {duration} avant le rendez-vous
@@ -4038,4 +4213,3 @@ users:
       max: Le titre ne doit pas comporter plus de 80 caractères
     bio:
       max: La biographie ne doit pas contenir plus de 1 024 caractères
-

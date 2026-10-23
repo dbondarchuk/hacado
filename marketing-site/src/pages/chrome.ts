@@ -235,6 +235,7 @@ const footerColumns = [
       { label: "Docs", href: DOCS_URL },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
+      { label: "SMS Privacy and Policy", href: "/sms-policy" },
     ],
   },
 ];

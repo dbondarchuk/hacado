@@ -12,8 +12,7 @@ import {
   NotificationService,
   SystemNotificationService,
 } from "../../notifications.service";
-import { getTextBeltConfiguration } from "../../text-message";
-import { TextBeltService } from "../../text-message/textbelt/service";
+import { createDefaultTextMessageSender } from "../../text-message";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { NotificationJobData } from "./bullmq-notification-service";
 import { BullMQNotificationConfig } from "./types";
@@ -160,7 +159,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const email = jobData.data as Email;
     const notificationService = new SystemNotificationService(
       createDefaultEmailService(this.getServices("").assetsStorage),
-      new TextBeltService(getTextBeltConfiguration()),
+      createDefaultTextMessageSender(),
     );
 
     try {
@@ -261,7 +260,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
     const textMessage = jobData.data as TextMessage;
     const notificationService = new SystemNotificationService(
       createDefaultEmailService(this.getServices("").assetsStorage),
-      new TextBeltService(getTextBeltConfiguration()),
+      createDefaultTextMessageSender(),
     );
 
     try {
@@ -272,7 +271,6 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
           maxAttempts: job.opts.attempts,
           phone: textMessage.phone,
           sender: textMessage.sender,
-          message: textMessage.message,
         },
         "Processing system text message notification job",
       );
@@ -459,21 +457,18 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       services.assetsStorage,
     );
 
-    const defaultTextMessageSender = new TextBeltService(
-      getTextBeltConfiguration(),
-    );
-
     return new NotificationService(
       organizationId,
       services.configurationService,
       services.connectedAppsService,
       services.communicationLogsService,
       defaultEmailService,
-      defaultTextMessageSender,
       services.billingService,
       services.eventService,
       services.organizationService,
       services.shortLinksService,
+      services.redisClient,
+      services.textMessageConfigurationService,
     );
   }
 }

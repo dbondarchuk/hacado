@@ -149,11 +149,30 @@ export const appointmentNotificationTypeSchema = z.discriminatedUnion("type", [
   appointmentNotificationAtTimeSchema,
 ]);
 
+export const appointmentNotificationSmsKinds = [
+  "reminder",
+  "followUp",
+] as const;
+
 export const appointmentNotificationChannelSchema = z.object({
   channel: appointmentNotificationChannelsEnum,
   templateId: zObjectId(
     "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys,
-  ),
+  ).optional(),
+  enabled: z.boolean().optional(),
+  smsKind: z
+    .enum(appointmentNotificationSmsKinds, {
+      error:
+        "app_appointment-notifications_admin.validation.form.smsKind.invalid" satisfies AppointmentNotificationsAdminAllKeys,
+    })
+    .optional(),
+  followUpText: z
+    .string()
+    .max(
+      300,
+      "app_appointment-notifications_admin.validation.form.followUpText.max" satisfies AppointmentNotificationsAdminAllKeys,
+    )
+    .optional(),
 });
 
 export const appointmentNotificationAppointmentCountType = [
@@ -254,6 +273,32 @@ export const appointmentNotificationSchema = z
         path: ["minutes"],
         message:
           "app_appointment-notifications_admin.validation.form.atTimeAfter.minutes.min" satisfies AppointmentNotificationsAdminAllKeys,
+      });
+    }
+
+    if (arg.channel === "email" && !arg.templateId) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["templateId"],
+        message:
+          "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys,
+      });
+    }
+
+    const textMessageEnabled =
+      arg.channel === "text-message" &&
+      (arg.enabled === true ||
+        (arg.enabled == null && Boolean(arg.templateId)));
+    if (
+      textMessageEnabled &&
+      arg.smsKind === "followUp" &&
+      !arg.followUpText?.trim()
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["followUpText"],
+        message:
+          "app_appointment-notifications_admin.validation.form.followUpText.required" satisfies AppointmentNotificationsAdminAllKeys,
       });
     }
 

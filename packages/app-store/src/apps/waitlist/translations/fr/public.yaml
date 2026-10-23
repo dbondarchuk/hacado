@@ -82,6 +82,14 @@ block:
     addDescription: Veuillez sélectionner les plages horaires que vous souhaitez ajouter
   email:
     required: L'e-mail est requis
+    notice: Nous enverrons les nouvelles de la liste d'attente à cette adresse.
+  smsConsent:
+    label:
+      notifications: "Envoyez-moi des notifications sur ma demande de liste d'attente."
+      slot: "Envoyez-moi un texto lorsqu'un créneau correspondant s'ouvre."
+      slotAndNotifications: "Envoyez-moi des notifications lorsqu'un créneau correspondant s'ouvre."
+    disclosure: Les messages proviennent de Hacado au nom de {businessName}. La fréquence des messages varie. Des frais de messagerie et de données peuvent s'appliquer. Répondez STOP pour vous désinscrire. <terms>Conditions</terms> et <privacy>Confidentialité</privacy>.
+    already: "✓ Des notifications SMS seront envoyées à ce numéro. (Répondez STOP à tout moment pour vous désinscrire)"
   name:
     required: Le nom est requis
     max: Le nom doit comporter au maximum 256 caractères

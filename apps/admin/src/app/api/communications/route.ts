@@ -1,6 +1,5 @@
 import { getMember, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
-import { getSubscriptionFeatureBlockedResponse } from "@/lib/billing/subscription-feature-guard";
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
@@ -106,29 +105,36 @@ export async function POST(request: NextRequest) {
     ? ("apps.communications.handledBy.customer" satisfies BaseAllKeys)
     : ("apps.communications.handledBy.appointment" satisfies BaseAllKeys);
 
+  if (data.channel === "text-message") {
+    return NextResponse.json(
+      { message: "Free-form text messages are not available." },
+      { status: 405 },
+    );
+  }
+
   switch (data.channel) {
-    case "text-message": {
-      const blocked = await getSubscriptionFeatureBlockedResponse("sms");
-      if (blocked) return blocked;
+    // case "text-message": {
+    //   const blocked = await getSubscriptionFeatureBlockedResponse("sms");
+    //   if (blocked) return blocked;
 
-      const body = template(data.content, args);
-      await servicesContainer.notificationService.sendTextMessage({
-        body,
-        handledBy,
-        participantType: "customer",
-        phone: customer.phone,
-        sender: config.general.name,
-        customerId,
-        appointmentId,
-        webhookData: {
-          customerId,
-          appointmentId,
-        },
-        memberId: member._id,
-      });
+    //   const body = template(data.content, args);
+    //   await servicesContainer.notificationService.sendTextMessage({
+    //     body,
+    //     handledBy,
+    //     participantType: "customer",
+    //     phone: customer.phone,
+    //     sender: config.general.name,
+    //     customerId,
+    //     appointmentId,
+    //     webhookData: {
+    //       customerId,
+    //       appointmentId,
+    //     },
+    //     memberId: member._id,
+    //   });
 
-      break;
-    }
+    //   break;
+    // }
 
     case "email": {
       const body = await renderToStaticMarkup({

@@ -47,6 +47,7 @@ export const waitlistRequestFormSchemaBase = z.object({
     "app_waitlist_public.block.name.max" satisfies WaitlistPublicAllKeys,
   ),
   phone: zPhone,
+  smsConsent: z.boolean().optional(),
   note: asOptionalField(
     z
       .string()

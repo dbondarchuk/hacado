@@ -415,6 +415,7 @@ export const BookingWithWaitlistLayout = ({
             name: result.name || fields.name,
             email: result.email || fields.email,
             phone: result.phone || fields.phone,
+            smsConsent: result.smsConsent === true,
           });
           setOtpVerified(true);
           if (otpReturnStep === "packages" || otpReturnStep === "review") {

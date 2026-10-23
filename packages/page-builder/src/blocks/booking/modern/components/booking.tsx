@@ -87,6 +87,7 @@ export const Booking: React.FC<
       successPage={successPage ?? undefined}
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      smsText={response?.smsText}
       catalog={response?.catalog}
       packages={response?.packages}
       requireCustomerOtp={response?.requireCustomerOtp}

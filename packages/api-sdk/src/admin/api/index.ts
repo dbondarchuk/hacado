@@ -26,6 +26,7 @@ import * as serviceOptions from "./service-options";
 import * as syncedPayments from "./synced-payments";
 import * as teams from "./teams";
 import * as templates from "./templates";
+import * as textMessaging from "./text-messaging";
 import * as unsplash from "./unsplash";
 import * as users from "./users";
 export { PaymentsExportError } from "./payments";
@@ -42,6 +43,7 @@ export const adminApi = {
   communications,
   communicationLogs,
   templates,
+  textMessaging,
   discounts,
   pages,
   pageHeaders,

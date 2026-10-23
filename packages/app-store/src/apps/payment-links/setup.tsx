@@ -34,8 +34,16 @@ import {
 } from "@hacado/ui-admin";
 import { Plus, Trash2 } from "lucide-react";
 import React from "react";
+import {
+  renderBuiltInSms,
+  SmsExample,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { PaymentLinksApp } from "./app";
+import { getPaymentLinkSms } from "./messages";
 import {
   PaymentLinksSettings,
   paymentLinksSettingsSchema,
@@ -97,6 +105,13 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
 
   const tipsEnabled = form.watch("tipsEnabled");
   const tipPresets = form.watch("tipPresets") ?? [];
+  const previewArgs = useSmsPreviewArgs();
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
+  const paymentSmsExample = renderBuiltInSms(
+    getPaymentLinkSms(smsPreviewLanguage(previewArgs)),
+    previewArgs,
+    sharedPool,
+  );
 
   React.useEffect(() => {
     if (connectedAppId) {
@@ -317,30 +332,58 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
             />
             <FormField
               control={form.control}
-              name="smsTemplateId"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.smsTemplateId.description")}
-                  </FormDescription>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="w-full h-10" />
-                    ) : (
-                      <TemplateSelector
-                        type="text-message"
+              name="smsEnabled"
+              render={({ field }) => {
+                const templateId = form.watch("smsTemplateId");
+                return (
+                  <FormItem className="flex w-full flex-row items-start justify-between gap-4 rounded-lg border p-4">
+                    <div className="space-y-2">
+                      <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
+                      <FormDescription>
+                        {t("form.smsTemplateId.description")}
+                      </FormDescription>
+                      <SmsExample text={paymentSmsExample} />
+                      <FormMessage />
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value ?? Boolean(templateId)}
                         disabled={isLoading}
-                        value={field.value}
-                        onItemSelect={(value) => field.onChange(value)}
-                        allowClear
+                        onCheckedChange={(value) => field.onChange(value)}
                       />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+                    </FormControl>
+                  </FormItem>
+                );
+              }}
             />
+            {allowCustom ? (
+              <FormField
+                control={form.control}
+                name="smsTemplateId"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
+                    <FormDescription>
+                      {t("form.smsTemplateId.description")}
+                    </FormDescription>
+                    <FormControl>
+                      {isDataLoading ? (
+                        <Skeleton className="h-10 w-full" />
+                      ) : (
+                        <TemplateSelector
+                          type="text-message"
+                          allowClear
+                          disabled={isLoading}
+                          value={field.value}
+                          onItemSelect={(value) => field.onChange(value)}
+                        />
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : null}
             <FormField
               control={form.control}
               name="linkExpiryDays"

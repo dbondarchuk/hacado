@@ -1,4 +1,5 @@
 import { asOptionalField, zObjectId } from "@hacado/types";
+import { isSmsEnabled } from "@hacado/utils";
 import * as z from "zod";
 
 export const SLOT_OPENED_COOLDOWN_MINUTES_MIN = 15;
@@ -12,7 +13,9 @@ export const customerWaitlistNotificationsConfigurationSchema = z
     notifyOnSlotOpened: z.boolean().optional(),
     slotOpenedEmailTemplateId: asOptionalField(zObjectId()),
     slotOpenedSmsTemplateId: asOptionalField(zObjectId()),
+    slotOpenedSmsEnabled: z.boolean().optional(),
     leaveWaitlistSmsTemplateId: asOptionalField(zObjectId()),
+    leaveWaitlistSmsEnabled: z.boolean().optional(),
     bookingPageId: asOptionalField(zObjectId()),
     cooldownMinutes: z.coerce.number<number>().int().optional(),
     exclusiveAccessMinutes: z.coerce.number<number>().int().optional(),
@@ -23,7 +26,12 @@ export const customerWaitlistNotificationsConfigurationSchema = z
       return;
     }
 
-    if (!data.slotOpenedEmailTemplateId && !data.slotOpenedSmsTemplateId) {
+    const smsSlotEnabled = isSmsEnabled(
+      data.slotOpenedSmsEnabled,
+      data.slotOpenedSmsTemplateId,
+    );
+
+    if (!data.slotOpenedEmailTemplateId && !smsSlotEnabled) {
       ctx.addIssue({
         code: "custom",
         path: ["slotOpenedEmailTemplateId"],
@@ -67,7 +75,7 @@ export const customerWaitlistNotificationsConfigurationSchema = z
       });
     }
 
-    if (data.slotOpenedSmsTemplateId) {
+    if (smsSlotEnabled) {
       if (!data.smsRemoveKeyword) {
         ctx.addIssue({
           code: "custom",
@@ -76,12 +84,17 @@ export const customerWaitlistNotificationsConfigurationSchema = z
             "app_customer-waitlist-notifications_admin.setup.form.smsRemoveKeyword.required",
         });
       }
-      if (!data.leaveWaitlistSmsTemplateId) {
+      if (
+        !isSmsEnabled(
+          data.leaveWaitlistSmsEnabled,
+          data.leaveWaitlistSmsTemplateId,
+        )
+      ) {
         ctx.addIssue({
           code: "custom",
-          path: ["leaveWaitlistSmsTemplateId"],
+          path: ["leaveWaitlistSmsEnabled"],
           message:
-            "app_customer-waitlist-notifications_admin.setup.form.leaveWaitlistSmsTemplateId.required",
+            "app_customer-waitlist-notifications_admin.setup.form.leaveWaitlistSms.required",
         });
       }
     }

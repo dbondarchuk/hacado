@@ -3,14 +3,34 @@ import {
   BrandConfiguration,
   CurrencySymbolMap,
   GeneralConfiguration,
+  type TextMessagingConfig,
 } from "@hacado/types";
 import { formatAmountWithCurrency } from "@hacado/utils";
 import { createContext, useContext } from "react";
+
+const disabledTextMessaging: TextMessagingConfig = { enabled: false };
+
+export const TextMessagingContext = createContext<TextMessagingConfig | null>(
+  null,
+);
+
+export const TextMessagingProvider = ({
+  value,
+  children,
+}: {
+  value: TextMessagingConfig;
+  children: React.ReactNode;
+}) => (
+  <TextMessagingContext.Provider value={value}>
+    {children}
+  </TextMessagingContext.Provider>
+);
 
 export const ConfigContext = createContext<{
   config: GeneralConfiguration &
     BrandConfiguration & { domain: string | null | undefined };
   websiteUrl: string;
+  textMessaging: TextMessagingConfig;
 }>({
   config: {
     name: "",
@@ -26,6 +46,7 @@ export const ConfigContext = createContext<{
     useClientTimezone: false,
   },
   websiteUrl: "",
+  textMessaging: disabledTextMessaging,
 });
 
 export const ConfigProvider = ({
@@ -34,18 +55,21 @@ export const ConfigProvider = ({
   brandConfiguration,
   domain,
   websiteUrl,
+  textMessaging = disabledTextMessaging,
 }: {
   children: React.ReactNode;
   generalConfiguration: GeneralConfiguration;
   brandConfiguration: BrandConfiguration;
   domain: string | null | undefined;
   websiteUrl: string;
+  textMessaging?: TextMessagingConfig;
 }) => {
   return (
     <ConfigContext.Provider
       value={{
         config: { ...generalConfiguration, ...brandConfiguration, domain },
         websiteUrl,
+        textMessaging,
       }}
     >
       {children}
@@ -59,6 +83,11 @@ export const useConfig = () => {
 
 export const useWebsiteUrl = () => {
   return useContext(ConfigContext).websiteUrl;
+};
+
+export const useTextMessaging = () => {
+  const override = useContext(TextMessagingContext);
+  return override ?? useContext(ConfigContext).textMessaging;
 };
 
 export const useTimeZone = () => {

@@ -3,6 +3,7 @@ import * as z from "zod";
 
 export const textMessagesTemplateSchema = z.object({
   templateId: zObjectId().optional(),
+  enabled: z.boolean().optional(),
 });
 
 export type TextMessageTemplateConfiguration = z.infer<

@@ -7,6 +7,7 @@ import {
   TextMessageResponse,
 } from "../apps/text-message/text-message-sender";
 import { CommunicationParticipantType } from "../communication";
+import type { CustomerSmsConsentStatus } from "../customers/list";
 
 export type EmailNotificationRequest<
   T extends I18nNamespaces = I18nNamespaces,
@@ -49,6 +50,8 @@ export type TextMessageNotificationRequest<
   webhookData?: TextMessageData;
   appointmentId?: string;
   customerId?: string;
+  requireConsent?: boolean;
+  idempotencyKey?: string;
 } & (
   | {
       participantType: Extract<CommunicationParticipantType, "customer">;
@@ -61,12 +64,30 @@ export type TextMessageNotificationRequest<
     }
 );
 
+export type SmsConsentWrite = {
+  phone: string;
+  consented: boolean;
+  source: "web_form" | "owner_attested";
+  ip?: string;
+};
+
 export interface INotificationService {
   sendEmail(props: EmailNotificationRequest): Promise<void>;
 
   sendTextMessage(
     props: TextMessageNotificationRequest,
   ): Promise<TextMessageResponse>;
+
+  recordCustomerSmsConsent(input: SmsConsentWrite): Promise<void>;
+
+  hasActiveCustomerSmsConsent(phone: string): Promise<boolean>;
+
+  getCustomerSmsConsentStatus(phone: string): Promise<CustomerSmsConsentStatus>;
+
+  getSmsMessagingAccess(): Promise<{
+    customVerified: boolean;
+    canCustomize: boolean;
+  }>;
 }
 
 export interface ISystemNotificationService {

@@ -17,7 +17,12 @@ export const SidebarNavLabel: React.FC<{
   const hasKeys = keys.some(Boolean);
 
   return (
-    <span className={cn("flex min-w-0 flex-1 items-center gap-1", className)}>
+    <span
+      className={cn(
+        "flex min-w-0 flex-1 items-center gap-1 text-sm",
+        className,
+      )}
+    >
       <span className="truncate">{t(title)}</span>
       {showCountBadge && hasKeys ? (
         <DashboardNotificationsBadge notificationKeys={keys} />

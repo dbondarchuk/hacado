@@ -34,6 +34,7 @@ import { ShortLinksService } from "./short-links";
 import { SyncedPaymentsService } from "./synced-payments.service";
 import { TeamService } from "./team.service";
 import { TemplatesService } from "./templates.service";
+import { TextMessageConfigurationService } from "./text-message/text-message-configuration.service";
 
 // BullMQ exports
 export * from "./bullmq";
@@ -167,6 +168,19 @@ export const ServicesContainer: (
       eventService,
     );
 
+    const pagesService = new CachedPagesService(
+      organizationId,
+      eventService,
+      organizationService,
+      redisClient,
+    );
+
+    const textMessageConfigurationService = new TextMessageConfigurationService(
+      organizationId,
+      configurationService,
+      pagesService,
+    );
+
     const bookingService = new BookingService(
       organizationId,
       configurationService,
@@ -181,6 +195,7 @@ export const ServicesContainer: (
       billingService,
       teamService,
       packagesService,
+      textMessageConfigurationService,
     );
 
     const syncedPaymentsService = new SyncedPaymentsService(
@@ -189,13 +204,6 @@ export const ServicesContainer: (
       paymentsService,
       customersService,
       eventService,
-    );
-
-    const pagesService = new CachedPagesService(
-      organizationId,
-      eventService,
-      organizationService,
-      redisClient,
     );
 
     const templatesService = new TemplatesService(organizationId, eventService);
@@ -223,6 +231,7 @@ export const ServicesContainer: (
       organizationService,
       redisClient,
       templatesService,
+      textMessageConfigurationService,
     });
 
     const shortLinksService = new ShortLinksService();
@@ -253,6 +262,7 @@ export const ServicesContainer: (
       billingService,
       customerAuthService,
       shortLinksService,
+      textMessageConfigurationService,
       redisClient,
     };
 

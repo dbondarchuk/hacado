@@ -109,6 +109,7 @@ export const MyCabinetBlockComponent = ({
           name: res.name,
           email: res.email,
           phone: res.phone,
+          smsConsent: res.smsConsent === true,
         });
       })
       .catch(() => {})

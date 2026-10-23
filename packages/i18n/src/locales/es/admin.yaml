@@ -88,6 +88,19 @@ common:
     leave: Dejar
   pricePerHour: "{price}/h"
 platformEvents:
+  smsVerification:
+    created:
+      title: Mensajes personalizados enviados
+      description: La verificación se envió a revisión.
+    pending:
+      title: Mensajes personalizados en revisión
+      description: La verificación está pendiente.
+    failed:
+      title: Los mensajes personalizados no fueron aprobados
+      description: "{reason}"
+    succeeded:
+      title: Mensajes personalizados verificados
+      description: "Los textos usan {phoneNumber}."
   customer:
     created:
       title: Nuevo cliente
@@ -383,6 +396,30 @@ billing:
       title: Recarga por SMS completa
       message: Se agregó {credits, plural, =1 {1 top-up message credit} other {# top-up message credits}}. Se utilizan después de su grupo de suscripción incluido.
       action: Abrir configuración de facturación
+commandPalette:
+  placeholder: Buscar
+  typeHint: "Busca un solo tipo con un prefijo, como customer: o blog:."
+  empty: Sin resultados
+  loading: Buscando…
+  viewAll: Ver todo {label}
+  groups:
+    actions: Acciones rápidas
+    apps: Apps
+    installedApps: Apps instaladas
+  actions:
+    newAppointment: Nueva cita
+    newCustomer: Nuevo cliente
+    newPage: Nueva página
+    newHeader: Nuevo encabezado
+    newFooter: Nuevo pie de página
+    newTemplate: Nueva plantilla de correo
+    newOption: Nuevo servicio
+    newAddon: Nuevo complemento
+    newField: Nuevo campo
+    newDiscount: Nuevo descuento
+    newGiftCard: Nueva tarjeta de regalo
+    newPackage: Nuevo paquete
+    newAsset: Nuevo archivo
 navigation:
   overview: Descripción general
   dashboard: Panel
@@ -393,6 +430,7 @@ navigation:
   paymentsInbox: Bandeja de entrada de pagos
   financialOverview: Descripción general
   customerAccess: Acceso de clientes
+  textMessaging: Mensajes de texto
   schedule: Cronograma
   defaultSchedule: Horario predeterminado
   services: Servicios
@@ -415,6 +453,10 @@ navigation:
   header: Encabezamiento
   footer: Pie de página
   settings: Ajustes
+  descriptions:
+    templates: Plantillas de correo y texto para los mensajes a clientes.
+    store: Explore las aplicaciones que puede instalar.
+    defaultApps: Elija las aplicaciones predeterminadas para pagos, correo y mensajes de texto.
   general: General
   brand: Marca
   social: Social
@@ -1084,6 +1126,8 @@ appointments:
     note: Nota
     confirmAppointment: Confirmar cita
     confirmAppointmentDescription: Marcar cita como confirmada
+    smsConsent: Certifico que el cliente aceptó recibir mensajes de texto
+    smsConsentAlready: Este cliente ya aceptó recibir mensajes de texto.
     confirmOverlap: Confirmar superposición
     confirmOverlapDescription: Entiendo que programar esta cita creará una superposición en mi agenda.
     unassignedMember:
@@ -1287,6 +1331,17 @@ customers:
   addPayment: Agregar pago
   files: Archivos
   communications: Comunicaciones
+  smsConsent:
+    title: Mensajes de texto
+    active: Este cliente ya aceptó recibir mensajes de texto.
+    inactive: Este cliente no ha aceptado recibir mensajes de texto.
+    optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+    noPhone: Agregue un número de teléfono para gestionar el consentimiento de SMS.
+    attest: Certifico que el cliente aceptó recibir mensajes de texto
+    revoke: Revocar el consentimiento
+    attested: Consentimiento registrado
+    revoked: Consentimiento revocado
+    error: No se pudo actualizar el consentimiento de SMS
   deletedCustomer: Cliente eliminado
   form:
     customerPhoto: Foto del cliente
@@ -2626,6 +2681,8 @@ apps:
       button: Abrir aplicaciones
       handledBy: "Error de conexión de la aplicación: {appDisplayName}"
 settings:
+  hub:
+    description: Abra un área de ajustes de su negocio.
   general:
     title: Configuraciones generales
     description: Nombre comercial, detalles de contacto, ubicación y valores predeterminados regionales de su organización.
@@ -3067,6 +3124,112 @@ settings:
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
+  textMessaging:
+    title: Mensajes de texto
+    description: Active los textos para clientes en los formularios de reserva y lista de espera.
+    countryOnly: Los mensajes personalizados están disponibles para negocios de Estados Unidos y Canadá.
+    verification:
+      title: Mensajes personalizados
+      description: Verifique su negocio para que los textos de clientes usen un número dedicado.
+      prompt: "¿Quiere activar los mensajes personalizados?"
+      action: Verifique los datos de su negocio ahora
+      verifiedPrompt: Ha activado las plantillas de mensajes personalizados.
+      verifiedAction: Ver sus datos
+      failedPrompt: La verificación de mensajes personalizados falló.
+      failedAction: Ver sus datos
+      pendingPrompt: La verificación de mensajes personalizados está en revisión.
+      pendingAction: Ver sus datos
+      disabled: Active los mensajes de texto antes de verificar un número dedicado.
+    notifications:
+      failed:
+        title: Los mensajes personalizados no fueron aprobados
+        message: "{reason}"
+        action: Ver datos
+      succeeded:
+        title: Los mensajes personalizados están verificados
+        message: Los textos ahora usan su número dedicado.
+        action: Ver datos
+    emails:
+      failed:
+        subject: Los mensajes personalizados no fueron aprobados
+        preview: Actualice los datos y envíe la verificación de nuevo.
+        title: Los mensajes personalizados no fueron aprobados
+        body: "{reason} Actualice el formulario y envíe la verificación de nuevo."
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
+      succeeded:
+        subject: Los mensajes personalizados están verificados
+        preview: Los textos ahora usan su número dedicado.
+        title: Los mensajes personalizados están verificados
+        body: Los textos ahora usan su número dedicado y las plantillas personalizadas.
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
+    status:
+      pending: La revisión está en curso. Los textos siguen usando el número compartido hasta que se apruebe.
+      verified: Los mensajes personalizados están verificados. Los textos usan su número.
+      verifiedWithNumber: "Los mensajes personalizados están verificados. Los textos usan {number}."
+      rejected: La verificación no fue aprobada.
+      preparing: Se está preparando un número. Los mensajes personalizados se pueden enviar cuando esté listo.
+    form:
+      smsEnabled: Activar mensajes de texto
+      smsEnabledDescription: Los clientes pueden aceptar textos en sus formularios de reserva y lista de espera.
+      save: Guardar
+      enabled: Activar mensajes personalizados
+      enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
+      disableTitle: "¿Desactivar los mensajes personalizados?"
+      disableDescription: Desactivarlo inicia el proceso de verificación otra vez. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
+      disableConfirm: Desactivar
+      disableCancel: Mantener activo
+      unlock: Desbloquear
+      submit: Enviar
+      entityType:
+        label: Tipo de negocio
+        PRIVATE_PROFIT: Empresa privada
+        PUBLIC_PROFIT: Empresa pública
+        SOLE_PROPRIETOR: Propietario único
+        NON_PROFIT: Organización benéfica
+      legalName:
+        label: Nombre legal
+      doingBusinessAs:
+        label: Nombre comercial
+        hint: Agréguelo cuando el nombre de reserva sea distinto del nombre legal.
+      registrationNumber:
+        label: EIN o número de negocio
+        hint: Un EIN de EE. UU. o un número de negocio de Canadá.
+        soleHint: Un propietario único puede dejar esto en blanco.
+      website:
+        label: Sitio web
+      legalPages:
+        note: Estas páginas se enlazan desde los formularios de reserva y lista de espera. Añádalas al pie de su sitio web para el cumplimiento legal. La configuración ya agregó páginas con el texto de SMS requerido. Puede editarlas y luego seleccionarlas aquí.
+      privacyPage:
+        label: Política de privacidad
+        hint: La página debe decir que los datos de alta móvil no se comparten con terceros ni afiliados para marketing, y que los números se usan solo para textos de reservas.
+      termsPage:
+        label: Términos
+        hint: La página debe incluir la frecuencia de los mensajes, que pueden aplicarse tarifas de mensajes y datos, que se puede responder STOP para cancelar y HELP para ayuda, y que los operadores no son responsables de los mensajes retrasados o no entregados.
+      streetAddress:
+        label: Dirección
+      addressLine2:
+        label: Dirección línea 2
+      city:
+        label: Ciudad
+      state:
+        label: Estado o provincia
+      postalCode:
+        label: Código postal
+      contactFirstName:
+        label: Nombre del contacto
+      contactLastName:
+        label: Apellido del contacto
+      contactEmail:
+        label: Correo del contacto
+      contactPhone:
+        label: Teléfono del contacto
+    toasts:
+      saved: Sus cambios fueron guardados.
+      submitted: La solicitud de verificación fue enviada. La revisión puede tardar hasta 7 días hábiles.
+      preparing: Se está preparando un número. Guardamos sus datos.
+      error: Hubo un problema con su solicitud.
   customerAccess:
     title: Acceso de clientes
     description: Plantillas OTP y canales de verificación para flujos de cara al cliente
@@ -3079,6 +3242,8 @@ settings:
           email: Solo correo electrónico
           phone: Sólo teléfono
           email_or_phone: Correo electrónico o teléfono
+      smsDisabled: Los códigos por teléfono necesitan mensajes de texto. Mientras estén desactivados, el acceso de clientes usa el correo.
+      smsDisabledAction: Activar mensajes de texto
       otpTextTemplateId:
         label: Plantilla de mensaje de texto OTP
       toasts:
@@ -3182,6 +3347,14 @@ dashboard:
       title: Los miembros inactivos del equipo tienen próximas citas
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Ver citas
+    smsVerification:
+      title: Los mensajes de texto no fueron aprobados
+      description: Actualice los datos del negocio y envíe la verificación de nuevo.
+      action: Revisar
+    customerOtpPhone:
+      title: La verificación por teléfono necesita mensajes de texto
+      description: El acceso de clientes está configurado para códigos por teléfono, pero los mensajes de texto están desactivados. Los códigos se envían por correo.
+      action: Abrir ajustes de OTP
     failedApp:
       title: "{appName} necesita atención"
       description: "{appName} no funciona correctamente y es posible que sea necesario volver a conectarlo."
@@ -3220,7 +3393,7 @@ communications:
   sendNew: Enviar nuevo
   requestError: Hubo un problema con tu solicitud.
   sendNewMessage: Enviar nuevo mensaje
-  sendNewMessageDescription: Enviar un nuevo correo electrónico o mensaje de texto al cliente
+  sendNewMessageDescription: Enviar un nuevo correo electrónico al cliente
   closeDialogWarning: Perderás todo el contenido si cierras el diálogo.
   contentNotValid: El contenido no es válido.
   messageSent: Su mensaje fue enviado exitosamente.
@@ -3689,6 +3862,8 @@ onlineMeeting:
   types: {}
 textbelt-webhook:
   handledBy: "Respuesta de mensaje de texto: notificar al usuario"
+text-message-reply:
+  handledBy: Respuesta de mensaje de texto
 cancellationsAndReschedules:
   timeBeforeAppointment:
     header: Cuando faltan al menos {duration} antes de la cita
@@ -4038,4 +4213,3 @@ users:
       max: El título no debe tener más de 80 caracteres.
     bio:
       max: La biografía no debe tener más de 1024 caracteres.
-

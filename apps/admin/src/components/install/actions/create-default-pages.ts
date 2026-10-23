@@ -10,6 +10,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   getPackLayoutBlocks,
+  legalDocumentBlocks,
   packUsesOverlayHeader,
   suggestWebsitePackId,
   WEBSITE_PACK_IDS,
@@ -28,6 +29,7 @@ import { giftCardsDefaultPage } from "../defaults/gift-cards";
 import { homeDefaultPage, TemplateServiceArg } from "../defaults/home";
 import { modifyDefaultPage } from "../defaults/modify";
 import { serviceDefaultPage } from "../defaults/service";
+import { smsLegalCopy } from "../defaults/sms-legal-copy";
 
 type CompleteInstallPagesInput = {
   services: IServicesContainer;
@@ -270,6 +272,8 @@ async function getInstallPageDefaultsLabels(language: Language) {
         "wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel",
       ),
       policiesLabel: t("wizard.finish.pageDefaults.footer.policiesLabel"),
+      privacyLabel: t("wizard.finish.pageDefaults.footer.privacyLabel"),
+      termsLabel: t("wizard.finish.pageDefaults.footer.termsLabel"),
     },
     homeLabels: {
       title: t("wizard.finish.pageDefaults.home.title"),
@@ -386,7 +390,7 @@ async function upsertPackPage(
     content: unknown;
     published?: boolean;
   },
-): Promise<void> {
+): Promise<string> {
   const pagesService = services.pagesService;
   const existing = await pagesService.getPageBySlug(args.slug);
   const pageData = {
@@ -402,9 +406,23 @@ async function upsertPackPage(
   };
   if (existing) {
     await pagesService.updatePage(existing._id, pageData, systemEventSource);
-    return;
+    return existing._id;
   }
-  await pagesService.createPage(pageData, systemEventSource);
+
+  const created = await pagesService.createPage(pageData, systemEventSource);
+  return created._id;
+}
+
+async function enableInstallSms(
+  services: IServicesContainer,
+  privacyPageId: string,
+  termsPageId: string,
+) {
+  await services.configurationService.setConfiguration(
+    "textMessaging",
+    { enabled: true, privacyPageId, termsPageId },
+    systemEventSource,
+  );
 }
 
 async function upsertDefaultFooter(
@@ -845,17 +863,41 @@ export async function createInstallDefaultPages(
     ),
   });
 
-  await upsertPackPage(input.services, {
-    slug: "terms",
-    title: "Terms",
-    description: `${input.businessName} terms`,
-    keywords: `${input.businessName}, terms, policies`,
+  const legalDate = new Intl.DateTimeFormat(input.language, {
+    dateStyle: "long",
+  }).format(new Date());
+  const installT = await getI18nAsync({
+    locale: input.language,
+    namespace: "install",
+  });
+  const privacy = smsLegalCopy(
+    installT,
+    input.businessName,
+    legalDate,
+    "privacy",
+  );
+  const terms = smsLegalCopy(installT, input.businessName, legalDate, "terms");
+
+  const privacyPageId = await upsertPackPage(input.services, {
+    slug: "privacy",
+    title: privacy.title,
+    description: `${input.businessName} privacy policy`,
+    keywords: `${input.businessName}, privacy, sms`,
     headerId,
     footerId,
-    content: pageContentFromBlocks(
-      getPackLayoutBlocks(packId, "terms", t, layoutCtx),
-    ),
+    content: pageContentFromBlocks(legalDocumentBlocks(privacy)),
   });
+
+  const termsPageId = await upsertPackPage(input.services, {
+    slug: "terms",
+    title: terms.title,
+    description: `${input.businessName} terms`,
+    keywords: `${input.businessName}, terms, sms`,
+    headerId,
+    footerId,
+    content: pageContentFromBlocks(legalDocumentBlocks(terms)),
+  });
+  await enableInstallSms(input.services, privacyPageId, termsPageId);
 
   await upsertDefaultGiftCardsPage(input.services, {
     businessName: input.businessName,

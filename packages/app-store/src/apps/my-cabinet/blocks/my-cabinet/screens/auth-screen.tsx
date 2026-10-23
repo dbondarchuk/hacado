@@ -41,6 +41,7 @@ export const AuthScreen = ({ onAuthenticated }: AuthScreenProps) => {
           name: result.name,
           email: result.email,
           phone: result.phone,
+          smsConsent: result.smsConsent === true,
         })
       }
       labels={{

@@ -97,11 +97,13 @@ export const AddNewTemplateButton: React.FC = () => {
                   />
                 </SelectTrigger>
                 <SelectContent side="bottom">
-                  {communicationChannels.map((channel) => (
-                    <SelectItem key={channel} value={channel}>
-                      {t(`common.labels.channel.${channel}`)}
-                    </SelectItem>
-                  ))}
+                  {communicationChannels
+                    .filter((channel) => channel !== "text-message")
+                    .map((channel) => (
+                      <SelectItem key={channel} value={channel}>
+                        {t(`common.labels.channel.${channel}`)}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             </div>

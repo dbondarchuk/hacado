@@ -6,10 +6,12 @@ import {
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
+  CustomerAppointmentTextOffer,
   EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
+  ICustomerAppointmentTextMessage,
   IEventSubscriber,
   IScheduled,
   TemplateTemplatesList,
@@ -35,11 +37,23 @@ export default class AppointmentNotificationsConnectedApp
     IConnectedApp,
     IScheduled,
     IEventSubscriber,
-    ICommunicationTemplatesProvider
+    ICommunicationTemplatesProvider,
+    ICustomerAppointmentTextMessage
 {
   protected readonly loggerFactory: LoggerFactory;
   protected readonly repository: AppointmentNotificationsRepository;
   protected readonly jobProcessor: AppointmentNotificationsJobProcessor;
+
+  public async getCustomerAppointmentTextOffer(
+    appData: ConnectedAppData,
+  ): Promise<CustomerAppointmentTextOffer> {
+    const text = await this.repository.getTextMessageOffer(appData._id);
+    return {
+      notifications: false,
+      reminders: text.reminders,
+      other: text.other,
+    };
+  }
 
   public constructor(protected readonly props: IConnectedAppProps) {
     this.repository = new AppointmentNotificationsRepository(props);

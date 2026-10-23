@@ -5,6 +5,7 @@ import {
   TextMessageResponse,
 } from "@hacado/types";
 import { getAppsExternalUrl, maskify } from "@hacado/utils";
+import { prepareTextbeltSmsBody } from "../compliance";
 import { TextBeltConfiguration } from "./types";
 
 type SmsRequest = {
@@ -33,12 +34,22 @@ export class TextBeltService implements ITextMessageSender {
     organizationId?: string,
   ): Promise<TextMessageResponse> {
     const logger = this.loggerFactory("sendTextMessage");
+    const prepared = prepareTextbeltSmsBody(message.message);
+    if (!prepared.send) {
+      logger.info(
+        { organizationId, phone: maskify(message.phone) },
+        prepared.reason,
+      );
+
+      return { success: false, skipped: true, error: prepared.reason };
+    }
+
     logger.debug(
       {
         organizationId,
         phone: maskify(message.phone),
         sender: message.sender,
-        messageLength: message.message.length,
+        messageLength: prepared.message.length,
         hasData: !!message.data,
       },
       "Sending text message via built-in TextBelt",
@@ -48,7 +59,7 @@ export class TextBeltService implements ITextMessageSender {
       const url = getAppsExternalUrl();
 
       const request: SmsRequest = {
-        message: message.message,
+        message: prepared.message,
         key: this.configuration.apiKey,
         phone: message.phone,
         sender: message.sender,

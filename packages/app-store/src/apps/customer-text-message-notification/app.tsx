@@ -13,7 +13,7 @@ export const CustomerTextMessageNotificationApp: App<
   name: CUSTOMER_TEXT_MESSAGE_NOTIFICATION_APP_NAME,
   displayName: "app_customer-text-message-notification_admin.app.displayName",
   subscribeTo: ["appointment.*"],
-  scope: ["event-subscriber"],
+  scope: ["event-subscriber", "customer-appointment-text-message"],
   type: "complex",
   target: "company",
   category: ["apps.categories.notifications"],

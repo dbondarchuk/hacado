@@ -11,6 +11,7 @@ import {
   asOptinalNumberField,
   CalendarEvent,
   Customer,
+  CustomerAppointmentTextOffer,
   CustomerListModel,
   CustomerPackage,
   Discount,
@@ -35,6 +36,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  appointmentSmsConsentKind,
   Button,
   Checkbox,
   cn,
@@ -71,7 +73,12 @@ import {
   MemberSelector,
   PromoCodeSelector,
 } from "@hacado/ui-admin";
-import { durationToTime, formatAmount, getDiscountAmount } from "@hacado/utils";
+import {
+  durationToTime,
+  formatAmount,
+  getDiscountAmount,
+  normalizeToE164,
+} from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
@@ -114,6 +121,7 @@ export type AppointmentScheduleFormProps = Prettify<
     customer?: Customer | null;
     currentMemberId: string;
     canAssignMember: boolean;
+    smsText?: CustomerAppointmentTextOffer | null;
   } & (
     | ({
         from: AppointmentScheduleFormFrom;
@@ -177,8 +185,10 @@ export const AppointmentScheduleForm: React.FC<
   customer: propsCustomer,
   canAssignMember,
   currentMemberId,
+  smsText,
 }) => {
   const t = useI18n("admin");
+  const [smsConsent, setSmsConsent] = React.useState(false);
   const timeZone = useTimeZone();
   const currencyFormat = useCurrencyFormat();
   const currencySymbol = useCurrencySymbol();
@@ -525,6 +535,7 @@ export const AppointmentScheduleForm: React.FC<
             appointmentEvent,
             files,
             data.confirmed,
+            smsConsent,
           ),
           {
             success: t("appointments.form.scheduledSuccess"),
@@ -773,6 +784,9 @@ export const AppointmentScheduleForm: React.FC<
     if (!packageLocked) {
       form.setValue("customerPackageId", null);
       setCustomerPackage(undefined);
+    }
+    if (c?.smsConsent) {
+      setSmsConsent(false);
     }
     if (!!c) {
       form.setValue("fields.name", c.name);
@@ -1090,6 +1104,33 @@ export const AppointmentScheduleForm: React.FC<
                   </FormItem>
                 )}
               />
+              {!isEdit &&
+                Boolean(
+                  normalizeToE164(
+                    String(form.watch("fields.phone") ?? customer?.phone ?? ""),
+                  ),
+                ) &&
+                appointmentSmsConsentKind(smsText) &&
+                (customer?.smsConsent ? (
+                  <p className="text-sm text-muted-foreground">
+                    {t("appointments.form.smsConsentAlready")}
+                  </p>
+                ) : (
+                  <div className="flex flex-row items-center gap-2">
+                    <Checkbox
+                      id="smsConsent"
+                      disabled={loading}
+                      checked={smsConsent}
+                      onCheckedChange={(value) => setSmsConsent(value === true)}
+                    />
+                    <label
+                      htmlFor="smsConsent"
+                      className="text-sm cursor-pointer"
+                    >
+                      {t("appointments.form.smsConsent")}
+                    </label>
+                  </div>
+                ))}
               {(!isEdit || from?.status === "pending") && (
                 <FormField
                   control={form.control}

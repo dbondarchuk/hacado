@@ -49,6 +49,7 @@ export const CabinetBookScreen: React.FC<
       flowOrder="service-first"
       fieldsSchema={response?.fieldsSchema ?? {}}
       showPromoCode={response?.showPromoCode ?? false}
+      smsText={response?.smsText}
       isEditor={isEditor}
       waitlistAppId={waitlistAppId}
       isOnlyWaitlist={false}

@@ -1,5 +1,6 @@
 export { toast } from "sonner";
 export * from "./accordion";
+export * from "./alert";
 export * from "./alert-dialog";
 export * from "./alert-modal";
 export * from "./auto-skeleton";
@@ -62,6 +63,8 @@ export * from "./sheet";
 export * from "./sidebar";
 export * from "./skeleton";
 export * from "./slider";
+export * from "./sms-consent-choice";
+export * from "./sms-consent-field";
 export * from "./sonner";
 export * from "./spinner";
 export * from "./split-button";

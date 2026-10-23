@@ -44,6 +44,8 @@ export type AddOrUpdateAppButtonProps = {
   /** When true, a new connection only refreshes the page (install wizard); default sends users to /dashboard/apps. */
   refreshOnClose?: boolean;
   dontAskToSetDefault?: boolean;
+  initialOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 } & (
   | {
       app: ConnectedApp;
@@ -58,6 +60,8 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
   installBlocked = false,
   refreshOnClose = false,
   dontAskToSetDefault = false,
+  initialOpen = false,
+  onOpenChange,
   ...props
 }) => {
   const router = useRouter();
@@ -74,7 +78,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
     appType = props.appType;
   }
 
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState(initialOpen);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [pendingDefaultPrompt, setPendingDefaultPrompt] = React.useState<{
     appId: string;
@@ -99,11 +103,13 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
 
   const openDialog = () => {
     setIsOpen(true);
+    onOpenChange?.(true);
   };
 
   const closeDialog = useCallback(
     (redirect?: boolean) => {
       setIsOpen(false);
+      onOpenChange?.(false);
       setIsLoading(false);
       if (app) {
         router.refresh();
@@ -116,7 +122,7 @@ export const AddOrUpdateAppButton: React.FC<AddOrUpdateAppButtonProps> = ({
         }, 300);
       }
     },
-    [app, refreshOnClose, router],
+    [app, onOpenChange, refreshOnClose, router],
   );
 
   const setupProps: AppSetupProps = useMemo(

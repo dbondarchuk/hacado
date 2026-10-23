@@ -13,8 +13,8 @@ Staff emails (assigned team member, coordinators and above) live on **[Waitlist]
 
 1. Install **[Waitlist](/docs/apps/waitlist)** first so the waitlist captures names and details.
 2. Connect **[SMTP](/docs/apps/smtp)** or whichever option your workspace uses until “email sender configured” banners clear. Connect an SMS sender if you want slot-opened texts.
-3. Open **Apps**, then **Store**, and install **Customer waitlist notifications**. Install creates the new-entry email, slot-opened email, slot-opened SMS, and leave-confirmation SMS templates, assigns the two emails, turns slot notifications on, points book links at the `book` page when it exists, and sets a 3-hour cooldown plus a 15-minute exclusive-access window, then opens the settings page.
-4. Review those templates on the settings page. Clear the new-entry email template if you do not want join emails. SMS templates are created but not assigned until you choose them.
+3. Open **Apps**, then **Store**, and install **Customer waitlist notifications**. Install creates the email templates, turns slot notifications on, points book links at the `book` page when it exists, and sets a 3-hour cooldown plus a 15-minute exclusive-access window, then opens the settings page.
+4. Review the email templates. Clear the new-entry email template if you do not want join emails. Slot-opened SMS and leave-confirmation SMS are switches. United States and Canada numbers receive built-in copy. Other countries still use a saved SMS template when one is stored.
 5. Save and add a pretend waitlist entry to test the customer mail. Cancel or reschedule an appointment (or change hours) to test slot-opened offers.
 
 Problems? See **[Apps troubleshooting](/docs/apps/troubleshooting)**.

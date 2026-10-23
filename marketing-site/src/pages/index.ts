@@ -18,6 +18,7 @@ import {
   pricingPage,
   privacyPage,
   revenueToolsRedirect,
+  smsPolicyPage,
   supportPage,
   termsPage,
 } from "./site";
@@ -56,6 +57,7 @@ export function buildPages() {
     contactPage(),
     privacyPage(),
     termsPage(),
+    smsPolicyPage(),
     notFoundPage(),
   ].map((page) => ({
     ...page,

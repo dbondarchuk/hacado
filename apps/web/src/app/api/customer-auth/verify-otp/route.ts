@@ -18,12 +18,19 @@ export async function POST(request: NextRequest) {
 
   try {
     const result = await authService.verifyOtp({ email, phone, otp, ip });
+    const smsConsent = result.phone
+      ? await servicesContainer.notificationService.hasActiveCustomerSmsConsent(
+          result.phone,
+        )
+      : false;
+
     const response = NextResponse.json({
       success: true,
       name: result.name,
       email: result.email,
       phone: result.phone,
       id: result.id,
+      smsConsent,
     });
     response.headers.append(
       "Set-Cookie",

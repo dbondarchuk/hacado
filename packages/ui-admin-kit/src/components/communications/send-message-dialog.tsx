@@ -4,7 +4,6 @@ import { adminApi } from "@hacado/api-sdk";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
 import {
-  communicationChannels,
   SendCommunicationRequest,
   sendCommunicationRequestSchema,
 } from "@hacado/types";
@@ -12,7 +11,6 @@ import {
   AlertModal,
   Button,
   cn,
-  Combobox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -97,7 +95,7 @@ export const SendCommunicationDialog: React.FC<
     defaultValues: {
       ...rest,
       content: null as any,
-      channel: "text-message",
+      channel: "email",
     } as Partial<SendCommunicationRequest> as SendCommunicationRequest,
   });
 
@@ -199,83 +197,58 @@ export const SendCommunicationDialog: React.FC<
               onSubmit={form.handleSubmit(onSubmit)}
               className="w-full relative px-1 grid grid-cols-1 gap-2 h-full"
             >
-              <FormField
-                control={form.control}
-                name="channel"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>{t("communications.channel")}</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-row gap-2">
-                        <Combobox
-                          className="w-full"
-                          values={communicationChannels.map((value) => ({
-                            label: t(`common.labels.channel.${value}`),
-                            value,
-                          }))}
-                          value={field.value}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                            form.setValue("content", null as any as string);
-                          }}
-                        />
-                        <Dialog
-                          open={isTemplateDialogOpen}
-                          onOpenChange={onOpenChangeTemplateDialog}
-                        >
-                          <DialogTrigger asChild>
-                            <Button variant="primary">
-                              {t("communications.selectTemplate")}
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>
-                                {t("communications.selectTemplate")}
-                              </DialogTitle>
-                              <DialogDescription>
-                                {t("communications.selectExistingTemplate")}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="flex flex-col gap-2">
-                              <Label>{t("communications.template")}</Label>
-                              <TemplateSelector
-                                type={channel}
-                                value={templateId}
-                                onItemSelect={setTemplateId}
-                                className="w-full"
-                              />
-                              <FormDescription className="text-destructive">
-                                <span className="font-bold">
-                                  {t("communications.attention")}!
-                                </span>{" "}
-                                {t("communications.templateReplaceWarning")}
-                              </FormDescription>
-                            </div>
-                            <DialogFooter>
-                              <DialogClose asChild>
-                                <Button variant="secondary">
-                                  {t("common.buttons.close")}
-                                </Button>
-                              </DialogClose>
-                              <Button
-                                variant="primary"
-                                disabled={isTemplateLoading || !templateId}
-                                onClick={onTemplateSelect}
-                              >
-                                {isTemplateLoading && <Spinner />}
-                                {t("communications.select")}
-                              </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex flex-row gap-2">
+                <Dialog
+                  open={isTemplateDialogOpen}
+                  onOpenChange={onOpenChangeTemplateDialog}
+                >
+                  <DialogTrigger asChild>
+                    <Button variant="primary">
+                      {t("communications.selectTemplate")}
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        {t("communications.selectTemplate")}
+                      </DialogTitle>
+                      <DialogDescription>
+                        {t("communications.selectExistingTemplate")}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col gap-2">
+                      <Label>{t("communications.template")}</Label>
+                      <TemplateSelector
+                        type={channel}
+                        value={templateId}
+                        onItemSelect={setTemplateId}
+                        className="w-full"
+                      />
+                      <FormDescription className="text-destructive">
+                        <span className="font-bold">
+                          {t("communications.attention")}!
+                        </span>{" "}
+                        {t("communications.templateReplaceWarning")}
+                      </FormDescription>
+                    </div>
+                    <DialogFooter>
+                      <DialogClose asChild>
+                        <Button variant="secondary">
+                          {t("common.buttons.close")}
+                        </Button>
+                      </DialogClose>
+                      <Button
+                        variant="primary"
+                        disabled={isTemplateLoading || !templateId}
+                        onClick={onTemplateSelect}
+                      >
+                        {isTemplateLoading && <Spinner />}
+                        {t("communications.select")}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
               {channel === "email" && (
                 <FormField
                   control={form.control}

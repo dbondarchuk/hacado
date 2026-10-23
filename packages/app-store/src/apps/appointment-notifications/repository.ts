@@ -4,7 +4,7 @@ import {
   IConnectedAppProps,
   WithTotal,
 } from "@hacado/types";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery, escapeRegex, isSmsEnabled } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
@@ -422,6 +422,50 @@ export class AppointmentNotificationsRepository {
         "Error checking unique name",
       );
       throw error;
+    }
+  }
+
+  public async getTextMessageOffer(appId: string): Promise<{
+    reminders: boolean;
+    other: boolean;
+  }> {
+    const logger = this.loggerFactory("getTextMessageOffer");
+
+    try {
+      const db = await this.props.getDbConnection();
+      const docs = await db
+        .collection<AppointmentNotification>(
+          APPOINTMENT_NOTIFICATIONS_COLLECTION_NAME,
+        )
+        .find({
+          appId,
+          organizationId: this.props.organizationId,
+          channel: "text-message",
+        })
+        .toArray();
+
+      let reminders = false;
+      let other = false;
+      for (const doc of docs) {
+        if (!isSmsEnabled(doc.enabled, doc.templateId)) continue;
+        if (doc.smsKind === "followUp") {
+          other = true;
+        } else if (doc.smsKind === "reminder") {
+          reminders = true;
+        } else if (doc.type === "timeAfter" || doc.type === "atTimeAfter") {
+          other = true;
+        } else {
+          reminders = true;
+        }
+      }
+
+      return { reminders, other };
+    } catch (error: any) {
+      logger.error(
+        { appId, error: error?.message || error?.toString() },
+        "Error reading text message offer",
+      );
+      return { reminders: false, other: false };
     }
   }
 

@@ -24,7 +24,10 @@ import {
   BookingRestrictionCode,
   closedAppointmentStatusMongoFilter,
   Customer,
+  CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
+  CustomerAppointmentTextOffer,
   DISCOUNT_APPLIED_EVENT_TYPE,
+  emptyCustomerAppointmentTextOffer,
   FieldSchema,
   flattenCatalogOptionIds,
   flattenCatalogPackageIds,
@@ -33,6 +36,7 @@ import {
   GetAppointmentOptionsResponse,
   IAvailabilityProvider,
   IBillingService,
+  ICustomerAppointmentTextMessage,
   IEventService,
   IMeetingUrlProvider,
   IOrganizationService,
@@ -41,6 +45,7 @@ import {
   isClosedAppointmentStatus,
   IServicesService,
   ITeamService,
+  ITextMessageConfigurationService,
   openAppointmentStatusMongoFilter,
   OrganizationMember,
   Payment,
@@ -137,6 +142,7 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly billingService: IBillingService,
     private readonly teamService: ITeamService,
     private readonly packagesService: IPackagesService,
+    private readonly textMessageConfigurationService: ITextMessageConfigurationService,
   ) {
     super("bookingService", organizationId);
   }
@@ -1840,9 +1846,54 @@ export class BookingService extends BaseService implements IBookingService {
       ),
       requireCustomerOtp: !!config.requireCustomerOtp,
       hasActiveCustomerPackages,
+      smsText: await this.getCustomerAppointmentTextOffer(),
     };
 
     return response;
+  }
+
+  public async getCustomerAppointmentTextOffer(): Promise<CustomerAppointmentTextOffer> {
+    const logger = this.loggerFactory("getCustomerAppointmentTextOffer");
+    const offer = emptyCustomerAppointmentTextOffer();
+    if (!(await this.textMessageConfigurationService.isEnabled())) {
+      return offer;
+    }
+
+    try {
+      const apps = await this.appsService.getAppsByScope(
+        CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
+      );
+
+      for (const connected of apps) {
+        if (connected.status !== "connected") continue;
+
+        try {
+          const { service, app } =
+            await this.appsService.getAppService<ICustomerAppointmentTextMessage>(
+              connected._id,
+            );
+          const part = await service.getCustomerAppointmentTextOffer(app);
+          offer.notifications ||= part.notifications;
+          offer.reminders ||= part.reminders;
+          offer.other ||= part.other;
+        } catch (error: any) {
+          logger.error(
+            {
+              appId: connected._id,
+              error: error?.message || error?.toString(),
+            },
+            "Failed to read appointment text offer",
+          );
+        }
+      }
+    } catch (error: any) {
+      logger.error(
+        { error: error?.message || error?.toString() },
+        "Failed to load appointment text apps",
+      );
+    }
+
+    return offer;
   }
 
   private async getAvailableTimes(

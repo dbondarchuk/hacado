@@ -23,6 +23,7 @@ import { SETTINGS_EVENT_DEFINITIONS } from "./settings/settings-event-definition
 import { SUBSCRIPTION_EVENT_DEFINITIONS } from "./subscription/subscription-event-definitions";
 import { SYNCED_PAYMENT_EVENT_DEFINITIONS } from "./synced-payment/synced-payment-event-definitions";
 import { TEMPLATE_EVENT_DEFINITIONS } from "./template/template-event-definitions";
+import { SMS_VERIFICATION_EVENT_DEFINITIONS } from "./text-message/sms-verification-event-definitions";
 
 /** Core platform event definitions, grouped by domain under `definitions/` */
 export const DOMAIN_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
@@ -45,6 +46,7 @@ export const DOMAIN_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   ...PAGE_HEADER_EVENT_DEFINITIONS,
   ...PAGE_FOOTER_EVENT_DEFINITIONS,
   ...SETTINGS_EVENT_DEFINITIONS,
+  ...SMS_VERIFICATION_EVENT_DEFINITIONS,
   ...SCHEDULE_EVENT_DEFINITIONS,
   ...ASSET_EVENT_DEFINITIONS,
   ...MEMBER_EVENT_DEFINITIONS,

@@ -80,6 +80,18 @@ form:
   template:
     label: Plantilla
     tooltip: Cuerpo de notificación de citas, que verán tus clientes.
+  textMessage:
+    label: Enviar mensaje de texto
+    description: Actívalo para enviar un texto al cliente a la hora que indiques. Elige un recordatorio o escribe un seguimiento.
+    kind:
+      label: Mensaje
+      reminder: Recordatorio
+      followUp: Seguimiento
+    reminderDescription: Se envía a la hora que indiques. Los números de Estados Unidos y Canadá reciben un recordatorio integrado con el negocio, el servicio, la hora y un enlace para gestionarla cuando existe.
+    followUp:
+      label: Texto de seguimiento
+      description: Usa las mismas variables que una plantilla de texto, hasta 300 caracteres. La línea para cancelar la suscripción se añade sola.
+      placeholder: Gracias por tu visita. Esperamos verte de nuevo.
   save: Ahorrar
   update: Actualizar
   cancel: Cancelar
@@ -157,6 +169,11 @@ validation:
         max: El minuto debe estar entre 0 y 59.
     templateId:
       required: Se requiere plantilla
+    smsKind:
+      invalid: Elige un recordatorio o un seguimiento
+    followUpText:
+      required: El texto de seguimiento es obligatorio
+      max: El texto de seguimiento debe tener 300 caracteres o menos
     atTimeBefore:
       days:
         min: La notificación de la cita debe enviarse al menos 1 día antes de la cita.

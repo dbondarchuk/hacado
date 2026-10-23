@@ -16,6 +16,7 @@ export const FormsApp: App<FormsAdminNamespace, FormsAdminKeys> = {
     "customer-tab",
     "dashboard-notifier",
     "quick-link-provider",
+    "command-search-provider",
   ],
   type: "complex",
   target: "company",

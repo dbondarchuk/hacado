@@ -54,6 +54,7 @@ export type CustomerOtpVerified = {
   phone: string;
   name?: string;
   id?: string;
+  smsConsent?: boolean;
 };
 
 export type CustomerOtpFormProps = {
@@ -75,6 +76,7 @@ export type CustomerOtpFormProps = {
     email?: string;
     phone?: string;
     id?: string;
+    smsConsent?: boolean;
   }>;
   onVerified: (result: CustomerOtpVerified) => void | Promise<void>;
 };
@@ -233,6 +235,7 @@ export const CustomerOtpForm = ({
         phone: response.phone ?? phone,
         name: response.name,
         id: response.id,
+        smsConsent: response.smsConsent === true,
       });
     } catch {
       toast.error(labels.verifyError);

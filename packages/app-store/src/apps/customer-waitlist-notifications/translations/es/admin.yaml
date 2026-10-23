@@ -20,12 +20,19 @@ setup:
     slotOpenedSmsTemplateId:
       label: Plantilla de SMS con ranura abierta
       tooltip: SMS enviado cuando se abre un horario coincidente. Incluir reserva y dejar enlaces. Las respuestas con la palabra clave eliminar abandonan esta solicitud de lista de espera.
+    slotOpenedSms:
+      label: Texto cuando se abre un horario
+      description: Se envía cuando queda libre un horario que coincide y esta solicitud es la siguiente. El texto incluye el negocio, el servicio, la hora y un enlace para reservar.
     leaveWaitlistSmsTemplateId:
       label: Dejar plantilla de SMS de confirmación
       tooltip: Enviado después de que el cliente se marcha a través del enlace o la palabra clave SMS. Requerido cuando se configura SMS con ranura abierta.
+    leaveWaitlistSms:
+      label: Texto cuando salen
+      description: Se envía cuando el cliente abandona esta solicitud desde el enlace o respondiendo con la palabra clave de salida.
+      required: Actívalo cuando los textos de horario libre están activos, para que el cliente reciba una confirmación.
     bookingPageId:
       label: Página de reserva
-      tooltip: Página utilizada para URL de libro desde enlace. Almacenado por ID de página para que cambiar el nombre del slug no rompa los enlaces.
+      tooltip: Página utilizada para URL de libro desde enlace.
       required: Seleccione una página de reserva
     cooldownMinutes:
       label: Enfriamiento entre ofertas
@@ -41,7 +48,7 @@ setup:
       placeholder: ELIMINAR
       required: Ingrese una palabra clave que los clientes puedan enviar por mensaje de texto para irse
     slotOpenedChannel:
-      required: Elija una plantilla de correo electrónico, una plantilla de SMS o ambas
+      required: Elige una plantilla de correo, activa un texto, o ambos
 handlers:
   newWaitlistEntry: "Notificación de lista de espera de clientes: nueva entrada"
   slotOpened: "Notificación de lista de espera de clientes: espacio abierto"
@@ -51,4 +58,3 @@ statusText:
   error_sending_email_notification_for_new_waitlist_entry: Error al enviar una notificación por correo electrónico para una nueva entrada en la lista de espera
   email_app_not_configured: La aplicación predeterminada del remitente de correo electrónico no está configurada
   error_processing_configuration: Configuración de procesamiento de errores
-

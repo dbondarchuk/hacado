@@ -98,6 +98,7 @@ async function syncUserSlotsFromSubscription(
       const allowAdditionalUsers = parseBoolMeta(
         metadata?.allow_additional_users,
       );
+
       if (!isActive) {
         // Keep a minimum of 1 included seat for the owner when base sub ends.
         await billing.setIncludedUserSlots(1, {
@@ -125,6 +126,7 @@ async function syncUserSlotsFromSubscription(
       await ServicesContainer(orgId).teamService.reconcileMembersToSlots(
         systemEventSource,
       );
+
     if (result.reactivatedMemberIds.length) {
       await notifyOwnerOfMemberReactivations(orgId, result);
     }
@@ -259,14 +261,21 @@ export async function persistPolarSubscriptionToOrganization(
     }
   }
 
-  if (isSubscriptionProduct && newStatus && oldStatus !== newStatus) {
+  if (
+    isSubscriptionProduct &&
+    newStatus &&
+    (oldStatus !== newStatus || oldTier !== newTier)
+  ) {
     logger.debug(
-      { orgId, oldStatus, newStatus },
+      { orgId, oldStatus, newStatus, oldTier, newTier },
       "Emitting subscription status changed event",
     );
+
     await emitSubscriptionStatusChangedEvent(orgId, {
       oldStatus,
       newStatus,
+      oldTier,
+      newTier,
       subscriptionId: subscription.id,
       productName: subscription.product?.name ?? null,
     });

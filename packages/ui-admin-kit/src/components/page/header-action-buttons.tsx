@@ -37,7 +37,9 @@ export const HeaderActionButtonsContainer: React.FC<{
 
   return (
     <div
-      ref={setContainerRef}
+      ref={(node) => {
+        if (node) setContainerRef(node);
+      }}
       className={cn(
         "flex flex-row gap-2 items-center",
         "empty:hidden",
@@ -52,6 +54,6 @@ export const HeaderActionButtonsPortal: React.FC<{
 }> = ({ children }) => {
   const containerRef = useContainerRef();
 
-  if (!containerRef) return children;
+  if (!containerRef?.isConnected) return null;
   return createPortal(children, containerRef);
 };

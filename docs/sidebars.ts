@@ -27,6 +27,7 @@ const email = [
 ];
 
 const sms = [
+  "apps/platform-sms",
   "apps/text-belt",
   "apps/text-message-notification",
   "apps/customer-text-message-notification",

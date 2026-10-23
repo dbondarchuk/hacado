@@ -11,7 +11,9 @@ export const TemplatesTable: React.FC = async () => {
   const search = templateSearchParamsCache.get("search") || undefined;
   const limit = templateSearchParamsCache.get("limit");
   const sort = templateSearchParamsCache.get("sort");
-  const type = templateSearchParamsCache.get("type");
+  const type = templateSearchParamsCache
+    .get("type")
+    ?.filter((channel) => channel !== "text-message");
 
   const offset = (page - 1) * limit;
 
@@ -21,7 +23,7 @@ export const TemplatesTable: React.FC = async () => {
     limit,
     search,
     sort,
-    type,
+    type: type && type.length > 0 ? type : ["email"],
   });
 
   return (

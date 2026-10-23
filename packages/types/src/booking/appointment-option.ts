@@ -1,5 +1,6 @@
 import { ValidationKeys } from "@hacado/i18n";
 import * as z from "zod";
+import type { CustomerAppointmentTextOffer } from "../apps/text-message/customer-appointment-text";
 import {
   appointmentRescheduleSchema,
   appointmentWithDepositCancellationSchema,
@@ -451,4 +452,6 @@ export type GetAppointmentOptionsResponse = {
   requireCustomerOtp?: boolean;
   /** True when this organization has at least one redeemable customer package. */
   hasActiveCustomerPackages?: boolean;
+  /** Which appointment texts a connected app can send. Empty flags hide the consent checkbox. */
+  smsText: CustomerAppointmentTextOffer;
 };

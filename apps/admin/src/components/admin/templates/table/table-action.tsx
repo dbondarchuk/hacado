@@ -31,10 +31,12 @@ export function TemplatesTableAction() {
       <DataTableFilterBox
         filterKey="type"
         title={t("templates.table.filters.type")}
-        options={communicationChannels.map((channel) => ({
-          value: channel,
-          label: t(`common.labels.channel.${channel}`),
-        }))}
+        options={communicationChannels
+          .filter((channel) => channel !== "text-message")
+          .map((channel) => ({
+            value: channel,
+            label: t(`common.labels.channel.${channel}`),
+          }))}
         setFilterValue={setTypeFilter as any}
         filterValue={typeFilter}
       />

@@ -275,6 +275,7 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
                 variant="link-dashed"
                 onClick={() => setShowFullNote(!showFullNote)}
                 className="w-full text-center"
+                size="xs"
               >
                 {!showFullNote
                   ? t("view.note.showMore")

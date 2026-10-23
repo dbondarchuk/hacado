@@ -1,10 +1,13 @@
+import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields, getFields } from "@hacado/types";
 import {
+  AppointmentSmsConsent,
+  appointmentSmsConsentKind,
   fieldSchemaMapper,
   fieldsComponentMap,
   Form,
-  usePrevious,
+  useSmsConsentState,
 } from "@hacado/ui";
 import { deepEqual } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +25,7 @@ export const FormCard: React.FC = () => {
     formFields,
     setDiscount,
     setIsFormValid,
+    smsText,
   } = useScheduleContext();
 
   const fields = getFields(formFields);
@@ -40,6 +44,10 @@ export const FormCard: React.FC = () => {
     [fields],
   );
 
+  const [smsConsent, setSmsConsent] = useSmsConsentState(
+    propsFields.smsConsent,
+  );
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "all",
@@ -48,17 +56,18 @@ export const FormCard: React.FC = () => {
   });
 
   const values = form.watch();
-  const previousValues = usePrevious(values, values);
   useEffect(() => {
-    if (!deepEqual(values, previousValues)) {
-      setFields({
-        ...(values as AppointmentFields),
-        name: propsFields.name,
-        email: propsFields.email,
-        phone: propsFields.phone,
-      });
+    const next = {
+      ...(values as AppointmentFields),
+      name: propsFields.name,
+      email: propsFields.email,
+      phone: propsFields.phone,
+      smsConsent: appointmentSmsConsentKind(smsText) ? smsConsent : undefined,
+    };
+    if (!deepEqual(next, propsFields)) {
+      setFields(next);
     }
-  }, [values]);
+  }, [values, smsConsent, propsFields, smsText]);
 
   const isFormValid = form.formState.isValid;
   React.useEffect(() => {
@@ -101,6 +110,19 @@ export const FormCard: React.FC = () => {
                 )}
               </React.Fragment>
             ))}
+            <AppointmentSmsConsent
+              id="cabinet-booking-sms-consent"
+              offer={smsText}
+              phone={propsFields.phone}
+              profilePhone={propsFields.phone}
+              profileConsent={propsFields.smsConsent === true}
+              checked={smsConsent}
+              onCheckedChange={setSmsConsent}
+              lookup={async (phone) => {
+                const result = await clientApi.booking.getSmsConsent(phone);
+                return result.consented === true;
+              }}
+            />
           </div>
         </form>
       </Form>

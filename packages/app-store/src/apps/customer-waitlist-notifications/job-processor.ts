@@ -14,10 +14,15 @@ import {
   type ScheduleChangedPayload,
 } from "@hacado/types";
 import {
+  appendSharedPoolSuffix,
   canUseMemberCalendarSources,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  isPlatformSmsCountry,
+  isSmsEnabled,
+  smsCustomerName,
+  template,
   templateSafeWithError,
 } from "@hacado/utils";
 import pLimit from "p-limit";
@@ -25,6 +30,7 @@ import { WAITLIST_APP_NAME } from "../waitlist/const";
 import { WaitlistEntry } from "../waitlist/models/waitlist";
 import { WaitlistRepositoryService } from "../waitlist/service/repository-service";
 import { createWaitlistOfferToken } from "../waitlist/waitlist-offer-token";
+import { getWaitlistSmsBodies } from "./messages";
 import {
   CustomerWaitlistNotificationsConfiguration,
   CustomerWaitlistNotificationsJobPayload,
@@ -691,24 +697,59 @@ export class CustomerWaitlistNotificationsJobProcessor {
       }
     }
 
-    if (config.slotOpenedSmsTemplateId && entry.phone) {
-      const template = await this.props.services.templatesService.getTemplate(
+    if (
+      isSmsEnabled(
+        config.slotOpenedSmsEnabled,
         config.slotOpenedSmsTemplateId,
-      );
+      ) &&
+      entry.phone
+    ) {
+      let smsBody: string | undefined;
+      if (isPlatformSmsCountry(entry.phone)) {
+        const builtIn = template(
+          getWaitlistSmsBodies(args.config.language).slotOpened,
+          args,
+          true,
+        );
 
-      if (template?.type === "text-message") {
+        const customVerified = (
+          await this.props.services.notificationService.getSmsMessagingAccess()
+        ).customVerified;
+
+        const stored =
+          customVerified && config.slotOpenedSmsTemplateId
+            ? await this.props.services.templatesService.getTemplate(
+                config.slotOpenedSmsTemplateId,
+              )
+            : null;
+
+        smsBody =
+          stored?.type === "text-message"
+            ? templateSafeWithError(stored.value, args, true)
+            : customVerified
+              ? builtIn
+              : appendSharedPoolSuffix(builtIn);
+      } else if (config.slotOpenedSmsTemplateId) {
+        const stored = await this.props.services.templatesService.getTemplate(
+          config.slotOpenedSmsTemplateId,
+        );
+
+        if (stored?.type === "text-message") {
+          smsBody = templateSafeWithError(stored.value, args, true);
+        }
+      }
+
+      if (smsBody) {
         logger.debug(
-          {
-            appId: appData._id,
-            entryId: entry._id,
-            templateId: config.slotOpenedSmsTemplateId,
-          },
-          "Found SMS template, sending SMS notification",
+          { appId: appData._id, entryId: entry._id },
+          "Sending waitlist slot SMS",
         );
 
         await this.props.services.notificationService.sendTextMessage({
           phone: entry.phone,
-          body: templateSafeWithError(template.value, args),
+          body: smsBody,
+          requireConsent: true,
+          idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_slot`,
           participantType: "customer",
           memberId: entry.memberId,
           handledBy:
@@ -748,20 +789,13 @@ export class CustomerWaitlistNotificationsJobProcessor {
       "Sending leave confirm SMS notification",
     );
 
-    if (!config.leaveWaitlistSmsTemplateId || !entry.phone) {
-      logger.debug(
-        { appId: appData._id, entryId: entry._id },
-        "No leave confirm SMS template or phone, skipping",
-      );
-
-      return;
-    }
-
-    const template = await this.props.services.templatesService.getTemplate(
-      config.leaveWaitlistSmsTemplateId,
-    );
-
-    if (template?.type !== "text-message") {
+    if (
+      !isSmsEnabled(
+        config.leaveWaitlistSmsEnabled,
+        config.leaveWaitlistSmsTemplateId,
+      ) ||
+      !entry.phone
+    ) {
       logger.debug(
         { appId: appData._id, entryId: entry._id },
         "No leave confirm SMS template or phone, skipping",
@@ -791,9 +825,50 @@ export class CustomerWaitlistNotificationsJobProcessor {
       "Sending leave confirm SMS notification",
     );
 
+    let smsBody: string | undefined;
+    if (isPlatformSmsCountry(entry.phone)) {
+      const builtIn = template(
+        getWaitlistSmsBodies(args.config.language).leaveConfirm,
+        args,
+        true,
+      );
+
+      const customVerified = (
+        await this.props.services.notificationService.getSmsMessagingAccess()
+      ).customVerified;
+
+      const stored =
+        customVerified && config.leaveWaitlistSmsTemplateId
+          ? await this.props.services.templatesService.getTemplate(
+              config.leaveWaitlistSmsTemplateId,
+            )
+          : null;
+
+      smsBody =
+        stored?.type === "text-message"
+          ? templateSafeWithError(stored.value, args, true)
+          : customVerified
+            ? builtIn
+            : appendSharedPoolSuffix(builtIn);
+    } else if (config.leaveWaitlistSmsTemplateId) {
+      const stored = await this.props.services.templatesService.getTemplate(
+        config.leaveWaitlistSmsTemplateId,
+      );
+
+      if (stored?.type === "text-message") {
+        smsBody = templateSafeWithError(stored.value, args, true);
+      }
+    }
+
+    if (!smsBody) {
+      return;
+    }
+
     await this.props.services.notificationService.sendTextMessage({
       phone: entry.phone,
-      body: templateSafeWithError(template.value, args),
+      body: smsBody,
+      requireConsent: true,
+      idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_leave`,
       participantType: "customer",
       memberId: entry.memberId,
       handledBy:
@@ -870,6 +945,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         slotDateTime: slotStart,
         dateTime: slotStart,
         smsRemoveKeyword: config.smsRemoveKeyword || "REMOVE",
+        customerName: smsCustomerName(entry.name),
         hasOtherTimes,
         ...(await loadSlotTimeOfDayArgs(
           slotStart,

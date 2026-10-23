@@ -95,6 +95,17 @@ booking:
     title: Your Details
     description: Please provide your contact information
     namePlaceholder: Your name
+    emailNotice: We'll email your booking confirmation and reminders to this address.
+    smsConsent:
+      label:
+        notifications: Text me notifications about my appointment.
+        reminders: Text me reminders about my appointment.
+        both: Text me notifications and reminders about my appointment.
+      disclosure: Messages are from Hacado on behalf of {businessName}. Message frequency . Message and data rates may apply. Reply STOP to opt out. <terms>Terms</terms> and <privacy>Privacy</privacvariesy>.
+      already:
+        notifications: "✓ SMS notifications will be sent to this number. (Reply STOP anytime to opt out)"
+        reminders: "✓ SMS reminders will be sent to this number. (Reply STOP anytime to opt out)"
+        both: "✓ SMS reminders and notifications will be sent to this number. (Reply STOP anytime to opt out)"
   review:
     title: Review Your Booking
     description: Please confirm all details are correct

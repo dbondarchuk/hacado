@@ -28,6 +28,8 @@ export * from "./query";
 export * from "./schedule-exception";
 export * from "./schedule-resolve";
 export * from "./short-links";
+export * from "./sms";
+export * from "./sms-date";
 export * from "./stream";
 export * from "./string";
 export * from "./strip-object";

@@ -302,6 +302,7 @@ export const AppointmentOptionCard: React.FC = () => {
           name: session.name || fields.name,
           email: session.email || fields.email,
           phone: session.phone || fields.phone,
+          smsConsent: session.smsConsent === true,
         });
         await refreshBookingOptions?.();
         return;

@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "../utils/cn";
 import { Link } from "./link";
 
 type HeadingProps = {
@@ -15,7 +16,7 @@ export const Heading: React.FC<HeadingProps> = ({
   className,
 }) => {
   return (
-    <div className={className}>
+    <div className={cn("flex flex-col gap-2", className)}>
       <h2 className="text-2xl font-bold tracking-tight">
         {href ? (
           <Link href={href} variant="underline">

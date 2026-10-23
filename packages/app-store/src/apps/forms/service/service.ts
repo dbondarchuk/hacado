@@ -3,6 +3,7 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
+  CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppUninstallResult,
@@ -11,6 +12,7 @@ import {
   CustomerSearchField,
   DashboardNotification,
   type EventSource,
+  ICommandSearchProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
@@ -22,6 +24,7 @@ import {
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
+  hasPermission,
   parseJSON,
 } from "@hacado/utils";
 import { v4 as uuidv4 } from "uuid";
@@ -76,7 +79,9 @@ import {
   markFormResponsesRead,
 } from "./unread-responses-badge";
 
-export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
+export class FormsConnectedApp
+  implements IConnectedApp, IDashboardNotifierApp, ICommandSearchProvider
+{
   protected readonly loggerFactory: LoggerFactory;
 
   public constructor(protected readonly props: IConnectedAppProps) {
@@ -649,6 +654,39 @@ export class FormsConnectedApp implements IConnectedApp, IDashboardNotifierApp {
     );
 
     return { success: true };
+  }
+
+  public async searchCommand(
+    appData: ConnectedAppData,
+    input: CommandSearchInput,
+  ) {
+    if (!hasPermission(input.user, "page", "update")) return [];
+    if (input.type && input.type !== "forms") return [];
+
+    const repository = this.getRepositoryService(
+      appData._id,
+      appData.organizationId,
+    );
+    const forms = await repository.getForms({
+      search: input.query,
+      limit: input.limit,
+      offset: 0,
+    });
+
+    if (forms.items.length === 0) return [];
+
+    return [
+      {
+        id: `${appData._id}:forms`,
+        labelKey: "app_forms_admin.app.pages.main.title",
+        listHref: `/dashboard/forms?search=${encodeURIComponent(input.query)}`,
+        items: forms.items.map((form) => ({
+          id: form._id,
+          title: form.name,
+          href: `/dashboard/forms/edit?id=${form._id}`,
+        })),
+      },
+    ];
   }
 
   protected getRepositoryService(appId: string, organizationId: string) {

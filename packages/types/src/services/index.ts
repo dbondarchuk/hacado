@@ -21,5 +21,6 @@ export type * from "./short-links.service";
 export type * from "./synced-payments.service";
 export type * from "./team.service";
 export type * from "./templates.service";
+export type * from "./text-message-configuration.service";
 
 export type * from "./container";

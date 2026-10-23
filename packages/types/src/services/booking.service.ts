@@ -1,3 +1,4 @@
+import type { CustomerAppointmentTextOffer } from "../apps/text-message/customer-appointment-text";
 import { AssetEntity } from "../assets";
 import {
   ApplyGiftCardsSuccessResponse,
@@ -122,4 +123,5 @@ export interface IBookingService {
   getAppointmentOptions(opts?: {
     customerId?: string;
   }): Promise<GetAppointmentOptionsResponse>;
+  getCustomerAppointmentTextOffer(): Promise<CustomerAppointmentTextOffer>;
 }

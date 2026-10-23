@@ -6,6 +6,7 @@ import {
   Combobox,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,17 +19,27 @@ import {
   SelectTrigger,
   SelectValue,
   SimpleTimePicker,
+  Switch,
   toastPromise,
   use12HourFormat,
 } from "@hacado/ui";
 import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  renderBuiltInSms,
+  SmsExample,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "../../components/sms-example";
+import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { checkUniqueName, create, update } from "./actions";
+import { getAppointmentReminderSms } from "./messages";
 import {
   appointmentNotificationAppointmentCountType,
   appointmentNotificationTypes,
@@ -60,6 +71,7 @@ export const AppointmentNotificationForm: React.FC<{
   type FormValues = z.infer<typeof formSchema>;
 
   const [loading, setLoading] = React.useState(false);
+  const messageArgs = useSmsPreviewArgs();
   const router = useRouter();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -84,13 +96,17 @@ export const AppointmentNotificationForm: React.FC<{
       setLoading(true);
 
       const fn = async () => {
+        const payload =
+          data.channel === "text-message"
+            ? { ...data, smsKind: data.smsKind ?? ("reminder" as const) }
+            : data;
         if (!initialData?._id) {
-          const { _id } = await create(appId, data);
+          const { _id } = await create(appId, payload);
           router.push(
             `/dashboard/communications/appointment-notifications/edit?id=${_id}`,
           );
         } else {
-          await update(appId, initialData._id, data);
+          await update(appId, initialData._id, payload);
 
           router.refresh();
         }
@@ -110,6 +126,8 @@ export const AppointmentNotificationForm: React.FC<{
   const itemType = form.watch("type");
   const itemChannel = form.watch("channel");
   const appointmentCountType = form.watch("appointmentCount.type");
+  const smsKind = form.watch("smsKind") ?? "reminder";
+  const { allowCustom, sharedPool } = useSmsMessagingAccess();
 
   return (
     <Form {...form}>
@@ -482,27 +500,146 @@ export const AppointmentNotificationForm: React.FC<{
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="templateId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  <span>{t("form.template.label")}</span>
-                  <InfoTooltip>{t("form.template.tooltip")}</InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <TemplateSelector
-                    type={itemChannel}
-                    disabled={loading}
-                    value={field.value}
-                    onItemSelect={(value) => field.onChange(value)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {itemChannel === "text-message" ? (
+            <div className="flex flex-col gap-4 rounded-lg border p-4">
+              <FormField
+                control={form.control}
+                name="enabled"
+                render={({ field }) => {
+                  const templateId = form.watch("templateId");
+                  const checked = field.value ?? Boolean(templateId);
+                  return (
+                    <FormItem className="flex flex-row items-center justify-between gap-4">
+                      <div className="space-y-0.5">
+                        <FormLabel>{t("form.textMessage.label")}</FormLabel>
+                        <FormDescription>
+                          {t("form.textMessage.description")}
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          checked={checked}
+                          disabled={loading}
+                          onCheckedChange={(value) => field.onChange(value)}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name="smsKind"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("form.textMessage.kind.label")}</FormLabel>
+                    <Select
+                      disabled={loading}
+                      value={
+                        !allowCustom && field.value === "followUp"
+                          ? "reminder"
+                          : (field.value ?? "reminder")
+                      }
+                      onValueChange={(value) => field.onChange(value)}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="reminder">
+                          {t("form.textMessage.kind.reminder")}
+                        </SelectItem>
+                        {allowCustom ? (
+                          <SelectItem value="followUp">
+                            {t("form.textMessage.kind.followUp")}
+                          </SelectItem>
+                        ) : null}
+                      </SelectContent>
+                    </Select>
+                    {smsKind === "reminder" || !allowCustom ? (
+                      <>
+                        <FormDescription>
+                          {t("form.textMessage.reminderDescription")}
+                        </FormDescription>
+                        <SmsExample
+                          text={renderBuiltInSms(
+                            getAppointmentReminderSms(
+                              smsPreviewLanguage(messageArgs),
+                            ),
+                            messageArgs,
+                            sharedPool,
+                          )}
+                        />
+                      </>
+                    ) : null}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {allowCustom && smsKind !== "followUp" ? (
+                <FormField
+                  control={form.control}
+                  name="templateId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <span>{t("form.template.label")}</span>
+                        <InfoTooltip>{t("form.template.tooltip")}</InfoTooltip>
+                      </FormLabel>
+                      <FormControl>
+                        <TemplateSelector
+                          type="text-message"
+                          allowClear
+                          disabled={loading}
+                          value={field.value}
+                          onItemSelect={(value) => field.onChange(value)}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : null}
+              {allowCustom && smsKind === "followUp" && (
+                <FormField
+                  control={form.control}
+                  name="followUpText"
+                  render={({ field }) => (
+                    <div className="flex flex-col gap-2">
+                      <p className="text-muted-foreground text-sm">
+                        {t("form.textMessage.followUp.description")}
+                      </p>
+                      <TextMessageBuilder args={messageArgs} field={field} />
+                    </div>
+                  )}
+                />
+              )}
+            </div>
+          ) : (
+            <FormField
+              control={form.control}
+              name="templateId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <span>{t("form.template.label")}</span>
+                    <InfoTooltip>{t("form.template.tooltip")}</InfoTooltip>
+                  </FormLabel>
+                  <FormControl>
+                    <TemplateSelector
+                      type={itemChannel}
+                      disabled={loading}
+                      value={field.value}
+                      onItemSelect={(value) => field.onChange(value)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
         </div>
         <SaveButton form={form} />
       </form>

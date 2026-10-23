@@ -424,12 +424,19 @@ export class MyCabinetConnectedApp
       );
     }
 
+    const smsConsent = customer.phone
+      ? await this.props.services.notificationService.hasActiveCustomerSmsConsent(
+          customer.phone,
+        )
+      : false;
+
     return Response.json({
       success: true,
       name: customer.name,
       email: customer.email,
       phone: customer.phone,
       id: customer._id,
+      smsConsent,
     });
   }
 

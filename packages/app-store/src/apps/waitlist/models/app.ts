@@ -83,6 +83,7 @@ export const createWaitlistEntryRequestSchema = z
         "app_waitlist_admin.validation.createWaitlistEntry.note.max" satisfies WaitlistAdminAllKeys,
       )
       .optional(),
+    smsConsent: z.boolean().optional(),
     optionId: zObjectId("validation.appointments.request.optionId.required"),
     /** Preferred/assigned staff member; resolved to the owner member when omitted. */
     memberId: zObjectId(
@@ -133,6 +134,13 @@ export type CreateWaitlistEntryAction = z.infer<
   typeof createWaitlistEntryActionSchema
 >;
 export const CreateWaitlistEntryActionType = "create-waitlist-entry" as const;
+
+export const getWaitlistSmsTextActionSchema = z.object({});
+
+export type GetWaitlistSmsTextAction = z.infer<
+  typeof getWaitlistSmsTextActionSchema
+>;
+export const GetWaitlistSmsTextActionType = "get-sms-text" as const;
 // Request action
 
 export const requestActionSchema = zTaggedUnion([
@@ -146,6 +154,10 @@ export const requestActionSchema = zTaggedUnion([
   {
     type: CreateWaitlistEntryActionType,
     data: createWaitlistEntryActionSchema,
+  },
+  {
+    type: GetWaitlistSmsTextActionType,
+    data: getWaitlistSmsTextActionSchema,
   },
 ]);
 

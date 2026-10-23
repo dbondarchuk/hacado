@@ -10,6 +10,7 @@ import {
   BookingCatalogNode,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
+  CustomerAppointmentTextOffer,
   DateTime,
   effectiveAddonDuration,
   effectiveAddonPrice,
@@ -121,6 +122,7 @@ export type ScheduleContextProps = {
   ) => void;
 
   showPromoCode?: boolean;
+  smsText?: CustomerAppointmentTextOffer;
   discount?: ApplyDiscountResponse;
   setDiscount: (promoCode?: ApplyDiscountResponse) => void;
 

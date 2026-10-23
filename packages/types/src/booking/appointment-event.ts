@@ -153,6 +153,8 @@ export const appointmentRequestSchema = z.object({
   purchasePackageId: zObjectId().optional(),
   /** App-specific appointment data (copied onto the created appointment). */
   data: z.record(z.string(), z.any()).optional().nullable(),
+  /** Public booking SMS consent. Unchecked writes false. */
+  smsConsent: z.boolean().optional(),
 });
 
 export type AppointmentRequest = z.infer<typeof appointmentRequestSchema>;

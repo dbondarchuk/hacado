@@ -23,6 +23,7 @@ import type {
 } from "./types";
 
 export * from "./catalog-paths";
+export { legalDocumentBlocks, legalFooterLink } from "./legal-document";
 export * from "./media";
 export * from "./registry";
 export {

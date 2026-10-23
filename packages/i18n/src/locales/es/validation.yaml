@@ -283,6 +283,35 @@ configuration:
       required: Se requiere una plantilla de mensaje de texto OTP cuando la OTP del teléfono está habilitada
     otpChannels:
       required: Se requiere canal de verificación OTP
+  textMessaging:
+    entityType:
+      required: El tipo de negocio es obligatorio
+    legalName:
+      required: El nombre legal es obligatorio
+    website:
+      required: El sitio web es obligatorio
+    streetAddress:
+      required: La dirección es obligatoria
+    city:
+      required: La ciudad es obligatoria
+    state:
+      required: El estado o la provincia es obligatorio
+    postalCode:
+      required: El código postal es obligatorio
+    contactFirstName:
+      required: El nombre del contacto es obligatorio
+    contactLastName:
+      required: El apellido del contacto es obligatorio
+    contactEmail:
+      required: El correo del contacto es obligatorio
+    contactPhone:
+      required: El teléfono del contacto es obligatorio
+    registrationNumber:
+      required: El EIN o número de negocio es obligatorio
+    privacyPage:
+      required: La página de privacidad es obligatoria
+    termsPage:
+      required: La página de términos es obligatoria
   apps:
     email:
       required: Se requiere la aplicación del remitente de correo electrónico
