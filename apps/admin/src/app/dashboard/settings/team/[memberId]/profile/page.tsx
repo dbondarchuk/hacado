@@ -43,7 +43,7 @@ export default async function EditTeamMemberProfilePage(props: Params) {
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard/settings/brand" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     { title: t("team.title"), link: "/dashboard/settings/team" },
     {
       title: t("team.editProfile.title"),

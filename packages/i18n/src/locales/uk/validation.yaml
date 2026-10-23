@@ -320,6 +320,10 @@ configuration:
       required: Потрібен телефон контакта
     registrationNumber:
       required: Потрібен EIN або номер бізнесу
+    privacyPage:
+      required: Потрібна сторінка політики конфіденційності
+    termsPage:
+      required: Потрібна сторінка умов
   apps:
     email:
       required: Потрібен додаток відправника email

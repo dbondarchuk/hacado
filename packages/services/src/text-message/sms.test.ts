@@ -431,6 +431,8 @@ describe("toll-free verification body", () => {
     contactPhone: "+15125550100",
     phoneNumbers: ["+18005550100", "+18005550101"],
     optInImageUrl: "https://cdn.example/opt-in.png",
+    privacyPolicyUrl: "https://ada.example/privacy",
+    termsAndConditionUrl: "https://ada.example/terms",
     webhookUrl:
       "https://apps.example/api/webhooks/platform/telnyx/verification",
     helpMessage: "Appointment texts for your bookings.",
@@ -457,7 +459,15 @@ describe("toll-free verification body", () => {
       { phoneNumber: "+18005550101" },
     ]);
     assert.equal(body.businessCity, "Austin");
+    assert.equal(body.privacyPolicyURL, "https://ada.example/privacy");
+    assert.equal(body.termsAndConditionURL, "https://ada.example/terms");
     assert.equal(body.productionMessageContent.startsWith("Ada Salon:"), true);
+    assert.match(body.useCaseSummary, /Ada Salon/);
+    assert.match(body.useCaseSummary, /https:\/\/ada\.example/);
+    assert.match(body.additionalInformation, /Ada Salon/);
+    assert.match(body.additionalInformation, /support@hacado\.com/);
+    assert.match(body.additionalInformation, /https:\/\/ada\.example\/privacy/);
+    assert.match(body.additionalInformation, /https:\/\/ada\.example\/terms/);
   });
 
   it("includes an EIN for a company", () => {

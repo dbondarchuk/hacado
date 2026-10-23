@@ -124,6 +124,10 @@ export default async function RootLayout({
   const secondaryFont = styling?.fonts?.secondary || DEFAULT_WEB_SECONDARY_FONT;
   const tertiaryFont = styling?.fonts?.tertiary;
   const organizationDomain = await getOrganizationDomain();
+  const textMessaging =
+    await servicesContainer.textMessageConfigurationService.getPublicConfig(
+      websiteUrl,
+    );
 
   const canUseScripts = await sessionCanUseFeature("scripts");
   const planTier = await getPlanTier();
@@ -184,6 +188,7 @@ export default async function RootLayout({
             brandConfiguration={brand}
             domain={organizationDomain}
             websiteUrl={websiteUrl}
+            textMessaging={textMessaging}
           >
             <NextIntlClientProvider>
               <main className="min-h-screen max-w-none">

@@ -101,7 +101,7 @@ booking:
         notifications: Envoyez-moi des notifications sur mon rendez-vous.
         reminders: Envoyez-moi des rappels pour mon rendez-vous.
         both: Envoyez-moi des notifications et des rappels pour mon rendez-vous.
-      disclosure: Les messages proviennent de Hacado au nom de {businessName}. La fréquence des messages varie. Des frais de messagerie et de données peuvent s'appliquer. Répondez STOP pour vous désinscrire. <terms>Conditions</terms>, <privacy>Confidentialité</privacy> et <sms>Confidentialité et politique SMS</sms>.
+      disclosure: Les messages proviennent de Hacado au nom de {businessName}. La fréquence des messages varie. Des frais de messagerie et de données peuvent s'appliquer. Répondez STOP pour vous désinscrire. <terms>Conditions</terms> et <privacy>Confidentialité</privacy>.
       already:
         notifications: "✓ Des notifications SMS seront envoyées à ce numéro. (Répondez STOP à tout moment pour vous désinscrire)"
         reminders: "✓ Des rappels SMS seront envoyés à ce numéro. (Répondez STOP à tout moment pour vous désinscrire)"

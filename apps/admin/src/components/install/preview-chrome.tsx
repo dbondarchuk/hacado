@@ -125,6 +125,8 @@ export function PreviewChrome({
           "wizard.finish.pageDefaults.footer.cancelOrRescheduleLabel",
         ),
         policiesLabel: t("wizard.finish.pageDefaults.footer.policiesLabel"),
+        privacyLabel: t("wizard.finish.pageDefaults.footer.privacyLabel"),
+        termsLabel: t("wizard.finish.pageDefaults.footer.termsLabel"),
       },
       false,
       false,

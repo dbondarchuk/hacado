@@ -120,7 +120,8 @@
     "UNSPLASH_ACCESS_KEY",
     "PEXELS_API_KEY",
     "GEOAPIFY_API_KEY",
-    "SMS_PROVIDER"
+    "SMS_PROVIDER",
+    "SMS_UNVERIFIED_PROVIDER"
   ],
   "tasks": {
     "build": {

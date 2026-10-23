@@ -1,3 +1,5 @@
+import { legalFooterLink } from "@hacado/page-builder/templates";
+
 export const footerDefaultPage = (
   hasAddress: boolean,
   footerLabels: Record<string, string>,
@@ -1450,6 +1452,22 @@ export const footerDefaultPage = (
                                         },
                                         id: "block-fac422b8-d62e-44ad-8b80-2fe0421f7515",
                                       },
+                                    ]
+                                  : []),
+                                ...(footerLabels.privacyLabel
+                                  ? [
+                                      legalFooterLink(
+                                        "/privacy",
+                                        footerLabels.privacyLabel,
+                                      ),
+                                    ]
+                                  : []),
+                                ...(footerLabels.termsLabel
+                                  ? [
+                                      legalFooterLink(
+                                        "/terms",
+                                        footerLabels.termsLabel,
+                                      ),
                                     ]
                                   : []),
                               ],

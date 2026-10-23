@@ -13,14 +13,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const t = await getI18nAsync("admin");
   const servicesContainer = await getServicesContainer();
-  const customerAuth =
-    await servicesContainer.configurationService.getConfiguration(
-      "customerAuth",
-    );
+  const [customerAuth, smsEnabled] = await Promise.all([
+    servicesContainer.configurationService.getConfiguration("customerAuth"),
+    servicesContainer.textMessageConfigurationService.isEnabled(),
+  ]);
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.customerAccess"),
       link: "/dashboard/settings/customer-access",
@@ -35,7 +35,10 @@ export default async function Page() {
           title={t("settings.customerAccess.title")}
           description={t("settings.customerAccess.description")}
         />
-        <CustomerAccessSettingsForm values={customerAuth} />
+        <CustomerAccessSettingsForm
+          values={customerAuth}
+          smsEnabled={smsEnabled}
+        />
       </div>
     </PageContainer>
   );

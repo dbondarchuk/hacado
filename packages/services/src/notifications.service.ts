@@ -16,6 +16,7 @@ import {
   IOrganizationService,
   IShortLinksService,
   ISystemNotificationService,
+  ITextMessageConfigurationService,
   ITextMessageSender,
   ITextMessageSenderApp,
   SubscriptionUpgradeRequiredError,
@@ -65,6 +66,7 @@ export class NotificationService implements INotificationService {
     private readonly organizationService: IOrganizationService,
     private readonly shortLinksService: IShortLinksService,
     private readonly redisClient: Redis,
+    private readonly textMessageConfigurationService: ITextMessageConfigurationService,
     private readonly smsStore: SmsStore = new SmsStore(),
     private readonly registrationStore: SmsRegistrationStore = new SmsRegistrationStore(),
   ) {}
@@ -235,6 +237,15 @@ export class NotificationService implements INotificationService {
       { appointmentId, customerId, phone: maskify(trimmedPhone) },
       "Sending text message",
     );
+
+    if (!(await this.textMessageConfigurationService.isEnabled())) {
+      logger.info(
+        { organizationId: this.organizationId, appointmentId, customerId },
+        "SMS skipped: text messaging is off",
+      );
+
+      return { success: true, skipped: true, error: "sms disabled" };
+    }
 
     const consent = canSendCustomerSms({
       requireConsent: Boolean(requireConsent) && participantType === "customer",

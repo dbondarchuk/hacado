@@ -42,6 +42,8 @@ export {
   isCatalogInternalPath,
   isCatalogSeries,
   layoutEditorTemplates,
+  legalDocumentBlocks,
+  legalFooterLink,
   matchServiceImage,
   mergePackStylingBase,
   PACK_THEMES,

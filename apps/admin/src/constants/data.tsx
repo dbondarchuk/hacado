@@ -266,6 +266,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/brand",
             icon: <Building />,
             label: "admin.navigation.brand",
+            description: "admin.settings.brand.description",
             requiredPermission: { resource: "settings", action: "update" },
           },
           {
@@ -274,6 +275,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/team",
             icon: <Users />,
             label: "admin.navigation.team",
+            description: "admin.team.description",
             requiredPermission: { resource: "team", action: "invite" },
           },
           {
@@ -282,6 +284,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/appointments",
             icon: <CalendarClock />,
             label: "admin.navigation.appointments",
+            description: "admin.settings.appointments.description",
             requiredPermission: { resource: "settings", action: "update" },
           },
           {
@@ -290,6 +293,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/customer-access",
             icon: <UserRound />,
             label: "admin.navigation.customerAccess",
+            description: "admin.settings.customerAccess.description",
             requiredPermission: { resource: "settings", action: "update" },
           },
           {
@@ -298,6 +302,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/settings/text-messaging",
             icon: <MessageSquare />,
             label: "admin.navigation.textMessaging",
+            description: "admin.settings.textMessaging.description",
             minimumPlanTier: BillingPlanTier.Solo,
             requiredPermission: { resource: "settings", action: "update" },
           },
@@ -315,6 +320,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/templates",
             icon: <LayoutTemplate />,
             label: "admin.navigation.templates",
+            description: "admin.navigation.descriptions.templates",
             requiredPermission: {
               resource: "communication",
               action: "readAll",
@@ -326,6 +332,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/communication-logs",
             icon: <MailSearch />,
             label: "admin.navigation.communicationLogs",
+            description: "admin.navigation.monitorMessages",
             requiredPermission: { resource: "communication", action: "read" },
           },
         ],
@@ -342,6 +349,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/apps",
             icon: <ArrowDownToLine />,
             label: "admin.navigation.installedApps",
+            description: "admin.apps.description",
           },
           {
             id: "apps-store",
@@ -349,6 +357,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/apps/store",
             icon: <Store />,
             label: "admin.navigation.store",
+            description: "admin.navigation.descriptions.store",
           },
           {
             id: "apps-default",
@@ -356,6 +365,7 @@ export const navItems: NavItemGroup[] = [
             href: "/dashboard/apps/default",
             icon: <Boxes />,
             label: "admin.navigation.defaultApps",
+            description: "admin.navigation.descriptions.defaultApps",
             requiredPermission: { resource: "app", action: "useCompany" },
           },
         ],

@@ -11,12 +11,15 @@ import {
   type CustomerOtpChannels,
 } from "@hacado/types";
 import {
+  Alert,
+  AlertDescription,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  Link,
   Select,
   SelectContent,
   SelectItem,
@@ -38,7 +41,8 @@ type CustomerAuthFormValues = {
 
 export const CustomerAccessSettingsForm: React.FC<{
   values: CustomerAuthConfiguration;
-}> = ({ values }) => {
+  smsEnabled: boolean;
+}> = ({ values, smsEnabled }) => {
   const t = useI18n("admin");
   const form = useForm<CustomerAuthFormValues>({
     resolver: zodResolver(
@@ -119,6 +123,21 @@ export const CustomerAccessSettingsForm: React.FC<{
             </FormItem>
           )}
         />
+        {!smsEnabled && customerOtpAllowsPhone(otpChannels) ? (
+          <Alert variant="warning">
+            <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <span>{t("settings.customerAccess.form.smsDisabled")}</span>
+              <Link
+                button
+                href="/dashboard/settings/text-messaging"
+                variant="default"
+                size="sm"
+              >
+                {t("settings.customerAccess.form.smsDisabledAction")}
+              </Link>
+            </AlertDescription>
+          </Alert>
+        ) : null}
         {customerOtpAllowsEmail(otpChannels) && (
           <FormField
             control={form.control}

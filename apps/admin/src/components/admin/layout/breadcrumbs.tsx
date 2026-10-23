@@ -36,7 +36,7 @@ export const BreadcrumbsRender = () => {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="text-sm">
         {items.map((item, index) =>
           "subItems" in item ? (
             <DropdownMenu key={index}>

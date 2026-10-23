@@ -312,6 +312,10 @@ configuration:
       required: Contact phone is required
     registrationNumber:
       required: EIN or business number is required
+    privacyPage:
+      required: Privacy policy page is required
+    termsPage:
+      required: Terms page is required
   apps:
     email:
       required: Email sender APP is required

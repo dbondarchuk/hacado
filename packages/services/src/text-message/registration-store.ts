@@ -125,7 +125,12 @@ export class SmsRegistrationStore {
       "verifiedAt",
     ] as const;
 
-    const unset: Record<string, ""> = {};
+    const unset: Record<string, ""> = {
+      smsEnabled: "",
+      privacyPageId: "",
+      termsPageId: "",
+    };
+
     for (const key of clearable) {
       if (next[key] == null) {
         delete next[key];

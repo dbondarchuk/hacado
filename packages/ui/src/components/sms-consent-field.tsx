@@ -5,38 +5,22 @@ import { Checkbox } from "./checkbox";
 
 const linkClassName = "underline underline-offset-2";
 
-export const smsPolicyRichTags = {
-  terms: (chunks: React.ReactNode) => (
-    <a
-      className={linkClassName}
-      href="https://hacado.com/terms"
-      target="_blank"
-      rel="noreferrer"
-    >
+const policyLink = (href?: string) => (chunks: React.ReactNode) =>
+  href ? (
+    <a className={linkClassName} href={href} target="_blank" rel="noreferrer">
       {chunks}
     </a>
-  ),
-  privacy: (chunks: React.ReactNode) => (
-    <a
-      className={linkClassName}
-      href="https://hacado.com/privacy"
-      target="_blank"
-      rel="noreferrer"
-    >
-      {chunks}
-    </a>
-  ),
-  sms: (chunks: React.ReactNode) => (
-    <a
-      className={linkClassName}
-      href="https://hacado.com/sms-policy"
-      target="_blank"
-      rel="noreferrer"
-    >
-      {chunks}
-    </a>
-  ),
-};
+  ) : (
+    <span className={linkClassName}>{chunks}</span>
+  );
+
+export const smsPolicyRichTags = (pages: {
+  privacyUrl?: string;
+  termsUrl?: string;
+}) => ({
+  terms: policyLink(pages.termsUrl),
+  privacy: policyLink(pages.privacyUrl),
+});
 
 export const SmsConsentField = ({
   id,

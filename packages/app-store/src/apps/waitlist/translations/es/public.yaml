@@ -88,7 +88,7 @@ block:
       notifications: Envíame notificaciones sobre mi solicitud de lista de espera.
       slot: Avísame por mensaje cuando se abra un horario.
       slotAndNotifications: Envíame notificaciones cuando se abra un horario.
-    disclosure: Los mensajes son de Hacado en nombre de {businessName}. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar. <terms>Términos</terms>, <privacy>Privacidad</privacy> y <sms>Privacidad y política de SMS</sms>.
+    disclosure: Los mensajes son de Hacado en nombre de {businessName}. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar. <terms>Términos</terms> y <privacy>Privacidad</privacy>.
     already: "✓ Las notificaciones por SMS se enviarán a este número. (Responda STOP en cualquier momento para cancelar)"
   name:
     required: El nombre es obligatorio

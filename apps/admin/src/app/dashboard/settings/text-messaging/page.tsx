@@ -6,20 +6,15 @@ import {
 import PageContainer from "@/components/admin/layout/page-container";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { getLoggerFactory } from "@hacado/logger";
-import type { SmsOptInPreviewProps } from "@hacado/page-builder/opt-in-preview-types";
 import {
   requiresSmsVerification,
   SmsRegistrationStore,
-  toSmsRegistrationView,
 } from "@hacado/services";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types";
-import { Breadcrumbs, Heading } from "@hacado/ui";
-import { getWebsiteUrl } from "@hacado/utils";
+import { Breadcrumbs, Heading, Link } from "@hacado/ui";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { TextMessagingSettingsForm } from "./form";
-import { loadSmsOptInPreview } from "./preview-data";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getI18nAsync("admin");
@@ -37,30 +32,40 @@ export default async function Page() {
 
   const services = await getServicesContainer();
   const organizationId = await getOrganizationId();
-  const [general, organization, record, preview] = await Promise.all([
+  const [general, textMessaging, registration] = await Promise.all([
     services.configurationService.getConfiguration("general"),
-    services.organizationService.getOrganization(),
+    services.configurationService.getConfiguration("textMessaging"),
     new SmsRegistrationStore().get(organizationId),
-    loadSmsOptInPreview(services).catch((error): SmsOptInPreviewProps => {
-      getLoggerFactory("Admin/settings/text-messaging")("preview").warn(
-        { error },
-        "SMS opt-in preview used the default booking form",
-      );
-      return { service: null, formFields: [] };
-    }),
   ]);
+  const verificationStatus = registration?.status;
+  const verificationCopy =
+    verificationStatus === "verified"
+      ? {
+          prompt: t("settings.textMessaging.verification.verifiedPrompt"),
+          action: t("settings.textMessaging.verification.verifiedAction"),
+        }
+      : verificationStatus === "rejected"
+        ? {
+            prompt: t("settings.textMessaging.verification.failedPrompt"),
+            action: t("settings.textMessaging.verification.failedAction"),
+          }
+        : verificationStatus === "pending"
+          ? {
+              prompt: t("settings.textMessaging.verification.pendingPrompt"),
+              action: t("settings.textMessaging.verification.pendingAction"),
+            }
+          : {
+              prompt: t("settings.textMessaging.verification.prompt"),
+              action: t("settings.textMessaging.verification.action"),
+            };
 
-  const values = toSmsRegistrationView(record, {
-    legalName: general.name,
-    website: organization ? getWebsiteUrl(organization) : "",
-    address: general.address ?? {},
-    contactEmail: general.email,
-    contactPhone: general.phone ?? "",
-  });
-
+  const [privacyPage, termsPage] = await Promise.all([
+    services.pagesService.getPageBySlug("privacy").catch(() => null),
+    services.pagesService.getPageBySlug("terms").catch(() => null),
+  ]);
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.textMessaging"),
       link: "/dashboard/settings/text-messaging",
@@ -75,18 +80,26 @@ export default async function Page() {
           title={t("settings.textMessaging.title")}
           description={t("settings.textMessaging.description")}
         />
+        <TextMessagingSettingsForm
+          textMessaging={{
+            enabled: textMessaging?.enabled === true,
+            privacyPageId: textMessaging?.privacyPageId || privacyPage?._id,
+            termsPageId: textMessaging?.termsPageId || termsPage?._id,
+          }}
+        />
         {requiresSmsVerification(general.country) ? (
-          <TextMessagingSettingsForm
-            values={values}
-            requiresVerification
-            preview={preview}
-            country={general.country}
-          />
-        ) : (
-          <p className="text-sm text-muted-foreground">
-            {t("settings.textMessaging.countryOnly")}
-          </p>
-        )}
+          <section className="flex flex-col items-start gap-3 rounded-lg border p-4 text-sm sm:flex-row sm:items-center sm:justify-between">
+            <p>{verificationCopy.prompt}</p>
+            <Link
+              button
+              href="/dashboard/settings/text-messaging/verification"
+              variant="default"
+              size="sm"
+            >
+              {verificationCopy.action}
+            </Link>
+          </section>
+        ) : null}
       </div>
     </PageContainer>
   );

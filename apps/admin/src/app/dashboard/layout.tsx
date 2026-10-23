@@ -107,6 +107,11 @@ export default async function DashboardLayout({
 
   const websiteUrl = await getWebsiteUrl();
   const organizationDomain = await getOrganizationFullDomain();
+  const textMessaging = session.user.organizationId
+    ? await servicesContainer.textMessageConfigurationService.getPublicConfig(
+        websiteUrl,
+      )
+    : { enabled: false };
 
   let groups: NavItemGroup[] = navItems.map((x) => ({
     ...x,
@@ -227,6 +232,7 @@ export default async function DashboardLayout({
         brandConfiguration={brand}
         domain={organizationDomain}
         websiteUrl={websiteUrl}
+        textMessaging={textMessaging}
       >
         <MediaSourcesProvider
           value={{

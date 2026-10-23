@@ -1,13 +1,12 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { Email } from "@hacado/types";
-import { getAdminUrl } from "@hacado/utils";
+import type { SmsVerificationStatusPayload } from "@hacado/types";
 import { SmsRegistrationStore } from "./registration-store";
-import { paragraph, SUPPORT_EMAIL } from "./registration-submit";
 import { TelnyxWebhookConfigError, unwrapTelnyxWebhook } from "./telnyx/verify";
 import {
   mapTelnyxVerificationStatus,
   readVerificationWebhook,
 } from "./verification";
+import { emitSmsVerificationStatusChange } from "./verification-events";
 
 export class TelnyxVerificationWebhookService {
   protected readonly loggerFactory = getLoggerFactory(
@@ -16,8 +15,11 @@ export class TelnyxVerificationWebhookService {
 
   constructor(
     private readonly store: SmsRegistrationStore = new SmsRegistrationStore(),
-    private readonly sendEmail: (email: Email) => Promise<void> = async () =>
-      undefined,
+    private readonly emit: (
+      organizationId: string,
+      type: string,
+      payload: SmsVerificationStatusPayload,
+    ) => Promise<void> = async () => undefined,
   ) {}
 
   public async processWebhook(request: Request): Promise<Response> {
@@ -78,34 +80,17 @@ export class TelnyxVerificationWebhookService {
       blockedReason: undefined,
       verifiedAt: status === "verified" ? new Date() : current.verifiedAt,
     });
-
-    if (status === "rejected") {
-      const settingsUrl = `${getAdminUrl()}/dashboard/settings/text-messaging`;
-      const business = saved.legalName || saved.organizationId;
-      const detail = `${business} text messaging was not approved. ${reason} Update the form at ${settingsUrl}.`;
-      const emails: Email[] = [
-        {
-          to: SUPPORT_EMAIL,
-          subject: `SMS verification rejected for ${business}`,
-          body: paragraph(`${detail} Organization ${saved.organizationId}.`),
-        },
-      ];
-      if (saved.contactEmail) {
-        emails.unshift({
-          to: saved.contactEmail,
-          subject: `Text messaging was not approved for ${business}`,
-          body: paragraph(detail),
-        });
-      }
-
-      for (const email of emails) {
-        try {
-          await this.sendEmail(email);
-        } catch (error) {
-          logger.error({ error }, "SMS rejection email failed");
-        }
-      }
-    }
+    const assigned = await this.store.getAssignedProfileNumber(
+      saved.organizationId,
+    );
+    await emitSmsVerificationStatusChange({
+      previousStatus: current.status,
+      nextStatus: saved.status,
+      firstSubmission: false,
+      phoneNumber: assigned?.phoneNumber,
+      reason: saved.rejectionReason,
+      emit: (type, payload) => this.emit(saved.organizationId, type, payload),
+    });
 
     logger.info(
       { organizationId: saved.organizationId, status },

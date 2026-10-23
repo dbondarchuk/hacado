@@ -45,6 +45,7 @@ import {
   isClosedAppointmentStatus,
   IServicesService,
   ITeamService,
+  ITextMessageConfigurationService,
   openAppointmentStatusMongoFilter,
   OrganizationMember,
   Payment,
@@ -141,6 +142,7 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly billingService: IBillingService,
     private readonly teamService: ITeamService,
     private readonly packagesService: IPackagesService,
+    private readonly textMessageConfigurationService: ITextMessageConfigurationService,
   ) {
     super("bookingService", organizationId);
   }
@@ -1853,6 +1855,9 @@ export class BookingService extends BaseService implements IBookingService {
   public async getCustomerAppointmentTextOffer(): Promise<CustomerAppointmentTextOffer> {
     const logger = this.loggerFactory("getCustomerAppointmentTextOffer");
     const offer = emptyCustomerAppointmentTextOffer();
+    if (!(await this.textMessageConfigurationService.isEnabled())) {
+      return offer;
+    }
 
     try {
       const apps = await this.appsService.getAppsByScope(

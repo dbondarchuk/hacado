@@ -3,10 +3,11 @@ import {
   postalAddressSchema,
   type PostalAddress,
 } from "../utils/postal-address";
-import { zEmail, zPhone, zUrl } from "../utils/schema";
+import { zEmail, zPhone } from "../utils/schema";
 
 export const smsEntityTypes = [
   "PRIVATE_PROFIT",
+  "PUBLIC_PROFIT",
   "SOLE_PROPRIETOR",
   "NON_PROFIT",
 ] as const;
@@ -26,6 +27,12 @@ export type SmsMessagingAccess = {
   customVerified: boolean;
   canCustomize: boolean;
   platformBusiness: boolean;
+};
+
+export type TextMessagingConfig = {
+  enabled: boolean;
+  privacyUrl?: string;
+  termsUrl?: string;
 };
 
 export const smsRegistrationInputSchema = z.object({
@@ -56,9 +63,36 @@ const requiredText = (
   }
 };
 
-export const smsRegistrationFormSchema = (requiresVerification: boolean) =>
-  smsRegistrationInputSchema.superRefine((value, ctx) => {
-    if (!requiresVerification || !value.enabled) return;
+export const textMessagingSettingsFormSchema = z
+  .object({
+    enabled: z.boolean(),
+    privacyPageId: z.string().trim().max(64).optional(),
+    termsPageId: z.string().trim().max(64).optional(),
+  })
+  .superRefine((value, ctx) => {
+    if (!value.enabled) return;
+
+    requiredText(
+      value.privacyPageId,
+      ["privacyPageId"],
+      "configuration.textMessaging.privacyPage.required",
+      ctx,
+    );
+    requiredText(
+      value.termsPageId,
+      ["termsPageId"],
+      "configuration.textMessaging.termsPage.required",
+      ctx,
+    );
+  });
+
+export type TextMessagingSettingsInput = z.infer<
+  typeof textMessagingSettingsFormSchema
+>;
+
+export const smsVerificationFormSchema = smsRegistrationInputSchema.superRefine(
+  (value, ctx) => {
+    if (!value.enabled) return;
 
     if (!value.entityType) {
       ctx.addIssue({
@@ -74,24 +108,6 @@ export const smsRegistrationFormSchema = (requiresVerification: boolean) =>
       "configuration.textMessaging.legalName.required",
       ctx,
     );
-
-    requiredText(
-      value.website,
-      ["website"],
-      "configuration.textMessaging.website.required",
-      ctx,
-    );
-
-    if (
-      value.website?.trim() &&
-      !zUrl.safeParse(value.website.trim()).success
-    ) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["website"],
-        message: "validation.common.url.invalid",
-      });
-    }
 
     requiredText(
       value.address?.streetAddress,
@@ -181,7 +197,8 @@ export const smsRegistrationFormSchema = (requiresVerification: boolean) =>
         message: "configuration.textMessaging.registrationNumber.required",
       });
     }
-  });
+  },
+);
 
 export type SmsRegistrationView = {
   enabled: boolean;

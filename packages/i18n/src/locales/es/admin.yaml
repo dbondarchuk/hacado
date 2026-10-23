@@ -88,6 +88,19 @@ common:
     leave: Dejar
   pricePerHour: "{price}/h"
 platformEvents:
+  smsVerification:
+    created:
+      title: Mensajes personalizados enviados
+      description: La verificación se envió a revisión.
+    pending:
+      title: Mensajes personalizados en revisión
+      description: La verificación está pendiente.
+    failed:
+      title: Los mensajes personalizados no fueron aprobados
+      description: "{reason}"
+    succeeded:
+      title: Mensajes personalizados verificados
+      description: "Los textos usan {phoneNumber}."
   customer:
     created:
       title: Nuevo cliente
@@ -440,6 +453,10 @@ navigation:
   header: Encabezamiento
   footer: Pie de página
   settings: Ajustes
+  descriptions:
+    templates: Plantillas de correo y texto para los mensajes a clientes.
+    store: Explore las aplicaciones que puede instalar.
+    defaultApps: Elija las aplicaciones predeterminadas para pagos, correo y mensajes de texto.
   general: General
   brand: Marca
   social: Social
@@ -2664,6 +2681,8 @@ apps:
       button: Abrir aplicaciones
       handledBy: "Error de conexión de la aplicación: {appDisplayName}"
 settings:
+  hub:
+    description: Abra un área de ajustes de su negocio.
   general:
     title: Configuraciones generales
     description: Nombre comercial, detalles de contacto, ubicación y valores predeterminados regionales de su organización.
@@ -3107,25 +3126,66 @@ settings:
         requestError: Hubo un problema con tu solicitud.
   textMessaging:
     title: Mensajes de texto
-    description: Use sus propias plantillas desde un número dedicado. Los textos de clientes usan un número compartido hasta que esto se verifique.
+    description: Active los textos para clientes en los formularios de reserva y lista de espera.
     countryOnly: Los mensajes personalizados están disponibles para negocios de Estados Unidos y Canadá.
+    verification:
+      title: Mensajes personalizados
+      description: Verifique su negocio para que los textos de clientes usen un número dedicado.
+      prompt: "¿Quiere activar los mensajes personalizados?"
+      action: Verifique los datos de su negocio ahora
+      verifiedPrompt: Ha activado las plantillas de mensajes personalizados.
+      verifiedAction: Ver sus datos
+      failedPrompt: La verificación de mensajes personalizados falló.
+      failedAction: Ver sus datos
+      pendingPrompt: La verificación de mensajes personalizados está en revisión.
+      pendingAction: Ver sus datos
+      disabled: Active los mensajes de texto antes de verificar un número dedicado.
+    notifications:
+      failed:
+        title: Los mensajes personalizados no fueron aprobados
+        message: "{reason}"
+        action: Ver datos
+      succeeded:
+        title: Los mensajes personalizados están verificados
+        message: Los textos ahora usan su número dedicado.
+        action: Ver datos
+    emails:
+      failed:
+        subject: Los mensajes personalizados no fueron aprobados
+        preview: Actualice los datos y envíe la verificación de nuevo.
+        title: Los mensajes personalizados no fueron aprobados
+        body: "{reason} Actualice el formulario y envíe la verificación de nuevo."
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
+      succeeded:
+        subject: Los mensajes personalizados están verificados
+        preview: Los textos ahora usan su número dedicado.
+        title: Los mensajes personalizados están verificados
+        body: Los textos ahora usan su número dedicado y las plantillas personalizadas.
+        button: Ver datos
+        handledBy: Verificación de mensajes de texto
     status:
       pending: La revisión está en curso. Los textos siguen usando el número compartido hasta que se apruebe.
       verified: Los mensajes personalizados están verificados. Los textos usan su número.
+      verifiedWithNumber: "Los mensajes personalizados están verificados. Los textos usan {number}."
       rejected: La verificación no fue aprobada.
       preparing: Se está preparando un número. Los mensajes personalizados se pueden enviar cuando esté listo.
     form:
+      smsEnabled: Activar mensajes de texto
+      smsEnabledDescription: Los clientes pueden aceptar textos en sus formularios de reserva y lista de espera.
+      save: Guardar
       enabled: Activar mensajes personalizados
       enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
       disableTitle: "¿Desactivar los mensajes personalizados?"
-      disableDescription: Tendrá que enviar la verificación otra vez para volver a activarlo. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
+      disableDescription: Desactivarlo inicia el proceso de verificación otra vez. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
       disableConfirm: Desactivar
       disableCancel: Mantener activo
       unlock: Desbloquear
       submit: Enviar
       entityType:
         label: Tipo de negocio
-        PRIVATE_PROFIT: Empresa
+        PRIVATE_PROFIT: Empresa privada
+        PUBLIC_PROFIT: Empresa pública
         SOLE_PROPRIETOR: Propietario único
         NON_PROFIT: Organización benéfica
       legalName:
@@ -3139,6 +3199,14 @@ settings:
         soleHint: Un propietario único puede dejar esto en blanco.
       website:
         label: Sitio web
+      legalPages:
+        note: Estas páginas se enlazan desde los formularios de reserva y lista de espera. Añádalas al pie de su sitio web para el cumplimiento legal. La configuración ya agregó páginas con el texto de SMS requerido. Puede editarlas y luego seleccionarlas aquí.
+      privacyPage:
+        label: Política de privacidad
+        hint: La página debe decir que los datos de alta móvil no se comparten con terceros ni afiliados para marketing, y que los números se usan solo para textos de reservas.
+      termsPage:
+        label: Términos
+        hint: La página debe incluir la frecuencia de los mensajes, que pueden aplicarse tarifas de mensajes y datos, que se puede responder STOP para cancelar y HELP para ayuda, y que los operadores no son responsables de los mensajes retrasados o no entregados.
       streetAddress:
         label: Dirección
       addressLine2:
@@ -3174,6 +3242,8 @@ settings:
           email: Solo correo electrónico
           phone: Sólo teléfono
           email_or_phone: Correo electrónico o teléfono
+      smsDisabled: Los códigos por teléfono necesitan mensajes de texto. Mientras estén desactivados, el acceso de clientes usa el correo.
+      smsDisabledAction: Activar mensajes de texto
       otpTextTemplateId:
         label: Plantilla de mensaje de texto OTP
       toasts:
@@ -3281,6 +3351,10 @@ dashboard:
       title: Los mensajes de texto no fueron aprobados
       description: Actualice los datos del negocio y envíe la verificación de nuevo.
       action: Revisar
+    customerOtpPhone:
+      title: La verificación por teléfono necesita mensajes de texto
+      description: El acceso de clientes está configurado para códigos por teléfono, pero los mensajes de texto están desactivados. Los códigos se envían por correo.
+      action: Abrir ajustes de OTP
     failedApp:
       title: "{appName} necesita atención"
       description: "{appName} no funciona correctamente y es posible que sea necesario volver a conectarlo."

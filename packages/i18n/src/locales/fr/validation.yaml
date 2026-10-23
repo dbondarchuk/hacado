@@ -308,6 +308,10 @@ configuration:
       required: Le téléphone du contact est requis
     registrationNumber:
       required: "L'EIN ou le numéro d'entreprise est requis"
+    privacyPage:
+      required: La page de confidentialité est obligatoire
+    termsPage:
+      required: La page des conditions est obligatoire
   apps:
     email:
       required: L'application de l'expéditeur d'e-mail est requise

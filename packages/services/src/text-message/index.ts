@@ -12,6 +12,7 @@ export * from "./telnyx/sender";
 export * from "./telnyx/service";
 export * from "./telnyx/verify";
 export * from "./telnyx/webhook.service";
+export * from "./text-message-configuration.service";
 export * from "./textbelt";
 export * from "./verification";
 export * from "./verification-webhook.service";

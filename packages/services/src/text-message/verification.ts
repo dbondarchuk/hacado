@@ -53,7 +53,7 @@ export const resolvePlatformSmsRoute = (input: {
   if (!input.platformCountry || unverifiedProvider === "textbelt") {
     return { kind: "textbelt" };
   }
-  
+
   if (!input.poolNumber) {
     return { kind: "skip", reason: "sms number not ready" };
   }
@@ -150,7 +150,11 @@ export type TollFreeVerificationBody = {
   businessRegistrationNumber?: string;
   businessRegistrationType?: string;
   doingBusinessAs?: string;
-  entityType: "PRIVATE_PROFIT" | "SOLE_PROPRIETOR" | "NON_PROFIT";
+  entityType:
+    | "PRIVATE_PROFIT"
+    | "PUBLIC_PROFIT"
+    | "SOLE_PROPRIETOR"
+    | "NON_PROFIT";
   helpMessageResponse: string;
   isvReseller: "Hacado";
   optInKeywords: string;
@@ -160,7 +164,11 @@ export type TollFreeVerificationBody = {
 };
 
 export const buildTollFreeVerificationBody = (input: {
-  entityType: "PRIVATE_PROFIT" | "SOLE_PROPRIETOR" | "NON_PROFIT";
+  entityType:
+    | "PRIVATE_PROFIT"
+    | "PUBLIC_PROFIT"
+    | "SOLE_PROPRIETOR"
+    | "NON_PROFIT";
   legalName: string;
   doingBusinessAs?: string;
   businessRegistrationNumber?: string;
@@ -177,15 +185,25 @@ export const buildTollFreeVerificationBody = (input: {
   contactPhone: string;
   phoneNumbers: string[];
   optInImageUrl: string;
+  privacyPolicyUrl: string;
+  termsAndConditionUrl: string;
   webhookUrl: string;
   helpMessage: string;
 }): TollFreeVerificationBody | null => {
-  if (!input.optInImageUrl.trim()) return null;
+  if (
+    !input.optInImageUrl.trim() ||
+    !input.privacyPolicyUrl.trim() ||
+    !input.termsAndConditionUrl.trim()
+  ) {
+    return null;
+  }
 
   const tradeName = input.doingBusinessAs?.trim() || input.legalName.trim();
+  const website = input.website.trim();
+  const privacyPolicyUrl = input.privacyPolicyUrl.trim();
+  const termsAndConditionUrl = input.termsAndConditionUrl.trim();
   const body: TollFreeVerificationBody = {
-    additionalInformation:
-      "Appointment and waitlist notifications for customers who opted in.",
+    additionalInformation: `Messages sent from this number are strictly transactional appointment communications between ${tradeName} and their registered customers. No marketing, promotional, or cold outreach messaging is permitted or transmitted. Every message clearly identifies the sender brand (${tradeName}) and includes standard opt-out instructions (Reply STOP to cancel) and support details (Reply HELP for help or email support@hacado.com).`,
     businessAddr1: input.streetAddress.trim(),
     businessCity: capitalize(input.city.trim()),
     businessContactEmail: input.contactEmail.trim(),
@@ -195,21 +213,21 @@ export const buildTollFreeVerificationBody = (input: {
     businessName: input.legalName.trim(),
     businessState: capitalize(input.state.trim()),
     businessZip: input.postalCode.trim(),
-    corporateWebsite: input.website.trim(),
+    corporateWebsite: website,
     messageVolume: "1,000",
     optInWorkflow: `Customer enters a mobile number on the booking or waitlist page for ${tradeName} and may check an unchecked box to receive appointment or waitlist texts. The box is optional. Booking completes if it is left unchecked. Consent is stored for that phone number and ${tradeName}.`,
     optInWorkflowImageURLs: [{ url: input.optInImageUrl }],
     phoneNumbers: input.phoneNumbers.map((phoneNumber) => ({ phoneNumber })),
     productionMessageContent: `${tradeName}: Hi Jessica, your appointment on Fri, Oct 17, 3:00 PM is confirmed.`,
     useCase: "Appointments",
-    useCaseSummary: `Appointment and waitlist notifications for ${tradeName}.`,
+    useCaseSummary: `${tradeName} uses this dedicated toll-free number to send transactional appointment confirmations, booking updates, rescheduling alerts, and automated reminders to their clients. The messaging infrastructure is managed and operated by Hacado, serving as the scheduling software platform for ${tradeName}. All notifications are triggered strictly by client booking activity on ${website}.`,
     ageGatedContent: false,
     entityType: input.entityType,
     helpMessageResponse: input.helpMessage,
     isvReseller: "Hacado",
     optInKeywords: "START, YES, UNSTOP, SUBSCRIBE",
-    privacyPolicyURL: "https://hacado.com/privacy",
-    termsAndConditionURL: "https://hacado.com/terms",
+    privacyPolicyURL: privacyPolicyUrl,
+    termsAndConditionURL: termsAndConditionUrl,
     webhookUrl: input.webhookUrl,
   };
 

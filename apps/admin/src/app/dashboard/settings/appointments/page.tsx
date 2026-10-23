@@ -36,7 +36,7 @@ export default async function Page() {
 
   const breadcrumbItems = [
     { title: t("navigation.dashboard"), link: "/dashboard" },
-    { title: t("navigation.settings"), link: "/dashboard" },
+    { title: t("navigation.settings"), link: "/dashboard/settings" },
     {
       title: t("navigation.appointments"),
       link: "/dashboard/settings/appointments",

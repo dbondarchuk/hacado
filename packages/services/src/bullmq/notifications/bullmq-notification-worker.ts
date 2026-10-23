@@ -468,6 +468,7 @@ export class BullMQNotificationWorker extends BaseBullMQClient {
       services.organizationService,
       services.shortLinksService,
       services.redisClient,
+      services.textMessageConfigurationService,
     );
   }
 }

@@ -4,7 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import type { CustomerAppointmentTextOffer } from "@hacado/types";
 import { normalizeToE164 } from "@hacado/utils";
 import React from "react";
-import { useConfig } from "../context/config";
+import { useConfig, useTextMessaging } from "../context/config";
 import { SmsConsentField, smsPolicyRichTags } from "./sms-consent-field";
 
 const digits = (value?: string) => (value ?? "").replace(/\D/g, "");
@@ -190,8 +190,10 @@ export const AppointmentSmsConsent = ({
 }) => {
   const t = useI18n("translation");
   const { name: businessName } = useConfig();
+  const textMessaging = useTextMessaging();
   const kind = appointmentSmsConsentKind(offer);
-  if (!kind) return null;
+
+  if (!textMessaging.enabled || !kind) return null;
 
   const label = {
     notifications: t("booking.form.smsConsent.label.notifications"),
@@ -209,7 +211,7 @@ export const AppointmentSmsConsent = ({
       {...props}
       label={label}
       disclosure={t.rich("booking.form.smsConsent.disclosure", {
-        ...smsPolicyRichTags,
+        ...smsPolicyRichTags(textMessaging),
         businessName,
       })}
       consentedMessage={consentedMessage}

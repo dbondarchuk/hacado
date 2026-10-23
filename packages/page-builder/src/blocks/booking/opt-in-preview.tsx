@@ -1,7 +1,7 @@
 "use client";
 
 import type { AppointmentFields } from "@hacado/types";
-import { useTimeZone } from "@hacado/ui";
+import { TextMessagingProvider, useTimeZone } from "@hacado/ui";
 import { useMemo, useState } from "react";
 
 import { ScheduleContext } from "./modern/components/context";
@@ -75,11 +75,13 @@ export const SmsOptInPreview = ({
         data-sms-opt-in-preview
         className="w-[440px] bg-white p-4 text-left text-foreground"
       >
-        <SmsConsentLookupContext.Provider value={lookupDeclines}>
-          <ScheduleContext.Provider value={value as never}>
-            <FormCard />
-          </ScheduleContext.Provider>
-        </SmsConsentLookupContext.Provider>
+        <TextMessagingProvider value={{ enabled: true }}>
+          <SmsConsentLookupContext.Provider value={lookupDeclines}>
+            <ScheduleContext.Provider value={value as never}>
+              <FormCard />
+            </ScheduleContext.Provider>
+          </SmsConsentLookupContext.Provider>
+        </TextMessagingProvider>
       </div>
     </div>
   );

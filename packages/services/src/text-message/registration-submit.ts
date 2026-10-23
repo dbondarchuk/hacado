@@ -3,6 +3,7 @@ import type {
   Email,
   SmsRegistrationInput,
   SmsRegistrationSaveResponse,
+  SmsVerificationStatusPayload,
 } from "@hacado/types";
 import { getAppsExternalUrl, normalizeToE164 } from "@hacado/utils";
 import { Telnyx } from "telnyx";
@@ -21,9 +22,9 @@ import {
   buildTollFreeVerificationBody,
   requiresSmsVerification,
 } from "./verification";
+import { emitSmsVerificationStatusChange } from "./verification-events";
 
 const SUPPORT_EMAIL = "support@hacado.com";
-const DRY_RUN_PHONE_NUMBER = "+18005550100";
 
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -42,7 +43,10 @@ export async function saveSmsRegistration(input: {
   sendEmail: (email: Email) => Promise<void>;
   store?: SmsRegistrationStore;
   optInImageUrl?: string;
+  privacyPolicyUrl?: string;
+  termsAndConditionUrl?: string;
   notifyEmail?: string;
+  emit?: (type: string, payload: SmsVerificationStatusPayload) => Promise<void>;
 }): Promise<SmsRegistrationSaveResponse | { error: string }> {
   const logger = getLoggerFactory("SmsRegistration")("save");
   const store = input.store ?? new SmsRegistrationStore();
@@ -106,14 +110,49 @@ export async function saveSmsRegistration(input: {
     return { outcome: "saved", registration: toSmsRegistrationView(saved) };
   }
 
+  const entityType = values.entityType;
+  if (
+    !entityType ||
+    !values.legalName?.trim() ||
+    !values.website?.trim() ||
+    !input.privacyPolicyUrl?.trim() ||
+    !input.termsAndConditionUrl?.trim() ||
+    !values.address?.streetAddress?.trim() ||
+    !values.address.addressLocality?.trim() ||
+    !values.address.addressRegion?.trim() ||
+    !values.address.postalCode?.trim() ||
+    !values.contactFirstName?.trim() ||
+    !values.contactLastName?.trim() ||
+    !values.contactEmail?.trim() ||
+    !contactPhone ||
+    (entityType !== "SOLE_PROPRIETOR" &&
+      !values.businessRegistrationNumber?.trim())
+  ) {
+    await store.save(base);
+    return { error: "Verification details are incomplete" };
+  }
+
+  if (isTelnyxVerificationDryRun()) {
+    const saved = await store.save({
+      ...base,
+      status: "pending",
+      rejectionReason: undefined,
+      blockedReason: undefined,
+      submittedAt: new Date(),
+      verifiedAt: undefined,
+    });
+    await notifyVerificationStatus(store, existing, saved, input.emit);
+
+    return { outcome: "submitted", registration: toSmsRegistrationView(saved) };
+  }
+
   const optInImageUrl = input.optInImageUrl?.trim() ?? "";
-  const dryRun = isTelnyxVerificationDryRun();
   const messagingProfileId = getClientMessagingProfileId();
   const alreadyAssigned = await store.getAssignedProfileNumber(
     input.organizationId,
   );
 
-  if (!optInImageUrl || (!dryRun && !alreadyAssigned && !messagingProfileId)) {
+  if (!optInImageUrl || (!alreadyAssigned && !messagingProfileId)) {
     const saved = await store.save({
       ...base,
       blockedReason: "number_preparing",
@@ -136,68 +175,43 @@ export async function saveSmsRegistration(input: {
   }
 
   let phoneNumber = alreadyAssigned?.phoneNumber;
-  let apiKey = "";
-  if (dryRun) {
-    phoneNumber = phoneNumber || DRY_RUN_PHONE_NUMBER;
-  } else {
-    const config = getTelnyxConfiguration();
-    apiKey = config.apiKey;
-    if (!apiKey) {
-      await store.save(base);
-      return { error: "Telnyx is not configured" };
-    }
-
-    if (!phoneNumber) {
-      const dedicated = await acquireDedicatedNumber({
-        store,
-        organizationId: input.organizationId,
-        messagingProfileId,
-        apiKey,
-      });
-      if (!dedicated) {
-        const saved = await store.save({
-          ...base,
-          blockedReason: "number_preparing",
-        });
-
-        if (existing?.blockedReason !== "number_preparing") {
-          await notify(input.sendEmail, logger, {
-            to: SUPPORT_EMAIL,
-            subject: `SMS number needed for ${saved.legalName || input.organizationId}`,
-            body: paragraph(
-              `${saved.legalName || "A business"} (${input.organizationId}) turned on custom messaging, and a toll-free number could not be assigned.`,
-            ),
-          });
-        }
-
-        return {
-          outcome: "preparing",
-          registration: toSmsRegistrationView(saved),
-        };
-      }
-
-      phoneNumber = dedicated.phoneNumber;
-    }
+  const config = getTelnyxConfiguration();
+  const apiKey = config.apiKey;
+  if (!apiKey) {
+    await store.save(base);
+    return { error: "Telnyx is not configured" };
   }
 
-  const entityType = values.entityType;
-  if (
-    !entityType ||
-    !values.legalName?.trim() ||
-    !values.website?.trim() ||
-    !values.address?.streetAddress?.trim() ||
-    !values.address.addressLocality?.trim() ||
-    !values.address.addressRegion?.trim() ||
-    !values.address.postalCode?.trim() ||
-    !values.contactFirstName?.trim() ||
-    !values.contactLastName?.trim() ||
-    !values.contactEmail?.trim() ||
-    !contactPhone ||
-    (entityType !== "SOLE_PROPRIETOR" &&
-      !values.businessRegistrationNumber?.trim())
-  ) {
-    await store.save(base);
-    return { error: "Verification details are incomplete" };
+  if (!phoneNumber) {
+    const dedicated = await acquireDedicatedNumber({
+      store,
+      organizationId: input.organizationId,
+      messagingProfileId,
+      apiKey,
+    });
+    if (!dedicated) {
+      const saved = await store.save({
+        ...base,
+        blockedReason: "number_preparing",
+      });
+
+      if (existing?.blockedReason !== "number_preparing") {
+        await notify(input.sendEmail, logger, {
+          to: SUPPORT_EMAIL,
+          subject: `SMS number needed for ${saved.legalName || input.organizationId}`,
+          body: paragraph(
+            `${saved.legalName || "A business"} (${input.organizationId}) turned on custom messaging, and a toll-free number could not be assigned.`,
+          ),
+        });
+      }
+
+      return {
+        outcome: "preparing",
+        registration: toSmsRegistrationView(saved),
+      };
+    }
+
+    phoneNumber = dedicated.phoneNumber;
   }
 
   const body = buildTollFreeVerificationBody({
@@ -218,6 +232,8 @@ export async function saveSmsRegistration(input: {
     contactPhone,
     phoneNumbers: [phoneNumber],
     optInImageUrl,
+    privacyPolicyUrl: input.privacyPolicyUrl?.trim() ?? "",
+    termsAndConditionUrl: input.termsAndConditionUrl?.trim() ?? "",
     webhookUrl: `${getAppsExternalUrl()}/api/webhooks/platform/telnyx/verification`,
     helpMessage: getHelpSms("en"),
   });
@@ -232,39 +248,6 @@ export async function saveSmsRegistration(input: {
       outcome: "preparing",
       registration: toSmsRegistrationView(saved),
     };
-  }
-
-  if (dryRun) {
-    const recipient = input.notifyEmail?.trim() || values.contactEmail?.trim();
-    if (!recipient) {
-      await store.save(base);
-      return { error: "Verification preview has no recipient" };
-    }
-
-    const placeholderNote =
-      phoneNumber === DRY_RUN_PHONE_NUMBER
-        ? paragraph(
-            "No toll-free number is assigned, so the phone number below is a placeholder. Nothing was ordered from Telnyx.",
-          )
-        : "";
-
-    try {
-      await input.sendEmail({
-        to: recipient,
-        subject: "SMS verification preview",
-        body: `${paragraph("Verification was not submitted to Telnyx. These are the values that would be sent.")}${placeholderNote}<pre>${escapeHtml(JSON.stringify(body, null, 2))}</pre>`,
-      });
-    } catch (error) {
-      logger.error(
-        { organizationId: input.organizationId, error },
-        "SMS verification preview email failed",
-      );
-      await store.save(base);
-      return { error: "Could not email the verification preview" };
-    }
-
-    const saved = await store.save(base);
-    return { outcome: "saved", registration: toSmsRegistrationView(saved) };
   }
 
   try {
@@ -288,6 +271,7 @@ export async function saveSmsRegistration(input: {
       submittedAt: new Date(),
       verifiedAt: undefined,
     });
+    await notifyVerificationStatus(store, existing, saved, input.emit);
 
     return {
       outcome: "submitted",
@@ -351,6 +335,26 @@ async function acquireDedicatedNumber(input: {
     );
     return null;
   }
+}
+
+async function notifyVerificationStatus(
+  store: SmsRegistrationStore,
+  existing: SmsRegistrationRecord | null,
+  saved: SmsRegistrationRecord,
+  emit?: (type: string, payload: SmsVerificationStatusPayload) => Promise<void>,
+) {
+  if (!emit) return;
+
+  const assigned = await store.getAssignedProfileNumber(saved.organizationId);
+  await emitSmsVerificationStatusChange({
+    previousStatus: existing?.status,
+    nextStatus: saved.status,
+    firstSubmission:
+      (!existing || existing.status === "draft") && saved.status === "pending",
+    phoneNumber: assigned?.phoneNumber,
+    reason: saved.rejectionReason,
+    emit,
+  });
 }
 
 const notify = async (

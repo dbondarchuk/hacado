@@ -167,6 +167,11 @@ export class WaitlistConnectedApp
   public async getCustomerWaitlistTextOffer(): Promise<CustomerWaitlistTextOffer> {
     const logger = this.loggerFactory("getCustomerWaitlistTextOffer");
     const offer = emptyCustomerWaitlistTextOffer();
+    if (
+      !(await this.props.services.textMessageConfigurationService.isEnabled())
+    ) {
+      return offer;
+    }
 
     try {
       const apps =

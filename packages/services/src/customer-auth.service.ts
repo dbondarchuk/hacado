@@ -61,6 +61,7 @@ export class CustomerAuthService
       | "organizationService"
       | "redisClient"
       | "templatesService"
+      | "textMessageConfigurationService"
     >,
   ) {
     super("CustomerAuthService", organizationId);
@@ -71,7 +72,7 @@ export class CustomerAuthService
     logger.debug({}, "Loading customer auth options");
 
     const config = await this.getCustomerAuthConfig();
-    const otpChannels = config.otpChannels ?? "email";
+    const otpChannels = await this.effectiveOtpChannels(config);
     const options = { otpChannels };
 
     logger.debug({ otpChannels }, "Customer auth options loaded");
@@ -95,7 +96,8 @@ export class CustomerAuthService
     }
 
     const config = await this.getCustomerAuthConfig();
-    const otpChannels = config.otpChannels ?? "email";
+    const storedChannels = config.otpChannels ?? "email";
+    const otpChannels = await this.effectiveOtpChannels(config);
 
     if (channel === "email" && !customerOtpAllowsEmail(otpChannels)) {
       logger.warn({ otpChannels, ip }, "Email OTP not enabled");
@@ -136,6 +138,18 @@ export class CustomerAuthService
       logger.info(
         { channel, destination },
         "OTP request completed with generic response (customer not found)",
+      );
+      return genericResponse();
+    }
+
+    if (
+      channel === "email" &&
+      !customerOtpAllowsEmail(storedChannels) &&
+      !config.otpEmailTemplateId
+    ) {
+      logger.info(
+        { customerId: customer._id },
+        "OTP skipped: text messaging is off and no email template is set",
       );
       return genericResponse();
     }
@@ -383,6 +397,19 @@ export class CustomerAuthService
 
   public getClearSessionCookieHeader(): string {
     return `${CUSTOMER_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
+  }
+
+  private async effectiveOtpChannels(
+    config: CustomerAuthConfiguration,
+  ): Promise<CustomerAuthConfiguration["otpChannels"]> {
+    const channels = config.otpChannels ?? "email";
+    if (!customerOtpAllowsPhone(channels)) return channels;
+
+    const smsEnabled =
+      await this.services.textMessageConfigurationService.isEnabled();
+    if (smsEnabled) return channels;
+
+    return "email";
   }
 
   private async getCustomerAuthConfig(): Promise<CustomerAuthConfiguration> {

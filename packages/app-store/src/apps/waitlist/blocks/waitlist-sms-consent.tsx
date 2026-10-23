@@ -6,6 +6,7 @@ import {
   SmsConsentChoice,
   smsPolicyRichTags,
   useConfig,
+  useTextMessaging,
   waitlistSmsConsentKind,
 } from "@hacado/ui";
 import React, { useEffect, useState } from "react";
@@ -61,7 +62,8 @@ export const WaitlistSmsConsent = ({
     waitlistPublicNamespace,
   );
   const { name: businessName } = useConfig();
-  if (!kind) return null;
+  const textMessaging = useTextMessaging();
+  if (!textMessaging.enabled || !kind) return null;
 
   const label = {
     notifications: t("block.smsConsent.label.notifications"),
@@ -74,7 +76,7 @@ export const WaitlistSmsConsent = ({
       {...props}
       label={label}
       disclosure={t.rich("block.smsConsent.disclosure", {
-        ...smsPolicyRichTags,
+        ...smsPolicyRichTags(textMessaging),
         businessName,
       })}
       consentedMessage={t("block.smsConsent.already")}

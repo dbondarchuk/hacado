@@ -5,12 +5,12 @@ import {
   ServicesContainer,
   SmsRegistrationStore,
   SmsStore,
-  SystemServicesContainer,
   TelnyxMessagingWebhookService,
   TelnyxService,
   TelnyxVerificationWebhookService,
   TextBeltWebhookService,
 } from "@hacado/services";
+import { systemEventSource } from "@hacado/types";
 import dotenv from "dotenv";
 import http, { IncomingMessage, ServerResponse } from "http";
 import { URL } from "url";
@@ -136,8 +136,13 @@ async function handlePlatformTelnyxVerificationWebhook(
 ): Promise<Response> {
   const webhook = new TelnyxVerificationWebhookService(
     new SmsRegistrationStore(),
-    (email) =>
-      SystemServicesContainer().notificationService.sendSystemEmail(email),
+    async (organizationId, type, payload) => {
+      await ServicesContainer(organizationId).eventService.emit(
+        type,
+        payload,
+        systemEventSource,
+      );
+    },
   );
   return webhook.processWebhook(request);
 }

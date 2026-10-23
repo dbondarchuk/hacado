@@ -107,6 +107,10 @@ import {
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
   SMS_TOPUP_PURCHASED_EVENT_TYPE,
+  SMS_VERIFICATION_CREATED_EVENT_TYPE,
+  SMS_VERIFICATION_FAILED_EVENT_TYPE,
+  SMS_VERIFICATION_PENDING_EVENT_TYPE,
+  SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE,
   SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
   SYNCED_PAYMENT_AMOUNTS_UPDATED_EVENT_TYPE,
   SYNCED_PAYMENT_ASSIGNED_EVENT_TYPE,
@@ -433,6 +437,11 @@ export type SmsTopupPurchasedPayload = {
   credits: number;
 };
 
+export type SmsVerificationStatusPayload = {
+  phoneNumber?: string;
+  reason?: string;
+};
+
 /** Maps core platform event type strings to their payload shapes (services emits). */
 export type CoreEventPayloadByType = {
   [CUSTOMER_CREATED_EVENT_TYPE]: CustomerCreatedPayload;
@@ -515,6 +524,10 @@ export type CoreEventPayloadByType = {
   [SMS_CREDITS_LOW_EVENT_TYPE]: SmsCreditsThresholdPayload;
   [SMS_CREDITS_EXHAUSTED_EVENT_TYPE]: SmsCreditsThresholdPayload;
   [SMS_TOPUP_PURCHASED_EVENT_TYPE]: SmsTopupPurchasedPayload;
+  [SMS_VERIFICATION_CREATED_EVENT_TYPE]: SmsVerificationStatusPayload;
+  [SMS_VERIFICATION_PENDING_EVENT_TYPE]: SmsVerificationStatusPayload;
+  [SMS_VERIFICATION_FAILED_EVENT_TYPE]: SmsVerificationStatusPayload;
+  [SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE]: SmsVerificationStatusPayload;
 };
 
 export type CoreEventTypeString = keyof CoreEventPayloadByType;

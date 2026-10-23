@@ -88,6 +88,19 @@ common:
     leave: Leave
   pricePerHour: "{price}/hr"
 platformEvents:
+  smsVerification:
+    created:
+      title: Custom text messaging submitted
+      description: Verification was sent for review.
+    pending:
+      title: Custom text messaging in review
+      description: Verification is pending.
+    failed:
+      title: Custom text messaging was not approved
+      description: "{reason}"
+    succeeded:
+      title: Custom text messaging verified
+      description: "Customer texts use {phoneNumber}."
   customer:
     created:
       title: New customer
@@ -443,6 +456,10 @@ navigation:
   header: Header
   footer: Footer
   settings: Settings
+  descriptions:
+    templates: Email and text templates used for customer messages.
+    store: Browse apps you can install.
+    defaultApps: Choose the default apps for payments, email, and text messages.
   general: General
   brand: Brand
   social: Social
@@ -2812,6 +2829,8 @@ apps:
       button: Open apps
       handledBy: "App connection failed: {appDisplayName}"
 settings:
+  hub:
+    description: Open a settings area for your business.
   general:
     title: General Settings
     description:
@@ -3361,25 +3380,66 @@ settings:
         requestError: There was a problem with your request.
   textMessaging:
     title: Text messaging
-    description: Use your own text templates from a dedicated number. Customer texts use a shared number until this is verified.
+    description: Turn on customer texts for booking and waitlist forms.
     countryOnly: Custom messaging is available for businesses in the United States and Canada.
+    verification:
+      title: Custom text messages
+      description: Verify your business so customer texts can use a dedicated number.
+      prompt: Want to enable custom text messages?
+      action: Verify your business details now
+      verifiedPrompt: You have enabled custom text message templates.
+      verifiedAction: View your details
+      failedPrompt: Custom text message verification failed.
+      failedAction: View your details
+      pendingPrompt: Custom text message verification is in review.
+      pendingAction: View your details
+      disabled: Turn on text messaging before you verify a dedicated number.
+    notifications:
+      failed:
+        title: Custom text messaging was not approved
+        message: "{reason}"
+        action: View details
+      succeeded:
+        title: Custom text messaging is verified
+        message: Customer texts now use your dedicated number.
+        action: View details
+    emails:
+      failed:
+        subject: Custom text messaging was not approved
+        preview: Update the verification details and submit again.
+        title: Custom text messaging was not approved
+        body: "{reason} Update the form and submit verification again."
+        button: View details
+        handledBy: Text messaging verification
+      succeeded:
+        subject: Custom text messaging is verified
+        preview: Customer texts now use your dedicated number.
+        title: Custom text messaging is verified
+        body: Customer texts now use your dedicated number and custom templates.
+        button: View details
+        handledBy: Text messaging verification
     status:
       pending: Review is in progress. Customer texts keep using the shared number until it is approved.
       verified: Custom messaging is verified. Customer texts use a dedicated number.
+      verifiedWithNumber: "Custom messaging is verified. Customer texts use {number}."
       rejected: Verification was not approved.
       preparing: A number is being prepared. Custom messaging can be submitted once it is ready.
     form:
+      smsEnabled: Enable text messaging
+      smsEnabledDescription: Customers can opt in to texts on your booking and waitlist forms.
+      save: Save
       enabled: Enable custom messaging
       enabledDescription: After verification, customer texts use a dedicated number and your own custom templates.
       disableTitle: Turn off custom messaging?
-      disableDescription: You will need to submit verification again to turn this back on. You will be given a number that may be a different one, and replies to the old number will not reach you.
+      disableDescription: Turning this off starts the verification process again. You will be given a number that may be different, and replies to the old number will not reach you.
       disableConfirm: Turn off
       disableCancel: Keep it on
       unlock: Unlock
       submit: Submit
       entityType:
         label: Business type
-        PRIVATE_PROFIT: Company
+        PRIVATE_PROFIT: Private company
+        PUBLIC_PROFIT: Public company
         SOLE_PROPRIETOR: Sole proprietor
         NON_PROFIT: Charity
       legalName:
@@ -3393,6 +3453,14 @@ settings:
         soleHint: A sole proprietor can leave this blank.
       website:
         label: Website
+      legalPages:
+        note: These pages are linked from the booking and waitlist forms. Add them to your website footer for legal compliance. Setup already added pages with the required SMS text. You can edit them, then select them here.
+      privacyPage:
+        label: Privacy policy
+        hint: The page must say that mobile opt-in data is not shared with third parties or affiliates for marketing, and that phone numbers are used only for booking texts.
+      termsPage:
+        label: Terms
+        hint: The page must include how often messages are sent, that message and data rates may apply, that customers can reply STOP to opt out and HELP for help, and that carriers are not liable for delayed or undelivered messages.
       streetAddress:
         label: Street address
       addressLine2:
@@ -3428,6 +3496,8 @@ settings:
           email: Email only
           phone: Phone only
           email_or_phone: Email or phone
+      smsDisabled: Phone codes need text messaging. While it is off, customer sign-in uses email instead.
+      smsDisabledAction: Turn on text messaging
       otpTextTemplateId:
         label: OTP text message template
       toasts:
@@ -3537,6 +3607,10 @@ dashboard:
       title: Text messaging was not approved
       description: Update the business details and submit the verification again.
       action: Review
+    customerOtpPhone:
+      title: Phone verification needs text messaging
+      description: Customer sign-in is set to use phone codes, but text messaging is off. Codes fall back to email.
+      action: Open OTP settings
     failedApp:
       title: "{appName} needs attention"
       description: "{appName} is not working correctly and may need to be reconnected."
