@@ -67,7 +67,7 @@ function buildBusinessFooterBlock(): TReaderBlock {
   const muted = (text: string) => ({
     text,
     fontSize: "11px",
-    color: "#999999",
+    color: EMAIL_BRAND.muted,
   });
 
   return {

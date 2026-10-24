@@ -21,7 +21,6 @@ import {
 } from "@hacado/types";
 import {
   dispatchAppointmentEventPayload,
-  formatAmountString,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,
@@ -219,14 +218,6 @@ export class TextMessageNotificationConnectedApp
           "social",
         );
 
-      const totalAmountPaid = appointment.payments
-        ?.filter((payment) => payment.status === "paid")
-        .reduce((sum, payment) => sum + payment.amount, 0);
-
-      const totalAmountPaidFormatted = totalAmountPaid
-        ? formatAmountString(totalAmountPaid)
-        : undefined;
-
       const organization =
         await this.props.services.organizationService.getOrganization();
       if (!organization) {
@@ -261,10 +252,6 @@ export class TextMessageNotificationConnectedApp
         config,
         customer: appointment.customer,
         locale: config.brand.language,
-        additionalProperties: {
-          confirmed,
-          totalAmountPaidFormatted,
-        },
         adminUrl,
         websiteUrl,
         user: member,

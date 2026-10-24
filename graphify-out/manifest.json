@@ -4510,8 +4510,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/emails/new-comment-email.ts": {
-    "mtime": 1786820409.2204676,
-    "ast_hash": "e8f509a9599b400d248e424a4dd260ee",
+    "mtime": 1792848747.9208138,
+    "ast_hash": "cb1464bd686a0b739113a7190faa2350",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/blog/events.ts": {
@@ -4935,8 +4935,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/email-notification/emails/utils.ts": {
-    "mtime": 1792158056.461602,
-    "ast_hash": "541e258218f0703e602e4332b7576d1f",
+    "mtime": 1792848747.459441,
+    "ast_hash": "f7864e3030f14ef1a66e724a56615976",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/email-notification/models.ts": {
@@ -5085,8 +5085,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/emails/utils.ts": {
-    "mtime": 1792158054.5555565,
-    "ast_hash": "b9e31425c36e33c7ebdda4c5a6d69d95",
+    "mtime": 1792848747.3094895,
+    "ast_hash": "b6e0c974d9dfffbd2275c1618cd2629c",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/forms/events.ts": {
@@ -6310,8 +6310,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/text-belt/emails/utils.ts": {
-    "mtime": 1792158058.1061406,
-    "ast_hash": "8ef9a39eab10ce978ba6a2bf932a313f",
+    "mtime": 1792848747.3094895,
+    "ast_hash": "2c6019092433b1bcc2f2a72e4635c623",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/text-belt/images/index.ts": {
@@ -8100,7 +8100,7 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/blocks/divider/schema.ts": {
-    "mtime": 1773675371.2624958,
+    "mtime": 1792848720.5342748,
     "ast_hash": "a756f098f049683c7bf10bb6db2de158",
     "semantic_hash": ""
   },
@@ -8260,7 +8260,7 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/blocks/online-meeting/editor.tsx": {
-    "mtime": 1786820409.5517812,
+    "mtime": 1792848720.5342748,
     "ast_hash": "824fa75e8e1c7abbad75f50e9e8580a3",
     "semantic_hash": ""
   },
@@ -8270,7 +8270,7 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/blocks/online-meeting/reader.tsx": {
-    "mtime": 1786820409.5527806,
+    "mtime": 1792848720.5352745,
     "ast_hash": "07151634fc42891195a10578bb367b91",
     "semantic_hash": ""
   },
@@ -8380,8 +8380,8 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/static/user-email-template.ts": {
-    "mtime": 1787364795.2387774,
-    "ast_hash": "be34b770b18023470bb3c93757f4c2ef",
+    "mtime": 1792848740.102278,
+    "ast_hash": "e8e35752cdcc2224708759b1c3d5aefe",
     "semantic_hash": ""
   },
   "packages/email-builder/src/style-inputs/helpers/TStyle.ts": {
@@ -25570,8 +25570,8 @@
     "semantic_hash": ""
   },
   "apps/admin/public/logo.svg": {
-    "mtime": 1792608571.702943,
-    "ast_hash": "993fc3f3788f75e3e08cdc605430f6bb",
+    "mtime": 1792848555.2681432,
+    "ast_hash": "872c7141c558af001547cd6bdb6e0140",
     "semantic_hash": ""
   },
   "apps/admin/public/logos/google_meet.svg": {
@@ -25630,8 +25630,8 @@
     "semantic_hash": ""
   },
   "apps/web/public/logo.svg": {
-    "mtime": 1792608571.7339551,
-    "ast_hash": "993fc3f3788f75e3e08cdc605430f6bb",
+    "mtime": 1792848583.7757885,
+    "ast_hash": "872c7141c558af001547cd6bdb6e0140",
     "semantic_hash": ""
   },
   "apps/web/public/logos/google_calendar.svg": {
@@ -27145,8 +27145,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/gift-card-studio/emails/new-purchase-email.ts": {
-    "mtime": 1786987895.228757,
-    "ast_hash": "deca60a55b3849b92bbe4a72efd57257",
+    "mtime": 1792848748.3885736,
+    "ast_hash": "60816c3f526c0fe58e1dd5ff198d5c14",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/effects/backdrop-filter.tsx": {
@@ -27800,8 +27800,8 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/brand.ts": {
-    "mtime": 1786987866.0246842,
-    "ast_hash": "f1a33397fefbdfba84cd6584b9052b1a",
+    "mtime": 1792848733.1902835,
+    "ast_hash": "1582acdf0df344863a75b82b4fd59964",
     "semantic_hash": ""
   },
   "docs/docs/getting-started/what-is-hacado.md": {
@@ -28705,12 +28705,12 @@
     "semantic_hash": ""
   },
   "packages/email-builder/src/static/content-blocks.ts": {
-    "mtime": 1789769349.5314937,
-    "ast_hash": "85968f112bbd6c0f459294e894c0ec23",
+    "mtime": 1792848737.399728,
+    "ast_hash": "8c175bacf27ccff4889d2fd06ca1521c",
     "semantic_hash": ""
   },
   "packages/email-builder/src/static/customer-email-template.ts": {
-    "mtime": 1787668773.8381696,
+    "mtime": 1792848720.536271,
     "ast_hash": "ef81e18574eab15ab22a925ae4c8f7e1",
     "semantic_hash": ""
   },
@@ -29055,8 +29055,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/emails/new-entry-email.ts": {
-    "mtime": 1787857555.2190008,
-    "ast_hash": "6b89cf5546ae07fff7c26fa210c99976",
+    "mtime": 1792848747.5328326,
+    "ast_hash": "914a5460ba304e248f5913f980c8effc",
     "semantic_hash": ""
   },
   "docs/docs/apps/customer-waitlist-notifications.md": {
@@ -32200,8 +32200,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/emails/paid-email.ts": {
-    "mtime": 1790190868.458769,
-    "ast_hash": "9c2447d2cc01baa2a704270c66b8a2fb",
+    "mtime": 1792848748.8406537,
+    "ast_hash": "2298e71ff91d9dfb92c4c40843edfd20",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/app-events.ts": {
@@ -34295,8 +34295,8 @@
     "semantic_hash": ""
   },
   "marketing-site/public/logo.svg": {
-    "mtime": 1792608571.8373518,
-    "ast_hash": "993fc3f3788f75e3e08cdc605430f6bb",
+    "mtime": 1792848571.2904875,
+    "ast_hash": "872c7141c558af001547cd6bdb6e0140",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/videos/_phone-app-hands.mp4": {
@@ -36115,8 +36115,8 @@
     "semantic_hash": ""
   },
   "marketing-site/public/assets/logo.svg": {
-    "mtime": 1792608571.7995956,
-    "ast_hash": "993fc3f3788f75e3e08cdc605430f6bb",
+    "mtime": 1792848601.7000155,
+    "ast_hash": "872c7141c558af001547cd6bdb6e0140",
     "semantic_hash": ""
   },
   "marketing-site/public/assets/photos/barber-booking-form.png": {
