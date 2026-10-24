@@ -3121,6 +3121,8 @@ settings:
         addGroup: Add group
         addService: Add service
         addPackage: Add package
+        group: Group
+        service: Service
         groupName: Group name
         groupDescription: Short description
         emptyGroup: This group is empty
@@ -3394,6 +3396,10 @@ settings:
       pendingPrompt: Custom text message verification is in review.
       pendingAction: View your details
       disabled: Turn on text messaging before you verify a dedicated number.
+    customTemplate:
+      label: Custom text template
+      tooltip: Optional. When a template is selected, customer texts use it instead of the built-in message.
+      renderFailed: Rendering this template failed. Please check <link>your template</link>.
     notifications:
       failed:
         title: Custom text messaging was not approved
@@ -3486,20 +3492,19 @@ settings:
       error: There was a problem with your request.
   customerAccess:
     title: Customer access
-    description: OTP templates and verification channels for customer-facing flows
+    description: Choose how customers receive their sign-in code.
     form:
-      otpEmailTemplateId:
-        label: OTP email template
-      otpChannels:
-        label: OTP verification channel
-        options:
-          email: Email only
-          phone: Phone only
-          email_or_phone: Email or phone
-      smsDisabled: Phone codes need text messaging. While it is off, customer sign-in uses email instead.
+      email:
+        label: Email
+        description: Send a one-time code to the customer's email address.
+        templateLabel: Email template
+        templateDescription: Required. This is the email the customer receives with their code.
+      phone:
+        label: Text message
+        description: Send a one-time code to the customer's phone number. Text messaging must be turned on.
+        builtIn: Customers receive a built-in text with their code.
+      smsDisabled: Phone codes need text messaging. While it is off, this option stays unavailable and customer sign-in uses email instead.
       smsDisabledAction: Turn on text messaging
-      otpTextTemplateId:
-        label: OTP text message template
       toasts:
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.

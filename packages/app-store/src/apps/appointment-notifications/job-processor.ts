@@ -180,10 +180,7 @@ export class AppointmentNotificationsJobProcessor {
       const channel = appointmentNotification.channel;
       if (
         channel === "text-message" &&
-        !isSmsEnabled(
-          appointmentNotification.enabled,
-          appointmentNotification.templateId,
-        )
+        !isSmsEnabled(appointmentNotification.enabled)
       ) {
         logger.info(
           {
@@ -373,15 +370,13 @@ export class AppointmentNotificationsJobProcessor {
           };
 
           const platformCountry = isPlatformSmsCountry(phone);
-          const customVerified = platformCountry
-            ? (
-                await this.props.services.notificationService.getSmsMessagingAccess()
-              ).customVerified
-            : false;
+          const allowCustom = (
+            await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+          ).allowCustomTemplates;
 
           let smsBody: string;
           if (appointmentNotification.smsKind === "followUp") {
-            if (platformCountry && !customVerified) {
+            if (platformCountry && !allowCustom) {
               logger.info(
                 {
                   appId: appData._id,
@@ -426,7 +421,7 @@ export class AppointmentNotificationsJobProcessor {
               true,
             );
             const stored =
-              customVerified && appointmentNotification.templateId
+              allowCustom && appointmentNotification.templateId
                 ? await this.props.services.templatesService.getTemplate(
                     appointmentNotification.templateId,
                   )
@@ -434,7 +429,7 @@ export class AppointmentNotificationsJobProcessor {
             smsBody =
               stored?.type === "text-message"
                 ? templateSafeWithError(stored.value, smsArgs, true)
-                : customVerified
+                : allowCustom
                   ? builtIn
                   : appendSharedPoolSuffix(builtIn);
           } else {

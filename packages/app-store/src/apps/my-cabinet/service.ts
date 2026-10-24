@@ -425,7 +425,7 @@ export class MyCabinetConnectedApp
     }
 
     const smsConsent = customer.phone
-      ? await this.props.services.notificationService.hasActiveCustomerSmsConsent(
+      ? await this.props.services.smsConsentService.hasActiveCustomerSmsConsent(
           customer.phone,
         )
       : false;

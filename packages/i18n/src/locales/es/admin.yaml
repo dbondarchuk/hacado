@@ -2926,6 +2926,8 @@ settings:
         addGroup: Agregar grupo
         addService: Agregar servicio
         addPackage: Agregar paquete
+        group: Grupo
+        service: Servicio
         groupName: Nombre del grupo
         groupDescription: Breve descripción
         emptyGroup: Este grupo está vacío.
@@ -3140,6 +3142,10 @@ settings:
       pendingPrompt: La verificación de mensajes personalizados está en revisión.
       pendingAction: Ver sus datos
       disabled: Active los mensajes de texto antes de verificar un número dedicado.
+    customTemplate:
+      label: Plantilla de texto personalizada
+      tooltip: Opcional. Si selecciona una plantilla, los mensajes al cliente la usan en lugar del mensaje integrado.
+      renderFailed: No se pudo representar esta plantilla. Revise <link>su plantilla</link>.
     notifications:
       failed:
         title: Los mensajes personalizados no fueron aprobados
@@ -3232,20 +3238,19 @@ settings:
       error: Hubo un problema con su solicitud.
   customerAccess:
     title: Acceso de clientes
-    description: Plantillas OTP y canales de verificación para flujos de cara al cliente
+    description: Elija cómo reciben los clientes su código de acceso.
     form:
-      otpEmailTemplateId:
-        label: Plantilla de correo electrónico OTP
-      otpChannels:
-        label: Canal de verificación OTP
-        options:
-          email: Solo correo electrónico
-          phone: Sólo teléfono
-          email_or_phone: Correo electrónico o teléfono
-      smsDisabled: Los códigos por teléfono necesitan mensajes de texto. Mientras estén desactivados, el acceso de clientes usa el correo.
+      email:
+        label: Correo electrónico
+        description: Envía un código de un solo uso a la dirección de correo del cliente.
+        templateLabel: Plantilla de correo
+        templateDescription: Obligatoria. Este es el correo que recibe el cliente con su código.
+      phone:
+        label: Mensaje de texto
+        description: Envía un código de un solo uso al teléfono del cliente. Los mensajes de texto deben estar activados.
+        builtIn: Los clientes reciben un texto integrado con su código.
+      smsDisabled: Los códigos por teléfono necesitan mensajes de texto. Mientras estén desactivados, esta opción no está disponible y el acceso usa el correo.
       smsDisabledAction: Activar mensajes de texto
-      otpTextTemplateId:
-        label: Plantilla de mensaje de texto OTP
       toasts:
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.

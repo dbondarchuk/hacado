@@ -27,6 +27,8 @@ export type SmsMessagingAccess = {
   customVerified: boolean;
   canCustomize: boolean;
   platformBusiness: boolean;
+  /** Non-US/Canada businesses, or US/Canada businesses with verified details. */
+  allowCustomTemplates: boolean;
 };
 
 export type TextMessagingConfig = {

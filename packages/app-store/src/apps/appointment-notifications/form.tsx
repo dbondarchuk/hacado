@@ -23,7 +23,15 @@ import {
   toastPromise,
   use12HourFormat,
 } from "@hacado/ui";
-import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
+import {
+  CustomTextTemplateSelect,
+  renderBuiltInSms,
+  SaveButton,
+  SmsMessagePreview,
+  smsPreviewLanguage,
+  TemplateSelector,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin";
 import { TextMessageBuilder } from "@hacado/ui-admin-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DateTime } from "luxon";
@@ -31,12 +39,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {
-  renderBuiltInSms,
-  SmsExample,
-  smsPreviewLanguage,
-  useSmsPreviewArgs,
-} from "../../components/sms-example";
 import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { checkUniqueName, create, update } from "./actions";
 import { getAppointmentReminderSms } from "./messages";
@@ -127,6 +129,7 @@ export const AppointmentNotificationForm: React.FC<{
   const itemChannel = form.watch("channel");
   const appointmentCountType = form.watch("appointmentCount.type");
   const smsKind = form.watch("smsKind") ?? "reminder";
+  const textEnabled = form.watch("enabled") === true;
   const { allowCustom, sharedPool } = useSmsMessagingAccess();
 
   return (
@@ -506,8 +509,6 @@ export const AppointmentNotificationForm: React.FC<{
                 control={form.control}
                 name="enabled"
                 render={({ field }) => {
-                  const templateId = form.watch("templateId");
-                  const checked = field.value ?? Boolean(templateId);
                   return (
                     <FormItem className="flex flex-row items-center justify-between gap-4">
                       <div className="space-y-0.5">
@@ -518,7 +519,7 @@ export const AppointmentNotificationForm: React.FC<{
                       </div>
                       <FormControl>
                         <Switch
-                          checked={checked}
+                          checked={field.value === true}
                           disabled={loading}
                           onCheckedChange={(value) => field.onChange(value)}
                         />
@@ -527,82 +528,74 @@ export const AppointmentNotificationForm: React.FC<{
                   );
                 }}
               />
-              <FormField
-                control={form.control}
-                name="smsKind"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.textMessage.kind.label")}</FormLabel>
-                    <Select
-                      disabled={loading}
-                      value={
-                        !allowCustom && field.value === "followUp"
-                          ? "reminder"
-                          : (field.value ?? "reminder")
-                      }
-                      onValueChange={(value) => field.onChange(value)}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="reminder">
-                          {t("form.textMessage.kind.reminder")}
-                        </SelectItem>
-                        {allowCustom ? (
-                          <SelectItem value="followUp">
-                            {t("form.textMessage.kind.followUp")}
+              {textEnabled ? (
+                <FormField
+                  control={form.control}
+                  name="smsKind"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("form.textMessage.kind.label")}</FormLabel>
+                      <Select
+                        disabled={loading}
+                        value={
+                          !allowCustom && field.value === "followUp"
+                            ? "reminder"
+                            : (field.value ?? "reminder")
+                        }
+                        onValueChange={(value) => field.onChange(value)}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="reminder">
+                            {t("form.textMessage.kind.reminder")}
                           </SelectItem>
-                        ) : null}
-                      </SelectContent>
-                    </Select>
-                    {smsKind === "reminder" || !allowCustom ? (
-                      <>
+                          {allowCustom ? (
+                            <SelectItem value="followUp">
+                              {t("form.textMessage.kind.followUp")}
+                            </SelectItem>
+                          ) : null}
+                        </SelectContent>
+                      </Select>
+                      {smsKind === "reminder" || !allowCustom ? (
                         <FormDescription>
                           {t("form.textMessage.reminderDescription")}
                         </FormDescription>
-                        <SmsExample
-                          text={renderBuiltInSms(
-                            getAppointmentReminderSms(
-                              smsPreviewLanguage(messageArgs),
-                            ),
-                            messageArgs,
-                            sharedPool,
-                          )}
-                        />
-                      </>
-                    ) : null}
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {allowCustom && smsKind !== "followUp" ? (
-                <FormField
-                  control={form.control}
-                  name="templateId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        <span>{t("form.template.label")}</span>
-                        <InfoTooltip>{t("form.template.tooltip")}</InfoTooltip>
-                      </FormLabel>
-                      <FormControl>
-                        <TemplateSelector
-                          type="text-message"
-                          allowClear
-                          disabled={loading}
-                          value={field.value}
-                          onItemSelect={(value) => field.onChange(value)}
-                        />
-                      </FormControl>
+                      ) : null}
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               ) : null}
-              {allowCustom && smsKind === "followUp" && (
+              {textEnabled && allowCustom && smsKind !== "followUp" ? (
+                <FormField
+                  control={form.control}
+                  name="templateId"
+                  render={({ field }) => (
+                    <CustomTextTemplateSelect
+                      disabled={loading}
+                      value={field.value}
+                      onChange={(value) => field.onChange(value)}
+                    />
+                  )}
+                />
+              ) : null}
+              {textEnabled && (smsKind === "reminder" || !allowCustom) ? (
+                <SmsMessagePreview
+                  templateId={form.watch("templateId")}
+                  allowCustom={allowCustom && smsKind !== "followUp"}
+                  args={messageArgs}
+                  fallback={renderBuiltInSms(
+                    getAppointmentReminderSms(smsPreviewLanguage(messageArgs)),
+                    messageArgs,
+                    sharedPool,
+                  )}
+                />
+              ) : null}
+              {textEnabled && allowCustom && smsKind === "followUp" && (
                 <FormField
                   control={form.control}
                   name="followUpText"

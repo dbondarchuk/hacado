@@ -154,10 +154,10 @@ export const CatalogNodeCard: React.FC<{
         </button>
         <div className="flex-1 text-sm font-medium">
           {node.type === "group"
-            ? t("settings.appointments.form.options.addGroup")
+            ? t("settings.appointments.form.options.group")
             : node.type === "package"
               ? t("settings.appointments.form.options.package")
-              : t("settings.appointments.form.options.addService")}
+              : t("settings.appointments.form.options.service")}
         </div>
         <Button
           type="button"

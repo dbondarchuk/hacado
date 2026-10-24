@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   try {
     const result = await authService.verifyOtp({ email, phone, otp, ip });
     const smsConsent = result.phone
-      ? await servicesContainer.notificationService.hasActiveCustomerSmsConsent(
+      ? await servicesContainer.smsConsentService.hasActiveCustomerSmsConsent(
           result.phone,
         )
       : false;

@@ -6,6 +6,7 @@ import type {
 } from "@hacado/types";
 import { publishedPageUrl } from "@hacado/utils";
 import { BaseService } from "../services/base.service";
+import { readSmsMessagingAccess } from "./messaging-access";
 
 export class TextMessageConfigurationService
   extends BaseService
@@ -47,5 +48,9 @@ export class TextMessageConfigurationService
       privacyUrl: publishedPageUrl(websiteUrl, privacyPage),
       termsUrl: publishedPageUrl(websiteUrl, termsPage),
     };
+  }
+
+  public getSmsMessagingAccess() {
+    return readSmsMessagingAccess(this.organizationId);
   }
 }

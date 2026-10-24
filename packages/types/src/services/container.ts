@@ -23,6 +23,7 @@ import type { IPaymentsService } from "./payments.service";
 import type { IScheduleService } from "./schedule.service";
 import type { IServicesService } from "./services.service";
 import type { IShortLinksService } from "./short-links.service";
+import type { ISmsConsentService } from "./sms-consent.service";
 import type { ISyncedPaymentsService } from "./synced-payments.service";
 import type { ITeamService } from "./team.service";
 import type { ITemplatesService } from "./templates.service";
@@ -54,6 +55,7 @@ export type IServicesContainer = {
   billingService: IBillingService;
   customerAuthService: ICustomerAuthService;
   shortLinksService: IShortLinksService;
+  smsConsentService: ISmsConsentService;
   textMessageConfigurationService: ITextMessageConfigurationService;
   redisClient: Redis;
 };

@@ -25,6 +25,7 @@ import {
   CustomerEmailNotificationConfiguration,
   customerEmailNotificationConfigurationSchema,
   EmailTemplateKeys,
+  isCustomerEmailEnabled,
 } from "./models";
 import {
   CustomerEmailNotificationAdminAllKeys,
@@ -404,13 +405,29 @@ export default class CustomerEmailNotificationConnectedApp
           : status === "confirmed"
             ? "confirmedPackage"
             : null;
+
+      const packageChannel = packageTemplateKey
+        ? data.templates[packageTemplateKey]
+        : undefined;
+
       const packageTemplateId =
         packageTemplateKey &&
         isAppointmentCoveredByPackage(appointment) &&
-        data.templates[packageTemplateKey]?.templateId
-          ? data.templates[packageTemplateKey]?.templateId
+        isCustomerEmailEnabled(
+          packageChannel?.enabled,
+          packageChannel?.templateId,
+        )
+          ? packageChannel?.templateId
           : undefined;
-      const { templateId: statusTemplateId } = data.templates[status] ?? {};
+
+      const statusChannel = data.templates[status];
+      const statusTemplateId = isCustomerEmailEnabled(
+        statusChannel?.enabled,
+        statusChannel?.templateId,
+      )
+        ? statusChannel?.templateId
+        : undefined;
+
       const templateId = packageTemplateId ?? statusTemplateId;
       if (!templateId) {
         logger.warn(
@@ -420,73 +437,74 @@ export default class CustomerEmailNotificationConnectedApp
         return;
       }
 
-      if (!data.event.templateId) {
-        logger.warn(
+      const eventTemplateId = data.event?.templateId;
+      const includeEvent =
+        isCustomerEmailEnabled(data.event?.enabled, eventTemplateId) &&
+        Boolean(eventTemplateId);
+
+      let eventContent: ReturnType<typeof getEventCalendarContent> | undefined;
+
+      if (includeEvent && eventTemplateId) {
+        logger.debug(
+          {
+            appId: appData._id,
+            appointmentId: appointment._id,
+            eventTemplateId,
+          },
+          "Getting event template",
+        );
+
+        const eventTemplate =
+          await this.props.services.templatesService.getTemplate(
+            eventTemplateId,
+          );
+        if (!eventTemplate) {
+          logger.error(
+            {
+              appId: appData._id,
+              appointmentId: appointment._id,
+              eventTemplateId,
+            },
+            "Event template not found",
+          );
+          return;
+        }
+
+        if (eventTemplate.type !== "email") {
+          logger.warn(
+            {
+              appId: appData._id,
+              appointmentId: appointment._id,
+              eventTemplateId,
+            },
+            "Event template is not an email template, skipping email notification",
+          );
+          return;
+        }
+
+        logger.debug(
+          { appId: appData._id, appointmentId: appointment._id },
+          "Rendering event template",
+        );
+
+        const renderedEventTemplate = await renderToStaticMarkup({
+          document: eventTemplate.value,
+          args: args,
+        });
+
+        eventContent = getEventCalendarContent(
+          config.general,
+          appointment,
+          templateSafeWithError(eventTemplate.subject, args),
+          renderedEventTemplate,
+          forceRequest ? "REQUEST" : AppointmentStatusToICalMethodMap[status],
+        );
+
+        logger.debug(
           { appId: appData._id, appointmentId: appointment._id, status },
-          "No event template ID configured, skipping email notification",
+          "Generated event calendar content",
         );
-        return;
       }
-
-      logger.debug(
-        {
-          appId: appData._id,
-          appointmentId: appointment._id,
-          eventTemplateId: data.event.templateId,
-        },
-        "Getting event template",
-      );
-
-      const eventTemplate =
-        await this.props.services.templatesService.getTemplate(
-          data.event.templateId,
-        );
-      if (!eventTemplate) {
-        logger.error(
-          {
-            appId: appData._id,
-            appointmentId: appointment._id,
-            eventTemplateId: data.event.templateId,
-          },
-          "Event template not found",
-        );
-        return;
-      }
-
-      if (eventTemplate.type !== "email") {
-        logger.warn(
-          {
-            appId: appData._id,
-            appointmentId: appointment._id,
-            eventTemplateId: data.event.templateId,
-          },
-          "Event template is not an email template, skipping email notification",
-        );
-        return;
-      }
-
-      logger.debug(
-        { appId: appData._id, appointmentId: appointment._id },
-        "Rendering event template",
-      );
-
-      const renderedEventTemplate = await renderToStaticMarkup({
-        document: eventTemplate.value,
-        args: args,
-      });
-
-      const eventContent = getEventCalendarContent(
-        config.general,
-        appointment,
-        templateSafeWithError(eventTemplate.subject, args),
-        renderedEventTemplate,
-        forceRequest ? "REQUEST" : AppointmentStatusToICalMethodMap[status],
-      );
-
-      logger.debug(
-        { appId: appData._id, appointmentId: appointment._id, status },
-        "Generated event calendar content",
-      );
 
       logger.debug(
         {
@@ -539,12 +557,16 @@ export default class CustomerEmailNotificationConnectedApp
           to: appointment.fields.email,
           subject: templateSafeWithError(template.subject, args),
           body: renderedTemplate,
-          icalEvent: {
-            method: forceRequest
-              ? "REQUEST"
-              : AppointmentStatusToICalMethodMap[status],
-            content: eventContent,
-          },
+          ...(eventContent
+            ? {
+                icalEvent: {
+                  method: forceRequest
+                    ? "REQUEST"
+                    : AppointmentStatusToICalMethodMap[status],
+                  content: eventContent,
+                },
+              }
+            : {}),
         },
         handledBy:
           `app_customer-email-notification_admin.handlers.${initiator}` satisfies CustomerEmailNotificationAdminAllKeys,

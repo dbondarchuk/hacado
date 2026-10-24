@@ -16,7 +16,8 @@
     "./database": "./src/database/index.ts",
     "./billing": "./src/billing/index.ts",
     "./short-links": "./src/short-links/index.ts",
-    "./booking-tracking": "./src/booking-tracking/index.ts"
+    "./booking-tracking": "./src/booking-tracking/index.ts",
+    "./customer-auth-messages": "./src/customer-auth/messages/index.ts"
   },
   "devDependencies": {
     "@hacado/eslint-config": "*",

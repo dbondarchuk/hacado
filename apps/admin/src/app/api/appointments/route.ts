@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
   const confirmed = formData.get("confirmed") === "true";
   if (formData.get("smsConsent") === "true" && data.fields.phone) {
     const forwardedFor = request.headers.get("x-forwarded-for");
-    await servicesContainer.notificationService.recordCustomerSmsConsent({
+    await servicesContainer.smsConsentService.recordCustomerSmsConsent({
       phone: data.fields.phone,
       consented: true,
       source: "owner_attested",
@@ -170,6 +170,7 @@ export async function POST(request: NextRequest) {
   const option = await servicesContainer.servicesService.getOption(
     data.optionId,
   );
+
   if (!option) {
     logger.warn({ optionId: data.optionId }, "Option not found");
     return NextResponse.json(

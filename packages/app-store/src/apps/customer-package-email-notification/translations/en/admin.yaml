@@ -5,31 +5,48 @@ navigation:
   title: Customer package emails
 form:
   purchased:
+    enabled:
+      label: Send email when a package is purchased
+      description: Sent when a package is issued to a customer.
     templateId:
-      label: Purchased email template
-      description: Sent when a package is issued to a customer
+      label: Email template
+      description: The email customers receive when a package is issued.
+      required: Select an email template
   exhausted:
+    enabled:
+      label: Send email when a package is exhausted
+      description: Sent when all package credits are used.
     templateId:
-      label: Exhausted email template
-      description: Sent when all package credits are used
+      label: Email template
+      description: The email customers receive when all package credits are used.
+      required: Select an email template
   cancelled:
+    enabled:
+      label: Send email when a package is cancelled
+      description: Sent when an active package is cancelled.
     templateId:
-      label: Cancelled email template
-      description: Sent when an active package is cancelled
+      label: Email template
+      description: The email customers receive when an active package is cancelled.
+      required: Select an email template
   expired:
+    enabled:
+      label: Send email when a package expires
+      description: Sent when a package reaches its expiration date.
     templateId:
-      label: Expired email template
-      description: Sent when a package reaches its expiration date
+      label: Email template
+      description: The email customers receive when a package reaches its expiration date.
+      required: Select an email template
   expiringSoon:
     enabled:
-      label: Send expiring soon email
-      description: Notify customers before their package expires
+      label: Send email when a package is about to expire
+      description: Sent before a package expires.
     thresholdMinutes:
       label: Notify before expiration
-      description: How long before the package expires to send the reminder
+      description: How long before the package expires to send the reminder.
     templateId:
-      label: Expiring soon email template
-      description: Sent when a package is approaching its expiration date
+      label: Email template
+      description: The email customers receive before a package expires.
+      required: Select an email template
 statusText:
   successfully_set_up: Successfully set up
   error_processing_configuration: Error processing configuration
@@ -43,8 +60,8 @@ handlers:
 validation:
   emailTemplate:
     templateId:
-      required: Email template is required
-      min: Email template is required
+      required: Select an email template
+      min: Select an email template
   expiringSoon:
     thresholdMinutes:
       min: Choose how long before expiration to send the reminder

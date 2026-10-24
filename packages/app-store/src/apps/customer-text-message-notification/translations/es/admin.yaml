@@ -9,7 +9,8 @@ newDescription: Crear notificación de mensaje de texto de nuevo cliente
 editDescription: Actualizar notificación de mensaje de texto del cliente
 form:
   template:
-    label: Plantilla de texto
+    label: Plantilla de texto personalizada
+    tooltip: Opcional. Si selecciona una plantilla, los mensajes al cliente la usan en lugar del mensaje integrado.
   message:
     description:
       pending: Se envía cuando se crea una reserva que aún necesita confirmación. El texto incluye el negocio, el servicio y la hora, y un enlace para gestionarla cuando existe.

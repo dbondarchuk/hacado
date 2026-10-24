@@ -7,25 +7,33 @@ setup:
   update: Update <app></app>
   add: Add <app></app>
   form:
+    customerNewEntryEmail:
+      label: Send email on waitlist sign up
+      description: Sent when a customer joins the waitlist.
     customerNewEntryTemplateId:
-      label: Customer new entry email template
-      tooltip: Optional template for the email customers receive when they join the waitlist. Leave empty to skip sending.
+      label: Email template
+      tooltip: The email customers receive when they join the waitlist.
       placeholder: Template ID
+      required: Select an email template
     notifyOnSlotOpened:
       label: Notify when a desired slot opens
-      tooltip: Email and/or SMS customers on the waitlist when a matching time becomes free. Oldest request is offered first.
+      tooltip: Offer the oldest matching request when a time becomes free. Turn on email, text message, or both.
+    slotOpenedEmail:
+      label: Send email when a slot opens
+      description: Sent when a matching time becomes free and this request is next.
     slotOpenedEmailTemplateId:
-      label: Slot opened email template
-      tooltip: Email sent when a matching time opens. At least one of email or SMS is required when slot notifications are on.
+      label: Email template
+      tooltip: The email customers receive when a matching time opens.
+      required: Select an email template
     slotOpenedSmsTemplateId:
-      label: Slot opened SMS template
-      tooltip: SMS sent when a matching time opens. Include booking and leave links. Replies with the remove keyword leave this waitlist request.
+      label: Custom text template
+      tooltip: Optional. When a template is selected, the slot-opened text uses it instead of the built-in message.
     slotOpenedSms:
       label: Text when a slot opens
       description: Sent when a matching time becomes free and this request is next. The text names the business, service, and time, and includes a link to book.
     leaveWaitlistSmsTemplateId:
-      label: Leave confirmation SMS template
-      tooltip: Sent after the customer leaves via the link or the SMS keyword. Required when slot-opened SMS is set.
+      label: Custom text template
+      tooltip: Optional. When a template is selected, the leave confirmation uses it instead of the built-in message.
     leaveWaitlistSms:
       label: Text when they leave
       description: Sent after the customer leaves this request from the link or by texting the leave keyword.
@@ -48,7 +56,7 @@ setup:
       placeholder: REMOVE
       required: Enter a keyword customers can text to leave
     slotOpenedChannel:
-      required: Choose an email template, turn on a text, or both
+      required: Turn on email, text message, or both.
 handlers:
   newWaitlistEntry: Customer Waitlist Notification - New Entry
   slotOpened: Customer Waitlist Notification - Slot opened

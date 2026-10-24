@@ -47,7 +47,7 @@ export async function POST(
   const consented = json?.consented === true;
   const forwardedFor = request.headers.get("x-forwarded-for");
 
-  await services.notificationService.recordCustomerSmsConsent({
+  await services.smsConsentService.recordCustomerSmsConsent({
     phone,
     consented,
     source: "owner_attested",
@@ -55,7 +55,7 @@ export async function POST(
   });
 
   const status =
-    await services.notificationService.getCustomerSmsConsentStatus(phone);
+    await services.smsConsentService.getCustomerSmsConsentStatus(phone);
 
   logger.info(
     { customerId: id, consented: status.consented },

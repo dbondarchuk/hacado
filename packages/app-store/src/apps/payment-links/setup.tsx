@@ -30,16 +30,15 @@ import {
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
+  CustomTextTemplateSelect,
+  renderBuiltInSms,
+  SmsMessagePreview,
+  smsPreviewLanguage,
   TemplateSelector,
+  useSmsPreviewArgs,
 } from "@hacado/ui-admin";
 import { Plus, Trash2 } from "lucide-react";
 import React from "react";
-import {
-  renderBuiltInSms,
-  SmsExample,
-  smsPreviewLanguage,
-  useSmsPreviewArgs,
-} from "../../components/sms-example";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { PaymentLinksApp } from "./app";
@@ -338,16 +337,39 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                 return (
                   <FormItem className="flex w-full flex-row items-start justify-between gap-4 rounded-lg border p-4">
                     <div className="space-y-2">
-                      <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
+                      <FormLabel>{t("form.smsEnabled.label")}</FormLabel>
                       <FormDescription>
-                        {t("form.smsTemplateId.description")}
+                        {t("form.smsEnabled.description")}
                       </FormDescription>
-                      <SmsExample text={paymentSmsExample} />
+                      {field.value === true ? (
+                        <>
+                          {allowCustom ? (
+                            <FormField
+                              control={form.control}
+                              name="smsTemplateId"
+                              render={({ field: templateField }) => (
+                                <CustomTextTemplateSelect
+                                  loading={isDataLoading}
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onChange={templateField.onChange}
+                                />
+                              )}
+                            />
+                          ) : null}
+                          <SmsMessagePreview
+                            templateId={templateId}
+                            allowCustom={allowCustom}
+                            args={previewArgs}
+                            fallback={paymentSmsExample}
+                          />
+                        </>
+                      ) : null}
                       <FormMessage />
                     </div>
                     <FormControl>
                       <Switch
-                        checked={field.value ?? Boolean(templateId)}
+                        checked={field.value === true}
                         disabled={isLoading}
                         onCheckedChange={(value) => field.onChange(value)}
                       />
@@ -356,34 +378,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                 );
               }}
             />
-            {allowCustom ? (
-              <FormField
-                control={form.control}
-                name="smsTemplateId"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>{t("form.smsTemplateId.label")}</FormLabel>
-                    <FormDescription>
-                      {t("form.smsTemplateId.description")}
-                    </FormDescription>
-                    <FormControl>
-                      {isDataLoading ? (
-                        <Skeleton className="h-10 w-full" />
-                      ) : (
-                        <TemplateSelector
-                          type="text-message"
-                          allowClear
-                          disabled={isLoading}
-                          value={field.value}
-                          onItemSelect={(value) => field.onChange(value)}
-                        />
-                      )}
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ) : null}
             <FormField
               control={form.control}
               name="linkExpiryDays"

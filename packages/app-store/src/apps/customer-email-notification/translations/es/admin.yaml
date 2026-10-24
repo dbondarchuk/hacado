@@ -9,41 +9,77 @@ newDescription: Crear notificación por correo electrónico de nuevo cliente
 editDescription: Actualizar la notificación por correo electrónico del cliente
 form:
   pending:
+    enabled:
+      label: Enviar correo cuando una cita está pendiente
+      description: Se envía cuando un cliente solicita una cita y esta espera confirmación.
     templateId:
-      label: Plantilla de correo electrónico pendiente
-      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando solicitaron una cita y su cita está pendiente.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando una cita está pendiente.
+      required: Seleccione una plantilla de correo
   confirmed:
+    enabled:
+      label: Enviar correo cuando una cita se confirma
+      description: Se envía cuando una cita se confirma.
     templateId:
-      label: Plantilla de correo electrónico confirmada
-      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando se confirme su cita.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando una cita se confirma.
+      required: Seleccione una plantilla de correo
   pendingPackage:
+    enabled:
+      label: Enviar un correo distinto para citas de paquete pendientes
+      description: Se usa en lugar del correo pendiente cuando la cita está cubierta por un paquete.
     templateId:
-      label: Correo electrónico de cita de paquete pendiente (opcional)
-      description: Opcional. Se utiliza en lugar de la plantilla pendiente cuando la cita está cubierta por un paquete. Déjelo vacío para usar la plantilla pendiente normal.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes por una cita de paquete pendiente.
+      required: Seleccione una plantilla de correo
   confirmedPackage:
+    enabled:
+      label: Enviar un correo distinto para citas de paquete confirmadas
+      description: Se usa en lugar del correo confirmado cuando la cita está cubierta por un paquete.
     templateId:
-      label: Correo electrónico de cita de paquete confirmada (opcional)
-      description: Opcional. Se utiliza en lugar de la plantilla confirmada cuando la cita está cubierta por un paquete. Déjelo vacío para utilizar la plantilla confirmada habitual.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes por una cita de paquete confirmada.
+      required: Seleccione una plantilla de correo
   declined:
+    enabled:
+      label: Enviar correo cuando se rechaza una cita
+      description: Se envía cuando rechaza una solicitud de reserva.
     templateId:
-      label: Plantilla de correo electrónico rechazada
-      description: Enviado cuando rechazas una solicitud de reserva
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se rechaza una solicitud.
+      required: Seleccione una plantilla de correo
   canceled:
+    enabled:
+      label: Enviar correo cuando se cancela una cita
+      description: Se envía cuando el cliente cancela, o cuando registra la cita como cancelada por el cliente.
     templateId:
-      label: Plantilla de correo electrónico cancelada
-      description: Enviado cuando el cliente cancela, o cuando registra la cita como cancelada por el cliente
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se cancela una cita.
+      required: Seleccione una plantilla de correo
   noShow:
+    enabled:
+      label: Enviar correo cuando el cliente no se presenta
+      description: Se envía cuando marca al cliente como no presentado. Aún puede omitirlo en una cita concreta.
     templateId:
-      label: Plantilla de correo electrónico de no presentación
-      description: Opcional. Se envía cuando marcas al cliente como no presentado. Déjelo vacío para no enviar nada o marque "No notificar al cliente" en la cita.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se les marca como no presentados.
+      required: Seleccione una plantilla de correo
   rescheduled:
+    enabled:
+      label: Enviar correo cuando se reprograma una cita
+      description: Se envía cuando se reprograma una cita.
     templateId:
-      label: Plantilla de correo electrónico reprogramada
-      description: Plantilla de correo electrónico que se utilizará para enviar a los clientes cuando se reprogramó su cita.
+      label: Plantilla de correo
+      description: Correo que reciben los clientes cuando se reprograma una cita.
+      required: Seleccione una plantilla de correo
   calendarEventTemplate:
+    enabled:
+      label: Incluir un evento de calendario
+      description: Se añade al correo para que los clientes puedan guardar la cita en su calendario.
     templateId:
-      label: Plantilla de eventos de calendario
-      description: Contenido del evento, que tus clientes verán en su calendario
+      label: Plantilla del evento de calendario
+      description: Evento que los clientes ven en su calendario.
+      required: Seleccione una plantilla de evento de calendario
 statusText:
   email_app_not_configured: El remitente de correo electrónico predeterminado no está configurado
   successfully_set_up: Configurado exitosamente
@@ -66,14 +102,14 @@ validation:
       min: Se requiere resumen del evento
       max: El resumen del evento no debe tener más de 256 caracteres.
     templateId:
-      required: Se requiere plantilla de evento
-      min: Se requiere plantilla de evento
+      required: Seleccione una plantilla de evento de calendario
+      min: Seleccione una plantilla de evento de calendario
   emailTemplate:
     subject:
       required: El asunto del correo electrónico es obligatorio.
       min: El asunto del correo electrónico es obligatorio.
       max: El asunto del correo electrónico no debe tener más de 256 caracteres.
     templateId:
-      required: Se requiere plantilla de correo electrónico
-      min: Se requiere plantilla de correo electrónico
+      required: Seleccione una plantilla de correo
+      min: Seleccione una plantilla de correo
 

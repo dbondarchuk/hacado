@@ -80,6 +80,8 @@ form:
   template:
     label: Template
     tooltip: Appointment notification body, that your customers will see.
+    customLabel: Custom text template
+    customTooltip: Optional. When a template is selected, the reminder uses it instead of the built-in message.
   textMessage:
     label: Send text message
     description: Turn this on to text the customer at the time you set. Pick a reminder or write a follow-up.
@@ -87,7 +89,7 @@ form:
       label: Message
       reminder: Reminder
       followUp: Follow-up
-    reminderDescription: Sent at the time you set. United States and Canada numbers receive a built-in reminder with the business name, service, time, and a manage link when one exists.
+    reminderDescription: Sent at the time you set.
     followUp:
       label: Follow-up text
       description: Use the same variables as a text template, up to 300 characters. The unsubscribe line is added automatically.

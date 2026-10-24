@@ -286,9 +286,7 @@ export const appointmentNotificationSchema = z
     }
 
     const textMessageEnabled =
-      arg.channel === "text-message" &&
-      (arg.enabled === true ||
-        (arg.enabled == null && Boolean(arg.templateId)));
+      arg.channel === "text-message" && arg.enabled === true;
     if (
       textMessageEnabled &&
       arg.smsKind === "followUp" &&

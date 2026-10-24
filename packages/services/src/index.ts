@@ -34,6 +34,7 @@ import { ShortLinksService } from "./short-links";
 import { SyncedPaymentsService } from "./synced-payments.service";
 import { TeamService } from "./team.service";
 import { TemplatesService } from "./templates.service";
+import { SmsConsentService } from "./text-message/sms-consent.service";
 import { TextMessageConfigurationService } from "./text-message/text-message-configuration.service";
 
 // BullMQ exports
@@ -175,6 +176,7 @@ export const ServicesContainer: (
       redisClient,
     );
 
+    const smsConsentService = new SmsConsentService(organizationId);
     const textMessageConfigurationService = new TextMessageConfigurationService(
       organizationId,
       configurationService,
@@ -262,6 +264,7 @@ export const ServicesContainer: (
       billingService,
       customerAuthService,
       shortLinksService,
+      smsConsentService,
       textMessageConfigurationService,
       redisClient,
     };

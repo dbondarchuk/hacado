@@ -80,6 +80,8 @@ form:
   template:
     label: Plantilla
     tooltip: Cuerpo de notificación de citas, que verán tus clientes.
+    customLabel: Plantilla de texto personalizada
+    customTooltip: Opcional. Si selecciona una plantilla, el recordatorio la usa en lugar del mensaje integrado.
   textMessage:
     label: Enviar mensaje de texto
     description: Actívalo para enviar un texto al cliente a la hora que indiques. Elige un recordatorio o escribe un seguimiento.
@@ -87,7 +89,7 @@ form:
       label: Mensaje
       reminder: Recordatorio
       followUp: Seguimiento
-    reminderDescription: Se envía a la hora que indiques. Los números de Estados Unidos y Canadá reciben un recordatorio integrado con el negocio, el servicio, la hora y un enlace para gestionarla cuando existe.
+    reminderDescription: Se envía a la hora que indiques.
     followUp:
       label: Texto de seguimiento
       description: Usa las mismas variables que una plantilla de texto, hasta 300 caracteres. La línea para cancelar la suscripción se añade sola.

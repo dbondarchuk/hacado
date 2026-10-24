@@ -9,7 +9,7 @@ import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { SmsRegistrationStore } from "@hacado/services";
 import {
-  customerOtpAllowsPhone,
+  normalizeCustomerAuthConfiguration,
   type ConnectedApp,
   type INeedsAttentionApp,
   type NeedsAttentionItem,
@@ -130,11 +130,13 @@ async function collectCoreItems(
 
   if (hasPermission(user, "settings", "update")) {
     const organizationId = await getOrganizationId();
-    const [registration, customerAuth, smsEnabled] = await Promise.all([
+    const [registration, storedCustomerAuth, smsEnabled] = await Promise.all([
       new SmsRegistrationStore().get(organizationId),
       services.configurationService.getConfiguration("customerAuth"),
       services.textMessageConfigurationService.isEnabled(),
     ]);
+
+    const customerAuth = normalizeCustomerAuthConfiguration(storedCustomerAuth);
 
     if (registration?.status === "rejected") {
       const fingerprint = registration.rejectionReason || "rejected";
@@ -161,11 +163,8 @@ async function collectCoreItems(
       });
     }
 
-    if (
-      customerOtpAllowsPhone(customerAuth?.otpChannels ?? "email") &&
-      !smsEnabled
-    ) {
-      const fingerprint = customerAuth?.otpChannels ?? "phone";
+    if (customerAuth?.phoneEnabled === true && !smsEnabled) {
+      const fingerprint = "phone";
       items.push({
         id: "customer-otp-phone",
         fingerprint,

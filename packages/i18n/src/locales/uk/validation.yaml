@@ -291,10 +291,9 @@ configuration:
   customerAuth:
     otpEmailTemplateId:
       required: Потрібно обрати шаблон email для OTP
-    otpTextTemplateId:
-      required: Потрібно обрати шаблон SMS для OTP, якщо увімкнено OTP за телефоном
-    otpChannels:
-      required: Потрібно обрати канал підтвердження OTP
+    channel:
+      required: Потрібен принаймні один канал. Увімкніть електронну пошту, текстове повідомлення або обидва.
+    phoneRequiresTextMessaging: Увімкніть текстові повідомлення, перш ніж увімкнути коди телефоном.
   textMessaging:
     entityType:
       required: Потрібно обрати тип бізнесу

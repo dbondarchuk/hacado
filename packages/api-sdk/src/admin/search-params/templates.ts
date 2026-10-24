@@ -14,7 +14,7 @@ import { baseSearchParams } from "./base";
 export const templateSearchParams = {
   ...baseSearchParams,
   type: parseAsArrayOf(parseAsStringLiteral(communicationChannels)).withDefault(
-    [...communicationChannels.filter((channel) => channel !== "text-message")],
+    [...communicationChannels],
   ),
   sort: baseSearchParams.sort.withDefault([
     {

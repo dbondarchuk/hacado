@@ -57,7 +57,7 @@ export default class CustomerTextMessageNotificationConnectedApp
     );
     const templates = parsed.success ? parsed.data.templates : {};
     const notifications = Object.values(templates).some((item) =>
-      isSmsEnabled(item?.enabled, item?.templateId),
+      isSmsEnabled(item?.enabled),
     );
 
     return { notifications, reminders: false, other: false };
@@ -375,7 +375,7 @@ export default class CustomerTextMessageNotificationConnectedApp
     try {
       const data = appData.data as CustomerTextMessageNotificationConfiguration;
       const templateConfig = data.templates[status];
-      if (!isSmsEnabled(templateConfig?.enabled, templateConfig?.templateId)) {
+      if (!isSmsEnabled(templateConfig?.enabled)) {
         logger.warn(
           { appId: appData._id, appointmentId: appointment._id, status },
           "Text message disabled for status, skipping",
@@ -472,11 +472,9 @@ export default class CustomerTextMessageNotificationConnectedApp
       );
 
       let templatedBody: string;
-      const customVerified = isPlatformSmsCountry(phone)
-        ? (
-            await this.props.services.notificationService.getSmsMessagingAccess()
-          ).customVerified
-        : false;
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
 
       if (isPlatformSmsCountry(phone)) {
         const bodyTemplate = getCustomerTextMessageBodies(
@@ -486,14 +484,14 @@ export default class CustomerTextMessageNotificationConnectedApp
         const builtIn = template(bodyTemplate, args, true);
         const templateId = templateConfig?.templateId;
         const stored =
-          customVerified && templateId
+          allowCustom && templateId
             ? await this.props.services.templatesService.getTemplate(templateId)
             : null;
 
         templatedBody =
           stored?.type === "text-message"
             ? templateSafeWithError(stored.value as string, args, true)
-            : customVerified
+            : allowCustom
               ? builtIn
               : appendSharedPoolSuffix(builtIn);
       } else {

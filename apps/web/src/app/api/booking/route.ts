@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (typeof appointmentRequest.smsConsent === "boolean") {
-    await servicesContainer.notificationService.recordCustomerSmsConsent({
+    await servicesContainer.smsConsentService.recordCustomerSmsConsent({
       phone: appointmentRequest.fields.phone,
       consented: appointmentRequest.smsConsent,
       source: "web_form",

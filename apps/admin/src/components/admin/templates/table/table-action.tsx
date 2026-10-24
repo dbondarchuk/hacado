@@ -1,5 +1,6 @@
 "use client";
 
+import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
@@ -25,6 +26,7 @@ export function TemplatesTableAction() {
     setTypeFilter,
   } = useTemplatesTableFilters();
   const { rowSelection } = useSelectedRowsStore();
+  const allowTextTemplates = useCustomTextTemplatesAllowed();
 
   const additionalFilters = (
     <>
@@ -32,7 +34,7 @@ export function TemplatesTableAction() {
         filterKey="type"
         title={t("templates.table.filters.type")}
         options={communicationChannels
-          .filter((channel) => channel !== "text-message")
+          .filter((channel) => allowTextTemplates || channel !== "text-message")
           .map((channel) => ({
             value: channel,
             label: t(`common.labels.channel.${channel}`),

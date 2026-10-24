@@ -5,31 +5,48 @@ navigation:
   title: E-mails de colis client
 form:
   purchased:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un forfait est acheté"
+      description: "Envoyé lorsqu'un forfait est émis à un client."
     templateId:
-      label: Modèle d'e-mail acheté
-      description: Envoyé lorsqu'un colis est émis à un client
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un forfait est émis."
+      required: "Sélectionnez un modèle d'e-mail"
   exhausted:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un forfait est épuisé"
+      description: "Envoyé lorsque tous les crédits du forfait sont utilisés."
     templateId:
-      label: Modèle d'e-mail épuisé
-      description: Envoyé lorsque tous les crédits du forfait sont utilisés
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsque tous les crédits du forfait sont utilisés."
+      required: "Sélectionnez un modèle d'e-mail"
   cancelled:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un forfait est annulé"
+      description: "Envoyé lorsqu'un forfait actif est annulé."
     templateId:
-      label: Modèle d'e-mail annulé
-      description: Envoyé lorsqu'un forfait actif est annulé
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un forfait actif est annulé."
+      required: "Sélectionnez un modèle d'e-mail"
   expired:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un forfait expire"
+      description: "Envoyé lorsqu'un forfait atteint sa date d'expiration."
     templateId:
-      label: Modèle d'e-mail expiré
-      description: Envoyé lorsqu'un colis atteint sa date d'expiration
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un forfait atteint sa date d'expiration."
+      required: "Sélectionnez un modèle d'e-mail"
   expiringSoon:
     enabled:
-      label: Envoyer un email expirant bientôt
-      description: Avertir les clients avant l'expiration de leur forfait
+      label: "Envoyer un e-mail lorsqu'un forfait est sur le point d'expirer"
+      description: "Envoyé avant l'expiration d'un forfait."
     thresholdMinutes:
       label: Notifier avant expiration
-      description: Combien de temps avant l'expiration du colis pour envoyer le rappel
+      description: "Combien de temps avant l'expiration du forfait envoyer le rappel."
     templateId:
-      label: Modèle d'e-mail expirant bientôt
-      description: Envoyé lorsqu'un colis approche de sa date d'expiration
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent avant l'expiration d'un forfait."
+      required: "Sélectionnez un modèle d'e-mail"
 statusText:
   successfully_set_up: Configuration réussie
   error_processing_configuration: Configuration du traitement des erreurs
@@ -43,8 +60,8 @@ handlers:
 validation:
   emailTemplate:
     templateId:
-      required: Le modèle d'e-mail est requis
-      min: Le modèle d'e-mail est requis
+      required: "Sélectionnez un modèle d'e-mail"
+      min: "Sélectionnez un modèle d'e-mail"
   expiringSoon:
     thresholdMinutes:
       min: Choisissez combien de temps avant l'expiration envoyer le rappel

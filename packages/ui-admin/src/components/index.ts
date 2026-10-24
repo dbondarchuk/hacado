@@ -25,6 +25,7 @@ export * from "./page-selector-input";
 export * from "./promo-code-selector";
 export * from "./save-button";
 export * from "./scheduler";
+export * from "./sms-example";
 export * from "./sortable";
 export * from "./supports-markdown-tooltip";
 export * from "./template-selector";

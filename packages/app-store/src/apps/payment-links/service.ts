@@ -576,7 +576,7 @@ export class PaymentLinksConnectedApp
       "Sending SMS",
     );
 
-    const smsOn = isSmsEnabled(settings.smsEnabled, settings.smsTemplateId);
+    const smsOn = isSmsEnabled(settings.smsEnabled);
     if (!smsOn) {
       logger.error(
         { paymentId: payment._id, appId: appData._id },
@@ -598,12 +598,12 @@ export class PaymentLinksConnectedApp
         true,
       );
 
-      const customVerified = (
-        await this.props.services.notificationService.getSmsMessagingAccess()
-      ).customVerified;
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
 
       const stored =
-        customVerified && settings.smsTemplateId
+        allowCustom && settings.smsTemplateId
           ? await this.props.services.templatesService.getTemplate(
               settings.smsTemplateId,
             )
@@ -612,7 +612,7 @@ export class PaymentLinksConnectedApp
       body =
         stored?.type === "text-message"
           ? templateSafeWithError(stored.value as string, args, true)
-          : customVerified
+          : allowCustom
             ? builtIn
             : appendSharedPoolSuffix(builtIn);
     } else if (settings.smsTemplateId) {

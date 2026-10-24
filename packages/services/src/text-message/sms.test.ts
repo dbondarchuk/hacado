@@ -168,12 +168,10 @@ describe("resolveSender", () => {
 });
 
 describe("SMS enable switch", () => {
-  it("treats a saved template id as enabled when the switch is missing", () => {
-    assert.equal(isSmsEnabled(undefined, "template-1"), true);
-  });
-
-  it("does not send when the switch is off", () => {
-    assert.equal(isSmsEnabled(false, "template-1"), false);
+  it("sends only when the switch is on", () => {
+    assert.equal(isSmsEnabled(true), true);
+    assert.equal(isSmsEnabled(undefined), false);
+    assert.equal(isSmsEnabled(false), false);
   });
 });
 

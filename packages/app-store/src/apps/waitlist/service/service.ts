@@ -675,7 +675,7 @@ export class WaitlistConnectedApp
 
     const forwardedFor = request.headers.get("x-forwarded-for");
     if (typeof data.smsConsent === "boolean") {
-      await this.props.services.notificationService.recordCustomerSmsConsent({
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
         phone: data.phone,
         consented: data.smsConsent,
         source: "web_form",
@@ -843,7 +843,7 @@ export class WaitlistConnectedApp
     }
 
     if (smsConsent === true && customer.phone) {
-      await this.props.services.notificationService.recordCustomerSmsConsent({
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
         phone: customer.phone,
         consented: true,
         source: "owner_attested",

@@ -266,7 +266,7 @@ export default async function CustomerPage(props: Props) {
                       isDeleted={customer.isDeleted}
                       status={
                         customer.phone
-                          ? await servicesContainer.notificationService.getCustomerSmsConsentStatus(
+                          ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
                               customer.phone,
                             )
                           : { consented: false, optedOut: false }

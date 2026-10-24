@@ -279,10 +279,9 @@ configuration:
   customerAuth:
     otpEmailTemplateId:
       required: Le modèle d'e-mail OTP est requis
-    otpTextTemplateId:
-      required: Le modèle de message texte OTP est requis lorsque l'OTP du téléphone est activé
-    otpChannels:
-      required: Le canal de vérification OTP est requis
+    channel:
+      required: "Au moins un canal est requis. Activez l'e-mail, le message texte, ou les deux."
+    phoneRequiresTextMessaging: "Activez les messages texte avant d'activer les codes par téléphone."
   textMessaging:
     entityType:
       required: "Le type d'entreprise est requis"

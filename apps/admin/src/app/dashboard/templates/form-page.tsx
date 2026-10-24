@@ -1,5 +1,6 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { TemplateForm } from "@/components/admin/templates/form";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import { getI18nAsync } from "@hacado/i18n/server";
 import {
   CommunicationChannel,
@@ -104,6 +105,10 @@ export const TemplateFormPage: React.FC<
 
       template = possibleTemplate;
     }
+  }
+
+  if (type === "text-message" && !(await customTextTemplatesAllowed())) {
+    notFound();
   }
 
   const breadcrumbItems = [

@@ -214,23 +214,19 @@ export default class TextMessageAutoReplyConnectedApp
         member,
       });
 
-      if (
-        isSmsEnabled(appData.data?.enabled, appData.data?.autoReplyTemplateId)
-      ) {
+      if (isSmsEnabled(appData.data?.enabled)) {
         const replyText = appData.data?.replyText?.trim();
         const platformCountry = isPlatformSmsCountry(reply.from);
-        const customVerified = platformCountry
-          ? (
-              await this.props.services.notificationService.getSmsMessagingAccess()
-            ).customVerified
-          : false;
+        const allowCustom = (
+          await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+        ).allowCustomTemplates;
 
         let message: string | undefined;
-        if (platformCountry && !customVerified) {
+        if (platformCountry && !allowCustom) {
           message = appendSharedPoolSuffix(
             template(getAutoReplySms(config.brand.language), args, true),
           );
-        } else if (replyText && (!platformCountry || customVerified)) {
+        } else if (replyText && (!platformCountry || allowCustom)) {
           try {
             message = template(replyText, args, true);
           } catch (error) {

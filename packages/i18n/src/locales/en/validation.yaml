@@ -283,10 +283,9 @@ configuration:
   customerAuth:
     otpEmailTemplateId:
       required: OTP email template is required
-    otpTextTemplateId:
-      required: OTP text message template is required when phone OTP is enabled
-    otpChannels:
-      required: OTP verification channel is required
+    channel:
+      required: At least one channel is required. Turn on email, text message, or both.
+    phoneRequiresTextMessaging: Turn on text messaging before enabling phone codes.
   textMessaging:
     entityType:
       required: Business type is required

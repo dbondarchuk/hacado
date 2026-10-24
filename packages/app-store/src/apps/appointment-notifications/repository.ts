@@ -447,7 +447,8 @@ export class AppointmentNotificationsRepository {
       let reminders = false;
       let other = false;
       for (const doc of docs) {
-        if (!isSmsEnabled(doc.enabled, doc.templateId)) continue;
+        if (!isSmsEnabled(doc.enabled)) continue;
+
         if (doc.smsKind === "followUp") {
           other = true;
         } else if (doc.smsKind === "reminder") {

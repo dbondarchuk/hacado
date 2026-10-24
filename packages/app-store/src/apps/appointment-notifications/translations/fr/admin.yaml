@@ -80,6 +80,8 @@ form:
   template:
     label: Modèle
     tooltip: Corps de notification de rendez-vous, que vos clients verront.
+    customLabel: Modèle de message personnalisé
+    customTooltip: "Facultatif. Lorsqu'un modèle est sélectionné, le rappel l'utilise à la place du message intégré."
   textMessage:
     label: Envoyer un SMS
     description: "Activez cette option pour envoyer un SMS au client à l'heure choisie. Choisissez un rappel ou écrivez un suivi."
@@ -87,7 +89,7 @@ form:
       label: Message
       reminder: Rappel
       followUp: Suivi
-    reminderDescription: "Envoyé à l'heure choisie. Les numéros des États-Unis et du Canada reçoivent un rappel intégré avec l'entreprise, le service, l'heure et un lien de gestion lorsqu'il existe."
+    reminderDescription: "Envoyé à l'heure choisie."
     followUp:
       label: Texte de suivi
       description: "Utilisez les mêmes variables qu'un modèle de SMS, jusqu'à 300 caractères. La ligne de désabonnement est ajoutée automatiquement."

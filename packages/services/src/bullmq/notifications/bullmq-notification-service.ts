@@ -1,20 +1,15 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  CustomerSmsConsentStatus,
   Email,
   EmailNotificationRequest,
   INotificationService,
   ISystemNotificationService,
-  SmsConsentWrite,
   TextMessage,
   TextMessageNotificationRequest,
   TextMessageResponse,
   WithOrganizationId,
 } from "@hacado/types";
-import { normalizeToE164 } from "@hacado/utils";
 import { Job } from "bullmq";
-import { readSmsMessagingAccess } from "../../text-message/messaging-access";
-import { SmsStore } from "../../text-message/sms-store";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQNotificationConfig } from "./types";
 
@@ -78,56 +73,6 @@ export class BullMQNotificationService
     // this.createQueueEvents(this.config.queues.textMessage.name);
 
     logger.info("BullMQ notification queues initialized");
-  }
-
-  public async recordCustomerSmsConsent(input: SmsConsentWrite): Promise<void> {
-    const phone = normalizeToE164(input.phone);
-    if (!phone) {
-      return;
-    }
-
-    await new SmsStore().recordConsent({
-      organizationId: this.organizationId,
-      phone,
-      consented: input.consented,
-      source: input.source,
-      ip: input.ip,
-    });
-  }
-
-  public async hasActiveCustomerSmsConsent(phone: string): Promise<boolean> {
-    const normalized = normalizeToE164(phone);
-    if (!normalized) {
-      return false;
-    }
-
-    const store = new SmsStore();
-    if (await store.isOptedOut(normalized)) {
-      return false;
-    }
-
-    return store.latestConsent(this.organizationId, normalized);
-  }
-
-  public getSmsMessagingAccess() {
-    return readSmsMessagingAccess(this.organizationId);
-  }
-
-  public async getCustomerSmsConsentStatus(
-    phone: string,
-  ): Promise<CustomerSmsConsentStatus> {
-    const normalized = normalizeToE164(phone);
-    if (!normalized) {
-      return { consented: false, optedOut: false };
-    }
-
-    const store = new SmsStore();
-    const [consented, optedOut] = await Promise.all([
-      store.latestConsent(this.organizationId, normalized),
-      store.isOptedOut(normalized),
-    ]);
-
-    return { consented, optedOut };
   }
 
   public async sendEmail(data: EmailNotificationRequest): Promise<void> {

@@ -7,25 +7,33 @@ setup:
   update: Actualización <app></app>
   add: Agregar <app></app>
   form:
+    customerNewEntryEmail:
+      label: Enviar correo al unirse a la lista de espera
+      description: Se envía cuando un cliente se une a la lista de espera.
     customerNewEntryTemplateId:
-      label: Plantilla de correo electrónico de nueva entrada de cliente
-      tooltip: Plantilla opcional para el correo electrónico que reciben los clientes cuando se unen a la lista de espera. Déjelo vacío para omitir el envío.
+      label: Plantilla de correo
+      tooltip: Correo que reciben los clientes cuando se unen a la lista de espera.
       placeholder: ID de plantilla
+      required: Seleccione una plantilla de correo
     notifyOnSlotOpened:
-      label: Notificar cuando se abre una ranura deseada
-      tooltip: Envíe un correo electrónico o SMS a los clientes en la lista de espera cuando un tiempo coincidente esté libre. La solicitud más antigua se ofrece primero.
+      label: Notificar cuando se abre un horario deseado
+      tooltip: Ofrezca la solicitud coincidente más antigua cuando un horario quede libre. Active el correo, el mensaje de texto o ambos.
+    slotOpenedEmail:
+      label: Enviar correo cuando se abre un horario
+      description: Se envía cuando queda libre un horario que coincide y esta solicitud es la siguiente.
     slotOpenedEmailTemplateId:
-      label: Plantilla de correo electrónico con ranura abierta
-      tooltip: Correo electrónico enviado cuando se abre un horario coincidente. Se requiere al menos un correo electrónico o SMS cuando las notificaciones de espacios están activadas.
+      label: Plantilla de correo
+      tooltip: Correo que reciben los clientes cuando se abre un horario coincidente.
+      required: Seleccione una plantilla de correo
     slotOpenedSmsTemplateId:
-      label: Plantilla de SMS con ranura abierta
-      tooltip: SMS enviado cuando se abre un horario coincidente. Incluir reserva y dejar enlaces. Las respuestas con la palabra clave eliminar abandonan esta solicitud de lista de espera.
+      label: Plantilla de texto personalizada
+      tooltip: Opcional. Si selecciona una plantilla, el texto de horario libre la usa en lugar del mensaje integrado.
     slotOpenedSms:
       label: Texto cuando se abre un horario
       description: Se envía cuando queda libre un horario que coincide y esta solicitud es la siguiente. El texto incluye el negocio, el servicio, la hora y un enlace para reservar.
     leaveWaitlistSmsTemplateId:
-      label: Dejar plantilla de SMS de confirmación
-      tooltip: Enviado después de que el cliente se marcha a través del enlace o la palabra clave SMS. Requerido cuando se configura SMS con ranura abierta.
+      label: Plantilla de texto personalizada
+      tooltip: Opcional. Si selecciona una plantilla, la confirmación de salida la usa en lugar del mensaje integrado.
     leaveWaitlistSms:
       label: Texto cuando salen
       description: Se envía cuando el cliente abandona esta solicitud desde el enlace o respondiendo con la palabra clave de salida.
@@ -48,7 +56,7 @@ setup:
       placeholder: ELIMINAR
       required: Ingrese una palabra clave que los clientes puedan enviar por mensaje de texto para irse
     slotOpenedChannel:
-      required: Elige una plantilla de correo, activa un texto, o ambos
+      required: Active el correo, el mensaje de texto o ambos.
 handlers:
   newWaitlistEntry: "Notificación de lista de espera de clientes: nueva entrada"
   slotOpened: "Notificación de lista de espera de clientes: espacio abierto"

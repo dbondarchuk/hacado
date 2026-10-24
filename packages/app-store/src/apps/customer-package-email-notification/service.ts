@@ -43,6 +43,7 @@ import {
   customerPackageEmailNotificationConfigurationSchema,
   CustomerPackageEmailNotificationJobPayload,
   CustomerPackageEmailTemplateKeys,
+  isPackageEmailEnabled,
 } from "./models";
 import { CustomerPackageEmailNotificationTemplates } from "./templates";
 import {
@@ -132,25 +133,36 @@ export default class CustomerPackageEmailNotificationConnectedApp
       (appData.data as CustomerPackageEmailNotificationConfiguration) ??
       undefined;
 
+    const channelEnabled = (
+      key: Exclude<CustomerPackageEmailTemplateKeys, "expiringSoon">,
+    ) => {
+      const enabled = current?.templates?.[key]?.enabled;
+      return typeof enabled === "boolean" ? enabled : true;
+    };
+
     await this.props.update({
       data: {
         templates: {
           purchased: {
+            enabled: channelEnabled("purchased"),
             templateId:
               templateIds.purchased ??
               current?.templates?.purchased?.templateId,
           },
           exhausted: {
+            enabled: channelEnabled("exhausted"),
             templateId:
               templateIds.exhausted ??
               current?.templates?.exhausted?.templateId,
           },
           cancelled: {
+            enabled: channelEnabled("cancelled"),
             templateId:
               templateIds.cancelled ??
               current?.templates?.cancelled?.templateId,
           },
           expired: {
+            enabled: channelEnabled("expired"),
             templateId:
               templateIds.expired ?? current?.templates?.expired?.templateId,
           },
@@ -552,11 +564,16 @@ export default class CustomerPackageEmailNotificationConnectedApp
 
       const data =
         appData.data as CustomerPackageEmailNotificationConfiguration;
-      const templateId =
+      const channel =
+        kind === "expiringSoon" ? data?.expiringSoon : data?.templates?.[kind];
+
+      const templateId = channel?.templateId;
+      const enabled =
         kind === "expiringSoon"
-          ? data?.expiringSoon?.templateId
-          : data?.templates?.[kind]?.templateId;
-      if (!templateId) {
+          ? channel?.enabled === true
+          : isPackageEmailEnabled(channel?.enabled, templateId);
+
+      if (!enabled || !templateId) {
         logger.warn({ kind }, "No template configured for package email");
         return;
       }

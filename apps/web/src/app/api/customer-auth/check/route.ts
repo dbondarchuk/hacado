@@ -27,7 +27,7 @@ export async function GET() {
   }
 
   const smsConsent = customer.phone
-    ? await servicesContainer.notificationService.hasActiveCustomerSmsConsent(
+    ? await servicesContainer.smsConsentService.hasActiveCustomerSmsConsent(
         customer.phone,
       )
     : false;

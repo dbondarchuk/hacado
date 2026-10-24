@@ -1,4 +1,5 @@
 "use client";
+import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CommunicationChannel, communicationChannels } from "@hacado/types";
@@ -25,6 +26,7 @@ import React, { useMemo } from "react";
 
 export const AddNewTemplateButton: React.FC = () => {
   const t = useI18n("admin");
+  const allowTextTemplates = useCustomTextTemplatesAllowed();
   const [type, setType] = React.useState<CommunicationChannel>("email");
   const [template, setTemplate] = React.useState<string>("");
   const [availableTemplates, setAvailableTemplates] = React.useState<
@@ -98,7 +100,10 @@ export const AddNewTemplateButton: React.FC = () => {
                 </SelectTrigger>
                 <SelectContent side="bottom">
                   {communicationChannels
-                    .filter((channel) => channel !== "text-message")
+                    .filter(
+                      (channel) =>
+                        allowTextTemplates || channel !== "text-message",
+                    )
                     .map((channel) => (
                       <SelectItem key={channel} value={channel}>
                         {t(`common.labels.channel.${channel}`)}

@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus, templateSchema } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -70,6 +71,13 @@ export async function PUT(
     return NextResponse.json(
       { error: error.message, code: "invalid_request", success: false },
       { status: 400 },
+    );
+  }
+
+  if (data.type === "text-message" && !(await customTextTemplatesAllowed())) {
+    return NextResponse.json(
+      { error: "Forbidden", code: "forbidden", success: false },
+      { status: 403 },
     );
   }
 

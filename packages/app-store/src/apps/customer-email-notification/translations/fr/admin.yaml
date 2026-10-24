@@ -9,41 +9,77 @@ newDescription: Créer une nouvelle notification par e-mail client
 editDescription: Mettre à jour la notification par e-mail du client
 form:
   pending:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un rendez-vous est en attente"
+      description: "Envoyé lorsqu'un client demande un rendez-vous et qu'il attend une confirmation."
     templateId:
-      label: Modèle d'e-mail en attente
-      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsqu'ils ont demandé un rendez-vous et que leur rendez-vous est en attente
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un rendez-vous est en attente."
+      required: "Sélectionnez un modèle d'e-mail"
   confirmed:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un rendez-vous est confirmé"
+      description: "Envoyé lorsqu'un rendez-vous est confirmé."
     templateId:
-      label: Modèle d'e-mail confirmé
-      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsque leur rendez-vous a été confirmé
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un rendez-vous est confirmé."
+      required: "Sélectionnez un modèle d'e-mail"
   pendingPackage:
+    enabled:
+      label: "Envoyer un e-mail différent pour les rendez-vous de forfait en attente"
+      description: "Utilisé à la place de l'e-mail en attente lorsque le rendez-vous est couvert par un forfait."
     templateId:
-      label: E-mail de rendez-vous pour le forfait en attente (facultatif)
-      description: Facultatif. Utilisé à la place du modèle en attente lorsque le rendez-vous est couvert par un forfait. Laissez vide pour utiliser le modèle en attente normal.
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent pour un rendez-vous de forfait en attente."
+      required: "Sélectionnez un modèle d'e-mail"
   confirmedPackage:
+    enabled:
+      label: "Envoyer un e-mail différent pour les rendez-vous de forfait confirmés"
+      description: "Utilisé à la place de l'e-mail confirmé lorsque le rendez-vous est couvert par un forfait."
     templateId:
-      label: E-mail de rendez-vous confirmé pour le forfait (facultatif)
-      description: Facultatif. Utilisé à la place du modèle confirmé lorsque le rendez-vous est couvert par un forfait. Laissez vide pour utiliser le modèle confirmé habituel.
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent pour un rendez-vous de forfait confirmé."
+      required: "Sélectionnez un modèle d'e-mail"
   declined:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un rendez-vous est refusé"
+      description: "Envoyé lorsque vous refusez une demande de réservation."
     templateId:
-      label: Modèle d'e-mail refusé
-      description: Envoyé lorsque vous refusez une demande de réservation
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'une demande est refusée."
+      required: "Sélectionnez un modèle d'e-mail"
   canceled:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un rendez-vous est annulé"
+      description: "Envoyé lorsque le client annule, ou lorsque vous enregistrez le rendez-vous comme annulé par le client."
     templateId:
-      label: Modèle d'e-mail annulé
-      description: Envoyé lorsque le client annule ou lorsque vous enregistrez le rendez-vous comme annulé par le client
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un rendez-vous est annulé."
+      required: "Sélectionnez un modèle d'e-mail"
   noShow:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un client ne se présente pas"
+      description: "Envoyé lorsque vous marquez le client comme non-présenté. Vous pouvez encore l'ignorer pour un rendez-vous."
     templateId:
-      label: Modèle d'e-mail de non-présentation
-      description: Facultatif. Envoyé lorsque vous marquez le client comme non-présenté. Laissez vide pour ne rien envoyer, ou cochez « Ne pas informer le client » sur le rendez-vous.
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'ils sont marqués comme non-présentés."
+      required: "Sélectionnez un modèle d'e-mail"
   rescheduled:
+    enabled:
+      label: "Envoyer un e-mail lorsqu'un rendez-vous est reporté"
+      description: "Envoyé lorsqu'un rendez-vous est reporté."
     templateId:
-      label: Modèle d'e-mail reprogrammé
-      description: Modèle d'e-mail qui sera utilisé pour envoyer aux clients lorsque leur rendez-vous a été reprogrammé
+      label: "Modèle d'e-mail"
+      description: "E-mail que les clients reçoivent lorsqu'un rendez-vous est reporté."
+      required: "Sélectionnez un modèle d'e-mail"
   calendarEventTemplate:
+    enabled:
+      label: Inclure un événement de calendrier
+      description: "Ajouté à l'e-mail pour que les clients puissent enregistrer le rendez-vous dans leur calendrier."
     templateId:
-      label: Modèle d'événement de calendrier
-      description: Contenu de l'événement, que vos clients verront dans leur calendrier
+      label: "Modèle d'événement de calendrier"
+      description: "Événement que les clients voient dans leur calendrier."
+      required: "Sélectionnez un modèle d'événement de calendrier"
 statusText:
   email_app_not_configured: L'expéditeur d'e-mail par défaut n'est pas configuré
   successfully_set_up: Configuration réussie
@@ -66,14 +102,14 @@ validation:
       min: Un résumé de l'événement est requis
       max: Le résumé de l'événement ne doit pas dépasser 256 caractères
     templateId:
-      required: Le modèle d'événement est requis
-      min: Le modèle d'événement est requis
+      required: "Sélectionnez un modèle d'événement de calendrier"
+      min: "Sélectionnez un modèle d'événement de calendrier"
   emailTemplate:
     subject:
       required: L'objet de l'e-mail est obligatoire
       min: L'objet de l'e-mail est obligatoire
       max: L'objet de l'e-mail ne doit pas comporter plus de 256 caractères
     templateId:
-      required: Le modèle d'e-mail est requis
-      min: Le modèle d'e-mail est requis
+      required: "Sélectionnez un modèle d'e-mail"
+      min: "Sélectionnez un modèle d'e-mail"
 

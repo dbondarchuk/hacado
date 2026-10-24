@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { BaseAllKeys } from "@hacado/i18n";
 import type {
   CustomerAuthConfiguration,
+  CustomerOtpChannels,
   CustomerSession,
   CustomerSessionPayload,
   ICustomerAuthService,
@@ -20,6 +21,8 @@ import {
   CustomerAuthError,
   customerOtpAllowsEmail,
   customerOtpAllowsPhone,
+  normalizeCustomerAuthConfiguration,
+  resolveCustomerOtpChannels,
 } from "@hacado/types";
 import {
   getAdminUrl,
@@ -96,7 +99,6 @@ export class CustomerAuthService
     }
 
     const config = await this.getCustomerAuthConfig();
-    const storedChannels = config.otpChannels ?? "email";
     const otpChannels = await this.effectiveOtpChannels(config);
 
     if (channel === "email" && !customerOtpAllowsEmail(otpChannels)) {
@@ -144,7 +146,7 @@ export class CustomerAuthService
 
     if (
       channel === "email" &&
-      !customerOtpAllowsEmail(storedChannels) &&
+      !config.emailEnabled &&
       !config.otpEmailTemplateId
     ) {
       logger.info(
@@ -401,26 +403,29 @@ export class CustomerAuthService
 
   private async effectiveOtpChannels(
     config: CustomerAuthConfiguration,
-  ): Promise<CustomerAuthConfiguration["otpChannels"]> {
-    const channels = config.otpChannels ?? "email";
-    if (!customerOtpAllowsPhone(channels)) return channels;
+  ): Promise<CustomerOtpChannels> {
+    const smsEnabled = config.phoneEnabled
+      ? await this.services.textMessageConfigurationService.isEnabled()
+      : false;
 
-    const smsEnabled =
-      await this.services.textMessageConfigurationService.isEnabled();
-    if (smsEnabled) return channels;
-
-    return "email";
+    return resolveCustomerOtpChannels({
+      emailEnabled: config.emailEnabled,
+      phoneEnabled: config.phoneEnabled,
+      smsEnabled,
+    });
   }
 
   private async getCustomerAuthConfig(): Promise<CustomerAuthConfiguration> {
     const logger = this.loggerFactory("getCustomerAuthConfig");
-    const config =
+    const stored =
       await this.services.configurationService.getConfiguration("customerAuth");
+    const config = normalizeCustomerAuthConfiguration(stored);
 
     logger.debug(
       {
         hasEmailTemplate: !!config.otpEmailTemplateId,
-        otpChannels: config.otpChannels ?? "email",
+        emailEnabled: config.emailEnabled,
+        phoneEnabled: config.phoneEnabled,
         hasTextTemplate: !!config.otpTextTemplateId,
       },
       "Customer auth configuration loaded",
@@ -481,9 +486,24 @@ export class CustomerAuthService
     const logger = this.loggerFactory("sendOtpText");
     logger.debug({ customerId }, "Sending OTP text message");
 
+    const access =
+      await this.services.textMessageConfigurationService.getSmsMessagingAccess();
+    const templateId = access.allowCustomTemplates
+      ? config.otpTextTemplateId
+      : undefined;
+
+    const stored = templateId
+      ? await this.services.templatesService.getTemplate(templateId)
+      : null;
+
+    const body =
+      stored?.type === "text-message" && typeof stored.value === "string"
+        ? templateSafeWithError(stored.value, args, true)
+        : template(getCustomerOtpSms(args.locale ?? "en"), args, true);
+
     await this.services.notificationService.sendTextMessage({
       phone,
-      body: template(getCustomerOtpSms(args.locale ?? "en"), args, true),
+      body,
       handledBy:
         "admin.settings.customerAccess.handlers.otpRequest" satisfies BaseAllKeys,
       participantType: "customer",

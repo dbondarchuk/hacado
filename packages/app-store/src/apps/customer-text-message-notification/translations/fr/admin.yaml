@@ -9,7 +9,8 @@ newDescription: Créer une nouvelle notification par SMS client
 editDescription: Mettre à jour la notification par SMS du client
 form:
   template:
-    label: Modèle de texto
+    label: Modèle de message personnalisé
+    tooltip: "Facultatif. Lorsqu'un modèle est sélectionné, les messages au client l'utilisent à la place du message intégré."
   message:
     description:
       pending: "Envoyé quand une réservation est créée et attend encore une confirmation. Le texte indique l'entreprise, le service et l'heure, et un lien de gestion lorsqu'il existe."

@@ -1,7 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
   BillingPlanTier,
-  CustomerSmsConsentStatus,
   Email,
   EmailNotificationRequest,
   EmailResponse,
@@ -39,7 +38,6 @@ import {
   shouldSkipDuplicateSend,
 } from "./text-message/compliance";
 import { SmsTransientError } from "./text-message/errors";
-import { readSmsMessagingAccess } from "./text-message/messaging-access";
 import { consumeSmsPlatformLimit } from "./text-message/rate-limit";
 import { SmsRegistrationStore } from "./text-message/registration-store";
 import { SmsStore } from "./text-message/sms-store";
@@ -70,62 +68,6 @@ export class NotificationService implements INotificationService {
     private readonly smsStore: SmsStore = new SmsStore(),
     private readonly registrationStore: SmsRegistrationStore = new SmsRegistrationStore(),
   ) {}
-
-  public async getSmsMessagingAccess(): Promise<{
-    customVerified: boolean;
-    canCustomize: boolean;
-  }> {
-    return readSmsMessagingAccess(this.organizationId, this.registrationStore);
-  }
-
-  public async recordCustomerSmsConsent(input: {
-    phone: string;
-    consented: boolean;
-    source: "web_form" | "owner_attested";
-    ip?: string;
-  }): Promise<void> {
-    const phone = normalizeToE164(input.phone);
-    if (!phone) {
-      return;
-    }
-
-    await this.smsStore.recordConsent({
-      organizationId: this.organizationId,
-      phone,
-      consented: input.consented,
-      source: input.source,
-      ip: input.ip,
-    });
-  }
-
-  public async hasActiveCustomerSmsConsent(phone: string): Promise<boolean> {
-    const normalized = normalizeToE164(phone);
-    if (!normalized) {
-      return false;
-    }
-
-    if (await this.smsStore.isOptedOut(normalized)) {
-      return false;
-    }
-
-    return this.smsStore.latestConsent(this.organizationId, normalized);
-  }
-
-  public async getCustomerSmsConsentStatus(
-    phone: string,
-  ): Promise<CustomerSmsConsentStatus> {
-    const normalized = normalizeToE164(phone);
-    if (!normalized) {
-      return { consented: false, optedOut: false };
-    }
-
-    const [consented, optedOut] = await Promise.all([
-      this.smsStore.latestConsent(this.organizationId, normalized),
-      this.smsStore.isOptedOut(normalized),
-    ]);
-
-    return { consented, optedOut };
-  }
 
   public async sendEmail(props: EmailNotificationRequest): Promise<void> {
     const { email, handledBy, participantType, appointmentId, customerId } =
@@ -321,7 +263,8 @@ export class NotificationService implements INotificationService {
         "No app-based text message sender app is configured, using default text message sender service",
       );
 
-      const access = await this.getSmsMessagingAccess();
+      const access =
+        await this.textMessageConfigurationService.getSmsMessagingAccess();
       const dedicated = access.customVerified
         ? await this.registrationStore.getAssignedProfileNumber(
             this.organizationId,

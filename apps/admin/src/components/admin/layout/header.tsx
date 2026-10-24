@@ -41,7 +41,7 @@ export default async function Header({}: {}) {
             variant="outline"
             className="inline-flex items-center gap-1.5 rounded-full border-border/70 text-muted-foreground hover:text-foreground"
           >
-            <Globe2 size={16} strokeWidth={1.5} />{" "}
+            <Globe2 strokeWidth={1.5} className="size-4 shrink-0" />
             <span className="hidden md:inline text-sm leading-none">
               {t("navigation.viewWebsite")}
             </span>

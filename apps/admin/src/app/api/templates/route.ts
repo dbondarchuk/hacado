@@ -1,4 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import { templateSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { templateSchema } from "@hacado/types";
@@ -26,7 +27,10 @@ export async function GET(request: NextRequest) {
   const search = params.search ?? undefined;
   const limit = params.limit;
   const sort = params.sort;
-  const type = params.type ?? undefined;
+  const allowTextTemplates = await customTextTemplatesAllowed();
+  const type = (params.type ?? []).filter(
+    (channel) => allowTextTemplates || channel !== "text-message",
+  );
 
   const offset = (page - 1) * limit;
 
@@ -47,7 +51,7 @@ export async function GET(request: NextRequest) {
     limit,
     search,
     sort,
-    type,
+    type: type.length > 0 ? type : ["email"],
   });
 
   logger.debug(
@@ -82,6 +86,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: error.message, code: "invalid_request", success: false },
       { status: 400 },
+    );
+  }
+
+  if (data.type === "text-message" && !(await customTextTemplatesAllowed())) {
+    return NextResponse.json(
+      { error: "Forbidden", code: "forbidden", success: false },
+      { status: 403 },
     );
   }
 

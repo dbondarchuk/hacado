@@ -266,9 +266,10 @@ async function ensureInstallCustomerOtpTemplates(
   await services.configurationService.setConfiguration(
     "customerAuth",
     {
+      emailEnabled: true,
+      phoneEnabled: false,
       otpEmailTemplateId,
       otpTextTemplateId,
-      otpChannels: "email",
     },
     systemEventSource,
   );

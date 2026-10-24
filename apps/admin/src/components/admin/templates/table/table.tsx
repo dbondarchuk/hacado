@@ -1,4 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
+import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import {
   templateSearchParams,
   templateSearchParamsCache,
@@ -11,9 +12,10 @@ export const TemplatesTable: React.FC = async () => {
   const search = templateSearchParamsCache.get("search") || undefined;
   const limit = templateSearchParamsCache.get("limit");
   const sort = templateSearchParamsCache.get("sort");
+  const allowTextTemplates = await customTextTemplatesAllowed();
   const type = templateSearchParamsCache
     .get("type")
-    ?.filter((channel) => channel !== "text-message");
+    ?.filter((channel) => allowTextTemplates || channel !== "text-message");
 
   const offset = (page - 1) * limit;
 

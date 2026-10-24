@@ -2926,6 +2926,8 @@ settings:
         addGroup: Ajouter un groupe
         addService: Ajouter un service
         addPackage: Ajouter un paquet
+        group: Groupe
+        service: Service
         groupName: Nom du groupe
         groupDescription: Brève description
         emptyGroup: Ce groupe est vide
@@ -3140,6 +3142,10 @@ settings:
       pendingPrompt: "La vérification des messages personnalisés est en révision."
       pendingAction: Voir vos renseignements
       disabled: "Activez les messages texte avant de faire vérifier un numéro dédié."
+    customTemplate:
+      label: Modèle de message personnalisé
+      tooltip: "Facultatif. Lorsqu'un modèle est sélectionné, les messages au client l'utilisent à la place du message intégré."
+      renderFailed: "Le rendu de ce modèle a échoué. Veuillez vérifier <link>votre modèle</link>."
     notifications:
       failed:
         title: "Les messages personnalisés n'ont pas été approuvés"
@@ -3232,20 +3238,19 @@ settings:
       error: Il y a eu un problème avec votre demande.
   customerAccess:
     title: Accès client
-    description: Modèles OTP et canaux de vérification pour les flux orientés client
+    description: Choisissez comment les clients reçoivent leur code de connexion.
     form:
-      otpEmailTemplateId:
-        label: Modèle d'e-mail OTP
-      otpChannels:
-        label: Canal de vérification OTP
-        options:
-          email: E-mail uniquement
-          phone: Téléphone uniquement
-          email_or_phone: Email ou téléphone
-      smsDisabled: "Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, la connexion client utilise le courriel."
+      email:
+        label: E-mail
+        description: Envoyez un code à usage unique à l'adresse e-mail du client.
+        templateLabel: Modèle d'e-mail
+        templateDescription: "Obligatoire. C'est l'e-mail que le client reçoit avec son code."
+      phone:
+        label: Message texte
+        description: "Envoyez un code à usage unique au numéro de téléphone du client. Les messages texte doivent être activés."
+        builtIn: Les clients reçoivent un message intégré avec leur code.
+      smsDisabled: "Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, cette option reste indisponible et la connexion utilise le courriel."
       smsDisabledAction: Activer les messages texte
-      otpTextTemplateId:
-        label: Modèle de message texte OTP
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.

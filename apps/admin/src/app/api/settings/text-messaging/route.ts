@@ -2,7 +2,6 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { requiresSmsVerification } from "@hacado/services";
 import {
   BillingPlanTier,
   meetsMinimumPlanTier,
@@ -25,15 +24,10 @@ export async function GET() {
   }
 
   const services = await getServicesContainer();
-  const [access, general] = await Promise.all([
-    services.notificationService.getSmsMessagingAccess(),
-    services.configurationService.getConfiguration("general"),
-  ]);
+  const access =
+    await services.textMessageConfigurationService.getSmsMessagingAccess();
 
-  return NextResponse.json({
-    ...access,
-    platformBusiness: requiresSmsVerification(general.country),
-  });
+  return NextResponse.json(access);
 }
 
 export async function POST(request: NextRequest) {

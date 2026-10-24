@@ -16,15 +16,13 @@ import {
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
-import { TextMessageBuilder } from "@hacado/ui-admin-kit";
-import React from "react";
-import {
   renderBuiltInSms,
   SmsExample,
   smsPreviewLanguage,
   useSmsPreviewArgs,
-} from "../../components/sms-example";
+} from "@hacado/ui-admin";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { TextMessageAutoReplyApp } from "./app";
@@ -97,7 +95,6 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
                 control={form.control}
                 name="enabled"
                 render={({ field }) => {
-                  const templateId = form.watch("autoReplyTemplateId");
                   return (
                     <FormItem className="flex flex-row items-start justify-between gap-4">
                       <div className="space-y-2">
@@ -108,7 +105,7 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
                       </div>
                       <FormControl>
                         <Switch
-                          checked={field.value ?? Boolean(templateId)}
+                          checked={field.value === true}
                           disabled={isLoading}
                           onCheckedChange={(value) => field.onChange(value)}
                         />
@@ -117,23 +114,25 @@ export const TextMessageAutoReplyAppSetup: React.FC<AppSetupProps> = ({
                   );
                 }}
               />
-              {allowCustom ? (
-                <FormField
-                  control={form.control}
-                  name="replyText"
-                  render={({ field }) => (
-                    <TextMessageBuilder args={messageArgs} field={field} />
-                  )}
-                />
-              ) : (
-                <SmsExample
-                  text={renderBuiltInSms(
-                    getAutoReplySms(smsPreviewLanguage(previewArgs)),
-                    messageArgs,
-                    sharedPool,
-                  )}
-                />
-              )}
+              {form.watch("enabled") === true ? (
+                allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name="replyText"
+                    render={({ field }) => (
+                      <TextMessageBuilder args={messageArgs} field={field} />
+                    )}
+                  />
+                ) : (
+                  <SmsExample
+                    text={renderBuiltInSms(
+                      getAutoReplySms(smsPreviewLanguage(previewArgs)),
+                      messageArgs,
+                      sharedPool,
+                    )}
+                  />
+                )
+              ) : null}
             </div>
             <Button
               disabled={isLoading || !isValid}

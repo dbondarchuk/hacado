@@ -60,6 +60,7 @@ import {
   CustomerWaitlistNotificationsConfiguration,
   CustomerWaitlistNotificationsJobPayload,
   customerWaitlistNotificationsConfigurationSchema,
+  isWaitlistEmailEnabled,
 } from "./models";
 import { matchesSmsRemoveKeyword } from "./slot-match";
 import { CustomerWaitlistNotificationsTemplates } from "./templates";
@@ -112,15 +113,12 @@ export class CustomerWaitlistNotificationsConnectedApp
       {}) as Partial<CustomerWaitlistNotificationsConfiguration>;
     const openSlot =
       data.notifyOnSlotOpened === true &&
-      isSmsEnabled(data.slotOpenedSmsEnabled, data.slotOpenedSmsTemplateId);
+      isSmsEnabled(data.slotOpenedSmsEnabled);
 
     return {
       notifications: false,
       openSlot,
-      other: isSmsEnabled(
-        data.leaveWaitlistSmsEnabled,
-        data.leaveWaitlistSmsTemplateId,
-      ),
+      other: isSmsEnabled(data.leaveWaitlistSmsEnabled),
     };
   }
 
@@ -702,6 +700,21 @@ export class CustomerWaitlistNotificationsConnectedApp
       ...current,
       ...createdTemplateIds,
       notifyOnSlotOpened: current.notifyOnSlotOpened ?? true,
+      customerNewEntryEmailEnabled:
+        typeof current.customerNewEntryEmailEnabled === "boolean"
+          ? current.customerNewEntryEmailEnabled
+          : Boolean(
+              createdTemplateIds.customerNewEntryTemplateId ??
+                current.customerNewEntryTemplateId,
+            ),
+      slotOpenedEmailEnabled:
+        typeof current.slotOpenedEmailEnabled === "boolean"
+          ? current.slotOpenedEmailEnabled
+          : Boolean(
+              (current.notifyOnSlotOpened ?? true) &&
+                (createdTemplateIds.slotOpenedEmailTemplateId ??
+                  current.slotOpenedEmailTemplateId),
+            ),
       bookingPageId,
       cooldownMinutes: current.cooldownMinutes ?? DEFAULT_COOLDOWN_MINUTES,
       exclusiveAccessMinutes:
@@ -808,7 +821,12 @@ export class CustomerWaitlistNotificationsConnectedApp
 
     const data = appData.data as CustomerWaitlistNotificationsConfiguration;
 
-    if (!data?.customerNewEntryTemplateId) {
+    if (
+      !isWaitlistEmailEnabled(
+        data?.customerNewEntryEmailEnabled,
+        data?.customerNewEntryTemplateId,
+      )
+    ) {
       logger.debug(
         {
           appId: appData._id,
@@ -886,8 +904,15 @@ export class CustomerWaitlistNotificationsConnectedApp
       });
 
       const data = appData.data as CustomerWaitlistNotificationsConfiguration;
+      const customerNewEntryTemplateId = data.customerNewEntryTemplateId;
 
-      if (!data.customerNewEntryTemplateId) {
+      if (
+        !isWaitlistEmailEnabled(
+          data.customerNewEntryEmailEnabled,
+          customerNewEntryTemplateId,
+        ) ||
+        !customerNewEntryTemplateId
+      ) {
         logger.warn(
           { appId: appData._id, entryId: entry._id },
           "No customer new entry template ID configured, skipping email notification",
@@ -896,7 +921,7 @@ export class CustomerWaitlistNotificationsConnectedApp
       }
 
       const template = await this.props.services.templatesService.getTemplate(
-        data.customerNewEntryTemplateId,
+        customerNewEntryTemplateId,
       );
 
       if (!template) {

@@ -20,6 +20,7 @@ import * as pages from "./pages";
 import * as payments from "./payments";
 import * as pexels from "./pexels";
 import * as schedule from "./schedule";
+import * as search from "./search";
 import * as serviceAddons from "./service-addons";
 import * as serviceFields from "./service-fields";
 import * as serviceOptions from "./service-options";
@@ -54,6 +55,7 @@ export const adminApi = {
   serviceFields,
   serviceOptions,
   schedule,
+  search,
   apps,
   configuration,
   giftCards,

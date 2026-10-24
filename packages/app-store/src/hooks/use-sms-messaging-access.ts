@@ -20,6 +20,7 @@ export function useSmsMessagingAccess() {
             customVerified: false,
             canCustomize: false,
             platformBusiness: true,
+            allowCustomTemplates: false,
           });
         }
       });
@@ -29,9 +30,7 @@ export function useSmsMessagingAccess() {
     };
   }, []);
 
-  const allowCustom = Boolean(
-    access && (access.customVerified || !access.platformBusiness),
-  );
+  const allowCustom = Boolean(access?.allowCustomTemplates);
   const sharedPool = Boolean(
     access?.platformBusiness && !access.customVerified,
   );

@@ -1,16 +1,18 @@
-import { zObjectId } from "@hacado/types";
+import { asOptionalField, zObjectId } from "@hacado/types";
 import * as z from "zod";
 import { CustomerPackageEmailNotificationAdminAllKeys } from "./translations/types";
 
-const emailTemplateSchema = z.object({
-  templateId: zObjectId(
-    "app_customer-package-email-notification_admin.validation.emailTemplate.templateId.required" satisfies CustomerPackageEmailNotificationAdminAllKeys,
-  ),
-});
+const templateRequiredMessage =
+  "app_customer-package-email-notification_admin.validation.emailTemplate.templateId.required" satisfies CustomerPackageEmailNotificationAdminAllKeys;
 
-const optionalEmailTemplateId = zObjectId(
-  "app_customer-package-email-notification_admin.validation.emailTemplate.templateId.required" satisfies CustomerPackageEmailNotificationAdminAllKeys,
-).optional();
+const optionalEmailTemplateId = asOptionalField(
+  zObjectId(templateRequiredMessage),
+);
+
+const emailTemplateSchema = z.object({
+  enabled: z.boolean().optional(),
+  templateId: optionalEmailTemplateId,
+});
 
 export const customerPackageEmailTemplateKeys = z.enum([
   "purchased",
@@ -23,6 +25,22 @@ export const customerPackageEmailTemplateKeys = z.enum([
 export type CustomerPackageEmailTemplateKeys = z.infer<
   typeof customerPackageEmailTemplateKeys
 >;
+
+export const customerPackageEmailChannelKeys = [
+  "purchased",
+  "exhausted",
+  "cancelled",
+  "expired",
+] as const;
+
+export function isPackageEmailEnabled(
+  enabled: boolean | undefined,
+  templateId?: string,
+) {
+  if (enabled === false) return false;
+
+  return Boolean(templateId);
+}
 
 export const customerPackageEmailNotificationConfigurationSchema = z
   .object({
@@ -46,7 +64,21 @@ export const customerPackageEmailNotificationConfigurationSchema = z
     }),
   })
   .superRefine((data, ctx) => {
-    if (!data.expiringSoon.enabled) return;
+    for (const key of customerPackageEmailChannelKeys) {
+      const channel = data.templates[key];
+      if (channel.enabled === true && !channel.templateId) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["templates", key, "templateId"],
+          message: templateRequiredMessage,
+        });
+      }
+    }
+
+    if (!data.expiringSoon.enabled) {
+      return;
+    }
+
     if (!data.expiringSoon.templateId) {
       ctx.addIssue({
         code: "custom",

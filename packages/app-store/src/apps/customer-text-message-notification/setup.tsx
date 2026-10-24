@@ -12,14 +12,15 @@ import {
   Skeleton,
   Switch,
 } from "@hacado/ui";
-import { SaveButton, TemplateSelector } from "@hacado/ui-admin";
-import { UseFormReturn } from "react-hook-form";
 import {
+  CustomTextTemplateSelect,
   renderBuiltInSms,
-  SmsExample,
+  SaveButton,
+  SmsMessagePreview,
   smsPreviewLanguage,
   useSmsPreviewArgs,
-} from "../../components/sms-example";
+} from "@hacado/ui-admin";
+import { UseFormReturn } from "react-hook-form";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";
 import { CustomerTextMessageNotificationApp } from "./app";
@@ -42,7 +43,16 @@ const TextMessagesTemplateForm: React.FC<{
   isDataLoading?: boolean;
   example?: string;
   allowCustom?: boolean;
-}> = ({ form, disabled, type, isDataLoading, example, allowCustom }) => {
+  previewArgs?: Record<string, unknown>;
+}> = ({
+  form,
+  disabled,
+  type,
+  isDataLoading,
+  example,
+  allowCustom,
+  previewArgs,
+}) => {
   const t = useI18n<
     CustomerTextMessageNotificationAdminNamespace,
     CustomerTextMessageNotificationAdminKeys
@@ -55,41 +65,39 @@ const TextMessagesTemplateForm: React.FC<{
       name={`templates.${type}.enabled`}
       render={({ field }) => {
         const templateId = form.watch(`templates.${type}.templateId`);
-        const checked = field.value ?? Boolean(templateId);
         return (
           <FormItem className="flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-            <div className="space-y-2">
-              <FormLabel>{tAdmin(`appointments.status.${type}`)}</FormLabel>
-              <FormDescription>
-                {t(`form.message.description.${type}`)}
-              </FormDescription>
-              {allowCustom ? (
-                <FormField
-                  control={form.control}
-                  name={`templates.${type}.templateId`}
-                  render={({ field: templateField }) => (
-                    <FormItem>
-                      <FormLabel>{t("form.template.label")}</FormLabel>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="h-10 w-full" />
-                        ) : (
-                          <TemplateSelector
-                            type="text-message"
-                            allowClear
-                            disabled={disabled}
-                            value={templateField.value}
-                            onItemSelect={(value) =>
-                              templateField.onChange(value)
-                            }
-                          />
-                        )}
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex flex-col gap-0.5">
+                <FormLabel>{tAdmin(`appointments.status.${type}`)}</FormLabel>
+                <FormDescription>
+                  {t(`form.message.description.${type}`)}
+                </FormDescription>
+              </div>
+              {field.value === true ? (
+                <div className="flex flex-col gap-2">
+                  {allowCustom ? (
+                    <FormField
+                      control={form.control}
+                      name={`templates.${type}.templateId`}
+                      render={({ field: templateField }) => (
+                        <CustomTextTemplateSelect
+                          loading={isDataLoading}
+                          disabled={disabled}
+                          value={templateField.value}
+                          onChange={templateField.onChange}
+                        />
+                      )}
+                    />
+                  ) : null}
+                  <SmsMessagePreview
+                    templateId={templateId}
+                    allowCustom={!!allowCustom}
+                    args={previewArgs}
+                    fallback={example}
+                  />
+                </div>
               ) : null}
-              <SmsExample text={example} />
               <FormMessage />
             </div>
             <FormControl>
@@ -97,7 +105,7 @@ const TextMessagesTemplateForm: React.FC<{
                 <Skeleton className="w-10 h-6" />
               ) : (
                 <Switch
-                  checked={checked}
+                  checked={field.value === true}
                   disabled={disabled}
                   onCheckedChange={(value) => field.onChange(value)}
                 />
@@ -138,6 +146,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="pending"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(
                 bodies.pending,
                 previewArgs,
@@ -150,6 +159,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="confirmed"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(
                 bodies.confirmed,
                 previewArgs,
@@ -162,6 +172,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="declined"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(
                 bodies.declined,
                 previewArgs,
@@ -174,6 +185,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="canceled"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(
                 bodies.canceled,
                 previewArgs,
@@ -186,6 +198,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="noShow"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(bodies.noShow, previewArgs, sharedPool)}
             />
             <TextMessagesTemplateForm
@@ -194,6 +207,7 @@ export const CustomerTextMessageNotificationAppSetup: React.FC<{
               isDataLoading={isDataLoading}
               type="rescheduled"
               allowCustom={allowCustom}
+              previewArgs={previewArgs}
               example={renderBuiltInSms(
                 bodies.rescheduled,
                 previewArgs,

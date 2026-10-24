@@ -34,6 +34,7 @@ import { getWaitlistSmsBodies } from "./messages";
 import {
   CustomerWaitlistNotificationsConfiguration,
   CustomerWaitlistNotificationsJobPayload,
+  isWaitlistEmailEnabled,
   OFFER_OPENED_SLOT_JOB_TYPE,
   SCAN_SCHEDULE_OPENED_SLOTS_JOB_TYPE,
 } from "./models";
@@ -652,16 +653,24 @@ export class CustomerWaitlistNotificationsJobProcessor {
       return;
     }
 
-    if (config.slotOpenedEmailTemplateId && entry.email) {
+    const slotOpenedEmailTemplateId = config.slotOpenedEmailTemplateId;
+    if (
+      isWaitlistEmailEnabled(
+        config.slotOpenedEmailEnabled,
+        slotOpenedEmailTemplateId,
+      ) &&
+      slotOpenedEmailTemplateId &&
+      entry.email
+    ) {
       const template = await this.props.services.templatesService.getTemplate(
-        config.slotOpenedEmailTemplateId,
+        slotOpenedEmailTemplateId,
       );
 
       logger.debug(
         {
           appId: appData._id,
           entryId: entry._id,
-          templateId: config.slotOpenedEmailTemplateId,
+          templateId: slotOpenedEmailTemplateId,
         },
         "Found email template",
       );
@@ -697,13 +706,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
       }
     }
 
-    if (
-      isSmsEnabled(
-        config.slotOpenedSmsEnabled,
-        config.slotOpenedSmsTemplateId,
-      ) &&
-      entry.phone
-    ) {
+    if (isSmsEnabled(config.slotOpenedSmsEnabled) && entry.phone) {
       let smsBody: string | undefined;
       if (isPlatformSmsCountry(entry.phone)) {
         const builtIn = template(
@@ -712,12 +715,12 @@ export class CustomerWaitlistNotificationsJobProcessor {
           true,
         );
 
-        const customVerified = (
-          await this.props.services.notificationService.getSmsMessagingAccess()
-        ).customVerified;
+        const allowCustom = (
+          await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+        ).allowCustomTemplates;
 
         const stored =
-          customVerified && config.slotOpenedSmsTemplateId
+          allowCustom && config.slotOpenedSmsTemplateId
             ? await this.props.services.templatesService.getTemplate(
                 config.slotOpenedSmsTemplateId,
               )
@@ -726,7 +729,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         smsBody =
           stored?.type === "text-message"
             ? templateSafeWithError(stored.value, args, true)
-            : customVerified
+            : allowCustom
               ? builtIn
               : appendSharedPoolSuffix(builtIn);
       } else if (config.slotOpenedSmsTemplateId) {
@@ -789,13 +792,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
       "Sending leave confirm SMS notification",
     );
 
-    if (
-      !isSmsEnabled(
-        config.leaveWaitlistSmsEnabled,
-        config.leaveWaitlistSmsTemplateId,
-      ) ||
-      !entry.phone
-    ) {
+    if (!isSmsEnabled(config.leaveWaitlistSmsEnabled) || !entry.phone) {
       logger.debug(
         { appId: appData._id, entryId: entry._id },
         "No leave confirm SMS template or phone, skipping",
@@ -833,12 +830,12 @@ export class CustomerWaitlistNotificationsJobProcessor {
         true,
       );
 
-      const customVerified = (
-        await this.props.services.notificationService.getSmsMessagingAccess()
-      ).customVerified;
+      const allowCustom = (
+        await this.props.services.textMessageConfigurationService.getSmsMessagingAccess()
+      ).allowCustomTemplates;
 
       const stored =
-        customVerified && config.leaveWaitlistSmsTemplateId
+        allowCustom && config.leaveWaitlistSmsTemplateId
           ? await this.props.services.templatesService.getTemplate(
               config.leaveWaitlistSmsTemplateId,
             )
@@ -847,7 +844,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
       smsBody =
         stored?.type === "text-message"
           ? templateSafeWithError(stored.value, args, true)
-          : customVerified
+          : allowCustom
             ? builtIn
             : appendSharedPoolSuffix(builtIn);
     } else if (config.leaveWaitlistSmsTemplateId) {

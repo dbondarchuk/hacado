@@ -6,6 +6,7 @@ export * from "./rate-limit";
 export * from "./registration-store";
 export * from "./registration-submit";
 export * from "./segments";
+export * from "./sms-consent.service";
 export * from "./sms-store";
 export * from "./telnyx/config";
 export * from "./telnyx/sender";
