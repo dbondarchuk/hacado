@@ -35,8 +35,8 @@ export const BreadcrumbsRender = () => {
   if (!items?.length) return null;
 
   return (
-    <Breadcrumb>
-      <BreadcrumbList className="text-sm">
+    <Breadcrumb className="flex-1">
+      <BreadcrumbList className="text-sm @container/breadcrumbs flex-nowrap">
         {items.map((item, index) =>
           "subItems" in item ? (
             <DropdownMenu key={index}>
@@ -55,14 +55,14 @@ export const BreadcrumbsRender = () => {
           ) : (
             <Fragment key={item.title}>
               {index !== items.length - 1 && (
-                <BreadcrumbItem className="hidden md:block">
+                <BreadcrumbItem className="hidden @xs/breadcrumbs:block">
                   <BreadcrumbLink asChild>
                     <NextLink href={item.link}>{item.title}</NextLink>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               )}
               {index < items.length - 1 && (
-                <BreadcrumbSeparator className="hidden md:block">
+                <BreadcrumbSeparator className="hidden @xs/breadcrumbs:block">
                   {/* <Slash /> */}
                 </BreadcrumbSeparator>
               )}

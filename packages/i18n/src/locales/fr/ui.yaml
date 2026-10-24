@@ -146,10 +146,15 @@ sidebar:
   toggleSidebar: Basculer la barre latérale
 durationInput:
   hr: heure
+  hrShort: h
   min: min
+  minShort: m
   sec: seconde
+  secShort: s
   weeks: semaines
+  weeksShort: sem
   days: jours
+  daysShort: j
 monthsInput:
   years: années
   months: mois

@@ -206,7 +206,7 @@ export const ComboboxTrigger = React.forwardRef<
   const t = useI18n("ui");
 
   return (
-    <div className={cn("flex-grow inline-flex flex-row", className)}>
+    <div className={cn("flex w-full min-w-0 flex-row", className)}>
       <Button
         variant="outline"
         role="combobox"
@@ -215,11 +215,11 @@ export const ComboboxTrigger = React.forwardRef<
         {...props}
         ref={ref}
         className={cn(
-          "justify-between flex-grow min-w-0 flex-shrink max-md:text-base",
+          "w-full min-w-0 justify-between overflow-hidden flex-shrink max-md:text-base",
           allowClear ? "rounded-r-none" : "",
         )}
       >
-        {children}
+        <span className="min-w-0 truncate">{children}</span>
         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
       </Button>
       {allowClear && (

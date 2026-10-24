@@ -18,7 +18,7 @@ export default async function Header({}: {}) {
   return (
     <header className="sticky inset-x-0 top-0 z-10 w-full bg-background/80 backdrop-blur-sm">
       <nav className="flex items-center justify-between px-4 lg:px-8 py-2.5">
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-2 min-w-0 w-full">
           <SidebarTrigger
             className="-ml-2 h-7 w-7 rounded-full border border-border/60 bg-background flex-shrink-0"
             iconSize={14}

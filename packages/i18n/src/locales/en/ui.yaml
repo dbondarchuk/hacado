@@ -146,10 +146,15 @@ sidebar:
   toggleSidebar: Toggle Sidebar
 durationInput:
   hr: hr
+  hrShort: h
   min: min
+  minShort: m
   sec: sec
+  secShort: s
   weeks: weeks
+  weeksShort: w
   days: days
+  daysShort: d
 monthsInput:
   years: years
   months: months

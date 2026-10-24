@@ -1,23 +1,14 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Skeleton,
-  Switch,
-} from "@hacado/ui";
+import { Form, FormField, FormMessage } from "@hacado/ui";
 import {
   CustomTextTemplateSelect,
   renderBuiltInSms,
   SaveButton,
   SmsMessagePreview,
   smsPreviewLanguage,
+  SwitchCardFormItem,
   useSmsPreviewArgs,
 } from "@hacado/ui-admin";
 import { UseFormReturn } from "react-hook-form";
@@ -66,52 +57,41 @@ const TextMessagesTemplateForm: React.FC<{
       render={({ field }) => {
         const templateId = form.watch(`templates.${type}.templateId`);
         return (
-          <FormItem className="flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-            <div className="flex flex-col gap-2 w-full">
-              <div className="flex flex-col gap-0.5">
-                <FormLabel>{tAdmin(`appointments.status.${type}`)}</FormLabel>
-                <FormDescription>
-                  {t(`form.message.description.${type}`)}
-                </FormDescription>
-              </div>
-              {field.value === true ? (
-                <div className="flex flex-col gap-2">
-                  {allowCustom ? (
-                    <FormField
-                      control={form.control}
-                      name={`templates.${type}.templateId`}
-                      render={({ field: templateField }) => (
-                        <CustomTextTemplateSelect
-                          loading={isDataLoading}
-                          disabled={disabled}
-                          value={templateField.value}
-                          onChange={templateField.onChange}
-                        />
-                      )}
-                    />
-                  ) : null}
-                  <SmsMessagePreview
-                    templateId={templateId}
-                    allowCustom={!!allowCustom}
-                    args={previewArgs}
-                    fallback={example}
+          <SwitchCardFormItem
+            alwaysItemsStart
+            label={tAdmin(`appointments.status.${type}`)}
+            description={t(`form.message.description.${type}`)}
+            checked={field.value === true}
+            disabled={disabled}
+            loading={isDataLoading}
+            onCheckedChange={field.onChange}
+          >
+            {field.value === true ? (
+              <div className="flex flex-col gap-2">
+                {allowCustom ? (
+                  <FormField
+                    control={form.control}
+                    name={`templates.${type}.templateId`}
+                    render={({ field: templateField }) => (
+                      <CustomTextTemplateSelect
+                        loading={isDataLoading}
+                        disabled={disabled}
+                        value={templateField.value}
+                        onChange={templateField.onChange}
+                      />
+                    )}
                   />
-                </div>
-              ) : null}
-              <FormMessage />
-            </div>
-            <FormControl>
-              {isDataLoading ? (
-                <Skeleton className="w-10 h-6" />
-              ) : (
-                <Switch
-                  checked={field.value === true}
-                  disabled={disabled}
-                  onCheckedChange={(value) => field.onChange(value)}
+                ) : null}
+                <SmsMessagePreview
+                  templateId={templateId}
+                  allowCustom={!!allowCustom}
+                  args={previewArgs}
+                  fallback={example}
                 />
-              )}
-            </FormControl>
-          </FormItem>
+              </div>
+            ) : null}
+            <FormMessage />
+          </SwitchCardFormItem>
         );
       }}
     />

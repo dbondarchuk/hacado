@@ -8,12 +8,10 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   Skeleton,
-  Switch,
 } from "@hacado/ui";
 import {
   ConnectedAppStatusMessage,
@@ -23,6 +21,7 @@ import {
   SaveButton,
   SmsMessagePreview,
   smsPreviewLanguage,
+  SwitchCardFormItem,
   TemplateSelector,
   useSmsPreviewArgs,
 } from "@hacado/ui-admin";
@@ -112,62 +111,50 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
               control={form.control}
               name="customerNewEntryEmailEnabled"
               render={({ field }) => (
-                <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                  <div className="flex flex-col gap-2 w-full">
-                    <div className="flex flex-col gap-0.5">
-                      <FormLabel>
-                        {t("setup.form.customerNewEntryEmail.label")}
-                      </FormLabel>
-                      <FormDescription>
-                        {t("setup.form.customerNewEntryEmail.description")}
-                      </FormDescription>
-                    </div>
-                    {newEntryEmailOn ? (
-                      <FormField
-                        control={form.control}
-                        name="customerNewEntryTemplateId"
-                        render={({ field: templateField }) => (
-                          <FormItem>
-                            <FormLabelWithRequiredIndicator required>
-                              {t("setup.form.customerNewEntryTemplateId.label")}
-                            </FormLabelWithRequiredIndicator>
-                            <FormControl>
-                              {isDataLoading ? (
-                                <Skeleton className="w-full h-10" />
-                              ) : (
-                                <TemplateSelector
-                                  type="email"
-                                  disabled={isLoading}
-                                  value={templateField.value}
-                                  onItemSelect={(value) =>
-                                    templateField.onChange(value)
-                                  }
-                                />
-                              )}
-                            </FormControl>
-                            <FormDescription>
-                              {t(
-                                "setup.form.customerNewEntryTemplateId.tooltip",
-                              )}
-                            </FormDescription>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    ) : null}
-                  </div>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="h-6 w-10" />
-                    ) : (
-                      <Switch
-                        checked={field.value === true}
-                        disabled={isLoading}
-                        onCheckedChange={(value) => field.onChange(value)}
-                      />
-                    )}
-                  </FormControl>
-                </FormItem>
+                <SwitchCardFormItem
+                  alwaysItemsStart
+                  className="md:col-span-2"
+                  label={t("setup.form.customerNewEntryEmail.label")}
+                  description={t(
+                    "setup.form.customerNewEntryEmail.description",
+                  )}
+                  checked={field.value === true}
+                  disabled={isLoading}
+                  loading={isDataLoading}
+                  onCheckedChange={field.onChange}
+                >
+                  {newEntryEmailOn ? (
+                    <FormField
+                      control={form.control}
+                      name="customerNewEntryTemplateId"
+                      render={({ field: templateField }) => (
+                        <FormItem>
+                          <FormLabelWithRequiredIndicator required>
+                            {t("setup.form.customerNewEntryTemplateId.label")}
+                          </FormLabelWithRequiredIndicator>
+                          <FormControl>
+                            {isDataLoading ? (
+                              <Skeleton className="w-full h-10" />
+                            ) : (
+                              <TemplateSelector
+                                type="email"
+                                disabled={isLoading}
+                                value={templateField.value}
+                                onItemSelect={(value) =>
+                                  templateField.onChange(value)
+                                }
+                              />
+                            )}
+                          </FormControl>
+                          <FormDescription>
+                            {t("setup.form.customerNewEntryTemplateId.tooltip")}
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ) : null}
+                </SwitchCardFormItem>
               )}
             />
 
@@ -175,27 +162,15 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
               control={form.control}
               name="notifyOnSlotOpened"
               render={({ field }) => (
-                <FormItem className="md:col-span-2 flex flex-row items-center justify-between rounded-lg border p-4">
-                  <div className="flex flex-col gap-0.5 w-full">
-                    <FormLabel>
-                      {t("setup.form.notifyOnSlotOpened.label")}
-                    </FormLabel>
-                    <FormDescription>
-                      {t("setup.form.notifyOnSlotOpened.tooltip")}
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="h-6 w-10" />
-                    ) : (
-                      <Switch
-                        checked={!!field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isLoading}
-                      />
-                    )}
-                  </FormControl>
-                </FormItem>
+                <SwitchCardFormItem
+                  className="md:col-span-2"
+                  label={t("setup.form.notifyOnSlotOpened.label")}
+                  description={t("setup.form.notifyOnSlotOpened.tooltip")}
+                  checked={!!field.value}
+                  disabled={isLoading}
+                  loading={isDataLoading}
+                  onCheckedChange={field.onChange}
+                />
               )}
             />
 
@@ -210,86 +185,122 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                   control={form.control}
                   name="slotOpenedEmailEnabled"
                   render={({ field }) => (
-                    <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                      <div className="flex flex-col gap-2 w-full">
-                        <div className="flex flex-col gap-0.5">
-                          <FormLabel>
-                            {t("setup.form.slotOpenedEmail.label")}
-                          </FormLabel>
-                          <FormDescription>
-                            {t("setup.form.slotOpenedEmail.description")}
-                          </FormDescription>
-                        </div>
-                        {slotOpenedEmailOn ? (
-                          <FormField
-                            control={form.control}
-                            name="slotOpenedEmailTemplateId"
-                            render={({ field: templateField }) => (
-                              <FormItem>
-                                <FormLabelWithRequiredIndicator required>
-                                  {t(
-                                    "setup.form.slotOpenedEmailTemplateId.label",
-                                  )}
-                                </FormLabelWithRequiredIndicator>
-                                <FormControl>
-                                  {isDataLoading ? (
-                                    <Skeleton className="w-full h-10" />
-                                  ) : (
-                                    <TemplateSelector
-                                      type="email"
-                                      disabled={isLoading}
-                                      value={templateField.value}
-                                      onItemSelect={(value) =>
-                                        templateField.onChange(value)
-                                      }
-                                    />
-                                  )}
-                                </FormControl>
-                                <FormDescription>
-                                  {t(
-                                    "setup.form.slotOpenedEmailTemplateId.tooltip",
-                                  )}
-                                </FormDescription>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        ) : null}
-                      </div>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="h-6 w-10" />
-                        ) : (
-                          <Switch
-                            checked={field.value === true}
-                            disabled={isLoading}
-                            onCheckedChange={(value) => field.onChange(value)}
-                          />
-                        )}
-                      </FormControl>
-                    </FormItem>
+                    <SwitchCardFormItem
+                      alwaysItemsStart
+                      className="md:col-span-2"
+                      label={t("setup.form.slotOpenedEmail.label")}
+                      description={t("setup.form.slotOpenedEmail.description")}
+                      checked={field.value === true}
+                      disabled={isLoading}
+                      loading={isDataLoading}
+                      onCheckedChange={field.onChange}
+                    >
+                      {slotOpenedEmailOn ? (
+                        <FormField
+                          control={form.control}
+                          name="slotOpenedEmailTemplateId"
+                          render={({ field: templateField }) => (
+                            <FormItem>
+                              <FormLabelWithRequiredIndicator required>
+                                {t(
+                                  "setup.form.slotOpenedEmailTemplateId.label",
+                                )}
+                              </FormLabelWithRequiredIndicator>
+                              <FormControl>
+                                {isDataLoading ? (
+                                  <Skeleton className="w-full h-10" />
+                                ) : (
+                                  <TemplateSelector
+                                    type="email"
+                                    disabled={isLoading}
+                                    value={templateField.value}
+                                    onItemSelect={(value) =>
+                                      templateField.onChange(value)
+                                    }
+                                  />
+                                )}
+                              </FormControl>
+                              <FormDescription>
+                                {t(
+                                  "setup.form.slotOpenedEmailTemplateId.tooltip",
+                                )}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      ) : null}
+                    </SwitchCardFormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
                   name="slotOpenedSmsEnabled"
                   render={({ field }) => (
-                    <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                      <div className="flex flex-col gap-2 w-full">
-                        <div className="flex flex-col gap-0.5">
-                          <FormLabel>
-                            {t("setup.form.slotOpenedSms.label")}
-                          </FormLabel>
-                          <FormDescription>
-                            {t("setup.form.slotOpenedSms.description")}
-                          </FormDescription>
+                    <SwitchCardFormItem
+                      alwaysItemsStart
+                      className="md:col-span-2"
+                      label={t("setup.form.slotOpenedSms.label")}
+                      description={t("setup.form.slotOpenedSms.description")}
+                      checked={field.value === true}
+                      disabled={isLoading}
+                      loading={isDataLoading}
+                      onCheckedChange={field.onChange}
+                    >
+                      {field.value === true ? (
+                        <div className="flex flex-col gap-2">
+                          {allowCustom ? (
+                            <FormField
+                              control={form.control}
+                              name="slotOpenedSmsTemplateId"
+                              render={({ field: templateField }) => (
+                                <CustomTextTemplateSelect
+                                  loading={isDataLoading}
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onChange={templateField.onChange}
+                                />
+                              )}
+                            />
+                          ) : null}
+                          <SmsMessagePreview
+                            templateId={slotOpenedSmsTemplateId}
+                            allowCustom={allowCustom}
+                            args={previewArgs}
+                            fallback={slotOpenedExample}
+                          />
                         </div>
+                      ) : null}
+                    </SwitchCardFormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="leaveWaitlistSmsEnabled"
+                  render={({ field }) => {
+                    return (
+                      <SwitchCardFormItem
+                        alwaysItemsStart
+                        className="md:col-span-2"
+                        label={
+                          <FormLabelWithRequiredIndicator required={smsSlotOn}>
+                            {t("setup.form.leaveWaitlistSms.label")}
+                          </FormLabelWithRequiredIndicator>
+                        }
+                        description={t(
+                          "setup.form.leaveWaitlistSms.description",
+                        )}
+                        checked={field.value === true}
+                        disabled={isLoading}
+                        loading={isDataLoading}
+                        onCheckedChange={field.onChange}
+                      >
                         {field.value === true ? (
                           <div className="flex flex-col gap-2">
                             {allowCustom ? (
                               <FormField
                                 control={form.control}
-                                name="slotOpenedSmsTemplateId"
+                                name="leaveWaitlistSmsTemplateId"
                                 render={({ field: templateField }) => (
                                   <CustomTextTemplateSelect
                                     loading={isDataLoading}
@@ -301,83 +312,15 @@ export const CustomerWaitlistNotificationsAppSetup: React.FC<{
                               />
                             ) : null}
                             <SmsMessagePreview
-                              templateId={slotOpenedSmsTemplateId}
+                              templateId={leaveWaitlistSmsTemplateId}
                               allowCustom={allowCustom}
                               args={previewArgs}
-                              fallback={slotOpenedExample}
+                              fallback={leaveExample}
                             />
                           </div>
                         ) : null}
-                      </div>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="h-6 w-10" />
-                        ) : (
-                          <Switch
-                            checked={field.value === true}
-                            disabled={isLoading}
-                            onCheckedChange={(value) => field.onChange(value)}
-                          />
-                        )}
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="leaveWaitlistSmsEnabled"
-                  render={({ field }) => {
-                    return (
-                      <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                        <div className="flex flex-col gap-2 w-full">
-                          <div className="flex flex-col gap-0.5">
-                            <FormLabelWithRequiredIndicator
-                              required={smsSlotOn}
-                            >
-                              {t("setup.form.leaveWaitlistSms.label")}
-                            </FormLabelWithRequiredIndicator>
-                            <FormDescription>
-                              {t("setup.form.leaveWaitlistSms.description")}
-                            </FormDescription>
-                          </div>
-                          {field.value === true ? (
-                            <div className="flex flex-col gap-2">
-                              {allowCustom ? (
-                                <FormField
-                                  control={form.control}
-                                  name="leaveWaitlistSmsTemplateId"
-                                  render={({ field: templateField }) => (
-                                    <CustomTextTemplateSelect
-                                      loading={isDataLoading}
-                                      disabled={isLoading}
-                                      value={templateField.value}
-                                      onChange={templateField.onChange}
-                                    />
-                                  )}
-                                />
-                              ) : null}
-                              <SmsMessagePreview
-                                templateId={leaveWaitlistSmsTemplateId}
-                                allowCustom={allowCustom}
-                                args={previewArgs}
-                                fallback={leaveExample}
-                              />
-                            </div>
-                          ) : null}
-                          <FormMessage />
-                        </div>
-                        <FormControl>
-                          {isDataLoading ? (
-                            <Skeleton className="h-6 w-10" />
-                          ) : (
-                            <Switch
-                              checked={field.value === true}
-                              disabled={isLoading}
-                              onCheckedChange={(value) => field.onChange(value)}
-                            />
-                          )}
-                        </FormControl>
-                      </FormItem>
+                        <FormMessage />
+                      </SwitchCardFormItem>
                     );
                   }}
                 />

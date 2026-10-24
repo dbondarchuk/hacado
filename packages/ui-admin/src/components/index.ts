@@ -28,6 +28,7 @@ export * from "./scheduler";
 export * from "./sms-example";
 export * from "./sortable";
 export * from "./supports-markdown-tooltip";
+export * from "./switch-card-form-item";
 export * from "./template-selector";
 export * from "./textarea-mention";
 export * from "./week-selector";

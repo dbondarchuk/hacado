@@ -8,15 +8,14 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
   Skeleton,
-  Switch,
 } from "@hacado/ui";
 import {
   ConnectedAppStatusMessage,
   SaveButton,
+  SwitchCardFormItem,
   TemplateSelector,
 } from "@hacado/ui-admin";
 import React from "react";
@@ -94,65 +93,54 @@ export const CustomerPackageEmailNotificationAppSetup: React.FC<{
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-4">
             {customerPackageEmailChannelKeys.map((key) => (
               <FormField
                 key={key}
                 control={form.control}
                 name={`templates.${key}.enabled`}
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                    <div className="flex flex-col gap-2 w-full">
-                      <div className="flex flex-col gap-0.5">
-                        <FormLabel>{t(`form.${key}.enabled.label`)}</FormLabel>
-                        <FormDescription>
-                          {t(`form.${key}.enabled.description`)}
-                        </FormDescription>
-                      </div>
-                      {field.value === true ? (
-                        <FormField
-                          control={form.control}
-                          name={`templates.${key}.templateId`}
-                          render={({ field: templateField }) => (
-                            <FormItem>
-                              <FormLabelWithRequiredIndicator required>
-                                {t(`form.${key}.templateId.label`)}
-                              </FormLabelWithRequiredIndicator>
-                              <FormControl>
-                                {isDataLoading ? (
-                                  <Skeleton className="w-full h-10" />
-                                ) : (
-                                  <TemplateSelector
-                                    type="email"
-                                    disabled={isLoading}
-                                    value={templateField.value}
-                                    onItemSelect={(value) =>
-                                      templateField.onChange(value)
-                                    }
-                                  />
-                                )}
-                              </FormControl>
-                              <FormDescription>
-                                {t(`form.${key}.templateId.description`)}
-                              </FormDescription>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      ) : null}
-                    </div>
-                    <FormControl>
-                      {isDataLoading ? (
-                        <Skeleton className="h-6 w-10" />
-                      ) : (
-                        <Switch
-                          checked={field.value === true}
-                          disabled={isLoading}
-                          onCheckedChange={(value) => field.onChange(value)}
-                        />
-                      )}
-                    </FormControl>
-                  </FormItem>
+                  <SwitchCardFormItem
+                    alwaysItemsStart
+                    label={t(`form.${key}.enabled.label`)}
+                    description={t(`form.${key}.enabled.description`)}
+                    checked={field.value === true}
+                    disabled={isLoading}
+                    loading={isDataLoading}
+                    onCheckedChange={field.onChange}
+                  >
+                    {field.value === true ? (
+                      <FormField
+                        control={form.control}
+                        name={`templates.${key}.templateId`}
+                        render={({ field: templateField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t(`form.${key}.templateId.label`)}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <TemplateSelector
+                                  type="email"
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onItemSelect={(value) =>
+                                    templateField.onChange(value)
+                                  }
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t(`form.${key}.templateId.description`)}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ) : null}
+                  </SwitchCardFormItem>
                 )}
               />
             ))}
@@ -161,95 +149,81 @@ export const CustomerPackageEmailNotificationAppSetup: React.FC<{
               control={form.control}
               name="expiringSoon.enabled"
               render={({ field }) => (
-                <FormItem className="md:col-span-2 flex flex-row items-start justify-between gap-4 rounded-lg border p-4 w-full">
-                  <div className="flex flex-col gap-2 w-full">
-                    <div className="flex flex-col gap-0.5">
-                      <FormLabel>
-                        {t("form.expiringSoon.enabled.label")}
-                      </FormLabel>
-                      <FormDescription>
-                        {t("form.expiringSoon.enabled.description")}
-                      </FormDescription>
-                    </div>
-                    {field.value === true ? (
-                      <>
-                        <FormField
-                          control={form.control}
-                          name="expiringSoon.thresholdMinutes"
-                          render={({ field: thresholdField }) => (
-                            <FormItem>
-                              <FormLabelWithRequiredIndicator required>
-                                {t("form.expiringSoon.thresholdMinutes.label")}
-                              </FormLabelWithRequiredIndicator>
-                              <FormControl>
-                                {isDataLoading ? (
-                                  <Skeleton className="w-full h-10" />
-                                ) : (
-                                  <DurationInput
-                                    type="weeks-days-hours-minutes"
-                                    disabled={isLoading}
-                                    value={thresholdField.value}
-                                    onChange={(value) =>
-                                      thresholdField.onChange(
-                                        value ?? undefined,
-                                      )
-                                    }
-                                  />
-                                )}
-                              </FormControl>
-                              <FormDescription>
-                                {t(
-                                  "form.expiringSoon.thresholdMinutes.description",
-                                )}
-                              </FormDescription>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="expiringSoon.templateId"
-                          render={({ field: templateField }) => (
-                            <FormItem>
-                              <FormLabelWithRequiredIndicator required>
-                                {t("form.expiringSoon.templateId.label")}
-                              </FormLabelWithRequiredIndicator>
-                              <FormControl>
-                                {isDataLoading ? (
-                                  <Skeleton className="w-full h-10" />
-                                ) : (
-                                  <TemplateSelector
-                                    type="email"
-                                    disabled={isLoading}
-                                    value={templateField.value}
-                                    onItemSelect={(value) =>
-                                      templateField.onChange(value)
-                                    }
-                                  />
-                                )}
-                              </FormControl>
-                              <FormDescription>
-                                {t("form.expiringSoon.templateId.description")}
-                              </FormDescription>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </>
-                    ) : null}
-                  </div>
-                  <FormControl>
-                    {isDataLoading ? (
-                      <Skeleton className="h-6 w-10" />
-                    ) : (
-                      <Switch
-                        checked={field.value === true}
-                        disabled={isLoading}
-                        onCheckedChange={(value) => field.onChange(value)}
+                <SwitchCardFormItem
+                  alwaysItemsStart
+                  className="md:col-span-2"
+                  label={t("form.expiringSoon.enabled.label")}
+                  description={t("form.expiringSoon.enabled.description")}
+                  checked={field.value === true}
+                  disabled={isLoading}
+                  loading={isDataLoading}
+                  onCheckedChange={field.onChange}
+                >
+                  {field.value === true ? (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="expiringSoon.thresholdMinutes"
+                        render={({ field: thresholdField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("form.expiringSoon.thresholdMinutes.label")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <DurationInput
+                                  type="weeks-days-hours-minutes"
+                                  disabled={isLoading}
+                                  value={thresholdField.value}
+                                  onChange={(value) =>
+                                    thresholdField.onChange(value ?? undefined)
+                                  }
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t(
+                                "form.expiringSoon.thresholdMinutes.description",
+                              )}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                    )}
-                  </FormControl>
-                </FormItem>
+                      <FormField
+                        control={form.control}
+                        name="expiringSoon.templateId"
+                        render={({ field: templateField }) => (
+                          <FormItem>
+                            <FormLabelWithRequiredIndicator required>
+                              {t("form.expiringSoon.templateId.label")}
+                            </FormLabelWithRequiredIndicator>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <TemplateSelector
+                                  type="email"
+                                  disabled={isLoading}
+                                  value={templateField.value}
+                                  onItemSelect={(value) =>
+                                    templateField.onChange(value)
+                                  }
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.expiringSoon.templateId.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  ) : null}
+                </SwitchCardFormItem>
               )}
             />
 

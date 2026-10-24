@@ -18,7 +18,6 @@ import {
   FormLabel,
   FormMessage,
   Link,
-  Switch,
   toastPromise,
 } from "@hacado/ui";
 import {
@@ -26,6 +25,7 @@ import {
   SaveButton,
   SmsMessagePreview,
   smsPreviewLanguage,
+  SwitchCardFormItem,
   TemplateSelector,
   useSmsPreviewArgs,
 } from "@hacado/ui-admin";
@@ -102,138 +102,122 @@ export const CustomerAccessSettingsForm: React.FC<{
             control={form.control}
             name="emailEnabled"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start justify-between gap-4 rounded-lg border p-4">
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex flex-col gap-0.5">
-                    <FormLabel>
-                      {t("settings.customerAccess.form.email.label")}
-                    </FormLabel>
-                    <FormDescription>
-                      {t("settings.customerAccess.form.email.description")}
-                    </FormDescription>
-                  </div>
-                  {field.value === true ? (
-                    <FormField
-                      control={form.control}
-                      name="otpEmailTemplateId"
-                      render={({ field: templateField }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t(
-                              "settings.customerAccess.form.email.templateLabel",
-                            )}
-                          </FormLabel>
-                          <FormDescription>
-                            {t(
-                              "settings.customerAccess.form.email.templateDescription",
-                            )}
-                          </FormDescription>
-                          <FormControl>
-                            <TemplateSelector
-                              type="email"
-                              disabled={loading}
-                              value={templateField.value}
-                              onItemSelect={templateField.onChange}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  ) : null}
-                </div>
-                <FormControl>
-                  <Switch
-                    checked={field.value === true}
-                    disabled={loading}
-                    onCheckedChange={(value) => field.onChange(value)}
+              <SwitchCardFormItem
+                alwaysItemsStart
+                label={t("settings.customerAccess.form.email.label")}
+                description={t(
+                  "settings.customerAccess.form.email.description",
+                )}
+                checked={field.value === true}
+                disabled={loading}
+                onCheckedChange={field.onChange}
+              >
+                {field.value === true ? (
+                  <FormField
+                    control={form.control}
+                    name="otpEmailTemplateId"
+                    render={({ field: templateField }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t(
+                            "settings.customerAccess.form.email.templateLabel",
+                          )}
+                        </FormLabel>
+                        <FormDescription>
+                          {t(
+                            "settings.customerAccess.form.email.templateDescription",
+                          )}
+                        </FormDescription>
+                        <FormControl>
+                          <TemplateSelector
+                            type="email"
+                            disabled={loading}
+                            value={templateField.value}
+                            onItemSelect={templateField.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </FormControl>
-              </FormItem>
+                ) : null}
+              </SwitchCardFormItem>
             )}
           />
           <FormField
             control={form.control}
             name="phoneEnabled"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start justify-between gap-4 rounded-lg border p-4">
-                <div className="flex flex-col gap-2 w-full">
-                  <div className="flex flex-col gap-0.5">
-                    <FormLabel>
-                      {t("settings.customerAccess.form.phone.label")}
-                    </FormLabel>
-                    <FormDescription>
-                      {t("settings.customerAccess.form.phone.description")}
-                    </FormDescription>
-                  </div>
-                  {!smsEnabled ? (
-                    <Alert variant="warning">
-                      <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-                        <span>
-                          {t("settings.customerAccess.form.smsDisabled")}
-                        </span>
-                        <Link
-                          button
-                          href="/dashboard/settings/text-messaging"
-                          variant="default"
-                          size="sm"
-                        >
-                          {t("settings.customerAccess.form.smsDisabledAction")}
-                        </Link>
-                      </AlertDescription>
-                    </Alert>
-                  ) : null}
-                  {field.value === true && smsEnabled && allowTextTemplates ? (
-                    <FormField
-                      control={form.control}
-                      name="otpTextTemplateId"
-                      render={({ field: templateField }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("settings.textMessaging.customTemplate.label")}
-                          </FormLabel>
-                          <FormDescription>
-                            {t("settings.textMessaging.customTemplate.tooltip")}
-                          </FormDescription>
-                          <FormControl>
-                            <TemplateSelector
-                              type="text-message"
-                              allowClear
-                              disabled={loading}
-                              value={templateField.value}
-                              onItemSelect={templateField.onChange}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  ) : null}
-                  {field.value === true && smsEnabled ? (
-                    <SmsMessagePreview
-                      templateId={form.watch("otpTextTemplateId")}
-                      allowCustom={allowTextTemplates}
-                      args={otpArgs}
-                      fallback={renderBuiltInSms(
-                        getCustomerOtpSms(smsPreviewLanguage(otpArgs)),
-                        otpArgs,
-                        sharedPool,
-                      )}
-                    />
-                  ) : null}
-                  <FormMessage />
-                </div>
-                <FormControl>
-                  <Switch
-                    checked={field.value === true}
-                    disabled={loading || (!smsEnabled && field.value !== true)}
-                    onCheckedChange={(value) => {
-                      if (value && !smsEnabled) return;
-                      field.onChange(value);
-                    }}
+              <SwitchCardFormItem
+                alwaysItemsStart
+                label={t("settings.customerAccess.form.phone.label")}
+                description={t(
+                  "settings.customerAccess.form.phone.description",
+                )}
+                checked={field.value === true}
+                disabled={loading || (!smsEnabled && field.value !== true)}
+                onCheckedChange={(value) => {
+                  if (value && !smsEnabled) return;
+                  field.onChange(value);
+                }}
+              >
+                {!smsEnabled ? (
+                  <Alert variant="warning">
+                    <AlertDescription className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <span>
+                        {t("settings.customerAccess.form.smsDisabled")}
+                      </span>
+                      <Link
+                        button
+                        href="/dashboard/settings/text-messaging"
+                        variant="default"
+                        size="sm"
+                      >
+                        {t("settings.customerAccess.form.smsDisabledAction")}
+                      </Link>
+                    </AlertDescription>
+                  </Alert>
+                ) : null}
+                {field.value === true && smsEnabled && allowTextTemplates ? (
+                  <FormField
+                    control={form.control}
+                    name="otpTextTemplateId"
+                    render={({ field: templateField }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("settings.textMessaging.customTemplate.label")}
+                        </FormLabel>
+                        <FormDescription>
+                          {t("settings.textMessaging.customTemplate.tooltip")}
+                        </FormDescription>
+                        <FormControl>
+                          <TemplateSelector
+                            type="text-message"
+                            allowClear
+                            disabled={loading}
+                            value={templateField.value}
+                            onItemSelect={templateField.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </FormControl>
-              </FormItem>
+                ) : null}
+                {field.value === true && smsEnabled ? (
+                  <SmsMessagePreview
+                    templateId={form.watch("otpTextTemplateId")}
+                    allowCustom={allowTextTemplates}
+                    args={otpArgs}
+                    fallback={renderBuiltInSms(
+                      getCustomerOtpSms(smsPreviewLanguage(otpArgs)),
+                      otpArgs,
+                      sharedPool,
+                    )}
+                  />
+                ) : null}
+                <FormMessage />
+              </SwitchCardFormItem>
             )}
           />
         </div>

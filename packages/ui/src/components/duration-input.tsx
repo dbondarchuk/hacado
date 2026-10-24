@@ -319,16 +319,110 @@ export const DurationInput: React.FC<DurationInputProps> = ({
     type !== "minutes-seconds"
       ? t("durationInput.min")
       : t("durationInput.sec");
+  const weeksShortLabel = t("durationInput.weeksShort");
+  const daysShortLabel = t("durationInput.daysShort");
+  const firstPartCompactLabel =
+    type !== "minutes-seconds"
+      ? t("durationInput.hrShort")
+      : t("durationInput.minShort");
+  const secondPartCompactLabel =
+    type !== "minutes-seconds"
+      ? t("durationInput.minShort")
+      : t("durationInput.secShort");
 
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const rowRef = React.useRef<HTMLDivElement>(null);
+  const [compact, setCompact] = React.useState(false);
   const size = rest.h ? sizes[rest.h] : sizes.md;
-  // const size = rest.h ? sizes[rest.h] : sizes.sm;
+  const inputWidth = compact ? "2rem" : "3rem";
+  const fieldClassName =
+    "shrink-0 border-0 bg-transparent px-0 py-2 text-center focus:outline-none focus:ring-0";
+
+  React.useLayoutEffect(() => {
+    const root = rootRef.current;
+    const row = rowRef.current;
+    if (!root || !row) return;
+
+    const measure = () => {
+      const available = row.clientWidth;
+      if (available <= 0) return;
+
+      const inputs = row.querySelectorAll<HTMLElement>("[data-duration-input]");
+      const fullLabels = row.querySelectorAll<HTMLElement>(
+        "[data-duration-label='full']",
+      );
+      const shortLabels = row.querySelectorAll<HTMLElement>(
+        "[data-duration-label='short']",
+      );
+
+      inputs.forEach((input) => {
+        input.style.width = "3rem";
+      });
+      fullLabels.forEach((label) => label.classList.remove("hidden"));
+      shortLabels.forEach((label) => label.classList.add("hidden"));
+
+      const nextCompact = row.scrollWidth > available + 1;
+
+      inputs.forEach((input) => {
+        input.style.width = nextCompact ? "2rem" : "3rem";
+      });
+      fullLabels.forEach((label) =>
+        label.classList.toggle("hidden", nextCompact),
+      );
+      shortLabels.forEach((label) =>
+        label.classList.toggle("hidden", !nextCompact),
+      );
+      setCompact((current) =>
+        current === nextCompact ? current : nextCompact,
+      );
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [type]);
+
+  const unitLabel = (full: string, short: string) => (
+    <>
+      <span
+        data-duration-label="full"
+        className={cn(
+          "whitespace-nowrap text-muted-foreground",
+          size,
+          compact && "hidden",
+        )}
+      >
+        {full}
+      </span>
+      <span
+        data-duration-label="short"
+        className={cn(
+          "whitespace-nowrap text-muted-foreground",
+          size,
+          !compact && "hidden",
+        )}
+      >
+        {short}
+      </span>
+    </>
+  );
 
   return (
-    <div className="flex items-center bg-background border rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background">
-      <div className="flex items-center pl-3 text-muted-foreground">
+    <div
+      ref={rootRef}
+      className={cn(
+        "flex w-full min-w-0 items-center overflow-hidden rounded-md border bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background",
+        className,
+      )}
+    >
+      <div className="flex shrink-0 items-center pl-3 text-muted-foreground">
         <Clock className="h-4 w-4" />
       </div>
-      <div className="flex items-center gap-1 px-1">
+      <div
+        ref={rowRef}
+        className="flex min-w-0 flex-1 flex-nowrap items-center gap-1 overflow-hidden px-1"
+      >
         {type === "weeks-days-hours-minutes" && (
           <>
             <Input
@@ -339,17 +433,16 @@ export const DurationInput: React.FC<DurationInputProps> = ({
               value={duration?.weeks}
               onChange={handleWeeksChange}
               variant="ghost"
-              className="w-4 sm:w-12 border-0 bg-transparent py-2 px-0 text-center focus:outline-none focus:ring-0"
+              className={fieldClassName}
               aria-label={t("durationInput.weeks")}
               name={name ? `${name}.weeks` : "weeks"}
               onKeyDown={(e) => handleKeyDown(e, "weeks")}
               {...rest}
+              data-duration-input=""
+              style={{ width: inputWidth }}
               ref={weeksRef}
             />
-            <span className={cn("text-muted-foreground h-8", size)}>
-              {t("durationInput.weeks")}
-            </span>
-            <span className={cn("font-medium px-0.5", size)}>&nbsp;</span>
+            {unitLabel(t("durationInput.weeks"), weeksShortLabel)}
             <Input
               type="text"
               inputMode="numeric"
@@ -360,15 +453,15 @@ export const DurationInput: React.FC<DurationInputProps> = ({
               min={0}
               max={6}
               variant="ghost"
-              className="w-4 sm:w-12 border-0 bg-transparent py-2 px-0 text-center focus:outline-none focus:ring-0"
+              className={fieldClassName}
               aria-label={t("durationInput.days")}
               name={name ? `${name}.days` : "days"}
               {...rest}
+              data-duration-input=""
+              style={{ width: inputWidth }}
               ref={daysRef}
             />
-            <span className={cn("text-muted-foreground h-8", size)}>
-              {t("durationInput.days")}
-            </span>
+            {unitLabel(t("durationInput.days"), daysShortLabel)}
           </>
         )}
         <Input
@@ -379,17 +472,17 @@ export const DurationInput: React.FC<DurationInputProps> = ({
           value={duration?.hours}
           onChange={handleHoursChange}
           variant="ghost"
-          className="w-4 sm:w-12 border-0 bg-transparent py-2 px-0 text-center focus:outline-none focus:ring-0"
+          className={fieldClassName}
           aria-label={firstPartLabel}
           name={name ? `${name}.${firstPartName}` : firstPartName}
           onKeyDown={(e) => handleKeyDown(e, "hours")}
           {...rest}
+          data-duration-input=""
+          style={{ width: inputWidth }}
           ref={hoursRef}
         />
-        <span className={cn("text-muted-foreground h-8", size)}>
-          {firstPartShortLabel}
-        </span>
-        <span className={cn("font-medium px-0.5", size)}>:</span>
+        {unitLabel(firstPartShortLabel, firstPartCompactLabel)}
+        <span className={cn("shrink-0 font-medium", size)}>:</span>
         <Input
           type="text"
           inputMode="numeric"
@@ -400,15 +493,15 @@ export const DurationInput: React.FC<DurationInputProps> = ({
           min={0}
           max={59}
           variant="ghost"
-          className="w-4 sm:w-12 border-0 bg-transparent py-2 px-0 text-center focus:outline-none focus:ring-0"
+          className={fieldClassName}
           aria-label={secondPartLabel}
           name={name ? `${name}.${secondPartName}` : secondPartName}
           {...rest}
+          data-duration-input=""
+          style={{ width: inputWidth }}
           ref={minutesRef}
         />
-        <span className={cn("text-muted-foreground h-8", size)}>
-          {secondPartShortLabel}
-        </span>
+        {unitLabel(secondPartShortLabel, secondPartCompactLabel)}
       </div>
     </div>
   );

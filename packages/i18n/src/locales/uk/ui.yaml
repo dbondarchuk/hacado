@@ -146,10 +146,15 @@ sidebar:
   toggleSidebar: Перемкнути бічну панель
 durationInput:
   hr: год
+  hrShort: г
   min: хв
+  minShort: х
   sec: сек
+  secShort: с
   weeks: тижнів
+  weeksShort: т
   days: днів
+  daysShort: д
 monthsInput:
   years: роки
   months: місяці
