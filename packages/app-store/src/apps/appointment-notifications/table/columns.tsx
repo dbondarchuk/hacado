@@ -4,7 +4,10 @@ import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
-import { AppointmentNotification } from "../models";
+import {
+  AppointmentNotification,
+  readAppointmentNotificationChannels,
+} from "../models";
 import {
   AppointmentNotificationsAdminKeys,
   AppointmentNotificationsAdminNamespace,
@@ -75,7 +78,13 @@ export const columns: ColumnDef<AppointmentNotification>[] = [
         AppointmentNotificationsAdminNamespace,
         AppointmentNotificationsAdminKeys
       >(appointmentNotificationsAdminNamespace);
-      return t(`channels.${row.original.channel}`);
+      const channels = readAppointmentNotificationChannels(row.original);
+      const labels = [
+        channels.emailEnabled ? t("channels.email") : null,
+        channels.textEnabled ? t("channels.text-message") : null,
+      ].filter((label): label is string => Boolean(label));
+
+      return labels.join(", ");
     },
     id: "channel",
     header: tableSortHeader<

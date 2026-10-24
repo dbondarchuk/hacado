@@ -2927,11 +2927,14 @@ settings:
         addService: Agregar servicio
         addPackage: Agregar paquete
         group: Grupo
+        groupWithName: "Grupo: {name}"
         service: Servicio
+        serviceWithName: "Servicio: {name}"
         groupName: Nombre del grupo
         groupDescription: Breve descripción
         emptyGroup: Este grupo está vacío.
         package: Paquete
+        packageWithName: "Paquete: {name}"
       payments:
         enableDeposits: Habilitar depósitos
         enableDepositsTooltip: Permite la posibilidad de solicitar un depósito para reservar una cita. La aplicación de pago predeterminada debe configurarse en la sección de aplicaciones predeterminadas.

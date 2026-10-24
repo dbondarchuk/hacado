@@ -2945,11 +2945,14 @@ settings:
         addService: Додати послугу
         addPackage: Додати пакет
         group: Група
+        groupWithName: "Група: {name}"
         service: Послуга
+        serviceWithName: "Послуга: {name}"
         groupName: Назва групи
         groupDescription: Короткий опис
         emptyGroup: Ця група порожня
         package: Пакет
+        packageWithName: "Пакет: {name}"
       payments:
         enableDeposits: Увімкнути завдатки
         enableDepositsTooltip: Увімкнути можливість просити завдаток для бронювання запису. Платіжний додаток за замовчуванням повинен бути налаштований.

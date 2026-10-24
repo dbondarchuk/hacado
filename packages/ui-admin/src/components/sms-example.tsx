@@ -152,9 +152,6 @@ export function CustomTextTemplateSelect({
   return (
     <FormItem className={className}>
       <FormLabel>{t("settings.textMessaging.customTemplate.label")}</FormLabel>
-      <FormDescription>
-        {t("settings.textMessaging.customTemplate.tooltip")}
-      </FormDescription>
       <FormControl>
         {loading ? (
           <Skeleton className="h-10 w-full" />
@@ -168,6 +165,9 @@ export function CustomTextTemplateSelect({
           />
         )}
       </FormControl>
+      <FormDescription>
+        {t("settings.textMessaging.customTemplate.tooltip")}
+      </FormDescription>
     </FormItem>
   );
 }

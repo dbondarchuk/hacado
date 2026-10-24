@@ -28,6 +28,37 @@ const newId = () =>
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random()}`;
 
+const CatalogNodeHeader: React.FC<{
+  node: BookingCatalogNode;
+  selectedName?: string;
+}> = ({ node, selectedName }) => {
+  const t = useI18n("admin");
+  const name =
+    node.type === "group" ? node.name.trim() : (selectedName?.trim() ?? "");
+
+  if (node.type === "group") {
+    if (!name) {
+      return t("settings.appointments.form.options.group");
+    }
+
+    return t("settings.appointments.form.options.groupWithName", { name });
+  }
+
+  if (node.type === "package") {
+    if (!name) {
+      return t("settings.appointments.form.options.package");
+    }
+
+    return t("settings.appointments.form.options.packageWithName", { name });
+  }
+
+  if (!name) {
+    return t("settings.appointments.form.options.service");
+  }
+
+  return t("settings.appointments.form.options.serviceWithName", { name });
+};
+
 const GroupChildrenList: React.FC<{
   name: FieldPath<BookingConfiguration>;
   form: UseFormReturn<BookingConfiguration>;
@@ -119,6 +150,14 @@ export const CatalogNodeCard: React.FC<{
   onRemove,
 }) => {
   const t = useI18n("admin");
+  const [selectedName, setSelectedName] = React.useState<string | undefined>();
+  const rememberSelectedName = React.useCallback(
+    (item: { name: string } | undefined) => {
+      setSelectedName(item?.name);
+    },
+    [],
+  );
+
   const {
     setNodeRef,
     attributes,
@@ -152,12 +191,8 @@ export const CatalogNodeCard: React.FC<{
         >
           <GripVertical className="h-4 w-4 text-muted-foreground" />
         </button>
-        <div className="flex-1 text-sm font-medium">
-          {node.type === "group"
-            ? t("settings.appointments.form.options.group")
-            : node.type === "package"
-              ? t("settings.appointments.form.options.package")
-              : t("settings.appointments.form.options.service")}
+        <div className="min-w-0 flex-1 truncate text-sm font-medium">
+          <CatalogNodeHeader node={node} selectedName={selectedName} />
         </div>
         <Button
           type="button"
@@ -187,6 +222,7 @@ export const CatalogNodeCard: React.FC<{
                       (id) => id !== field.value,
                     )}
                     onItemSelect={field.onChange}
+                    onValueChange={rememberSelectedName}
                   />
                 </FormControl>
                 <FormMessage />
@@ -211,6 +247,7 @@ export const CatalogNodeCard: React.FC<{
                       (id) => id !== field.value,
                     )}
                     onItemSelect={field.onChange}
+                    onValueChange={rememberSelectedName}
                   />
                 </FormControl>
                 <FormMessage />

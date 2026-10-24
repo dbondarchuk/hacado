@@ -149,31 +149,71 @@ export const appointmentNotificationTypeSchema = z.discriminatedUnion("type", [
   appointmentNotificationAtTimeSchema,
 ]);
 
-export const appointmentNotificationSmsKinds = [
-  "reminder",
-  "followUp",
-] as const;
+const appointmentNotificationTemplateRequired =
+  "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys;
+
+const appointmentNotificationChannelRequired =
+  "app_appointment-notifications_admin.validation.form.channel.required" satisfies AppointmentNotificationsAdminAllKeys;
 
 export const appointmentNotificationChannelSchema = z.object({
-  channel: appointmentNotificationChannelsEnum,
-  templateId: zObjectId(
-    "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys,
+  emailEnabled: z.boolean().optional(),
+  textEnabled: z.boolean().optional(),
+  emailTemplateId: zObjectId(
+    appointmentNotificationTemplateRequired,
   ).optional(),
-  enabled: z.boolean().optional(),
-  smsKind: z
-    .enum(appointmentNotificationSmsKinds, {
-      error:
-        "app_appointment-notifications_admin.validation.form.smsKind.invalid" satisfies AppointmentNotificationsAdminAllKeys,
-    })
-    .optional(),
-  followUpText: z
-    .string()
-    .max(
-      300,
-      "app_appointment-notifications_admin.validation.form.followUpText.max" satisfies AppointmentNotificationsAdminAllKeys,
-    )
-    .optional(),
+  textTemplateId: zObjectId().optional(),
 });
+
+export type AppointmentNotificationChannelSelection = {
+  emailEnabled?: boolean;
+  textEnabled?: boolean;
+  emailTemplateId?: string;
+  textTemplateId?: string;
+  channel?: "email" | "text-message" | Array<"email" | "text-message">;
+  templateId?: string;
+  enabled?: boolean;
+  smsKind?: string;
+};
+
+export const readAppointmentNotificationChannels = (
+  value: AppointmentNotificationChannelSelection,
+): {
+  emailEnabled: boolean;
+  textEnabled: boolean;
+  emailTemplateId?: string;
+  textTemplateId?: string;
+} => {
+  if (
+    typeof value.emailEnabled === "boolean" ||
+    typeof value.textEnabled === "boolean"
+  ) {
+    return {
+      emailEnabled: value.emailEnabled === true,
+      textEnabled: value.textEnabled === true,
+      emailTemplateId: value.emailTemplateId,
+      textTemplateId: value.textTemplateId,
+    };
+  }
+
+  const channels = Array.isArray(value.channel)
+    ? value.channel
+    : value.channel
+      ? [value.channel]
+      : [];
+  const emailEnabled = channels.includes("email");
+  const textEnabled =
+    channels.includes("text-message") && value.enabled === true;
+
+  return {
+    emailEnabled,
+    textEnabled,
+    emailTemplateId: emailEnabled ? value.templateId : undefined,
+    textTemplateId:
+      textEnabled && value.smsKind !== "followUp"
+        ? value.templateId
+        : undefined,
+  };
+};
 
 export const appointmentNotificationAppointmentCountType = [
   "none",
@@ -276,27 +316,19 @@ export const appointmentNotificationSchema = z
       });
     }
 
-    if (arg.channel === "email" && !arg.templateId) {
+    if (arg.emailEnabled !== true && arg.textEnabled !== true) {
       ctx.addIssue({
         code: "custom",
-        path: ["templateId"],
-        message:
-          "app_appointment-notifications_admin.validation.form.templateId.required" satisfies AppointmentNotificationsAdminAllKeys,
+        path: ["emailEnabled"],
+        message: appointmentNotificationChannelRequired,
       });
     }
 
-    const textMessageEnabled =
-      arg.channel === "text-message" && arg.enabled === true;
-    if (
-      textMessageEnabled &&
-      arg.smsKind === "followUp" &&
-      !arg.followUpText?.trim()
-    ) {
+    if (arg.emailEnabled === true && !arg.emailTemplateId) {
       ctx.addIssue({
         code: "custom",
-        path: ["followUpText"],
-        message:
-          "app_appointment-notifications_admin.validation.form.followUpText.required" satisfies AppointmentNotificationsAdminAllKeys,
+        path: ["emailTemplateId"],
+        message: appointmentNotificationTemplateRequired,
       });
     }
 

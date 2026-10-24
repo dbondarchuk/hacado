@@ -4,7 +4,7 @@ import {
   IConnectedAppProps,
   WithTotal,
 } from "@hacado/types";
-import { buildSearchQuery, escapeRegex, isSmsEnabled } from "@hacado/utils";
+import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
@@ -102,10 +102,28 @@ export class AppointmentNotificationsRepository {
         appId,
       };
 
-      if (query.channel) {
-        filter.channel = {
-          $in: query.channel,
-        };
+      if (query.channel?.length) {
+        const channelClauses = query.channel.map((channel) =>
+          channel === "email"
+            ? {
+                $or: [
+                  { emailEnabled: true },
+                  { emailEnabled: { $exists: false }, channel: "email" },
+                ],
+              }
+            : {
+                $or: [
+                  { textEnabled: true },
+                  {
+                    textEnabled: { $exists: false },
+                    channel: "text-message",
+                    enabled: true,
+                  },
+                ],
+              },
+        );
+
+        filter.$and = [...(filter.$and ?? []), { $or: channelClauses }];
       }
 
       if (query.type) {
@@ -198,7 +216,8 @@ export class AppointmentNotificationsRepository {
       {
         appId,
         appointmentNotificationName: appointmentNotification.name,
-        channel: appointmentNotification.channel,
+        emailEnabled: appointmentNotification.emailEnabled,
+        textEnabled: appointmentNotification.textEnabled,
         type: appointmentNotification.type,
         appointmentCount: appointmentNotification.appointmentCount,
       },
@@ -304,6 +323,13 @@ export class AppointmentNotificationsRepository {
         },
         {
           $set: updateObj,
+          $unset: {
+            channel: "",
+            templateId: "",
+            enabled: "",
+            smsKind: "",
+            followUpText: "",
+          },
         },
       );
 
@@ -440,20 +466,21 @@ export class AppointmentNotificationsRepository {
         .find({
           appId,
           organizationId: this.props.organizationId,
-          channel: "text-message",
+          $or: [
+            { textEnabled: true },
+            {
+              textEnabled: { $exists: false },
+              channel: "text-message",
+              enabled: true,
+            },
+          ],
         })
         .toArray();
 
       let reminders = false;
       let other = false;
       for (const doc of docs) {
-        if (!isSmsEnabled(doc.enabled)) continue;
-
-        if (doc.smsKind === "followUp") {
-          other = true;
-        } else if (doc.smsKind === "reminder") {
-          reminders = true;
-        } else if (doc.type === "timeAfter" || doc.type === "atTimeAfter") {
+        if (doc.type === "timeAfter" || doc.type === "atTimeAfter") {
           other = true;
         } else {
           reminders = true;

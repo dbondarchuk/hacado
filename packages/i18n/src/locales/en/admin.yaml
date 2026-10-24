@@ -3122,11 +3122,14 @@ settings:
         addService: Add service
         addPackage: Add package
         group: Group
+        groupWithName: "Group: {name}"
         service: Service
+        serviceWithName: "Service: {name}"
         groupName: Group name
         groupDescription: Short description
         emptyGroup: This group is empty
         package: Package
+        packageWithName: "Package: {name}"
       payments:
         enableDeposits: Enable Deposits
         enableDepositsTooltip:

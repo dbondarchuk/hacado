@@ -2,7 +2,6 @@ import React from "react";
 
 import { cn, FormDescription, Label } from "@hacado/ui";
 import { OptionSelector, OptionSelectorProps } from "@hacado/ui-admin";
-import { ResetButton } from "./reset-button";
 
 type Props = Omit<
   OptionSelectorProps,
@@ -64,7 +63,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
           />
         )}
-        {nullable && (
+        {/* {nullable && (
           <ResetButton
             onClick={() => {
               setValue(null);
@@ -72,7 +71,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
             size="sm"
           />
-        )}
+        )} */}
       </div>
       {helperText && <FormDescription>{helperText}</FormDescription>}
     </div>
