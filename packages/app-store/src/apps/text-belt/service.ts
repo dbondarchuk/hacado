@@ -328,6 +328,31 @@ export default class TextBeltConnectedApp
         "Received TextBelt reply webhook",
       );
 
+      const brand =
+        await this.props.services.configurationService.getConfiguration(
+          "brand",
+        );
+      const keywordReply =
+        await this.props.services.smsConsentService.handleInboundSmsKeyword(
+          reply.fromNumber,
+          reply.text,
+          brand.language,
+        );
+
+      if (keywordReply) {
+        await this.sendTextMessage(appData, {
+          phone: reply.fromNumber,
+          message: keywordReply,
+        });
+
+        logger.info(
+          { appId: appData._id, fromNumber: maskify(reply.fromNumber) },
+          "Handled inbound SMS keyword",
+        );
+
+        return Response.json({ success: true }, { status: 201 });
+      }
+
       const parts = (reply?.data || "").split("|", 4);
 
       const appId = parts[0] || undefined;

@@ -5,6 +5,7 @@ import {
   appendRatesSentence,
   appendStopFooter,
   canSendCustomerSms,
+  classifyInboundSmsKeyword,
   latestConsentAllowsSms,
   prepareTextbeltSmsBody,
   shouldRecordOwnerAttestation,
@@ -13,6 +14,7 @@ import {
   SMS_STOP_FOOTER,
 } from "./compliance";
 import { createDefaultTextMessageSender, getSmsProvider } from "./factory";
+import { getInboundSmsKeywordReply } from "./messages";
 import { countSmsSegments } from "./segments";
 import { resolveSender } from "./telnyx/sender";
 import {
@@ -201,6 +203,18 @@ describe("SMS consent", () => {
       }),
       { ok: false, reason: "opted out" },
     );
+  });
+
+  it("handles STOP, HELP, and START before any reply handler", () => {
+    assert.equal(classifyInboundSmsKeyword(" stop "), "stop");
+    assert.equal(classifyInboundSmsKeyword("UNSUBSCRIBE"), "stop");
+    assert.equal(classifyInboundSmsKeyword("start"), "start");
+    assert.equal(classifyInboundSmsKeyword("YES"), "start");
+    assert.equal(classifyInboundSmsKeyword("help"), "help");
+    assert.equal(classifyInboundSmsKeyword("see you then"), null);
+    assert.match(getInboundSmsKeywordReply("stop", "en"), /START/);
+    assert.match(getInboundSmsKeywordReply("start", "en"), /STOP/);
+    assert.match(getInboundSmsKeywordReply("help", "en"), /support@hacado.com/);
   });
 
   it("records owner attestation only when the box is checked", () => {

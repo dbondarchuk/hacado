@@ -1,3 +1,4 @@
+import type { Language } from "@hacado/i18n";
 import type {
   CustomerSmsConsentStatus,
   ISmsConsentService,
@@ -5,6 +6,8 @@ import type {
 } from "@hacado/types";
 import { normalizeToE164 } from "@hacado/utils";
 import { BaseService } from "../services/base.service";
+import { classifyInboundSmsKeyword } from "./compliance";
+import { getInboundSmsKeywordReply } from "./messages";
 import { SmsStore } from "./sms-store";
 
 export class SmsConsentService
@@ -60,5 +63,25 @@ export class SmsConsentService
     ]);
 
     return { consented, optedOut };
+  }
+
+  public async handleInboundSmsKeyword(
+    phone: string,
+    message: string,
+    language: Language = "en",
+  ): Promise<string | null> {
+    const normalized = normalizeToE164(phone);
+    const keyword = classifyInboundSmsKeyword(message);
+    if (!normalized || !keyword) {
+      return null;
+    }
+
+    if (keyword === "stop") {
+      await this.smsStore.optOut(normalized, "stop");
+    } else if (keyword === "start") {
+      await this.smsStore.clearOptOut(normalized);
+    }
+
+    return getInboundSmsKeywordReply(keyword, language);
   }
 }

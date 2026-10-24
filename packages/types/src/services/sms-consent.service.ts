@@ -1,3 +1,4 @@
+import type { Language } from "@hacado/i18n";
 import type { CustomerSmsConsentStatus } from "../customers/list";
 
 export type SmsConsentWrite = {
@@ -11,4 +12,9 @@ export interface ISmsConsentService {
   recordCustomerSmsConsent(input: SmsConsentWrite): Promise<void>;
   hasActiveCustomerSmsConsent(phone: string): Promise<boolean>;
   getCustomerSmsConsentStatus(phone: string): Promise<CustomerSmsConsentStatus>;
+  handleInboundSmsKeyword(
+    phone: string,
+    message: string,
+    language?: Language,
+  ): Promise<string | null>;
 }

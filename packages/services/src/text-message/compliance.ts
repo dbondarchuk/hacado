@@ -21,6 +21,31 @@ export const SMS_OPT_IN_KEYWORDS = [
   "SUBSCRIBE",
 ] as const;
 
+export type InboundSmsKeyword = "stop" | "start" | "help";
+
+export const classifyInboundSmsKeyword = (
+  value: string | null | undefined,
+): InboundSmsKeyword | null => {
+  const command = (value ?? "").trim().toUpperCase();
+  if (!command) {
+    return null;
+  }
+
+  if ((SMS_OPT_OUT_KEYWORDS as readonly string[]).includes(command)) {
+    return "stop";
+  }
+
+  if ((SMS_OPT_IN_KEYWORDS as readonly string[]).includes(command)) {
+    return "start";
+  }
+
+  if (command === "HELP") {
+    return "help";
+  }
+
+  return null;
+};
+
 export { isSmsEnabled } from "@hacado/utils";
 
 export const shouldRecordOwnerAttestation = (checked: boolean): boolean =>

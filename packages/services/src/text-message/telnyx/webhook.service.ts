@@ -1,9 +1,9 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ITextMessageSender } from "@hacado/types";
 import { maskify, normalizeToE164 } from "@hacado/utils";
-import { SMS_OPT_IN_KEYWORDS, SMS_OPT_OUT_KEYWORDS } from "../compliance";
+import { classifyInboundSmsKeyword } from "../compliance";
 import { InboundTextMessageService } from "../inbound-reply.service";
-import { getHelpSms } from "../messages";
+import { getInboundSmsKeywordReply } from "../messages";
 import { SmsRegistrationStore } from "../registration-store";
 import { SmsStore } from "../sms-store";
 import { TelnyxService } from "./service";
@@ -22,12 +22,6 @@ type TelnyxMessagingEvent = {
     };
   };
 };
-
-const keyword = (value: string | null | undefined) =>
-  (value ?? "").trim().toUpperCase();
-
-const isKeyword = (value: string, list: readonly string[]) =>
-  list.includes(value);
 
 export class TelnyxMessagingWebhookService {
   protected readonly loggerFactory = getLoggerFactory(
@@ -123,41 +117,28 @@ export class TelnyxMessagingWebhookService {
     }
 
     const text = payload?.text ?? "";
-    const autoResponse = keyword(payload?.autoresponse_type);
-    const command = keyword(text);
+    const command = classifyInboundSmsKeyword(text);
+    const autoResponse = classifyInboundSmsKeyword(payload?.autoresponse_type);
+    const handled = command ?? autoResponse;
     logger.info(
       { fromNumber: maskify(phone), autoResponse: autoResponse || undefined },
       "Received inbound SMS",
     );
 
-    if (
-      isKeyword(command, SMS_OPT_OUT_KEYWORDS) ||
-      isKeyword(autoResponse, SMS_OPT_OUT_KEYWORDS)
-    ) {
-      await this.smsStore.optOut(phone, "stop");
-      return;
-    }
-
-    if (
-      isKeyword(command, SMS_OPT_IN_KEYWORDS) ||
-      isKeyword(autoResponse, SMS_OPT_IN_KEYWORDS)
-    ) {
-      if (await this.smsStore.hasAnyConsent(phone)) {
+    if (handled) {
+      if (handled === "stop") {
+        await this.smsStore.optOut(phone, "stop");
+      } else if (handled === "start") {
         await this.smsStore.clearOptOut(phone);
       }
 
-      return;
-    }
-
-    if (command === "HELP" || autoResponse === "HELP") {
-      if (autoResponse) {
-        return;
+      if (!autoResponse) {
+        await this.sender.sendTextMessage({
+          phone,
+          message: getInboundSmsKeywordReply(handled, "en"),
+        });
       }
 
-      await this.sender.sendTextMessage({
-        phone,
-        message: getHelpSms("en"),
-      });
       return;
     }
 

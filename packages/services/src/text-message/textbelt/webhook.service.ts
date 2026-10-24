@@ -13,9 +13,11 @@ import {
   IOrganizationService,
   ITeamService,
 } from "@hacado/types";
-import { maskify } from "@hacado/utils";
+import { maskify, normalizeToE164 } from "@hacado/utils";
 import crypto from "crypto";
 import { InboundTextMessageService } from "../inbound-reply.service";
+import { SmsConsentService } from "../sms-consent.service";
+import { TextBeltService } from "./service";
 import { TextBeltConfiguration } from "./types";
 
 type TextbeltWebhookData = {
@@ -127,6 +129,26 @@ export class TextBeltWebhookService {
         },
         "Received TextBelt reply webhook",
       );
+
+      const brand = await this.configurationService.getConfiguration("brand");
+      const keywordReply = await new SmsConsentService(
+        this.organizationId,
+      ).handleInboundSmsKeyword(reply.fromNumber, reply.text, brand.language);
+
+      if (keywordReply) {
+        const phone = normalizeToE164(reply.fromNumber) ?? reply.fromNumber;
+        await new TextBeltService(this.configuration).sendTextMessage(
+          { phone, message: keywordReply },
+          this.organizationId,
+        );
+
+        logger.info(
+          { fromNumber: maskify(reply.fromNumber) },
+          "Handled inbound SMS keyword",
+        );
+
+        return Response.json({ success: true }, { status: 201 });
+      }
 
       await this.billingService.consumeSmsCredits({
         amount: 1,
