@@ -224,6 +224,7 @@ services:
       - S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}
       - S3_BUCKET=${S3_BUCKET:-assets}
       - S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}
+      - SMS_APPOINTMENT_CONSENT_BEFORE=${SMS_APPOINTMENT_CONSENT_BEFORE:-}
     restart: unless-stopped
     networks:
       - hacado-network

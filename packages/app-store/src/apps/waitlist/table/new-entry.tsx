@@ -1,3 +1,4 @@
+import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentAddon,
@@ -6,7 +7,6 @@ import {
 } from "@hacado/types";
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -36,7 +36,10 @@ import {
   OptionSelector,
   useReload,
 } from "@hacado/ui-admin";
-import { normalizeToE164 } from "@hacado/utils";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";
@@ -71,10 +74,10 @@ export const NewEntryDialog = ({
   );
 
   const { reload } = useReload();
-
   const t = useI18n<WaitlistAdminNamespace, WaitlistAdminKeys>(
     waitlistAdminNamespace,
   );
+
   const tAdmin = useI18n("admin");
 
   const form = useForm<CreateWaitlistEntryRequest>({
@@ -118,6 +121,38 @@ export const NewEntryDialog = ({
   }, [calculatedDuration, optionId, form]);
 
   useEffect(() => {
+    if (!isOpen || !customerIdLock) return;
+
+    let cancelled = false;
+    adminApi.customers
+      .getCustomer(customerIdLock)
+      .then((loaded) => {
+        if (cancelled) return;
+        setCustomer({
+          _id: loaded._id,
+          avatar: loaded.avatar,
+          name: loaded.name,
+          phone: loaded.phone,
+          email: loaded.email,
+          isDeleted: loaded.isDeleted,
+          appointmentsCount: 0,
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setCustomer(undefined);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, customerIdLock]);
+
+  const consentStatus = useCustomerPhoneSmsConsent(
+    isOpen && waitlistSmsConsentKind(smsText) ? customer?._id : undefined,
+    customer?.phone,
+  );
+
+  useEffect(() => {
     if (!isOpen) return;
 
     let cancelled = false;
@@ -142,7 +177,7 @@ export const NewEntryDialog = ({
         ...data,
         duration:
           data.duration && data.duration >= 1 ? data.duration : undefined,
-        ...(attest ? { smsConsent: true } : {}),
+        ...(attest && consentStatus === "missing" ? { smsConsent: true } : {}),
       };
       await toastPromise(createWaitlistEntry(appId, payload), {
         success: t("newEntry.toasts.success"),
@@ -207,28 +242,16 @@ export const NewEntryDialog = ({
                     </FormItem>
                   )}
                 />
-                {Boolean(normalizeToE164(customer?.phone ?? "")) &&
-                  waitlistSmsConsentKind(smsText) &&
-                  (customer?.smsConsent ? (
-                    <p className="text-sm text-muted-foreground">
-                      {tAdmin("appointments.form.smsConsentAlready")}
-                    </p>
-                  ) : (
-                    <div className="flex flex-row items-center gap-2">
-                      <Checkbox
-                        id="waitlist-sms-consent"
-                        disabled={isLoading}
-                        checked={attest}
-                        onCheckedChange={(value) => setAttest(value === true)}
-                      />
-                      <label
-                        htmlFor="waitlist-sms-consent"
-                        className="text-sm cursor-pointer"
-                      >
-                        {tAdmin("appointments.form.smsConsent")}
-                      </label>
-                    </div>
-                  ))}
+                {waitlistSmsConsentKind(smsText) ? (
+                  <SmsConsentAttest
+                    id="waitlist-sms-consent"
+                    phone={customer?.phone}
+                    status={consentStatus}
+                    checked={attest}
+                    disabled={isLoading}
+                    onCheckedChange={setAttest}
+                  />
+                ) : null}
                 <FormField
                   control={form.control}
                   name="optionId"

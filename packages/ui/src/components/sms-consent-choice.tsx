@@ -37,10 +37,12 @@ export const waitlistSmsConsentKind = (
   offer?: WaitlistSmsTextFlags | null,
 ): WaitlistSmsConsentKind | null => {
   if (!offer) return null;
+
   const notifications = offer.notifications || offer.other;
   if (!notifications && !offer.openSlot) return null;
   if (notifications && offer.openSlot) return "slotAndNotifications";
   if (offer.openSlot) return "slot";
+
   return "notifications";
 };
 

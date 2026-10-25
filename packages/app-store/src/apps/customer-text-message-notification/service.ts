@@ -1,4 +1,5 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
+import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import {
   Appointment,
   AppointmentStatus,
@@ -537,7 +538,9 @@ export default class CustomerTextMessageNotificationConnectedApp
         appointmentId: appointment._id,
         participantType: "customer",
         memberId: appointment.memberId,
-        requireConsent: true,
+        ...(appointmentSkipsSmsConsent(appointment.createdAt)
+          ? { dontRequireConsent: true }
+          : {}),
         idempotencyKey: `sms_${appointment.organizationId}_${appointment._id}_${status}`,
         handledBy:
           `app_customer-text-message-notification_admin.handlers.${initiator}` satisfies CustomerTextMessageNotificationAdminAllKeys,

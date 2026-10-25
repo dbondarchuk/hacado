@@ -4,6 +4,7 @@ import {
   canUseFeature,
   resolvePlanTierFromOrganization,
 } from "@hacado/services/billing";
+import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import {
   AppJobRequest,
   Appointment,
@@ -380,7 +381,9 @@ export class AppointmentNotificationsJobProcessor {
         phone,
         sender: config.general.name,
         body: smsBody,
-        requireConsent: true,
+        ...(appointmentSkipsSmsConsent(appointment.createdAt)
+          ? { dontRequireConsent: true }
+          : {}),
         idempotencyKey: `sms_${appointment.organizationId}_${appointment._id}_reminder_${appointmentNotification._id}`,
         webhookData: {
           appointmentId: appointment._id,

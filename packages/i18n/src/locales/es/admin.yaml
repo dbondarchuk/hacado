@@ -1126,8 +1126,6 @@ appointments:
     note: Nota
     confirmAppointment: Confirmar cita
     confirmAppointmentDescription: Marcar cita como confirmada
-    smsConsent: Certifico que el cliente aceptó recibir mensajes de texto
-    smsConsentAlready: Este cliente ya aceptó recibir mensajes de texto.
     confirmOverlap: Confirmar superposición
     confirmOverlapDescription: Entiendo que programar esta cita creará una superposición en mi agenda.
     unassignedMember:
@@ -1335,11 +1333,8 @@ customers:
   communications: Comunicaciones
   smsConsent:
     title: Mensajes de texto
-    active: Este cliente ya aceptó recibir mensajes de texto.
     inactive: Este cliente no ha aceptado recibir mensajes de texto.
-    optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
     noPhone: Agregue un número de teléfono para gestionar el consentimiento de SMS.
-    attest: Certifico que el cliente aceptó recibir mensajes de texto
     revoke: Revocar el consentimiento
     attested: Consentimiento registrado
     revoked: Consentimiento revocado
@@ -4244,3 +4239,7 @@ users:
       max: El título no debe tener más de 80 caracteres.
     bio:
       max: La biografía no debe tener más de 1024 caracteres.
+smsConsent:
+  attest: Certifico que el cliente aceptó recibir mensajes de texto
+  already: Este cliente ya aceptó recibir mensajes de texto.
+  optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.

@@ -504,6 +504,7 @@ export class CustomerAuthService
     await this.services.notificationService.sendTextMessage({
       phone,
       body,
+      dontRequireConsent: true,
       handledBy:
         "admin.settings.customerAccess.handlers.otpRequest" satisfies BaseAllKeys,
       participantType: "customer",

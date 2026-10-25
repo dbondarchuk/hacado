@@ -63,6 +63,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "../sms-consent-attest";
 import { AssignAppointmentDialog } from "./assign-appointment-dialog";
 import { PaymentDetailsDialog } from "./payment-details-dialog";
 
@@ -103,6 +107,8 @@ const uniqueNonEmpty = (values: (string | null | undefined)[]) => [
   ...new Set(values.filter((value): value is string => !!value)),
 ];
 
+const noDestinations: string[] = [];
+
 async function mapPaymentLinkError(error: unknown): Promise<never> {
   if (error instanceof AdminApiError) {
     let code: string | undefined;
@@ -135,6 +141,7 @@ export const AddUpdatePaymentDialog = ({
   const uses12HourFormat = use12HourFormat();
 
   const [loading, setLoading] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
   const [open, setOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
   const [assignedAppointment, setAssignedAppointment] = useState<
@@ -305,10 +312,22 @@ export const AddUpdatePaymentDialog = ({
       ? emailDestinations
       : channel === "sms"
         ? phoneDestinations
-        : [];
+        : noDestinations;
 
   const resolvedCustomerId =
     lockedCustomerId || selectedCustomerId || undefined;
+  const smsTo = form.watch("to");
+  const sendingSms = !isEdit && method === "payment-link" && channel === "sms";
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    sendingSms ? resolvedCustomerId : undefined,
+    sendingSms ? smsTo : undefined,
+  );
+  const smsBlocked =
+    sendingSms &&
+    !(
+      smsConsentStatus === "consented" ||
+      (smsConsentStatus === "missing" && smsConsent)
+    );
 
   const clearAssignedAppointment = () => {
     form.setValue("appointmentId", undefined);
@@ -426,7 +445,9 @@ export const AddUpdatePaymentDialog = ({
     }
 
     if (channel === "copy") {
-      form.setValue("to", undefined);
+      if (form.getValues("to")) {
+        form.setValue("to", undefined);
+      }
       return;
     }
 
@@ -446,6 +467,10 @@ export const AddUpdatePaymentDialog = ({
     phoneDestinations.length,
     form,
   ]);
+
+  useEffect(() => {
+    setSmsConsent(false);
+  }, [smsTo]);
 
   useEffect(() => {
     if (method === "gift-card") {
@@ -470,6 +495,8 @@ export const AddUpdatePaymentDialog = ({
               paymentLinkAppId: data.paymentLinkAppId!,
               channel: data.channel,
               to: data.to,
+              smsConsent:
+                data.channel === "sms" && smsConsent ? true : undefined,
             })
             .catch(mapPaymentLinkError),
           {
@@ -652,9 +679,11 @@ export const AddUpdatePaymentDialog = ({
                         : t(
                             "payment.addUpdatePayment.form.appointmentId.assign" as AdminKeys,
                           );
+
                       const clearLabel = t(
                         "payment.addUpdatePayment.form.appointmentId.clear" as AdminKeys,
                       );
+
                       const canAssign = !!resolvedCustomerId && !loading;
 
                       return (
@@ -669,7 +698,7 @@ export const AddUpdatePaymentDialog = ({
                               <InputGroupInput className="min-w-0 flex-1">
                                 <div
                                   className={cn(
-                                    "flex h-full min-h-9 w-full items-center border border-input bg-background px-3 py-1.5 text-sm",
+                                    "flex h-full min-h-9 w-full items-center border border-input rounded-l-md bg-background px-3 py-1.5 text-sm",
                                     InputGroupInputClasses(),
                                     !canAssign && "opacity-50",
                                   )}
@@ -891,6 +920,16 @@ export const AddUpdatePaymentDialog = ({
                         )}
                       />
                     )}
+                    {sendingSms ? (
+                      <SmsConsentAttest
+                        id="payment-link-sms-consent"
+                        phone={smsTo}
+                        status={smsConsentStatus}
+                        checked={smsConsent}
+                        disabled={loading}
+                        onCheckedChange={setSmsConsent}
+                      />
+                    ) : null}
                   </>
                 )}
                 {method === "gift-card" && (
@@ -1069,7 +1108,11 @@ export const AddUpdatePaymentDialog = ({
             >
               {t("common.buttons.close")}
             </Button>
-            <Button variant="primary" onClick={form.handleSubmit(onSubmit)}>
+            <Button
+              variant="primary"
+              disabled={loading || smsBlocked}
+              onClick={form.handleSubmit(onSubmit)}
+            >
               {loading ? <Spinner /> : null}
               {isEdit ? t("common.buttons.update") : t("common.buttons.addNew")}
             </Button>

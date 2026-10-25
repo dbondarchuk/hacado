@@ -6,4 +6,5 @@ export * from "./modification";
 export * from "./packages";
 export * from "./page";
 export * from "./payments";
+export * from "./sms-consent-attest";
 export * from "./templates";

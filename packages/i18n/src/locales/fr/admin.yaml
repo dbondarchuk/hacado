@@ -1126,8 +1126,6 @@ appointments:
     note: Note
     confirmAppointment: Confirmer le rendez-vous
     confirmAppointmentDescription: Marquer le rendez-vous comme confirmé
-    smsConsent: "J'atteste que le client a accepté de recevoir des textos"
-    smsConsentAlready: Ce client a déjà accepté de recevoir des textos.
     confirmOverlap: Confirmer le chevauchement
     confirmOverlapDescription: Je comprends que la planification de ce rendez-vous créera un chevauchement dans mon emploi du temps
     unassignedMember:
@@ -1335,11 +1333,8 @@ customers:
   communications: Communications
   smsConsent:
     title: Messages texte
-    active: Ce client a déjà accepté de recevoir des textos.
     inactive: Ce client n'a pas accepté de recevoir des textos.
-    optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
     noPhone: Ajoutez un numéro de téléphone pour gérer le consentement SMS.
-    attest: "J'atteste que le client a accepté de recevoir des textos"
     revoke: Révoquer le consentement
     attested: Consentement enregistré
     revoked: Consentement révoqué
@@ -4244,3 +4239,7 @@ users:
       max: Le titre ne doit pas comporter plus de 80 caractères
     bio:
       max: La biographie ne doit pas contenir plus de 1 024 caractères
+smsConsent:
+  attest: "J'atteste que le client a accepté de recevoir des textos"
+  already: Ce client a déjà accepté de recevoir des textos.
+  optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.

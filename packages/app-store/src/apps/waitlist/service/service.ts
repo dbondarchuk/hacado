@@ -170,6 +170,9 @@ export class WaitlistConnectedApp
     if (
       !(await this.props.services.textMessageConfigurationService.isEnabled())
     ) {
+      logger.debug(
+        "Text message configuration is not enabled, returning empty offer",
+      );
       return offer;
     }
 
@@ -192,6 +195,11 @@ export class WaitlistConnectedApp
           offer.notifications ||= part.notifications;
           offer.openSlot ||= part.openSlot;
           offer.other ||= part.other;
+
+          logger.debug(
+            { appId: connected._id, offer },
+            "Waitlist text offer loaded successfully",
+          );
         } catch (error: any) {
           logger.error(
             {

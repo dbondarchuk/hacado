@@ -139,10 +139,20 @@ export const mergeCustomers = async (targetId: string, ids: string[]) => {
   return data;
 };
 
-export const setCustomerSmsConsent = async (id: string, consented: boolean) => {
+export const getCustomerSmsConsent = async (id: string, phone?: string) => {
+  const query = phone ? `?phone=${encodeURIComponent(phone)}` : "";
+  const response = await fetchAdminApi(`/customers/${id}/sms-consent${query}`);
+  return response.json<CustomerSmsConsentStatus>();
+};
+
+export const setCustomerSmsConsent = async (
+  id: string,
+  consented: boolean,
+  phone?: string,
+) => {
   const response = await fetchAdminApi(`/customers/${id}/sms-consent`, {
     method: "POST",
-    body: JSON.stringify({ consented }),
+    body: JSON.stringify({ consented, ...(phone ? { phone } : {}) }),
   });
   return response.json<CustomerSmsConsentStatus>();
 };

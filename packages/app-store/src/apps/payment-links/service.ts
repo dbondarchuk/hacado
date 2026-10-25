@@ -641,7 +641,6 @@ export class PaymentLinksConnectedApp
     await this.props.services.notificationService.sendTextMessage({
       phone: request.to,
       body,
-      requireConsent: true,
       participantType: "customer",
       customerId: customer._id,
       handledBy: {

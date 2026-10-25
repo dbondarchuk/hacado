@@ -56,7 +56,8 @@ export type TextMessageNotificationRequest<
   webhookData?: TextMessageData;
   appointmentId?: string;
   customerId?: string;
-  requireConsent?: boolean;
+  /** Customer SMS requires phone consent unless this is set. */
+  dontRequireConsent?: boolean;
   idempotencyKey?: string;
   /** Set by the queue when the log row already exists. */
   communicationLogId?: string;

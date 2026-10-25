@@ -86,6 +86,10 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "../sms-consent-attest";
 import { AppointmentCalendar } from "./appointment-calendar";
 import {
   isSubscriptionPastDueError,
@@ -779,6 +783,12 @@ export const AppointmentScheduleForm: React.FC<
     });
   }, [customerId, setDisabledFields]);
 
+  const smsPhone = String(form.watch("fields.phone") ?? customer?.phone ?? "");
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    !isEdit ? customer?._id : undefined,
+    !isEdit ? smsPhone : undefined,
+  );
+
   const onCustomerChange = (c?: CustomerListModel) => {
     setCustomer(c);
     if (!packageLocked) {
@@ -1104,33 +1114,22 @@ export const AppointmentScheduleForm: React.FC<
                   </FormItem>
                 )}
               />
-              {!isEdit &&
-                Boolean(
-                  normalizeToE164(
-                    String(form.watch("fields.phone") ?? customer?.phone ?? ""),
-                  ),
-                ) &&
-                appointmentSmsConsentKind(smsText) &&
-                (customer?.smsConsent ? (
-                  <p className="text-sm text-muted-foreground">
-                    {t("appointments.form.smsConsentAlready")}
-                  </p>
-                ) : (
-                  <div className="flex flex-row items-center gap-2">
-                    <Checkbox
-                      id="smsConsent"
-                      disabled={loading}
-                      checked={smsConsent}
-                      onCheckedChange={(value) => setSmsConsent(value === true)}
-                    />
-                    <label
-                      htmlFor="smsConsent"
-                      className="text-sm cursor-pointer"
-                    >
-                      {t("appointments.form.smsConsent")}
-                    </label>
-                  </div>
-                ))}
+              {!isEdit && appointmentSmsConsentKind(smsText) ? (
+                <SmsConsentAttest
+                  id="smsConsent"
+                  phone={smsPhone}
+                  status={
+                    customer?._id
+                      ? smsConsentStatus
+                      : normalizeToE164(smsPhone)
+                        ? "missing"
+                        : undefined
+                  }
+                  checked={smsConsent}
+                  disabled={loading}
+                  onCheckedChange={setSmsConsent}
+                />
+              ) : null}
               {(!isEdit || from?.status === "pending") && (
                 <FormField
                   control={form.control}

@@ -4,6 +4,7 @@ import { describe, it } from "node:test";
 import {
   appendRatesSentence,
   appendStopFooter,
+  appointmentSkipsSmsConsent,
   canSendCustomerSms,
   classifyInboundSmsKeyword,
   latestConsentAllowsSms,
@@ -192,6 +193,40 @@ describe("SMS consent", () => {
       }),
       { ok: false, reason: "no consent" },
     );
+  });
+
+  it("skips consent only for appointments created before the cutoff", () => {
+    const cutoff = "2026-10-25T15:00:00.000Z";
+    assert.equal(
+      appointmentSkipsSmsConsent(new Date("2026-10-25T14:59:59.000Z"), cutoff),
+      true,
+    );
+    assert.equal(
+      appointmentSkipsSmsConsent(new Date("2026-10-25T15:00:00.000Z"), cutoff),
+      false,
+    );
+    assert.equal(
+      appointmentSkipsSmsConsent(new Date("2026-10-25T16:00:00.000Z"), cutoff),
+      false,
+    );
+    assert.equal(
+      appointmentSkipsSmsConsent(
+        new Date("2026-10-24T23:00:00.000Z"),
+        "2026-10-25",
+      ),
+      true,
+    );
+    assert.equal(
+      appointmentSkipsSmsConsent(
+        new Date("2026-10-25T00:00:00.000Z"),
+        "2026-10-25",
+      ),
+      false,
+    );
+    assert.equal(appointmentSkipsSmsConsent(new Date(), undefined), false);
+    assert.equal(appointmentSkipsSmsConsent(new Date(), ""), false);
+    assert.equal(appointmentSkipsSmsConsent(new Date(), "not-a-date"), false);
+    assert.equal(appointmentSkipsSmsConsent(undefined, cutoff), false);
   });
 
   it("lets STOP override a checked box", () => {

@@ -31,6 +31,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "../sms-consent-attest";
 
 const resendSchema = z.object({
   channel: z.enum(["email", "sms"]),
@@ -57,6 +61,7 @@ export const ResendPaymentLinkDialog = ({
   const [loading, setLoading] = useState(false);
   const [emailDestinations, setEmailDestinations] = useState<string[]>([]);
   const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
+  const [smsConsent, setSmsConsent] = useState(false);
 
   const form = useForm<ResendFormValues>({
     resolver: zodResolver(resendSchema),
@@ -68,6 +73,17 @@ export const ResendPaymentLinkDialog = ({
   });
 
   const channel = form.watch("channel");
+  const smsTo = form.watch("to");
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    open && channel === "sms" ? payment.customerId : undefined,
+    open && channel === "sms" ? smsTo : undefined,
+  );
+  const smsBlocked =
+    channel === "sms" &&
+    !(
+      smsConsentStatus === "consented" ||
+      (smsConsentStatus === "missing" && smsConsent)
+    );
   const destinations =
     channel === "email" ? emailDestinations : phoneDestinations;
 
@@ -142,9 +158,13 @@ export const ResendPaymentLinkDialog = ({
     }
   }, [channel, destinations, form, open]);
 
+  useEffect(() => {
+    setSmsConsent(false);
+  }, [smsTo]);
+
   const canSubmit = useMemo(
-    () => destinations.length > 0 && !loading,
-    [destinations.length, loading],
+    () => destinations.length > 0 && !loading && !smsBlocked,
+    [destinations.length, loading, smsBlocked],
   );
 
   const onDialogOpenChange = (next: boolean) => {
@@ -159,7 +179,10 @@ export const ResendPaymentLinkDialog = ({
     try {
       setLoading(true);
       const result = await toastPromise(
-        adminApi.payments.resendPaymentLink(payment._id, data),
+        adminApi.payments.resendPaymentLink(payment._id, {
+          ...data,
+          smsConsent: data.channel === "sms" && smsConsent ? true : undefined,
+        }),
         {
           success: t("common.toasts.saved"),
           error: t("common.toasts.error"),
@@ -268,6 +291,16 @@ export const ResendPaymentLinkDialog = ({
                 </FormItem>
               )}
             />
+            {channel === "sms" ? (
+              <SmsConsentAttest
+                id="resend-payment-link-sms-consent"
+                phone={smsTo}
+                status={smsConsentStatus}
+                checked={smsConsent}
+                disabled={loading}
+                onCheckedChange={setSmsConsent}
+              />
+            ) : null}
           </form>
         </Form>
         <DialogFooter>

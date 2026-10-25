@@ -67,9 +67,9 @@ export const CustomerSmsConsent = ({
           <>
             <p className="min-w-0 text-sm text-muted-foreground">
               {status.optedOut
-                ? t("customers.smsConsent.optedOut")
+                ? t("smsConsent.optedOut")
                 : status.consented
-                  ? t("customers.smsConsent.active")
+                  ? t("smsConsent.already")
                   : t("customers.smsConsent.inactive")}
             </p>
             {canUpdate && !isDeleted ? (
@@ -80,7 +80,7 @@ export const CustomerSmsConsent = ({
                 title={
                   status.consented
                     ? t("customers.smsConsent.revoke")
-                    : t("customers.smsConsent.attest")
+                    : t("smsConsent.attest")
                 }
                 className="w-full min-w-0 justify-start overflow-hidden sm:w-auto sm:max-w-lg sm:shrink-0"
                 onClick={() => update(!status.consented)}
@@ -88,7 +88,7 @@ export const CustomerSmsConsent = ({
                 <span className="truncate">
                   {status.consented
                     ? t("customers.smsConsent.revoke")
-                    : t("customers.smsConsent.attest")}
+                    : t("smsConsent.attest")}
                 </span>
               </Button>
             ) : null}

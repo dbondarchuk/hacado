@@ -81,6 +81,24 @@ export const canSendCustomerSms = (input: {
   return { ok: true };
 };
 
+export const SMS_APPOINTMENT_CONSENT_BEFORE = "SMS_APPOINTMENT_CONSENT_BEFORE";
+
+export const appointmentSkipsSmsConsent = (
+  createdAt: Date | undefined,
+  cutoff = process.env[SMS_APPOINTMENT_CONSENT_BEFORE],
+): boolean => {
+  if (!cutoff || !createdAt) {
+    return false;
+  }
+
+  const parsed = new Date(cutoff);
+  if (Number.isNaN(parsed.getTime())) {
+    return false;
+  }
+
+  return createdAt.getTime() < parsed.getTime();
+};
+
 export const appendRatesSentence = (body: string): string => {
   if (body.includes(SMS_RATES_SENTENCE)) {
     return body;

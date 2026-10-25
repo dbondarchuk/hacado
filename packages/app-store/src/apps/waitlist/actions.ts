@@ -132,6 +132,7 @@ export async function getWaitlistSmsText(
     const result = (await adminApi.apps.processRequest(appId, {
       type: GetWaitlistSmsTextActionType,
     })) as CustomerWaitlistTextOffer;
+
     logger.debug({ appId, result }, "Loaded waitlist SMS text offer");
     return result;
   } catch (error: any) {

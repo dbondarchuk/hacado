@@ -751,7 +751,6 @@ export class CustomerWaitlistNotificationsJobProcessor {
         await this.props.services.notificationService.sendTextMessage({
           phone: entry.phone,
           body: smsBody,
-          requireConsent: true,
           idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_slot`,
           participantType: "customer",
           memberId: entry.memberId,
@@ -864,7 +863,6 @@ export class CustomerWaitlistNotificationsJobProcessor {
     await this.props.services.notificationService.sendTextMessage({
       phone: entry.phone,
       body: smsBody,
-      requireConsent: true,
       idempotencyKey: `sms_${entry.organizationId}_waitlist_${entry._id}_leave`,
       participantType: "customer",
       memberId: entry.memberId,

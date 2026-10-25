@@ -1144,8 +1144,6 @@ appointments:
     note: Note
     confirmAppointment: Confirm appointment
     confirmAppointmentDescription: Mark appointment as confirmed
-    smsConsent: I attest, that customer agreed to receive text messages
-    smsConsentAlready: This customer already consented to text messages.
     confirmOverlap: Confirm overlap
     confirmOverlapDescription:
       I understand that scheduling this appointment will
@@ -1373,11 +1371,8 @@ customers:
   communications: Communications
   smsConsent:
     title: Text messages
-    active: This customer already consented to text messages.
     inactive: This customer has not agreed to receive text messages.
-    optedOut: This number is opted out. The customer must text START before reminders can be sent.
     noPhone: Add a phone number to manage text message consent.
-    attest: I attest, that customer agreed to receive text messages
     revoke: Revoke consent
     attested: Consent recorded
     revoked: Consent revoked
@@ -4562,3 +4557,7 @@ users:
       max: Title must be no more than 80 characters long
     bio:
       max: Bio must be no more than 1024 characters long
+smsConsent:
+  attest: I attest, that customer agreed to receive text messages
+  already: This customer already consented to text messages.
+  optedOut: This number is opted out. The customer must text START before reminders can be sent.

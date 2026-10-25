@@ -205,7 +205,7 @@ export class NotificationService implements INotificationService {
       appointmentId,
       customerId,
       memberId,
-      requireConsent,
+      dontRequireConsent,
       idempotencyKey,
     } = props;
     const logger = this.loggerFactory("sendTextMessage");
@@ -245,8 +245,11 @@ export class NotificationService implements INotificationService {
       return { success: true, skipped: true, error: "sms disabled" };
     }
 
+    const requireConsent =
+      participantType === "customer" && !dontRequireConsent;
+
     const consent = canSendCustomerSms({
-      requireConsent: Boolean(requireConsent) && participantType === "customer",
+      requireConsent,
       latestConsent: requireConsent
         ? await this.smsStore.latestConsent(this.organizationId, trimmedPhone)
         : true,

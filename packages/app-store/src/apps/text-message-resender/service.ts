@@ -227,6 +227,7 @@ export default class TextMessageResenderConnectedApp
         this.props.services.notificationService.sendTextMessage({
           phone: textMessageReply.data.data,
           body,
+          dontRequireConsent: true,
           webhookData: {
             ...reply.data,
             data: undefined,

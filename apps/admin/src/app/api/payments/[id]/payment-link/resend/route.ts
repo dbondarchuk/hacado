@@ -1,5 +1,6 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
+import { ensureCustomerSmsConsent } from "@/lib/customer-sms-consent";
 import { resendPaymentLinkSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
 import { IPaymentLinkProvider, PaymentLinkPayment } from "@hacado/types";
@@ -117,6 +118,25 @@ export async function POST(
       },
       { status: 400 },
     );
+  }
+
+  if (data.channel === "sms") {
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const consent = await ensureCustomerSmsConsent({
+      getCustomer: (id) => servicesContainer.customersService.getCustomer(id),
+      smsConsentService: servicesContainer.smsConsentService,
+      customerId: payment.customerId,
+      to: data.to,
+      attest: data.smsConsent === true,
+      ip: forwardedFor?.split(",")[0]?.trim() || undefined,
+    });
+
+    if (!consent.ok) {
+      return NextResponse.json(
+        { success: false, error: consent.error, code: consent.code },
+        { status: consent.status },
+      );
+    }
   }
 
   await service.sendPaymentLink(app, payment, {

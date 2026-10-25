@@ -1,10 +1,59 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
+import { customerConsentPhone } from "@/lib/customer-sms-consent";
 import { getLoggerFactory } from "@hacado/logger";
-import { normalizeToE164 } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+
+const customerResponse = async (id: string) => {
+  const services = await getServicesContainer();
+  const customer = await services.customersService.getCustomer(id);
+  return { services, customer };
+};
+
+export async function GET(
+  request: NextRequest,
+  { params }: RouteContext<"/api/customers/[id]/sms-consent">,
+) {
+  const logger = getLoggerFactory("AdminAPI/customers/[id]/sms-consent")("GET");
+  const auth = await requirePermission("customer", "read", logger);
+  if (!auth.ok) return auth.response;
+
+  const { id } = await params;
+  const { services, customer } = await customerResponse(id);
+  if (!customer) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Customer not found",
+        code: "customer_not_found",
+      },
+      { status: 404 },
+    );
+  }
+
+  const phone = customerConsentPhone(
+    customer,
+    request.nextUrl.searchParams.get("phone"),
+  );
+
+  if (!phone) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Phone does not belong to this customer",
+        code: "phone_not_found",
+      },
+      { status: 400 },
+    );
+  }
+
+  const status =
+    await services.smsConsentService.getCustomerSmsConsentStatus(phone);
+
+  return NextResponse.json(status);
+}
 
 export async function POST(
   request: NextRequest,
@@ -18,8 +67,7 @@ export async function POST(
   if (!auth.ok) return auth.response;
 
   const { id } = await params;
-  const services = await getServicesContainer();
-  const customer = await services.customersService.getCustomer(id);
+  const { services, customer } = await customerResponse(id);
   if (!customer) {
     return NextResponse.json(
       {
@@ -31,19 +79,20 @@ export async function POST(
     );
   }
 
-  const phone = customer.phone ? normalizeToE164(customer.phone) : null;
+  const json = await request.json().catch(() => null);
+  const requestedPhone = typeof json?.phone === "string" ? json.phone : null;
+  const phone = customerConsentPhone(customer, requestedPhone);
   if (!phone) {
     return NextResponse.json(
       {
         success: false,
-        error: "Customer has no phone",
-        code: "phone_required",
+        error: "Phone does not belong to this customer",
+        code: "phone_not_found",
       },
       { status: 400 },
     );
   }
 
-  const json = await request.json().catch(() => null);
   const consented = json?.consented === true;
   const forwardedFor = request.headers.get("x-forwarded-for");
 
