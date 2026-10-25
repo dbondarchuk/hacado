@@ -1,7 +1,9 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  CommunicationParticipantType,
   Email,
   EmailNotificationRequest,
+  ICommunicationLogsService,
   INotificationService,
   ISystemNotificationService,
   TextMessage,
@@ -10,6 +12,7 @@ import {
   WithOrganizationId,
 } from "@hacado/types";
 import { Job } from "bullmq";
+import { convert } from "html-to-text";
 import { BaseBullMQClient } from "../base-bullmq-client";
 import { BullMQNotificationConfig } from "./types";
 
@@ -39,6 +42,28 @@ export type NotificationJobData =
   | SystemEmailJobData
   | SystemTextMessageJobData;
 
+const isDuplicateJobError = (error: unknown) => {
+  const message = error instanceof Error ? error.message : "";
+  return /already exists|JobId/i.test(message);
+};
+
+const outboundParticipant = (data: {
+  participantType: CommunicationParticipantType;
+  memberId?: string;
+}) => {
+  if (data.participantType === "member") {
+    return {
+      participantType: "member" as const,
+      memberId: data.memberId!,
+    };
+  }
+
+  return {
+    participantType: "customer" as const,
+    ...(data.memberId ? { memberId: data.memberId } : {}),
+  };
+};
+
 export class BullMQNotificationService
   extends BaseBullMQClient
   implements INotificationService
@@ -48,6 +73,7 @@ export class BullMQNotificationService
   constructor(
     protected readonly organizationId: string,
     config: BullMQNotificationConfig,
+    private readonly communicationLogsService: ICommunicationLogsService,
   ) {
     super(
       config,
@@ -78,19 +104,8 @@ export class BullMQNotificationService
   public async sendEmail(data: EmailNotificationRequest): Promise<void> {
     const logger = this.loggerFactory("sendEmail");
 
-    const jobData: EmailJobData = {
-      type: "email",
-      data,
-      organizationId: this.organizationId,
-    };
-
     try {
-      const queue = this.getQueue(this.config.queues.email.name);
-      const job = await queue.add("email-notification", jobData, {
-        priority: 0,
-        delay: 0,
-      });
-
+      const job = await this.enqueueEmail(data, { priority: 0, delay: 0 });
       logger.info(
         {
           jobId: job.id,
@@ -117,21 +132,15 @@ export class BullMQNotificationService
   ): Promise<TextMessageResponse> {
     const logger = this.loggerFactory("sendTextMessage");
 
-    const jobData: TextMessageJobData = {
-      type: "text-message",
-      data,
-      organizationId: this.organizationId,
-    };
-
     try {
-      const queue = this.getQueue(this.config.queues.textMessage.name);
-      const job = await queue.add("text-message-notification", jobData, {
+      const job = await this.enqueueTextMessage(data, {
         priority: 0,
         delay: 0,
-        ...(data.idempotencyKey
-          ? { jobId: data.idempotencyKey.replaceAll(":", "_") }
-          : {}),
       });
+
+      if (!job) {
+        return { success: true, skipped: true };
+      }
 
       logger.info(
         {
@@ -144,7 +153,6 @@ export class BullMQNotificationService
         "Text message notification job added to queue",
       );
 
-      // Return a mock response since the actual sending happens asynchronously
       return {
         success: true,
         textId: job.id?.toString() || "unknown",
@@ -152,7 +160,7 @@ export class BullMQNotificationService
       };
     } catch (error) {
       const message = error instanceof Error ? error.message : "";
-      if (data.idempotencyKey && /already exists|JobId/i.test(message)) {
+      if (data.idempotencyKey && isDuplicateJobError(error)) {
         return { success: true, skipped: true };
       }
 
@@ -221,14 +229,7 @@ export class BullMQNotificationService
   ): Promise<Job> {
     const logger = this.loggerFactory("addEmailWithOptions");
 
-    const jobData: EmailJobData = {
-      type: "email",
-      data,
-      organizationId: this.organizationId,
-    };
-
-    const queue = this.getQueue(this.config.queues.email.name);
-    const job = await queue.add("email-notification", jobData, {
+    const job = await this.enqueueEmail(data, {
       priority: options?.priority || 0,
       delay: options?.delay || 0,
       attempts: options?.maxRetries || this.config.defaultJobOptions.attempts,
@@ -261,21 +262,15 @@ export class BullMQNotificationService
   ): Promise<Job> {
     const logger = this.loggerFactory("addTextMessageWithOptions");
 
-    const jobData: TextMessageJobData = {
-      type: "text-message",
-      data,
-      organizationId: this.organizationId,
-    };
-
-    const queue = this.getQueue(this.config.queues.textMessage.name);
-    const job = await queue.add("text-message-notification", jobData, {
+    const job = await this.enqueueTextMessage(data, {
       priority: options?.priority || 0,
       delay: options?.delay || 0,
       attempts: options?.maxRetries || this.config.defaultJobOptions.attempts,
-      ...(data.idempotencyKey
-        ? { jobId: data.idempotencyKey.replaceAll(":", "_") }
-        : {}),
     });
+
+    if (!job) {
+      throw new Error("Text message notification is already queued");
+    }
 
     logger.info(
       {
@@ -290,6 +285,108 @@ export class BullMQNotificationService
     );
 
     return job;
+  }
+
+  private async enqueueEmail(
+    data: EmailNotificationRequest,
+    options: { delay?: number; priority?: number; attempts?: number },
+  ): Promise<Job> {
+    const communicationLogId = await this.communicationLogsService.create({
+      direction: "outbound",
+      channel: "email",
+      handledBy: data.handledBy,
+      participant: Array.isArray(data.email.to)
+        ? data.email.to.join("; ")
+        : data.email.to,
+      ...outboundParticipant(data),
+      subject: data.email.subject,
+      text: convert(data.email.body, { wordwrap: 130 }),
+      html: data.email.body,
+      appointmentId: data.appointmentId,
+      customerId: data.customerId,
+      status: "preparing",
+    });
+
+    const jobData: EmailJobData = {
+      type: "email",
+      data: { ...data, communicationLogId },
+      organizationId: this.organizationId,
+    };
+
+    try {
+      return await this.getQueue(this.config.queues.email.name).add(
+        "email-notification",
+        jobData,
+        {
+          priority: options.priority || 0,
+          delay: options.delay || 0,
+          ...(options.attempts ? { attempts: options.attempts } : {}),
+        },
+      );
+    } catch (error) {
+      await this.communicationLogsService.update(communicationLogId, {
+        status: "failed",
+        reason: error instanceof Error ? error.message : "Failed to queue",
+        retryable: false,
+        retriesDone: 0,
+        retriesLeft: 0,
+      });
+      throw error;
+    }
+  }
+
+  private async enqueueTextMessage(
+    data: TextMessageNotificationRequest,
+    options: { delay?: number; priority?: number; attempts?: number },
+  ): Promise<Job | null> {
+    const queue = this.getQueue(this.config.queues.textMessage.name);
+    const jobId = data.idempotencyKey?.replaceAll(":", "_");
+    if (jobId && (await queue.getJob(jobId))) {
+      return null;
+    }
+
+    const communicationLogId = await this.communicationLogsService.create({
+      direction: "outbound",
+      channel: "text-message",
+      handledBy: data.handledBy,
+      participant: data.phone,
+      ...outboundParticipant(data),
+      text: data.body,
+      appointmentId: data.appointmentId,
+      customerId: data.customerId,
+      status: "preparing",
+    });
+
+    const jobData: TextMessageJobData = {
+      type: "text-message",
+      data: { ...data, communicationLogId },
+      organizationId: this.organizationId,
+    };
+
+    try {
+      return await queue.add("text-message-notification", jobData, {
+        priority: options.priority || 0,
+        delay: options.delay || 0,
+        ...(options.attempts ? { attempts: options.attempts } : {}),
+        ...(jobId ? { jobId } : {}),
+      });
+    } catch (error) {
+      if (jobId && isDuplicateJobError(error)) {
+        await this.communicationLogsService.clearSelectedLogs([
+          communicationLogId,
+        ]);
+        return null;
+      }
+
+      await this.communicationLogsService.update(communicationLogId, {
+        status: "failed",
+        reason: error instanceof Error ? error.message : "Failed to queue",
+        retryable: false,
+        retriesDone: 0,
+        retriesLeft: 0,
+      });
+      throw error;
+    }
   }
 }
 

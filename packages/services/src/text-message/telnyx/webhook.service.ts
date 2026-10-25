@@ -1,6 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ITextMessageSender } from "@hacado/types";
 import { maskify, normalizeToE164 } from "@hacado/utils";
+import { markCommunicationLogDeliveryFailed } from "../../communication-logs.service";
 import { classifyInboundSmsKeyword } from "../compliance";
 import { InboundTextMessageService } from "../inbound-reply.service";
 import { getInboundSmsKeywordReply } from "../messages";
@@ -98,6 +99,17 @@ export class TelnyxMessagingWebhookService {
       failed ? "failed" : "delivered",
       errorCode,
     );
+
+    if (failed) {
+      const detail = errorCode || status || "delivery failed";
+      await markCommunicationLogDeliveryFailed({
+        providerMessageId: textId,
+        reason: {
+          key: "admin.communications.reason.deliveryFailed",
+          args: { detail },
+        },
+      });
+    }
 
     if (errorCode === "40300") {
       const phone = normalizeToE164(payload?.to?.[0]?.phone_number ?? "");

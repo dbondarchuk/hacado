@@ -2,14 +2,15 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@hacado/ui";
+
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
 } from "@hacado/ui-admin";
-import { Settings2 } from "lucide-react";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+
 import { useTeamMembersTableFilters } from "./use-table-filters";
 
 export function TeamMembersTableAction() {
@@ -67,28 +68,14 @@ export function TeamMembersTableAction() {
 
   return (
     <div className="flex flex-col flex-wrap md:items-center justify-between gap-4 md:flex-row">
-      <div className="flex flex-1 md:flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-4">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
         />
-        <Popover>
-          <PopoverTrigger
-            tooltip={t("common.labels.filters")}
-            asChild
-            className="md:hidden"
-          >
-            <Button variant="outline">
-              <Settings2 size={16} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {additionalFilters}
-          </PopoverContent>
-        </Popover>
-        <div className="hidden md:flex flex-row gap-4">{additionalFilters}</div>
+        <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
         <DataTableResetFilter
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}

@@ -121,7 +121,8 @@
     "PEXELS_API_KEY",
     "GEOAPIFY_API_KEY",
     "SMS_PROVIDER",
-    "SMS_UNVERIFIED_PROVIDER"
+    "SMS_UNVERIFIED_PROVIDER",
+    "RESEND_WEBHOOK_SECRET"
   ],
   "tasks": {
     "build": {

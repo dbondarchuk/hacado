@@ -1290,6 +1290,8 @@ communicationLogs:
     columns:
       direction: Dirección
       channel: Canal
+      status: Estado
+      reason: Motivo
       participantType: Partícipe
       participant: Partícipe
       handler: Entrenador de animales
@@ -3392,6 +3394,27 @@ dashboard:
     calendar: Calendario
     pendingAppointments: Citas Pendientes
 communications:
+  status:
+    preparing: Preparando
+    sending: Enviando
+    sent: Enviado
+    received: Recibido
+    failed: Fallido
+    failedWithRetries: "Fallido: {done}/{max} reintentos"
+    failedFinal: Fallido.
+  reason:
+    optedOut: El cliente rechazó los mensajes
+    noConsent: El cliente no aceptó los textos
+    smsDisabled: Los mensajes de texto están desactivados
+    invalidPhone: Número de teléfono no válido
+    creditsExhausted: Se agotaron los créditos de texto
+    platformLimit: "{limit, select, rate {Demasiados textos este minuto.} daily {Se alcanzó el límite diario de textos.} other {Se alcanzó el límite de textos.}}"
+    numberNotReady: El número de texto no está listo
+    linkOnly: El mensaje solo tenía un enlace
+    deliveryFailed: "Error de entrega: {detail}"
+  retries: "{done} reintentos usados, {left} restantes"
+  retryable: Se puede reintentar
+  notRetryable: No se reintentará
   viewMore: Ver más
   payloadLoadError: No se pudo cargar el mensaje completo.
   logContent: Contenido del mensaje

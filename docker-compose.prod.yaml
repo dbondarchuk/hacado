@@ -1,0 +1,291 @@
+version: "3.9"
+services:
+  hacado-app:
+    image: "ghcr.io/dbondarchuk/hacado-admin:${VERSION:-latest}"
+    environment:
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "TZ=${TZ:-America/New_York}"
+      - "AUTH_SECRET=${AUTH_SECRET:-n6WKAuaUVdOYMRReNYXEd/sHLF/Ddfams+FAGMe7vzk=}"
+      - "AUTH_TRUST_HOST=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "BETTER_AUTH_URL=https://${ADMIN_DOMAIN:-app.hacado.com}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}"
+      - "SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}"
+      - "SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}"
+      - "OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}"
+      - "OUTLOOK_APP_CLIENT_SECRET=${OUTLOOK_APP_CLIENT_SECRET}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_ID=${GOOGLE_CALENDAR_APP_CLIENT_ID}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_SECRET=${GOOGLE_CALENDAR_APP_CLIENT_SECRET}"
+      - "ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}"
+      - "ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}"
+      - "PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "S3_REGION=${S3_REGION:-local}"
+      - "S3_ACCESS_KEY=${S3_ACCESS_KEY:-}"
+      - "S3_SECRET_KEY=${S3_SECRET_KEY:-}"
+      - "S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}"
+      - "S3_BUCKET=${S3_BUCKET:-assets}"
+      - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
+      - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
+      - TELNYX_API_KEY=${TELNYX_API_KEY}
+      - TELNYX_PUBLIC_KEY=${TELNYX_PUBLIC_KEY}
+      - TELNYX_FROM_NUMBER=${TELNYX_FROM_NUMBER}
+      - TELNYX_MESSAGING_PROFILE_ID=${TELNYX_MESSAGING_PROFILE_ID}
+      - TELNYX_CLIENT_MESSAGING_PROFILE_ID=${TELNYX_CLIENT_MESSAGING_PROFILE_ID:-}
+      - TELNYX_VERIFICATION_DRY_RUN=${TELNYX_VERIFICATION_DRY_RUN:-}
+      - SMS_PROVIDER=${SMS_PROVIDER:-telnyx}
+      - SMS_UNVERIFIED_PROVIDER=${SMS_UNVERIFIED_PROVIDER:-textbelt}
+      - SMS_SUPPORTED_COUNTRIES=${SMS_SUPPORTED_COUNTRIES:-US,CA}
+      - SMS_RATE_LIMIT_PER_MINUTE=${SMS_RATE_LIMIT_PER_MINUTE:-60}
+      - SMS_DAILY_CAP=${SMS_DAILY_CAP:-1000}
+      - "TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}"
+      - "TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}"
+      - "SIGNUP_GEO_BLOCKING_ENABLED=${SIGNUP_GEO_BLOCKING_ENABLED:-false}"
+      - "SIGNUP_EMAIL_BLOCKING_ENABLED=${SIGNUP_EMAIL_BLOCKING_ENABLED:-true}"
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    depends_on:
+      - hacado-job-processor
+      - hacado-notification-sender
+    labels:
+      logging: promtail
+      logging_jobname: hacado-app
+  hacado-web:
+    image: "ghcr.io/dbondarchuk/hacado-web:${VERSION:-latest}"
+    environment:
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "TZ=${TZ:-America/New_York}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}"
+      - "SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}"
+      - "OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}"
+      - "OUTLOOK_APP_CLIENT_SECRET=${OUTLOOK_APP_CLIENT_SECRET}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_ID=${GOOGLE_CALENDAR_APP_CLIENT_ID}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_SECRET=${GOOGLE_CALENDAR_APP_CLIENT_SECRET}"
+      - "ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}"
+      - "ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}"
+      - "PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "S3_REGION=${S3_REGION:-local}"
+      - "S3_ACCESS_KEY=${S3_ACCESS_KEY:-}"
+      - "S3_SECRET_KEY=${S3_SECRET_KEY:-}"
+      - "S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}"
+      - "S3_BUCKET=${S3_BUCKET:-assets}"
+      - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
+      - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - hacado-job-processor
+      - hacado-notification-sender
+      - hacado-app
+    labels:
+      logging: promtail
+      logging_jobname: hacado-web
+  hacado-notification-sender:
+    image: "ghcr.io/dbondarchuk/hacado-notification-sender:${VERSION:-latest}"
+    environment:
+      - "TZ=${TZ:-America/New_York}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}"
+      - "OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}"
+      - "OUTLOOK_APP_CLIENT_SECRET=${OUTLOOK_APP_CLIENT_SECRET}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_ID=${GOOGLE_CALENDAR_APP_CLIENT_ID}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_SECRET=${GOOGLE_CALENDAR_APP_CLIENT_SECRET}"
+      - "ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}"
+      - "ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}"
+      - "PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}"
+      - "S3_REGION=${S3_REGION:-local}"
+      - "S3_ACCESS_KEY=${S3_ACCESS_KEY:-}"
+      - "S3_SECRET_KEY=${S3_SECRET_KEY:-}"
+      - "S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}"
+      - "S3_BUCKET=${S3_BUCKET:-assets}"
+      - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
+      - "EMAIL_PROVIDER=${EMAIL_PROVIDER:-smtp}"
+      - "SMTP_HOST=${SMTP_HOST:-smtp.example.com}"
+      - "SMTP_PORT=${SMTP_PORT:-465}"
+      - "SMTP_SECURE=${SMTP_SECURE:-true}"
+      - "SMTP_EMAIL=${SMTP_EMAIL:-hacado@example.com}"
+      - "SMTP_FROM_NAME=${SMTP_FROM_NAME:-Hacado}"
+      - "SMTP_AUTH_USER=${SMTP_AUTH_USER:-hacado@example.com}"
+      - 'SMTP_AUTH_PASS=${SMTP_AUTH_PASS:-"secure_password"}'
+      - "RESEND_API_KEY=${RESEND_API_KEY:-}"
+      - "RESEND_EMAIL=${RESEND_EMAIL:-}"
+      - "RESEND_FROM_NAME=${RESEND_FROM_NAME:-Hacado}"
+      - "RESEND_CUSTOMER_EMAIL=${RESEND_CUSTOMER_EMAIL:-}"
+      - "RESEND_CUSTOMER_FROM_NAME=${RESEND_CUSTOMER_FROM_NAME:-}"
+      - TELNYX_API_KEY=${TELNYX_API_KEY}
+      - TELNYX_PUBLIC_KEY=${TELNYX_PUBLIC_KEY}
+      - TELNYX_FROM_NUMBER=${TELNYX_FROM_NUMBER}
+      - TELNYX_MESSAGING_PROFILE_ID=${TELNYX_MESSAGING_PROFILE_ID}
+      - TELNYX_CLIENT_MESSAGING_PROFILE_ID=${TELNYX_CLIENT_MESSAGING_PROFILE_ID:-}
+      - SMS_PROVIDER=${SMS_PROVIDER:-telnyx}
+      - SMS_UNVERIFIED_PROVIDER=${SMS_UNVERIFIED_PROVIDER:-textbelt}
+      - SMS_SUPPORTED_COUNTRIES=${SMS_SUPPORTED_COUNTRIES:-US,CA}
+      - SMS_RATE_LIMIT_PER_MINUTE=${SMS_RATE_LIMIT_PER_MINUTE:-60}
+      - SMS_DAILY_CAP=${SMS_DAILY_CAP:-1000}
+      - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
+      - "SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}"
+      - "SMS_LINK_SHORTENING_ENABLED=${SMS_LINK_SHORTENING_ENABLED:-false}"
+    restart: unless-stopped
+    labels:
+      logging: promtail
+      logging_jobname: hacado-notification-sender
+  hacado-job-processor:
+    image: "ghcr.io/dbondarchuk/hacado-job-processor:${VERSION:-latest}"
+    environment:
+      - "TZ=${TZ:-America/New_York}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}"
+      - "OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}"
+      - "OUTLOOK_APP_CLIENT_SECRET=${OUTLOOK_APP_CLIENT_SECRET}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_ID=${GOOGLE_CALENDAR_APP_CLIENT_ID}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_SECRET=${GOOGLE_CALENDAR_APP_CLIENT_SECRET}"
+      - "ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}"
+      - "ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}"
+      - "PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}"
+      - "S3_REGION=${S3_REGION:-local}"
+      - "S3_ACCESS_KEY=${S3_ACCESS_KEY:-}"
+      - "S3_SECRET_KEY=${S3_SECRET_KEY:-}"
+      - "S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}"
+      - "S3_BUCKET=${S3_BUCKET:-assets}"
+      - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
+      - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
+    restart: unless-stopped
+    labels:
+      logging: promtail
+      logging_jobname: hacado-job-processor
+  hacado-app-external-server:
+    image: "ghcr.io/dbondarchuk/hacado-app-external-server:${VERSION:-latest}"
+    environment:
+      - "TZ=${TZ:-America/New_York}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "SECRET_KEY=${SECRET_KEY:-uw8iDFHFNjbIU8gPGMByTLiFfXJex7E1}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+      - "APPS_EXTERNAL_DOMAIN=${APPS_EXTERNAL_DOMAIN:-apps.hacado.com}"
+      - "OUTLOOK_APP_CLIENT_ID=${OUTLOOK_APP_CLIENT_ID}"
+      - "OUTLOOK_APP_CLIENT_SECRET=${OUTLOOK_APP_CLIENT_SECRET}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_ID=${GOOGLE_CALENDAR_APP_CLIENT_ID}"
+      - "GOOGLE_CALENDAR_APP_CLIENT_SECRET=${GOOGLE_CALENDAR_APP_CLIENT_SECRET}"
+      - "ZOOM_APP_CLIENT_ID=${ZOOM_APP_CLIENT_ID}"
+      - "ZOOM_APP_CLIENT_SECRET=${ZOOM_APP_CLIENT_SECRET}"
+      - "PAYPAL_ENVIRONMENT=${PAYPAL_ENVIRONMENT:-sandbox}"
+      - "SQUARE_APP_WEBHOOK_SIGNATURE_KEY=${SQUARE_APP_WEBHOOK_SIGNATURE_KEY}"
+      - "SQUARE_ENVIRONMENT=${SQUARE_ENVIRONMENT:-sandbox}"
+      - "STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}"
+      - "STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}"
+      - "S3_REGION=${S3_REGION:-local}"
+      - "S3_ACCESS_KEY=${S3_ACCESS_KEY:-}"
+      - "S3_SECRET_KEY=${S3_SECRET_KEY:-}"
+      - "S3_ENDPOINT=${S3_ENDPOINT:-http://s3:8080}"
+      - "S3_BUCKET=${S3_BUCKET:-assets}"
+      - "S3_FORCE_PATH_STYLE=${S3_FORCE_PATH_STYLE:-true}"
+      - TELNYX_API_KEY=${TELNYX_API_KEY}
+      - TELNYX_PUBLIC_KEY=${TELNYX_PUBLIC_KEY}
+      - TELNYX_FROM_NUMBER=${TELNYX_FROM_NUMBER}
+      - TELNYX_MESSAGING_PROFILE_ID=${TELNYX_MESSAGING_PROFILE_ID}
+      - TELNYX_CLIENT_MESSAGING_PROFILE_ID=${TELNYX_CLIENT_MESSAGING_PROFILE_ID:-}
+      - SMS_SUPPORTED_COUNTRIES=${SMS_SUPPORTED_COUNTRIES:-US,CA}
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - RESEND_WEBHOOK_SECRET=${RESEND_WEBHOOK_SECRET:-}
+      - "TEXTBELT_API_KEY=${TEXTBELT_API_KEY}"
+    restart: unless-stopped
+    ports:
+      - "5556:5556"
+    labels:
+      logging: promtail
+      logging_jobname: hacado-app-external-server
+  hacado-domain-checker:
+    image: "ghcr.io/dbondarchuk/hacado-domain-checker:${VERSION:-latest}"
+    environment:
+      - "TZ=${TZ:-America/New_York}"
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+    restart: unless-stopped
+    ports:
+      - "5555:5555"
+    labels:
+      logging: promtail
+      logging_jobname: hacado-domain-checker
+  hacado-docs:
+    image: "ghcr.io/dbondarchuk/hacado-docs:${VERSION:-latest}"
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    labels:
+      logging: promtail
+      logging_jobname: hacado-docs
+  hacado-link-shortener:
+    image: "ghcr.io/dbondarchuk/hacado-link-shortener:${VERSION:-latest}"
+    environment:
+      - "TZ=${TZ:-America/New_York}"
+      - "MONGODB_URI=${MONGODB_URI:-mongodb://mongodb:27017/hacado?retryWrites=true&w=majority}"
+      - "MONGODB_DB=${MONGODB_DB}"
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_USERNAME=${REDIS_USERNAME:-}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-}"
+      - "REDIS_DB=${REDIS_DB:-0}"
+      - "LOG_LEVEL=${LOG_LEVEL:-debug}"
+      - "PUBLIC_DOMAIN=${PUBLIC_DOMAIN:-hacado.me}"
+      - "SHORT_DOMAIN=${SHORT_DOMAIN:-haca.do}"
+      - "MARKETING_URL=${MARKETING_URL:-https://hacado.com}"
+      - "ADMIN_DOMAIN=${ADMIN_DOMAIN:-app.hacado.com}"
+    restart: unless-stopped
+    ports:
+      - "5557:5557"
+    labels:
+      logging: promtail
+      logging_jobname: hacado-link-shortener

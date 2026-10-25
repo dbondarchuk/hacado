@@ -1,5 +1,6 @@
 export * from "./appointments";
 export * from "./communications";
+export * from "./data-table";
 export * from "./event-calendar";
 export * from "./modification";
 export * from "./packages";

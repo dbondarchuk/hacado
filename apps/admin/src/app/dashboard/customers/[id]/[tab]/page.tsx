@@ -390,7 +390,20 @@ export default async function CustomerPage(props: Props) {
                       <DataTableSkeleton columnCount={10} rowCount={10} />
                     }
                   >
-                    <RecentCommunications customerId={params.id} />
+                    <RecentCommunications
+                      customerId={params.id}
+                      direction={communicationLogsSearchParamsCache.get(
+                        "direction",
+                      )}
+                      channel={communicationLogsSearchParamsCache.get(
+                        "channel",
+                      )}
+                      status={communicationLogsSearchParamsCache.get("status")}
+                      start={communicationLogsSearchParamsCache.get("start")}
+                      end={communicationLogsSearchParamsCache.get("end")}
+                      search={communicationLogsSearchParamsCache.get("search")}
+                      member={communicationLogsSearchParamsCache.get("member")}
+                    />
                   </Suspense>
                 </TabsContent>
               )}

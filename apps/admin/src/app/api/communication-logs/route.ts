@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
   const appointmentId = params.appointmentId ?? undefined;
   const direction = params.direction;
   const channel = params.channel;
+  const status = params.status;
   const start = params.start ?? undefined;
   const end = params.end ?? undefined;
   const participantType = params.participantType ?? undefined;
@@ -63,6 +64,7 @@ export async function GET(request: NextRequest) {
       appointmentId,
       direction,
       channel,
+      status,
       participantType,
       memberId: memberIds ?? undefined,
       range:

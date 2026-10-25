@@ -79,9 +79,12 @@ export const CalendarDateRangePicker: React.FC<
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 flex flex-row gap-2" align="end">
+        <PopoverContent
+          className="w-auto p-0 flex gap-2 max-md:max-w-[100vw] flex-col md:flex-row"
+          align="end"
+        >
           {!!rangeOptions?.length && (
-            <div className="flex flex-col gap-1 px-2 py-4">
+            <div className="flex flex-row overflow-auto md:flex-col gap-1 px-2 py-4">
               {rangeOptions?.map((option) => (
                 <Button
                   key={option.name}

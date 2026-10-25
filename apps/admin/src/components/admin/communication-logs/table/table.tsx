@@ -17,6 +17,7 @@ export const CommunicationLogsTable: React.FC<{
   const participantType =
     communicationLogsSearchParamsCache.get("participantType");
   const channel = communicationLogsSearchParamsCache.get("channel");
+  const status = communicationLogsSearchParamsCache.get("status");
   const start = communicationLogsSearchParamsCache.get("start") || undefined;
   const end = communicationLogsSearchParamsCache.get("end") || undefined;
   const sort = communicationLogsSearchParamsCache.get("sort");
@@ -37,6 +38,7 @@ export const CommunicationLogsTable: React.FC<{
       range: { start, end },
       channel,
       direction,
+      status,
       participantType,
       offset,
       limit,

@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types";
-import { Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
+import { Badge, Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   MemberName,
@@ -63,6 +63,60 @@ export const columns: ColumnDef<CommunicationLog>[] = [
       "admin",
     ),
     sortingFn: tableSortNoopFunction,
+  },
+  {
+    id: "status",
+    header: tableSortHeader(
+      "communicationLogs.table.columns.status",
+      "default",
+      "admin",
+    ),
+    sortingFn: tableSortNoopFunction,
+    cell: ({ row }) => {
+      const t = useI18n("admin");
+      const { status, retriesDone, retriesLeft } = row.original;
+      const done = retriesDone ?? 0;
+      const left = retriesLeft ?? 0;
+      const label =
+        status === "failed"
+          ? left > 0
+            ? t("communications.status.failedWithRetries", {
+                done,
+                max: done + left,
+              })
+            : t("communications.status.failedFinal")
+          : t(`communications.status.${status}`);
+
+      return (
+        <Badge variant={status === "failed" ? "destructive" : "outline"}>
+          {label}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: "reason",
+    enableSorting: false,
+    header: () => {
+      const t = useI18n("admin");
+      return t("communicationLogs.table.columns.reason");
+    },
+    cell: ({ row }) => {
+      const t = useI18n();
+      const { status, reason } = row.original;
+      if (status !== "failed" || !reason) return null;
+
+      const text =
+        typeof reason === "string"
+          ? t.has(reason as any)
+            ? t(reason as any)
+            : reason
+          : t.has(reason.key)
+            ? t(reason.key, reason.args)
+            : reason.key;
+
+      return <span className="line-clamp-2 max-w-64">{text}</span>;
+    },
   },
   {
     cell: ({ row }) => {

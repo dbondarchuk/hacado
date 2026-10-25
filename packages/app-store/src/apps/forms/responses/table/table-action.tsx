@@ -1,13 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  ButtonGroup,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Button, ButtonGroup } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableRangeBox,
@@ -15,8 +9,11 @@ import {
   DataTableSearch,
   useSelectedRowsStore,
 } from "@hacado/ui-admin";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
-import { Plus, Settings2 } from "lucide-react";
+import {
+  HeaderActionButtonsPortal,
+  ResponsiveFilterBar,
+} from "@hacado/ui-admin-kit";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import {
@@ -97,30 +94,14 @@ export const ResponsesTableAction: React.FC<{
   return (
     <>
       <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-        <div className="flex flex-1 md:flex-wrap items-center gap-4">
+        <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-4">
           <DataTableSearch
             searchKey="search"
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             setPage={setPage}
           />
-          <Popover>
-            <PopoverTrigger
-              tooltip={tAdmin("common.labels.filters")}
-              asChild
-              className="md:hidden"
-            >
-              <Button variant="outline">
-                <Settings2 size={16} />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="flex flex-col gap-2">
-              {additionalFilters}
-            </PopoverContent>
-          </Popover>
-          <div className="hidden md:flex flex-row gap-4">
-            {additionalFilters}
-          </div>
+          <ResponsiveFilterBar>{additionalFilters}</ResponsiveFilterBar>
           <DataTableResetFilter
             isFilterActive={isAnyFilterActive}
             onReset={resetFilters}

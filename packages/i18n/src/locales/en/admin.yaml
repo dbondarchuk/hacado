@@ -1328,6 +1328,8 @@ communicationLogs:
     columns:
       direction: Direction
       channel: Channel
+      status: Status
+      reason: Reason
       participantType: Participant
       participant: Participant
       handler: Handler
@@ -3654,6 +3656,27 @@ dashboard:
     calendar: Calendar
     pendingAppointments: Pending Appointments
 communications:
+  status:
+    preparing: Preparing
+    sending: Sending
+    sent: Sent
+    received: Received
+    failed: Failed
+    failedWithRetries: "Failed: {done}/{max} retries"
+    failedFinal: Failed.
+  reason:
+    optedOut: Customer opted out
+    noConsent: Customer has not agreed to texts
+    smsDisabled: Text messaging is off
+    invalidPhone: Invalid phone number
+    creditsExhausted: Text credits are used up
+    platformLimit: "{limit, select, rate {Too many texts this minute.} daily {Daily text limit reached.} other {Text limit reached.}}"
+    numberNotReady: Text number is not ready
+    linkOnly: Message had only a link
+    deliveryFailed: "Delivery failed: {detail}"
+  retries: "{done} retries used, {left} left"
+  retryable: Can be retried
+  notRetryable: Will not be retried
   viewMore: View more
   payloadLoadError: Could not load the full message.
   logContent: Message content

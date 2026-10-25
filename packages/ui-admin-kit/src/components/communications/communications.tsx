@@ -6,6 +6,7 @@ import {
   CommunicationChannel,
   CommunicationDirection,
   CommunicationLog,
+  CommunicationLogStatus,
 } from "@hacado/types";
 import {
   Badge,
@@ -25,6 +26,21 @@ import React from "react";
 import { useInView } from "react-intersection-observer";
 import { CommunicationLogPayloadDialog } from "./communication-log-payload-dialog";
 import { SendCommunicationDialog } from "./send-message-dialog";
+
+const statusLabel: Record<
+  CommunicationLogStatus,
+  | "communications.status.preparing"
+  | "communications.status.sending"
+  | "communications.status.sent"
+  | "communications.status.received"
+  | "communications.status.failed"
+> = {
+  preparing: "communications.status.preparing",
+  sending: "communications.status.sending",
+  sent: "communications.status.sent",
+  received: "communications.status.received",
+  failed: "communications.status.failed",
+};
 
 const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
   entry,
@@ -46,6 +62,12 @@ const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
         ? entry.handledBy.args
         : undefined,
     );
+
+  const reason = !entry.reason
+    ? null
+    : typeof entry.reason === "string"
+      ? entry.reason
+      : t(entry.reason.key, entry.reason.args);
 
   const handler = t(
     typeof entry.handledBy === "object" ? entry.handledBy.key : entry.handledBy,
@@ -111,6 +133,12 @@ const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
           />
         </div>
         <div className="flex items-center gap-2 mt-3 flex-wrap">
+          <Badge
+            variant={entry.status === "failed" ? "destructive" : "outline"}
+            className="text-sm"
+          >
+            {tAdmin(statusLabel[entry.status])}
+          </Badge>
           <Badge variant="outline" className="text-sm">
             {tAdmin(`common.labels.channel.${entry.channel}`)}
           </Badge>
@@ -146,6 +174,26 @@ const CommunicationEntry: React.FC<{ entry: CommunicationLog }> = ({
                 </TooltipResponsiveContent>
               </TooltipResponsive>
             </Badge>
+          )}
+          {entry.status === "failed" && (
+            <>
+              {reason && (
+                <Badge variant="outline" className="text-sm overflow-hidden">
+                  <span className="truncate">{reason}</span>
+                </Badge>
+              )}
+              <Badge variant="secondary" className="text-sm">
+                {entry.retryable
+                  ? tAdmin("communications.retryable")
+                  : tAdmin("communications.notRetryable")}
+              </Badge>
+              <Badge variant="outline" className="text-sm">
+                {tAdmin("communications.retries", {
+                  done: entry.retriesDone ?? 0,
+                  left: entry.retriesLeft ?? 0,
+                })}
+              </Badge>
+            </>
           )}
           {entry.hasPayloadData && (
             <div className="flex flex-col gap-1">
@@ -226,17 +274,21 @@ const toLoad = 10;
 export type RecentCommunicationsProps = {
   direction?: CommunicationDirection[];
   channel?: CommunicationChannel[];
+  status?: CommunicationLogStatus[];
   start?: Date | null;
   end?: Date | null;
   search?: string | null;
+  member?: string[] | null;
 } & CustomerOrAppointment;
 
 export const RecentCommunications: React.FC<RecentCommunicationsProps> = ({
   direction,
   channel,
+  status,
   start,
   end,
   search,
+  member,
   ...rest
 }) => {
   const t = useI18n("admin");
@@ -263,9 +315,11 @@ export const RecentCommunications: React.FC<RecentCommunicationsProps> = ({
         appointmentId,
         direction,
         channel,
+        status,
         start,
         end,
         search,
+        member: member ?? undefined,
       });
 
       return {
@@ -273,7 +327,17 @@ export const RecentCommunications: React.FC<RecentCommunicationsProps> = ({
         hasMore: page * toLoad < result.total,
       };
     },
-    [customerId, appointmentId, direction, channel, start, end, search],
+    [
+      customerId,
+      appointmentId,
+      direction,
+      channel,
+      status,
+      start,
+      end,
+      search,
+      member,
+    ],
   );
 
   React.useEffect(() => {
@@ -281,7 +345,7 @@ export const RecentCommunications: React.FC<RecentCommunicationsProps> = ({
     setHasMore(true);
     setInitialLoad(false);
     setLogs([]);
-  }, [customerId, channel, direction, start, end, search]);
+  }, [customerId, channel, direction, status, start, end, search, member]);
 
   React.useEffect(() => {
     const loadItems = async () => {

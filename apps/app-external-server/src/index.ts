@@ -2,6 +2,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   getTextBeltConfiguration,
   InboundTextMessageService,
+  ResendWebhookService,
   ServicesContainer,
   SmsRegistrationStore,
   SmsStore,
@@ -148,6 +149,11 @@ async function handlePlatformTelnyxVerificationWebhook(
 }
 
 const routes: Route[] = [
+  {
+    pattern: /^\/api\/webhooks\/platform\/resend\/?$/,
+    process: async (_match, request) =>
+      new ResendWebhookService().processWebhook(request),
+  },
   {
     pattern: /^\/api\/webhooks\/platform\/telnyx\/messaging\/?$/,
     process: async (_match, request) => handlePlatformTelnyxWebhook(request),

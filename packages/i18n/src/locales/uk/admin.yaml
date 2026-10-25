@@ -1300,6 +1300,8 @@ communicationLogs:
     columns:
       direction: Напрямок
       channel: Канал
+      status: Статус
+      reason: Причина
       participantType: Учасник
       participant: Учасник
       handler: Обробник
@@ -3410,6 +3412,27 @@ dashboard:
     calendar: Календар
     pendingAppointments: Очікуючі записи
 communications:
+  status:
+    preparing: Підготовка
+    sending: Надсилання
+    sent: Надіслано
+    received: Отримано
+    failed: Не вдалося
+    failedWithRetries: "Не вдалося: {done}/{max} повторів"
+    failedFinal: Не вдалося.
+  reason:
+    optedOut: Клієнт відмовився від повідомлень
+    noConsent: Клієнт не погодився на текстові повідомлення
+    smsDisabled: Текстові повідомлення вимкнено
+    invalidPhone: Недійсний номер телефону
+    creditsExhausted: Текстові кредити вичерпано
+    platformLimit: "{limit, select, rate {Забагато текстів за цю хвилину.} daily {Досягнуто денний ліміт текстів.} other {Досягнуто ліміт текстів.}}"
+    numberNotReady: Номер для текстів не готовий
+    linkOnly: Повідомлення містило лише посилання
+    deliveryFailed: "Не вдалося доставити: {detail}"
+  retries: "Використано спроб: {done}, залишилось: {left}"
+  retryable: Можна повторити
+  notRetryable: Повторюватися не буде
   viewMore: Показати більше
   payloadLoadError: Не вдалося завантажити повний текст повідомлення.
   logContent: Вміст повідомлення

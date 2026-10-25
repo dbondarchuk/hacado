@@ -1290,6 +1290,8 @@ communicationLogs:
     columns:
       direction: Direction
       channel: Canal
+      status: Statut
+      reason: Raison
       participantType: Participant
       participant: Participant
       handler: Gestionnaire
@@ -3392,6 +3394,27 @@ dashboard:
     calendar: Calendrier
     pendingAppointments: Rendez-vous en attente
 communications:
+  status:
+    preparing: Préparation
+    sending: Envoi
+    sent: Envoyé
+    received: Reçu
+    failed: Échec
+    failedWithRetries: "Échec : {done}/{max} tentatives"
+    failedFinal: "Échec."
+  reason:
+    optedOut: "Le client s'est désabonné"
+    noConsent: "Le client n'a pas accepté les textos"
+    smsDisabled: Les textos sont désactivés
+    invalidPhone: Numéro de téléphone invalide
+    creditsExhausted: Les crédits texto sont épuisés
+    platformLimit: "{limit, select, rate {Trop de textos cette minute.} daily {Limite quotidienne de textos atteinte.} other {Limite de textos atteinte.}}"
+    numberNotReady: "Le numéro texto n'est pas prêt"
+    linkOnly: "Le message ne contenait qu'un lien"
+    deliveryFailed: "Échec de la livraison : {detail}"
+  retries: "{done} tentatives utilisées, {left} restantes"
+  retryable: Nouvel essai possible
+  notRetryable: Aucun nouvel essai
   viewMore: Voir plus
   payloadLoadError: Impossible de charger le message complet.
   logContent: Contenu du message

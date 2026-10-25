@@ -221,9 +221,10 @@ export class InboundTextMessageService {
         "Logging communication",
       );
 
-      await this.communicationLogsService.log({
+      await this.communicationLogsService.create({
         channel: "text-message",
         direction: "inbound",
+        status: "received",
         participant: reply.from,
         handledBy: result.handledBy,
         text: reply.message,

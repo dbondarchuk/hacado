@@ -217,6 +217,7 @@ export const ServicesContainer: (
     const notificationService = new BullMQNotificationService(
       organizationId,
       getBullMQNotificationConfig(),
+      communicationLogsService,
     );
 
     const giftCardsService = new GiftCardsService(

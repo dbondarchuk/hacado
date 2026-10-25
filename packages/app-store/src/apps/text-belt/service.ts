@@ -757,9 +757,10 @@ export default class TextBeltConnectedApp
         "Logging communication",
       );
 
-      await this.props.services.communicationLogsService.log({
+      await this.props.services.communicationLogsService.create({
         channel: "text-message",
         direction: "inbound",
+        status: "received",
         participant: reply.from,
         handledBy: result.handledBy,
         text: reply.message,

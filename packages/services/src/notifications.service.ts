@@ -1,6 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
   BillingPlanTier,
+  CommunicationLogReason,
   Email,
   EmailNotificationRequest,
   EmailResponse,
@@ -49,6 +50,39 @@ import {
   getUnverifiedSmsProvider,
   resolvePlatformSmsRoute,
 } from "./text-message/verification";
+
+const smsFailureReason = (error: string): CommunicationLogReason => {
+  switch (error) {
+    case "opted out":
+      return { key: "admin.communications.reason.optedOut" };
+    case "no consent":
+      return { key: "admin.communications.reason.noConsent" };
+    case "sms disabled":
+      return { key: "admin.communications.reason.smsDisabled" };
+    case "invalid phone":
+      return { key: "admin.communications.reason.invalidPhone" };
+    case "credits exhausted":
+      return { key: "admin.communications.reason.creditsExhausted" };
+    case "rate":
+    case "daily":
+      return {
+        key: "admin.communications.reason.platformLimit",
+        args: { limit: error },
+      };
+    case "sms number not ready":
+      return { key: "admin.communications.reason.numberNotReady" };
+    case "message had only a link":
+      return { key: "admin.communications.reason.linkOnly" };
+    default:
+      return error;
+  }
+};
+
+const permanentFailureCounts = (attempt?: { made: number; max: number }) => ({
+  retryable: false,
+  retriesDone: (attempt?.made ?? 0) + 1,
+  retriesLeft: 0,
+});
 
 export class NotificationService implements INotificationService {
   protected readonly loggerFactory = getLoggerFactory("NotificationService");
@@ -127,21 +161,31 @@ export class NotificationService implements INotificationService {
 
       logger.info({ response }, "Successfully sent email");
 
-      this.communicationLogService.log({
-        direction: "outbound",
-        channel: "email",
-        handledBy,
-        ...(participantType === "member"
-          ? { participantType, memberId: memberId! }
-          : { participantType, ...(memberId ? { memberId } : {}) }),
-        participant: Array.isArray(email.to) ? email.to.join("; ") : email.to,
-        text: convert(email.body, { wordwrap: 130 }),
-        html: email.body,
-        subject: email.subject,
-        appointmentId,
-        customerId,
-        data: response,
-      });
+      if (props.communicationLogId) {
+        await this.recordSent({
+          logId: props.communicationLogId,
+          providerMessageId: response.messageId,
+          attempt: props.deliveryAttempt,
+          data: response,
+        });
+      } else {
+        await this.communicationLogService.create({
+          direction: "outbound",
+          channel: "email",
+          status: "sent",
+          handledBy,
+          ...(participantType === "member"
+            ? { participantType, memberId: memberId! }
+            : { participantType, ...(memberId ? { memberId } : {}) }),
+          participant: Array.isArray(email.to) ? email.to.join("; ") : email.to,
+          text: convert(email.body, { wordwrap: 130 }),
+          html: email.body,
+          subject: email.subject,
+          appointmentId,
+          customerId,
+          data: response,
+        });
+      }
     } catch (error) {
       logger.error({ error }, "Error sending email");
       throw error;
@@ -172,6 +216,12 @@ export class NotificationService implements INotificationService {
         "SMS skipped: invalid phone",
       );
 
+      await this.recordFailed({
+        logId: props.communicationLogId,
+        reason: "invalid phone",
+        attempt: props.deliveryAttempt,
+      });
+
       return { success: true, skipped: true, error: "invalid phone" };
     }
 
@@ -185,6 +235,12 @@ export class NotificationService implements INotificationService {
         { organizationId: this.organizationId, appointmentId, customerId },
         "SMS skipped: text messaging is off",
       );
+
+      await this.recordFailed({
+        logId: props.communicationLogId,
+        reason: "sms disabled",
+        attempt: props.deliveryAttempt,
+      });
 
       return { success: true, skipped: true, error: "sms disabled" };
     }
@@ -208,12 +264,24 @@ export class NotificationService implements INotificationService {
         "SMS skipped",
       );
 
+      await this.recordFailed({
+        logId: props.communicationLogId,
+        reason: consent.reason,
+        attempt: props.deliveryAttempt,
+      });
+
       return { success: true, skipped: true, error: consent.reason };
     }
 
     if (idempotencyKey) {
       const existing = await this.smsStore.findSend(idempotencyKey);
       if (shouldSkipDuplicateSend(existing)) {
+        await this.recordSent({
+          logId: props.communicationLogId,
+          providerMessageId: existing?.textId,
+          attempt: props.deliveryAttempt,
+        });
+
         return {
           success: true,
           skipped: true,
@@ -290,6 +358,13 @@ export class NotificationService implements INotificationService {
           },
           "SMS skipped",
         );
+
+        await this.recordFailed({
+          logId: props.communicationLogId,
+          reason: route.reason,
+          attempt: props.deliveryAttempt,
+        });
+
         return { success: true, skipped: true, error: route.reason };
       }
 
@@ -302,6 +377,12 @@ export class NotificationService implements INotificationService {
           { organizationId: this.organizationId, appointmentId },
           "SMS skipped: credits exhausted",
         );
+
+        await this.recordFailed({
+          logId: props.communicationLogId,
+          reason: "credits exhausted",
+          attempt: props.deliveryAttempt,
+        });
 
         return { success: true, skipped: true, error: "credits exhausted" };
       }
@@ -316,6 +397,12 @@ export class NotificationService implements INotificationService {
           { organizationId: this.organizationId, appointmentId, limit },
           "SMS skipped: platform limit",
         );
+
+        await this.recordFailed({
+          logId: props.communicationLogId,
+          reason: limit,
+          attempt: props.deliveryAttempt,
+        });
 
         return { success: true, skipped: true, error: limit };
       }
@@ -386,11 +473,7 @@ export class NotificationService implements INotificationService {
         memberId,
       });
 
-      if (response.skipped) {
-        return response;
-      }
-
-      if (response.error || !response.success) {
+      if (response.skipped || response.error || !response.success) {
         if (response.retryable) {
           throw new SmsTransientError(response.error || "SMS send failed");
         }
@@ -403,6 +486,12 @@ export class NotificationService implements INotificationService {
           },
           "SMS send failed",
         );
+
+        await this.recordFailed({
+          logId: props.communicationLogId,
+          reason: response.error || "SMS send failed",
+          attempt: props.deliveryAttempt,
+        });
 
         return response;
       }
@@ -431,24 +520,90 @@ export class NotificationService implements INotificationService {
         );
       }
 
-      this.communicationLogService.log({
-        direction: "outbound",
-        channel: "text-message",
-        handledBy,
-        ...(participantType === "member"
-          ? { participantType, memberId: memberId! }
-          : { participantType, ...(memberId ? { memberId } : {}) }),
-        participant: phone,
-        text: messageBody,
-        appointmentId,
-        customerId,
-        data: response,
-      });
+      if (props.communicationLogId) {
+        await this.recordSent({
+          logId: props.communicationLogId,
+          providerMessageId: response.textId,
+          attempt: props.deliveryAttempt,
+          text: messageBody,
+          data: response,
+        });
+      } else {
+        await this.communicationLogService.create({
+          direction: "outbound",
+          channel: "text-message",
+          status: "sent",
+          handledBy,
+          ...(participantType === "member"
+            ? { participantType, memberId: memberId! }
+            : { participantType, ...(memberId ? { memberId } : {}) }),
+          participant: phone,
+          text: messageBody,
+          appointmentId,
+          customerId,
+          data: response,
+        });
+      }
 
       return response;
     } catch (error) {
       logger.error({ error }, "Error sending text message");
       throw error;
+    }
+  }
+
+  private async recordSent(input: {
+    logId?: string;
+    providerMessageId?: string;
+    attempt?: { made: number; max: number };
+    text?: string;
+    data?: unknown;
+  }) {
+    if (!input.logId) {
+      return;
+    }
+
+    try {
+      await this.communicationLogService.update(input.logId, {
+        status: "sent",
+        reason: null,
+        retryable: false,
+        retriesLeft: 0,
+        retriesDone: input.attempt?.made ?? 0,
+        ...(input.providerMessageId
+          ? { providerMessageId: input.providerMessageId }
+          : {}),
+        ...(input.text !== undefined ? { text: input.text } : {}),
+        ...(input.data !== undefined ? { data: input.data } : {}),
+      });
+    } catch (error) {
+      this.loggerFactory("recordSent").error(
+        { error, logId: input.logId },
+        "Failed to update communication log",
+      );
+    }
+  }
+
+  private async recordFailed(input: {
+    logId?: string;
+    reason: string;
+    attempt?: { made: number; max: number };
+  }) {
+    if (!input.logId) {
+      return;
+    }
+
+    try {
+      await this.communicationLogService.update(input.logId, {
+        status: "failed",
+        reason: smsFailureReason(input.reason),
+        ...permanentFailureCounts(input.attempt),
+      });
+    } catch (error) {
+      this.loggerFactory("recordFailed").error(
+        { error, logId: input.logId },
+        "Failed to update communication log",
+      );
     }
   }
 }
