@@ -40,9 +40,11 @@ export const AssetSelectorShortcut = <T extends BaseStyleDictionary>({
     (s) => !s.breakpoint?.length && !s.state?.length,
   );
 
-  let currentAssetValue: string | null = currentStyle?.value || null;
+  let currentAssetValue: string | null =
+    typeof currentStyle?.value === "string" ? currentStyle.value : null;
   if (shortcut.styleValue) {
-    currentAssetValue = shortcut.styleValue.get(currentStyle?.value) || null;
+    currentAssetValue =
+      shortcut.styleValue.get(currentStyle?.value as never) || null;
   }
 
   const config = shortcut.assetSelectorConfig;
@@ -61,7 +63,7 @@ export const AssetSelectorShortcut = <T extends BaseStyleDictionary>({
           if (currentVariants && currentVariants.length > 0) {
             const updatedVariants = currentVariants.map((variant) => ({
               ...variant,
-              value: setStyleValue(value, variant.value),
+              value: setStyleValue(value, variant.value as never),
             }));
             newStyles[styleName] = updatedVariants as StyleValue<T>[keyof T];
           }

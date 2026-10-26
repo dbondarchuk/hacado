@@ -149,7 +149,7 @@ export const StyleCategoryComponent = <T extends BaseStyleDictionary>({
                 <StyleCategoryStyle
                   key={style.name}
                   style={style}
-                  styleVariants={styleVariants}
+                  styleVariants={styleVariants as StyleVariant<T[keyof T]>[]}
                   searchTerm={searchTerm}
                   onAddVariant={onAddVariant}
                   onUpdateVariant={onUpdateVariant}

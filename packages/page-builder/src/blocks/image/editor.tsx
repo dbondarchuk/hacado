@@ -69,13 +69,19 @@ export const ImageEditor = ({ props, style }: ImageProps) => {
     [dispatchAction, currentBlock],
   );
 
-  const baseX = currentBlock.data?.style?.objectPosition?.find(
+  const basePosition = currentBlock.data?.style?.objectPosition?.find(
     (position) => !position.breakpoint?.length && !position.state?.length,
-  )?.value.x;
+  )?.value;
+  const position =
+    basePosition &&
+    typeof basePosition === "object" &&
+    "x" in basePosition &&
+    "y" in basePosition
+      ? basePosition
+      : null;
 
-  const baseY = currentBlock.data?.style?.objectPosition?.find(
-    (position) => !position.breakpoint?.length && !position.state?.length,
-  )?.value.y;
+  const baseX = typeof position?.x === "number" ? position.x : undefined;
+  const baseY = typeof position?.y === "number" ? position.y : undefined;
 
   const args = useEditorArgs();
   const updatedProps = {

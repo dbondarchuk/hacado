@@ -1,25 +1,14 @@
-import * as z from "zod";
 import { backgroundColorOpacityStyle } from "./styles";
-import { BaseStyleDictionary, StyleDictionary } from "./types";
-import {
-  Breakpoint,
-  StateWithTarget,
-  generateStateTargetSelector,
-} from "./zod";
+import { BaseStyleDictionary, BlockStyles, StyleDictionary } from "./types";
+import { StateWithTarget, generateStateTargetSelector } from "./zod";
 
-export type StyleValue<T extends BaseStyleDictionary> = {
-  [styleName in keyof T]?:
-    | Array<{
-        breakpoint?: Breakpoint[] | null;
-        state?: StateWithTarget[] | null;
-        value: z.infer<T[styleName]>;
-      }>
-    | undefined
-    | null;
-};
+export type StyleValue<T extends BaseStyleDictionary = BaseStyleDictionary> =
+  BlockStyles<T>;
 
-export type DefaultCSSProperties<T extends BaseStyleDictionary> = {
-  [property in keyof T]?: z.infer<T[property]>;
+export type DefaultCSSProperties<
+  T extends BaseStyleDictionary = BaseStyleDictionary,
+> = {
+  [K in keyof T]?: unknown;
 };
 
 // Helper to render a style object to CSS string (for direct styles only)
@@ -38,7 +27,7 @@ function renderDirectStylesToCSS<T extends BaseStyleDictionary>(
     Object.entries(defaultProperties).forEach(([property, value]) => {
       const definition = styleDefinitions[property as keyof T];
       if (!definition) return;
-      let cssValue = definition.renderToCSS(value, isEditor);
+      let cssValue = definition.renderToCSS(value as never, isEditor);
       if (cssValue?.endsWith(";")) {
         cssValue = cssValue.slice(0, -1);
       }

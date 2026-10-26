@@ -34,7 +34,8 @@ export const ColorShortcut = <T extends BaseStyleDictionary>({
     (s) => !s.breakpoint?.length && !s.state?.length,
   );
 
-  const currentColorValue: string | null = currentStyle?.value || null;
+  const currentColorValue =
+    typeof currentStyle?.value === "string" ? currentStyle.value : null;
 
   const handleValueChange = (value: string | null) => {
     const newStyles = { ...styles };

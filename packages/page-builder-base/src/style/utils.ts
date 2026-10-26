@@ -2,6 +2,7 @@ import * as z from "zod";
 import { ALL_STYLES, allStyles, AllStylesNames } from "./styles";
 import {
   BaseStyleDictionary,
+  BlockStyles,
   StyleDefinition,
   StyleDictionary,
   StyleSupport,
@@ -83,49 +84,28 @@ export function filterStyleDefinitions<
 // Main function to build styles schema
 export function getStylesSchema<T extends BaseStyleDictionary>(
   styleDefinitions: StyleDictionary<T>,
-) {
-  const baseSchema = Object.values(styleDefinitions).reduce((map, style) => {
-    // map[style.name] = z.object({
-    //   value: style.schema.optional().nullable(),
-    //   variants: z.array(
-    //     z.object({
-    //       value: style.schema,
-    //       breakpoint: zBreakpoint.optional().nullable(),
-    //       state: zState.optional().nullable(),
-    //     })
-    //   ),
-    // });
-    map[style.name] = z
-      .array(
-        z.object({
-          value: style.schema,
-          breakpoint: z.array(zBreakpoint).optional().nullable(),
-          state: z.array(zStateWithTarget).optional().nullable(),
-        }),
-      )
-      .optional()
-      .nullable();
+): z.ZodType<BlockStyles<T> | null | undefined> {
+  const baseSchema = Object.values(styleDefinitions).reduce(
+    (map, style) => {
+      map[style.name] = z
+        .array(
+          z.object({
+            value: style.schema,
+            breakpoint: z.array(zBreakpoint).optional().nullable(),
+            state: z.array(zStateWithTarget).optional().nullable(),
+          }),
+        )
+        .optional()
+        .nullable();
 
-    return map;
-  }, {}) as {
-    [key in keyof T]: z.ZodOptional<
-      z.ZodNullable<
-        z.ZodArray<
-          z.ZodObject<{
-            breakpoint: z.ZodOptional<
-              z.ZodNullable<z.ZodArray<typeof zBreakpoint>>
-            >;
-            state: z.ZodOptional<
-              z.ZodNullable<z.ZodArray<typeof zStateWithTarget>>
-            >;
-            value: T[key];
-          }>
-        >
-      >
-    >;
-  };
+      return map;
+    },
+    {} as Record<string, z.ZodType>,
+  );
 
-  return z.object(baseSchema).optional().nullable();
+  return z.object(baseSchema).optional().nullable() as z.ZodType<
+    BlockStyles<T> | null | undefined
+  >;
 }
 
 export const renderRawNumberWithUnitCss = (
