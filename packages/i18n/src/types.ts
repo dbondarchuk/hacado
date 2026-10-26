@@ -1,18 +1,22 @@
-import type admin from "./locales/en/admin.generated";
-import type apps from "./locales/en/apps.generated";
-import type builder from "./locales/en/builder.generated";
-import type install from "./locales/en/install.generated";
-import type translation from "./locales/en/translation.generated";
-import type ui from "./locales/en/ui.generated";
-import type validation from "./locales/en/validation.generated";
+import type { Keys as AdminKeys } from "./locales/en/admin.keys";
+import type { Keys as AppsKeys } from "./locales/en/apps.keys";
+import type { BaseAllKeys } from "./locales/en/base-all.keys";
+import type { Keys as BuilderKeys } from "./locales/en/builder.keys";
+import type { Keys as InstallKeys } from "./locales/en/install.keys";
+import type { Keys as TranslationKeys } from "./locales/en/translation.keys";
+import type { Keys as UiKeys } from "./locales/en/ui.keys";
+import type { Keys as ValidationKeys } from "./locales/en/validation.keys";
 
-type Leaves<T> = T extends object
-  ? {
-      [K in keyof T]: `${Exclude<K, symbol>}${Leaves<T[K]> extends never
-        ? ""
-        : `.${Leaves<T[K]>}`}`;
-    }[keyof T]
-  : never;
+export type {
+  AdminKeys,
+  AppsKeys,
+  BaseAllKeys,
+  BuilderKeys,
+  InstallKeys,
+  TranslationKeys,
+  UiKeys,
+  ValidationKeys,
+};
 
 export type BaseI18nNamespaces =
   | "translation"
@@ -25,14 +29,6 @@ export type BaseI18nNamespaces =
 
 export type I18nNamespaces = BaseI18nNamespaces | (string & {});
 
-export type TranslationKeys = Leaves<typeof translation>;
-export type AdminKeys = Leaves<typeof admin>;
-export type InstallKeys = Leaves<typeof install>;
-export type UiKeys = Leaves<typeof ui>;
-export type AppsKeys = Leaves<typeof apps>;
-export type ValidationKeys = Leaves<typeof validation>;
-export type BuilderKeys = Leaves<typeof builder>;
-
 export type I18nKeys =
   | TranslationKeys
   | AdminKeys
@@ -42,37 +38,30 @@ export type I18nKeys =
   | ValidationKeys
   | BuilderKeys;
 
+type NamespaceKeys = {
+  translation: TranslationKeys;
+  admin: AdminKeys;
+  install: InstallKeys;
+  ui: UiKeys;
+  apps: AppsKeys;
+  validation: ValidationKeys;
+  builder: BuilderKeys;
+};
+
 type _I18nKey<
   T extends I18nNamespaces,
   CustomKeys extends string | undefined = undefined,
-> = T extends "translation"
-  ? TranslationKeys
-  : T extends "admin"
-    ? AdminKeys
-    : T extends "install"
-      ? InstallKeys
-      : T extends "ui"
-        ? UiKeys
-        : T extends "apps"
-          ? AppsKeys
-          : T extends "validation"
-            ? ValidationKeys
-            : T extends "builder"
-              ? BuilderKeys
-              : NonNullable<CustomKeys> extends never
-                ? string
-                : NonNullable<CustomKeys>;
+> = T extends keyof NamespaceKeys
+  ? NamespaceKeys[T]
+  : NonNullable<CustomKeys> extends never
+    ? string
+    : NonNullable<CustomKeys>;
 
+/** Intentionally string. Prefixed unions are generated in .keys.d.ts files. */
 export type AllKeys<
-  T extends I18nNamespaces = I18nNamespaces,
-  CustomKeys extends string | undefined = undefined,
-> = {
-  [K in T]: `${K}.${_I18nKey<K, CustomKeys>}`;
-}[T];
-
-export type BaseAllKeys = {
-  [K in BaseI18nNamespaces]: `${K}.${_I18nKey<K>}`;
-}[BaseI18nNamespaces];
+  _T extends I18nNamespaces = I18nNamespaces,
+  _CustomKeys extends string | undefined = undefined,
+> = string;
 
 export type I18nKey<
   T extends I18nNamespaces | undefined,

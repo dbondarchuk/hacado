@@ -41,6 +41,7 @@ module.exports = [
       "**/.next/**",
       "next-env.d.ts",
       "**/*.generated.ts",
+      "**/*.keys.d.ts",
     ],
   },
   {

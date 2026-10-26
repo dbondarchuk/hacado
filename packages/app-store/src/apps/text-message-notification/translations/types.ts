@@ -1,16 +1,16 @@
-import { AllKeys } from "@hacado/i18n";
-import { Leaves } from "@hacado/types";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "../const";
-import type admin from "./en/admin.generated";
+import type {
+  PrefixedKeys as TextMessageNotificationAdminAllKeys,
+  Keys as TextMessageNotificationAdminKeys,
+} from "./en/admin.keys";
 
-export type TextMessageNotificationAdminKeys = Leaves<typeof admin>;
+export type {
+  TextMessageNotificationAdminAllKeys,
+  TextMessageNotificationAdminKeys,
+};
+
 export const textMessageNotificationAdminNamespace =
   `app_${TEXT_MESSAGE_NOTIFICATION_APP_NAME}_admin` as const;
 
 export type TextMessageNotificationAdminNamespace =
   typeof textMessageNotificationAdminNamespace;
-
-export type TextMessageNotificationAdminAllKeys = AllKeys<
-  TextMessageNotificationAdminNamespace,
-  TextMessageNotificationAdminKeys
->;

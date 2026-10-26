@@ -1,15 +1,16 @@
-import { AllKeys } from "@hacado/i18n";
-import { Leaves } from "@hacado/types";
 import { CUSTOMER_EMAIL_NOTIFICATION_APP_NAME } from "../const";
-import type adminKeys from "./en/admin.generated";
+import type {
+  PrefixedKeys as CustomerEmailNotificationAdminAllKeys,
+  Keys as CustomerEmailNotificationAdminKeys,
+} from "./en/admin.keys";
 
-export type CustomerEmailNotificationAdminKeys = Leaves<typeof adminKeys>;
+export type {
+  CustomerEmailNotificationAdminAllKeys,
+  CustomerEmailNotificationAdminKeys,
+};
+
 export const customerEmailNotificationAdminNamespace =
   `app_${CUSTOMER_EMAIL_NOTIFICATION_APP_NAME}_admin` as const;
 
 export type CustomerEmailNotificationAdminNamespace =
   typeof customerEmailNotificationAdminNamespace;
-export type CustomerEmailNotificationAdminAllKeys = AllKeys<
-  CustomerEmailNotificationAdminNamespace,
-  CustomerEmailNotificationAdminKeys
->;

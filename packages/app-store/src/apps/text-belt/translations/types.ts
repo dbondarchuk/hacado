@@ -1,14 +1,11 @@
-import { AllKeys } from "@hacado/i18n";
-import { Leaves } from "@hacado/types";
 import { TEXTBELT_APP_NAME } from "../const";
-import type admin from "./en/admin.generated";
+import type {
+  PrefixedKeys as TextBeltAdminAllKeys,
+  Keys as TextBeltAdminKeys,
+} from "./en/admin.keys";
 
-export type TextBeltAdminKeys = Leaves<typeof admin>;
+export type { TextBeltAdminAllKeys, TextBeltAdminKeys };
+
 export const textBeltAdminNamespace = `app_${TEXTBELT_APP_NAME}_admin` as const;
 
 export type TextBeltAdminNamespace = typeof textBeltAdminNamespace;
-
-export type TextBeltAdminAllKeys = AllKeys<
-  TextBeltAdminNamespace,
-  TextBeltAdminKeys
->;

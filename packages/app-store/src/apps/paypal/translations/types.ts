@@ -1,22 +1,24 @@
-import { AllKeys } from "@hacado/i18n";
-import { Leaves } from "@hacado/types";
 import { PAYPAL_APP_NAME } from "../const";
-import type adminKeys from "./en/admin.generated";
-import type publicKeys from "./en/public.generated";
+import type {
+  PrefixedKeys as PaypalAdminAllKeys,
+  Keys as PaypalAdminKeys,
+} from "./en/admin.keys";
+import type {
+  PrefixedKeys as PaypalPublicAllKeys,
+  Keys as PaypalPublicKeys,
+} from "./en/public.keys";
 
-export type PaypalAdminKeys = Leaves<typeof adminKeys>;
+export type {
+  PaypalAdminAllKeys,
+  PaypalAdminKeys,
+  PaypalPublicAllKeys,
+  PaypalPublicKeys,
+};
+
 export const paypalAdminNamespace = `app_${PAYPAL_APP_NAME}_admin` as const;
 
 export type PaypalAdminNamespace = typeof paypalAdminNamespace;
 
-export type PaypalAdminAllKeys = AllKeys<PaypalAdminNamespace, PaypalAdminKeys>;
-
-export type PaypalPublicKeys = Leaves<typeof publicKeys>;
 export const paypalPublicNamespace = `app_${PAYPAL_APP_NAME}_public` as const;
 
 export type PaypalPublicNamespace = typeof paypalPublicNamespace;
-
-export type PaypalPublicAllKeys = AllKeys<
-  PaypalPublicNamespace,
-  PaypalPublicKeys
->;
