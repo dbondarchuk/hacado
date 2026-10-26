@@ -3,7 +3,16 @@
 import { ConfigurationProps, SliderInput } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base";
-import { Checkbox, deepMemo, Label } from "@hacado/ui";
+import {
+  Checkbox,
+  deepMemo,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@hacado/ui";
 import { Repeat1 } from "lucide-react";
 import { useCallback } from "react";
 import { CarouselProps, styles } from "./schema";
@@ -72,6 +81,42 @@ export const CarouselConfiguration = deepMemo(
             onCheckedChange={(loop) => updateProps({ ...data.props, loop })}
           />
           <Label htmlFor="loop">{t("pageBuilder.blocks.carousel.loop")}</Label>
+        </div>
+        <div className="flex items-center gap-2 flex-1">
+          <Checkbox
+            id="scale"
+            checked={!!data.props.scale}
+            onCheckedChange={(scale) => updateProps({ ...data.props, scale })}
+          />
+          <Label htmlFor="scale">
+            {t("pageBuilder.blocks.carousel.scale")}
+          </Label>
+        </div>
+        <div className="flex flex-col gap-1.5 flex-1">
+          <Label htmlFor="align">
+            {t("pageBuilder.blocks.carousel.align")}
+          </Label>
+          <Select
+            value={data.props.align === "center" ? "center" : "start"}
+            onValueChange={(align) =>
+              updateProps({
+                ...data.props,
+                align: align === "center" ? "center" : "start",
+              })
+            }
+          >
+            <SelectTrigger id="align" size="sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="start">
+                {t("pageBuilder.blocks.carousel.alignStart")}
+              </SelectItem>
+              <SelectItem value="center">
+                {t("pageBuilder.blocks.carousel.alignCenter")}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex items-center gap-2 flex-1">
           <Checkbox

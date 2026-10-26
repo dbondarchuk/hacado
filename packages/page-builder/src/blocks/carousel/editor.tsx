@@ -39,8 +39,11 @@ export const CarouselEditor = ({ style, props }: CarouselProps) => {
         id={base?.id}
         opts={{
           loop: !!currentBlock.data?.props.loop,
-          align: "start",
+          align:
+            currentBlock.data?.props.align === "center" ? "center" : "start",
+          startIndex: currentBlock.data?.props.startIndex ?? 0,
         }}
+        scale={!!currentBlock.data?.props.scale}
         orientation={currentBlock.data?.props.orientation ?? undefined}
         {...overlayProps}
       >

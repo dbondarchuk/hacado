@@ -5145,6 +5145,10 @@ pageBuilder:
         vertical: Verticale
       navigation: Navigation
       loop: Boucle
+      scale: Échelle
+      align: Alignement des diapositives
+      alignStart: Début
+      alignCenter: Centre
       autoPlay: Lecture automatique
       autoPlaySpeed: Vitesse de lecture automatique
       autoPlaySeconds: s

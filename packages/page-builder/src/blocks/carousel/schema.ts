@@ -23,6 +23,9 @@ export const CarouselPropsSchema = z.object({
     orientation: z.enum(["horizontal", "vertical"]).optional().nullable(),
     navigation: z.coerce.boolean<boolean>().optional().nullable(),
     loop: z.coerce.boolean<boolean>().optional().nullable(),
+    scale: z.coerce.boolean<boolean>().optional().nullable(),
+    align: z.enum(["start", "center"]).optional().nullable(),
+    startIndex: z.coerce.number<number>().int().min(0).optional().nullable(),
     autoPlay: z.coerce
       .number<number>()
       .positive()

@@ -5131,6 +5131,10 @@ pageBuilder:
         vertical: Vertical
       navigation: Navigation
       loop: Loop
+      scale: Scale
+      align: Slide alignment
+      alignStart: Start
+      alignCenter: Center
       autoPlay: Auto play
       autoPlaySpeed: Auto Play Speed
       autoPlaySeconds: s

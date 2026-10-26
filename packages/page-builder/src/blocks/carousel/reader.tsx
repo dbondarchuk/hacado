@@ -20,7 +20,6 @@ export const CarouselReader = ({
   ...rest
 }: CarouselReaderProps) => {
   const children = props?.children ?? [];
-
   const className = generateClassName();
   const base = block.base;
 
@@ -30,8 +29,10 @@ export const CarouselReader = ({
       <Carousel
         opts={{
           loop: !!props.loop,
-          align: "start",
+          align: props.align === "center" ? "center" : "start",
+          startIndex: props.startIndex ?? 0,
         }}
+        scale={!!props.scale}
         orientation={props.orientation ?? undefined}
         autoPlay={props.autoPlay ? props.autoPlay * 1000 : undefined}
         id={base?.id}

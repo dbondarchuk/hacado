@@ -1382,6 +1382,10 @@ pageBuilder:
         vertical: Вертикальна
       navigation: Навігація
       loop: Зациклити
+      scale: Масштаб
+      align: Вирівнювання слайдів
+      alignStart: Початок
+      alignCenter: Центр
       autoPlay: Автоматичне відтворення
       autoPlaySpeed: Швидкість автовідтворення
       autoPlaySeconds: с

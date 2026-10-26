@@ -26,6 +26,22 @@ const trustNames = [
   "PayPal",
 ];
 
+const productLead = ["website-builder", "appointments", "scheduling"];
+
+const productFeatures = [...featuredFeatures].sort((a, b) => {
+  const rank = (slug: string) => {
+    const index = productLead.indexOf(slug);
+    return index === -1 ? productLead.length : index;
+  };
+
+  const byRank = rank(a.slug) - rank(b.slug);
+  if (byRank !== 0) {
+    return byRank;
+  }
+
+  return featuredFeatures.indexOf(a) - featuredFeatures.indexOf(b);
+});
+
 export function homePage() {
   const editorial = buildEditorialHome({
     banner: site.banner,
@@ -48,42 +64,11 @@ export function homePage() {
     note: site.heroNote,
     industries: site.typewriter,
     signupUrl: SIGNUP_URL,
-    heroImage: "/assets/photos/salon-barber-small.jpg",
-    bookingImage: "/assets/photos/barber-booking-form.png",
     integrations: trustNames.flatMap((name) =>
       integrations.some((item) => item.name === name) ? [name] : [],
     ),
     integrationsHref: "/integrations",
-    productKicker: "01 / Everything in one place",
-    productTitleLead: "Your booking website,",
-    productTitleEm: "beautifully built.",
-    productBody:
-      "Every business on Hacado gets a hosted, white-label site - your brand, ready in minutes. We also help ChatGPT and Google understand who you are: a clear summary for AI assistants, and structured details for search - no developer, no copy-paste.",
-    productHref: "/features",
-    cards: [
-      {
-        n: "01",
-        tone: "dark",
-        title: ["One calm place", "to run it all."],
-        body: "Your site, calendar, and payments stay in one admin. Clients book while you work.",
-        href: "/features",
-        link: "Explore features",
-      },
-      {
-        n: "02",
-        tone: "tan",
-        title: ["More than a", "calendar link."],
-        body: "Gift cards, deposits, reminders, and packages — on your brand, not a marketplace listing.",
-        href: "/features/gift-cards",
-        link: "See what's included",
-      },
-    ],
-    stat: {
-      value: "0%",
-      label: ["marketplace", "commission"],
-      href: "/compare",
-    },
-    audienceKicker: "02 / Built around you",
+    audienceKicker: "04 / Built around you",
     audienceTitleLead: "Independent beauty",
     audienceTitleEm: "& wellness first.",
     audienceBody:
@@ -93,46 +78,63 @@ export function homePage() {
       title: card.title,
       body: card.caption,
     })),
-    featuresKicker: "Product",
-    featuresTitleLead: "What the book",
+    featuresKicker: "01 / Product",
+    featuresTitleLead: "What Hacado",
     featuresTitleEm: "can do.",
     featuresBody: featureGroups.find((group) => group.id === "core")?.body,
-    features: featuredFeatures.map((feature) => ({
+    features: productFeatures.map((feature) => ({
       href: `/features/${feature.slug}`,
+      kicker: feature.eyebrow,
       title: feature.title,
       body: feature.summary,
     })),
     templates: {
-      kicker: "Templates",
+      kicker: "02 / Templates",
       titleLead: "Try the website",
       titleEm: "before you sign up.",
-      body: "Open full demos for nails, hair, lashes, spas, coaches, and more. Click through pages the way your clients will - then start free with a look you like.",
+      body: "Open full demos for nails, hair, spas, and more. Click through pages the way your clients will - then start free with a look you like.",
       href: TEMPLATE_PREVIEWS_URL,
       cta: "Browse website templates",
       images: [
+        {
+          src: "/assets/templates/photography-home.png",
+          alt: "Photography studio website template",
+        },
+        {
+          src: "/assets/templates/salon-floor.png",
+          alt: "Salon interior website template",
+        },
+        {
+          src: "/assets/templates/tattoo-home.png",
+          alt: "Tattoo studio website template",
+        },
         {
           src: "/assets/templates/nails-home.png",
           alt: "Nail studio website template",
         },
         {
-          src: "/assets/templates/lash-home.png",
-          alt: "Lash studio website template",
+          src: "/assets/templates/salon-home.png",
+          alt: "Hair studio website template",
         },
         {
-          src: "/assets/templates/salon-home.png",
-          alt: "Salon website template",
+          src: "/assets/templates/spa-home.png",
+          alt: "Spa website template",
+        },
+        {
+          src: "/assets/templates/nails-set.png",
+          alt: "Nail appointment website template",
         },
       ],
     },
-    stepsKicker: "How it works",
+    stepsKicker: "03 / How it works",
     stepsTitleLead: "Live",
     stepsTitleEm: "in minutes.",
     steps: stepsHome,
-    storiesKicker: "Stories",
+    storiesKicker: "05 / Stories",
     storiesTitleLead: "What our",
     storiesTitleEm: "customers say.",
     testimonial,
-    compareKicker: "Compare",
+    compareKicker: "06 / Compare",
     compareTitleLead: "Keep your clients.",
     compareTitleEm: "Skip the marketplace.",
     compareBody:
@@ -145,7 +147,7 @@ export function homePage() {
       highlightCol: 0,
       checkmarks: true,
     }),
-    pricingKicker: "Pricing",
+    pricingKicker: "07 / Pricing",
     pricingTitleLead: "Start free.",
     pricingTitleEm: "Grow when the book fills.",
     plans: plans.map((plan) => ({
@@ -153,10 +155,11 @@ export function homePage() {
       href: SIGNUP_URL,
     })),
     pricingDetailsHref: "/pricing",
+    faqKicker: "08 / Questions",
     faqTitleLead: "Questions,",
     faqTitleEm: "answered.",
     faqs: homeFaqs,
-    ctaKicker: "03 / Your next chapter",
+    ctaKicker: "09 / Your next chapter",
     ctaTitleLead: "Ready to run bookings",
     ctaTitleEm: "on your own site?",
     ctaBody:
