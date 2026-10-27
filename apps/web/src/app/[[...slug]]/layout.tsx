@@ -11,7 +11,6 @@ import {
   getPlanTier,
   getServicesContainer,
   getWebsiteUrl,
-  isFreeTier,
   sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
@@ -22,6 +21,7 @@ import {
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
   getColorsCss,
+  isFreeTier,
 } from "@hacado/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";

@@ -122,7 +122,7 @@ export const BookingSummaryCard = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "bg-card border rounded-lg p-4 summary-card summary-container min-w-0 overflow-hidden",
+        "border rounded-lg p-4 summary-card summary-container min-w-0 overflow-hidden",
         className,
       )}
     >

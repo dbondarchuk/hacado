@@ -1,9 +1,6 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import {
   AppJobRequest,
@@ -13,6 +10,7 @@ import {
 } from "@hacado/types";
 import {
   appendSharedPoolSuffix,
+  canUseFeature,
   getAdminUrl,
   getArguments,
   getWebsiteUrl,

@@ -8,6 +8,7 @@ import { BookingReader as BookingModernReader } from "./booking/modern/reader";
 import { BookingReader as BookingSimpleReader } from "./booking/simple/reader";
 import { ButtonReader } from "./button/reader";
 import { CarouselReader } from "./carousel/reader";
+import { CatalogValueReader } from "./catalog-value/reader";
 import { ConditionalContainerReader } from "./conditional-container/reader";
 import { ContainerReader } from "./container/reader";
 import { CustomHTML } from "./custom-html/reader";
@@ -112,6 +113,9 @@ export const ReaderBlocks: ReaderDocumentBlocksDictionary<
   },
   InlineText: {
     Reader: InlineText,
+  },
+  CatalogValue: {
+    Reader: CatalogValueReader,
   },
   TypewriterText: {
     Reader: TypewriterTextReader,

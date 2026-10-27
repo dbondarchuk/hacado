@@ -7,6 +7,7 @@ import { BookingPropsSchema as BookingModernPropsSchema } from "./booking/modern
 import { BookingPropsSchema as BookingSimplePropsSchema } from "./booking/simple/schema";
 import { ButtonPropsSchema } from "./button/schema";
 import { CarouselPropsSchema } from "./carousel/schema";
+import { CatalogValuePropsSchema } from "./catalog-value/schema";
 import { ConditionalContainerPropsSchema } from "./conditional-container/schema";
 import { ContainerPropsSchema } from "./container/schema";
 import { CustomHTMLPropsSchema } from "./custom-html/schema";
@@ -62,6 +63,7 @@ export const EditorBlocksSchema = {
   Popup: PopupPropsSchema,
   StickyBanner: StickyBannerPropsSchema,
   InlineText: InlineTextPropsSchema,
+  CatalogValue: CatalogValuePropsSchema,
   TypewriterText: TypewriterTextPropsSchema,
   PhraseCycle: PhraseCyclePropsSchema,
   Accordion: AccordionPropsSchema,
@@ -103,6 +105,7 @@ export const EditorBlocksSchema = {
   Popup: typeof PopupPropsSchema;
   StickyBanner: typeof StickyBannerPropsSchema;
   InlineText: typeof InlineTextPropsSchema;
+  CatalogValue: typeof CatalogValuePropsSchema;
   TypewriterText: typeof TypewriterTextPropsSchema;
   PhraseCycle: typeof PhraseCyclePropsSchema;
   Accordion: typeof AccordionPropsSchema;

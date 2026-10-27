@@ -1622,6 +1622,8 @@ pages:
         tooltip: Couleur du nom du logo et du texte du menu
       defaultColumn: Défaut
       onScrollColumn: Au défilement
+      mobileColumn: Mobile
+      mobileOnScrollColumn: Mobile au défilement
       onScrollSection: Sur l'apparence du défilement
       onScrollSectionDescription: Remplacements facultatifs appliqués après le défilement de la page
       mobileSection: Apparence mobile
@@ -3730,6 +3732,7 @@ menuItem:
     textColorDescription: Remplacer la couleur du texte de l'élément de menu
     showOnMobileHeader: Afficher sur l'en-tête mobile
     showOnMobileHeaderDescription: Gardez cet élément visible dans l’en-tête sur mobile (à côté du bouton de menu). Un seul objet peut l’utiliser ; il apparaît toujours dans le tiroir.
+    useDifferentLabel: Utiliser un libellé différent
   card:
     moveMenuItem: Déplacer un élément de menu
     itemType: Type d'article

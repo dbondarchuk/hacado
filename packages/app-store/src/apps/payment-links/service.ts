@@ -2,10 +2,7 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   ApiRequest,
   ApiResponse,
@@ -44,6 +41,7 @@ import {
 } from "@hacado/types";
 import {
   appendSharedPoolSuffix,
+  canUseFeature,
   formatAmountWithCurrency,
   getAdminUrl,
   getArguments,

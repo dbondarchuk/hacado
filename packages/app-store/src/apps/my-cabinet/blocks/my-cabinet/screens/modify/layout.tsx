@@ -115,7 +115,7 @@ export const CabinetModifyLayout = ({
         )}
 
         {!isModificationConfirmed && (
-          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container modify-summary">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container modify-summary">
             {!!appointment && (
               <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full modify-summary-dates">
                 {!!appointment.dateTime && (

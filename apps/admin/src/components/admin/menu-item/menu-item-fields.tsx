@@ -597,6 +597,10 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
   const menuItems = useWatch({ control: form.control, name: "menu" }) as
     | { type?: string; showOnMobileHeader?: boolean }[]
     | undefined;
+  const useDifferentMobileLabel = useWatch({
+    control: form.control,
+    name: `${name}.mobile.useDifferentLabel`,
+  });
   const itemIndex = Number(name.match(/^menu\.(\d+)/)?.[1] ?? -1);
   const showMobileHeaderPin =
     Boolean(enableMobileHeaderPin) && type !== "submenu" && type !== "spacer";
@@ -729,6 +733,44 @@ export const MenuItemFields: React.FC<MenuItemFieldsProps> = ({
               {t("pages.headers.form.mobileSectionDescription")}
             </p>
           </div>
+          <FormField
+            control={form.control}
+            name={`${name}.mobile.useDifferentLabel`}
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border px-4 py-3">
+                <FormLabel className="text-sm font-medium">
+                  {t("menuItem.fields.useDifferentLabel")}
+                </FormLabel>
+                <FormControl>
+                  <Switch
+                    disabled={disabled}
+                    checked={!!field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name={`${name}.mobile.label`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("menuItem.fields.label")}</FormLabel>
+                <FormControl>
+                  <EditableText
+                    value={field.value ?? ""}
+                    onChange={field.onChange}
+                    placeholder={t("menuItem.fields.labelPlaceholder")}
+                    className="w-full border border-input rounded-md p-2 text-base sm:text-sm h-9"
+                    disabled={disabled || !useDifferentMobileLabel}
+                    inline
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <AppearanceFields
             form={form}
             prefix={`${name}.mobile`}

@@ -21,7 +21,6 @@ import {
   filterNavItemsForPlanTier,
   getAppMinimumPlanTier,
   getSessionPlanTier,
-  isFreeTier,
 } from "@/lib/billing/subscription-plan-access";
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
@@ -38,7 +37,11 @@ import {
   SidebarProvider,
 } from "@hacado/ui";
 import { MediaSourcesProvider } from "@hacado/ui-admin";
-import { canFilterByMember, filterConnectedAppsForUser } from "@hacado/utils";
+import {
+  canFilterByMember,
+  filterConnectedAppsForUser,
+  isFreeTier,
+} from "@hacado/utils";
 import { AlertTriangle, Sparkles } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

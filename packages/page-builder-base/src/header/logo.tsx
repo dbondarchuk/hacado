@@ -12,6 +12,7 @@ const logoSizeClassNames: Record<PageHeaderLogoSize, string> = {
   small: "max-h-7",
   medium: "max-h-8",
   large: "max-h-9",
+  "x-large": "max-h-10",
 };
 
 const logoNameFontSizeClassNames: Record<PageHeaderLogoNameFontSize, string> = {

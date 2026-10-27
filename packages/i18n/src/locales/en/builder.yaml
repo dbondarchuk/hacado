@@ -4835,6 +4835,41 @@ pageBuilder:
       features: Features
       conversion: Conversion
       media: Media
+    catalogValue:
+      displayName: Catalog value
+      source: Type
+      sources:
+        service: Service
+        addon: Add-on
+        member: Team member
+        package: Package
+      item: Item
+      property: Property
+      properties:
+        name: Name
+        description: Description
+        price: Price
+        duration: Duration
+        jobTitle: Job title
+        bio: Bio
+        email: Email
+        phone: Phone
+      stripFormatting: Strip included formatting
+      stripFormattingDescription: Remove bold, italic, and other markdown and show plain text.
+      alwaysShowCents: Always show cents
+      showCurrency: Show currency
+      durationFormat: Duration format
+      durationFormats:
+        duration: Duration
+        hours: Hours
+        minutes: Minutes
+        hoursMinutes: Hours and minutes
+      durationStyle: Duration length
+      durationStyles:
+        long: Long
+        medium: Medium
+        short: Short
+      empty: Select an item
     heading:
       displayName: Heading
       content: Content

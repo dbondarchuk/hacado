@@ -24,7 +24,7 @@ describe("subscription entitlements", () => {
   });
 
   it("gates non-app features by plan tier", async () => {
-    const { canUseFeature } = await import("./subscription-entitlements");
+    const { canUseFeature } = await import("@hacado/utils");
 
     assert.equal(canUseFeature("solo", "financials"), true);
     assert.equal(canUseFeature("studio", "financials"), true);

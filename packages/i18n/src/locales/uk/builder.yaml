@@ -1159,6 +1159,41 @@ pageBuilder:
       features: Функції
       conversion: Конверсія
       media: Медіа
+    catalogValue:
+      displayName: Значення каталогу
+      source: Тип
+      sources:
+        service: Послуга
+        addon: Додаток
+        member: Учасник команди
+        package: Пакет
+      item: Елемент
+      property: Властивість
+      properties:
+        name: Назва
+        description: Опис
+        price: Ціна
+        duration: Тривалість
+        jobTitle: Посада
+        bio: Біографія
+        email: Електронна пошта
+        phone: Телефон
+      stripFormatting: Прибрати вкладене форматування
+      stripFormattingDescription: Прибрати жирний, курсив та інший markdown і показати звичайний текст.
+      alwaysShowCents: Завжди показувати копійки
+      showCurrency: Показувати валюту
+      durationFormat: Формат тривалості
+      durationFormats:
+        duration: Тривалість
+        hours: Години
+        minutes: Хвилини
+        hoursMinutes: Години і хвилини
+      durationStyle: Довжина тривалості
+      durationStyles:
+        long: Довга
+        medium: Середня
+        short: Коротка
+      empty: Виберіть елемент
     heading:
       displayName: Заголовок
       content: Контент

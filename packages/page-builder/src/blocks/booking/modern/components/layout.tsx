@@ -13,7 +13,7 @@ import {
 import { durationToTime } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type MutableRefObject } from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";
 import { BookingOtpDialog } from "../../components/otp-dialog";
 import { ConfirmationCard } from "./confirmation-card";
@@ -145,6 +145,7 @@ export const BookingLayout = ({
   hideTitle,
   hideSteps,
   summaryPosition = "bottom",
+  suppressNextScrollRef,
   className,
   ...props
 }: {
@@ -152,6 +153,8 @@ export const BookingLayout = ({
   hideTitle?: boolean;
   hideSteps?: boolean;
   summaryPosition?: "bottom" | "right";
+  /** Set before a programmatic step change that should not scroll. */
+  suppressNextScrollRef?: MutableRefObject<boolean>;
   className?: string;
 } & React.HTMLAttributes<HTMLDivElement>) => {
   const ctx = useScheduleContext();
@@ -196,10 +199,13 @@ export const BookingLayout = ({
 
   const previousStep = usePrevious(step, step);
   useEffect(() => {
-    if (scrollToTopRef.current && previousStep !== step) {
-      topRef?.current?.scrollIntoView();
+    if (!scrollToTopRef.current || previousStep === step) return;
+    if (suppressNextScrollRef?.current) {
+      suppressNextScrollRef.current = false;
+      return;
     }
-  }, [previousStep, step]);
+    topRef?.current?.scrollIntoView();
+  }, [previousStep, step, suppressNextScrollRef]);
 
   const filteredSteps = steps
     .filter((step) => {
@@ -348,7 +354,7 @@ export const BookingLayout = ({
         )}
 
         {showFooter && !summaryOnRight && (
-          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container">
             <CompactBookingSummary />
             <BookingNavButtons
               className={cn(

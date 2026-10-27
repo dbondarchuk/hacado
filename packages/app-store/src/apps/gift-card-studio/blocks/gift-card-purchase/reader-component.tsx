@@ -501,7 +501,7 @@ export const GiftCardPurchaseBlockReader = forwardRef<
       </div>
 
       {!isSuccess && (
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container">
           {amount && typeof amount === "number" && (
             <div className="text-left">
               <p className="text-xs text-muted-foreground amount-label">

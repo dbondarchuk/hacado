@@ -119,7 +119,7 @@ export const ModifyAppointmentFormLayout = ({
 
         {/* Summary & Navigation - Hide when booking is confirmed */}
         {!isModificationConfirmed && (
-          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 bg-card border rounded-lg p-4 mt-6 summary-container">
+          <div className="flex flex-col @xl/booking-container:flex-row items-center justify-between gap-4 border rounded-lg p-4 mt-6 summary-container">
             {!!appointment && (
               <div className="flex flex-col @xl/booking-container:flex-row gap-2 w-full">
                 {!!appointment.dateTime && (

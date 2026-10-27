@@ -4849,6 +4849,41 @@ pageBuilder:
       features: Caractéristiques
       conversion: Conversion
       media: Médias
+    catalogValue:
+      displayName: Valeur du catalogue
+      source: Type
+      sources:
+        service: Service
+        addon: Module complémentaire
+        member: Membre de l'équipe
+        package: Forfait
+      item: Élément
+      property: Propriété
+      properties:
+        name: Nom
+        description: Description
+        price: Prix
+        duration: Durée
+        jobTitle: Titre
+        bio: Biographie
+        email: E-mail
+        phone: Téléphone
+      stripFormatting: Retirer la mise en forme incluse
+      stripFormattingDescription: Retirer le gras, l'italique et le reste du markdown et afficher du texte brut.
+      alwaysShowCents: Toujours afficher les centimes
+      showCurrency: Afficher la devise
+      durationFormat: Format de la durée
+      durationFormats:
+        duration: Durée
+        hours: Heures
+        minutes: Minutes
+        hoursMinutes: Heures et minutes
+      durationStyle: Longueur de la durée
+      durationStyles:
+        long: Longue
+        medium: Moyenne
+        short: Courte
+      empty: Sélectionner un élément
     heading:
       displayName: Titre
       content: Contenu

@@ -1656,6 +1656,8 @@ pages:
         tooltip: Колір назви логотипу та меню
       defaultColumn: За замовчуванням
       onScrollColumn: При прокрутці
+      mobileColumn: Мобільний
+      mobileOnScrollColumn: Мобільний при прокрутці
       onScrollSection: Вигляд при прокрутці
       onScrollSectionDescription: Необов'язкові перевизначення після прокрутки сторінки
       mobileSection: Вигляд на мобільному
@@ -3752,6 +3754,7 @@ menuItem:
     textColorDescription: Перевизначити колір тексту пункту меню
     showOnMobileHeader: Показувати в мобільному заголовку
     showOnMobileHeaderDescription: Залишити цей пункт видимим у заголовку на мобільному (поруч із кнопкою меню). Можна увімкнути лише для одного пункту; він також залишається в меню-шухляді.
+    useDifferentLabel: Використати інший напис
   card:
     moveMenuItem: Перемістити пункт меню
     itemType: Тип елемента

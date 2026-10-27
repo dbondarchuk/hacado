@@ -10,7 +10,12 @@ import { asOptionalField, Prettify, zAssetName } from "../utils";
 export const pageHeaderPositionType = ["static", "sticky", "fixed"] as const;
 export type PageHeaderPosition = (typeof pageHeaderPositionType)[number];
 
-export const pageHeaderLogoSize = ["small", "medium", "large"] as const;
+export const pageHeaderLogoSize = [
+  "small",
+  "medium",
+  "large",
+  "x-large",
+] as const;
 export type PageHeaderLogoSize = (typeof pageHeaderLogoSize)[number];
 
 export const pageHeaderLogoNameFontSize = [
@@ -61,6 +66,11 @@ export type PageHeaderScrolledStyle = z.infer<
   typeof pageHeaderScrolledStyleSchema
 >;
 
+const pageHeaderMobileStyleSchema = z.object({
+  ...pageHeaderScrolledStyleSchema.shape,
+  scrolled: pageHeaderScrolledStyleSchema.optional(),
+});
+
 export const pageHeaderSchema = z.object({
   name: z
     .string("validation.page.headers.name.required")
@@ -83,6 +93,8 @@ export const pageHeaderSchema = z.object({
   /** When true, header content spans the full viewport width instead of the page container. */
   fullWidth: z.coerce.boolean<boolean>().optional(),
   scrolled: pageHeaderScrolledStyleSchema.optional(),
+  /** Mobile rest style, plus `scrolled` for the mobile on-scroll style. */
+  mobile: pageHeaderMobileStyleSchema.optional(),
 });
 
 export const getPageHeaderSchemaWithUniqueNameCheck = (

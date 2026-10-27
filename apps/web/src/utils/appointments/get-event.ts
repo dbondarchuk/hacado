@@ -1,8 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   AppointmentAddon,
   AppointmentDiscount,
@@ -16,7 +13,7 @@ import {
   effectiveStaffPrice,
   isAddonAvailableForMember,
 } from "@hacado/types";
-import { formatAmount, getDiscountAmount } from "@hacado/utils";
+import { canUseFeature, formatAmount, getDiscountAmount } from "@hacado/utils";
 import { getServicesContainer } from "../utils";
 
 export const getAppointmentEventFromRequest = async (

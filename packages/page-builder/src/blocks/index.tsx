@@ -37,6 +37,7 @@ import {
   Table as TableIcon,
   Text,
   Type,
+  Variable,
   Zap,
 } from "lucide-react";
 import {
@@ -99,6 +100,12 @@ import {
   CarouselPropsDefaults,
   CarouselToolbar,
 } from "./carousel";
+import {
+  CatalogValueConfiguration,
+  CatalogValueEditor,
+  CatalogValuePropsDefaults,
+  CatalogValueToolbar,
+} from "./catalog-value";
 import {
   ConditionalContainerConfiguration,
   ConditionalContainerEditor,
@@ -612,6 +619,19 @@ export const EditorBlocks: EditorDocumentBlocksDictionary<
     },
     capabilities: ["text", "inline"],
     tags: ["text", "inline"],
+  },
+  CatalogValue: {
+    displayName:
+      "builder.pageBuilder.blocks.catalogValue.displayName" satisfies BaseAllKeys,
+    icon: <Variable />,
+    Editor: CatalogValueEditor,
+    Configuration: CatalogValueConfiguration,
+    Toolbar: CatalogValueToolbar,
+    defaultValue: CatalogValuePropsDefaults,
+    category:
+      "builder.pageBuilder.blocks.categories.text" satisfies BaseAllKeys,
+    capabilities: ["text", "inline", "block"],
+    tags: ["text", "catalog", "service", "price"],
   },
   TypewriterText: {
     displayName:

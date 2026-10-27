@@ -48,7 +48,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
-import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import {
+  useFieldArray,
+  useForm,
+  useWatch,
+  type FieldPath,
+} from "react-hook-form";
 import { MenuItemCard } from "../../menu-item/menu-item-card";
 import { useCollapsedSortableItems } from "../../menu-item/use-collapsed-sortable-items";
 
@@ -58,10 +63,25 @@ const RestScrollRow: React.FC<{
   label: React.ReactNode;
   rest: React.ReactNode;
   scrolled: React.ReactNode;
+  mobile?: React.ReactNode;
+  mobileScrolled?: React.ReactNode;
   showScrolled: boolean;
   restLabel: string;
   scrolledLabel: string;
-}> = ({ label, rest, scrolled, showScrolled, restLabel, scrolledLabel }) => (
+  mobileLabel?: string;
+  mobileScrolledLabel?: string;
+}> = ({
+  label,
+  rest,
+  scrolled,
+  mobile,
+  mobileScrolled,
+  showScrolled,
+  restLabel,
+  scrolledLabel,
+  mobileLabel,
+  mobileScrolledLabel,
+}) => (
   <div className="flex flex-col gap-2">
     <div className="text-sm font-medium">{label}</div>
     <div
@@ -71,7 +91,7 @@ const RestScrollRow: React.FC<{
       )}
     >
       <div className="flex flex-col gap-1">
-        {showScrolled && (
+        {(showScrolled || mobile) && (
           <span className="text-xs text-muted-foreground">{restLabel}</span>
         )}
         {rest}
@@ -80,6 +100,20 @@ const RestScrollRow: React.FC<{
         <div className="flex flex-col gap-1">
           <span className="text-xs text-muted-foreground">{scrolledLabel}</span>
           {scrolled}
+        </div>
+      )}
+      {mobile && (
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-muted-foreground">{mobileLabel}</span>
+          {mobile}
+        </div>
+      )}
+      {showScrolled && mobileScrolled && (
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-muted-foreground">
+            {mobileScrolledLabel}
+          </span>
+          {mobileScrolled}
         </div>
       )}
     </div>
@@ -128,9 +162,9 @@ export const PageHeaderForm: React.FC<{
   const [loading, setLoading] = useState(false);
   const [previewScrolled, setPreviewScrolled] = useState(false);
   const [previewMobile, setPreviewMobile] = useState(false);
-  const [customLogoTextEditorKey, setCustomLogoTextEditorKey] = useState(0);
-  const [scrolledCustomLogoTextEditorKey, setScrolledCustomLogoTextEditorKey] =
-    useState(0);
+  const [logoTextEditorKeys, setLogoTextEditorKeys] = useState<
+    Record<string, number>
+  >({});
   const router = useRouter();
 
   const defaultPosition = resolvePageHeaderPosition({
@@ -236,6 +270,214 @@ export const PageHeaderForm: React.FC<{
     sticky: watchedConfig?.sticky,
   });
   const showScrolled = position === "sticky" || position === "fixed";
+
+  type StyleName = FieldPath<PageFormValues>;
+
+  const colorField = <TName extends StyleName>(
+    name: TName,
+    allowTransparent = true,
+  ) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            <ColorExtendedInput
+              defaultValue={(field.value as string | null) ?? null}
+              nullable
+              allowTransparent={allowTransparent}
+              onChange={(value) => {
+                field.onChange(value);
+                field.onBlur();
+              }}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+
+  const booleanField = <TName extends StyleName>(
+    name: TName,
+    nullable = false,
+  ) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            {nullable ? (
+              <BooleanSelect
+                className="w-full"
+                disabled={loading}
+                nullable
+                nullableText={t("pages.headers.form.inheritDefault")}
+                value={(field.value as boolean | null | undefined) ?? undefined}
+                placeholder={t("pages.headers.form.inheritDefault")}
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  field.onBlur();
+                }}
+              />
+            ) : (
+              <BooleanSelect
+                className="w-full"
+                disabled={loading}
+                value={(field.value as boolean | null | undefined) ?? undefined}
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  field.onBlur();
+                }}
+              />
+            )}
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+
+  const logoField = (name: StyleName, inherit = false) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            <AssetSelectorInput
+              value={field.value as string | null | undefined}
+              disabled={loading}
+              placeholder={t(
+                inherit
+                  ? "pages.headers.form.inheritDefault"
+                  : "pages.headers.form.logo.placeholder",
+              )}
+              accept="image/*"
+              onChange={(value) => {
+                field.onChange(value);
+                field.onBlur();
+              }}
+              onBlur={field.onBlur}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+
+  const enumField = (
+    name: StyleName,
+    options: { label: string; value: string }[],
+  ) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            <Combobox
+              allowClear
+              values={options}
+              className="w-full"
+              value={(field.value as string | null | undefined) ?? undefined}
+              onItemSelect={(val) => {
+                field.onChange(val);
+                field.onBlur();
+              }}
+              disabled={loading}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+
+  const logoTextField = (name: StyleName) => (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            <InputGroup>
+              <InputGroupInput>
+                <EditableText
+                  key={logoTextEditorKeys[name] ?? 0}
+                  value={
+                    (Array.isArray(field.value) ||
+                    typeof field.value === "string"
+                      ? field.value
+                      : "") as React.ComponentProps<
+                      typeof EditableText
+                    >["value"]
+                  }
+                  onChange={(value) => {
+                    field.onChange(
+                      richTextToString(value).trim() ? value : undefined,
+                    );
+                  }}
+                  className={cn(
+                    "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
+                    InputGroupInputClasses({ variant: "suffix" }),
+                  )}
+                  disabled={loading}
+                  inline
+                />
+              </InputGroupInput>
+              <InputGroupAddon>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={loading}
+                  className={cn(InputGroupAddonClasses({ variant: "suffix" }))}
+                  onClick={() => {
+                    field.onChange(undefined);
+                    setLogoTextEditorKeys((keys) => ({
+                      ...keys,
+                      [name]: (keys[name] ?? 0) + 1,
+                    }));
+                    field.onBlur();
+                  }}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </InputGroupAddon>
+            </InputGroup>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+
+  const rowLabels = {
+    showScrolled,
+    restLabel: t("pages.headers.form.defaultColumn"),
+    scrolledLabel: t("pages.headers.form.onScrollColumn"),
+    mobileLabel: t("pages.headers.form.mobileColumn"),
+    mobileScrolledLabel: t("pages.headers.form.mobileOnScrollColumn"),
+  };
+
+  const logoSizeOptions = pageHeaderLogoSize.map((size) => ({
+    label: t(`pages.headers.form.logoSize.values.${size}`),
+    value: size,
+  }));
+  const logoNameFontSizeOptions = pageHeaderLogoNameFontSize.map((size) => ({
+    label: t(`pages.headers.form.logoNameFontSize.values.${size}`),
+    value: size,
+  }));
+  const logoNameFontWeightOptions = pageHeaderLogoNameFontWeight.map(
+    (size) => ({
+      label: t(`pages.headers.form.logoNameFontWeight.values.${size}`),
+      value: size,
+    }),
+  );
 
   return (
     <Form {...form}>
@@ -415,9 +657,7 @@ export const PageHeaderForm: React.FC<{
               />
             </div>
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.backgroundColor.label")}{" "}
@@ -426,54 +666,14 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="backgroundColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <ColorExtendedInput
-                          defaultValue={field.value ?? null}
-                          nullable
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.backgroundColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <ColorExtendedInput
-                          defaultValue={field.value ?? null}
-                          nullable
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={colorField("backgroundColor")}
+              scrolled={colorField("scrolled.backgroundColor")}
+              mobile={colorField("mobile.backgroundColor")}
+              mobileScrolled={colorField("mobile.scrolled.backgroundColor")}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.textColor.label")}{" "}
@@ -482,56 +682,14 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="textColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <ColorExtendedInput
-                          defaultValue={field.value ?? null}
-                          nullable
-                          allowTransparent={false}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.textColor"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <ColorExtendedInput
-                          defaultValue={field.value ?? null}
-                          nullable
-                          allowTransparent={false}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={colorField("textColor", false)}
+              scrolled={colorField("scrolled.textColor", false)}
+              mobile={colorField("mobile.textColor", false)}
+              mobileScrolled={colorField("mobile.scrolled.textColor", false)}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.showLogo")}{" "}
@@ -540,58 +698,14 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="showLogo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          className="w-full"
-                          disabled={loading}
-                          value={field.value}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.showLogo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          nullable
-                          className="w-full"
-                          disabled={loading}
-                          value={field.value}
-                          placeholder={t("pages.headers.form.inheritDefault")}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={booleanField("showLogo")}
+              scrolled={booleanField("scrolled.showLogo", true)}
+              mobile={booleanField("mobile.showLogo", true)}
+              mobileScrolled={booleanField("mobile.scrolled.showLogo", true)}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.logo.label")}{" "}
@@ -600,60 +714,14 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="logo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <AssetSelectorInput
-                          value={field.value}
-                          disabled={loading}
-                          placeholder={t("pages.headers.form.logo.placeholder")}
-                          accept="image/*"
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                          onBlur={field.onBlur}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.logo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <AssetSelectorInput
-                          value={field.value}
-                          disabled={loading}
-                          placeholder={t("pages.headers.form.inheritDefault")}
-                          accept="image/*"
-                          onChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                          onBlur={field.onBlur}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={logoField("logo")}
+              scrolled={logoField("scrolled.logo", true)}
+              mobile={logoField("mobile.logo", true)}
+              mobileScrolled={logoField("mobile.scrolled.logo", true)}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.logoSize.label")}{" "}
@@ -662,70 +730,17 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="logoSize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoSize.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoSize.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.logoSize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoSize.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoSize.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value ?? undefined}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={enumField("logoSize", logoSizeOptions)}
+              scrolled={enumField("scrolled.logoSize", logoSizeOptions)}
+              mobile={enumField("mobile.logoSize", logoSizeOptions)}
+              mobileScrolled={enumField(
+                "mobile.scrolled.logoSize",
+                logoSizeOptions,
+              )}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.hideName")}{" "}
@@ -734,58 +749,14 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="hideName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          className="w-full"
-                          disabled={loading}
-                          value={field.value}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.hideName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          className="w-full"
-                          nullable
-                          disabled={loading}
-                          value={field.value}
-                          placeholder={t("pages.headers.form.inheritDefault")}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={booleanField("hideName")}
+              scrolled={booleanField("scrolled.hideName", true)}
+              mobile={booleanField("mobile.hideName", true)}
+              mobileScrolled={booleanField("mobile.scrolled.hideName", true)}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.logoNameFontSize.label")}{" "}
@@ -794,70 +765,23 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="logoNameFontSize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoNameFontSize.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoNameFontSize.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.logoNameFontSize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoNameFontSize.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoNameFontSize.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value ?? undefined}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={enumField("logoNameFontSize", logoNameFontSizeOptions)}
+              scrolled={enumField(
+                "scrolled.logoNameFontSize",
+                logoNameFontSizeOptions,
+              )}
+              mobile={enumField(
+                "mobile.logoNameFontSize",
+                logoNameFontSizeOptions,
+              )}
+              mobileScrolled={enumField(
+                "mobile.scrolled.logoNameFontSize",
+                logoNameFontSizeOptions,
+              )}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.logoNameFontWeight.label")}{" "}
@@ -866,70 +790,23 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="logoNameFontWeight"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoNameFontWeight.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoNameFontWeight.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.logoNameFontWeight"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Combobox
-                          allowClear
-                          values={pageHeaderLogoNameFontWeight.map((size) => ({
-                            label: t(
-                              `pages.headers.form.logoNameFontWeight.values.${size}`,
-                            ),
-                            value: size,
-                          }))}
-                          className="w-full"
-                          value={field.value ?? undefined}
-                          onItemSelect={(val) => {
-                            field.onChange(val);
-                            field.onBlur();
-                          }}
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={enumField("logoNameFontWeight", logoNameFontWeightOptions)}
+              scrolled={enumField(
+                "scrolled.logoNameFontWeight",
+                logoNameFontWeightOptions,
+              )}
+              mobile={enumField(
+                "mobile.logoNameFontWeight",
+                logoNameFontWeightOptions,
+              )}
+              mobileScrolled={enumField(
+                "mobile.scrolled.logoNameFontWeight",
+                logoNameFontWeightOptions,
+              )}
             />
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.customLogoText.label")}{" "}
@@ -938,123 +815,15 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="customLogoText"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <InputGroup>
-                          <InputGroupInput>
-                            <EditableText
-                              key={customLogoTextEditorKey}
-                              value={field.value ?? ""}
-                              onChange={(value) => {
-                                field.onChange(
-                                  richTextToString(value).trim()
-                                    ? value
-                                    : undefined,
-                                );
-                              }}
-                              className={cn(
-                                "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
-                                InputGroupInputClasses({ variant: "suffix" }),
-                              )}
-                              disabled={loading}
-                              inline
-                            />
-                          </InputGroupInput>
-                          <InputGroupAddon>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              disabled={loading}
-                              className={cn(
-                                InputGroupAddonClasses({
-                                  variant: "suffix",
-                                }),
-                              )}
-                              onClick={() => {
-                                field.onChange(undefined);
-                                setCustomLogoTextEditorKey((key) => key + 1);
-                                field.onBlur();
-                              }}
-                            >
-                              <X className="w-4 h-4" />
-                            </Button>
-                          </InputGroupAddon>
-                        </InputGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.customLogoText"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <InputGroup>
-                          <InputGroupInput>
-                            <EditableText
-                              key={scrolledCustomLogoTextEditorKey}
-                              value={field.value ?? ""}
-                              onChange={(value) => {
-                                field.onChange(
-                                  richTextToString(value).trim()
-                                    ? value
-                                    : undefined,
-                                );
-                              }}
-                              className={cn(
-                                "w-full border border-input rounded-md p-2 text-base sm:text-sm h-9 block",
-                                InputGroupInputClasses({ variant: "suffix" }),
-                              )}
-                              disabled={loading}
-                              inline
-                            />
-                          </InputGroupInput>
-                          <InputGroupAddon>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              disabled={loading}
-                              className={cn(
-                                InputGroupAddonClasses({
-                                  variant: "suffix",
-                                }),
-                              )}
-                              onClick={() => {
-                                field.onChange(undefined);
-                                setScrolledCustomLogoTextEditorKey(
-                                  (key) => key + 1,
-                                );
-                                field.onBlur();
-                              }}
-                            >
-                              <X className="w-4 h-4" />
-                            </Button>
-                          </InputGroupAddon>
-                        </InputGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={logoTextField("customLogoText")}
+              scrolled={logoTextField("scrolled.customLogoText")}
+              mobile={logoTextField("mobile.customLogoText")}
+              mobileScrolled={logoTextField("mobile.scrolled.customLogoText")}
             />
 
             {showScrolled && (
               <RestScrollRow
-                showScrolled
-                restLabel={t("pages.headers.form.defaultColumn")}
-                scrolledLabel={t("pages.headers.form.onScrollColumn")}
+                {...rowLabels}
                 label={
                   <>
                     {t("pages.headers.form.backdropBlur")}{" "}
@@ -1063,59 +832,18 @@ export const PageHeaderForm: React.FC<{
                     </InfoTooltip>
                   </>
                 }
-                rest={
-                  <FormField
-                    control={form.control}
-                    name="backdropBlur"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <BooleanSelect
-                            className="w-full"
-                            disabled={loading}
-                            value={field.value}
-                            onValueChange={(value) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                }
-                scrolled={
-                  <FormField
-                    control={form.control}
-                    name="scrolled.backdropBlur"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <BooleanSelect
-                            className="w-full"
-                            disabled={loading}
-                            nullable
-                            value={field.value}
-                            placeholder={t("pages.headers.form.inheritDefault")}
-                            onValueChange={(value) => {
-                              field.onChange(value);
-                              field.onBlur();
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                }
+                rest={booleanField("backdropBlur")}
+                scrolled={booleanField("scrolled.backdropBlur", true)}
+                mobile={booleanField("mobile.backdropBlur", true)}
+                mobileScrolled={booleanField(
+                  "mobile.scrolled.backdropBlur",
+                  true,
+                )}
               />
             )}
 
             <RestScrollRow
-              showScrolled={showScrolled}
-              restLabel={t("pages.headers.form.defaultColumn")}
-              scrolledLabel={t("pages.headers.form.onScrollColumn")}
+              {...rowLabels}
               label={
                 <>
                   {t("pages.headers.form.headerShadow")}{" "}
@@ -1124,53 +852,10 @@ export const PageHeaderForm: React.FC<{
                   </InfoTooltip>
                 </>
               }
-              rest={
-                <FormField
-                  control={form.control}
-                  name="shadow"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          className="w-full"
-                          disabled={loading}
-                          value={field.value ?? undefined}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
-              scrolled={
-                <FormField
-                  control={form.control}
-                  name="scrolled.shadow"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <BooleanSelect
-                          className="w-full"
-                          nullable
-                          nullableText={t("pages.headers.form.inheritDefault")}
-                          disabled={loading}
-                          value={field.value ?? undefined}
-                          placeholder={t("pages.headers.form.inheritDefault")}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              }
+              rest={booleanField("shadow")}
+              scrolled={booleanField("scrolled.shadow", true)}
+              mobile={booleanField("mobile.shadow", true)}
+              mobileScrolled={booleanField("mobile.scrolled.shadow", true)}
             />
           </TabsContent>
 

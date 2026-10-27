@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
     return () => effectiveWindow.removeEventListener("scroll", scrollHandler);
   }, [forceScrolled, portalDocument]);
 
-  const style = resolveHeaderStyle(config, isScrolled);
+  const style = resolveHeaderStyle(config, isScrolled, isMobile);
   const mobileHeaderItem = config.menu?.find(isMobilePinnedMenuItem);
   // Mobile applies scrolled menu appearance (see mergeMenuItemAppearance).
   const resolveItem = (item: MenuItemWithSubMenu) =>
@@ -265,16 +265,16 @@ export const Header: React.FC<HeaderProps> = ({
             <AccordionTrigger
               className={itemClassName(
                 resolved,
-                "justify-end",
+                "justify-end text-right",
                 resolved.hideChevron ? "[&>svg]:hidden" : undefined,
               )}
               style={itemColorStyle(resolved)}
             >
               <LinkRender item={resolved} />
             </AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-2 px-3">
+            <AccordionContent className="flex flex-col gap-2">
               {resolved.children.map((subItem, jndex) => (
-                <div key={jndex} className="inline-flex justify-end">
+                <div key={jndex} className="inline-flex justify-end text-right">
                   {getLink(resolveItem(subItem) as MenuItem, true)}
                 </div>
               ))}
@@ -346,6 +346,7 @@ export const Header: React.FC<HeaderProps> = ({
       className={className}
       headerId={headerId}
       forceScrolled={forceScrolled}
+      isMobile={isMobile}
       preview={preview}
     >
       <ReplaceOriginalColors />

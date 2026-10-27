@@ -45,6 +45,7 @@ export const HeaderInternal = ({
   headerId,
   children,
   forceScrolled,
+  isMobile = false,
   preview,
 }: {
   config: PageHeaderUpdateModel;
@@ -52,6 +53,7 @@ export const HeaderInternal = ({
   headerId?: string;
   children: ReactNode | ReactNode[];
   forceScrolled?: boolean;
+  isMobile?: boolean;
   preview?: boolean;
 }) => {
   const [isScrolled, setIsScrolled] = useState(forceScrolled ?? false);
@@ -77,7 +79,7 @@ export const HeaderInternal = ({
     return () => effectiveWindow.removeEventListener("scroll", scrollHandler);
   }, [forceScrolled, portalDocument]);
 
-  const style = resolveHeaderStyle(config, isScrolled);
+  const style = resolveHeaderStyle(config, isScrolled, isMobile);
   const resolvedPosition = resolvePageHeaderPosition({
     position: style.position,
     sticky: config.sticky,

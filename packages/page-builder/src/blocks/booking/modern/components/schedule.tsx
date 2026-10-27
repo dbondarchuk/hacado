@@ -269,6 +269,7 @@ export const Schedule: React.FC<
 
   const [currentStep, setCurrentStep] = React.useState<StepType>(initialStep);
   const locksBootstrapped = React.useRef(!lockServiceId && !lockMemberId);
+  const suppressNextScrollRef = React.useRef(false);
 
   React.useEffect(() => {
     if (locksBootstrapped.current) return;
@@ -281,21 +282,24 @@ export const Schedule: React.FC<
     if (option) setSelectedAppointmentOption(option);
     if (lockMemberId) setSelectedMemberId(lockMemberId);
 
-    setCurrentStep(
-      getInitialBookingStep({
-        flowOrder,
-        lockServiceId,
-        lockMemberId,
-        lockCustomerPackageId,
-        selectedOption: option,
-        activeStaffCount: getActiveStaffForAssignments(
-          option?.staff,
-          members,
-          undefined,
-          undefined,
-        ).length,
-      }),
-    );
+    const nextStep = getInitialBookingStep({
+      flowOrder,
+      lockServiceId,
+      lockMemberId,
+      lockCustomerPackageId,
+      selectedOption: option,
+      activeStaffCount: getActiveStaffForAssignments(
+        option?.staff,
+        members,
+        undefined,
+        undefined,
+      ).length,
+    });
+    if (nextStep !== currentStep) {
+      suppressNextScrollRef.current = true;
+      setCurrentStep(nextStep);
+    }
+
     locksBootstrapped.current = true;
   }, [
     areAppointmentOptionsLoading,
@@ -305,6 +309,7 @@ export const Schedule: React.FC<
     lockCustomerPackageId,
     flowOrder,
     members,
+    currentStep,
   ]);
 
   const [dateTime, setDateTime] = React.useState<DateTime | undefined>(
@@ -857,6 +862,7 @@ export const Schedule: React.FC<
         hideTitle={hideTitle}
         hideSteps={hideSteps}
         summaryPosition={summaryPosition}
+        suppressNextScrollRef={suppressNextScrollRef}
         className={className}
         {...props}
       />

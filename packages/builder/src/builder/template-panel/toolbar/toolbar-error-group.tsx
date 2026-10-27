@@ -48,6 +48,10 @@ export const ToolbarErrorGroup = () => {
     [errors, blocks],
   );
 
+  if (flattendErrors.length > 0 && process.env.NODE_ENV === "development") {
+    console.log(flattendErrors);
+  }
+
   return (
     <ToolbarGroup>
       {hasErrors ? (

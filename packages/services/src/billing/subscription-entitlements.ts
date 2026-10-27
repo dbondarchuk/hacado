@@ -1,10 +1,4 @@
-import {
-  BillingPlanTier,
-  FREE_TIER_DISABLED_FEATURES,
-  type Organization,
-  type SubscriptionFeature,
-} from "@hacado/types";
-
+import { BillingPlanTier, type Organization } from "@hacado/types";
 import { getBillingPlanProductIdMap } from "./plan-config";
 
 export function resolvePlanTierFromProductId(
@@ -35,18 +29,6 @@ export function resolvePlanTierFromOrganization(
   return resolvePlanTierFromProductId(organization.polarSubscriptionProductId, {
     feesExempt: organization.feesExempt,
   });
-}
-
-export function canUseFeature(
-  planTier: BillingPlanTier | null,
-  feature: SubscriptionFeature,
-): boolean {
-  if (!isFreeTier(planTier)) return true;
-  return !FREE_TIER_DISABLED_FEATURES.has(feature);
-}
-
-export function isFreeTier(planTier: BillingPlanTier | null): boolean {
-  return planTier === BillingPlanTier.Free;
 }
 
 export const BRAND_SETTINGS_UPGRADE_URL =

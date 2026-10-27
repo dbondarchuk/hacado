@@ -5,8 +5,6 @@ import {
 } from "@hacado/app-store";
 import {
   BRAND_SETTINGS_UPGRADE_URL,
-  canUseFeature,
-  isFreeTier,
   resolvePlanTierFromProductId,
 } from "@hacado/services/billing";
 import {
@@ -17,6 +15,7 @@ import {
   meetsMinimumPlanTier,
   type SubscriptionFeature,
 } from "@hacado/types";
+import { canUseFeature } from "@hacado/utils";
 
 export {
   BRAND_SETTINGS_UPGRADE_URL,
@@ -24,9 +23,7 @@ export {
   canCreateMoreServices,
   canInstallApp,
   canProcessApp,
-  canUseFeature,
   getAppMinimumPlanTier,
-  isFreeTier,
   resolvePlanTierFromProductId,
 };
 

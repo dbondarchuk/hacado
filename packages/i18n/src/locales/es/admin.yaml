@@ -1622,6 +1622,8 @@ pages:
         tooltip: Color para el nombre del logotipo y el texto del menú.
       defaultColumn: Por defecto
       onScrollColumn: En desplazamiento
+      mobileColumn: Móvil
+      mobileOnScrollColumn: Móvil al desplazarse
       onScrollSection: En apariencia de desplazamiento
       onScrollSectionDescription: Anulaciones opcionales aplicadas después de desplazarse por la página
       mobileSection: Apariencia móvil
@@ -3730,6 +3732,7 @@ menuItem:
     textColorDescription: Anular el color del texto del elemento del menú
     showOnMobileHeader: Mostrar en el encabezado del móvil
     showOnMobileHeaderDescription: Mantenga este elemento visible en el encabezado del dispositivo móvil (al lado del botón de menú). Sólo un elemento puede utilizar esto; Todavía aparece en el cajón.
+    useDifferentLabel: Usar una etiqueta diferente
   card:
     moveMenuItem: Mover elemento del menú
     itemType: tipo de artículo

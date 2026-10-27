@@ -1,10 +1,7 @@
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLocale } from "@hacado/i18n/server";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  canUseFeature,
-  resolvePlanTierFromOrganization,
-} from "@hacado/services/billing";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   AppJobRequest,
   CollectPayment,
@@ -36,7 +33,11 @@ import {
   systemEventSource,
   TemplateTemplatesList,
 } from "@hacado/types";
-import { formatAmountWithCurrency, hasPermission } from "@hacado/utils";
+import {
+  canUseFeature,
+  formatAmountWithCurrency,
+  hasPermission,
+} from "@hacado/utils";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";
