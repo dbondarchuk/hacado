@@ -419,8 +419,9 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
       className="sm:max-w-[80%]"
     >
       {showStockSources && (
-        <div className="w-full mb-4 flex flex-wrap gap-3">
+        <div className="w-full mb-4 flex flex-wrap gap-3 justify-between">
           <RadioButtonGroup
+            joined
             value={source}
             onValueChange={(value) => {
               if (
@@ -448,6 +449,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
           </RadioButtonGroup>
           {source === "pexels" && pexelsNeedsTypeToggle && (
             <RadioButtonGroup
+              joined
               value={pexelsType}
               onValueChange={(value) => {
                 if (value === "photo" || value === "video") {

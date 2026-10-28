@@ -484,11 +484,12 @@ export const AppointmentDeclineDialog: React.FC<{
             <div className="flex flex-col gap-2">
               <Label>{t("admin.appointments.declineDialog.reason")}</Label>
               <RadioButtonGroup
+                joined="md"
                 value={closeReason}
                 onValueChange={(value) =>
                   setCloseReason(value as ClosedAppointmentStatus)
                 }
-                className="md:grid md:grid-cols-3"
+                className="md:grid md:grid-cols-3 md:w-full"
               >
                 {(
                   [

@@ -36,6 +36,8 @@ import {
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+  RadioButtonGroup,
+  RadioButtonGroupItem,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
@@ -520,49 +522,42 @@ export const PageHeaderForm: React.FC<{
           <div className="flex flex-row flex-wrap items-center justify-between gap-2">
             <FormLabel>{t("pages.headers.form.preview.label")}</FormLabel>
             <div className="flex flex-wrap gap-2">
-              <div className="flex gap-1">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={!previewMobile ? "secondary" : "outline"}
-                  onClick={() => setPreviewMobile(false)}
-                >
+              <RadioButtonGroup
+                joined
+                value={previewMobile ? "mobile" : "desktop"}
+                onValueChange={(value) => setPreviewMobile(value === "mobile")}
+              >
+                <RadioButtonGroupItem value="desktop" size="sm">
                   {t("pages.headers.form.preview.desktop")}
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={previewMobile ? "secondary" : "outline"}
-                  onClick={() => setPreviewMobile(true)}
-                >
+                </RadioButtonGroupItem>
+                <RadioButtonGroupItem value="mobile" size="sm">
                   {t("pages.headers.form.preview.mobile")}
-                </Button>
-              </div>
-              <div className="flex gap-1">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={!previewScrolled ? "secondary" : "outline"}
-                  onClick={() => setPreviewScrolled(false)}
-                >
+                </RadioButtonGroupItem>
+              </RadioButtonGroup>
+              <RadioButtonGroup
+                joined
+                value={previewScrolled ? "scrolled" : "rest"}
+                onValueChange={(value) =>
+                  setPreviewScrolled(value === "scrolled")
+                }
+              >
+                <RadioButtonGroupItem value="rest" size="sm">
                   {t("pages.headers.form.preview.rest")}
-                </Button>
-                <Button
-                  type="button"
+                </RadioButtonGroupItem>
+                <RadioButtonGroupItem
+                  value="scrolled"
                   size="sm"
-                  variant={previewScrolled ? "secondary" : "outline"}
                   disabled={!showScrolled}
-                  onClick={() => setPreviewScrolled(true)}
                 >
                   {t("pages.headers.form.preview.scrolled")}
-                </Button>
-              </div>
+                </RadioButtonGroupItem>
+              </RadioButtonGroup>
             </div>
           </div>
           <div
             className={cn(
               "relative overflow-hidden rounded-xl border border-border bg-muted/40 min-h-40",
-              previewMobile && "mx-auto w-full max-w-sm",
+              previewMobile ? "mx-auto w-full max-w-sm" : "overflow-auto",
             )}
           >
             <div
@@ -577,6 +572,7 @@ export const PageHeaderForm: React.FC<{
                 forceScrolled={showScrolled ? previewScrolled : false}
                 forceMobile={previewMobile}
                 preview
+                className={cn(!previewMobile && "max-md:min-w-[1200px]")}
               />
               <div className="px-6 py-16 text-sm text-muted-foreground pointer-events-none select-none">
                 &nbsp;
