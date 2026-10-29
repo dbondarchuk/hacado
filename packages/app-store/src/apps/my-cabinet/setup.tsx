@@ -16,12 +16,12 @@ import {
   IComboboxItem,
   Skeleton,
   Spinner,
-  Switch,
   toastPromise,
 } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
+  SwitchCardFormItem,
 } from "@hacado/ui-admin";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -202,83 +202,76 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
               control={form.control}
               name="publicPageDisabled"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border p-3 w-full">
-                  <div className="space-y-0.5">
-                    <FormLabel>{t("form.publicPageDisabled.label")}</FormLabel>
-                    <FormDescription>
-                      {t("form.publicPageDisabled.description")}
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={!!field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={isLoading || isDataLoading}
-                    />
-                  </FormControl>
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("form.publicPageEnabled.label")}
+                  description={t("form.publicPageEnabled.description")}
+                  checked={!field.value}
+                  onCheckedChange={(checked) => field.onChange(!checked)}
+                  disabled={isLoading || isDataLoading}
+                >
+                  {publicPageEnabled ? (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="headerId"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>{t("form.headerId.label")}</FormLabel>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <ComboboxAsync
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                  disabled={isLoading}
+                                  allowClear
+                                  placeholder={t("form.headerId.placeholder")}
+                                  fetchItems={fetchHeaders}
+                                  loader={<ComboboxLoader />}
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.headerId.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="footerId"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>{t("form.footerId.label")}</FormLabel>
+                            <FormControl>
+                              {isDataLoading ? (
+                                <Skeleton className="w-full h-10" />
+                              ) : (
+                                <ComboboxAsync
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                  disabled={isLoading}
+                                  allowClear
+                                  placeholder={t("form.footerId.placeholder")}
+                                  fetchItems={fetchFooters}
+                                  loader={<ComboboxLoader />}
+                                />
+                              )}
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.footerId.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  ) : null}
+                </SwitchCardFormItem>
               )}
             />
-            {publicPageEnabled && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="headerId"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>{t("form.headerId.label")}</FormLabel>
-                      <FormDescription>
-                        {t("form.headerId.description")}
-                      </FormDescription>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="w-full h-10" />
-                        ) : (
-                          <ComboboxAsync
-                            value={field.value}
-                            onChange={field.onChange}
-                            disabled={isLoading}
-                            allowClear
-                            placeholder={t("form.headerId.placeholder")}
-                            fetchItems={fetchHeaders}
-                            loader={<ComboboxLoader />}
-                          />
-                        )}
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="footerId"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>{t("form.footerId.label")}</FormLabel>
-                      <FormDescription>
-                        {t("form.footerId.description")}
-                      </FormDescription>
-                      <FormControl>
-                        {isDataLoading ? (
-                          <Skeleton className="w-full h-10" />
-                        ) : (
-                          <ComboboxAsync
-                            value={field.value}
-                            onChange={field.onChange}
-                            disabled={isLoading}
-                            allowClear
-                            placeholder={t("form.footerId.placeholder")}
-                            fetchItems={fetchFooters}
-                            loader={<ComboboxLoader />}
-                          />
-                        )}
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
             <Button
               type="submit"
               variant="default"

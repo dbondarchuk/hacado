@@ -22,5 +22,7 @@
   "search.exclude": {
     "**/node_modules": true,
     "**/dist": true
-  }
+  },
+  "js/ts.tsserver.log": "verbose",
+  "js/ts.tsserver.maxMemory": 30726
 }

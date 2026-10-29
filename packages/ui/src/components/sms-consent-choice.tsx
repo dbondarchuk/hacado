@@ -202,6 +202,7 @@ export const AppointmentSmsConsent = ({
     reminders: t("booking.form.smsConsent.label.reminders"),
     both: t("booking.form.smsConsent.label.both"),
   }[kind];
+
   const consentedMessage = {
     notifications: t("booking.form.smsConsent.already.notifications"),
     reminders: t("booking.form.smsConsent.already.reminders"),

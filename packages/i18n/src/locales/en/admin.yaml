@@ -986,7 +986,10 @@ appointments:
     refundError: One or more refund requests have failed.
     giftCardCode: Gift card code
     paymentDescription: Description
+    refundPayment: Refund this payment
+    refundPaymentDescription: Refund part or all of this payment.
     refundFees: Refund fees
+    refundFeesDescription: Include processing fees in the refund amount.
   rescheduleDialog:
     title: Reschedule the appointment
     by: by
@@ -1426,6 +1429,19 @@ customers:
     remove: Remove
     changePhoto: Change photo
     customerPhotoAlt: Customer photo
+    photo: Photo
+    onlineBooking: Online booking
+    onlineBookingDescription: When off, this customer can't book themselves. Only you can add appointments.
+    deposit: Deposit
+    depositDescription: Choose whether this customer must pay a deposit when booking.
+    customDeposit: Custom deposit requirement
+    customDepositTooltip: Use a deposit rule for this customer instead of the service or general configuration.
+    notesPrivate: Only you and your team can see notes.
+    alsoKnownAs: Also known as
+    alsoKnownAsDescription: Other details this customer may use. We use them to match new booking requests to this profile.
+    names: Names
+    emails: Emails
+    phones: Phones
   uploadFiles:
     title: Upload files
     description: Upload files for your customer
@@ -1780,6 +1796,7 @@ services:
   fieldSelectCard:
     moveField: Move {type} field
     field: Field
+    fieldDescription: Select the custom field collected during booking.
     required: Required
     requiredTooltip: Marks field as to be required
     deleteConfirmTitle: Are you absolutely sure?
@@ -1820,6 +1837,12 @@ services:
     newDescription: Add new service that you provide
     editDescription: Edit option
     form:
+      details: Details
+      durationAndPrice: Duration and price
+      customAutoConfirm: Custom auto confirm
+      customAutoConfirmTooltip: Use an auto-confirm rule for this service instead of the general configuration.
+      virtualAppointment: Virtual appointment
+      virtualAppointmentTooltip: Hold this appointment by video, audio, or phone instead of in person.
       name: Name
       namePlaceholder: Option name
       description: Short description
@@ -1881,6 +1904,12 @@ services:
           tooltip: App that will be used to provide meeting URL
       paymentSettings:
         title: Payment settings
+        customDeposit:
+          label: Custom deposit requirement
+          tooltip: Use a deposit rule for this service instead of the general configuration.
+        customTips:
+          label: Custom tips configuration
+          tooltip: Use tip settings for this service instead of the general configuration.
         requireDeposit:
           label: Require deposit
           tooltip:
@@ -1929,6 +1958,9 @@ services:
           inherit: Same as general configuration
           custom: Custom policy
           placeholder: Select cancellation policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom cancellation policy that is different from general cancellation policy?
         enabled:
           label: Enabled
           tooltip: Whether to allow cancellation for option
@@ -1959,6 +1991,9 @@ services:
           inherit: Same as general configuration
           custom: Custom policy
           placeholder: Select reschedule policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom reschedule policy that is different from general reschedule policy?
         enabled:
           label: Enabled
           tooltip: Whether to allow reschedule for option
@@ -2082,6 +2117,8 @@ services:
     newDescription: Add new custom field
     editDescription: Edit custom field
     form:
+      details: Details
+      fileSettings: File settings
       name: Name
       namePlaceholder: Field name
       nameTooltip: Unique ID of the field. Can contain only letter, digits, and underscore
@@ -2170,7 +2207,10 @@ services:
       status: Status
       active: Active
       disabled: Disabled
-      codes: Codes
+      details: Details
+      dates: Dates
+      maximumUses: Maximum uses
+      codes: Promo codes
       codesPlaceholder: Discount codes
       codesTooltip: Codes that can be used to apply this discount
       addCode: Add code
@@ -2267,7 +2307,7 @@ services:
     editDescription: Edit package
     sell: Sell package
     sellTitle: Sell package
-    sellDescription: Issue this package to a customer and record an in-store payment
+    sellDescription: Issue this package to a customer and collect payment
     sellForm:
       package: Package
       customer: Customer
@@ -2277,6 +2317,7 @@ services:
       title: Sold packages
       description: Packages issued to customers
       statusBadges:
+        pending: Pending payment
         active: Active
         exhausted: Exhausted
         expired: Expired
@@ -2328,6 +2369,9 @@ services:
       cancel: Cancel
       deleteSelected: Delete selected
     form:
+      details: Details
+      service: Service
+      priceAndLimits: Price and limits
       name:
         label: Name
         placeholder: 10x Massage
@@ -2483,6 +2527,9 @@ services:
       cancel: Cancel
       deleteSelected: Delete selected
     form:
+      giftCard: Gift card
+      amountAndExpiry: Amount and expiry
+      customerAndPayment: Customer and payment
       code:
         label: Code
         placeholder: XXX-XXX-XXX
@@ -2509,10 +2556,15 @@ services:
       customerId:
         label: Customer
         tooltip: Customer who bought the gift card
+      paymentLinkAppId:
+        description: App used to send the payment link for this gift card.
+      channel:
+        description: How the payment link is sent to the customer.
       toasts:
         created: Gift card created successfully
         changesSaved: Your changes were saved.
         requestError: There was a problem with your request.
+        smsConsentRequired: Text message consent is required before sending the payment link.
   addons:
     title: Add-ons
     description: Manage add-ons
@@ -2522,6 +2574,8 @@ services:
     newDescription: Add new add-on
     editDescription: Edit add-on
     form:
+      details: Details
+      durationAndPrice: Duration and price
       name: Name
       namePlaceholder: Add-on name
       nameTooltip: Unique add-on name
@@ -2666,6 +2720,7 @@ appearance:
       cancel: Cancel
       delete: Delete
       type: Type
+      typeDescription: Which theme color this override replaces.
       selectColorOverrideType: Select color override type
       color: Color
       colorTooltip: Color in CSS format (HEX, rgb, rgba, hsl)
@@ -2774,6 +2829,7 @@ apps:
     textMessageSender:
       label: Text message sender
       placeholder: Use default text message sender
+      tooltip: The app that sends text messages to customers. Optional.
     textMessageResponder:
       label: Text message responder
       tooltip:
@@ -2915,6 +2971,7 @@ settings:
     form:
       name: Business name
       namePlaceholder: Your business name
+      nameDescription: The public name of your business.
       industry: Industry
       industryPlaceholder: Select industry
       industryTooltip: Used for search listings and search engine optimization.
@@ -2943,6 +3000,7 @@ settings:
       currencyPlaceholder: Select currency
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Time zone
+      timeZoneDescription: The business time zone used for scheduling and the booking page.
       selectTimeZone: Select time zone
       useClientTimezone: Use customer's timezone
       useClientTimezoneTooltip:
@@ -3038,7 +3096,7 @@ settings:
     form:
       tabs:
         main: Main
-        options: Options
+        catalog: Services and packages
         payments: Payments
         cancellations: Cancellations
         reschedules: Reschedules
@@ -3059,6 +3117,8 @@ settings:
           Select this option if you want to auto confirm all appointments
           created by customers.<br></br>By default, you will need to manually confirm
           each appointment.
+        scheduleSettingsLabel: Schedule settings
+        scheduleProviderLabel: Schedule providers
         allowStaffCalendarSources: Allow staff to manage calendar sources
         allowStaffCalendarSourcesTooltip:
           When enabled, staff members can connect personal calendar sources on
@@ -3069,7 +3129,7 @@ settings:
         showPromoCodeTooltip:
           Configure whether the promo code field should be shown
           during the booking
-        maxWeeksInFuture: Maximum number of weeks into the future
+        maxWeeksInFuture: How far in the future can customers book appointments?
         maxWeeksInFutureTooltip:
           Specifies the maximum number of weeks into the future
           that a user can schedule appointments.<br></br><b>Example:</b> If set to
@@ -3084,7 +3144,7 @@ settings:
           If set to 30, there must be at least 30 minutes of free time before and
           after each scheduled slot before the next slot can begin.<br></br><b>Default
           value:</b> 0 minutes.
-        minHoursBeforeBooking: Minimum number of hours before booking
+        minHoursBeforeBooking: Minimum time before booking
         minHoursBeforeBookingTooltip:
           Specifies the minimum number of hours required
           in advance for a booking to be made.<br></br>This parameter helps ensure
@@ -3140,10 +3200,8 @@ settings:
         appointments: appointments
         paymentsAppTooltip: What payment processor to use for payments
         requireDeposit: Require deposit
-        requireDepositTooltip1:
-          If enabled, each customer will be required to pay
-          a deposit to book an appointment
-        requireDepositTooltip2: Can be overriden per each customer
+        requireDepositTooltip: If enabled, each customer will be required to pay
+          a deposit to book an appointment<br></br>Can be overriden per each customer or service
         require: Require
         doNotRequire: Do not require
         depositAmount: Deposit amount
@@ -3189,9 +3247,9 @@ settings:
             title: For appointments with deposit
           withoutDeposit:
             title: For appointments without deposit
-          enabledTooltip:
-            Enables ability for customers to cancel an appointment on
-            their own
+          enabled:
+            label: Allowed
+            tooltip: Configure if customers are allowed to cancel an appointment on their own
           doNotAllowIfRescheduled:
             label: Allow if rescheduled
             tooltip:
@@ -3202,9 +3260,9 @@ settings:
               "false": Allow
         reschedules:
           title: Reschedules
-          enabledTooltip:
-            Enables ability for customers to reschedule an appointment
-            on their own
+          enabled:
+            label: Allowed
+            tooltip: Configure if customers are allowed to reschedule an appointment on their own
           minutesToAppointment:
             label: Minimum time to appointment
             tooltip: Configure minimum time to appointment for allowing reschedule
@@ -3212,7 +3270,7 @@ settings:
             label: Maximum number of reschedules
             tooltip: Configure how many times a customer can reschedule an appointment
         enabled:
-          label: Enabled
+          label: Allowed
           selectPlaceholder: Select option
           labels:
             disabled: Disabled
@@ -3376,6 +3434,7 @@ settings:
         cancel: Cancel
         delete: Delete
         type: Type
+        typeDescription: The social network this profile belongs to.
         selectType: Select social link type
         url: Url
         urlTooltip: Full link to your profile
@@ -3983,12 +4042,15 @@ menuItem:
     label: Label
     labelPlaceholder: Label
     icon: Icon
+    iconDescription: Icon shown for this menu item
     variant: Variant
+    variantDescription: Visual style of this link or button
     selectVariant: Select link variant
     size: Size
     selectSize: Select size
     selectButtonVariant: Select button variant
     textFont: Text font
+    textFontDescription: Font used for this menu item label
     selectTextFont: Select text font
     textSize: Text size
     selectTextSize: Select text size
@@ -3997,6 +4059,7 @@ menuItem:
     prefixIcon: Prefix Icon
     suffixIcon: Suffix Icon
     additionalClasses: Additional classes
+    additionalClassesDescription: Extra CSS classes applied to this menu item
     additionalClassesPlaceholder: font-bold
     doNotCombineClassName: Do not combine with defaults
     doNotCombineClassNameDescription: When enabled, only your additional classes are applied (default classes are skipped)
@@ -4184,9 +4247,9 @@ cancellationsAndReschedules:
       title: For appointments with deposit
     withoutDeposit:
       title: For appointments without deposit
-    enabledTooltip:
-      Enables ability for customers to cancel an appointment on their
-      own
+    enabled:
+      label: Allowed
+      tooltip: Configure if customers are allowed to cancel an appointment on their own
     doNotAllowIfRescheduled:
       label: Allow if rescheduled
       tooltip: Configure if a customer can cancel an appointment if it has been rescheduled
@@ -4263,9 +4326,9 @@ cancellationsAndReschedules:
     delete: Delete
   reschedulePolicy:
     title: Reschedules
-    enabledTooltip:
-      Enables ability for customers to reschedule an appointment on
-      their own
+    enabled:
+      label: Allowed
+      tooltip: Configure if customers are allowed to reschedule an appointment on their own
     default:
       title: Default Rule
       tooltip: Configure default rule that will be applied if no other rule is applicable

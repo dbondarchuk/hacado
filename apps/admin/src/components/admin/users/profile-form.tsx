@@ -17,11 +17,12 @@ import {
   Combobox,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   toast,
   toastPromise,
@@ -240,7 +241,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("users.profile.form.name")}</FormLabel>
+                      <FormLabelWithRequiredIndicator required>
+                        {t("users.profile.form.name")}
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
                         <Input
                           disabled={loading}
@@ -258,12 +261,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   name="jobTitle"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-1">
-                        {t("users.profile.form.jobTitle")}
-                        <InfoTooltip>
-                          {t("users.profile.form.jobTitleTooltip")}
-                        </InfoTooltip>
-                      </FormLabel>
+                      <FormLabel>{t("users.profile.form.jobTitle")}</FormLabel>
                       <FormControl>
                         <Input
                           disabled={loading}
@@ -274,6 +272,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           value={field.value ?? ""}
                         />
                       </FormControl>
+                      <FormDescription>
+                        {t("users.profile.form.jobTitleTooltip")}
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -399,12 +400,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>
-                            {t("users.profile.form.meetingUrlProvider.app")}{" "}
-                            <InfoTooltip>
-                              {t(
-                                "users.profile.form.meetingUrlProvider.appTooltip",
-                              )}
-                            </InfoTooltip>
+                            {t("users.profile.form.meetingUrlProvider.app")}
                           </FormLabel>
                           <FormControl>
                             <AppSelector
@@ -418,6 +414,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                               allowClear
                             />
                           </FormControl>
+                          <FormDescription>
+                            {t(
+                              "users.profile.form.meetingUrlProvider.appTooltip",
+                            )}
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}

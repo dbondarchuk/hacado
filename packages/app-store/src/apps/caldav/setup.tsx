@@ -7,11 +7,12 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Select,
   SelectContent,
@@ -104,13 +105,15 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="serverUrl"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("form.serverUrl.label")}
-                    <InfoTooltip>{t("form.serverUrl.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input placeholder="https://" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.serverUrl.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -120,13 +123,13 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="username"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.username.label")}
-                    <InfoTooltip>{t("form.username.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.username.label")}</FormLabel>
                   <FormControl>
                     <Input placeholder="username" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.username.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -136,10 +139,7 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="password"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.password.label")}
-                    <InfoTooltip>{t("form.password.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.password.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -148,6 +148,9 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.password.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -157,7 +160,9 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
               name="calendarName"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.calendar.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.calendar.label")}
+                  </FormLabelWithRequiredIndicator>
                   <div className="flex flex-row gap-2 items-center">
                     <FormControl className="flex-grow">
                       <Select

@@ -85,6 +85,13 @@ saveButton:
   defaultText: Sauvegarder
   fixErrorsTitle: Veuillez corriger les erreurs suivantes
   fixErrorsDescription: "Veuillez corriger les erreurs suivantes avant d'enregistrer :"
+  saving: Économie...
+  saved: Enregistré
+  failed: Échec de l'enregistrement
+  retry: Réessayer
+  discard: Jeter
+  unsaved: Non enregistré
+  fixErrors: Veuillez corriger les erreurs avant d'enregistrer
 toast:
   close: Fermer
 form:

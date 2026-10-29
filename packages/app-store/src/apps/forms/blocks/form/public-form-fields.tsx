@@ -4,6 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   Checkbox,
   FormControl,
+  FormFieldDescription,
   FormItem,
   FormLabel,
   FormLabelWithRequiredIndicator,
@@ -40,6 +41,16 @@ const getOptions = (
   fieldDef: FormFieldDef & { data?: { options: { option: string }[] } },
 ) => fieldDef.data?.options ?? [];
 
+const FieldHelp: React.FC<{
+  fieldDef: { name: string; description?: string };
+}> = ({ fieldDef }) =>
+  fieldDef.description ? (
+    <FormFieldDescription
+      description={fieldDef.description}
+      className={`forms-field-description forms-field-${fieldDef.name}-description`}
+    />
+  ) : null;
+
 const CheckboxField: React.FC<PublicFieldProps<"checkbox">> = ({
   field,
   fieldDef,
@@ -70,6 +81,7 @@ const CheckboxField: React.FC<PublicFieldProps<"checkbox">> = ({
         </FormLabelWithRequiredIndicator>
       </div>
     </FormControl>
+    <FieldHelp fieldDef={fieldDef} />
     <FormMessage
       className={`forms-form-message forms-checkbox-message forms-field-${fieldDef.name}-message`}
     />
@@ -100,6 +112,7 @@ const TextField: React.FC<PublicFieldProps<"name" | "email" | "oneLine">> = ({
         disabled={disabled}
       />
     </FormControl>
+    <FieldHelp fieldDef={fieldDef} />
     <FormMessage
       className={`forms-form-message forms-text-message forms-field-${fieldDef.name}-message`}
     />
@@ -129,6 +142,7 @@ const MultiLineField: React.FC<PublicFieldProps<"multiLine">> = ({
         disabled={disabled}
       />
     </FormControl>
+    <FieldHelp fieldDef={fieldDef} />
     <FormMessage
       className={`forms-form-message forms-multiLine-message forms-field-${fieldDef.name}-message`}
     />
@@ -159,6 +173,7 @@ const PhoneField: React.FC<PublicFieldProps<"phone">> = ({
         disabled={disabled}
       />
     </FormControl>
+    <FieldHelp fieldDef={fieldDef} />
     <FormMessage
       className={`forms-form-message forms-phone-message forms-field-${fieldDef.name}-message`}
     />
@@ -218,6 +233,7 @@ const SelectField: React.FC<PublicFieldProps<"select">> = ({
           ))}
         </SelectContent>
       </Select>
+      <FieldHelp fieldDef={fieldDef} />
       <FormMessage
         className={`forms-form-message forms-select-message forms-field-${fieldDef.name}-message`}
       />
@@ -292,6 +308,7 @@ const RadioField: React.FC<PublicFieldProps<"radio">> = ({
           ))}
         </RadioGroup>
       </FormControl>
+      <FieldHelp fieldDef={fieldDef} />
       <FormMessage
         className={`forms-form-message forms-radio-message forms-field-${fieldDef.name}-message`}
       />
@@ -354,6 +371,7 @@ const MultiSelectField: React.FC<PublicFieldProps<"multiSelect">> = ({
           })}
         </div>
       </FormControl>
+      <FieldHelp fieldDef={fieldDef} />
       <FormMessage
         className={`forms-form-message forms-multiSelect-message forms-field-${fieldDef.name}-message`}
       />
@@ -396,6 +414,7 @@ const FileField: React.FC<PublicFieldProps<"file">> = ({
           disabled={disabled}
         />
       </FormControl>
+      <FieldHelp fieldDef={fieldDef} />
       <FormMessage
         className={`forms-form-message forms-file-message forms-field-${fieldDef.name}-message`}
       />

@@ -101,7 +101,7 @@ booking:
         notifications: Text me notifications about my appointment.
         reminders: Text me reminders about my appointment.
         both: Text me notifications and reminders about my appointment.
-      disclosure: Messages are from Hacado on behalf of {businessName}. Message frequency . Message and data rates may apply. Reply STOP to opt out. <terms>Terms</terms> and <privacy>Privacy</privacvariesy>.
+      disclosure: Messages are from Hacado on behalf of {businessName}. Message frequency . Message and data rates may apply. Reply STOP to opt out. <terms>Terms</terms> and <privacy>Privacy</privacy>.
       already:
         notifications: "✓ SMS notifications will be sent to this number. (Reply STOP anytime to opt out)"
         reminders: "✓ SMS reminders will be sent to this number. (Reply STOP anytime to opt out)"

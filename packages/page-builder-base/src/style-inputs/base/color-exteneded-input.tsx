@@ -1,6 +1,6 @@
 "use client";
 
-import { ResetButton, type ColorInput } from "@hacado/builder";
+import { type ColorInput } from "@hacado/builder";
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import { DistributiveOmit } from "@hacado/types";
 import {
@@ -20,6 +20,7 @@ type Props = DistributiveOmit<
   "label"
 > & {
   allowTransparent?: boolean;
+  dontAllowCurrentColor?: boolean;
 };
 
 export const ColorExtendedInput: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const ColorExtendedInput: React.FC<Props> = ({
   onChange,
   nullable,
   allowTransparent = true,
+  dontAllowCurrentColor = false,
 }) => {
   const [value, setValue] = React.useState(defaultValue);
   const t = useI18n("builder");
@@ -63,7 +65,9 @@ export const ColorExtendedInput: React.FC<Props> = ({
   );
 
   const colorOptions = COLORS_LIST.filter(
-    (c) => allowTransparent || c.value !== "transparent",
+    (c) =>
+      (!allowTransparent ? c.value !== "transparent" : true) &&
+      (dontAllowCurrentColor ? c.value !== "currentColor" : true),
   );
 
   const renderOpenButton = () => {
@@ -93,8 +97,10 @@ export const ColorExtendedInput: React.FC<Props> = ({
       <Popover>
         <div className="flex flex-row gap-1 w-full">
           <Combobox
-            value={selectValue}
-            onItemSelect={onSelectValueChange}
+            value={selectValue ?? undefined}
+            onItemSelect={(val: string | undefined) =>
+              onSelectValueChange(val as any)
+            }
             className="w-full flex-grow"
             size="sm"
             searchLabel={t("pageBuilder.styles.colors.custom")}
@@ -116,17 +122,10 @@ export const ColorExtendedInput: React.FC<Props> = ({
                 label: t("pageBuilder.styles.colors.custom"),
               },
             ]}
+            allowClear={nullable}
           />
           {isCustom && (
             <PopoverTrigger asChild>{renderOpenButton()}</PopoverTrigger>
-          )}
-          {nullable && (
-            <ResetButton
-              onClick={() => {
-                setValue(null);
-                onChange(null);
-              }}
-            />
           )}
         </div>
         <PopoverContent className="bg-transparent border-none shadow-none w-fit">

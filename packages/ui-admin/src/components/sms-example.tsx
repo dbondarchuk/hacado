@@ -125,7 +125,7 @@ export function SmsExample({
   return (
     <p
       className={cn(
-        "text-sm text-muted-foreground whitespace-pre-wrap border-l-2 border-border pl-2",
+        "text-sm text-muted-foreground whitespace-pre-wrap border-l-2 border-border pl-2 overflow-hidden",
         className,
       )}
     >
@@ -237,7 +237,7 @@ export function SmsMessagePreview({
 
   if (preview.status === "failed") {
     return (
-      <p className={cn("text-sm text-destructive", className)}>
+      <p className={cn("text-sm text-destructive overflow-hidden", className)}>
         {t.rich("settings.textMessaging.customTemplate.renderFailed", {
           link: (chunks: React.ReactNode) => (
             <Link

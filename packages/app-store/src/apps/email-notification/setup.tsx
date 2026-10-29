@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
   Spinner,
   TagInput,
 } from "@hacado/ui";
@@ -65,10 +65,7 @@ export const EmailNotificationAppSetup: React.FC<AppSetupProps> = ({
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.email.label")}
-                    <InfoTooltip>{t("form.email.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.email.label")}</FormLabel>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -82,6 +79,7 @@ export const EmailNotificationAppSetup: React.FC<AppSetupProps> = ({
                       tagValidator={zEmail}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.email.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

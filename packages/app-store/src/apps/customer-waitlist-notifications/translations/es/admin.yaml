@@ -57,6 +57,7 @@ setup:
       required: Ingrese una palabra clave que los clientes puedan enviar por mensaje de texto para irse
     slotOpenedChannel:
       required: Active el correo, el mensaje de texto o ambos.
+    offerSettings: Configuración de ofertas
 handlers:
   newWaitlistEntry: "Notificación de lista de espera de clientes: nueva entrada"
   slotOpened: "Notificación de lista de espera de clientes: espacio abierto"

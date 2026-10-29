@@ -271,24 +271,29 @@ export const FormCard: React.FC = () => {
                     {i18n("booking.form.emailNotice")}
                   </p>
                 )}
+                {field.name === "phone" && (
+                  <AppointmentSmsConsent
+                    id="booking-sms-consent"
+                    offer={smsText}
+                    phone={String(
+                      (form.watch() as AppointmentFields).phone ?? "",
+                    )}
+                    profilePhone={propsFields.phone}
+                    profileConsent={propsFields.smsConsent === true}
+                    checked={smsConsent}
+                    onCheckedChange={setSmsConsent}
+                    lookup={
+                      consentLookup ??
+                      (async (phone) => {
+                        const result =
+                          await clientApi.booking.getSmsConsent(phone);
+                        return result.consented === true;
+                      })
+                    }
+                  />
+                )}
               </React.Fragment>
             ))}
-            <AppointmentSmsConsent
-              id="booking-sms-consent"
-              offer={smsText}
-              phone={String((form.watch() as AppointmentFields).phone ?? "")}
-              profilePhone={propsFields.phone}
-              profileConsent={propsFields.smsConsent === true}
-              checked={smsConsent}
-              onCheckedChange={setSmsConsent}
-              lookup={
-                consentLookup ??
-                (async (phone) => {
-                  const result = await clientApi.booking.getSmsConsent(phone);
-                  return result.consented === true;
-                })
-              }
-            />
 
             {showPromoCode && !!basePrice && !isCustomerPackageLocked && (
               <FormItem>

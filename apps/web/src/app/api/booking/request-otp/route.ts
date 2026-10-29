@@ -80,6 +80,7 @@ export async function POST(request: NextRequest) {
       },
       customerSource,
     );
+
     logger.debug("Customer upserted");
   }
 

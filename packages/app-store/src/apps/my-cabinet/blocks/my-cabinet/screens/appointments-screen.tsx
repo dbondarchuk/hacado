@@ -438,7 +438,9 @@ export const AppointmentsScreen = ({
         setPastCount(summaryRes.pastCount ?? 0);
         setUpcoming(upcomingRes.items ?? []);
         setPast(pastRes.items ?? []);
-        setPackages(packagesRes.items ?? []);
+        setPackages(
+          (packagesRes.items ?? []).filter((pkg) => pkg.status !== "pending"),
+        );
         setPastPage(1);
         setHasPastNextPage(!!pastRes.hasNextPage);
       } catch (error) {

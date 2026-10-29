@@ -234,6 +234,8 @@ fields:
   maxSizeMb:
     min: El valor debe ser al menos 1
     max: El tamaño máximo permitido es 100 MB.
+  options:
+    min: Se requiere al menos una opción
 giftCard:
   code:
     required: El código de la tarjeta de regalo debe tener al menos 3 caracteres

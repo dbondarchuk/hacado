@@ -17,6 +17,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   Select,
@@ -256,7 +257,9 @@ export const ResendPaymentLinkDialog = ({
               name="to"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("payment.card.destination")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("payment.card.destination")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     {destinations.length > 1 ? (
                       <Select

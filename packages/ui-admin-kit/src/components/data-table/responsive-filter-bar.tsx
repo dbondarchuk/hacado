@@ -108,13 +108,13 @@ export const ResponsiveFilterBar: React.FC<{
   return (
     <div
       className={cn(
-        "relative flex min-w-0 flex-1 basis-0 items-center gap-2",
+        "relative flex w-max min-w-0 max-w-full shrink items-center gap-2",
         className,
       )}
     >
       <div
         ref={containerRef}
-        className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden"
+        className="flex min-w-0 shrink items-center gap-2 overflow-hidden"
       >
         {filters.slice(0, visibleCount).map((filter, index) => (
           <div

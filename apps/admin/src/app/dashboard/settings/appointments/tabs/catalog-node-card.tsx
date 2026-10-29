@@ -15,6 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
 } from "@hacado/ui";
@@ -107,7 +108,7 @@ const GroupChildrenList: React.FC<{
           {t("settings.appointments.form.options.emptyGroup")}
         </p>
       ) : (
-        <div className="flex flex-col gap-2 pl-4 border-l">
+        <div className="flex min-w-0 flex-col gap-2 border-l pl-4">
           {fields.map((field, index) => {
             const child =
               children[index] ?? (field as unknown as BookingCatalogNode);
@@ -177,15 +178,15 @@ export const CatalogNodeCard: React.FC<{
     `${name}.${suffix}` as FieldPath<BookingConfiguration>;
 
   return (
-    <Card ref={setNodeRef} style={style}>
-      <CardHeader className="flex flex-row items-center gap-2 py-3">
+    <Card ref={setNodeRef} style={style} className="min-w-0 max-w-full">
+      <CardHeader className="flex min-w-0 flex-row items-center gap-2 py-3">
         <button
           type="button"
           {...attributes}
           {...listeners}
           disabled={disabled}
           className={cn(
-            "cursor-grab",
+            "shrink-0 cursor-grab",
             attributes["aria-pressed"] && "cursor-grabbing",
           )}
         >
@@ -198,22 +199,23 @@ export const CatalogNodeCard: React.FC<{
           type="button"
           variant="ghost-destructive"
           size="icon"
+          className="shrink-0"
           disabled={disabled}
           onClick={onRemove}
         >
           <Trash className="h-4 w-4" />
         </Button>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
+      <CardContent className="flex min-w-0 flex-col gap-3">
         {node.type === "option" ? (
           <FormField
             control={form.control}
             name={fieldName("optionId")}
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("settings.appointments.form.options.addService")}
-                </FormLabel>
+              <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                <FormLabelWithRequiredIndicator required>
+                  {t("settings.appointments.form.options.service")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <OptionSelector
                     disabled={disabled}
@@ -235,10 +237,10 @@ export const CatalogNodeCard: React.FC<{
             control={form.control}
             name={fieldName("packageId")}
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>
+              <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                <FormLabelWithRequiredIndicator required>
                   {t("settings.appointments.form.options.package")}
-                </FormLabel>
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <PackageSelector
                     disabled={disabled}
@@ -261,10 +263,10 @@ export const CatalogNodeCard: React.FC<{
               control={form.control}
               name={fieldName("name")}
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
+                <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
+                  <FormLabelWithRequiredIndicator required>
                     {t("settings.appointments.form.options.groupName")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={disabled}
@@ -286,7 +288,7 @@ export const CatalogNodeCard: React.FC<{
               control={form.control}
               name={fieldName("description")}
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
                   <FormLabel>
                     {t("settings.appointments.form.options.groupDescription")}
                   </FormLabel>

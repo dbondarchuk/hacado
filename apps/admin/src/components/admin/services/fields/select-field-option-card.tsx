@@ -17,7 +17,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
 } from "@hacado/ui";
@@ -116,10 +116,9 @@ export const SelectFieldOptionCard: React.FC<SelectFieldOptionProps> = ({
           name={`${name}.option`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t("services.fields.selectFieldOptionCard.option")}
-              </FormLabel>
-
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input disabled={disabled} {...field} />
               </FormControl>

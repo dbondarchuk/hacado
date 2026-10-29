@@ -85,6 +85,13 @@ saveButton:
   defaultText: Save
   fixErrorsTitle: Please fix following errors
   fixErrorsDescription: "Please fix the following errors before saving:"
+  saving: Saving...
+  saved: Saved
+  failed: Failed to save
+  retry: Retry
+  discard: Discard
+  unsaved: Unsaved
+  fixErrors: Please fix the errors before saving
 toast:
   close: Close
 form:

@@ -21,11 +21,12 @@ import {
   DialogTrigger,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
   TagInput,
@@ -239,12 +240,7 @@ export const BrandTab: React.FC<{
                 name="brand.logo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("settings.brand.form.logo")}{" "}
-                      <InfoTooltip>
-                        {t("settings.brand.form.logoTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("settings.brand.form.logo")}</FormLabel>
                     <FormControl>
                       <AssetSelectorInput
                         value={field.value}
@@ -255,6 +251,9 @@ export const BrandTab: React.FC<{
                         accept="image/*"
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("settings.brand.form.logoTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -276,7 +275,9 @@ export const BrandTab: React.FC<{
                 name="brand.title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("settings.brand.form.title")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("settings.brand.form.title")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Input
                         disabled={loading}
@@ -293,7 +294,9 @@ export const BrandTab: React.FC<{
                 name="brand.language"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("settings.brand.form.language")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("settings.brand.form.language")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Combobox
                         values={languages.map((language) => ({
@@ -318,12 +321,7 @@ export const BrandTab: React.FC<{
                 name="brand.favicon"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("settings.brand.form.favicon")}{" "}
-                      <InfoTooltip>
-                        {t("settings.brand.form.faviconTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("settings.brand.form.favicon")}</FormLabel>
                     <FormControl>
                       <AssetSelectorInput
                         value={field.value}
@@ -352,6 +350,9 @@ export const BrandTab: React.FC<{
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("settings.brand.form.faviconTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -374,7 +375,9 @@ export const BrandTab: React.FC<{
               name="brand.description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("settings.brand.form.description")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.brand.form.description")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Textarea
                       autoResize
@@ -394,12 +397,9 @@ export const BrandTab: React.FC<{
               name="brand.keywords"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t("settings.brand.form.keywords")}{" "}
-                    <InfoTooltip>
-                      {t("settings.brand.form.keywordsTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("settings.brand.form.keywords")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -413,6 +413,9 @@ export const BrandTab: React.FC<{
                       )}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("settings.brand.form.keywordsTooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

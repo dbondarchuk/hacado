@@ -348,7 +348,7 @@ purchases:
       error: Не вдалося створити покупку подарункової карти
 settings:
   notifyOwnerOnPurchase:
-    label: Email про нову покупку
+    label: Надсилати адміністраторам організації email про нову покупку
     description: Надсилати адміністраторам організації email, коли клієнт купує подарункову карту на вашому сайті
   emailTemplateToPurchaser: Шаблон email (карта покупцю)
   emailTemplateToRecipient: Шаблон email (карта отримувачу)

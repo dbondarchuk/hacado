@@ -2,11 +2,11 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   BooleanSelect,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
 } from "@hacado/ui";
 import React from "react";
 import { TabProps } from "./types";
@@ -26,10 +26,7 @@ export const VirtualTab: React.FC<TabProps> = ({ form, disabled }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                {t("services.options.form.onlineSettings.isOnline.label")}{" "}
-                <InfoTooltip>
-                  {t("services.options.form.onlineSettings.isOnline.tooltip")}
-                </InfoTooltip>
+                {t("services.options.form.onlineSettings.isOnline.label")}
               </FormLabel>
               <FormControl>
                 <BooleanSelect
@@ -47,6 +44,9 @@ export const VirtualTab: React.FC<TabProps> = ({ form, disabled }) => {
                   disabled={disabled}
                 />
               </FormControl>
+              <FormDescription>
+                {t("services.options.form.onlineSettings.isOnline.tooltip")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

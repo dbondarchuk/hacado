@@ -143,6 +143,7 @@ export const createPurchasedGiftCardActionSchema = z.object({
       paymentLinkAppId: zObjectId().optional(),
       channel: z.enum(["email", "sms", "copy"]).optional(),
       to: z.string().optional(),
+      smsConsent: z.boolean().optional(),
       sendCustomerEmail: z.coerce.boolean<boolean>().optional(),
       sendRecipientEmail: z.coerce.boolean<boolean>().optional(),
     })

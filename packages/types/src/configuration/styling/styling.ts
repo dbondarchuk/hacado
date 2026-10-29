@@ -106,6 +106,19 @@ export const zThemeColorWithTransparent = z.union([
   z.literal("transparent"),
 ]);
 
+export const zThemeColorWithCurrentColor = z.union([
+  zThemeColorCustom,
+  zThemeColorPreset,
+  z.literal("currentColor"),
+]);
+
+export const zThemeColorWithTransparentAndCurrentColor = z.union([
+  zThemeColorCustom,
+  zThemeColorPreset,
+  z.literal("currentColor"),
+  z.literal("transparent"),
+]);
+
 export const colorOverrideSchema = z.object({
   type: colorsEnum,
   value: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {

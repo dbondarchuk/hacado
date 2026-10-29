@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Spinner,
 } from "@hacado/ui";
 import {
@@ -64,12 +64,9 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
               name="appId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("form.calendarStorage.label")}
-                    <InfoTooltip>
-                      {t("form.calendarStorage.tooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <AppSelector
                       disabled={isLoading}
@@ -82,6 +79,9 @@ export const CalendarWriterAppSetup: React.FC<AppSetupProps> = ({
                       }}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.calendarStorage.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

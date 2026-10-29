@@ -10,13 +10,13 @@ common:
   selectRow: Seleccionar fila
   labels:
     languages:
-      en: English
-      en-CA: English (Canada)
-      fr: Français
-      fr-CA: Français (Canada)
+      en: Inglés
+      en-CA: Inglés (Canadá)
+      fr: francés
+      fr-CA: Francés (Canadá)
       es: Español
       es-MX: Español (México)
-      uk: Українська
+      uk: Ucrania
     channel:
       text-message: mensaje de texto
       email: Correo electrónico
@@ -79,7 +79,7 @@ common:
     more: Más
     save: Ahorrar
   optional: Opcional
-  timeDuration: "{hours, plural, =0 {{minutes} min} other {# hr, {minutes} min}}"
+  timeDuration: pH<9 o pH>4
   custom: Costumbre
   navigationGuard:
     title: ¿Estás seguro de que quieres abandonar esta página?
@@ -97,10 +97,10 @@ platformEvents:
       description: La verificación está pendiente.
     failed:
       title: Los mensajes personalizados no fueron aprobados
-      description: "{reason}"
+      description: 7.0 pH
     succeeded:
       title: Mensajes personalizados verificados
-      description: "Los textos usan {phoneNumber}."
+      description: Los textos usan {phoneNumber}.
   customer:
     created:
       title: Nuevo cliente
@@ -404,7 +404,7 @@ commandPalette:
   viewAll: Ver todo {label}
   groups:
     actions: Acciones rápidas
-    apps: Apps
+    apps: Aplicaciones
     installedApps: Apps instaladas
   actions:
     newAppointment: Nueva cita
@@ -972,7 +972,10 @@ appointments:
     refundError: Una o más solicitudes de reembolso han fallado.
     giftCardCode: Código de tarjeta de regalo
     paymentDescription: Descripción
+    refundPayment: Reembolsar este pago
+    refundPaymentDescription: Reembolsa una parte o la totalidad de este pago.
     refundFees: Tarifas de reembolso
+    refundFeesDescription: Incluir las comisiones de procesamiento en el reembolso.
   rescheduleDialog:
     title: Reprogramar la cita
     by: por
@@ -1378,6 +1381,19 @@ customers:
     remove: Eliminar
     changePhoto: Cambiar foto
     customerPhotoAlt: Foto del cliente
+    photo: Foto
+    onlineBooking: Reserva en línea
+    onlineBookingDescription: Si está desactivado, este cliente no puede reservar por su cuenta. Solo usted puede agregar citas.
+    deposit: Depósito
+    depositDescription: Elija si este cliente debe pagar un depósito al reservar.
+    customDeposit: Requisito de depósito personalizado
+    customDepositTooltip: Usa una regla de depósito para este cliente en lugar del servicio o la configuración general.
+    notesPrivate: Solo usted y su equipo pueden ver las notas.
+    alsoKnownAs: También conocido como
+    alsoKnownAsDescription: Otros datos que este cliente puede usar. Los usamos para asociar nuevas solicitudes de reserva con este perfil.
+    names: Nombres
+    emails: Correos
+    phones: Teléfonos
   uploadFiles:
     title: Subir archivos
     description: Cargue archivos para su cliente
@@ -1707,6 +1723,7 @@ services:
   fieldSelectCard:
     moveField: Mover el campo {type}
     field: Campo
+    fieldDescription: Seleccione el campo personalizado que se recoge durante la reserva.
     required: Requerido
     requiredTooltip: Marca el campo como requerido
     deleteConfirmTitle: ¿Estás absolutamente seguro?
@@ -1743,6 +1760,12 @@ services:
     newDescription: Agregar nuevo servicio que brindas
     editDescription: Opción de edición
     form:
+      details: Detalles
+      durationAndPrice: Duración y precio
+      customAutoConfirm: Confirmación automática personalizada
+      customAutoConfirmTooltip: Usa una regla de confirmación automática para este servicio en lugar de la configuración general.
+      virtualAppointment: Cita virtual
+      virtualAppointmentTooltip: Realiza esta cita por video, audio o teléfono en lugar de en persona.
       name: Nombre
       namePlaceholder: Nombre de la opción
       description: Breve descripción
@@ -1802,6 +1825,12 @@ services:
           tooltip: Aplicación que se utilizará para proporcionar la URL de la reunión
       paymentSettings:
         title: Configuraciones de pago
+        customDeposit:
+          label: Requisito de depósito personalizado
+          tooltip: Usa una regla de depósito para este servicio en lugar de la configuración general.
+        customTips:
+          label: Configuración de propinas personalizada
+          tooltip: Usa la configuración de propinas de este servicio en lugar de la configuración general.
         requireDeposit:
           label: Requerir deposito
           tooltip: Si esta opción requiere depósito<br></br>Requiere aplicación de pagos configurada
@@ -1860,6 +1889,9 @@ services:
           description: Configurar la política de cancelación para la opción cuando no se requiere depósito
           enabled: Activado
           enabledTooltip: Si se permite la opción de cancelación cuando no se requiere depósito
+        customPolicy:
+          label: Política personalizada
+          tooltip: ¿Este servicio tiene una política de cancelación personalizada distinta de la política general?
       reschedulePolicy:
         title: Reprogramaciones
         type:
@@ -1868,6 +1900,9 @@ services:
           inherit: Igual que la configuración general
           custom: Política personalizada
           placeholder: Seleccione el tipo de política de reprogramación
+        customPolicy:
+          label: Política personalizada
+          tooltip: ¿Este servicio tiene una política de reprogramación personalizada distinta de la política general?
         enabled:
           label: Activado
           tooltip: Si se permite la reprogramación de la opción
@@ -1966,6 +2001,8 @@ services:
     newDescription: Agregar nuevo campo personalizado
     editDescription: Editar campo personalizado
     form:
+      details: Detalles
+      fileSettings: Configuración de archivos
       name: Nombre
       namePlaceholder: Nombre del campo
       nameTooltip: ID único del campo. Solo puede contener letras, dígitos y guiones bajos.
@@ -2052,6 +2089,9 @@ services:
       status: Estado
       active: Activo
       disabled: Desactivado
+      details: Detalles
+      dates: Fechas
+      maximumUses: Usos máximos
       codes: Códigos
       codesPlaceholder: Códigos de descuento
       codesTooltip: Códigos que se pueden utilizar para aplicar este descuento.
@@ -2133,7 +2173,7 @@ services:
     editDescription: Editar paquete
     sell: Vender paquete
     sellTitle: Vender paquete
-    sellDescription: Emitir este paquete a un cliente y registrar un pago en la tienda
+    sellDescription: Emitir este paquete a un cliente y cobrar el pago
     sellForm:
       package: Paquete
       customer: Cliente
@@ -2143,6 +2183,7 @@ services:
       title: Paquetes vendidos
       description: Paquetes emitidos a clientes.
       statusBadges:
+        pending: Pago pendiente
         active: Activo
         exhausted: Exhausto
         expired: Venció
@@ -2194,6 +2235,9 @@ services:
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
     form:
+      details: Detalles
+      service: Servicio
+      priceAndLimits: Precio y límites
       name:
         label: Nombre
         placeholder: 10x masaje
@@ -2347,6 +2391,9 @@ services:
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
     form:
+      giftCard: Tarjeta regalo
+      amountAndExpiry: Importe y caducidad
+      customerAndPayment: Cliente y pago
       code:
         label: Código
         placeholder: XXX-XXX-XXX
@@ -2373,10 +2420,15 @@ services:
       customerId:
         label: Cliente
         tooltip: Cliente que compró la tarjeta regalo
+      paymentLinkAppId:
+        description: Aplicación usada para enviar el enlace de pago de esta tarjeta de regalo.
+      channel:
+        description: Cómo se envía el enlace de pago al cliente.
       toasts:
         created: Tarjeta regalo creada exitosamente
         changesSaved: Tus cambios fueron guardados.
         requestError: Hubo un problema con tu solicitud.
+        smsConsentRequired: Se requiere el consentimiento para mensajes de texto antes de enviar el enlace de pago.
   addons:
     title: Complementos
     description: Administrar complementos
@@ -2386,6 +2438,8 @@ services:
     newDescription: Agregar nuevo complemento
     editDescription: Editar complemento
     form:
+      details: Detalles
+      durationAndPrice: Duración y precio
       name: Nombre
       namePlaceholder: Nombre del complemento
       nameTooltip: Nombre de complemento único
@@ -2520,6 +2574,7 @@ appearance:
       cancel: Cancelar
       delete: Borrar
       type: Tipo
+      typeDescription: Qué color del tema reemplaza esta anulación.
       selectColorOverrideType: Seleccionar tipo de anulación de color
       color: Color
       colorTooltip: Color en formato CSS (HEX, rgb, rgba, hsl)
@@ -2628,6 +2683,7 @@ apps:
     textMessageSender:
       label: Remitente de mensajes de texto
       placeholder: Usar remitente de mensajes de texto predeterminado
+      tooltip: La aplicación que envía mensajes de texto a los clientes. Opcional.
     textMessageResponder:
       label: Respondedor de mensajes de texto
       tooltip: Si el remitente no lo maneja, se usará como aplicación predeterminada para responder mensajes de texto (es decir, respuesta automática). Opcional.
@@ -2765,6 +2821,7 @@ settings:
     form:
       name: Nombre comercial
       namePlaceholder: El nombre de tu negocio
+      nameDescription: El nombre público de su negocio.
       industry: Industria
       industryPlaceholder: Seleccionar industria
       industryTooltip: Se utiliza para listados de búsqueda y optimización de motores de búsqueda.
@@ -2793,6 +2850,7 @@ settings:
       currencyPlaceholder: Seleccionar moneda
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Huso horario
+      timeZoneDescription: La zona horaria del negocio usada para la programación y la página de reservas.
       selectTimeZone: Seleccionar zona horaria
       useClientTimezone: Usar la zona horaria del cliente
       useClientTimezoneTooltip: Seleccione esta opción si desea utilizar de forma predeterminada la zona horaria del cliente para reservar/modificar la página de cita.<br></br>De forma predeterminada, la zona horaria será la zona horaria del negocio.
@@ -2877,7 +2935,7 @@ settings:
     form:
       tabs:
         main: Principal
-        options: Opciones
+        catalog: Servicios y paquetes
         payments: Pagos
         cancellations: Cancelaciones
         reschedules: Reprogramaciones
@@ -2891,6 +2949,8 @@ settings:
         requireCustomerOtp: Requerir verificación del cliente
         requireCustomerOtpTooltip: Cuando está habilitado, los clientes deben verificar su correo electrónico o teléfono con un código de un solo uso antes de pagar o confirmar una reserva. El uso de un paquete prepago siempre requiere una sesión verificada.
         autoConfirmTooltip: Seleccione esta opción si desea confirmar automáticamente todas las citas creadas por los clientes.<br></br>De forma predeterminada, deberá confirmar manualmente cada cita.
+        scheduleSettingsLabel: Configuración del horario
+        scheduleProviderLabel: Proveedores de horario
         allowStaffCalendarSources: Permitir que el personal administre las fuentes del calendario
         allowStaffCalendarSourcesTooltip: Cuando está habilitado, los miembros del personal pueden conectar fuentes de calendario personal en su perfil y esos calendarios se utilizan al verificar la disponibilidad. Cuando está deshabilitado, el personal no puede administrar las fuentes del calendario y las horas punta ignoran sus calendarios personales.
         showPromoCodeField: Mostrar campo de código de promoción
@@ -2921,7 +2981,7 @@ settings:
           twenty: Cada hora a las XX:00, XX:20, XX:40
           thirty: Cada hora a las XX:00, XX:30
       options:
-        title: Catalogar
+        title: Catálogo
         addGroup: Agregar grupo
         addService: Agregar servicio
         addPackage: Agregar paquete
@@ -2943,8 +3003,7 @@ settings:
         appointments: equipo
         paymentsAppTooltip: Qué procesador de pagos usar para los pagos
         requireDeposit: Requerir deposito
-        requireDepositTooltip1: Si está habilitado, cada cliente deberá pagar un depósito para reservar una cita.
-        requireDepositTooltip2: Se puede anular por cada cliente
+        requireDepositTooltip: Si está habilitado, cada cliente deberá pagar un depósito para reservar una cita.<br></br>Se puede anular por cada cliente o servicio
         require: Requerir
         doNotRequire: no requiere
         depositAmount: Monto del depósito
@@ -2975,7 +3034,9 @@ settings:
             title: Para citas con depósito
           withoutDeposit:
             title: Para citas sin depósito
-          enabledTooltip: Permite a los clientes cancelar una cita por su cuenta.
+          enabled:
+            label: Permitido
+            tooltip: Configura si los clientes pueden cancelar una cita por su cuenta
           doNotAllowIfRescheduled:
             label: Permitir si se reprograma
             tooltip: Configurar si un cliente puede cancelar una cita si ha sido reprogramada
@@ -2984,7 +3045,9 @@ settings:
               "false": Permitir
         reschedules:
           title: Reprogramaciones
-          enabledTooltip: Permite a los clientes reprogramar una cita por su cuenta
+          enabled:
+            label: Permitido
+            tooltip: Configura si los clientes pueden reprogramar una cita por su cuenta
           minutesToAppointment:
             label: Tiempo mínimo para la cita
             tooltip: Configurar el tiempo mínimo para la cita para permitir la reprogramación
@@ -2992,7 +3055,7 @@ settings:
             label: Número máximo de reprogramaciones
             tooltip: Configurar cuantas veces un cliente puede reprogramar una cita
         enabled:
-          label: Activado
+          label: Permitido
           selectPlaceholder: Seleccionar opción
           labels:
             disabled: Desactivado
@@ -3122,6 +3185,7 @@ settings:
         cancel: Cancelar
         delete: Borrar
         type: Tipo
+        typeDescription: La red social a la que pertenece este perfil.
         selectType: Seleccione el tipo de enlace social
         url: URL
         urlTooltip: Enlace completo a tu perfil.
@@ -3135,7 +3199,7 @@ settings:
     verification:
       title: Mensajes personalizados
       description: Verifique su negocio para que los textos de clientes usen un número dedicado.
-      prompt: "¿Quiere activar los mensajes personalizados?"
+      prompt: ¿Quiere activar los mensajes personalizados?
       action: Verifique los datos de su negocio ahora
       verifiedPrompt: Ha activado las plantillas de mensajes personalizados.
       verifiedAction: Ver sus datos
@@ -3175,7 +3239,7 @@ settings:
     status:
       pending: La revisión está en curso. Los textos siguen usando el número compartido hasta que se apruebe.
       verified: Los mensajes personalizados están verificados. Los textos usan su número.
-      verifiedWithNumber: "Los mensajes personalizados están verificados. Los textos usan {number}."
+      verifiedWithNumber: Los mensajes personalizados están verificados. Los textos usan {number}.
       rejected: La verificación no fue aprobada.
       preparing: Se está preparando un número. Los mensajes personalizados se pueden enviar cuando esté listo.
     form:
@@ -3184,7 +3248,7 @@ settings:
       save: Guardar
       enabled: Activar mensajes personalizados
       enabledDescription: Después de la verificación, los textos de clientes usan un número dedicado y sus propias plantillas.
-      disableTitle: "¿Desactivar los mensajes personalizados?"
+      disableTitle: ¿Desactivar los mensajes personalizados?
       disableDescription: Desactivarlo inicia el proceso de verificación otra vez. Recibirá un número que puede ser distinto, y las respuestas al número anterior no le llegarán.
       disableConfirm: Desactivar
       disableCancel: Mantener activo
@@ -3711,12 +3775,15 @@ menuItem:
     label: Etiqueta
     labelPlaceholder: Etiqueta
     icon: Icono
+    iconDescription: Icono mostrado para este elemento del menú
     variant: Variante
+    variantDescription: Estilo visual de este enlace o botón
     selectVariant: Seleccionar variante de enlace
     size: Tamaño
     selectSize: Selecciona talla
     selectButtonVariant: Seleccionar variante de botón
     textFont: Fuente de texto
+    textFontDescription: Fuente usada para la etiqueta de este elemento del menú
     selectTextFont: Seleccionar fuente de texto
     textSize: Tamaño del texto
     selectTextSize: Seleccionar tamaño de texto
@@ -3725,6 +3792,7 @@ menuItem:
     prefixIcon: Icono de prefijo
     suffixIcon: Icono de sufijo
     additionalClasses: Clases adicionales
+    additionalClassesDescription: Clases CSS adicionales aplicadas a este elemento del menú
     additionalClassesPlaceholder: negrita
     doNotCombineClassName: No combinar con valores predeterminados
     doNotCombineClassNameDescription: Cuando está habilitado, solo se aplican sus clases adicionales (se omiten las clases predeterminadas)
@@ -3906,7 +3974,9 @@ cancellationsAndReschedules:
       title: Para citas con depósito
     withoutDeposit:
       title: Para citas sin depósito
-    enabledTooltip: Permite a los clientes cancelar una cita por su cuenta.
+    enabled:
+      label: Permitido
+      tooltip: Configura si los clientes pueden cancelar una cita por su cuenta
     doNotAllowIfRescheduled:
       label: Permitir si se reprograma
       tooltip: Configurar si un cliente puede cancelar una cita si ha sido reprogramada
@@ -3966,7 +4036,9 @@ cancellationsAndReschedules:
     delete: Borrar
   reschedulePolicy:
     title: Reprogramaciones
-    enabledTooltip: Permite a los clientes reprogramar una cita por su cuenta
+    enabled:
+      label: Permitido
+      tooltip: Configura si los clientes pueden reprogramar una cita por su cuenta
     default:
       title: Regla predeterminada
       tooltip: Configurar la regla predeterminada que se aplicará si no se aplica ninguna otra regla
@@ -4246,3 +4318,4 @@ smsConsent:
   attest: Certifico que el cliente aceptó recibir mensajes de texto
   already: Este cliente ya aceptó recibir mensajes de texto.
   optedOut: Este número está dado de baja. El cliente debe enviar START para volver a recibir recordatorios.
+

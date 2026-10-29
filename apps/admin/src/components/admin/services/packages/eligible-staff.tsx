@@ -18,9 +18,8 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
 } from "@hacado/ui";
 import { MemberSelector, NonSortable } from "@hacado/ui-admin";
 import { Trash } from "lucide-react";
@@ -48,14 +47,7 @@ export const EligibleStaff: React.FC<{
         {t("services.packages.form.eligibleStaff.hint")}
       </p>
       <NonSortable
-        title={
-          <>
-            {t("services.packages.form.eligibleStaff.title")}{" "}
-            <InfoTooltip>
-              {t("services.packages.form.eligibleStaff.tooltip")}
-            </InfoTooltip>
-          </>
-        }
+        title={t("services.packages.form.eligibleStaff.title")}
         ids={staffFields.map((item) => item.fields_id)}
         onAdd={() => appendStaff({ memberId: "" })}
         disabled={disabled}
@@ -111,9 +103,9 @@ export const EligibleStaff: React.FC<{
                   name={`eligibleStaff.${index}.memberId`}
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>
+                      <FormLabelWithRequiredIndicator required>
                         {t("services.packages.form.eligibleStaff.member")}
-                      </FormLabel>
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
                         <MemberSelector
                           disabled={disabled}

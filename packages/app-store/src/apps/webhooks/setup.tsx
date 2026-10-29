@@ -9,11 +9,12 @@ import {
   Combobox,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
   TooltipResponsive,
@@ -118,13 +119,13 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="url"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.url.label")}{" "}
-                  <InfoTooltip>{t("form.url.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("form.url.label")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input placeholder={t("form.url.placeholder")} {...field} />
                 </FormControl>
+                <FormDescription>{t("form.url.tooltip")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -134,10 +135,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="secret"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.secret.label")}{" "}
-                  <InfoTooltip>{t("form.secret.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.secret.label")}</FormLabel>
                 <FormControl>
                   <div className="space-y-2">
                     <Input
@@ -161,6 +159,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                     )}
                   </div>
                 </FormControl>
+                <FormDescription>{t("form.secret.tooltip")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -170,10 +169,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
             name="eventTypes"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  {t("form.eventTypes.label")}{" "}
-                  <InfoTooltip>{t("form.eventTypes.tooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("form.eventTypes.label")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <div className="flex flex-col gap-4">
                     <Combobox
@@ -235,6 +233,9 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
                     </div>
                   </div>
                 </FormControl>
+                <FormDescription>
+                  {t("form.eventTypes.tooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
 } from "@hacado/ui";
@@ -57,10 +57,9 @@ export const TextBeltAppSetup: React.FC<AppSetupProps> = ({
               name="apiKey"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.apiKey.label")}{" "}
-                    <InfoTooltip>{t("form.apiKey.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.apiKey.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -69,6 +68,7 @@ export const TextBeltAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.apiKey.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

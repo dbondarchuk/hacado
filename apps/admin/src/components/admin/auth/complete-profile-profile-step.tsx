@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   Spinner,
@@ -66,7 +67,9 @@ export function CompleteProfileProfileStep({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("auth.signUp.name")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("auth.signUp.name")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input
                   placeholder={t("auth.signUp.namePlaceholder")}

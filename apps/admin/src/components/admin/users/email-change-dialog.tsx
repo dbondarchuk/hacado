@@ -18,6 +18,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputOTP,
@@ -282,9 +283,9 @@ export const EmailChangeDialog = ({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("users.profile.emailChange.form.email")}
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Input
                         {...field}

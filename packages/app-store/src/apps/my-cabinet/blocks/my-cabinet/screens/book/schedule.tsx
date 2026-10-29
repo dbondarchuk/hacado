@@ -600,7 +600,11 @@ export const Schedule: React.FC<
         const customerPackage = packagesRes.items?.find(
           (pkg) => pkg._id === lockCustomerPackageId,
         );
-        if (!customerPackage || customerPackage.remainingCredits <= 0) {
+        if (
+          !customerPackage ||
+          customerPackage.status === "pending" ||
+          customerPackage.remainingCredits <= 0
+        ) {
           window.location.hash = "";
           return;
         }

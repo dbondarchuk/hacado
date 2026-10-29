@@ -57,6 +57,7 @@ setup:
       required: Вкажіть ключове слово для виходу
     slotOpenedChannel:
       required: Увімкніть email, текстове повідомлення або обидва.
+    offerSettings: Налаштування пропозицій
 handlers:
   newWaitlistEntry: Сповіщення клієнта про чергу - Новий запис
   slotOpened: Сповіщення клієнта про чергу - Звільнився слот

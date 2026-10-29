@@ -96,11 +96,11 @@ platformEvents:
       title: Messages personnalisés en révision
       description: La vérification est en attente.
     failed:
-      title: "Les messages personnalisés n'ont pas été approuvés"
+      title: Les messages personnalisés n'ont pas été approuvés
       description: "{reason}"
     succeeded:
       title: Messages personnalisés vérifiés
-      description: "Les textos utilisent {phoneNumber}."
+      description: Les textos utilisent {phoneNumber}.
   customer:
     created:
       title: Nouveau client
@@ -972,7 +972,10 @@ appointments:
     refundError: Une ou plusieurs demandes de remboursement ont échoué.
     giftCardCode: Code de la carte cadeau
     paymentDescription: Description
+    refundPayment: Rembourser ce paiement
+    refundPaymentDescription: Remboursez tout ou partie de ce paiement.
     refundFees: Frais de remboursement
+    refundFeesDescription: Inclure les frais de traitement dans le remboursement.
   rescheduleDialog:
     title: Reprogrammer le rendez-vous
     by: par
@@ -1378,6 +1381,19 @@ customers:
     remove: Retirer
     changePhoto: Changer de photo
     customerPhotoAlt: Photo client
+    photo: Photo
+    onlineBooking: Réservation en ligne
+    onlineBookingDescription: Si cette option est désactivée, ce client ne peut pas réserver lui-même. Vous seul pouvez ajouter des rendez-vous.
+    deposit: Acompte
+    depositDescription: Choisissez si ce client doit payer un acompte lors de la réservation.
+    customDeposit: Exigence d'acompte personnalisée
+    customDepositTooltip: Utilisez une règle d'acompte pour ce client à la place du service ou de la configuration générale.
+    notesPrivate: Vous et votre équipe seuls pouvez voir les notes.
+    alsoKnownAs: Également connu sous le nom de
+    alsoKnownAsDescription: Autres informations que ce client peut utiliser. Nous les utilisons pour associer les nouvelles demandes de rendez-vous à ce profil.
+    names: Noms
+    emails: E-mails
+    phones: Téléphones
   uploadFiles:
     title: Télécharger des fichiers
     description: Téléchargez des fichiers pour votre client
@@ -1707,6 +1723,7 @@ services:
   fieldSelectCard:
     moveField: Déplacer le champ {type}
     field: Champ
+    fieldDescription: Sélectionnez le champ personnalisé recueilli lors de la réservation.
     required: Requis
     requiredTooltip: Champ de marquage obligatoire
     deleteConfirmTitle: Etes-vous absolument sûr ?
@@ -1743,6 +1760,12 @@ services:
     newDescription: Ajoutez un nouveau service que vous fournissez
     editDescription: Modifier l'option
     form:
+      details: Détails
+      durationAndPrice: Durée et prix
+      customAutoConfirm: Confirmation automatique personnalisée
+      customAutoConfirmTooltip: Utilisez une règle de confirmation automatique pour ce service à la place de la configuration générale.
+      virtualAppointment: Rendez-vous virtuel
+      virtualAppointmentTooltip: Tenez ce rendez-vous par vidéo, audio ou téléphone au lieu d'en personne.
       name: Nom
       namePlaceholder: Nom de l'option
       description: Brève description
@@ -1802,6 +1825,12 @@ services:
           tooltip: Application qui sera utilisée pour fournir l'URL de la réunion
       paymentSettings:
         title: Paramètres de paiement
+        customDeposit:
+          label: Exigence d'acompte personnalisée
+          tooltip: Utilisez une règle d'acompte pour ce service à la place de la configuration générale.
+        customTips:
+          label: Configuration des pourboires personnalisée
+          tooltip: Utilisez les paramètres de pourboire de ce service à la place de la configuration générale.
         requireDeposit:
           label: Exiger un dépôt
           tooltip: Si cette option nécessite un dépôt<br></br>Nécessite une application de paiement configurée
@@ -1860,6 +1889,9 @@ services:
           description: Configurer la politique d'annulation pour l'option lorsque le dépôt n'est pas requis
           enabled: Activé
           enabledTooltip: S'il faut autoriser l'annulation pour l'option lorsque le dépôt n'est pas requis
+        customPolicy:
+          label: Politique personnalisée
+          tooltip: Ce service a-t-il une politique d'annulation personnalisée, différente de la politique générale ?
       reschedulePolicy:
         title: Reprogramme
         type:
@@ -1868,6 +1900,9 @@ services:
           inherit: Identique à la configuration générale
           custom: Politique personnalisée
           placeholder: Sélectionnez le type de politique de reprogrammation
+        customPolicy:
+          label: Politique personnalisée
+          tooltip: Ce service a-t-il une politique de reprogrammation personnalisée, différente de la politique générale ?
         enabled:
           label: Activé
           tooltip: S'il faut autoriser la reprogrammation pour l'option
@@ -1966,6 +2001,8 @@ services:
     newDescription: Ajouter un nouveau champ personnalisé
     editDescription: Modifier le champ personnalisé
     form:
+      details: Détails
+      fileSettings: Paramètres des fichiers
       name: Nom
       namePlaceholder: Nom du champ
       nameTooltip: ID unique du champ. Ne peut contenir que des lettres, des chiffres et un trait de soulignement
@@ -2052,6 +2089,9 @@ services:
       status: Statut
       active: Actif
       disabled: Désactivé
+      details: Détails
+      dates: Dates
+      maximumUses: Utilisations maximales
       codes: Codes
       codesPlaceholder: Codes de réduction
       codesTooltip: Codes pouvant être utilisés pour appliquer cette réduction
@@ -2133,7 +2173,7 @@ services:
     editDescription: Modifier le package
     sell: Vendre un forfait
     sellTitle: Vendre un forfait
-    sellDescription: Délivrez ce colis à un client et enregistrez un paiement en magasin
+    sellDescription: Émettre ce forfait à un client et encaisser le paiement
     sellForm:
       package: Emballer
       customer: Client
@@ -2143,6 +2183,7 @@ services:
       title: Forfaits vendus
       description: Colis délivrés aux clients
       statusBadges:
+        pending: Paiement en attente
         active: Actif
         exhausted: Épuisé
         expired: Expiré
@@ -2194,6 +2235,9 @@ services:
       cancel: Annuler
       deleteSelected: Supprimer la sélection
     form:
+      details: Détails
+      service: Service
+      priceAndLimits: Prix et limites
       name:
         label: Nom
         placeholder: 10x Massages
@@ -2347,6 +2391,9 @@ services:
       cancel: Annuler
       deleteSelected: Supprimer la sélection
     form:
+      giftCard: Carte cadeau
+      amountAndExpiry: Montant et expiration
+      customerAndPayment: Client et paiement
       code:
         label: Code
         placeholder: XXX-XXX-XXX
@@ -2373,10 +2420,15 @@ services:
       customerId:
         label: Client
         tooltip: Client qui a acheté la carte cadeau
+      paymentLinkAppId:
+        description: Application utilisée pour envoyer le lien de paiement de cette carte-cadeau.
+      channel:
+        description: Comment le lien de paiement est envoyé au client.
       toasts:
         created: Carte cadeau créée avec succès
         changesSaved: Vos modifications ont été enregistrées.
         requestError: Il y a eu un problème avec votre demande.
+        smsConsentRequired: Le consentement aux SMS est requis avant d'envoyer le lien de paiement.
   addons:
     title: Modules complémentaires
     description: Gérer les modules complémentaires
@@ -2386,6 +2438,8 @@ services:
     newDescription: Ajouter un nouveau module complémentaire
     editDescription: Modifier le module complémentaire
     form:
+      details: Détails
+      durationAndPrice: Durée et prix
       name: Nom
       namePlaceholder: Nom du module complémentaire
       nameTooltip: Nom unique du module complémentaire
@@ -2520,6 +2574,7 @@ appearance:
       cancel: Annuler
       delete: Supprimer
       type: Taper
+      typeDescription: La couleur du thème que ce remplacement modifie.
       selectColorOverrideType: Sélectionnez le type de remplacement de couleur
       color: Couleur
       colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
@@ -2628,6 +2683,7 @@ apps:
     textMessageSender:
       label: Expéditeur de SMS
       placeholder: Utiliser l'expéditeur de message texte par défaut
+      tooltip: L'application qui envoie les messages texte aux clients. Facultatif.
     textMessageResponder:
       label: Répondeur aux SMS
       tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
@@ -2765,6 +2821,7 @@ settings:
     form:
       name: Nom de l'entreprise
       namePlaceholder: Le nom de votre entreprise
+      nameDescription: Le nom public de votre entreprise.
       industry: Industrie
       industryPlaceholder: Sélectionnez l'industrie
       industryTooltip: Utilisé pour les listes de recherche et l’optimisation des moteurs de recherche.
@@ -2793,6 +2850,7 @@ settings:
       currencyPlaceholder: Sélectionnez la devise
       currencyLabelFormat: "{currency} ({code}, {symbol})"
       timeZone: Fuseau horaire
+      timeZoneDescription: Le fuseau horaire de l'entreprise utilisé pour la planification et la page de réservation.
       selectTimeZone: Sélectionnez le fuseau horaire
       useClientTimezone: Utiliser le fuseau horaire du client
       useClientTimezoneTooltip: Sélectionnez cette option si vous souhaitez utiliser par défaut le fuseau horaire du client pour la page de prise de rendez-vous/modification de rendez-vous.<br></br>Par défaut, le fuseau horaire sera celui de l'entreprise.
@@ -2877,7 +2935,7 @@ settings:
     form:
       tabs:
         main: Principal
-        options: Possibilités
+        catalog: Services et forfaits
         payments: Paiements
         cancellations: Annulations
         reschedules: Reprogramme
@@ -2891,6 +2949,8 @@ settings:
         requireCustomerOtp: Exiger une vérification du client
         requireCustomerOtpTooltip: Lorsqu'il est activé, les clients doivent vérifier leur e-mail ou leur téléphone avec un code à usage unique avant de payer ou de confirmer une réservation. L’utilisation d’un forfait prépayé nécessite toujours une session vérifiée.
         autoConfirmTooltip: Sélectionnez cette option si vous souhaitez confirmer automatiquement tous les rendez-vous créés par les clients.<br></br>Par défaut, vous devrez confirmer manuellement chaque rendez-vous.
+        scheduleSettingsLabel: Paramètres de l'horaire
+        scheduleProviderLabel: Fournisseurs d'horaire
         allowStaffCalendarSources: Autoriser le personnel à gérer les sources de calendrier
         allowStaffCalendarSourcesTooltip: Lorsque cette option est activée, les membres du personnel peuvent connecter des sources de calendrier personnel sur leur profil et ces calendriers sont utilisés lors de la vérification de la disponibilité. Lorsqu'il est désactivé, le personnel ne peut pas gérer les sources de calendrier et les périodes de pointe ignorent leurs calendriers personnels.
         showPromoCodeField: Afficher le champ du code promotionnel
@@ -2924,7 +2984,7 @@ settings:
         title: Catalogue
         addGroup: Ajouter un groupe
         addService: Ajouter un service
-        addPackage: Ajouter un paquet
+        addPackage: Ajouter un forfait
         group: Groupe
         groupWithName: "Groupe : {name}"
         service: Service
@@ -2932,8 +2992,8 @@ settings:
         groupName: Nom du groupe
         groupDescription: Brève description
         emptyGroup: Ce groupe est vide
-        package: Paquet
-        packageWithName: "Paquet : {name}"
+        package: Forfait
+        packageWithName: "Forfait : {name}"
       payments:
         enableDeposits: Activer les dépôts
         enableDepositsTooltip: Permet de demander un acompte pour prendre rendez-vous. L'application de paiement par défaut doit être configurée dans la section des applications par défaut.
@@ -2943,8 +3003,7 @@ settings:
         appointments: rendez-vous
         paymentsAppTooltip: Quel processeur de paiement utiliser pour les paiements
         requireDeposit: Exiger un dépôt
-        requireDepositTooltip1: Si activé, chaque client devra payer un acompte pour prendre rendez-vous
-        requireDepositTooltip2: Peut être remplacé par chaque client
+        requireDepositTooltip: Si activé, chaque client devra payer un acompte pour prendre rendez-vous<br></br>Peut être remplacé par chaque client ou service
         require: Exiger
         doNotRequire: Ne nécessite pas
         depositAmount: Montant du dépôt
@@ -2975,7 +3034,9 @@ settings:
             title: Pour rendez-vous avec acompte
           withoutDeposit:
             title: Pour rendez-vous sans acompte
-          enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+          enabled:
+            label: Autorisé
+            tooltip: Indiquez si les clients peuvent annuler un rendez-vous eux-mêmes
           doNotAllowIfRescheduled:
             label: Autoriser si reprogrammé
             tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
@@ -2984,7 +3045,9 @@ settings:
               "false": Permettre
         reschedules:
           title: Reprogramme
-          enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+          enabled:
+            label: Autorisé
+            tooltip: Indiquez si les clients peuvent reprogrammer un rendez-vous eux-mêmes
           minutesToAppointment:
             label: Délai minimum pour prendre rendez-vous
             tooltip: Configurer la durée minimale du rendez-vous pour permettre la reprogrammation
@@ -2992,7 +3055,7 @@ settings:
             label: Nombre maximum de reprogrammations
             tooltip: Configurer combien de fois un client peut reprogrammer un rendez-vous
         enabled:
-          label: Activé
+          label: Autorisé
           selectPlaceholder: Sélectionnez une option
           labels:
             disabled: Désactivé
@@ -3122,6 +3185,7 @@ settings:
         cancel: Annuler
         delete: Supprimer
         type: Taper
+        typeDescription: Le réseau social de ce profil.
         selectType: Sélectionnez le type de lien social
         url: URL
         urlTooltip: Lien complet vers votre profil
@@ -3130,68 +3194,68 @@ settings:
         requestError: Il y a eu un problème avec votre demande.
   textMessaging:
     title: Messages texte
-    description: "Activez les textos clients dans les formulaires de réservation et de liste d'attente."
-    countryOnly: "Les messages personnalisés sont offerts aux entreprises des États-Unis et du Canada."
+    description: Activez les textos clients dans les formulaires de réservation et de liste d'attente.
+    countryOnly: Les messages personnalisés sont offerts aux entreprises des États-Unis et du Canada.
     verification:
       title: Messages personnalisés
-      description: "Vérifiez votre entreprise pour que les textos clients utilisent un numéro dédié."
+      description: Vérifiez votre entreprise pour que les textos clients utilisent un numéro dédié.
       prompt: Vous voulez activer les messages personnalisés?
       action: Vérifiez les renseignements de votre entreprise maintenant
       verifiedPrompt: Vous avez activé les modèles de messages personnalisés.
       verifiedAction: Voir vos renseignements
-      failedPrompt: "La vérification des messages personnalisés a échoué."
+      failedPrompt: La vérification des messages personnalisés a échoué.
       failedAction: Voir vos renseignements
-      pendingPrompt: "La vérification des messages personnalisés est en révision."
+      pendingPrompt: La vérification des messages personnalisés est en révision.
       pendingAction: Voir vos renseignements
-      disabled: "Activez les messages texte avant de faire vérifier un numéro dédié."
+      disabled: Activez les messages texte avant de faire vérifier un numéro dédié.
     customTemplate:
       label: Modèle de message personnalisé
-      tooltip: "Facultatif. Lorsqu'un modèle est sélectionné, les messages au client l'utilisent à la place du message intégré."
-      renderFailed: "Le rendu de ce modèle a échoué. Veuillez vérifier <link>votre modèle</link>."
+      tooltip: Facultatif. Lorsqu'un modèle est sélectionné, les messages au client l'utilisent à la place du message intégré.
+      renderFailed: Le rendu de ce modèle a échoué. Veuillez vérifier <link>votre modèle</link>.
     notifications:
       failed:
-        title: "Les messages personnalisés n'ont pas été approuvés"
+        title: Les messages personnalisés n'ont pas été approuvés
         message: "{reason}"
         action: Voir les renseignements
       succeeded:
         title: Les messages personnalisés sont vérifiés
-        message: "Les textos utilisent maintenant votre numéro dédié."
+        message: Les textos utilisent maintenant votre numéro dédié.
         action: Voir les renseignements
     emails:
       failed:
-        subject: "Les messages personnalisés n'ont pas été approuvés"
-        preview: "Mettez à jour les renseignements et envoyez la vérification de nouveau."
-        title: "Les messages personnalisés n'ont pas été approuvés"
+        subject: Les messages personnalisés n'ont pas été approuvés
+        preview: Mettez à jour les renseignements et envoyez la vérification de nouveau.
+        title: Les messages personnalisés n'ont pas été approuvés
         body: "{reason} Mettez à jour le formulaire et envoyez la vérification de nouveau."
         button: Voir les renseignements
         handledBy: Vérification des messages texte
       succeeded:
         subject: Les messages personnalisés sont vérifiés
-        preview: "Les textos utilisent maintenant votre numéro dédié."
+        preview: Les textos utilisent maintenant votre numéro dédié.
         title: Les messages personnalisés sont vérifiés
-        body: "Les textos utilisent maintenant votre numéro dédié et vos modèles personnalisés."
+        body: Les textos utilisent maintenant votre numéro dédié et vos modèles personnalisés.
         button: Voir les renseignements
         handledBy: Vérification des messages texte
     status:
-      pending: "La révision est en cours. Les textos continuent d'utiliser le numéro partagé jusqu'à l'approbation."
-      verified: "Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro."
-      verifiedWithNumber: "Les messages personnalisés sont vérifiés. Les textos utilisent {number}."
-      rejected: "La vérification n'a pas été approuvée."
-      preparing: "Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt."
+      pending: La révision est en cours. Les textos continuent d'utiliser le numéro partagé jusqu'à l'approbation.
+      verified: Les messages personnalisés sont vérifiés. Les textos utilisent votre numéro.
+      verifiedWithNumber: Les messages personnalisés sont vérifiés. Les textos utilisent {number}.
+      rejected: La vérification n'a pas été approuvée.
+      preparing: Un numéro est en préparation. Les messages personnalisés pourront être envoyés lorsqu'il sera prêt.
     form:
       smsEnabled: Activer les messages texte
-      smsEnabledDescription: "Les clients peuvent accepter les textos dans vos formulaires de réservation et de liste d'attente."
+      smsEnabledDescription: Les clients peuvent accepter les textos dans vos formulaires de réservation et de liste d'attente.
       save: Enregistrer
       enabled: Activer les messages personnalisés
-      enabledDescription: "Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles."
+      enabledDescription: Après la vérification, les textos clients utilisent un numéro dédié et vos propres modèles.
       disableTitle: Désactiver les messages personnalisés?
-      disableDescription: "Le désactiver relance le processus de vérification. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas."
+      disableDescription: Le désactiver relance le processus de vérification. Vous recevrez un numéro qui peut être différent, et les réponses à l'ancien numéro ne vous parviendront pas.
       disableConfirm: Désactiver
       disableCancel: Le garder actif
       unlock: Déverrouiller
       submit: Envoyer
       entityType:
-        label: "Type d'entreprise"
+        label: Type d'entreprise
         PRIVATE_PROFIT: Entreprise privée
         PUBLIC_PROFIT: Entreprise publique
         SOLE_PROPRIETOR: Propriétaire unique
@@ -3202,19 +3266,19 @@ settings:
         label: Nom commercial
         hint: Ajoutez-le lorsque le nom de réservation diffère du nom légal.
       registrationNumber:
-        label: "EIN ou numéro d'entreprise"
-        hint: "Un EIN américain ou un numéro d'entreprise canadien."
+        label: EIN ou numéro d'entreprise
+        hint: Un EIN américain ou un numéro d'entreprise canadien.
         soleHint: Un propriétaire unique peut laisser ce champ vide.
       website:
         label: Site web
       legalPages:
-        note: "Ces pages sont liées depuis les formulaires de réservation et de liste d'attente. Ajoutez-les au pied de page de votre site pour la conformité légale. La configuration a déjà ajouté des pages avec le texte SMS requis. Vous pouvez les modifier, puis les sélectionner ici."
+        note: Ces pages sont liées depuis les formulaires de réservation et de liste d'attente. Ajoutez-les au pied de page de votre site pour la conformité légale. La configuration a déjà ajouté des pages avec le texte SMS requis. Vous pouvez les modifier, puis les sélectionner ici.
       privacyPage:
         label: Politique de confidentialité
-        hint: "La page doit indiquer que les données d'adhésion mobile ne sont pas partagées avec des tiers ou des affiliés à des fins de marketing, et que les numéros servent seulement aux textos de réservation."
+        hint: La page doit indiquer que les données d'adhésion mobile ne sont pas partagées avec des tiers ou des affiliés à des fins de marketing, et que les numéros servent seulement aux textos de réservation.
       termsPage:
         label: Conditions
-        hint: "La page doit indiquer la fréquence des messages, que des frais de messages et de données peuvent s'appliquer, que l'on peut répondre STOP pour se désinscrire et HELP pour obtenir de l'aide, et que les fournisseurs ne sont pas responsables des messages retardés ou non livrés."
+        hint: La page doit indiquer la fréquence des messages, que des frais de messages et de données peuvent s'appliquer, que l'on peut répondre STOP pour se désinscrire et HELP pour obtenir de l'aide, et que les fournisseurs ne sont pas responsables des messages retardés ou non livrés.
       streetAddress:
         label: Adresse
       addressLine2:
@@ -3235,7 +3299,7 @@ settings:
         label: Téléphone du contact
     toasts:
       saved: Vos modifications ont été enregistrées.
-      submitted: "La demande de vérification a été envoyée. L'examen peut prendre jusqu'à 7 jours ouvrables."
+      submitted: La demande de vérification a été envoyée. L'examen peut prendre jusqu'à 7 jours ouvrables.
       preparing: Un numéro est en préparation. Nous avons enregistré vos informations.
       error: Il y a eu un problème avec votre demande.
   customerAccess:
@@ -3246,12 +3310,12 @@ settings:
         label: E-mail
         description: Envoyez un code à usage unique à l'adresse e-mail du client.
         templateLabel: Modèle d'e-mail
-        templateDescription: "Obligatoire. C'est l'e-mail que le client reçoit avec son code."
+        templateDescription: Obligatoire. C'est l'e-mail que le client reçoit avec son code.
       phone:
         label: Message texte
-        description: "Envoyez un code à usage unique au numéro de téléphone du client. Les messages texte doivent être activés."
+        description: Envoyez un code à usage unique au numéro de téléphone du client. Les messages texte doivent être activés.
         builtIn: Les clients reçoivent un message intégré avec leur code.
-      smsDisabled: "Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, cette option reste indisponible et la connexion utilise le courriel."
+      smsDisabled: Les codes par téléphone nécessitent les messages texte. Tant qu'ils sont désactivés, cette option reste indisponible et la connexion utilise le courriel.
       smsDisabledAction: Activer les messages texte
       toasts:
         changesSaved: Vos modifications ont été enregistrées.
@@ -3355,12 +3419,12 @@ dashboard:
       description: "{count, plural, =1 {# appointment needs to be reassigned.} other {# appointments need to be reassigned.}}"
       action: Afficher les rendez-vous
     smsVerification:
-      title: "Les messages texte n'ont pas été approuvés"
+      title: Les messages texte n'ont pas été approuvés
       description: Mettez à jour les informations de l'entreprise et envoyez à nouveau la vérification.
       action: Revoir
     customerOtpPhone:
       title: La vérification par téléphone nécessite les messages texte
-      description: "La connexion client utilise des codes par téléphone, mais les messages texte sont désactivés. Les codes sont envoyés par courriel."
+      description: La connexion client utilise des codes par téléphone, mais les messages texte sont désactivés. Les codes sont envoyés par courriel.
       action: Ouvrir les paramètres OTP
     failedApp:
       title: "{appName} a besoin d'attention"
@@ -3398,16 +3462,16 @@ communications:
     received: Reçu
     failed: Échec
     failedWithRetries: "Échec : {done}/{max} tentatives"
-    failedFinal: "Échec."
+    failedFinal: Échec.
   reason:
-    optedOut: "Le client s'est désabonné"
-    noConsent: "Le client n'a pas accepté les textos"
+    optedOut: Le client s'est désabonné
+    noConsent: Le client n'a pas accepté les textos
     smsDisabled: Les textos sont désactivés
     invalidPhone: Numéro de téléphone invalide
     creditsExhausted: Les crédits texto sont épuisés
     platformLimit: "{limit, select, rate {Trop de textos cette minute.} daily {Limite quotidienne de textos atteinte.} other {Limite de textos atteinte.}}"
-    numberNotReady: "Le numéro texto n'est pas prêt"
-    linkOnly: "Le message ne contenait qu'un lien"
+    numberNotReady: Le numéro texto n'est pas prêt
+    linkOnly: Le message ne contenait qu'un lien
     deliveryFailed: "Échec de la livraison : {detail}"
   retries: "{done} tentatives utilisées, {left} restantes"
   retryable: Nouvel essai possible
@@ -3711,12 +3775,15 @@ menuItem:
     label: Étiquette
     labelPlaceholder: Étiquette
     icon: Icône
+    iconDescription: Icône affichée pour cet élément de menu
     variant: Variante
+    variantDescription: Style visuel de ce lien ou bouton
     selectVariant: Sélectionner une variante de lien
     size: Taille
     selectSize: Sélectionnez la taille
     selectButtonVariant: Sélectionner une variante de bouton
     textFont: Police du texte
+    textFontDescription: Police utilisée pour le libellé de cet élément de menu
     selectTextFont: Sélectionnez la police du texte
     textSize: Taille du texte
     selectTextSize: Sélectionnez la taille du texte
@@ -3725,6 +3792,7 @@ menuItem:
     prefixIcon: Icône de préfixe
     suffixIcon: Icône de suffixe
     additionalClasses: Cours supplémentaires
+    additionalClassesDescription: Classes CSS supplémentaires appliquées à cet élément de menu
     additionalClassesPlaceholder: police-gras
     doNotCombineClassName: Ne pas combiner avec les valeurs par défaut
     doNotCombineClassNameDescription: Lorsqu'elle est activée, seules vos classes supplémentaires sont appliquées (les classes par défaut sont ignorées)
@@ -3906,7 +3974,9 @@ cancellationsAndReschedules:
       title: Pour rendez-vous avec acompte
     withoutDeposit:
       title: Pour rendez-vous sans acompte
-    enabledTooltip: Permet aux clients d'annuler eux-mêmes un rendez-vous
+    enabled:
+      label: Autorisé
+      tooltip: Indiquez si les clients peuvent annuler un rendez-vous eux-mêmes
     doNotAllowIfRescheduled:
       label: Autoriser si reprogrammé
       tooltip: Configurer si un client peut annuler un rendez-vous s'il a été reprogrammé
@@ -3966,7 +4036,9 @@ cancellationsAndReschedules:
     delete: Supprimer
   reschedulePolicy:
     title: Reprogramme
-    enabledTooltip: Permet aux clients de reprogrammer eux-mêmes un rendez-vous
+    enabled:
+      label: Autorisé
+      tooltip: Indiquez si les clients peuvent reprogrammer un rendez-vous eux-mêmes
     default:
       title: Règle par défaut
       tooltip: Configurer la règle par défaut qui sera appliquée si aucune autre règle n'est applicable
@@ -4243,6 +4315,7 @@ users:
     bio:
       max: La biographie ne doit pas contenir plus de 1 024 caractères
 smsConsent:
-  attest: "J'atteste que le client a accepté de recevoir des textos"
+  attest: J'atteste que le client a accepté de recevoir des textos
   already: Ce client a déjà accepté de recevoir des textos.
   optedOut: Ce numéro est désinscrit. Le client doit envoyer START pour recevoir à nouveau des rappels.
+

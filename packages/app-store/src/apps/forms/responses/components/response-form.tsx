@@ -10,7 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   toastPromise,
 } from "@hacado/ui";
@@ -202,10 +202,11 @@ export const ResponseForm: React.FC<{
               name="customerId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={form.requireCustomerId}
+                  >
                     {t("responses.edit.customerLabel")}
-                    {form.requireCustomerId && " *"}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl className="flex">
                     <CustomerSelector
                       onItemSelect={(id: string | undefined) =>

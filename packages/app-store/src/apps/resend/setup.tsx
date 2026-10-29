@@ -7,11 +7,12 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
 } from "@hacado/ui";
@@ -195,10 +196,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                 name="fromEmail"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("form.fromEmail.label")}
-                      <InfoTooltip>{t("form.fromEmail.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Input
                         placeholder={t("form.fromEmail.placeholder")}
@@ -206,6 +206,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                         value={field.value ?? ""}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.fromEmail.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -215,10 +218,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                 name="fromName"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      {t("form.fromName.label")}
-                      <InfoTooltip>{t("form.fromName.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.fromName.label")}</FormLabel>
                     <FormControl>
                       <Input
                         placeholder={t("form.fromName.placeholder")}
@@ -226,6 +226,9 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
                         value={field.value ?? ""}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.fromName.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

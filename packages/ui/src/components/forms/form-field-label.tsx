@@ -16,7 +16,7 @@ export const FormFieldLabel: React.FC<{
       htmlFor={props.htmlFor}
     >
       {hasKey ? i18n(props.label as TranslationKeys) : props.label}
-      {props.required && <span className="ml-1">*</span>}
+      {props.required && <span className="text-destructive ml-1">*</span>}
     </FormLabel>
   );
 };

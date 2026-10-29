@@ -27,7 +27,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   IComboboxItem,
   Input,
@@ -199,7 +199,9 @@ export const ResourceCard = ({
           name={`${name}.source`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("resource.card.sourceType")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("resource.card.sourceType")}
+              </FormLabelWithRequiredIndicator>
 
               <FormControl>
                 <Combobox
@@ -225,7 +227,9 @@ export const ResourceCard = ({
               name={`${name}.url`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("resource.card.url")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("resource.card.url")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={disabled}
@@ -246,7 +250,9 @@ export const ResourceCard = ({
               name={`${name}.value`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("resource.card.value")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("resource.card.value")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Editor
                       height="20vh"

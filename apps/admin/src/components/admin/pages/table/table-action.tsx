@@ -41,7 +41,7 @@ export function PagesTableAction() {
 
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}

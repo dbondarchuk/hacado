@@ -11,14 +11,19 @@ import {
   WithDatabaseId,
 } from "@hacado/types";
 import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   DurationInput,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -137,99 +142,116 @@ export const AddonForm: React.FC<{
         className="w-full min-w-0 space-y-8"
       >
         <div className="flex min-w-0 flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("services.addons.form.name")}</FormLabel>
-
-                <FormControl>
-                  <Input
-                    disabled={loading}
-                    placeholder={t("services.addons.form.namePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="duration"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("services.addons.form.duration")}</FormLabel>
-                  <FormControl>
-                    <DurationInput {...field} disabled={loading} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("services.addons.form.price")}</FormLabel>
-                  <FormControl>
-                    <InputGroup>
-                      <InputGroupAddon
-                        className={InputGroupAddonClasses({
-                          variant: "prefix",
-                        })}
-                      >
-                        {currencySymbol}
-                      </InputGroupAddon>
-                      <InputGroupInput>
-                        <Input
-                          disabled={loading}
-                          placeholder={t(
-                            "services.addons.form.pricePlaceholder",
-                          )}
-                          type="number"
-                          className={InputGroupInputClasses({
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.addons.form.details")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-4 pt-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.addons.form.name")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder={t("services.addons.form.namePlaceholder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="min-w-0">
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.addons.form.description")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <PlateMarkdownEditor
+                        className="bg-background px-4 sm:px-4 pb-24"
+                        disabled={loading}
+                        value={field.value}
+                        onChange={(v) => {
+                          field.onChange(v);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.addons.form.descriptionTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.addons.form.durationAndPrice")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="duration"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("services.addons.form.duration")}</FormLabel>
+                    <FormControl>
+                      <DurationInput {...field} disabled={loading} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("services.addons.form.price")}</FormLabel>
+                    <FormControl>
+                      <InputGroup>
+                        <InputGroupAddon
+                          className={InputGroupAddonClasses({
                             variant: "prefix",
                           })}
-                          {...field}
-                        />
-                      </InputGroupInput>
-                    </InputGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="min-w-0">
-                <FormLabel>
-                  {t("services.addons.form.description")}{" "}
-                  <InfoTooltip>
-                    {t("services.addons.form.descriptionTooltip")}
-                  </InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <PlateMarkdownEditor
-                    className="bg-background px-4 sm:px-4 pb-24"
-                    disabled={loading}
-                    value={field.value}
-                    onChange={(v) => {
-                      field.onChange(v);
-                      field.onBlur();
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                        >
+                          {currencySymbol}
+                        </InputGroupAddon>
+                        <InputGroupInput>
+                          <Input
+                            disabled={loading}
+                            placeholder={t(
+                              "services.addons.form.pricePlaceholder",
+                            )}
+                            type="number"
+                            className={InputGroupInputClasses({
+                              variant: "prefix",
+                            })}
+                            {...field}
+                          />
+                        </InputGroupInput>
+                      </InputGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
           <Sortable
             title={t("services.addons.form.fields")}
             ids={fieldsFieldsIds}

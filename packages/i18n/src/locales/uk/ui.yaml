@@ -23,8 +23,8 @@ actions:
 table:
   filters: Фільтри
 booleanSelect:
-  "yes": Так
-  "no": Ні
+  yes: Так
+  no: Ні
 multiSelect:
   placeholder: Вибрати опції
 templateSelector:
@@ -83,8 +83,15 @@ alertModal:
   continueButton: Продовжити
 saveButton:
   defaultText: Зберегти
-  fixErrorsTitle: "Будь ласка, виправте наступні помилки"
+  fixErrorsTitle: Будь ласка, виправте наступні помилки
   fixErrorsDescription: "Будь ласка, виправте наступні помилки перед збереженням:"
+  saving: Збереження...
+  saved: Збережено
+  failed: Не вдалося зберегти
+  retry: Повторіть спробу
+  discard: Відкинути
+  unsaved: Незбережено
+  fixErrors: Виправте помилки перед збереженням
 toast:
   close: Закрити
 form:
@@ -118,10 +125,10 @@ loading:
 validation:
   required: Це поле обов'язкове
   invalid: Недійсне значення
-  minLength: "Мінімальна довжина {min} символів"
-  maxLength: "Максимальна довжина {max} символів"
-  email: "Будь ласка, введіть дійсну email адресу"
-  url: "Будь ласка, введіть дійсний URL"
+  minLength: Мінімальна довжина {min} символів
+  maxLength: Максимальна довжина {max} символів
+  email: Будь ласка, введіть дійсну email адресу
+  url: Будь ласка, введіть дійсний URL
 calendar:
   mon: Пн
   tue: Вт
@@ -160,13 +167,13 @@ monthsInput:
   months: місяці
 dataTable:
   searchPlaceholder: Пошук...
-  selectedRows: "Вибрано {selected} з {total} рядка(ів)."
+  selectedRows: Вибрано {selected} з {total} рядка(ів).
   previous: Попередній
   next: Наступний
   rowsPerPage: Рядків на сторінку
-  showingEntries: "Показано {start} до {end} з {total} записів"
+  showingEntries: Показано {start} до {end} з {total} записів
   noEntriesFound: Записів не знайдено
-  pageOf: "Сторінка {page} з {totalPages}"
+  pageOf: Сторінка {page} з {totalPages}
   noPages: Немає сторінок
   goToFirstPage: Перейти на першу сторінку
   goToPreviousPage: Перейти на попередню сторінку
@@ -183,7 +190,7 @@ dndFileInput:
   dropFilesHere: Перетягніть файли сюди ...
   dragAndDropOrClick: Перетягніть файли сюди або клікніть для вибору файлів
 markdownTooltip:
-  supports: "Це поле підтримує {type}"
+  supports: Це поле підтримує {type}
   learnMore: Дізнатися більше
 scheduler:
   invalidTimeRange: Недійсний часовий діапазон
@@ -198,12 +205,12 @@ timePicker:
   seconds: Секунди
   am: ДП
   pm: ПП
-  format: "dd/MM/yyyy HH:mm"
+  format: dd/MM/yyyy HH:mm
 currencyInput:
   amount: "Сума: {amount}"
   max: "Максимум: {max}"
 stepper:
-  step_of_total: "Крок {step} з {total}"
+  step_of_total: Крок {step} з {total}
 currency:
   USD: Долар США
   EUR: Євро
@@ -241,7 +248,7 @@ country:
   NZ: Нова Зеландія
   SE: Швеція
   SG: Сінгапур
-  "NO": Норвегія
+  NO: Норвегія
   TR: Туреччина
   ZA: ПАР
   IS: Ісландія
@@ -337,10 +344,11 @@ marketingFeaturesShowcase:
   learnMore: Дізнатися більше
   clickToClose: Натисніть, щоб закрити
 marketingBrowserCarousel:
-  goToSlide: "Перейти до слайду {slide}"
+  goToSlide: Перейти до слайду {slide}
   imageAlt: "Прев’ю: {name}"
-  emptySlides: "Немає слайдів"
+  emptySlides: Немає слайдів
 imageZoom:
   zoomIn: Збільшити
   zoomOut: Зменшити
   resetZoom: Скинути збільшення
+

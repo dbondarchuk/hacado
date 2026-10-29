@@ -8,11 +8,11 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
   toastPromise,
 } from "@hacado/ui";
 import { AppSelector, SaveButton } from "@hacado/ui-admin";
@@ -125,6 +125,9 @@ export const DefaultAppsConfigurationForm: React.FC<{
                     )}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("apps.defaultAppsForm.textMessageSender.tooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -136,9 +139,6 @@ export const DefaultAppsConfigurationForm: React.FC<{
               <FormItem>
                 <FormLabel>
                   {t("apps.defaultAppsForm.textMessageResponder.label")}
-                  <InfoTooltip>
-                    {t("apps.defaultAppsForm.textMessageResponder.tooltip")}
-                  </InfoTooltip>
                 </FormLabel>
                 <FormControl>
                   <AppSelector
@@ -150,6 +150,9 @@ export const DefaultAppsConfigurationForm: React.FC<{
                     allowClear
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("apps.defaultAppsForm.textMessageResponder.tooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

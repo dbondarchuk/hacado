@@ -234,6 +234,8 @@ fields:
   maxSizeMb:
     min: La valeur doit être au moins 1
     max: La taille maximale autorisée est de 100 Mo
+  options:
+    min: Au moins une option est requise
 giftCard:
   code:
     required: Le code de la carte cadeau doit comporter au moins 3 caractères
@@ -280,21 +282,21 @@ configuration:
     otpEmailTemplateId:
       required: Le modèle d'e-mail OTP est requis
     channel:
-      required: "Au moins un canal est requis. Activez l'e-mail, le message texte, ou les deux."
-    phoneRequiresTextMessaging: "Activez les messages texte avant d'activer les codes par téléphone."
+      required: Au moins un canal est requis. Activez l'e-mail, le message texte, ou les deux.
+    phoneRequiresTextMessaging: Activez les messages texte avant d'activer les codes par téléphone.
   textMessaging:
     entityType:
-      required: "Le type d'entreprise est requis"
+      required: Le type d'entreprise est requis
     legalName:
       required: Le nom légal est requis
     website:
       required: Le site web est requis
     streetAddress:
-      required: "L'adresse est requise"
+      required: L'adresse est requise
     city:
       required: La ville est requise
     state:
-      required: "L'État ou la province est requis"
+      required: L'État ou la province est requis
     postalCode:
       required: Le code postal est requis
     contactFirstName:
@@ -302,11 +304,11 @@ configuration:
     contactLastName:
       required: Le nom du contact est requis
     contactEmail:
-      required: "L'e-mail du contact est requis"
+      required: L'e-mail du contact est requis
     contactPhone:
       required: Le téléphone du contact est requis
     registrationNumber:
-      required: "L'EIN ou le numéro d'entreprise est requis"
+      required: L'EIN ou le numéro d'entreprise est requis
     privacyPage:
       required: La page de confidentialité est obligatoire
     termsPage:
@@ -348,7 +350,7 @@ configuration:
         unique: Ce service est déjà dans le catalogue
       packageId:
         required: Le forfait est requis
-        unique: Ce package est déjà dans le catalogue
+        unique: Ce forfait est déjà dans le catalogue
     customSlotTimes:
       required: Des plages horaires personnalisées sont requises
     payments:

@@ -15,7 +15,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
   ScrollArea,
   TooltipResponsive,
   TooltipResponsiveContent,
@@ -43,10 +42,7 @@ export const TextMessageBuilder: React.FC<{
     <div className="flex flex-col md:flex-row gap-4">
       <FormItem className="flex-1">
         <FormLabel className="flex flex-row items-center justify-between">
-          <span>
-            {t("templates.textMessageBuilder.content")}
-            <InfoTooltip>{t("common.usesTemplatedValues")}</InfoTooltip>
-          </span>
+          <span>{t("templates.textMessageBuilder.content")}</span>
 
           <Dialog>
             <TooltipResponsive>
@@ -128,6 +124,7 @@ export const TextMessageBuilder: React.FC<{
             onChange={field.onChange}
           />
         </FormControl>
+        <FormDescription>{t("common.usesTemplatedValues")}</FormDescription>
         <FormDescription>
           {t("templates.textMessageBuilder.characterCount", {
             count: preview.length || 0,

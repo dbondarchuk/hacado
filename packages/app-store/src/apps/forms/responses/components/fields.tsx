@@ -2,8 +2,10 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   Checkbox,
   FormControl,
+  FormFieldDescription,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   PhoneInput,
@@ -41,6 +43,9 @@ const getOptions = (
   return fieldDef.data?.options ?? [];
 };
 
+const FieldHelp: React.FC<{ description?: string }> = ({ description }) =>
+  description ? <FormFieldDescription description={description} /> : null;
+
 const CheckboxField: React.FC<AnswerFieldProps<"checkbox">> = ({
   field,
   fieldDef,
@@ -59,14 +64,16 @@ const CheckboxField: React.FC<AnswerFieldProps<"checkbox">> = ({
               field.onBlur();
             }}
           />
-          <FormLabel
+          <FormLabelWithRequiredIndicator
+            required={fieldDef.required}
             htmlFor={`answer-${fieldDef.name}`}
             className="font-normal cursor-pointer"
           >
             {fieldDef.label}
-          </FormLabel>
+          </FormLabelWithRequiredIndicator>
         </div>
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -79,10 +86,13 @@ const MultiLineField: React.FC<AnswerFieldProps<"multiLine">> = ({
 }) => {
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <Textarea autoResize {...field} disabled={disabled} />
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -101,7 +111,9 @@ const RadioField: React.FC<AnswerFieldProps<"radio">> = ({
 
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <RadioGroup
           value={field.value ?? ""}
@@ -139,6 +151,7 @@ const RadioField: React.FC<AnswerFieldProps<"radio">> = ({
           ))}
         </RadioGroup>
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -156,7 +169,9 @@ const SelectField: React.FC<AnswerFieldProps<"select">> = ({
 
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <Select
           value={typeof field.value === "string" ? field.value : ""}
@@ -185,6 +200,7 @@ const SelectField: React.FC<AnswerFieldProps<"select">> = ({
           </SelectContent>
         </Select>
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -209,7 +225,9 @@ const MultiSelectField: React.FC<AnswerFieldProps<"multiSelect">> = ({
 
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <div className="flex flex-col gap-2">
           {options.map((o) => {
@@ -237,6 +255,7 @@ const MultiSelectField: React.FC<AnswerFieldProps<"multiSelect">> = ({
           })}
         </div>
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -249,7 +268,9 @@ const TextField: React.FC<AnswerFieldProps<"name" | "email" | "oneLine">> = ({
 }) => {
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <Input
           type={fieldDef.type === "email" ? "email" : "text"}
@@ -257,6 +278,7 @@ const TextField: React.FC<AnswerFieldProps<"name" | "email" | "oneLine">> = ({
           disabled={disabled}
         />
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -269,10 +291,13 @@ const PhoneField: React.FC<AnswerFieldProps<"phone">> = ({
 }) => {
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         <PhoneInput label={fieldDef.label} {...field} disabled={disabled} />
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );
@@ -286,7 +311,9 @@ const FileField: React.FC<AnswerFieldProps<"file">> = ({
   const mimeType = field.value ? fileNameToMimeType(field.value) : undefined;
   return (
     <FormItem>
-      <FormLabel>{fieldDef.label}</FormLabel>
+      <FormLabelWithRequiredIndicator required={fieldDef.required}>
+        {fieldDef.label}
+      </FormLabelWithRequiredIndicator>
       <FormControl>
         {/* <Input
           type="file"
@@ -331,6 +358,7 @@ const FileField: React.FC<AnswerFieldProps<"file">> = ({
           )}
         </div>
       </FormControl>
+      <FieldHelp description={fieldDef.description} />
       <FormMessage />
     </FormItem>
   );

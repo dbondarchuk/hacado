@@ -16,11 +16,11 @@ import {
   CardContent,
   CardHeader,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
 } from "@hacado/ui";
 import { AppSelector } from "@hacado/ui-admin";
 import { Trash } from "lucide-react";
@@ -136,17 +136,11 @@ export const CalendarSourceCard: React.FC<CalendarSourceCardProps> = ({
           name={`${name}.appId`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t(
                   "users.profile.form.calendarSources.cards.calendarSource.app",
-                )}{" "}
-                <InfoTooltip>
-                  {t(
-                    "users.profile.form.calendarSources.cards.calendarSource.appTooltip",
-                  )}
-                </InfoTooltip>
-              </FormLabel>
-
+                )}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <AppSelector
                   disabled={disabled}
@@ -161,6 +155,11 @@ export const CalendarSourceCard: React.FC<CalendarSourceCardProps> = ({
                   excludeIds={excludeIds}
                 />
               </FormControl>
+              <FormDescription>
+                {t(
+                  "users.profile.form.calendarSources.cards.calendarSource.appTooltip",
+                )}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

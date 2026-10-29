@@ -18,9 +18,11 @@ import {
   cn,
   DurationInput,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputGroup,
@@ -117,11 +119,11 @@ export const MemberOverrideCard: React.FC<MemberOverrideCardProps> = ({
           name={`${name}.memberId`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t(
                   "services.addons.form.staffOverrides.memberOverrideCard.member",
                 )}
-              </FormLabel>
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <MemberSelector
                   disabled={disabled}
@@ -146,11 +148,11 @@ export const MemberOverrideCard: React.FC<MemberOverrideCardProps> = ({
                     "services.addons.form.staffOverrides.memberOverrideCard.unavailable",
                   )}
                 </FormLabel>
-                <p className="text-xs text-muted-foreground">
+                <FormDescription>
                   {t(
                     "services.addons.form.staffOverrides.memberOverrideCard.unavailableHint",
                   )}
-                </p>
+                </FormDescription>
               </div>
               <FormControl>
                 <Switch

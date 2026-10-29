@@ -5,7 +5,6 @@ import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
 import { BillingPlanTier } from "@hacado/types";
 import {
   Form,
-  IComboboxItem,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
@@ -14,7 +13,6 @@ import {
 } from "@hacado/ui";
 import { SaveButton } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getTimeZones } from "@vvo/tzdb";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Resolver, useForm } from "react-hook-form";
@@ -28,11 +26,6 @@ import { GeneralTab } from "./tabs/general";
 import { SocialTab } from "./tabs/social";
 import { StylingTab } from "./tabs/styling";
 
-const timeZoneValues: IComboboxItem[] = getTimeZones().map((zone) => ({
-  label: `GMT${zone.currentTimeFormat}`,
-  shortLabel: `${zone.alternativeName}`,
-  value: zone.name,
-}));
 export const SiteSettingsForm: React.FC<{
   values: SiteSettingsFormValues;
   initialBrandLanguage: string;
@@ -128,7 +121,6 @@ export const SiteSettingsForm: React.FC<{
               <GeneralTab
                 form={form}
                 loading={loading}
-                timeZoneValues={timeZoneValues}
                 billingSubscriptionDetails={billingSubscriptionDetails}
               />
             </div>

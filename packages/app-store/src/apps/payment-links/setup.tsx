@@ -275,9 +275,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.verification.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.verification.description")}
-                  </FormDescription>
                   <FormControl>
                     <Select
                       value={field.value ?? "none"}
@@ -299,6 +296,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       </SelectContent>
                     </Select>
                   </FormControl>
+                  <FormDescription>
+                    {t("form.verification.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -309,9 +309,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.emailTemplateId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.emailTemplateId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -325,6 +322,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.emailTemplateId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -384,9 +384,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.linkExpiryDays.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.linkExpiryDays.description")}
-                  </FormDescription>
                   <FormControl>
                     <Input
                       type="number"
@@ -402,6 +399,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       onBlur={field.onBlur}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.linkExpiryDays.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -554,9 +554,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.headerId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.headerId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -572,6 +569,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.headerId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -582,9 +582,6 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>{t("form.footerId.label")}</FormLabel>
-                  <FormDescription>
-                    {t("form.footerId.description")}
-                  </FormDescription>
                   <FormControl>
                     {isDataLoading ? (
                       <Skeleton className="w-full h-10" />
@@ -600,6 +597,9 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
                       />
                     )}
                   </FormControl>
+                  <FormDescription>
+                    {t("form.footerId.description")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

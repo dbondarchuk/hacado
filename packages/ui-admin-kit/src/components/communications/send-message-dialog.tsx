@@ -24,9 +24,8 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Label,
   ScrollArea,
   Spinner,
@@ -255,13 +254,9 @@ export const SendCommunicationDialog: React.FC<
                   name="subject"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
+                      <FormLabelWithRequiredIndicator required>
                         {t("communications.emailSubject")}
-                        <InfoTooltip>
-                          <p>{t("communications.emailSubjectDescription")}</p>
-                          <p>{t("communications.usesTemplatedValues")}</p>
-                        </InfoTooltip>
-                      </FormLabel>
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
                         <ArgumentsAutocomplete
                           args={args}
@@ -272,6 +267,10 @@ export const SendCommunicationDialog: React.FC<
                           placeholder={t("communications.subject")}
                         />
                       </FormControl>
+                      <FormDescription>
+                        {t("communications.emailSubjectDescription")}{" "}
+                        {t("communications.usesTemplatedValues")}
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -284,7 +283,9 @@ export const SendCommunicationDialog: React.FC<
                   <>
                     {channel === "email" && (
                       <FormItem className="w-full flex-grow relative h-full  [&>div[style]]:!block [&>div[style]]:h-full">
-                        <FormLabel>{t("communications.content")}</FormLabel>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("communications.content")}
+                        </FormLabelWithRequiredIndicator>
                         <FormControl>
                           <EmailBuilder
                             args={args}

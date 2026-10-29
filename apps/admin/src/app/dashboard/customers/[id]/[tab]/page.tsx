@@ -257,22 +257,24 @@ export default async function CustomerPage(props: Props) {
               </ResponsiveTabsList>
               <TabsContent value={detailsTab}>
                 {activeTab === detailsTab && (
-                  <div className="flex flex-col gap-4">
-                    <CustomerForm initialData={customer} />
-                    <CustomerSmsConsent
-                      customerId={customer._id}
-                      hasPhone={Boolean(customer.phone)}
-                      canUpdate={canUpdateCustomer}
-                      isDeleted={customer.isDeleted}
-                      status={
-                        customer.phone
-                          ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
-                              customer.phone,
-                            )
-                          : { consented: false, optedOut: false }
-                      }
-                    />
-                  </div>
+                  <CustomerForm
+                    initialData={customer}
+                    smsConsent={
+                      <CustomerSmsConsent
+                        customerId={customer._id}
+                        hasPhone={Boolean(customer.phone)}
+                        canUpdate={canUpdateCustomer}
+                        isDeleted={customer.isDeleted}
+                        status={
+                          customer.phone
+                            ? await servicesContainer.smsConsentService.getCustomerSmsConsentStatus(
+                                customer.phone,
+                              )
+                            : { consented: false, optedOut: false }
+                        }
+                      />
+                    }
+                  />
                 )}
               </TabsContent>
               {activeTab === appointmentsTab && (

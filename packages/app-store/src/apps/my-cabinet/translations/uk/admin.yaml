@@ -15,9 +15,9 @@ statusText:
 form:
   connect: Підключити <app></app>
   update: Оновити <app></app>
-  publicPageDisabled:
-    label: Вимкнути публічну сторінку /my-cabinet
-    description: Якщо увімкнено, додаток не займає /my-cabinet. Використовуйте CMS-сторінку з блоком Мій кабінет. Шапка та підвал нижче застосовуються лише коли публічна сторінка активна.
+  publicPageEnabled:
+    label: Увімкнути публічну сторінку /my-cabinet
+    description: Якщо увімкнено, додаток займає /my-cabinet. Вимкніть, щоб використати CMS-сторінку з блоком Мій кабінет.
   headerId:
     label: Шапка сторінки
     description: Необовʼязкова шапка на публічній сторінці Мого кабінету за адресою /my-cabinet

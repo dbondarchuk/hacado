@@ -19,6 +19,8 @@ import {
   Button,
   CalendarDateRangePicker,
   Link,
+  RadioButtonGroup,
+  RadioButtonGroupItem,
   Skeleton,
   Spinner,
   toastPromise,
@@ -32,7 +34,7 @@ import {
   SyncedPaymentCard,
 } from "@hacado/ui-admin-kit";
 import { canManageSyncedPayments } from "@hacado/utils";
-import { Check } from "lucide-react";
+import { Check, FilterX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -164,23 +166,41 @@ export const SyncedPaymentsReview = () => {
         </div>
       )}
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Button
-            variant={showAll ? "outline" : "default"}
-            size="sm"
-            onClick={() => setShowAll(false)}
+        <div className="flex flex-wrap items-center gap-2">
+          <RadioButtonGroup
+            value={showAll ? "all" : "needsReview"}
+            onValueChange={(value) => setShowAll(value === "all")}
+            joined
           >
-            {t("syncedPayments.filters.needsReview")}
-          </Button>
-          <Button
-            variant={showAll ? "default" : "outline"}
-            size="sm"
-            onClick={() => setShowAll(true)}
-          >
-            {t("syncedPayments.filters.all")}
-          </Button>
+            <RadioButtonGroupItem value="needsReview" size="sm">
+              {t("syncedPayments.filters.needsReview")}
+            </RadioButtonGroupItem>
+            <RadioButtonGroupItem value="all" size="sm">
+              {t("syncedPayments.filters.all")}
+            </RadioButtonGroupItem>
+          </RadioButtonGroup>
+          <div className="flex flex-wrap items-center gap-2">
+            <CalendarDateRangePicker
+              range={range}
+              onChange={setRange}
+              timeZone={timeZone}
+              className="w-auto min-w-56"
+            />
+            {(range?.start || range?.end) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setRange(undefined)}
+                title={t("syncedPayments.filters.clearDates")}
+              >
+                <FilterX />
+                <span className="max-md:hidden">
+                  {t("syncedPayments.filters.clearDates")}
+                </span>
+              </Button>
+            )}
+          </div>
         </div>
-
         <div className="flex flex-wrap items-center gap-2">
           {canManage && !showAll && (
             <Button
@@ -190,21 +210,6 @@ export const SyncedPaymentsReview = () => {
             >
               <Check />
               {t("syncedPayments.actions.approveAll")}
-            </Button>
-          )}
-          <CalendarDateRangePicker
-            range={range}
-            onChange={setRange}
-            timeZone={timeZone}
-            className="w-auto min-w-56"
-          />
-          {(range?.start || range?.end) && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setRange(undefined)}
-            >
-              {t("syncedPayments.filters.clearDates")}
             </Button>
           )}
         </div>

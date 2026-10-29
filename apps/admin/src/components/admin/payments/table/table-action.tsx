@@ -113,7 +113,7 @@ export const PaymentsTableAction: React.FC<{
         className,
       )}
     >
-      <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey="search"
           searchQuery={searchQuery}
@@ -126,10 +126,10 @@ export const PaymentsTableAction: React.FC<{
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
-        <ExportPaymentsButton customerIdLock={customerIdLock} />
-        {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
+        <div className="flex flex-wrap items-center gap-4 justify-between">
+          <ExportPaymentsButton customerIdLock={customerIdLock} />
+          {showAddPayment && <AddPaymentButton customerId={customerIdLock} />}
+        </div>
       </div>
     </div>
   );

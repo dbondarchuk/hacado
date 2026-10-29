@@ -5,7 +5,6 @@ import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types";
 import {
   Button,
-  Checkbox,
   DurationInput,
   Form,
   FormControl,
@@ -19,6 +18,7 @@ import {
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
+  SwitchCardFormItem,
 } from "@hacado/ui-admin";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
@@ -164,58 +164,45 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
                 control={form.control}
                 name="enableInStoreSync"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <div className="flex items-center gap-2">
-                      <FormControl>
-                        <Checkbox
-                          id="squareEnableInStoreSync"
-                          checked={field.value ?? false}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormLabel
-                        className="cursor-pointer"
-                        htmlFor="squareEnableInStoreSync"
-                      >
-                        {t("form.inStoreSync.label")}
-                      </FormLabel>
-                    </div>
-                    <FormDescription>
-                      {t("form.inStoreSync.description")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                  <SwitchCardFormItem
+                    label={t("form.inStoreSync.label")}
+                    description={t("form.inStoreSync.description")}
+                    checked={field.value ?? false}
+                    onCheckedChange={field.onChange}
+                    disabled={isSavingSync}
+                  >
+                    {isInStoreSyncEnabled && (
+                      <FormField
+                        control={form.control}
+                        name="matchWindowMinutes"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>{t("form.matchWindow.label")}</FormLabel>
+                            <FormControl>
+                              <DurationInput
+                                type="hours-minutes"
+                                value={field.value ?? 0}
+                                disabled={isSavingSync}
+                                placeholderHours="2"
+                                placeholderMinutes="0"
+                                onBlur={field.onBlur}
+                                onChange={(val) => {
+                                  field.onChange(val ?? 0);
+                                  field.onBlur();
+                                }}
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {t("form.matchWindow.description")}
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </SwitchCardFormItem>
                 )}
               />
-              {isInStoreSyncEnabled && (
-                <FormField
-                  control={form.control}
-                  name="matchWindowMinutes"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>{t("form.matchWindow.label")}</FormLabel>
-                      <FormControl>
-                        <DurationInput
-                          type="hours-minutes"
-                          value={field.value ?? 0}
-                          disabled={isSavingSync}
-                          placeholderHours="2"
-                          placeholderMinutes="0"
-                          onBlur={field.onBlur}
-                          onChange={(val) => {
-                            field.onChange(val ?? 0);
-                            field.onBlur();
-                          }}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        {t("form.matchWindow.description")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
               <Button
                 disabled={isSavingSync || !isValid}
                 type="submit"

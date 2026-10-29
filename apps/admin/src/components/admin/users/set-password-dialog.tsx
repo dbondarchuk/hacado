@@ -16,7 +16,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   Spinner,
@@ -72,6 +72,7 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
       confirmPassword: "",
     },
   });
+  const newPassword = form.watch("newPassword");
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
@@ -128,9 +129,9 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("users.profile.setPassword.form.newPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input {...field} type="password" />
                   </FormControl>
@@ -143,9 +144,11 @@ export function SetPasswordDialog({ onSuccess }: { onSuccess?: () => void }) {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={newPassword.length > 0}
+                  >
                     {t("users.profile.setPassword.form.confirmPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input {...field} type="password" />
                   </FormControl>

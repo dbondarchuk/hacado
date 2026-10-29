@@ -457,7 +457,7 @@ export const PageForm: React.FC<{
               )}
             />
           </div>
-          <SaveButton form={form} ignoreDirty />
+          <SaveButton form={form} />
         </form>
       </div>
     </Form>

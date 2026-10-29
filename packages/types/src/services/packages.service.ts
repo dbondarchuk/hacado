@@ -64,6 +64,14 @@ export type IPackagesService = {
   getPublicPackages(): Promise<AppointmentPackage[]>;
   hasActiveCustomerPackages(): Promise<boolean>;
   issue(input: IssueCustomerPackageInput): Promise<CustomerPackage>;
+  activatePendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void>;
+  cancelPendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void>;
   issueFromPayment(input: {
     paymentIntentId: string;
     packageId: string;

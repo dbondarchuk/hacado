@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
   Spinner,
 } from "@hacado/ui";
 import {
@@ -68,12 +68,7 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
                 name="defaultMemberId"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      {t("form.defaultMemberId.label")}
-                      <InfoTooltip>
-                        {t("form.defaultMemberId.tooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.defaultMemberId.label")}</FormLabel>
                     <FormControl>
                       <MemberSelector
                         value={field.value}
@@ -86,6 +81,9 @@ export const TextMessageResenderAppSetup: React.FC<AppSetupProps> = ({
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.defaultMemberId.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

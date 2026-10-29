@@ -12,13 +12,11 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Switch,
   toastPromise,
 } from "@hacado/ui";
-import { PageSelector, SaveButton } from "@hacado/ui-admin";
+import { PageSelector, SaveButton, SwitchCardFormItem } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -72,76 +70,74 @@ export const TextMessagingSettingsForm = ({
           control={form.control}
           name="enabled"
           render={({ field }) => (
-            <FormItem className="flex items-center justify-between gap-4 rounded-lg border p-4">
-              <div className="space-y-1">
-                <FormLabel>
-                  {t("settings.textMessaging.form.smsEnabled")}
-                </FormLabel>
-                <FormDescription>
-                  {t("settings.textMessaging.form.smsEnabledDescription")}
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  disabled={loading}
-                />
-              </FormControl>
-            </FormItem>
+            <SwitchCardFormItem
+              alwaysItemsStart
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              label={t("settings.textMessaging.form.smsEnabled")}
+              description={t(
+                "settings.textMessaging.form.smsEnabledDescription",
+              )}
+              disabled={loading}
+            >
+              {!!field.value ? (
+                <>
+                  <p className="text-sm text-muted-foreground">
+                    {t("settings.textMessaging.form.legalPages.note")}
+                  </p>
+                  <FormField
+                    control={form.control}
+                    name="privacyPageId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("settings.textMessaging.form.privacyPage.label")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <PageSelector
+                            value={field.value || undefined}
+                            disabled={loading}
+                            onItemSelect={(value) =>
+                              field.onChange(value ?? "")
+                            }
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t("settings.textMessaging.form.privacyPage.hint")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="termsPageId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("settings.textMessaging.form.termsPage.label")}
+                        </FormLabelWithRequiredIndicator>
+                        <FormControl>
+                          <PageSelector
+                            value={field.value || undefined}
+                            disabled={loading}
+                            onItemSelect={(value) =>
+                              field.onChange(value ?? "")
+                            }
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t("settings.textMessaging.form.termsPage.hint")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              ) : null}
+            </SwitchCardFormItem>
           )}
         />
-        {smsEnabled ? (
-          <>
-            <p className="text-sm text-muted-foreground">
-              {t("settings.textMessaging.form.legalPages.note")}
-            </p>
-            <FormField
-              control={form.control}
-              name="privacyPageId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabelWithRequiredIndicator required>
-                    {t("settings.textMessaging.form.privacyPage.label")}
-                  </FormLabelWithRequiredIndicator>
-                  <FormControl>
-                    <PageSelector
-                      value={field.value || undefined}
-                      disabled={loading}
-                      onItemSelect={(value) => field.onChange(value ?? "")}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t("settings.textMessaging.form.privacyPage.hint")}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="termsPageId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabelWithRequiredIndicator required>
-                    {t("settings.textMessaging.form.termsPage.label")}
-                  </FormLabelWithRequiredIndicator>
-                  <FormControl>
-                    <PageSelector
-                      value={field.value || undefined}
-                      disabled={loading}
-                      onItemSelect={(value) => field.onChange(value ?? "")}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t("settings.textMessaging.form.termsPage.hint")}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </>
-        ) : null}
         <SaveButton
           form={form}
           disabled={loading}

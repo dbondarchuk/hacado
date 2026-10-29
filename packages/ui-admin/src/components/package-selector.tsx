@@ -74,9 +74,7 @@ export const PackageSelector: React.FC<PackageSelectorProps> = ({
           .map((pkg) => ({
             label: <PackageLabel pkg={pkg} />,
             shortLabel: (
-              <span className="shrink overflow-hidden text-nowrap min-w-0">
-                {pkg.name}
-              </span>
+              <span className="block min-w-0 truncate">{pkg.name}</span>
             ),
             value: pkg._id,
           })) satisfies IComboboxItem[],

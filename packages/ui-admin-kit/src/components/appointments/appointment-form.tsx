@@ -51,6 +51,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputGroup,
@@ -59,7 +60,6 @@ import {
   InputGroupInput,
   InputGroupInputClasses,
   MultiSelect,
-  Spinner,
   Textarea,
   toastPromise,
   use12HourFormat,
@@ -72,6 +72,8 @@ import {
   CustomerSelector,
   MemberSelector,
   PromoCodeSelector,
+  SaveButton,
+  SwitchCardFormItem,
 } from "@hacado/ui-admin";
 import {
   durationToTime,
@@ -80,11 +82,11 @@ import {
   normalizeToE164,
 } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarClock, Clock, DollarSign, X } from "lucide-react";
+import { Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
   SmsConsentAttest,
@@ -280,7 +282,7 @@ export const AppointmentScheduleForm: React.FC<
         result.error.issues.forEach((err) => {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            path: [`fields.${err.path}`],
+            path: ["fields", ...err.path],
             message: err.message,
           });
         });
@@ -445,8 +447,6 @@ export const AppointmentScheduleForm: React.FC<
       );
     });
   }, [dateTime, duration, calendarEvents]);
-
-  const { isValid } = useFormState(form);
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -798,10 +798,11 @@ export const AppointmentScheduleForm: React.FC<
     if (c?.smsConsent) {
       setSmsConsent(false);
     }
-    if (!!c) {
+    if (c) {
       form.setValue("fields.name", c.name);
       form.setValue("fields.email", c.email);
       form.setValue("fields.phone", c.phone);
+      void form.trigger(["fields.name", "fields.email", "fields.phone"]);
     }
   };
 
@@ -814,7 +815,7 @@ export const AppointmentScheduleForm: React.FC<
         onOpenChange={setIsPastDueDialogOpen}
       />
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex w-full flex-col gap-4 pb-24">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-2">
             <div className="w-full space-y-4 relative px-1 pb-2 content-start">
               <FormField
@@ -822,9 +823,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="option"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("appointments.form.appointmentType")}
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <Combobox
                         disabled={loading || packageLocked}
@@ -878,7 +879,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="dateTime"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appointments.form.dateTime")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("appointments.form.dateTime")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DateTimePicker
                         use12HourFormat={uses12HourFormat}
@@ -1010,6 +1013,24 @@ export const AppointmentScheduleForm: React.FC<
                     form.control,
                     loading || disabledFields.has(field.name),
                   )}
+                  {field.name === "phone" &&
+                  !isEdit &&
+                  appointmentSmsConsentKind(smsText) ? (
+                    <SmsConsentAttest
+                      id="smsConsent"
+                      phone={smsPhone}
+                      status={
+                        customer?._id
+                          ? smsConsentStatus
+                          : normalizeToE164(smsPhone)
+                            ? "missing"
+                            : undefined
+                      }
+                      checked={smsConsent}
+                      disabled={loading}
+                      onCheckedChange={setSmsConsent}
+                    />
+                  ) : null}
                 </React.Fragment>
               ))}
               <FormField
@@ -1041,7 +1062,9 @@ export const AppointmentScheduleForm: React.FC<
                 name="totalDuration"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("appointments.form.duration")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("appointments.form.duration")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DurationInput disabled={loading} {...field} />
                     </FormControl>
@@ -1114,47 +1137,20 @@ export const AppointmentScheduleForm: React.FC<
                   </FormItem>
                 )}
               />
-              {!isEdit && appointmentSmsConsentKind(smsText) ? (
-                <SmsConsentAttest
-                  id="smsConsent"
-                  phone={smsPhone}
-                  status={
-                    customer?._id
-                      ? smsConsentStatus
-                      : normalizeToE164(smsPhone)
-                        ? "missing"
-                        : undefined
-                  }
-                  checked={smsConsent}
-                  disabled={loading}
-                  onCheckedChange={setSmsConsent}
-                />
-              ) : null}
               {(!isEdit || from?.status === "pending") && (
                 <FormField
                   control={form.control}
                   name="confirmed"
                   render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row items-center gap-2">
-                        <Checkbox
-                          id="confirmed"
-                          disabled={loading}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormLabel
-                          htmlFor="confirmed"
-                          className="cursor-pointer"
-                        >
-                          {t("appointments.form.confirmAppointment")}
-                        </FormLabel>
-                      </div>
-                      <FormDescription>
-                        {t("appointments.form.confirmAppointmentDescription")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                    <SwitchCardFormItem
+                      label={t("appointments.form.confirmAppointment")}
+                      description={t(
+                        "appointments.form.confirmAppointmentDescription",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={loading}
+                    />
                   )}
                 />
               )}
@@ -1163,49 +1159,27 @@ export const AppointmentScheduleForm: React.FC<
                   control={form.control}
                   name="doNotNotifyCustomer"
                   render={({ field }) => (
-                    <FormItem>
-                      <div className="flex flex-row items-center gap-2">
-                        <Checkbox
-                          id="doNotNotifyCustomer"
-                          disabled={loading}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormLabel
-                          htmlFor="doNotNotifyCustomer"
-                          className="cursor-pointer"
-                        >
-                          {t("appointments.form.doNotNotifyCustomer")}
-                        </FormLabel>
-                      </div>
-                      <FormDescription>
-                        {t("appointments.form.doNotNotifyCustomerDescription")}
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                    <SwitchCardFormItem
+                      label={t("appointments.form.doNotNotifyCustomer")}
+                      description={t(
+                        "appointments.form.doNotNotifyCustomerDescription",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                      disabled={loading}
+                    />
                   )}
                 />
               )}
               {isOverlaping && (
-                <FormItem>
-                  <div className="flex flex-row items-center gap-2">
-                    <Checkbox
-                      id="confirm-overlap"
-                      disabled={loading}
-                      checked={confirmOverlap}
-                      onCheckedChange={(e) => setConfirmOverlap(!!e)}
-                    />
-                    <FormLabel
-                      htmlFor="confirm-overlap"
-                      className="cursor-pointer"
-                    >
-                      {t("appointments.form.confirmOverlap")}
-                    </FormLabel>
-                  </div>
-                  <FormDescription>
-                    {t("appointments.form.confirmOverlapDescription")}
-                  </FormDescription>
-                </FormItem>
+                <SwitchCardFormItem
+                  label={t("appointments.form.confirmOverlap")}
+                  description={t("appointments.form.confirmOverlapDescription")}
+                  checked={confirmOverlap}
+                  onCheckedChange={setConfirmOverlap}
+                  disabled={loading}
+                  required
+                />
               )}
               {unassignedIssues.needsAcknowledgement && (
                 <FormField
@@ -1248,28 +1222,21 @@ export const AppointmentScheduleForm: React.FC<
             </div>
           </div>
         </div>
-        <Button
+        <SaveButton
+          form={form}
+          ignoreDirty
+          isLoading={loading}
           disabled={
-            loading ||
-            !isValid ||
             (isOverlaping && !confirmOverlap) ||
             (unassignedIssues.needsAcknowledgement &&
               !acknowledgeUnassignedMember)
           }
-          className="ml-auto self-end fixed bottom-4 right-4 inline-flex gap-1 items-center z-50"
-          type="submit"
-        >
-          {loading ? (
-            <Spinner className="w-4 h-4" />
-          ) : (
-            <CalendarClock className="w-4 h-4" />
-          )}{" "}
-          {t(
+          text={t(
             isEdit
               ? "appointments.form.updateAppointment"
               : "appointments.form.scheduleAppointment",
           )}
-        </Button>
+        />
       </form>
       <AlertDialog
         open={unassignedDialogOpen}

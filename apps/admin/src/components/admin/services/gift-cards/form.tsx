@@ -4,7 +4,6 @@ import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
-  CustomerListModel,
   getGiftCardSchemaWithUniqueCheck,
   GiftCardListModel,
   InPersonPaymentMethod,
@@ -13,15 +12,20 @@ import {
 } from "@hacado/types";
 import {
   Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   cn,
   DateTimePicker,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -43,6 +47,10 @@ import {
   useDebounceCacheFn,
 } from "@hacado/ui";
 import { CustomerSelector, SaveButton } from "@hacado/ui-admin";
+import {
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Dices } from "lucide-react";
 import { DateTime } from "luxon";
@@ -65,6 +73,11 @@ const generateGiftCardCode = () => {
 };
 
 const defaultCode = generateGiftCardCode();
+const noDestinations: string[] = [];
+
+const uniqueNonEmpty = (values: (string | null | undefined)[]) => [
+  ...new Set(values.filter((value): value is string => !!value)),
+];
 
 type PaymentLinkApp = { _id: string; name: string };
 
@@ -76,9 +89,8 @@ export const GiftCardForm: React.FC<{
   const currencySymbol = useCurrencySymbol();
   const uses12HourFormat = use12HourFormat();
   const [paymentLinkApps, setPaymentLinkApps] = useState<PaymentLinkApp[]>([]);
-  const [customer, setCustomer] = useState<CustomerListModel | undefined>(
-    undefined,
-  );
+  const [emailDestinations, setEmailDestinations] = useState<string[]>([]);
+  const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
 
   const cachedGiftCardCodeCheck = useDebounceCacheFn(
     adminApi.giftCards.checkGiftCardCodeUnique,
@@ -141,6 +153,7 @@ export const GiftCardForm: React.FC<{
   };
 
   const [loading, setLoading] = useState(false);
+  const [smsConsent, setSmsConsent] = useState(false);
   const router = useRouter();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -157,6 +170,20 @@ export const GiftCardForm: React.FC<{
 
   const paymentMethod = form.watch("paymentMethod");
   const channel = form.watch("channel");
+  const customerId = form.watch("customerId");
+  const smsTo = form.watch("to");
+  const sendingSms =
+    !initialData?._id && paymentMethod === "payment-link" && channel === "sms";
+  const smsConsentStatus = useCustomerPhoneSmsConsent(
+    sendingSms ? customerId : undefined,
+    sendingSms ? smsTo : undefined,
+  );
+  const smsBlocked =
+    sendingSms &&
+    !(
+      smsConsentStatus === "consented" ||
+      (smsConsentStatus === "missing" && smsConsent)
+    );
 
   const isPendingPaymentLink =
     !!initialData?._id &&
@@ -186,29 +213,72 @@ export const GiftCardForm: React.FC<{
     }
   }, [paymentLinkApps, form]);
 
-  const emailDestinations = useMemo(
-    () => [
-      ...new Set([customer?.email].filter((value): value is string => !!value)),
-    ],
-    [customer?.email],
-  );
-  const phoneDestinations = useMemo(
-    () => [
-      ...new Set([customer?.phone].filter((value): value is string => !!value)),
-    ],
-    [customer?.phone],
-  );
   const destinations =
     channel === "email"
       ? emailDestinations
       : channel === "sms"
         ? phoneDestinations
-        : [];
+        : noDestinations;
+
+  useEffect(() => {
+    if (initialData?._id || !customerId) {
+      setEmailDestinations([]);
+      setPhoneDestinations([]);
+      return;
+    }
+
+    let cancelled = false;
+    adminApi.customers
+      .getCustomer(customerId)
+      .then((customer) => {
+        if (cancelled) {
+          return;
+        }
+
+        setEmailDestinations(
+          uniqueNonEmpty([customer.email, ...(customer.knownEmails ?? [])]),
+        );
+        setPhoneDestinations(
+          uniqueNonEmpty([customer.phone, ...(customer.knownPhones ?? [])]),
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        if (!cancelled) {
+          setEmailDestinations([]);
+          setPhoneDestinations([]);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialData?._id, customerId]);
 
   useEffect(() => {
     if (paymentMethod !== "payment-link") {
       return;
     }
+
+    if (channel === "email" && emailDestinations.length === 0) {
+      form.setValue("channel", "copy");
+      form.setValue("to", undefined);
+      return;
+    }
+
+    if (channel === "sms" && phoneDestinations.length === 0) {
+      form.setValue("channel", "copy");
+      form.setValue("to", undefined);
+      return;
+    }
+
+    if (channel === "copy") {
+      if (form.getValues("to")) {
+        form.setValue("to", undefined);
+      }
+      return;
+    }
+
     if (destinations.length === 1) {
       form.setValue("to", destinations[0], { shouldValidate: true });
     } else if (
@@ -217,7 +287,18 @@ export const GiftCardForm: React.FC<{
     ) {
       form.setValue("to", destinations[0], { shouldValidate: true });
     }
-  }, [paymentMethod, channel, destinations, form]);
+  }, [
+    paymentMethod,
+    channel,
+    destinations,
+    emailDestinations.length,
+    phoneDestinations.length,
+    form,
+  ]);
+
+  useEffect(() => {
+    setSmsConsent(false);
+  }, [smsTo]);
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -239,6 +320,8 @@ export const GiftCardForm: React.FC<{
                 paymentLinkAppId: data.paymentLinkAppId!,
                 channel: data.channel,
                 to: data.to,
+                smsConsent:
+                  data.channel === "sms" && smsConsent ? true : undefined,
               })
               .catch(async (error) => {
                 if (error instanceof AdminApiError) {
@@ -324,6 +407,9 @@ export const GiftCardForm: React.FC<{
           if (err instanceof Error && err.message === "payment_app_required") {
             return t("payment.toasts.paymentAppRequired");
           }
+          if (err instanceof Error && err.message === "sms_consent_required") {
+            return t("services.giftCards.form.toasts.smsConsentRequired");
+          }
 
           return t("services.giftCards.form.toasts.requestError");
         },
@@ -338,355 +424,342 @@ export const GiftCardForm: React.FC<{
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
-          <FormField
-            control={form.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("services.giftCards.form.code.label")}{" "}
-                  <InfoTooltip>
-                    {t("services.giftCards.form.code.generateTooltip")}
-                  </InfoTooltip>
-                </FormLabel>
-
-                <FormControl>
-                  <InputGroup>
-                    <InputGroupAddon>
-                      <TooltipResponsive>
-                        <TooltipResponsiveTrigger
-                          className={cn(
-                            InputGroupAddonClasses({ variant: "prefix" }),
-                            "px-2",
-                          )}
-                        >
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            disabled={loading || !!initialData?._id}
-                            onClick={() => {
-                              field.onChange(generateGiftCardCode());
-                              field.onBlur();
-                              form.trigger("code");
-                            }}
-                          >
-                            <Dices />
-                          </Button>
-                        </TooltipResponsiveTrigger>
-                        <TooltipResponsiveContent>
-                          {t("services.giftCards.form.code.tooltip")}
-                        </TooltipResponsiveContent>
-                      </TooltipResponsive>
-                    </InputGroupAddon>
-                    <InputGroupInput>
-                      <Input
-                        disabled={loading || !!initialData?._id}
-                        placeholder={t(
-                          "services.giftCards.form.code.placeholder",
-                        )}
-                        className={cn(
-                          InputGroupInputClasses(),
-                          InputGroupInputClasses({ variant: "prefix" }),
-                          "flex-1",
-                        )}
-                        {...field}
-                      />
-                    </InputGroupInput>
-                    <InputGroupAddon>
-                      <TooltipResponsive>
-                        <TooltipResponsiveTrigger
-                          className={cn(InputGroupAddonClasses(), "px-2")}
-                        >
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            disabled={!field.value}
-                            onClick={() => {
-                              navigator.clipboard.writeText(field.value);
-                              toast.success(
-                                t("services.giftCards.form.code.copied"),
-                              );
-                            }}
-                          >
-                            <Copy />
-                          </Button>
-                        </TooltipResponsiveTrigger>
-                        <TooltipResponsiveContent>
-                          {t(
-                            "services.giftCards.form.code.copyToClipboardTooltip",
-                          )}
-                        </TooltipResponsiveContent>
-                      </TooltipResponsive>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("services.giftCards.form.amount.label")}
-                </FormLabel>
-                <FormControl>
-                  <InputGroup>
-                    <InputGroupAddon
-                      className={InputGroupAddonClasses({
-                        variant: "prefix",
-                      })}
-                    >
-                      {currencySymbol}
-                    </InputGroupAddon>
-                    <InputGroupInput>
-                      <Input
-                        disabled={loading || disableAmountUpdate}
-                        placeholder={t(
-                          "services.giftCards.form.amount.placeholder",
-                        )}
-                        type="number"
-                        className={InputGroupInputClasses({
-                          variant: "prefix",
-                        })}
-                        {...field}
-                      />
-                    </InputGroupInput>
-                  </InputGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="expiresAt"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("services.giftCards.form.expiresAt.label")}{" "}
-                  <InfoTooltip>
-                    <p>{t("services.giftCards.form.expiresAt.tooltip")}</p>
-                    <p>{t("common.optional")}</p>
-                  </InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <DateTimePicker
-                    disabled={loading}
-                    clearable
-                    use12HourFormat={uses12HourFormat}
-                    min={minDate}
-                    {...field}
-                    onChange={(date) => {
-                      field.onChange(date ?? null);
-                      field.onBlur();
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="customerId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("services.giftCards.form.customerId.label")}
-                  <InfoTooltip>
-                    {t("services.giftCards.form.customerId.tooltip")}
-                  </InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <CustomerSelector
-                    onItemSelect={(customerId) => {
-                      field.onChange(customerId);
-                      field.onBlur();
-                    }}
-                    onValueChange={setCustomer}
-                    value={field.value}
-                    disabled={loading || !!initialData?._id}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {!initialData?._id && (
-            <>
+        <div className="flex flex-col gap-4">
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.giftCards.form.giftCard")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
               <FormField
                 control={form.control}
-                name="paymentMethod"
+                name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("services.giftCards.form.paymentMethod.label")}
-                      <InfoTooltip>
-                        {t("services.giftCards.form.paymentMethod.tooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.giftCards.form.code.label")}
+                    </FormLabelWithRequiredIndicator>
+
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={(value) => {
-                          field.onChange(value);
-                          field.onBlur();
-                          if (value === "payment-link") {
-                            form.setValue("channel", "copy");
-                            if (paymentLinkApps.length === 1) {
-                              form.setValue(
-                                "paymentLinkAppId",
-                                paymentLinkApps[0]._id,
-                              );
-                            }
-                          }
-                        }}
-                        disabled={loading}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
+                      <InputGroup>
+                        <InputGroupAddon>
+                          <TooltipResponsive>
+                            <TooltipResponsiveTrigger
+                              className={cn(
+                                InputGroupAddonClasses({ variant: "prefix" }),
+                                "px-2",
+                              )}
+                            >
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                disabled={loading || !!initialData?._id}
+                                onClick={() => {
+                                  field.onChange(generateGiftCardCode());
+                                  field.onBlur();
+                                  form.trigger("code");
+                                }}
+                              >
+                                <Dices />
+                              </Button>
+                            </TooltipResponsiveTrigger>
+                            <TooltipResponsiveContent>
+                              {t("services.giftCards.form.code.tooltip")}
+                            </TooltipResponsiveContent>
+                          </TooltipResponsive>
+                        </InputGroupAddon>
+                        <InputGroupInput>
+                          <Input
+                            disabled={loading || !!initialData?._id}
                             placeholder={t(
-                              "payment.addUpdatePayment.form.method.label",
+                              "services.giftCards.form.code.placeholder",
                             )}
+                            className={cn(
+                              InputGroupInputClasses(),
+                              InputGroupInputClasses({ variant: "prefix" }),
+                              "flex-1",
+                            )}
+                            {...field}
                           />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {inPersonPaymentMethod.map((type) => (
-                            <SelectItem value={type} key={type}>
+                        </InputGroupInput>
+                        <InputGroupAddon>
+                          <TooltipResponsive>
+                            <TooltipResponsiveTrigger
+                              className={cn(InputGroupAddonClasses(), "px-2")}
+                            >
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                disabled={!field.value}
+                                onClick={() => {
+                                  navigator.clipboard.writeText(field.value);
+                                  toast.success(
+                                    t("services.giftCards.form.code.copied"),
+                                  );
+                                }}
+                              >
+                                <Copy />
+                              </Button>
+                            </TooltipResponsiveTrigger>
+                            <TooltipResponsiveContent>
                               {t(
-                                `payment.addUpdatePayment.form.method.${type}`,
+                                "services.giftCards.form.code.copyToClipboardTooltip",
                               )}
-                            </SelectItem>
-                          ))}
-                          {paymentLinkApps.length > 0 && (
-                            <SelectItem value="payment-link">
-                              {t(
-                                "payment.addUpdatePayment.form.method.payment-link",
-                              )}
-                            </SelectItem>
-                          )}
-                        </SelectContent>
-                      </Select>
+                            </TooltipResponsiveContent>
+                          </TooltipResponsive>
+                        </InputGroupAddon>
+                      </InputGroup>
                     </FormControl>
+                    <FormDescription>
+                      {t("services.giftCards.form.code.generateTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {paymentMethod === "payment-link" && (
-                <>
-                  {paymentLinkApps.length >= 2 && (
-                    <FormField
-                      control={form.control}
-                      name="paymentLinkAppId"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t(
-                              "payment.addUpdatePayment.form.paymentLinkAppId.label",
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.giftCards.form.amountAndExpiry")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.giftCards.form.amount.label")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <InputGroup>
+                        <InputGroupAddon
+                          className={InputGroupAddonClasses({
+                            variant: "prefix",
+                          })}
+                        >
+                          {currencySymbol}
+                        </InputGroupAddon>
+                        <InputGroupInput>
+                          <Input
+                            disabled={loading || disableAmountUpdate}
+                            placeholder={t(
+                              "services.giftCards.form.amount.placeholder",
                             )}
-                          </FormLabel>
-                          <FormControl>
-                            <Select
-                              value={field.value}
-                              onValueChange={(value) => {
-                                field.onChange(value);
-                                field.onBlur();
-                              }}
-                              disabled={loading}
-                            >
-                              <SelectTrigger>
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {paymentLinkApps.map((app) => {
-                                  const Logo = AvailableApps[app.name]?.Logo;
-                                  const displayName =
-                                    AvailableApps[app.name]?.displayName;
-                                  return (
-                                    <SelectItem value={app._id} key={app._id}>
-                                      <span className="flex items-center gap-2">
-                                        {Logo ? (
-                                          <Logo className="size-4" />
-                                        ) : null}
-                                        {displayName
-                                          ? tRoot(displayName)
-                                          : app.name}
-                                      </span>
-                                    </SelectItem>
-                                  );
-                                })}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  )}
+                            type="number"
+                            className={InputGroupInputClasses({
+                              variant: "prefix",
+                            })}
+                            {...field}
+                          />
+                        </InputGroupInput>
+                      </InputGroup>
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.giftCards.form.amount.tooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="expiresAt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("services.giftCards.form.expiresAt.label")}
+                    </FormLabel>
+                    <FormControl>
+                      <DateTimePicker
+                        disabled={loading}
+                        clearable
+                        use12HourFormat={uses12HourFormat}
+                        min={minDate}
+                        {...field}
+                        onChange={(date) => {
+                          field.onChange(date ?? null);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.giftCards.form.expiresAt.tooltip")}
+                      <span className="block">{t("common.optional")}</span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.giftCards.form.customerAndPayment")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="customerId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.giftCards.form.customerId.label")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <CustomerSelector
+                        onItemSelect={(customerId) => {
+                          field.onChange(customerId);
+                          field.onBlur();
+                        }}
+                        value={field.value}
+                        disabled={loading || !!initialData?._id}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.giftCards.form.customerId.tooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {!initialData?._id && (
+                <>
                   <FormField
                     control={form.control}
-                    name="channel"
+                    name="paymentMethod"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          {t("payment.addUpdatePayment.form.channel.label")}
-                        </FormLabel>
+                        <FormLabelWithRequiredIndicator required>
+                          {t("services.giftCards.form.paymentMethod.label")}
+                        </FormLabelWithRequiredIndicator>
                         <FormControl>
                           <Select
-                            value={field.value ?? "copy"}
+                            value={field.value}
                             onValueChange={(value) => {
                               field.onChange(value);
                               field.onBlur();
+                              if (value === "payment-link") {
+                                form.setValue("channel", "copy");
+                                if (paymentLinkApps.length === 1) {
+                                  form.setValue(
+                                    "paymentLinkAppId",
+                                    paymentLinkApps[0]._id,
+                                  );
+                                }
+                              }
                             }}
                             disabled={loading}
                           >
                             <SelectTrigger>
-                              <SelectValue />
+                              <SelectValue
+                                placeholder={t(
+                                  "payment.addUpdatePayment.form.method.label",
+                                )}
+                              />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem
-                                value="email"
-                                disabled={emailDestinations.length === 0}
-                              >
-                                {t(
-                                  "payment.addUpdatePayment.form.channel.email",
-                                )}
-                              </SelectItem>
-                              <SelectItem
-                                value="sms"
-                                disabled={phoneDestinations.length === 0}
-                              >
-                                {t("payment.addUpdatePayment.form.channel.sms")}
-                              </SelectItem>
-                              <SelectItem value="copy">
-                                {t(
-                                  "payment.addUpdatePayment.form.channel.copy",
-                                )}
-                              </SelectItem>
+                              {inPersonPaymentMethod.map((type) => (
+                                <SelectItem value={type} key={type}>
+                                  {t(
+                                    `payment.addUpdatePayment.form.method.${type}`,
+                                  )}
+                                </SelectItem>
+                              ))}
+                              {paymentLinkApps.length > 0 && (
+                                <SelectItem value="payment-link">
+                                  {t(
+                                    "payment.addUpdatePayment.form.method.payment-link",
+                                  )}
+                                </SelectItem>
+                              )}
                             </SelectContent>
                           </Select>
                         </FormControl>
+                        <FormDescription>
+                          {t("services.giftCards.form.paymentMethod.tooltip")}
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  {(channel === "email" || channel === "sms") && (
-                    <FormField
-                      control={form.control}
-                      name="to"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("payment.addUpdatePayment.form.to.label")}
-                          </FormLabel>
-                          <FormControl>
-                            {destinations.length > 1 ? (
+                  {paymentMethod === "payment-link" && (
+                    <>
+                      {paymentLinkApps.length >= 2 && (
+                        <FormField
+                          control={form.control}
+                          name="paymentLinkAppId"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabelWithRequiredIndicator required>
+                                {t(
+                                  "payment.addUpdatePayment.form.paymentLinkAppId.label",
+                                )}
+                              </FormLabelWithRequiredIndicator>
+                              <FormControl>
+                                <Select
+                                  value={field.value}
+                                  onValueChange={(value) => {
+                                    field.onChange(value);
+                                    field.onBlur();
+                                  }}
+                                  disabled={loading}
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {paymentLinkApps.map((app) => {
+                                      const Logo =
+                                        AvailableApps[app.name]?.Logo;
+                                      const displayName =
+                                        AvailableApps[app.name]?.displayName;
+                                      return (
+                                        <SelectItem
+                                          value={app._id}
+                                          key={app._id}
+                                        >
+                                          <span className="flex items-center gap-2">
+                                            {Logo ? (
+                                              <Logo className="size-4" />
+                                            ) : null}
+                                            {displayName
+                                              ? tRoot(displayName)
+                                              : app.name}
+                                          </span>
+                                        </SelectItem>
+                                      );
+                                    })}
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormDescription>
+                                {t(
+                                  "services.giftCards.form.paymentLinkAppId.description",
+                                )}
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+                      <FormField
+                        control={form.control}
+                        name="channel"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              {t("payment.addUpdatePayment.form.channel.label")}
+                            </FormLabel>
+                            <FormControl>
                               <Select
-                                value={field.value}
+                                value={field.value ?? "copy"}
                                 onValueChange={(value) => {
                                   field.onChange(value);
                                   field.onBlur();
@@ -697,31 +770,108 @@ export const GiftCardForm: React.FC<{
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  {destinations.map((destination) => (
-                                    <SelectItem
-                                      key={destination}
-                                      value={destination}
-                                    >
-                                      {destination}
-                                    </SelectItem>
-                                  ))}
+                                  <SelectItem
+                                    value="email"
+                                    disabled={emailDestinations.length === 0}
+                                  >
+                                    {t(
+                                      "payment.addUpdatePayment.form.channel.email",
+                                    )}
+                                  </SelectItem>
+                                  <SelectItem
+                                    value="sms"
+                                    disabled={phoneDestinations.length === 0}
+                                  >
+                                    {t(
+                                      "payment.addUpdatePayment.form.channel.sms",
+                                    )}
+                                  </SelectItem>
+                                  <SelectItem value="copy">
+                                    {t(
+                                      "payment.addUpdatePayment.form.channel.copy",
+                                    )}
+                                  </SelectItem>
                                 </SelectContent>
                               </Select>
-                            ) : (
-                              <Input {...field} disabled={loading} />
-                            )}
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
+                            </FormControl>
+                            {paymentLinkApps.length < 2 ? (
+                              <FormDescription>
+                                {t(
+                                  "services.giftCards.form.channel.description",
+                                )}
+                              </FormDescription>
+                            ) : null}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      {(channel === "email" || channel === "sms") && (
+                        <FormField
+                          control={form.control}
+                          name="to"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabelWithRequiredIndicator required>
+                                {t("payment.addUpdatePayment.form.to.label")}
+                              </FormLabelWithRequiredIndicator>
+                              <FormControl>
+                                {destinations.length > 1 ? (
+                                  <Select
+                                    value={field.value}
+                                    onValueChange={(value) => {
+                                      field.onChange(value);
+                                      field.onBlur();
+                                    }}
+                                    disabled={loading}
+                                  >
+                                    <SelectTrigger>
+                                      <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {destinations.map((destination) => (
+                                        <SelectItem
+                                          key={destination}
+                                          value={destination}
+                                        >
+                                          {destination}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                ) : (
+                                  <Input
+                                    value={destinations[0] ?? ""}
+                                    disabled
+                                    readOnly
+                                  />
+                                )}
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       )}
-                    />
+                      {sendingSms ? (
+                        <div className="md:col-span-2">
+                          <SmsConsentAttest
+                            id="gift-card-payment-link-sms-consent"
+                            phone={smsTo}
+                            status={smsConsentStatus}
+                            checked={smsConsent}
+                            disabled={loading}
+                            onCheckedChange={setSmsConsent}
+                            required
+                          />
+                        </div>
+                      ) : null}
+                    </>
                   )}
                 </>
               )}
-            </>
-          )}
+            </CardContent>
+          </Card>
         </div>
-        <SaveButton form={form} />
+        <SaveButton form={form} disabled={smsBlocked} />
       </form>
     </Form>
   );

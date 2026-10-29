@@ -143,7 +143,7 @@ export const CommunicationLogsTableAction: React.FC<{
         className,
       )}
     >
-      <div className="flex w-full min-w-0 flex-wrap items-center gap-2">
+      <div className="flex w-full min-w-0 flex-nowrap items-center gap-2">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}

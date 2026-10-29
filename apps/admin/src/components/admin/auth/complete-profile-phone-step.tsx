@@ -8,7 +8,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   PhoneInput,
   Spinner,
@@ -49,7 +49,9 @@ export function CompleteProfilePhoneStep({
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("auth.signUp.phone")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("auth.signUp.phone")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <PhoneInput
                   label={t("auth.signUp.phone")}

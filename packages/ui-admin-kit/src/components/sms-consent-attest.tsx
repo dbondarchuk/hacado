@@ -62,6 +62,7 @@ export const SmsConsentAttest = ({
   onCheckedChange,
   disabled,
   id = "sms-consent-attest",
+  required = false,
 }: {
   phone?: string | null;
   status?: SmsConsentAttestStatus;
@@ -69,6 +70,7 @@ export const SmsConsentAttest = ({
   onCheckedChange: (checked: boolean) => void;
   disabled?: boolean;
   id?: string;
+  required?: boolean;
 }) => {
   const t = useI18n("admin");
   if (!normalizeToE164(phone ?? "") || !status) {
@@ -99,6 +101,7 @@ export const SmsConsentAttest = ({
       />
       <label htmlFor={id} className="text-sm cursor-pointer">
         {t("smsConsent.attest")}
+        {required && <span className="text-destructive ml-1">*</span>}
       </label>
     </div>
   );

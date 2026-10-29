@@ -9,6 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Textarea,
   toast,
@@ -92,7 +93,9 @@ export const AssetForm: React.FC = () => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("assets.form.asset")}</FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("assets.form.asset")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <DndFileInput
                   disabled={loading}

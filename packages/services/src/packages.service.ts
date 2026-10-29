@@ -451,7 +451,7 @@ export class PackagesService extends BaseService implements IPackagesService {
       eligibleMemberIds: definition.eligibleMemberIds,
       purchasedAt: now,
       expiresAt,
-      status: "active",
+      status: await this.purchaseStatus(input.paymentId),
       paymentId: input.paymentId,
       paymentIntentId: input.paymentIntentId,
       channel: input.channel,
@@ -486,6 +486,26 @@ export class PackagesService extends BaseService implements IPackagesService {
     );
 
     return customerPackage;
+  }
+
+  public async activatePendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void> {
+    const existing = await this.findByPaymentId(paymentId);
+    if (!existing || existing.status !== "pending") return;
+
+    await this.adjust(existing._id, { reactivate: true }, source);
+  }
+
+  public async cancelPendingByPaymentId(
+    paymentId: string,
+    source: EventSource,
+  ): Promise<void> {
+    const existing = await this.findByPaymentId(paymentId);
+    if (!existing || existing.status !== "pending") return;
+
+    await this.adjust(existing._id, { cancel: true }, source);
   }
 
   public async issueFromPayment(input: {
@@ -742,7 +762,10 @@ export class PackagesService extends BaseService implements IPackagesService {
       source,
     );
 
-    if (request.cancel && previousStatus === "active") {
+    if (
+      request.cancel &&
+      (previousStatus === "active" || previousStatus === "pending")
+    ) {
       await this.eventService.emit(
         CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
         {
@@ -963,6 +986,29 @@ export class PackagesService extends BaseService implements IPackagesService {
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,
     });
+  }
+
+  private async purchaseStatus(
+    paymentId?: string,
+  ): Promise<CustomerPackage["status"]> {
+    if (!paymentId) return "active";
+
+    const payment = await this.paymentsService.getPayment(paymentId);
+    if (payment?.method === "payment-link" && payment.status === "pending") {
+      return "pending";
+    }
+
+    return "active";
+  }
+
+  private async findByPaymentId(paymentId: string) {
+    const db = await getDbConnection();
+    return db
+      .collection<CustomerPackage>(CUSTOMER_PACKAGES_COLLECTION_NAME)
+      .findOne({
+        organizationId: this.organizationId,
+        paymentId,
+      });
   }
 
   private async findByPaymentIntent(paymentIntentId: string) {

@@ -106,9 +106,7 @@ export const OptionSelector: React.FC<OptionSelectorProps> = ({
           .map((option) => ({
             label: <OptionLabel option={option} />,
             shortLabel: (
-              <span className="shrink overflow-hidden text-nowrap min-w-0">
-                {option.name}
-              </span>
+              <span className="block min-w-0 truncate">{option.name}</span>
             ),
             value: option._id,
           })) satisfies IComboboxItem[],

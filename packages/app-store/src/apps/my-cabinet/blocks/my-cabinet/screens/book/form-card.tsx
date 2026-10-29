@@ -108,21 +108,24 @@ export const FormCard: React.FC = () => {
                     field.name === "email" ||
                     field.name === "phone",
                 )}
+                {field.name === "phone" && (
+                  <AppointmentSmsConsent
+                    id="cabinet-booking-sms-consent"
+                    offer={smsText}
+                    phone={propsFields.phone}
+                    profilePhone={propsFields.phone}
+                    profileConsent={propsFields.smsConsent === true}
+                    checked={smsConsent}
+                    onCheckedChange={setSmsConsent}
+                    lookup={async (phone) => {
+                      const result =
+                        await clientApi.booking.getSmsConsent(phone);
+                      return result.consented === true;
+                    }}
+                  />
+                )}
               </React.Fragment>
             ))}
-            <AppointmentSmsConsent
-              id="cabinet-booking-sms-consent"
-              offer={smsText}
-              phone={propsFields.phone}
-              profilePhone={propsFields.phone}
-              profileConsent={propsFields.smsConsent === true}
-              checked={smsConsent}
-              onCheckedChange={setSmsConsent}
-              lookup={async (phone) => {
-                const result = await clientApi.booking.getSmsConsent(phone);
-                return result.consented === true;
-              }}
-            />
           </div>
         </form>
       </Form>

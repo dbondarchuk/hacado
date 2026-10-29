@@ -237,7 +237,7 @@ export const AppointmentNotificationForm: React.FC<{
         />
         <div className="flex flex-col gap-4 rounded-lg border p-4">
           <p className="text-sm font-medium">{t("form.schedule.label")}</p>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2 pt-4 border-t">
             <FormField
               control={form.control}
               name="type"
@@ -496,6 +496,7 @@ export const AppointmentNotificationForm: React.FC<{
             render={({ field }) => (
               <SwitchCardFormItem
                 alwaysItemsStart
+                noCard="borderTop"
                 label={t("form.appointmentCount.label")}
                 description={t("form.appointmentCount.description")}
                 checked={field.value !== "none"}
@@ -583,13 +584,14 @@ export const AppointmentNotificationForm: React.FC<{
               </p>
             ) : null}
           </div>
-          <div className="grid grid-cols-1 items-stretch gap-4">
+          <div className="grid grid-cols-1 items-stretch gap-4 pt-4 border-t">
             <FormField
               control={form.control}
               name="emailEnabled"
               render={({ field }) => (
                 <SwitchCardFormItem
                   alwaysItemsStart
+                  noCard
                   label={t("form.email.label")}
                   description={t("form.email.description")}
                   checked={field.value === true}
@@ -630,6 +632,7 @@ export const AppointmentNotificationForm: React.FC<{
               render={({ field }) => (
                 <SwitchCardFormItem
                   alwaysItemsStart
+                  noCard="borderTop"
                   label={t("form.textMessage.label")}
                   description={t("form.textMessage.description")}
                   checked={field.value === true}

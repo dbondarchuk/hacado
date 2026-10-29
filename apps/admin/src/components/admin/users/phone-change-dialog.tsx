@@ -19,7 +19,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   PhoneInput,
   Spinner,
@@ -134,9 +134,9 @@ export const PhoneChangeDialog = ({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabelWithRequiredIndicator required>
                       {t("users.profile.phoneChange.form.phone")}
-                    </FormLabel>
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <PhoneInput
                         label={t("users.profile.phoneChange.form.phone")}

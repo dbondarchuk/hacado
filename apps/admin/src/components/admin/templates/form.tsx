@@ -12,11 +12,11 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   toastPromise,
   useDebounceCacheFn,
@@ -126,10 +126,9 @@ export const TemplateForm: React.FC<
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("templates.form.name")}{" "}
-                  <InfoTooltip>{t("templates.form.nameTooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("templates.form.name")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     disabled={loading}
@@ -137,6 +136,9 @@ export const TemplateForm: React.FC<
                     {...field}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("templates.form.nameTooltip")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -147,12 +149,9 @@ export const TemplateForm: React.FC<
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator required>
                     {t("templates.form.subject")}
-                    <InfoTooltip>
-                      {t("templates.form.subjectTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <ArgumentsAutocomplete
                       args={args}
@@ -162,6 +161,9 @@ export const TemplateForm: React.FC<
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("templates.form.subjectTooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -192,7 +194,7 @@ export const TemplateForm: React.FC<
             )}
           />
         </div>
-        <SaveButton form={form} ignoreDirty />
+        <SaveButton form={form} />
       </form>
     </Form>
   );

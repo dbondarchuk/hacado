@@ -113,7 +113,7 @@ export function DataTableRangeBox({
     <CalendarDateRangePicker
       range={range}
       onChange={onRangeChange}
-      className="w-auto"
+      className="w-full justify-center"
       rangeOptions={dateRangeOptions.map((option) => ({
         label: t(`dateRangePicker.rangeOptions.${option}`),
         name: option,

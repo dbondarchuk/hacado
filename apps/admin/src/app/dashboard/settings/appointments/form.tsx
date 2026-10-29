@@ -125,7 +125,7 @@ export const AppointmentsSettingsForm: React.FC<{
                 form.getFieldState("catalog").invalid ? "text-destructive" : "",
               )}
             >
-              {t("settings.appointments.form.tabs.options")}
+              {t("settings.appointments.form.tabs.catalog")}
             </TabsTrigger>
             <TabsTrigger
               value="payments"

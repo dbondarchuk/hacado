@@ -348,7 +348,7 @@ purchases:
       error: No se pudo crear la compra de la tarjeta de regalo
 settings:
   notifyOwnerOnPurchase:
-    label: Correo electrónico sobre nueva compra
+    label: Notificar a los administradores de la organización sobre nueva compra
     description: Envíe un correo electrónico a los administradores de la organización cuando un cliente compre una tarjeta de regalo en su sitio web.
   emailTemplateToPurchaser: Plantilla de correo electrónico (tarjeta de regalo para el comprador)
   emailTemplateToRecipient: Plantilla de correo electrónico (tarjeta de regalo para el destinatario)
@@ -477,4 +477,3 @@ emails:
       **Cliente:** {customerName} ({customerEmail})
       **Destinatario:** {recipientName} ({recipientEmail})
     view: Ver compra
-

@@ -13,7 +13,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  Checkbox,
   DateTimePicker,
   Dialog,
   DialogClose,
@@ -26,16 +25,16 @@ import {
   DurationInput,
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Spinner,
   toastPromise,
   use12HourFormat,
   useTimeZone,
 } from "@hacado/ui";
+import { SwitchCardFormItem } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { DateTime } from "luxon";
@@ -209,9 +208,9 @@ export const AppointmentRescheduleDialog: React.FC<
                       name="dateTime"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t("appointments.rescheduleDialog.dateTime")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <DateTimePicker
                               use12HourFormat={uses12HourFormat}
@@ -233,9 +232,9 @@ export const AppointmentRescheduleDialog: React.FC<
                       name="duration"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t("appointments.rescheduleDialog.duration")}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <DurationInput disabled={loading} {...field} />
                           </FormControl>
@@ -247,53 +246,31 @@ export const AppointmentRescheduleDialog: React.FC<
                       control={form.control}
                       name="doNotNotifyCustomer"
                       render={({ field }) => (
-                        <FormItem>
-                          <div className="flex flex-row items-center gap-2">
-                            <Checkbox
-                              id="do-not-notify-customer"
-                              disabled={loading}
-                              checked={!!field.value}
-                              onCheckedChange={(e) => field.onChange(!!e)}
-                            />
-                            <FormLabel
-                              htmlFor="do-not-notify-customer"
-                              className="cursor-pointer"
-                            >
-                              {t(
-                                "appointments.rescheduleDialog.doNotNotifyCustomer",
-                              )}
-                            </FormLabel>
-                          </div>
-                          <FormDescription>
-                            {t(
-                              "appointments.rescheduleDialog.doNotNotifyCustomerDescription",
-                            )}
-                          </FormDescription>
-                        </FormItem>
+                        <SwitchCardFormItem
+                          label={t(
+                            "appointments.rescheduleDialog.doNotNotifyCustomer",
+                          )}
+                          description={t(
+                            "appointments.rescheduleDialog.doNotNotifyCustomerDescription",
+                          )}
+                          checked={field.value ?? false}
+                          onCheckedChange={field.onChange}
+                          disabled={loading}
+                        />
                       )}
                     />
                     {isOverlaping && (
-                      <FormItem>
-                        <div className="flex flex-row items-center gap-2">
-                          <Checkbox
-                            id="confirm-overlap"
-                            disabled={loading}
-                            checked={confirmOverlap}
-                            onCheckedChange={(e) => setConfirmOverlap(!!e)}
-                          />
-                          <FormLabel
-                            htmlFor="confirm-overlap"
-                            className="cursor-pointer"
-                          >
-                            {t("appointments.rescheduleDialog.confirmOverlap")}
-                          </FormLabel>
-                        </div>
-                        <FormDescription>
-                          {t(
-                            "appointments.rescheduleDialog.confirmOverlapDescription",
-                          )}
-                        </FormDescription>
-                      </FormItem>
+                      <SwitchCardFormItem
+                        label={t(
+                          "appointments.rescheduleDialog.confirmOverlap",
+                        )}
+                        description={t(
+                          "appointments.rescheduleDialog.confirmOverlapDescription",
+                        )}
+                        checked={confirmOverlap}
+                        onCheckedChange={setConfirmOverlap}
+                        disabled={loading}
+                      />
                     )}
                   </div>
                   <div className="flex flex-col gap-2">

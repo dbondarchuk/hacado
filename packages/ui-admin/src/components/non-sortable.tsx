@@ -65,6 +65,7 @@ export function NonSortable({
               disabled={disabled || disabledAdd}
               variant="ghost"
               onClick={onAdd}
+              size="sm"
               aria-label={addButtonText ?? "Add a new item"}
             >
               <Plus /> {addButtonText}

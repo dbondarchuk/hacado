@@ -5,24 +5,13 @@ import {
 } from "@hacado/types";
 import {
   Badge,
-  BooleanSelect,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  FormControl,
   FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  InfoTooltip,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from "@hacado/ui";
-import { NonSortable } from "@hacado/ui-admin";
+import { NonSortable, SwitchCardFormItem } from "@hacado/ui-admin";
 import {
   CancellationPolicyCard,
   CancellationPolicyCardContent,
@@ -68,226 +57,160 @@ const CancellationSection: React.FC<TabProps & { withDeposit: boolean }> = ({
   };
 
   return (
-    <Card>
-      <CardHeader className="border-b">
-        <CardTitle className="text-base font-semibold uppercase tracking-wide text-muted-foreground">
-          {t(
-            `services.options.form.cancellationPolicy.${withDeposit ? "withDeposit" : "withoutDeposit"}.title`,
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4 py-6">
-        <FormField
-          control={form.control}
-          name={`${baseName}.type`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                {t("services.options.form.cancellationPolicy.type.label")}{" "}
-                <InfoTooltip>
-                  {t(`services.options.form.cancellationPolicy.type.tooltip`)}
-                </InfoTooltip>
-              </FormLabel>
-              <FormControl>
-                <Select
-                  value={field.value ?? "inherit"}
-                  onValueChange={(val) => {
-                    field.onChange(val);
-                    field.onBlur();
-                  }}
-                  disabled={disabled}
-                >
-                  <SelectTrigger>
-                    <SelectValue
-                      placeholder={t(
-                        "services.options.form.cancellationPolicy.type.placeholder",
-                      )}
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="inherit">
-                      {t(
-                        "services.options.form.cancellationPolicy.type.inherit",
-                      )}
-                    </SelectItem>
-                    <SelectItem value="custom">
-                      {t(
-                        "services.options.form.cancellationPolicy.type.custom",
-                      )}
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {type === "custom" && (
-          <>
-            <FormField
-              control={form.control}
-              name={`${baseName}.enabled`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("cancellationsAndReschedules.enabled.label")}{" "}
-                    <InfoTooltip>
-                      {t(
-                        `cancellationsAndReschedules.cancellationPolicy.enabledTooltip`,
-                      )}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      disabled={disabled}
-                      value={field.value ?? false}
-                      onValueChange={(val) => {
-                        field.onChange(val);
-                        field.onBlur();
-                        if (
-                          val &&
-                          !form.getValues(`${baseName}.defaultPolicy.action`)
-                        ) {
-                          form.setValue(
-                            `${baseName}.defaultPolicy.action`,
-                            "notAllowed",
-                          );
-                        }
-                      }}
-                      trueLabel={t(
-                        `cancellationsAndReschedules.enabled.labels.enabled`,
-                      )}
-                      falseLabel={t(
-                        `cancellationsAndReschedules.enabled.labels.disabled`,
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {enabled && (
+    // <Card>
+    //   <CardHeader className="border-b">
+    //     <CardTitle className="text-base font-semibold uppercase tracking-wide text-muted-foreground">
+    //       {t(
+    //         `services.options.form.cancellationPolicy.${withDeposit ? "withDeposit" : "withoutDeposit"}.title`,
+    //       )}
+    //     </CardTitle>
+    //   </CardHeader>
+    //   <CardContent className="flex flex-col gap-4 py-6">
+    <div className="flex flex-col gap-4">
+      <div className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        {t(
+          `services.options.form.cancellationPolicy.${withDeposit ? "withDeposit" : "withoutDeposit"}.title`,
+        )}
+      </div>
+      <FormField
+        control={form.control}
+        name={`${baseName}.type`}
+        render={({ field }) => (
+          <SwitchCardFormItem
+            label={t(
+              "services.options.form.cancellationPolicy.customPolicy.label",
+            )}
+            description={t(
+              "services.options.form.cancellationPolicy.customPolicy.tooltip",
+            )}
+            checked={field.value === "custom"}
+            onCheckedChange={(checked) => {
+              field.onChange(checked ? "custom" : "inherit");
+              field.onBlur();
+            }}
+          >
+            {type === "custom" && (
               <>
                 <FormField
                   control={form.control}
-                  name={`${baseName}.doNotAllowIfRescheduled`}
+                  name={`${baseName}.enabled`}
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        {t(
-                          "cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.label",
-                        )}{" "}
-                        <InfoTooltip>
-                          {t(
-                            `cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.tooltip`,
-                          )}
-                        </InfoTooltip>
-                      </FormLabel>
-                      <FormControl>
-                        <BooleanSelect
-                          value={field.value ?? false}
-                          onValueChange={(val) => {
-                            field.onChange(val);
-                            if (val) {
-                              form.setValue(
-                                `${baseName}.policies`,
-                                form.getValues(`${baseName}.policies`) ||
-                                  ([] as any),
-                              );
+                    <SwitchCardFormItem
+                      label={t(
+                        "cancellationsAndReschedules.cancellationPolicy.enabled.label",
+                      )}
+                      description={t(
+                        "cancellationsAndReschedules.cancellationPolicy.enabled.tooltip",
+                      )}
+                      checked={field.value ?? false}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked);
+                        field.onBlur();
+                      }}
+                      noCard="borderTop"
+                      className="pb-0"
+                    >
+                      {enabled && (
+                        <div className="flex flex-col gap-4 pt-4 border-t border-border">
+                          <FormField
+                            control={form.control}
+                            name={`${baseName}.doNotAllowIfRescheduled`}
+                            render={({ field }) => (
+                              <SwitchCardFormItem
+                                label={t(
+                                  "cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.label",
+                                )}
+                                description={t(
+                                  "cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.tooltip",
+                                )}
+                                checked={!field.value}
+                                onCheckedChange={(checked) => {
+                                  field.onChange(!checked);
+                                  field.onBlur();
+                                }}
+                                noCard
+                                className="pb-0"
+                              />
+                            )}
+                          />
+
+                          <Card>
+                            <CardHeader className="border-b">
+                              <CardTitle className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm text-muted-foreground">
+                                <span className="font-semibold uppercase tracking-wide">
+                                  {t(
+                                    "cancellationsAndReschedules.cancellationPolicy.default.title",
+                                  )}
+                                </span>
+                                <span>
+                                  {t(
+                                    "cancellationsAndReschedules.cancellationPolicy.default.label",
+                                  )}
+                                </span>
+                              </CardTitle>
+                            </CardHeader>
+                            <CardContent className="py-6 grid grid-cols-1 gap-4">
+                              <CancellationPolicyCardContent
+                                basePath="cancellationPolicy"
+                                withDeposit={withDeposit}
+                                form={form}
+                                disabled={disabled}
+                                default
+                              />
+                            </CardContent>
+                          </Card>
+                          <NonSortable
+                            addButtonText={t(
+                              "cancellationsAndReschedules.cancellationPolicy.policies.add",
+                            )}
+                            title={
+                              <div className="flex flex-row items-center gap-2">
+                                <span>
+                                  {t(
+                                    "cancellationsAndReschedules.cancellationPolicy.policies.title",
+                                  )}
+                                </span>
+                                <Badge
+                                  variant="secondary"
+                                  className="text-sm normal-case hidden md:block"
+                                >
+                                  {t(
+                                    "cancellationsAndReschedules.cancellationPolicy.policies.badge",
+                                  )}
+                                </Badge>
+                              </div>
                             }
-
-                            field.onBlur();
-
-                            form.trigger(`${baseName}.policies`);
-
-                            form.trigger(`${baseName}.defaultPolicy.action`);
-                          }}
-                          disabled={disabled}
-                          trueLabel={t(
-                            "cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.labels.true",
-                          )}
-                          falseLabel={t(
-                            "cancellationsAndReschedules.cancellationPolicy.doNotAllowIfRescheduled.labels.false",
-                          )}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
+                            ids={ids}
+                            onAdd={addNew}
+                            className="border-none shadow-none [&>div]:border-none [&>div]:py-2 [&>div]:px-0"
+                          >
+                            <div className="flex flex-grow flex-col gap-4">
+                              {policies.map((item, index) => {
+                                return (
+                                  <CancellationPolicyCard
+                                    form={form}
+                                    disabled={disabled}
+                                    index={index}
+                                    remove={() => removePolicy(index)}
+                                    key={item.fields_id}
+                                    withDeposit={withDeposit}
+                                    basePath="cancellationPolicy"
+                                  />
+                                );
+                              })}
+                            </div>
+                          </NonSortable>
+                        </div>
+                      )}
+                    </SwitchCardFormItem>
                   )}
                 />
-
-                <Card>
-                  <CardHeader className="border-b">
-                    <CardTitle className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm text-muted-foreground">
-                      <span className="font-semibold uppercase tracking-wide">
-                        {t(
-                          "cancellationsAndReschedules.cancellationPolicy.default.title",
-                        )}
-                      </span>
-                      <span>
-                        {t(
-                          "cancellationsAndReschedules.cancellationPolicy.default.label",
-                        )}
-                      </span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="py-6 grid grid-cols-1 gap-4">
-                    <CancellationPolicyCardContent
-                      basePath="cancellationPolicy"
-                      withDeposit={withDeposit}
-                      form={form}
-                      disabled={disabled}
-                      default
-                    />
-                  </CardContent>
-                </Card>
-                <NonSortable
-                  addButtonText={t(
-                    "cancellationsAndReschedules.cancellationPolicy.policies.add",
-                  )}
-                  title={
-                    <div className="flex flex-row items-center gap-2">
-                      <span>
-                        {t(
-                          "cancellationsAndReschedules.cancellationPolicy.policies.title",
-                        )}
-                      </span>
-                      <Badge
-                        variant="secondary"
-                        className="text-sm normal-case hidden md:block"
-                      >
-                        {t(
-                          "cancellationsAndReschedules.cancellationPolicy.policies.badge",
-                        )}
-                      </Badge>
-                    </div>
-                  }
-                  ids={ids}
-                  onAdd={addNew}
-                  className="border-none shadow-none [&>div]:border-none [&>div]:py-2 [&>div]:px-0"
-                >
-                  <div className="flex flex-grow flex-col gap-4">
-                    {policies.map((item, index) => {
-                      return (
-                        <CancellationPolicyCard
-                          form={form}
-                          disabled={disabled}
-                          index={index}
-                          remove={() => removePolicy(index)}
-                          key={item.fields_id}
-                          withDeposit={withDeposit}
-                          basePath="cancellationPolicy"
-                        />
-                      );
-                    })}
-                  </div>
-                </NonSortable>
               </>
             )}
-          </>
+          </SwitchCardFormItem>
         )}
-      </CardContent>
-    </Card>
+      />
+    </div>
   );
 };
 

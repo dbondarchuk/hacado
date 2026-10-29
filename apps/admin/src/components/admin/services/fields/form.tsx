@@ -11,16 +11,20 @@ import {
   ServiceFieldUpdateModel,
 } from "@hacado/types";
 import {
-  BooleanSelect,
   Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Combobox,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -36,11 +40,11 @@ import {
   toastPromise,
   useDebounceCacheFn,
 } from "@hacado/ui";
-import { SaveButton, Sortable } from "@hacado/ui-admin";
+import { SaveButton, Sortable, SwitchCardFormItem } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import { SelectFieldOptionCard } from "./select-field-option-card";
 
@@ -177,8 +181,18 @@ export const ServiceFieldForm: React.FC<{
     appendSelectOption({
       option: "",
     });
+
+    form.trigger("data.options");
   };
 
+  const optionsFormState = useFormState({
+    control: form.control,
+    name: "data.options",
+  });
+  const selectOptionsState = form.getFieldState(
+    "data.options",
+    optionsFormState,
+  );
   const selectOptionsIds = selectOptionsFields.map((x) => x.id);
 
   const fieldType = form.watch("type");
@@ -186,177 +200,208 @@ export const ServiceFieldForm: React.FC<{
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("services.fields.form.name")}{" "}
-                    <InfoTooltip>
-                      {t("services.fields.form.nameTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder={t("services.fields.form.namePlaceholder")}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="data.label"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("services.fields.form.label")}{" "}
-                    <InfoTooltip>
-                      {t("services.fields.form.labelTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder={t("services.fields.form.labelPlaceholder")}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("services.fields.form.type")}{" "}
-                    <InfoTooltip>
-                      {t("services.fields.form.typeTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <Combobox
-                      disabled={loading}
-                      className="flex w-full font-normal text-lg"
-                      values={fieldTypes.map((type) => ({
-                        value: type,
-                        label: t(`common.labels.fieldType.${type}`),
-                      }))}
-                      searchLabel={t("services.fields.form.typePlaceholder")}
-                      value={field.value}
-                      onItemSelect={(item) => {
-                        field.onChange(item);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="required"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("services.fields.form.required")}{" "}
-                    <InfoTooltip>
-                      {t("services.fields.form.requiredTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      value={field.value ?? false}
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                        field.onBlur();
-                      }}
-                      className="w-full"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
-          {fieldType === "file" && (
-            <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
+        <div className="flex min-w-0 flex-col gap-4">
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("services.fields.form.details")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
               <FormField
                 control={form.control}
-                name="data.maxSizeMb"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("services.fields.form.maxSizeMbLabel")}{" "}
-                      <InfoTooltip>
-                        {t("services.fields.form.maxSizeMbTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.fields.form.name")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
-                      <InputGroup>
-                        <InputGroupInput>
-                          <Input
-                            disabled={loading}
-                            placeholder={t(
-                              "services.fields.form.maxSizeMbPlaceholder",
-                            )}
-                            type="number"
-                            className={InputGroupInputClasses()}
-                            {...field}
-                          />
-                        </InputGroupInput>
-                        <InputGroupAddon className={InputGroupAddonClasses()}>
-                          MB
-                        </InputGroupAddon>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="data.accept"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {t("services.fields.form.acceptedFilesLabel")}{" "}
-                      <InfoTooltip>
-                        {t("services.fields.form.acceptedFilesTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
-                    <FormControl>
-                      <TagInput
+                      <Input
+                        disabled={loading}
+                        placeholder={t("services.fields.form.namePlaceholder")}
                         {...field}
-                        readOnly
-                        placeholder={t(
-                          "services.fields.form.acceptedFilesPlaceholder",
-                        )}
-                        value={field.value}
-                        onChange={(e) => {
-                          field.onChange(e);
-                          field.onBlur();
-                        }}
-                        tagValidator={fileFieldAcceptItemSchema}
-                        addItemTemplate={FileTypePickerTag}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("services.fields.form.nameTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </div>
+              <FormField
+                control={form.control}
+                name="data.label"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.fields.form.label")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder={t("services.fields.form.labelPlaceholder")}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.fields.form.labelTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem className="md:col-span-2">
+                    <FormLabelWithRequiredIndicator required>
+                      {t("services.fields.form.type")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <Combobox
+                        disabled={loading}
+                        className="flex w-full font-normal text-lg"
+                        values={fieldTypes.map((type) => ({
+                          value: type,
+                          label: t(`common.labels.fieldType.${type}`),
+                        }))}
+                        searchLabel={t("services.fields.form.typePlaceholder")}
+                        value={field.value}
+                        onItemSelect={(item) => {
+                          field.onChange(item);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.fields.form.typeTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="data.description"
+                render={({ field }) => (
+                  <FormItem className="min-w-0 md:col-span-2">
+                    <FormLabel>
+                      {t("services.fields.form.description")}
+                    </FormLabel>
+                    <FormControl>
+                      <PlateMarkdownEditor
+                        className="bg-background px-4 sm:px-4 pb-24"
+                        disabled={loading}
+                        value={field.value}
+                        onChange={(v) => {
+                          field.onChange(v);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("services.fields.form.descriptionTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+          <FormField
+            control={form.control}
+            name="required"
+            render={({ field }) => (
+              <SwitchCardFormItem
+                label={t("services.fields.form.required")}
+                description={t("services.fields.form.requiredTooltip")}
+                checked={!!field.value}
+                disabled={loading}
+                onCheckedChange={(checked) => {
+                  field.onChange(checked);
+                  field.onBlur();
+                }}
+              />
+            )}
+          />
+          {fieldType === "file" && (
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("services.fields.form.fileSettings")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="data.maxSizeMb"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("services.fields.form.maxSizeMbLabel")}
+                      </FormLabel>
+                      <FormControl>
+                        <InputGroup>
+                          <InputGroupInput>
+                            <Input
+                              disabled={loading}
+                              placeholder={t(
+                                "services.fields.form.maxSizeMbPlaceholder",
+                              )}
+                              type="number"
+                              className={InputGroupInputClasses()}
+                              {...field}
+                            />
+                          </InputGroupInput>
+                          <InputGroupAddon className={InputGroupAddonClasses()}>
+                            MB
+                          </InputGroupAddon>
+                        </InputGroup>
+                      </FormControl>
+                      <FormDescription>
+                        {t("services.fields.form.maxSizeMbTooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="data.accept"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        {t("services.fields.form.acceptedFilesLabel")}
+                      </FormLabel>
+                      <FormControl>
+                        <TagInput
+                          {...field}
+                          readOnly
+                          placeholder={t(
+                            "services.fields.form.acceptedFilesPlaceholder",
+                          )}
+                          value={field.value}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            field.onBlur();
+                          }}
+                          tagValidator={fileFieldAcceptItemSchema}
+                          addItemTemplate={FileTypePickerTag}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t("services.fields.form.acceptedFilesTooltip")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
           )}
           {fieldType === "select" && (
             <Sortable
@@ -364,6 +409,11 @@ export const ServiceFieldForm: React.FC<{
               ids={selectOptionsIds}
               onSort={sortSelectOptions}
               onAdd={addNewSelectOption}
+              required
+              invalid={{
+                isInvalid: selectOptionsState.invalid,
+                message: selectOptionsState.error?.message,
+              }}
             >
               <div className="flex flex-grow flex-col gap-4">
                 {selectOptionsFields.map((item, index) => {
@@ -374,39 +424,16 @@ export const ServiceFieldForm: React.FC<{
                       key={item.id}
                       name={`data.options.${index}`}
                       disabled={loading}
-                      remove={() => removeSelectOption(index)}
+                      remove={() => {
+                        removeSelectOption(index);
+                        void form.trigger("data.options");
+                      }}
                     />
                   );
                 })}
               </div>
             </Sortable>
           )}
-          <FormField
-            control={form.control}
-            name="data.description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  {t("services.fields.form.description")}{" "}
-                  <InfoTooltip>
-                    {t("services.fields.form.descriptionTooltip")}
-                  </InfoTooltip>
-                </FormLabel>
-                <FormControl>
-                  <PlateMarkdownEditor
-                    className="bg-background px-4 sm:px-4 pb-24"
-                    disabled={loading}
-                    value={field.value}
-                    onChange={(v) => {
-                      field.onChange(v);
-                      field.onBlur();
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
         <SaveButton form={form} />
       </form>

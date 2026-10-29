@@ -18,6 +18,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputOTP,
@@ -193,7 +194,9 @@ export const UserAuthForm = ({
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center gap-2">
-                  <FormLabel>{t("auth.email")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("auth.email")}
+                  </FormLabelWithRequiredIndicator>
                   {isEmailLastUsed ? <LastUsedInlineBadge /> : null}
                 </div>
                 <FormControl>

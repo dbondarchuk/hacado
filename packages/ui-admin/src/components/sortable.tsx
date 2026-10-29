@@ -28,12 +28,14 @@ export type SortableProps = {
   ids: string[];
   onSort: (activeId: string, overId: string) => void;
   onAdd?: () => void;
+  addButton?: React.ReactNode;
   children: React.ReactNode | React.ReactNode[];
   disabled?: boolean;
   allCollapsed?: boolean;
   collapse?: () => void;
   className?: string;
   invalid?: boolean | { isInvalid: boolean; message?: string | AllKeys };
+  required?: boolean;
 };
 
 export function Sortable({
@@ -45,14 +47,16 @@ export function Sortable({
   collapse,
   onSort,
   onAdd,
+  addButton,
   className,
   invalid,
+  required,
 }: SortableProps) {
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
   const t = useI18n();
 
   const variants = cva(
-    "h-fit max-h-[75vh] max-w-full bg-card flex flex-col snap-center w-full",
+    "h-fit max-h-[75vh] min-w-0 max-w-full bg-card flex flex-col snap-center w-full",
     {
       variants: {
         dragging: {
@@ -93,12 +97,17 @@ export function Sortable({
         <CardTitle className="text-xs font-semibold uppercase tracking-wide text-muted-foreground flex items-center justify-between">
           <div
             className={cn(
-              "flex flex-col gap-1 text-center text-xs font-semibold uppercase tracking-wide text-muted-foreground",
+              "flex flex-col gap-1 text-left text-xs text-muted-foreground",
               isInvalid ? "text-destructive" : "",
             )}
           >
-            <div>{title}</div>
-            {invalidMessage && <div className="text-xs">{invalidMessage}</div>}
+            <div className="font-semibold uppercase tracking-wide">
+              {title}{" "}
+              {required ? <span className="text-destructive">*</span> : null}
+            </div>
+            {invalidMessage && (
+              <div className="text-[10px]">{invalidMessage}</div>
+            )}
           </div>
           <div className="flex flex-row gap-2 items-center">
             {collapse && (
@@ -113,7 +122,9 @@ export function Sortable({
                 <ChevronsUpDown />
               </Button>
             )}
-            {onAdd ? (
+            {addButton ? (
+              addButton
+            ) : onAdd ? (
               <Button
                 type="button"
                 disabled={disabled}
@@ -130,7 +141,7 @@ export function Sortable({
       </CardHeader>
       <DndContext sensors={sensors} onDragOver={onDragOver}>
         <CardContent className="overflow-x-hidden p-2">
-          <ScrollArea className="h-full">
+          <ScrollArea className="h-full w-full min-w-0 [&>div>div[style]]:!block [&>div>div[style]]:!min-w-0 [&>div>div[style]]:!w-full">
             <SortableContext items={ids}>{children}</SortableContext>
           </ScrollArea>
         </CardContent>

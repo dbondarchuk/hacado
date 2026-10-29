@@ -12,3 +12,21 @@ export const smartScheduleConfigurationSchema = z.object({
 export type SmartScheduleConfiguration = z.infer<
   typeof smartScheduleConfigurationSchema
 >;
+
+export const smartScheduleSetupSchema = smartScheduleConfigurationSchema
+  .extend({
+    maximizeForService: z.boolean().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.maximizeForService && !data.maximizeForOption) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["maximizeForOption"],
+        message: "app_smart-schedule_admin.form.preferredServiceRequired",
+      });
+    }
+  });
+
+export type SmartScheduleSetupConfiguration = z.infer<
+  typeof smartScheduleSetupSchema
+>;

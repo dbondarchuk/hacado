@@ -67,7 +67,7 @@ export function DataTableFilterBox<T extends boolean | string>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="border-dashed">
+        <Button variant="outline" className="border-dashed w-full">
           <PlusCircledIcon className="mr-2 size-3.5" />
           {title}
           {selectedValuesSet.size > 0 && (

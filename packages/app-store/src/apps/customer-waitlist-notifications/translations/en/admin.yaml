@@ -57,6 +57,7 @@ setup:
       required: Enter a keyword customers can text to leave
     slotOpenedChannel:
       required: Turn on email, text message, or both.
+    offerSettings: Offer settings
 handlers:
   newWaitlistEntry: Customer Waitlist Notification - New Entry
   slotOpened: Customer Waitlist Notification - Slot opened

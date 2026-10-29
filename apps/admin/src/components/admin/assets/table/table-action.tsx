@@ -51,7 +51,7 @@ export const AssetsTableAction: React.FC<{
         className,
       )}
     >
-      <div className="flex min-w-0 w-full flex-1 flex-wrap items-center gap-4">
+      <div className="flex min-w-0 w-full flex-1 flex-nowrap items-center gap-2 md:gap-4">
         <DataTableSearch
           searchKey="name"
           searchQuery={searchQuery}

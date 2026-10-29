@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
 } from "@hacado/ui";
@@ -53,16 +53,16 @@ export const IcsAppSetup: React.FC<AppSetupProps> = ({
               name="link"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.link.label")}{" "}
-                    <InfoTooltip>{t("form.link.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.link.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.link.placeholder")}
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.link.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

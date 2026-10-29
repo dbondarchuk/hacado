@@ -85,6 +85,13 @@ saveButton:
   defaultText: Ahorrar
   fixErrorsTitle: Por favor corrija los siguientes errores
   fixErrorsDescription: "Corrija los siguientes errores antes de guardar:"
+  saving: Ahorro...
+  saved: Guardado
+  failed: No se pudo guardar
+  retry: Rever
+  discard: Desechar
+  unsaved: No guardado
+  fixErrors: Por favor corrija los errores antes de guardar.
 toast:
   close: Cerca
 form:
@@ -148,7 +155,7 @@ durationInput:
   hr: hora
   hrShort: h
   min: mín.
-  minShort: m
+  minShort: metro
   sec: segundo
   secShort: s
   weeks: semanas

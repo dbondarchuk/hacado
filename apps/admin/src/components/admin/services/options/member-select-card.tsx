@@ -24,6 +24,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputGroup,
@@ -192,9 +193,9 @@ export const MemberSelectCard: React.FC<MemberSelectProps> = ({
           name={`${name}.memberId`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>
+              <FormLabelWithRequiredIndicator required>
                 {t("services.options.form.staff.memberSelectCard.member")}
-              </FormLabel>
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <MemberSelector
                   disabled={disabled}

@@ -1,8 +1,8 @@
 import * as z from "zod";
 import { menuItemsWithSubMenuSchema } from "../configuration/styling/menu-item";
 import {
-  zThemeColor,
-  zThemeColorWithTransparent,
+  zThemeColorWithCurrentColor,
+  zThemeColorWithTransparentAndCurrentColor,
 } from "../configuration/styling/styling";
 import { WithDatabaseId, WithOrganizationId } from "../database";
 import { asOptionalField, Prettify, zAssetName } from "../utils";
@@ -38,10 +38,11 @@ export type PageHeaderLogoNameFontWeight =
   (typeof pageHeaderLogoNameFontWeight)[number];
 
 /** System color, transparent, or custom HSL `"H S% L%"`. */
-export const zPageHeaderBackgroundColor = zThemeColorWithTransparent;
+export const zPageHeaderBackgroundColor =
+  zThemeColorWithTransparentAndCurrentColor;
 
 /** System color or custom HSL `"H S% L%"` (no transparent). */
-export const zPageHeaderTextColor = zThemeColor;
+export const zPageHeaderTextColor = zThemeColorWithCurrentColor;
 
 const zHeaderLogo = asOptionalField(zAssetName).nullable();
 

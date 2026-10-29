@@ -23,16 +23,18 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CardTitle,
   cn,
   Combobox,
   DateTimeInput,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -398,322 +400,354 @@ export const DiscountForm: React.FC<{
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.name")}{" "}
-                    <InfoTooltip>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("admin.services.discounts.form.details")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("admin.services.discounts.form.name")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder={t(
+                          "admin.services.discounts.form.namePlaceholder",
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
                       {t("admin.services.discounts.form.nameTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder={t(
-                        "admin.services.discounts.form.namePlaceholder",
-                      )}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="enabled"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.status")}
-                  </FormLabel>
-                  <FormControl>
-                    <BooleanSelect
-                      className="w-full"
-                      trueLabel={t("admin.services.discounts.form.active")}
-                      falseLabel={t("admin.services.discounts.form.disabled")}
-                      value={field.value}
-                      onValueChange={(item) => {
-                        field.onChange(item);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.type")}{" "}
-                    <InfoTooltip>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enabled"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.status")}
+                    </FormLabel>
+                    <FormControl>
+                      <BooleanSelect
+                        className="w-full"
+                        trueLabel={t("admin.services.discounts.form.active")}
+                        falseLabel={t("admin.services.discounts.form.disabled")}
+                        value={field.value}
+                        onValueChange={(item) => {
+                          field.onChange(item);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("admin.services.discounts.form.enabledTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("admin.services.discounts.form.type")}
+                    </FormLabelWithRequiredIndicator>
+                    <FormControl>
+                      <Combobox
+                        disabled={loading}
+                        className="flex w-full font-normal text-lg"
+                        values={discountTypes.map((type) => ({
+                          value: type,
+                          label: t(`admin.common.labels.discountType.${type}`),
+                        }))}
+                        searchLabel={t(
+                          "admin.services.discounts.form.typePlaceholder",
+                        )}
+                        value={field.value}
+                        onItemSelect={(item) => {
+                          field.onChange(item);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
                       {t("admin.services.discounts.form.typeTooltip")}
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <Combobox
-                      disabled={loading}
-                      className="flex w-full font-normal text-lg"
-                      values={discountTypes.map((type) => ({
-                        value: type,
-                        label: t(`admin.common.labels.discountType.${type}`),
-                      }))}
-                      searchLabel={t(
-                        "admin.services.discounts.form.typePlaceholder",
-                      )}
-                      value={field.value}
-                      onItemSelect={(item) => {
-                        field.onChange(item);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="value"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.value")}
-                  </FormLabel>
-                  <FormControl>
-                    <InputGroup>
-                      {discountType === "amount" && (
-                        <InputGroupAddon
-                          className={InputGroupAddonClasses({
-                            variant: "prefix",
-                          })}
-                        >
-                          {currencySymbol}
-                        </InputGroupAddon>
-                      )}
-                      <InputGroupInput>
-                        <Input
-                          disabled={loading}
-                          placeholder="15"
-                          type="number"
-                          className={InputGroupInputClasses({
-                            variant:
-                              discountType === "percentage"
-                                ? "suffix"
-                                : "prefix",
-                          })}
-                          {...field}
-                          onBlur={() => {
-                            field.onBlur();
-                            form.trigger("type");
-                          }}
-                        />
-                      </InputGroupInput>
-                      {discountType === "percentage" && (
-                        <InputGroupAddon
-                          className={InputGroupAddonClasses({
-                            variant: "suffix",
-                          })}
-                        >
-                          %
-                        </InputGroupAddon>
-                      )}
-                    </InputGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.startDate")}{" "}
-                    <InfoTooltip>
-                      <p>
-                        {t("admin.services.discounts.form.startDateTooltip")}
-                      </p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <DateTimeInput
-                      disabled={loading}
-                      clearable
-                      format={timeFormat}
-                      use12HourFormat={uses12HourFormat}
-                      {...field}
-                      onChange={(date) => {
-                        field.onChange(date);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.endDate")}{" "}
-                    <InfoTooltip>
-                      <p>{t("admin.services.discounts.form.endDateTooltip")}</p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <DateTimeInput
-                      disabled={loading}
-                      clearable
-                      format={timeFormat}
-                      use12HourFormat={uses12HourFormat}
-                      {...field}
-                      onChange={(date) => {
-                        field.onChange(date);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="appointmentStartDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.appointmentStartDate")}
-                    <InfoTooltip>
-                      <p>
-                        {t(
-                          "admin.services.discounts.form.appointmentStartDateTooltip",
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="value"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.value")}
+                    </FormLabel>
+                    <FormControl>
+                      <InputGroup>
+                        {discountType === "amount" && (
+                          <InputGroupAddon
+                            className={InputGroupAddonClasses({
+                              variant: "prefix",
+                            })}
+                          >
+                            {currencySymbol}
+                          </InputGroupAddon>
                         )}
-                      </p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <DateTimeInput
-                      disabled={loading}
-                      clearable
-                      format={timeFormat}
-                      use12HourFormat={uses12HourFormat}
-                      {...field}
-                      onChange={(date) => {
-                        field.onChange(date);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="appointmentEndDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.appointmentEndDate")}{" "}
-                    <InfoTooltip>
-                      <p>
-                        {t(
-                          "admin.services.discounts.form.appointmentEndDateTooltip",
+                        <InputGroupInput>
+                          <Input
+                            disabled={loading}
+                            placeholder="15"
+                            type="number"
+                            className={InputGroupInputClasses({
+                              variant:
+                                discountType === "percentage"
+                                  ? "suffix"
+                                  : "prefix",
+                            })}
+                            {...field}
+                            onBlur={() => {
+                              field.onBlur();
+                              form.trigger("type");
+                            }}
+                          />
+                        </InputGroupInput>
+                        {discountType === "percentage" && (
+                          <InputGroupAddon
+                            className={InputGroupAddonClasses({
+                              variant: "suffix",
+                            })}
+                          >
+                            %
+                          </InputGroupAddon>
                         )}
-                      </p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <DateTimeInput
-                      disabled={loading}
-                      clearable
-                      format={timeFormat}
-                      use12HourFormat={uses12HourFormat}
-                      {...field}
-                      onChange={(date) => {
-                        field.onChange(date);
-                        field.onBlur();
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="maxUsage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.maxUsage")}{" "}
-                    <InfoTooltip>
-                      <p>
-                        {t("admin.services.discounts.form.maxUsageTooltip")}
-                      </p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="3"
-                      type="number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="maxUsagePerCustomer"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("admin.services.discounts.form.maxUsagePerCustomer")}{" "}
-                    <InfoTooltip>
-                      <p>
-                        {t(
-                          "admin.services.discounts.form.maxUsagePerCustomerTooltip",
-                        )}
-                      </p>
-                      <p>{t("admin.common.optional")}</p>
-                    </InfoTooltip>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="3"
-                      type="number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+                      </InputGroup>
+                    </FormControl>
+                    <FormDescription>
+                      {t("admin.services.discounts.form.valueTooltip")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("admin.services.discounts.form.dates")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="startDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.startDate")}
+                    </FormLabel>
+                    <FormControl>
+                      <DateTimeInput
+                        disabled={loading}
+                        clearable
+                        format={timeFormat}
+                        use12HourFormat={uses12HourFormat}
+                        {...field}
+                        onChange={(date) => {
+                          field.onChange(date);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("admin.services.discounts.form.startDateTooltip")}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="endDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.endDate")}
+                    </FormLabel>
+                    <FormControl>
+                      <DateTimeInput
+                        disabled={loading}
+                        clearable
+                        format={timeFormat}
+                        use12HourFormat={uses12HourFormat}
+                        {...field}
+                        onChange={(date) => {
+                          field.onChange(date);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("admin.services.discounts.form.endDateTooltip")}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="appointmentStartDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.appointmentStartDate")}
+                    </FormLabel>
+                    <FormControl>
+                      <DateTimeInput
+                        disabled={loading}
+                        clearable
+                        format={timeFormat}
+                        use12HourFormat={uses12HourFormat}
+                        {...field}
+                        onChange={(date) => {
+                          field.onChange(date);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t(
+                        "admin.services.discounts.form.appointmentStartDateTooltip",
+                      )}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="appointmentEndDate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.appointmentEndDate")}
+                    </FormLabel>
+                    <FormControl>
+                      <DateTimeInput
+                        disabled={loading}
+                        clearable
+                        format={timeFormat}
+                        use12HourFormat={uses12HourFormat}
+                        {...field}
+                        onChange={(date) => {
+                          field.onChange(date);
+                          field.onBlur();
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t(
+                        "admin.services.discounts.form.appointmentEndDateTooltip",
+                      )}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("admin.services.discounts.form.maximumUses")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="maxUsage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.maxUsage")}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="3"
+                        type="number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("admin.services.discounts.form.maxUsageTooltip")}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="maxUsagePerCustomer"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t("admin.services.discounts.form.maxUsagePerCustomer")}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="3"
+                        type="number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t(
+                        "admin.services.discounts.form.maxUsagePerCustomerTooltip",
+                      )}
+                      <span className="block">
+                        {t("admin.common.optional")}
+                      </span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
 
           <FormField
             control={form.control}

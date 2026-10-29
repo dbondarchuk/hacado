@@ -676,6 +676,10 @@ export class PaymentLinksConnectedApp
     if (envelope.type === PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE) {
       const { payment } = envelope.payload as PaymentLinksPaymentPaidPayload;
       await this.activateGiftCardForPaidPayment(payment._id);
+      await this.props.services.packagesService.activatePendingByPaymentId(
+        payment._id,
+        systemEventSource,
+      );
 
       return;
     }

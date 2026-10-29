@@ -88,6 +88,7 @@ export async function POST(request: NextRequest) {
       data,
       actor,
     );
+
     return NextResponse.json(result, { status: 201 });
   } catch (error: any) {
     return NextResponse.json(

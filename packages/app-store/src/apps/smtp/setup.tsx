@@ -7,11 +7,12 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Spinner,
 } from "@hacado/ui";
@@ -56,13 +57,15 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-4">
             <FormField
               control={form.control}
               name="host"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.host.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.host.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.host.placeholder")}
@@ -78,7 +81,9 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
               name="port"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.port.label")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.port.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       placeholder={t("form.port.placeholder")}
@@ -117,10 +122,9 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
               name="email"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    <span>{t("form.email.label")}</span>{" "}
-                    <InfoTooltip>{t("form.email.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.email.label")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="email"
@@ -128,6 +132,7 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.email.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -137,10 +142,7 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
               name="auth.user"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    <span>{t("form.authUser.label")}</span>
-                    <InfoTooltip>{t("form.authUser.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.authUser.label")}</FormLabel>
                   <FormControl>
                     <Input
                       autoComplete="new-password"
@@ -148,6 +150,9 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.authUser.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -157,10 +162,7 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
               name="auth.pass"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    <span>{t("form.authPass.label")}</span>
-                    <InfoTooltip>{t("form.authPass.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.authPass.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -168,6 +170,9 @@ export const SmtpAppSetup: React.FC<AppSetupProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.authPass.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

@@ -11,11 +11,12 @@ import {
   DateTimePicker,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   Select,
   SelectContent,
@@ -247,10 +248,7 @@ export const BlogPostForm: React.FC<{
             name="content"
             render={({ field }) => (
               <FormItem className="lg:col-span-2 w-full flex-grow relative h-full">
-                <FormLabel>
-                  <span>{t("form.content")}</span>{" "}
-                  <InfoTooltip>{t("form.contentTooltip")}</InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.content")}</FormLabel>
                 <FormControl>
                   <div className="min-h-[400px] border rounded-md min-w-0">
                     <PlateEditor
@@ -264,6 +262,7 @@ export const BlogPostForm: React.FC<{
                     />
                   </div>
                 </FormControl>
+                <FormDescription>{t("form.contentTooltip")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -274,7 +273,9 @@ export const BlogPostForm: React.FC<{
               name="slug"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{t("form.slug")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.slug")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -297,12 +298,9 @@ export const BlogPostForm: React.FC<{
                 const uses12HourFormat = use12HourFormat();
                 return (
                   <FormItem>
-                    <FormLabel>
-                      <span>{t("form.publicationDate")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.publicationDateTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("form.publicationDate")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <DateTimePicker
                         use12HourFormat={uses12HourFormat}
@@ -317,6 +315,9 @@ export const BlogPostForm: React.FC<{
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("form.publicationDateTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -327,10 +328,7 @@ export const BlogPostForm: React.FC<{
               name="isPublished"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    <span>{t("form.isPublished.label")}</span>{" "}
-                    <InfoTooltip>{t("form.isPublished.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.isPublished.label")}</FormLabel>
                   <FormControl>
                     <BooleanSelect
                       disabled={loading}
@@ -343,6 +341,9 @@ export const BlogPostForm: React.FC<{
                       value={field.value}
                     />
                   </FormControl>
+                  <FormDescription>
+                    {t("form.isPublished.tooltip")}
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -357,10 +358,9 @@ export const BlogPostForm: React.FC<{
 
                 return (
                   <FormItem className="w-full">
-                    <FormLabel>
-                      <span>{t("form.author.label")}</span>{" "}
-                      <InfoTooltip>{t("form.author.tooltip")}</InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("form.author.label")}
+                    </FormLabelWithRequiredIndicator>
                     <Select
                       disabled={loading}
                       value={authorSource}
@@ -441,6 +441,9 @@ export const BlogPostForm: React.FC<{
                         />
                       </FormControl>
                     )}
+                    <FormDescription>
+                      {t("form.author.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -457,12 +460,7 @@ export const BlogPostForm: React.FC<{
 
                 return (
                   <FormItem>
-                    <FormLabel>
-                      <span>{t("form.featuredImage.label")}</span>{" "}
-                      <InfoTooltip>
-                        {t("form.featuredImage.tooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabel>{t("form.featuredImage.label")}</FormLabel>
                     <FormControl>
                       <div className="flex flex-col gap-4">
                         <AssetSelectorInput
@@ -484,6 +482,9 @@ export const BlogPostForm: React.FC<{
                         )}
                       </div>
                     </FormControl>
+                    <FormDescription>
+                      {t("form.featuredImage.tooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -495,10 +496,7 @@ export const BlogPostForm: React.FC<{
               name="tags"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <span>{t("form.tags")}</span>{" "}
-                    <InfoTooltip>{t("form.tagsTooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.tags")}</FormLabel>
                   <FormControl>
                     <TagInput
                       {...field}
@@ -511,6 +509,7 @@ export const BlogPostForm: React.FC<{
                       tagValidator={blogPostTagSchema}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.tagsTooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

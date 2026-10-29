@@ -18,7 +18,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Heading,
   Input,
@@ -192,7 +192,9 @@ export const PageFooterForm: React.FC<{
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("pages.footers.form.name")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("pages.footers.form.name")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     id="name"
@@ -225,7 +227,7 @@ export const PageFooterForm: React.FC<{
             )}
           />
         </div>
-        <SaveButton form={form} disabled={loading} ignoreDirty />
+        <SaveButton form={form} disabled={loading} />
       </form>
     </Form>
   );

@@ -11,20 +11,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  BooleanSelect,
   Button,
   Card,
   CardContent,
   CardHeader,
   cn,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
 } from "@hacado/ui";
-import { FieldSelector } from "@hacado/ui-admin";
+import { FieldSelector, SwitchCardFormItem } from "@hacado/ui-admin";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
@@ -161,14 +160,15 @@ export const FieldSelectCard: React.FC<FieldSelectProps> = ({
           </AlertDialog>
         </div>
       </CardHeader>
-      <CardContent className="py-6 grid grid-cols-1 md:grid-cols-2 gap-2 flex-grow w-full">
+      <CardContent className="flex w-full min-w-0 flex-col gap-4 py-6">
         <FormField
           control={form.control}
           name={`${name}.id`}
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>{t("services.fieldSelectCard.field")}</FormLabel>
-
+            <FormItem className="min-w-0 w-full">
+              <FormLabelWithRequiredIndicator required>
+                {t("services.fieldSelectCard.field")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <FieldSelector
                   disabled={disabled}
@@ -178,6 +178,9 @@ export const FieldSelectCard: React.FC<FieldSelectProps> = ({
                   onItemSelect={field.onChange}
                 />
               </FormControl>
+              <FormDescription>
+                {t("services.fieldSelectCard.fieldDescription")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -186,24 +189,16 @@ export const FieldSelectCard: React.FC<FieldSelectProps> = ({
           control={form.control}
           name={`${name}.required`}
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>
-                {t("services.fieldSelectCard.required")}{" "}
-                <InfoTooltip>
-                  {t("services.fieldSelectCard.requiredTooltip")}
-                </InfoTooltip>
-              </FormLabel>
-              <FormControl>
-                <BooleanSelect
-                  value={field.value ?? false}
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    field.onBlur();
-                  }}
-                  className="w-full"
-                />
-              </FormControl>
-            </FormItem>
+            <SwitchCardFormItem
+              label={t("services.fieldSelectCard.required")}
+              description={t("services.fieldSelectCard.requiredTooltip")}
+              checked={!!field.value}
+              disabled={disabled}
+              onCheckedChange={(checked) => {
+                field.onChange(checked);
+                field.onBlur();
+              }}
+            />
           )}
         />
       </CardContent>

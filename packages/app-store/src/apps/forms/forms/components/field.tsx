@@ -6,11 +6,12 @@ import {
   Button,
   Combobox,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -126,11 +127,9 @@ export const FormFieldEditor: React.FC<{
           name={`${fieldName}.name`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("form.fields.name.label")}{" "}
-                <InfoTooltip>{t("form.fields.name.description")}</InfoTooltip>
-              </FormLabel>
-
+              <FormLabelWithRequiredIndicator required>
+                {t("form.fields.name.label")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input
                   disabled={disabled}
@@ -138,6 +137,9 @@ export const FormFieldEditor: React.FC<{
                   {...field}
                 />
               </FormControl>
+              <FormDescription>
+                {t("form.fields.name.description")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -147,10 +149,9 @@ export const FormFieldEditor: React.FC<{
           name={`${fieldName}.label`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("form.fields.label.label")}{" "}
-                <InfoTooltip>{t("form.fields.label.description")}</InfoTooltip>
-              </FormLabel>
+              <FormLabelWithRequiredIndicator required>
+                {t("form.fields.label.label")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <Input
                   disabled={disabled}
@@ -158,6 +159,9 @@ export const FormFieldEditor: React.FC<{
                   {...field}
                 />
               </FormControl>
+              <FormDescription>
+                {t("form.fields.label.description")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -167,10 +171,7 @@ export const FormFieldEditor: React.FC<{
           name={`${fieldName}.type`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("form.fields.type.label")}{" "}
-                <InfoTooltip>{t("form.fields.type.description")}</InfoTooltip>
-              </FormLabel>
+              <FormLabel>{t("form.fields.type.label")}</FormLabel>
               <FormControl>
                 <Combobox
                   disabled={disabled}
@@ -187,6 +188,9 @@ export const FormFieldEditor: React.FC<{
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                {t("form.fields.type.description")}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -196,12 +200,7 @@ export const FormFieldEditor: React.FC<{
           name={`${fieldName}.required`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {t("form.fields.required.label")}{" "}
-                <InfoTooltip>
-                  {t("form.fields.required.description")}
-                </InfoTooltip>
-              </FormLabel>
+              <FormLabel>{t("form.fields.required.label")}</FormLabel>
               <FormControl>
                 <BooleanSelect
                   value={field.value ?? false}
@@ -213,6 +212,10 @@ export const FormFieldEditor: React.FC<{
                   className="w-full"
                 />
               </FormControl>
+              <FormDescription>
+                {t("form.fields.required.description")}
+              </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -224,12 +227,7 @@ export const FormFieldEditor: React.FC<{
             name={`${fieldName}.data.maxSizeMb`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("form.fields.file.maxSizeMb.label")}{" "}
-                  <InfoTooltip>
-                    {t("form.fields.file.maxSizeMb.description")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.fields.file.maxSizeMb.label")}</FormLabel>
                 <FormControl>
                   <InputGroup>
                     <InputGroupInput>
@@ -248,6 +246,9 @@ export const FormFieldEditor: React.FC<{
                     </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
+                <FormDescription>
+                  {t("form.fields.file.maxSizeMb.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -258,12 +259,7 @@ export const FormFieldEditor: React.FC<{
             name={`${fieldName}.data.accept`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("form.fields.file.accept.label")}{" "}
-                  <InfoTooltip>
-                    {t("form.fields.file.accept.description")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.fields.file.accept.label")}</FormLabel>
                 <FormControl>
                   <TagInput
                     {...field}
@@ -278,6 +274,9 @@ export const FormFieldEditor: React.FC<{
                     addItemTemplate={FileTypePickerTag}
                   />
                 </FormControl>
+                <FormDescription>
+                  {t("form.fields.file.accept.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -298,9 +297,6 @@ export const FormFieldEditor: React.FC<{
               <FormItem>
                 <FormLabel>
                   {t("form.fields.multiSelect.minSelected.label")}
-                  <InfoTooltip>
-                    {t("form.fields.multiSelect.minSelected.description")}
-                  </InfoTooltip>
                 </FormLabel>
                 <FormControl>
                   <InputGroup>
@@ -320,6 +316,9 @@ export const FormFieldEditor: React.FC<{
                     </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
+                <FormDescription>
+                  {t("form.fields.multiSelect.minSelected.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -331,9 +330,6 @@ export const FormFieldEditor: React.FC<{
               <FormItem>
                 <FormLabel>
                   {t("form.fields.multiSelect.maxSelected.label")}
-                  <InfoTooltip>
-                    {t("form.fields.multiSelect.maxSelected.description")}
-                  </InfoTooltip>
                 </FormLabel>
                 <FormControl>
                   <InputGroup>
@@ -353,6 +349,9 @@ export const FormFieldEditor: React.FC<{
                     </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
+                <FormDescription>
+                  {t("form.fields.multiSelect.maxSelected.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -366,12 +365,7 @@ export const FormFieldEditor: React.FC<{
             name={`${fieldName}.data.minLength`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("form.fields.text.minLength.label")}
-                  <InfoTooltip>
-                    {t("form.fields.text.minLength.description")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.fields.text.minLength.label")}</FormLabel>
                 <FormControl>
                   <InputGroup>
                     <InputGroupInput>
@@ -390,6 +384,9 @@ export const FormFieldEditor: React.FC<{
                     </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
+                <FormDescription>
+                  {t("form.fields.text.minLength.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -399,14 +396,7 @@ export const FormFieldEditor: React.FC<{
             name={`${fieldName}.data.maxLength`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("form.fields.text.maxLength.label")}
-                  <InfoTooltip>
-                    {fieldType === "oneLine"
-                      ? t("form.fields.text.maxLength.oneLineDescription")
-                      : t("form.fields.text.maxLength.multiLineDescription")}
-                  </InfoTooltip>
-                </FormLabel>
+                <FormLabel>{t("form.fields.text.maxLength.label")}</FormLabel>
                 <FormControl>
                   <InputGroup>
                     <InputGroupInput>
@@ -425,6 +415,11 @@ export const FormFieldEditor: React.FC<{
                     </InputGroupAddon>
                   </InputGroup>
                 </FormControl>
+                <FormDescription>
+                  {fieldType === "oneLine"
+                    ? t("form.fields.text.maxLength.oneLineDescription")
+                    : t("form.fields.text.maxLength.multiLineDescription")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -436,12 +431,7 @@ export const FormFieldEditor: React.FC<{
         name={`${fieldName}.description`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>
-              {t("form.fields.description.label")}{" "}
-              <InfoTooltip>
-                {t("form.fields.description.description")}
-              </InfoTooltip>
-            </FormLabel>
+            <FormLabel>{t("form.fields.description.label")}</FormLabel>
             <FormControl>
               <PlateMarkdownEditor
                 className="bg-background px-4 sm:px-4 pb-24"
@@ -453,6 +443,9 @@ export const FormFieldEditor: React.FC<{
                 }}
               />
             </FormControl>
+            <FormDescription>
+              {t("form.fields.description.description")}
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

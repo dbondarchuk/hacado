@@ -34,6 +34,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   InputGroup,
@@ -648,9 +649,9 @@ export const AddUpdatePaymentDialog = ({
                     name="customerId"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
+                        <FormLabelWithRequiredIndicator required>
                           {t("payment.addUpdatePayment.form.customerId.label")}
-                        </FormLabel>
+                        </FormLabelWithRequiredIndicator>
                         <FormControl>
                           <CustomerSelector
                             onItemSelect={(value: string) => {
@@ -782,11 +783,11 @@ export const AddUpdatePaymentDialog = ({
                         name="paymentLinkAppId"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>
+                            <FormLabelWithRequiredIndicator required>
                               {t(
                                 "payment.addUpdatePayment.form.paymentLinkAppId.label",
                               )}
-                            </FormLabel>
+                            </FormLabelWithRequiredIndicator>
                             <FormControl>
                               <Select
                                 value={field.value}
@@ -880,9 +881,9 @@ export const AddUpdatePaymentDialog = ({
                         name="to"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>
+                            <FormLabelWithRequiredIndicator required>
                               {t("payment.addUpdatePayment.form.to.label")}
-                            </FormLabel>
+                            </FormLabelWithRequiredIndicator>
                             <FormControl>
                               {destinations.length > 1 ? (
                                 <Select
@@ -928,6 +929,7 @@ export const AddUpdatePaymentDialog = ({
                         checked={smsConsent}
                         disabled={loading}
                         onCheckedChange={setSmsConsent}
+                        required
                       />
                     ) : null}
                   </>
@@ -939,11 +941,11 @@ export const AddUpdatePaymentDialog = ({
                       name="giftCardId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t(
                               "payment.addUpdatePayment.form.giftCardId.label",
                             )}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <GiftCardSelector
                               onItemSelect={(value) => {
@@ -967,11 +969,11 @@ export const AddUpdatePaymentDialog = ({
                       name="customerId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
+                          <FormLabelWithRequiredIndicator required>
                             {t(
                               "payment.addUpdatePayment.form.customerId.label",
                             )}
-                          </FormLabel>
+                          </FormLabelWithRequiredIndicator>
                           <FormControl>
                             <CustomerSelector
                               onItemSelect={(value: string) => {
@@ -993,9 +995,9 @@ export const AddUpdatePaymentDialog = ({
                   name="amount"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
+                      <FormLabelWithRequiredIndicator required>
                         {t("payment.addUpdatePayment.form.amount")}
-                      </FormLabel>
+                      </FormLabelWithRequiredIndicator>
                       <FormControl>
                         <InputGroup>
                           <InputGroupAddon
@@ -1064,9 +1066,9 @@ export const AddUpdatePaymentDialog = ({
                     name="paidAt"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
+                        <FormLabelWithRequiredIndicator required>
                           {t("payment.addUpdatePayment.form.paidAt")}
-                        </FormLabel>
+                        </FormLabelWithRequiredIndicator>
                         <FormControl>
                           <DateTimePicker
                             use12HourFormat={uses12HourFormat}

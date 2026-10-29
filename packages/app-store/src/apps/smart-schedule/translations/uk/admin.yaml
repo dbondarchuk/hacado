@@ -11,8 +11,10 @@ form:
   preferLaterStartsEarlierEndsTooltip: Буде надавати вищу перевагу часовим слотам, які дозволять пізніший початок і ранніше закінчення зміни
   allowSmartSlotStarts: Дозволити розумні часи початку слотів
   allowSmartSlotStartsTooltip: Якщо не знайдено дозволених часів початку слотів, спробує знайти нетрадиційний часовий слот
+  maximizeForService: Максимізувати записи для певної послуги
+  maximizeForServiceTooltip: Якщо увімкнено, пріоритет мають часові слоти, які вміщують найбільше записів обраної послуги.
   preferredService: Бажана послуга
-  preferredServiceTooltip: Якщо вибрано, буде пріоритизувати часові слоти, які дадуть максимальну кількість записів обраної послуги
+  preferredServiceRequired: Потрібна послуга
   add: Додати <app></app>
   update: Оновити <app></app>
 statusText:

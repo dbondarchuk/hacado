@@ -19,7 +19,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
   Input,
   Link,
@@ -113,6 +113,7 @@ export const UserForgotPasswordForm = ({
     defaultValues: { password: "", confirmPassword: "" },
     mode: "onChange",
   });
+  const passwordValue = passwordForm.watch("password");
 
   const withProgress = (content: ReactNode) => (
     <div className="flex w-full flex-col gap-4">
@@ -228,7 +229,9 @@ export const UserForgotPasswordForm = ({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("auth.resetPassword.password")}</FormLabel>
+                  <FormLabelWithRequiredIndicator required>
+                    {t("auth.resetPassword.password")}
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -247,9 +250,11 @@ export const UserForgotPasswordForm = ({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabelWithRequiredIndicator
+                    required={passwordValue.length > 0}
+                  >
                     {t("auth.resetPassword.confirmPassword")}
-                  </FormLabel>
+                  </FormLabelWithRequiredIndicator>
                   <FormControl>
                     <Input
                       type="password"
@@ -293,7 +298,9 @@ export const UserForgotPasswordForm = ({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("auth.forgotPassword.email")}</FormLabel>
+                <FormLabelWithRequiredIndicator required>
+                  {t("auth.forgotPassword.email")}
+                </FormLabelWithRequiredIndicator>
                 <FormControl>
                   <Input
                     type="email"

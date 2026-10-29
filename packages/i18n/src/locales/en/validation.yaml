@@ -228,6 +228,8 @@ fields:
     invalid: >-
       Field name must start with letter and contain only letters, digits, and
       underscore (_)
+  options:
+    min: At least one option is required
   option:
     required: Option value is required
     unique: Option values should be unique
@@ -631,4 +633,3 @@ package:
       required: Payment method is required
     price:
       min: Sale price must be at least 0
-

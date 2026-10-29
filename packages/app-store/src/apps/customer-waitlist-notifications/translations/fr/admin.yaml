@@ -57,6 +57,7 @@ setup:
       required: Saisissez un mot-clé que les clients peuvent envoyer par SMS pour quitter
     slotOpenedChannel:
       required: "Activez l'e-mail, le message texte, ou les deux."
+    offerSettings: Paramètres des offres
 handlers:
   newWaitlistEntry: Notification de liste d'attente client - Nouvelle entrée
   slotOpened: Notification de liste d'attente client - Emplacement ouvert

@@ -27,8 +27,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
-  InfoTooltip,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -171,7 +171,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                 name="interval"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("dialogs.repeat.repeatEvery")}</FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("dialogs.repeat.repeatEvery")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <InputGroup>
                         <InputGroupInput>
@@ -197,12 +199,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                 name="maxWeek"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      {t("dialogs.repeat.repeatUntil")}{" "}
-                      <InfoTooltip>
-                        {t("dialogs.repeat.repeatUntilTooltip")}
-                      </InfoTooltip>
-                    </FormLabel>
+                    <FormLabelWithRequiredIndicator required>
+                      {t("dialogs.repeat.repeatUntil")}
+                    </FormLabelWithRequiredIndicator>
                     <FormControl>
                       <WeekSelector
                         minWeek={todayWeek}
@@ -213,6 +212,9 @@ export const RepeatScheduleDialog: React.FC<RepeatScheduleDialogProps> = ({
                         }}
                       />
                     </FormControl>
+                    <FormDescription>
+                      {t("dialogs.repeat.repeatUntilTooltip")}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

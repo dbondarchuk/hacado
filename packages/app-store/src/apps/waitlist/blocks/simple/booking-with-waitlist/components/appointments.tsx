@@ -220,7 +220,9 @@ export const Appointments: React.FC<
       .then((response) => {
         if (cancelled) return;
         setMyPackages(
-          (response.items ?? []).filter((pkg) => pkg.remainingCredits > 0),
+          (response.items ?? []).filter(
+            (pkg) => pkg.status !== "pending" && pkg.remainingCredits > 0,
+          ),
         );
       })
       .catch((error) => {

@@ -19,7 +19,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabelWithRequiredIndicator,
   FormMessage,
 } from "@hacado/ui";
 import { AddonSelector } from "@hacado/ui-admin";
@@ -161,8 +161,9 @@ export const AddonSelectCard: React.FC<AddonSelectProps> = ({
           name={`${name}.id`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>{t("services.addonSelectCard.addon")}</FormLabel>
-
+              <FormLabelWithRequiredIndicator required>
+                {t("services.addonSelectCard.addon")}
+              </FormLabelWithRequiredIndicator>
               <FormControl>
                 <AddonSelector
                   disabled={disabled}

@@ -49,7 +49,7 @@ export const selectFieldDataSchema = z.object({
     ),
     (item) => item.option,
     "fields.option.unique",
-  ),
+  ).min(1, "validation.fields.options.min"),
 });
 
 export const fileFieldAcceptItemSchema = zNonEmptyString(

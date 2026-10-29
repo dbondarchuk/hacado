@@ -37,6 +37,7 @@ import {
   canUseFeature,
   formatAmountWithCurrency,
   hasPermission,
+  normalizeToE164,
 } from "@hacado/utils";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
@@ -1011,6 +1012,61 @@ export class GiftCardStudioConnectedApp
     return ok;
   }
 
+  private async assertPurchaseSmsConsent(purchase: {
+    customerId: string;
+    to?: string;
+    smsConsent?: boolean;
+  }) {
+    const customer = await this.props.services.customersService.getCustomer(
+      purchase.customerId,
+    );
+
+    if (!customer) {
+      throw new ConnectedAppRequestError(
+        "customer_not_found",
+        {},
+        404,
+        "Customer not found",
+      );
+    }
+
+    const allowed = [customer.phone, ...(customer.knownPhones ?? [])]
+      .map((phone) => normalizeToE164(phone ?? ""))
+      .filter((phone): phone is string => Boolean(phone));
+
+    const phone = purchase.to ? normalizeToE164(purchase.to) : null;
+    if (!phone || !allowed.includes(phone)) {
+      throw new ConnectedAppRequestError(
+        "phone_not_found",
+        {},
+        400,
+        "Phone does not belong to this customer",
+      );
+    }
+
+    if (purchase.smsConsent) {
+      await this.props.services.smsConsentService.recordCustomerSmsConsent({
+        phone,
+        consented: true,
+        source: "owner_attested",
+      });
+    }
+
+    const hasConsent =
+      await this.props.services.smsConsentService.hasActiveCustomerSmsConsent(
+        phone,
+      );
+
+    if (!hasConsent) {
+      throw new ConnectedAppRequestError(
+        "sms_consent_required",
+        {},
+        400,
+        "SMS consent is required",
+      );
+    }
+  }
+
   private async processCreatePurchasedGiftCard(
     appData: ConnectedAppData,
     { purchase }: CreatePurchasedGiftCardAction,
@@ -1057,6 +1113,10 @@ export class GiftCardStudioConnectedApp
           400,
           "Payment link app is required",
         );
+      }
+
+      if (purchase.channel === "sms" && purchase.to) {
+        await this.assertPurchaseSmsConsent(purchase);
       }
 
       const paymentLinkApps =

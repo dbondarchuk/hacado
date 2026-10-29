@@ -6,11 +6,11 @@ import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  InfoTooltip,
   PhoneInput,
   Spinner,
 } from "@hacado/ui";
@@ -65,16 +65,14 @@ export const TextMessageNotificationAppSetup: React.FC<AppSetupProps> = ({
               name="phone"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>
-                    {t("form.phone.label")}
-                    <InfoTooltip>{t("form.phone.tooltip")}</InfoTooltip>
-                  </FormLabel>
+                  <FormLabel>{t("form.phone.label")}</FormLabel>
                   <FormControl>
                     <PhoneInput
                       {...field}
                       label={t("form.phone.placeholder")}
                     />
                   </FormControl>
+                  <FormDescription>{t("form.phone.tooltip")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

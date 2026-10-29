@@ -15,6 +15,7 @@ export type AppointmentPackageStatus =
   (typeof appointmentPackageStatuses)[number];
 
 export const customerPackageStatuses = [
+  "pending",
   "active",
   "exhausted",
   "expired",
@@ -270,6 +271,7 @@ export function resolveCustomerPackageStatus(
   now = new Date(),
 ): CustomerPackageStatus {
   if (pkg.status === "cancelled") return "cancelled";
+  if (pkg.status === "pending") return "pending";
   if (pkg.expiresAt && pkg.expiresAt < now) return "expired";
   if (pkg.remainingCredits <= 0) return "exhausted";
   return "active";
@@ -283,6 +285,9 @@ export function canUsePackageForAppointment(
 
   if (status === "cancelled") {
     return { ok: false, code: "customer_package_cancelled" };
+  }
+  if (status === "pending") {
+    return { ok: false, code: "customer_package_inactive" };
   }
   if (status === "expired") {
     return { ok: false, code: "customer_package_expired" };
