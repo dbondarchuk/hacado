@@ -12895,8 +12895,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/handlers/index.ts": {
-    "mtime": 1792769070.5064547,
-    "ast_hash": "52c9d337f4c9a319d772f1d76f85eba7",
+    "mtime": 1793292804.151607,
+    "ast_hash": "b023a2209efa03eb66577395de000d6b",
     "semantic_hash": ""
   },
   "packages/services/src/events/handlers/notification-handler.ts": {
@@ -28365,8 +28365,8 @@
     "semantic_hash": ""
   },
   "apps/web/src/app/api/booking/request-otp/route.ts": {
-    "mtime": 1790022697.6902597,
-    "ast_hash": "331b4ef1173c95865f18f92e222472af",
+    "mtime": 1793292347.2979543,
+    "ast_hash": "6d88b1fc6a53fa081ba7f0d497dbfc88",
     "semantic_hash": ""
   },
   "apps/web/src/utils/appointments/assert-booking-customer-access.ts": {
@@ -32020,8 +32020,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/payments/[id]/payment-link/cancel/route.ts": {
-    "mtime": 1793291067.5372365,
-    "ast_hash": "6f15c0cf2ce7d36ba44c1431104a51ff",
+    "mtime": 1793292809.0738218,
+    "ast_hash": "ae02c52f44b533df9f479eb3b4d1d123",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/payments/[id]/payment-link/resend/route.ts": {
@@ -32045,8 +32045,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/app.tsx": {
-    "mtime": 1790189734.03307,
-    "ast_hash": "57b13a7550add9ac7c1db8ab71b86eb7",
+    "mtime": 1793292808.4496176,
+    "ast_hash": "02af53392b0754dd9bb873f373db9441",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/const.ts": {
@@ -32060,8 +32060,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/service.ts": {
-    "mtime": 1793223059.7178595,
-    "ast_hash": "29a9580cebdbe0b94e47c0b81f25235e",
+    "mtime": 1793292806.9552097,
+    "ast_hash": "0db8c9a89505a3c2a6c07c6256899c8f",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/payment-links/setup.tsx": {
@@ -36457,6 +36457,16 @@
   ".trace/types.json": {
     "mtime": 1793285925.0215836,
     "ast_hash": "00b0308ab955c20f66065d2081423d57",
+    "semantic_hash": ""
+  },
+  "packages/services/src/events/handlers/customer-package-payment-handler.ts": {
+    "mtime": 1793293146.229288,
+    "ast_hash": "b7aaa30af77293aea3aca172bd071d10",
+    "semantic_hash": ""
+  },
+  "packages/services/src/events/handlers/gift-card-payment-handler.ts": {
+    "mtime": 1793293143.4403172,
+    "ast_hash": "da9b98808b5f9aeb812f02a6d3f26c9d",
     "semantic_hash": ""
   }
 }

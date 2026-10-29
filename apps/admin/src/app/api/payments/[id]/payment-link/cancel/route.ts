@@ -92,11 +92,6 @@ export async function POST(
     actor,
   );
 
-  await servicesContainer.packagesService.cancelPendingByPaymentId(
-    payment._id,
-    actor,
-  );
-
   logger.debug({ paymentId }, "Payment link cancelled successfully");
 
   return NextResponse.json(updatedPayment);

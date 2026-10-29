@@ -673,17 +673,6 @@ export class PaymentLinksConnectedApp
     const logger = this.loggerFactory("onEvent");
     logger.debug({ appId: appData._id, envelope }, "Handling event");
 
-    if (envelope.type === PAYMENT_LINKS_PAYMENT_PAID_EVENT_TYPE) {
-      const { payment } = envelope.payload as PaymentLinksPaymentPaidPayload;
-      await this.activateGiftCardForPaidPayment(payment._id);
-      await this.props.services.packagesService.activatePendingByPaymentId(
-        payment._id,
-        systemEventSource,
-      );
-
-      return;
-    }
-
     if (envelope.type !== PAYMENT_INTENT_PAID_EVENT_TYPE) {
       logger.debug({ appId: appData._id, envelope }, "Skipping event");
       return;
@@ -1417,31 +1406,6 @@ export class PaymentLinksConnectedApp
         "Failed to emit payment-links.payment.paid",
       );
     }
-  }
-
-  private async activateGiftCardForPaidPayment(
-    paymentId: string,
-  ): Promise<void> {
-    const logger = this.loggerFactory("activateGiftCardForPaidPayment");
-    const giftCard =
-      await this.props.services.giftCardsService.getGiftCardByPaymentId(
-        paymentId,
-      );
-
-    if (!giftCard || giftCard.status === "active") {
-      return;
-    }
-
-    logger.debug(
-      { paymentId, giftCardId: giftCard._id },
-      "Activating gift card after payment link paid",
-    );
-
-    await this.props.services.giftCardsService.setGiftCardStatus(
-      giftCard._id,
-      "active",
-      systemEventSource,
-    );
   }
 }
 

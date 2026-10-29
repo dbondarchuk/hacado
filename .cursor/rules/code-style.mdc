@@ -157,7 +157,20 @@ Do not put blank lines between `try`, `catch`, or `finally`.
 
 ## Multi-line statements
 
-A multi-line statement followed by an independent statement should have a blank line.
+A finished multi-line call or statement always gets a blank line before the next statement. This includes a following `if`, `return`, assignment, or another call. A one-line next statement does not cancel the blank line.
+
+Prefer:
+
+```ts
+const claimed = await claimEventHandler(
+  redis,
+  organizationId,
+  eventId,
+  handlerName,
+);
+
+if (!claimed) return;
+```
 
 Prefer:
 
@@ -179,17 +192,16 @@ const hasAvailableMember = activeStaff.some((staff) =>
 return hasAvailableMember;
 ```
 
-However, ordinary consecutive statements should remain compact:
+Single-line statements that belong together stay compact. The blank line starts after the multi-line call, not between the single-line ones:
 
 ```ts
 const activeStaff = staff.filter((staff) => staff.active);
 const availableStaff = activeStaff.filter((staff) =>
   isStaffAvailable(staff, date),
 );
+
 const firstAvailableStaff = availableStaff[0];
 ```
-
-Do not insert blank lines just because a statement spans multiple lines.
 
 ## Function declarations
 
@@ -291,9 +303,11 @@ const activeStaff = staff.filter((staff) => staff.active);
 const availableStaff = activeStaff.filter((staff) =>
   isStaffAvailable(staff, date),
 );
+
+const firstAvailableStaff = availableStaff[0];
 ```
 
-Do not add blank lines between the callback and the surrounding operation unless there is a meaningful logical boundary.
+Do not add blank lines inside the callback. Still leave a blank line after the finished multi-line call before the next statement.
 
 ## General rule
 
@@ -303,7 +317,7 @@ Add a blank line when it communicates one of these boundaries:
 
 1. A control-flow block has finished and independent code follows.
 2. An early-return/guard section has finished and the main logic follows.
-3. A multi-line operation has finished and an independent operation follows.
+3. A multi-line call or statement has finished and any next statement follows, including a one-line `if` or `return`.
 4. A function or other top-level declaration ends and another declaration begins.
 5. There is a clear transition between meaningful stages of a larger operation.
 
@@ -314,7 +328,9 @@ Do NOT add blank lines:
 - Between related API calls or setup operations.
 - Between `if` and `else`.
 - Between `try` and `catch`.
-- Merely because a statement or expression spans multiple lines.
+- Inside a multi-line call, between its arguments.
 - Mechanically after every closing `}`.
+
+When a multi-line call has finished, the blank line before the next statement is required. Do not skip it because the next statement is short.
 
 When uncertain, prefer fewer blank lines.
