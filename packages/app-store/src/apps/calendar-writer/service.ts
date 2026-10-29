@@ -579,7 +579,7 @@ export class CalendarWriterConnectedApp
             config.general.country,
             true,
           ),
-          onlineUrl: appointment.option.isOnline
+          onlineUrl: appointment.service.isOnline
             ? appointment.meetingInformation?.url
             : undefined,
         },

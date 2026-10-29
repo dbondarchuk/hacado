@@ -113,7 +113,7 @@ export default class SmartScheduleConnectedApp
 
     let servicesDurations: number[] | undefined = undefined;
     if (config?.maximizeForOption) {
-      const service = await this.props.services.servicesService.getOption(
+      const service = await this.props.services.catalogService.getService(
         config.maximizeForOption,
       );
 

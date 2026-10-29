@@ -111,7 +111,7 @@ export async function searchCoreRecords({
             id: appointment._id,
             title: appointment.fields.name,
             subtitle: subtitle(
-              appointment.option?.name,
+              appointment.service?.name,
               formatWhen(appointment.dateTime, timeZone),
             ),
             href: `/dashboard/appointments/${appointment._id}`,
@@ -198,7 +198,7 @@ export async function searchCoreRecords({
       },
     ),
     take("options", hasPermission(user, "service", "read"), async () => {
-      const result = await services.servicesService.getOptions({
+      const result = await services.catalogService.getServices({
         search: query,
         limit: LIMIT,
         offset: 0,
@@ -206,17 +206,17 @@ export async function searchCoreRecords({
 
       return {
         id: "options",
-        labelKey: "admin.navigation.options",
-        listHref: listHref("/dashboard/services/options", query),
+        labelKey: "admin.navigation.services",
+        listHref: listHref("/dashboard/catalog/services", query),
         items: result.items.map((option) => ({
           id: option._id,
           title: option.name,
-          href: `/dashboard/services/options/${option._id}`,
+          href: `/dashboard/catalog/services/${option._id}`,
         })),
       };
     }),
     take("addons", hasPermission(user, "service", "read"), async () => {
-      const result = await services.servicesService.getAddons({
+      const result = await services.catalogService.getAddons({
         search: query,
         limit: LIMIT,
         offset: 0,
@@ -225,29 +225,29 @@ export async function searchCoreRecords({
       return {
         id: "addons",
         labelKey: "admin.navigation.addons",
-        listHref: listHref("/dashboard/services/addons", query),
+        listHref: listHref("/dashboard/catalog/addons", query),
         items: result.items.map((addon) => ({
           id: addon._id,
           title: addon.name,
-          href: `/dashboard/services/addons/${addon._id}`,
+          href: `/dashboard/catalog/addons/${addon._id}`,
         })),
       };
     }),
     take("fields", hasPermission(user, "service", "read"), async () => {
-      const result = await services.servicesService.getFields({
+      const result = await services.catalogService.getFields({
         search: query,
         limit: LIMIT,
         offset: 0,
-      } as Parameters<IServicesContainer["servicesService"]["getFields"]>[0]);
+      } as Parameters<IServicesContainer["catalogService"]["getFields"]>[0]);
 
       return {
         id: "fields",
         labelKey: "admin.navigation.fields",
-        listHref: listHref("/dashboard/services/fields", query),
+        listHref: listHref("/dashboard/catalog/fields", query),
         items: result.items.map((field) => ({
           id: field._id,
           title: fieldLabel(field),
-          href: `/dashboard/services/fields/${field._id}`,
+          href: `/dashboard/catalog/fields/${field._id}`,
         })),
       };
     }),
@@ -255,7 +255,7 @@ export async function searchCoreRecords({
       "discounts",
       hasPermission(user, "discount", "read") && solo,
       async () => {
-        const result = await services.servicesService.getDiscounts({
+        const result = await services.catalogService.getDiscounts({
           search: query,
           limit: LIMIT,
           offset: 0,
@@ -264,11 +264,11 @@ export async function searchCoreRecords({
         return {
           id: "discounts",
           labelKey: "admin.navigation.discounts",
-          listHref: listHref("/dashboard/services/discounts", query),
+          listHref: listHref("/dashboard/catalog/discounts", query),
           items: result.items.map((discount) => ({
             id: discount._id,
             title: discount.name,
-            href: `/dashboard/services/discounts/${discount._id}`,
+            href: `/dashboard/catalog/discounts/${discount._id}`,
           })),
         };
       },
@@ -286,12 +286,12 @@ export async function searchCoreRecords({
         return {
           id: "gift-cards",
           labelKey: "admin.navigation.giftCards",
-          listHref: listHref("/dashboard/services/gift-cards", query),
+          listHref: listHref("/dashboard/catalog/gift-cards", query),
           items: result.items.map((giftCard) => ({
             id: giftCard._id,
             title: giftCard.code,
             subtitle: giftCard.customer?.name,
-            href: `/dashboard/services/gift-cards/${giftCard._id}`,
+            href: `/dashboard/catalog/gift-cards/${giftCard._id}`,
           })),
         };
       },
@@ -309,11 +309,11 @@ export async function searchCoreRecords({
         return {
           id: "packages",
           labelKey: "admin.navigation.packages",
-          listHref: listHref("/dashboard/services/packages", query),
+          listHref: listHref("/dashboard/catalog/packages", query),
           items: result.items.map((pkg) => ({
             id: pkg._id,
             title: pkg.name,
-            href: `/dashboard/services/packages/${pkg._id}`,
+            href: `/dashboard/catalog/packages/${pkg._id}`,
           })),
         };
       },

@@ -12,7 +12,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Le rendez-vous pour {{option.name}} a été reporté",
+        text: "Le rendez-vous pour {{service.name}} a été reporté",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 Merci d'avoir sélectionné {{config.name}} !
 
-Votre rendez-vous pour {{option.name}} avec {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} a été reporté{{#oldDateTime}} du {{oldDateTime.full}}{{/oldDateTime}} au {{dateTime.full}} et durée : {{#duration.hours}}{{.}} heures {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
+Votre rendez-vous pour {{service.name}} avec {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} a été reporté{{#oldDateTime}} du {{oldDateTime.full}}{{/oldDateTime}} au {{dateTime.full}} et durée : {{#duration.hours}}{{.}} heures {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
 
 Veuillez nous appeler au {{config.phone}} dès que possible si cette heure ne vous convient pas.
 

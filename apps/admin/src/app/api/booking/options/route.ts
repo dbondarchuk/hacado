@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
   );
 
   const { optionId } = parsedBody.data;
-  const option = await servicesContainer.servicesService.getOption(optionId);
+  const option = await servicesContainer.catalogService.getService(optionId);
   if (!option) {
     logger.warn({ optionId }, "Option not found");
     return NextResponse.json(

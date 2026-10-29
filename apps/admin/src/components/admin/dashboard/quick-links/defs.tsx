@@ -110,7 +110,7 @@ export const CORE_QUICK_LINKS: CoreQuickLinkDefinition[] = [
   {
     id: "services",
     order: 70,
-    href: "/dashboard/services/options",
+    href: "/dashboard/catalog/services",
     labelKey: "admin.navigation.services",
     icon: <HandPlatter {...iconProps} />,
     predicate: ({ user }) => hasPermission(user, "service", "read"),

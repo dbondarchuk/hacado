@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Sélectionnez un modèle
   requestFailed: La demande de récupération de modèles a échoué
   loadingTemplates: Chargement des modèles...
-optionSelector:
-  placeholder: Sélectionnez une option
-  requestFailed: La demande de récupération des options a échoué
+serviceSelector:
+  placeholder: Sélectionnez un service
+  requestFailed: La demande de récupération des services a échoué
 packageSelector:
   placeholder: Sélectionnez le forfait
   requestFailed: La demande de récupération de packages a échoué

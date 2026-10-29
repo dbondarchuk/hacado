@@ -82,84 +82,97 @@ export type PromoCodeSelectorProps =
   | NonClearablePromoCodeSelectorProps
   | ClearablePromoCodeSelectorProps;
 
-export const PromoCodeSelector: React.FC<PromoCodeSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("ui");
-  const [itemsCache, setItemsCache] = React.useState<Record<string, PromoCode>>(
-    {},
-  );
-
-  const getDiscounts = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-
-      try {
-        const result = await adminApi.discounts.getDiscounts({
-          page,
-          limit,
-          priorityId: value ? [value] : undefined,
-          search,
-        });
-
-        const codes: PromoCode[] = result.items.flatMap((discount) =>
-          discount.codes.map((code) => ({
-            ...discount,
-            code,
-          })),
-        );
-
-        setItemsCache((prev) => ({
-          ...prev,
-          ...codes.reduce(
-            (map, cur) => ({
-              ...map,
-              [cur.code]: cur,
-            }),
-            {} as typeof itemsCache,
-          ),
-        }));
-
-        return {
-          items: codes.map((promoCode) => ({
-            label: <PromoCodeShortLabel promoCode={promoCode} />,
-            shortLabel: <PromoCodeShortLabel promoCode={promoCode} row />,
-            value: promoCode.code,
-          })) satisfies IComboboxItem[],
-          hasMore: page * limit < result.total,
-        };
-      } catch (error) {
-        toast.error(t("promoCodeSelector.requestFailed"));
-        console.error(error);
-        return {
-          items: [],
-          hasMore: false,
-        };
-      }
+export const PromoCodeSelector = React.forwardRef<
+  HTMLButtonElement,
+  PromoCodeSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache, t],
-  );
+    ref,
+  ) => {
+    const t = useI18n("ui");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, PromoCode>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache]);
+    const getDiscounts = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full", className)}
-      placeholder={t("promoCodeSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getDiscounts}
-      loader={<PromoCodeLoader />}
-    />
-  );
-};
+        try {
+          const result = await adminApi.discounts.getDiscounts({
+            page,
+            limit,
+            priorityId: value ? [value] : undefined,
+            search,
+          });
+
+          const codes: PromoCode[] = result.items.flatMap((discount) =>
+            discount.codes.map((code) => ({
+              ...discount,
+              code,
+            })),
+          );
+
+          setItemsCache((prev) => ({
+            ...prev,
+            ...codes.reduce(
+              (map, cur) => ({
+                ...map,
+                [cur.code]: cur,
+              }),
+              {} as typeof itemsCache,
+            ),
+          }));
+
+          return {
+            items: codes.map((promoCode) => ({
+              label: <PromoCodeShortLabel promoCode={promoCode} />,
+              shortLabel: <PromoCodeShortLabel promoCode={promoCode} row />,
+              value: promoCode.code,
+            })) satisfies IComboboxItem[],
+            hasMore: page * limit < result.total,
+          };
+        } catch (error) {
+          toast.error(t("promoCodeSelector.requestFailed"));
+          console.error(error);
+          return {
+            items: [],
+            hasMore: false,
+          };
+        }
+      },
+      [value, setItemsCache, t],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn("flex font-normal text-base max-w-full", className)}
+        placeholder={t("promoCodeSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getDiscounts}
+        loader={<PromoCodeLoader />}
+      />
+    );
+  },
+);
+
+PromoCodeSelector.displayName = "PromoCodeSelector";

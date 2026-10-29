@@ -11,6 +11,7 @@ import {
   ButtonVariant,
   buttonVariants,
 } from "./button";
+import { invalidControlClass } from "./invalid-field";
 
 const joinBreakpoints = ["sm", "md", "lg", "xl", "2xl"] as const;
 
@@ -40,6 +41,7 @@ const RadioButtonGroup = React.forwardRef<
     <RadioGroupPrimitive.Root
       className={cn(
         "flex flex-wrap gap-2",
+        "aria-[invalid=true]:[&_button]:border-destructive [&[invalid]]:[&_button]:border-destructive has-[[aria-invalid=true]]:[&_button]:border-destructive has-[[invalid]]:[&_button]:border-destructive",
         joined === true && joinedClasses,
         typeof joined === "string" && joinedFrom[joined],
         className,
@@ -117,6 +119,7 @@ const RadioButtonGroupItem = React.forwardRef<
                 uncheckedVariant,
               )({ variant: "unchecked" }),
           // "border data-[state=checked]:bg-background text-center rounded-md focus:outline-none 2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          invalidControlClass,
           className,
         )}
         {...props}

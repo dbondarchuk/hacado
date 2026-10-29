@@ -241,6 +241,21 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
   if (state === "hidden") return null;
 
   const label = text || t("saveButton.defaultText");
+  const showFieldErrors = !ignoreInvalid && !isValid;
+
+  const revealFieldErrors = () => {
+    void form.trigger(undefined, { shouldFocus: true }).then(() => {
+      const active = document.activeElement;
+      const focused =
+        active instanceof HTMLElement && active !== document.body
+          ? active
+          : null;
+      const target =
+        focused ?? document.querySelector<HTMLElement>("[aria-invalid='true']");
+
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  };
 
   return (
     <div
@@ -255,15 +270,22 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
         {state === "saving" && <Spinner className="h-4 w-4 shrink-0" />}
         {state === "saved" && <Check className="h-5 w-5 shrink-0" />}
         {state === "error" && <CircleAlert className="h-5 w-5 shrink-0" />}
-        <span className="truncate font-medium">
-          {state === "saving" && t("saveButton.saving")}
-          {state === "saved" && t("saveButton.saved")}
-          {state === "error" && (serverError || t("saveButton.failed"))}
-          {state === "dirty" &&
-            (!ignoreInvalid && !isValid
-              ? t("saveButton.fixErrors")
-              : t("saveButton.unsaved"))}
-        </span>
+        {state === "dirty" && showFieldErrors ? (
+          <button
+            type="button"
+            className="truncate font-medium underline underline-offset-4 hover:opacity-80"
+            onClick={revealFieldErrors}
+          >
+            {t("saveButton.fixErrors")}
+          </button>
+        ) : (
+          <span className="truncate font-medium">
+            {state === "saving" && t("saveButton.saving")}
+            {state === "saved" && t("saveButton.saved")}
+            {state === "error" && (serverError || t("saveButton.failed"))}
+            {state === "dirty" && t("saveButton.unsaved")}
+          </span>
+        )}
       </div>
 
       {state !== "saved" && (

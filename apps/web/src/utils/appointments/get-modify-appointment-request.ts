@@ -153,15 +153,15 @@ export const getModifyAppointmentInformationRequestResult = async (
     canUsePayments && defaultApps?.paymentAppId,
   );
 
-  const option = await servicesContainer.servicesService.getOption(
-    appointment.option._id,
+  const option = await servicesContainer.catalogService.getService(
+    appointment.service._id,
   );
 
   const appointmentInformation = {
     type: request.type,
     id: appointment._id,
     name: appointment.customer?.name,
-    optionName: appointment.option.name,
+    optionName: appointment.service.name,
     addonsNames: appointment.addons?.map((addon) => addon.name),
     dateTime: appointment.dateTime,
     timeZone: appointment.timeZone,

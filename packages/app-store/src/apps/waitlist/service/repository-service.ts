@@ -243,7 +243,7 @@ export class WaitlistRepositoryService {
 
     if (query.optionId) {
       $and.push({
-        "option._id": {
+        "service._id": {
           $in: Array.isArray(query.optionId)
             ? query.optionId
             : [query.optionId],
@@ -280,7 +280,7 @@ export class WaitlistRepositoryService {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       const queries = buildSearchQuery<WaitlistEntry>(
         { $regex },
-        "option.name",
+        "service.name",
         "addons.name",
         "addons.description",
         "name",
@@ -619,10 +619,10 @@ export class WaitlistRepositoryService {
       },
       {
         $lookup: {
-          from: "options",
+          from: "services",
           localField: "optionId",
           foreignField: "_id",
-          as: "option",
+          as: "service",
           pipeline: [
             {
               $project: {
@@ -658,8 +658,8 @@ export class WaitlistRepositoryService {
           customer: {
             $first: "$customer",
           },
-          option: {
-            $first: "$option",
+          service: {
+            $first: "$service",
           },
           member: {
             $first: "$member",

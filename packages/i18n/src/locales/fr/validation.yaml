@@ -40,22 +40,12 @@ customers:
   phoneAlreadyExists: Il y a déjà un client avec un ou plusieurs téléphones
 templates:
   nameMustBeUnique: Le nom du modèle doit être unique
-services:
-  discounts:
-    nameUnique: Le nom de la remise doit être unique
-    codeUnique: Le code de réduction doit être unique
-  fields:
-    nameUnique: Le nom du champ doit être unique
-  options:
-    nameUnique: Le nom de l'option doit être unique
-  addons:
-    nameUnique: Le nom du module complémentaire doit être unique
 install:
   nameMin: Le nom doit comporter au moins 3 caractères
   titleMin: Le titre doit comporter au moins 3 caractères
 appointments:
   request:
-    optionId:
+    serviceId:
       required: L'identifiant de l'option est requis
     addonsIds:
       required: Les identifiants des modules complémentaires sont requis
@@ -84,69 +74,11 @@ appointments:
       max: Un maximum de 2 codes de carte-cadeau peuvent être appliqués
     appointmentId:
       required: Un identifiant de rendez-vous est requis
-  option:
-    name:
-      required: Le nom de l'option doit comporter au moins 2 caractères
-      max: Le nom de l'option ne doit pas comporter plus de 256 caractères.
-    description:
-      required: La description de l'option est requise
-      max: La description de l'option ne doit pas comporter plus de 1 024 caractères.
-    duration:
-      required: La durée est requise
-      positive: La durée doit être un nombre entier supérieur ou égal à 1 minute
-    durationType:
-      required: Le type de durée est requis
-    durationMin:
-      required: Une durée minimale est requise
-      positive: La durée min doit être un nombre entier supérieur ou égal à 1 minute
-    durationMax:
-      required: La durée maximale est requise
-      positive: La durée maximale doit être un nombre entier supérieur ou égal à 1 minute
-      max: La durée maximale doit être d'au plus 1 jour
-    durationStep:
-      required: Un pas de durée est requis
-      positive: Le pas de durée doit être un nombre entier supérieur ou égal à 1 minute
-    pricePerHour:
-      required: Le prix par heure est requis
-      min: Le prix par heure doit être d'au moins 1
-    price:
-      min: Le prix doit être d'au moins 1
-    paymentType:
-      required: Le type de calcul du paiement est requis
-    addons:
-      id:
-        required: L'ID du module complémentaire est requis
-        unique: Les identifiants des modules complémentaires doivent être uniques
-    fields:
-      id:
-        required: L'ID du champ est obligatoire
-        unique: Les identifiants de champ doivent être uniques
-    isOnline:
-      required: Si cette option est sélectionnée, l'application du fournisseur d'URL de réunion est requise
-    meetingUrlProviderAppId:
-      required: L'application du fournisseur d'URL de réunion est requise si elle est sélectionnée
-    requireDeposit:
-      required: Le montant du dépôt est requis s’il est défini sur toujours
-    depositAmount:
-      required: Le montant du dépôt doit être un nombre positif
-    depositPercentage:
-      required: Le pourcentage de dépôt doit être un nombre entier compris entre 10 et 100
-    tipsMode:
-      required: Le mode Conseils est requis
-    duplicateAppointmentCheck:
-      enabled:
-        required: Un nombre de jours avant ou après le rendez-vous pour demander une confirmation est requis
-      days:
-        min: Le nombre de jours doit être compris entre 1 et 30
-        max: Le nombre de jours doit être compris entre 1 et 30
-      message:
-        required: Le message est requis
-    cancellationPolicyType:
-      required: Le type de politique d’annulation est requis
 addons:
   name:
     required: Le nom du module complémentaire doit comporter au moins 2 caractères
     max: Le nom du module complémentaire ne doit pas comporter plus de 256 caractères
+    unique: Le nom du module complémentaire doit être unique
   description:
     required: Une description complémentaire est requise
     max: La description du module complémentaire ne doit pas comporter plus de 1 024 caractères.
@@ -170,9 +102,11 @@ discount:
   name:
     required: Le nom de la remise doit comporter au moins 2 caractères
     max: Le nom de la remise ne doit pas comporter plus de 256 caractères
+    unique: Le nom de la remise doit être unique
   code:
     required: Le code de réduction doit comporter au moins 2 caractères
     max: Le code de réduction ne doit pas comporter plus de 256 caractères
+    unique: Le code de réduction doit être unique
   maxUsage:
     min: L'utilisation maximale doit être un nombre entier supérieur ou égal à 1
   maxUsagePerCustomer:
@@ -224,6 +158,7 @@ fields:
     required: Le nom du champ doit comporter au moins 2 caractères
     max: Le nom du champ ne doit pas comporter plus de 64 caractères
     invalid: Le nom du champ doit commencer par une lettre et contenir uniquement des lettres, des chiffres et un trait de soulignement (_).
+    unique: Le nom du champ doit être unique
   option:
     required: La valeur de l'option est requise
     unique: Les valeurs des options doivent être uniques
@@ -627,4 +562,65 @@ package:
       required: Le mode de paiement est requis
     price:
       min: Le prix de vente doit être au moins égal à 0
+services:
+  name:
+    unique: Le nom du service doit être unique
+    required: Le nom de l'option doit comporter au moins 2 caractères
+    max: Le nom de l'option ne doit pas comporter plus de 256 caractères.
 
+
+  description:
+    required: La description de l'option est requise
+    max: La description de l'option ne doit pas comporter plus de 1 024 caractères.
+  duration:
+    required: La durée est requise
+    positive: La durée doit être un nombre entier supérieur ou égal à 1 minute
+  durationType:
+    required: Le type de durée est requis
+  durationMin:
+    required: Une durée minimale est requise
+    positive: La durée min doit être un nombre entier supérieur ou égal à 1 minute
+  durationMax:
+    required: La durée maximale est requise
+    positive: La durée maximale doit être un nombre entier supérieur ou égal à 1 minute
+    max: La durée maximale doit être d'au plus 1 jour
+  durationStep:
+    required: Un pas de durée est requis
+    positive: Le pas de durée doit être un nombre entier supérieur ou égal à 1 minute
+  pricePerHour:
+    required: Le prix par heure est requis
+    min: Le prix par heure doit être d'au moins 1
+  price:
+    min: Le prix doit être d'au moins 1
+  paymentType:
+    required: Le type de calcul du paiement est requis
+  addons:
+    id:
+      required: L'ID du module complémentaire est requis
+      unique: Les identifiants des modules complémentaires doivent être uniques
+  fields:
+    id:
+      required: L'ID du champ est obligatoire
+      unique: Les identifiants de champ doivent être uniques
+  isOnline:
+    required: Si cette option est sélectionnée, l'application du fournisseur d'URL de réunion est requise
+  meetingUrlProviderAppId:
+    required: L'application du fournisseur d'URL de réunion est requise si elle est sélectionnée
+  requireDeposit:
+    required: Le montant du dépôt est requis s’il est défini sur toujours
+  depositAmount:
+    required: Le montant du dépôt doit être un nombre positif
+  depositPercentage:
+    required: Le pourcentage de dépôt doit être un nombre entier compris entre 10 et 100
+  tipsMode:
+    required: Le mode Conseils est requis
+  duplicateAppointmentCheck:
+    enabled:
+      required: Un nombre de jours avant ou après le rendez-vous pour demander une confirmation est requis
+    days:
+      min: Le nombre de jours doit être compris entre 1 et 30
+      max: Le nombre de jours doit être compris entre 1 et 30
+    message:
+      required: Le message est requis
+  cancellationPolicyType:
+    required: Le type de politique d’annulation est requis

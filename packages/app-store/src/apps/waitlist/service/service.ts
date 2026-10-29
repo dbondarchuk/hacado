@@ -459,7 +459,7 @@ export class WaitlistConnectedApp
         items: entries.items.map((entry) => ({
           id: entry._id,
           title: entry.name,
-          subtitle: waitlistSubtitle(entry.option?.name, entry.email),
+          subtitle: waitlistSubtitle(entry.service?.name, entry.email),
           href: `/dashboard/waitlist/appointment/new?id=${entry._id}`,
         })),
       },
@@ -509,7 +509,7 @@ export class WaitlistConnectedApp
       return Response.json({ error: "not_found" }, { status: 404 });
     }
 
-    const duration = entry.duration ?? entry.option?.duration;
+    const duration = entry.duration ?? entry.service?.duration;
     if (!duration) {
       return Response.json({ error: "not_found" }, { status: 404 });
     }
@@ -556,7 +556,7 @@ export class WaitlistConnectedApp
 
   private toCustomerWaitlistItem(entry: {
     _id: string;
-    option?: { name?: string };
+    service?: { name?: string };
     member?: { name?: string };
     asSoonAsPossible: boolean;
     dates?: { date: string; time: string[] }[];
@@ -565,7 +565,7 @@ export class WaitlistConnectedApp
   }) {
     return {
       _id: entry._id,
-      optionName: entry.option?.name ?? "",
+      optionName: entry.service?.name ?? "",
       memberName: entry.member?.name ?? "",
       asSoonAsPossible: entry.asSoonAsPossible,
       dates: entry.dates,
@@ -782,7 +782,7 @@ export class WaitlistConnectedApp
       appData.organizationId,
     );
 
-    const option = await this.props.services.servicesService.getOption(
+    const option = await this.props.services.catalogService.getService(
       data.entry.optionId,
     );
     if (!option) {
@@ -796,7 +796,7 @@ export class WaitlistConnectedApp
     }
 
     const addons = data.entry.addonsIds?.length
-      ? await this.props.services.servicesService.getAddonsById(
+      ? await this.props.services.catalogService.getAddonsById(
           data.entry.addonsIds,
         )
       : undefined;

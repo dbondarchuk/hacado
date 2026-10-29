@@ -127,7 +127,7 @@ export const PAYMENT_LINKS_APP_EVENTS: AppEventConfig = {
           );
 
           if (appointment) {
-            appointmentLabel = `${appointment.option?.name ?? "Appointment"} · ${DateTime.fromJSDate(
+            appointmentLabel = `${appointment.service?.name ?? "Appointment"} · ${DateTime.fromJSDate(
               new Date(appointment.dateTime),
             )
               .setZone(general.timeZone)

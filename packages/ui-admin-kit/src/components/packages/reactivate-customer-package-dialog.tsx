@@ -45,8 +45,8 @@ export const ReactivateCustomerPackageDialog: React.FC<
           reactivate: true,
         }),
         {
-          success: t("services.packages.customer.reactivate.success"),
-          error: t("services.packages.form.toasts.requestError"),
+          success: t("catalog.packages.customer.reactivate.success"),
+          error: t("catalog.packages.form.toasts.requestError"),
         },
       );
       setOpen(false);
@@ -61,17 +61,17 @@ export const ReactivateCustomerPackageDialog: React.FC<
       <AlertDialogTrigger asChild>
         {children ?? (
           <Button type="button" size="sm" variant="outline">
-            {t("services.packages.customer.reactivate.button")}
+            {t("catalog.packages.customer.reactivate.button")}
           </Button>
         )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t("services.packages.customer.reactivate.confirmTitle")}
+            {t("catalog.packages.customer.reactivate.confirmTitle")}
           </AlertDialogTitle>
           <AlertDialogDescription>
-            {t("services.packages.customer.reactivate.confirmDescription", {
+            {t("catalog.packages.customer.reactivate.confirmDescription", {
               name: pkg.name,
             })}
           </AlertDialogDescription>
@@ -87,7 +87,7 @@ export const ReactivateCustomerPackageDialog: React.FC<
               onClick={onReactivatePackage}
             >
               {loading ? <Spinner className="size-4" /> : null}
-              {t("services.packages.customer.reactivate.button")}
+              {t("catalog.packages.customer.reactivate.button")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -471,10 +471,10 @@ export const AssignAppointmentDialog = ({
                           <RadioGroupItem
                             value={appointment._id}
                             disabled={isCurrent}
-                            aria-label={appointment.option.name}
+                            aria-label={appointment.service.name}
                           />
                         </TableCell>
-                        <TableCell>{appointment.option.name}</TableCell>
+                        <TableCell>{appointment.service.name}</TableCell>
                         <TableCell>
                           {appointment.customer?.name ? (
                             <CustomerName customer={appointment.customer} />

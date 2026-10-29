@@ -25,7 +25,7 @@ export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate =
 
 Ми зв’яжемося з вами, щойно з’явиться вільний час для бажаної дати.
 
-Бажана послуга: {{waitlistEntry.option.name}}
+Бажана послуга: {{waitlistEntry.service.name}}
 
 Спеціаліст: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}`,
       },

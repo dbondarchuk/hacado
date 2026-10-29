@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
   }
 
   const servicesContainer = await getServicesContainer();
-  const option = await servicesContainer.servicesService.getOption(optionId);
+  const option = await servicesContainer.catalogService.getService(optionId);
   const optionStaffMemberIds = (option?.staff ?? []).map((s) => s.memberId);
 
   const items = await servicesContainer.packagesService.findEligible({

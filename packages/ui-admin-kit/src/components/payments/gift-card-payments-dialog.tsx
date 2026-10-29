@@ -56,10 +56,10 @@ export const GiftCardPaymentsDialog: React.FC<{
       <DialogContent className="sm:max-w-[80%] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {t("services.giftCards.table.payments.title")}
+            {t("catalog.giftCards.table.payments.title")}
           </DialogTitle>
           <DialogDescription>
-            {t("services.giftCards.table.payments.description")}
+            {t("catalog.giftCards.table.payments.description")}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="max-h-[calc(80vh-100px)] @container/payments-dialog-scroll-area">
@@ -71,7 +71,7 @@ export const GiftCardPaymentsDialog: React.FC<{
           >
             <Button variant="primary" className="w-full">
               <BanknoteArrowUp />
-              {t("services.giftCards.table.payments.addPayment")}
+              {t("catalog.giftCards.table.payments.addPayment")}
             </Button>
           </AddUpdatePaymentDialog>
           {payments.length > 0 || isLoading ? (
@@ -91,7 +91,7 @@ export const GiftCardPaymentsDialog: React.FC<{
           ) : (
             <div className="flex flex-col gap-2 bg-card p-4 rounded border py-2 mt-2">
               <div className="font-semibold flex flex-row gap-1 items-center">
-                {t("services.giftCards.table.payments.noPayments")}
+                {t("catalog.giftCards.table.payments.noPayments")}
               </div>
             </div>
           )}

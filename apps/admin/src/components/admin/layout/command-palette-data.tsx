@@ -144,7 +144,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-option",
-      href: "/dashboard/services/options/new",
+      href: "/dashboard/catalog/services/new",
       labelKey: "admin.commandPalette.actions.newOption",
       icon: <HandPlatter {...iconProps} />,
     },
@@ -153,7 +153,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-addon",
-      href: "/dashboard/services/addons/new",
+      href: "/dashboard/catalog/addons/new",
       labelKey: "admin.commandPalette.actions.newAddon",
       icon: <Puzzle {...iconProps} />,
     },
@@ -162,7 +162,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-field",
-      href: "/dashboard/services/fields/new",
+      href: "/dashboard/catalog/fields/new",
       labelKey: "admin.commandPalette.actions.newField",
       icon: <TextCursorInput {...iconProps} />,
     },
@@ -171,7 +171,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-discount",
-      href: "/dashboard/services/discounts/new",
+      href: "/dashboard/catalog/discounts/new",
       labelKey: "admin.commandPalette.actions.newDiscount",
       icon: <BadgePercent {...iconProps} />,
     },
@@ -180,7 +180,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-gift-card",
-      href: "/dashboard/services/gift-cards/new",
+      href: "/dashboard/catalog/gift-cards/new",
       labelKey: "admin.commandPalette.actions.newGiftCard",
       icon: <Gift {...iconProps} />,
     },
@@ -189,7 +189,7 @@ export function buildCommandPaletteActions({
   add(
     {
       id: "new-package",
-      href: "/dashboard/services/packages/new",
+      href: "/dashboard/catalog/packages/new",
       labelKey: "admin.commandPalette.actions.newPackage",
       icon: <Package {...iconProps} />,
     },

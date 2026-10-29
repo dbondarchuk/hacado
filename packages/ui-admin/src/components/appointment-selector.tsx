@@ -35,7 +35,7 @@ const AppointmentShortLabel: React.FC<{
 
   return (
     <div className="flex min-w-0 max-w-[var(--radix-popover-trigger-width)] flex-col gap-0.5 overflow-hidden text-nowrap">
-      <span className="truncate font-medium">{appointment.option.name}</span>
+      <span className="truncate font-medium">{appointment.service.name}</span>
       <span className="truncate text-xs text-muted-foreground">
         {appointment.customer?.name ? (
           <CustomerName customer={appointment.customer} />
@@ -73,99 +73,118 @@ export type AppointmentSelectorProps =
   | NonClearableAppointmentSelectorProps
   | ClearableAppointmentSelectorProps;
 
-export const AppointmentSelector: React.FC<AppointmentSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-  customerId,
-}) => {
-  const t = useI18n("admin");
-  const locale = useLocale();
-  const timeZone = useTimeZone();
-
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, Appointment>
-  >({});
-
-  React.useEffect(() => {
-    if (!value || itemsCache[value]) {
-      return;
-    }
-    adminApi.appointments
-      .getAppointment(value)
-      .then((appointment) => {
-        setItemsCache((prev) => ({ ...prev, [appointment._id]: appointment }));
-      })
-      .catch(() => undefined);
-  }, [value, itemsCache]);
-
-  const getAppointments = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.appointments.getAppointments({
-        page,
-        limit,
-        search,
-        customer: customerId ? [customerId] : undefined,
-        sort: [{ id: "dateTime", desc: true }],
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...result.items.reduce(
-          (map, appointment) => ({
-            ...map,
-            [appointment._id]: appointment,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: result.items.map((appointment) => ({
-          label: (
-            <AppointmentShortLabel
-              appointment={appointment}
-              locale={locale}
-              timeZone={timeZone}
-            />
-          ),
-          shortLabel: (
-            <span className="truncate">
-              {appointment.option.name}
-              {" · "}
-              {DateTime.fromJSDate(new Date(appointment.dateTime), {
-                zone: timeZone,
-              }).toLocaleString(DateTime.DATETIME_MED, { locale })}
-            </span>
-          ),
-          value: appointment._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const AppointmentSelector = React.forwardRef<
+  HTMLButtonElement,
+  AppointmentSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      customerId,
+      ...rest
     },
-    [customerId, locale, timeZone],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const locale = useLocale();
+    const timeZone = useTimeZone();
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, Appointment>
+    >({});
 
-  return (
-    <ComboboxAsync
-      key={customerId ?? "all"}
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex min-w-0 max-w-full font-normal text-base", className)}
-      placeholder={t("appointmentSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getAppointments}
-      loader={<AppointmentLoader />}
-    />
-  );
-};
+    React.useEffect(() => {
+      if (!value || itemsCache[value]) {
+        return;
+      }
+      adminApi.appointments
+        .getAppointment(value)
+        .then((appointment) => {
+          setItemsCache((prev) => ({
+            ...prev,
+            [appointment._id]: appointment,
+          }));
+        })
+        .catch(() => undefined);
+    }, [value, itemsCache]);
+
+    const getAppointments = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await adminApi.appointments.getAppointments({
+          page,
+          limit,
+          search,
+          customer: customerId ? [customerId] : undefined,
+          sort: [{ id: "dateTime", desc: true }],
+        });
+
+        setItemsCache((prev) => ({
+          ...prev,
+          ...result.items.reduce(
+            (map, appointment) => ({
+              ...map,
+              [appointment._id]: appointment,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: result.items.map((appointment) => ({
+            label: (
+              <AppointmentShortLabel
+                appointment={appointment}
+                locale={locale}
+                timeZone={timeZone}
+              />
+            ),
+            shortLabel: (
+              <span className="truncate">
+                {appointment.service.name}
+                {" · "}
+                {DateTime.fromJSDate(new Date(appointment.dateTime), {
+                  zone: timeZone,
+                }).toLocaleString(DateTime.DATETIME_MED, { locale })}
+              </span>
+            ),
+            value: appointment._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [customerId, locale, timeZone],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        key={customerId ?? "all"}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn(
+          "flex min-w-0 max-w-full font-normal text-base",
+          className,
+        )}
+        placeholder={t("appointmentSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getAppointments}
+        loader={<AppointmentLoader />}
+      />
+    );
+  },
+);
+
+AppointmentSelector.displayName = "AppointmentSelector";

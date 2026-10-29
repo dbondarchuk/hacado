@@ -32,7 +32,7 @@ export const ConfirmationCard = forwardRef<
 
   return (
     <div className={className} ref={ref} onClick={onClick} id={id}>
-      {appointment?.option && appointment.fields ? (
+      {appointment?.service && appointment.fields ? (
         <div className="max-w-3xl mx-auto booking-container">
           <div className="text-center py-8">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -44,7 +44,7 @@ export const ConfirmationCard = forwardRef<
             <p className="text-sm text-muted-foreground mb-6">
               {i18n("booking.confirmation.successMessage", {
                 name: appointment.fields.name,
-                service: appointment.option.name,
+                service: appointment.service.name,
               })}
             </p>
             <div className="bg-muted/50 flex flex-col gap-2 rounded-lg p-4 text-left">
@@ -52,7 +52,7 @@ export const ConfirmationCard = forwardRef<
                 {i18n("booking.confirmation.appointmentDetails")}
               </p>
               <p className="text-sm font-semibold text-foreground">
-                {appointment.option.name}
+                {appointment.service.name}
               </p>
               {!!dateTime && dateTime.isValid && (
                 <>

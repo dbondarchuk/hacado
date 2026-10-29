@@ -29,6 +29,45 @@ const nextConfig = {
       bodySizeLimit: "150mb",
     },
   },
+  async redirects() {
+    return [
+      {
+        source: "/dashboard/services/options",
+        destination: "/dashboard/catalog/services",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/services/options/:path*",
+        destination: "/dashboard/catalog/services/:path*",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/services",
+        destination: "/dashboard/catalog",
+        permanent: true,
+      },
+      {
+        source: "/dashboard/services/:path*",
+        destination: "/dashboard/catalog/:path*",
+        permanent: true,
+      },
+      {
+        source: "/api/services/options",
+        destination: "/api/catalog/services",
+        permanent: true,
+      },
+      {
+        source: "/api/services/options/:path*",
+        destination: "/api/catalog/services/:path*",
+        permanent: true,
+      },
+      {
+        source: "/api/services/:path*",
+        destination: "/api/catalog/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

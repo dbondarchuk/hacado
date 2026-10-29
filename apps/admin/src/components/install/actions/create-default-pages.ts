@@ -310,7 +310,7 @@ async function getTemplateServices(
 
   const output: TemplateServiceArg[] = [];
   for (const optionId of optionIds) {
-    const option = await services.servicesService.getOption(optionId);
+    const option = await services.catalogService.getService(optionId);
     if (!option) continue;
 
     const descriptionMarkdown =

@@ -43,8 +43,8 @@ export const CancelCustomerPackageDialog: React.FC<
       await toastPromise(
         adminApi.packages.adjustCustomerPackage(pkg._id, { cancel: true }),
         {
-          success: t("services.packages.customer.cancel.success"),
-          error: t("services.packages.form.toasts.requestError"),
+          success: t("catalog.packages.customer.cancel.success"),
+          error: t("catalog.packages.form.toasts.requestError"),
         },
       );
       setOpen(false);
@@ -59,17 +59,17 @@ export const CancelCustomerPackageDialog: React.FC<
       <AlertDialogTrigger asChild>
         {children ?? (
           <Button type="button" size="sm" variant="destructive">
-            {t("services.packages.customer.cancel.button")}
+            {t("catalog.packages.customer.cancel.button")}
           </Button>
         )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            {t("services.packages.customer.cancel.confirmTitle")}
+            {t("catalog.packages.customer.cancel.confirmTitle")}
           </AlertDialogTitle>
           <AlertDialogDescription>
-            {t("services.packages.customer.cancel.confirmDescription", {
+            {t("catalog.packages.customer.cancel.confirmDescription", {
               name: pkg.name,
             })}
           </AlertDialogDescription>
@@ -86,7 +86,7 @@ export const CancelCustomerPackageDialog: React.FC<
               onClick={onCancelPackage}
             >
               {loading ? <Spinner className="size-4" /> : null}
-              {t("services.packages.customer.cancel.button")}
+              {t("catalog.packages.customer.cancel.button")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -10,7 +10,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({
     id: "waitlist-slot-opened-email",
     name: "Email про вільний слот у листі очікування",
-    subject: "Звільнився час для {{waitlistEntry.option.name}}",
+    subject: "Звільнився час для {{waitlistEntry.service.name}}",
     content: [
       {
         type: "title",
@@ -22,7 +22,7 @@ export const waitlistSlotOpenedEmailTemplate: TemplatesTemplate =
 
 {{#isMorning}}Зранку{{/isMorning}}{{#isAfternoon}}Удень{{/isAfternoon}}{{#isEvening}}Увечері{{/isEvening}} з’явився час, який відповідає вашому запиту в листі очікування:
 
-Послуга: {{waitlistEntry.option.name}}
+Послуга: {{waitlistEntry.service.name}}
 Спеціаліст: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}
 Коли: {{slotDateTime.full}}{{#hasOtherTimes}} (і інші години теж){{/hasOtherTimes}}
 

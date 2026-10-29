@@ -168,12 +168,12 @@ export function scopesForHref(href: string): CommandSearchScope[] {
   if (path.includes("/dashboard/pages/footers")) return ["footers"];
   if (path.includes("/dashboard/pages")) return ["pages"];
   if (path.includes("/dashboard/templates")) return ["templates"];
-  if (path.includes("/dashboard/services/options")) return ["options"];
-  if (path.includes("/dashboard/services/addons")) return ["addons"];
-  if (path.includes("/dashboard/services/fields")) return ["fields"];
-  if (path.includes("/dashboard/services/discounts")) return ["discounts"];
-  if (path.includes("/dashboard/services/gift-cards")) return ["gift-cards"];
-  if (path.includes("/dashboard/services/packages")) return ["packages"];
+  if (path.includes("/dashboard/catalog/services")) return ["options"];
+  if (path.includes("/dashboard/catalog/addons")) return ["addons"];
+  if (path.includes("/dashboard/catalog/fields")) return ["fields"];
+  if (path.includes("/dashboard/catalog/discounts")) return ["discounts"];
+  if (path.includes("/dashboard/catalog/gift-cards")) return ["gift-cards"];
+  if (path.includes("/dashboard/catalog/packages")) return ["packages"];
   if (path.includes("/dashboard/assets")) return ["assets"];
   if (path.includes("/dashboard/settings/team")) return ["team"];
   if (path.includes("/dashboard/gift-card-studio/purchases")) {

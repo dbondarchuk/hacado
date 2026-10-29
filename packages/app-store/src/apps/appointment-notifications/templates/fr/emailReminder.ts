@@ -12,7 +12,7 @@ export const appointmentReminderEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Rappel de votre rendez-vous pour {{option.name}} le {{dateTime.full}}",
+        text: "Rappel de votre rendez-vous pour {{service.name}} le {{dateTime.full}}",
       },
       {
         type: "text",

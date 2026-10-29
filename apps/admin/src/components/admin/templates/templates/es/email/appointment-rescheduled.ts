@@ -12,7 +12,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Se reprogramó la cita para {{option.name}}",
+        text: "Se reprogramó la cita para {{service.name}}",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 ¡Gracias por seleccionar {{config.name}}!
 
-Su cita para {{option.name}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} fue reprogramada{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}} y duración: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
+Su cita para {{service.name}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} fue reprogramada{{#oldDateTime}} de {{oldDateTime.full}}{{/oldDateTime}} a {{dateTime.full}} y duración: {{#duration.hours}}{{.}} hr {{/duration.hours}}{{#duration.minutes}}{{.}} min{{/duration.minutes}}.
 
 Llámenos al {{config.phone}} lo antes posible si este horario no le conviene.
 

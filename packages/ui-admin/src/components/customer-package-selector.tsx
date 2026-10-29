@@ -54,90 +54,101 @@ export type CustomerPackageSelectorProps = {
   onValueChange?: (value: CustomerPackage | undefined) => void;
 };
 
-export const CustomerPackageSelector: React.FC<
+export const CustomerPackageSelector = React.forwardRef<
+  HTMLButtonElement,
   CustomerPackageSelectorProps
-> = ({
-  value,
-  customerId,
-  optionId,
-  memberId,
-  dateTime,
-  disabled,
-  className,
-  allowClear,
-  onItemSelect,
-  onValueChange,
-}) => {
-  const t = useI18n("ui");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, CustomerPackage>
-  >({});
-
-  const canFetch = !!customerId && !!optionId && !!memberId;
-  const fetchKey = `${customerId ?? ""}:${optionId ?? ""}:${memberId ?? ""}:${dateTime?.toISOString() ?? ""}`;
-
-  const getPackages = React.useCallback(
-    async (_page: number, _search?: string) => {
-      if (!customerId || !optionId || !memberId) {
-        return { items: [] as IComboboxItem[], hasMore: false };
-      }
-
-      const result = await adminApi.packages.getEligibleCustomerPackages({
-        customerId,
-        optionId,
-        memberId,
-        dateTime,
-      });
-
-      let packages = result.items;
-      if (value && !packages.some((pkg) => pkg._id === value)) {
-        const listed = await adminApi.packages.getCustomerPackages({
-          customerId,
-          page: 1,
-          limit: 50,
-        });
-        const match = listed.items.find((pkg) => pkg._id === value);
-        if (match) {
-          packages = [match, ...packages];
-        }
-      }
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...packages.reduce(
-          (map, cur) => ({ ...map, [cur._id]: cur }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: packages.map(toItem),
-        hasMore: false,
-      };
+>(
+  (
+    {
+      value,
+      customerId,
+      optionId,
+      memberId,
+      dateTime,
+      disabled,
+      className,
+      allowClear,
+      onItemSelect,
+      onValueChange,
+      ...rest
     },
-    [customerId, optionId, memberId, dateTime, value],
-  );
+    ref,
+  ) => {
+    const t = useI18n("ui");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, CustomerPackage>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+    const canFetch = !!customerId && !!optionId && !!memberId;
+    const fetchKey = `${customerId ?? ""}:${optionId ?? ""}:${memberId ?? ""}:${dateTime?.toISOString() ?? ""}`;
 
-  return (
-    <ComboboxAsync
-      key={fetchKey}
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled || !canFetch}
-      className={cn("flex font-normal text-base max-w-full", className)}
-      placeholder={
-        canFetch
-          ? t("customerPackageSelector.placeholder")
-          : t("customerPackageSelector.needCustomerAndService")
-      }
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getPackages}
-      loader={<Skeleton className="w-full h-10" />}
-    />
-  );
-};
+    const getPackages = React.useCallback(
+      async (_page: number, _search?: string) => {
+        if (!customerId || !optionId || !memberId) {
+          return { items: [] as IComboboxItem[], hasMore: false };
+        }
+
+        const result = await adminApi.packages.getEligibleCustomerPackages({
+          customerId,
+          optionId,
+          memberId,
+          dateTime,
+        });
+
+        let packages = result.items;
+        if (value && !packages.some((pkg) => pkg._id === value)) {
+          const listed = await adminApi.packages.getCustomerPackages({
+            customerId,
+            page: 1,
+            limit: 50,
+          });
+          const match = listed.items.find((pkg) => pkg._id === value);
+          if (match) {
+            packages = [match, ...packages];
+          }
+        }
+
+        setItemsCache((prev) => ({
+          ...prev,
+          ...packages.reduce(
+            (map, cur) => ({ ...map, [cur._id]: cur }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: packages.map(toItem),
+          hasMore: false,
+        };
+      },
+      [customerId, optionId, memberId, dateTime, value],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        key={fetchKey}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled || !canFetch}
+        className={cn("flex font-normal text-base max-w-full", className)}
+        placeholder={
+          canFetch
+            ? t("customerPackageSelector.placeholder")
+            : t("customerPackageSelector.needCustomerAndService")
+        }
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getPackages}
+        loader={<Skeleton className="w-full h-10" />}
+      />
+    );
+  },
+);
+
+CustomerPackageSelector.displayName = "CustomerPackageSelector";

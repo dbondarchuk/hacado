@@ -34,7 +34,7 @@ export type OnlineMeetingProps = z.infer<typeof OnlineMeetingPropsSchema>;
 
 export const OnlineMeetingPropsDefaults = {
   props: {
-    title: "{{option.name}}",
+    title: "{{service.name}}",
     whenText: "When:",
     codeText: "Code:",
     passwordText: "Password:",

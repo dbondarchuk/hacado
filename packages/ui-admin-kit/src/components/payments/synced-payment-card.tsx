@@ -231,7 +231,7 @@ export const SyncedPaymentCard = ({
                   href={`/dashboard/appointments/${payment.appointment._id}`}
                   variant="underline"
                 >
-                  {payment.appointment.option.name}
+                  {payment.appointment.service.name}
                   {" · "}
                   {formatAppointmentTime(payment.appointment.dateTime)}
                 </Link>
@@ -266,7 +266,7 @@ export const SyncedPaymentCard = ({
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm">
                     {suggestion.appointment
-                      ? `${suggestion.appointment.option.name} · ${formatAppointmentTime(
+                      ? `${suggestion.appointment.service.name} · ${formatAppointmentTime(
                           suggestion.appointment.dateTime,
                         )}`
                       : suggestion.appointmentId}

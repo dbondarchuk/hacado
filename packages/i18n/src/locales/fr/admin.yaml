@@ -231,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Option de service créée
+      title: Service créé
       description: "{name}"
     updated:
-      title: Option de service mise à jour
+      title: Service mis à jour
       description: "{name}"
     deleted:
-      title: Options de service supprimées
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Services supprimés
+      description: "{count, plural, =1 {# service} other {# services}}"
   discount:
     created:
       title: Remise créée
@@ -433,10 +433,11 @@ navigation:
   textMessaging: Messages texte
   schedule: Calendrier
   defaultSchedule: Calendrier par défaut
+  catalog: Catalogue
   services: Services
   fields: Champs
   addons: Modules complémentaires
-  options: Possibilités
+  options: Services
   discounts: Réductions
   giftCards: Cartes cadeaux
   packages: Forfaits
@@ -457,6 +458,13 @@ navigation:
     templates: Modèles de courriel et de texto pour les messages aux clients.
     store: Parcourez les applications que vous pouvez installer.
     defaultApps: Choisissez les applications par défaut pour les paiements, les courriels et les textos.
+    fields: Questions posées lors de la réservation d'un service.
+    addons: Extras facultatifs que les clients peuvent ajouter à une réservation.
+    services: Services réservables, avec durée et prix.
+    discounts: Codes promo et réductions de prix.
+    giftCards: Cartes cadeaux que les clients peuvent acheter et utiliser.
+    packages: Forfaits de visites prépayés.
+    soldPackages: Forfaits achetés par les clients.
   general: Général
   brand: Marque
   social: Sociale
@@ -885,7 +893,7 @@ appointments:
     columns:
       status: Statut
       statusAriaLabel: "Statut : {status}"
-      option: Option
+      option: Service
       customer: Client
       member: Membre de l'équipe
       dateTime: Date et heure
@@ -895,9 +903,9 @@ appointments:
       package: Emballer
       packageRestored: restauré
       price: Prix
-      optionName: Nom de l'option
-      optionPrice: Prix ​​des options
-      optionDuration: Durée des options
+      optionName: Nom du service
+      optionPrice: Prix du service
+      optionDuration: Durée du service
       selectedAddons: Modules complémentaires sélectionnés
       note: Note
       customerName: Nom
@@ -1057,8 +1065,8 @@ appointments:
     yes: Oui
     no: Non
     service: Service
-    selectedOption: Option sélectionnée
-    option: Option
+    selectedOption: Service sélectionné
+    option: Service
     description: Description
     selectedAddons: Modules complémentaires sélectionnés
     meetingInformation:
@@ -1368,7 +1376,7 @@ customers:
     selectOption: Sélectionnez une option
     always: Toujours
     never: Jamais
-    inherit: Identique à l'option sélectionnée ou à la configuration générale
+    inherit: Identique au service sélectionné ou à la configuration générale
     knownNames: Noms connus
     knownNamesTooltip: Noms alternatifs fournis par les clients lors de la demande de rendez-vous
     knownEmails: E-mails connus
@@ -1743,7 +1751,252 @@ services:
   memberSelector:
     loading: Chargement des membres...
     selectMember: Sélectionner un membre
-  options:
+templates:
+  page:
+    title: Modèles de communication
+  formPage:
+    typeTemplates: "{type} modèles"
+    new: Nouveau
+  newPage:
+    title: Nouveau modèle {type}
+  editPage:
+    title: Mettre à jour le modèle
+    clone: Cloner
+  addNew:
+    emptyTemplate: Modèle vide
+    add: Ajouter
+    addNewTemplate: Ajouter un nouveau modèle
+    type: Taper
+    selectTemplateType: Sélectionnez le type de modèle
+    template: Modèle
+    close: Fermer
+  form:
+    subject: Objet de l'e-mail
+    subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
+    subjectPlaceholder: Sujet
+    name: Nom du modèle
+    nameTooltip: Nom de modèle unique
+    namePlaceholder: Nom du modèle
+    validation:
+      templateNotValid: Le modèle n'est pas valide
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  textMessageBuilder:
+    content: Contenu du message texte
+    viewContext: Afficher le contexte
+    contextValues: Valeurs contextuelles
+    copied: Copié
+    copyPath: Copier le chemin
+    close: Fermer
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Aperçu
+  table:
+    filters:
+      type: Taper
+      filters: Filtres
+    columns:
+      type: Taper
+      name: Nom
+      updatedAt: Mis à jour à
+    cellAction:
+      templateDeleted: Le modèle « {name} » a été supprimé.
+      deleteError: Il y a eu un problème avec votre demande.
+      actions: Actes
+      update: Mise à jour
+      delete: Supprimer
+      clone: Cloner
+    deleteSelected:
+      success: Les modèles sélectionnés ont été supprimés
+      error: Il y a eu un problème avec votre demande.
+      button: Supprimer le {count, plural, =1 {template} other {# templates}} sélectionné
+      confirmTitle: Etes-vous absolument sûr ?
+      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modèles sélectionnés et pourrait interrompre les notifications qui les utilisent.
+      cancel: Annuler
+      deleteSelected: Supprimer la sélection
+appearance:
+  styling:
+    title: Stylisme
+    description: Ajuster le style général
+    form:
+      primaryFont: Police principale
+      secondaryFont: Police secondaire
+      tertiaryFont: Police tertiaire
+      selectFont: Sélectionnez la police
+      colorOverrides: Remplacements de couleur
+      invalidField: Champ invalide
+      duplicateType: Type en double
+      remove: Retirer
+      deleteConfirmTitle: Etes-vous absolument sûr ?
+      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de couleur ?
+      cancel: Annuler
+      delete: Supprimer
+      type: Taper
+      typeDescription: La couleur du thème que ce remplacement modifie.
+      selectColorOverrideType: Sélectionnez le type de remplacement de couleur
+      color: Couleur
+      colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
+      additionalCss: CSS supplémentaire
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+      fonts:
+        seeOnGoogleFonts: Voir sur Google Fonts
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variantes : {variants}"
+          regular: Régulier
+          italic: Italique
+          bold: Audacieux
+          medium: Moyen
+          semibold: Semi-gras
+          extrabold: Extra-audacieux
+          100italic: 100 italique
+          200italic: 200 italique
+          300italic: 300 italique
+          400italic: 400 italique
+          500italic: 500 italique
+          600italic: 600 italique
+          700italic: 700 italique
+          800italic: 800 italique
+          900italic: 900 italique
+        subsets:
+          label: "Sous-ensembles : {subsets}"
+          latin: latin
+          latin-ext: Latin étendu
+          vietnamese: vietnamien
+          cyrillic: cyrillique
+          cyrillic-ext: Cyrillique étendu
+          greek: grec
+          greek-ext: Grec étendu
+          hebrew: hébreu
+          math: Mathématiques
+          symbols: Symboles
+        category:
+          label: "Catégorie : {category}"
+          sans-serif: Sans empattement
+          serif: Serif
+          monospace: Monospace
+          display: Afficher
+          handwriting: Écriture
+          script: Scénario
+          fantasy: Fantaisie
+    colors:
+      default: Défaut
+      custom: Couleur personnalisée
+      background: Arrière-plan
+      foreground: Texte
+      card: Carte
+      card-foreground: Texte de la carte
+      popover: Popover
+      popover-foreground: Texte contextuel
+      primary: Primaire
+      primary-foreground: Texte principal
+      secondary: Secondaire
+      secondary-foreground: Texte secondaire
+      muted: En sourdine
+      muted-foreground: Texte en sourdine
+      accent: Accent
+      accent-foreground: Texte accentué
+      destructive: Destructeur
+      destructive-foreground: Texte destructeur
+      border: Frontière
+  footer:
+    title: Pied de page
+    description: Ajuster les liens dans le pied de page
+    form:
+      useCustomFooter: Utiliser un pied de page personnalisé
+      footerContent: Contenu du pied de page
+      preview: Aperçu
+      contactUsLabel: Étiquette Contactez-nous
+      contactUsLabelTooltip: La valeur par défaut est « Contactez-nous »
+      contactUsPlaceholder: Contactez-nous
+      links: Links
+      toasts:
+        changesSaved: Vos modifications ont été enregistrées.
+        requestError: Il y a eu un problème avec votre demande.
+apps:
+  heading: Applications connectées
+  description: Gérez vos applications connectées
+  defaultApps: Applications par défaut
+  appStore: Magasin d'applications
+  searchPlaceholder: Rechercher les applications installées
+  noResults: Aucune application trouvée pour votre recherche
+  noConnectedApps: Vous n'avez aucune application connectée
+  defaultAppsForm:
+    payment:
+      label: Processeur de paiement
+      placeholder: Désactiver les paiements
+    emailSender:
+      label: Expéditeur d'e-mail
+      placeholder: Utiliser l'expéditeur de courrier électronique par défaut
+    textMessageSender:
+      label: Expéditeur de SMS
+      placeholder: Utiliser l'expéditeur de message texte par défaut
+      tooltip: L'application qui envoie les messages texte aux clients. Facultatif.
+    textMessageResponder:
+      label: Répondeur aux SMS
+      tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
+    assetsStorage: Stockage des actifs
+    toasts:
+      changesSaved: Vos modifications ont été enregistrées.
+      requestError: Il y a eu un problème avec votre demande.
+  defaultAppsDescription: Sélectionnez les applications par défaut
+  migrateAssetsDialog:
+    migrateAssets: Migrer les actifs
+    title: Migrer les actifs existants
+    description: Migrez vos actifs existants depuis votre stockage précédent
+    sourceApp: Application de stockage des actifs sources
+    done: "Terminé : {count}"
+    success: "Succès : {count}"
+    error: "Erreur : {count}"
+    total: "Total : {count}"
+    migrate: Émigrer
+    toasts:
+      requestError: Votre demande a échoué
+  events:
+    installed:
+      title: Application installée
+      description: "{appDisplayName} a été installé."
+    connected:
+      title: Application connectée
+      description: "{appDisplayName} connecté."
+    uninstalled:
+      title: Application désinstallée
+      description: "{appDisplayName} a été désinstallé."
+    failed:
+      title: L'application a échoué
+      description: "{appDisplayName} n'a pas réussi à se connecter."
+  notifications:
+    failed:
+      title: La connexion à l'application a échoué
+      message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
+      action: Ouvrir des applications
+  emails:
+    failed:
+      subject: "{appDisplayName} - échec de la connexion"
+      preview: "{appDisplayName} n'a pas pu rester connecté"
+      title: Nous n'avons pas pu garder votre application connectée
+      body: |-
+        Bonjour {userName},
+
+        **{appDisplayName}** a signalé un problème de connexion ou n'a pas terminé la configuration avec succès. Ouvrez **Apps** dans votre tableau de bord pour vérifier les informations d'identification et les paramètres, puis réessayez de vous connecter.
+
+        Si tout semble déjà correct, vous pouvez ignorer cet e-mail.
+      button: Ouvrir des applications
+      handledBy: "Échec de la connexion à l'application : {appDisplayName}"
+catalog:
+  hub:
+    description: Services, extras, forfaits et autres articles que les clients peuvent réserver ou acheter.
+  services:
     title: Services
     description: Gérer les services que vous fournissez
     addNew: Ajouter un nouveau
@@ -1756,9 +2009,9 @@ services:
     upgradeRequired: Le forfait gratuit comprend un service. Passez à Solo pour en ajouter davantage.
     upgradeLink: Mise à niveau dans les paramètres de la marque
     new: Nouveau
-    newTitle: Nouvelle option de service
+    newTitle: Nouveau service
     newDescription: Ajoutez un nouveau service que vous fournissez
-    editDescription: Modifier l'option
+    editDescription: Modifier le service
     form:
       details: Détails
       durationAndPrice: Durée et prix
@@ -1767,7 +2020,7 @@ services:
       virtualAppointment: Rendez-vous virtuel
       virtualAppointmentTooltip: Tenez ce rendez-vous par vidéo, audio ou téléphone au lieu d'en personne.
       name: Nom
-      namePlaceholder: Nom de l'option
+      namePlaceholder: Nom du service
       description: Brève description
       descriptionTooltip: Texte court qui sera visible lors de la réservation
       duration: Durée
@@ -2040,9 +2293,9 @@ services:
         label: Étiquette
         updatedAt: Mis à jour à
         addons: Modules complémentaires
-        options: Possibilités
+        options: Services
         addonsInDialog: "{label} dans les modules complémentaires"
-        optionsInDialog: "{label} en options"
+        optionsInDialog: "{label} dans les services"
       cellAction:
         fieldDeleted: Le champ d'option "{label}" a été supprimé.
         deleteError: Il y a eu un problème avec votre demande.
@@ -2476,8 +2729,8 @@ services:
       columns:
         name: Nom
         updatedAt: Mis à jour à
-        options: Possibilités
-        optionsInDialog: "{name} en options"
+        options: Services
+        optionsInDialog: "{name} dans les services"
       cellAction:
         addonDeleted: Le module complémentaire "{name}" a été supprimé.
         deleteError: Il y a eu un problème avec votre demande.
@@ -2493,248 +2746,6 @@ services:
       confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modules complémentaires sélectionnés et les supprimera de toutes les options qui les utilisent
       cancel: Annuler
       deleteSelected: Supprimer la sélection
-templates:
-  page:
-    title: Modèles de communication
-  formPage:
-    typeTemplates: "{type} modèles"
-    new: Nouveau
-  newPage:
-    title: Nouveau modèle {type}
-  editPage:
-    title: Mettre à jour le modèle
-    clone: Cloner
-  addNew:
-    emptyTemplate: Modèle vide
-    add: Ajouter
-    addNewTemplate: Ajouter un nouveau modèle
-    type: Taper
-    selectTemplateType: Sélectionnez le type de modèle
-    template: Modèle
-    close: Fermer
-  form:
-    subject: Objet de l'e-mail
-    subjectTooltip: Objet de l'e-mail qui sera utilisé pour envoyer le message
-    subjectPlaceholder: Sujet
-    name: Nom du modèle
-    nameTooltip: Nom de modèle unique
-    namePlaceholder: Nom du modèle
-    validation:
-      templateNotValid: Le modèle n'est pas valide
-    toasts:
-      changesSaved: Vos modifications ont été enregistrées.
-      requestError: Il y a eu un problème avec votre demande.
-  textMessageBuilder:
-    content: Contenu du message texte
-    viewContext: Afficher le contexte
-    contextValues: Valeurs contextuelles
-    copied: Copié
-    copyPath: Copier le chemin
-    close: Fermer
-    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
-    preview: Aperçu
-  table:
-    filters:
-      type: Taper
-      filters: Filtres
-    columns:
-      type: Taper
-      name: Nom
-      updatedAt: Mis à jour à
-    cellAction:
-      templateDeleted: Le modèle « {name} » a été supprimé.
-      deleteError: Il y a eu un problème avec votre demande.
-      actions: Actes
-      update: Mise à jour
-      delete: Supprimer
-      clone: Cloner
-    deleteSelected:
-      success: Les modèles sélectionnés ont été supprimés
-      error: Il y a eu un problème avec votre demande.
-      button: Supprimer le {count, plural, =1 {template} other {# templates}} sélectionné
-      confirmTitle: Etes-vous absolument sûr ?
-      confirmDescription: Cette action ne peut pas être annulée. Cela supprimera les modèles sélectionnés et pourrait interrompre les notifications qui les utilisent.
-      cancel: Annuler
-      deleteSelected: Supprimer la sélection
-appearance:
-  styling:
-    title: Stylisme
-    description: Ajuster le style général
-    form:
-      primaryFont: Police principale
-      secondaryFont: Police secondaire
-      tertiaryFont: Police tertiaire
-      selectFont: Sélectionnez la police
-      colorOverrides: Remplacements de couleur
-      invalidField: Champ invalide
-      duplicateType: Type en double
-      remove: Retirer
-      deleteConfirmTitle: Etes-vous absolument sûr ?
-      deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer ce remplacement de couleur ?
-      cancel: Annuler
-      delete: Supprimer
-      type: Taper
-      typeDescription: La couleur du thème que ce remplacement modifie.
-      selectColorOverrideType: Sélectionnez le type de remplacement de couleur
-      color: Couleur
-      colorTooltip: Couleur au format CSS (HEX, rgb, rgba, hsl)
-      additionalCss: CSS supplémentaire
-      toasts:
-        changesSaved: Vos modifications ont été enregistrées.
-        requestError: Il y a eu un problème avec votre demande.
-      fonts:
-        seeOnGoogleFonts: Voir sur Google Fonts
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Variantes : {variants}"
-          regular: Régulier
-          italic: Italique
-          bold: Audacieux
-          medium: Moyen
-          semibold: Semi-gras
-          extrabold: Extra-audacieux
-          100italic: 100 italique
-          200italic: 200 italique
-          300italic: 300 italique
-          400italic: 400 italique
-          500italic: 500 italique
-          600italic: 600 italique
-          700italic: 700 italique
-          800italic: 800 italique
-          900italic: 900 italique
-        subsets:
-          label: "Sous-ensembles : {subsets}"
-          latin: latin
-          latin-ext: Latin étendu
-          vietnamese: vietnamien
-          cyrillic: cyrillique
-          cyrillic-ext: Cyrillique étendu
-          greek: grec
-          greek-ext: Grec étendu
-          hebrew: hébreu
-          math: Mathématiques
-          symbols: Symboles
-        category:
-          label: "Catégorie : {category}"
-          sans-serif: Sans empattement
-          serif: Serif
-          monospace: Monospace
-          display: Afficher
-          handwriting: Écriture
-          script: Scénario
-          fantasy: Fantaisie
-    colors:
-      default: Défaut
-      custom: Couleur personnalisée
-      background: Arrière-plan
-      foreground: Texte
-      card: Carte
-      card-foreground: Texte de la carte
-      popover: Popover
-      popover-foreground: Texte contextuel
-      primary: Primaire
-      primary-foreground: Texte principal
-      secondary: Secondaire
-      secondary-foreground: Texte secondaire
-      muted: En sourdine
-      muted-foreground: Texte en sourdine
-      accent: Accent
-      accent-foreground: Texte accentué
-      destructive: Destructeur
-      destructive-foreground: Texte destructeur
-      border: Frontière
-  footer:
-    title: Pied de page
-    description: Ajuster les liens dans le pied de page
-    form:
-      useCustomFooter: Utiliser un pied de page personnalisé
-      footerContent: Contenu du pied de page
-      preview: Aperçu
-      contactUsLabel: Étiquette Contactez-nous
-      contactUsLabelTooltip: La valeur par défaut est « Contactez-nous »
-      contactUsPlaceholder: Contactez-nous
-      links: Links
-      toasts:
-        changesSaved: Vos modifications ont été enregistrées.
-        requestError: Il y a eu un problème avec votre demande.
-apps:
-  heading: Applications connectées
-  description: Gérez vos applications connectées
-  defaultApps: Applications par défaut
-  appStore: Magasin d'applications
-  searchPlaceholder: Rechercher les applications installées
-  noResults: Aucune application trouvée pour votre recherche
-  noConnectedApps: Vous n'avez aucune application connectée
-  defaultAppsForm:
-    payment:
-      label: Processeur de paiement
-      placeholder: Désactiver les paiements
-    emailSender:
-      label: Expéditeur d'e-mail
-      placeholder: Utiliser l'expéditeur de courrier électronique par défaut
-    textMessageSender:
-      label: Expéditeur de SMS
-      placeholder: Utiliser l'expéditeur de message texte par défaut
-      tooltip: L'application qui envoie les messages texte aux clients. Facultatif.
-    textMessageResponder:
-      label: Répondeur aux SMS
-      tooltip: S'il n'est pas géré par l'expéditeur, il sera utilisé comme application par défaut pour répondre aux messages texte (c'est-à-dire réponse automatique). Facultatif.
-    assetsStorage: Stockage des actifs
-    toasts:
-      changesSaved: Vos modifications ont été enregistrées.
-      requestError: Il y a eu un problème avec votre demande.
-  defaultAppsDescription: Sélectionnez les applications par défaut
-  migrateAssetsDialog:
-    migrateAssets: Migrer les actifs
-    title: Migrer les actifs existants
-    description: Migrez vos actifs existants depuis votre stockage précédent
-    sourceApp: Application de stockage des actifs sources
-    done: "Terminé : {count}"
-    success: "Succès : {count}"
-    error: "Erreur : {count}"
-    total: "Total : {count}"
-    migrate: Émigrer
-    toasts:
-      requestError: Votre demande a échoué
-  events:
-    installed:
-      title: Application installée
-      description: "{appDisplayName} a été installé."
-    connected:
-      title: Application connectée
-      description: "{appDisplayName} connecté."
-    uninstalled:
-      title: Application désinstallée
-      description: "{appDisplayName} a été désinstallé."
-    failed:
-      title: L'application a échoué
-      description: "{appDisplayName} n'a pas réussi à se connecter."
-  notifications:
-    failed:
-      title: La connexion à l'application a échoué
-      message: "{appDisplayName} n'a pas réussi à se connecter. Vérifiez les paramètres de l'application."
-      action: Ouvrir des applications
-  emails:
-    failed:
-      subject: "{appDisplayName} - échec de la connexion"
-      preview: "{appDisplayName} n'a pas pu rester connecté"
-      title: Nous n'avons pas pu garder votre application connectée
-      body: |-
-        Bonjour {userName},
-
-        **{appDisplayName}** a signalé un problème de connexion ou n'a pas terminé la configuration avec succès. Ouvrez **Apps** dans votre tableau de bord pour vérifier les informations d'identification et les paramètres, puis réessayez de vous connecter.
-
-        Si tout semble déjà correct, vous pouvez ignorer cet e-mail.
-      button: Ouvrir des applications
-      handledBy: "Échec de la connexion à l'application : {appDisplayName}"
 settings:
   hub:
     description: Ouvrez une section des paramètres de votre entreprise.
@@ -3086,7 +3097,7 @@ settings:
           deleteConfirmDescription: Êtes-vous sûr de vouloir supprimer cette option de la liste des options disponibles ?
           cancel: Annuler
           delete: Supprimer
-        optionSelector:
+        serviceSelector:
           time: "{hours}h {minutes}min"
           requestFailed: La demande a échoué.
           loadingOptions: Options de chargement...

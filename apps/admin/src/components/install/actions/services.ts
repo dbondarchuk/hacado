@@ -101,10 +101,10 @@ export async function replaceServices(
   const oldIds = [...new Set(flattenCatalogOptionIds(booking.catalog))];
 
   for (const id of oldIds) {
-    const opt = await services.servicesService.getOption(id);
+    const opt = await services.catalogService.getService(id);
     const addonIds = opt?.addons?.map((a) => a.id).filter(Boolean) ?? [];
     if (addonIds.length)
-      await services.servicesService.deleteAddons(addonIds, source);
+      await services.catalogService.deleteAddons(addonIds, source);
   }
 
   const staff = [{ memberId }];
@@ -168,14 +168,14 @@ export async function replaceServices(
     }
 
     try {
-      const created = await services.servicesService.createOption(
+      const created = await services.catalogService.createService(
         option,
         source,
       );
       newIds.push(created._id);
     } catch (e) {
       if (newIds.length)
-        await services.servicesService.deleteOptions(newIds, source);
+        await services.catalogService.deleteServices(newIds, source);
       if (e instanceof ServiceLimitReachedError) {
         return { ok: false, code: "service_limit_reached" };
       }
@@ -188,7 +188,7 @@ export async function replaceServices(
   }
 
   if (oldIds.length)
-    await services.servicesService.deleteOptions(oldIds, source);
+    await services.catalogService.deleteServices(oldIds, source);
 
   const fresh =
     (await services.configurationService.getConfiguration("booking")) ?? null;
@@ -238,7 +238,7 @@ export async function createAddons(
   const services = ServicesContainer(organizationId, true);
   const ids: string[] = [];
   for (const addon of parsedAddons.data) {
-    const created = await services.servicesService.createAddon(addon, source);
+    const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
   logger.debug({ organizationId, createdCount: ids.length }, "Created addons");
@@ -272,15 +272,14 @@ export async function replaceAddonsForOption(
   }
 
   const services = ServicesContainer(organizationId, true);
-  const existing = await services.servicesService.getOption(optionId);
+  const existing = await services.catalogService.getService(optionId);
   if (!existing) {
     logger.error({ optionId }, "Option not found");
     return { ok: false, code: "not_found" };
   }
 
   const oldIds = existing.addons?.map((a) => a.id).filter(Boolean) ?? [];
-  if (oldIds.length)
-    await services.servicesService.deleteAddons(oldIds, source);
+  if (oldIds.length) await services.catalogService.deleteAddons(oldIds, source);
   if (!parsedAddons.data.length) {
     logger.debug({ optionId }, "Removed addons and left option without addons");
     return { ok: true, ids: [] };
@@ -288,7 +287,7 @@ export async function replaceAddonsForOption(
 
   const ids: string[] = [];
   for (const addon of parsedAddons.data) {
-    const created = await services.servicesService.createAddon(addon, source);
+    const created = await services.catalogService.createAddon(addon, source);
     ids.push(created._id);
   }
   logger.debug(
@@ -320,7 +319,7 @@ export async function getInstallServicesSnapshot(): Promise<
 
   const rows: InstallServiceServerSnapshot[] = [];
   for (const id of ids) {
-    const option = await services.servicesService.getOption(id);
+    const option = await services.catalogService.getService(id);
     if (!option) continue;
 
     const anyOption = option as Record<string, unknown>;
@@ -400,7 +399,7 @@ export async function getInstallServiceOptionSnapshot(
   }
 
   const services = ServicesContainer(organizationId, true);
-  const option = await services.servicesService.getOption(optionId);
+  const option = await services.catalogService.getService(optionId);
   if (!option) {
     logger.error({ optionId, organizationId }, "Option not found");
     return { ok: false, code: "not_found" };

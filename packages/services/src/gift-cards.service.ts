@@ -892,7 +892,7 @@ export class GiftCardsService extends BaseService implements IGiftCardsService {
               $first: "$customer.name",
             },
             serviceName: {
-              $first: "$appointment.option.name",
+              $first: "$appointment.service.name",
             },
           },
         },

@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Вибрати шаблон
   requestFailed: Запит на отримання шаблонів не вдався
   loadingTemplates: Завантаження шаблонів...
-optionSelector:
-  placeholder: Вибрати опцію
-  requestFailed: Запит на отримання опцій не вдався
+serviceSelector:
+  placeholder: Вибрати послугу
+  requestFailed: Запит на отримання послуг не вдався
 packageSelector:
   placeholder: Вибрати пакет
   requestFailed: Запит на отримання пакетів не вдався

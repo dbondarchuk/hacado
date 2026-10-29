@@ -715,14 +715,14 @@ export class ZoomConnectedApp
     client: ZoomApiClient,
     appointment: AppointmentEvent,
   ) {
-    const option = await this.props.services.servicesService.getOption(
-      appointment.option._id,
+    const option = await this.props.services.catalogService.getService(
+      appointment.service._id,
     );
     const description = option?.description;
 
     return {
       agenda: this.truncateAgenda(description),
-      topic: appointment.option.name,
+      topic: appointment.service.name,
       duration: appointment.totalDuration,
       start_time: DateTime.fromJSDate(appointment.dateTime)
         .set({ millisecond: 0 })

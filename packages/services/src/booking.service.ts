@@ -36,6 +36,7 @@ import {
   GetAppointmentOptionsResponse,
   IAvailabilityProvider,
   IBillingService,
+  ICatalogService,
   ICustomerAppointmentTextMessage,
   IEventService,
   IMeetingUrlProvider,
@@ -43,7 +44,6 @@ import {
   IPackagesService,
   IPaymentsService,
   isClosedAppointmentStatus,
-  IServicesService,
   ITeamService,
   ITextMessageConfigurationService,
   openAppointmentStatusMongoFilter,
@@ -135,7 +135,7 @@ export class BookingService extends BaseService implements IBookingService {
     private readonly assetsService: IAssetsService,
     private readonly customersService: ICustomersService,
     private readonly scheduleService: IScheduleService,
-    private readonly servicesService: IServicesService,
+    private readonly catalogService: ICatalogService,
     private readonly paymentsService: IPaymentsService,
     private readonly eventService: IEventService,
     private readonly organizationService: IOrganizationService,
@@ -318,8 +318,8 @@ export class BookingService extends BaseService implements IBookingService {
           customerName: event.fields.name,
           customerEmail: event.fields.email,
           customerPhone: event.fields.phone,
-          optionName: event.option.name,
-          optionIsOnline: event.option.isOnline,
+          optionName: event.service.name,
+          optionIsOnline: event.service.isOnline,
           data: event.data,
         },
         confirmed: propsConfirmed,
@@ -383,7 +383,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${fieldId}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name} - ${fieldId}`,
+            description: `${event.fields.name} - ${event.service.name} - ${fieldId}`,
           },
           file,
           enrichedEventSource,
@@ -393,7 +393,7 @@ export class BookingService extends BaseService implements IBookingService {
       }
     }
 
-    const option = await this.servicesService.getOption(event.option._id);
+    const option = await this.catalogService.getService(event.service._id);
 
     let autoConfirmSetting = option?.isAutoConfirm;
     if (customerPackageId || purchasePackageId) {
@@ -558,8 +558,8 @@ export class BookingService extends BaseService implements IBookingService {
           customerName: event.fields.name,
           customerEmail: event.fields.email,
           customerPhone: event.fields.phone,
-          optionName: event.option.name,
-          optionIsOnline: event.option.isOnline,
+          optionName: event.service.name,
+          optionIsOnline: event.service.isOnline,
         },
         confirmed: propsConfirmed,
         fileCount: files ? Object.keys(files).length : 0,
@@ -600,7 +600,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${fieldId}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name} - ${fieldId}`,
+            description: `${event.fields.name} - ${event.service.name} - ${fieldId}`,
           },
           file,
           eventSource,
@@ -924,7 +924,7 @@ export class BookingService extends BaseService implements IBookingService {
     }
 
     if (query.optionId) {
-      filter["option._id"] = {
+      filter["service._id"] = {
         $in: Array.isArray(query.optionId) ? query.optionId : [query.optionId],
       };
     }
@@ -953,7 +953,7 @@ export class BookingService extends BaseService implements IBookingService {
       const $regex = new RegExp(escapeRegex(query.search), "i");
       const queries = buildSearchQuery<Appointment>(
         { $regex },
-        "option.name",
+        "service.name",
         "note",
         "addons.name",
         "addons.description",
@@ -1397,7 +1397,7 @@ export class BookingService extends BaseService implements IBookingService {
             filename: `${getAppointmentBucket(appointmentId)}/${id}-${file.name}`,
             mimeType: fileType,
             appointmentId,
-            description: `${event.fields.name} - ${event.option.name}`,
+            description: `${event.fields.name} - ${event.service.name}`,
           },
           file,
           source,
@@ -1694,9 +1694,9 @@ export class BookingService extends BaseService implements IBookingService {
 
     const [fields, addons, options, publicPackages, hasActiveCustomerPackages] =
       await Promise.all([
-        this.servicesService.getFields({}),
-        this.servicesService.getAddons({}),
-        this.servicesService.getOptions({}),
+        this.catalogService.getFields({}),
+        this.catalogService.getAddons({}),
+        this.catalogService.getServices({}),
         this.packagesService.getPublicPackages(),
         this.packagesService.hasActiveCustomerPackages(),
       ]);
@@ -1809,7 +1809,7 @@ export class BookingService extends BaseService implements IBookingService {
     let showPromoCode = false;
     if (config.allowPromoCode === "always") showPromoCode = true;
     else if (config.allowPromoCode === "allow-if-has-active") {
-      const hasActiveDiscounts = await this.servicesService.hasActiveDiscounts(
+      const hasActiveDiscounts = await this.catalogService.hasActiveDiscounts(
         new Date(),
       );
       if (hasActiveDiscounts) showPromoCode = true;
@@ -2368,14 +2368,14 @@ export class BookingService extends BaseService implements IBookingService {
       }
 
       if (redeemPackageId) {
-        const option = await this.servicesService.getOption(event.option._id);
+        const option = await this.catalogService.getService(event.service._id);
         const optionStaffMemberIds = (option?.staff ?? []).map(
           (assignment) => assignment.memberId,
         );
         dbEvent.packageUsage = await this.packagesService.redeem({
           customerPackageId: redeemPackageId,
           appointmentId: id,
-          optionId: event.option._id,
+          optionId: event.service._id,
           memberId,
           appointmentDate: event.dateTime,
           optionStaffMemberIds,
@@ -2545,7 +2545,7 @@ export class BookingService extends BaseService implements IBookingService {
               code: dbEvent.discount.code,
               dateTime: new Date(),
               appointmentId: id,
-              appointmentOptionId: dbEvent.option?._id,
+              appointmentOptionId: dbEvent.service?._id,
               appointmentAddonIds: dbEvent.addons?.map((addon) => addon._id),
               appointmentTotalPrice: dbEvent.totalPrice ?? 0,
               appointmentDateTime: dbEvent.dateTime,
@@ -2621,8 +2621,8 @@ export class BookingService extends BaseService implements IBookingService {
           appointmentId: id,
           type: "updated",
           data: {
-            oldOption: oldEvent.option,
-            newOption: event.option,
+            oldOption: oldEvent.service,
+            newOption: event.service,
             oldFields: oldEvent.fields,
             newFields: event.fields,
             oldAddons: oldEvent.addons,

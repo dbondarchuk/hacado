@@ -45,7 +45,7 @@ export const AppointmentDialog: React.FC<AppointmentDialogProps> = ({
                   href={`/dashboard/appointments/${appointment._id}`}
                   className="inline"
                 >
-                  {appointment.option.name}
+                  {appointment.service.name}
                   <SquareArrowOutUpRight className="size-3.5 inline-block ml-1" />
                 </Link>
               </DialogTitle>

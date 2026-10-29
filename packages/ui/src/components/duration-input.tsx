@@ -4,6 +4,7 @@ import { Clock } from "lucide-react";
 import React from "react";
 import { cn } from "../utils/cn";
 import { Input, InputProps } from "./input";
+import { invalidShellClass } from "./invalid-field";
 
 export type DurationInputProps = Omit<
   InputProps,
@@ -412,7 +413,8 @@ export const DurationInput: React.FC<DurationInputProps> = ({
     <div
       ref={rootRef}
       className={cn(
-        "flex w-full min-w-0 items-center overflow-hidden rounded-md border bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background",
+        "flex w-full min-w-0 items-center overflow-hidden rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background",
+        invalidShellClass,
         className,
       )}
     >

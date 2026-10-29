@@ -33,7 +33,7 @@ common:
     formEmail: Correo electrónico
     formPhone: Teléfono
     formPromoCode: código promocional
-    formSelectOption: Seleccionar opción
+    formSelectOption: Seleccionar servicio
     searchCountryCode: Buscar país...
     searchTimezone: Buscar para cambiar la zona horaria
   aria:

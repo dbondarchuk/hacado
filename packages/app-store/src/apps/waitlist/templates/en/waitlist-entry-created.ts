@@ -25,7 +25,7 @@ We have received your request to join our waitlist.
 
 We will get in touch with you as soon as a time slot opens up for your desired date.
 
-Service requested: {{waitlistEntry.option.name}}
+Service requested: {{waitlistEntry.service.name}}
 
 Specialist: {{waitlistEntry.member.name}}{{#waitlistEntry.member.jobTitle}} ({{waitlistEntry.member.jobTitle}}){{/waitlistEntry.member.jobTitle}}`,
       },

@@ -11,6 +11,7 @@ import { cn } from "../utils";
 import { Badge } from "./badge";
 import { Button } from "./button";
 import type { InputProps } from "./input";
+import { invalidShellClass } from "./invalid-field";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 const parseTagOpt = (params: {
@@ -33,7 +34,10 @@ const parseTagOpt = (params: {
 };
 
 const tagInputVariant = cva(
-  "has-[:focus-visible]:ring-ring flex w-full flex-wrap gap-2 rounded-md border border-input bg-background text-base ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2",
+  [
+    "has-[:focus-visible]:ring-ring flex w-full flex-wrap gap-2 rounded-md border border-input bg-background text-base ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 has-[:focus-visible]:outline-none has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-offset-2",
+    invalidShellClass,
+  ],
   {
     variants: {
       h: {

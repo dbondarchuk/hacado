@@ -580,6 +580,7 @@ function collectNavItems(
   for (const child of group.children) {
     if (child.items?.length) {
       const parentTitle = label(child.title);
+      push(child);
       for (const nested of child.items) push(nested, parentTitle);
       continue;
     }

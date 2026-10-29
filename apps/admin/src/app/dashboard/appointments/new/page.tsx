@@ -50,9 +50,9 @@ export default async function NewAppointmentPage(props: Props) {
   ];
 
   const [fields, addons, options, bookingConfig] = await Promise.all([
-    servicesContainer.servicesService.getFields({}),
-    servicesContainer.servicesService.getAddons({}),
-    servicesContainer.servicesService.getOptions({}),
+    servicesContainer.catalogService.getFields({}),
+    servicesContainer.catalogService.getAddons({}),
+    servicesContainer.catalogService.getServices({}),
     servicesContainer.configurationService.getConfiguration("booking"),
   ]);
 
@@ -78,7 +78,7 @@ export default async function NewAppointmentPage(props: Props) {
 
   let from: AppointmentScheduleFormFrom | undefined = appointment
     ? {
-        optionId: appointment.option._id,
+        optionId: appointment.service._id,
         addonsIds: appointment.addons?.map((addon) => addon._id),
         customerId: appointment.customer._id,
         fields: appointment.fields,

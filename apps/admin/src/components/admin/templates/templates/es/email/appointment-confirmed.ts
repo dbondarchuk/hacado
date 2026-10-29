@@ -13,7 +13,7 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Se confirmó la cita para {{option.name}}",
+        text: "Se confirmó la cita para {{service.name}}",
       },
       {
         type: "text",
@@ -23,7 +23,7 @@ export const appointmentConfirmedEmailTemplate: TemplatesTemplate =
 
 Hemos confirmado su cita el {{dateTime.full}}
 
-Servicio solicitado: {{option.name}}
+Servicio solicitado: {{service.name}}
 
 Especialista: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },

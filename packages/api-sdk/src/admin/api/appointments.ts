@@ -183,7 +183,7 @@ export const createAppointment = async (
   smsConsent: boolean = false,
 ) => {
   console.debug("Creating appointment", {
-    optionId: appointment.optionId,
+    serviceId: appointment.serviceId,
     dateTime: appointment.dateTime.toISOString(),
     duration: appointment.totalDuration,
     filesCount: files ? Object.keys(files).length : 0,
@@ -225,7 +225,7 @@ export const updateAppointment = async (
 ) => {
   console.debug("Updating appointment", {
     appointmentId: id,
-    optionId: appointment.optionId,
+    serviceId: appointment.serviceId,
     dateTime: appointment.dateTime.toISOString(),
     duration: appointment.totalDuration,
     filesCount: files ? Object.keys(files).length : 0,

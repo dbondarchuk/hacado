@@ -13,7 +13,7 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Новий запит на запис для послуги {{option.name}}",
+        text: "Новий запит на запис для послуги {{service.name}}",
       },
       {
         type: "text",
@@ -23,7 +23,7 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate =
 
 Ми незабаром підтвердимо ваш запис на {{dateTime.full}}.
 
-Послуга: {{option.name}}
+Послуга: {{service.name}}
 
 Спеціаліст: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },

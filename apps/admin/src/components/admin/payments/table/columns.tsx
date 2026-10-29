@@ -99,7 +99,7 @@ export const columns: ColumnDef<PaymentSummary>[] = [
           <span className="flex items-center gap-1">
             <span>{t("admin.payment.methods.giftCard")}</span>
             <Link
-              href={`/dashboard/services/gift-cards/${payment.giftCardId}`}
+              href={`/dashboard/catalog/gift-cards/${payment.giftCardId}`}
               variant="underline"
             >
               {payment.giftCardCode}

@@ -38,7 +38,7 @@ common:
     formEmail: Електронна пошта
     formPhone: Телефон
     formPromoCode: Промокод
-    formSelectOption: Виберіть опцію
+    formSelectOption: Виберіть послугу
     searchCountryCode: Пошук країни...
     searchTimezone: Пошук для зміни часового поясу
   aria:

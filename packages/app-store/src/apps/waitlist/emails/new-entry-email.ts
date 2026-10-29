@@ -82,7 +82,7 @@ export const buildNewWaitlistEntryEmailNotifications = async (
       customerName: entry.customer?.name?.trim() || entry.name || "-",
       customerEmail: entry.email?.trim() || "-",
       customerPhone: entry.phone?.trim() || "-",
-      serviceName: entry.option?.name || "-",
+      serviceName: entry.service?.name || "-",
       memberName: entry.member?.name?.trim() || "-",
       addons:
         entry.addons?.map((addon) => addon.name).join(", ") ||

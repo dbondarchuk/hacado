@@ -251,7 +251,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
     sortingFn: tableSortNoopFunction,
   },
   {
-    id: "appointment.option.name",
+    id: "appointment.service.name",
     sortingFn: tableSortNoopFunction,
     header: tableSortHeader(
       "communicationLogs.table.columns.appointment",
@@ -266,7 +266,7 @@ export const columns: ColumnDef<CommunicationLog>[] = [
           variant="default"
           href={`/dashboard/appointments/${row.original.appointmentId}`}
         >
-          {row.original.appointment?.option.name}
+          {row.original.appointment?.service.name}
         </Link>
       );
     },

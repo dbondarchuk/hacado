@@ -35,98 +35,111 @@ export type PageSelectorProps = {
   allowClear?: boolean;
 };
 
-export const PageSelector: React.FC<PageSelectorProps> = ({
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-  placeholder,
-}) => {
-  const t = useI18n("ui");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, PageListModelWithUrl>
-  >({});
-
-  const getPages = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.pages.getPages({
-        page,
-        limit,
-        search,
-        priorityId: value ? [value] : undefined,
-      });
-
-      const filtered = excludeIds?.length
-        ? result.items.filter((item) => !excludeIds.includes(item._id))
-        : result.items;
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...filtered.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: filtered.map((item) => ({
-          label: <PageShortLabel page={item} />,
-          shortLabel: (
-            <span className="shrink overflow-hidden text-nowrap min-w-0">
-              {item.title}
-            </span>
-          ),
-          value: item._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const PageSelector = React.forwardRef<
+  HTMLButtonElement,
+  PageSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      excludeIds,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      placeholder,
+      ...rest
     },
-    [value, excludeIds],
-  );
+    ref,
+  ) => {
+    const t = useI18n("ui");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, PageListModelWithUrl>
+    >({});
 
-  React.useEffect(() => {
-    if (!value || itemsCache[value]) return;
-    let cancelled = false;
-    void (async () => {
-      const result = await adminApi.pages.getPages({
-        page: 1,
-        limit: 1,
-        priorityId: [value],
-      });
-      if (cancelled || !result.items[0]) return;
-      const item = result.items[0];
-      setItemsCache((prev) => ({
-        ...prev,
-        [item._id]: item,
-      }));
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [value]);
+    const getPages = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await adminApi.pages.getPages({
+          page,
+          limit,
+          search,
+          priorityId: value ? [value] : undefined,
+        });
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache, onValueChange]);
+        const filtered = excludeIds?.length
+          ? result.items.filter((item) => !excludeIds.includes(item._id))
+          : result.items;
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full", className)}
-      placeholder={placeholder || t("pageSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getPages}
-      loader={<PageLoader />}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...filtered.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: filtered.map((item) => ({
+            label: <PageShortLabel page={item} />,
+            shortLabel: (
+              <span className="shrink overflow-hidden text-nowrap min-w-0">
+                {item.title}
+              </span>
+            ),
+            value: item._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [value, excludeIds],
+    );
+
+    React.useEffect(() => {
+      if (!value || itemsCache[value]) return;
+      let cancelled = false;
+      void (async () => {
+        const result = await adminApi.pages.getPages({
+          page: 1,
+          limit: 1,
+          priorityId: [value],
+        });
+        if (cancelled || !result.items[0]) return;
+        const item = result.items[0];
+        setItemsCache((prev) => ({
+          ...prev,
+          [item._id]: item,
+        }));
+      })();
+      return () => {
+        cancelled = true;
+      };
+    }, [value]);
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache, onValueChange]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn("flex font-normal text-base max-w-full", className)}
+        placeholder={placeholder || t("pageSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getPages}
+        loader={<PageLoader />}
+      />
+    );
+  },
+);
+
+PageSelector.displayName = "PageSelector";

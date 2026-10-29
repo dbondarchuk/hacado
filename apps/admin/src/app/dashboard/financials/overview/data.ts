@@ -314,7 +314,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
       },
       {
         $addFields: {
-          serviceName: { $arrayElemAt: ["$appointment.option.name", 0] },
+          serviceName: { $arrayElemAt: ["$appointment.service.name", 0] },
           customerName: { $arrayElemAt: ["$customer.name", 0] },
           appointment: "$$REMOVE",
         },

@@ -13,7 +13,7 @@ export const appointmentCreatedEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "New appointment request for {{option.name}}",
+        text: "New appointment request for {{service.name}}",
       },
       {
         type: "text",
@@ -23,7 +23,7 @@ Thank you for selecting {{config.name}}!
 
 We will confirm your appointment for {{dateTime.full}} shortly
 
-Service requested: {{option.name}}
+Service requested: {{service.name}}
 
 Specialist: {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}`,
       },

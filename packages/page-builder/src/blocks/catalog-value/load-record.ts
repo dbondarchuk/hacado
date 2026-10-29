@@ -16,8 +16,8 @@ const loadEntity: Record<
   CatalogSource,
   (services: any, itemId: string) => Promise<any>
 > = {
-  service: (services, itemId) => services.servicesService.getOption(itemId),
-  addon: (services, itemId) => services.servicesService.getAddon(itemId),
+  service: (services, itemId) => services.catalogService.getService(itemId),
+  addon: (services, itemId) => services.catalogService.getAddon(itemId),
   member: (services, itemId) => services.teamService.getMemberById(itemId),
   package: (services, itemId) => services.packagesService.getPackage(itemId),
 };

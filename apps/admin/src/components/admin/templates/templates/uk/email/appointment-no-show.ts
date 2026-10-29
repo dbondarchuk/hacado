@@ -12,7 +12,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Вас позначено як неявку на {{option.name}}",
+        text: "Вас позначено як неявку на {{service.name}}",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-Ми зафіксували, що ви не були на візиті на послугу {{option.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
+Ми зафіксували, що ви не були на візиті на послугу {{service.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}}, якщо хочете обрати інший час.
 

@@ -8,7 +8,7 @@ import {
   zObjectId,
   zUniqueArray,
 } from "../utils";
-import { isRequiredOptionTypes } from "./appointment-option";
+import { isRequiredOptionTypes } from "./service";
 
 export const appointmentPackageStatuses = ["active", "inactive"] as const;
 export type AppointmentPackageStatus =

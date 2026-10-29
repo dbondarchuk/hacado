@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Seleccionar plantilla
   requestFailed: La solicitud para recuperar plantillas ha fallado
   loadingTemplates: Cargando plantillas...
-optionSelector:
-  placeholder: Seleccionar opción
-  requestFailed: La solicitud para recuperar opciones ha fallado
+serviceSelector:
+  placeholder: Seleccionar servicio
+  requestFailed: La solicitud para recuperar servicios ha fallado
 packageSelector:
   placeholder: Seleccionar paquete
   requestFailed: La solicitud para recuperar paquetes ha fallado

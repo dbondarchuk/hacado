@@ -14,6 +14,7 @@ import {
   RedisDashboardNotificationPublisher,
 } from "./bullmq";
 import { getRedisClient } from "./bullmq/redis-client";
+import { CatalogService } from "./catalog.service";
 import { CommunicationLogsService } from "./communication-logs.service";
 import { CachedConfigurationService } from "./configuration-cached.service";
 import { ConfigurationService } from "./configuration.service";
@@ -29,7 +30,6 @@ import { PaymentsService } from "./payments.service";
 import { S3AssetsStorageService } from "./s3-assets-storage";
 import { getS3Configuration } from "./s3-assets-storage/utils";
 import { ScheduleService } from "./schedule.service";
-import { ServicesService } from "./services.service";
 import { ShortLinksService } from "./short-links";
 import { SyncedPaymentsService } from "./synced-payments.service";
 import { TeamService } from "./team.service";
@@ -48,6 +48,7 @@ export * from "./activity.service";
 export * from "./assets.service";
 export * from "./billing";
 export * from "./booking.service";
+export * from "./catalog.service";
 export * from "./communication-logs.service";
 export * from "./configuration-cached.service";
 export * from "./configuration.service";
@@ -64,7 +65,6 @@ export * from "./pages.service";
 export * from "./payments.service";
 export * from "./s3-assets-storage";
 export * from "./schedule.service";
-export * from "./services.service";
 export * from "./short-links";
 export * from "./synced-payments.service";
 export * from "./team.service";
@@ -142,7 +142,7 @@ export const ServicesContainer: (
       configurationService,
     );
 
-    const servicesService = new ServicesService(
+    const catalogService = new CatalogService(
       organizationId,
       configurationService,
       eventService,
@@ -164,7 +164,7 @@ export const ServicesContainer: (
 
     const packagesService = new PackagesService(
       organizationId,
-      servicesService,
+      catalogService,
       paymentsService,
       eventService,
     );
@@ -190,7 +190,7 @@ export const ServicesContainer: (
       assetsService,
       customersService,
       scheduleService,
-      servicesService,
+      catalogService,
       paymentsService,
       eventService,
       organizationService,
@@ -247,7 +247,7 @@ export const ServicesContainer: (
       bookingService,
       pagesService,
       customersService,
-      servicesService,
+      catalogService,
       scheduleService,
       templatesService,
       communicationLogsService,

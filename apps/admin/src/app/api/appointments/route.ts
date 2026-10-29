@@ -167,14 +167,14 @@ export async function POST(request: NextRequest) {
 
   const { timeZone } =
     await servicesContainer.configurationService.getConfiguration("general");
-  const option = await servicesContainer.servicesService.getOption(
-    data.optionId,
+  const option = await servicesContainer.catalogService.getService(
+    data.serviceId,
   );
 
   if (!option) {
-    logger.warn({ optionId: data.optionId }, "Option not found");
+    logger.warn({ serviceId: data.serviceId }, "Service not found");
     return NextResponse.json(
-      { success: false, error: "Option not found", code: "option_not_found" },
+      { success: false, error: "Service not found", code: "option_not_found" },
       { status: 400 },
     );
   }
@@ -188,7 +188,7 @@ export async function POST(request: NextRequest) {
   }
 
   const addons = data.addonsIds?.length
-    ? await servicesContainer.servicesService.getAddonsById(data.addonsIds)
+    ? await servicesContainer.catalogService.getAddonsById(data.addonsIds)
     : undefined;
 
   const unassignedIssues = getUnassignedMemberIssues({
@@ -220,13 +220,13 @@ export async function POST(request: NextRequest) {
   }
 
   const discount = data.discount
-    ? await servicesContainer.servicesService.getDiscountByCode(
+    ? await servicesContainer.catalogService.getDiscountByCode(
         data.discount.code,
       )
     : undefined;
 
   const selectedFields =
-    await servicesContainer.servicesService.getFieldsByNames(
+    await servicesContainer.catalogService.getFieldsByNames(
       Object.keys(data.fields),
     );
   const fieldsLabels = selectedFields.reduce(
@@ -273,6 +273,7 @@ export async function POST(request: NextRequest) {
   const {
     acknowledgeUnassignedMember: _acknowledgeUnassignedMember,
     customerPackageId,
+    serviceId: _serviceId,
     ...eventData
   } = data;
 
@@ -286,7 +287,7 @@ export async function POST(request: NextRequest) {
       ),
     fieldsLabels,
     timeZone,
-    option: {
+    service: {
       _id: option._id,
       name: option.name,
       price: optionPrice,

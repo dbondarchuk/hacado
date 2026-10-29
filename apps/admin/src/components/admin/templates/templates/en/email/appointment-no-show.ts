@@ -12,7 +12,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "You were marked as a no-show for {{option.name}}",
+        text: "You were marked as a no-show for {{service.name}}",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
 
 Thank you for selecting {{config.name}}!
 
-We recorded that you did not attend your appointment for {{option.name}} on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
+We recorded that you did not attend your appointment for {{service.name}} on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Please give us a call at {{config.phone}} if you would like to book another time.
 

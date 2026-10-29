@@ -36,7 +36,10 @@ function loadSmsPreviewArgs() {
             ? record.websiteUrl.replace(/\/$/, "")
             : "https://example.hacado.me";
         const optionName =
-          typeof record.option?.name === "string" ? record.option.name : "Cut";
+          typeof record.service?.name === "string"
+            ? record.service.name
+            : "Cut";
+
         const customerName =
           typeof record.fields?.name === "string" && record.fields.name.trim()
             ? record.fields.name.trim()
@@ -48,7 +51,10 @@ function loadSmsPreviewArgs() {
           manageLink: `${websiteUrl}/my-cabinet`,
           bookingUrl: `${websiteUrl}/book`,
           paymentLinkUrl: `${websiteUrl}/pay`,
-          waitlistEntry: { name: customerName, option: { name: optionName } },
+          waitlistEntry: {
+            name: customerName,
+            service: { name: optionName },
+          },
           slotDateTime: record.dateTime,
         };
       })

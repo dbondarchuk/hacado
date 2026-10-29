@@ -19,7 +19,7 @@ import {
   FormMessage,
   Input,
 } from "@hacado/ui";
-import { OptionSelector, PackageSelector } from "@hacado/ui-admin";
+import { PackageSelector, ServiceSelector } from "@hacado/ui-admin";
 import { GripVertical, Trash } from "lucide-react";
 import React from "react";
 import { FieldPath, useFieldArray, UseFormReturn } from "react-hook-form";
@@ -217,7 +217,7 @@ export const CatalogNodeCard: React.FC<{
                   {t("settings.appointments.form.options.service")}
                 </FormLabelWithRequiredIndicator>
                 <FormControl>
-                  <OptionSelector
+                  <ServiceSelector
                     disabled={disabled}
                     value={field.value as string}
                     excludeIds={usedOptionIds.filter(

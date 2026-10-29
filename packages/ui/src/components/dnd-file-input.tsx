@@ -38,8 +38,10 @@ export const DndFileInput: React.FC<DndFileInputProps> = ({
     accept: accept,
   });
 
+  const rootProps = getRootProps();
+
   return (
-    <div {...getRootProps()}>
+    <div {...rootProps} className={cn(rootProps.className, "group")}>
       <input
         type="file"
         {...rest}
@@ -49,7 +51,7 @@ py-2 px-3 leading-tight text-background shadow focus:outline-none"
       />
       <div
         className={cn(
-          "w-full border border-dashed border-primary rounded-md p-2 text-muted-foreground cursor-pointer",
+          "w-full border border-dashed border-primary rounded-md p-2 text-muted-foreground cursor-pointer group-has-[[aria-invalid=true]]:border-destructive group-has-[[invalid]]:border-destructive group-aria-[invalid=true]:border-destructive group-[[invalid]]:border-destructive",
           isDragActive && "bg-primary/20",
         )}
       >

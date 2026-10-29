@@ -243,68 +243,84 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
   );
 };
 
-export const CustomerSelector: React.FC<CustomerSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("admin");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, CustomerListModel>
-  >({});
-
-  const getCustomers = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.customers.getCustomers({
-        page,
-        limit,
-        search,
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev) => ({
-        ...prev,
-        ...result.items.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: result.items.map((customer) => ({
-          label: <CustomerShortLabel customer={customer} />,
-          shortLabel: <CustomerShortLabel customer={customer} row />,
-          value: customer._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const CustomerSelector = React.forwardRef<
+  HTMLButtonElement,
+  CustomerSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache, t],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, CustomerListModel>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache]);
+    const getCustomers = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await adminApi.customers.getCustomers({
+          page,
+          limit,
+          search,
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full min-w-0", className)}
-      placeholder={t("customerSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getCustomers}
-      loader={<CustomerLoader />}
-      addNewItem={AddNewCustomerItem}
-    />
-  );
-};
+        setItemsCache((prev) => ({
+          ...prev,
+          ...result.items.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: result.items.map((customer) => ({
+            label: <CustomerShortLabel customer={customer} />,
+            shortLabel: <CustomerShortLabel customer={customer} row />,
+            value: customer._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [value, setItemsCache, t],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn(
+          "flex font-normal text-base max-w-full min-w-0",
+          className,
+        )}
+        placeholder={t("customerSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getCustomers}
+        loader={<CustomerLoader />}
+        addNewItem={AddNewCustomerItem}
+      />
+    );
+  },
+);
+
+CustomerSelector.displayName = "CustomerSelector";

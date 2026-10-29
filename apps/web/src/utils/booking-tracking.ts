@@ -67,7 +67,7 @@ export async function trackBookingStepWithCustomer(
       name: string;
       phone: string;
     };
-    optionId?: string;
+    serviceId?: string;
     dateTime?: Date;
     addonsIds?: string[];
   },
@@ -89,7 +89,7 @@ export async function trackBookingStepWithCustomer(
 
   const enhancedMetadata: BookingTrackingMetadata = {
     ...metadata,
-    optionId: appointmentRequest?.optionId || metadata?.optionId,
+    optionId: appointmentRequest?.serviceId || metadata?.optionId,
     customerEmail: appointmentRequest?.fields?.email,
     customerName: appointmentRequest?.fields?.name,
     customerId,

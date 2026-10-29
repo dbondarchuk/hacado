@@ -86,7 +86,7 @@ export const AppointmentCalendar: React.FC<{
             start: start.toJSDate(),
             end: start.plus({ minutes: app.totalDuration || 0 }).toJSDate(),
             id: app._id,
-            title: app.option.name,
+            title: app.service.name,
             customer: {
               _id: app.customer?._id,
               name: app.fields.name,

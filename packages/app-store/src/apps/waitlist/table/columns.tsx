@@ -60,13 +60,13 @@ export const columns: ColumnDef<WaitlistEntry & { appId: string }>[] = [
   {
     cell: ({ row }) => (
       <Link
-        href={`/dashboard/services/options/${row.original.optionId}`}
+        href={`/dashboard/catalog/services/${row.original.optionId}`}
         variant="underline"
       >
-        {row.original.option?.name}
+        {row.original.service?.name}
       </Link>
     ),
-    id: "option.name",
+    id: "service.name",
     header: tableSortHeader<WaitlistAdminNamespace, WaitlistAdminKeys>(
       "table.columns.option",
       "string",

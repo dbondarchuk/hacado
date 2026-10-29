@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
   const end = params.end ?? undefined;
   const type = params.type;
 
-  const res = await servicesContainer.servicesService.getDiscounts({
+  const res = await servicesContainer.catalogService.getDiscounts({
     offset,
     limit,
     search,
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
   }
 
   logger.debug({ discount: data }, "Creating discount");
-  const discount = await servicesContainer.servicesService.createDiscount(
+  const discount = await servicesContainer.catalogService.createDiscount(
     data,
     actor,
   );

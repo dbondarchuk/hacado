@@ -27,7 +27,7 @@ export const AppointmentViewWrapper: React.FC<{
       title: t("navigation.appointments"),
       link: "/dashboard/appointments",
     },
-    { title: appointment.option.name, link: "/dashboard/appointments" },
+    { title: appointment.service.name, link: "/dashboard/appointments" },
   ];
 
   return (
@@ -36,7 +36,7 @@ export const AppointmentViewWrapper: React.FC<{
         <Breadcrumbs items={breadcrumbItems} />
         <div className="flex flex-row gap-4 justify-between">
           <Heading
-            title={appointment.option.name}
+            title={appointment.service.name}
             description={t("appointments.detail.by", {
               name: appointment.fields.name,
             })}

@@ -14,7 +14,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { id } = await props.params;
   const appointment = await getAppointment(id);
   return {
-    title: appointment?.option.name,
+    title: appointment?.service.name,
     description: t("appointments.detail.by", {
       name: appointment?.fields.name,
     }),

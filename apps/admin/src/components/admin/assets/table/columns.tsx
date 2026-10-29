@@ -128,10 +128,10 @@ export const columns: ColumnDef<Asset>[] = [
           href={`/dashboard/appointments/${row.original.appointmentId}`}
           variant="underline"
         >
-          {row.original.appointment.option.name}
+          {row.original.appointment.service.name}
         </Link>
       ) : null,
-    id: "appointment.option.name",
+    id: "appointment.service.name",
     header: tableSortHeader(
       "assets.table.columns.appointment",
       "string",

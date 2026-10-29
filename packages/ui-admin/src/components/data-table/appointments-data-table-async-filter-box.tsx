@@ -27,7 +27,7 @@ const AppointmentShortLabel: React.FC<{
 
   return (
     <div className="flex min-w-0 flex-col gap-0.5 overflow-hidden text-nowrap">
-      <span className="truncate font-medium">{appointment.option.name}</span>
+      <span className="truncate font-medium">{appointment.service.name}</span>
       <span className="truncate text-xs text-muted-foreground">
         {appointment.customer?.name ? (
           <CustomerName customer={appointment.customer} />
@@ -85,7 +85,7 @@ export const AppointmentsDataTableAsyncFilterBox: React.FC<
               timeZone={timeZone}
             />
           ),
-          shortLabel: appointment.option.name,
+          shortLabel: appointment.service.name,
           value: appointment._id,
         })) satisfies AsyncFilterBoxOption[],
         hasMore: page * limit < result.total,

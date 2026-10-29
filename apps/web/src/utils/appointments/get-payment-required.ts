@@ -49,7 +49,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
 
   logger.debug(
     {
-      optionId: appointmentRequest.optionId,
+      optionId: appointmentRequest.serviceId,
       dateTime: appointmentRequest.dateTime,
       addonsCount: appointmentRequest.addonsIds?.length || 0,
       ignoreFieldValidation,
@@ -68,7 +68,7 @@ export const getAppointmentEventAndIsPaymentRequired = async (
   if ("error" in eventOrError) {
     logger.warn(
       {
-        optionId: appointmentRequest.optionId,
+        optionId: appointmentRequest.serviceId,
         errorCode: eventOrError.error.code,
         errorMessage: eventOrError.error.message,
       },

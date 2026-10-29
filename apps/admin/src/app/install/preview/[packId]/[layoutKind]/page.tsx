@@ -64,7 +64,7 @@ async function loadLayoutServices(
   const output: LayoutTemplateService[] = [];
 
   for (const optionId of optionIds) {
-    const option = await services.servicesService.getOption(optionId);
+    const option = await services.catalogService.getService(optionId);
     if (!option) continue;
     const descriptionMarkdown =
       typeof option.description === "string" ? option.description : "";

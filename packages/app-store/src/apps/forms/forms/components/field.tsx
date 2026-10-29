@@ -67,7 +67,7 @@ const FileTypePickerTag = ({
         }}
       >
         <SelectTrigger className="w-full">
-          <SelectValue placeholder={t("services.fields.form.fileTypes")} />
+          <SelectValue placeholder={t("catalog.fields.form.fileTypes")} />
         </SelectTrigger>
         <SelectContent side="bottom">
           {Object.entries(fileTypes).map(([step, label]) => (
@@ -87,7 +87,7 @@ const FileTypePickerTag = ({
           onAdd(value.split(","));
         }}
       >
-        {t("services.fields.form.addOption")}
+        {t("catalog.fields.form.addOption")}
       </Button>
     </div>
   );

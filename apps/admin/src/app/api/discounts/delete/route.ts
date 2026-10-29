@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  await servicesContainer.servicesService.deleteDiscounts(data.ids, actor);
+  await servicesContainer.catalogService.deleteDiscounts(data.ids, actor);
   logger.debug({ ids: data.ids }, "Discounts deleted successfully");
   return NextResponse.json(okStatus, { status: 200 });
 }

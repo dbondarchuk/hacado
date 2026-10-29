@@ -18,10 +18,10 @@ import {
   CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
   CustomerPackage,
   CustomerPackageListModel,
+  ICatalogService,
   IEventService,
   IPackagesService,
   IPaymentsService,
-  IServicesService,
   IssueCustomerPackageInput,
   PackageAdjustRequest,
   PackageError,
@@ -64,7 +64,7 @@ import { BaseService } from "./services/base.service";
 export class PackagesService extends BaseService implements IPackagesService {
   public constructor(
     organizationId: string,
-    private readonly servicesService: IServicesService,
+    private readonly catalogService: ICatalogService,
     private readonly paymentsService: IPaymentsService,
     private readonly eventService: IEventService,
   ) {
@@ -83,7 +83,7 @@ export class PackagesService extends BaseService implements IPackagesService {
   private async snapshotItems(data: AppointmentPackageUpdateModel) {
     const items = await Promise.all(
       data.items.map(async (item) => {
-        const option = await this.servicesService.getOption(item.optionId);
+        const option = await this.catalogService.getService(item.optionId);
         if (!option) {
           throw new PackageError(
             "option_not_included",

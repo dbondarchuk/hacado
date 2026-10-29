@@ -502,7 +502,7 @@ export const AppointmentScheduleForm: React.FC<
 
       const appointmentEvent: AppointmentEventRequest = {
         dateTime: data.dateTime,
-        optionId: eventOption._id,
+        serviceId: eventOption._id,
         fields,
         totalDuration: data.totalDuration,
         totalPrice: data.customerPackageId ? 0 : data.totalPrice,
@@ -592,7 +592,7 @@ export const AppointmentScheduleForm: React.FC<
       totalDuration: duration,
       totalPrice: price,
       fields: { name, email, phone },
-      option: {
+      service: {
         ...selectedOption,
         fields: undefined,
         addons: undefined,

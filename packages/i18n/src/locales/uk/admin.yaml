@@ -231,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# додаток} few {# додатки} other {# додатків}}"
   appointmentOption:
     created:
-      title: Опцію послуги створено
+      title: Послугу створено
       description: "{ім'я}"
     updated:
-      title: Опцію послуги оновлено
+      title: Послугу оновлено
       description: "{ім'я}"
     deleted:
-      title: Опції послуг видалено
-      description: "{count, plural, =1 {# опція} few {# опції} other {# опцій}}"
+      title: Послуги видалено
+      description: "{count, plural, =1 {# послуга} few {# послуги} other {# послуг}}"
   discount:
     created:
       title: Знижку створено
@@ -433,10 +433,11 @@ navigation:
   textMessaging: Текстові повідомлення
   schedule: Розклад
   defaultSchedule: Розклад за замовчуванням
+  catalog: Каталог
   services: Послуги
   fields: Поля
   addons: Додатки
-  options: Опції
+  options: Послуги
   discounts: Знижки
   giftCards: Подарункові картки
   packages: Пакети
@@ -457,6 +458,13 @@ navigation:
     templates: Шаблони електронної пошти та текстів для повідомлень клієнтам.
     store: Перегляньте застосунки, які можна встановити.
     defaultApps: Оберіть застосунки за замовчуванням для платежів, пошти та текстів.
+    fields: Запитання, які збираються під час запису на послугу.
+    addons: Додаткові послуги, які клієнт може додати до запису.
+    services: Послуги, на які можна записатися, з тривалістю та ціною.
+    discounts: Промокоди та знижки.
+    giftCards: Подарункові картки, які клієнти можуть купити та використати.
+    packages: Передплачені пакети візитів.
+    soldPackages: Пакети, які придбали клієнти.
   general: Загальні
   brand: Бренд
   social: Соціальні мережі
@@ -722,7 +730,7 @@ paymentsList:
     appointmentId: ID запису
     appointmentDateTime: Дата запису
     appointmentStatus: Статус запису
-    optionName: Назва опції
+    optionName: Назва послуги
     addons: Додатки
     appointmentTotal: Сума запису
     feesTotal: Сума комісій
@@ -885,7 +893,7 @@ appointments:
     columns:
       status: Статус
       statusAriaLabel: "Статус: {status}"
-      option: Опція
+      option: Послуга
       customer: Клієнт
       member: Співробітник
       dateTime: Дата та час
@@ -895,9 +903,9 @@ appointments:
       package: Пакет
       packageRestored: відновлено
       price: Ціна
-      optionName: Назва опції
-      optionPrice: Ціна опції
-      optionDuration: Тривалість опції
+      optionName: Назва послуги
+      optionPrice: Ціна послуги
+      optionDuration: Тривалість послуги
       selectedAddons: Вибрані додатки
       note: Примітка
       customerName: Ім'я
@@ -1057,8 +1065,8 @@ appointments:
     yes: Так
     no: Ні
     service: Послуга
-    selectedOption: Вибрана опція
-    option: Опція
+    selectedOption: Вибрана послуга
+    option: Послуга
     description: Опис
     selectedAddons: Вибрані додатки
     meetingInformation:
@@ -1368,7 +1376,7 @@ customers:
     selectOption: Вибрати опцію
     always: Завжди
     never: Ніколи
-    inherit: Те саме, що вибрана опція або загальна конфігурація
+    inherit: Те саме, що вибрана послуга або загальна конфігурація
     knownNames: Відомі імена
     knownNamesTooltip: Альтернативні імена надаються клієнтами під час запиту на запис
     knownEmails: Відомі email
@@ -1743,7 +1751,250 @@ services:
   memberSelector:
     loading: Завантаження учасників...
     selectMember: Вибрати учасника
-  options:
+templates:
+  page:
+    title: Шаблони комунікацій
+  formPage:
+    typeTemplates: Шаблони {type}
+    new: Новий
+  newPage:
+    title: Новий шаблон {type}
+  editPage:
+    title: Оновити шаблон
+    clone: Клонувати
+  addNew:
+    emptyTemplate: Порожній шаблон
+    add: Додати
+    addNewTemplate: Додати новий шаблон
+    type: Тип
+    selectTemplateType: Вибрати тип шаблону
+    template: Шаблон
+    close: Закрити
+  form:
+    name: Назва шаблону
+    nameTooltip: Унікальна назва шаблону
+    subject: Тема повідомлення
+    subjectPlaceholder: Тема
+    subjectTooltip: Тема повідомлення, яка буде використана для відправлення повідомлення
+    namePlaceholder: Назва шаблону
+    validation:
+      templateNotValid: Шаблон недійсний
+    toasts:
+      changesSaved: Ваші зміни були збережені.
+      requestError: Виникла проблема з вашим запитом.
+  textMessageBuilder:
+    content: Вміст текстового повідомлення
+    viewContext: Переглянути контекст
+    contextValues: Значення контексту
+    copied: Скопійовано
+    copyPath: Копіювати шлях
+    close: Закрити
+    characterCount: "{count, plural, =1 {1 символ} other {# символів}}"
+    preview: Попередній перегляд
+  table:
+    filters:
+      type: Тип
+      filters: Фільтри
+    columns:
+      type: Тип
+      name: Назва
+      updatedAt: Оновлено
+    cellAction:
+      templateDeleted: Шаблон "{name}" було видалено.
+      deleteError: Виникла проблема з вашим запитом.
+      actions: Дії
+      update: Оновити
+      delete: Видалити
+      clone: Клонувати
+    deleteSelected:
+      success: Вибрані шаблони були видалені
+      error: Виникла проблема з вашим запитом.
+      button: "Видалити {count, plural, =1 {вибраний шаблон} few {вибрані # шаблони} many {вибраних # шаблонів} other {вибраних # шаблонів}}"
+      confirmTitle: Ви абсолютно впевнені?
+      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані шаблони та може порушити сповіщення, які їх використовують
+      cancel: Скасувати
+      deleteSelected: Видалити вибрані
+appearance:
+  styling:
+    title: Стилізація
+    description: Налаштувати загальну стилізацію
+    form:
+      primaryFont: Основний шрифт
+      secondaryFont: Додатковий шрифт
+      tertiaryFont: Третій шрифт
+      selectFont: Вибрати шрифт
+      colorOverrides: Перевизначення кольорів
+      invalidField: Недійсне поле
+      duplicateType: Дублікат типу
+      remove: Видалити
+      deleteConfirmTitle: Ви абсолютно впевнені?
+      deleteConfirmDescription: Ви впевнені, що хочете видалити це перевизначення кольору?
+      cancel: Скасувати
+      delete: Видалити
+      type: Тип
+      typeDescription: Який колір теми замінює це перевизначення.
+      selectColorOverrideType: Вибрати тип перевизначення кольору
+      color: Колір
+      colorTooltip: Колір в CSS форматі (HEX, rgb, rgba, hsl)
+      additionalCss: Додатковий CSS
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+      fonts:
+        seeOnGoogleFonts: Переглянути на Google Fonts
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Варіанти: {variants}"
+          regular: Звичайний
+          italic: Курсив
+          bold: Жирний
+          medium: Середній
+          semibold: Напівжирний
+          extrabold: Дуже жирний
+          100italic: 100 Курсив
+          200italic: 200 Курсив
+          300italic: 300 Курсив
+          400italic: 400 Курсив
+          500italic: 500 Курсив
+          600italic: 600 Курсив
+          700italic: 700 Курсив
+          800italic: 800 Курсив
+          900italic: 900 Курсив
+        subsets:
+          label: "Субдистрибутиви: {subsets}"
+          latin: Латини
+          latin-ext: Латини (розширені)
+          vietnamese: В'єтнамські
+          cyrillic: Кирилиця
+          cyrillic-ext: Кирилиця (розширені)
+          greek: Грецький
+          greek-ext: Грецький (розширені)
+          hebrew: Іврит
+          math: Математика
+          symbols: Символи
+        category:
+          label: "Категорія: {category}"
+          sans-serif: Безшрифтові
+          serif: Шрифтові
+          monospace: Моноширинні
+          display: Дисплей
+          handwriting: Рукопис
+          script: Скрипт
+          fantasy: Фантазія
+    colors:
+      default: За замовчуванням
+      custom: Власний колір
+      background: Фон
+      foreground: Текст
+      card: Картка
+      card-foreground: Текст картки
+      popover: Спливаюче вікно
+      popover-foreground: Текст спливаючого вікна
+      primary: Основний
+      primary-foreground: Основний текст
+      secondary: Додатковий
+      secondary-foreground: Додатковий текст
+      muted: Приглушений
+      muted-foreground: Приглушений текст
+      accent: Акцент
+      accent-foreground: Акцентний текст
+      destructive: Руйнівний
+      destructive-foreground: Руйнівний текст
+      border: Бордюр
+  footer:
+    title: Підвал
+    description: Налаштувати посилання в підвалі
+    form:
+      useCustomFooter: Використовувати власний підвал
+      footerContent: Вміст підвалу
+      preview: Попередній перегляд
+      contactUsLabel: Мітка 'Зв'язатися з нами'
+      contactUsLabelTooltip: За замовчуванням 'Зв'язатися з нами'
+      contactUsPlaceholder: Зв'язатися з нами
+      links: Посилання
+      toasts:
+        changesSaved: Ваші зміни були збережені.
+        requestError: Виникла проблема з вашим запитом.
+apps:
+  heading: Підключені додатки
+  description: Керувати вашими підключеними додатками
+  defaultApps: Додатки за замовчуванням
+  appStore: Магазин додатків
+  searchPlaceholder: Пошук встановлених додатків
+  noResults: За вашим запитом додатків не знайдено
+  noConnectedApps: У вас немає підключених додатків
+  defaultAppsForm:
+    payment:
+      label: Платіжний процессор
+      placeholder: Вимкнути платежі
+    emailSender:
+      label: Відправник email
+      placeholder: Використовувати відправник email за замовчуванням
+    textMessageSender:
+      label: Відправник текстових повідомлень
+      placeholder: Використовувати відправник текстових повідомлень за замовчуванням
+      tooltip: Застосунок, який надсилає текстові повідомлення клієнтам. Необов'язково.
+    textMessageResponder:
+      label: Відповідач текстових повідомлень
+      tooltip: Якщо не обробляється відправником, буде використовуватися як додаток за замовчуванням для відповіді на текстові повідомлення (наприклад, автовідповідь). Опціонально.
+    assetsStorage: Сховище ресурсів
+    toasts:
+      changesSaved: Ваші зміни були збережені.
+      requestError: Виникла проблема з вашим запитом.
+  defaultAppsDescription: Вибрати додатки за замовчуванням
+  migrateAssetsDialog:
+    migrateAssets: Мігрувати ресурси
+    title: Мігрувати існуючі ресурси
+    description: Мігрувати ваші існуючі ресурси з попереднього сховища
+    sourceApp: Джерельний додаток сховища ресурсів
+    done: "Виконано: {count}"
+    success: "Успішно: {count}"
+    error: "Помилка: {count}"
+    total: "Всього: {count}"
+    migrate: Мігрувати
+    toasts:
+      requestError: Ваш запит не вдався
+  events:
+    installed:
+      title: Застосунок встановлено
+      description: "{appDisplayName} встановлено."
+    connected:
+      title: Застосунок підключено
+      description: "{appDisplayName} підключено."
+    uninstalled:
+      title: Застосунок видалено
+      description: "{appDisplayName} видалено."
+    failed:
+      title: Застосунок не вдалося підключити
+      description: "{appDisplayName} не вдалося підключити."
+  notifications:
+    failed:
+      title: Підключення застосунку не вдалося
+      message: "{appDisplayName} не вдалося підключити. Перевірте налаштування застосунку."
+      action: Відкрити застосунки
+  emails:
+    failed:
+      subject: "{appDisplayName} - не вдалося підключити"
+      preview: "{appDisplayName} не вдалося залишити в підключеному стані"
+      title: Не вдалося залишити застосунок підключеним
+      body: |-
+        Вітаємо {userName},
+        Додаток **{appDisplayName}** повідомив про проблему з підключенням або не завершив налаштування. Відкрийте розділ **Застосунки** у панелі керування, перевірте облікові дані та параметри, а потім спробуйте підключити знову.
+        Якщо все уже виглядає коректно, цей лист можна ігнорувати.
+      button: Відкрити застосунки
+      handledBy: "Не вдалося підключити застосунок: {appDisplayName}"
+catalog:
+  hub:
+    description: Послуги, додатки, пакети та інші позиції, які клієнти можуть забронювати або купити.
+  services:
     title: Послуги
     description: Керувати послугами, які ви надаєте
     addNew: Додати нову
@@ -1756,9 +2007,9 @@ services:
     upgradeRequired: Безкоштовний тариф включає одну послугу. Перейдіть на Solo, щоб додати більше.
     upgradeLink: Оновити в налаштуваннях бренду
     new: Нова
-    newTitle: Нова опція послуги
+    newTitle: Нова послуга
     newDescription: Додати нову послугу, яку ви надаєте
-    editDescription: Редагувати опцію
+    editDescription: Редагувати послугу
     form:
       details: Деталі
       durationAndPrice: Тривалість і ціна
@@ -1767,7 +2018,7 @@ services:
       virtualAppointment: Віртуальний запис
       virtualAppointmentTooltip: Проводити цей запис через відео, аудіо або телефон замість особистої зустрічі.
       name: Назва
-      namePlaceholder: Назва опції
+      namePlaceholder: Назва послуги
       description: Короткий опис
       descriptionTooltip: Короткий текст, який буде видимий під час бронювання
       duration: Тривалість
@@ -2040,9 +2291,9 @@ services:
         label: Мітка
         updatedAt: Оновлено
         addons: Додатки
-        options: Опції
+        options: Послуги
         addonsInDialog: "{label} в додатках"
-        optionsInDialog: "{label} в опціях"
+        optionsInDialog: "{label} у послугах"
       cellAction:
         fieldDeleted: Поле опції "{label}" було видалено.
         deleteError: Виникла проблема з вашим запитом.
@@ -2476,8 +2727,8 @@ services:
       columns:
         name: Назва
         updatedAt: Оновлено
-        options: Опції
-        optionsInDialog: "{name} в опціях"
+        options: Послуги
+        optionsInDialog: "{name} у послугах"
       cellAction:
         addonDeleted: Додаток "{name}" було видалено.
         deleteError: Виникла проблема з вашим запитом.
@@ -2493,246 +2744,6 @@ services:
       confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані додатки та видалить їх з усіх опцій, які їх використовують
       cancel: Скасувати
       deleteSelected: Видалити вибрані
-templates:
-  page:
-    title: Шаблони комунікацій
-  formPage:
-    typeTemplates: Шаблони {type}
-    new: Новий
-  newPage:
-    title: Новий шаблон {type}
-  editPage:
-    title: Оновити шаблон
-    clone: Клонувати
-  addNew:
-    emptyTemplate: Порожній шаблон
-    add: Додати
-    addNewTemplate: Додати новий шаблон
-    type: Тип
-    selectTemplateType: Вибрати тип шаблону
-    template: Шаблон
-    close: Закрити
-  form:
-    name: Назва шаблону
-    nameTooltip: Унікальна назва шаблону
-    subject: Тема повідомлення
-    subjectPlaceholder: Тема
-    subjectTooltip: Тема повідомлення, яка буде використана для відправлення повідомлення
-    namePlaceholder: Назва шаблону
-    validation:
-      templateNotValid: Шаблон недійсний
-    toasts:
-      changesSaved: Ваші зміни були збережені.
-      requestError: Виникла проблема з вашим запитом.
-  textMessageBuilder:
-    content: Вміст текстового повідомлення
-    viewContext: Переглянути контекст
-    contextValues: Значення контексту
-    copied: Скопійовано
-    copyPath: Копіювати шлях
-    close: Закрити
-    characterCount: "{count, plural, =1 {1 символ} other {# символів}}"
-    preview: Попередній перегляд
-  table:
-    filters:
-      type: Тип
-      filters: Фільтри
-    columns:
-      type: Тип
-      name: Назва
-      updatedAt: Оновлено
-    cellAction:
-      templateDeleted: Шаблон "{name}" було видалено.
-      deleteError: Виникла проблема з вашим запитом.
-      actions: Дії
-      update: Оновити
-      delete: Видалити
-      clone: Клонувати
-    deleteSelected:
-      success: Вибрані шаблони були видалені
-      error: Виникла проблема з вашим запитом.
-      button: "Видалити {count, plural, =1 {вибраний шаблон} few {вибрані # шаблони} many {вибраних # шаблонів} other {вибраних # шаблонів}}"
-      confirmTitle: Ви абсолютно впевнені?
-      confirmDescription: Цю дію неможливо скасувати. Це видалить вибрані шаблони та може порушити сповіщення, які їх використовують
-      cancel: Скасувати
-      deleteSelected: Видалити вибрані
-appearance:
-  styling:
-    title: Стилізація
-    description: Налаштувати загальну стилізацію
-    form:
-      primaryFont: Основний шрифт
-      secondaryFont: Додатковий шрифт
-      tertiaryFont: Третій шрифт
-      selectFont: Вибрати шрифт
-      colorOverrides: Перевизначення кольорів
-      invalidField: Недійсне поле
-      duplicateType: Дублікат типу
-      remove: Видалити
-      deleteConfirmTitle: Ви абсолютно впевнені?
-      deleteConfirmDescription: Ви впевнені, що хочете видалити це перевизначення кольору?
-      cancel: Скасувати
-      delete: Видалити
-      type: Тип
-      typeDescription: Який колір теми замінює це перевизначення.
-      selectColorOverrideType: Вибрати тип перевизначення кольору
-      color: Колір
-      colorTooltip: Колір в CSS форматі (HEX, rgb, rgba, hsl)
-      additionalCss: Додатковий CSS
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-      fonts:
-        seeOnGoogleFonts: Переглянути на Google Fonts
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Варіанти: {variants}"
-          regular: Звичайний
-          italic: Курсив
-          bold: Жирний
-          medium: Середній
-          semibold: Напівжирний
-          extrabold: Дуже жирний
-          100italic: 100 Курсив
-          200italic: 200 Курсив
-          300italic: 300 Курсив
-          400italic: 400 Курсив
-          500italic: 500 Курсив
-          600italic: 600 Курсив
-          700italic: 700 Курсив
-          800italic: 800 Курсив
-          900italic: 900 Курсив
-        subsets:
-          label: "Субдистрибутиви: {subsets}"
-          latin: Латини
-          latin-ext: Латини (розширені)
-          vietnamese: В'єтнамські
-          cyrillic: Кирилиця
-          cyrillic-ext: Кирилиця (розширені)
-          greek: Грецький
-          greek-ext: Грецький (розширені)
-          hebrew: Іврит
-          math: Математика
-          symbols: Символи
-        category:
-          label: "Категорія: {category}"
-          sans-serif: Безшрифтові
-          serif: Шрифтові
-          monospace: Моноширинні
-          display: Дисплей
-          handwriting: Рукопис
-          script: Скрипт
-          fantasy: Фантазія
-    colors:
-      default: За замовчуванням
-      custom: Власний колір
-      background: Фон
-      foreground: Текст
-      card: Картка
-      card-foreground: Текст картки
-      popover: Спливаюче вікно
-      popover-foreground: Текст спливаючого вікна
-      primary: Основний
-      primary-foreground: Основний текст
-      secondary: Додатковий
-      secondary-foreground: Додатковий текст
-      muted: Приглушений
-      muted-foreground: Приглушений текст
-      accent: Акцент
-      accent-foreground: Акцентний текст
-      destructive: Руйнівний
-      destructive-foreground: Руйнівний текст
-      border: Бордюр
-  footer:
-    title: Підвал
-    description: Налаштувати посилання в підвалі
-    form:
-      useCustomFooter: Використовувати власний підвал
-      footerContent: Вміст підвалу
-      preview: Попередній перегляд
-      contactUsLabel: Мітка 'Зв'язатися з нами'
-      contactUsLabelTooltip: За замовчуванням 'Зв'язатися з нами'
-      contactUsPlaceholder: Зв'язатися з нами
-      links: Посилання
-      toasts:
-        changesSaved: Ваші зміни були збережені.
-        requestError: Виникла проблема з вашим запитом.
-apps:
-  heading: Підключені додатки
-  description: Керувати вашими підключеними додатками
-  defaultApps: Додатки за замовчуванням
-  appStore: Магазин додатків
-  searchPlaceholder: Пошук встановлених додатків
-  noResults: За вашим запитом додатків не знайдено
-  noConnectedApps: У вас немає підключених додатків
-  defaultAppsForm:
-    payment:
-      label: Платіжний процессор
-      placeholder: Вимкнути платежі
-    emailSender:
-      label: Відправник email
-      placeholder: Використовувати відправник email за замовчуванням
-    textMessageSender:
-      label: Відправник текстових повідомлень
-      placeholder: Використовувати відправник текстових повідомлень за замовчуванням
-      tooltip: Застосунок, який надсилає текстові повідомлення клієнтам. Необов'язково.
-    textMessageResponder:
-      label: Відповідач текстових повідомлень
-      tooltip: Якщо не обробляється відправником, буде використовуватися як додаток за замовчуванням для відповіді на текстові повідомлення (наприклад, автовідповідь). Опціонально.
-    assetsStorage: Сховище ресурсів
-    toasts:
-      changesSaved: Ваші зміни були збережені.
-      requestError: Виникла проблема з вашим запитом.
-  defaultAppsDescription: Вибрати додатки за замовчуванням
-  migrateAssetsDialog:
-    migrateAssets: Мігрувати ресурси
-    title: Мігрувати існуючі ресурси
-    description: Мігрувати ваші існуючі ресурси з попереднього сховища
-    sourceApp: Джерельний додаток сховища ресурсів
-    done: "Виконано: {count}"
-    success: "Успішно: {count}"
-    error: "Помилка: {count}"
-    total: "Всього: {count}"
-    migrate: Мігрувати
-    toasts:
-      requestError: Ваш запит не вдався
-  events:
-    installed:
-      title: Застосунок встановлено
-      description: "{appDisplayName} встановлено."
-    connected:
-      title: Застосунок підключено
-      description: "{appDisplayName} підключено."
-    uninstalled:
-      title: Застосунок видалено
-      description: "{appDisplayName} видалено."
-    failed:
-      title: Застосунок не вдалося підключити
-      description: "{appDisplayName} не вдалося підключити."
-  notifications:
-    failed:
-      title: Підключення застосунку не вдалося
-      message: "{appDisplayName} не вдалося підключити. Перевірте налаштування застосунку."
-      action: Відкрити застосунки
-  emails:
-    failed:
-      subject: "{appDisplayName} - не вдалося підключити"
-      preview: "{appDisplayName} не вдалося залишити в підключеному стані"
-      title: Не вдалося залишити застосунок підключеним
-      body: |-
-        Вітаємо {userName},
-        Додаток **{appDisplayName}** повідомив про проблему з підключенням або не завершив налаштування. Відкрийте розділ **Застосунки** у панелі керування, перевірте облікові дані та параметри, а потім спробуйте підключити знову.
-        Якщо все уже виглядає коректно, цей лист можна ігнорувати.
-      button: Відкрити застосунки
-      handledBy: "Не вдалося підключити застосунок: {appDisplayName}"
 settings:
   hub:
     description: Відкрийте розділ налаштувань вашого бізнесу.
@@ -3077,18 +3088,18 @@ settings:
           policy: правило
       cards:
         optionSelect:
-          roleDescription: Опція
-          moveOption: Перемістити опцію
-          option: Опція
+          roleDescription: Послуга
+          moveOption: Перемістити послугу
+          option: Послуга
           deleteConfirmTitle: Ви абсолютно впевнені?
-          deleteConfirmDescription: Ви впевнені, що хочете видалити цю опцію зі списку доступних опцій?
+          deleteConfirmDescription: Ви впевнені, що хочете видалити цю послугу зі списку доступних послуг?
           cancel: Скасувати
           delete: Видалити
-        optionSelector:
+        serviceSelector:
           time: "{hours}год {minutes}хв"
           requestFailed: Запит не вдався.
-          loadingOptions: Завантаження опцій...
-          selectOption: Вибрати опцію
+          loadingOptions: Завантаження послуг...
+          selectOption: Вибрати послугу
         cancellationPolicy:
           action:
             label: Дія

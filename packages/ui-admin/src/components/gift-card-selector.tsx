@@ -80,68 +80,84 @@ export type GiftCardSelectorProps =
   | NonClearableGiftCardSelectorProps
   | ClearableGiftCardSelectorProps;
 
-export const GiftCardSelector: React.FC<GiftCardSelectorProps> = ({
-  disabled,
-  className,
-  value,
-  onItemSelect,
-  onValueChange,
-  allowClear,
-}) => {
-  const t = useI18n("admin");
-  const [itemsCache, setItemsCache] = React.useState<
-    Record<string, GiftCardListModel>
-  >({});
-
-  const getGiftCards = React.useCallback(
-    async (page: number, search?: string) => {
-      const limit = 10;
-      const result = await adminApi.giftCards.getGiftCards({
-        page,
-        limit,
-        search,
-        status: ["active"],
-        priorityId: value ? [value] : undefined,
-      });
-
-      setItemsCache((prev: Record<string, GiftCardListModel>) => ({
-        ...prev,
-        ...result.items.reduce(
-          (map, cur) => ({
-            ...map,
-            [cur._id]: cur,
-          }),
-          {} as typeof itemsCache,
-        ),
-      }));
-
-      return {
-        items: result.items.map((giftCard) => ({
-          label: <GiftCardShortLabel giftCard={giftCard} />,
-          shortLabel: <GiftCardShortLabel giftCard={giftCard} row />,
-          value: giftCard._id,
-        })) satisfies IComboboxItem[],
-        hasMore: page * limit < result.total,
-      };
+export const GiftCardSelector = React.forwardRef<
+  HTMLButtonElement,
+  GiftCardSelectorProps
+>(
+  (
+    {
+      disabled,
+      className,
+      value,
+      onItemSelect,
+      onValueChange,
+      allowClear,
+      ...rest
     },
-    [value, setItemsCache, t],
-  );
+    ref,
+  ) => {
+    const t = useI18n("admin");
+    const [itemsCache, setItemsCache] = React.useState<
+      Record<string, GiftCardListModel>
+    >({});
 
-  React.useEffect(() => {
-    onValueChange?.(value ? itemsCache[value] : undefined);
-  }, [value, itemsCache]);
+    const getGiftCards = React.useCallback(
+      async (page: number, search?: string) => {
+        const limit = 10;
+        const result = await adminApi.giftCards.getGiftCards({
+          page,
+          limit,
+          search,
+          status: ["active"],
+          priorityId: value ? [value] : undefined,
+        });
 
-  return (
-    <ComboboxAsync
-      // @ts-ignore Allow clear passthrough
-      onChange={onItemSelect}
-      disabled={disabled}
-      className={cn("flex font-normal text-base max-w-full min-w-0", className)}
-      placeholder={t("giftCardSelector.placeholder")}
-      value={value}
-      allowClear={allowClear}
-      fetchItems={getGiftCards}
-      loader={<GiftCardLoader />}
-    />
-  );
-};
+        setItemsCache((prev: Record<string, GiftCardListModel>) => ({
+          ...prev,
+          ...result.items.reduce(
+            (map, cur) => ({
+              ...map,
+              [cur._id]: cur,
+            }),
+            {} as typeof itemsCache,
+          ),
+        }));
+
+        return {
+          items: result.items.map((giftCard) => ({
+            label: <GiftCardShortLabel giftCard={giftCard} />,
+            shortLabel: <GiftCardShortLabel giftCard={giftCard} row />,
+            value: giftCard._id,
+          })) satisfies IComboboxItem[],
+          hasMore: page * limit < result.total,
+        };
+      },
+      [value, setItemsCache, t],
+    );
+
+    React.useEffect(() => {
+      onValueChange?.(value ? itemsCache[value] : undefined);
+    }, [value, itemsCache]);
+
+    return (
+      <ComboboxAsync
+        {...rest}
+        ref={ref}
+        // @ts-ignore Allow clear passthrough
+        onChange={onItemSelect}
+        disabled={disabled}
+        className={cn(
+          "flex font-normal text-base max-w-full min-w-0",
+          className,
+        )}
+        placeholder={t("giftCardSelector.placeholder")}
+        value={value}
+        allowClear={allowClear}
+        fetchItems={getGiftCards}
+        loader={<GiftCardLoader />}
+      />
+    );
+  },
+);
+
+GiftCardSelector.displayName = "GiftCardSelector";

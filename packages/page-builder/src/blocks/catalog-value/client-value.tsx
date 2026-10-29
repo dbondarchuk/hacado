@@ -12,8 +12,8 @@ import { toCatalogRecord, type CatalogRecord } from "./record";
 import { CatalogValueProps, CatalogValuePropsDefaults } from "./schema";
 
 const loadEntity: Record<CatalogSource, (itemId: string) => Promise<any>> = {
-  service: (itemId) => adminApi.serviceOptions.getServiceOption(itemId),
-  addon: (itemId) => adminApi.serviceAddons.getServiceAddon(itemId),
+  service: (itemId) => adminApi.services.getService(itemId),
+  addon: (itemId) => adminApi.addons.getAddon(itemId),
   member: (itemId) => adminApi.teams.getMemberProfile(itemId),
   package: (itemId) => adminApi.packages.getPackage(itemId),
 };

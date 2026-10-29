@@ -185,12 +185,12 @@ export const AppointmentDetails = ({
                   href={`/dashboard/appointments/${appointment._id}`}
                   variant="underline"
                 >
-                  {appointment.option.name}
+                  {appointment.service.name}
                 </Link>
               </p>
               {isAppointmentCoveredByPackage(appointment) ? (
                 <p className="text-xs text-muted-foreground">
-                  {t("services.packages.appointment.used", {
+                  {t("catalog.packages.appointment.used", {
                     name: appointment.packageUsage!.name,
                   })}
                 </p>
@@ -243,7 +243,7 @@ export const AppointmentDetails = ({
         {isAppointmentCoveredByPackage(appointment) ? (
           <div className="px-5 py-4 border-b border-border">
             <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2.5">
-              {t("services.packages.appointment.label")}
+              {t("catalog.packages.appointment.label")}
             </p>
             <div className="flex justify-between items-start gap-3">
               <div className="min-w-0">
@@ -251,7 +251,7 @@ export const AppointmentDetails = ({
                   {appointment.packageUsage!.name}
                 </p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  {t("services.packages.appointment.creditsUsed", {
+                  {t("catalog.packages.appointment.creditsUsed", {
                     credits: appointment.packageUsage!.credits,
                   })}
                 </p>
@@ -261,7 +261,7 @@ export const AppointmentDetails = ({
                 variant="underline"
                 className="text-sm shrink-0"
               >
-                {t("services.packages.appointment.view")}
+                {t("catalog.packages.appointment.view")}
               </Link>
             </div>
           </div>
@@ -396,23 +396,23 @@ export const AppointmentDetails = ({
           <div className="flex justify-between items-start">
             <div>
               <Link
-                href={`/dashboard/options/${appointment.option._id}`}
+                href={`/dashboard/catalog/services/${appointment.service._id}`}
                 variant="underline"
                 className="truncate text-ellipsis text-sm"
               >
-                {appointment.option.name}
+                {appointment.service.name}
               </Link>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {t(
                   "common.timeDuration",
-                  durationToTime(appointment.option.duration),
+                  durationToTime(appointment.service.duration),
                 )}
               </p>
             </div>
-            {!!appointment.option.price &&
+            {!!appointment.service.price &&
               !isAppointmentCoveredByPackage(appointment) && (
                 <span className="text-base font-medium text-foreground shrink-0 ml-3">
-                  {currencyFormat(appointment.option.price)}
+                  {currencyFormat(appointment.service.price)}
                 </span>
               )}
           </div>
@@ -468,7 +468,7 @@ export const AppointmentDetails = ({
                 <div className="flex justify-between items-center">
                   <span>{t("appointments.view.discount.name")}</span>
                   <Link
-                    href={`/dashboard/services/discounts/${appointment.discount.id}`}
+                    href={`/dashboard/catalog/discounts/${appointment.discount.id}`}
                     variant="underline"
                     className="truncate text-ellipsis text-sm text-right"
                   >

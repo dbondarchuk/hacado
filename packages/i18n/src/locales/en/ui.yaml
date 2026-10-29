@@ -31,9 +31,9 @@ templateSelector:
   placeholder: Select template
   requestFailed: Request to fetch templates has failed
   loadingTemplates: Loading templates...
-optionSelector:
-  placeholder: Select option
-  requestFailed: Request to fetch options has failed
+serviceSelector:
+  placeholder: Select service
+  requestFailed: Request to fetch services has failed
 packageSelector:
   placeholder: Select package
   requestFailed: Request to fetch packages has failed

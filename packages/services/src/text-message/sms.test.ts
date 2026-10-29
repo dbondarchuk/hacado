@@ -27,11 +27,11 @@ import {
 } from "./verification";
 
 const confirmedEn =
-  "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{option.name}} is confirmed for {{dateTime.sms}}.{{#manageLink}} Manage: {{manageLink}}{{/manageLink}}";
+  "{{config.name}}: {{#customerName}}Hi {{customerName}}, your{{/customerName}}{{^customerName}}Your{{/customerName}} {{service.name}} is confirmed for {{dateTime.sms}}.{{#manageLink}} Manage: {{manageLink}}{{/manageLink}}";
 const confirmedUk =
-  "{{config.name}}: {{#customerName}}Привіт, {{customerName}}, ваш{{/customerName}}{{^customerName}}Ваш{{/customerName}} {{option.name}} підтверджено на {{dateTime.sms}}.";
+  "{{config.name}}: {{#customerName}}Привіт, {{customerName}}, ваш{{/customerName}}{{^customerName}}Ваш{{/customerName}} {{service.name}} підтверджено на {{dateTime.sms}}.";
 const reminderEn =
-  "This is a reminder for {{option.name}} {{#dateTime.isTomorrow}}tomorrow, {{/dateTime.isTomorrow}}{{^dateTime.isTomorrow}}on {{/dateTime.isTomorrow}}{{dateTime.sms}}.";
+  "This is a reminder for {{service.name}} {{#dateTime.isTomorrow}}tomorrow, {{/dateTime.isTomorrow}}{{^dateTime.isTomorrow}}on {{/dateTime.isTomorrow}}{{dateTime.sms}}.";
 
 const senderConfig = {
   fromNumber: "+18005550199",
@@ -45,7 +45,7 @@ describe("built-in SMS copy and segments", () => {
       {
         config: { name: "Ada Salon" },
         customerName: "Jessica",
-        option: { name: "Cut" },
+        service: { name: "Cut" },
         dateTime: { sms: "Fri, Oct 17, 3:00 PM" },
         manageLink: "https://hacado.me/s/abc",
       },
@@ -64,7 +64,7 @@ describe("built-in SMS copy and segments", () => {
       confirmedEn,
       {
         config: { name: "Ada Salon" },
-        option: { name: "Cut" },
+        service: { name: "Cut" },
         dateTime: { sms: "Fri, Oct 17, 3:00 PM" },
       },
       true,
@@ -83,7 +83,7 @@ describe("built-in SMS copy and segments", () => {
       confirmedUk,
       {
         config: { name: "Салон" },
-        option: { name: "Стрижка" },
+        service: { name: "Стрижка" },
         dateTime: { sms: "пт, 17 жовт., 15:00" },
       },
       true,
@@ -98,7 +98,7 @@ describe("SMS reminder date wording", () => {
     const body = template(
       reminderEn,
       {
-        option: { name: "Cut" },
+        service: { name: "Cut" },
         dateTime: {
           sms: "Wed, Oct 21, 2:00 PM",
           isTomorrow: true,
@@ -117,7 +117,7 @@ describe("SMS reminder date wording", () => {
     const body = template(
       reminderEn,
       {
-        option: { name: "Cut" },
+        service: { name: "Cut" },
         dateTime: {
           sms: "Mon, Oct 26, 2:00 PM",
           isTomorrow: false,

@@ -15,7 +15,7 @@ import {
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-  OptionSelector,
+  ServiceSelector,
   SwitchCardFormItem,
 } from "@hacado/ui-admin";
 import React from "react";
@@ -157,7 +157,7 @@ export const SmartScheduleAppSetup: React.FC<AppSetupProps> = ({
                         <FormItem className="w-full">
                           <FormLabel>{t("form.preferredService")}</FormLabel>
                           <FormControl>
-                            <OptionSelector
+                            <ServiceSelector
                               disabled={isLoading}
                               className="flex w-full font-normal text-base"
                               value={optionField.value}

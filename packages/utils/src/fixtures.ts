@@ -26,9 +26,9 @@ export const demoAppointment: Appointment = {
   totalPrice: 90,
   totalDuration: 150,
   endAt: new Date(2024, 10, 20, 11, 30, 0),
-  option: {
+  service: {
     _id: "dfjkdlfj",
-    name: "Demo option",
+    name: "Demo service",
     // description: "This is a demo option",
     duration: 100,
     price: 50,

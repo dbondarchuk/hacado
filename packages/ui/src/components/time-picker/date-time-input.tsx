@@ -16,6 +16,7 @@ import {
 import { useFormContext } from "react-hook-form";
 import { cn } from "../../utils";
 import { Button } from "../button";
+import { invalidShellClass, isInvalidProp } from "../invalid-field";
 import {
   TooltipResponsive,
   TooltipResponsiveContent,
@@ -35,6 +36,8 @@ type DateTimeInputProps = {
   hideCalendarIcon?: boolean;
   use12HourFormat?: boolean;
   showValidation?: boolean;
+  "aria-invalid"?: boolean | "true" | "false";
+  invalid?: boolean | "" | "true";
 };
 
 // https://date-fns.org/v4.1.0/docs/format
@@ -362,10 +365,22 @@ const DateTimeInput = React.forwardRef<HTMLInputElement, DateTimeInputProps>(
         ref={ref}
         className={cn(
           "flex h-9 items-center justify-start rounded-md border border-input bg-background text-base ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium file:text-foreground placeholder:text-muted-foreground  disabled:cursor-not-allowed disabled:opacity-50",
+          invalidShellClass,
           isFocused ? "outline-none ring-2 ring-ring ring-offset-2" : "",
+          isFocused && isInvalidProp(options) && "ring-destructive",
           options.hideCalendarIcon && "ps-2",
           options.className,
         )}
+        aria-invalid={
+          options["aria-invalid"] === true || options["aria-invalid"] === "true"
+            ? true
+            : undefined
+        }
+        {...(options.invalid === true ||
+        options.invalid === "" ||
+        options.invalid === "true"
+          ? { invalid: "true" }
+          : {})}
       >
         {!options.hideCalendarIcon && (
           <DateTimePicker

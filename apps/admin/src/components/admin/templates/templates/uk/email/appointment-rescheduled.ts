@@ -12,7 +12,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Запис на послугу {{option.name}} було перенесено",
+        text: "Запис на послугу {{service.name}} було перенесено",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentRescheduledEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-Ваш візит на послугу {{option.name}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} було перенесено{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.
+Ваш візит на послугу {{service.name}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} було перенесено{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}} з тривалістю: {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}} якомога швидше, якщо цей час вам не підходить.
 

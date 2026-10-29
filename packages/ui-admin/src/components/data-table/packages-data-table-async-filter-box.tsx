@@ -48,7 +48,7 @@ export const PackagesDataTableAsyncFilterBox: React.FC<
   }
 > = ({ title: propsTitle, filterKey = "packageId", ...rest }) => {
   const t = useI18n("admin");
-  const title = propsTitle ?? t("services.packages.sold.table.filters.package");
+  const title = propsTitle ?? t("catalog.packages.sold.table.filters.package");
 
   const getPackages = useDebounceCacheFn(
     async (page: number, search?: string) => {

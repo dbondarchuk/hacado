@@ -38,7 +38,7 @@ Email: {{ fields.email }}
 
 {{/files}}
 
-Обрана опція: {{ option.name }}
+Обрана послуга: {{service.name}}
 
 Обрані додатки:
 
@@ -55,7 +55,7 @@ Email: {{ fields.email }}
 
 {{#discount}}
 
-Промокод: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Промокод: {{code}} (-{{discountAmountFormatted}}) ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 {{/discount}} {{#totalPriceFormatted}}
 

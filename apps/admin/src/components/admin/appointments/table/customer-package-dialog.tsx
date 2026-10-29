@@ -48,7 +48,7 @@ export const CustomerPackageDialog: React.FC<{
     : null;
 
   const expiresLabel = customerPackage?.expiresAt
-    ? t("services.packages.customer.expires", {
+    ? t("catalog.packages.customer.expires", {
         date: DateTime.fromJSDate(customerPackage.expiresAt)
           .setZone(timeZone)
           .toLocaleString(DateTime.DATE_MED, { locale }),
@@ -64,13 +64,13 @@ export const CustomerPackageDialog: React.FC<{
             {customerPackage ? (
               <Badge variant="outline">
                 {t(
-                  `services.packages.sold.statusBadges.${customerPackage.status}`,
+                  `catalog.packages.sold.statusBadges.${customerPackage.status}`,
                 )}
               </Badge>
             ) : null}
           </DialogTitle>
           <DialogDescription>
-            {t("services.packages.appointment.label")}
+            {t("catalog.packages.appointment.label")}
           </DialogDescription>
         </DialogHeader>
 
@@ -78,13 +78,13 @@ export const CustomerPackageDialog: React.FC<{
           {customerPackage ? (
             <>
               <div className="text-muted-foreground">
-                {t("services.packages.customer.remaining", {
+                {t("catalog.packages.customer.remaining", {
                   remaining: customerPackage.remainingCredits,
                   total: customerPackage.totalCredits,
                 })}
               </div>
               <div className="text-muted-foreground">
-                {t("services.packages.customer.used", {
+                {t("catalog.packages.customer.used", {
                   used: usedCredits ?? 0,
                   total: customerPackage.totalCredits,
                 })}
@@ -107,7 +107,7 @@ export const CustomerPackageDialog: React.FC<{
           {usage ? (
             <div className="rounded-md border bg-muted/40 px-3 py-2">
               {isAppointmentCoveredByPackage(appointment)
-                ? t("services.packages.appointment.creditsUsed", {
+                ? t("catalog.packages.appointment.creditsUsed", {
                     credits: usage.credits,
                   })
                 : t("appointments.table.packageDialog.creditsRestored", {
@@ -122,12 +122,12 @@ export const CustomerPackageDialog: React.FC<{
                 href={`/dashboard/customers/${appointment.customerId}/packages#package-${usage.customerPackageId}`}
                 variant="underline"
               >
-                {t("services.packages.appointment.view")}
+                {t("catalog.packages.appointment.view")}
               </Link>
             ) : null}
             {customerPackage ? (
               <Link
-                href={`/dashboard/services/packages/${customerPackage.packageId}`}
+                href={`/dashboard/catalog/packages/${customerPackage.packageId}`}
                 variant="underline"
               >
                 {t("appointments.table.packageDialog.viewCatalog")}

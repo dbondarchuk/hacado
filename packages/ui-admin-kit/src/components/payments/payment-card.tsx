@@ -366,7 +366,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
                 {t("admin.payment.card.giftCardCode")}
               </span>
               <Link
-                href={`/dashboard/services/gift-cards/${rest.giftCardId}`}
+                href={`/dashboard/catalog/gift-cards/${rest.giftCardId}`}
                 variant="none"
                 className="text-sm font-mono text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-lg"
               >

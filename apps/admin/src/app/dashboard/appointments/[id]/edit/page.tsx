@@ -34,9 +34,9 @@ export default async function NewAssetsPage(props: Props) {
   );
 
   const [fields, addons, options, bookingConfig] = await Promise.all([
-    servicesContainer.servicesService.getFields({}),
-    servicesContainer.servicesService.getAddons({}),
-    servicesContainer.servicesService.getOptions({}),
+    servicesContainer.catalogService.getFields({}),
+    servicesContainer.catalogService.getAddons({}),
+    servicesContainer.catalogService.getServices({}),
     servicesContainer.configurationService.getConfiguration("booking"),
   ]);
 
@@ -71,7 +71,7 @@ export default async function NewAssetsPage(props: Props) {
       link: "/dashboard/appointments",
     },
     {
-      title: appointment.option.name,
+      title: appointment.service.name,
       link: `/dashboard/appointments/${id}`,
     },
     {
@@ -94,7 +94,7 @@ export default async function NewAssetsPage(props: Props) {
   const canAssignMember = canReassignAppointment(session.user);
 
   const from: AppointmentScheduleFormFrom = {
-    optionId: appointment.option._id,
+    optionId: appointment.service._id,
     addonsIds: appointment.addons?.map((addon) => addon._id),
     customerId: appointment.customer._id,
     fields: appointment.fields,

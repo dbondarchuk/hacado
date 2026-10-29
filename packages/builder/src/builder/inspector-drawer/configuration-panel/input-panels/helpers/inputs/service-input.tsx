@@ -1,10 +1,10 @@
 import React from "react";
 
 import { cn, FormDescription, Label } from "@hacado/ui";
-import { OptionSelector, OptionSelectorProps } from "@hacado/ui-admin";
+import { ServiceSelector, ServiceSelectorProps } from "@hacado/ui-admin";
 
 type Props = Omit<
-  OptionSelectorProps,
+  ServiceSelectorProps,
   "value" | "onChange" | "onBlur" | "onItemSelect" | "allowClear"
 > & {
   label: string;
@@ -41,7 +41,7 @@ export const ServiceInput: React.FC<Props> = ({
       <Label>{label}</Label>
       <div className="flex w-full">
         {nullable ? (
-          <OptionSelector
+          <ServiceSelector
             className={cn("w-full", className)}
             value={value ?? undefined}
             allowClear
@@ -52,7 +52,7 @@ export const ServiceInput: React.FC<Props> = ({
             }}
           />
         ) : (
-          <OptionSelector
+          <ServiceSelector
             className={cn("w-full", className)}
             value={value ?? undefined}
             {...rest}

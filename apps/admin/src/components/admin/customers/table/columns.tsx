@@ -21,12 +21,12 @@ const AppointmentCell: React.FC<{ appointment?: AppointmentEntity }> = ({
   const locale = useLocale();
   const timeZone = useTimeZone();
 
-  return appointment && appointment.option ? (
+  return appointment && appointment.service ? (
     <Link
       href={`/dashboard/appointments/${appointment._id}`}
       variant="underline"
     >
-      {appointment.option.name} at{" "}
+      {appointment.service.name} at{" "}
       {DateTime.fromJSDate(appointment.dateTime)
         .setZone(timeZone)
         .toLocaleString(DateTime.DATETIME_MED, { locale })}

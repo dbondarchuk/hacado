@@ -1,5 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
-import { newAppointmentHrefForCustomerPackage } from "@/components/admin/services/packages/new-appointment-href";
+import { newAppointmentHrefForCustomerPackage } from "@/components/admin/catalog/packages/new-appointment-href";
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { I18nText } from "@hacado/i18n/components";
 import { appointmentStatuses, CustomerPackageListModel } from "@hacado/types";
@@ -34,7 +34,7 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
           <Badge variant="outline">
             <I18nText
               namespace="admin"
-              text={`services.packages.sold.statusBadges.${pkg.status}`}
+              text={`catalog.packages.sold.statusBadges.${pkg.status}`}
             />
           </Badge>
         </CardTitle>
@@ -42,7 +42,7 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
           <div className="text-sm text-muted-foreground">
             <I18nText
               namespace="admin"
-              text={`services.packages.customer.remaining`}
+              text={`catalog.packages.customer.remaining`}
               args={{
                 remaining: pkg.remainingCredits,
                 total: pkg.totalCredits,
@@ -52,7 +52,7 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
           <div className="text-sm text-muted-foreground">
             <I18nText
               namespace="admin"
-              text={`services.packages.customer.used`}
+              text={`catalog.packages.customer.used`}
               args={{
                 used: pkg.usedCredits,
                 total: pkg.totalCredits,
@@ -66,7 +66,7 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
           <CalendarDays className="size-4" />
           <I18nText
             namespace="admin"
-            text="services.packages.customer.viewAppointments"
+            text="catalog.packages.customer.viewAppointments"
           />
         </Link>
         {newAppointmentHref ? (
@@ -74,7 +74,7 @@ const PackageCard = ({ pkg }: { pkg: CustomerPackageListModel }) => {
             <CalendarPlus className="size-4" />
             <I18nText
               namespace="admin"
-              text="services.packages.customer.scheduleAppointment"
+              text="catalog.packages.customer.scheduleAppointment"
             />
           </Link>
         ) : null}
@@ -130,7 +130,7 @@ const PackagesList = async ({ customerId }: { customerId: string }) => {
       <div className="text-sm text-center py-4 border rounded-md bg-card text-card-foreground">
         <I18nText
           namespace="admin"
-          text="services.packages.customer.noPackages"
+          text="catalog.packages.customer.noPackages"
         />
       </div>
     );

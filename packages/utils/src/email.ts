@@ -76,7 +76,7 @@ export const getEventCalendarContent = (
     title: summary,
     description: description,
     htmlContent: description,
-    location: event.option.isOnline
+    location: event.service.isOnline
       ? event.meetingInformation?.url
       : config.address,
     sequence: getIcsSequence(),

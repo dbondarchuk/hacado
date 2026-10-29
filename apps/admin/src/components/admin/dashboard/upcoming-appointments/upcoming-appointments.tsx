@@ -132,7 +132,7 @@ export const UpcomingAppointments: React.FC<{
                       </span>
                     </div>
                     <p className="truncate font-medium text-foreground">
-                      {appointment.option.name}
+                      {appointment.service.name}
                     </p>
                     <p className="truncate text-muted-foreground">
                       {meta.join(" · ")}

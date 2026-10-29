@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     data.phone,
   );
 
-  const discount = await servicesContainer.servicesService.applyDiscount({
+  const discount = await servicesContainer.catalogService.applyDiscount({
     code: data.code,
     optionId: data.optionId,
     packageId: data.packageId,

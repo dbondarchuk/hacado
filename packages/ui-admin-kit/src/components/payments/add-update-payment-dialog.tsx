@@ -707,7 +707,7 @@ export const AddUpdatePaymentDialog = ({
                                   {assignedAppointment ? (
                                     <div className="flex min-w-0 flex-col gap-0.5">
                                       <span className="truncate font-medium leading-tight">
-                                        {assignedAppointment.option.name}
+                                        {assignedAppointment.service.name}
                                       </span>
                                       <span className="truncate text-xs leading-tight text-muted-foreground">
                                         {DateTime.fromJSDate(

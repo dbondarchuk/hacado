@@ -12,7 +12,7 @@ export const appointmentCanceledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Your appointment for {{option.name}} was canceled",
+        text: "Your appointment for {{service.name}} was canceled",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentCanceledEmailTemplate: TemplatesTemplate =
 
 Thank you for selecting {{config.name}}!
 
-This confirms that your appointment for {{option.name}} on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} has been canceled.
+This confirms that your appointment for {{service.name}} on {{dateTime.full}} with {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} has been canceled.
 
 Please give us a call at {{config.phone}} if you would like to book another time.
 

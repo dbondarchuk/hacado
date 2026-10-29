@@ -12,9 +12,9 @@ import {
 } from "../utils";
 import { Extandable, Prettify } from "../utils/helpers";
 import { zTimeZone } from "../utils/zTimeZone";
-import { AppointmentAddon, AppointmentOption } from "./appointment-option";
 import type { AppointmentPackageUsage } from "./appointment-package";
 import type { ApplyGiftCardsSuccessResponse } from "./gift-card";
+import { AppointmentAddon, AppointmentOption } from "./service";
 
 export type AppointmentFields = {
   name: string;
@@ -31,7 +31,7 @@ export type AppointmentDiscount = {
   discountAmount: number;
 };
 
-export type AppointmentEventOption = Prettify<
+export type AppointmentEventService = Prettify<
   Pick<AppointmentOption, "_id" | "name" | "durationType" | "isOnline"> & {
     duration: number;
     price?: number;
@@ -55,7 +55,7 @@ export type AppointmentEvent = {
   dateTime: Date;
   timeZone: string;
   fields: AppointmentFields;
-  option: AppointmentEventOption;
+  service: AppointmentEventService;
   fieldsLabels?: Record<string, string>;
   addons?: AppointmentEventAddon[];
   note?: string;
@@ -81,7 +81,7 @@ export const appointmentEventSchema = z.object({
     name: zNonEmptyString("appointments.request.fields.name.required"),
     phone: zPhone,
   }),
-  optionId: zNonEmptyString("appointments.request.optionId.required"),
+  serviceId: zNonEmptyString("appointments.request.serviceId.required"),
   addonsIds: zUniqueArray(
     z.array(zNonEmptyString("appointments.request.addonsIds.required")),
     (x) => x,
@@ -106,7 +106,7 @@ export const appointmentEventSchema = z.object({
 export type AppointmentEventRequest = z.infer<typeof appointmentEventSchema>;
 
 export const appointmentRequestSchema = z.object({
-  optionId: zNonEmptyString("appointments.request.optionId.required"),
+  serviceId: zNonEmptyString("appointments.request.serviceId.required"),
   /** Preferred/assigned staff member; resolved server-side (owner fallback) when omitted. */
   memberId: z.string().optional(),
   addonsIds: zUniqueArray(

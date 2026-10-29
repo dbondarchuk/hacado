@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { ServiceLimitUpgradeHint } from "@/components/admin/services/service-limit-upgrade-hint";
+import { ServiceLimitUpgradeHint } from "@/components/admin/catalog/service-limit-upgrade-hint";
 import {
   getInstallServiceOptionSnapshot,
   replaceServices,

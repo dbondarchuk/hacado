@@ -130,6 +130,7 @@ import { useLocale } from "@hacado/i18n/client";
 import { DateTime } from "luxon";
 import { cn } from "../../utils";
 import { Button, buttonVariants } from "../button";
+import { invalidControlClass, isInvalidProp } from "../invalid-field";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { ScrollArea } from "../scroll-area";
 import { SimpleTimePicker } from "./simple-time-picker";
@@ -252,6 +253,18 @@ export function DateTimePicker({
   disabledDays,
   ...props
 }: DateTimePickerProps & DateTimeCalendarProps) {
+  const {
+    "aria-invalid": ariaInvalid,
+    invalid,
+    ...calendarProps
+  } = props as typeof props & {
+    "aria-invalid"?: boolean | "true" | "false";
+    invalid?: boolean | "" | "true";
+  };
+  const fieldInvalid = isInvalidProp({
+    "aria-invalid": ariaInvalid,
+    invalid,
+  });
   const locale = useLocale();
 
   const [open, setOpen] = useState(false);
@@ -381,13 +394,22 @@ export function DateTimePicker({
         ) : (
           <div
             className={cn(
-              "flex w-full cursor-pointer items-center h-8 ps-3 pe-1 font-normal border border-input rounded-md text-base shadow-sm",
+              "flex w-full cursor-pointer items-center h-8 ps-3 pe-1 font-normal border border-input rounded-md text-base shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              invalidControlClass,
               !displayValue && "text-muted-foreground",
               (!clearable || !value) && "pe-3",
               disabled && "opacity-50 cursor-not-allowed",
+              open && "ring-2 ring-offset-2",
+              open && (fieldInvalid ? "ring-destructive" : "ring-ring"),
               classNames?.trigger,
             )}
             tabIndex={0}
+            aria-invalid={
+              ariaInvalid === true || ariaInvalid === "true" ? true : undefined
+            }
+            {...(invalid === true || invalid === "" || invalid === "true"
+              ? { invalid: "true" }
+              : {})}
           >
             <div className="flex-grow flex items-center">
               <CalendarIcon className="mr-2 size-4" />
@@ -505,7 +527,7 @@ export function DateTimePicker({
               hidden: "invisible",
             }}
             showOutsideDays
-            {...props}
+            {...calendarProps}
           />
           <div
             className={cn(

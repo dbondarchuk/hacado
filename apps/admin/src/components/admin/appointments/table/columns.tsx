@@ -92,7 +92,7 @@ const OptionCell: React.FC<{
         // href={`/dashboard/appointments/${appointment._id}`}
         onClick={() => setIsDialogOpen(true)}
       >
-        {appointment.option.name}
+        {appointment.service.name}
       </Button>
       {/* <TooltipProvider>
         <Tooltip>
@@ -103,26 +103,26 @@ const OptionCell: React.FC<{
               // href={`/dashboard/appointments/${appointment._id}`}
               onClick={() => setIsDialogOpen(true)}
             >
-              {appointment.option.name}
+              {appointment.service.name}
             </Button>
           </TooltipTrigger>
           <TooltipContent className="flex flex-col gap-2 w-full py-2 px-4">
             <div className="grid grid-cols-2 gap-1 pb-2 border-b">
               <div>{t("appointments.table.columns.optionName")}:</div>
-              <div>{appointment.option.name}</div>
-              {(appointment.option.price ?? 0) > 0 && (
+              <div>{appointment.service.name}</div>
+              {(appointment.service.price ?? 0) > 0 && (
                 <>
                   <div>{t("appointments.table.columns.optionPrice")}:</div>
-                  <div>${appointment.option.price}</div>
+                  <div>${appointment.service.price}</div>
                 </>
               )}
-              {appointment.option.duration &&
-                appointment.option.duration > 0 && (
+              {appointment.service.duration &&
+                appointment.service.duration > 0 && (
                   <>
                     <div>{t("appointments.table.columns.optionDuration")}:</div>
                     <div>
-                      {durationToTime(appointment.option.duration).hours} hr{" "}
-                      {durationToTime(appointment.option.duration).minutes} min
+                      {durationToTime(appointment.service.duration).hours} hr{" "}
+                      {durationToTime(appointment.service.duration).minutes} min
                     </div>
                   </>
                 )}
@@ -431,7 +431,7 @@ function DiscountCell({ appointment }: { appointment: Appointment }) {
       <TooltipResponsiveTrigger>
         <Link
           variant="underline"
-          href={`/dashboard/services/discounts/${appointment.discount.id}`}
+          href={`/dashboard/catalog/discounts/${appointment.discount.id}`}
         >
           {appointment.discount.code}{" "}
           <span className="text-sm">

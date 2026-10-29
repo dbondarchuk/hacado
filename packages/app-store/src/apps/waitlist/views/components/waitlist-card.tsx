@@ -102,7 +102,7 @@ export const WaitlistCard: React.FC<WaitlistCardProps> = ({ entry, appId }) => {
               })}
             </p>
             <p className="text-sm font-medium text-foreground truncate">
-              {entry.option?.name ?? t("view.unknown")}
+              {entry.service?.name ?? t("view.unknown")}
             </p>
           </div>
         </div>

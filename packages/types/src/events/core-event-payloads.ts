@@ -5,12 +5,6 @@ import type {
 } from "../billing";
 import type { Appointment, AppointmentStatus } from "../booking/appointment";
 import type {
-  AppointmentAddon,
-  AppointmentAddonUpdateModel,
-  AppointmentOption,
-  AppointmentOptionUpdateModel,
-} from "../booking/appointment-option";
-import type {
   AppointmentPackage,
   AppointmentPackageUsage,
   CustomerPackage,
@@ -28,6 +22,12 @@ import type {
   PaymentIntent,
   PaymentUpdateModel,
 } from "../booking/payment";
+import type {
+  AppointmentAddon,
+  AppointmentAddonUpdateModel,
+  AppointmentOption,
+  AppointmentOptionUpdateModel,
+} from "../booking/service";
 import type { SyncedPayment } from "../booking/synced-payment";
 import type { ConfigurationKey } from "../configuration";
 import type { Customer, CustomerUpdateModel } from "../customers/customer";

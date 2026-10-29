@@ -12,7 +12,7 @@ import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
 import { dashboardUrls } from "../links";
 
 const EMAIL_KEY_PREFIX =
-  "admin.services.packages.emails.purchasedOwner" as const;
+  "admin.catalog.packages.emails.purchasedOwner" as const;
 
 export async function buildCustomerPackagePurchasedOwnerEmails(
   envelope: EventEnvelope,

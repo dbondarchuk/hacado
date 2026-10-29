@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   // }
 
   const result =
-    await servicesContainer.servicesService.checkDiscountUniqueNameAndCode(
+    await servicesContainer.catalogService.checkDiscountUniqueNameAndCode(
       params.name ?? undefined,
       params.codes ?? undefined,
       params.id ?? undefined,

@@ -55,7 +55,7 @@ export const OptionsDataTableAsyncFilterBox: React.FC<
   const getOptions = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.serviceOptions.getServiceOptions({
+      const result = await adminApi.services.getServices({
         page,
         limit,
         search,

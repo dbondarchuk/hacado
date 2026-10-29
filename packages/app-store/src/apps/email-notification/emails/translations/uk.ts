@@ -33,7 +33,7 @@ Email: {{ fields.email }}
 
 {{/files}}
 
-Обрана опція: {{ option.name }}
+Обрана послуга: {{service.name}}
 
 Обрані додатки:
 
@@ -51,7 +51,7 @@ Email: {{ fields.email }}
 {{#discount}}
 Сумарна ціна: {{subTotalAmountFormatted}}
 
-Знижка: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/services/discounts/{{id}}))
+Знижка: -{{discountAmountFormatted}} {{code}} ([{{name}}]({{ adminUrl }}/dashboard/catalog/discounts/{{id}}))
 
 Загальна ціна: {{totalPriceFormatted}}
 {{/discount}}
@@ -81,51 +81,52 @@ Email: {{ fields.email }}
 
 export const UkEmailTemplates: EmailTemplates = {
   confirmed: {
-    title: "Запис на {{option.name}} був підтверджений.",
+    title: "Запис на {{service.name}} був підтверджений.",
     text: getText("Запис був підтверджений вами."),
   },
   declined: {
-    title: "Запис на {{option.name}} був відхилений.",
+    title: "Запис на {{service.name}} був відхилений.",
     text: getText("Запис був відхилений вами."),
   },
   cancelledByCustomer: {
-    title: "Запис на {{option.name}} був скасований.",
+    title: "Запис на {{service.name}} був скасований.",
     text: getText("Запис був скасований клієнтом."),
   },
   canceled: {
-    title: "Запис на {{option.name}} був скасований.",
+    title: "Запис на {{service.name}} був скасований.",
     text: getText("Запис був скасований клієнтом."),
   },
   noShow: {
-    title: "Запис на {{option.name}} позначено як неявку.",
+    title: "Запис на {{service.name}} позначено як неявку.",
     text: getText("Запис був позначений як неявка клієнта."),
   },
   rescheduledByCustomer: {
-    title: "Запис на {{option.name}} був перенесений.",
+    title: "Запис на {{service.name}} був перенесений.",
     text: getText(
-      "Запис на {{option.name}} від {{fields.name}} був перенесений клієнтом{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
+      "Запис на {{service.name}} від {{fields.name}} був перенесений клієнтом{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
     ),
   },
   rescheduled: {
     title: "Запис був перенесений на {{dateTime.full}}",
     text: getText(
-      "Запис на {{option.name}} від {{fields.name}} був перенесений{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
+      "Запис на {{service.name}} від {{fields.name}} був перенесений{{#oldDateTime}} з {{oldDateTime.full}}{{/oldDateTime}} на {{dateTime.full}}, тривалість {{#duration.hours}}{{.}} год {{/duration.hours}}{{#duration.minutes}}{{.}} хв{{/duration.minutes}}",
     ),
   },
   "auto-confirmed": {
-    title: "Запис на {{option.name}} був запитаний і автоматично підтверджений",
+    title:
+      "Запис на {{service.name}} був запитаний і автоматично підтверджений",
     text: getText(
       "Новий запис був запитаний на веб-сайті і автоматично підтверджений.{{#packageUsage.isPackageAppointment}} Заброньовано з пакетом {{packageUsage.name}} ({{packageUsage.credits}} кредитів).{{/packageUsage.isPackageAppointment}}",
     ),
   },
   pending: {
-    title: "Запит на запис для {{option.name}}",
+    title: "Запит на запис для {{service.name}}",
     text: getText(
-      "Новий запис був запитаний на веб-сайті для {{option.name}}.{{#packageUsage.isPackageAppointment}} Заброньовано з пакетом {{packageUsage.name}} ({{packageUsage.credits}} кредитів).{{/packageUsage.isPackageAppointment}}",
+      "Новий запис був запитаний на веб-сайті для {{service.name}}.{{#packageUsage.isPackageAppointment}} Заброньовано з пакетом {{packageUsage.name}} ({{packageUsage.credits}} кредитів).{{/packageUsage.isPackageAppointment}}",
     ),
   },
-  subject: "{{fields.name}} на {{option.name}} на {{dateTime.full}}",
-  eventTitle: "{{fields.name}} на {{option.name}}",
+  subject: "{{fields.name}} на {{service.name}} на {{dateTime.full}}",
+  eventTitle: "{{fields.name}} на {{service.name}}",
   buttonTexts: {
     viewAppointment: "Переглянути запис",
     decline: "Відхилити",

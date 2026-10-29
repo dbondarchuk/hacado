@@ -2,6 +2,7 @@ import React from "react";
 
 import { type VariantProps, cva } from "class-variance-authority";
 import { withVariants } from "../cn/with-variants";
+import { invalidControlClass } from "./invalid-field";
 
 export const inputVariants = cva(
   [
@@ -23,8 +24,10 @@ export const inputVariants = cva(
         xs: "h-7 px-1.5 py-1",
       },
       variant: {
-        default:
+        default: [
           "border border-input ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          invalidControlClass,
+        ],
         ghost: "border-none focus-visible:ring-transparent",
       },
     },

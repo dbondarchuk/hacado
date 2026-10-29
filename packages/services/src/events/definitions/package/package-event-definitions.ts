@@ -123,15 +123,15 @@ export const PACKAGE_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
         toast: {
           type: "info",
           title: {
-            key: "admin.services.packages.notifications.issued.title" satisfies BaseAllKeys,
+            key: "admin.catalog.packages.notifications.issued.title" satisfies BaseAllKeys,
           },
           message: {
-            key: "admin.services.packages.notifications.issued.message" satisfies BaseAllKeys,
+            key: "admin.catalog.packages.notifications.issued.message" satisfies BaseAllKeys,
             args: { name: customerPackage.name },
           },
           action: {
             label: {
-              key: "admin.services.packages.notifications.issued.action" satisfies BaseAllKeys,
+              key: "admin.catalog.packages.notifications.issued.action" satisfies BaseAllKeys,
             },
             href: dashboardUrls.customer(customerPackage.customerId),
           },

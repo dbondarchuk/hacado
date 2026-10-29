@@ -1,4 +1,5 @@
 import * as activities from "./activities";
+import * as addons from "./addons";
 import * as addresses from "./addresses";
 import * as appointments from "./appointments";
 import * as apps from "./apps";
@@ -11,6 +12,7 @@ import * as communications from "./communications";
 import * as configuration from "./configuration";
 import * as customers from "./customers";
 import * as discounts from "./discounts";
+import * as fields from "./fields";
 import * as giftCards from "./gift-cards";
 import * as organization from "./organization";
 import * as packages from "./packages";
@@ -21,9 +23,7 @@ import * as payments from "./payments";
 import * as pexels from "./pexels";
 import * as schedule from "./schedule";
 import * as search from "./search";
-import * as serviceAddons from "./service-addons";
-import * as serviceFields from "./service-fields";
-import * as serviceOptions from "./service-options";
+import * as services from "./services";
 import * as syncedPayments from "./synced-payments";
 import * as teams from "./teams";
 import * as templates from "./templates";
@@ -51,9 +51,9 @@ export const adminApi = {
   pageFooters,
   customers,
   teams,
-  serviceAddons,
-  serviceFields,
-  serviceOptions,
+  addons,
+  fields,
+  services,
   schedule,
   search,
   apps,

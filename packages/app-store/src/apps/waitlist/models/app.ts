@@ -84,7 +84,7 @@ export const createWaitlistEntryRequestSchema = z
       )
       .optional(),
     smsConsent: z.boolean().optional(),
-    optionId: zObjectId("validation.appointments.request.optionId.required"),
+    optionId: zObjectId("validation.appointments.request.serviceId.required"),
     /** Preferred/assigned staff member; resolved to the owner member when omitted. */
     memberId: zObjectId(
       "validation.appointments.request.memberId.required",

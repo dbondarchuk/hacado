@@ -231,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Opción de servicio creada
+      title: Servicio creado
       description: "{name}"
     updated:
-      title: Opción de servicio actualizada
+      title: Servicio actualizado
       description: "{name}"
     deleted:
-      title: Opciones de servicio eliminadas
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Servicios eliminados
+      description: "{count, plural, =1 {# servicio} other {# servicios}}"
   discount:
     created:
       title: Descuento creado
@@ -433,10 +433,11 @@ navigation:
   textMessaging: Mensajes de texto
   schedule: Cronograma
   defaultSchedule: Horario predeterminado
+  catalog: Catálogo
   services: Servicios
   fields: Campos
   addons: Complementos
-  options: Opciones
+  options: Servicios
   discounts: Descuentos
   giftCards: Tarjetas de regalo
   packages: Paquetes
@@ -457,6 +458,13 @@ navigation:
     templates: Plantillas de correo y texto para los mensajes a clientes.
     store: Explore las aplicaciones que puede instalar.
     defaultApps: Elija las aplicaciones predeterminadas para pagos, correo y mensajes de texto.
+    fields: Preguntas que se recogen al reservar un servicio.
+    addons: Extras opcionales que los clientes pueden añadir a una reserva.
+    services: Servicios que se pueden reservar, con duración y precio.
+    discounts: Códigos promocionales y reducciones de precio.
+    giftCards: Tarjetas de regalo que los clientes pueden comprar y canjear.
+    packages: Paquetes de visitas prepagados.
+    soldPackages: Paquetes que los clientes han comprado.
   general: General
   brand: Marca
   social: Social
@@ -722,7 +730,7 @@ paymentsList:
     appointmentId: ID de cita
     appointmentDateTime: fecha de cita
     appointmentStatus: Estado de la cita
-    optionName: Nombre de la opción
+    optionName: Nombre del servicio
     addons: Complementos
     appointmentTotal: Total de citas
     feesTotal: Tarifas totales
@@ -885,7 +893,7 @@ appointments:
     columns:
       status: Estado
       statusAriaLabel: "Estado: {status}"
-      option: Opción
+      option: Servicio
       customer: Cliente
       member: Miembro del equipo
       dateTime: Fecha y hora
@@ -895,9 +903,9 @@ appointments:
       package: Paquete
       packageRestored: restaurado
       price: Precio
-      optionName: Nombre de la opción
-      optionPrice: Precio de la opción
-      optionDuration: Duración de la opción
+      optionName: Nombre del servicio
+      optionPrice: Precio del servicio
+      optionDuration: Duración del servicio
       selectedAddons: Complementos seleccionados
       note: Nota
       customerName: Nombre
@@ -1057,8 +1065,8 @@ appointments:
     yes: Sí
     no: No
     service: Servicio
-    selectedOption: Opción seleccionada
-    option: Opción
+    selectedOption: Servicio seleccionado
+    option: Servicio
     description: Descripción
     selectedAddons: Complementos seleccionados
     meetingInformation:
@@ -1368,7 +1376,7 @@ customers:
     selectOption: Seleccionar opción
     always: Siempre
     never: Nunca
-    inherit: Igual que la opción seleccionada o configuración general
+    inherit: Igual que el servicio seleccionado o la configuración general
     knownNames: Nombres conocidos
     knownNamesTooltip: Nombres alternativos proporcionados por los clientes durante la solicitud de cita
     knownEmails: Correos electrónicos conocidos
@@ -1743,7 +1751,252 @@ services:
   memberSelector:
     loading: Cargando miembros...
     selectMember: Seleccionar miembro
-  options:
+templates:
+  page:
+    title: Plantillas de comunicación
+  formPage:
+    typeTemplates: "{type} plantillas"
+    new: Nuevo
+  newPage:
+    title: Nueva plantilla {type}
+  editPage:
+    title: Actualizar plantilla
+    clone: Clon
+  addNew:
+    emptyTemplate: Plantilla vacía
+    add: Agregar
+    addNewTemplate: Agregar nueva plantilla
+    type: Tipo
+    selectTemplateType: Seleccionar tipo de plantilla
+    template: Plantilla
+    close: Cerca
+  form:
+    subject: Asunto del correo electrónico
+    subjectTooltip: Asunto del correo electrónico que se utilizará para enviar el mensaje.
+    subjectPlaceholder: Sujeto
+    name: Nombre de la plantilla
+    nameTooltip: Nombre de plantilla único
+    namePlaceholder: Nombre de la plantilla
+    validation:
+      templateNotValid: La plantilla no es válida
+    toasts:
+      changesSaved: Tus cambios fueron guardados.
+      requestError: Hubo un problema con tu solicitud.
+  textMessageBuilder:
+    content: Contenido del mensaje de texto
+    viewContext: Ver contexto
+    contextValues: Valores de contexto
+    copied: Copiado
+    copyPath: Copiar ruta
+    close: Cerca
+    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
+    preview: Avance
+  table:
+    filters:
+      type: Tipo
+      filters: Filtros
+    columns:
+      type: Tipo
+      name: Nombre
+      updatedAt: Actualizado en
+    cellAction:
+      templateDeleted: Se eliminó la plantilla "{name}".
+      deleteError: Hubo un problema con tu solicitud.
+      actions: Comportamiento
+      update: Actualizar
+      delete: Borrar
+      clone: Clon
+    deleteSelected:
+      success: Se han eliminado las plantillas seleccionadas.
+      error: Hubo un problema con tu solicitud.
+      button: Eliminar seleccionado {count, plural, =1 {template} other {# templates}}
+      confirmTitle: ¿Estás absolutamente seguro?
+      confirmDescription: Esta acción no se puede deshacer. Esto eliminará las plantillas seleccionadas y puede interrumpir las notificaciones que las usan.
+      cancel: Cancelar
+      deleteSelected: Eliminar seleccionado
+appearance:
+  styling:
+    title: Estilo
+    description: Ajustar el estilo general
+    form:
+      primaryFont: fuente principal
+      secondaryFont: fuente secundaria
+      tertiaryFont: fuente terciaria
+      selectFont: Seleccionar fuente
+      colorOverrides: Anulaciones de color
+      invalidField: Campo no válido
+      duplicateType: Tipo duplicado
+      remove: Eliminar
+      deleteConfirmTitle: ¿Estás absolutamente seguro?
+      deleteConfirmDescription: ¿Está seguro de que desea eliminar esta anulación de color?
+      cancel: Cancelar
+      delete: Borrar
+      type: Tipo
+      typeDescription: Qué color del tema reemplaza esta anulación.
+      selectColorOverrideType: Seleccionar tipo de anulación de color
+      color: Color
+      colorTooltip: Color en formato CSS (HEX, rgb, rgba, hsl)
+      additionalCss: CSS adicional
+      toasts:
+        changesSaved: Tus cambios fueron guardados.
+        requestError: Hubo un problema con tu solicitud.
+      fonts:
+        seeOnGoogleFonts: Ver en Google Fuentes
+        variants:
+          "100": "100"
+          "200": "200"
+          "300": "300"
+          "400": "400"
+          "500": "500"
+          "600": "600"
+          "700": "700"
+          "800": "800"
+          "900": "900"
+          label: "Variantes: {variants}"
+          regular: Regular
+          italic: Itálico
+          bold: Atrevido
+          medium: Medio
+          semibold: Semi-negrita
+          extrabold: Extra-negrita
+          100italic: 100 cursiva
+          200italic: 200 cursiva
+          300italic: 300 cursiva
+          400italic: 400 cursiva
+          500italic: 500 cursiva
+          600italic: 600 cursiva
+          700italic: 700 cursiva
+          800italic: 800 cursiva
+          900italic: 900 cursiva
+        subsets:
+          label: "Subconjuntos: {subsets}"
+          latin: latín
+          latin-ext: latín extendido
+          vietnamese: vietnamita
+          cyrillic: cirílico
+          cyrillic-ext: cirílico extendido
+          greek: Griego
+          greek-ext: griego extendido
+          hebrew: hebreo
+          math: Matemáticas
+          symbols: Símbolos
+        category:
+          label: "Categoría: {category}"
+          sans-serif: Sans-serif
+          serif: Serifa
+          monospace: monoespacio
+          display: Mostrar
+          handwriting: Escritura
+          script: Guion
+          fantasy: Fantasía
+    colors:
+      default: Por defecto
+      custom: Color personalizado
+      background: Fondo
+      foreground: Texto
+      card: Tarjeta
+      card-foreground: Texto de la tarjeta
+      popover: popover
+      popover-foreground: Texto emergente
+      primary: Primario
+      primary-foreground: Texto primario
+      secondary: Secundario
+      secondary-foreground: Texto secundario
+      muted: Apagado
+      muted-foreground: Texto silenciado
+      accent: Acento
+      accent-foreground: Texto acentuado
+      destructive: Destructivo
+      destructive-foreground: Texto destructivo
+      border: Borde
+  footer:
+    title: Pie de página
+    description: Ajustar enlaces en el pie de página
+    form:
+      useCustomFooter: Usar pie de página personalizado
+      footerContent: Contenido del pie de página
+      preview: Avance
+      contactUsLabel: Contáctenos etiqueta
+      contactUsLabelTooltip: El valor predeterminado es 'Contáctenos'
+      contactUsPlaceholder: Contáctenos
+      links: Campo de golf
+      toasts:
+        changesSaved: Tus cambios fueron guardados.
+        requestError: Hubo un problema con tu solicitud.
+apps:
+  heading: Aplicaciones conectadas
+  description: Administra tus aplicaciones conectadas
+  defaultApps: Aplicaciones predeterminadas
+  appStore: Tienda de aplicaciones
+  searchPlaceholder: Buscar aplicaciones instaladas
+  noResults: No se encontraron aplicaciones para tu búsqueda
+  noConnectedApps: No tienes ninguna aplicación conectada
+  defaultAppsForm:
+    payment:
+      label: Procesador de pagos
+      placeholder: Deshabilitar pagos
+    emailSender:
+      label: Remitente de correo electrónico
+      placeholder: Usar remitente de correo electrónico predeterminado
+    textMessageSender:
+      label: Remitente de mensajes de texto
+      placeholder: Usar remitente de mensajes de texto predeterminado
+      tooltip: La aplicación que envía mensajes de texto a los clientes. Opcional.
+    textMessageResponder:
+      label: Respondedor de mensajes de texto
+      tooltip: Si el remitente no lo maneja, se usará como aplicación predeterminada para responder mensajes de texto (es decir, respuesta automática). Opcional.
+    assetsStorage: Almacenamiento de activos
+    toasts:
+      changesSaved: Tus cambios fueron guardados.
+      requestError: Hubo un problema con tu solicitud.
+  defaultAppsDescription: Seleccionar aplicaciones predeterminadas
+  migrateAssetsDialog:
+    migrateAssets: Migrar activos
+    title: Migrar activos existentes
+    description: Migre sus activos existentes desde su almacenamiento anterior
+    sourceApp: Aplicación de almacenamiento de activos de origen
+    done: "Hecho: {count}"
+    success: "Éxito: {count}"
+    error: "Error: {count}"
+    total: "Total: {count}"
+    migrate: Emigrar
+    toasts:
+      requestError: Tu solicitud ha fallado
+  events:
+    installed:
+      title: Aplicación instalada
+      description: Se instaló {appDisplayName}.
+    connected:
+      title: Aplicación conectada
+      description: "{appDisplayName} conectado."
+    uninstalled:
+      title: Aplicación desinstalada
+      description: "{appDisplayName} fue desinstalado."
+    failed:
+      title: La aplicación falló
+      description: "{appDisplayName} no pudo conectarse."
+  notifications:
+    failed:
+      title: La conexión de la aplicación falló
+      message: "{appDisplayName} no pudo conectarse. Verifique la configuración de la aplicación."
+      action: Abrir aplicaciones
+  emails:
+    failed:
+      subject: "{appDisplayName} - conexión fallida"
+      preview: "{appDisplayName} no pudo permanecer conectado"
+      title: No pudimos mantener tu aplicación conectada
+      body: |-
+        Hola {userName},
+
+        **{appDisplayName}** informó un problema de conexión o no finalizó la configuración correctamente. Abra **Aplicaciones** en su panel de control para revisar las credenciales y la configuración, luego intente conectarse nuevamente.
+
+        Si todo parece correcto, puedes ignorar este correo electrónico.
+      button: Abrir aplicaciones
+      handledBy: "Error de conexión de la aplicación: {appDisplayName}"
+catalog:
+  hub:
+    description: Servicios, extras, paquetes y otros artículos que los clientes pueden reservar o comprar.
+  services:
     title: Servicios
     description: Gestionar los servicios que proporcionas
     addNew: Agregar nuevo
@@ -1756,9 +2009,9 @@ services:
     upgradeRequired: El plan gratuito incluye un servicio. Actualice a Solo para agregar más.
     upgradeLink: Actualizar en la configuración de marca
     new: Nuevo
-    newTitle: Nueva opción de servicio
+    newTitle: Nuevo servicio
     newDescription: Agregar nuevo servicio que brindas
-    editDescription: Opción de edición
+    editDescription: Editar servicio
     form:
       details: Detalles
       durationAndPrice: Duración y precio
@@ -1767,7 +2020,7 @@ services:
       virtualAppointment: Cita virtual
       virtualAppointmentTooltip: Realiza esta cita por video, audio o teléfono en lugar de en persona.
       name: Nombre
-      namePlaceholder: Nombre de la opción
+      namePlaceholder: Nombre del servicio
       description: Breve descripción
       descriptionTooltip: Texto breve que será visible durante la reserva.
       duration: Duración
@@ -2040,9 +2293,9 @@ services:
         label: Etiqueta
         updatedAt: Actualizado en
         addons: Complementos
-        options: Opciones
+        options: Servicios
         addonsInDialog: "{label} en complementos"
-        optionsInDialog: "{label} en opciones"
+        optionsInDialog: "{label} en servicios"
       cellAction:
         fieldDeleted: Se eliminó el campo de opción "{label}".
         deleteError: Hubo un problema con tu solicitud.
@@ -2476,8 +2729,8 @@ services:
       columns:
         name: Nombre
         updatedAt: Actualizado en
-        options: Opciones
-        optionsInDialog: "{name} en opciones"
+        options: Servicios
+        optionsInDialog: "{name} en servicios"
       cellAction:
         addonDeleted: Se eliminó el complemento "{name}".
         deleteError: Hubo un problema con tu solicitud.
@@ -2493,248 +2746,6 @@ services:
       confirmDescription: Esta acción no se puede deshacer. Esto eliminará los complementos seleccionados y los eliminará de todas las opciones que los utilicen.
       cancel: Cancelar
       deleteSelected: Eliminar seleccionado
-templates:
-  page:
-    title: Plantillas de comunicación
-  formPage:
-    typeTemplates: "{type} plantillas"
-    new: Nuevo
-  newPage:
-    title: Nueva plantilla {type}
-  editPage:
-    title: Actualizar plantilla
-    clone: Clon
-  addNew:
-    emptyTemplate: Plantilla vacía
-    add: Agregar
-    addNewTemplate: Agregar nueva plantilla
-    type: Tipo
-    selectTemplateType: Seleccionar tipo de plantilla
-    template: Plantilla
-    close: Cerca
-  form:
-    subject: Asunto del correo electrónico
-    subjectTooltip: Asunto del correo electrónico que se utilizará para enviar el mensaje.
-    subjectPlaceholder: Sujeto
-    name: Nombre de la plantilla
-    nameTooltip: Nombre de plantilla único
-    namePlaceholder: Nombre de la plantilla
-    validation:
-      templateNotValid: La plantilla no es válida
-    toasts:
-      changesSaved: Tus cambios fueron guardados.
-      requestError: Hubo un problema con tu solicitud.
-  textMessageBuilder:
-    content: Contenido del mensaje de texto
-    viewContext: Ver contexto
-    contextValues: Valores de contexto
-    copied: Copiado
-    copyPath: Copiar ruta
-    close: Cerca
-    characterCount: "{count, plural, =1 {1 character} other {# characters}}"
-    preview: Avance
-  table:
-    filters:
-      type: Tipo
-      filters: Filtros
-    columns:
-      type: Tipo
-      name: Nombre
-      updatedAt: Actualizado en
-    cellAction:
-      templateDeleted: Se eliminó la plantilla "{name}".
-      deleteError: Hubo un problema con tu solicitud.
-      actions: Comportamiento
-      update: Actualizar
-      delete: Borrar
-      clone: Clon
-    deleteSelected:
-      success: Se han eliminado las plantillas seleccionadas.
-      error: Hubo un problema con tu solicitud.
-      button: Eliminar seleccionado {count, plural, =1 {template} other {# templates}}
-      confirmTitle: ¿Estás absolutamente seguro?
-      confirmDescription: Esta acción no se puede deshacer. Esto eliminará las plantillas seleccionadas y puede interrumpir las notificaciones que las usan.
-      cancel: Cancelar
-      deleteSelected: Eliminar seleccionado
-appearance:
-  styling:
-    title: Estilo
-    description: Ajustar el estilo general
-    form:
-      primaryFont: fuente principal
-      secondaryFont: fuente secundaria
-      tertiaryFont: fuente terciaria
-      selectFont: Seleccionar fuente
-      colorOverrides: Anulaciones de color
-      invalidField: Campo no válido
-      duplicateType: Tipo duplicado
-      remove: Eliminar
-      deleteConfirmTitle: ¿Estás absolutamente seguro?
-      deleteConfirmDescription: ¿Está seguro de que desea eliminar esta anulación de color?
-      cancel: Cancelar
-      delete: Borrar
-      type: Tipo
-      typeDescription: Qué color del tema reemplaza esta anulación.
-      selectColorOverrideType: Seleccionar tipo de anulación de color
-      color: Color
-      colorTooltip: Color en formato CSS (HEX, rgb, rgba, hsl)
-      additionalCss: CSS adicional
-      toasts:
-        changesSaved: Tus cambios fueron guardados.
-        requestError: Hubo un problema con tu solicitud.
-      fonts:
-        seeOnGoogleFonts: Ver en Google Fuentes
-        variants:
-          "100": "100"
-          "200": "200"
-          "300": "300"
-          "400": "400"
-          "500": "500"
-          "600": "600"
-          "700": "700"
-          "800": "800"
-          "900": "900"
-          label: "Variantes: {variants}"
-          regular: Regular
-          italic: Itálico
-          bold: Atrevido
-          medium: Medio
-          semibold: Semi-negrita
-          extrabold: Extra-negrita
-          100italic: 100 cursiva
-          200italic: 200 cursiva
-          300italic: 300 cursiva
-          400italic: 400 cursiva
-          500italic: 500 cursiva
-          600italic: 600 cursiva
-          700italic: 700 cursiva
-          800italic: 800 cursiva
-          900italic: 900 cursiva
-        subsets:
-          label: "Subconjuntos: {subsets}"
-          latin: latín
-          latin-ext: latín extendido
-          vietnamese: vietnamita
-          cyrillic: cirílico
-          cyrillic-ext: cirílico extendido
-          greek: Griego
-          greek-ext: griego extendido
-          hebrew: hebreo
-          math: Matemáticas
-          symbols: Símbolos
-        category:
-          label: "Categoría: {category}"
-          sans-serif: Sans-serif
-          serif: Serifa
-          monospace: monoespacio
-          display: Mostrar
-          handwriting: Escritura
-          script: Guion
-          fantasy: Fantasía
-    colors:
-      default: Por defecto
-      custom: Color personalizado
-      background: Fondo
-      foreground: Texto
-      card: Tarjeta
-      card-foreground: Texto de la tarjeta
-      popover: popover
-      popover-foreground: Texto emergente
-      primary: Primario
-      primary-foreground: Texto primario
-      secondary: Secundario
-      secondary-foreground: Texto secundario
-      muted: Apagado
-      muted-foreground: Texto silenciado
-      accent: Acento
-      accent-foreground: Texto acentuado
-      destructive: Destructivo
-      destructive-foreground: Texto destructivo
-      border: Borde
-  footer:
-    title: Pie de página
-    description: Ajustar enlaces en el pie de página
-    form:
-      useCustomFooter: Usar pie de página personalizado
-      footerContent: Contenido del pie de página
-      preview: Avance
-      contactUsLabel: Contáctenos etiqueta
-      contactUsLabelTooltip: El valor predeterminado es 'Contáctenos'
-      contactUsPlaceholder: Contáctenos
-      links: Campo de golf
-      toasts:
-        changesSaved: Tus cambios fueron guardados.
-        requestError: Hubo un problema con tu solicitud.
-apps:
-  heading: Aplicaciones conectadas
-  description: Administra tus aplicaciones conectadas
-  defaultApps: Aplicaciones predeterminadas
-  appStore: Tienda de aplicaciones
-  searchPlaceholder: Buscar aplicaciones instaladas
-  noResults: No se encontraron aplicaciones para tu búsqueda
-  noConnectedApps: No tienes ninguna aplicación conectada
-  defaultAppsForm:
-    payment:
-      label: Procesador de pagos
-      placeholder: Deshabilitar pagos
-    emailSender:
-      label: Remitente de correo electrónico
-      placeholder: Usar remitente de correo electrónico predeterminado
-    textMessageSender:
-      label: Remitente de mensajes de texto
-      placeholder: Usar remitente de mensajes de texto predeterminado
-      tooltip: La aplicación que envía mensajes de texto a los clientes. Opcional.
-    textMessageResponder:
-      label: Respondedor de mensajes de texto
-      tooltip: Si el remitente no lo maneja, se usará como aplicación predeterminada para responder mensajes de texto (es decir, respuesta automática). Opcional.
-    assetsStorage: Almacenamiento de activos
-    toasts:
-      changesSaved: Tus cambios fueron guardados.
-      requestError: Hubo un problema con tu solicitud.
-  defaultAppsDescription: Seleccionar aplicaciones predeterminadas
-  migrateAssetsDialog:
-    migrateAssets: Migrar activos
-    title: Migrar activos existentes
-    description: Migre sus activos existentes desde su almacenamiento anterior
-    sourceApp: Aplicación de almacenamiento de activos de origen
-    done: "Hecho: {count}"
-    success: "Éxito: {count}"
-    error: "Error: {count}"
-    total: "Total: {count}"
-    migrate: Emigrar
-    toasts:
-      requestError: Tu solicitud ha fallado
-  events:
-    installed:
-      title: Aplicación instalada
-      description: Se instaló {appDisplayName}.
-    connected:
-      title: Aplicación conectada
-      description: "{appDisplayName} conectado."
-    uninstalled:
-      title: Aplicación desinstalada
-      description: "{appDisplayName} fue desinstalado."
-    failed:
-      title: La aplicación falló
-      description: "{appDisplayName} no pudo conectarse."
-  notifications:
-    failed:
-      title: La conexión de la aplicación falló
-      message: "{appDisplayName} no pudo conectarse. Verifique la configuración de la aplicación."
-      action: Abrir aplicaciones
-  emails:
-    failed:
-      subject: "{appDisplayName} - conexión fallida"
-      preview: "{appDisplayName} no pudo permanecer conectado"
-      title: No pudimos mantener tu aplicación conectada
-      body: |-
-        Hola {userName},
-
-        **{appDisplayName}** informó un problema de conexión o no finalizó la configuración correctamente. Abra **Aplicaciones** en su panel de control para revisar las credenciales y la configuración, luego intente conectarse nuevamente.
-
-        Si todo parece correcto, puedes ignorar este correo electrónico.
-      button: Abrir aplicaciones
-      handledBy: "Error de conexión de la aplicación: {appDisplayName}"
 settings:
   hub:
     description: Abra un área de ajustes de su negocio.
@@ -3079,18 +3090,18 @@ settings:
           policy: Regla
       cards:
         optionSelect:
-          roleDescription: Opción
-          moveOption: Opción de mover
-          option: Opción
+          roleDescription: Servicio
+          moveOption: Mover servicio
+          option: Servicio
           deleteConfirmTitle: ¿Estás absolutamente seguro?
-          deleteConfirmDescription: ¿Está seguro de que desea eliminar esta opción de la lista de opciones disponibles?
+          deleteConfirmDescription: ¿Está seguro de que desea eliminar este servicio de la lista de servicios disponibles?
           cancel: Cancelar
           delete: Borrar
-        optionSelector:
+        serviceSelector:
           time: "{hours}hr {minutes}min"
           requestFailed: La solicitud falló.
-          loadingOptions: Cargando opciones...
-          selectOption: Seleccionar opción
+          loadingOptions: Cargando servicios...
+          selectOption: Seleccionar servicio
         cancellationPolicy:
           action:
             label: Acción

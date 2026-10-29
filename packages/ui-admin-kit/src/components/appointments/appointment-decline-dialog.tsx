@@ -202,7 +202,7 @@ const PaymentRefundCard = ({
                 {t("admin.appointments.declineDialog.giftCardCode")}
               </span>
               <Link
-                href={`/dashboard/services/gift-cards/${payment.giftCardId}`}
+                href={`/dashboard/catalog/gift-cards/${payment.giftCardId}`}
                 variant="none"
                 className="text-sm font-mono text-blue-600 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-lg"
               >
@@ -465,7 +465,7 @@ export const AppointmentDeclineDialog: React.FC<{
                     {t("admin.appointments.declineDialog.service")}
                   </span>
                   <span className="font-semibold">
-                    {appointment.option.name}
+                    {appointment.service.name}
                   </span>
                 </div>
                 <div className="flex justify-between">

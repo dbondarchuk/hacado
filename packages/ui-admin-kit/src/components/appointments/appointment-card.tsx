@@ -65,12 +65,12 @@ export const AppointmentCard: React.FC<AppointmentCardProps> = ({
                 href={`/dashboard/appointments/${appointment._id}`}
                 variant="underline"
               >
-                {appointment.option.name}
+                {appointment.service.name}
               </Link>
             </p>
             {isAppointmentCoveredByPackage(appointment) ? (
               <p className="text-xs text-muted-foreground truncate">
-                {t("services.packages.appointment.used", {
+                {t("catalog.packages.appointment.used", {
                   name: appointment.packageUsage!.name,
                 })}
               </p>

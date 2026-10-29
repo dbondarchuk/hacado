@@ -144,7 +144,7 @@ const AppointmentItem = ({
   const [open, setOpen] = useState(false);
 
   const serviceName =
-    item.option?.name ?? t("block.appointments.appointmentFallback");
+    item.service?.name ?? t("block.appointments.appointmentFallback");
   const dt = DateTime.fromJSDate(item.dateTime).setZone(timeZone);
   const dateLabel = dt.setLocale(locale).toFormat("EEE, MMM d, yyyy");
   const timeLabel = dt.toLocaleString(DateTime.TIME_SIMPLE, { locale });

@@ -376,7 +376,7 @@ export class CommunicationLogsService
         "participant",
         "preview",
         "text",
-        "appointment.option.name",
+        "appointment.service.name",
         "customer.name",
         "subject",
       );

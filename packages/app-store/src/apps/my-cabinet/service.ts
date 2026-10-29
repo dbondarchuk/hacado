@@ -478,8 +478,8 @@ export class MyCabinetConnectedApp
       totalPrice: appointment.totalPrice,
       timeZone: appointment.timeZone,
       meetingInformation: appointment.meetingInformation,
-      option: appointment.option
-        ? { _id: appointment.option._id, name: appointment.option.name }
+      option: appointment.service
+        ? { _id: appointment.service._id, name: appointment.service.name }
         : undefined,
       addons: appointment.addons?.map((a) => ({ _id: a._id, name: a.name })),
       fields: {

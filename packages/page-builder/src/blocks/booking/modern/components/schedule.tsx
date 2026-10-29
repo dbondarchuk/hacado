@@ -576,7 +576,7 @@ export const Schedule: React.FC<
         .toJSDate(),
       timeZone: dateTime.timeZone,
       duration: duration,
-      optionId: selectedAppointmentOption._id,
+      serviceId: selectedAppointmentOption._id,
       memberId: selectedMemberId ?? undefined,
       addonsIds: selectedAddons?.map((addon) => addon._id),
       promoCode: promoCode?.code,

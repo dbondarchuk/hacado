@@ -12,7 +12,7 @@ export const appointmentReminderEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Recordatorio sobre su cita para {{option.name}} el {{dateTime.full}}",
+        text: "Recordatorio sobre su cita para {{service.name}} el {{dateTime.full}}",
       },
       {
         type: "text",

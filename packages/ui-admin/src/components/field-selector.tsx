@@ -19,7 +19,7 @@ const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({
 };
 
 const getFields = async () => {
-  const response = await adminApi.serviceFields.getServiceFields({
+  const response = await adminApi.fields.getFields({
     limit: 10000,
   });
 
@@ -49,13 +49,10 @@ export type FieldSelectorProps = {
   onItemSelect?: (value: string) => void;
 };
 
-export const FieldSelector: React.FC<FieldSelectorProps> = ({
-  disabled,
-  className,
-  excludeIds,
-  value,
-  onItemSelect,
-}) => {
+export const FieldSelector = React.forwardRef<
+  HTMLButtonElement,
+  FieldSelectorProps
+>(({ disabled, className, excludeIds, value, onItemSelect, ...rest }, ref) => {
   const t = useI18n("admin");
   const [fields, setFields] = React.useState<ServiceField[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -88,6 +85,8 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
   return (
     // @ts-ignore Allow clear passthrough
     <Combobox
+      {...rest}
+      ref={ref}
       disabled={disabled || isLoading}
       className={cn("flex font-normal text-base", className)}
       values={FieldValues(fields)}
@@ -103,4 +102,6 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
       onItemSelect={onItemSelect}
     />
   );
-};
+});
+
+FieldSelector.displayName = "FieldSelector";

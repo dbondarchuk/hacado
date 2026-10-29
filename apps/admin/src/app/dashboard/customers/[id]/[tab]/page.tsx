@@ -210,7 +210,7 @@ export default async function CustomerPage(props: Props) {
     [detailsTab]: t("customers.details"),
     [appointmentsTab]: t("customers.appointments"),
     [paymentsTab]: t("customers.payments"),
-    [packagesTab]: t("services.packages.customer.title"),
+    [packagesTab]: t("catalog.packages.customer.title"),
     [filesTab]: t("customers.files"),
     [communicationsTab]: t("customers.communications"),
   };

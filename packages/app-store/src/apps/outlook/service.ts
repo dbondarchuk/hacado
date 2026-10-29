@@ -706,7 +706,7 @@ export class OutlookConnectedApp
         .setZone(appointment.timeZone)
         .toUTC();
       const response = (await client.api(`/me/onlineMeetings`).post({
-        subject: appointment.option.name,
+        subject: appointment.service.name,
         startDateTime: startDateTime.toISO(),
         endDateTime: startDateTime
           .plus({ minutes: appointment.totalDuration })

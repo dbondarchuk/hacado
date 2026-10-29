@@ -194,7 +194,7 @@ export const AppointmentRescheduleDialog: React.FC<
                 {t("appointments.rescheduleDialog.title")}
               </DialogTitle>
               <DialogDescription>
-                {appointment.option.name}{" "}
+                {appointment.service.name}{" "}
                 {t("appointments.rescheduleDialog.by")}{" "}
                 {appointment.fields.name}
               </DialogDescription>

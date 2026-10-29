@@ -40,7 +40,7 @@ export const getAppointmentEventFromRequest = async (
 
   logger.debug(
     {
-      optionId: request.optionId,
+      serviceId: request.serviceId,
       dateTime: request.dateTime,
       addonsCount: request.addonsIds?.length || 0,
       ignoreFieldValidation,
@@ -50,17 +50,17 @@ export const getAppointmentEventFromRequest = async (
     "Processing appointment event from request",
   );
 
-  const selectedOption = await servicesContainer.servicesService.getOption(
-    request.optionId,
+  const selectedOption = await servicesContainer.catalogService.getService(
+    request.serviceId,
   );
 
   if (!selectedOption) {
-    logger.warn({ optionId: request.optionId }, "Selected option not found");
+    logger.warn({ serviceId: request.serviceId }, "Selected option not found");
 
     return {
       error: {
         code: "unknown_option",
-        message: `Can't find option with id '${request.optionId}'`,
+        message: `Can't find option with id '${request.serviceId}'`,
         status: 400,
       },
     };
@@ -68,7 +68,7 @@ export const getAppointmentEventFromRequest = async (
 
   logger.debug(
     {
-      optionId: request.optionId,
+      serviceId: request.serviceId,
       optionName: selectedOption.name,
       optionDurationType: selectedOption.durationType,
       optionIsOnline: selectedOption.isOnline,
@@ -88,7 +88,7 @@ export const getAppointmentEventFromRequest = async (
 
   if (selectedOption.durationType === "flexible" && !request.duration) {
     logger.warn(
-      { optionId: request.optionId, optionName: selectedOption.name },
+      { serviceId: request.serviceId, optionName: selectedOption.name },
       "Duration required but not provided",
     );
 
@@ -106,7 +106,7 @@ export const getAppointmentEventFromRequest = async (
   ) {
     logger.warn(
       {
-        optionId: request.optionId,
+        serviceId: request.serviceId,
         optionName: selectedOption.name,
         duration: request.duration,
       },
@@ -127,7 +127,7 @@ export const getAppointmentEventFromRequest = async (
   ) {
     logger.warn(
       {
-        optionId: request.optionId,
+        serviceId: request.serviceId,
         optionName: selectedOption.name,
         duration: request.duration,
       },
@@ -150,7 +150,7 @@ export const getAppointmentEventFromRequest = async (
       "Retrieving selected addons",
     );
 
-    selectedAddons = await servicesContainer.servicesService.getAddonsById(
+    selectedAddons = await servicesContainer.catalogService.getAddonsById(
       request.addonsIds,
     );
 
@@ -229,7 +229,7 @@ export const getAppointmentEventFromRequest = async (
   );
 
   const serviceFields =
-    await servicesContainer.servicesService.getFieldsById(fieldsIds);
+    await servicesContainer.catalogService.getFieldsById(fieldsIds);
 
   if (!ignoreFieldValidation) {
     logger.debug(
@@ -281,7 +281,7 @@ export const getAppointmentEventFromRequest = async (
   if (request.memberId && selectedOption.staff?.length && !staffAssignment) {
     logger.warn(
       {
-        optionId: request.optionId,
+        serviceId: request.serviceId,
         memberId: request.memberId,
       },
       "Selected member is not assigned to this option",
@@ -402,10 +402,10 @@ export const getAppointmentEventFromRequest = async (
       "Applying promo code discount",
     );
 
-    const discount = await servicesContainer.servicesService.applyDiscount({
+    const discount = await servicesContainer.catalogService.applyDiscount({
       code: request.promoCode,
       dateTime: request.dateTime,
-      optionId: request.purchasePackageId ? undefined : request.optionId,
+      optionId: request.purchasePackageId ? undefined : request.serviceId,
       packageId: request.purchasePackageId,
       addons: request.purchasePackageId ? undefined : request.addonsIds,
       customerId: customer?._id,
@@ -474,7 +474,7 @@ export const getAppointmentEventFromRequest = async (
 
   const event: AppointmentEvent = {
     dateTime: request.dateTime,
-    option: {
+    service: {
       _id: selectedOption._id,
       name: selectedOption.name,
       durationType: selectedOption.durationType,
@@ -507,7 +507,7 @@ export const getAppointmentEventFromRequest = async (
 
   logger.info(
     {
-      optionId: request.optionId,
+      serviceId: request.serviceId,
       optionName: selectedOption.name,
       totalDuration,
       totalPrice,

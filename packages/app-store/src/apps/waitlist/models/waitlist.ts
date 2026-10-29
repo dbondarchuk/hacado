@@ -1,6 +1,6 @@
 import {
   AppointmentEventAddon,
-  AppointmentEventOption,
+  AppointmentEventService,
   asOptionalField,
   Customer,
   OrganizationMember,
@@ -101,7 +101,7 @@ export type WaitlistRequestForm = Prettify<
 
 export const waitlistRequestSchema = waitlistRequestFormSchema.and(
   z.object({
-    optionId: zObjectId("appointments.request.optionId.required"),
+    optionId: zObjectId("appointments.request.serviceId.required"),
     memberId: zObjectId("appointments.request.memberId.required"),
     addonsIds: zUniqueArray(
       z.array(zObjectId("appointments.request.addonsIds.required")),
@@ -138,7 +138,7 @@ export type WaitlistEntry = Prettify<
   WaitlistEntryEntity & {
     customer: Customer;
     member: WithEmail<OrganizationMember>;
-    option: AppointmentEventOption;
+    service: AppointmentEventService;
     addons?: AppointmentEventAddon[];
   }
 >;

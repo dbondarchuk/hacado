@@ -231,14 +231,14 @@ platformEvents:
       description: "{count, plural, =1 {# add-on} other {# add-ons}}"
   appointmentOption:
     created:
-      title: Service option created
+      title: Service created
       description: "{name}"
     updated:
-      title: Service option updated
+      title: Service updated
       description: "{name}"
     deleted:
-      title: Service options removed
-      description: "{count, plural, =1 {# option} other {# options}}"
+      title: Services removed
+      description: "{count, plural, =1 {# service} other {# services}}"
   discount:
     created:
       title: Discount created
@@ -436,6 +436,7 @@ navigation:
   textMessaging: Text messaging
   schedule: Schedule
   defaultSchedule: Default schedule
+  catalog: Catalog
   services: Services
   fields: Fields
   addons: Add-ons
@@ -460,6 +461,13 @@ navigation:
     templates: Email and text templates used for customer messages.
     store: Browse apps you can install.
     defaultApps: Choose the default apps for payments, email, and text messages.
+    fields: Questions collected when a service is booked.
+    addons: Optional extras customers can add to a booking.
+    services: Bookable services, with duration and price.
+    discounts: Promo codes and price reductions.
+    giftCards: Gift cards customers can buy and redeem.
+    packages: Prepaid visit packages.
+    soldPackages: Packages that customers have purchased.
   general: General
   brand: Brand
   social: Social
@@ -621,7 +629,7 @@ financialOverview:
     viewAppointment: View Appointment
     revenueAndPayments: Revenue and Payments
     appointmentStatusDistribution: Appointment Status
-    serviceDistribution: Options
+    serviceDistribution: Services
     appointmentsCount: "{count, plural, =1 {1 appointment} other {# appointments}}"
     estimatedRevenueFormat: "Estimated revenue: {revenue}"
     financialOverview: Financial Overview
@@ -654,7 +662,7 @@ financialOverview:
         percentage: "{percentage}% of all conversions"
         noData: No conversion data available
       bookingSteps:
-        optionsRequested: Options Requested
+        optionsRequested: Services requested
         serviceSelected: Service Selected
         specialistSelected: Specialist Selected
         addonSelected: Add-on Selected
@@ -726,7 +734,7 @@ paymentsList:
     appointmentId: Appointment ID
     appointmentDateTime: Appointment date
     appointmentStatus: Appointment status
-    optionName: Option name
+    optionName: Service name
     addons: Addons
     appointmentTotal: Appointment total
     feesTotal: Fees total
@@ -889,7 +897,7 @@ appointments:
     columns:
       status: Status
       statusAriaLabel: "Status: {status}"
-      option: Option
+      option: Service
       customer: Customer
       member: Team member
       dateTime: Date & time
@@ -899,9 +907,9 @@ appointments:
       package: Package
       packageRestored: restored
       price: Price
-      optionName: Option name
-      optionPrice: Option price
-      optionDuration: Option duration
+      optionName: Service name
+      optionPrice: Service price
+      optionDuration: Service duration
       selectedAddons: Selected add-ons
       note: Note
       customerName: Name
@@ -1075,8 +1083,8 @@ appointments:
     "yes": "Yes"
     "no": "No"
     service: Service
-    selectedOption: Selected option
-    option: Option
+    selectedOption: Selected service
+    option: Service
     description: Description
     selectedAddons: Selected addons
     meetingInformation:
@@ -1111,8 +1119,8 @@ appointments:
     newDateTime: "New date and time: {newDateTime}"
     refundedAmount: Refunded {amount}
     totalRefunded: Total refunded {amount}
-    oldOption: "Old option: {oldOption}"
-    newOption: "New option: {newOption}"
+    oldOption: "Old service: {oldOption}"
+    newOption: "New service: {newOption}"
   form:
     dateTimeRequired: Date and time are required
     durationRequired: Duration is required
@@ -1121,7 +1129,7 @@ appointments:
     durationMax: Maximum duration is 10 days
     priceNumber: Total price must be a number
     priceMin: Minimum price is 0
-    optionRequired: Option must be selected
+    optionRequired: Service must be selected
     addonRequired: Addon must be selected
     nameRequired: Name is required
     emailValid: Must be a valid email
@@ -1130,7 +1138,7 @@ appointments:
     scheduledSuccess: Appointment was successfully scheduled
     requestError: There was a problem with your request.
     appointmentType: Appointment type
-    selectOption: Select option
+    selectOption: Select service
     min: min
     custom: Custom
     dateTime: Date & Time
@@ -1155,20 +1163,20 @@ appointments:
       title: Member not assigned
       description:
         The selected team member is not assigned to part of this appointment.
-        Base option/add-on price and duration will be used until you adjust them.
-      optionNotAssigned: "Not assigned to option: {option}"
+        Base service and add-on price and duration will be used until you adjust them.
+      optionNotAssigned: "Not assigned to service: {option}"
       addonsNotAssigned: "Not assigned to add-on(s): {addons}"
       priceDurationHint:
         Please verify that the total price and duration are correct before
         scheduling.
       ackLabel: I acknowledge this member is not assigned
       ackDescription:
-        Required when the selected member is not assigned to the option or one
+        Required when the selected member is not assigned to the service or one
         or more selected add-ons. Please verify price and duration before
         scheduling.
       ackRequired:
         Please acknowledge that the selected member is not assigned to the
-        option or add-on(s).
+        service or add-on(s).
       cancel: Close
       confirm: Got it
     scheduleAppointment: Schedule appointment
@@ -1410,7 +1418,7 @@ customers:
     selectOption: Select option
     always: Always
     never: Never
-    inherit: Same as selected option or general configuration
+    inherit: Same as selected service or general configuration
     knownNames: Known names
     knownNamesTooltip:
       Alternative names provided by customers during the appointment
@@ -1806,12 +1814,12 @@ services:
     cancel: Cancel
     delete: Delete
   addonSelectCard:
-    moveAddon: Move option addon
+    moveAddon: Move service add-on
     addon: Addon
     deleteConfirmTitle: Are you absolutely sure?
     deleteConfirmDescription:
       Are you sure you want to remove this addon from this
-      option?
+      service?
     cancel: Cancel
     delete: Delete
   addonSelector:
@@ -1820,823 +1828,6 @@ services:
   memberSelector:
     loading: Loading members...
     selectMember: Select member
-  options:
-    title: Services
-    description: Manage services that you provide
-    addNew: Add New
-    addFromTemplate: Add from template
-    addFromTemplateDialog:
-      title: Add new option from template
-      description: Pick a profession and template to prefill the new option.
-      pickServiceLabel: Pick a service template to prefill the new option.
-    createFromTemplate: Create
-    upgradeRequired: The Free plan includes one service. Upgrade to Solo to add more.
-    upgradeLink: Upgrade in brand settings
-    new: New
-    newTitle: New service option
-    newDescription: Add new service that you provide
-    editDescription: Edit option
-    form:
-      details: Details
-      durationAndPrice: Duration and price
-      customAutoConfirm: Custom auto confirm
-      customAutoConfirmTooltip: Use an auto-confirm rule for this service instead of the general configuration.
-      virtualAppointment: Virtual appointment
-      virtualAppointmentTooltip: Hold this appointment by video, audio, or phone instead of in person.
-      name: Name
-      namePlaceholder: Option name
-      description: Short description
-      descriptionTooltip: Short text that will be visible during booking
-      duration: Duration
-      price: Price
-      durationType:
-        label: Duration type
-        tooltip: Type of the duration
-        fixed: Fixed
-        flexible: Flexible
-        placeholder: Select duration type
-      durationMin:
-        label: Minimum duration
-        tooltip: Minimum duration of the option
-        placeholder: Select duration min
-      durationMax:
-        label: Duration max
-        tooltip: Maximum duration of the option
-        placeholder: Select duration max
-      pricePerHour:
-        label: Price per hour
-        tooltip: Price per hour of the option
-        placeholder: Select price per hour
-        suffix: "/hr"
-      durationStep:
-        label: Duration step
-        tooltip: Step of the duration
-        placeholder: Select duration step
-        steps:
-          "1": 1 minute
-          "5": 5 minutes
-          "10": 10 minutes
-          "15": 15 minutes
-          "20": 20 minutes
-          "30": 30 minutes
-          "60": 1 hour
-          "120": 2 hours
-          "180": 3 hours
-          "360": 6 hours
-      isAutoConfirm:
-        label: Auto confirm
-        tooltip: Whether to auto confirm the appointment instantely
-        always: Always
-        never: Never
-        inherit: Same as general configuration
-      onlineSettings:
-        title: Virtual appointment settings
-        isOnline:
-          label: Appointment type
-          tooltip:
-            Indicates if this appointment is held via video or audio meeting,
-            phone call, etc.
-          labels:
-            "false": In-person
-            "true": Virtual
-        meetingUrlProviderAppId:
-          label: Meeting URL provider app
-          tooltip: App that will be used to provide meeting URL
-      paymentSettings:
-        title: Payment settings
-        customDeposit:
-          label: Custom deposit requirement
-          tooltip: Use a deposit rule for this service instead of the general configuration.
-        customTips:
-          label: Custom tips configuration
-          tooltip: Use tip settings for this service instead of the general configuration.
-        requireDeposit:
-          label: Require deposit
-          tooltip:
-            Should this option require deposit<br></br>Requires configured
-            payments app
-          always: Always, unless not required for customer
-          never: Never, unless required for customer
-          inherit: Same as general configuration, or configured for customer
-        paymentType:
-          label: Payment calculation type
-          tooltip:
-            Choose whether the payment is a fixed amount or a percentage of
-            the price
-          labels:
-            amount: Fixed amount
-            percentage: Percentage of price
-          placeholder: Select payment calculation type
-        depositAmount:
-          label: Deposit amount
-          tooltip: Fixed deposit amount (won't be higher than the final price)
-        depositPercentage:
-          label: Deposit percentage
-          tooltip:
-            Deposit percentage<br></br>If set to 100, full price will be required
-            to be paid upfront<br></br>Can be overriden per each customer
-        tipsMode:
-          label: Tips during booking
-          tooltip: Override organization tip settings for this service
-          values:
-            inherit: Same as general configuration
-            off: Off
-            on: On
-            full-payment-only: Only for full payments
-        tipPresets:
-          label: Tip presets
-          description: Up to 4 percentage options shown to customers. Drag to reorder.
-          percentage: "%"
-          add: Add preset
-          move: Move preset
-          remove: Remove
-      cancellationPolicy:
-        title: Cancellations
-        type:
-          label: Cancellation policy type
-          tooltip: Type of the cancellation policy
-          inherit: Same as general configuration
-          custom: Custom policy
-          placeholder: Select cancellation policy type
-        customPolicy:
-          label: Custom policy
-          tooltip: Does this service have a custom cancellation policy that is different from general cancellation policy?
-        enabled:
-          label: Enabled
-          tooltip: Whether to allow cancellation for option
-          labels:
-            disabled: Disabled
-            enabled: Enabled
-        withDeposit:
-          title: For appointments with deposit
-          description: Configure cancellation policy for option when deposit is required
-          enabled: Enabled
-          enabledTooltip:
-            Whether to allow cancellation for option when deposit is
-            required
-        withoutDeposit:
-          title: For appointments without deposit
-          description:
-            Configure cancellation policy for option when deposit is not
-            required
-          enabled: Enabled
-          enabledTooltip:
-            Whether to allow cancellation for option when deposit is
-            not required
-      reschedulePolicy:
-        title: Reschedules
-        type:
-          label: Reschedule policy type
-          tooltip: Type of the reschedule policy
-          inherit: Same as general configuration
-          custom: Custom policy
-          placeholder: Select reschedule policy type
-        customPolicy:
-          label: Custom policy
-          tooltip: Does this service have a custom reschedule policy that is different from general reschedule policy?
-        enabled:
-          label: Enabled
-          tooltip: Whether to allow reschedule for option
-          labels:
-            disabled: Disabled
-            enabled: Enabled
-        default:
-          title: Default Policy
-          tooltip:
-            Configure default policy that will be applied if no other policy
-            is applicable
-      selectOption: Select option
-      fields: Fields
-      addons: Add-ons
-      staff:
-        title: Staff
-        hint: Services with no members are not available for booking.
-        add: Add new member
-        memberSelectCard:
-          moveMember: Move service member
-          member: Member
-          meetingUrlProviderWarning:
-            This member has not set a meeting URL provider on their profile, so
-            appointments will not create a meeting URL.
-          deleteConfirmTitle: Are you absolutely sure?
-          deleteConfirmDescription:
-            Are you sure you want to remove this member from this
-            service?
-          cancel: Cancel
-          delete: Delete
-          overrides:
-            price: Price override
-            duration: Duration override
-      tabs:
-        general: General
-        payments: Payments
-        virtual: Virtual
-        duplicates: Duplicates
-        fields: Fields
-        addons: Add-ons
-        staff: Staff
-      duplicateAppointmentCheck:
-        title: Duplicate bookings for same service
-        enabled: Check for duplicate bookings
-        enabledTooltip:
-          Whether to ask for confirmation / not allow scheduling if
-          customer already has a future appointment for the same service near the
-          selected date/time
-        doNotAllowScheduling:
-          label: Action to take
-          tooltip:
-            What to do if the customer already has a future appointment for
-            the same service near the selected date/time
-          labels:
-            "false": Ask customer to confirm
-            "true": Do not allow scheduling
-        days: Days range
-        daysSuffix: days
-        daysTooltip:
-          Number of days before or after the selected date/time to check
-          for an existing appointment
-        message: Confirmation message
-        messageTooltip:
-          "Message shown to the customer.<br></br>Placeholders:<br></br>-
-          <i>'{{days}}'</i>: days range<br></br>- <i>'{{name}}'</i>: customer
-          name<br></br>- <i>'{{service}}'</i>: service name<br></br>- <i>'{{date}}'</i>:
-          date of the existing appointment"
-        messageExamples:
-          label: Examples <chevron></chevron>
-          friendly:
-            Hi '{{name}}', you already have '{{service}}' booked on '{{date}}'
-            within '{{days}}' days. Do you want to create another booking for this
-            service?
-          neutral:
-            You already have '{{service}}' scheduled on '{{date}}' (within
-            '{{days}}' days). Would you like to book the same service again?
-          formal:
-            Hello '{{name}}', our records show you have '{{service}}' on '{{date}}'.
-            Are you sure you want to make another booking for the same service within
-            '{{days}}' days?
-      validation:
-        nameUnique: Option name must be unique
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-      addToAvailabilityDialog:
-        title: Add this option to booking availability?
-        description: Do you want to make <em>{name}</em> available for appointments now?
-        manageHint: You can always manage available options in <link>Settings -> Appointments</link>
-        actions:
-          skip: Not now
-          add: Add to available options
-        toasts:
-          added: Option availability has been updated.
-          requestError: There was a problem with your request.
-    table:
-      columns:
-        name: Name
-        updatedAt: Updated at
-        cellAction:
-          optionDeleted: Option "{name}" was deleted.
-          deleteError: There was a problem with your request.
-          actions: Actions
-          update: Update
-          delete: Delete
-          clone: Clone
-    deleteSelected:
-      success: Selected options have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {option} other {# options}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription: This action cannot be undone.
-      cancel: Cancel
-      deleteSelected: Delete selected
-  fields:
-    title: Fields
-    description: Manage custom fields
-    addNew: Add New
-    new: New
-    newTitle: New field
-    newDescription: Add new custom field
-    editDescription: Edit custom field
-    form:
-      details: Details
-      fileSettings: File settings
-      name: Name
-      namePlaceholder: Field name
-      nameTooltip: Unique ID of the field. Can contain only letter, digits, and underscore
-      label: Label
-      labelPlaceholder: Field label
-      labelTooltip: Label that will be shown to the user
-      type: Type
-      typePlaceholder: Select field type
-      typeTooltip: Type of the field
-      description: Description
-      descriptionPlaceholder: Field description
-      descriptionTooltip: Short description for the field
-      required: Required
-      requiredTooltip: Marks field as to be required
-      options: Options
-      addOption: Add option
-      fileTypes: File types
-      fileTypesTooltip: Allowed file types for upload
-      validation:
-        nameUnique: Field name must be unique
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-      optionsTitle: Options
-      maxSizeMbLabel: Max file size (MB)
-      maxSizeMbTooltip: Max allowed file size in megabytes.
-      maxSizeMbPlaceholder: "5"
-      acceptedFilesLabel: Accepted files
-      acceptedFilesTooltip: List of accepted file and file types. See MDN for details.
-      acceptedFilesPlaceholder: Click plus button to add new file type
-    table:
-      columns:
-        name: Name
-        type: Type
-        label: Label
-        updatedAt: Updated at
-        addons: Add-ons
-        options: Options
-        addonsInDialog: "{label} in add-ons"
-        optionsInDialog: "{label} in options"
-      cellAction:
-        fieldDeleted: Option field "{label}" was deleted.
-        deleteError: There was a problem with your request.
-        actions: Actions
-        update: Update
-        delete: Delete
-        clone: Clone
-    deleteSelected:
-      success: Selected fields have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {field} other {# fields}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription:
-        This action cannot be undone. This will delete selected
-        fields and remove them from all options and add-ons that use them
-      cancel: Cancel
-      deleteSelected: Delete selected
-    selectFieldOptionCard:
-      moveOption: Move option
-      option: Option
-      deleteConfirmTitle: Are you absolutely sure?
-      deleteConfirmDescription: Are you sure you want to remove this option?
-  discounts:
-    title: Discounts
-    description: Manage discounts
-    addNew: Add New
-    new: New
-    newTitle: New discount
-    newDescription: Add new discount
-    editDescription: Edit discount
-    form:
-      name: Name
-      namePlaceholder: Discount name
-      nameTooltip: Unique discount name
-      description: Description
-      descriptionPlaceholder: Discount description
-      descriptionTooltip: Short description for the discount
-      type: Type
-      typePlaceholder: Select discount type
-      typeTooltip: Type of discount
-      value: Value
-      valuePlaceholder: Discount value
-      valueTooltip: Discount amount or percentage
-      enabled: Enabled
-      enabledTooltip: Whether this discount is active
-      status: Status
-      active: Active
-      disabled: Disabled
-      details: Details
-      dates: Dates
-      maximumUses: Maximum uses
-      codes: Promo codes
-      codesPlaceholder: Discount codes
-      codesTooltip: Codes that can be used to apply this discount
-      addCode: Add code
-      removeCode: Remove code
-      startDate: Start date
-      startDatePlaceholder: When discount becomes active
-      startDateTooltip: Date when discount starts being valid
-      endDate: End date
-      endDatePlaceholder: When discount expires
-      endDateTooltip: Date when discount stops being valid
-      appointmentStartDate: Earliest eligible appointment date
-      appointmentStartDateTooltip:
-        The earliest appointment date (inclusive) for which
-        this discount can be applied. Appointments scheduled before this date will
-        not be eligible for the discount.
-      appointmentEndDate: Latest eligible appointment date
-      appointmentEndDateTooltip:
-        The latest appointment date (inclusive) for which
-        this discount can be applied. Appointments scheduled after this date will
-        not be eligible for the discount.
-      maxUsage: Maximum total uses
-      maxUsageTooltip:
-        The total number of times this discount can be used across
-        all customers. Once this limit is reached, the discount will no longer be
-        available.
-      maxUsagePerCustomer: Maximum uses per customer
-      maxUsagePerCustomerTooltip:
-        The maximum number of times an individual customer
-        can use this discount. Further attempts to use the discount by that customer
-        will be rejected after this limit is reached.
-      limitTo: Limit to
-      limitToTooltip: Restrict discount to specific options, add-ons, and packages
-      addLimit: Add limit
-      removeLimit: Remove limit
-      anyOption: Any option
-      anyAddon: Any add-on
-      anyPackage: Any package
-      anyOptionOrAddon: Any option or add-on
-      addNew: Add new
-      optionsLabel: "Any of following options:"
-      addonsLabel: "Any of following add-on bundles:"
-      packagesLabel: "Any of following packages:"
-      withLabel: With
-      orLabel: Or
-      removeLimitTitle: Are you absolutely sure?
-      removeLimitDescription: Are you sure you want to remove this limit?
-      limitToDescription: You can limit this discount to specific options, add-ons, and packages
-      cancel: Cancel
-      delete: Delete
-      validation:
-        nameUnique: Discount name must be unique
-        codeUnique: Discount code must be unique
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-    table:
-      columns:
-        name: Name
-        codes: Codes
-        type: Type
-        value: Value
-        enabled: Status
-        startDate: From
-        endDate: To
-        usedCount: Total usage
-        updatedAt: Updated at
-      cellAction:
-        discountDeleted: Discount {name} was deleted.
-        deleteError: There was a problem with your request.
-        actions: Actions
-        update: Update
-        delete: Delete
-        clone: Clone
-    deleteSelected:
-      success: Selected discounts have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {discount} other {# discounts}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription:
-        This action cannot be undone. This will delete selected
-        discounts.
-      confirmDescription2:
-        This will not affect existing appointments that use these
-        discounts
-      cancel: Cancel
-      deleteSelected: Delete selected
-  packages:
-    title: Packages
-    description: Prepaid appointment packages
-    addNew: Add New
-    new: New
-    newTitle: New package
-    newDescription: Add a prepaid appointment package
-    editDescription: Edit package
-    sell: Sell package
-    sellTitle: Sell package
-    sellDescription: Issue this package to a customer and collect payment
-    sellForm:
-      package: Package
-      customer: Customer
-      price: Price
-      paymentMethod: Payment method
-    sold:
-      title: Sold packages
-      description: Packages issued to customers
-      statusBadges:
-        pending: Pending payment
-        active: Active
-        exhausted: Exhausted
-        expired: Expired
-        cancelled: Cancelled
-      table:
-        columns:
-          name: Package
-          customer: Customer
-          price: Price
-          remaining: Remaining
-          used: Used
-          status: Status
-          purchasedAt: Purchased
-          expiresAt: Expires
-        cellAction:
-          viewCustomer: View customer
-          viewAppointments: View appointments
-          scheduleAppointment: Schedule appointment
-        filters:
-          package: Package
-    table:
-      columns:
-        name: Name
-        price: Price
-        credits: Credits
-        soldCount: Sold
-        status: Status
-        isPublic: Public
-        updatedAt: Updated at
-      statusBadges:
-        active: Active
-        inactive: Inactive
-      cellAction:
-        packageDeleted: Package {name} was deleted.
-        deleteError: There was a problem with your request.
-        hasPurchases: This package has purchases and cannot be deleted.
-        actions: Actions
-        update: Update
-        delete: Delete
-        sell: Sell
-        setActive: Activate
-        setInactive: Deactivate
-    deleteSelected:
-      success: Selected packages have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {package} other {# packages}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription: This will delete selected packages that have no purchases.
-      cancel: Cancel
-      deleteSelected: Delete selected
-    form:
-      details: Details
-      service: Service
-      priceAndLimits: Price and limits
-      name:
-        label: Name
-        placeholder: 10x Massage
-        tooltip: Internal name shown to staff and customers
-      description:
-        label: Short description
-        tooltip: Short text that will be visible during booking
-      price:
-        label: Price
-        placeholder: "200"
-        tooltip: Prepaid price of the package
-      credits:
-        label: Sessions
-        suffix: sessions
-        tooltip: How many visits are included
-      option:
-        label: Service
-        tooltip: Service that can be booked with this package
-      validityMonths:
-        label: Validity
-        tooltip: How long credits stay valid after purchase. Leave at 0 years and 0 months for no expiration.
-      maxPurchasesPerCustomer:
-        label: Max purchases per customer
-        suffix: purchases
-        tooltip: Leave empty for no limit on how many times a customer can buy this package
-      isAutoConfirm:
-        label: Auto-confirm appointments
-        tooltip: When a visit is booked with this package, this setting overrides the service option auto-confirm rule
-        always: Always
-        never: Never
-        inherit: Inherit from booking settings
-      eligibleStaff:
-        title: Eligible staff
-        hint: By default, any member assigned to the service can perform this package. Add members only if you want to restrict who can perform visits.
-        add: Add member
-        tooltip: Restrict which staff can perform visits paid with this package
-        member: Member
-        deleteConfirmTitle: Are you absolutely sure?
-        deleteConfirmDescription: Are you sure you want to remove this staff member?
-        cancel: Cancel
-        delete: Delete
-      toasts:
-        changesSaved: Your changes were saved.
-        created: Package created.
-        sold: Package sold.
-        requestError: There was a problem with your request.
-    customer:
-      title: Packages
-      remaining: "{remaining} of {total} remaining"
-      used: "{used} of {total} used"
-      expires: Expires {date}
-      noPackages: No packages
-      scheduleAppointment: Schedule appointment
-      viewAppointments: View appointments
-      cancel:
-        button: Cancel package
-        confirmTitle: Cancel this package?
-        confirmDescription: This will cancel {name}. Remaining credits are kept and can be restored by reactivating.
-        success: Package cancelled.
-      reactivate:
-        button: Reactivate package
-        confirmTitle: Reactivate this package?
-        confirmDescription: This will reactivate {name}. Remaining credits stay as they are.
-        success: Package reactivated.
-    appointment:
-      used: "Package: {name}"
-      label: Package
-      view: View package
-      creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
-    adjust:
-      title: Adjust used credits
-      description: Set how many credits of {name} have been used (0–{total}).
-      usedLabel: Used credits
-      reason: Reason
-      reasonPlaceholder: Optional note
-      save: Save
-      decrease: Decrease used credits
-      increase: Increase used credits
-      ofTotal: of {total}
-    notifications:
-      issued:
-        title: Package issued
-        message: "{name} was issued to a customer"
-        action: View customer
-    emails:
-      purchasedOwner:
-        subject: "New package purchase - {packageName}"
-        preview: "{customerName} purchased {packageName}"
-        title: New package purchase
-        body: "{customerName} purchased {packageName} for {price}."
-        button: View customer packages
-        handledBy: Packages (customer purchase)
-  giftCards:
-    title: Gift cards
-    description: Manage gift cards
-    addNew: Add New
-    new: New
-    newTitle: New gift card
-    newDescription: Add new gift card
-    editDescription: Edit gift card
-    table:
-      payments:
-        title: Payments
-        description: Payments made with this gift card
-        noPayments: No payments found
-        addPayment: Add payment
-      columns:
-        code: Code
-        amount: Amount
-        amountLeft: Amount left
-        expiresAt: Expires at
-        status: Status
-        createdAt: Created at
-        updatedAt: Updated at
-        payments: Payments
-        paymentMethod: Payment method
-        customer: Customer
-      cellAction:
-        giftCardDeleted: Gift card {code} was deleted.
-        giftCardSetActive: Gift card {code} was activated.
-        giftCardSetInactive: Gift card {code} was deactivated.
-        actions: Actions
-        update: Update
-        delete: Delete
-        deleteFromSource: Can be deleted only from {appName}
-        setActive: Activate
-        setInactive: Deactivate
-      statusBadges:
-        active: Active
-        inactive: Inactive
-        expired: Expired
-        noAmountLeft: No amount left
-    setStatusSelected:
-      setActive: Activate
-      setInactive: Deactivate
-      buttonActive: Activate {count, plural, =1 {gift card} other {# gift cards}}
-      buttonInactive: Deactivate {count, plural, =1 {gift card} other {# gift cards}}
-      confirmTitleActive: Activate selected gift cards?
-      confirmTitleInactive: Deactivate selected gift cards?
-      confirmDescription: This will change the status of the selected gift cards.
-      successActive: Selected gift cards have been activated.
-      successInactive: Selected gift cards have been deactivated.
-      error: There was a problem with your request.
-      cancel: Cancel
-    deleteSelected:
-      success: Selected gift cards have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {gift card} other {# gift cards}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription:
-        This action cannot be undone. This will delete selected
-        gift cards.
-      cancel: Cancel
-      deleteSelected: Delete selected
-    form:
-      giftCard: Gift card
-      amountAndExpiry: Amount and expiry
-      customerAndPayment: Customer and payment
-      code:
-        label: Code
-        placeholder: XXX-XXX-XXX
-        tooltip: Unique code for the gift card
-        generateTooltip: Generate a new code for the gift card
-        copied: Code copied to clipboard
-        copyToClipboardTooltip: Copy code to clipboard
-      amount:
-        label: Amount
-        placeholder: "50"
-        tooltip: Amount of the gift card
-      expiresAt:
-        label: Expires at
-        tooltip: Date when gift card expires
-      paymentMethod:
-        label: Payment method
-        tooltip: Payment method used to buy the gift card
-      status:
-        label: Status
-        tooltip: Status of the gift card
-        options:
-          active: Active
-          inactive: Inactive
-      customerId:
-        label: Customer
-        tooltip: Customer who bought the gift card
-      paymentLinkAppId:
-        description: App used to send the payment link for this gift card.
-      channel:
-        description: How the payment link is sent to the customer.
-      toasts:
-        created: Gift card created successfully
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-        smsConsentRequired: Text message consent is required before sending the payment link.
-  addons:
-    title: Add-ons
-    description: Manage add-ons
-    addNew: Add New
-    new: New
-    newTitle: New add-on
-    newDescription: Add new add-on
-    editDescription: Edit add-on
-    form:
-      details: Details
-      durationAndPrice: Duration and price
-      name: Name
-      namePlaceholder: Add-on name
-      nameTooltip: Unique add-on name
-      description: Short description
-      descriptionTooltip: Short text that will be visible during booking
-      duration: Duration
-      durationTooltip: Duration of the add-on
-      price: Price
-      pricePlaceholder: "20"
-      priceTooltip: Price of the add-on
-      fields: Fields
-      fieldsTooltip: Fields required for this add-on
-      staffOverrides:
-        title: Member overrides
-        hint:
-          By default, any member who can perform the parent service can offer
-          this add-on at the base price and duration. Add a member only to set a
-          different price or duration, or to mark that they cannot offer this
-          add-on.
-        add: Add override
-        memberOverrideCard:
-          member: Member
-          unavailable: Cannot offer this add-on
-          unavailableHint:
-            When enabled, this member will not be able to offer this add-on
-            during booking.
-          deleteConfirmTitle: Are you absolutely sure?
-          deleteConfirmDescription: Are you sure you want to remove this member override?
-          cancel: Cancel
-          delete: Delete
-          overrides:
-            price: Price override
-            duration: Duration override
-      validation:
-        nameUnique: Add-on name must be unique
-      toasts:
-        changesSaved: Your changes were saved.
-        requestError: There was a problem with your request.
-    table:
-      columns:
-        name: Name
-        updatedAt: Updated at
-        options: Options
-        optionsInDialog: "{name} in options"
-      cellAction:
-        addonDeleted: Add-on "{name}" was deleted.
-        deleteError: There was a problem with your request.
-        actions: Actions
-        update: Update
-        delete: Delete
-        clone: Clone
-    deleteSelected:
-      success: Selected add-ons have been deleted
-      error: There was a problem with your request.
-      button: Delete selected {count, plural, =1 {add-on} other {# add-ons}}
-      confirmTitle: Are you absolutely sure?
-      confirmDescription:
-        This action cannot be undone. This will delete selected
-        add-ons and remove them from all options that use them
-      cancel: Cancel
-      deleteSelected: Delete selected
 templates:
   page:
     title: Communication templates
@@ -2883,6 +2074,826 @@ apps:
         If everything already looks correct, you can ignore this email.
       button: Open apps
       handledBy: "App connection failed: {appDisplayName}"
+catalog:
+  hub:
+    description: Services, add-ons, packages, and the other items customers can book or buy.
+  services:
+    title: Services
+    description: Manage services that you provide
+    addNew: Add New
+    addFromTemplate: Add from template
+    addFromTemplateDialog:
+      title: Add new service from template
+      description: Pick a profession and template to prefill the new service.
+      pickServiceLabel: Pick a service template to prefill the new service.
+    createFromTemplate: Create
+    upgradeRequired: The Free plan includes one service. Upgrade to Solo to add more.
+    upgradeLink: Upgrade in brand settings
+    new: New
+    newTitle: New service
+    newDescription: Add new service that you provide
+    editDescription: Edit service
+    form:
+      details: Details
+      durationAndPrice: Duration and price
+      customAutoConfirm: Custom auto confirm
+      customAutoConfirmTooltip: Use an auto-confirm rule for this service instead of the general configuration.
+      virtualAppointment: Virtual appointment
+      virtualAppointmentTooltip: Hold this appointment by video, audio, or phone instead of in person.
+      name: Name
+      namePlaceholder: Service name
+      description: Short description
+      descriptionTooltip: Short text that will be visible during booking
+      duration: Duration
+      price: Price
+      durationType:
+        label: Duration type
+        tooltip: Type of the duration
+        fixed: Fixed
+        flexible: Flexible
+        placeholder: Select duration type
+      durationMin:
+        label: Minimum duration
+        tooltip: Minimum duration of the service
+        placeholder: Select duration min
+      durationMax:
+        label: Duration max
+        tooltip: Maximum duration of the service
+        placeholder: Select duration max
+      pricePerHour:
+        label: Price per hour
+        tooltip: Price per hour of the service
+        placeholder: Select price per hour
+        suffix: "/hr"
+      durationStep:
+        label: Duration step
+        tooltip: Step of the duration
+        placeholder: Select duration step
+        steps:
+          "1": 1 minute
+          "5": 5 minutes
+          "10": 10 minutes
+          "15": 15 minutes
+          "20": 20 minutes
+          "30": 30 minutes
+          "60": 1 hour
+          "120": 2 hours
+          "180": 3 hours
+          "360": 6 hours
+      isAutoConfirm:
+        label: Auto confirm
+        tooltip: Whether to auto confirm the appointment instantely
+        always: Always
+        never: Never
+        inherit: Same as general configuration
+      onlineSettings:
+        title: Virtual appointment settings
+        isOnline:
+          label: Appointment type
+          tooltip:
+            Indicates if this appointment is held via video or audio meeting,
+            phone call, etc.
+          labels:
+            "false": In-person
+            "true": Virtual
+        meetingUrlProviderAppId:
+          label: Meeting URL provider app
+          tooltip: App that will be used to provide meeting URL
+      paymentSettings:
+        title: Payment settings
+        customDeposit:
+          label: Custom deposit requirement
+          tooltip: Use a deposit rule for this service instead of the general configuration.
+        customTips:
+          label: Custom tips configuration
+          tooltip: Use tip settings for this service instead of the general configuration.
+        requireDeposit:
+          label: Require deposit
+          tooltip:
+            Should this service require a deposit<br></br>Requires configured
+            payments app
+          always: Always, unless not required for customer
+          never: Never, unless required for customer
+          inherit: Same as general configuration, or configured for customer
+        paymentType:
+          label: Payment calculation type
+          tooltip:
+            Choose whether the payment is a fixed amount or a percentage of
+            the price
+          labels:
+            amount: Fixed amount
+            percentage: Percentage of price
+          placeholder: Select payment calculation type
+        depositAmount:
+          label: Deposit amount
+          tooltip: Fixed deposit amount (won't be higher than the final price)
+        depositPercentage:
+          label: Deposit percentage
+          tooltip:
+            Deposit percentage<br></br>If set to 100, full price will be required
+            to be paid upfront<br></br>Can be overriden per each customer
+        tipsMode:
+          label: Tips during booking
+          tooltip: Override organization tip settings for this service
+          values:
+            inherit: Same as general configuration
+            off: Off
+            on: On
+            full-payment-only: Only for full payments
+        tipPresets:
+          label: Tip presets
+          description: Up to 4 percentage options shown to customers. Drag to reorder.
+          percentage: "%"
+          add: Add preset
+          move: Move preset
+          remove: Remove
+      cancellationPolicy:
+        title: Cancellations
+        type:
+          label: Cancellation policy type
+          tooltip: Type of the cancellation policy
+          inherit: Same as general configuration
+          custom: Custom policy
+          placeholder: Select cancellation policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom cancellation policy that is different from general cancellation policy?
+        enabled:
+          label: Enabled
+          tooltip: Whether to allow cancellation for this service
+          labels:
+            disabled: Disabled
+            enabled: Enabled
+        withDeposit:
+          title: For appointments with deposit
+          description: Configure cancellation policy for this service when a deposit is required
+          enabled: Enabled
+          enabledTooltip:
+            Whether to allow cancellation for this service when a deposit is
+            required
+        withoutDeposit:
+          title: For appointments without deposit
+          description:
+            Configure cancellation policy for this service when a deposit is not
+            required
+          enabled: Enabled
+          enabledTooltip:
+            Whether to allow cancellation for this service when a deposit is
+            not required
+      reschedulePolicy:
+        title: Reschedules
+        type:
+          label: Reschedule policy type
+          tooltip: Type of the reschedule policy
+          inherit: Same as general configuration
+          custom: Custom policy
+          placeholder: Select reschedule policy type
+        customPolicy:
+          label: Custom policy
+          tooltip: Does this service have a custom reschedule policy that is different from general reschedule policy?
+        enabled:
+          label: Enabled
+          tooltip: Whether to allow rescheduling for this service
+          labels:
+            disabled: Disabled
+            enabled: Enabled
+        default:
+          title: Default Policy
+          tooltip:
+            Configure default policy that will be applied if no other policy
+            is applicable
+      selectOption: Select service
+      fields: Fields
+      addons: Add-ons
+      staff:
+        title: Staff
+        hint: Services with no members are not available for booking.
+        add: Add new member
+        memberSelectCard:
+          moveMember: Move service member
+          member: Member
+          meetingUrlProviderWarning:
+            This member has not set a meeting URL provider on their profile, so
+            appointments will not create a meeting URL.
+          deleteConfirmTitle: Are you absolutely sure?
+          deleteConfirmDescription:
+            Are you sure you want to remove this member from this
+            service?
+          cancel: Cancel
+          delete: Delete
+          overrides:
+            price: Price override
+            duration: Duration override
+      tabs:
+        general: General
+        payments: Payments
+        virtual: Virtual
+        duplicates: Duplicates
+        fields: Fields
+        addons: Add-ons
+        staff: Staff
+      duplicateAppointmentCheck:
+        title: Duplicate bookings for same service
+        enabled: Check for duplicate bookings
+        enabledTooltip:
+          Whether to ask for confirmation / not allow scheduling if
+          customer already has a future appointment for the same service near the
+          selected date/time
+        doNotAllowScheduling:
+          label: Action to take
+          tooltip:
+            What to do if the customer already has a future appointment for
+            the same service near the selected date/time
+          labels:
+            "false": Ask customer to confirm
+            "true": Do not allow scheduling
+        days: Days range
+        daysSuffix: days
+        daysTooltip:
+          Number of days before or after the selected date/time to check
+          for an existing appointment
+        message: Confirmation message
+        messageTooltip:
+          "Message shown to the customer.<br></br>Placeholders:<br></br>-
+          <i>'{{days}}'</i>: days range<br></br>- <i>'{{name}}'</i>: customer
+          name<br></br>- <i>'{{service}}'</i>: service name<br></br>- <i>'{{date}}'</i>:
+          date of the existing appointment"
+        messageExamples:
+          label: Examples <chevron></chevron>
+          friendly:
+            Hi '{{name}}', you already have '{{service}}' booked on '{{date}}'
+            within '{{days}}' days. Do you want to create another booking for this
+            service?
+          neutral:
+            You already have '{{service}}' scheduled on '{{date}}' (within
+            '{{days}}' days). Would you like to book the same service again?
+          formal:
+            Hello '{{name}}', our records show you have '{{service}}' on '{{date}}'.
+            Are you sure you want to make another booking for the same service within
+            '{{days}}' days?
+      validation:
+        nameUnique: Service name must be unique
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+      addToAvailabilityDialog:
+        title: Add this service to booking availability?
+        description: Do you want to make <em>{name}</em> available for appointments now?
+        manageHint: You can always manage available services in <link>Settings -> Appointments</link>
+        actions:
+          skip: Not now
+          add: Add to available services
+        toasts:
+          added: Service availability has been updated.
+          requestError: There was a problem with your request.
+    table:
+      columns:
+        name: Name
+        updatedAt: Updated at
+        cellAction:
+          optionDeleted: Service "{name}" was deleted.
+          deleteError: There was a problem with your request.
+          actions: Actions
+          update: Update
+          delete: Delete
+          clone: Clone
+    deleteSelected:
+      success: Selected services have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {service} other {# services}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription: This action cannot be undone.
+      cancel: Cancel
+      deleteSelected: Delete selected
+  fields:
+    title: Fields
+    description: Manage custom fields
+    addNew: Add New
+    new: New
+    newTitle: New field
+    newDescription: Add new custom field
+    editDescription: Edit custom field
+    form:
+      details: Details
+      fileSettings: File settings
+      name: Name
+      namePlaceholder: Field name
+      nameTooltip: Unique ID of the field. Can contain only letter, digits, and underscore
+      label: Label
+      labelPlaceholder: Field label
+      labelTooltip: Label that will be shown to the user
+      type: Type
+      typePlaceholder: Select field type
+      typeTooltip: Type of the field
+      description: Description
+      descriptionPlaceholder: Field description
+      descriptionTooltip: Short description for the field
+      required: Required
+      requiredTooltip: Marks field as to be required
+      options: Options
+      addOption: Add option
+      fileTypes: File types
+      fileTypesTooltip: Allowed file types for upload
+      validation:
+        nameUnique: Field name must be unique
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+      optionsTitle: Options
+      maxSizeMbLabel: Max file size (MB)
+      maxSizeMbTooltip: Max allowed file size in megabytes.
+      maxSizeMbPlaceholder: "5"
+      acceptedFilesLabel: Accepted files
+      acceptedFilesTooltip: List of accepted file and file types. See MDN for details.
+      acceptedFilesPlaceholder: Click plus button to add new file type
+    table:
+      columns:
+        name: Name
+        type: Type
+        label: Label
+        updatedAt: Updated at
+        addons: Add-ons
+        options: Services
+        addonsInDialog: "{label} in add-ons"
+        optionsInDialog: "{label} in services"
+      cellAction:
+        fieldDeleted: Field "{label}" was deleted.
+        deleteError: There was a problem with your request.
+        actions: Actions
+        update: Update
+        delete: Delete
+        clone: Clone
+    deleteSelected:
+      success: Selected fields have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {field} other {# fields}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription:
+        This action cannot be undone. This will delete selected
+        fields and remove them from all services and add-ons that use them
+      cancel: Cancel
+      deleteSelected: Delete selected
+    selectFieldOptionCard:
+      moveOption: Move option
+      option: Option
+      deleteConfirmTitle: Are you absolutely sure?
+      deleteConfirmDescription: Are you sure you want to remove this option?
+  discounts:
+    title: Discounts
+    description: Manage discounts
+    addNew: Add New
+    new: New
+    newTitle: New discount
+    newDescription: Add new discount
+    editDescription: Edit discount
+    form:
+      name: Name
+      namePlaceholder: Discount name
+      nameTooltip: Unique discount name
+      description: Description
+      descriptionPlaceholder: Discount description
+      descriptionTooltip: Short description for the discount
+      type: Type
+      typePlaceholder: Select discount type
+      typeTooltip: Type of discount
+      value: Value
+      valuePlaceholder: Discount value
+      valueTooltip: Discount amount or percentage
+      enabled: Enabled
+      enabledTooltip: Whether this discount is active
+      status: Status
+      active: Active
+      disabled: Disabled
+      details: Details
+      dates: Dates
+      maximumUses: Maximum uses
+      codes: Promo codes
+      codesPlaceholder: Discount codes
+      codesTooltip: Codes that can be used to apply this discount
+      addCode: Add code
+      removeCode: Remove code
+      startDate: Start date
+      startDatePlaceholder: When discount becomes active
+      startDateTooltip: Date when discount starts being valid
+      endDate: End date
+      endDatePlaceholder: When discount expires
+      endDateTooltip: Date when discount stops being valid
+      appointmentStartDate: Earliest eligible appointment date
+      appointmentStartDateTooltip:
+        The earliest appointment date (inclusive) for which
+        this discount can be applied. Appointments scheduled before this date will
+        not be eligible for the discount.
+      appointmentEndDate: Latest eligible appointment date
+      appointmentEndDateTooltip:
+        The latest appointment date (inclusive) for which
+        this discount can be applied. Appointments scheduled after this date will
+        not be eligible for the discount.
+      maxUsage: Maximum total uses
+      maxUsageTooltip:
+        The total number of times this discount can be used across
+        all customers. Once this limit is reached, the discount will no longer be
+        available.
+      maxUsagePerCustomer: Maximum uses per customer
+      maxUsagePerCustomerTooltip:
+        The maximum number of times an individual customer
+        can use this discount. Further attempts to use the discount by that customer
+        will be rejected after this limit is reached.
+      limitTo: Limit to
+      limitToTooltip: Restrict discount to specific services, add-ons, and packages
+      addLimit: Add limit
+      removeLimit: Remove limit
+      anyOption: Any service
+      anyAddon: Any add-on
+      anyPackage: Any package
+      anyOptionOrAddon: Any service or add-on
+      addNew: Add new
+      optionsLabel: "Any of the following services:"
+      addonsLabel: "Any of following add-on bundles:"
+      packagesLabel: "Any of following packages:"
+      withLabel: With
+      orLabel: Or
+      removeLimitTitle: Are you absolutely sure?
+      removeLimitDescription: Are you sure you want to remove this limit?
+      limitToDescription: You can limit this discount to specific services, add-ons, and packages
+      cancel: Cancel
+      delete: Delete
+      validation:
+        nameUnique: Discount name must be unique
+        codeUnique: Discount code must be unique
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+    table:
+      columns:
+        name: Name
+        codes: Codes
+        type: Type
+        value: Value
+        enabled: Status
+        startDate: From
+        endDate: To
+        usedCount: Total usage
+        updatedAt: Updated at
+      cellAction:
+        discountDeleted: Discount {name} was deleted.
+        deleteError: There was a problem with your request.
+        actions: Actions
+        update: Update
+        delete: Delete
+        clone: Clone
+    deleteSelected:
+      success: Selected discounts have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {discount} other {# discounts}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription:
+        This action cannot be undone. This will delete selected
+        discounts.
+      confirmDescription2:
+        This will not affect existing appointments that use these
+        discounts
+      cancel: Cancel
+      deleteSelected: Delete selected
+  packages:
+    title: Packages
+    description: Prepaid appointment packages
+    addNew: Add New
+    new: New
+    newTitle: New package
+    newDescription: Add a prepaid appointment package
+    editDescription: Edit package
+    sell: Sell package
+    sellTitle: Sell package
+    sellDescription: Issue this package to a customer and collect payment
+    sellForm:
+      package: Package
+      customer: Customer
+      price: Price
+      paymentMethod: Payment method
+    sold:
+      title: Sold packages
+      description: Packages issued to customers
+      statusBadges:
+        pending: Pending payment
+        active: Active
+        exhausted: Exhausted
+        expired: Expired
+        cancelled: Cancelled
+      table:
+        columns:
+          name: Package
+          customer: Customer
+          price: Price
+          remaining: Remaining
+          used: Used
+          status: Status
+          purchasedAt: Purchased
+          expiresAt: Expires
+        cellAction:
+          viewCustomer: View customer
+          viewAppointments: View appointments
+          scheduleAppointment: Schedule appointment
+        filters:
+          package: Package
+    table:
+      columns:
+        name: Name
+        price: Price
+        credits: Credits
+        soldCount: Sold
+        status: Status
+        isPublic: Public
+        updatedAt: Updated at
+      statusBadges:
+        active: Active
+        inactive: Inactive
+      cellAction:
+        packageDeleted: Package {name} was deleted.
+        deleteError: There was a problem with your request.
+        hasPurchases: This package has purchases and cannot be deleted.
+        actions: Actions
+        update: Update
+        delete: Delete
+        sell: Sell
+        setActive: Activate
+        setInactive: Deactivate
+    deleteSelected:
+      success: Selected packages have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {package} other {# packages}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription: This will delete selected packages that have no purchases.
+      cancel: Cancel
+      deleteSelected: Delete selected
+    form:
+      details: Details
+      service: Service
+      priceAndLimits: Price and limits
+      name:
+        label: Name
+        placeholder: 10x Massage
+        tooltip: Internal name shown to staff and customers
+      description:
+        label: Short description
+        tooltip: Short text that will be visible during booking
+      price:
+        label: Price
+        placeholder: "200"
+        tooltip: Prepaid price of the package
+      credits:
+        label: Sessions
+        suffix: sessions
+        tooltip: How many visits are included
+      option:
+        label: Service
+        tooltip: Service that can be booked with this package
+      validityMonths:
+        label: Validity
+        tooltip: How long credits stay valid after purchase. Leave at 0 years and 0 months for no expiration.
+      maxPurchasesPerCustomer:
+        label: Max purchases per customer
+        suffix: purchases
+        tooltip: Leave empty for no limit on how many times a customer can buy this package
+      isAutoConfirm:
+        label: Auto-confirm appointments
+        tooltip: When a visit is booked with this package, this setting overrides the service auto-confirm rule
+        always: Always
+        never: Never
+        inherit: Inherit from booking settings
+      eligibleStaff:
+        title: Eligible staff
+        hint: By default, any member assigned to the service can perform this package. Add members only if you want to restrict who can perform visits.
+        add: Add member
+        tooltip: Restrict which staff can perform visits paid with this package
+        member: Member
+        deleteConfirmTitle: Are you absolutely sure?
+        deleteConfirmDescription: Are you sure you want to remove this staff member?
+        cancel: Cancel
+        delete: Delete
+      toasts:
+        changesSaved: Your changes were saved.
+        created: Package created.
+        sold: Package sold.
+        requestError: There was a problem with your request.
+    customer:
+      title: Packages
+      remaining: "{remaining} of {total} remaining"
+      used: "{used} of {total} used"
+      expires: Expires {date}
+      noPackages: No packages
+      scheduleAppointment: Schedule appointment
+      viewAppointments: View appointments
+      cancel:
+        button: Cancel package
+        confirmTitle: Cancel this package?
+        confirmDescription: This will cancel {name}. Remaining credits are kept and can be restored by reactivating.
+        success: Package cancelled.
+      reactivate:
+        button: Reactivate package
+        confirmTitle: Reactivate this package?
+        confirmDescription: This will reactivate {name}. Remaining credits stay as they are.
+        success: Package reactivated.
+    appointment:
+      used: "Package: {name}"
+      label: Package
+      view: View package
+      creditsUsed: "{credits, plural, =1 {# credit used} other {# credits used}}"
+    adjust:
+      title: Adjust used credits
+      description: Set how many credits of {name} have been used (0–{total}).
+      usedLabel: Used credits
+      reason: Reason
+      reasonPlaceholder: Optional note
+      save: Save
+      decrease: Decrease used credits
+      increase: Increase used credits
+      ofTotal: of {total}
+    notifications:
+      issued:
+        title: Package issued
+        message: "{name} was issued to a customer"
+        action: View customer
+    emails:
+      purchasedOwner:
+        subject: "New package purchase - {packageName}"
+        preview: "{customerName} purchased {packageName}"
+        title: New package purchase
+        body: "{customerName} purchased {packageName} for {price}."
+        button: View customer packages
+        handledBy: Packages (customer purchase)
+  giftCards:
+    title: Gift cards
+    description: Manage gift cards
+    addNew: Add New
+    new: New
+    newTitle: New gift card
+    newDescription: Add new gift card
+    editDescription: Edit gift card
+    table:
+      payments:
+        title: Payments
+        description: Payments made with this gift card
+        noPayments: No payments found
+        addPayment: Add payment
+      columns:
+        code: Code
+        amount: Amount
+        amountLeft: Amount left
+        expiresAt: Expires at
+        status: Status
+        createdAt: Created at
+        updatedAt: Updated at
+        payments: Payments
+        paymentMethod: Payment method
+        customer: Customer
+      cellAction:
+        giftCardDeleted: Gift card {code} was deleted.
+        giftCardSetActive: Gift card {code} was activated.
+        giftCardSetInactive: Gift card {code} was deactivated.
+        actions: Actions
+        update: Update
+        delete: Delete
+        deleteFromSource: Can be deleted only from {appName}
+        setActive: Activate
+        setInactive: Deactivate
+      statusBadges:
+        active: Active
+        inactive: Inactive
+        expired: Expired
+        noAmountLeft: No amount left
+    setStatusSelected:
+      setActive: Activate
+      setInactive: Deactivate
+      buttonActive: Activate {count, plural, =1 {gift card} other {# gift cards}}
+      buttonInactive: Deactivate {count, plural, =1 {gift card} other {# gift cards}}
+      confirmTitleActive: Activate selected gift cards?
+      confirmTitleInactive: Deactivate selected gift cards?
+      confirmDescription: This will change the status of the selected gift cards.
+      successActive: Selected gift cards have been activated.
+      successInactive: Selected gift cards have been deactivated.
+      error: There was a problem with your request.
+      cancel: Cancel
+    deleteSelected:
+      success: Selected gift cards have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {gift card} other {# gift cards}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription:
+        This action cannot be undone. This will delete selected
+        gift cards.
+      cancel: Cancel
+      deleteSelected: Delete selected
+    form:
+      giftCard: Gift card
+      amountAndExpiry: Amount and expiry
+      customerAndPayment: Customer and payment
+      code:
+        label: Code
+        placeholder: XXX-XXX-XXX
+        tooltip: Unique code for the gift card
+        generateTooltip: Generate a new code for the gift card
+        copied: Code copied to clipboard
+        copyToClipboardTooltip: Copy code to clipboard
+      amount:
+        label: Amount
+        placeholder: "50"
+        tooltip: Amount of the gift card
+      expiresAt:
+        label: Expires at
+        tooltip: Date when gift card expires
+      paymentMethod:
+        label: Payment method
+        tooltip: Payment method used to buy the gift card
+      status:
+        label: Status
+        tooltip: Status of the gift card
+        options:
+          active: Active
+          inactive: Inactive
+      customerId:
+        label: Customer
+        tooltip: Customer who bought the gift card
+      paymentLinkAppId:
+        description: App used to send the payment link for this gift card.
+      channel:
+        description: How the payment link is sent to the customer.
+      toasts:
+        created: Gift card created successfully
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+        smsConsentRequired: Text message consent is required before sending the payment link.
+  addons:
+    title: Add-ons
+    description: Manage add-ons
+    addNew: Add New
+    new: New
+    newTitle: New add-on
+    newDescription: Add new add-on
+    editDescription: Edit add-on
+    form:
+      details: Details
+      durationAndPrice: Duration and price
+      name: Name
+      namePlaceholder: Add-on name
+      nameTooltip: Unique add-on name
+      description: Short description
+      descriptionTooltip: Short text that will be visible during booking
+      duration: Duration
+      durationTooltip: Duration of the add-on
+      price: Price
+      pricePlaceholder: "20"
+      priceTooltip: Price of the add-on
+      fields: Fields
+      fieldsTooltip: Fields required for this add-on
+      staffOverrides:
+        title: Member overrides
+        hint:
+          By default, any member who can perform the parent service can offer
+          this add-on at the base price and duration. Add a member only to set a
+          different price or duration, or to mark that they cannot offer this
+          add-on.
+        add: Add override
+        memberOverrideCard:
+          member: Member
+          unavailable: Cannot offer this add-on
+          unavailableHint:
+            When enabled, this member will not be able to offer this add-on
+            during booking.
+          deleteConfirmTitle: Are you absolutely sure?
+          deleteConfirmDescription: Are you sure you want to remove this member override?
+          cancel: Cancel
+          delete: Delete
+          overrides:
+            price: Price override
+            duration: Duration override
+      validation:
+        nameUnique: Add-on name must be unique
+      toasts:
+        changesSaved: Your changes were saved.
+        requestError: There was a problem with your request.
+    table:
+      columns:
+        name: Name
+        updatedAt: Updated at
+        options: Services
+        optionsInDialog: "{name} in services"
+      cellAction:
+        addonDeleted: Add-on "{name}" was deleted.
+        deleteError: There was a problem with your request.
+        actions: Actions
+        update: Update
+        delete: Delete
+        clone: Clone
+    deleteSelected:
+      success: Selected add-ons have been deleted
+      error: There was a problem with your request.
+      button: Delete selected {count, plural, =1 {add-on} other {# add-ons}}
+      confirmTitle: Are you absolutely sure?
+      confirmDescription:
+        This action cannot be undone. This will delete selected
+        add-ons and remove them from all services that use them
+      cancel: Cancel
+      deleteSelected: Delete selected
 settings:
   hub:
     description: Open a settings area for your business.
@@ -3298,20 +3309,20 @@ settings:
           policy: Rule
       cards:
         optionSelect:
-          roleDescription: Option
-          moveOption: Move option
-          option: Option
+          roleDescription: Service
+          moveOption: Move service
+          option: Service
           deleteConfirmTitle: Are you absolutely sure?
           deleteConfirmDescription:
-            Are you sure you want to remove this option from
-            list of available options?
+            Are you sure you want to remove this service from
+            the list of available services?
           cancel: Cancel
           delete: Delete
-        optionSelector:
+        serviceSelector:
           time: "{hours}hr {minutes}min"
           requestFailed: Request failed.
-          loadingOptions: Loading options...
-          selectOption: Select option
+          loadingOptions: Loading services...
+          selectOption: Select service
         cancellationPolicy:
           action:
             label: Action
@@ -3595,7 +3606,7 @@ form:
   durationMax: Maximum duration is 10 days
   priceNumber: Total price must be a number
   priceMin: Minimum price is 0
-  optionRequired: Option must be selected
+  optionRequired: Service must be selected
   addonRequired: Addon must be selected
   nameRequired: Name is required
   emailValid: Must be a valid email
@@ -3604,7 +3615,7 @@ form:
   scheduledSuccess: Appointment was successfully scheduled
   requestError: There was a problem with your request.
   appointmentType: Appointment type
-  selectOption: Select option
+  selectOption: Select service
   min: min
   custom: Custom
   dateTime: Date & Time

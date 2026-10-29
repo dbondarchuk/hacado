@@ -403,7 +403,7 @@ export default class CustomerTextMessageNotificationConnectedApp
       );
 
       const phoneFields = (
-        await this.props.services.servicesService.getFields({
+        await this.props.services.catalogService.getFields({
           type: ["phone"],
         })
       ).items;

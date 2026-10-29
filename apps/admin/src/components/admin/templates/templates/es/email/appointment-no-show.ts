@@ -12,7 +12,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Fuiste marcado como no presentado por {{option.name}}",
+        text: "Fuiste marcado como no presentado por {{service.name}}",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentNoShowEmailTemplate: TemplatesTemplate =
 
 ¡Gracias por seleccionar {{config.name}}!
 
-Registramos que no asistió a su cita de {{option.name}} el {{dateTime.full}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
+Registramos que no asistió a su cita de {{service.name}} el {{dateTime.full}} con {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}}.
 
 Llámenos al {{config.phone}} si desea reservar en otro momento.
 

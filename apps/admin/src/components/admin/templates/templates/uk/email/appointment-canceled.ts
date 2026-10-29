@@ -12,7 +12,7 @@ export const appointmentCanceledEmailTemplate: TemplatesTemplate =
     content: [
       {
         type: "title",
-        text: "Ваш запис на послугу {{option.name}} скасовано",
+        text: "Ваш запис на послугу {{service.name}} скасовано",
       },
       {
         type: "text",
@@ -20,7 +20,7 @@ export const appointmentCanceledEmailTemplate: TemplatesTemplate =
 
 Дякуємо, що обрали {{config.name}}!
 
-Підтверджуємо, що ваш візит на послугу {{option.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} скасовано.
+Підтверджуємо, що ваш візит на послугу {{service.name}} {{dateTime.full}} з {{member.name}}{{#member.jobTitle}} ({{member.jobTitle}}){{/member.jobTitle}} скасовано.
 
 Будь ласка, зателефонуйте нам за номером {{config.phone}}, якщо хочете обрати інший час.
 

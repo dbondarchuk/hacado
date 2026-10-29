@@ -340,7 +340,7 @@ export class CustomerWaitlistNotificationsJobProcessor {
         continue;
       }
 
-      const duration = waitlistDurationMinutes(entry, entry.option?.duration);
+      const duration = waitlistDurationMinutes(entry, entry.service?.duration);
       if (
         duration == null ||
         !windowFitsDuration(windowStart, windowEnd, duration)

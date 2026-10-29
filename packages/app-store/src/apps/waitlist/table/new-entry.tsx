@@ -33,7 +33,7 @@ import {
 import {
   AddonSelector,
   CustomerSelector,
-  OptionSelector,
+  ServiceSelector,
   useReload,
 } from "@hacado/ui-admin";
 import {
@@ -259,7 +259,7 @@ export const NewEntryDialog = ({
                     <FormItem>
                       <FormLabel>{t("newEntry.form.optionId.label")}</FormLabel>
                       <FormControl>
-                        <OptionSelector
+                        <ServiceSelector
                           value={field.value}
                           disabled={isLoading}
                           onItemSelect={(val) => {
