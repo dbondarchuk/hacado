@@ -21,9 +21,12 @@
     "dist",
     "build",
     ".next",
-    "turbo",
-    "tsconfig.tsbuildinfo",
     ".next/cache",
-    "coverage"
+    ".next/server",
+    ".next/static",
+    ".turbo",
+    "turbo",
+    "coverage",
+    "tsconfig.tsbuildinfo"
   ]
 }

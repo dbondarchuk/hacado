@@ -5,7 +5,8 @@
     "rootDir": "src",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noUncheckedSideEffectImports": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
