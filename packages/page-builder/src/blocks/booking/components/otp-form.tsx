@@ -3,7 +3,10 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields } from "@hacado/types/booking";
-import { CustomerOtpForm, CustomerOtpVerified } from "@hacado/ui";
+import {
+  CustomerOtpForm,
+  CustomerOtpVerified,
+} from "@hacado/ui/customer-otp-form";
 import { useCallback } from "react";
 
 type BookingOtpFormProps = {

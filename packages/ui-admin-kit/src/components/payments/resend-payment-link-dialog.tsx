@@ -3,8 +3,8 @@
 import { adminApi } from "@hacado/api-sdk";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import { Payment, PaymentSummary } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -12,6 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
@@ -19,15 +21,17 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

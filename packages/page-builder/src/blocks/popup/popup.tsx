@@ -2,7 +2,7 @@
 
 import { usePortalContext } from "@hacado/builder/portal";
 import { PopupProvider } from "@hacado/page-builder-base/reader";
-import { Dialog, DialogContent } from "@hacado/ui";
+import { Dialog, DialogContent } from "@hacado/ui/dialog";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useCookies } from "react-cookie";

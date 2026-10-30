@@ -5,7 +5,8 @@ import {
   Appointment,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
-import { Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";

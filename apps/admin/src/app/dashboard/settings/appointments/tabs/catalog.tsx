@@ -10,14 +10,14 @@ import {
   moveCatalogNode,
   normalizeCatalogNodes,
 } from "@hacado/types/configuration/booking";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@hacado/ui";
-import { Sortable } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
 import { FolderPlus, PackagePlus, Plus, Sparkles } from "lucide-react";
 import React from "react";
 import { FieldPath, useFieldArray } from "react-hook-form";

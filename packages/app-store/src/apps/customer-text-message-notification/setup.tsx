@@ -1,16 +1,16 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Form, FormField, FormMessage } from "@hacado/ui";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   CustomTextTemplateSelect,
   renderBuiltInSms,
-  SaveButton,
   SmsMessagePreview,
   smsPreviewLanguage,
-  SwitchCardFormItem,
   useSmsPreviewArgs,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/sms-example";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Form, FormField, FormMessage } from "@hacado/ui/form";
 import { UseFormReturn } from "react-hook-form";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { useSmsMessagingAccess } from "../../hooks/use-sms-messaging-access";

@@ -2,7 +2,7 @@
 
 import { ConfigurationProps } from "@hacado/builder/types";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
-import { deepMemo } from "@hacado/ui";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import { InlineContainerProps, styles } from "./schema";
 import { inlineContainerShortcuts } from "./shortcuts";

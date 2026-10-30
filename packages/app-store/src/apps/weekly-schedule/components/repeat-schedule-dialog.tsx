@@ -2,6 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { WeekIdentifier } from "@hacado/types/general";
+import { WeekSelector } from "@hacado/ui-admin/week-selector";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,8 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Checkbox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -21,6 +24,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -29,16 +34,17 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import { WeekSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { getWeekIdentifier } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Repeat2 } from "lucide-react";

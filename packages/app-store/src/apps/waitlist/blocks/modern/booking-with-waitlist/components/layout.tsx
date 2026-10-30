@@ -1,15 +1,15 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { shouldSkipLockedServiceStep } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
-  Spinner,
-  Stepper,
   useCurrencyFormat,
   useIsPageHeaderScrollable,
-  usePrevious,
-} from "@hacado/ui";
+} from "@hacado/ui/context";
+import { usePrevious } from "@hacado/ui/hooks";
+import { Spinner } from "@hacado/ui/spinner";
+import { Stepper } from "@hacado/ui/stepper";
 import { durationToTime } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";

@@ -8,6 +8,11 @@ import {
   getDiscountSchemaWithUniqueCheck,
 } from "@hacado/types/booking";
 import { DatabaseId } from "@hacado/types/database";
+import { AddonSelector } from "@hacado/ui-admin/addon-selector";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,15 +23,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  BooleanSelect,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  cn,
-  Combobox,
-  DateTimeInput,
+} from "@hacado/ui/alert-dialog";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -35,25 +39,19 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { use12HourFormat, useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
-  toastPromise,
-  use12HourFormat,
-  useCurrencySymbol,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import {
-  AddonSelector,
-  NonSortable,
-  PackageSelector,
-  SaveButton,
-  ServiceSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { DateTimeInput } from "@hacado/ui/time-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusCircle, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";

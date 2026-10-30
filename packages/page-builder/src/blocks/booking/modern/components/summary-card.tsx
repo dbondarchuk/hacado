@@ -1,6 +1,7 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { effectiveAddonPrice } from "@hacado/types/booking";
-import { cn, useCurrencyFormat } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { durationToTime } from "@hacado/utils";
 import { DateTime } from "luxon";
 import type { ReactNode } from "react";

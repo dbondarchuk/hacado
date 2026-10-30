@@ -1,6 +1,6 @@
 "use client";
 
-import { ToolbarButton } from "@hacado/ui";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { insertInlineEquation } from "@udecode/plate-math";
 import { useEditorRef, withRef } from "@udecode/plate/react";
 import { RadicalIcon } from "lucide-react";

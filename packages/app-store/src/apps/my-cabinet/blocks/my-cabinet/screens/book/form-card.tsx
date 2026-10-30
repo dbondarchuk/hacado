@@ -1,14 +1,13 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields, getFields } from "@hacado/types/booking";
+import { Form } from "@hacado/ui/form";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
 import {
   AppointmentSmsConsent,
   appointmentSmsConsentKind,
-  fieldSchemaMapper,
-  fieldsComponentMap,
-  Form,
   useSmsConsentState,
-} from "@hacado/ui";
+} from "@hacado/ui/sms-consent-choice";
 import { deepEqual } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";

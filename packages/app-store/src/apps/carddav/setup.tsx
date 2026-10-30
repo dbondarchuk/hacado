@@ -4,27 +4,28 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedAppStatusWithText } from "@hacado/types/apps";
 import {
-  Button,
-  cn,
-  Input,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
-  Spinner,
-  toast,
-  toastPromise,
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useClipboard,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/tooltip-responsive";
 import { CopyIcon, Dices } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

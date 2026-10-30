@@ -3,7 +3,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Button } from "./button";
 import { ButtonReaderProps } from "./schema";
 import { styles } from "./styles";

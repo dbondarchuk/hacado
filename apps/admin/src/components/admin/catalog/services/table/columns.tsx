@@ -1,12 +1,14 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AppointmentOption } from "@hacado/types/booking";
-import { Checkbox, Link, useTimeZone } from "@hacado/ui";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   tableSortHeader,
   tableSortNoopFunction,
-  useAuth,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { hasPermission } from "@hacado/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";

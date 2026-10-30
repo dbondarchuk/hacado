@@ -2,14 +2,14 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { customerPackageStatuses } from "@hacado/types/booking";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   PackagesDataTableAsyncFilterBox,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 import { useSoldPackagesTableFilters } from "./use-table-filters";
 
 export function SoldPackagesTableAction() {

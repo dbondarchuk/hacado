@@ -6,15 +6,15 @@ import {
 } from "@hacado/i18n/client";
 import { ModifyAppointmentInformation } from "@hacado/types/booking";
 import { timeZones } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Input,
-  Spinner,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import { durationToTime } from "@hacado/utils";
 import { AlertTriangle, Gift, X } from "lucide-react";
 import { DateTime } from "luxon";

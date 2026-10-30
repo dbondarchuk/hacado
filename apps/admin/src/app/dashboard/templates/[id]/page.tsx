@@ -1,7 +1,9 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Heading, Link, Skeleton } from "@hacado/ui";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Copy } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";

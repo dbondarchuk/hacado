@@ -4,8 +4,13 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
-  Button,
-  DurationInput,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -13,13 +18,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  SwitchCardFormItem,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { SquareApp } from "./app";

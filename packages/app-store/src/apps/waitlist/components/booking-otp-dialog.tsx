@@ -6,12 +6,14 @@ import { AppointmentFields } from "@hacado/types/booking";
 import {
   CustomerOtpForm,
   CustomerOtpVerified,
+} from "@hacado/ui/customer-otp-form";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
 
 type BookingOtpDialogProps = {
   open: boolean;

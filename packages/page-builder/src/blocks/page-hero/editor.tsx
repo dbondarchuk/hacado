@@ -12,7 +12,7 @@ import {
   BlockStyle,
   useClassName,
 } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { PageHeroProps } from "./schema";
 import { styles } from "./styles";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { ManualPurchaseDialog } from "./purchases/components/manual-purchase-form";

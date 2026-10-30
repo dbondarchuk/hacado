@@ -3,13 +3,9 @@ import {
   effectiveAddonDuration,
   effectiveAddonPrice,
 } from "@hacado/types/booking";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
 import { durationToTime } from "@hacado/utils";
 import { Calendar, Clock } from "lucide-react";
 import {

@@ -1,14 +1,14 @@
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  Spinner,
-} from "@hacado/ui";
+} from "@hacado/ui/card";
+import { Spinner } from "@hacado/ui/spinner";
 import { durationToTime, formatAmountString } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";

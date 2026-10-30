@@ -3,7 +3,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { BeforeAfterSlider } from "./before-after-slider";
 import { NoImagesMessage } from "./no-images-message";
 import { BeforeAfterReaderProps } from "./schema";

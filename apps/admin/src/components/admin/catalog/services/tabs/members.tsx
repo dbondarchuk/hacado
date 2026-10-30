@@ -2,7 +2,7 @@
 
 import { MemberSelectCard } from "@/components/admin/catalog/services/member-select-card";
 import { useI18n } from "@hacado/i18n/client";
-import { Sortable } from "@hacado/ui-admin";
+import { Sortable } from "@hacado/ui-admin/sortable";
 import React from "react";
 import { useFieldArray, UseFormReturn, useWatch } from "react-hook-form";
 import { TabProps } from "./types";

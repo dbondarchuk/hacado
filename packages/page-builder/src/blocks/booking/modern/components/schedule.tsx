@@ -28,7 +28,8 @@ import {
   isBookingLimitRestriction,
 } from "@hacado/types/booking";
 import type { BookingCatalogNode } from "@hacado/types/configuration/booking";
-import { toast, useTimeZone } from "@hacado/ui";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React from "react";

@@ -42,10 +42,15 @@ const SUBPATHS = Object.keys(pkgJson.exports || {})
     if (depth !== 0) return depth;
     // Prefer lighter modules before heavy UI shells
     const rank = (s) => {
-      if (s === "types" || s === "utils" || s === "helpers") return 0;
-      if (s === "editor" || s === "reader" || s === "inputs") return 1;
+      // Prefer the dedicated cn entry over utils (which also re-exports cn).
+      if (s === "cn") return -1;
+      if (s === "types" || s === "utils" || s === "helpers" || s === "hooks")
+        return 0;
+      if (s === "context" || s === "editor" || s === "reader" || s === "inputs")
+        return 1;
       if (s === "overlay" || s === "dnd" || s === "portal") return 2;
-      if (s === "builder" || s === "configuration-panel") return 9;
+      if (s === "builder" || s === "configuration-panel" || s === "data-table")
+        return 9;
       return 5;
     };
     const rd = rank(a) - rank(b);

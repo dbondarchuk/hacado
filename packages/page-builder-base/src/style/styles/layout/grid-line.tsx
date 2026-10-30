@@ -1,5 +1,5 @@
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
-import { Combobox } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
 import { LucideIcon } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

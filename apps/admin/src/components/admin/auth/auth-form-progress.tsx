@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Progress, cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Progress } from "@hacado/ui/progress";
 import { Check } from "lucide-react";
 
 export const AuthFormProgress = ({

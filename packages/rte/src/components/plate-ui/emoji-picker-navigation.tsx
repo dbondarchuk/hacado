@@ -1,14 +1,14 @@
 import type { EmojiCategoryList } from "@udecode/plate-emoji";
 import type { UseEmojiPickerType } from "@udecode/plate-emoji/react";
 
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip";
 
 export type EmojiPickerNavigationProps = {
   onClick: (id: EmojiCategoryList) => void;

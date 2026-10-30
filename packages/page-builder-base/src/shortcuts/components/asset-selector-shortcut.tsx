@@ -1,5 +1,5 @@
 import { BuilderKeys } from "@hacado/i18n";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";
 import { ShortcutWithAssetSelector } from "../types";

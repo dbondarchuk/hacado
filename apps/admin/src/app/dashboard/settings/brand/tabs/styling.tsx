@@ -9,6 +9,8 @@ import {
   fontsNames,
   fontsOptions,
 } from "@hacado/types/configuration/styling";
+import { ColorPickerInput } from "@hacado/ui-admin/color-picker-input";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +21,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  cn,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import {
   FormControl,
   FormDescription,
   FormField,
@@ -33,9 +34,7 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-} from "@hacado/ui";
-import { ColorPickerInput, NonSortable } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
 import { getWebfontPreviewFilename } from "@hacado/utils";
 import { Trash } from "lucide-react";
 import React from "react";

@@ -2,17 +2,17 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  PhoneInput,
-  Spinner,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

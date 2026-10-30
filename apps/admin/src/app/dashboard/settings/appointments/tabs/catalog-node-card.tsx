@@ -8,21 +8,20 @@ import {
   BookingCatalogNode,
   BookingConfiguration,
 } from "@hacado/types/configuration/booking";
+import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-} from "@hacado/ui";
-import { PackageSelector, ServiceSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
 import { GripVertical, Trash } from "lucide-react";
 import React from "react";
 import { FieldPath, useFieldArray, UseFormReturn } from "react-hook-form";

@@ -1,11 +1,12 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
-import { Button, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { OutlookApp } from "./app";
 import {

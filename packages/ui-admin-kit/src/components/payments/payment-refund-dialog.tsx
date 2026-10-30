@@ -16,14 +16,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Checkbox,
-  CurrencyPercentageInput,
-  Label,
-  Spinner,
-  toast,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { CurrencyPercentageInput } from "@hacado/ui/currency-percentage-input";
+import { Label } from "@hacado/ui/label";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { formatAmount } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";

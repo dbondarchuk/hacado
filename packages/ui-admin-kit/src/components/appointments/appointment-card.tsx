@@ -6,16 +6,13 @@ import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
 } from "@hacado/types/booking";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  Link,
-  use12HourFormat,
-  useCurrencyFormat,
-} from "@hacado/ui";
-import { MemberName, useAuth } from "@hacado/ui-admin";
+import { useAuth } from "@hacado/ui-admin/context";
+import { MemberName } from "@hacado/ui-admin/data-table";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Link } from "@hacado/ui/link";
 import { canUpdateAppointment, durationToTime } from "@hacado/utils";
 import { CalendarCheck2, CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";

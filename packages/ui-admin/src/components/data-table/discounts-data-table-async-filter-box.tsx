@@ -5,14 +5,14 @@ import React from "react";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
-  Skeleton,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  useDebounceCacheFn,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,

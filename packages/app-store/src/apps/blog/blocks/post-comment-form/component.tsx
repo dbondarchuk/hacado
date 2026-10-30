@@ -7,20 +7,20 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { zNonEmptyString } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-  Spinner,
-  Textarea,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";

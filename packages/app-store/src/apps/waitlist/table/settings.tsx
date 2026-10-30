@@ -1,16 +1,16 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { Settings } from "lucide-react";
 import { useState } from "react";
 import { WaitlistAppSetup } from "../setup";

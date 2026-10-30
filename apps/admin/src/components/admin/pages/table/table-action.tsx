@@ -2,13 +2,13 @@
 
 import { useI18n } from "@hacado/i18n/client";
 
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 
 import { DeleteSelectedPagesButton } from "./delete-selected";
 import { usePagesTableFilters } from "./use-table-filters";

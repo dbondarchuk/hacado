@@ -28,15 +28,12 @@ import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { NavItemGroup } from "@hacado/types/admin";
-import {
-  BreadcrumbsProvider,
-  cn,
-  ConfigProvider,
-  Link,
-  SidebarInset,
-  SidebarProvider,
-} from "@hacado/ui";
-import { MediaSourcesProvider } from "@hacado/ui-admin";
+import { MediaSourcesProvider } from "@hacado/ui-admin/context";
+import { BreadcrumbsProvider } from "@hacado/ui/breadcrumbs";
+import { cn } from "@hacado/ui/cn";
+import { ConfigProvider } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { SidebarInset, SidebarProvider } from "@hacado/ui/sidebar";
 import {
   canFilterByMember,
   filterConnectedAppsForUser,

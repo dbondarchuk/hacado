@@ -10,11 +10,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Link,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 
 export function isSubscriptionPastDueError(error: unknown): boolean {

@@ -13,7 +13,8 @@ import {
 } from "@udecode/plate/react";
 import { RadicalIcon } from "lucide-react";
 
-import { cn, Popover, PopoverTrigger } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverTrigger } from "@hacado/ui/popover";
 import { EquationPopoverContent } from "./equation-popover";
 import { PlateElement } from "./plate-element";
 

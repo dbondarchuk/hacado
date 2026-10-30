@@ -12,20 +12,20 @@ import {
   getPageFooterSchemaWithUniqueNameCheck,
   PageFooterUpdateModel,
 } from "@hacado/types/pages";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
-  Breadcrumbs,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Heading,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Heading } from "@hacado/ui/heading";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";

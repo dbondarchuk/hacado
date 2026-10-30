@@ -26,7 +26,9 @@ import {
   isAddonAvailableForMember,
   isBookingLimitRestriction,
 } from "@hacado/types/booking";
-import { Spinner, toast, useTimeZone } from "@hacado/ui";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";

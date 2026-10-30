@@ -1,8 +1,13 @@
 import React from "react";
 
 import { Prettify } from "@hacado/types/utils";
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { AssetSelectorInput, AssetSelectorInputProps } from "@hacado/ui-admin";
+import {
+  AssetSelectorInput,
+  AssetSelectorInputProps,
+} from "@hacado/ui-admin/asset-selector-input";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 import { ResetButton } from "./reset-button";
 
 type Props = Prettify<

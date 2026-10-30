@@ -9,7 +9,7 @@ import {
   ReplaceOriginalColors,
   useClassName,
 } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { MarketingFeatureItemProps } from "./schema";
 import { styles } from "./styles";
 

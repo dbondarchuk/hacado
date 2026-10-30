@@ -1,15 +1,15 @@
 "use client";
 
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   FormControl,
   FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
-  Skeleton,
-  Switch,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { Switch } from "@hacado/ui/switch";
 import React from "react";
 
 export type SwitchCardFormItemProps = {

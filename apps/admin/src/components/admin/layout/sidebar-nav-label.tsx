@@ -2,7 +2,8 @@
 
 import { DashboardNotificationsBadge } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { cn, useSidebar } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useSidebar } from "@hacado/ui/sidebar";
 
 export const SidebarNavLabel: React.FC<{
   title: AllKeys;

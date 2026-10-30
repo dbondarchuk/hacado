@@ -1,4 +1,4 @@
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { ArrowRight, ChevronRight, Minus, Plus } from "lucide-react";
 import { AccordionProps } from "../accordion/schema";
 

@@ -3,8 +3,8 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Payment } from "@hacado/types/booking";
-import { Button } from "@hacado/ui";
 import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
+import { Button } from "@hacado/ui/button";
 import { useState } from "react";
 import { PurchasedGiftCardListModel } from "../../models";
 

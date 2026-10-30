@@ -1,7 +1,7 @@
 import type { SlateLeafProps } from "@udecode/plate";
 import type { TCommentText } from "@udecode/plate-comments";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateLeaf } from "@udecode/plate";
 
 export function CommentLeafStatic({

@@ -1,22 +1,24 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Settings } from "lucide-react";
 import { useState } from "react";
 import {

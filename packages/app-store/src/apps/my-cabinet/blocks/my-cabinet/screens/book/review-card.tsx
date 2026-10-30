@@ -8,21 +8,19 @@ import {
   summarizePackageItems,
 } from "@hacado/types/booking";
 import { timeZones } from "@hacado/types/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  Checkbox,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Input,
-  Markdown,
-  Spinner,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Input } from "@hacado/ui/input";
+import { Markdown } from "@hacado/ui/markdown";
+import { Spinner } from "@hacado/ui/spinner";
 import { durationToTime, template } from "@hacado/utils";
 import { TimeZone } from "@vvo/tzdb";
 import {

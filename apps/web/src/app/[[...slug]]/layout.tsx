@@ -15,7 +15,9 @@ import {
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import type { Resource } from "@hacado/types/configuration/resources";
-import { ConfigProvider, SonnerToaster, Toaster } from "@hacado/ui";
+import { ConfigProvider } from "@hacado/ui/context";
+import { SonnerToaster } from "@hacado/ui/sonner";
+import { Toaster } from "@hacado/ui/toaster";
 import {
   buildGoogleFontsUrl,
   DEFAULT_WEB_PRIMARY_FONT,

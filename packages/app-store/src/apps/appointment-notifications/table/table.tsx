@@ -4,8 +4,9 @@ import React from "react";
 import { searchParams } from "./search-params";
 
 import { WithTotal } from "@hacado/types/database";
-import { toast, useDebounce } from "@hacado/ui";
-import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { useDebounce } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { getAppointmentNotifications } from "../actions";
 import { AppointmentNotification } from "../models";
 import {

@@ -11,23 +11,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Form, FormItem } from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
 import {
   AppointmentSmsConsent,
   appointmentSmsConsentKind,
-  Button,
-  cn,
-  Form,
-  FormItem,
-  Input,
-  Label,
-  Spinner,
-  useCurrencyFormat,
   useSmsConsentState,
-} from "@hacado/ui";
+} from "@hacado/ui/sms-consent-choice";
+import { Spinner } from "@hacado/ui/spinner";
 
 import { clientApi } from "@hacado/api-sdk";
 import { TranslationKeys, useI18n } from "@hacado/i18n/client";
-import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
 import { deepEqual } from "@hacado/utils";
 import { DateTime as Luxon } from "luxon";
 import { SmsConsentLookupContext } from "../../sms-consent-lookup";

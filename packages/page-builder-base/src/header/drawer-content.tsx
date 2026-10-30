@@ -2,14 +2,14 @@
 
 import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/drawer";
 import { Menu, X } from "lucide-react";
 import { ReplaceOriginalColors } from "../helpers/replace-original-colors";
 import { blockPreviewLinkNavigation } from "./preview-navigation";

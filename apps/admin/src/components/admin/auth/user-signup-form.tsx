@@ -19,9 +19,9 @@ import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-cal
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Combobox,
   Form,
   FormControl,
   FormField,
@@ -29,12 +29,12 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Link,
-  PhoneInput,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState, type ReactNode } from "react";

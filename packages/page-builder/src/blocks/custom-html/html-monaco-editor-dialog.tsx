@@ -1,16 +1,16 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  useTheme,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { useTheme } from "@hacado/ui/hooks";
 import Editor from "@monaco-editor/react";
 import { Maximize2 } from "lucide-react";
 import React from "react";

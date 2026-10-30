@@ -3,9 +3,12 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
+import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import { CustomerName } from "@hacado/ui-admin/data-table";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
 import {
-  AutoSkeleton,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -14,13 +17,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Link,
-  ScrollArea,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerName } from "@hacado/ui-admin";
-import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";
 import { PurchasedGiftCardListModel } from "../../models";

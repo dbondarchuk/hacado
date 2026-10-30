@@ -3,7 +3,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
 import { Bug } from "lucide-react";
 import { useMemo } from "react";
 import {

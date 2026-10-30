@@ -5,8 +5,8 @@ import {
   AppointmentStatus,
   isClosedAppointmentStatus,
 } from "@hacado/types/booking";
-import { useReload } from "@hacado/ui-admin";
 import { AppointmentDeclineDialog } from "@hacado/ui-admin-kit";
+import { useReload } from "@hacado/ui-admin/hooks";
 
 export const AppointmentDeclineDialogWrapper: React.FC<{
   appointment: Appointment;

@@ -1,12 +1,15 @@
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import { PlateMarkdownEditor } from "@hacado/rte";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Button } from "@hacado/ui/button";
 import {
-  BooleanSelect,
-  Button,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+} from "@hacado/ui/collapsible";
+import {
   FormControl,
   FormDescription,
   FormField,
@@ -14,14 +17,15 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@hacado/ui";
-import { SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
 import React from "react";
 import { TabProps } from "./types";
 

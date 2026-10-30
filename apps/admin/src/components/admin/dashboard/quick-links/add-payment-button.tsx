@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@hacado/ui";
 import { AddUpdatePaymentDialog } from "@hacado/ui-admin-kit";
+import { Button } from "@hacado/ui/button";
 import { useRouter } from "next/navigation";
 import React from "react";
 

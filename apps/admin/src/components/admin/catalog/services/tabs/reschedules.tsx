@@ -1,24 +1,22 @@
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentReschedulePolicyRow } from "@hacado/types/configuration/booking";
 import {
-  Badge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
+  ReschedulePolicyCard,
+  ReschedulePolicyCardContent,
+} from "@hacado/ui-admin-kit";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Badge } from "@hacado/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import {
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-} from "@hacado/ui";
-import { NonSortable, SwitchCardFormItem } from "@hacado/ui-admin";
-import {
-  ReschedulePolicyCard,
-  ReschedulePolicyCardContent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { TabProps } from "./types";

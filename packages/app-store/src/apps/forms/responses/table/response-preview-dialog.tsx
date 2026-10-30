@@ -7,8 +7,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  ScrollArea,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import React from "react";
 import { FormResponseListModel } from "../../models";
 import { AnswerPreviewFields } from "../components/answer-preview-fields";

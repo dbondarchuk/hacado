@@ -1,6 +1,9 @@
 "use client";
 
-import { DataTableResetFilter, DataTableSearch } from "@hacado/ui-admin";
+import {
+  DataTableResetFilter,
+  DataTableSearch,
+} from "@hacado/ui-admin/data-table";
 import { usePackagesTableFilters } from "./use-table-filters";
 
 export function PackagesTableAction() {

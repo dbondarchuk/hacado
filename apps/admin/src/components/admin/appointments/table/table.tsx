@@ -3,7 +3,7 @@ import {
   appointmentsSearchParams,
   appointmentsSearchParamsCache,
 } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { gateMemberIds } from "@hacado/utils";
 import { columns } from "./columns";
 

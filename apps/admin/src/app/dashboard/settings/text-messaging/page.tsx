@@ -11,7 +11,9 @@ import {
   SmsRegistrationStore,
 } from "@hacado/services/text-message";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
-import { Breadcrumbs, Heading, Link } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { TextMessagingSettingsForm } from "./form";

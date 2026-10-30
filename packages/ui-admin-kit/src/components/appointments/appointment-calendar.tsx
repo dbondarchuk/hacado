@@ -7,7 +7,7 @@ import {
   isClosedAppointmentStatus,
 } from "@hacado/types/booking";
 import { DaySchedule } from "@hacado/types/configuration/schedule";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { getColorForName } from "@hacado/utils";
 import { DateTime, HourNumbers } from "luxon";
 import React from "react";

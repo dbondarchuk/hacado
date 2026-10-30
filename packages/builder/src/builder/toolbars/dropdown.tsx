@@ -5,9 +5,9 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { CSSProperties, ReactNode } from "react";
 import { ConfigurationProps } from "../../documents/types";

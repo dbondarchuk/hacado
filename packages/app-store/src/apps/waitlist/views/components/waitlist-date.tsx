@@ -1,7 +1,8 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Badge,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -9,9 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { DateTime } from "luxon";
 import { WaitlistEntry } from "../../models";
 import {

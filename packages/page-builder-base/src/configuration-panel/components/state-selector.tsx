@@ -1,20 +1,18 @@
 "use client";
 
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import {
-  Badge,
-  Button,
-  Input,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Plus } from "lucide-react";
 import React, { useState } from "react";
 import {

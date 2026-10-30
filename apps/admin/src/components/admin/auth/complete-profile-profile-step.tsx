@@ -1,9 +1,9 @@
 "use client";
 
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Combobox,
   Form,
   FormControl,
   FormField,
@@ -11,9 +11,9 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";

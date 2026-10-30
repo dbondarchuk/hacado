@@ -2,7 +2,7 @@
 
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerOtpForm } from "@hacado/ui";
+import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
 import React, { useCallback } from "react";
 import { useScheduleContext } from "./context";
 

@@ -14,7 +14,8 @@ import {
   toSmsRegistrationView,
 } from "@hacado/services/text-message";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { getWebsiteUrl } from "@hacado/utils";
 import { Metadata } from "next";
 import Link from "next/link";

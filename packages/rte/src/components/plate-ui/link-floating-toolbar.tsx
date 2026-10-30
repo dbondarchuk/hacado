@@ -23,16 +23,13 @@ import {
   useFloatingLinkInsertState,
 } from "./use-floating-link";
 
-import {
-  Button,
-  buttonVariants,
-  Checkbox,
-  inputVariants,
-  Label,
-  popoverVariants,
-  Separator,
-} from "@hacado/ui";
-import { PageSelectorDialog } from "@hacado/ui-admin";
+import { PageSelectorDialog } from "@hacado/ui-admin/page-selector-dialog";
+import { Button, buttonVariants } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { inputVariants } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { popoverVariants } from "@hacado/ui/popover";
+import { Separator } from "@hacado/ui/separator";
 import { useRef } from "react";
 import { useWindow } from "./window-context";
 

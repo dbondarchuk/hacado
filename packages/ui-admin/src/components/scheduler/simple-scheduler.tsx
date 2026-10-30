@@ -8,13 +8,12 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  SimpleTimePicker,
-  use12HourFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/accordion";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent } from "@hacado/ui/card";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { SimpleTimePicker } from "@hacado/ui/time-picker";
 import { parseTime } from "@hacado/utils";
 import { Clock, Plus, X } from "lucide-react";
 import { DateTime } from "luxon";

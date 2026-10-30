@@ -1,5 +1,9 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Button, cn, Spinner, Stepper, usePrevious } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { usePrevious } from "@hacado/ui/hooks";
+import { Spinner } from "@hacado/ui/spinner";
+import { Stepper } from "@hacado/ui/stepper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";

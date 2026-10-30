@@ -6,22 +6,20 @@ import { useI18n } from "@hacado/i18n/client";
 import { PublicPageClientProps } from "@hacado/types/apps";
 import { CollectPayment } from "@hacado/types/booking";
 import { zEmail, zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useCurrencySymbol } from "@hacado/ui/context";
+import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  CustomerOtpForm,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  PhoneInput,
-  Spinner,
-  ToggleGroup,
-  ToggleGroupItem,
-  useCurrencyFormat,
-  useCurrencySymbol,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { Spinner } from "@hacado/ui/spinner";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { Mail, Phone } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import {

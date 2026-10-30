@@ -14,9 +14,9 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 
 export function LineHeightDropdownMenu({ ...props }: DropdownMenuProps) {
   const openState = useOpenState();

@@ -3,14 +3,9 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerSmsConsentStatus } from "@hacado/types/customers";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  toastPromise,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { toastPromise } from "@hacado/ui/sonner";
 import { useState } from "react";
 
 export const CustomerSmsConsent = ({

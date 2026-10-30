@@ -1,12 +1,8 @@
 import { AssetEntity } from "@hacado/types/assets";
-import {
-  cn,
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  ImageZoom,
-  Link,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Dialog, DialogContent, DialogTrigger } from "@hacado/ui/dialog";
+import { ImageZoom } from "@hacado/ui/image-zoom";
+import { Link } from "@hacado/ui/link";
 import { mimeTypeToExtension } from "@hacado/utils";
 import { FileIcon, Play } from "lucide-react";
 // import Image from "next/image";

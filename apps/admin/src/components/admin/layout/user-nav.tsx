@@ -2,10 +2,8 @@
 import { authClient } from "@/app/auth-client";
 import type { AdminKeys } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -13,11 +11,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+} from "@hacado/ui/dropdown-menu";
+import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@hacado/ui";
+} from "@hacado/ui/sidebar";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

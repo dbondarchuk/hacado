@@ -3,7 +3,7 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { MarketingBrowserCarouselClient } from "./marketing-browser-carousel.client";
 import { type MarketingBrowserCarouselReaderProps } from "./schema";
 import { styles } from "./styles";

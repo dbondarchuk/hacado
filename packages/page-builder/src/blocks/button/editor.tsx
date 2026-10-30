@@ -9,7 +9,7 @@ import {
   useClassName,
   useResizeBlockStyles,
 } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { ButtonProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

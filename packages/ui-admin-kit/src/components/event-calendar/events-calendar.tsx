@@ -8,7 +8,7 @@ import {
   isClosedAppointmentStatus,
 } from "@hacado/types/booking";
 import { DaySchedule } from "@hacado/types/configuration/schedule";
-import { useTimeZone } from "@hacado/ui";
+import { useTimeZone } from "@hacado/ui/context";
 import { getColorForName } from "@hacado/utils";
 import {
   CheckCircle,

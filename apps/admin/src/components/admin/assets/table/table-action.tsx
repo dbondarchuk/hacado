@@ -1,14 +1,14 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
 
 import React from "react";
 import { DeleteSelectedAssetsButton } from "./delete-selected-button";

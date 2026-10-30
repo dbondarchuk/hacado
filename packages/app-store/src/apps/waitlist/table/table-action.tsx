@@ -3,6 +3,11 @@
 import { useI18n } from "@hacado/i18n/client";
 
 import {
+  HeaderActionButtonsPortal,
+  ResponsiveFilterBar,
+} from "@hacado/ui-admin-kit";
+import { useAuth } from "@hacado/ui-admin/context";
+import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
   DataTableRangeBox,
@@ -10,13 +15,8 @@ import {
   DataTableSearch,
   MembersDataTableAsyncFilterBox,
   OptionsDataTableAsyncFilterBox,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import {
-  HeaderActionButtonsPortal,
-  ResponsiveFilterBar,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 import { canFilterByMember, hasPermission } from "@hacado/utils";
 
 import React from "react";

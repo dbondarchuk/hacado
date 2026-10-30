@@ -4,11 +4,12 @@ import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@hacado/ui-admin-kit";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { meetsRequiredPermission } from "@hacado/utils";
 import { Metadata } from "next";
 import { forbidden, redirect } from "next/navigation";

@@ -11,17 +11,15 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n, type AllKeys } from "@hacado/i18n/client";
 import { NavItem, NavItemGroup } from "@hacado/types/admin";
 import { CommandSearchGroup, ConnectedApp } from "@hacado/types/apps";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {

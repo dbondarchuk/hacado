@@ -3,17 +3,17 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { HydratedSyncedPayment } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React, { useCallback, useEffect, useState } from "react";
 import { AssignAppointmentDialog } from "./assign-appointment-dialog";
 import { EditSyncedPaymentAmountsDialog } from "./edit-synced-payment-amounts-dialog";

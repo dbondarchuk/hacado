@@ -4,7 +4,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { placementToChildCss, resolveEffectivePlacements } from "./responsive";
 import {
   FLUID_COLUMNS,

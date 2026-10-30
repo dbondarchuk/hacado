@@ -8,7 +8,7 @@ import {
   useClassName,
 } from "@hacado/page-builder-base/helpers";
 import { Appointment } from "@hacado/types/booking";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useMemo } from "react";
 import { ConfirmationCard } from "./confirmation-card";
 import { BookingConfirmationProps } from "./schema";

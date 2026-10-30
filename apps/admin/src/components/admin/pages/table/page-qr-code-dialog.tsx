@@ -1,20 +1,20 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  cn,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Modal,
-  Spinner,
-  toast,
-  useClipboard,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { Modal } from "@hacado/ui/modal";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Copy, Download } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";

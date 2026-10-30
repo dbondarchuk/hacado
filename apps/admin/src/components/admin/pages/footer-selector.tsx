@@ -1,7 +1,10 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PageFooterListModel } from "@hacado/types/pages";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 
 const FooterShortLabel: React.FC<{

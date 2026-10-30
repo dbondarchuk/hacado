@@ -4,22 +4,21 @@ import {
   Appointment,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
-import {
-  Button,
-  Link,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
+import { AppointmentDialog } from "@hacado/ui-admin-kit";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
-import { AppointmentDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
 import { durationToTime } from "@hacado/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import {

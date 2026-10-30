@@ -1,19 +1,17 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   FormField,
   FormItem,
   FormLabel,
   FormLabelWithRequiredIndicator,
-  HintInput,
-  Link,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { HintInput } from "@hacado/ui/hint-input";
+import { Link } from "@hacado/ui/link";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { Pencil } from "lucide-react";
 import React from "react";
 import { useFormContext, useFormState } from "react-hook-form";

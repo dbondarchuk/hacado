@@ -5,7 +5,10 @@ import GooglePayButton from "@google-pay/button-react";
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
-import { Button, Spinner, toast, useConfig, useCurrency } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { useConfig, useCurrency } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { formatAmountString } from "@hacado/utils";
 import {
   PayPalButtons,

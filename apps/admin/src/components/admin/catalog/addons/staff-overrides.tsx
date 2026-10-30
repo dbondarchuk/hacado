@@ -2,7 +2,7 @@
 
 import { MemberOverrideCard } from "@/components/admin/catalog/addons/member-override-card";
 import { useI18n } from "@hacado/i18n/client";
-import { NonSortable } from "@hacado/ui-admin";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 

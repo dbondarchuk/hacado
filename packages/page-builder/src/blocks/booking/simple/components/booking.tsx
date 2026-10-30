@@ -4,7 +4,7 @@ import {
   applyBookingLocks,
   GetAppointmentOptionsResponse,
 } from "@hacado/types/booking";
-import { Skeleton } from "@hacado/ui";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../utils/fixtures";
 import { Appointments } from "./appointments";

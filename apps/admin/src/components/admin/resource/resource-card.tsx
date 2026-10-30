@@ -18,21 +18,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import {
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  Input,
-  useTheme,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { useTheme } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
 import { stripObject } from "@hacado/utils";
 import { Editor } from "@monaco-editor/react";
 import { cva } from "class-variance-authority";

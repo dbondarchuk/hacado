@@ -5,7 +5,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
 import { CommunicationChannel } from "@hacado/types/communication";
 import { Template, TemplatesTemplate } from "@hacado/types/templates";
-import { Breadcrumbs } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
   demoAppointment,
   demoOtp,

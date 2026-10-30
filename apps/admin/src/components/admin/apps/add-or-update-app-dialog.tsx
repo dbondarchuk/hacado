@@ -18,8 +18,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Checkbox,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -27,11 +29,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
-  Spinner,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { filterInstallDefaultScopesForUser } from "@hacado/utils";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";

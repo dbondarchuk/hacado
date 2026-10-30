@@ -3,8 +3,10 @@
 import { saveInstallSchedule } from "@/components/install/actions/schedule";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Spinner, toast } from "@hacado/ui";
-import { SimpleScheduler } from "@hacado/ui-admin";
+import { SimpleScheduler } from "@hacado/ui-admin/scheduler";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { useState } from "react";
 
 export function StepSchedule() {

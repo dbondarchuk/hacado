@@ -6,9 +6,11 @@ import {
   CustomerPackageListModel,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
+import { CustomerPackageActions } from "@hacado/ui-admin-kit";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Badge,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -16,10 +18,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Link,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerPackageActions } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
 import { DateTime } from "luxon";
 import React from "react";
 

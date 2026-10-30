@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import React from "react";
 import { useAccordion } from "../accordion/context";
 import { ItemIcon } from "./icon";

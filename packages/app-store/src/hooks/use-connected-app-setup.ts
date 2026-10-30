@@ -1,7 +1,7 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { ConnectedAppStatusWithText } from "@hacado/types/apps";
-import { toastPromise } from "@hacado/ui";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";

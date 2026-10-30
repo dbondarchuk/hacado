@@ -4,7 +4,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Fragment } from "react";
 import { ForeachContainerReaderProps, styles } from "./schema";
 import { sliceForeachArray } from "./utils";

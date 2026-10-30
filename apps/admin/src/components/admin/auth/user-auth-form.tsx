@@ -11,8 +11,8 @@ import {
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Form,
   FormControl,
   FormField,
@@ -20,14 +20,12 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  Link,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

@@ -7,31 +7,34 @@ import {
   SyncedPaymentAssignablePaymentType,
   syncedPaymentAssignablePaymentTypes,
 } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useCurrencySymbol } from "@hacado/ui/context";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Input,
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Label,
+} from "@hacado/ui/input-group";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  toastPromise,
-  useCurrencyFormat,
-  useCurrencySymbol,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { round2 } from "@hacado/utils";
 import { RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";

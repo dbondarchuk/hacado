@@ -2,7 +2,7 @@
 
 import { I18nFn, useI18n, useLocale } from "@hacado/i18n/client";
 import { DATE_TIME_FORMATS, DateTimeFormat } from "@hacado/types/utils";
-import { useTimeZone } from "@hacado/ui";
+import { useTimeZone } from "@hacado/ui/context";
 import { DateTime } from "luxon";
 
 const T_PREFIX = "t_";

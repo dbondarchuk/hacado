@@ -1,6 +1,6 @@
 "use client";
 
-import { AssetPreview } from "@hacado/ui-admin";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import { fileNameToMimeType } from "@hacado/utils";
 import { FC } from "react";
 import { FormsFieldType } from "../../models/fields";

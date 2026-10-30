@@ -1,6 +1,6 @@
 "use client";
 
-import { Toolbar } from "@hacado/ui";
+import { Toolbar } from "@hacado/ui/toolbar";
 import { cn, withRef } from "@udecode/cn";
 import {
   type FloatingToolbarState,

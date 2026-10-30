@@ -6,8 +6,10 @@ import {
   BookingConfiguration,
   customTimeSlotSchema,
 } from "@hacado/types/configuration/booking";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   FormControl,
   FormDescription,
   FormField,
@@ -15,24 +17,29 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   RadioButtonGroup,
   RadioButtonGroupItem,
+} from "@hacado/ui/radio-button-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  SimpleTimePicker,
-  TagInput,
-  use12HourFormat,
-} from "@hacado/ui";
-import { AppSelector, SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { TagInput } from "@hacado/ui/tag-input";
+import { SimpleTimePicker } from "@hacado/ui/time-picker";
 import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
 import React from "react";
 import { TabProps } from "./types";

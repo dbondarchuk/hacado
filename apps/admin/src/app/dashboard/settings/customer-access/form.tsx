@@ -7,9 +7,17 @@ import {
   CustomerAuthConfiguration,
   customerAuthConfigurationSchema,
 } from "@hacado/types/configuration/customer-auth";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
-  Alert,
-  AlertDescription,
+  renderBuiltInSms,
+  SmsMessagePreview,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin/sms-example";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { Alert, AlertDescription } from "@hacado/ui/alert";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -17,18 +25,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Link,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  renderBuiltInSms,
-  SaveButton,
-  SmsMessagePreview,
-  smsPreviewLanguage,
-  SwitchCardFormItem,
-  TemplateSelector,
-  useSmsPreviewArgs,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Link } from "@hacado/ui/link";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

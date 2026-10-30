@@ -6,9 +6,9 @@ import {
   CommunicationChannel,
   communicationChannels,
 } from "@hacado/types/communication";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Combobox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -16,13 +16,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";

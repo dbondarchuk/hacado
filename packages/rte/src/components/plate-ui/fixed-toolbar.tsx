@@ -1,6 +1,7 @@
 "use client";
 
-import { cn, Toolbar } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Toolbar } from "@hacado/ui/toolbar";
 import type { ComponentProps } from "react";
 
 const inlineToolbarClassName =

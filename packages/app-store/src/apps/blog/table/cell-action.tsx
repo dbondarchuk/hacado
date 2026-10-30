@@ -1,17 +1,17 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useReload } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

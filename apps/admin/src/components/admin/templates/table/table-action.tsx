@@ -4,13 +4,13 @@ import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templat
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types/communication";
 
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 
 import { DeleteSelectedTemplatesButton } from "./delete-selected";
 import { useTemplatesTableFilters } from "./use-table-filters";

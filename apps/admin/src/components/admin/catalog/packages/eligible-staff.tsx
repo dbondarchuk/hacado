@@ -1,6 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,17 +13,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-} from "@hacado/ui";
-import { MemberSelector, NonSortable } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
 import { Trash } from "lucide-react";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";

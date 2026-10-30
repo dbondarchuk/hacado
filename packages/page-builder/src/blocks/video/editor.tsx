@@ -3,7 +3,7 @@
 import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { useClassName } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { template } from "@hacado/utils";
 import { Ref } from "react";
 import { VideoProps, VideoPropsDefaults } from "./schema";

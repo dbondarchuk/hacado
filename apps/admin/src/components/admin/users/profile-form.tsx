@@ -8,13 +8,14 @@ import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import { CalendarSourceConfiguration } from "@hacado/types/configuration/booking";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
+import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   Form,
   FormControl,
   FormDescription,
@@ -23,16 +24,9 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  AppSelector,
-  AssetSelectorDialog,
-  NonSortable,
-  SaveButton,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";

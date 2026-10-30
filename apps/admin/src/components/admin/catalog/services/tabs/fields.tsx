@@ -1,6 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
 import { WithDatabaseId } from "@hacado/types/database";
-import { Sortable } from "@hacado/ui-admin";
+import { Sortable } from "@hacado/ui-admin/sortable";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { FieldSelectCard } from "../../field-select-card";

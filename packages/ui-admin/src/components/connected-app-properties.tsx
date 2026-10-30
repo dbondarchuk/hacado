@@ -2,7 +2,7 @@
 import { appStatusTextClasses, AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import { ConnectedApp } from "@hacado/types/apps";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 
 export const ConnectedAppAccount: React.FC<{
   account: ConnectedApp["account"];

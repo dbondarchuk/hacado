@@ -7,7 +7,8 @@ import {
   communicationLogStatuses,
   communicationParticipantTypeSchema,
 } from "@hacado/types/communication";
-import { cn } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -15,10 +16,9 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   MembersDataTableAsyncFilterBox,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
 import { canFilterCommunicationByMember } from "@hacado/utils";
 
 import React from "react";

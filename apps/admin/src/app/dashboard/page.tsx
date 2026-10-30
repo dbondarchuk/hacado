@@ -21,14 +21,14 @@ import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import { DashboardTabInjectorApps } from "@hacado/app-store/injectors/dashboard-tab";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
-  Breadcrumbs,
   ResponsiveTabsList,
-  Skeleton,
   TabsContent,
   TabsTrigger,
   TabsViaUrl,
-} from "@hacado/ui";
+} from "@hacado/ui/tabs";
 import {
   canSeeAllCalendarMembers,
   canUpdateAppointments,

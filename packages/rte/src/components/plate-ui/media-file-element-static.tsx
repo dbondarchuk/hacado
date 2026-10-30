@@ -1,7 +1,7 @@
 import type { SlateElementProps } from "@udecode/plate";
 import type { TFileElement } from "@udecode/plate-media";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateElement } from "@udecode/plate";
 import { FileUp } from "lucide-react";
 

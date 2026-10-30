@@ -4,11 +4,12 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { AppointmentChoice } from "@hacado/types/booking";
 import { resolveBookingTips } from "@hacado/types/configuration/booking";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
 } from "@hacado/ui-admin-kit";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { canReassignAppointment } from "@hacado/utils";
 import { Metadata } from "next";
 import { searchParamsCache } from "./search-params";

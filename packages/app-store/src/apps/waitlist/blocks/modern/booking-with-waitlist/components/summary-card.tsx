@@ -1,12 +1,12 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
 import { effectiveAddonPrice } from "@hacado/types/booking";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
+import { useCurrencyFormat } from "@hacado/ui/context";
 import { durationToTime } from "@hacado/utils";
 import { ChevronDown } from "lucide-react";
 import { DateTime } from "luxon";

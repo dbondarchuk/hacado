@@ -14,10 +14,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  cn,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
 import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";

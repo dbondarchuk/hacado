@@ -1,14 +1,9 @@
 "use client";
 
 import { SortableContext } from "@dnd-kit/sortable";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  ScrollArea,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { cva } from "class-variance-authority";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import React from "react";

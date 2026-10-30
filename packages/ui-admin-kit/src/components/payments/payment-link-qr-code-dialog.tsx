@@ -2,25 +2,27 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
+} from "@hacado/ui/dialog";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Spinner,
-  toast,
-  useClipboard,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Copy, Download } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";

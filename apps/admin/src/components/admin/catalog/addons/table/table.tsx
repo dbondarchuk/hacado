@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { addonsSearchParams, addonsSearchParamsCache } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const AddonsTable: React.FC = async () => {

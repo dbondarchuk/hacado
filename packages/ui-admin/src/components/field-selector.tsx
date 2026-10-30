@@ -1,7 +1,8 @@
 import { adminApi } from "@hacado/api-sdk";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
-import { cn, Combobox, IComboboxItem } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import React from "react";
 
 const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({

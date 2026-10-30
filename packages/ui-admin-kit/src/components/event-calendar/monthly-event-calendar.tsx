@@ -1,11 +1,11 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  cn,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
 
 import { Clock } from "lucide-react";

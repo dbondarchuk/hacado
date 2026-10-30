@@ -5,25 +5,23 @@ import {
   MinuteNumbers,
   Time,
 } from "@hacado/types/booking";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { Calendar, useCalendarDisplayedMonth } from "@hacado/ui/calendar";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  Calendar,
-  cn,
-  Combobox,
-  IComboboxItem,
-  Markdown,
-  Skeleton,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-  useCalendarDisplayedMonth,
   useCurrencyFormat,
   useTimeZone,
   useUseClientTimezone,
-} from "@hacado/ui";
+} from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
 import {
   areTimesEqual,
   durationToTime,

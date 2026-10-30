@@ -7,7 +7,7 @@ import {
   ReplaceOriginalColors,
   useClassName,
 } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Booking } from "./components/booking";
 import { BookingProps } from "./schema";
 import { styles } from "./styles";

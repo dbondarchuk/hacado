@@ -3,14 +3,14 @@
 import { useI18n } from "@hacado/i18n/client";
 import { discountTypes } from "@hacado/types/booking";
 
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 
 import { DeleteSelectedDiscountsButton } from "./delete-selected";
 import { useDiscountsTableFilters } from "./use-table-filters";

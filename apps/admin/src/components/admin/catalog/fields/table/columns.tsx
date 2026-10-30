@@ -3,19 +3,22 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
 import { IdName } from "@hacado/types/services";
 import {
-  Button,
-  Checkbox,
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-  Link,
-  ScrollArea,
-  useTimeZone,
-} from "@hacado/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";

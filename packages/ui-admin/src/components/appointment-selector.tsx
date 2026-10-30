@@ -3,13 +3,11 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types/booking";
-import {
-  cn,
-  ComboboxAsync,
-  IComboboxItem,
-  Skeleton,
-  useTimeZone,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { useTimeZone } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { DateTime } from "luxon";
 import React from "react";
 import { CustomerName } from "./data-table/customer-name";

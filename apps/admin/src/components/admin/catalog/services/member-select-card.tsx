@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
 import type { TeamMemberListModel } from "@hacado/types/users";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,27 +15,28 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
-  DurationInput,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { MemberSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
 import { cva } from "class-variance-authority";
 import { AlertTriangle, GripVertical, Trash, X } from "lucide-react";
 import React from "react";

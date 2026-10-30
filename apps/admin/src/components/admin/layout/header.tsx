@@ -1,6 +1,8 @@
 import { getSession, getWebsiteUrl } from "@/app/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Link, Separator, SidebarTrigger } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
+import { Separator } from "@hacado/ui/separator";
+import { SidebarTrigger } from "@hacado/ui/sidebar";
 import { canReadActivity } from "@hacado/utils";
 import { Globe2 } from "lucide-react";
 import { ActivityFeedHeaderButton } from "./activity-feed-header-button";

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import {
   useCodeBlockCombobox,
   useCodeBlockComboboxState,
@@ -10,17 +10,15 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 // Prism must be imported before all language files
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Command,
   CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 
 import Prism from "prismjs";
 import "prismjs/components/prism-antlr4.js";

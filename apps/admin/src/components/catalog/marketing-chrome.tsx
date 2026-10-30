@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 

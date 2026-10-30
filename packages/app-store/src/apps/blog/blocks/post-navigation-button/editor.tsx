@@ -4,7 +4,7 @@ import { useCurrentBlock } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { useI18n } from "@hacado/i18n/client";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import {
   BlogPublicKeys,
   BlogPublicNamespace,

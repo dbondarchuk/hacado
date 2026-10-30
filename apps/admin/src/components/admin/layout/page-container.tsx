@@ -1,4 +1,4 @@
-import { ScrollArea } from "@hacado/ui";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import React from "react";
 
 export default function PageContainer({

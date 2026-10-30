@@ -2,13 +2,12 @@
 
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
+import { useConfig, useTextMessaging } from "@hacado/ui/context";
 import {
   SmsConsentChoice,
-  smsPolicyRichTags,
-  useConfig,
-  useTextMessaging,
   waitlistSmsConsentKind,
-} from "@hacado/ui";
+} from "@hacado/ui/sms-consent-choice";
+import { smsPolicyRichTags } from "@hacado/ui/sms-consent-field";
 import React, { useEffect, useState } from "react";
 import { CustomerWaitlistTextOffer } from "../customer-waitlist-text";
 import {

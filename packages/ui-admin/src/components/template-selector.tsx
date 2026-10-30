@@ -2,7 +2,8 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CommunicationChannel } from "@hacado/types/communication";
 import { TemplateListModel } from "@hacado/types/templates";
-import { cn, Combobox, IComboboxItem } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import React from "react";
 import { toast } from "sonner";
 

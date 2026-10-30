@@ -8,7 +8,7 @@ import { useBlockEditor } from "@hacado/builder/overlay";
 import { ReplaceOriginalColors } from "@hacado/page-builder-base/helpers";
 import { getFontFamily } from "@hacado/page-builder-base/reader";
 import { COLORS, getColorStyle } from "@hacado/page-builder-base/style";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { PageLayoutProps } from "./schema";
 
 export const PageLayoutEditor = () => {

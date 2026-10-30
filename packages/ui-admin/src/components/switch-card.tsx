@@ -1,6 +1,9 @@
 "use client";
 
-import { cn, Label, Skeleton, Switch } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Label } from "@hacado/ui/label";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { Switch } from "@hacado/ui/switch";
 import React from "react";
 
 export type SwitchCardProps = {

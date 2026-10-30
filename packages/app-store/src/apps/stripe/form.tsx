@@ -3,7 +3,9 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
-import { Button, Spinner, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import {
   Elements,
   PaymentElement,

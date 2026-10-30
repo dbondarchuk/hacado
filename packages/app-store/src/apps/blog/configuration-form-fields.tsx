@@ -7,8 +7,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  Switch,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Switch } from "@hacado/ui/switch";
 import { UseFormReturn } from "react-hook-form";
 import { BlogConfiguration } from "./models";
 import {

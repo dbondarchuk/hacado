@@ -1,7 +1,7 @@
 "use client";
 
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { Link2, Unlink2 } from "lucide-react";
 import React from "react";
 import {

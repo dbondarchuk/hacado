@@ -1,13 +1,13 @@
 import { useI18n } from "@hacado/i18n/client";
 import { Leaves } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { Sketch } from "@uiw/react-color";
 import { X } from "lucide-react";

@@ -7,22 +7,21 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import {
-  EmailField,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  NameField,
-  PhoneField,
-  Textarea,
-  ToggleGroup,
-  ToggleGroupItem,
-  usePrevious,
+} from "@hacado/ui/form";
+import { EmailField, NameField, PhoneField } from "@hacado/ui/forms";
+import { usePrevious } from "@hacado/ui/hooks";
+import {
   useSyncSmsConsentField,
   waitlistSmsConsentKind,
-} from "@hacado/ui";
+} from "@hacado/ui/sms-consent-choice";
+import { Textarea } from "@hacado/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 
 import {
   waitlistRequestDates,

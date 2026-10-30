@@ -1,6 +1,6 @@
 "use client";
 
-import { AutoSkeleton } from "@hacado/ui";
+import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFormById } from "../../actions";

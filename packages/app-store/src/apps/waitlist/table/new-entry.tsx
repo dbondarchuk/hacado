@@ -3,7 +3,15 @@ import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon, AppointmentOption } from "@hacado/types/booking";
 import { CustomerListModel } from "@hacado/types/customers";
 import {
-  Button,
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit";
+import { AddonSelector } from "@hacado/ui-admin/addon-selector";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { ServiceSelector } from "@hacado/ui-admin/service-selector";
+import { Button } from "@hacado/ui/button";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,31 +20,22 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DurationInput,
+} from "@hacado/ui/dialog";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  ScrollArea,
-  Spinner,
-  Textarea,
-  ToggleGroup,
-  ToggleGroupItem,
-  toastPromise,
-  waitlistSmsConsentKind,
-} from "@hacado/ui";
-import {
-  AddonSelector,
-  CustomerSelector,
-  ServiceSelector,
-  useReload,
-} from "@hacado/ui-admin";
-import {
-  SmsConsentAttest,
-  useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui/form";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { waitlistSmsConsentKind } from "@hacado/ui/sms-consent-choice";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { DateTime } from "luxon";

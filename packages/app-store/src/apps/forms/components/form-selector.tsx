@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Lock } from "lucide-react";
 import React from "react";
 import { getForms } from "../actions";

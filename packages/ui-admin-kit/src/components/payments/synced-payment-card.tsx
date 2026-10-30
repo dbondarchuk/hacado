@@ -6,15 +6,12 @@ import {
   HydratedSyncedPayment,
   SyncedPaymentStatus,
 } from "@hacado/types/booking";
-import {
-  Button,
-  Card,
-  Link,
-  cn,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerName } from "@hacado/ui-admin";
+import { CustomerName } from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
+import { Card } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import {
   ArrowLeftRight,
   Check,

@@ -5,7 +5,8 @@ import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DiscountUpdateModel } from "@hacado/types/booking";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import { Metadata } from "next/types";
 

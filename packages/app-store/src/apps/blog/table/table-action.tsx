@@ -1,13 +1,13 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Link } from "@hacado/ui";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
 import {
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import React from "react";
 import {

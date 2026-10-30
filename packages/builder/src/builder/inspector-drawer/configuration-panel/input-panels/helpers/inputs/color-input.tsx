@@ -1,12 +1,8 @@
 import React from "react";
 
-import {
-  Button,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Label } from "@hacado/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { Sketch } from "@uiw/react-color";
 import { Plus } from "lucide-react";
 import { ResetButton } from "./reset-button";

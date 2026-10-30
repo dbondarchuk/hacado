@@ -12,29 +12,33 @@ import {
   professionMatchesSearch,
 } from "@/components/install/catalog";
 import { Language, useI18n, useLocale } from "@hacado/i18n/client";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrency } from "@hacado/ui/context";
 import {
-  Badge,
-  Button,
-  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Input,
-  Label,
-  Link,
-  Markdown,
+} from "@hacado/ui/dropdown-menu";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { Link } from "@hacado/ui/link";
+import { Markdown } from "@hacado/ui/markdown";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCurrency,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { durationToTime, formatAmountWithCurrency } from "@hacado/utils";
 import { ArrowLeft, ChevronDown, Lock, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";

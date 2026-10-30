@@ -4,7 +4,7 @@ import {
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
 import { Appointment } from "@hacado/types/booking";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { redirect } from "next/navigation";
 import { ConfirmationCard } from "./confirmation-card";
 import { BookingConfirmationReaderProps } from "./schema";

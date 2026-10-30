@@ -1,11 +1,7 @@
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  Label,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Label } from "@hacado/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import React from "react";
 import { Breakpoint, breakpoints } from "../../style/zod";
 

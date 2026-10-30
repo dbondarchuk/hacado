@@ -1,6 +1,6 @@
 import React from "react";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { Check } from "lucide-react";
 
 export function CheckboxStatic({

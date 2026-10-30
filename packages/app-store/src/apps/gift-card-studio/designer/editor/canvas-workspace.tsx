@@ -4,7 +4,9 @@ import type React from "react";
 
 import { useI18n } from "@hacado/i18n/client";
 import type { UploadedFile } from "@hacado/types/assets";
-import { cn, toast, useIsMac, useUploadFile } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useIsMac, useUploadFile } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   GiftCardStudioAdminKeys,

@@ -14,8 +14,10 @@ import {
   teamsSearchParamsSerializer,
 } from "@hacado/api-sdk";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Button, Heading } from "@hacado/ui";
-import { DataTableSkeleton } from "@hacado/ui-admin";
+import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Button } from "@hacado/ui/button";
+import { Heading } from "@hacado/ui/heading";
 import { canManageTeam } from "@hacado/utils";
 import { Metadata } from "next";
 import Link from "next/link";

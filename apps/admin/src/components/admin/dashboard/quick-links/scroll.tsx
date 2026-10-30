@@ -2,7 +2,8 @@
 
 import { useHasDashboardNotifications } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { useI18n } from "@hacado/i18n/client";
-import { cn, Link } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Link } from "@hacado/ui/link";
 import React from "react";
 import type { QuickLinkRenderItem } from "./types";
 import { recordQuickLinkUsageAction } from "./usage-actions";

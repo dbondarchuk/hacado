@@ -1,6 +1,6 @@
 import { RawDoubleNumberInput } from "@hacado/builder/inputs";
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
-import { Combobox } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
 import { Move } from "lucide-react";
 import * as z from "zod";
 import { StyleDefinition } from "../../types";

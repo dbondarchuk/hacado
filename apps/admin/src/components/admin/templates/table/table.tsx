@@ -4,7 +4,7 @@ import {
   templateSearchParams,
   templateSearchParamsCache,
 } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const TemplatesTable: React.FC = async () => {

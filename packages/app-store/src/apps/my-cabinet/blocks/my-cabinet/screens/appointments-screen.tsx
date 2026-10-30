@@ -10,19 +10,18 @@ import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
 } from "@hacado/types/booking";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Badge,
-  Button,
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Combobox,
-  IComboboxItem,
-  Skeleton,
-  toast,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import { durationToTime } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import {

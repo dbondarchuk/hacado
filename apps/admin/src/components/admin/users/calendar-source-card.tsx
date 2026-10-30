@@ -1,6 +1,7 @@
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import { CalendarSourceConfiguration } from "@hacado/types/configuration/booking";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,18 +12,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import {
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-} from "@hacado/ui";
-import { AppSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
 import { Trash } from "lucide-react";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";

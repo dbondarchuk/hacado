@@ -3,7 +3,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { DateTime } from "luxon";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { formatDate } from "./formats";

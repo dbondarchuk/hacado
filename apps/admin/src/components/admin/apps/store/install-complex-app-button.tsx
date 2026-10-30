@@ -17,12 +17,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  Checkbox,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { filterInstallDefaultScopesForUser } from "@hacado/utils";
 import React from "react";
 import {

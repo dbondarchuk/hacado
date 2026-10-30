@@ -2,17 +2,17 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

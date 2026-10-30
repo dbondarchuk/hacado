@@ -43,9 +43,9 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 
 const turnIntoItems = [
   {

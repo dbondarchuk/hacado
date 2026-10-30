@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Card, CardContent, CardHeader } from "@hacado/ui";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
 import { AlertCircle } from "lucide-react";
 import {
   FormsPublicKeys,

@@ -2,7 +2,7 @@
 
 import { authClient } from "@/app/auth-client";
 import { useI18n } from "@hacado/i18n/client";
-import { toast } from "@hacado/ui";
+import { toast } from "@hacado/ui/sonner";
 import { useRouter } from "next/navigation";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useEffect } from "react";

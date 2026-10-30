@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 
-import { useIsTouchDevice } from "@hacado/ui";
+import { useIsTouchDevice } from "@hacado/ui/hooks";
 import { AIChatPlugin } from "@udecode/plate-ai/react";
 import { BlockquotePlugin } from "@udecode/plate-block-quote/react";
 import { HEADING_KEYS } from "@udecode/plate-heading";
@@ -23,7 +23,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/context-menu";
 
 type Value = "askAI" | null;
 

@@ -1,7 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { Archive } from "lucide-react";
 import React from "react";
 import { getDesigns } from "../../actions";

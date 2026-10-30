@@ -2,8 +2,9 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Payment, PaymentSummary } from "@hacado/types/booking";
+import { AddUpdatePaymentDialog, PaymentCard } from "@hacado/ui-admin-kit";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,11 +13,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  Skeleton,
-  toast,
-} from "@hacado/ui";
-import { AddUpdatePaymentDialog, PaymentCard } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import { BanknoteArrowUp } from "lucide-react";
 import { useState } from "react";
 

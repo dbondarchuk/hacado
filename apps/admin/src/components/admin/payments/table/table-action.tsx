@@ -6,7 +6,7 @@ import {
   paymentStatus,
   paymentType,
 } from "@hacado/types/booking";
-import { cn } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   AppointmentsDataTableAsyncFilterBox,
   CustomersDataTableAsyncFilterBox,
@@ -14,8 +14,8 @@ import {
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
 
 import React from "react";
 import { AddPaymentButton } from "../add-payment-button";

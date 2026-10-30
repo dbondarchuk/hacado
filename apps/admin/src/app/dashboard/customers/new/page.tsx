@@ -3,7 +3,8 @@ import PageContainer from "@/components/admin/layout/page-container";
 import { assertPageHasPermission } from "@/lib/auth/assert-page-permission";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 
 type Props = PageProps<"/dashboard/customers/new">;

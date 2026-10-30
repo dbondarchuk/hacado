@@ -6,8 +6,8 @@ import {
   CommunicationChannel,
   CommunicationLogContentPayload,
 } from "@hacado/types/communication";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -15,11 +15,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  IFrame,
-  Markdown,
-  Skeleton,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { IFrame } from "@hacado/ui/iframe";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import JsonView from "@uiw/react-json-view";
 import * as React from "react";
 

@@ -5,6 +5,8 @@ import {
   DefaultAppsConfiguration,
   defaultAppsConfigurationSchema,
 } from "@hacado/types/configuration/apps";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   Form,
   FormControl,
@@ -13,9 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  toastPromise,
-} from "@hacado/ui";
-import { AppSelector, SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

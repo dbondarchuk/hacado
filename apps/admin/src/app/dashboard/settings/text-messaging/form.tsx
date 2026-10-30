@@ -4,6 +4,9 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import type { TextMessagingSettingsInput } from "@hacado/types/text-message/registration";
 import { textMessagingSettingsFormSchema } from "@hacado/types/text-message/registration";
+import { PageSelector } from "@hacado/ui-admin/page-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   Form,
   FormControl,
@@ -12,9 +15,8 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  toastPromise,
-} from "@hacado/ui";
-import { PageSelector, SaveButton, SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -2,17 +2,14 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
-  Button,
-  Combobox,
-  Label,
-  Spinner,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
+import { Label } from "@hacado/ui/label";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { GoogleCalendarApp } from "./app";
 import { CalendarListItem, RequestAction } from "./models";

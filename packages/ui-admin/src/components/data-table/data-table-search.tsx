@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, Input } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Input } from "@hacado/ui/input";
 import { Options } from "nuqs";
 import { useTransition } from "react";
 

@@ -1,7 +1,7 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Card, CardContent, CardHeader } from "@hacado/ui";
 import { AppointmentCard } from "@hacado/ui-admin-kit";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
 import {
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,

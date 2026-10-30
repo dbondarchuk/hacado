@@ -107,9 +107,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  ToolbarButton,
   useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { EditorStatic } from "./editor-static";
 import { EquationElementStatic } from "./equation-element-static";
 import { InlineEquationElementStatic } from "./inline-equation-element-static";

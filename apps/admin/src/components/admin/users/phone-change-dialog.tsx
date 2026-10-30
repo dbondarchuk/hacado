@@ -4,8 +4,8 @@ import { updateMyPhone } from "@/app/dashboard/users/me/profile/update-phone-act
 import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
 import { useI18n } from "@hacado/i18n/client";
 import { zPhone } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -14,6 +14,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -21,10 +23,10 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  PhoneInput,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

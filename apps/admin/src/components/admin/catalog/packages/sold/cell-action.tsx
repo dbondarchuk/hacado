@@ -8,20 +8,20 @@ import {
   CustomerPackageListModel,
 } from "@hacado/types/booking";
 import {
-  Button,
+  AdjustPackageCreditsDialog,
+  canAdjustCustomerPackageCredits,
+  CancelCustomerPackageDialog,
+  ReactivateCustomerPackageDialog,
+} from "@hacado/ui-admin-kit";
+import { Button } from "@hacado/ui/button";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@hacado/ui";
-import {
-  AdjustPackageCreditsDialog,
-  canAdjustCustomerPackageCredits,
-  CancelCustomerPackageDialog,
-  ReactivateCustomerPackageDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dropdown-menu";
 import {
   CalendarDays,
   CalendarPlus,

@@ -2,9 +2,14 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import {
-  Badge,
-  Button,
-  Checkbox,
+  tableSortHeader,
+  tableSortNoopFunction,
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,10 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Link,
-  useTimeZone,
-} from "@hacado/ui";
-import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { BlogCommentListItem } from "../../models";

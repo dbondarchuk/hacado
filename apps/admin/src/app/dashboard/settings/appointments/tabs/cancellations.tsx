@@ -4,18 +4,14 @@ import {
   AppointmentWithoutDepositCancellationPolicyRow,
 } from "@hacado/types/configuration/booking";
 import {
-  Badge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  FormField,
-} from "@hacado/ui";
-import { NonSortable, SwitchCardFormItem } from "@hacado/ui-admin";
-import {
   CancellationPolicyCard,
   CancellationPolicyCardContent,
 } from "@hacado/ui-admin-kit";
+import { NonSortable } from "@hacado/ui-admin/non-sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Badge } from "@hacado/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { FormField } from "@hacado/ui/form";
 import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { TabProps } from "./types";

@@ -4,7 +4,9 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppScope, ConnectedApp } from "@hacado/types/apps";
 import { Prettify } from "@hacado/types/utils";
-import { cn, Combobox, ComboboxProps, IComboboxItem, toast } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, ComboboxProps, IComboboxItem } from "@hacado/ui/combobox";
+import { toast } from "@hacado/ui/sonner";
 import React from "react";
 import {
   ConnectedAppAccount,

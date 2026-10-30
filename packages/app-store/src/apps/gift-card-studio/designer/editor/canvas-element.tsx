@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { cn, Icon, IconName, useCurrencyFormat } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Icon, IconName } from "@hacado/ui/icon";
 import { Lock } from "lucide-react";
 import { DateTime } from "luxon";
 import type React from "react";

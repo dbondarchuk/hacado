@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Breadcrumbs, Card, CardContent, CardHeader, Label } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { Label } from "@hacado/ui/label";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getFormById } from "../../actions";

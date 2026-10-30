@@ -3,7 +3,7 @@ import {
   activitiesSearchParams,
   activitiesSearchParamsCache,
 } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import React from "react";
 import { columns } from "./columns";
 

@@ -1,8 +1,12 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { ConnectedAppStatusMessage } from "@hacado/ui-admin/connected-app-properties";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { DurationInput } from "@hacado/ui/duration-input";
 import {
-  DurationInput,
   Form,
   FormControl,
   FormDescription,
@@ -10,14 +14,8 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Skeleton,
-} from "@hacado/ui";
-import {
-  ConnectedAppStatusMessage,
-  SaveButton,
-  SwitchCardFormItem,
-  TemplateSelector,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { CustomerPackageEmailNotificationApp } from "./app";

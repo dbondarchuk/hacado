@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import React from "react";
 import { BaseStyleDictionary, StyleValue } from "../style";
 import { getColorStyle } from "../style/helpers/colors";

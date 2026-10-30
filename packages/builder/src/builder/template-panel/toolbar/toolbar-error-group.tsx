@@ -1,15 +1,10 @@
 "use client";
 
 import { AllKeys, BuilderKeys, useI18n } from "@hacado/i18n/client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ScrollArea,
-  Separator,
-  ToolbarButton,
-  ToolbarGroup,
-} from "@hacado/ui";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { Separator } from "@hacado/ui/separator";
+import { ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
 import { AlertTriangle, Check, TriangleAlert } from "lucide-react";
 import { Fragment, useMemo } from "react";
 import {

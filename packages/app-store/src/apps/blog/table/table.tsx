@@ -6,8 +6,9 @@ import { searchParams } from "./search-params";
 
 import { useI18n } from "@hacado/i18n/client";
 import { WithTotal } from "@hacado/types/database";
-import { toast, useDebounce } from "@hacado/ui";
-import { DataTable, DataTableSkeleton } from "@hacado/ui-admin";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { useDebounce } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { getBlogPosts } from "../actions";
 import { BlogPost } from "../models";
 import {

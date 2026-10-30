@@ -2,11 +2,12 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
-import { Button, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import { Spinner } from "@hacado/ui/spinner";
 import * as z from "zod";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { AutomaticStructuredDataApp } from "./app";

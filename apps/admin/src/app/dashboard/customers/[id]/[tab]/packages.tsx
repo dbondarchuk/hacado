@@ -6,17 +6,17 @@ import {
   appointmentStatuses,
   CustomerPackageListModel,
 } from "@hacado/types/booking";
+import { CustomerPackageActions } from "@hacado/ui-admin-kit";
+import { Badge } from "@hacado/ui/badge";
 import {
-  Badge,
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  Link,
-  Skeleton,
-} from "@hacado/ui";
-import { CustomerPackageActions } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/card";
+import { Link } from "@hacado/ui/link";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { CalendarDays, CalendarPlus } from "lucide-react";
 import { Suspense } from "react";
 

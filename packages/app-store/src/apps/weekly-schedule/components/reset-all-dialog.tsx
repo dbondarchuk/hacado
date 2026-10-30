@@ -9,10 +9,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { RotateCcw } from "lucide-react";
 import React from "react";
 import {

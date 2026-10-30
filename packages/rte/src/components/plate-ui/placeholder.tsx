@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { HEADING_KEYS } from "@udecode/plate-heading";
 import {
   ParagraphPlugin,

@@ -1,11 +1,11 @@
 "use client";
 
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   DataTableResetFilter,
   DataTableSearch,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
 import { hasPermission } from "@hacado/utils";
 import { DeleteSelectedServicesButton } from "./delete-selected";
 import { useAddonsTableFilters } from "./use-table-filters";

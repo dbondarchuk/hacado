@@ -8,23 +8,25 @@ import type {
   PostalAddress,
 } from "@hacado/types/utils";
 import { formatPostalAddress } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Loader } from "@hacado/ui/combobox";
 import {
-  Button,
-  cn,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
+} from "@hacado/ui/command";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  Loader,
-  useDebounce,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { useDebounce } from "@hacado/ui/hooks";
 import React from "react";
 
 export type AddressAutocompleteProps = {

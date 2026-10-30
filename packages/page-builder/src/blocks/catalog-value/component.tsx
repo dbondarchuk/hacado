@@ -2,7 +2,8 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn, Markdown } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Markdown } from "@hacado/ui/markdown";
 import type React from "react";
 import type { ResolvedCatalogValue } from "./format";
 import type { CatalogValueProps } from "./schema";

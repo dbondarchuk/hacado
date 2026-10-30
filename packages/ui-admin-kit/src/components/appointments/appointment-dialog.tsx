@@ -2,8 +2,8 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -11,8 +11,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Link,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { SquareArrowOutUpRight } from "lucide-react";
 import React from "react";

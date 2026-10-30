@@ -1,15 +1,15 @@
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Button } from "@hacado/ui/button";
+import { Label } from "@hacado/ui/label";
 import {
-  Button,
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Slider,
-} from "@hacado/ui";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Slider } from "@hacado/ui/slider";
 import { Image, Plus, Trash2 } from "lucide-react";
 import * as z from "zod";
 import { ColorExtendedInput } from "../../../style-inputs/base/color-exteneded-input";

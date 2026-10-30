@@ -1,14 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  Badge,
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { Settings2 } from "lucide-react";
 import React, { useLayoutEffect, useRef, useState } from "react";
 

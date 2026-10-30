@@ -18,10 +18,12 @@ import {
   paymentLinkPaymentMethod,
   paymentType,
 } from "@hacado/types/booking";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { GiftCardSelector } from "@hacado/ui-admin/gift-card-selector";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useCurrencySymbol, useTimeZone } from "@hacado/ui/context";
 import {
-  Button,
-  cn,
-  DateTimePicker,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -29,6 +31,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
@@ -36,27 +40,28 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  Textarea,
-  toast,
-  toastPromise,
-  TooltipButton,
-  use12HourFormat,
-  useCurrencySymbol,
-  useTimeZone,
-} from "@hacado/ui";
-import { CustomerSelector, GiftCardSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Textarea } from "@hacado/ui/textarea";
+import { DateTimePicker } from "@hacado/ui/time-picker";
+import { TooltipButton } from "@hacado/ui/tooltip";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil, X } from "lucide-react";
 import { DateTime } from "luxon";

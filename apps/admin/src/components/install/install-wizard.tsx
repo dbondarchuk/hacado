@@ -35,7 +35,7 @@ import type {
 import { WEBSITE_PACK_IDS } from "@hacado/page-builder/templates";
 import type { ConnectedApp } from "@hacado/types/apps";
 import type { Schedule } from "@hacado/types/configuration/schedule";
-import { Spinner } from "@hacado/ui";
+import { Spinner } from "@hacado/ui/spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 function isRememberedWebsitePack(value: string | null): value is string {

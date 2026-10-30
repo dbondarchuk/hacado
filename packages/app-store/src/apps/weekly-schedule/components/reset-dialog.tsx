@@ -10,10 +10,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { getWeekIdentifier } from "@hacado/utils";
 import { UndoDot } from "lucide-react";
 import { DateTime } from "luxon";

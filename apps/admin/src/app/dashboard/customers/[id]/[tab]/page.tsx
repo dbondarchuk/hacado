@@ -22,22 +22,22 @@ import { CustomerTabInjectorApps } from "@hacado/app-store/injectors/customer-ta
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  Breadcrumbs,
-  Heading,
-  Link,
-  ResponsiveTabsList,
-  TabsContent,
-  TabsTrigger,
-  TabsViaUrl,
-} from "@hacado/ui";
-import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin";
-import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsPortal,
   HeaderActionButtonsProvider,
   RecentCommunications,
   SendCommunicationButton,
 } from "@hacado/ui-admin-kit";
+import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
+import {
+  ResponsiveTabsList,
+  TabsContent,
+  TabsTrigger,
+  TabsViaUrl,
+} from "@hacado/ui/tabs";
 import { hasPermission } from "@hacado/utils";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";

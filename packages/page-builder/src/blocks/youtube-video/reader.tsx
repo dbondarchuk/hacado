@@ -2,7 +2,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { YouTubeVideoPropsDefaults, YouTubeVideoReaderProps } from "./schema";
 import { styles } from "./styles";
 import { getDefaults } from "./styles.default";

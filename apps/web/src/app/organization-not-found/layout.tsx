@@ -1,4 +1,4 @@
-import { SonnerToaster } from "@hacado/ui";
+import { SonnerToaster } from "@hacado/ui/sonner";
 import type { ReactNode } from "react";
 
 import type { Metadata } from "next";

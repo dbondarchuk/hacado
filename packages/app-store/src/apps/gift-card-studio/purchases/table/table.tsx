@@ -2,8 +2,10 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { WithTotal } from "@hacado/types/database";
-import { toast, useDebounce } from "@hacado/ui";
-import { DataTable, DataTableSkeleton, useReload } from "@hacado/ui-admin";
+import { DataTable, DataTableSkeleton } from "@hacado/ui-admin/data-table";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { useDebounce } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
 import { useQueryStates } from "nuqs";
 import React from "react";
 import { getPurchasedGiftCards } from "../../actions";

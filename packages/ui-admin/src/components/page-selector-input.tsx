@@ -2,15 +2,14 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { PageListModelWithUrl } from "@hacado/types/pages";
+import { Button } from "@hacado/ui/button";
+import { Input, inputVariants } from "@hacado/ui/input";
 import {
-  Button,
-  Input,
   InputGroup,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  inputVariants,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
 import { VariantProps } from "class-variance-authority";
 import React from "react";
 import { PageSelectorDialog } from "./page-selector-dialog";

@@ -1,16 +1,10 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Link,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  cn,
-  useTimeZone,
-} from "@hacado/ui";
-import { MemberName } from "@hacado/ui-admin";
+import { MemberName } from "@hacado/ui-admin/data-table";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { durationToTime } from "@hacado/utils";
 import { CalendarClock, Clock, Timer, Video } from "lucide-react";
 import { DateTime } from "luxon";

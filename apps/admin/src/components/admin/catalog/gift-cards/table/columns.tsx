@@ -2,22 +2,19 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import {
-  Badge,
-  Button,
-  Checkbox,
-  Link,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
+  GiftCardPaymentsDialog,
+  PaymentDetailsDialog,
+} from "@hacado/ui-admin-kit";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
-import {
-  GiftCardPaymentsDialog,
-  PaymentDetailsDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { parseAsString, useQueryState } from "nuqs";

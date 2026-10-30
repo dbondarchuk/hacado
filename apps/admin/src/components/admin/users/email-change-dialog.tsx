@@ -2,8 +2,8 @@
 import { authClient } from "@/app/auth-client";
 import { useI18n } from "@hacado/i18n/client";
 import { zEmail } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,6 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -20,13 +22,11 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

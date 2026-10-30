@@ -12,7 +12,8 @@ import {
   type SocialAuthProvider,
 } from "@/lib/auth/social-auth-providers";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
 import { Link2, Lock, Mail, Phone } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

@@ -13,12 +13,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toastPromise,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Trash } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

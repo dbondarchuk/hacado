@@ -3,8 +3,12 @@
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
-  BooleanSelect,
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -13,13 +17,9 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { SmtpApp } from "./app";

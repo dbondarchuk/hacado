@@ -4,7 +4,7 @@ import {
   generateClassName,
 } from "@hacado/page-builder-base/reader";
 import { PlateStaticEditor } from "@hacado/rte";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useMemo } from "react";
 import { BlogPublicAllKeys } from "../../translations/types";
 import { resolveBlogPostDisplayContent } from "./resolve-display-content";

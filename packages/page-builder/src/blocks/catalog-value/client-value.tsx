@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { useConfig } from "@hacado/ui";
+import { useConfig } from "@hacado/ui/context";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { CatalogValueComponent } from "./component";

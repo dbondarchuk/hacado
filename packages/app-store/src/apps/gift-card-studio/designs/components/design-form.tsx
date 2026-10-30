@@ -2,20 +2,20 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { DatabaseId } from "@hacado/types/database";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { cn } from "@hacado/ui/cn";
 import {
-  Breadcrumbs,
-  cn,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  Input,
-  Spinner,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";

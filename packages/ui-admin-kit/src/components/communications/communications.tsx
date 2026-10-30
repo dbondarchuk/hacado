@@ -8,17 +8,17 @@ import {
   CommunicationLog,
   CommunicationLogStatus,
 } from "@hacado/types/communication";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
+import { useIsMobile } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast } from "@hacado/ui/sonner";
 import {
-  Badge,
-  Button,
-  Skeleton,
-  toast,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useIsMobile,
-  useTimeZone,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { Mail, MailQuestion, MessageSquare, Send } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

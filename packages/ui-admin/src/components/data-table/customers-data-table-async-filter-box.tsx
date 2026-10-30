@@ -6,7 +6,8 @@ import React from "react";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerListModel } from "@hacado/types/customers";
-import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,

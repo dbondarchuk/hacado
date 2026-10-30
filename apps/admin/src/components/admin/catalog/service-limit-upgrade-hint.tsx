@@ -1,6 +1,6 @@
 import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-access";
 import { useI18n } from "@hacado/i18n/client";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import Link from "next/link";
 
 export function ServiceLimitUpgradeHint({

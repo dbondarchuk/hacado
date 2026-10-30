@@ -1,4 +1,4 @@
-import { Link } from "@hacado/ui";
+import { Link } from "@hacado/ui/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 type Marketing404ContentProps = {

@@ -9,16 +9,15 @@ import {
   ScheduleWeekDay,
 } from "@hacado/types/configuration/schedule";
 import { WeekIdentifier } from "@hacado/types/general";
-import {
-  Badge,
-  Button,
-  Separator,
-  Skeleton,
-  toast,
-  toastPromise,
-  useDebounce,
-} from "@hacado/ui";
-import { MemberSelector, Scheduler, WeekSelector } from "@hacado/ui-admin";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { Scheduler } from "@hacado/ui-admin/scheduler";
+import { WeekSelector } from "@hacado/ui-admin/week-selector";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Separator } from "@hacado/ui/separator";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";

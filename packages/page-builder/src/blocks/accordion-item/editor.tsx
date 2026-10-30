@@ -9,7 +9,7 @@ import {
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { BlockFilterRule } from "@hacado/builder/types";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useAccordion } from "../accordion/context";
 import { ItemIcon } from "./icon";
 import { AccordionItemProps } from "./schema";

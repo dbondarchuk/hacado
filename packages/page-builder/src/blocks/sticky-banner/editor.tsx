@@ -7,7 +7,7 @@ import {
 } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { X } from "lucide-react";
 import { StickyBannerProps } from "./schema";
 import { styles } from "./styles";

@@ -3,7 +3,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { AccordionClient } from "./accordion.client";
 import { getInitialOpenItemIds } from "./open-state";
 import { AccordionReaderProps } from "./schema";

@@ -2,18 +2,18 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
+import { useAuth } from "@hacado/ui-admin/context";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { hasPermission } from "@hacado/utils";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";

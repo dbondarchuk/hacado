@@ -1,5 +1,7 @@
 import { useI18n } from "@hacado/i18n/client";
-import { toast, ToolbarButton, ToolbarGroup, useUploadFile } from "@hacado/ui";
+import { useUploadFile } from "@hacado/ui/hooks";
+import { toast } from "@hacado/ui/sonner";
+import { ToolbarButton, ToolbarGroup } from "@hacado/ui/toolbar";
 import { ClipboardCopy, ClipboardPaste } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import {

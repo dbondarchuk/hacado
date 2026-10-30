@@ -2,8 +2,8 @@
 
 import { setUserPassword } from "@/app/dashboard/users/me/profile/set-password-action";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -12,16 +12,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-  toast,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";

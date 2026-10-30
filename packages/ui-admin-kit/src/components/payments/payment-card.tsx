@@ -8,18 +8,17 @@ import {
   PaymentStatus,
   PaymentSummary,
 } from "@hacado/types/booking";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  Badge,
-  Button,
-  Link,
-  toastPromise,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCurrencyFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+} from "@hacado/ui/tooltip-responsive";
 import { canManageSyncedPayments } from "@hacado/utils";
 import {
   Ban,

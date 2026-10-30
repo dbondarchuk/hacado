@@ -34,13 +34,9 @@ import {
   useClassName,
   useResizeBlockStyles,
 } from "@hacado/page-builder-base/helpers";
-import {
-  Button,
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { motion } from "framer-motion";
 import { GripVertical, Plus, Settings, Trash2 } from "lucide-react";
 import {

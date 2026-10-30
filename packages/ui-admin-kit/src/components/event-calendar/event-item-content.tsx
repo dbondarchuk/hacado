@@ -1,8 +1,9 @@
 "use client";
 
 import { useLocale } from "@hacado/i18n/client";
-import { cn, useTimeZone } from "@hacado/ui";
-import { MemberName } from "@hacado/ui-admin";
+import { MemberName } from "@hacado/ui-admin/data-table";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
 import { User } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

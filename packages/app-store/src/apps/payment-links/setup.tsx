@@ -4,8 +4,21 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
-  ComboboxAsync,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import {
+  CustomTextTemplateSelect,
+  renderBuiltInSms,
+  SmsMessagePreview,
+  smsPreviewLanguage,
+  useSmsPreviewArgs,
+} from "@hacado/ui-admin/sms-example";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { Button } from "@hacado/ui/button";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -13,30 +26,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  Input,
-  Link,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Skeleton,
-  Spinner,
-  Switch,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  CustomTextTemplateSelect,
-  renderBuiltInSms,
-  SmsMessagePreview,
-  smsPreviewLanguage,
-  TemplateSelector,
-  useSmsPreviewArgs,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { Switch } from "@hacado/ui/switch";
 import { Plus, Trash2 } from "lucide-react";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";

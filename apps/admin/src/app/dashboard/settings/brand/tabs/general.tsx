@@ -11,12 +11,11 @@ import {
   currencyOptions,
   CurrencySymbolMap,
 } from "@hacado/types/utils";
+import { AddressAutocomplete } from "@hacado/ui-admin/address-autocomplete";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   FormControl,
   FormDescription,
   FormField,
@@ -24,11 +23,9 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  Input,
-  PhoneInput,
-} from "@hacado/ui";
-import { AddressAutocomplete, SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { PhoneInput } from "@hacado/ui/phone-input";
 import { getTimeZones } from "@vvo/tzdb";
 import { UseFormReturn } from "react-hook-form";
 import { SiteSettingsFormValues } from "../site-settings-schema";

@@ -2,8 +2,9 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { Payment } from "@hacado/types/booking";
-import { dispatchDashboardBadge, useReload } from "@hacado/ui-admin";
 import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { dispatchDashboardBadge } from "@hacado/ui-admin/notifications";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {

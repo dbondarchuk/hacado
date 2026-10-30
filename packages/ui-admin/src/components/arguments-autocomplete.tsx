@@ -1,4 +1,5 @@
-import { InputProps, TextareaProps } from "@hacado/ui";
+import { InputProps } from "@hacado/ui/input";
+import { TextareaProps } from "@hacado/ui/textarea";
 import { propertiesToArray } from "@hacado/utils";
 import React from "react";
 import { ContentEditableMentions } from "./content-editable-mention";

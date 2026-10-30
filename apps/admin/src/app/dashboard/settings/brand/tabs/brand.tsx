@@ -4,13 +4,11 @@ import { LanguageOptions } from "@/constants/texts";
 import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { languages, useI18n } from "@hacado/i18n/client";
 import { zNonEmptyString } from "@hacado/types/utils";
+import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Combobox } from "@hacado/ui/combobox";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Combobox,
   Dialog,
   DialogClose,
   DialogContent,
@@ -19,6 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -27,15 +27,13 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
-  TagInput,
-  Textarea,
-  toast,
-  toastPromise,
-  useClipboard,
-} from "@hacado/ui";
-import { AssetSelectorInput } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useClipboard } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { TagInput } from "@hacado/ui/tag-input";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Plug, Unplug } from "lucide-react";
 import Link from "next/link";

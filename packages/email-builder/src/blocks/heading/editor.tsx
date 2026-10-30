@@ -11,8 +11,8 @@ import {
 } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { usePortalContext } from "@hacado/builder/portal";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
-import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { mergeRefs } from "@hacado/ui/utils";
 import { HeadingProps } from "./schema";
 import { getStyles } from "./styles";
 

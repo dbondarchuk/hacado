@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/card";
 import { Suspense } from "react";
 
 export const AuthLayout = ({

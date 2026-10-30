@@ -21,7 +21,7 @@ import {
   rewriteCatalogUrlsInTree,
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
-import { Button } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

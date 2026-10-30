@@ -7,14 +7,14 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  ScrollArea,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { styles } from "./styles";
 
 export const PopupReader = ({

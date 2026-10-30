@@ -1,16 +1,16 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { AllKeys, useI18n, ValidationKeys } from "@hacado/i18n/client";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  cn,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-} from "@hacado/ui";
+} from "@hacado/ui/input-group";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 

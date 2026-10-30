@@ -1,12 +1,12 @@
 import { TextInput } from "@hacado/builder/inputs";
 import { BaseBlockProps as BaseBlockPropsType } from "@hacado/builder/types";
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
 import {
-  cn,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/collapsible";
 import { ChevronRight, Eclipse, Hash } from "lucide-react";
 import { useState } from "react";
 

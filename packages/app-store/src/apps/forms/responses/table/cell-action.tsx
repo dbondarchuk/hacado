@@ -1,9 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { useReload } from "@hacado/ui-admin/hooks";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -11,16 +13,17 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Label,
-  toastPromise,
-} from "@hacado/ui";
-import { CustomerSelector, useReload } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
 import { MoreHorizontal, Pencil, Trash2, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

@@ -1,10 +1,11 @@
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentView,
   AppointmentViewButtons,
   AppointmentViewProvider,
 } from "@hacado/ui-admin-kit";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";
 import React from "react";
 import { AppointmentDeclineDialogWrapper } from "./appointment-decline-dialog";

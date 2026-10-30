@@ -14,25 +14,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Dialog,
-  DialogContent,
-  DndFileInput,
-  Spinner,
-  toast,
-  toastPromise,
-  useUploadFile,
-} from "@hacado/ui";
+} from "@hacado/ui/carousel";
+import { Dialog, DialogContent } from "@hacado/ui/dialog";
+import { DndFileInput } from "@hacado/ui/dnd-file-input";
+import { useUploadFile } from "@hacado/ui/hooks";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { canUpdateAppointment, mimeTypeToExtension } from "@hacado/utils";
 import { FileIcon, Trash } from "lucide-react";
 // import Image from "next/image";
-import { useAuth } from "@hacado/ui-admin";
+import { useAuth } from "@hacado/ui-admin/context";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { DefaultExtensionType, defaultStyles } from "react-file-icon";

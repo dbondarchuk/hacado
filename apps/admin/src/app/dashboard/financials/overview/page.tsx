@@ -1,10 +1,11 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@hacado/ui-admin-kit";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
 import { FinancialsOverviewLoader } from "./loader";
 

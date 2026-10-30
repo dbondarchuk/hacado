@@ -1,16 +1,16 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button } from "@hacado/ui";
-import {
-  CustomersDataTableAsyncFilterBox,
-  DataTableResetFilter,
-  DataTableSearch,
-} from "@hacado/ui-admin";
 import {
   HeaderActionButtonsPortal,
   ResponsiveFilterBar,
 } from "@hacado/ui-admin-kit";
+import {
+  CustomersDataTableAsyncFilterBox,
+  DataTableResetFilter,
+  DataTableSearch,
+} from "@hacado/ui-admin/data-table";
+import { Button } from "@hacado/ui/button";
 import { ShoppingCart } from "lucide-react";
 import React from "react";
 import {

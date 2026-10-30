@@ -1,16 +1,14 @@
 "use client";
 import { toDateFnsLocale, useI18n, useLocale } from "@hacado/i18n/client";
 import type { Time } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
+import { Calendar, useCalendarDisplayedMonth } from "@hacado/ui/calendar";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  Button,
-  Calendar,
-  Combobox,
-  IComboboxItem,
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useCalendarDisplayedMonth,
-} from "@hacado/ui";
+} from "@hacado/ui/tooltip-responsive";
 import { areTimesEqual, formatTimeLocale } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import * as Locales from "date-fns/locale";

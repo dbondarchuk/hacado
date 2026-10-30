@@ -3,8 +3,8 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerPackageListModel } from "@hacado/types/booking";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,11 +13,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
+import { Input } from "@hacado/ui/input";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Minus, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";

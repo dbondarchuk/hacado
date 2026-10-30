@@ -4,8 +4,14 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
-  ComboboxAsync,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Button } from "@hacado/ui/button";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -13,16 +19,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  IComboboxItem,
-  Skeleton,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  SwitchCardFormItem,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { MyCabinetApp } from "./app";

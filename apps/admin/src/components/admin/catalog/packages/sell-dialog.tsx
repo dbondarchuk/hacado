@@ -10,7 +10,14 @@ import {
 } from "@hacado/types/booking";
 import { zObjectId } from "@hacado/types/utils";
 import {
-  Button,
+  SmsConsentAttest,
+  useCustomerPhoneSmsConsent,
+} from "@hacado/ui-admin-kit";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { Button } from "@hacado/ui/button";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -18,6 +25,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
@@ -25,27 +34,24 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
-  toast,
-  toastPromise,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { CustomerSelector, PackageSelector } from "@hacado/ui-admin";
-import {
-  SmsConsentAttest,
-  useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui/select";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";

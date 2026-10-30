@@ -8,7 +8,7 @@ import {
   useClassName,
 } from "@hacado/page-builder-base/helpers";
 import { BlockStyle } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { normalizeAmountPresets } from "./presets";
 import { GiftCardPurchaseShowcaseReader } from "./reader-component";
 import {

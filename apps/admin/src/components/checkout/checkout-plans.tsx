@@ -3,7 +3,9 @@
 import { createPolarCheckoutSession } from "@/components/checkout/actions";
 import { PolarBillingPlanSlug } from "@/config/polar-billing";
 import { InstallKeys, useI18n } from "@hacado/i18n/client";
-import { Button, Spinner, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Check, Sparkles } from "lucide-react";
 import { useState } from "react";
 

@@ -11,7 +11,7 @@ import { useBlockEditor } from "@hacado/builder/overlay";
 import { usePortalContext } from "@hacado/builder/portal";
 import { BlockFilterRule } from "@hacado/builder/types";
 import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { useCallback } from "react";
 import { ImageProvider } from "../image/context";
 import { BeforeAfterSlider } from "./before-after-slider";

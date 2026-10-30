@@ -18,15 +18,10 @@ import {
 } from "@udecode/plate/react";
 import { Link, Trash2Icon } from "lucide-react";
 
-import {
-  Button,
-  buttonVariants,
-  inputVariants,
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  Separator,
-} from "@hacado/ui";
+import { Button, buttonVariants } from "@hacado/ui/button";
+import { inputVariants } from "@hacado/ui/input";
+import { Popover, PopoverAnchor, PopoverContent } from "@hacado/ui/popover";
+import { Separator } from "@hacado/ui/separator";
 import { CaptionButton } from "./caption";
 
 export interface MediaPopoverProps {

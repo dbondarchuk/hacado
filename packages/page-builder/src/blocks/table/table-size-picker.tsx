@@ -1,13 +1,9 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import {
-  cn,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  ToolbarButton,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Grid3x3 } from "lucide-react";
 import { useCallback, useState } from "react";
 

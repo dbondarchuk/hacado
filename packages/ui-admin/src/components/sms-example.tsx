@@ -3,15 +3,15 @@
 import { adminApi } from "@hacado/api-sdk";
 import { languages, type Language } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
+import { cn } from "@hacado/ui/cn";
 import {
   FormControl,
   FormDescription,
   FormItem,
   FormLabel,
-  Link,
-  Skeleton,
-  cn,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
+import { Link } from "@hacado/ui/link";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
   appendSharedPoolSuffix,
   template as renderTemplate,

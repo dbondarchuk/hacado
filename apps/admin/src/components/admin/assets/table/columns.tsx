@@ -1,20 +1,20 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Asset } from "@hacado/types/assets";
+import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import {
-  Checkbox,
-  Link,
-  TooltipResponsive,
-  TooltipResponsiveContent,
-  TooltipResponsiveTrigger,
-  useTimeZone,
-} from "@hacado/ui";
-import {
-  AssetPreview,
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
+import {
+  TooltipResponsive,
+  TooltipResponsiveContent,
+  TooltipResponsiveTrigger,
+} from "@hacado/ui/tooltip-responsive";
 import { humanFileSize } from "@hacado/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";

@@ -6,7 +6,8 @@ import { EditorBlock, useIsCurrentBlockOverlay } from "../../../editor/block";
 import { TEditorBlock } from "../../../editor/core";
 
 import { useDroppable } from "@dnd-kit/react";
-import { cn, deepMemo } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { deepMemo } from "@hacado/ui/utils";
 import { useFluidDropCollisionPriority } from "../../../../builder/dnd/fluid-drop-collision";
 import { DndContext } from "../../../../types/dndContext";
 import {

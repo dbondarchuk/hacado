@@ -8,15 +8,10 @@ import {
 } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { NavItem } from "@hacado/types/admin";
-import {
-  Breadcrumbs,
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Heading,
-  Link,
-} from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Card, CardDescription, CardHeader, CardTitle } from "@hacado/ui/card";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {

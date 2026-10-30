@@ -13,8 +13,12 @@ import {
   DashboardNotification,
 } from "@hacado/types/apps";
 import type { SessionUser } from "@hacado/types/users";
-import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
-import { applyDashboardBadgeUpdate, resolvedI18nText } from "@hacado/ui-admin";
+import { resolvedI18nText } from "@hacado/ui-admin/hooks";
+import { applyDashboardBadgeUpdate } from "@hacado/ui-admin/notifications";
+import { Badge } from "@hacado/ui/badge";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
 import { useRouter } from "next/navigation";
 import React from "react";
 

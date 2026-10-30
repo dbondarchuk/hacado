@@ -7,7 +7,8 @@ import {
   useClassName,
   useResizeBlockStyles,
 } from "@hacado/page-builder-base/helpers";
-import { cn, Icon } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Icon } from "@hacado/ui/icon";
 import { Ref } from "react";
 import { IconProps } from "./schema";
 import { styles } from "./styles";

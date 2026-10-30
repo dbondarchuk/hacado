@@ -1,6 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
+import { AddonSelector } from "@hacado/ui-admin/addon-selector";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,18 +12,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  cn,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import {
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-} from "@hacado/ui";
-import { AddonSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";

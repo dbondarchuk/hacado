@@ -5,19 +5,17 @@ import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { ConnectedApp } from "@hacado/types/apps";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
 import {
-  Button,
-  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  Tabs,
-  TabsList,
-  TabsTrigger,
-} from "@hacado/ui";
-import { MemberSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { Tabs, TabsList, TabsTrigger } from "@hacado/ui/tabs";
 import { Search, X } from "lucide-react";
 import React from "react";
 

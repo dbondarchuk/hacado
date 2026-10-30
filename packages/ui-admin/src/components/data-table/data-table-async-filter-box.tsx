@@ -1,10 +1,10 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Badge,
-  Button,
-  cn,
   Command,
   CommandEmpty,
   CommandGroup,
@@ -12,14 +12,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Separator,
-  Spinner,
-  toast,
-  useDebounce,
-} from "@hacado/ui";
+} from "@hacado/ui/command";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
+import { Separator } from "@hacado/ui/separator";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { CheckIcon } from "lucide-react";
 import { Options } from "nuqs";

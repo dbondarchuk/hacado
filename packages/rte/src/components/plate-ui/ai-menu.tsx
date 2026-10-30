@@ -21,14 +21,8 @@ import { Loader2Icon } from "lucide-react";
 
 import { useChat } from "../editor/use-chat";
 
-import {
-  Command,
-  CommandList,
-  InputCommand,
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-} from "@hacado/ui";
+import { Command, CommandList, InputCommand } from "@hacado/ui/command";
+import { Popover, PopoverAnchor, PopoverContent } from "@hacado/ui/popover";
 import { AIChatEditor } from "./ai-chat-editor";
 import { AIMenuItems } from "./ai-menu-items";
 

@@ -2,8 +2,8 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment, Payment } from "@hacado/types/booking";
-import { Button } from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
 import { canUpdateAppointment } from "@hacado/utils";
 import { BanknoteArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";

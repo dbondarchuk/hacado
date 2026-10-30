@@ -1,8 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import {
-  Breadcrumbs,
   Form,
   FormControl,
   FormDescription,
@@ -10,11 +13,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton, Sortable, SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";

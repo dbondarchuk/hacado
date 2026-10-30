@@ -2,14 +2,14 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields } from "@hacado/types/booking";
+import { CustomerOtpVerified } from "@hacado/ui/customer-otp-form";
 import {
-  CustomerOtpVerified,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@hacado/ui";
+} from "@hacado/ui/dialog";
 import { BookingOtpForm } from "./otp-form";
 
 type BookingOtpDialogProps = {

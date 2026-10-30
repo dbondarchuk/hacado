@@ -2,7 +2,11 @@
 
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, cn, Link, Spinner, toast } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Link } from "@hacado/ui/link";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { completeInstallSetup } from "../actions";

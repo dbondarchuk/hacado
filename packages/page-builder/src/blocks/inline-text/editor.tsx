@@ -16,7 +16,8 @@ import {
   useResizeBlockStyles,
 } from "@hacado/page-builder-base/helpers";
 import { EditableText, RichTextValue } from "@hacado/rte-inline";
-import { cn, useDebounceCallback } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useDebounceCallback } from "@hacado/ui/hooks";
 import { useCallback, useRef } from "react";
 import { InlineTextProps } from "./schema";
 import { styles } from "./styles";

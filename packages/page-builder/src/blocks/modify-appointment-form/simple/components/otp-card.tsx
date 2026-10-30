@@ -5,18 +5,13 @@ import { useI18n } from "@hacado/i18n/client";
 import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
 import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@hacado/types/customer-auth";
 import { zEmail, zPhone } from "@hacado/types/utils";
-import {
-  Button,
-  Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  PhoneInput,
-  Spinner,
-  ToggleGroup,
-  ToggleGroupItem,
-  toast,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@hacado/ui/input-otp";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
 import { Mail, Phone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useModifyAppointmentFormContext } from "./context";

@@ -1,6 +1,6 @@
 import type { SlateElementProps } from "@udecode/plate";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { SlateElement } from "@udecode/plate";
 
 export const BlockquoteElementStatic = ({

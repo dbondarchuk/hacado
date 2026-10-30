@@ -19,7 +19,10 @@ import {
   catalogNodesAtPath,
   filterCatalogNodes,
 } from "@hacado/types/configuration/booking";
-import { Button, cn, Markdown, Skeleton } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Markdown } from "@hacado/ui/markdown";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import { BookingRestrictionBanner } from "../../components/booking-restriction-banner";

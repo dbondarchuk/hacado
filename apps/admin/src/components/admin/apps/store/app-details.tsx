@@ -5,18 +5,18 @@ import { AppImages } from "@hacado/app-store/images";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getAppScopeUsage } from "@hacado/types/apps";
 import type { SessionUser } from "@hacado/types/users";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Heading,
-  Link,
-  Markdown,
-} from "@hacado/ui";
-import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
+} from "@hacado/ui/carousel";
+import { Heading } from "@hacado/ui/heading";
+import { Link } from "@hacado/ui/link";
+import { Markdown } from "@hacado/ui/markdown";
 import { canInstallApp } from "@hacado/utils";
 import { ArrowLeft } from "lucide-react";
 // import Image from "next/image";

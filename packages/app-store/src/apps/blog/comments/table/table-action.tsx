@@ -1,15 +1,15 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { ButtonGroup } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { ButtonGroup } from "@hacado/ui/button-group";
 
 import React from "react";
 import {

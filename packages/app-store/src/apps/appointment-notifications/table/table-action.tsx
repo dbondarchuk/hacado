@@ -2,17 +2,17 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types/communication";
-import { Link } from "@hacado/ui";
+import {
+  HeaderActionButtonsPortal,
+  ResponsiveFilterBar,
+} from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import {
-  HeaderActionButtonsPortal,
-  ResponsiveFilterBar,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Link } from "@hacado/ui/link";
 import { Plus } from "lucide-react";
 import React from "react";
 import { appointmentNotificationTypes } from "../models";

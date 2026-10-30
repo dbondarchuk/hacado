@@ -2,7 +2,8 @@
 
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Input } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Input } from "@hacado/ui/input";
 import React from "react";
 import { BookingOtpForm } from "../../components/otp-form";
 import { useScheduleContext } from "./context";

@@ -1,18 +1,20 @@
 import { ConfigurationProps } from "@hacado/builder/types";
 import { Leaves } from "@hacado/types/utils";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  useOpenState,
+} from "@hacado/ui/dropdown-menu";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  ToolbarButton,
-  useOpenState,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { Sketch } from "@uiw/react-color";
 import { X } from "lucide-react";

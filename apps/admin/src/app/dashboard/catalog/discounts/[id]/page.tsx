@@ -1,5 +1,6 @@
 import PageContainer from "@/components/admin/layout/page-container";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 
 import { getServicesContainer } from "@/app/utils";
 import { DiscountForm } from "@/components/admin/catalog/discounts/form";

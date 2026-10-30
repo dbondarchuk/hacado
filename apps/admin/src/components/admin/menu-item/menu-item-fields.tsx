@@ -15,9 +15,12 @@ import {
   TextSizes,
   TextWeights,
 } from "@hacado/types/configuration/styling";
+import { PageSelectorInput } from "@hacado/ui-admin/page-selector-input";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import {
-  BooleanSelect,
-  Combobox,
   FormControl,
   FormDescription,
   FormField,
@@ -25,16 +28,10 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  IComboboxItem,
-  Input,
-  Link,
-  Switch,
-} from "@hacado/ui";
-import {
-  PageSelectorInput,
-  Sortable,
-  SwitchCardFormItem,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Link } from "@hacado/ui/link";
+import { Switch } from "@hacado/ui/switch";
 import { useMemo } from "react";
 import { useFieldArray, UseFormReturn, useWatch } from "react-hook-form";
 import { IconSelect } from "./icon-select";

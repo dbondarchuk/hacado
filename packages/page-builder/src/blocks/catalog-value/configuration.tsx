@@ -9,12 +9,10 @@ import {
 import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
-import { Label } from "@hacado/ui";
-import {
-  AddonSelector,
-  PackageSelector,
-  useCanAccessFeature,
-} from "@hacado/ui-admin";
+import { AddonSelector } from "@hacado/ui-admin/addon-selector";
+import { useCanAccessFeature } from "@hacado/ui-admin/context";
+import { PackageSelector } from "@hacado/ui-admin/package-selector";
+import { Label } from "@hacado/ui/label";
 import { useCallback, type ReactNode } from "react";
 import {
   catalogProperties,

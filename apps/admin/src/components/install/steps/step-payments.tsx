@@ -17,19 +17,19 @@ import {
 import { useI18n } from "@hacado/i18n/client";
 import type { ConnectedApp } from "@hacado/types/apps";
 import { BillingPlanTier } from "@hacado/types/billing";
+import { ConnectedAppNameAndLogo } from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  cn,
-  Label,
-  Slider,
-  Switch,
-  toast,
-} from "@hacado/ui";
-import { ConnectedAppNameAndLogo } from "@hacado/ui-admin";
+} from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { Label } from "@hacado/ui/label";
+import { Slider } from "@hacado/ui/slider";
+import { toast } from "@hacado/ui/sonner";
+import { Switch } from "@hacado/ui/switch";
 import { Unplug } from "lucide-react";
 import { useEffect, useMemo } from "react";
 

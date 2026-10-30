@@ -7,7 +7,7 @@ import { useI18n } from "@hacado/i18n/client";
 import { PageReader } from "@hacado/page-builder/reader";
 import { rewriteCatalogUrlsInTree } from "@hacado/page-builder/templates";
 import type { Country, Currency } from "@hacado/types/utils";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { formatArguments } from "@hacado/utils";
 import { useEffect, useMemo, useState } from "react";
 

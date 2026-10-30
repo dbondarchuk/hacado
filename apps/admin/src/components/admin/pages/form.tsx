@@ -18,18 +18,19 @@ import {
   PageHeader,
   PageUpdateModel,
 } from "@hacado/types/pages";
+import { useDemoArguments } from "@hacado/ui-admin/hooks";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { cn } from "@hacado/ui/cn";
 import {
-  Breadcrumbs,
-  cn,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton, useDemoArguments } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { toastPromise } from "@hacado/ui/sonner";
 import { formatArguments, generateSlugPreview } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Settings as SettingsIcon } from "lucide-react";

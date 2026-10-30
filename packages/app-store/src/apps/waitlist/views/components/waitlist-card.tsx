@@ -1,11 +1,11 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,13 +13,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Link,
-  ScrollArea,
-  Spinner,
-  toastPromise,
-  useTimeZone,
-} from "@hacado/ui";
-import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/dialog";
+import { Link } from "@hacado/ui/link";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { durationToTime } from "@hacado/utils";
 import { CalendarPlus, Send, X } from "lucide-react";
 import { DateTime } from "luxon";

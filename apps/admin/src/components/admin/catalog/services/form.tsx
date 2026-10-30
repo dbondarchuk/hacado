@@ -9,6 +9,7 @@ import {
   getAppointmentOptionSchemaWithUniqueCheck,
 } from "@hacado/types/booking";
 import { DatabaseId } from "@hacado/types/database";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -17,18 +18,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Button,
-  cn,
-  Form,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Form } from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import {
   ResponsiveTabsList,
-  Spinner,
   Tabs,
   TabsContent,
   TabsTrigger,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

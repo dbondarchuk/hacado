@@ -2,11 +2,12 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Skeleton, useDebounceCacheFn } from "@hacado/ui";
 import {
   AsyncFilterBoxOption,
   DataTableAsyncFilterBox,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import React from "react";
 
 export const ActivityEventTypeAsyncFilterBox: React.FC<{

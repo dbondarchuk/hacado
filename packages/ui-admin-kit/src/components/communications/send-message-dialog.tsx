@@ -7,10 +7,13 @@ import {
   SendCommunicationRequest,
   sendCommunicationRequestSchema,
 } from "@hacado/types/communication";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { useArguments } from "@hacado/ui-admin/hooks";
+import { TemplateSelector } from "@hacado/ui-admin/template-selector";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  AlertModal,
-  Button,
-  cn,
   Dialog,
   DialogClose,
   DialogContent,
@@ -19,6 +22,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -26,17 +31,11 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Label,
-  ScrollArea,
-  Spinner,
-  toast,
-  toastPromise,
-} from "@hacado/ui";
-import {
-  ArgumentsAutocomplete,
-  TemplateSelector,
-  useArguments,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import { toast, toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import React, { useEffect } from "react";

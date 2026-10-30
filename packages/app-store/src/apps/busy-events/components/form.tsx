@@ -6,8 +6,12 @@ import {
   ScheduleOverride,
 } from "@hacado/types/configuration/schedule";
 import { WeekIdentifier } from "@hacado/types/general";
-import { Button, Skeleton, toast, toastPromise, useDebounce } from "@hacado/ui";
-import { Scheduler, WeekSelector } from "@hacado/ui-admin";
+import { Scheduler } from "@hacado/ui-admin/scheduler";
+import { WeekSelector } from "@hacado/ui-admin/week-selector";
+import { Button } from "@hacado/ui/button";
+import { useDebounce } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
+import { toast, toastPromise } from "@hacado/ui/sonner";
 import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";

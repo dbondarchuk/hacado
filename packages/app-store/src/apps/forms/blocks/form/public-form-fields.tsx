@@ -1,25 +1,26 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { Checkbox } from "@hacado/ui/checkbox";
 import {
-  Checkbox,
   FormControl,
-  FormFieldDescription,
   FormItem,
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  PhoneInput,
-  RadioGroup,
-  RadioGroupItem,
+} from "@hacado/ui/form";
+import { FormFieldDescription } from "@hacado/ui/forms";
+import { Input } from "@hacado/ui/input";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Textarea,
-} from "@hacado/ui";
+} from "@hacado/ui/select";
+import { Textarea } from "@hacado/ui/textarea";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { FormModel } from "../../models";

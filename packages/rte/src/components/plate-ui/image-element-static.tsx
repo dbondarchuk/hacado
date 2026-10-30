@@ -2,13 +2,9 @@ import type { SlateElementProps } from "@udecode/plate";
 import type { TCaptionElement } from "@udecode/plate-caption";
 import type { TImageElement } from "@udecode/plate-media";
 
-import {
-  cn,
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  ImageZoom,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Dialog, DialogContent, DialogTrigger } from "@hacado/ui/dialog";
+import { ImageZoom } from "@hacado/ui/image-zoom";
 import { NodeApi, SlateElement } from "@udecode/plate";
 
 export function ImageElementStatic({

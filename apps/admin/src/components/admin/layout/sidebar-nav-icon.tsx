@@ -1,7 +1,8 @@
 "use client";
 
 import { useHasDashboardNotifications } from "@/components/admin/dashboard/notifications/notifications-toast-stream";
-import { cn, useSidebar } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useSidebar } from "@hacado/ui/sidebar";
 import React from "react";
 
 const NavIcon = ({

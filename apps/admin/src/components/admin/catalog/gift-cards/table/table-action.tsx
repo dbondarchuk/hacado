@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { giftCardStatus } from "@hacado/types/booking";
-import { ButtonGroup } from "@hacado/ui";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,
@@ -10,8 +10,8 @@ import {
   DataTableResetFilter,
   DataTableSearch,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { ButtonGroup } from "@hacado/ui/button-group";
 
 import { DeleteSelectedGiftCardsButton } from "./delete-selected";
 import { SetStatusSelectedGiftCardsButton } from "./set-status-selected";

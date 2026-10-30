@@ -1,13 +1,13 @@
 import { useI18n } from "@hacado/i18n/client";
+import { BooleanSelect } from "@hacado/ui/boolean-select";
 import {
-  BooleanSelect,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@hacado/ui";
+} from "@hacado/ui/form";
 import React from "react";
 import { TabProps } from "./types";
 

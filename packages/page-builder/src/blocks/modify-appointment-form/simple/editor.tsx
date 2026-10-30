@@ -7,7 +7,7 @@ import {
   ReplaceOriginalColors,
   useClassName,
 } from "@hacado/page-builder-base/helpers";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { ModifyAppointmentForm } from "./components/modify-appointment-form";
 import { ModifyAppointmentFormProps } from "./schema";
 import { styles } from "./styles";

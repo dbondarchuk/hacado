@@ -7,18 +7,18 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import type { ActivitySeverity } from "@hacado/types/activity";
 import type { ActivityFeedPreview } from "@hacado/types/apps";
+import { ResolvedI18nText } from "@hacado/ui-admin/hooks";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
 import {
-  Button,
-  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  useTimeZone,
-} from "@hacado/ui";
-import { ResolvedI18nText } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
 import { Activity, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import NextLink from "next/link";

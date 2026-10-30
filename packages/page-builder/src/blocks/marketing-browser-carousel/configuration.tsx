@@ -23,7 +23,11 @@ import { FileInput, SliderInput, TextInput } from "@hacado/builder/inputs";
 import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
-import { Button, Checkbox, cn, deepMemo, Label } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
+import { Label } from "@hacado/ui/label";
+import { deepMemo } from "@hacado/ui/utils";
 import { GripVertical, Plus, Timer, Trash2 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import {

@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Combobox, MultiSelect } from "@hacado/ui";
+import { Combobox } from "@hacado/ui/combobox";
+import { MultiSelect } from "@hacado/ui/multi-select";
 import { Clock } from "lucide-react";
 import { useCallback, useState } from "react";
 import * as z from "zod";

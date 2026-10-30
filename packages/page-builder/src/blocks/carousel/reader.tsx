@@ -9,8 +9,8 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  cn,
-} from "@hacado/ui";
+} from "@hacado/ui/carousel";
+import { cn } from "@hacado/ui/cn";
 import { CarouselReaderProps, styles } from "./schema";
 
 export const CarouselReader = ({

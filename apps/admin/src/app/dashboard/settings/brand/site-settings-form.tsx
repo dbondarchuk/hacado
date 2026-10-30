@@ -3,15 +3,15 @@
 import { useI18n } from "@hacado/i18n/client";
 import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
 import { BillingPlanTier } from "@hacado/types/billing";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  Form,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
   TabsTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

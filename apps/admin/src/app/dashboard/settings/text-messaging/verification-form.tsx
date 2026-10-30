@@ -12,9 +12,9 @@ import type {
   SmsRegistrationView,
 } from "@hacado/types/text-message/registration";
 import { smsVerificationFormSchema } from "@hacado/types/text-message/registration";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Alert, AlertDescription } from "@hacado/ui/alert";
 import {
-  Alert,
-  AlertDescription,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -23,7 +23,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  Combobox,
+} from "@hacado/ui/alert-dialog";
+import { Combobox } from "@hacado/ui/combobox";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -32,17 +34,18 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  PhoneInput,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { PhoneInput } from "@hacado/ui/phone-input";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Switch,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Switch } from "@hacado/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

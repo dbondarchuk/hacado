@@ -5,7 +5,7 @@ import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
 import { RawNumberInput } from "@hacado/page-builder-base/style-inputs";
-import { deepMemo } from "@hacado/ui";
+import { deepMemo } from "@hacado/ui/utils";
 import { useCallback } from "react";
 import { containerShortcuts } from "../container/shortcuts";
 import { ForeachContainerProps, styles } from "./schema";

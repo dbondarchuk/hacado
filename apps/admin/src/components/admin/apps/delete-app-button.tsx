@@ -2,6 +2,7 @@
 
 import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import { resolvedI18nText } from "@hacado/ui-admin/hooks";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,12 +12,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Spinner,
-  toast,
-  useTimeZone,
-} from "@hacado/ui";
-import { resolvedI18nText } from "@hacado/ui-admin";
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Unplug } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

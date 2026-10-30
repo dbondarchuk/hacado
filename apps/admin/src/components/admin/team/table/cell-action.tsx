@@ -3,24 +3,26 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import type { UserRole } from "@hacado/types/users";
+import { useAuth } from "@hacado/ui-admin/context";
+import { AlertModal } from "@hacado/ui/alert-modal";
+import { Button } from "@hacado/ui/button";
 import {
-  AlertModal,
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+} from "@hacado/ui/dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { useAuth } from "@hacado/ui-admin";
+} from "@hacado/ui/dropdown-menu";
+import { toastPromise } from "@hacado/ui/sonner";
 import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { MoreHorizontal, Pencil, UserCog, UserMinus } from "lucide-react";
 import Link from "next/link";

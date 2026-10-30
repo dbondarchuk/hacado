@@ -13,7 +13,8 @@ import {
   Availability,
   ModifyAppointmentInformation,
 } from "@hacado/types/booking";
-import { toast, useTimeZone, useUseClientTimezone } from "@hacado/ui";
+import { useTimeZone, useUseClientTimezone } from "@hacado/ui/context";
+import { toast } from "@hacado/ui/sonner";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";
 import { ModifyAppointmentFields, ModifyAppointmentType } from "../../types";

@@ -3,8 +3,9 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerListModel } from "@hacado/types/customers";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -13,11 +14,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Label,
-  Spinner,
-  toastPromise,
-} from "@hacado/ui";
-import { CustomerSelector } from "@hacado/ui-admin";
+} from "@hacado/ui/dialog";
+import { Label } from "@hacado/ui/label";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
 import { Merge } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

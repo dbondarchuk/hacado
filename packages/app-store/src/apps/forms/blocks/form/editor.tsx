@@ -8,7 +8,8 @@ import {
   ReplaceOriginalColors,
   useClassName,
 } from "@hacado/page-builder-base/helpers";
-import { cn, Spinner } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Spinner } from "@hacado/ui/spinner";
 import {
   FormsAdminKeys,
   FormsAdminNamespace,

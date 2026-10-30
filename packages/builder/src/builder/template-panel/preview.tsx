@@ -1,4 +1,4 @@
-import { TabsContent } from "@hacado/ui";
+import { TabsContent } from "@hacado/ui/tabs";
 import { ComponentProps, memo } from "react";
 import { useDocument } from "../../documents/editor/context";
 import { Reader } from "../../documents/reader/block";

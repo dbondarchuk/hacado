@@ -3,7 +3,8 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { AvailablePeriod, Shift } from "@hacado/types/booking";
 import { ScheduleDaySource } from "@hacado/types/configuration/schedule";
-import { cn, use12HourFormat } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { use12HourFormat } from "@hacado/ui/hooks";
 import { GripHorizontal, X } from "lucide-react";
 import { DateTime } from "luxon";
 import React, {

@@ -6,8 +6,8 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-  ToolbarButton,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
+import { ToolbarButton } from "@hacado/ui/toolbar";
 import { Type } from "lucide-react";
 import { useCallback } from "react";
 import { useRTEContext } from "../../context/rte-context";

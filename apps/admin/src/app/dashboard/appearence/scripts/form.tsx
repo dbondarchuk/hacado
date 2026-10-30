@@ -7,8 +7,9 @@ import {
   ScriptsConfiguration,
   scriptsConfigurationSchema,
 } from "@hacado/types/configuration/scripts";
-import { Form, toastPromise } from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

@@ -3,20 +3,20 @@
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  Spinner,
-  Switch,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
+import { Switch } from "@hacado/ui/switch";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { WaitlistApp } from "./app";

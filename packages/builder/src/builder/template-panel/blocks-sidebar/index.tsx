@@ -6,8 +6,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  cn,
-} from "@hacado/ui";
+} from "@hacado/ui/accordion";
+import { cn } from "@hacado/ui/cn";
 import { Blocks, Layers, LayoutTemplate, ListTree } from "lucide-react";
 import { memo, useMemo } from "react";
 import {

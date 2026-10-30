@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { withRef } from "@udecode/plate/react";
 
 import { PlateElement } from "./plate-element";

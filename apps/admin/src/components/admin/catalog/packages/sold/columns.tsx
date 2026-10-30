@@ -6,12 +6,14 @@ import {
   appointmentStatuses,
   CustomerPackageListModel,
 } from "@hacado/types/booking";
-import { Badge, Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { SoldPackageCellAction } from "./cell-action";

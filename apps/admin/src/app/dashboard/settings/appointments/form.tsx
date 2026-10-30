@@ -7,16 +7,16 @@ import {
   bookingConfigurationSchema,
   normalizeCatalogNodes,
 } from "@hacado/types/configuration/booking";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { cn } from "@hacado/ui/cn";
+import { Form } from "@hacado/ui/form";
+import { toastPromise } from "@hacado/ui/sonner";
 import {
-  cn,
-  Form,
   ResponsiveTabsList,
   Tabs,
   TabsContent,
   TabsTrigger,
-  toastPromise,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";

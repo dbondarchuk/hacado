@@ -29,6 +29,12 @@ import {
   Prettify,
   zNonEmptyString,
 } from "@hacado/types/utils";
+import { CustomerPackageSelector } from "@hacado/ui-admin/customer-package-selector";
+import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
+import { MemberSelector } from "@hacado/ui-admin/member-selector";
+import { PromoCodeSelector } from "@hacado/ui-admin/promo-code-selector";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,15 +43,18 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  appointmentSmsConsentKind,
-  Button,
-  Checkbox,
-  cn,
-  Combobox,
-  DateTimePicker,
-  DurationInput,
-  fieldSchemaMapper,
-  fieldsComponentMap,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
+import {
+  useCurrencyFormat,
+  useCurrencySymbol,
+  useTimeZone,
+} from "@hacado/ui/context";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -54,28 +63,22 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  MultiSelect,
-  Textarea,
-  toastPromise,
-  use12HourFormat,
-  useCurrencyFormat,
-  useCurrencySymbol,
-  useTimeZone,
-} from "@hacado/ui";
-import {
-  CustomerPackageSelector,
-  CustomerSelector,
-  MemberSelector,
-  PromoCodeSelector,
-  SaveButton,
-  SwitchCardFormItem,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { MultiSelect } from "@hacado/ui/multi-select";
+import { appointmentSmsConsentKind } from "@hacado/ui/sms-consent-choice";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Textarea } from "@hacado/ui/textarea";
+import { DateTimePicker } from "@hacado/ui/time-picker";
 import {
   durationToTime,
   formatAmount,

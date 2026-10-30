@@ -3,13 +3,13 @@
 import { useI18n } from "@hacado/i18n/client";
 import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types/users";
 
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
 import {
   DataTableFilterBox,
   DataTableRangeBox,
   DataTableResetFilter,
   DataTableSearch,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 
 import { useTeamMembersTableFilters } from "./use-table-filters";
 

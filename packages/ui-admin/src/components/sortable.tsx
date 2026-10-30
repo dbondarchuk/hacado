@@ -10,15 +10,10 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  cn,
-  ScrollArea,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { cn } from "@hacado/ui/cn";
+import { ScrollArea } from "@hacado/ui/scroll-area";
 import { cva } from "class-variance-authority";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import React from "react";

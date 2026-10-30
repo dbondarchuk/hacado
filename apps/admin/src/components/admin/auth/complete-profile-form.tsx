@@ -9,7 +9,7 @@ import {
 import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
 import { AdminKeys, useI18n } from "@hacado/i18n/client";
-import { toast } from "@hacado/ui";
+import { toast } from "@hacado/ui/sonner";
 import { useMemo, useState, type ReactNode } from "react";
 
 type CompleteProfileStep = "profile" | "phone" | "phone-otp";

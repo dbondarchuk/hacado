@@ -4,9 +4,13 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
-  Badge,
-  Button,
-  Combobox,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -15,16 +19,14 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  Spinner,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import { Spinner } from "@hacado/ui/spinner";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-} from "@hacado/ui";
-import {
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/tooltip-responsive";
 import { X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import * as z from "zod";

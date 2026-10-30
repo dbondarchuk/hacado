@@ -3,6 +3,7 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment, CalendarEvent } from "@hacado/types/booking";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -12,8 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  DateTimePicker,
+} from "@hacado/ui/alert-dialog";
+import { Button } from "@hacado/ui/button";
+import { useTimeZone } from "@hacado/ui/context";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -22,19 +25,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DurationInput,
+} from "@hacado/ui/dialog";
+import { DurationInput } from "@hacado/ui/duration-input";
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Spinner,
-  toastPromise,
-  use12HourFormat,
-  useTimeZone,
-} from "@hacado/ui";
-import { SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { use12HourFormat } from "@hacado/ui/hooks";
+import { toastPromise } from "@hacado/ui/sonner";
+import { Spinner } from "@hacado/ui/spinner";
+import { DateTimePicker } from "@hacado/ui/time-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { DateTime } from "luxon";

@@ -1,14 +1,18 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types/communication";
-import { Badge, Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
+import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit";
 import {
   CustomerName,
   MemberName,
   tableSortHeader,
   tableSortNoopFunction,
-} from "@hacado/ui-admin";
-import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
+import { Badge } from "@hacado/ui/badge";
+import { Button } from "@hacado/ui/button";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 

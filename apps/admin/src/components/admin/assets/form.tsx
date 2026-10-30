@@ -2,8 +2,9 @@
 
 import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { DndFileInput } from "@hacado/ui/dnd-file-input";
 import {
-  DndFileInput,
   Form,
   FormControl,
   FormField,
@@ -11,10 +12,9 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Textarea,
-  toast,
-} from "@hacado/ui";
-import { SaveButton } from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { toast } from "@hacado/ui/sonner";
+import { Textarea } from "@hacado/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

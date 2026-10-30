@@ -11,10 +11,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Checkbox,
-  Markdown,
-  useCurrencyFormat,
-} from "@hacado/ui";
+} from "@hacado/ui/card";
+import { Checkbox } from "@hacado/ui/checkbox";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Markdown } from "@hacado/ui/markdown";
 import { durationToTime } from "@hacado/utils";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";

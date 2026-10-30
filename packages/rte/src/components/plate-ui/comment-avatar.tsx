@@ -3,7 +3,7 @@
 import { CommentsPlugin } from "@udecode/plate-comments/react";
 import { usePluginOption } from "@udecode/plate/react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 
 export function CommentAvatar({ userId }: { userId: string | null }) {
   const user = usePluginOption(CommentsPlugin, "userById", userId);

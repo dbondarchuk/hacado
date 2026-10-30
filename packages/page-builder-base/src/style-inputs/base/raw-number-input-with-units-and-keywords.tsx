@@ -1,7 +1,9 @@
 "use client";
 
 import { AllKeys, BaseAllKeys, useI18n } from "@hacado/i18n/client";
-import { Button, cn, Combobox } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { Combobox } from "@hacado/ui/combobox";
 import { X } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import {

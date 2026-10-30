@@ -9,6 +9,9 @@ import {
   Template,
   TemplatesTemplate,
 } from "@hacado/types/templates";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
   Form,
   FormControl,
@@ -17,12 +20,10 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
-  toastPromise,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { ArgumentsAutocomplete, SaveButton } from "@hacado/ui-admin";
-import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

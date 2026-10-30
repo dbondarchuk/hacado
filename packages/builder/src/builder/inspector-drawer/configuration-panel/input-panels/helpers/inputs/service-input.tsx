@@ -1,7 +1,12 @@
 import React from "react";
 
-import { cn, FormDescription, Label } from "@hacado/ui";
-import { ServiceSelector, ServiceSelectorProps } from "@hacado/ui-admin";
+import {
+  ServiceSelector,
+  ServiceSelectorProps,
+} from "@hacado/ui-admin/service-selector";
+import { cn } from "@hacado/ui/cn";
+import { FormDescription } from "@hacado/ui/form";
+import { Label } from "@hacado/ui/label";
 
 type Props = Omit<
   ServiceSelectorProps,

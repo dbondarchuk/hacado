@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { useFilePicker } from "use-file-picker";
 
 import { UploadedFile } from "@hacado/types/assets";
+import { AssetSelectorDialog } from "@hacado/ui-admin/assets-selector-dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,18 +34,21 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+} from "@hacado/ui/alert-dialog";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  FloatingInput,
+  useOpenState,
+} from "@hacado/ui/dropdown-menu";
+import { FloatingInput } from "@hacado/ui/input";
+import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
-  useOpenState,
-} from "@hacado/ui";
-import { AssetSelectorDialog } from "@hacado/ui-admin";
+} from "@hacado/ui/toolbar";
 import { useAbsoluteUrl } from "./absolute-url-context";
 
 const MEDIA_CONFIG: Record<

@@ -3,13 +3,9 @@
 import { type ColorInput } from "@hacado/builder/inputs";
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
 import { DistributiveOmit } from "@hacado/types/utils";
-import {
-  Button,
-  Combobox,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Combobox } from "@hacado/ui/combobox";
+import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { Sketch } from "@uiw/react-color";
 import { Plus } from "lucide-react";
 import React from "react";

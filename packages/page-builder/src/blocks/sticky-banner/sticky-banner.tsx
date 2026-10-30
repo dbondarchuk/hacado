@@ -2,7 +2,7 @@
 
 import { usePortalContext } from "@hacado/builder/portal";
 import { BannerProvider } from "@hacado/page-builder-base/reader";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";

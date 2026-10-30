@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Button, Spinner } from "@hacado/ui";
+import { Button } from "@hacado/ui/button";
+import { Spinner } from "@hacado/ui/spinner";
 import { cva } from "class-variance-authority";
 import { Check, CircleAlert, Save } from "lucide-react";
 import React from "react";

@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Sortable } from "@hacado/ui-admin";
+import { Sortable } from "@hacado/ui-admin/sortable";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 import { formSchemaBase } from "../../../models";

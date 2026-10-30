@@ -5,7 +5,9 @@ import React from "react";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentPackage } from "@hacado/types/booking";
-import { Skeleton, useCurrencyFormat, useDebounceCacheFn } from "@hacado/ui";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Skeleton } from "@hacado/ui/skeleton";
 import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,

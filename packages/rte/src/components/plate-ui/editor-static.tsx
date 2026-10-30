@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import { type PlateStaticProps, PlateStatic } from "@udecode/plate";
 import { cva } from "class-variance-authority";
 

@@ -6,6 +6,8 @@ import {
   optionPaymentCalculationType,
 } from "@hacado/types/booking";
 import { optionTipsModes } from "@hacado/types/configuration/booking";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { useCurrencySymbol } from "@hacado/ui/context";
 import {
   FormControl,
   FormDescription,
@@ -14,20 +16,22 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/select";
 import React from "react";
 import { TabProps } from "./types";
 

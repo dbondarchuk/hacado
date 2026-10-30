@@ -1,13 +1,11 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentOption } from "@hacado/types/booking";
-import {
-  cn,
-  ComboboxAsync,
-  IComboboxItem,
-  Skeleton,
-  useCurrencyFormat,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { IComboboxItem } from "@hacado/ui/combobox";
+import { ComboboxAsync } from "@hacado/ui/combobox-async";
+import { useCurrencyFormat } from "@hacado/ui/context";
+import { Skeleton } from "@hacado/ui/skeleton";
 import { durationToTime } from "@hacado/utils";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";

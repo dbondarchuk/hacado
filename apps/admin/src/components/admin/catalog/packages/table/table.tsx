@@ -3,7 +3,7 @@ import {
   packagesSearchParams,
   packagesSearchParamsCache,
 } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 
 export const PackagesTable: React.FC = async () => {

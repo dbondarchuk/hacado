@@ -3,6 +3,8 @@ import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import { bookingTipsModes } from "@hacado/types/configuration/booking";
+import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
+import { useCurrencySymbol } from "@hacado/ui/context";
 import {
   FormControl,
   FormDescription,
@@ -11,17 +13,19 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
+} from "@hacado/ui/input-group";
+import {
   RadioButtonGroup,
   RadioButtonGroupItem,
-  useCurrencySymbol,
-} from "@hacado/ui";
-import { SwitchCardFormItem } from "@hacado/ui-admin";
+} from "@hacado/ui/radio-button-group";
 import { TabProps } from "./types";
 
 export const PaymentsTab: React.FC<TabProps & { canUsePayments?: boolean }> = ({

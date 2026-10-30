@@ -4,7 +4,8 @@ import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers"
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import type { SessionUser } from "@hacado/types/users";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
+import { Heading } from "@hacado/ui/heading";
 import { canManageCalendarSources } from "@hacado/utils";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";

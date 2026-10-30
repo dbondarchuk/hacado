@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Link, cn, useTimeZone } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useTimeZone } from "@hacado/ui/context";
+import { Link } from "@hacado/ui/link";
 import { DateTime } from "luxon";
 import {
   Area,

@@ -2,8 +2,14 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
+import { AppSelector } from "@hacado/ui-admin/app-selector";
 import {
-  Button,
+  ConnectedAppNameAndLogo,
+  ConnectedAppStatusMessage,
+} from "@hacado/ui-admin/connected-app-properties";
+import { useAuth } from "@hacado/ui-admin/context";
+import { Button } from "@hacado/ui/button";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -11,14 +17,8 @@ import {
   FormItem,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Spinner,
-} from "@hacado/ui";
-import {
-  AppSelector,
-  ConnectedAppNameAndLogo,
-  ConnectedAppStatusMessage,
-  useAuth,
-} from "@hacado/ui-admin";
+} from "@hacado/ui/form";
+import { Spinner } from "@hacado/ui/spinner";
 import { canProcessOtherMembersAppointments } from "@hacado/utils";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";

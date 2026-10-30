@@ -5,7 +5,7 @@ import {
   AsyncFilterBoxOption,
   AsyncFilterBoxProps,
   DataTableAsyncFilterBox,
-} from "@hacado/ui-admin";
+} from "@hacado/ui-admin/data-table";
 import React from "react";
 import { getBlogPosts } from "../../actions";
 import {

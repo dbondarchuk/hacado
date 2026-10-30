@@ -3,14 +3,14 @@
 import { useI18n } from "@hacado/i18n/client";
 import { fieldTypes } from "@hacado/types/booking";
 
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { useAuth } from "@hacado/ui-admin/context";
 import {
   DataTableFilterBox,
   DataTableResetFilter,
   DataTableSearch,
-  useAuth,
   useSelectedRowsStore,
-} from "@hacado/ui-admin";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin/data-table";
 import { hasPermission } from "@hacado/utils";
 
 import { DeleteSelectedFieldsButton } from "./delete-selected";

@@ -3,7 +3,7 @@ import {
   communicationLogsSearchParams,
   communicationLogsSearchParamsCache,
 } from "@hacado/api-sdk";
-import { DataTable } from "@hacado/ui-admin";
+import { DataTable } from "@hacado/ui-admin/data-table";
 import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
 import { columns } from "./columns";
 

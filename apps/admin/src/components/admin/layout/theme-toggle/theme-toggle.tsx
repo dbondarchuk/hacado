@@ -1,15 +1,15 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { useTheme } from "@hacado/ui";
+import { useTheme } from "@hacado/ui/hooks";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
+import { Button } from "@hacado/ui/button";
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@hacado/ui";
+} from "@hacado/ui/dropdown-menu";
 type CompProps = {};
 export default function ThemeToggle({}: CompProps) {
   const { setTheme } = useTheme();

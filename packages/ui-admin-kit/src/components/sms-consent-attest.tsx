@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Checkbox } from "@hacado/ui";
+import { Checkbox } from "@hacado/ui/checkbox";
 import { normalizeToE164 } from "@hacado/utils";
 import { useEffect, useState } from "react";
 

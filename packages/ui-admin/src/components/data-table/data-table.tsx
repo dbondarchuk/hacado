@@ -2,23 +2,24 @@
 import { baseSearchParams } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { Sort } from "@hacado/types/database";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
+import { ScrollArea, ScrollBar } from "@hacado/ui/scroll-area";
 import {
-  Button,
-  cn,
-  ScrollArea,
-  ScrollBar,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+} from "@hacado/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@hacado/ui";
+} from "@hacado/ui/table";
 import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,

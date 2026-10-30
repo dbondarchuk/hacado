@@ -1,27 +1,31 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
+import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
+import { Button } from "@hacado/ui/button";
+import { cn } from "@hacado/ui/cn";
 import {
-  Button,
-  cn,
   Dialog,
   DialogClose,
   DialogContent,
   DialogFooter,
   DialogTitle,
   DialogTrigger,
+} from "@hacado/ui/dialog";
+import {
   FormControl,
   FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
-  ScrollArea,
+} from "@hacado/ui/form";
+import { useTheme } from "@hacado/ui/hooks";
+import { ScrollArea } from "@hacado/ui/scroll-area";
+import {
   TooltipResponsive,
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
-  useTheme,
-} from "@hacado/ui";
-import { ArgumentsAutocomplete } from "@hacado/ui-admin";
+} from "@hacado/ui/tooltip-responsive";
 import { templateSafeWithError } from "@hacado/utils";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";

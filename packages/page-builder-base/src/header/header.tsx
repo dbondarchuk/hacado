@@ -4,7 +4,7 @@ import {
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
 } from "@hacado/types/pages";
-import { cn } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
 import {
   CSSProperties,
   KeyboardEvent,

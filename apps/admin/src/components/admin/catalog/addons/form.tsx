@@ -9,12 +9,12 @@ import {
   normalizeAddonStaffOverrides,
 } from "@hacado/types/booking";
 import { DatabaseId, WithDatabaseId } from "@hacado/types/database";
+import { SaveButton } from "@hacado/ui-admin/save-button";
+import { Sortable } from "@hacado/ui-admin/sortable";
+import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
+import { useCurrencySymbol } from "@hacado/ui/context";
+import { DurationInput } from "@hacado/ui/duration-input";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  DurationInput,
   Form,
   FormControl,
   FormDescription,
@@ -23,17 +23,17 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
-  Input,
+} from "@hacado/ui/form";
+import { useDebounceCacheFn } from "@hacado/ui/hooks";
+import { Input } from "@hacado/ui/input";
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupAddonClasses,
   InputGroupInput,
   InputGroupInputClasses,
-  toastPromise,
-  useCurrencySymbol,
-  useDebounceCacheFn,
-} from "@hacado/ui";
-import { SaveButton, Sortable } from "@hacado/ui-admin";
+} from "@hacado/ui/input-group";
+import { toastPromise } from "@hacado/ui/sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";

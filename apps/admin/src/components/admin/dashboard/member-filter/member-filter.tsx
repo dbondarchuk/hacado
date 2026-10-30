@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { MemberSelectorCompact } from "@hacado/ui-admin";
+import { MemberSelectorCompact } from "@hacado/ui-admin/member-selector-compact";
 import { parseAsString, useQueryState } from "nuqs";
 import React from "react";
 

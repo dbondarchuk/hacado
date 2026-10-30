@@ -2,13 +2,9 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon } from "@hacado/types/booking";
 import { AddonsType } from "@hacado/types/services";
-import {
-  cn,
-  Combobox,
-  IComboboxItem,
-  MultiSelect,
-  OptionType,
-} from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
+import { MultiSelect, OptionType } from "@hacado/ui/multi-select";
 import { durationToTime } from "@hacado/utils";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";

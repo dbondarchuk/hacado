@@ -5,7 +5,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import type { TPlaceholderElement } from "@udecode/plate-media";
 
-import { cn, useUploadFile } from "@hacado/ui";
+import { cn } from "@hacado/ui/cn";
+import { useUploadFile } from "@hacado/ui/hooks";
 import {
   AudioPlugin,
   FilePlugin,
