@@ -1,32 +1,26 @@
-# Hacado documentation (Docusaurus)
+# Hacado documentation
 
-Product documentation site for Hacado, built with [Docusaurus](https://docusaurus.io/).
+Product documentation for Hacado, built with [Next.js](https://nextjs.org/) and [Nextra](https://nextra.site/).
 
 ## Scripts
-
-From the repo root:
-
-```bash
-yarn workspace @hacado/docs start
-yarn workspace @hacado/docs build
-yarn workspace @hacado/docs serve
-```
 
 From this directory:
 
 ```bash
-yarn start
+yarn dev
 yarn build
+yarn start
 ```
 
-The dev server defaults to port `3000` unless busy.
+The dev server uses port `3003`.
 
 ## Content
 
-- Docs live under `docs/`.
-- Static assets (including screenshot placeholders): `static/`.
-- Homepage: `src/pages/index.tsx`.
+- Guides live under `content/` and are served at `/docs/...`.
+- Sidebar order is set in each folder’s `_meta.ts`.
+- Images and the favicon live in `public/`.
+- The homepage is `app/page.tsx`.
 
-## Screenshots
+Existing public URLs such as `/docs/apps/google-calendar` stay in place. `/docs/daily-use/first-steps-after-setup` redirects to `/docs/first-steps`.
 
-Add images under `static/img/placeholders/` (see `static/img/placeholders/README.md`) and reference them from Markdown where noted.
+`patches/nextra-theme-docs+4.6.1.patch` fixes a Nextra 4.6.1 bug where the docs layout drops its `children` prop before validating props, which otherwise crashes every guide page.

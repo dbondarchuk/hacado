@@ -85,8 +85,8 @@
     "semantic_hash": ""
   },
   ".vscode/settings.json": {
-    "mtime": 1793337855.9038522,
-    "ast_hash": "f208a6077fe3e0f1c47ab58398fd833d",
+    "mtime": 1793341257.6912196,
+    "ast_hash": "5aad64a89655c7d0bfb0cbf4deedaed0",
     "semantic_hash": ""
   },
   "apps/admin/components.json": {
@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/apps/by/scope/route.ts": {
-    "mtime": 1793339282.2533994,
-    "ast_hash": "fc110d6ef37189a790461627f810b07d",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "1fea77e003ce8e1e855288f59ce2e1cf",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/apps/route.ts": {
@@ -285,8 +285,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/booking/options/route.ts": {
-    "mtime": 1793336651.9865415,
-    "ast_hash": "5dbe41bea526d2df5dc12df5fb2d933d",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "a5ed8d96129ecab1102cdaeaa7e91d4b",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/calendar/events/route.ts": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/communications/route.ts": {
-    "mtime": 1793339282.2646308,
-    "ast_hash": "cb9e9bbc7925d06105c80c7b55eda0de",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "daf6aabad32696f7dcecacfb0ecfb7e4",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/configuration/[configuration]/route.ts": {
@@ -405,8 +405,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/notifications/route.ts": {
-    "mtime": 1793339282.2701535,
-    "ast_hash": "200203f4694410e91a1122e90208d800",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "c6c820caebcd4735e13d7277eca1ca5a",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/organization/custom-domain/route.ts": {
@@ -610,8 +610,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/[...slug]/page.tsx": {
-    "mtime": 1793340286.8115368,
-    "ast_hash": "e3fdb7b3b1b720430ba1135a86081e58",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "4881975f95675a8e696f1d3a13f1dac4",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/activity/page.tsx": {
@@ -620,8 +620,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appearence/scripts/form.tsx": {
-    "mtime": 1793340032.2304485,
-    "ast_hash": "d54da3e64106240b623e0d448683b7ca",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "553b5b7016c47006e7b3fe4acdd2ddd9",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appearence/scripts/page.tsx": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appointments/[id]/edit/page.tsx": {
-    "mtime": 1793340286.7940052,
-    "ast_hash": "b347789eccbbf720db3c9a08dec520ea",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "95eb5d6b910045a8d858ff9a6665d9d6",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appointments/[id]/page.tsx": {
@@ -665,8 +665,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appointments/new/page.tsx": {
-    "mtime": 1793340286.7914515,
-    "ast_hash": "edf501ecba90253a3efa3aa79199ff0f",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "ea9c43c1c48478a36adb27c3b940b64d",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/appointments/new/search-params.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/apps/installed-apps.tsx": {
-    "mtime": 1793339282.2904606,
-    "ast_hash": "17ca7ca70b53d2aac761cc5495fa1fcb",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "130e0884685f5ab9f5f3c3cdff4d41ee",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/apps/page.tsx": {
@@ -730,8 +730,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/assets/page.tsx": {
-    "mtime": 1793340032.2329962,
-    "ast_hash": "fd5ad2f73a9e080495c66efab2500f59",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "5bf58cab9fa0311606e005efa673d783",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/communication-logs/page.tsx": {
@@ -745,8 +745,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/customers/[id]/[tab]/page.tsx": {
-    "mtime": 1793340286.7994905,
-    "ast_hash": "1509df7dad95c1d6c5aae3a61e2373d0",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "5fc31f0d2324c68279bd3e7b1f1bd536",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/customers/[id]/route.tsx": {
@@ -760,8 +760,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/customers/page.tsx": {
-    "mtime": 1793340032.243675,
-    "ast_hash": "b671fd28cecb3d527540336ce7d72e2c",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "42072459e4ebb88d0f6e323a5b87d94f",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/layout.tsx": {
@@ -815,8 +815,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/pages/page.tsx": {
-    "mtime": 1793340032.260272,
-    "ast_hash": "4b85522ecd837ae0abfd74936a581988",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "b9a4bd83a93d43aaa47ef54b08349116",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/appointments/form.tsx": {
@@ -830,8 +830,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/appointments/tabs/cancellations.tsx": {
-    "mtime": 1793340286.8070533,
-    "ast_hash": "57f131e7c6aa9ac42eeccd6c914e131c",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "158a0c4f18485874f99a4b3cff1d9f86",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/appointments/tabs/main.tsx": {
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/appointments/tabs/reschedules.tsx": {
-    "mtime": 1793340286.8080196,
-    "ast_hash": "4faa34c38093df003a741cdf450e19a7",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "fc8893991dc0adb98c45311aee06fb63",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/appointments/tabs/types.ts": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/schedule/form.tsx": {
-    "mtime": 1793340032.2688577,
-    "ast_hash": "3149e9ffb370823ff5d3b4e2e5bea32f",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "ec6c457d9e58a603b688a836ae12aa5f",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/schedule/page.tsx": {
@@ -960,8 +960,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/templates/page.tsx": {
-    "mtime": 1793340032.274341,
-    "ast_hash": "7572860f2e31769c62e16b06bde4915e",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "3e7159bdbb72454538b084927c94c65a",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/templates/utils.ts": {
@@ -1025,8 +1025,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/activity/table/table.tsx": {
-    "mtime": 1793340032.27942,
-    "ast_hash": "f7404190afb3e939c6debb2d26758b80",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "b6d9700056a05793caead69a026e7141",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/activity/table/use-activity-table-filters.tsx": {
@@ -1045,8 +1045,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/appointments/table/table.tsx": {
-    "mtime": 1793340032.2813776,
-    "ast_hash": "219aebbedc83108c3a6bad025ccecfd8",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "a4a70f181d591b3a53704ad48503f585",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/appointments/table/use-table-filters.tsx": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/apps/store/actions.ts": {
-    "mtime": 1793339282.3245003,
-    "ast_hash": "daaa4d68711241032fd1bc6b51961a36",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "16ff6fa0e7a16fb9d6d2903cdb2392b4",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/apps/store/app-details.tsx": {
@@ -1090,8 +1090,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/apps/store/install-complex-app-button.tsx": {
-    "mtime": 1793339282.3279061,
-    "ast_hash": "6adf279c04e59db4156b6c88eb759673",
+    "mtime": 1793342063.3921978,
+    "ast_hash": "793c67fadbd9753915a0294f1edc72ad",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/assets/edit-form.tsx": {
@@ -1125,8 +1125,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/assets/table/table.tsx": {
-    "mtime": 1793340032.289957,
-    "ast_hash": "57eef0831b417251475a5f8838e30086",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "745c6142909aa335d37c7b25b5c147d7",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/assets/table/use-table-filters.tsx": {
@@ -1160,8 +1160,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/user-signup-form.tsx": {
-    "mtime": 1793338329.6605446,
-    "ast_hash": "47184fe32ed17a21a852e8a8a763ad09",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "6e46b217cc362bd9771178c4b6a8de33",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/charts/area-graph.tsx": {
@@ -1180,8 +1180,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/communication-logs/table/clear-all.tsx": {
-    "mtime": 1793340032.334686,
-    "ast_hash": "39cf376aa481de5e48d240b8cc7ff610",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "9ede78ac5d4dbf854ae14862ceb0649d",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/communication-logs/table/clear-selected.tsx": {
@@ -1240,8 +1240,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/customers/table/table.tsx": {
-    "mtime": 1793340032.3462334,
-    "ast_hash": "8a7e69dcd1456b22dc4befeb88c1731d",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "762730be03da3b7e877c226a04e0fc58",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/customers/table/use-table-filters.tsx": {
@@ -1290,8 +1290,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/layout/user-nav.tsx": {
-    "mtime": 1793338329.7335157,
-    "ast_hash": "a9819db74f61306ab20b2144647461b3",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "55cf3713147dc4498d52d1484f15da76",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/menu-item/icon-select.tsx": {
@@ -1305,8 +1305,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/menu-item/menu-item-fields.tsx": {
-    "mtime": 1793338466.5916166,
-    "ast_hash": "9a0221ffa8ddd6f33f082b5df55c6454",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "c407e5ee8d4cb7869f99b47363ec06fb",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/menu-item/sub-menu-item-card.tsx": {
@@ -1330,8 +1330,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/footers/table/cell-action.tsx": {
-    "mtime": 1793340032.3602934,
-    "ast_hash": "f4e23ea8bb16db123619c94a03e25279",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "0ec74475346580fd84d7a02647f4d1a1",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/footers/table/columns.tsx": {
@@ -1350,8 +1350,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/footers/table/table.tsx": {
-    "mtime": 1793340032.3622923,
-    "ast_hash": "e5cb39f74970292cc67a6850281f8220",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "91cd391a9e89f229b336897b10901f72",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/footers/table/use-table-filters.tsx": {
@@ -1370,13 +1370,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/headers/form.tsx": {
-    "mtime": 1793340032.3702924,
-    "ast_hash": "8d00790d8903487104b639284834e33c",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "914bf2dc3ddff0619fef4da358f53690",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/headers/table/cell-action.tsx": {
-    "mtime": 1793340032.3782916,
-    "ast_hash": "72311d7c6be9be47210029d841db6e30",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "cfeaf7e8ae1823a05dfe43d32dbe3be5",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/headers/table/columns.tsx": {
@@ -1395,8 +1395,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/headers/table/table.tsx": {
-    "mtime": 1793340032.3822923,
-    "ast_hash": "72aac5416b38b9d981ef1a4096031b23",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "97e4f29efdb7c5083239d1178ba8ca8c",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/headers/table/use-table-filters.tsx": {
@@ -1430,8 +1430,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/table/table.tsx": {
-    "mtime": 1793340032.394575,
-    "ast_hash": "df68774219007175e8a922b173f258bd",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "2f593954b6b14040b7811b1f26618953",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/table/use-table-filters.tsx": {
@@ -1480,8 +1480,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/templates/table/table.tsx": {
-    "mtime": 1793340032.4318533,
-    "ast_hash": "104454a9b981f28036ea876b2edf9d09",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "f410bb66fb82f8824ddc32c02be90912",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/templates/table/use-table-filters.tsx": {
@@ -1620,8 +1620,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/checkout/checkout-plans.tsx": {
-    "mtime": 1793338329.7978418,
-    "ast_hash": "f9d81f460ed39dfe4576087b1210370f",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "1a84a6103bfcb5f543e2ccefb3b7734e",
     "semantic_hash": ""
   },
   "apps/admin/src/components/cookies-provider.tsx": {
@@ -1680,8 +1680,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/constants.ts": {
-    "mtime": 1793339282.3791637,
-    "ast_hash": "0a7c98c1f36b81bb7f50b38ebaa50378",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "a1969880c76323c91df89b840a989b5e",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/data/_catalog-data.json": {
@@ -1810,8 +1810,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/config/polar-billing.ts": {
-    "mtime": 1793336540.7827404,
-    "ast_hash": "2221d9c9cd159301745d7efcc4c45bc5",
+    "mtime": 1793342544.6078038,
+    "ast_hash": "4232739bbac571bae5de090b4bee76c8",
     "semantic_hash": ""
   },
   "apps/admin/src/constants/data.tsx": {
@@ -2674,44 +2674,14 @@
     "ast_hash": "7ab271e5fa354ebf467537fd086a4fb4",
     "semantic_hash": ""
   },
-  "docs/docs/apps/_category_.json": {
-    "mtime": 1777570540.2706628,
-    "ast_hash": "fa33e6e67e3f84491c14f1f17d9e75dc",
-    "semantic_hash": ""
-  },
-  "docs/docs/daily-use/_category_.json": {
-    "mtime": 1780934740.4177952,
-    "ast_hash": "59f3370b6d22d9dc80bfee4311b89c01",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/_category_.json": {
-    "mtime": 1777568683.5077488,
-    "ast_hash": "36f7ba9fc34bcb62768d6da3bd09b8f8",
-    "semantic_hash": ""
-  },
-  "docs/docusaurus.config.ts": {
-    "mtime": 1786820409.0481532,
-    "ast_hash": "b6b16ee69c7f6abbb8ca38f3bf873e53",
-    "semantic_hash": ""
-  },
   "docs/package.json": {
-    "mtime": 1786820409.0481532,
-    "ast_hash": "a25384b7cd373593339aea2d7c510b69",
-    "semantic_hash": ""
-  },
-  "docs/sidebars.ts": {
-    "mtime": 1792769070.3620641,
-    "ast_hash": "dd2001c4f177354072e14dc04c66ae59",
-    "semantic_hash": ""
-  },
-  "docs/src/pages/index.tsx": {
-    "mtime": 1786820409.0506678,
-    "ast_hash": "1a8f92f9d7ea3d9a3aa7c8270ec5b7ca",
+    "mtime": 1793374327.546986,
+    "ast_hash": "2d90351dff8ea321293e148bf989e7ae",
     "semantic_hash": ""
   },
   "docs/tsconfig.json": {
-    "mtime": 1777741957.760151,
-    "ast_hash": "7e444ac7a36a523b0bc1d052aeea8533",
+    "mtime": 1793374192.932999,
+    "ast_hash": "019a463259b09a858f8be6877cefc718",
     "semantic_hash": ""
   },
   "migrate-mongo-config.js": {
@@ -3050,8 +3020,8 @@
     "semantic_hash": ""
   },
   "packages/api-sdk/src/admin/schemas/user.ts": {
-    "mtime": 1793336540.8902233,
-    "ast_hash": "ed419d0c023bf3be382d844e458f000b",
+    "mtime": 1793343045.8162706,
+    "ast_hash": "ca0ef498c53770870273a3375514f1bb",
     "semantic_hash": ""
   },
   "packages/api-sdk/src/admin/search-params/activities.ts": {
@@ -5480,8 +5450,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/index.tsx": {
-    "mtime": 1793340032.5684364,
-    "ast_hash": "a63a1c0c6ed068eae623b655f6df6a24",
+    "mtime": 1793342039.8935947,
+    "ast_hash": "c1b8bd7347eb3ae8f0eb00d1305dc611",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/layout.tsx": {
@@ -5495,8 +5465,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/review-card.tsx": {
-    "mtime": 1793339282.6106255,
-    "ast_hash": "b024f626915ed655980f35e15c3510c6",
+    "mtime": 1793342039.8935947,
+    "ast_hash": "a07ecde8bb5916a24b3e02369388b6a7",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/modify/steps.ts": {
@@ -5520,8 +5490,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/schema.tsx": {
-    "mtime": 1793337770.4476686,
-    "ast_hash": "9a3b552a8ce6efe4f2083292fd8c98c6",
+    "mtime": 1793343085.8278544,
+    "ast_hash": "3ad2e64b872da312c70546b88485110b",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/const.ts": {
@@ -6220,8 +6190,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/modern/booking-with-waitlist/components/review-card.tsx": {
-    "mtime": 1793340032.614709,
-    "ast_hash": "a0e753eb67c63e127c1df0d67381d261",
+    "mtime": 1793342039.8935947,
+    "ast_hash": "19c1cf523dd298850d11f63dff2213fd",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/modern/booking-with-waitlist/components/schedule.tsx": {
@@ -6330,8 +6300,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/schema.tsx": {
-    "mtime": 1793337770.4742455,
-    "ast_hash": "b47bba46ec3d98ec26fa5ae630887b14",
+    "mtime": 1793343085.8278544,
+    "ast_hash": "c5d6dbfc765e1dc346464f2724d09404",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/addons-card.tsx": {
@@ -6360,8 +6330,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/card-with-info.tsx": {
-    "mtime": 1793339282.692933,
-    "ast_hash": "ab05b4c8ddd59968efb44d3e185452b6",
+    "mtime": 1793342039.8935947,
+    "ast_hash": "7c944a1765d6e4f9d772d52364db46b1",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/confirmation-card.tsx": {
@@ -6385,8 +6355,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/form-card.tsx": {
-    "mtime": 1793340405.5168724,
-    "ast_hash": "46c06e70690bb698035a4a173e567aec",
+    "mtime": 1793341478.2456865,
+    "ast_hash": "de8ae819a0f539f39ccc5536be8a2e16",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/payment-card.tsx": {
@@ -7190,8 +7160,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/blocks-sidebar/outline-panel.tsx": {
-    "mtime": 1793338330.239926,
-    "ast_hash": "95fabf3b0edafff5f8109a028912500a",
+    "mtime": 1793342009.4489193,
+    "ast_hash": "f8a6084aed1a2840901111b2f3654347",
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/editor.tsx": {
@@ -7235,8 +7205,8 @@
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/toolbar/toolbar-error-group.tsx": {
-    "mtime": 1793338330.2483969,
-    "ast_hash": "a45f7ff795d16106e8c36827d929419c",
+    "mtime": 1793342009.4489193,
+    "ast_hash": "4f135623dddad11952396ad2dd41131a",
     "semantic_hash": ""
   },
   "packages/builder/src/builder/template-panel/toolbar/toolbar-history-group.tsx": {
@@ -8040,8 +8010,8 @@
     "semantic_hash": ""
   },
   "packages/eslint-config/index.js": {
-    "mtime": 1793340278.8059464,
-    "ast_hash": "64a16b4153c36634a4800e3031b1cd4a",
+    "mtime": 1793343012.0002031,
+    "ast_hash": "690945de980a975fdf70c5aa4b52d0ca",
     "semantic_hash": ""
   },
   "packages/eslint-config/package.json": {
@@ -8060,8 +8030,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/package.json": {
-    "mtime": 1792158180.3880382,
-    "ast_hash": "69bd321ca328b8bb4d6b7614bea5b4fe",
+    "mtime": 1793341566.7112696,
+    "ast_hash": "34cf70468f634c7eaa2a7baff76aa466",
     "semantic_hash": ""
   },
   "packages/i18n/scripts/check-translations.js": {
@@ -8070,8 +8040,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/scripts/generate-locales-from-yaml.mjs": {
-    "mtime": 1793030080.2305458,
-    "ast_hash": "79b65e0cfe991992c1d0e289ce485358",
+    "mtime": 1793341757.0979223,
+    "ast_hash": "fb39c806461bcd5c7223ade68efd1849",
     "semantic_hash": ""
   },
   "packages/i18n/scripts/translate-missing-locale-keys.js": {
@@ -8080,8 +8050,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/i18n-text.tsx": {
-    "mtime": 1781637412.0301163,
-    "ast_hash": "ea59d091e1ec358cd0dc53afd9dd1a11",
+    "mtime": 1793341566.7132702,
+    "ast_hash": "c5d217dd689259a0b6a9e6ba464d015b",
     "semantic_hash": ""
   },
   "packages/i18n/src/request.ts": {
@@ -8095,13 +8065,13 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/server.ts": {
-    "mtime": 1786820409.580317,
-    "ast_hash": "d26ff960aec27c00c7b99070fcbcb179",
+    "mtime": 1793341566.7162695,
+    "ast_hash": "272ea974fc44f1fa9a73cbdb7875385d",
     "semantic_hash": ""
   },
   "packages/i18n/src/types.ts": {
-    "mtime": 1793029373.1669989,
-    "ast_hash": "cd0fbdc1b900b6a56c085fa503148a3e",
+    "mtime": 1793342538.024621,
+    "ast_hash": "126d68874c3bb8dbc7a79d51cc583bc5",
     "semantic_hash": ""
   },
   "packages/i18n/src/utils.ts": {
@@ -8175,13 +8145,13 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/base-block-props.tsx": {
-    "mtime": 1793338484.5691016,
-    "ast_hash": "e9713732d6aa4c5fb95b1c837a409223",
+    "mtime": 1793342015.004291,
+    "ast_hash": "26e4f8414774e65b161db8b929f141fb",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/breakpoint-selector.tsx": {
-    "mtime": 1793338330.4728942,
-    "ast_hash": "141caf40ff198477fbb95d6b17921254",
+    "mtime": 1793342015.004291,
+    "ast_hash": "f6da3c93ffa17a1169b40df8b9c0b5a3",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/css-preview.tsx": {
@@ -8200,8 +8170,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/state-selector.tsx": {
-    "mtime": 1793338330.4748623,
-    "ast_hash": "e3b54feedf211ce3b35a9a82bf37e9b1",
+    "mtime": 1793342015.004291,
+    "ast_hash": "a57b6b61df50f55d905a818961aa7171",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/style-category-style.tsx": {
@@ -8210,8 +8180,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/style-category.tsx": {
-    "mtime": 1793338484.665822,
-    "ast_hash": "f12a6cadfc0faa07b73c3c6bc1fc2790",
+    "mtime": 1793342015.004291,
+    "ast_hash": "fdb0e58cd637255b87709e9f70164fb9",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/configuration-panel/components/style-variant.tsx": {
@@ -8350,8 +8320,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/asset-selector-shortcut.tsx": {
-    "mtime": 1793338337.7595136,
-    "ast_hash": "1d1bdacc187f1e10780e24416ca8d004",
+    "mtime": 1793342545.2016494,
+    "ast_hash": "c54085402b9b0f34b0b4808389a13f38",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/button-group-shortcut.tsx": {
@@ -8360,8 +8330,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/color-shortcut.tsx": {
-    "mtime": 1793030829.3876975,
-    "ast_hash": "66106225ae677a76eec40ccc63a87167",
+    "mtime": 1793342545.2016494,
+    "ast_hash": "f9c73d7f010c8f5d7e36bd087b00bc6c",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/combobox-shortcut.tsx": {
@@ -8375,8 +8345,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/number-with-unit-shortcut.tsx": {
-    "mtime": 1788296027.4719012,
-    "ast_hash": "3983ac6aeb20ac1adf30d5b5920072a5",
+    "mtime": 1793342545.2026503,
+    "ast_hash": "c90b395ee5b6ce27f4d296097673f3c2",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/shortcuts/components/radio-group-shortcut.tsx": {
@@ -8435,8 +8405,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/base/color-exteneded-input.tsx": {
-    "mtime": 1793338330.5341258,
-    "ast_hash": "eebfd3747a36c799de5ba5343c560ab9",
+    "mtime": 1793342015.0051482,
+    "ast_hash": "780178deb14aaa97601f972d9836d0c7",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/base/index.ts": {
@@ -8445,8 +8415,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/base/raw-number-input-with-units-and-keywords.tsx": {
-    "mtime": 1793338330.535126,
-    "ast_hash": "6e4c2fa63f60ed2477c28ecf6d258640",
+    "mtime": 1793342015.0051482,
+    "ast_hash": "deee9c58c966aa034acd69b2da6bce9a",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/base/raw-number-input-with-units.tsx": {
@@ -8460,8 +8430,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/base/types.ts": {
-    "mtime": 1786820409.6056442,
-    "ast_hash": "046d2c7d8c22123573dfedb1d1020331",
+    "mtime": 1793343061.2092955,
+    "ast_hash": "12741b96768fd20743b0b03290e01623",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/font-size-input.tsx": {
@@ -8555,18 +8525,18 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/background/background-image.tsx": {
-    "mtime": 1793338485.3505225,
-    "ast_hash": "67a917fa6b7209422f6642407681809d",
+    "mtime": 1793342015.004291,
+    "ast_hash": "86e033f1dd860dd72b5751a61206219c",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/background/background-position.tsx": {
-    "mtime": 1793338330.4919255,
-    "ast_hash": "aa10babd0b2db9c6c504aa34b6a7294e",
+    "mtime": 1793342015.004291,
+    "ast_hash": "8cad752e7579bd792756f74b0098e4ea",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/background/background-repeat.tsx": {
-    "mtime": 1793338330.492721,
-    "ast_hash": "dfcfef8803bf9d464a442a928bb9c3e7",
+    "mtime": 1793342015.004291,
+    "ast_hash": "7e1f00499b80d89bcfd4a14cccecd4f7",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/background/background-size.tsx": {
@@ -8725,8 +8695,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/layout/grid-line.tsx": {
-    "mtime": 1793338330.5140252,
-    "ast_hash": "2307899b2f31a10cf1ef777df145a792",
+    "mtime": 1793342015.004291,
+    "ast_hash": "7b0e0e97fb732323acd6df6612fa72db",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/layout/grid-placement.tsx": {
@@ -8745,13 +8715,13 @@
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/layout/grid-template-tracks-dialog.tsx": {
-    "mtime": 1793338330.5175412,
-    "ast_hash": "8140783d3f4d7e674e4b1a1c46fb03e8",
+    "mtime": 1793342015.0051482,
+    "ast_hash": "b96dfed7886d1811962d0a41060923fe",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/layout/height.tsx": {
-    "mtime": 1786820409.624284,
-    "ast_hash": "5d4ed031941c05a6bb5bf9fd7774794e",
+    "mtime": 1793342545.2223852,
+    "ast_hash": "10587aa3cff4c6a586187be24a31ccff",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style/styles/layout/inset.tsx": {
@@ -9205,8 +9175,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/context.ts": {
-    "mtime": 1793336541.5880702,
-    "ast_hash": "7dd9a6ad0277f886da5a0e32e0a8839a",
+    "mtime": 1793342545.0870254,
+    "ast_hash": "b094e281d66d5c5d43f50a34c22dc2b4",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/form-card.tsx": {
@@ -9230,8 +9200,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/review-card.tsx": {
-    "mtime": 1793340032.6986983,
-    "ast_hash": "86a95c3869d175bf9f453cb0465439bf",
+    "mtime": 1793342026.069874,
+    "ast_hash": "47347043fafc23f1ace9545d3ef13984",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/modern/components/schedule.tsx": {
@@ -9310,8 +9280,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/card-with-info.tsx": {
-    "mtime": 1793339282.8039148,
-    "ast_hash": "84ba83b7a83b4a1c61ed53c9348e340d",
+    "mtime": 1793342026.069874,
+    "ast_hash": "3ca196a585d59ce17fd498f532d69255",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/confirmation-card.tsx": {
@@ -9335,8 +9305,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/form-card.tsx": {
-    "mtime": 1793340388.9950638,
-    "ast_hash": "50d167167a9ed8e748e358b4abf2453c",
+    "mtime": 1793341478.3095207,
+    "ast_hash": "96c5c401ed05442ac78eb5c9b29527d8",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/booking/simple/components/payment-card.tsx": {
@@ -9830,8 +9800,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/index.tsx": {
-    "mtime": 1793337770.6155932,
-    "ast_hash": "45011d2d2ab4b880c135758560957eb7",
+    "mtime": 1793343072.7224872,
+    "ast_hash": "afc6bdd57e510e577108e5eb90e24668",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/inline-container/configuration.tsx": {
@@ -10055,8 +10025,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/marketing-feature-item/schema.ts": {
-    "mtime": 1793337770.629195,
-    "ast_hash": "09acfaddfd98edbeba9e885af684db73",
+    "mtime": 1793343072.7224872,
+    "ast_hash": "f04f31b958a08b5bc2d7ddb15d1a8011",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/marketing-feature-item/shortcuts.ts": {
@@ -10170,13 +10140,13 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/context.ts": {
-    "mtime": 1793336541.6595502,
-    "ast_hash": "2c18f0e7e8ecf93ee0a23808672f144d",
+    "mtime": 1793342545.1395617,
+    "ast_hash": "77e4625ba70af184ee173768170f887c",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/form-card.tsx": {
-    "mtime": 1793339282.8324225,
-    "ast_hash": "b00e3e9d64353d9787f4213891653d21",
+    "mtime": 1793341478.3362434,
+    "ast_hash": "206f21bdca47f0c465488393ba21e4ea",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/layout.tsx": {
@@ -10200,8 +10170,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/review-card.tsx": {
-    "mtime": 1793339282.8344214,
-    "ast_hash": "63011f251bda5d5063045be0a7aaed26",
+    "mtime": 1793342026.069874,
+    "ast_hash": "4909b52dc59fcb2b38e616ac4137bf12",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/steps.ts": {
@@ -10210,8 +10180,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/components/type-card.tsx": {
-    "mtime": 1793338330.4211366,
-    "ast_hash": "156c4cfe9c94ba485b72061ffd03cea2",
+    "mtime": 1793342026.069874,
+    "ast_hash": "08d173522aef0efeaac59c38ecbf44ca",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/modern/configuration.tsx": {
@@ -10280,8 +10250,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/simple/components/not-allowed-card.tsx": {
-    "mtime": 1786820409.7700794,
-    "ast_hash": "7af8b83fd8e5793f2c99f43a948c409b",
+    "mtime": 1793342026.069874,
+    "ast_hash": "1757984b5fdb2e517256b699bb01642f",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/modify-appointment-form/simple/components/otp-card.tsx": {
@@ -10810,8 +10780,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/marketing.tsx": {
-    "mtime": 1793337770.6799867,
-    "ast_hash": "803c203c9f2fc41fa90bd5d49d921ba0",
+    "mtime": 1793343072.723487,
+    "ast_hash": "5570215b2419287927dee3032ddcd82a",
     "semantic_hash": ""
   },
   "packages/page-builder/tailwind.config.ts": {
@@ -10855,8 +10825,8 @@
     "semantic_hash": ""
   },
   "packages/rte-inline/src/components/toolbar/color-picker.tsx": {
-    "mtime": 1793338330.6520293,
-    "ast_hash": "d37808d990ef156f709a764ce4c209b9",
+    "mtime": 1793342003.3472033,
+    "ast_hash": "92133b37321e7de32a2a2f1ccb199e45",
     "semantic_hash": ""
   },
   "packages/rte-inline/src/components/toolbar/recent-colors.ts": {
@@ -10955,8 +10925,8 @@
     "semantic_hash": ""
   },
   "packages/rte-inline/src/plugins/fontFamily/toolbar.tsx": {
-    "mtime": 1793338330.6565437,
-    "ast_hash": "e423e4595140179e0dceddbff7122ab2",
+    "mtime": 1793342003.3472033,
+    "ast_hash": "89c494e1a41303c5ada8fc75a88e6612",
     "semantic_hash": ""
   },
   "packages/rte-inline/src/plugins/fontSize/index.ts": {
@@ -12175,8 +12145,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/built-in/utils.ts": {
-    "mtime": 1793336541.7796693,
-    "ast_hash": "44584fde82e491f1e3d0eb6bf6dec646",
+    "mtime": 1793342545.3147109,
+    "ast_hash": "74425429d5d70aaf6890554105ed5d99",
     "semantic_hash": ""
   },
   "packages/services/src/bullmq/base-bullmq-client.ts": {
@@ -12290,13 +12260,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/connected-apps.service.ts": {
-    "mtime": 1793336680.9756753,
-    "ast_hash": "207c3fce821c39f67a558031ec5b9fff",
+    "mtime": 1793343091.561222,
+    "ast_hash": "40618b9f00f525fe3f78e5b7eaf8e60a",
     "semantic_hash": ""
   },
   "packages/services/src/customer-auth.service.ts": {
-    "mtime": 1793339282.9171622,
-    "ast_hash": "39fb68f938ab4a83d7105343888973ec",
+    "mtime": 1793343091.561222,
+    "ast_hash": "989cb5725f6b0a9c07767a8b2685eb31",
     "semantic_hash": ""
   },
   "packages/services/src/customers.service.ts": {
@@ -12355,53 +12325,53 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/addon/addon-event-definitions.ts": {
-    "mtime": 1793336541.824732,
-    "ast_hash": "b79e214ab26b34123eb6061703d52795",
+    "mtime": 1793342545.3347657,
+    "ast_hash": "d80b38c16018d01eebacd1f626ffb5c0",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/app/app-event-definitions.ts": {
-    "mtime": 1793339282.9211624,
-    "ast_hash": "4d549f08e9a016393801b03ed3956290",
+    "mtime": 1793343091.561222,
+    "ast_hash": "66457e91dad065535e77fa08221ef8be",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/appointment-option/appointment-option-event-definitions.ts": {
-    "mtime": 1793336541.8281658,
-    "ast_hash": "cd8e3fc9c2e8777d28fab974c5bc931d",
+    "mtime": 1793342545.3367662,
+    "ast_hash": "1ebe81da9755a02a697906d83db6e50c",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/appointment/appointment-event-definitions.ts": {
-    "mtime": 1793339282.921752,
-    "ast_hash": "ee6726e212cc43d9b54ba796bd4689ce",
+    "mtime": 1793342545.3357654,
+    "ast_hash": "afcb0d86ca090e758c081d0212b4448b",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/asset/asset-event-definitions.ts": {
-    "mtime": 1793336541.829063,
-    "ast_hash": "bc27b21d36f85911cd9995a489a485fa",
+    "mtime": 1793342545.3373125,
+    "ast_hash": "93a88283e82876a10c5b7e3acb52206f",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/billing/billing-event-definitions.ts": {
-    "mtime": 1793339282.9258826,
-    "ast_hash": "de8bddbe8a4b28b050524425130c2cfc",
+    "mtime": 1793343091.561222,
+    "ast_hash": "1ecf3bc2c81b797f3b5b9800e5fd97e4",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/customer/customer-event-definitions.ts": {
-    "mtime": 1793336541.8310628,
-    "ast_hash": "06f9e6688de31ce8866433a26888cec3",
+    "mtime": 1793342545.3382857,
+    "ast_hash": "33da2297854771e8b2607b7094c3c3e2",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/discount/discount-event-definitions.ts": {
-    "mtime": 1793336541.832063,
-    "ast_hash": "1649aba1ab383e8c1716a3e166942bce",
+    "mtime": 1793342545.3382857,
+    "ast_hash": "1984aebf6322f3f2ee645bc502a1ecdd",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/field/field-event-definitions.ts": {
-    "mtime": 1793336541.832063,
-    "ast_hash": "337d8fb89b856cc35292ad98983c039d",
+    "mtime": 1793342545.3392854,
+    "ast_hash": "d4ae5aee46672d424921688a6d4fcd70",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/gift-card/gift-card-event-definitions.ts": {
-    "mtime": 1793336541.8330636,
-    "ast_hash": "e85da2e7a8e5501a9afc167240adc0d9",
+    "mtime": 1793342545.3392854,
+    "ast_hash": "ed96f5155ee9dcd9dff2c5ba824edda7",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/index.ts": {
@@ -12415,43 +12385,43 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/organization/organization-event-definitions.ts": {
-    "mtime": 1793336681.3358004,
-    "ast_hash": "da7724048a37ef12aa68cb173f333533",
+    "mtime": 1793342545.3418043,
+    "ast_hash": "fa742e060963f7026075af505a4ed73a",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/page/page-event-definitions.ts": {
-    "mtime": 1793336541.8419223,
-    "ast_hash": "c511b8d6fe1f3d24a55d97a6f7ba04a2",
+    "mtime": 1793342545.344332,
+    "ast_hash": "7f5d2401bdef4ce5de16d779368bd077",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/page/page-footer-event-definitions.ts": {
-    "mtime": 1793336541.8429232,
-    "ast_hash": "97c397402e2b6e7eed3804a187c53a79",
+    "mtime": 1793342545.345284,
+    "ast_hash": "4fe96fb8bbba36e03aae6a0b54f457d8",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/page/page-header-event-definitions.ts": {
-    "mtime": 1793336541.8429232,
-    "ast_hash": "97d7e4b4645f77fa4442b07de3227955",
+    "mtime": 1793342545.345284,
+    "ast_hash": "5490788cf7ad78f60960ff0b919a0822",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/payment/payment-event-definitions.ts": {
-    "mtime": 1793336541.8439226,
-    "ast_hash": "91f59ec65f766b2cc73e3554b23bdbd3",
+    "mtime": 1793342545.3462837,
+    "ast_hash": "56632629ed6f5f1777253d8975da83dd",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/settings/settings-event-definitions.ts": {
-    "mtime": 1793336681.4139779,
-    "ast_hash": "424637a55b00a8933ff5fb79b84933b0",
+    "mtime": 1793342545.3474696,
+    "ast_hash": "ec99fbdb90b23c047c41ba0a4b538c01",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/subscription/subscription-event-definitions.ts": {
-    "mtime": 1793339282.928738,
-    "ast_hash": "41011dbf7b36cdddc1ca04cca63d7c7f",
+    "mtime": 1793343091.561222,
+    "ast_hash": "412c6f5b479cde50ac784b567a1f6297",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/template/template-event-definitions.ts": {
-    "mtime": 1793336541.8509543,
-    "ast_hash": "b8fef2d04be97a53cd026f14d64e9d7b",
+    "mtime": 1793342545.3509924,
+    "ast_hash": "5ddf311c3f9f19e077f17df3fc8511bb",
     "semantic_hash": ""
   },
   "packages/services/src/events/event-registry.ts": {
@@ -12935,8 +12905,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/booking/gift-card.ts": {
-    "mtime": 1793319735.9932091,
-    "ast_hash": "b5e0d7ad5777d075fd4cbc1a4898262d",
+    "mtime": 1793342877.582807,
+    "ast_hash": "24d328b998398a26d1537000ce4bddf3",
     "semantic_hash": ""
   },
   "packages/types/src/booking/index.ts": {
@@ -13350,13 +13320,13 @@
     "semantic_hash": ""
   },
   "packages/types/src/utils/country.ts": {
-    "mtime": 1788537796.9591029,
-    "ast_hash": "7422587cd63019bf42dfa4b2d8073532",
+    "mtime": 1793342545.4178898,
+    "ast_hash": "35004c77cef0adb6081c677099a1b395",
     "semantic_hash": ""
   },
   "packages/types/src/utils/currency.ts": {
-    "mtime": 1786820409.9770558,
-    "ast_hash": "2368e74d550a67422f08c2c7cf35a1ca",
+    "mtime": 1793342545.4178898,
+    "ast_hash": "d2d1419fe37f4de8ea229b5eb2ad7121",
     "semantic_hash": ""
   },
   "packages/types/src/utils/date.ts": {
@@ -13495,8 +13465,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/appointments/tabs/details.tsx": {
-    "mtime": 1793340032.8562026,
-    "ast_hash": "86298f73869e642c929a9f907acf3d1c",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "4794fe88fd9af97a72f590f707fb0826",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/appointments/tabs/files.tsx": {
@@ -13610,8 +13580,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/add-update-payment-dialog.tsx": {
-    "mtime": 1793340032.8727715,
-    "ast_hash": "5f13adb99f047434f7087a8f5492ce69",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "2caab6797856b66fc659146bd5c28c6f",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/gift-card-payments-dialog.tsx": {
@@ -13625,8 +13595,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-card.tsx": {
-    "mtime": 1793340380.8702521,
-    "ast_hash": "4cd8238c0187d3506b928f55b8e6d2c3",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "22b2db1734c8c8e4e96a505a2e61d969",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-delete-confirmation-modal.tsx": {
@@ -14115,8 +14085,8 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/form.tsx": {
-    "mtime": 1793336541.9103587,
-    "ast_hash": "49d9c7ad897d3da683dc0a438c2f6d1c",
+    "mtime": 1793342000.5428045,
+    "ast_hash": "2d778bc62f20fe330b444362e12388b8",
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/checkbox-field.tsx": {
@@ -14130,8 +14100,8 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/fields.tsx": {
-    "mtime": 1793336685.4080813,
-    "ast_hash": "b039daa64eacb88be6b31cb505eabe01",
+    "mtime": 1793342545.4389517,
+    "ast_hash": "37f5ddd57e36a07d08ac7c2e031ee5a9",
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/file.tsx": {
@@ -14145,13 +14115,13 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/form-field-error-message.tsx": {
-    "mtime": 1786820410.0562146,
-    "ast_hash": "9475e0d86f3092c04198bdd4b9e58edd",
+    "mtime": 1793342000.5428045,
+    "ast_hash": "90985c5fad5f3a44904eb39fca5870b5",
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/form-field-label.tsx": {
-    "mtime": 1793161439.5802019,
-    "ast_hash": "b92b4b4fea33c034d1a67a22bb8dbd4a",
+    "mtime": 1793342000.5428045,
+    "ast_hash": "6193f26107ba4afff21e576666cbe7d4",
     "semantic_hash": ""
   },
   "packages/ui/src/components/forms/form-field.types.ts": {
@@ -14960,203 +14930,8 @@
     "semantic_hash": ""
   },
   "docs/README.md": {
-    "mtime": 1786820409.017004,
-    "ast_hash": "36317f55fdef67d8022914bed9c54f46",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/appointment-notifications.md": {
-    "mtime": 1792769070.3600626,
-    "ast_hash": "20565afe101b422ff45086c15956a980",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/blog.md": {
-    "mtime": 1786820409.0180671,
-    "ast_hash": "3a0610f952cb49549488b3e8d0e97a84",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/busy-events.md": {
-    "mtime": 1786820409.0190413,
-    "ast_hash": "7c27583b1cb3804f7b4e1b4c97b49b83",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/caldav.md": {
-    "mtime": 1786820409.0200412,
-    "ast_hash": "a2d23b9934be91355d960fcdcda0dabd",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/calendar-writer.md": {
-    "mtime": 1786820409.0210633,
-    "ast_hash": "6d79e5b31165532f9a24c302f378d79a",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/carddav.md": {
-    "mtime": 1786820409.0220687,
-    "ast_hash": "d9186a22093e708f8ce5445e091d6a94",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/customer-email-notification.md": {
-    "mtime": 1786820409.0230694,
-    "ast_hash": "1ffee7a975abbfde8583bbb5a46467ab",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/customer-text-message-notification.md": {
-    "mtime": 1792769070.3600626,
-    "ast_hash": "5a961d55d94ccc3f96d0fb537d36076c",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/email-notification.md": {
-    "mtime": 1786820409.0230694,
-    "ast_hash": "da2104dbe1b7f589bc2f085bc264f15d",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/forms.md": {
-    "mtime": 1786820409.024071,
-    "ast_hash": "a7252d06368558de218d9681632537ea",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/gift-card-studio.md": {
-    "mtime": 1786820409.0245845,
-    "ast_hash": "4bfc884f1b10421ff159ccac48dd2205",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/google-calendar.md": {
-    "mtime": 1786820409.0245845,
-    "ast_hash": "f325e4f9648e42b2dd75ba44fd08bd5f",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/ics-feed.md": {
-    "mtime": 1786820409.0255826,
-    "ast_hash": "d3ba8093d035e2fb43b6805cbeea3df0",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/my-cabinet.md": {
-    "mtime": 1792080639.9367127,
-    "ast_hash": "75e2cd7ae0bc68c932269eeebfec218d",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/outlook.md": {
-    "mtime": 1786820409.0255826,
-    "ast_hash": "72f573ec4838cde71145b77c900fdff3",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/overview.md": {
-    "mtime": 1786820409.026584,
-    "ast_hash": "a4d20962ad09aa42b9ecb35667ccbd1a",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/paypal.md": {
-    "mtime": 1786820409.026584,
-    "ast_hash": "d01201515eaf8d4083e823934d48eaa3",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/smart-schedule.md": {
-    "mtime": 1786820409.0275855,
-    "ast_hash": "d06f7bc5707edac053df6408bc9fe650",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/smtp.md": {
-    "mtime": 1786820409.0275855,
-    "ast_hash": "8d555bd3c0df6b906e394d45f40574a9",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/square.md": {
-    "mtime": 1786820409.0285845,
-    "ast_hash": "e2e369cd1ab98b4d043ab3af2f9a8d58",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/stripe.md": {
-    "mtime": 1786820409.030585,
-    "ast_hash": "4d3f21f08b2533db975df00830cf10d1",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/text-belt.md": {
-    "mtime": 1786820409.0315843,
-    "ast_hash": "ed5897c252578d0c4bd07a7aeba080df",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/text-message-auto-reply.md": {
-    "mtime": 1792769070.3620641,
-    "ast_hash": "2b943f3bbdf75f18562a8c424102da73",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/text-message-notification.md": {
-    "mtime": 1777924614.5223808,
-    "ast_hash": "3ede7dd7940d060676b52f2c6b27c91d",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/text-message-resender.md": {
-    "mtime": 1786820409.032585,
-    "ast_hash": "d7cd761311a8ec12ec90b5b92ddb8564",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/troubleshooting.md": {
-    "mtime": 1786820409.0331,
-    "ast_hash": "19461cfafd9a2958da3697b6eb44b987",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/url-busy-events.md": {
-    "mtime": 1786820409.0340989,
-    "ast_hash": "c8dacb3e436b7150155c9665df803d07",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/url-schedule-provider.md": {
-    "mtime": 1786820409.0340989,
-    "ast_hash": "b13e50ab618a85e3517d3e29b8b891f5",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/waitlist.md": {
-    "mtime": 1787876587.4056816,
-    "ast_hash": "1dbe621f73a831c41d29aeac54f1e511",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/webhooks.md": {
-    "mtime": 1786820409.0360994,
-    "ast_hash": "4b406e527b7e5cea9ddfb18d47fbcde1",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/weekly-schedule.md": {
-    "mtime": 1786987867.2859235,
-    "ast_hash": "8719aae6bc3f4b106c9bfb8150f6130c",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/zoom.md": {
-    "mtime": 1786820409.037101,
-    "ast_hash": "209337b39bed02e0aef324fc0917ee0c",
-    "semantic_hash": ""
-  },
-  "docs/docs/daily-use/connect-domain.md": {
-    "mtime": 1789928597.2135482,
-    "ast_hash": "d7b737f385f4f4a4c187028b365e2b93",
-    "semantic_hash": ""
-  },
-  "docs/docs/daily-use/settings.md": {
-    "mtime": 1786820409.0386262,
-    "ast_hash": "cc254cfe69f38720e492c4a3e8f9e633",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/introduction.md": {
-    "mtime": 1786820409.0437708,
-    "ast_hash": "1d609327a23885aa19790aa4d39e37cf",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/sign-up.md": {
-    "mtime": 1786820409.0446415,
-    "ast_hash": "fd5293c4fffaa83f5cae5bc4bf2ec014",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/subscription-and-checkout.md": {
-    "mtime": 1786987867.276369,
-    "ast_hash": "4927b068c7eec54e7ddb9af1c01c8d0d",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/workspace-install-wizard.md": {
-    "mtime": 1787002117.574303,
-    "ast_hash": "3106d5fb4cd4f2f7a5cdb8676549359b",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/README.md": {
-    "mtime": 1777646195.4419448,
-    "ast_hash": "78bae52010b5a1621efa7cf6cd183e42",
+    "mtime": 1793374601.790125,
+    "ast_hash": "be77153bd4d78ba3b6feeb297404394d",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/appointment-notifications/translations/en/admin.yaml": {
@@ -25284,726 +25059,6 @@
     "ast_hash": "df7c99f468da5cfd8095dd782f1f72b1",
     "semantic_hash": ""
   },
-  "docs/static/img/docusaurus.png": {
-    "mtime": 1777568645.414989,
-    "ast_hash": "7fa1a026116afe175cae818030d4ffc4",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/brand.png": {
-    "mtime": 1780938732.332268,
-    "ast_hash": "61c0ac6d5078a525af40bb5d79ef080c",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/business.png": {
-    "mtime": 1780938134.496804,
-    "ast_hash": "adf8e93987b81c96982a17f3bd0b5da1",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/checkout.png": {
-    "mtime": 1780937952.113551,
-    "ast_hash": "a2446f8c7e889ffca15c275b80d6757d",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/integrations.png": {
-    "mtime": 1780939195.4331877,
-    "ast_hash": "fbfd3bc290770917cad90e5f26347632",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/payments.png": {
-    "mtime": 1780939269.2615306,
-    "ast_hash": "7976160625d935b4b42d897647da1c03",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/polar.png": {
-    "mtime": 1777578004.6936305,
-    "ast_hash": "d3c53237c0cba29b7bdd1117ea9de1e7",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/service-template.png": {
-    "mtime": 1780938781.425428,
-    "ast_hash": "648c5b8e52d12415f926caca3d85dc27",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/services.png": {
-    "mtime": 1780938826.0482256,
-    "ast_hash": "be46ac3e7e54bd73333c136e15d6e0c1",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/sign-up.png": {
-    "mtime": 1780937866.9663641,
-    "ast_hash": "5c0c7ddd0ea193e7693eb074eab196b5",
-    "semantic_hash": ""
-  },
-  "docs/static/img/navbar-logo-dark.svg": {
-    "mtime": 1792849480.8057427,
-    "ast_hash": "56a7f21da27dcd2681ee0f58e61abd65",
-    "semantic_hash": ""
-  },
-  "docs/static/img/navbar-logo.svg": {
-    "mtime": 1792849476.5197241,
-    "ast_hash": "c03ccec1b54e8168cdd2b6dfecc49ca1",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-appointment-notifications-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-appointment-notifications-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-appointment-notifications-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-blog-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-blog-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-blog-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-busy-events-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-busy-events-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-busy-events-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-caldav-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-caldav-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-caldav-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-calendar-writer-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-calendar-writer-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-calendar-writer-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-carddav-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-carddav-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-carddav-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-email-notification-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-email-notification-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-email-notification-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-text-message-notification-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-text-message-notification-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-customer-text-message-notification-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-email-notification-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-email-notification-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-email-notification-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-financial-overview-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-financial-overview-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-financial-overview-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-forms-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-forms-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-forms-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-gift-card-studio-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-gift-card-studio-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-gift-card-studio-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-google-calendar-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-google-calendar-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-google-calendar-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-ics-feed-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-ics-feed-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-ics-feed-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-my-cabinet-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-my-cabinet-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-my-cabinet-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-outlook-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-outlook-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-outlook-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-paypal-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-paypal-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-paypal-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smart-schedule-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smart-schedule-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smart-schedule-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smtp-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smtp-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-smtp-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-square-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-square-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-square-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-stripe-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-stripe-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-stripe-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-belt-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-belt-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-belt-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-auto-reply-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-auto-reply-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-auto-reply-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-notification-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-notification-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-notification-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-resender-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-resender-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-text-message-resender-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-busy-events-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-busy-events-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-busy-events-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-schedule-provider-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-schedule-provider-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-url-schedule-provider-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-notifications-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-notifications-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-waitlist-notifications-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-webhooks-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-webhooks-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-webhooks-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-weekly-schedule-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-weekly-schedule-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-weekly-schedule-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-zoom-app-store.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-zoom-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/app-zoom-in-flow.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-add-connection.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-disconnect-confirm.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-installed-overview.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-menu-callouts.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-post-install-checklist.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-reconnect.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-secrets-training.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/apps-store-browse.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/checkout-plan-cards.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/checkout-polar-payment.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-booking-link.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-dashboard-home.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-services-list.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-settings-appointments.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-settings-brand.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-settings-profile.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/daily-settings-schedule.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/domain-connect-dialog.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/domain-dns-instructions.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-business-details.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-complete.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-integrations.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-payments.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-personalization.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-services-edit.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-services-templates.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-step1-slug-preview.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-step2-colors-expanded.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-step3-duration-price.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-verify-email.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/install-wizard-progress.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/signup-confirm-email.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/signup-page.svg": {
-    "mtime": 1777569578.0318213,
-    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
-    "semantic_hash": ""
-  },
-  "docs/static/img/undraw_docusaurus_mountain.svg": {
-    "mtime": 1777568645.4205477,
-    "ast_hash": "a6b83d7b4c3cf36cb21eb7a9721716dd",
-    "semantic_hash": ""
-  },
-  "docs/static/img/undraw_docusaurus_react.svg": {
-    "mtime": 1777568645.4215477,
-    "ast_hash": "b64ae8e3c10e5ff2ec85a653cfe6edf8",
-    "semantic_hash": ""
-  },
-  "docs/static/img/undraw_docusaurus_tree.svg": {
-    "mtime": 1777568645.4225483,
-    "ast_hash": "8fa6e79a15c385d7b2dc4bb761a2e9e3",
-    "semantic_hash": ""
-  },
   "packages/app-store/src/apps/caldav/images/image.png": {
     "mtime": 1773675371.1104941,
     "ast_hash": "9a49dc9dbfa5b2e5411ba64c58d38866",
@@ -26115,8 +25170,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/synced-payments/review.tsx": {
-    "mtime": 1793340286.8525782,
-    "ast_hash": "5a03bd4fd2b8ba0d6d5436018604788a",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "07e8bb14726fe34a83852b0cd948055c",
     "semantic_hash": ""
   },
   "docs/.docusaurus/docusaurus-plugin-content-docs/default/p/docs-category-first-steps-b72.json": {
@@ -26169,11 +25224,6 @@
     "ast_hash": "21753f421db36b93cba02521030dba56",
     "semantic_hash": ""
   },
-  "docs/docs/first-steps/_category_.json": {
-    "mtime": 1780934740.40021,
-    "ast_hash": "1453c2db37ae0935f846f899cbb11838",
-    "semantic_hash": ""
-  },
   "migrations/20260610120000-synced_payments.js": {
     "mtime": 1781109969.567617,
     "ast_hash": "318928dc8b38286c41fdc34c0f6e7cb1",
@@ -26200,8 +25250,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/assign-appointment-dialog.tsx": {
-    "mtime": 1793340032.8762827,
-    "ast_hash": "498451e1b2a7bf0dc78d14d1c3dd99b4",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "c7ff91a29ba2b34727ffe18e4a999e55",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/edit-synced-payment-amounts-dialog.tsx": {
@@ -26215,123 +25265,13 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/synced-payment-card.tsx": {
-    "mtime": 1793338498.2046196,
-    "ast_hash": "c1bab3906d3557e665c1968068e19b21",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/build-your-website.md": {
-    "mtime": 1780934830.0908394,
-    "ast_hash": "aa8c9f13bf37893e4810fe1b6874e0ec",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/complete-your-business-profile.md": {
-    "mtime": 1787002151.9133403,
-    "ast_hash": "10f6ee0d0691ba9d804b21bcf628e439",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/connect-essentials.md": {
-    "mtime": 1786820409.0401938,
-    "ast_hash": "7bb199114c9650c0a9564ef1380ee13a",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/index.md": {
-    "mtime": 1787002117.6113367,
-    "ast_hash": "bb001cbca9e8e600fb9d4413389a184e",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/manage-bookings-and-customers.md": {
-    "mtime": 1786820409.0411274,
-    "ast_hash": "58ef20649e6989212974db3c9e6fbdcb",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/publish-and-share.md": {
-    "mtime": 1787002117.5893018,
-    "ast_hash": "f129452dc77e9d82792a3714f6931c2e",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/set-up-your-services.md": {
-    "mtime": 1780934830.0948358,
-    "ast_hash": "140bf50169999f3b98647a6bf76feb3e",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/set-your-availability.md": {
-    "mtime": 1786820409.0421276,
-    "ast_hash": "5c3a772bbbf0c0be34fdf6c6b0c96561",
-    "semantic_hash": ""
-  },
-  "docs/docs/first-steps/test-the-customer-experience.md": {
-    "mtime": 1780934830.0968359,
-    "ast_hash": "ee7e90e21c7f23afd22d3753658d5b5a",
-    "semantic_hash": ""
-  },
-  "docs/static/img/first-steps/dashboard.png": {
-    "mtime": 1780941640.0102096,
-    "ast_hash": "064315caca1862a48b84c89be9ff4408",
-    "semantic_hash": ""
-  },
-  "docs/static/img/first-steps/settings-brand.png": {
-    "mtime": 1780941734.8650978,
-    "ast_hash": "0dadb1e874c6e58331b69f032c1b55fb",
-    "semantic_hash": ""
-  },
-  "docs/static/img/getting-started/schedule.png": {
-    "mtime": 1780938858.1093848,
-    "ast_hash": "51bd01beed798c28197c32c47135a098",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-appointments.svg": {
-    "mtime": 1780934797.4810624,
-    "ast_hash": "cc57a46c25c7ba1b4873c0d8504944fd",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-apps-store.svg": {
-    "mtime": 1780934797.4790633,
-    "ast_hash": "84b9ab3600f4ab5c9e0318701cfdc208",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-brand-settings.svg": {
-    "mtime": 1780934797.477062,
-    "ast_hash": "a3b53ff7789f49322231130f4e8ff3b5",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-checklist.svg": {
-    "mtime": 1780934797.475064,
-    "ast_hash": "06c03d8a7733910f70485691a37b0cac",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-dashboard-home.svg": {
-    "mtime": 1780934797.4760623,
-    "ast_hash": "7f32012bf138d81292f6d77e9fef029f",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-page-builder.svg": {
-    "mtime": 1780934797.4780636,
-    "ast_hash": "164ba9c13c22f04def9bf338246c9b4f",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-publish-link.svg": {
-    "mtime": 1780934797.4790633,
-    "ast_hash": "5564930a06055907c34f225658bf5e5d",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-schedule.svg": {
-    "mtime": 1780934797.4780636,
-    "ast_hash": "4bcbd61530660073b5820c05a9c6b5e0",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-services-list.svg": {
-    "mtime": 1780934797.477062,
-    "ast_hash": "01b907ef70dabc76045e2aba948c3990",
-    "semantic_hash": ""
-  },
-  "docs/static/img/placeholders/first-steps-test-booking.svg": {
-    "mtime": 1780934797.4800632,
-    "ast_hash": "6427dfa808d74466ca262fd2dcd10f65",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "e5742ab1344667f4f2fcc4ebb6486e2b",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/synced-payment/synced-payment-event-definitions.ts": {
-    "mtime": 1793336541.8499548,
-    "ast_hash": "7d391a8454d32884ff88df747e1e33c4",
+    "mtime": 1793342545.3494353,
+    "ast_hash": "a6988fad8cf46069fa41c7040a900a8c",
     "semantic_hash": ""
   },
   "apps/admin/src/app/api/payments/route.ts": {
@@ -26345,8 +25285,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/payments/page.tsx": {
-    "mtime": 1793340032.2557504,
-    "ast_hash": "ee3417370665301023612b8428f80652",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "758ba709284fe45a4f4f3f8eeae9188c",
     "semantic_hash": ""
   },
   "packages/ui-admin/src/components/appointment-selector.tsx": {
@@ -26355,13 +25295,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/cell-action.tsx": {
-    "mtime": 1793340286.8500614,
-    "ast_hash": "30eb3f14cc5a597c6d707a81bcb487d3",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "9e53119d23218ec0f3ba4034530ffbe7",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/columns.tsx": {
-    "mtime": 1793340286.8505993,
-    "ast_hash": "8e4bef8fcef2381c0d122be6673e70c8",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "0f1453d4510094f8ff74ce77ed52825a",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/table-action.tsx": {
@@ -26370,8 +25310,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/table.tsx": {
-    "mtime": 1793340032.40115,
-    "ast_hash": "9172899beca9265dee1a634709ac192e",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "1a733eb864d00488a0efd2c6b10d1fa8",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/use-table-filters.tsx": {
@@ -26460,13 +25400,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/page.tsx": {
-    "mtime": 1793340286.8040035,
-    "ast_hash": "02789c0dde98a81d6a62483c3ee23661",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "2015776595588f757a6e286ede644321",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/page.tsx": {
-    "mtime": 1793339282.30108,
-    "ast_hash": "3f5c4aed75ca3c812d9dd5bc3df83dff",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "fc7ace972147633d4d15ab1e06d6e0f7",
     "semantic_hash": ""
   },
   "migrations/20260612120000-paypal_online_payment_external_id_to_capture.js": {
@@ -26485,8 +25425,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/financials-overview-client.tsx": {
-    "mtime": 1793340286.803032,
-    "ast_hash": "49b9b79105fae5dbec422d075893c679",
+    "mtime": 1793342063.3921978,
+    "ast_hash": "b7e1aee840eb5828ad31583f2843970c",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/financials/overview/financials-overview.tsx": {
@@ -26515,13 +25455,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/table/export-payments-button.tsx": {
-    "mtime": 1793340032.3996346,
-    "ast_hash": "f5967741c4538c0107def5ad928f48e0",
+    "mtime": 1793343755.7673748,
+    "ast_hash": "45a0f66a38f840291cc42069bc6c618d",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/payments-export-csv.ts": {
-    "mtime": 1793339282.3947265,
-    "ast_hash": "24300bb2f330c459d7b665965a7cbe59",
+    "mtime": 1793342544.628851,
+    "ast_hash": "1a6a877969b0ee726a4bfdf061fb5354",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-details-dialog.tsx": {
@@ -26610,8 +25550,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/appointment/appointment-limit-email.ts": {
-    "mtime": 1793339282.92368,
-    "ast_hash": "650c56719abda952edd645b55a640e76",
+    "mtime": 1793343091.561222,
+    "ast_hash": "8f3e936ad2665c1f5f3b8d57cadd1d72",
     "semantic_hash": ""
   },
   "packages/api-sdk/src/client/booking-submit-error.ts": {
@@ -26815,8 +25755,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/settings/team/page.tsx": {
-    "mtime": 1793340032.2698255,
-    "ast_hash": "7f81bb30130121a25ef7855dfc4bc160",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "720d9617fc303a0936680f38e1b5e0b1",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/waitlist/blocks/simple/booking-with-waitlist/components/specialist-card.tsx": {
@@ -26840,8 +25780,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/cancel-invitation-button.tsx": {
-    "mtime": 1793340032.416888,
-    "ast_hash": "ee3122bfb69ec2a31df1f086cf1522ee",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "65d1e13ca8f63125b07402aa156e6512",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/invite-member-button.tsx": {
@@ -26865,8 +25805,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/cell-action.tsx": {
-    "mtime": 1793340032.4218538,
-    "ast_hash": "03b1a44a0faa0a08b72c045b44cae040",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "c19ce782c94deff236364fbd3faa7d8a",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/columns.tsx": {
@@ -26880,8 +25820,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/table.tsx": {
-    "mtime": 1793340032.4228542,
-    "ast_hash": "d7f893e88d228c48b764204a22190f58",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "f73f7f231d93491e2ef2782b6b5be8f0",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/team/table/types.ts": {
@@ -27200,8 +26140,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/app-access.ts": {
-    "mtime": 1793339282.388165,
-    "ast_hash": "1d6b1310976a24e0685b6fa352b082f7",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "8235613e6fac04c77f6907717c75c70d",
     "semantic_hash": ""
   },
   "packages/utils/src/app-access.ts": {
@@ -27235,8 +26175,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/assert-page-permission.ts": {
-    "mtime": 1793339282.388165,
-    "ast_hash": "08fd2bbcc28a1a5be43d562c5921e956",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "a9ab093e712775e75381e36f7c19e1f3",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/require-appointment-update.ts": {
@@ -27265,8 +26205,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/client.tsx": {
-    "mtime": 1786820409.5677812,
-    "ast_hash": "3908951a39ebc4dad2dfd4b7b5cca150",
+    "mtime": 1793341566.7142682,
+    "ast_hash": "6181a3a0e4dee1cc0627f6688c518d43",
     "semantic_hash": ""
   },
   "packages/i18n/src/components.tsx": {
@@ -27275,8 +26215,8 @@
     "semantic_hash": ""
   },
   "packages/i18n/src/index.ts": {
-    "mtime": 1786820409.5687807,
-    "ast_hash": "e84467a88101e743d583399cce3517f2",
+    "mtime": 1793342537.3069992,
+    "ast_hash": "bee5194d9196352864f8203107065bd8",
     "semantic_hash": ""
   },
   "packages/types/src/apps/app-scope-usage.ts": {
@@ -27325,13 +26265,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/password-change-dialog.tsx": {
-    "mtime": 1793338329.7902493,
-    "ast_hash": "f3c58372cf557f6efc1b9ca5edfdf230",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "0dba275145c66ed348faa4a5ea3de9ea",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/profile-form.tsx": {
-    "mtime": 1793340032.4414103,
-    "ast_hash": "42ca4b064d660a79114ec26804492686",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "b0b9273c90ba24b5fd183d7eea1cdb6b",
     "semantic_hash": ""
   },
   "apps/admin/src/components/install/organization-slug.ts": {
@@ -27342,11 +26282,6 @@
   "packages/email-builder/src/brand.ts": {
     "mtime": 1792849992.6404939,
     "ast_hash": "08c29b9391debc180207e9ac33150961",
-    "semantic_hash": ""
-  },
-  "docs/docs/getting-started/what-is-hacado.md": {
-    "mtime": 1786820409.0466404,
-    "ast_hash": "7093d0ef16413eadbbaffc3facf443bb",
     "semantic_hash": ""
   },
   "apps/admin/src/proxy-chain/chain-proxy.ts": {
@@ -27435,13 +26370,13 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/invitation/invitation-event-definitions.ts": {
-    "mtime": 1793336541.8349962,
-    "ast_hash": "99e03b63fbc5f9fcbc2b4a709de513f4",
+    "mtime": 1793342545.3402855,
+    "ast_hash": "0e4e726bf75a956de11f0bd6b5c40a91",
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/member/member-event-definitions.ts": {
-    "mtime": 1793336541.8362222,
-    "ast_hash": "668b7f476b4325bfef0fcb53c0cd903c",
+    "mtime": 1793342545.3408322,
+    "ast_hash": "e3341a0309a8aaed7d17a97c11df7811",
     "semantic_hash": ""
   },
   "apps/web/public/screenshots/mobile-book-2.png": {
@@ -27850,8 +26785,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/package/package-event-definitions.ts": {
-    "mtime": 1793336541.8376963,
-    "ast_hash": "7e4f5b6c279d96d82c7fd9d337a3df81",
+    "mtime": 1793342545.3428047,
+    "ast_hash": "708fb3930019910b18cf1835b2c7c455",
     "semantic_hash": ""
   },
   "packages/services/src/packages.service.ts": {
@@ -27950,8 +26885,8 @@
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/review-card.tsx": {
-    "mtime": 1793340032.5613995,
-    "ast_hash": "060ea127f87cb09843c6f7d4ce35ed65",
+    "mtime": 1793342039.8935947,
+    "ast_hash": "a9dd6a9b818b3a1a5d33da4eaa658119",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/my-cabinet/blocks/my-cabinet/screens/book/schedule.tsx": {
@@ -28110,8 +27045,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/package/package-purchased-owner-email.ts": {
-    "mtime": 1793339282.9271953,
-    "ast_hash": "29d29d97447ef4ba159623105f48a051",
+    "mtime": 1793343091.561222,
+    "ast_hash": "ff303af070735624b92d41b6896480f3",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/customer-package-email-notification/translations/en/admin.yaml": {
@@ -28195,8 +27130,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/complete-profile-form.tsx": {
-    "mtime": 1793338329.6509557,
-    "ast_hash": "3fcbdc6f544622b90a70e78fde89ddef",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "4e97e3a212cd025462a3237f36d8aa0d",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/social-auth-buttons.tsx": {
@@ -28210,8 +27145,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/set-password-dialog.tsx": {
-    "mtime": 1793338329.7952714,
-    "ast_hash": "ef7a70d76fc47b0d2299d03bc873feb4",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "e3bb79dfdc68301a6e14691812bd03d7",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/assert-public-signup-allowed.ts": {
@@ -28235,8 +27170,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/users/unlink-social-dialog.tsx": {
-    "mtime": 1793338329.7962742,
-    "ast_hash": "86e5e728a7110d980959680ebde0d789",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "1882342ca246234a9972b715d6f85679",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/social-auth-providers.ts": {
@@ -28340,8 +27275,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/auth/complete-profile-profile-step.tsx": {
-    "mtime": 1793338329.6519566,
-    "ast_hash": "fe579d43ebfc99ae1831432ba3013144",
+    "mtime": 1793342063.3921978,
+    "ast_hash": "80c936a9f9ec7041428a882acde20db6",
     "semantic_hash": ""
   },
   "apps/admin/src/app/auth/error/page.tsx": {
@@ -28355,13 +27290,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/lib/auth/auth-error.ts": {
-    "mtime": 1787668661.791506,
-    "ast_hash": "8d3864168c6548dabd1c7f8d787a31d5",
+    "mtime": 1793342544.6134472,
+    "ast_hash": "1606fd17730b9f517fe85f62dbe25b9e",
     "semantic_hash": ""
   },
   "packages/page-builder-base/src/style-inputs/all-or-sides-input.tsx": {
-    "mtime": 1793338330.5341258,
-    "ast_hash": "8318c978e538d53b7d8b403336848891",
+    "mtime": 1793342015.004291,
+    "ast_hash": "9cee2054dd8829cadf442c84951ecdd4",
     "semantic_hash": ""
   },
   "packages/page-builder/src/blocks/accordion/open-state.ts": {
@@ -28494,11 +27429,6 @@
     "ast_hash": "198961fc65b140b726e00a8211e85cd0",
     "semantic_hash": ""
   },
-  "docs/docs/apps/customer-waitlist-notifications.md": {
-    "mtime": 1792769070.3610613,
-    "ast_hash": "3d3e18a41830440db64c2ff410fdd15c",
-    "semantic_hash": ""
-  },
   "packages/app-store/src/apps/customer-waitlist-notifications/translations/en/admin.yaml": {
     "mtime": 1793201735.6753628,
     "ast_hash": "a840f88c32d84ad8cfef4cc05473e7aa",
@@ -28570,8 +27500,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/schedule/schedule-event-definitions.ts": {
-    "mtime": 1793336681.403836,
-    "ast_hash": "68b22ea854c149a4e3045b08935ca611",
+    "mtime": 1793342545.3462837,
+    "ast_hash": "038820e0d84e60434342327eb12a5551",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/customer-waitlist-notifications/translations/en/public.yaml": {
@@ -28780,8 +27710,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/heroes.tsx": {
-    "mtime": 1793337770.6729538,
-    "ast_hash": "d2a6ad1c7d87a780e9f8f05ca548f05c",
+    "mtime": 1793343072.723487,
+    "ast_hash": "49cb8ba8aa456e22574f102551345620",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/index.ts": {
@@ -28825,43 +27755,43 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/booking-sections.tsx": {
-    "mtime": 1793337770.6694355,
-    "ast_hash": "b0fc04504f2a9e0e62e1050efac5a420",
+    "mtime": 1793343072.7224872,
+    "ast_hash": "bbb1959de214965ec567870c7f40b11f",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/content.tsx": {
-    "mtime": 1793337770.6704078,
-    "ast_hash": "01ae17612a0b7087cf54ad26ab560ed3",
+    "mtime": 1793343072.7224872,
+    "ast_hash": "31b1736ea2b0357c9ec193fb8425fdd7",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/conversion.tsx": {
-    "mtime": 1793337770.6704078,
-    "ast_hash": "eee37a94571375162ea74a0a696530e3",
+    "mtime": 1793343072.723487,
+    "ast_hash": "5ffc821fd3a745b7763b23d3685fa759",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/features.tsx": {
-    "mtime": 1793337770.6714077,
-    "ast_hash": "07314effa2674e19ac1adc19c0293e53",
+    "mtime": 1793343072.723487,
+    "ast_hash": "68b2ee3d7e11800d3fda0c5a94ca96d8",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/fluid-helpers.ts": {
-    "mtime": 1793337770.6729538,
-    "ast_hash": "5949fc744cadb948055d1885e65b82fb",
+    "mtime": 1793343072.723487,
+    "ast_hash": "8b2ad1b2564ef8d5867cb3f68f318270",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/media.tsx": {
-    "mtime": 1793337770.6809645,
-    "ast_hash": "94a719cc7189d3e2c0c046bd662a4be0",
+    "mtime": 1793343072.723487,
+    "ast_hash": "fcf5fd161f012f558cd809aef21dd18c",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/section-helpers.ts": {
-    "mtime": 1793337770.6819658,
-    "ast_hash": "2ba9ffb1ea47abdf41649db97094a350",
+    "mtime": 1793343072.723487,
+    "ast_hash": "68d14caa03063f8bc3274b2119d159f9",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/social-proof.tsx": {
-    "mtime": 1793337770.682965,
-    "ast_hash": "8632665868dd228105827fcfaefbe29e",
+    "mtime": 1793343072.723487,
+    "ast_hash": "2be19a844bdcca5da26e69f4e6de3815",
     "semantic_hash": ""
   },
   "apps/admin/src/app/template-previews/[templateKey]/page.tsx": {
@@ -29190,8 +28120,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/sections.ts": {
-    "mtime": 1793337770.6774457,
-    "ast_hash": "c9d77e04ac1fa9d462bb44d1dde75027",
+    "mtime": 1793343072.723487,
+    "ast_hash": "8cf70f26704ee84db1b0bd4ce6281728",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/text.ts": {
@@ -29200,8 +28130,8 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/types.ts": {
-    "mtime": 1793337874.9986935,
-    "ast_hash": "875d402a9cf1820b5fde0132ad3a44da",
+    "mtime": 1793343072.723487,
+    "ast_hash": "ab62f8298db9a926439a5928cc0c1830",
     "semantic_hash": ""
   },
   "apps/admin/public/pages/templates/sections/gallery-carousel.png": {
@@ -29215,13 +28145,13 @@
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/index.tsx": {
-    "mtime": 1793337770.6739266,
-    "ast_hash": "1e892d205ee51cca152f6cd60d4ab484",
+    "mtime": 1793343072.723487,
+    "ast_hash": "9e7e53a42883c808706ae8c0519fbb52",
     "semantic_hash": ""
   },
   "packages/page-builder/src/templates/layouts/registry.ts": {
-    "mtime": 1790289853.568627,
-    "ast_hash": "914b6d63d2ed1ea72c663b133e36b4f9",
+    "mtime": 1793342545.1787338,
+    "ast_hash": "3727362f22f7bd35917fdf4e4eb93bd4",
     "semantic_hash": ""
   },
   "packages/ui/src/components/image-zoom.tsx": {
@@ -29527,11 +28457,6 @@
   "packages/app-store/src/apps/resend/translations/types.ts": {
     "mtime": 1793027206.0892553,
     "ast_hash": "7297155c5958e6a94567f9ee2927a8c8",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/resend.md": {
-    "mtime": 1789498503.6515882,
-    "ast_hash": "721700f2c80b0c00dbdc4a0a119fa03e",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/resend/translations/en/admin.yaml": {
@@ -31255,8 +30180,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/utils/business-industry.ts": {
-    "mtime": 1789766573.3994188,
-    "ast_hash": "c8bb7a9944863f184f58dded2584aa8a",
+    "mtime": 1793342545.4168904,
+    "ast_hash": "539c09f216fed252d629cd4d18fc2ddd",
     "semantic_hash": ""
   },
   "migrations/20260918130000-backfill_general_industry_other.js": {
@@ -31270,8 +30195,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/utils/postal-address.ts": {
-    "mtime": 1789785498.5571206,
-    "ast_hash": "db15a477987856fcf7a5326dbd4c7972",
+    "mtime": 1793342545.4214056,
+    "ast_hash": "ac14b4c1e6ff08a9593c9a31d1b99dc4",
     "semantic_hash": ""
   },
   "migrations/20260918150000-address_template_formatted_placeholder.js": {
@@ -31407,11 +30332,6 @@
   "packages/utils/src/server/custom-domain-dns.ts": {
     "mtime": 1789929305.583021,
     "ast_hash": "c96a1e77419923e7bacd26b70bd71224",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/google-analytics.md": {
-    "mtime": 1789999013.9472892,
-    "ast_hash": "79d802158727449da864e7989f46aee5",
     "semantic_hash": ""
   },
   "packages/app-store/src/apps/google-analytics/translations/en/admin.yaml": {
@@ -31575,13 +30495,8 @@
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/resend-payment-link-dialog.tsx": {
-    "mtime": 1793340032.8868275,
-    "ast_hash": "3a8f55739966640e8b94bc13fd53345a",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/payment-links.md": {
-    "mtime": 1790116654.4948328,
-    "ast_hash": "cbd59d18d35dc5c7d517b60bda517380",
+    "mtime": 1793342018.9161675,
+    "ast_hash": "34e483748e521797570c038b1b390b6d",
     "semantic_hash": ""
   },
   "packages/ui-admin-kit/src/components/payments/payment-link-qr-code-dialog.tsx": {
@@ -31660,8 +30575,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/tip-preset-card.tsx": {
-    "mtime": 1793338329.7666461,
-    "ast_hash": "77a5adcf694d84142b56d00ff8068f47",
+    "mtime": 1793342063.3931985,
+    "ast_hash": "45fe4552aaf037e88e55e547b6fba436",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/payments/tip-presets-field.tsx": {
@@ -31675,8 +30590,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/template-previews/page.tsx": {
-    "mtime": 1790347171.3196661,
-    "ast_hash": "8704a59f6576f680f7f6db2db95daee3",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "d0a5dc8f136233859f6c95cf0d117263",
     "semantic_hash": ""
   },
   "apps/admin/src/template-previews/template-preview-client.tsx": {
@@ -31690,8 +30605,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/catalog/marketing-chrome.tsx": {
-    "mtime": 1793338329.7972727,
-    "ast_hash": "dab43992ec755838369afef85e6dc14e",
+    "mtime": 1793375795.9419236,
+    "ast_hash": "77b5d35be4139156837c7803d9634537",
     "semantic_hash": ""
   },
   "apps/admin/src/template-previews/catalog-series-layout.tsx": {
@@ -32650,602 +31565,602 @@
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/footer.json": {
-    "mtime": 1792991861.892142,
+    "mtime": 1793376367.9184036,
     "ast_hash": "c907e5930faf3828357f9b7e1f0d1a6a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/header-hero-header.json": {
-    "mtime": 1792991861.8911035,
-    "ast_hash": "9d0ebcb5d08aff4adf2d0b8ecbde5fd6",
+    "mtime": 1793376367.9174025,
+    "ast_hash": "ba7d808c28ca9a379e75ff4aa6f4cb56",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/header.json": {
-    "mtime": 1792991861.8900526,
-    "ast_hash": "3aac8de74b3cf065e72c3535821f177d",
+    "mtime": 1793376367.916403,
+    "ast_hash": "d716363e72462b8268b741995c92796e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/index.json": {
-    "mtime": 1792991862.0983903,
+    "mtime": 1793376368.0991971,
     "ast_hash": "60c963639e38521120d0b42531cf0c30",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/404.json": {
-    "mtime": 1792991862.0983903,
+    "mtime": 1793376368.0981982,
     "ast_hash": "9d0d95fd62dec0beba9ad1cd754836d9",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/about.json": {
-    "mtime": 1792991862.0913885,
+    "mtime": 1793376368.092198,
     "ast_hash": "ff5e2c099fc28590f995ac2d41f28d93",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/acuity-alternative.json": {
-    "mtime": 1792991862.042009,
+    "mtime": 1793376368.0480978,
     "ast_hash": "25594855b456a625c4c787e415345a07",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/acuity-scheduling-alternative.json": {
-    "mtime": 1792991862.0425432,
+    "mtime": 1793376368.0480978,
     "ast_hash": "1c701d967cdfb190dc1c11316f8848e7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/acuity.json": {
-    "mtime": 1792991862.0430746,
+    "mtime": 1793376368.0480978,
     "ast_hash": "8dd06f125056401786524a2718bccbaa",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/booksy.json": {
-    "mtime": 1792991862.0382526,
+    "mtime": 1793376368.044096,
     "ast_hash": "168e5e8757f5978c71d1a441b3e45751",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/boulevard.json": {
-    "mtime": 1792991862.045192,
+    "mtime": 1793376368.0500968,
     "ast_hash": "7df8e3b0ed61ab9029245349d1418a81",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/calendly.json": {
-    "mtime": 1792991862.0414813,
+    "mtime": 1793376368.0470977,
     "ast_hash": "f3b421dbc4b2b0ceb67b3d9bf718037b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/fresha.json": {
-    "mtime": 1792991862.037177,
+    "mtime": 1793376368.0430958,
     "ast_hash": "e4929e464a78c96579b806541c209409",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/glossgenius.json": {
-    "mtime": 1792991862.0436056,
+    "mtime": 1793376368.049097,
     "ast_hash": "4a2d65fc4fa73980aa50d534d9137b48",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/goldie.json": {
-    "mtime": 1792991862.0462406,
+    "mtime": 1793376368.0520973,
     "ast_hash": "f712d722b3b5830d8c774444c45d38a6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/mindbody.json": {
-    "mtime": 1792991862.0483034,
+    "mtime": 1793376368.0530963,
     "ast_hash": "0608800e0d3beca71cccbb1a177e1b1d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/square-appointments.json": {
-    "mtime": 1792991862.040373,
+    "mtime": 1793376368.0470977,
     "ast_hash": "d7f90dfbe762b29d8d9f6cbd9a58d0c2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/squire.json": {
-    "mtime": 1792991862.0477805,
+    "mtime": 1793376368.0530963,
     "ast_hash": "24d11feb55f909400a7622c67da6b6f3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/styleseat.json": {
-    "mtime": 1792991862.045722,
+    "mtime": 1793376368.051098,
     "ast_hash": "404823795fb48972f8417fd197a7b432",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/alternatives/vagaro.json": {
-    "mtime": 1792991862.0393205,
+    "mtime": 1793376368.0450964,
     "ast_hash": "c8bf715270e414bb01f5296adf636c52",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-booksy-alternative.json": {
-    "mtime": 1792991862.0382526,
+    "mtime": 1793376368.0450964,
     "ast_hash": "68c491b5808069c7f0d022c7e480dad9",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-boulevard-alternative.json": {
-    "mtime": 1792991862.045192,
+    "mtime": 1793376368.0500968,
     "ast_hash": "ea3dad6e2336e71ee342899de890897f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-calendly-alternative.json": {
-    "mtime": 1792991862.042009,
+    "mtime": 1793376368.0470977,
     "ast_hash": "935e85e0738286017f34da4531e373a8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-fresha-alternative.json": {
-    "mtime": 1792991862.037177,
+    "mtime": 1793376368.044096,
     "ast_hash": "c4104daea5d270a3ca7f3be819583458",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-glossgenius-alternative.json": {
-    "mtime": 1792991862.0441327,
+    "mtime": 1793376368.049097,
     "ast_hash": "dabe663f625a4f163fce3028944c3dc8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-goldie-alternative.json": {
-    "mtime": 1792991862.0472379,
+    "mtime": 1793376368.0520973,
     "ast_hash": "2b2b56b0c21648e34086c1b0427dbf6e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-mindbody-alternative.json": {
-    "mtime": 1792991862.0483034,
+    "mtime": 1793376368.0530963,
     "ast_hash": "23fa6932d9acc7aa0137aeab7f0a5e9f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-squire-alternative.json": {
-    "mtime": 1792991862.0477805,
+    "mtime": 1793376368.0530963,
     "ast_hash": "3856223937728395a415cf61a8be7166",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-styleseat-alternative.json": {
-    "mtime": 1792991862.0462406,
+    "mtime": 1793376368.051098,
     "ast_hash": "e29ca54b7630611cd9b36be3321034c3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/best-vagaro-alternative.json": {
-    "mtime": 1792991862.0393205,
+    "mtime": 1793376368.046097,
     "ast_hash": "b5fa73a3bf74c579d960288101b675d4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-system-without-marketplace.json": {
-    "mtime": 1792991862.0532982,
+    "mtime": 1793376368.0580966,
     "ast_hash": "8ee85315b141b48b2eb2f249537d3fc2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-website-for-salons.json": {
-    "mtime": 1792991862.0502994,
+    "mtime": 1793376368.0550964,
     "ast_hash": "c128bda1be04affc264885216c4c318d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booking-website-with-stripe.json": {
-    "mtime": 1792991862.071874,
+    "mtime": 1793376368.0731983,
     "ast_hash": "ac6ad8163bed7ff8334d0123f26199b4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/booksy-alternative.json": {
-    "mtime": 1792991862.0377047,
+    "mtime": 1793376368.044096,
     "ast_hash": "3868ff4deef55ca89b852f50b16b419c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/boulevard-alternative.json": {
-    "mtime": 1792991862.0446692,
+    "mtime": 1793376368.049097,
     "ast_hash": "bcc9a65acded9d7c238e50a9cd06d4f3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/calendly-alternative.json": {
-    "mtime": 1792991862.0409489,
+    "mtime": 1793376368.0470977,
     "ast_hash": "bd76cd2079e9dd033619bb553dcf95e6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare.json": {
-    "mtime": 1792991862.0088198,
+    "mtime": 1793376368.021097,
     "ast_hash": "d07d90580ae05cdc3b0abece26c83ea0",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/acuity.json": {
-    "mtime": 1792991862.02582,
+    "mtime": 1793376368.0340972,
     "ast_hash": "f8c90a8d3e140e7e39b367703b139943",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/booksy.json": {
-    "mtime": 1792991862.0168211,
+    "mtime": 1793376368.0270956,
     "ast_hash": "ae0085ce10e6609a1fe29ef656ed263c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/boulevard.json": {
-    "mtime": 1792991862.029822,
+    "mtime": 1793376368.0380957,
     "ast_hash": "1cf01f4c6eef4bb4cc1d261592085fb1",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/calendly.json": {
-    "mtime": 1792991862.0248222,
+    "mtime": 1793376368.032096,
     "ast_hash": "e85c5a30a11a2c0213cabedc6e698e26",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/fresha.json": {
-    "mtime": 1792991862.0138192,
+    "mtime": 1793376368.0250952,
     "ast_hash": "836479a3381a0723a74d0f067399c46d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/glossgenius.json": {
-    "mtime": 1792991862.0288205,
+    "mtime": 1793376368.0360956,
     "ast_hash": "bd5e642487c6ba4ea6f6671c8f6067cb",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/goldie.json": {
-    "mtime": 1792991862.0318213,
+    "mtime": 1793376368.040098,
     "ast_hash": "ea66d36ad81c76c54c2131744a2b6581",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/mindbody.json": {
-    "mtime": 1792991862.0359879,
+    "mtime": 1793376368.0430958,
     "ast_hash": "ba52c25a1328b5b11d9819532b65096f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/square-appointments.json": {
-    "mtime": 1792991862.0228212,
+    "mtime": 1793376368.0310972,
     "ast_hash": "0a73c37790e72ce89514415f6910f885",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/squire.json": {
-    "mtime": 1792991862.0338204,
+    "mtime": 1793376368.0420992,
     "ast_hash": "01d600104d81162a3f08cfa251b739a7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/styleseat.json": {
-    "mtime": 1792991862.0308216,
+    "mtime": 1793376368.0390966,
     "ast_hash": "a07fb6c11a4523ec641001dab1ad8882",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/compare/vagaro.json": {
-    "mtime": 1792991862.0198212,
+    "mtime": 1793376368.0290964,
     "ast_hash": "4ee05a43e71a19fe09f8a3a123ccbf83",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/contact.json": {
-    "mtime": 1792991862.0933893,
+    "mtime": 1793376368.093197,
     "ast_hash": "4bf576905da2ef43078300250b9b70a3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/deposits-for-nail-techs.json": {
-    "mtime": 1792991862.0643501,
+    "mtime": 1793376368.0684662,
     "ast_hash": "b26fa7be2503246abb2e69b43c9864a1",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/deposits-for-stylists.json": {
-    "mtime": 1792991862.0659351,
+    "mtime": 1793376368.0695143,
     "ast_hash": "c49b5461e03a1ce1309f6759e540bba1",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features.json": {
-    "mtime": 1792991861.901041,
+    "mtime": 1793376367.9270017,
     "ast_hash": "04cdc71fe3fa0307060b0fc33ce7fa7d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/activity.json": {
-    "mtime": 1792991861.9190855,
+    "mtime": 1793376367.9451003,
     "ast_hash": "cfd5e23ae8bd2d138146f88a0ea02f40",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/add-ons.json": {
-    "mtime": 1792991861.9493096,
+    "mtime": 1793376367.9740942,
     "ast_hash": "45f8d4735321efda70f938f433c658bd",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/appointments.json": {
-    "mtime": 1792991861.910609,
+    "mtime": 1793376367.9365437,
     "ast_hash": "54bfd6e77322d3ca4b096710b7fc3a8c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/booking-tracking.json": {
-    "mtime": 1792991861.9254837,
+    "mtime": 1793376367.9515953,
     "ast_hash": "a0306b282b187e1df880f6cf5b5ec2e4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/calendars-video.json": {
-    "mtime": 1792991861.9357426,
+    "mtime": 1793376367.962095,
     "ast_hash": "acb46f2e0325a82ccb3b06f283f7d4d6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/clients.json": {
-    "mtime": 1792991861.9567199,
+    "mtime": 1793376367.981095,
     "ast_hash": "ccdc5ec88603479d0570cbe10c8258e7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/discounts.json": {
-    "mtime": 1792991861.9437432,
+    "mtime": 1793376367.9690952,
     "ast_hash": "0423257835794382b1a0ee3582b72836",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/gift-cards.json": {
-    "mtime": 1792991861.9387434,
+    "mtime": 1793376367.965094,
     "ast_hash": "72d7c4ee536abbd0de0fdccf569e5737",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/notifications.json": {
-    "mtime": 1792991861.9327433,
+    "mtime": 1793376367.9590464,
     "ast_hash": "c5c1e96f64f6b494bd552f8901170d8f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/packages.json": {
-    "mtime": 1792991861.946594,
+    "mtime": 1793376367.9720938,
     "ast_hash": "20df8d127126dbb44461dba7797871fc",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/payments.json": {
-    "mtime": 1792991861.9292245,
+    "mtime": 1793376367.9558468,
     "ast_hash": "f900ac47fb1103d70fc743fe586c83d2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/revenue-tools.json": {
-    "mtime": 1792991861.9015605,
+    "mtime": 1793376367.9270017,
     "ast_hash": "5e971982931058139bf11b649f6c3895",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/scheduling.json": {
-    "mtime": 1792991861.9079423,
+    "mtime": 1793376367.933001,
     "ast_hash": "a935161ec21a78d195c3d2d6fa289aaf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/team.json": {
-    "mtime": 1792991861.9524758,
+    "mtime": 1793376367.9770954,
     "ast_hash": "0a19259c5e0e47ed4a594638e8c400d0",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/features/website-builder.json": {
-    "mtime": 1792991861.922833,
+    "mtime": 1793376367.9488251,
     "ast_hash": "b11ae58d9ac69897d6aa75172dd8c80a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/fresha-alternative.json": {
-    "mtime": 1792991862.036518,
+    "mtime": 1793376368.0430958,
     "ast_hash": "f15fdd4f46e92577410ef5c2accf6b2c",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/gift-cards-for-salons.json": {
-    "mtime": 1792991862.066481,
+    "mtime": 1793376368.0705688,
     "ast_hash": "f99f1d73dbc48ed1794256fb66589bbc",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/gloss-genius-alternative.json": {
-    "mtime": 1792991862.0446692,
+    "mtime": 1793376368.049097,
     "ast_hash": "1483316d12c06b671445d129ffa1f6e7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/glossgenius-alternative.json": {
-    "mtime": 1792991862.0430746,
+    "mtime": 1793376368.0480978,
     "ast_hash": "b94dddda5abafa052586bc53868320b8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/goldie-alternative.json": {
-    "mtime": 1792991862.0462406,
+    "mtime": 1793376368.0520973,
     "ast_hash": "40775f392739dfeac9fc4e0f83703a46",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/home.json": {
-    "mtime": 1792991861.8989384,
+    "mtime": 1793376367.9240003,
     "ast_hash": "c537abada8b5aa63c2eeb6a0a657e9a5",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/how-to-leave-a-booking-marketplace.json": {
-    "mtime": 1792991862.0602996,
+    "mtime": 1793376368.0647843,
     "ast_hash": "341df51f95b1e8f23e63d8ab1ed3509f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/import-clients-from-fresha.json": {
-    "mtime": 1792991862.08138,
+    "mtime": 1793376368.082198,
     "ast_hash": "45888783a9cf7a895c20b83d4837c5bf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/import-clients-into-hacado.json": {
-    "mtime": 1792991862.0623,
+    "mtime": 1793376368.0668988,
     "ast_hash": "4e1792aff660fe562e7ed8110d188bde",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations.json": {
-    "mtime": 1792991862.0903885,
+    "mtime": 1793376368.0911965,
     "ast_hash": "63ed7807a37199600c0da810b966ef89",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/google-analytics.json": {
-    "mtime": 1792991862.079817,
+    "mtime": 1793376368.0801966,
     "ast_hash": "f67e05c08017a636ae1ec4ba60c98e96",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/google-calendar.json": {
-    "mtime": 1792991862.0734665,
+    "mtime": 1793376368.0741963,
     "ast_hash": "eeabcfffaef33e3271eaea9f8c92bebc",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/outlook.json": {
-    "mtime": 1792991862.0750513,
+    "mtime": 1793376368.0761957,
     "ast_hash": "a3bc496e042b2f6078dddbd953683f6d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/sms-notifications.json": {
-    "mtime": 1792991862.0782259,
+    "mtime": 1793376368.0791972,
     "ast_hash": "4cd3497ca8fd6428202c53aa358a0843",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/stripe.json": {
-    "mtime": 1792991862.0761027,
+    "mtime": 1793376368.0771976,
     "ast_hash": "f47bca20cefb99770438606a2ff1ff4d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/integrations/zoom.json": {
-    "mtime": 1792991862.07717,
+    "mtime": 1793376368.0781982,
     "ast_hash": "a7e27640ada559281917844d550c8e9d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-booksy.json": {
-    "mtime": 1792991862.0808728,
+    "mtime": 1793376368.0811975,
     "ast_hash": "3682bbdda702220f72e5550707b21ab7",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-fresha.json": {
-    "mtime": 1792991862.0803394,
+    "mtime": 1793376368.0811975,
     "ast_hash": "e211913d0b0a1566c9716422f9abebd6",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/leave-vagaro.json": {
-    "mtime": 1792991862.0398414,
+    "mtime": 1793376368.046097,
     "ast_hash": "ecb3b096c77d0ef8a38c430428442d06",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/migrate-from-booksy.json": {
-    "mtime": 1792991862.0592992,
+    "mtime": 1793376368.0637326,
     "ast_hash": "59703f7b9f923bc650f75146bf93e803",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/migrate-from-fresha.json": {
-    "mtime": 1792991862.0572982,
+    "mtime": 1793376368.0621586,
     "ast_hash": "7bec65144ff6af8117a37b03be5bdc4d",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/mindbody-alternative.json": {
-    "mtime": 1792991862.0483034,
+    "mtime": 1793376368.0530963,
     "ast_hash": "b7a8881a98dae33224c130d1f9061bf2",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/online-booking-for-nail-salons.json": {
-    "mtime": 1792991862.0522983,
+    "mtime": 1793376368.057097,
     "ast_hash": "baa8fdbfd2134fbe012aedb66e882a03",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/pricing.json": {
-    "mtime": 1792991862.0843897,
+    "mtime": 1793376368.0851965,
     "ast_hash": "6306b57e7d7f9ae34cb9fe123456c59b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/privacy.json": {
-    "mtime": 1792991862.0953918,
+    "mtime": 1793376368.0961971,
     "ast_hash": "5e168c88fc41f886c8a274f364fabc57",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/salon-software-no-commission.json": {
-    "mtime": 1792991862.0552983,
+    "mtime": 1793376368.0600977,
     "ast_hash": "4b3ffc2cf11fb87ef4524b0e41de3dce",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/sms-reminders-for-beauty.json": {
-    "mtime": 1792991862.0686145,
+    "mtime": 1793376368.0716293,
     "ast_hash": "341babb790b8766aca087bdda2b38300",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/square-alternative.json": {
-    "mtime": 1792991862.040373,
+    "mtime": 1793376368.046097,
     "ast_hash": "e44196838a8c4569e89ce8f6d2f3ea7b",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/square-appointments-alternative.json": {
-    "mtime": 1792991862.0398414,
+    "mtime": 1793376368.046097,
     "ast_hash": "5c36d74c7246bdfaa9684abdeebd9008",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/squire-alternative.json": {
-    "mtime": 1792991862.0472379,
+    "mtime": 1793376368.0520973,
     "ast_hash": "375c4429d180d12a5ec47f45b2940f90",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/staff-booking-for-salons.json": {
-    "mtime": 1792991862.0702417,
+    "mtime": 1793376368.0721533,
     "ast_hash": "113e6a96b45176fdc9df03b6ed7a06bd",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/style-seat-alternative.json": {
-    "mtime": 1792991862.0462406,
+    "mtime": 1793376368.051098,
     "ast_hash": "39ce3a57c562b20060acb61d5e9ff861",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/styleseat-alternative.json": {
-    "mtime": 1792991862.045722,
+    "mtime": 1793376368.0500968,
     "ast_hash": "d8533808f00d2a5912d4206c3b377abf",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/support.json": {
-    "mtime": 1792991862.0923898,
+    "mtime": 1793376368.093197,
     "ast_hash": "b4d74e4a699d0d5444419847f83cf000",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/switch-from-booksy.json": {
-    "mtime": 1792991862.0808728,
+    "mtime": 1793376368.082198,
     "ast_hash": "f10e8ad12f99c9d779246fe601e17bf4",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/switch-from-fresha.json": {
-    "mtime": 1792991862.0803394,
+    "mtime": 1793376368.0811975,
     "ast_hash": "80d0abb683135f0e9571fdc9d6042a6a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/terms.json": {
-    "mtime": 1792991862.0963893,
+    "mtime": 1793376368.0971982,
     "ast_hash": "b9e4c72782b0c7baaca34739d1d56933",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases.json": {
-    "mtime": 1792991861.9593568,
+    "mtime": 1793376367.9840949,
     "ast_hash": "3da24087cba6b23ebb01c27a28fd31f3",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/coaches.json": {
-    "mtime": 1792991861.9838314,
+    "mtime": 1793376368.0040944,
     "ast_hash": "61d3a815585cdd3e0f319e8a0542ecfc",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/consultants.json": {
-    "mtime": 1792991861.9888208,
+    "mtime": 1793376368.0080953,
     "ast_hash": "01d1f9f34991583234a076908bc55efe",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/freelancers.json": {
-    "mtime": 1792991862.0008204,
+    "mtime": 1793376368.0170953,
     "ast_hash": "c735c4fda97f72fedb26dd5e7e551fd8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/hair-stylists.json": {
-    "mtime": 1792991861.9663024,
+    "mtime": 1793376367.9900959,
     "ast_hash": "0040d283f46b0db7becde6a5c9519ba8",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/lash-and-brow.json": {
-    "mtime": 1792991861.9748442,
+    "mtime": 1793376367.997096,
     "ast_hash": "6f0a8353f32621c6508aacdbcb42d6aa",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/nail-artists.json": {
-    "mtime": 1792991861.9625573,
+    "mtime": 1793376367.9860952,
     "ast_hash": "8840d27f303b17e37051bbe61416ab3a",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/new-businesses.json": {
-    "mtime": 1792991862.003819,
+    "mtime": 1793376368.019096,
     "ast_hash": "ad7e451caa6a13a0178c79700811a90e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/personal-trainers.json": {
-    "mtime": 1792991861.9918194,
+    "mtime": 1793376368.0100958,
     "ast_hash": "207c01030feba6e4d616b972f2b4c29e",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/photographers.json": {
-    "mtime": 1792991861.9958205,
+    "mtime": 1793376368.0130956,
     "ast_hash": "6a5eb517ee42b837b96efa5bd061f631",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/salons-clinics.json": {
-    "mtime": 1792991861.9792953,
+    "mtime": 1793376368.0000954,
     "ast_hash": "23b682fc7403c1cefe87832d6190e812",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/tattoo-artists.json": {
-    "mtime": 1792991861.9711022,
+    "mtime": 1793376367.9940965,
     "ast_hash": "546fd61d5a1cb43034b020b43a156ea0",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/therapists.json": {
-    "mtime": 1792991861.998819,
+    "mtime": 1793376368.0150962,
     "ast_hash": "8da1ffab6fa20d0030cd94c51f7a5f41",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/use-cases/tutors-freelancers.json": {
-    "mtime": 1792991861.9868207,
+    "mtime": 1793376368.0060947,
     "ast_hash": "41fad039b9a6e9039070a4b94b26b59f",
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/vagaro-alternative.json": {
-    "mtime": 1792991862.0387838,
+    "mtime": 1793376368.0450964,
     "ast_hash": "4ed35fc1dd43194b5b8aed5e29fa3831",
     "semantic_hash": ""
   },
@@ -33320,8 +32235,8 @@
     "semantic_hash": ""
   },
   "marketing-site/src/pages/chrome.ts": {
-    "mtime": 1792769070.4056685,
-    "ast_hash": "8b44b43d965fb00086603cd1c89c2a1e",
+    "mtime": 1793376361.7630265,
+    "ast_hash": "1a91be7401cc9c07956a7f11e411d24c",
     "semantic_hash": ""
   },
   "marketing-site/src/pages/compare.ts": {
@@ -33825,13 +32740,13 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/calendar/events-calendar.tsx": {
-    "mtime": 1793340286.8400307,
-    "ast_hash": "b01f8792587e446d61d5818608c959e5",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "14d7346d611d38a2a62f9a970238e0c5",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/greeting/greeting.tsx": {
-    "mtime": 1793338329.7143748,
-    "ast_hash": "7b57e75e76ab43d75ac0fd90f99ae12b",
+    "mtime": 1793343108.9187136,
+    "ast_hash": "22c80bf679e956b6ccfc952466845e8f",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/kpi/kpi-strip.tsx": {
@@ -33855,8 +32770,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/needs-attention/collect.ts": {
-    "mtime": 1793340032.3487496,
-    "ast_hash": "2ea89b11d32b6052b1d5db11c83951b5",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "89acda7c34b8aec1f170f78fe0be2dc2",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/needs-attention/dismissals.ts": {
@@ -33880,8 +32795,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/pending-appointments/pending-appointments-tab.tsx": {
-    "mtime": 1793340286.8420305,
-    "ast_hash": "2bd8c784cdec249c7823386df1e5f904",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "baa33513aa4a6af19c52e9dfd0e6ca4f",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/quick-links/add-payment-button.tsx": {
@@ -33890,8 +32805,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/quick-links/approve-matched-payments-button.tsx": {
-    "mtime": 1793340032.351266,
-    "ast_hash": "5d071fc5a34cedf79009b18121cb8a88",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "682cb8f42b184af30d6856d149875987",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/dashboard/quick-links/defs.tsx": {
@@ -35275,8 +34190,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/text-message/inbound-reply.service.ts": {
-    "mtime": 1793339282.958829,
-    "ast_hash": "25a5603e18b539c588b81448f1ca8ecf",
+    "mtime": 1793343091.562566,
+    "ast_hash": "b074075d7005a132d8fe547f4b3892ae",
     "semantic_hash": ""
   },
   "packages/services/src/text-message/messages/index.ts": {
@@ -35357,11 +34272,6 @@
   "packages/utils/src/sms.ts": {
     "mtime": 1792788496.3212738,
     "ast_hash": "f1739bfe7378e225ea6e7234ef75edb2",
-    "semantic_hash": ""
-  },
-  "docs/docs/apps/platform-sms.md": {
-    "mtime": 1792769070.3610613,
-    "ast_hash": "020b4ec41223fe9daf75e384edeb7c5a",
     "semantic_hash": ""
   },
   "apps/admin/src/lib/command-search/scope.ts": {
@@ -35645,8 +34555,8 @@
     "semantic_hash": ""
   },
   "packages/services/src/events/definitions/text-message/sms-verification-event-definitions.ts": {
-    "mtime": 1793339282.9307108,
-    "ast_hash": "731d6e4aa3ad9b8ec7407bde39ce7041",
+    "mtime": 1793343091.561222,
+    "ast_hash": "92ebf76c5b1460cc26c7653910f61006",
     "semantic_hash": ""
   },
   "packages/services/src/text-message/verification-events.ts": {
@@ -35760,7 +34670,7 @@
     "semantic_hash": ""
   },
   "marketing-site/scripts/structure/pages/sms-policy.json": {
-    "mtime": 1792991862.0973892,
+    "mtime": 1793376368.0981982,
     "ast_hash": "9713dcb413becad2f58d40f2170a32ab",
     "semantic_hash": ""
   },
@@ -35915,8 +34825,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/addons/page.tsx": {
-    "mtime": 1793340032.233965,
-    "ast_hash": "72a39dffd331bb5f208ad8a2a92d786a",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "00bb9664ef43b8951566c9cb53c67fab",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/discounts/[id]/page.tsx": {
@@ -35935,8 +34845,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/discounts/page.tsx": {
-    "mtime": 1793340032.2349656,
-    "ast_hash": "ca4456d78a09f919fdcf9155f32503ec",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "68000d11bfbaedb4cefee3eed74b2dea",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/fields/[id]/page.tsx": {
@@ -35950,8 +34860,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/fields/page.tsx": {
-    "mtime": 1793340032.2365239,
-    "ast_hash": "bd79ba8fbf52178290601f8e2306d4d9",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "7660da97eabfee0d594ff3e2962d9c9b",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/gift-cards/[id]/page.tsx": {
@@ -35970,8 +34880,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/gift-cards/page.tsx": {
-    "mtime": 1793340032.2375302,
-    "ast_hash": "d7f60dc3b54ebe3ff0addb80fef76baa",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "76d39c98b6d2eac3e3b6d4042929c5f5",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/packages/[id]/page.tsx": {
@@ -35990,8 +34900,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/packages/page.tsx": {
-    "mtime": 1793340032.2391918,
-    "ast_hash": "2db16a7eb439050f7fc28a2f03dc6aff",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "7b4011e66529dfc6701c439133fc94df",
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/packages/sold/page.tsx": {
@@ -36015,8 +34925,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/app/dashboard/catalog/services/page.tsx": {
-    "mtime": 1793340032.241152,
-    "ast_hash": "b3c1d7327626440593b016d81b99c878",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "7418232ed8af4e3a2628c2991e865cd3",
     "semantic_hash": ""
   },
   "migrations/20261029180000-template_option_to_service.js": {
@@ -36120,8 +35030,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/addons/table/table.tsx": {
-    "mtime": 1793340032.295444,
-    "ast_hash": "34fb548005849d4e7574465207f90b1c",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "2aeb97d814b5bb3381e17827bc9931fb",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/addons/table/use-table-filters.tsx": {
@@ -36155,8 +35065,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/discounts/table/table.tsx": {
-    "mtime": 1793340032.3030598,
-    "ast_hash": "d0e295ab61ef2c849ee2a9fe04445b26",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "40520f94ef9f93ab6433762f34a9b198",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/discounts/table/use-table-filters.tsx": {
@@ -36200,8 +35110,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/fields/table/table.tsx": {
-    "mtime": 1793340032.3080273,
-    "ast_hash": "411ec9ca2f0f4344fdd0eb6ac73c7d2d",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "4428cc2aa19d0716bbc006c3f94e56b7",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/fields/table/use-table-filters.tsx": {
@@ -36210,18 +35120,18 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/form.tsx": {
-    "mtime": 1793340286.8235133,
-    "ast_hash": "240177a26fa1127f4cfd317515080aad",
+    "mtime": 1793342063.3921978,
+    "ast_hash": "36dc8bcc7cbbd84618d2c9850cf45224",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/table/cell-action.tsx": {
-    "mtime": 1793340032.3130672,
-    "ast_hash": "49c43cf6c86b1a9eda1fef230c432882",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "a0a811b93cc62b12d2ae568d11e84f85",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/table/columns.tsx": {
-    "mtime": 1793340286.82448,
-    "ast_hash": "2e6bcff5cd07f02ed4d8d441eb2f48d6",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "8daeaab1a933477f7276b123603053eb",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/table/delete-selected.tsx": {
@@ -36240,8 +35150,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/table/table.tsx": {
-    "mtime": 1793340032.3156037,
-    "ast_hash": "4810d0967abd2d20fa6b3d83ca8823c5",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "0d16635e37130f2776c8da5d4c03d9c5",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/gift-cards/table/use-table-filters.tsx": {
@@ -36265,8 +35175,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/sell-dialog.tsx": {
-    "mtime": 1793340286.831512,
-    "ast_hash": "d20775e38b22df0ea06946978e06668d",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "dcbd7e0101eadd4b4b5170b51d596450",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/sold/cell-action.tsx": {
@@ -36285,8 +35195,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/sold/table.tsx": {
-    "mtime": 1793340032.3246386,
-    "ast_hash": "e6f8b6486b7c5f4b267454fb67800473",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "49b295ed0169e59ceff7f16e2e24a650",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/sold/use-table-filters.tsx": {
@@ -36310,8 +35220,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/table/table.tsx": {
-    "mtime": 1793340032.3266113,
-    "ast_hash": "29af2be7092a9535bde88c8cf1825f06",
+    "mtime": 1793340431.2980282,
+    "ast_hash": "8084a8dff8fe8b1634aba44525ed6fdc",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/packages/table/use-table-filters.tsx": {
@@ -36335,8 +35245,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/form.tsx": {
-    "mtime": 1793340032.329236,
-    "ast_hash": "27c851d4a1fd269b2c0357ad0d91c80a",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "20558a5c632a8747e422df2264962922",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/member-select-card.tsx": {
@@ -36365,8 +35275,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/table/table.tsx": {
-    "mtime": 1793340032.3327134,
-    "ast_hash": "1a57ade8e162343f8fde0639099d86fd",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "485179d9da56d2b71c0794a2cd97b1ed",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/table/use-table-filters.tsx": {
@@ -36380,8 +35290,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/tabs/cancellations.tsx": {
-    "mtime": 1793340286.8345125,
-    "ast_hash": "ca2a24c0e626c9e3616222fc08eba59c",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "584ad0509cc96b70cf3559ef49cfd3c9",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/tabs/duplicates.tsx": {
@@ -36410,8 +35320,8 @@
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/tabs/reschedules.tsx": {
-    "mtime": 1793340286.8370297,
-    "ast_hash": "9989bcd6d424a614197cde0b0a9e6e64",
+    "mtime": 1793340431.2990289,
+    "ast_hash": "17d611a8629582a2e75e4f0c49309979",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/catalog/services/tabs/types.ts": {
@@ -36480,8 +35390,8 @@
     "semantic_hash": ""
   },
   "packages/types/src/booking/service.ts": {
-    "mtime": 1793319433.4501631,
-    "ast_hash": "c019f00f2fcd1666caa8e7cd94ace689",
+    "mtime": 1793342545.3963284,
+    "ast_hash": "aef22eef4d15109fb29fb5f3a1d8f0fa",
     "semantic_hash": ""
   },
   "apps/admin/src/components/admin/pages/page-identity-bar.tsx": {
@@ -36490,8 +35400,8 @@
     "semantic_hash": ""
   },
   "packages/ui/src/components/hint-input.tsx": {
-    "mtime": 1793336541.9173698,
-    "ast_hash": "3293c82be19f1568e76e0a99cfd8ca19",
+    "mtime": 1793342000.5428045,
+    "ast_hash": "fb51b9035d73597535f8db034d34af8b",
     "semantic_hash": ""
   },
   "migrations/20261029210000-booking_catalog_service_id.js": {
@@ -36680,7 +35590,7 @@
     "semantic_hash": ""
   },
   "packages/api-sdk/src/admin/payments.ts": {
-    "mtime": 1793340360.5580535,
+    "mtime": 1793343756.1328523,
     "ast_hash": "01b7d55f3ac0cbf6194858aa5a001dda",
     "semantic_hash": ""
   },
@@ -36769,9 +35679,1169 @@
     "ast_hash": "01b7d55f3ac0cbf6194858aa5a001dda",
     "semantic_hash": ""
   },
-  "scripts/split-api-sdk.mjs": {
-    "mtime": 1793340026.5837436,
-    "ast_hash": "438eb01c84b2f2c6810443546ccc3d12",
+  "docs/app/docs/[[...mdxPath]]/page.tsx": {
+    "mtime": 1793374206.9119358,
+    "ast_hash": "dd9237512440a32b45fc90fc79e7624e",
+    "semantic_hash": ""
+  },
+  "docs/app/docs/layout.tsx": {
+    "mtime": 1793373932.2021291,
+    "ast_hash": "8826d44845032ac22a9f565f270971fe",
+    "semantic_hash": ""
+  },
+  "docs/app/layout.tsx": {
+    "mtime": 1793373928.0540276,
+    "ast_hash": "e9543503676696340c291797ddb1b485",
+    "semantic_hash": ""
+  },
+  "docs/app/not-found.tsx": {
+    "mtime": 1793373935.804293,
+    "ast_hash": "91184279db2d393687e5d170924b188e",
+    "semantic_hash": ""
+  },
+  "docs/app/page.tsx": {
+    "mtime": 1793373928.95998,
+    "ast_hash": "f5baf03530eb6521d41d3933889243b5",
+    "semantic_hash": ""
+  },
+  "docs/components/home-page.tsx": {
+    "mtime": 1793373924.056434,
+    "ast_hash": "40e2dfa8b7bb9fe834f662ac60509eeb",
+    "semantic_hash": ""
+  },
+  "docs/components/logo.tsx": {
+    "mtime": 1793376185.9921384,
+    "ast_hash": "3765d54125489443e705fe555524125f",
+    "semantic_hash": ""
+  },
+  "docs/components/theme-toggle.tsx": {
+    "mtime": 1793373918.0216002,
+    "ast_hash": "a1fbcb8cd6cd608c5c23098bb314633a",
+    "semantic_hash": ""
+  },
+  "docs/content/_meta.ts": {
+    "mtime": 1793373906.3526053,
+    "ast_hash": "31d2c0f1699876d435e80aa0438e5982",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/_meta.ts": {
+    "mtime": 1793373912.8768065,
+    "ast_hash": "c1613ecad1498be9f1b301e4ae975ba9",
+    "semantic_hash": ""
+  },
+  "docs/content/daily-use/_meta.ts": {
+    "mtime": 1793373909.1119373,
+    "ast_hash": "e564606342316261e6044f5e2e7ef369",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/_meta.ts": {
+    "mtime": 1793373908.3629293,
+    "ast_hash": "69062cd6d05cf62f2d270659ffc79074",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/_meta.ts": {
+    "mtime": 1793373907.1501417,
+    "ast_hash": "6bcd5a117f1a860639a660e54f6374c1",
+    "semantic_hash": ""
+  },
+  "docs/mdx-components.tsx": {
+    "mtime": 1793373905.2593863,
+    "ast_hash": "076153eda0dbb5b93969ae03c73265b0",
+    "semantic_hash": ""
+  },
+  "docs/next.config.mjs": {
+    "mtime": 1793373903.005655,
+    "ast_hash": "fd03cc2bede613a0d89c8a0f8a31eeb8",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-component-ui.js": {
+    "mtime": 1793374370.1083674,
+    "ast_hash": "43b76cc0e7ba50a5ff7ee8b13baa23cd",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-entry.json": {
+    "mtime": 1793374370.1083674,
+    "ast_hash": "bc3d03c572c39dc74feb4c852e36b31b",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-highlight.js": {
+    "mtime": 1793374370.1073668,
+    "ast_hash": "04f3fb6d153a8ef4f6c377ea6ab486a2",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-modular-ui.js": {
+    "mtime": 1793374370.1073668,
+    "ast_hash": "83b97e4253119e57f3eb63199a7c7e44",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-ui.js": {
+    "mtime": 1793374370.1073668,
+    "ast_hash": "859620bad6155babc50f12473fe2c29b",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind-worker.js": {
+    "mtime": 1793374370.1073668,
+    "ast_hash": "b7060d25b8ccfa1bad7aa6a148eeadce",
+    "semantic_hash": ""
+  },
+  "docs/public/_pagefind/pagefind.js": {
+    "mtime": 1793374370.1073668,
+    "ast_hash": "649122893e13b3aef09ccaadc7a88705",
+    "semantic_hash": ""
+  },
+  "packages/i18n/src/types-core.ts": {
+    "mtime": 1793341989.7962022,
+    "ast_hash": "d4f0a043e6165cb4d4f5347c710036f3",
+    "semantic_hash": ""
+  },
+  "packages/i18n/src/types-keys.ts": {
+    "mtime": 1793341989.7962022,
+    "ast_hash": "269fdc50516644b15cd851dbd30c8c5a",
+    "semantic_hash": ""
+  },
+  "docs/AGENTS.md": {
+    "mtime": 1793374382.3688476,
+    "ast_hash": "01e8142356e15c3404e0d84c48187cd0",
+    "semantic_hash": ""
+  },
+  "docs/CLAUDE.md": {
+    "mtime": 1793374382.3688476,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/appointment-notifications.md": {
+    "mtime": 1793373856.6372223,
+    "ast_hash": "86ea32f30225c75f0750d350379800c7",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/blog.md": {
+    "mtime": 1793373856.6382134,
+    "ast_hash": "45c734c77e3ae38ecf7825abfccea488",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/busy-events.md": {
+    "mtime": 1793373856.6382134,
+    "ast_hash": "56cdb6039cfa48cd07601878aa170f83",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/caldav.md": {
+    "mtime": 1793373856.6382134,
+    "ast_hash": "89251d5633e647f4035a3e23697dd3a2",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/calendar-writer.md": {
+    "mtime": 1793373856.6382134,
+    "ast_hash": "af6ccf03f6adb730a3034114509f86b7",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/carddav.md": {
+    "mtime": 1793373856.639213,
+    "ast_hash": "2e8fc5e0cea5aea71340537f7aec9e88",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/customer-email-notification.md": {
+    "mtime": 1793373856.639213,
+    "ast_hash": "6c7d2d0e81bd727f7e07306037cf8bde",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/customer-text-message-notification.md": {
+    "mtime": 1793373856.639213,
+    "ast_hash": "cef45c7a477a4cd9f1297806e97dfb8e",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/customer-waitlist-notifications.md": {
+    "mtime": 1793373856.639213,
+    "ast_hash": "40842ccfcaa6554d61ff46d5040c4987",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/email-notification.md": {
+    "mtime": 1793373856.6402125,
+    "ast_hash": "4c91d035536d8a6ca17fc84915cc095f",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/forms.md": {
+    "mtime": 1793373856.6402125,
+    "ast_hash": "a57efbcb11c06ade78776138b1befd41",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/gift-card-studio.md": {
+    "mtime": 1793373856.6402125,
+    "ast_hash": "28094f5d03f5ba2bf93742d9376f43e6",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/google-analytics.md": {
+    "mtime": 1793373856.6412148,
+    "ast_hash": "b1587870105fa6f6e8f9a92baece5fed",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/google-calendar.md": {
+    "mtime": 1793373856.6419377,
+    "ast_hash": "2c9cf63303e3baeb41f9aae67b015e0e",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/ics-feed.md": {
+    "mtime": 1793373856.6419377,
+    "ast_hash": "afbea6dec0b30567aab3648f6b07d410",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/my-cabinet.md": {
+    "mtime": 1793373856.6424437,
+    "ast_hash": "4ee28fe69bc41df8ff38630982ceb1bc",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/outlook.md": {
+    "mtime": 1793373856.6444514,
+    "ast_hash": "906ef9c6d2b3c100c5466baff41ecefa",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/overview.md": {
+    "mtime": 1793373856.6444514,
+    "ast_hash": "f1ef76d65a606e92b9c5b020e2772423",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/payment-links.md": {
+    "mtime": 1793373856.6454518,
+    "ast_hash": "99eb9441a61e267e950af45cecc20ab3",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/paypal.md": {
+    "mtime": 1793373856.6454518,
+    "ast_hash": "2cca78c9aea5f197b0569be3a5efe4cc",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/platform-sms.md": {
+    "mtime": 1793373856.6464527,
+    "ast_hash": "c9290b4b9f0f0f732d37837fbbf06a61",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/resend.md": {
+    "mtime": 1793373856.6464527,
+    "ast_hash": "a7ad07d9170c8891537a5f85d0511a74",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/smart-schedule.md": {
+    "mtime": 1793373856.6464527,
+    "ast_hash": "666ee52c9458aab52241bcb18b6f7fd6",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/smtp.md": {
+    "mtime": 1793373856.6474514,
+    "ast_hash": "1896e05e167987baaefb04e640265e3c",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/square.md": {
+    "mtime": 1793373856.6474514,
+    "ast_hash": "f6d2a8d704c82439096b8e10e2a44b23",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/stripe.md": {
+    "mtime": 1793373856.6474514,
+    "ast_hash": "36070d93f0c3bff8aba34f0788f19fe8",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/text-belt.md": {
+    "mtime": 1793373856.648451,
+    "ast_hash": "aae1421e7907471cf51536c8fa50f53a",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/text-message-auto-reply.md": {
+    "mtime": 1793373856.648451,
+    "ast_hash": "d373875efd348ff094223ccb92023113",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/text-message-notification.md": {
+    "mtime": 1793373856.648451,
+    "ast_hash": "c3232b339e0933424f108a5dca4c606c",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/text-message-resender.md": {
+    "mtime": 1793373856.6494522,
+    "ast_hash": "459a593522961ef1a3116b01f53c2fa7",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/troubleshooting.md": {
+    "mtime": 1793373856.6494522,
+    "ast_hash": "6f9b768068475221768279aa7b9b762f",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/url-busy-events.md": {
+    "mtime": 1793373856.6504524,
+    "ast_hash": "862fa8e9dfe4393dbbe14b7be69e1aa7",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/url-schedule-provider.md": {
+    "mtime": 1793373856.6504524,
+    "ast_hash": "aaeaffdeb92428196c24bd1382fff1fe",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/waitlist.md": {
+    "mtime": 1793373856.6504524,
+    "ast_hash": "21ea950689b18adfa6f9a3aed720ad56",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/webhooks.md": {
+    "mtime": 1793373856.6514509,
+    "ast_hash": "5654760ba7ef6b6ece4978c3dbf8ce98",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/weekly-schedule.md": {
+    "mtime": 1793373856.6514509,
+    "ast_hash": "de8215d8cca551284cba1b680f648823",
+    "semantic_hash": ""
+  },
+  "docs/content/apps/zoom.md": {
+    "mtime": 1793373856.6514509,
+    "ast_hash": "2dffdabb6a2954c8ee70dac39490117f",
+    "semantic_hash": ""
+  },
+  "docs/content/daily-use/connect-domain.md": {
+    "mtime": 1793373856.652452,
+    "ast_hash": "b9fa39d547b0c44b0bd37fe975af5c07",
+    "semantic_hash": ""
+  },
+  "docs/content/daily-use/settings.md": {
+    "mtime": 1793373856.652452,
+    "ast_hash": "b6ff21efc7386f872c43f1cb5c5df45e",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/build-your-website.md": {
+    "mtime": 1793373856.652452,
+    "ast_hash": "532f62c7de64378294cce81e7fe87b4a",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/complete-your-business-profile.md": {
+    "mtime": 1793373856.6534517,
+    "ast_hash": "17dff507811ed8ac43a17be42eb296ae",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/connect-essentials.md": {
+    "mtime": 1793373856.6534517,
+    "ast_hash": "a498a697afc537f17ce219edc1004b51",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/index.md": {
+    "mtime": 1793373856.6534517,
+    "ast_hash": "b948a74a5b899b36b82100f00c8651df",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/manage-bookings-and-customers.md": {
+    "mtime": 1793373856.6544516,
+    "ast_hash": "0b2a147b61655ad553dc4270d432297a",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/publish-and-share.md": {
+    "mtime": 1793373856.6544516,
+    "ast_hash": "e30d5c6b7eb47a67259ae392b7c2f261",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/set-up-your-services.md": {
+    "mtime": 1793373856.6544516,
+    "ast_hash": "0cfc721e8bc0bb059c8a4bed41ac11dc",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/set-your-availability.md": {
+    "mtime": 1793373856.6554532,
+    "ast_hash": "d42abdeac9cbb9187c02e44ece384d08",
+    "semantic_hash": ""
+  },
+  "docs/content/first-steps/test-the-customer-experience.md": {
+    "mtime": 1793373856.6554532,
+    "ast_hash": "b9561c8b06e535bb4eac6e5fe91b79c5",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/introduction.md": {
+    "mtime": 1793373856.6564512,
+    "ast_hash": "dd1116d400d118517a596048d2050318",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/sign-up.md": {
+    "mtime": 1793373856.6564512,
+    "ast_hash": "05d6b434b0dfbd8a1e39fa50ece4cb59",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/subscription-and-checkout.md": {
+    "mtime": 1793373856.6564512,
+    "ast_hash": "b6fe3804f92c3bf65e8d29d2c7274bb1",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/what-is-hacado.md": {
+    "mtime": 1793373856.657451,
+    "ast_hash": "2b6d9ac456bc4fec09c560b3105ba4d1",
+    "semantic_hash": ""
+  },
+  "docs/content/getting-started/workspace-install-wizard.md": {
+    "mtime": 1793373856.657451,
+    "ast_hash": "3677af9ca4b98c3f733ab52a3f5cd444",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/README.md": {
+    "mtime": 1777646195.4419448,
+    "ast_hash": "78bae52010b5a1621efa7cf6cd183e42",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/dashboard.png": {
+    "mtime": 1780941640.0102096,
+    "ast_hash": "064315caca1862a48b84c89be9ff4408",
+    "semantic_hash": ""
+  },
+  "docs/public/img/first-steps/settings-brand.png": {
+    "mtime": 1780941734.8650978,
+    "ast_hash": "0dadb1e874c6e58331b69f032c1b55fb",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/brand.png": {
+    "mtime": 1780938732.332268,
+    "ast_hash": "61c0ac6d5078a525af40bb5d79ef080c",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/business.png": {
+    "mtime": 1780938134.496804,
+    "ast_hash": "adf8e93987b81c96982a17f3bd0b5da1",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/checkout.png": {
+    "mtime": 1780937952.113551,
+    "ast_hash": "a2446f8c7e889ffca15c275b80d6757d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/integrations.png": {
+    "mtime": 1780939195.4331877,
+    "ast_hash": "fbfd3bc290770917cad90e5f26347632",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/payments.png": {
+    "mtime": 1780939269.2615306,
+    "ast_hash": "7976160625d935b4b42d897647da1c03",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/polar.png": {
+    "mtime": 1777578004.6936305,
+    "ast_hash": "d3c53237c0cba29b7bdd1117ea9de1e7",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/schedule.png": {
+    "mtime": 1780938858.1093848,
+    "ast_hash": "51bd01beed798c28197c32c47135a098",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/service-template.png": {
+    "mtime": 1780938781.425428,
+    "ast_hash": "648c5b8e52d12415f926caca3d85dc27",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/services.png": {
+    "mtime": 1780938826.0482256,
+    "ast_hash": "be46ac3e7e54bd73333c136e15d6e0c1",
+    "semantic_hash": ""
+  },
+  "docs/public/img/getting-started/sign-up.png": {
+    "mtime": 1780937866.9663641,
+    "ast_hash": "5c0c7ddd0ea193e7693eb074eab196b5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/navbar-logo-dark.svg": {
+    "mtime": 1792849480.8057427,
+    "ast_hash": "56a7f21da27dcd2681ee0f58e61abd65",
+    "semantic_hash": ""
+  },
+  "docs/public/img/navbar-logo.svg": {
+    "mtime": 1792849476.5197241,
+    "ast_hash": "c03ccec1b54e8168cdd2b6dfecc49ca1",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-appointment-notifications-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-appointment-notifications-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-appointment-notifications-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-blog-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-blog-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-blog-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-busy-events-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-busy-events-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-busy-events-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-caldav-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-caldav-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-caldav-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-calendar-writer-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-calendar-writer-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-calendar-writer-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-carddav-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-carddav-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-carddav-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-email-notification-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-email-notification-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-email-notification-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-text-message-notification-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-text-message-notification-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-customer-text-message-notification-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-email-notification-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-email-notification-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-email-notification-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-financial-overview-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-financial-overview-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-financial-overview-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-forms-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-forms-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-forms-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-gift-card-studio-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-gift-card-studio-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-gift-card-studio-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-google-calendar-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-google-calendar-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-google-calendar-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-ics-feed-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-ics-feed-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-ics-feed-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-my-cabinet-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-my-cabinet-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-my-cabinet-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-outlook-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-outlook-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-outlook-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-paypal-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-paypal-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-paypal-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smart-schedule-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smart-schedule-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smart-schedule-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smtp-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smtp-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-smtp-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-square-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-square-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-square-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-stripe-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-stripe-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-stripe-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-belt-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-belt-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-belt-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-auto-reply-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-auto-reply-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-auto-reply-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-notification-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-notification-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-notification-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-resender-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-resender-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-text-message-resender-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-busy-events-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-busy-events-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-busy-events-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-schedule-provider-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-schedule-provider-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-url-schedule-provider-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-notifications-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-notifications-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-waitlist-notifications-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-webhooks-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-webhooks-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-webhooks-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-weekly-schedule-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-weekly-schedule-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-weekly-schedule-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-zoom-app-store.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-zoom-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/app-zoom-in-flow.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-add-connection.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-disconnect-confirm.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-installed-overview.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-menu-callouts.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-post-install-checklist.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-reconnect.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-secrets-training.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/apps-store-browse.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/checkout-plan-cards.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/checkout-polar-payment.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-booking-link.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-dashboard-home.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-services-list.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-settings-appointments.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-settings-brand.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-settings-profile.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/daily-settings-schedule.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/domain-connect-dialog.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/domain-dns-instructions.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-appointments.svg": {
+    "mtime": 1780934797.4810624,
+    "ast_hash": "cc57a46c25c7ba1b4873c0d8504944fd",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-apps-store.svg": {
+    "mtime": 1780934797.4790633,
+    "ast_hash": "84b9ab3600f4ab5c9e0318701cfdc208",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-brand-settings.svg": {
+    "mtime": 1780934797.477062,
+    "ast_hash": "a3b53ff7789f49322231130f4e8ff3b5",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-checklist.svg": {
+    "mtime": 1780934797.475064,
+    "ast_hash": "06c03d8a7733910f70485691a37b0cac",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-dashboard-home.svg": {
+    "mtime": 1780934797.4760623,
+    "ast_hash": "7f32012bf138d81292f6d77e9fef029f",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-page-builder.svg": {
+    "mtime": 1780934797.4780636,
+    "ast_hash": "164ba9c13c22f04def9bf338246c9b4f",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-publish-link.svg": {
+    "mtime": 1780934797.4790633,
+    "ast_hash": "5564930a06055907c34f225658bf5e5d",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-schedule.svg": {
+    "mtime": 1780934797.4780636,
+    "ast_hash": "4bcbd61530660073b5820c05a9c6b5e0",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-services-list.svg": {
+    "mtime": 1780934797.477062,
+    "ast_hash": "01b907ef70dabc76045e2aba948c3990",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/first-steps-test-booking.svg": {
+    "mtime": 1780934797.4800632,
+    "ast_hash": "6427dfa808d74466ca262fd2dcd10f65",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-business-details.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-complete.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-integrations.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-payments.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-personalization.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-services-edit.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-services-templates.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-step1-slug-preview.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-step2-colors-expanded.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-step3-duration-price.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-verify-email.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/install-wizard-progress.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/signup-confirm-email.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
+    "semantic_hash": ""
+  },
+  "docs/public/img/placeholders/signup-page.svg": {
+    "mtime": 1777569578.0318213,
+    "ast_hash": "b48e2efc6daef6ca880063e06f93afa6",
     "semantic_hash": ""
   }
 }

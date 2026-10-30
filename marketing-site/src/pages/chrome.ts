@@ -14,11 +14,7 @@ import {
   text,
 } from "../blocks";
 import { nav, SIGNIN_URL, SIGNUP_URL, site } from "../content/site";
-import {
-  HERO_HEADER_NAME,
-  MAIN_FOOTER_NAME,
-  MAIN_HEADER_NAME,
-} from "./shared";
+import { HERO_HEADER_NAME, MAIN_FOOTER_NAME, MAIN_HEADER_NAME } from "./shared";
 
 const NAV_TEXT = "text-xs";
 const NAV_LINK_CLASS = `rounded-md px-3 py-2 ${NAV_TEXT} font-medium text-muted-foreground hover:text-foreground`;
@@ -100,6 +96,15 @@ function buildMenu(opts?: { overlay?: boolean }) {
       type: "link" as const,
       label: "Blog",
       url: "/blog",
+      variant: "none" as const,
+      size: "none" as const,
+      className: linkClass,
+      ...(linkScrolled ? { scrolled: linkScrolled } : {}),
+    },
+    {
+      type: "link" as const,
+      label: "Docs",
+      url: DOCS_URL,
       variant: "none" as const,
       size: "none" as const,
       className: linkClass,
@@ -223,7 +228,10 @@ const footerColumns = [
       { label: "Calendly alternative", href: "/compare/calendly" },
       { label: "Square alternative", href: "/compare/square-appointments" },
       { label: "Migrate from Fresha", href: "/migrate-from-fresha" },
-      { label: "Booking without marketplace", href: "/booking-system-without-marketplace" },
+      {
+        label: "Booking without marketplace",
+        href: "/booking-system-without-marketplace",
+      },
     ],
   },
   {
@@ -272,63 +280,63 @@ export function buildFooter() {
     ),
   );
   const band = container(
-            [
-              grid([brandCol, ...cols], "repeat(5, minmax(0, 1fr))", {
-                gridTemplateColumns: [
-                  { value: "1fr" },
-                  { value: "repeat(2, minmax(0, 1fr))", breakpoint: ["sm"] },
-                  { value: "repeat(5, minmax(0, 1fr))", breakpoint: ["lg"] },
-                ],
-                gap: sv({ value: 2, unit: "rem" }),
-              }),
-              container(
-                [
-                  text(`© ${year} ${site.name}. All rights reserved.`, {
-                    color: sv(C.mutedFg),
-                    fontSize: sv({ value: 0.875, unit: "rem" }),
-                  }),
-                ],
-                {
-                  padding: [
-                    {
-                      value: {
-                        top: { value: 1.5, unit: "rem" },
-                        bottom: { value: 0, unit: "rem" },
-                        left: { value: 0, unit: "rem" },
-                        right: { value: 0, unit: "rem" },
-                      },
-                    },
-                  ],
-                  borderStyle: sv("solid"),
-                  borderWidth: [
-                    {
-                      value: {
-                        top: { value: 1, unit: "px" },
-                        bottom: { value: 0, unit: "px" },
-                        left: { value: 0, unit: "px" },
-                        right: { value: 0, unit: "px" },
-                      },
-                    },
-                  ],
-                  borderColor: sv(C.border),
-                },
-              ),
-            ],
+    [
+      grid([brandCol, ...cols], "repeat(5, minmax(0, 1fr))", {
+        gridTemplateColumns: [
+          { value: "1fr" },
+          { value: "repeat(2, minmax(0, 1fr))", breakpoint: ["sm"] },
+          { value: "repeat(5, minmax(0, 1fr))", breakpoint: ["lg"] },
+        ],
+        gap: sv({ value: 2, unit: "rem" }),
+      }),
+      container(
+        [
+          text(`© ${year} ${site.name}. All rights reserved.`, {
+            color: sv(C.mutedFg),
+            fontSize: sv({ value: 0.875, unit: "rem" }),
+          }),
+        ],
+        {
+          padding: [
             {
-              padding: [
-                {
-                  value: {
-                    top: { value: 3.5, unit: "rem" },
-                    bottom: { value: 2, unit: "rem" },
-                    left: { value: 1.5, unit: "rem" },
-                    right: { value: 1.5, unit: "rem" },
-                  },
-                },
-              ],
-              gap: sv({ value: 2, unit: "rem" }),
-              backgroundColor: sv(C.background),
+              value: {
+                top: { value: 1.5, unit: "rem" },
+                bottom: { value: 0, unit: "rem" },
+                left: { value: 0, unit: "rem" },
+                right: { value: 0, unit: "rem" },
+              },
             },
-          );
+          ],
+          borderStyle: sv("solid"),
+          borderWidth: [
+            {
+              value: {
+                top: { value: 1, unit: "px" },
+                bottom: { value: 0, unit: "px" },
+                left: { value: 0, unit: "px" },
+                right: { value: 0, unit: "px" },
+              },
+            },
+          ],
+          borderColor: sv(C.border),
+        },
+      ),
+    ],
+    {
+      padding: [
+        {
+          value: {
+            top: { value: 3.5, unit: "rem" },
+            bottom: { value: 2, unit: "rem" },
+            left: { value: 1.5, unit: "rem" },
+            right: { value: 1.5, unit: "rem" },
+          },
+        },
+      ],
+      gap: sv({ value: 2, unit: "rem" }),
+      backgroundColor: sv(C.background),
+    },
+  );
   return {
     name: MAIN_FOOTER_NAME,
     content: {
@@ -342,4 +350,3 @@ export function buildFooter() {
     },
   };
 }
-

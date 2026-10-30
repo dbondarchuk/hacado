@@ -83,6 +83,7 @@ const nav: NavItem[] = [
   },
   { label: "Pricing", href: "/pricing" },
   { label: "Integrations", href: "/integrations" },
+  { label: "Docs", href: DOCS_URL },
 ];
 
 const footerColumns = [

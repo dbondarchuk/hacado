@@ -1,18 +1,16 @@
 # syntax=docker/dockerfile:1.7-labs
 
 FROM node:22-alpine AS base
-RUN apk add --no-cache fontconfig ttf-dejavu font-opensans tzdata && \
-        fc-cache -f
+RUN apk add --no-cache libc6-compat gcompat tzdata
 
 # Install dependencies only when needed
 FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat 
 
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY patches ./patches
 
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -43,12 +41,13 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV PORT=3003
+ENV HOSTNAME=0.0.0.0
 
 RUN addgroup --system --gid 1001 nodejs
 
 COPY --from=builder /app ./
 
 EXPOSE 3003
-ENV PORT=3003
 
-CMD HOSTNAME="0.0.0.0" yarn serve --port 3003
+CMD ["yarn", "start"]
