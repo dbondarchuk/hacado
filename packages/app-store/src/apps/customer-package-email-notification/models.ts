@@ -1,4 +1,4 @@
-import { asOptionalField, zObjectId } from "@hacado/types";
+import { asOptionalField, zObjectId } from "@hacado/types/utils";
 import * as z from "zod";
 import { CustomerPackageEmailNotificationAdminAllKeys } from "./translations/types";
 

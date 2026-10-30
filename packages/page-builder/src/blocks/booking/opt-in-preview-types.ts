@@ -1,4 +1,4 @@
-import type { FieldType } from "@hacado/types";
+import type { FieldType } from "@hacado/types/booking";
 
 export type SmsOptInFormField = {
   name: string;

@@ -3,7 +3,7 @@ import {
   ToolbarDropdownPropsValues,
 } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
 import { TextAlign } from "../style-inputs/helpers/zod";
 

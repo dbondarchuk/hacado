@@ -6,7 +6,7 @@ import {
   communicationDirectionSchema,
   communicationLogStatuses,
   communicationParticipantTypeSchema,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import { cn } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,

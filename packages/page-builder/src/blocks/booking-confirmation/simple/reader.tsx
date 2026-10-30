@@ -3,7 +3,7 @@ import {
   generateClassName,
   ReplaceOriginalColors,
 } from "@hacado/page-builder-base/reader";
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import { redirect } from "next/navigation";
 import { ConfirmationCard } from "./confirmation-card";

@@ -1,6 +1,7 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { Appointment, Customer } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
 import { getAdminUrl, getArguments } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

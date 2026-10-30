@@ -1,13 +1,15 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  BullMQEventConfig,
-  BullMQEventWorker,
   BullMQJobConfig,
   BullMQJobWorker,
-  getBullMQEventConfig,
   getBullMQJobConfig,
-  ServicesContainer,
-} from "@hacado/services";
+} from "@hacado/services/bullmq";
+import { ServicesContainer } from "@hacado/services/container";
+import {
+  BullMQEventConfig,
+  BullMQEventWorker,
+  getBullMQEventConfig,
+} from "@hacado/services/events";
 import dotenv from "dotenv";
 
 // Load environment variables

@@ -5,7 +5,7 @@ import {
 } from "@/app/utils";
 import { organizationDomainSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { validateCustomDomainDns } from "@hacado/utils/server";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -5,7 +5,7 @@ import {
 } from "@/utils/customer-auth/session";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { modifyAppointmentInformationRequestSchema } from "@hacado/types";
+import { modifyAppointmentInformationRequestSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

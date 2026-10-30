@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { ServiceField } from "@hacado/types";
+import { ServiceField } from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogCancel,

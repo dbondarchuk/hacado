@@ -4,7 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   DefaultAppsConfiguration,
   defaultAppsConfigurationSchema,
-} from "@hacado/types";
+} from "@hacado/types/configuration/apps";
 import {
   Form,
   FormControl,

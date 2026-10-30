@@ -1,5 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient, ServicesContainer } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
+import { ServicesContainer } from "@hacado/services/container";
 import type { Order } from "@polar-sh/sdk/models/components/order";
 
 const SMS_TOPUP_PRODUCT_TYPE = "sms_credits";

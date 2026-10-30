@@ -7,10 +7,10 @@ import {
   IConnectedAppProps,
   ILlmsFullTxtProvider,
   IPageMetadataProvider,
-  Page,
   PageContentEntry,
   pageSlugHasPlaceholder,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Page } from "@hacado/types/pages";
 import {
   buildLlmsFullTxt,
   buildLlmsTxt,

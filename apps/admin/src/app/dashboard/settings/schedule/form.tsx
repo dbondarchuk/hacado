@@ -5,7 +5,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   ScheduleConfiguration,
   scheduleConfigurationSchema,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
 import { Form, FormField, toastPromise } from "@hacado/ui";
 import { SaveButton, Scheduler } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";

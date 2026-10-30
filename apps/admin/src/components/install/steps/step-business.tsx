@@ -9,14 +9,13 @@ import { normalizeSlug } from "@/components/install/constants";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { getOrganizationSlugIssue } from "@/components/install/organization-slug";
 import { languages, useI18n } from "@hacado/i18n/client";
+import type { BusinessIndustry, PostalAddress } from "@hacado/types/utils";
 import {
   businessIndustryDefinitions,
   catalogCategoryForIndustry,
   countryOptions,
   currencyOptions,
-  type BusinessIndustry,
-  type PostalAddress,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   Button,
   cn,

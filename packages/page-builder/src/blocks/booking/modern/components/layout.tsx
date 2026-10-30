@@ -1,6 +1,6 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { shouldSkipLockedServiceStep } from "@hacado/types";
+import { shouldSkipLockedServiceStep } from "@hacado/types/booking";
 import {
   Button,
   cn,

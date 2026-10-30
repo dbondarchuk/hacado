@@ -1,4 +1,4 @@
-import { AssetEntity } from "@hacado/types";
+import { AssetEntity } from "@hacado/types/assets";
 import {
   cn,
   Dialog,

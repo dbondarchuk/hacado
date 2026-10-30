@@ -1,12 +1,14 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  type CustomerPackageIssuedPayload,
-  type EmailNotificationRequest,
-  type EventEnvelope,
-  type IServicesContainer,
-} from "@hacado/types";
+import type {
+  CustomerPackageIssuedPayload,
+  EventEnvelope,
+} from "@hacado/types/events";
+import type {
+  EmailNotificationRequest,
+  IServicesContainer,
+} from "@hacado/types/services";
 import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
 
 import { dashboardUrls } from "../links";

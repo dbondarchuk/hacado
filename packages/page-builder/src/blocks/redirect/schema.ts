@@ -1,5 +1,5 @@
 import { BaseReaderBlockProps } from "@hacado/builder";
-import { Prettify, zNonEmptyString } from "@hacado/types";
+import { Prettify, zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const RedirectPropsSchema = z.object({

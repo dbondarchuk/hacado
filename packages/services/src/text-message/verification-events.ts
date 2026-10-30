@@ -1,11 +1,11 @@
+import type { SmsVerificationStatusPayload } from "@hacado/types/events";
 import {
   SMS_VERIFICATION_CREATED_EVENT_TYPE,
   SMS_VERIFICATION_FAILED_EVENT_TYPE,
   SMS_VERIFICATION_PENDING_EVENT_TYPE,
   SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE,
-  type SmsRegistrationStatus,
-  type SmsVerificationStatusPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import type { SmsRegistrationStatus } from "@hacado/types/text-message/registration";
 
 export async function emitSmsVerificationStatusChange(input: {
   previousStatus?: SmsRegistrationStatus | null;

@@ -2,12 +2,9 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  BillingPlanTier,
-  meetsMinimumPlanTier,
-  memberEventSource,
-  textMessagingConfigurationSchema,
-} from "@hacado/types";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import { textMessagingConfigurationSchema } from "@hacado/types/configuration/text-messaging";
+import { memberEventSource } from "@hacado/types/events";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

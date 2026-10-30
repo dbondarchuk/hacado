@@ -1,5 +1,5 @@
 import { BaseReaderBlockProps } from "@hacado/builder";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const overlayType = ["blur", "default"] as const;

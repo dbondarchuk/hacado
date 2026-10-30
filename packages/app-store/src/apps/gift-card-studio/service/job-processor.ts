@@ -1,12 +1,9 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  AppJobRequest,
-  ConnectedAppData,
-  formatPostalAddress,
-  hasPostalAddress,
-  IServicesContainer,
-} from "@hacado/types";
+import { ConnectedAppData } from "@hacado/types/apps";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { IServicesContainer } from "@hacado/types/services";
+import { formatPostalAddress, hasPostalAddress } from "@hacado/types/utils";
 import {
   Args,
   formatAmountWithCurrency,

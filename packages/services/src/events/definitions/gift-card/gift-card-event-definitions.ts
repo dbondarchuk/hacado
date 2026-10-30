@@ -1,15 +1,17 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  EventDefinition,
+  GiftCardCreatedPayload,
+  GiftCardDeletedPayload,
+  GiftCardStatusChangedPayload,
+  GiftCardUpdatedPayload,
+} from "@hacado/types/events";
 import {
   GIFT_CARD_CREATED_EVENT_TYPE,
   GIFT_CARD_DELETED_EVENT_TYPE,
   GIFT_CARD_STATUS_CHANGED_EVENT_TYPE,
   GIFT_CARD_UPDATED_EVENT_TYPE,
-  type EventDefinition,
-  type GiftCardCreatedPayload,
-  type GiftCardDeletedPayload,
-  type GiftCardStatusChangedPayload,
-  type GiftCardUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

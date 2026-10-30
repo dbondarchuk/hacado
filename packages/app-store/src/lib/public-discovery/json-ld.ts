@@ -1,13 +1,13 @@
+import type { BrandConfiguration } from "@hacado/types/configuration/brand";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import type { ScheduleConfiguration } from "@hacado/types/configuration/schedule";
+import type { SocialConfiguration } from "@hacado/types/configuration/social";
+import type { IServicesContainer } from "@hacado/types/services";
 import {
   formatPostalStreetAddress,
   localBusinessTypeForIndustry,
   normalizePostalAddress,
-  type BrandConfiguration,
-  type GeneralConfiguration,
-  type IServicesContainer,
-  type ScheduleConfiguration,
-  type SocialConfiguration,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { stripMarkdown } from "@hacado/utils";
 import {
   getPublicCatalogSnapshot,

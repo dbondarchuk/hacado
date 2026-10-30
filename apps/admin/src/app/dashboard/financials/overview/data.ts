@@ -4,14 +4,14 @@ import {
   CONFIGURATION_COLLECTION_NAME,
 } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import {
-  type BookingProgressAnalyticsDaily,
-  closedAppointmentStatuses,
-  type DateRange,
-  type GeneralConfiguration,
-  type Payment,
-  type PaymentSummary,
-} from "@hacado/types";
+import type {
+  BookingProgressAnalyticsDaily,
+  Payment,
+  PaymentSummary,
+} from "@hacado/types/booking";
+import { closedAppointmentStatuses } from "@hacado/types/booking";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import type { DateRange } from "@hacado/types/general";
 import { Filter } from "mongodb";
 import type {
   BookingConversionStats,

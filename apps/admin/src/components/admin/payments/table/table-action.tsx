@@ -1,7 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { paymentMethods, paymentStatus, paymentType } from "@hacado/types";
+import {
+  paymentMethods,
+  paymentStatus,
+  paymentType,
+} from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import {
   AppointmentsDataTableAsyncFilterBox,

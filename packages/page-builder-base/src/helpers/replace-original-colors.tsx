@@ -1,4 +1,4 @@
-import { colors } from "@hacado/types";
+import { colors } from "@hacado/types/configuration/styling";
 
 export const ReplaceOriginalColors = () => {
   const values = colors

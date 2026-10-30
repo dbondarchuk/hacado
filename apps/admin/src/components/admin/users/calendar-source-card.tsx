@@ -1,6 +1,6 @@
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import { CalendarSourceConfiguration } from "@hacado/types";
+import { CalendarSourceConfiguration } from "@hacado/types/configuration/booking";
 import {
   AlertDialog,
   AlertDialogAction,

@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistLeaveConfirmTextMessageTemplate: TemplatesTemplate = {
   name: "Message texte de confirmation de départ sur liste d'attente",

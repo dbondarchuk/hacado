@@ -9,7 +9,7 @@ import {
   ITextMessageResponder,
   RespondResult,
   TextMessageReply,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import {
   appendSharedPoolSuffix,
   getAdminUrl,

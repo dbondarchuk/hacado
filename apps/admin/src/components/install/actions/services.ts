@@ -4,18 +4,22 @@ import { auth } from "@/app/auth";
 import { getActor } from "@/app/utils";
 import type { InstallServiceServerSnapshot } from "@/components/install/types";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import { ServicesContainer } from "@hacado/services/container";
 import {
-  appointmentAddonSchema,
   canCreateMoreServices,
-  catalogFromFlatOptions,
-  flattenCatalogServiceIds,
   FREE_TIER_LIMITS,
   ServiceLimitReachedError,
-  type AppointmentAddonUpdateModel,
-  type AppointmentOptionUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import type {
+  AppointmentAddonUpdateModel,
+  AppointmentOptionUpdateModel,
+} from "@hacado/types/booking";
+import { appointmentAddonSchema } from "@hacado/types/booking";
+import {
+  catalogFromFlatOptions,
+  flattenCatalogServiceIds,
+} from "@hacado/types/configuration/booking";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { getDefaultBookingConfiguration } from "../default-booking";

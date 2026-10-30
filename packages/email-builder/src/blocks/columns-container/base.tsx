@@ -1,4 +1,4 @@
-import type { NestedOmit } from "@hacado/types";
+import type { NestedOmit } from "@hacado/types/utils";
 import { CSSProperties, forwardRef, JSX } from "react";
 import { getPadding } from "../../style-inputs/helpers/styles";
 import { ColumnsContainerProps, ColumnsContainerPropsDefaults } from "./schema";

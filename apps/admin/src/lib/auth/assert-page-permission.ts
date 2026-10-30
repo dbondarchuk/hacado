@@ -3,7 +3,7 @@ import type {
   RequiredPermission,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@hacado/types";
+} from "@hacado/types/users";
 import { hasPermission, meetsRequiredPermission } from "@hacado/utils";
 import { forbidden } from "next/navigation";
 

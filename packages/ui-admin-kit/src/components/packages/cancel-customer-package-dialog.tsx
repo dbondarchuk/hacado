@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerPackageListModel } from "@hacado/types";
+import { CustomerPackageListModel } from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogAction,

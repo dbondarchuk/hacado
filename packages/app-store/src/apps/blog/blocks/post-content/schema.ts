@@ -1,6 +1,6 @@
 import { BaseReaderBlockProps } from "@hacado/builder";
 import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { BlogAdminAllKeys } from "../../translations/types";
 

@@ -2,17 +2,15 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import type {
-  OrganizationBillingSubscriptionDetails,
-  PostalAddress,
-} from "@hacado/types";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
+import type { PostalAddress } from "@hacado/types/utils";
 import {
   businessIndustryDefinitions,
   countryOptions,
   Currency,
   currencyOptions,
   CurrencySymbolMap,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   Card,
   CardContent,

@@ -9,12 +9,8 @@ import {
 } from "@/lib/command-search/scope";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n, type AllKeys } from "@hacado/i18n/client";
-import {
-  CommandSearchGroup,
-  ConnectedApp,
-  NavItem,
-  NavItemGroup,
-} from "@hacado/types";
+import { NavItem, NavItemGroup } from "@hacado/types/admin";
+import { CommandSearchGroup, ConnectedApp } from "@hacado/types/apps";
 import {
   Avatar,
   AvatarFallback,

@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import {
   Button,
   DropdownMenu,

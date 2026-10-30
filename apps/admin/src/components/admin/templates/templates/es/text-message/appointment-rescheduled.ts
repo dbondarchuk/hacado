@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentRescheduledTextMessageTemplate: TemplatesTemplate = {
   name: "Mensaje de texto de cita reprogramada",

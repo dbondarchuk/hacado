@@ -3,12 +3,9 @@
 import { clientApi } from "@hacado/api-sdk";
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  CollectPayment,
-  PublicPageClientProps,
-  zEmail,
-  zPhone,
-} from "@hacado/types";
+import { PublicPageClientProps } from "@hacado/types/apps";
+import { CollectPayment } from "@hacado/types/booking";
+import { zEmail, zPhone } from "@hacado/types/utils";
 import {
   Button,
   CustomerOtpForm,

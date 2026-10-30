@@ -1,10 +1,7 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  AppointmentAddon,
-  AppointmentOption,
-  CustomerListModel,
-} from "@hacado/types";
+import { AppointmentAddon, AppointmentOption } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
 import {
   Button,
   Dialog,

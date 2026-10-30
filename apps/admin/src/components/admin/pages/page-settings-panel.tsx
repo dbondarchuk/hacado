@@ -5,8 +5,8 @@ import {
   PageFooterListModel,
   PageHeaderListModel,
   pageTagSchema,
-  zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/pages";
+import { zNonEmptyString } from "@hacado/types/utils";
 import {
   Checkbox,
   Combobox,

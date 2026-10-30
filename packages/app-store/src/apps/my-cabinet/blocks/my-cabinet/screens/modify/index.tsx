@@ -12,7 +12,7 @@ import type {
   ModifyAppointmentReason,
   ModifyAppointmentRequest,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { AutoSkeleton, Button, cn, toast } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";

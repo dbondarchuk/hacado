@@ -3,7 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
-import type { TeamMemberListModel } from "@hacado/types";
+import type { TeamMemberListModel } from "@hacado/types/users";
 import {
   AlertDialog,
   AlertDialogAction,

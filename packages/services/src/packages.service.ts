@@ -1,7 +1,4 @@
 import {
-  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
-  APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
-  APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
   AppointmentEntity,
   AppointmentPackage,
   AppointmentPackageListModel,
@@ -9,6 +6,31 @@ import {
   AppointmentPackageUpdateModel,
   AppointmentPackageUsage,
   canUsePackageForAppointment,
+  CustomerPackage,
+  CustomerPackageListModel,
+  PackageAdjustRequest,
+  PackageError,
+  resolveCustomerPackageStatus,
+  sumRemainingCredits,
+} from "@hacado/types/booking";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  AppointmentPackageCreatedPayload,
+  AppointmentPackageDeletedPayload,
+  AppointmentPackageUpdatedPayload,
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+  CustomerPackageRedeemedPayload,
+  CustomerPackageRestoredPayload,
+  EventSource,
+} from "@hacado/types/events";
+import {
+  APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
+  APPOINTMENT_PACKAGE_UPDATED_EVENT_TYPE,
   CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
   CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
   CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
@@ -16,32 +38,15 @@ import {
   CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
   CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
   CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
-  CustomerPackage,
-  CustomerPackageListModel,
+} from "@hacado/types/events";
+import {
   ICatalogService,
   IEventService,
   IPackagesService,
   IPaymentsService,
   IssueCustomerPackageInput,
-  PackageAdjustRequest,
-  PackageError,
-  Query,
   RedeemPackageInput,
-  resolveCustomerPackageStatus,
-  sumRemainingCredits,
-  WithTotal,
-  type AppointmentPackageCreatedPayload,
-  type AppointmentPackageDeletedPayload,
-  type AppointmentPackageUpdatedPayload,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-  type CustomerPackageRedeemedPayload,
-  type CustomerPackageRestoredPayload,
-  type EventSource,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import {

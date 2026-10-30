@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { ActivityActorDisplay } from "@hacado/types";
+import type { ActivityActorDisplay } from "@hacado/types/activity";
 import { cn, Link } from "@hacado/ui";
 import { CustomerName } from "@hacado/ui-admin";
 import React from "react";

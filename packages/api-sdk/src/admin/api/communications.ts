@@ -1,4 +1,5 @@
-import { okStatus, SendCommunicationRequest } from "@hacado/types";
+import { SendCommunicationRequest } from "@hacado/types/communication";
+import { okStatus } from "@hacado/types/general";
 import { fetchAdminApi } from "./utils";
 
 export const sendCustomerMessage = async (

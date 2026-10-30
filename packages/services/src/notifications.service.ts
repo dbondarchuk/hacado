@@ -1,29 +1,33 @@
 import { getLoggerFactory } from "@hacado/logger";
 import {
-  BillingPlanTier,
-  CommunicationLogReason,
   Email,
-  EmailNotificationRequest,
   EmailResponse,
+  IMailSender,
+  IMailSenderApp,
+  ITextMessageSender,
+  ITextMessageSenderApp,
+  TextMessage,
+  TextMessageResponse,
+} from "@hacado/types/apps";
+import {
+  BillingPlanTier,
+  SubscriptionUpgradeRequiredError,
+} from "@hacado/types/billing";
+import { CommunicationLogReason } from "@hacado/types/communication";
+import {
+  EmailNotificationRequest,
   IBillingService,
   ICommunicationLogsService,
   IConfigurationService,
   IConnectedAppsService,
   IEventService,
-  IMailSender,
-  IMailSenderApp,
   INotificationService,
   IOrganizationService,
   IShortLinksService,
   ISystemNotificationService,
   ITextMessageConfigurationService,
-  ITextMessageSender,
-  ITextMessageSenderApp,
-  SubscriptionUpgradeRequiredError,
-  TextMessage,
   TextMessageNotificationRequest,
-  TextMessageResponse,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import {
   isPlatformSmsCountry,
   isSmsLinkShorteningEnabled,

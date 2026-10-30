@@ -8,7 +8,7 @@ import {
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { parseIcsCalendar } from "@ts-ics/schema-zod";
 import { DateTime } from "luxon";
 import { IcsLinkCalendarSource, icsLinkCalendarSourceSchema } from "./models";

@@ -5,7 +5,7 @@ import {
   Appointment,
   CustomerPackageListModel,
   isAppointmentCoveredByPackage,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Badge,
   Button,

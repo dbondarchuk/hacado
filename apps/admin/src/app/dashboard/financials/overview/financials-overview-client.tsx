@@ -1,7 +1,8 @@
 "use client";
 
 import { AdminKeys, useI18n } from "@hacado/i18n/client";
-import type { BookingStep, DateRange, PaymentSummary } from "@hacado/types";
+import type { BookingStep, PaymentSummary } from "@hacado/types/booking";
+import type { DateRange } from "@hacado/types/general";
 import {
   CalendarDateRangePicker,
   Card,

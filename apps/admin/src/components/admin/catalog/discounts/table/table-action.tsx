@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { discountTypes } from "@hacado/types";
+import { discountTypes } from "@hacado/types/booking";
 
 import {
   DataTableFilterBox,

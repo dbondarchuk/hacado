@@ -1,4 +1,4 @@
-import { AppLogoProps } from "@hacado/types";
+import { AppLogoProps } from "@hacado/types/apps";
 
 export function WebhooksLogo(props: AppLogoProps) {
   return (

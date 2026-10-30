@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import { IShortLinksService, ShortLink } from "@hacado/types";
+import { IShortLinksService, ShortLink } from "@hacado/types/services";
 import { AnyBulkWriteOperation, MongoBulkWriteError } from "mongodb";
 import { SHORT_LINKS_COLLECTION_NAME } from "../collections";
 import { getDbConnection } from "../database";

@@ -1,5 +1,5 @@
 import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
-import { SystemServicesContainer } from "@hacado/services";
+import { SystemServicesContainer } from "@hacado/services/container";
 import { templateSafeWithError } from "@hacado/utils";
 import { renderUserEmailTemplate } from "../../../../../packages/email-builder/src/static/user-email-template";
 import { EmailTemplates } from "../../i18n/email";

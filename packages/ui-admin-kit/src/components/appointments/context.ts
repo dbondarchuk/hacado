@@ -1,4 +1,4 @@
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import React from "react";
 
 export const AppointmentViewContext = React.createContext<{

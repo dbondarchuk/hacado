@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Asset } from "@hacado/types";
+import { Asset } from "@hacado/types/assets";
 import {
   Checkbox,
   Link,

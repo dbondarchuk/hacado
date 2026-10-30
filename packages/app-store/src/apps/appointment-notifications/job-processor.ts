@@ -2,12 +2,9 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
-import {
-  AppJobRequest,
-  Appointment,
-  ConnectedAppData,
-  IConnectedAppProps,
-} from "@hacado/types";
+import { ConnectedAppData, IConnectedAppProps } from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import { AppJobRequest } from "@hacado/types/jobs";
 import {
   appendSharedPoolSuffix,
   canUseFeature,

@@ -1,10 +1,7 @@
-import {
-  FieldsType,
-  okStatus,
-  ServiceField,
-  ServiceFieldUpdateModel,
-  WithTotal,
-} from "@hacado/types";
+import { ServiceField, ServiceFieldUpdateModel } from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
+import { FieldsType } from "@hacado/types/services";
 import {
   FieldsSearchParams,
   fieldsSearchParamsSerializer,

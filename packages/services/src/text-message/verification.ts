@@ -1,4 +1,4 @@
-import type { SmsRegistrationStatus } from "@hacado/types";
+import type { SmsRegistrationStatus } from "@hacado/types/text-message/registration";
 
 export const SMS_VERIFICATION_COUNTRIES = ["US", "CA"] as const;
 

@@ -1,4 +1,4 @@
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import { Toggle, useOpenState } from "@hacado/ui";
 import { destructAndReplace, resolveProperty } from "@hacado/utils";
 import { ReactNode } from "react";

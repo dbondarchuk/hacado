@@ -1,4 +1,7 @@
-import { CUSTOMER_SESSION_COOKIE, CustomerSession } from "@hacado/types";
+import {
+  CUSTOMER_SESSION_COOKIE,
+  CustomerSession,
+} from "@hacado/types/customer-auth";
 import { cookies } from "next/headers";
 import { getServicesContainer } from "../utils";
 

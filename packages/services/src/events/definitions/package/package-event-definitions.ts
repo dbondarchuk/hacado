@@ -1,4 +1,17 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  AppointmentPackageCreatedPayload,
+  AppointmentPackageDeletedPayload,
+  AppointmentPackageUpdatedPayload,
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+  CustomerPackageRedeemedPayload,
+  CustomerPackageRestoredPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_PACKAGE_CREATED_EVENT_TYPE,
   APPOINTMENT_PACKAGE_DELETED_EVENT_TYPE,
@@ -10,18 +23,7 @@ import {
   CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
   CUSTOMER_PACKAGE_REDEEMED_EVENT_TYPE,
   CUSTOMER_PACKAGE_RESTORED_EVENT_TYPE,
-  type AppointmentPackageCreatedPayload,
-  type AppointmentPackageDeletedPayload,
-  type AppointmentPackageUpdatedPayload,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-  type CustomerPackageRedeemedPayload,
-  type CustomerPackageRestoredPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 import { buildCustomerPackagePurchasedOwnerEmails } from "./package-purchased-owner-email";

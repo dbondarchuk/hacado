@@ -2,19 +2,11 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { AllKeys, resolveLanguageFromMap } from "@hacado/i18n";
 import { LoggerFactory, getLoggerFactory } from "@hacado/logger";
 import {
-  APPOINTMENT_RESCHEDULED_EVENT_TYPE,
-  APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
-  APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  AppJobRequest,
-  BookingConfiguration,
-  BrandConfiguration,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   DemoArguments,
-  EventEnvelope,
-  GeneralConfiguration,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -22,19 +14,31 @@ import {
   IEventSubscriber,
   IScheduled,
   ITextMessageResponder,
-  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   RespondResult,
-  SCHEDULE_CHANGED_EVENT_TYPE,
-  SocialConfiguration,
-  TemplateTemplatesList,
   TextMessageReply,
+} from "@hacado/types/apps";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
+import type {
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  MemberProfileUpdatedPayload,
+  ScheduleChangedPayload,
+} from "@hacado/types/events";
+import {
+  APPOINTMENT_RESCHEDULED_EVENT_TYPE,
+  APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
+  APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
+  EventEnvelope,
+  MEMBER_PROFILE_UPDATED_EVENT_TYPE,
+  SCHEDULE_CHANGED_EVENT_TYPE,
   systemEventSource,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type MemberProfileUpdatedPayload,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import {
   getAdminUrl,
   getArguments,

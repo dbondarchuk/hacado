@@ -2,8 +2,8 @@ import {
   InStorePaymentUpdateModel,
   Payment,
   PaymentSummary,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
 import {
   CreatePaymentLinkBody,
   RefundPayments,

@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
 import { useI18n } from "@hacado/i18n/client";
-import { zEmail } from "@hacado/types";
+import { zEmail } from "@hacado/types/utils";
 import {
   Button,
   Dialog,

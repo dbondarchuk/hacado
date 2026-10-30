@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { TeamMemberListModel } from "@hacado/types";
+import { TeamMemberListModel } from "@hacado/types/users";
 import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
 import React from "react";
 

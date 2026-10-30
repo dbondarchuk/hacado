@@ -6,17 +6,14 @@ import {
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { getLoggerFactory } from "@hacado/logger";
+import { SystemServicesContainer } from "@hacado/services/container";
 import {
   requiresSmsVerification,
   saveSmsRegistration,
-  SystemServicesContainer,
-} from "@hacado/services";
-import {
-  BillingPlanTier,
-  meetsMinimumPlanTier,
-  memberEventSource,
-  smsRegistrationInputSchema,
-} from "@hacado/types";
+} from "@hacado/services/text-message";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import { memberEventSource } from "@hacado/types/events";
+import { smsRegistrationInputSchema } from "@hacado/types/text-message/registration";
 import { getWebsiteUrl as organizationWebsiteUrl } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { publicPageUrl, storeOptInImage } from "../shared";

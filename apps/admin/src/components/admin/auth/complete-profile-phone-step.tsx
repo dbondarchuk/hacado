@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { zPhone } from "@hacado/types";
+import { zPhone } from "@hacado/types/utils";
 import {
   Button,
   Form,

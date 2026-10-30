@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { SendHorizonal } from "lucide-react";
 import { TEXT_MESSAGE_NOTIFICATION_APP_NAME } from "./const";
 import {

@@ -2,7 +2,7 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { userUpdateSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { canUpdateTeamMemberProfile } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

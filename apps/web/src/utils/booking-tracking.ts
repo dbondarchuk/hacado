@@ -4,7 +4,7 @@ import {
   BookingStep,
   BookingTrackingEventData,
   BookingTrackingMetadata,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest } from "next/server";
 import { getServicesContainer } from "./utils";
 

@@ -8,8 +8,6 @@ import {
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
-  AppointmentEvent,
-  AppointmentOnlineMeetingInformation,
   CalendarBusyTime,
   CalendarWriterEvent,
   CalendarWriterEventAttendee,
@@ -27,8 +25,12 @@ import {
   IMailSenderApp,
   IMeetingUrlProvider,
   IOAuthConnectedApp,
-  WithDatabaseId,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import {
+  AppointmentEvent,
+  AppointmentOnlineMeetingInformation,
+} from "@hacado/types/booking";
+import { WithDatabaseId } from "@hacado/types/database";
 import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { Client } from "@microsoft/microsoft-graph-client";

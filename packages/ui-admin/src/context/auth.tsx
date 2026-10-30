@@ -1,13 +1,13 @@
 "use client";
 
+import type { SubscriptionFeature } from "@hacado/types/billing";
 import type {
   RequiredPermission,
   SessionUser,
-  SubscriptionFeature,
   TeamPermissionAction,
   TeamPermissionResource,
   UserRole,
-} from "@hacado/types";
+} from "@hacado/types/users";
 import {
   canAccessFinancialsSection,
   canFilterByMember,

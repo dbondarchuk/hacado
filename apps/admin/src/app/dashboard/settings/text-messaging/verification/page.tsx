@@ -12,8 +12,8 @@ import {
   requiresSmsVerification,
   SmsRegistrationStore,
   toSmsRegistrationView,
-} from "@hacado/services";
-import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types";
+} from "@hacado/services/text-message";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { Breadcrumbs, Heading } from "@hacado/ui";
 import { getWebsiteUrl } from "@hacado/utils";
 import { Metadata } from "next";

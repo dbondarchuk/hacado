@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Page } from "@hacado/types";
+import { Page } from "@hacado/types/pages";
 import {
   AlertDialog,
   AlertDialogCancel,

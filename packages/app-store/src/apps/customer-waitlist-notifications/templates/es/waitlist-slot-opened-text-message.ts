@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistSlotOpenedTextMessageTemplate: TemplatesTemplate = {
   name: "Mensaje de texto con espacio en lista de espera abierto",

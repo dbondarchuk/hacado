@@ -3,14 +3,14 @@
 import { adminApi } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
+import { inPersonPaymentMethod } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
 import {
-  CustomerListModel,
-  inPersonPaymentMethod,
   zEmail,
   zMinMaxLengthString,
   zObjectId,
   zOptionalOrMinMaxLengthString,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   Button,
   Dialog,

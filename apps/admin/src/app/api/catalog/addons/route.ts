@@ -2,7 +2,7 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { addonsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { appointmentAddonSchema } from "@hacado/types";
+import { appointmentAddonSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

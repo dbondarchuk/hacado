@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { RESEND_APP_NAME } from "./const";
 import { ResendLogo } from "./logo";
 import { ResendAdminKeys, ResendAdminNamespace } from "./translations/types";

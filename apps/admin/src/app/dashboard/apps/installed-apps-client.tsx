@@ -4,7 +4,7 @@ import { ConnectedAppRow } from "@/components/admin/apps/connected-app";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { useI18n } from "@hacado/i18n/client";
-import { ConnectedApp } from "@hacado/types";
+import { ConnectedApp } from "@hacado/types/apps";
 import {
   Button,
   Input,

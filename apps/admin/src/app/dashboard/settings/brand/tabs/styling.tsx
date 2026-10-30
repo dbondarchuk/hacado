@@ -8,7 +8,7 @@ import {
   colorsLabels,
   fontsNames,
   fontsOptions,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
 import {
   AlertDialog,
   AlertDialogAction,

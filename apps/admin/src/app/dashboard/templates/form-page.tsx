@@ -2,13 +2,9 @@ import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { TemplateForm } from "@/components/admin/templates/form";
 import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import { getI18nAsync } from "@hacado/i18n/server";
-import {
-  CommunicationChannel,
-  DemoArguments,
-  IDemoArgumentsProvider,
-  Template,
-  TemplatesTemplate,
-} from "@hacado/types";
+import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
+import { CommunicationChannel } from "@hacado/types/communication";
+import { Template, TemplatesTemplate } from "@hacado/types/templates";
 import { Breadcrumbs } from "@hacado/ui";
 import {
   demoAppointment,

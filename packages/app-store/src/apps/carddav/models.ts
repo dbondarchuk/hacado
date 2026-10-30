@@ -1,4 +1,5 @@
-import { ConnectedAppStatusWithText, Prettify } from "@hacado/types";
+import { ConnectedAppStatusWithText } from "@hacado/types/apps";
+import { Prettify } from "@hacado/types/utils";
 
 export type CarddavConfiguration = {
   username: string;

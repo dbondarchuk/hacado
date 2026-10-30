@@ -8,7 +8,7 @@ import {
   parseSearchScope,
 } from "@/lib/command-search/scope";
 import { getLoggerFactory } from "@hacado/logger";
-import { CommandSearchGroup, ICommandSearchProvider } from "@hacado/types";
+import { CommandSearchGroup, ICommandSearchProvider } from "@hacado/types/apps";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

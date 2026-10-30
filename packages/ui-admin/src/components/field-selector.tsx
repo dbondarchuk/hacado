@@ -1,6 +1,6 @@
 import { adminApi } from "@hacado/api-sdk";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
-import { ServiceField } from "@hacado/types";
+import { ServiceField } from "@hacado/types/booking";
 import { cn, Combobox, IComboboxItem } from "@hacado/ui";
 import React from "react";
 

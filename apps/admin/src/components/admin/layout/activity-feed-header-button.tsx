@@ -5,7 +5,8 @@ import {} from "@/components/admin/dashboard/notifications/notifications-toast-s
 import { useActivityFeedStore } from "@/notifications/store";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import type { ActivityFeedPreview, ActivitySeverity } from "@hacado/types";
+import type { ActivitySeverity } from "@hacado/types/activity";
+import type { ActivityFeedPreview } from "@hacado/types/apps";
 import {
   Button,
   cn,

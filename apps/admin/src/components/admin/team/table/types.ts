@@ -1,1 +1,1 @@
-export type { TeamMemberListModel } from "@hacado/types";
+export type { TeamMemberListModel } from "@hacado/types/users";

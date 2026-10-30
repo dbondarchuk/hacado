@@ -2,7 +2,8 @@ import { getServicesContainer, getSession } from "@/app/utils";
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppointmentChoice, resolveBookingTips } from "@hacado/types";
+import { AppointmentChoice } from "@hacado/types/booking";
+import { resolveBookingTips } from "@hacado/types/configuration/booking";
 import { Breadcrumbs, Heading } from "@hacado/ui";
 import {
   AppointmentScheduleForm,

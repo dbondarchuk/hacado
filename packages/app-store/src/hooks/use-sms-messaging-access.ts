@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@hacado/api-sdk";
-import type { SmsMessagingAccess } from "@hacado/types";
+import type { SmsMessagingAccess } from "@hacado/types/text-message/registration";
 import { useEffect, useState } from "react";
 
 export function useSmsMessagingAccess() {

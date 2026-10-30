@@ -2,7 +2,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentWithDepositCancellationPolicyRow,
   AppointmentWithoutDepositCancellationPolicyRow,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   Badge,
   Card,

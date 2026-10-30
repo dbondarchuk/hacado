@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
-import { SubMenuItem } from "@hacado/types";
+import { SubMenuItem } from "@hacado/types/configuration/styling";
 import { Button, Card, CardContent, CardHeader, cn } from "@hacado/ui";
 import { cva } from "class-variance-authority";
 import { ChevronDown, GripVertical, Trash } from "lucide-react";

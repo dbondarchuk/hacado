@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Payment, PaymentSummary } from "@hacado/types";
+import { Payment, PaymentSummary } from "@hacado/types/booking";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import React from "react";

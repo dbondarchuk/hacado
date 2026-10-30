@@ -3,7 +3,7 @@ import {
   ITextMessageSender,
   TextMessage,
   TextMessageResponse,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { getAppsExternalUrl, maskify } from "@hacado/utils";
 import { prepareTextbeltSmsBody } from "../compliance";
 import { TextBeltConfiguration } from "./types";

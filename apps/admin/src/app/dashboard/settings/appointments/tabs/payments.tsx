@@ -2,7 +2,7 @@ import { TipPresetsField } from "@/components/admin/payments/tip-presets-field";
 import { FeatureUpgradeHint } from "@/lib/billing/feature-upgrade-hint";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { bookingTipsModes } from "@hacado/types";
+import { bookingTipsModes } from "@hacado/types/configuration/booking";
 import {
   FormControl,
   FormDescription,

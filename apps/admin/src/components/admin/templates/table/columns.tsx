@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { TemplateListModel } from "@hacado/types";
+import { TemplateListModel } from "@hacado/types/templates";
 import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";

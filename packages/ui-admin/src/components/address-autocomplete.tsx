@@ -2,12 +2,12 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  formatPostalAddress,
-  type AddressSuggestion,
-  type Country,
-  type PostalAddress,
-} from "@hacado/types";
+import type {
+  AddressSuggestion,
+  Country,
+  PostalAddress,
+} from "@hacado/types/utils";
+import { formatPostalAddress } from "@hacado/types/utils";
 import {
   Button,
   cn,

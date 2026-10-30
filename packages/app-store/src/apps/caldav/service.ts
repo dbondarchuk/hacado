@@ -12,7 +12,7 @@ import {
   ICalendarWriter,
   IConnectedApp,
   IConnectedAppProps,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { parseIcsCalendar, parseIcsEvent } from "@ts-ics/schema-zod";
 import { DateTime } from "luxon";

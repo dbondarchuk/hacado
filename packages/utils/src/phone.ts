@@ -1,4 +1,4 @@
-import { Appointment, FieldType, ServiceField } from "@hacado/types";
+import { Appointment, FieldType, ServiceField } from "@hacado/types/booking";
 import {
   parsePhoneNumberFromString,
   type CountryCode,

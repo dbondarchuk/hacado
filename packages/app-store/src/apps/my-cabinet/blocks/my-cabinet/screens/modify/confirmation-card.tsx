@@ -1,5 +1,5 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { timeZones } from "@hacado/types";
+import { timeZones } from "@hacado/types/utils";
 import { Button, useTimeZone } from "@hacado/ui";
 import { TimeZone } from "@vvo/tzdb";
 import { CheckCircle2 } from "lucide-react";

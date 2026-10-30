@@ -2,7 +2,8 @@ import { getSession } from "@/app/utils";
 import { GeoapifyService } from "@/utils/geoapify.service";
 import { addressesSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { countryOptions, type Country } from "@hacado/types";
+import type { Country } from "@hacado/types/utils";
+import { countryOptions } from "@hacado/types/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

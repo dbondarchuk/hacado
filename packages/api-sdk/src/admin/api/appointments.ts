@@ -1,16 +1,16 @@
 "use client";
 
+import { AssetEntity } from "@hacado/types/assets";
 import {
   Appointment,
   AppointmentEventRequest,
   AppointmentHistoryEntry,
   AppointmentStatus,
   AppointmentWithReferenceDateDistance,
-  AssetEntity,
-  okStatus,
   Payment,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
   AppointmentHistorySearchParams,
   serializeAppointmentHistorySearchParams,

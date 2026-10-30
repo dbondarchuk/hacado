@@ -2,7 +2,10 @@
 import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { CommunicationChannel, communicationChannels } from "@hacado/types";
+import {
+  CommunicationChannel,
+  communicationChannels,
+} from "@hacado/types/communication";
 import {
   Button,
   Combobox,

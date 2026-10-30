@@ -2,12 +2,12 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
   AppointmentPackage,
-  BookingCatalogNode,
   minEffectiveDuration,
   minEffectivePrice,
   PublicStaffMember,
   summarizePackageItems,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { BookingCatalogNode } from "@hacado/types/configuration/booking";
 import {
   Card,
   CardContent,

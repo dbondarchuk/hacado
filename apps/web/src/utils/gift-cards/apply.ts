@@ -2,7 +2,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   ApplyGiftCardsResponse,
   ApplyGiftCardsSuccessResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 
 export const applyGiftCards = async (

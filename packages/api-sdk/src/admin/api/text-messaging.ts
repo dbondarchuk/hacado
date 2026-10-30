@@ -3,7 +3,7 @@ import type {
   SmsRegistrationInput,
   SmsRegistrationSaveResponse,
   TextMessagingSettingsInput,
-} from "@hacado/types";
+} from "@hacado/types/text-message/registration";
 import { fetchAdminApi } from "./utils";
 
 export const getTextMessagingAccess = async () => {

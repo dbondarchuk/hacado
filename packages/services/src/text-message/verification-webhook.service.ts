@@ -1,5 +1,5 @@
 import { getLoggerFactory } from "@hacado/logger";
-import type { SmsVerificationStatusPayload } from "@hacado/types";
+import type { SmsVerificationStatusPayload } from "@hacado/types/events";
 import { SmsRegistrationStore } from "./registration-store";
 import { TelnyxWebhookConfigError, unwrapTelnyxWebhook } from "./telnyx/verify";
 import {

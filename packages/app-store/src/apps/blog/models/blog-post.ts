@@ -1,11 +1,10 @@
+import { WithDatabaseId, WithOrganizationId } from "@hacado/types/database";
 import {
   Prettify,
-  WithDatabaseId,
-  WithOrganizationId,
   zNonEmptyString,
   zObjectId,
   zUniqueArray,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { BlogAdminAllKeys } from "../translations/types";
 

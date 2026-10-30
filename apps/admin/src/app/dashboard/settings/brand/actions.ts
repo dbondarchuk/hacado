@@ -3,10 +3,10 @@
 import { getActor, getOrganizationId, getServicesContainer } from "@/app/utils";
 import { validateFaviconValue } from "@/lib/validate-favicon";
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient } from "@hacado/services";
+import { getPolarClient } from "@hacado/services/billing";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { Organization } from "@hacado/types";
+import type { Organization } from "@hacado/types/organizations";
 import { siteSettingsFormSchema } from "./site-settings-schema";
 
 export type SaveSiteSettingsResult =

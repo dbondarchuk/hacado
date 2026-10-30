@@ -1,8 +1,8 @@
 import {
   TimeSlot as BaseTimeSlot,
-  DaySchedule,
   TimeSlotsFinderConfiguration,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import { DateTime } from "luxon";
 
 type TimeSlotsWithPriorityFinderConfiguration = {

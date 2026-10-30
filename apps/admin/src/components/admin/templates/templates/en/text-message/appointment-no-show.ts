@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentNoShowTextMessageTemplate: TemplatesTemplate = {
   name: "No-show appointment text message",

@@ -3,7 +3,7 @@ import { usePortalContext } from "@hacado/builder";
 import {
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import { cn } from "@hacado/ui";
 import {
   CSSProperties,

@@ -4,8 +4,8 @@ import {
   ConnectedAppData,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  okStatus,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { okStatus } from "@hacado/types/general";
 import { fetchAdminApi } from "./utils";
 
 export const addNewApp = async (type: string) => {

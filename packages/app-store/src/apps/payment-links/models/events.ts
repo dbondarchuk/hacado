@@ -1,4 +1,4 @@
-import type { PaymentLinkPayment } from "@hacado/types";
+import type { PaymentLinkPayment } from "@hacado/types/booking";
 
 /** Payment Links app domain events (emitted from app-store). */
 

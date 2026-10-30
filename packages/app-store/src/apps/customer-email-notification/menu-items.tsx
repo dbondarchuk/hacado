@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { Mails } from "lucide-react";
 import { CustomerEmailNotificationAppSetup } from "./setup";
 import {

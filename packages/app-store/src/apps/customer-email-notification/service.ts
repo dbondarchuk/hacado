@@ -1,17 +1,19 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  Appointment,
-  AppointmentStatus,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  AppointmentStatus,
   isAppointmentCoveredByPackage,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,

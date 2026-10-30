@@ -1,4 +1,4 @@
-import { asOptionalField } from "@hacado/types";
+import { asOptionalField } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const smartScheduleConfigurationSchema = z.object({

@@ -1,6 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { AppointmentEntity, CustomerListModel } from "@hacado/types";
+import { AppointmentEntity } from "@hacado/types/booking";
+import { CustomerListModel } from "@hacado/types/customers";
 import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,

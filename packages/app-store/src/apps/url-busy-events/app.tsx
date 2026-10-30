@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { URL_BUSY_EVENTS_APP_NAME } from "./const";
 import { UrlBusyEventsLogo } from "./logo";
 import {

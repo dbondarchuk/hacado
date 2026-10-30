@@ -1,11 +1,8 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  DateRange,
-  IConnectedAppProps,
-  Query,
-  WithTotal,
-  type EventSource,
-} from "@hacado/types";
+import { IConnectedAppProps } from "@hacado/types/apps";
+import { Query, WithTotal } from "@hacado/types/database";
+import type { EventSource } from "@hacado/types/events";
+import { DateRange } from "@hacado/types/general";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {

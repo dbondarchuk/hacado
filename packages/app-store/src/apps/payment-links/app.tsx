@@ -1,8 +1,6 @@
-import {
-  App,
-  BillingPlanTier,
-  PAYMENT_INTENT_PAID_EVENT_TYPE,
-} from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import { PAYMENT_INTENT_PAID_EVENT_TYPE } from "@hacado/types/events";
 import { Link2 } from "lucide-react";
 import { PAYMENT_LINKS_APP_NAME } from "./const";
 import {

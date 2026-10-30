@@ -10,7 +10,7 @@ import {
   effectiveStaffPrice,
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

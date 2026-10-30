@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { CollectPayment, IdName } from "@hacado/types";
+import { CollectPayment } from "@hacado/types/booking";
+import { IdName } from "@hacado/types/services";
 import {
   toast,
   useCurrencyFormat,

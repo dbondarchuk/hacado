@@ -1,25 +1,29 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  APP_UNINSTALLED_EVENT_TYPE,
-  Appointment,
-  AppointmentStatus,
-  AppUninstalledPayload,
   CalendarWriterEvent,
   ConnectedApp,
   ConnectedAppData,
   ConnectedAppError,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
-  EventSource,
-  formatPostalAddress,
   ICalendarWriter,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  AppointmentStatus,
   isClosedAppointmentStatus,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import {
+  APP_UNINSTALLED_EVENT_TYPE,
+  AppUninstalledPayload,
+  EventEnvelope,
+  EventSource,
+} from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
+import { formatPostalAddress } from "@hacado/types/utils";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,

@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { WeekIdentifier } from "@hacado/types";
+import { WeekIdentifier } from "@hacado/types/general";
 import {
   AlertDialog,
   AlertDialogCancel,

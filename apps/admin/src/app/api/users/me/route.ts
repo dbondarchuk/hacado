@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { userUpdateSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { canManageCalendarSources } from "@hacado/utils";
 import { NextResponse } from "next/server";
 

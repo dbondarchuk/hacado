@@ -1,11 +1,8 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  IConnectedAppProps,
-  Query,
-  resolvePageHeaderPosition,
-  systemEventSource,
-  WithTotal,
-} from "@hacado/types";
+import { IConnectedAppProps } from "@hacado/types/apps";
+import { Query, WithTotal } from "@hacado/types/database";
+import { systemEventSource } from "@hacado/types/events";
+import { resolvePageHeaderPosition } from "@hacado/types/pages";
 import { escapeRegex } from "@hacado/utils";
 import { ObjectId, type Document, type Filter, type Sort } from "mongodb";
 import {

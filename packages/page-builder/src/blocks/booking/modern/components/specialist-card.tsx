@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { PublicStaffMember } from "@hacado/types";
+import { PublicStaffMember } from "@hacado/types/booking";
 import {
   Avatar,
   AvatarFallback,

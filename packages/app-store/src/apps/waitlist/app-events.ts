@@ -1,4 +1,4 @@
-import { type AppEventConfig, type EventDefinition } from "@hacado/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
 import { buildNewWaitlistEntryEmailNotifications } from "./emails/new-entry-email";
 import type { WaitlistConfiguration } from "./models";
 import {

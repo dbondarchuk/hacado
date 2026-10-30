@@ -3,20 +3,22 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
-  Appointment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  CUSTOMER_SESSION_COOKIE,
   IConnectedApp,
   IConnectedAppProps,
   IPublicPageProvider,
   PublicPageChrome,
   PublicPageChromeContext,
   PublicPageClaim,
+} from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
   readCookieValue,
-  resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+import { resolvePageHeaderPosition } from "@hacado/types/pages";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
 import {
   isMyCabinetPublicPageEnabled,

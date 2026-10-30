@@ -1,4 +1,4 @@
-import { getRedisClient } from "@hacado/services";
+import { getRedisClient } from "@hacado/services/bullmq";
 
 function dismissalsRedisKey(organizationId: string, memberId: string) {
   return `dashboard:needs-attention-dismissed:${organizationId}:${memberId}`;

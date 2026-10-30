@@ -1,4 +1,4 @@
-import type { AppLogoProps } from "@hacado/types";
+import type { AppLogoProps } from "@hacado/types/apps";
 
 /** Official JSON-LD mark adapted from https://json-ld.org/images/json-ld-logo.svg */
 export function AutomaticStructuredDataLogo({ className }: AppLogoProps) {

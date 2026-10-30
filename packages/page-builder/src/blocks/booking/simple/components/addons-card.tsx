@@ -4,7 +4,7 @@ import {
   effectiveAddonDuration,
   effectiveAddonPrice,
   isAddonAvailableForMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Card,
   CardContent,

@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { giftCardToCustomerEmailTemplate as giftCardToCustomerEmailTemplateEn } from "./en/gift-card-to-customer";
 import { giftCardToRecipientEmailTemplate as giftCardToRecipientEmailTemplateEn } from "./en/gift-card-to-recipient";
 import { giftCardToCustomerEmailTemplate as giftCardToCustomerEmailTemplateEs } from "./es/gift-card-to-customer";

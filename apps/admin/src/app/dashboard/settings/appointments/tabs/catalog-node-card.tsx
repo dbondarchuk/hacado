@@ -4,7 +4,10 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import { BookingCatalogNode, BookingConfiguration } from "@hacado/types";
+import {
+  BookingCatalogNode,
+  BookingConfiguration,
+} from "@hacado/types/configuration/booking";
 import {
   Button,
   Card,

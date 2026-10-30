@@ -2,7 +2,10 @@
 
 import { AvailableApps } from "@hacado/app-store";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { HydratedSyncedPayment, SyncedPaymentStatus } from "@hacado/types";
+import {
+  HydratedSyncedPayment,
+  SyncedPaymentStatus,
+} from "@hacado/types/booking";
 import {
   Button,
   Card,

@@ -1,5 +1,5 @@
 import { getI18nAsync } from "@hacado/i18n/server";
-import { IConnectedAppProps } from "@hacado/types";
+import { IConnectedAppProps } from "@hacado/types/apps";
 import { Card, CardContent, CardHeader } from "@hacado/ui";
 import { DateTime } from "luxon";
 import React from "react";

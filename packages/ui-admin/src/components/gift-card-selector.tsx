@@ -1,7 +1,7 @@
 "use client";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { GiftCardListModel } from "@hacado/types";
+import { GiftCardListModel } from "@hacado/types/booking";
 import {
   cn,
   ComboboxAsync,

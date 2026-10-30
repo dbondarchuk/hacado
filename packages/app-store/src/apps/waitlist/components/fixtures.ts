@@ -1,7 +1,7 @@
 import {
   AvailabilityByMember,
   GetAppointmentOptionsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime } from "luxon";
 
 /** Generates bookable demo slots for the next ~2 weeks (skips Sundays), as UTC wall-clock instants matching API availability encoding. */

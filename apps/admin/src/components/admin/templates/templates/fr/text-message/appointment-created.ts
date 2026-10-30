@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentCreatedTextMessageTemplate: TemplatesTemplate = {
   name: "Nouveau SMS de demande de rendez-vous",

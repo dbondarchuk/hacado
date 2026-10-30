@@ -1,5 +1,6 @@
 import { adminApi } from "@hacado/api-sdk";
-import { Schedule, WeekIdentifier } from "@hacado/types";
+import { Schedule } from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import { RequestAction } from "../models";
 
 export const getWeeklyEvents = async (

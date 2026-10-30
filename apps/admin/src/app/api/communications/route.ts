@@ -3,12 +3,10 @@ import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-upda
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  Appointment,
-  Customer,
-  okStatus,
-  sendCommunicationRequestSchema,
-} from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
+import { sendCommunicationRequestSchema } from "@hacado/types/communication";
+import { Customer } from "@hacado/types/customers";
+import { okStatus } from "@hacado/types/general";
 import { getAdminUrl, getArguments, template } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

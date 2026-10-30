@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { DateRange } from "@hacado/types";
+import { DateRange } from "@hacado/types/general";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { X } from "lucide-react";
 import { DateTime } from "luxon";

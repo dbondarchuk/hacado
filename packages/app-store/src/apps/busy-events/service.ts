@@ -9,11 +9,13 @@ import {
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
+} from "@hacado/types/apps";
+import {
   Schedule,
   ScheduleOverride,
-  WeekIdentifier,
-  WithDatabaseId,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
+import { WithDatabaseId } from "@hacado/types/database";
+import { WeekIdentifier } from "@hacado/types/general";
 import { eachOfInterval, getWeekIdentifier, parseTime } from "@hacado/utils";
 import { ObjectId } from "mongodb";
 import { RequestAction, requestActionSchema } from "./models";

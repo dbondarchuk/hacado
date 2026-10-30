@@ -34,7 +34,7 @@ import type {
   IPublicPageProvider,
   PublicPageChrome,
   PublicPageClaim,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { PageProvider } from "@hacado/ui";
 import { formatArguments, setPageData } from "@hacado/utils";
 import { DateTime } from "luxon";

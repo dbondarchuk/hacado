@@ -5,9 +5,9 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
   CalendarEvent,
-  DaySchedule,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import { useTimeZone } from "@hacado/ui";
 import { getColorForName } from "@hacado/utils";
 import {

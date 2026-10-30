@@ -1,5 +1,8 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
-import { effectiveAddonDuration, effectiveAddonPrice } from "@hacado/types";
+import {
+  effectiveAddonDuration,
+  effectiveAddonPrice,
+} from "@hacado/types/booking";
 import {
   Avatar,
   AvatarFallback,

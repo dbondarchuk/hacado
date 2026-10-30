@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { AssetEntity } from "@hacado/types";
+import { AssetEntity } from "@hacado/types/assets";
 import {
   Form,
   FormControl,

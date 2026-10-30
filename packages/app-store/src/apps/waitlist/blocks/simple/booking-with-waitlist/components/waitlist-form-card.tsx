@@ -1,6 +1,6 @@
 "use client";
 import { clientApi } from "@hacado/api-sdk";
-import { AppointmentFields } from "@hacado/types";
+import { AppointmentFields } from "@hacado/types/booking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useMemo } from "react";
 import { useForm } from "react-hook-form";

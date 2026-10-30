@@ -1,7 +1,7 @@
 "use client";
 
 import { BuilderKeys, useI18n } from "@hacado/i18n/client";
-import { colors } from "@hacado/types";
+import { colors } from "@hacado/types/configuration/styling";
 import {
   Button,
   cn,

@@ -1,5 +1,5 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
-import { effectiveAddonPrice } from "@hacado/types";
+import { effectiveAddonPrice } from "@hacado/types/booking";
 import {
   cn,
   Collapsible,

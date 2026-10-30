@@ -1,23 +1,25 @@
 "use client";
 import { clientApi, ClientApiError } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   AppointmentChoice,
   AppointmentFields,
   AppointmentPackage,
-  BookingCatalogNode,
   BookingRestriction,
-  catalogNodesAtPath,
-  catalogPathForService,
   creditsPerRedemptionForItem,
-  CustomerAppointmentTextOffer,
   CustomerPackage,
   FieldSchema,
-  filterCatalogNodes,
   getActiveStaffAcrossAssignments,
   isBookingLimitRestriction,
   PublicStaffMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import {
+  BookingCatalogNode,
+  catalogNodesAtPath,
+  catalogPathForService,
+  filterCatalogNodes,
+} from "@hacado/types/configuration/booking";
 import { Button, cn, Markdown, Skeleton } from "@hacado/ui";
 import { useSearchParams } from "next/navigation";
 import React from "react";

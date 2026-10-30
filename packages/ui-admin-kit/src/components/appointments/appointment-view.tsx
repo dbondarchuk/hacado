@@ -6,7 +6,7 @@ import {
   Appointment,
   AppointmentStatus,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Button,
   ButtonGroup,

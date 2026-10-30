@@ -1,11 +1,13 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  EventDefinition,
+  InvitationCanceledPayload,
+  InvitationCreatedPayload,
+} from "@hacado/types/events";
 import {
   INVITATION_CANCELED_EVENT_TYPE,
   INVITATION_CREATED_EVENT_TYPE,
-  type EventDefinition,
-  type InvitationCanceledPayload,
-  type InvitationCreatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

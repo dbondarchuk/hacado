@@ -3,7 +3,7 @@ import { authClient } from "@/app/auth-client";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import {
   Button,
   Card,

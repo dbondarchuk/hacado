@@ -1,7 +1,7 @@
 "use client";
 
 import { Language } from "@hacado/i18n";
-import { PageHeader } from "@hacado/types";
+import { PageHeader } from "@hacado/types/pages";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 
 export type PageContextType = {

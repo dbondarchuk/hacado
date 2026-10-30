@@ -15,7 +15,7 @@ import {
   communicationDirectionSchema,
   communicationLogStatuses,
   communicationParticipantTypeSchema,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import { baseSearchParams } from "./base";
 
 export const communicationLogsSearchParams = {

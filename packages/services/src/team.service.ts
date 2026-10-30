@@ -1,27 +1,15 @@
+import { openAppointmentStatusMongoFilter } from "@hacado/types/booking";
+import type { Query, WithTotal } from "@hacado/types/database";
 import type {
-  DeactivateMemberResult,
   EventSource,
-  IEventService,
   InvitationCanceledPayload,
   InvitationCreatedPayload,
-  ITeamService,
   MemberCreatedPayload,
   MemberDeactivatedPayload,
-  MemberInactiveReason,
-  MemberProfileUpdate,
   MemberProfileUpdatedPayload,
   MemberReactivatedPayload,
   MemberRoleChangedPayload,
-  MemberStatus,
-  Organization,
-  OrganizationAdminContact,
-  OrganizationMember,
-  Query,
-  ReconcileSlotsResult,
-  TeamMemberListModel,
-  UserRole,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import {
   INVITATION_CANCELED_EVENT_TYPE,
   INVITATION_CREATED_EVENT_TYPE,
@@ -30,8 +18,23 @@ import {
   MEMBER_PROFILE_UPDATED_EVENT_TYPE,
   MEMBER_REACTIVATED_EVENT_TYPE,
   MEMBER_ROLE_CHANGED_EVENT_TYPE,
-  openAppointmentStatusMongoFilter,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import type { Organization } from "@hacado/types/organizations";
+import type {
+  DeactivateMemberResult,
+  IEventService,
+  ITeamService,
+  MemberProfileUpdate,
+  OrganizationAdminContact,
+  ReconcileSlotsResult,
+} from "@hacado/types/services";
+import type {
+  MemberInactiveReason,
+  MemberStatus,
+  OrganizationMember,
+  TeamMemberListModel,
+  UserRole,
+} from "@hacado/types/users";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {

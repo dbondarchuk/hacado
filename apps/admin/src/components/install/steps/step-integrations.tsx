@@ -27,8 +27,8 @@ import {
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import type { ConnectedApp } from "@hacado/types";
-import { BillingPlanTier } from "@hacado/types";
+import type { ConnectedApp } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import {
   Button,
   Card,

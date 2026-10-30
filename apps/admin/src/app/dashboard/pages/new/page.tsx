@@ -5,7 +5,7 @@ import { sessionCanCreateMorePages } from "@/lib/billing/subscription-plan-acces
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { Styling } from "@hacado/page-builder/reader";
-import { PageUpdateModel } from "@hacado/types";
+import { PageUpdateModel } from "@hacado/types/pages";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 

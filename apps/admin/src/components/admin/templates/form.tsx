@@ -3,12 +3,12 @@
 import { adminApi } from "@hacado/api-sdk";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
+import { CommunicationChannel } from "@hacado/types/communication";
 import {
-  CommunicationChannel,
   getTemplateSchemaWithUniqueCheck,
   Template,
   TemplatesTemplate,
-} from "@hacado/types";
+} from "@hacado/types/templates";
 import {
   Form,
   FormControl,

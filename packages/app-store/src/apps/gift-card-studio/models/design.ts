@@ -1,10 +1,9 @@
 import {
-  Prettify,
   WithAppId,
   WithDatabaseId,
   WithOrganizationId,
-  zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/database";
+import { Prettify, zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 import { designSchema } from "../designer/lib/schema";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";

@@ -1,6 +1,6 @@
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentFields, getFields } from "@hacado/types";
+import { AppointmentFields, getFields } from "@hacado/types/booking";
 import {
   AppointmentSmsConsent,
   appointmentSmsConsentKind,

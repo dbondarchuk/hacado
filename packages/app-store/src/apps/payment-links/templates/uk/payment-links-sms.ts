@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const paymentLinksSmsTemplate: TemplatesTemplate = {
   name: "SMS з посиланням на оплату",

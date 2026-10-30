@@ -1,19 +1,20 @@
 import {
   AppointmentEventAddon,
   AppointmentEventService,
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
+import { WithDatabaseId, WithOrganizationId } from "@hacado/types/database";
+import { WithEmail } from "@hacado/types/general";
+import { OrganizationMember } from "@hacado/types/users";
+import {
   asOptionalField,
-  Customer,
-  OrganizationMember,
   Prettify,
-  WithDatabaseId,
-  WithEmail,
-  WithOrganizationId,
   zEmail,
   zNonEmptyString,
   zObjectId,
   zPhone,
   zUniqueArray,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { WaitlistPublicAllKeys } from "../translations/types";
 

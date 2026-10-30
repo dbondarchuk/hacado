@@ -1,9 +1,7 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  IConnectedAppProps,
-  inPersonPaymentMethod,
-  WithTotal,
-} from "@hacado/types";
+import { IConnectedAppProps } from "@hacado/types/apps";
+import { inPersonPaymentMethod } from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {

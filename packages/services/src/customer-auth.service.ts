@@ -3,15 +3,21 @@ import { BaseAllKeys } from "@hacado/i18n";
 import type {
   CustomerAuthConfiguration,
   CustomerOtpChannels,
+} from "@hacado/types/configuration/customer-auth";
+import {
+  customerOtpAllowsEmail,
+  customerOtpAllowsPhone,
+  normalizeCustomerAuthConfiguration,
+  resolveCustomerOtpChannels,
+} from "@hacado/types/configuration/customer-auth";
+import type {
   CustomerSession,
   CustomerSessionPayload,
-  ICustomerAuthService,
-  IServicesContainer,
   RequestOtpPayload,
   RequestOtpResult,
   VerifyOtpPayload,
   VerifyOtpResult,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
 import {
   CUSTOMER_OTP_MAX_REQUESTS,
   CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
@@ -19,11 +25,11 @@ import {
   CUSTOMER_SESSION_COOKIE,
   CUSTOMER_SESSION_TTL_SECONDS,
   CustomerAuthError,
-  customerOtpAllowsEmail,
-  customerOtpAllowsPhone,
-  normalizeCustomerAuthConfiguration,
-  resolveCustomerOtpChannels,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+import type {
+  ICustomerAuthService,
+  IServicesContainer,
+} from "@hacado/types/services";
 import {
   getAdminUrl,
   getArguments,
@@ -39,9 +45,11 @@ import { BaseService } from "./services/base.service";
 export {
   CUSTOMER_SESSION_COOKIE,
   CustomerAuthError,
-  type RequestOtpResult,
-  type VerifyOtpResult,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+export type {
+  RequestOtpResult,
+  VerifyOtpResult,
+} from "@hacado/types/customer-auth";
 
 type OtpState = {
   customerId: string;

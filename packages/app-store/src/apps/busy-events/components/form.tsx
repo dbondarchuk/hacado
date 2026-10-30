@@ -1,7 +1,11 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Schedule, ScheduleOverride, WeekIdentifier } from "@hacado/types";
+import {
+  Schedule,
+  ScheduleOverride,
+} from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import { Button, Skeleton, toast, toastPromise, useDebounce } from "@hacado/ui";
 import { Scheduler, WeekSelector } from "@hacado/ui-admin";
 import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";

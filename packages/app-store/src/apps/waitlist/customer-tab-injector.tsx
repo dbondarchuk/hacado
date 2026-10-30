@@ -1,4 +1,4 @@
-import { CustomerTabInjectorApp } from "@hacado/types";
+import { CustomerTabInjectorApp } from "@hacado/types/apps";
 import { WaitlistCustomerTab } from "./customer-tab-view";
 import {
   WaitlistAdminAllKeys,

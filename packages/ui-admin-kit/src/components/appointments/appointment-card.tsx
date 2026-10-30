@@ -1,11 +1,11 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import type { Appointment } from "@hacado/types";
+import type { Appointment } from "@hacado/types/booking";
 import {
   isAppointmentCoveredByPackage,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Avatar,
   AvatarFallback,

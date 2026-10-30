@@ -3,7 +3,7 @@ import type {
   CustomerPackageIssuedPayload,
   EventEnvelope,
   EventSource,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { createHash } from "node:crypto";
 import type { FormResponseCreatedPayload } from "../forms/models/events";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";

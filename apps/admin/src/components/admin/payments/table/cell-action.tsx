@@ -2,7 +2,10 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { InStorePaymentUpdateModel, PaymentSummary } from "@hacado/types";
+import {
+  InStorePaymentUpdateModel,
+  PaymentSummary,
+} from "@hacado/types/booking";
 import {
   AlertModal,
   Button,

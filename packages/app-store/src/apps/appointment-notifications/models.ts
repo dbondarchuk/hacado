@@ -1,13 +1,15 @@
 import { AllKeys } from "@hacado/i18n";
+import { communicationChannels } from "@hacado/types/communication";
 import {
-  asOptinalNumberField,
-  communicationChannels,
   querySchema,
   WithDatabaseId,
   WithOrganizationId,
+} from "@hacado/types/database";
+import {
+  asOptinalNumberField,
   zObjectId,
   zTaggedUnion,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { AppointmentNotificationsAdminAllKeys } from "./translations/types";
 

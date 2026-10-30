@@ -1,5 +1,5 @@
 import { BaseReaderBlockProps, generateId } from "@hacado/builder";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { InlineContainerPropsDefaults } from "../inline-container/schema";
 import { zStyles } from "./styles";

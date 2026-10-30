@@ -1,6 +1,6 @@
 "use client";
 
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
 import { cn, SidebarInset, SidebarProvider, useSidebar } from "@hacado/ui";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";

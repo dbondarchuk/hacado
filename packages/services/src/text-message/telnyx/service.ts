@@ -3,7 +3,7 @@ import {
   ITextMessageSender,
   TextMessage,
   TextMessageResponse,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import { maskify } from "@hacado/utils";
 import { appendStopFooter } from "../compliance";
 import { SmsTransientError } from "../errors";

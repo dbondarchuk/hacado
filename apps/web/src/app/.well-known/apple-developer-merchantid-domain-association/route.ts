@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { IPaymentProcessor } from "@hacado/types";
+import { IPaymentProcessor } from "@hacado/types/apps";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

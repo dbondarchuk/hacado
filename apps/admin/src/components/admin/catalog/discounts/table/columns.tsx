@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Discount } from "@hacado/types";
+import { Discount } from "@hacado/types/booking";
 import { Checkbox, Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import { tableSortHeader, tableSortNoopFunction } from "@hacado/ui-admin";
 import { ColumnDef } from "@tanstack/react-table";

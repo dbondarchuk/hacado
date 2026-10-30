@@ -6,15 +6,10 @@ import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
 import {
   ApiRequest,
   ApiResponse,
-  CollectPayment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   CreatePaymentLinkRequest,
-  CUSTOMER_SESSION_COOKIE,
-  customerEventSource,
-  EventEnvelope,
-  EventSource,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
@@ -22,23 +17,34 @@ import {
   IPaymentLinkProvider,
   IPaymentProcessor,
   IPublicPageProvider,
-  Payment,
-  PAYMENT_INTENT_PAID_EVENT_TYPE,
-  PAYMENT_UPDATED_EVENT_TYPE,
-  PaymentIntentPaidPayload,
-  PaymentIntentUpdateModel,
-  PaymentLinkPayment,
   PaymentLinkResult,
-  PaymentUpdatedPayload,
   PublicPageChrome,
   PublicPageChromeContext,
   PublicPageClaim,
-  readCookieValue,
-  resolvePageHeaderPosition,
   SendPaymentLinkRequest,
+} from "@hacado/types/apps";
+import {
+  CollectPayment,
+  Payment,
+  PaymentIntentUpdateModel,
+  PaymentLinkPayment,
+} from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
+  readCookieValue,
+} from "@hacado/types/customer-auth";
+import {
+  customerEventSource,
+  EventEnvelope,
+  EventSource,
+  PAYMENT_INTENT_PAID_EVENT_TYPE,
+  PAYMENT_UPDATED_EVENT_TYPE,
+  PaymentIntentPaidPayload,
+  PaymentUpdatedPayload,
   systemEventSource,
-  TemplateTemplatesList,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { resolvePageHeaderPosition } from "@hacado/types/pages";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import {
   appendSharedPoolSuffix,
   canUseFeature,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { CustomerAppointmentTextOffer } from "@hacado/types";
+import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import { normalizeToE164 } from "@hacado/utils";
 import React from "react";
 import { useConfig, useTextMessaging } from "../context/config";

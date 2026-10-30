@@ -22,16 +22,15 @@ import { AppointmentNotificationsTemplates } from "@hacado/app-store/exports";
 import { languages } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
 import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
-import type { ApiRequest, SessionUser } from "@hacado/types";
-import {
-  BillingPlanTier,
-  bookingConfigurationSchema,
-  systemEventSource,
-  type PaymentsConfiguration,
-  type TemplateUpdateModel,
-} from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import type { ApiRequest } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
+import type { PaymentsConfiguration } from "@hacado/types/configuration/booking";
+import { bookingConfigurationSchema } from "@hacado/types/configuration/booking";
+import { systemEventSource } from "@hacado/types/events";
+import type { TemplateUpdateModel } from "@hacado/types/templates";
+import type { SessionUser } from "@hacado/types/users";
 import { BuiltInTemplateTemplates } from "../../admin/templates/templates";
 import {
   getDefaultBookingConfiguration,

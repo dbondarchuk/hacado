@@ -1,7 +1,7 @@
 "use client";
 
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { PaymentSummary } from "@hacado/types";
+import { PaymentSummary } from "@hacado/types/booking";
 import {
   Badge,
   Button,

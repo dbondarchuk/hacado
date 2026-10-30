@@ -2,7 +2,10 @@ import { getServicesContainer } from "@/app/utils";
 import { newAppointmentHrefForCustomerPackage } from "@/components/admin/catalog/packages/new-appointment-href";
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { I18nText } from "@hacado/i18n/components";
-import { appointmentStatuses, CustomerPackageListModel } from "@hacado/types";
+import {
+  appointmentStatuses,
+  CustomerPackageListModel,
+} from "@hacado/types/booking";
 import {
   Badge,
   Card,

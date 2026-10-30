@@ -1,26 +1,27 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
-  Appointment,
-  AppointmentEvent,
-  AppointmentOnlineMeetingInformation,
-  AppointmentStatus,
   CalendarBusyTime,
   ConnectedAppData,
   ConnectedAppError,
   ConnectedAppResponse,
   ConnectedOauthAppTokens,
-  EventEnvelope,
-  EventSource,
   ICalendarBusyTimeProvider,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
   IMeetingUrlProvider,
   IOAuthConnectedApp,
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  AppointmentEvent,
+  AppointmentOnlineMeetingInformation,
+  AppointmentStatus,
   isClosedAppointmentStatus,
-  WithDatabaseId,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithDatabaseId } from "@hacado/types/database";
+import { EventEnvelope, EventSource } from "@hacado/types/events";
 import {
   dispatchAppointmentEventPayload,
   getAdminUrl,

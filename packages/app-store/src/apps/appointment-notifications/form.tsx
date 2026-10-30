@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { DatabaseId } from "@hacado/types";
+import { DatabaseId } from "@hacado/types/database";
 import {
   Alert,
   AlertDescription,

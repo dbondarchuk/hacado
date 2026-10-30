@@ -1,18 +1,17 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import {
-  Appointment,
-  AppointmentStatus,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   CustomerAppointmentTextOffer,
-  EventEnvelope,
   IConnectedApp,
   IConnectedAppProps,
   ICustomerAppointmentTextMessage,
   IEventSubscriber,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Appointment, AppointmentStatus } from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
 import { getCustomerTextMessageBodies } from "./messages";
 import {
   CustomerTextMessageNotificationConfiguration,

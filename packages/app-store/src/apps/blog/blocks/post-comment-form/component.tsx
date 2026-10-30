@@ -6,7 +6,7 @@ import {
   BlockStyle,
   generateClassName,
 } from "@hacado/page-builder-base/reader";
-import { zNonEmptyString } from "@hacado/types";
+import { zNonEmptyString } from "@hacado/types/utils";
 import {
   Button,
   cn,

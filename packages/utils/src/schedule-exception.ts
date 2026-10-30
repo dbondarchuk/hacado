@@ -3,8 +3,8 @@ import type {
   ScheduleException,
   ScheduleExceptionScope,
   ScheduleWeekDay,
-  WeekIdentifier,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
+import type { WeekIdentifier } from "@hacado/types/general";
 import { DateTime } from "luxon";
 import { getDateFromWeekIdentifier } from "./time";
 

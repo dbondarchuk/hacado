@@ -24,7 +24,7 @@ import {
 
 import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { HourNumbers, MinuteNumbers } from "@hacado/types";
+import { HourNumbers, MinuteNumbers } from "@hacado/types/booking";
 import { deepEqual, formatTime, parseTime } from "@hacado/utils";
 import { getTimeZones } from "@vvo/tzdb";
 import { useModifyAppointmentFormContext } from "./context";

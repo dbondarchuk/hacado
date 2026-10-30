@@ -1,6 +1,6 @@
 "use client";
 
-import type { AppointmentFields } from "@hacado/types";
+import type { AppointmentFields } from "@hacado/types/booking";
 import { TextMessagingProvider, useTimeZone } from "@hacado/ui";
 import { useMemo, useState } from "react";
 

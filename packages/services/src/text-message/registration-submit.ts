@@ -1,10 +1,10 @@
 import { getLoggerFactory } from "@hacado/logger";
+import type { Email } from "@hacado/types/apps";
+import type { SmsVerificationStatusPayload } from "@hacado/types/events";
 import type {
-  Email,
   SmsRegistrationInput,
   SmsRegistrationSaveResponse,
-  SmsVerificationStatusPayload,
-} from "@hacado/types";
+} from "@hacado/types/text-message/registration";
 import { getAppsExternalUrl, normalizeToE164 } from "@hacado/utils";
 import { Telnyx } from "telnyx";
 import { getHelpSms } from "./messages";

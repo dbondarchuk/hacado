@@ -1,4 +1,4 @@
-import { ITextMessageSender } from "@hacado/types";
+import { ITextMessageSender } from "@hacado/types/apps";
 import { TelnyxService } from "./telnyx/service";
 import { TextBeltService } from "./textbelt/service";
 import { getTextBeltConfiguration } from "./textbelt/utils";

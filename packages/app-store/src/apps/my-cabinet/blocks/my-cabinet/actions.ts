@@ -3,7 +3,7 @@ import { clientApi, ClientApiError } from "@hacado/api-sdk";
 import type {
   ModifyAppointmentRequest,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 import type {
   AppointmentListResponse,

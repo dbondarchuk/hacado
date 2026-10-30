@@ -1,6 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { AppointmentAddon, IdName } from "@hacado/types";
+import { AppointmentAddon } from "@hacado/types/booking";
+import { IdName } from "@hacado/types/services";
 import {
   Button,
   Checkbox,

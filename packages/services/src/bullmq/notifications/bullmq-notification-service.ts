@@ -1,16 +1,14 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { Email, TextMessage, TextMessageResponse } from "@hacado/types/apps";
+import { CommunicationParticipantType } from "@hacado/types/communication";
+import { WithOrganizationId } from "@hacado/types/database";
 import {
-  CommunicationParticipantType,
-  Email,
   EmailNotificationRequest,
   ICommunicationLogsService,
   INotificationService,
   ISystemNotificationService,
-  TextMessage,
   TextMessageNotificationRequest,
-  TextMessageResponse,
-  WithOrganizationId,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { Job } from "bullmq";
 import { convert } from "html-to-text";
 import { BaseBullMQClient } from "../base-bullmq-client";

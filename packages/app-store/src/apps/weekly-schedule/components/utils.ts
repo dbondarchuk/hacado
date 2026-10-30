@@ -1,4 +1,4 @@
-import { WeekIdentifier } from "@hacado/types";
+import { WeekIdentifier } from "@hacado/types/general";
 import { getDateFromWeekIdentifier } from "@hacado/utils";
 import { DateTime } from "luxon";
 

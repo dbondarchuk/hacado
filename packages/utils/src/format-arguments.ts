@@ -1,10 +1,10 @@
 import { Language } from "@hacado/i18n";
+import type { PostalAddress } from "@hacado/types/utils";
 import {
   Country,
   Currency,
   postalAddressForTemplates,
-  type PostalAddress,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { DateTime } from "luxon";
 import { formatAmountWithCurrency } from "./currency";
 import { formatSmsDate } from "./sms-date";

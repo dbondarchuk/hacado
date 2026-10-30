@@ -23,7 +23,7 @@ import {
 import { toast } from "sonner";
 import { useFilePicker } from "use-file-picker";
 
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
 import {
   AlertDialog,
   AlertDialogAction,

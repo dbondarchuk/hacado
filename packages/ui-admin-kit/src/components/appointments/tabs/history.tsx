@@ -4,7 +4,7 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   AppointmentHistoryEntry,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { useInView } from "react-intersection-observer";
 
 import { adminApi } from "@hacado/api-sdk";

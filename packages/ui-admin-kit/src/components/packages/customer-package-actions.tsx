@@ -1,6 +1,6 @@
 "use client";
 
-import { CustomerPackageListModel } from "@hacado/types";
+import { CustomerPackageListModel } from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import React from "react";
 import { AdjustPackageCreditsDialog } from "./adjust-package-credits-dialog";

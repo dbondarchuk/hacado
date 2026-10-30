@@ -1,4 +1,4 @@
-import { AvailabilityByMember } from "@hacado/types";
+import { AvailabilityByMember } from "@hacado/types/booking";
 import {
   AvailabilitySearchParams,
   serializeAvailabilitySearchParams,

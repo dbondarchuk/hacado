@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistLeaveConfirmTextMessageTemplate: TemplatesTemplate = {
   name: "SMS-підтвердження виходу з листа очікування",

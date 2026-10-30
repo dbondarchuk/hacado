@@ -3,7 +3,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   applyDiscountRequestSchema,
   ApplyDiscountResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

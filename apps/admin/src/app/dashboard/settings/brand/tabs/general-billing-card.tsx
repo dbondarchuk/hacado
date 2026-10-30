@@ -9,7 +9,7 @@ import {
   BillingPlanTier,
   OrganizationBillingSubscriptionDetails,
   OrganizationSubscriptionStatus,
-} from "@hacado/types";
+} from "@hacado/types/billing";
 import {
   Button,
   Card,

@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { RectangleEllipsis } from "lucide-react";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "./const";
 import { FormsAdminKeys, FormsAdminNamespace } from "./translations/types";

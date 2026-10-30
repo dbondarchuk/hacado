@@ -7,7 +7,7 @@ import {
   Resource,
   resourceSchema,
   resourceSourceTypeLabels,
-} from "@hacado/types";
+} from "@hacado/types/configuration/resources";
 import {
   AlertDialog,
   AlertDialogAction,

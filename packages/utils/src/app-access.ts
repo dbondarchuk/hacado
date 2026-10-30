@@ -1,12 +1,12 @@
-import {
-  getAppScopeUsage,
-  type App,
-  type AppScope,
-  type AppTarget,
-  type ConnectedApp,
-  type DefaultAppToInstallScope,
-  type SessionUser,
-} from "@hacado/types";
+import type {
+  App,
+  AppScope,
+  AppTarget,
+  ConnectedApp,
+} from "@hacado/types/apps";
+import { getAppScopeUsage } from "@hacado/types/apps";
+import type { DefaultAppToInstallScope } from "@hacado/types/configuration/apps";
+import type { SessionUser } from "@hacado/types/users";
 import { hasPermission, meetsRequiredPermission } from "./permissions";
 
 type ConnectedAppAccess = Pick<ConnectedApp, "memberId"> & {

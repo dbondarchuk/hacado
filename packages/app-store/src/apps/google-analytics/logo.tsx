@@ -1,4 +1,4 @@
-import type { AppLogoProps } from "@hacado/types";
+import type { AppLogoProps } from "@hacado/types/apps";
 
 export function GoogleAnalyticsLogo({ className }: AppLogoProps) {
   return (

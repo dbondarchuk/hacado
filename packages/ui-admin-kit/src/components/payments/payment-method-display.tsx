@@ -1,6 +1,6 @@
 import { AvailableApps } from "@hacado/app-store";
 import { AllKeys } from "@hacado/i18n";
-import { PaymentMethod } from "@hacado/types";
+import { PaymentMethod } from "@hacado/types/booking";
 import { CircleDollarSign, CreditCard, Gift, Link2 } from "lucide-react";
 
 export const getPaymentMethod = (

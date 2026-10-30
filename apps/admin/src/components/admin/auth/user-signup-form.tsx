@@ -18,7 +18,7 @@ import {
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
 import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
-import { zEmail, zPhone } from "@hacado/types";
+import { zEmail, zPhone } from "@hacado/types/utils";
 import {
   Button,
   Combobox,

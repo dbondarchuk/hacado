@@ -4,7 +4,7 @@ import {
   Appointment,
   AppointmentStatus,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { useReload } from "@hacado/ui-admin";
 import { AppointmentDeclineDialog } from "@hacado/ui-admin-kit";
 

@@ -3,9 +3,9 @@ import {
   BillingPlanTier,
   meetsMinimumPlanTier,
   OrganizationSubscriptionStatus,
-  SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE,
-  type SubscriptionStatusChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/billing";
+import type { SubscriptionStatusChangedPayload } from "@hacado/types/events";
+import { SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import { SmsRegistrationStore } from "../../text-message/registration-store";
 import { claimEventHandler } from "../claim-event-handler";
 import type { EventHandler } from "./types";

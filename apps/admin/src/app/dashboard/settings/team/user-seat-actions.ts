@@ -7,7 +7,7 @@ import {
 } from "@/app/utils";
 import { resolveAppOrigin } from "@/lib/resolve-app-origin";
 import { getLoggerFactory } from "@hacado/logger";
-import { getPolarClient, getPolarConfig } from "@hacado/services";
+import { getPolarClient, getPolarConfig } from "@hacado/services/billing";
 import { canManageTeam } from "@hacado/utils";
 import * as z from "zod";
 

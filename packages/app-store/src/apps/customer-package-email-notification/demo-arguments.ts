@@ -1,4 +1,4 @@
-import type { CustomerPackage } from "@hacado/types";
+import type { CustomerPackage } from "@hacado/types/booking";
 
 /**
  * Demo customer package for template preview (e.g. package lifecycle emails).

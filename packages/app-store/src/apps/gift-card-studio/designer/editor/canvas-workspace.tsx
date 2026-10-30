@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { UploadedFile } from "@hacado/types";
+import type { UploadedFile } from "@hacado/types/assets";
 import { cn, toast, useIsMac, useUploadFile } from "@hacado/ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {

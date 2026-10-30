@@ -3,7 +3,7 @@ import {
   ApplyDiscountRequest,
   AppointmentFields,
   getFields,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 import React, { useEffect, useMemo } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import {
   cn,
   Popover,

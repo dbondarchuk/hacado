@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { DatabaseId } from "@hacado/types";
+import { DatabaseId } from "@hacado/types/database";
 import {
   Breadcrumbs,
   cn,

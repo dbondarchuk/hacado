@@ -9,7 +9,7 @@ import {
   flattenCatalogServiceIds,
   moveCatalogNode,
   normalizeCatalogNodes,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   Button,
   DropdownMenu,

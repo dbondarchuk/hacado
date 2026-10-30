@@ -1,5 +1,6 @@
 import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
-import { Time, timeZones } from "@hacado/types";
+import { Time } from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
 import { useCurrencyFormat } from "@hacado/ui";
 import { durationToTime, formatTimeLocale } from "@hacado/utils";
 import { TimeZone } from "@vvo/tzdb";

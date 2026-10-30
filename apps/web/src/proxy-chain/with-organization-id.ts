@@ -1,10 +1,8 @@
 import { isSubscriptionInactive } from "@/utils/subscription-access";
 import { getBaseLoggerFactory } from "@hacado/logger";
-import {
-  resolveOrganizationByHostname,
-  resolvePlanTierFromOrganization,
-  StaticOrganizationService,
-} from "@hacado/services";
+import { resolvePlanTierFromOrganization } from "@hacado/services/billing";
+import { StaticOrganizationService } from "@hacado/services/organization";
+import { resolveOrganizationByHostname } from "@hacado/services/organization-hostname-cache";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { ChainableProxy, MiddlewareProxy } from "./types";
 

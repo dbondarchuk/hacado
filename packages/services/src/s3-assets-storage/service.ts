@@ -7,7 +7,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import { IAssetsStorage } from "@hacado/types";
+import { IAssetsStorage } from "@hacado/types/apps";
 import { maskify } from "@hacado/utils";
 import { Readable } from "stream";
 import { S3Configuration } from "./types";

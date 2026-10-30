@@ -1,7 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { ApiRequest, ApiResponse } from "@hacado/types/apps";
 import {
-  ApiRequest,
-  ApiResponse,
   IBillingService,
   IBookingService,
   ICommunicationLogsService,
@@ -12,7 +11,7 @@ import {
   INotificationService,
   IOrganizationService,
   ITeamService,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { maskify, normalizeToE164 } from "@hacado/utils";
 import crypto from "crypto";
 import { InboundTextMessageService } from "../inbound-reply.service";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { PageListModelWithUrl } from "@hacado/types";
+import { PageListModelWithUrl } from "@hacado/types/pages";
 import {
   Button,
   Input,

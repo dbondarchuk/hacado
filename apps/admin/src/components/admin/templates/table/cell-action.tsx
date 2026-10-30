@@ -1,7 +1,7 @@
 "use client";
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { TemplateListModel } from "@hacado/types";
+import { TemplateListModel } from "@hacado/types/templates";
 import {
   AlertModal,
   Button,

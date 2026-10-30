@@ -4,20 +4,24 @@ import {
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  DaySchedule,
   IConnectedApp,
   IConnectedAppProps,
   IScheduleProvider,
+} from "@hacado/types/apps";
+import {
+  DaySchedule,
   Schedule,
-  SCHEDULE_CHANGED_EVENT_TYPE,
   ScheduleDaySource,
   ScheduleExceptionEntity,
   ScheduleRecurrenceInfo,
   ScheduleWeekDay,
+} from "@hacado/types/configuration/schedule";
+import type { ScheduleChangedPayload } from "@hacado/types/events";
+import {
+  SCHEDULE_CHANGED_EVENT_TYPE,
   systemEventSource,
-  WeekIdentifier,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { WeekIdentifier } from "@hacado/types/general";
 import {
   coveringExceptions,
   eachOfInterval,

@@ -2,10 +2,10 @@ import { getActor, getServicesContainer, getUser } from "@/app/utils";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
 import { appointmentsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentLimitReachedError } from "@hacado/types/billing";
 import {
   AppointmentEvent,
   appointmentEventSchema,
-  AppointmentLimitReachedError,
   effectiveAddonDuration,
   effectiveAddonPrice,
   effectiveStaffDuration,
@@ -13,7 +13,7 @@ import {
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
   PackageError,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { gateMemberIds } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

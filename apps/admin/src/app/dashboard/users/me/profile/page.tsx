@@ -3,7 +3,7 @@ import PageContainer from "@/components/admin/layout/page-container";
 import { getEnabledSocialAuthProviders } from "@/lib/auth/social-auth-providers";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { Breadcrumbs, Heading } from "@hacado/ui";
 import { canManageCalendarSources } from "@hacado/utils";
 import { Metadata } from "next";

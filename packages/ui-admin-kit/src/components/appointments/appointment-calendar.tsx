@@ -4,9 +4,9 @@ import { adminApi } from "@hacado/api-sdk";
 import {
   Appointment,
   CalendarEvent,
-  DaySchedule,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import { cn } from "@hacado/ui";
 import { getColorForName } from "@hacado/utils";
 import { DateTime, HourNumbers } from "luxon";

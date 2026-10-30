@@ -1,17 +1,17 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { ServicesContainer } from "@hacado/services/container";
+import { ResendWebhookService } from "@hacado/services/email";
 import {
   getTextBeltConfiguration,
   InboundTextMessageService,
-  ResendWebhookService,
-  ServicesContainer,
   SmsRegistrationStore,
   SmsStore,
   TelnyxMessagingWebhookService,
   TelnyxService,
   TelnyxVerificationWebhookService,
   TextBeltWebhookService,
-} from "@hacado/services";
-import { systemEventSource } from "@hacado/types";
+} from "@hacado/services/text-message";
+import { systemEventSource } from "@hacado/types/events";
 import dotenv from "dotenv";
 import http, { IncomingMessage, ServerResponse } from "http";
 import { URL } from "url";

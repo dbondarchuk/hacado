@@ -1,3 +1,4 @@
+import { IAssetsStorage } from "@hacado/types/apps";
 import {
   CommunicationChannel,
   CommunicationDirection,
@@ -10,12 +11,10 @@ import {
   communicationLogStatuses,
   CommunicationLogUpdate,
   CommunicationParticipantType,
-  DateRange,
-  IAssetsStorage,
-  ICommunicationLogsService,
-  Query,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/communication";
+import { Query, WithTotal } from "@hacado/types/database";
+import { DateRange } from "@hacado/types/general";
+import { ICommunicationLogsService } from "@hacado/types/services";
 import { buildSearchQuery, escapeRegex, stream2buffer } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { Readable } from "stream";

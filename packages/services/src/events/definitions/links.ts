@@ -1,4 +1,4 @@
-import type { Payment } from "@hacado/types";
+import type { Payment } from "@hacado/types/booking";
 
 export const dashboardUrls = {
   customer: (id: string) => `/dashboard/customers/${id}`,

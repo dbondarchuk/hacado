@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 import { appointmentCanceledEmailTemplate } from "./email/appointment-canceled";
 import { appointmentConfirmedEmailTemplate } from "./email/appointment-confirmed";
 import { appointmentCreatedEmailTemplate } from "./email/appointment-created";

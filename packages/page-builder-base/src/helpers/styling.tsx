@@ -1,4 +1,4 @@
-import { StylingConfiguration } from "@hacado/types";
+import { StylingConfiguration } from "@hacado/types/configuration/styling";
 import { genericMemo } from "@hacado/ui";
 import { buildGoogleFontsUrl, deepEqual, getColorsCss } from "@hacado/utils";
 import React from "react";

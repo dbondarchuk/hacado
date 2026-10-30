@@ -4,8 +4,8 @@ import {
   ScheduleDaySource,
   ScheduleRecurrenceInfo,
   ScheduleWeekDay,
-  WeekIdentifier,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import { RequestAction } from "../models";
 
 export const getWeeklySchedule = async (

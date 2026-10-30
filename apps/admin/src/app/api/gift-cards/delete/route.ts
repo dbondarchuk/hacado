@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { bulkDeleteSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

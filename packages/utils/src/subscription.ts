@@ -1,8 +1,8 @@
+import type { SubscriptionFeature } from "@hacado/types/billing";
 import {
   BillingPlanTier,
   FREE_TIER_DISABLED_FEATURES,
-  type SubscriptionFeature,
-} from "@hacado/types";
+} from "@hacado/types/billing";
 
 export function isFreeTier(planTier: BillingPlanTier | null): boolean {
   return planTier === BillingPlanTier.Free;

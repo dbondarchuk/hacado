@@ -18,11 +18,9 @@ import {
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
-import {
-  flattenCatalogServiceIds,
-  IServicesContainer,
-  systemEventSource,
-} from "@hacado/types";
+import { flattenCatalogServiceIds } from "@hacado/types/configuration/booking";
+import { systemEventSource } from "@hacado/types/events";
+import { IServicesContainer } from "@hacado/types/services";
 import { bookDefaultPage } from "../defaults/book";
 import { footerDefaultPage } from "../defaults/footer";
 import { giftCardsDefaultPage } from "../defaults/gift-cards";

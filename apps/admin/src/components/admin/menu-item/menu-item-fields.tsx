@@ -14,7 +14,7 @@ import {
   TextFonts,
   TextSizes,
   TextWeights,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
 import {
   BooleanSelect,
   Combobox,

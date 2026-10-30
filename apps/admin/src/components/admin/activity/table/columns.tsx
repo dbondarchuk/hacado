@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import type { ActivityListItem } from "@hacado/types";
+import type { ActivityListItem } from "@hacado/types/activity";
 import { Badge, Link, useTimeZone } from "@hacado/ui";
 import {
   ResolvedI18nText,

@@ -1,9 +1,6 @@
-import {
-  BillingPlanTier,
-  meetsMinimumPlanTier,
-  type Organization,
-  type SmsMessagingAccess,
-} from "@hacado/types";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import type { Organization } from "@hacado/types/organizations";
+import type { SmsMessagingAccess } from "@hacado/types/text-message/registration";
 import { resolvePlanTierFromOrganization } from "../billing/subscription-entitlements";
 import {
   CONFIGURATION_COLLECTION_NAME,

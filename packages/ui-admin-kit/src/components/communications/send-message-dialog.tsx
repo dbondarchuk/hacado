@@ -6,7 +6,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   SendCommunicationRequest,
   sendCommunicationRequestSchema,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import {
   AlertModal,
   Button,

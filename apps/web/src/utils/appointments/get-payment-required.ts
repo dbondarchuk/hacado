@@ -4,9 +4,9 @@ import {
   AppointmentEvent,
   AppointmentOption,
   AppointmentRequest,
-  Customer,
-  IServicesContainer,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
+import { IServicesContainer } from "@hacado/types/services";
 import { formatAmount } from "@hacado/utils";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";

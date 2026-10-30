@@ -27,7 +27,7 @@ import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { NavItemGroup } from "@hacado/types";
+import { NavItemGroup } from "@hacado/types/admin";
 import {
   BreadcrumbsProvider,
   cn,

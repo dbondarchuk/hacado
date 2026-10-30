@@ -3,8 +3,8 @@ import {
   BullMQNotificationConfig,
   BullMQNotificationWorker,
   getBullMQNotificationConfig,
-  ServicesContainer,
-} from "@hacado/services";
+} from "@hacado/services/bullmq";
+import { ServicesContainer } from "@hacado/services/container";
 import dotenv from "dotenv";
 
 // Load environment variables

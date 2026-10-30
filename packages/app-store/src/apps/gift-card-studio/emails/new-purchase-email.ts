@@ -4,7 +4,7 @@ import {
 } from "@hacado/email-builder/static";
 import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
-import type { EmailNotificationRequest } from "@hacado/types";
+import type { EmailNotificationRequest } from "@hacado/types/services";
 import { getAdminUrl } from "@hacado/utils";
 import type { GiftCardStudioPurchaseCreatedPayload } from "../models/events";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";

@@ -1,5 +1,5 @@
 import { getServicesContainer } from "@/app/utils";
-import { memberEventSource } from "@hacado/types";
+import { memberEventSource } from "@hacado/types/events";
 
 export const publicPageUrl = async (
   services: Awaited<ReturnType<typeof getServicesContainer>>,

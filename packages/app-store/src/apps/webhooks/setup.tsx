@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
   Badge,
   Button,

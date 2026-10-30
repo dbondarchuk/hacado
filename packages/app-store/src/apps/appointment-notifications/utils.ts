@@ -1,4 +1,4 @@
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import { DateTime } from "luxon";
 import { AppointmentNotification } from "./models";
 

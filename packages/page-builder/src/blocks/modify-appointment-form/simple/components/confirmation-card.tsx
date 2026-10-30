@@ -1,6 +1,6 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { ModifyAppointmentInformation } from "@hacado/types";
+import { ModifyAppointmentInformation } from "@hacado/types/booking";
 import {
   Button,
   Checkbox,

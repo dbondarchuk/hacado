@@ -1,4 +1,4 @@
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { canFilterByMember } from "./permissions";
 
 /**

@@ -1,5 +1,5 @@
 import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
-import { DateRange } from "@hacado/types";
+import { DateRange } from "@hacado/types/general";
 import {
   Button,
   CalendarDateRangePicker,

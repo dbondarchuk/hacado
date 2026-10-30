@@ -3,7 +3,7 @@
 import { applyInstallPersonalization } from "@/components/install/actions";
 import { useInstallWizard } from "@/components/install/install-wizard-context";
 import { useI18n } from "@hacado/i18n/client";
-import { fontsNames } from "@hacado/types";
+import { fontsNames } from "@hacado/types/configuration/styling";
 import {
   Button,
   Combobox,

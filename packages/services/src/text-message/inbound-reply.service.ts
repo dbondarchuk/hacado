@@ -2,6 +2,12 @@ import { getTextBeltWebhookEmailTemplate } from "@hacado/app-store/exports";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  ITextMessageResponder,
+  RespondResult,
+  TextMessageData,
+  TextMessageReply,
+} from "@hacado/types/apps";
+import {
   IBookingService,
   ICommunicationLogsService,
   IConfigurationService,
@@ -10,11 +16,7 @@ import {
   INotificationService,
   IOrganizationService,
   ITeamService,
-  ITextMessageResponder,
-  RespondResult,
-  TextMessageData,
-  TextMessageReply,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import {
   getAdminUrl,
   getArguments,

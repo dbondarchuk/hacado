@@ -1,6 +1,6 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types";
+import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
 import {
   demoAppointment,
   demoOtp,

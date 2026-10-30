@@ -1,6 +1,6 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { Discount } from "@hacado/types";
+import { Discount } from "@hacado/types/booking";
 import { cn, ComboboxAsync, IComboboxItem, Skeleton, toast } from "@hacado/ui";
 import { DateTime } from "luxon";
 import React from "react";

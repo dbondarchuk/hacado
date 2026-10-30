@@ -3,7 +3,7 @@ import {
   USERS_COLLECTION_NAME,
 } from "@hacado/services/collections";
 import { getDbConnection } from "@hacado/services/database";
-import type { OrganizationMember, User } from "@hacado/types";
+import type { OrganizationMember, User } from "@hacado/types/users";
 
 export function normalizeMemberPhone(phone: string): string {
   return phone.trim();

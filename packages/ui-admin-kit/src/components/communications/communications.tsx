@@ -7,7 +7,7 @@ import {
   CommunicationDirection,
   CommunicationLog,
   CommunicationLogStatus,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import {
   Badge,
   Button,

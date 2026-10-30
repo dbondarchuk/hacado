@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { communicationChannels } from "@hacado/types";
+import { communicationChannels } from "@hacado/types/communication";
 import { Link } from "@hacado/ui";
 import {
   DataTableFilterBox,

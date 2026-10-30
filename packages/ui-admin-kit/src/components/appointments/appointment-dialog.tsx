@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import {
   Button,
   Dialog,

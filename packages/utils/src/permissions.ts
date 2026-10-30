@@ -1,12 +1,12 @@
-import {
-  teamRolePermissions,
-  type RequiredPermission,
-  type SessionUser,
-  type TeamPermissionAction,
-  type TeamPermissionResource,
-  type TeamRolePermissions,
-  type UserRole,
-} from "@hacado/types";
+import type {
+  RequiredPermission,
+  SessionUser,
+  TeamPermissionAction,
+  TeamPermissionResource,
+  TeamRolePermissions,
+  UserRole,
+} from "@hacado/types/users";
+import { teamRolePermissions } from "@hacado/types/users";
 
 function isUserRole(role: string | undefined | null): role is UserRole {
   return !!role && role in teamRolePermissions;

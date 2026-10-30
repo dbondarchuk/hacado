@@ -6,7 +6,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   ScriptsConfiguration,
   scriptsConfigurationSchema,
-} from "@hacado/types";
+} from "@hacado/types/configuration/scripts";
 import { Form, toastPromise } from "@hacado/ui";
 import { SaveButton } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";

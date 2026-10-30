@@ -1,5 +1,5 @@
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
 import { ToolbarButton } from "@hacado/ui";
 import { AssetSelectorDialog } from "@hacado/ui-admin";
 import React from "react";

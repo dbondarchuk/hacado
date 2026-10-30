@@ -6,7 +6,7 @@ import {
   getPaymentProcessorRefundTarget,
   Payment,
   PaymentSummary,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogCancel,

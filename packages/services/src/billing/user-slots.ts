@@ -1,4 +1,4 @@
-import type { Organization } from "@hacado/types";
+import type { Organization } from "@hacado/types/organizations";
 
 export type OrganizationSeatFields = Pick<
   Organization,

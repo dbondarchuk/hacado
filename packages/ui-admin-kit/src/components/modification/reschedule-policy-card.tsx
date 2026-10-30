@@ -4,7 +4,7 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   appointmentReschedulePolicyActionType,
   modificationPaymentCalculationType,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   AlertDialog,
   AlertDialogAction,

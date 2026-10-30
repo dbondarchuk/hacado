@@ -1,17 +1,15 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  Appointment,
-  AppointmentStatus,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
-  EventSource,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Appointment, AppointmentStatus } from "@hacado/types/booking";
+import { EventEnvelope, EventSource } from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
 import {
   AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,

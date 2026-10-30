@@ -9,7 +9,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { fieldTypes } from "@hacado/types";
+import { fieldTypes } from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const fieldsSearchParams = {

@@ -1,4 +1,4 @@
-import { TemplateTemplatesList } from "@hacado/types";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { waitlistEntryCreatedEmailTemplate as waitlistEntryCreatedEmailTemplateEn } from "../../waitlist/templates/en/waitlist-entry-created";
 import { waitlistEntryCreatedEmailTemplate as waitlistEntryCreatedEmailTemplateEs } from "../../waitlist/templates/es/waitlist-entry-created";
 import { waitlistEntryCreatedEmailTemplate as waitlistEntryCreatedEmailTemplateFr } from "../../waitlist/templates/fr/waitlist-entry-created";

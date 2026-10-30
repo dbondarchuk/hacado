@@ -1,6 +1,6 @@
 "use client";
 
-import { Asset } from "@hacado/types";
+import { Asset } from "@hacado/types/assets";
 import { useInView } from "react-intersection-observer";
 
 import { AssetsTableAction } from "@/components/admin/assets/table/table-action";

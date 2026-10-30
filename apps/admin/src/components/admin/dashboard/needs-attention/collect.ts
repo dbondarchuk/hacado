@@ -7,16 +7,15 @@ import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { SmsRegistrationStore } from "@hacado/services";
-import {
-  normalizeCustomerAuthConfiguration,
-  type ConnectedApp,
-  type INeedsAttentionApp,
-  type NeedsAttentionItem,
-  type NeedsAttentionLevel,
-  type OrganizationMember,
-  type SessionUser,
-} from "@hacado/types";
+import { SmsRegistrationStore } from "@hacado/services/text-message";
+import type {
+  ConnectedApp,
+  INeedsAttentionApp,
+  NeedsAttentionItem,
+  NeedsAttentionLevel,
+} from "@hacado/types/apps";
+import { normalizeCustomerAuthConfiguration } from "@hacado/types/configuration/customer-auth";
+import type { OrganizationMember, SessionUser } from "@hacado/types/users";
 import {
   canAccessConnectedApp,
   canFilterByMember,

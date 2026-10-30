@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { customerPackageStatuses } from "@hacado/types";
+import { customerPackageStatuses } from "@hacado/types/booking";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,

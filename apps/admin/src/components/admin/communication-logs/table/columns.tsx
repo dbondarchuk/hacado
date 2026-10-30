@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { CommunicationLog } from "@hacado/types";
+import { CommunicationLog } from "@hacado/types/communication";
 import { Badge, Button, Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,

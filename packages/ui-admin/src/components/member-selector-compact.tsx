@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import type { TeamMemberListModel } from "@hacado/types";
+import type { TeamMemberListModel } from "@hacado/types/users";
 import {
   Button,
   cn,

@@ -15,7 +15,7 @@ import {
   TextMessage,
   TextMessageReply,
   TextMessageResponse,
-} from "@hacado/types";
+} from "@hacado/types/apps";
 import {
   getAdminUrl,
   getAppsExternalUrl,

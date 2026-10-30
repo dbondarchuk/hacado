@@ -3,7 +3,8 @@ import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { AppImages } from "@hacado/app-store/images";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { getAppScopeUsage, type SessionUser } from "@hacado/types";
+import { getAppScopeUsage } from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   Button,
   Carousel,

@@ -1,9 +1,6 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  ConnectedAppError,
-  IConnectedAppProps,
-  WithTotal,
-} from "@hacado/types";
+import { ConnectedAppError, IConnectedAppProps } from "@hacado/types/apps";
+import { WithTotal } from "@hacado/types/database";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { ObjectId, type Filter, type Sort } from "mongodb";

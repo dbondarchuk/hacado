@@ -1,5 +1,5 @@
 import { navItems } from "@/constants/data";
-import type { RequiredPermission } from "@hacado/types";
+import type { RequiredPermission } from "@hacado/types/users";
 
 type NavNode = {
   href?: string;

@@ -1,4 +1,5 @@
-import { giftCardStatus, zNonEmptyString } from "@hacado/types";
+import { giftCardStatus } from "@hacado/types/booking";
+import { zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const setGiftCardStatusSchema = z.object({

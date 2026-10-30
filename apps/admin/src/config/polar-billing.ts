@@ -4,7 +4,7 @@ import {
   PolarBillingPlanDef,
   resolvePlanTierFromProductId,
 } from "@hacado/services/billing";
-import { BillingPlanTier } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types/billing";
 
 export type PolarBillingPlanSlug = BillingPlanTier;
 export type { PolarBillingPlanDef };

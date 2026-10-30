@@ -2,7 +2,7 @@
 
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
-import { ConnectedApp } from "@hacado/types";
+import { ConnectedApp } from "@hacado/types/apps";
 import {
   Button,
   Link,

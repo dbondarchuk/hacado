@@ -2,7 +2,7 @@ import { serialize } from "@/app/dashboard/appointments/new/search-params";
 import {
   creditsPerRedemptionForItem,
   CustomerPackageListModel,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 /** Build `/dashboard/appointments/new?...` URL prefilled for a sold package. */
 export function newAppointmentHrefForCustomerPackage(

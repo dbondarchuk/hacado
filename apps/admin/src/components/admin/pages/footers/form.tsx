@@ -11,7 +11,7 @@ import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
 import {
   getPageFooterSchemaWithUniqueNameCheck,
   PageFooterUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import {
   Breadcrumbs,
   Form,

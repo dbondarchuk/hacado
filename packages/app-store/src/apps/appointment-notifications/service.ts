@@ -1,21 +1,21 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  AppJobRequest,
-  Appointment,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   CustomerAppointmentTextOffer,
-  EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
   ICustomerAppointmentTextMessage,
   IEventSubscriber,
   IScheduled,
-  TemplateTemplatesList,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Appointment } from "@hacado/types/booking";
+import { EventEnvelope } from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import { dispatchAppointmentEventPayload } from "@hacado/utils";
 import { AppointmentNotificationsJobProcessor } from "./job-processor";
 import {

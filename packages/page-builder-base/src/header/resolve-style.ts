@@ -1,10 +1,12 @@
 import {
   MenuItemAppearanceOverride,
   MenuItemWithSubMenu,
+} from "@hacado/types/configuration/styling";
+import {
   PageHeaderScrolledStyle,
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 
 type ScrolledPickSource = PageHeaderUpdateModel & {
   scrolled?: PageHeaderScrolledStyle;

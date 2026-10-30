@@ -2,7 +2,9 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { PexelsMedia, UnsplashPhoto, UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
+import { PexelsMedia } from "@hacado/types/pexels";
+import { UnsplashPhoto } from "@hacado/types/unsplash";
 import {
   Button,
   cn,

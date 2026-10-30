@@ -2,6 +2,7 @@
 
 import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
+import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import type {
   ApplyGiftCardsSuccessResponse,
   AppointmentAddon,
@@ -9,26 +10,25 @@ import type {
   AppointmentFields,
   AppointmentPackage,
   AppointmentRequest,
-  BookingCatalogNode,
   CollectPayment,
   CreateOrUpdatePaymentIntentRequest,
-  CustomerAppointmentTextOffer,
   DateTime,
   FieldSchema,
   PublicStaffMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   ApplyDiscountResponse,
   AvailabilityByMember,
   BookingRestriction,
-  catalogPathForService,
   CheckDuplicateAppointmentsResponse,
   effectiveAddonDuration,
   getActiveStaffAcrossAssignments,
   getActiveStaffForAssignments,
   isAddonAvailableForMember,
   isBookingLimitRestriction,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import type { BookingCatalogNode } from "@hacado/types/configuration/booking";
+import { catalogPathForService } from "@hacado/types/configuration/booking";
 import { toast, useTimeZone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useRouter, useSearchParams } from "next/navigation";

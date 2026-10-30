@@ -1,6 +1,6 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, ConnectedApp } from "@hacado/types";
+import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
   Button,
   Combobox,

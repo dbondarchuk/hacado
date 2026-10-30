@@ -1,7 +1,7 @@
 import type { AppSession } from "@/app/utils";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import type { AllKeys } from "@hacado/i18n";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canManageSyncedPayments,
   canManageTeam,

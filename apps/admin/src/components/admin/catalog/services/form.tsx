@@ -6,9 +6,9 @@ import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import {
   AppointmentOptionUpdateModel,
-  DatabaseId,
   getAppointmentOptionSchemaWithUniqueCheck,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DatabaseId } from "@hacado/types/database";
 import {
   AlertDialog,
   AlertDialogCancel,

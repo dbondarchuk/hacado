@@ -9,15 +9,15 @@ import { AppsBlocksReaders } from "@hacado/app-store/blocks/readers";
 import { Language, useI18n } from "@hacado/i18n/client";
 import { BlockProviderRegistry, PageBuilder } from "@hacado/page-builder";
 import { PageReader } from "@hacado/page-builder/reader";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
 import {
-  BrandConfiguration,
-  GeneralConfiguration,
   getPageSchemaWithUniqueCheck,
   PageFooter,
   PageHeader,
   PageUpdateModel,
-  SocialConfiguration,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import {
   Breadcrumbs,
   cn,

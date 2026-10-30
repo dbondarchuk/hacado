@@ -5,7 +5,7 @@ import {
   appointmentWithDepositCancellationPolicyActionType,
   appointmentWithoutDepositCancellationPolicyActionType,
   modificationPaymentCalculationType,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   AlertDialog,
   AlertDialogAction,

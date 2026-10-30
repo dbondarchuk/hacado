@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { WithTotal } from "@hacado/types";
+import { WithTotal } from "@hacado/types/database";
 import { toast, useDebounce } from "@hacado/ui";
 import { DataTable, DataTableSkeleton, useReload } from "@hacado/ui-admin";
 import { useQueryStates } from "nuqs";

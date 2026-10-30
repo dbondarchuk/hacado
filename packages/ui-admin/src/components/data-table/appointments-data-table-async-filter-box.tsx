@@ -4,7 +4,7 @@ import React from "react";
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import { Skeleton, useDebounceCacheFn, useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { CustomerName } from "./customer-name";

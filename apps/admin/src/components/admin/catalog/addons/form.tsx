@@ -5,11 +5,10 @@ import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   AppointmentAddonUpdateModel,
-  DatabaseId,
   getAppointmentAddonSchemaWithUniqueCheck,
   normalizeAddonStaffOverrides,
-  WithDatabaseId,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DatabaseId, WithDatabaseId } from "@hacado/types/database";
 import {
   Card,
   CardContent,

@@ -2,7 +2,10 @@
 
 import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { appointmentStatuses, CustomerPackageListModel } from "@hacado/types";
+import {
+  appointmentStatuses,
+  CustomerPackageListModel,
+} from "@hacado/types/booking";
 import { Badge, Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import {
   CustomerName,

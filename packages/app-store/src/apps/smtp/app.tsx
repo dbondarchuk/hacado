@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { SMTP_APP_NAME } from "./const";
 import { SmtpLogo } from "./logo";
 import { SmtpAdminKeys, SmtpAdminNamespace } from "./translations/types";

@@ -7,8 +7,8 @@ import {
   ScheduleOverride,
   ScheduleRecurrenceInfo,
   ScheduleWeekDay,
-  WeekIdentifier,
-} from "@hacado/types";
+} from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import {
   Badge,
   Button,

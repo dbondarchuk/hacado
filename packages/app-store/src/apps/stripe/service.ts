@@ -9,20 +9,24 @@ import {
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   ConnectedOauthAppTokens,
-  EventEnvelope,
   IConnectedAppProps,
   IConnectedAppWithWebhook,
   IEventSubscriber,
   IOAuthConnectedApp,
   IPaymentProcessor,
-  IPaymentsService,
-  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-  OrganizationDomainChangedPayload,
+} from "@hacado/types/apps";
+import {
   Payment,
   PaymentFee,
   SyncedPaymentTransaction,
+} from "@hacado/types/booking";
+import {
+  EventEnvelope,
+  ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
+  OrganizationDomainChangedPayload,
   systemEventSource,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { IPaymentsService } from "@hacado/types/services";
 import { getWebsiteDomain } from "@hacado/utils";
 import { encrypt } from "@hacado/utils/server";
 import Stripe from "stripe";

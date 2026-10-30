@@ -1,11 +1,11 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { IScheduleProvider } from "@hacado/types/apps";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import {
-  DaySchedule,
   IConfigurationService,
   IConnectedAppsService,
-  IScheduleProvider,
   IScheduleService,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { eachOfInterval } from "@hacado/utils";
 
 /**

@@ -7,9 +7,9 @@ import {
   AppointmentStatus,
   appointmentStatuses,
   AppointmentWithReferenceDateDistance,
-  DateRange,
-  Sort,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Sort } from "@hacado/types/database";
+import { DateRange } from "@hacado/types/general";
 import {
   Button,
   CalendarDateRangePicker,

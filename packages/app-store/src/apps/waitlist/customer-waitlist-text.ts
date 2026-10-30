@@ -1,4 +1,4 @@
-import type { ConnectedAppData } from "@hacado/types";
+import type { ConnectedAppData } from "@hacado/types/apps";
 
 export const CUSTOMER_WAITLIST_TEXT_MESSAGE_SCOPE =
   "customer-waitlist-text-message" as const;

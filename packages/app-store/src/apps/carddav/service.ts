@@ -3,10 +3,10 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ConnectedAppData,
   ConnectedAppStatusWithText,
-  Customer,
   IConnectedApp,
   IConnectedAppProps,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Customer } from "@hacado/types/customers";
 import { getAppsExternalUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import crypto from "crypto";

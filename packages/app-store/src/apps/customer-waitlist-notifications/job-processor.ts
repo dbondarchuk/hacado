@@ -1,18 +1,17 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { AllKeys } from "@hacado/i18n";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import {
-  AppJobRequest,
-  ConnectedAppData,
-  IConnectedAppProps,
-  isClosedAppointmentStatus,
-  type Appointment,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type MemberProfileUpdatedPayload,
-  type ScheduleChangedPayload,
-} from "@hacado/types";
+import { ConnectedAppData, IConnectedAppProps } from "@hacado/types/apps";
+import type { Appointment } from "@hacado/types/booking";
+import { isClosedAppointmentStatus } from "@hacado/types/booking";
+import type {
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  MemberProfileUpdatedPayload,
+  ScheduleChangedPayload,
+} from "@hacado/types/events";
+import { AppJobRequest } from "@hacado/types/jobs";
 import {
   appendSharedPoolSuffix,
   canUseMemberCalendarSources,

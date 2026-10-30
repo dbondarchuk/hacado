@@ -2,7 +2,7 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { AppScope, getAppScopeUsage } from "@hacado/types";
+import { AppScope, getAppScopeUsage } from "@hacado/types/apps";
 import { canViewCompanyApps, filterConnectedAppsForUser } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

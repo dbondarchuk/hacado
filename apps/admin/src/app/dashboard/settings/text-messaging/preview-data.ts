@@ -1,5 +1,5 @@
 import type { SmsOptInPreviewProps } from "@hacado/page-builder/opt-in-preview-types";
-import type { IServicesContainer } from "@hacado/types";
+import type { IServicesContainer } from "@hacado/types/services";
 
 export async function loadSmsOptInPreview(
   services: IServicesContainer,

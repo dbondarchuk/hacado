@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerPackage } from "@hacado/types";
+import { CustomerPackage } from "@hacado/types/booking";
 import { cn, ComboboxAsync, IComboboxItem, Skeleton } from "@hacado/ui";
 import { Package } from "lucide-react";
 import React from "react";

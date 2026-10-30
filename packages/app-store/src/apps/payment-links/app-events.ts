@@ -1,4 +1,4 @@
-import type { AppEventConfig, EventDefinition } from "@hacado/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
 import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { buildPaymentPaidEmailNotifications } from "./emails/paid-email";

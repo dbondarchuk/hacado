@@ -1,7 +1,7 @@
 import { getCustomerSessionFromRequest } from "@/utils/customer-auth/session";
 import { getServicesContainer } from "@/utils/utils";
 import type { AppLogger } from "@hacado/logger";
-import type { AppointmentRequest } from "@hacado/types";
+import type { AppointmentRequest } from "@hacado/types/booking";
 import { NextResponse } from "next/server";
 
 export async function assertBookingCustomerAccess(

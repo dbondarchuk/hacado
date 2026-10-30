@@ -4,82 +4,97 @@ import { getDbClient, getDbConnection } from "./database";
 
 import { AvailableAppServices } from "@hacado/app-store/services";
 
+import type { ICalendarBusyTimeProvider } from "@hacado/types/apps";
+import {
+  CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
+  CustomerAppointmentTextOffer,
+  emptyCustomerAppointmentTextOffer,
+  IAvailabilityProvider,
+  ICustomerAppointmentTextMessage,
+  IMeetingUrlProvider,
+} from "@hacado/types/apps";
+import type { Asset } from "@hacado/types/assets";
+import {
+  AppointmentLimitReachedError,
+  BillingPlanTier,
+  FREE_TIER_LIMITS,
+} from "@hacado/types/billing";
+import type {
+  AppointmentEvent,
+  AppointmentStatus,
+  Availability,
+  CalendarEvent,
+  GetAppointmentsQuery,
+  GetAppointmentsQueryWithReferenceDate,
+  Period,
+} from "@hacado/types/booking";
 import {
   ApplyGiftCardsSuccessResponse,
   Appointment,
+  AppointmentChoice,
+  AppointmentEntity,
+  AppointmentHistoryEntry,
+  AppointmentOnlineMeetingInformation,
+  AppointmentTimeNotAvaialbleError,
+  AppointmentWithReferenceDateDistance,
+  BookingRestriction,
+  BookingRestrictionCode,
+  closedAppointmentStatusMongoFilter,
+  FieldSchema,
+  getActiveStaffForAssignments,
+  GetAppointmentOptionsResponse,
+  isClosedAppointmentStatus,
+  openAppointmentStatusMongoFilter,
+  Payment,
+  PaymentHistory,
+  PublicStaffMember,
+  TimeSlot,
+} from "@hacado/types/booking";
+import type { BookingConfiguration } from "@hacado/types/configuration/booking";
+import {
+  BookingCatalogNode,
+  flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
+  resolveBookingTips,
+} from "@hacado/types/configuration/booking";
+import type { GeneralConfiguration } from "@hacado/types/configuration/general";
+import type { DaySchedule } from "@hacado/types/configuration/schedule";
+import { Customer } from "@hacado/types/customers";
+import type { Query, WithTotal } from "@hacado/types/database";
+import type {
+  AppointmentCreatedPayload,
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  DiscountAppliedPayload,
+  EventSource,
+} from "@hacado/types/events";
+import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  AppointmentChoice,
-  AppointmentEntity,
-  AppointmentHistoryEntry,
-  AppointmentLimitReachedError,
-  AppointmentOnlineMeetingInformation,
-  AppointmentTimeNotAvaialbleError,
-  AppointmentWithReferenceDateDistance,
-  BillingPlanTier,
-  BookingCatalogNode,
-  BookingRestriction,
-  BookingRestrictionCode,
-  closedAppointmentStatusMongoFilter,
-  Customer,
-  CUSTOMER_APPOINTMENT_TEXT_MESSAGE_SCOPE,
-  CustomerAppointmentTextOffer,
   DISCOUNT_APPLIED_EVENT_TYPE,
-  emptyCustomerAppointmentTextOffer,
-  FieldSchema,
-  flattenCatalogPackageIds,
-  flattenCatalogServiceIds,
-  FREE_TIER_LIMITS,
-  getActiveStaffForAssignments,
-  GetAppointmentOptionsResponse,
-  IAvailabilityProvider,
+} from "@hacado/types/events";
+import type {
+  IAssetsService,
+  IBookingService,
+  IConfigurationService,
+  IConnectedAppsService,
+  ICustomersService,
+  IScheduleService,
+} from "@hacado/types/services";
+import {
   IBillingService,
   ICatalogService,
-  ICustomerAppointmentTextMessage,
   IEventService,
-  IMeetingUrlProvider,
   IOrganizationService,
   IPackagesService,
   IPaymentsService,
-  isClosedAppointmentStatus,
   ITeamService,
   ITextMessageConfigurationService,
-  openAppointmentStatusMongoFilter,
-  OrganizationMember,
-  Payment,
-  PaymentHistory,
-  PublicStaffMember,
-  resolveBookingTips,
-  TimeSlot,
-  type AppointmentCreatedPayload,
-  type AppointmentEvent,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatus,
-  type AppointmentStatusChangedPayload,
-  type Asset,
-  type Availability,
-  type BookingConfiguration,
-  type CalendarEvent,
-  type DaySchedule,
-  type DiscountAppliedPayload,
-  type EventSource,
-  type GeneralConfiguration,
-  type GetAppointmentsQuery,
-  type GetAppointmentsQueryWithReferenceDate,
-  type IAssetsService,
-  type IBookingService,
-  type ICalendarBusyTimeProvider,
-  type IConfigurationService,
-  type IConnectedAppsService,
-  type ICustomersService,
-  type IScheduleService,
-  type Period,
-  type Query,
-  type WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/services";
+import { OrganizationMember } from "@hacado/types/users";
 import {
   buildSearchQuery,
   canUseMemberCalendarSources,

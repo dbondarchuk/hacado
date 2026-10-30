@@ -1,6 +1,6 @@
 import { getServicesContainer, getWebsiteUrl } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import type { ILlmsFullTxtProvider } from "@hacado/types";
+import type { ILlmsFullTxtProvider } from "@hacado/types/apps";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

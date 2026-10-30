@@ -1,7 +1,7 @@
 "use client";
 
 import { Builder, generateId, TEditorConfiguration } from "@hacado/builder";
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
 import { EditorBlocks, RootBlock } from "./blocks";
 import { ImagePropsDefaults } from "./blocks/image";
 import { ReaderBlocks } from "./blocks/reader";

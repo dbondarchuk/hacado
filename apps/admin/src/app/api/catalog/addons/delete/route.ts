@@ -2,7 +2,7 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { bulkDeleteSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

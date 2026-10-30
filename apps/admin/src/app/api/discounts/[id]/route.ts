@@ -2,7 +2,8 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
-import { discountSchema, okStatus } from "@hacado/types";
+import { discountSchema } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -4,7 +4,7 @@ import type {
   SessionUser,
   TeamPermissionAction,
   TeamPermissionResource,
-} from "@hacado/types";
+} from "@hacado/types/users";
 import { hasPermission } from "@hacado/utils";
 import { NextResponse } from "next/server";
 

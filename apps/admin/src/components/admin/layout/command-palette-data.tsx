@@ -2,13 +2,9 @@ import type { CommandSearchScope } from "@/lib/command-search/scope";
 import { AvailableApps } from "@hacado/app-store";
 import { DashboardQuickLinkInjectorApps } from "@hacado/app-store/injectors/dashboard-quick-link";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
-import {
-  BillingPlanTier,
-  ConnectedApp,
-  ConnectedAppAccount,
-  meetsMinimumPlanTier,
-  SessionUser,
-} from "@hacado/types";
+import { ConnectedApp, ConnectedAppAccount } from "@hacado/types/apps";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import { SessionUser } from "@hacado/types/users";
 import { hasPermission } from "@hacado/utils";
 import {
   BadgePercent,

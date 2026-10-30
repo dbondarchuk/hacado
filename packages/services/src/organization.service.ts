@@ -1,10 +1,9 @@
 import {
   EventSource,
-  IEventService,
-  IOrganizationService,
   ORGANIZATION_DOMAIN_CHANGED_EVENT_TYPE,
-  Organization,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { Organization } from "@hacado/types/organizations";
+import { IEventService, IOrganizationService } from "@hacado/types/services";
 import { ORGANIZATIONS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";
 import { invalidateOrganizationHostnameCache } from "./organization-hostname-cache";

@@ -1,16 +1,18 @@
+import { Customer } from "@hacado/types/customers";
 import {
-  asOptionalField,
-  Customer,
-  dateRangeSchema,
-  Prettify,
   querySchema,
   WithAppId,
   WithDatabaseId,
   WithOrganizationId,
+} from "@hacado/types/database";
+import { dateRangeSchema } from "@hacado/types/general";
+import {
+  asOptionalField,
+  Prettify,
   zEmail,
   zNonEmptyString,
   zObjectId,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import * as z from "zod";
 import { FormsAdminAllKeys } from "../translations/types";
 import { formsFieldsSchema, FormsFieldType } from "./fields";

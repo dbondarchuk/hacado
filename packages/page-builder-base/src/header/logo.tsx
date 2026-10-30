@@ -3,7 +3,7 @@ import {
   PageHeaderLogoNameFontSize,
   PageHeaderLogoNameFontWeight,
   PageHeaderLogoSize,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import { cn } from "@hacado/ui/src/utils";
 import Link from "next/link";
 import React from "react";

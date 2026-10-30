@@ -4,12 +4,12 @@ import { trackBookingStepWithCustomer } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
+import { AppointmentLimitReachedError } from "@hacado/types/billing";
 import {
-  AppointmentLimitReachedError,
   appointmentRequestSchema,
   AppointmentTimeNotAvaialbleError,
   getIntentBaseAmount,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

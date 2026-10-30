@@ -1,5 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
-import { ScheduleRecurrenceInfo, WeekIdentifier } from "@hacado/types";
+import { ScheduleRecurrenceInfo } from "@hacado/types/configuration/schedule";
+import { WeekIdentifier } from "@hacado/types/general";
 import {
   AlertDialog,
   AlertDialogCancel,

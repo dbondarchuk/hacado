@@ -1,8 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import type { OrganizationBillingSubscriptionDetails } from "@hacado/types";
-import { BillingPlanTier } from "@hacado/types";
+import type { OrganizationBillingSubscriptionDetails } from "@hacado/types/billing";
+import { BillingPlanTier } from "@hacado/types/billing";
 import {
   Form,
   ResponsiveTabsList,

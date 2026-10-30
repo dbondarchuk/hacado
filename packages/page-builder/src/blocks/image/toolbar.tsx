@@ -2,7 +2,7 @@
 import { ConfigurationProps } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { ShortcutsToolbar } from "@hacado/page-builder-base";
-import { UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
 import { ToolbarButton } from "@hacado/ui";
 import { AssetSelectorDialog } from "@hacado/ui-admin";
 import { Image } from "lucide-react";

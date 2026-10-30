@@ -1,6 +1,7 @@
 import React from "react";
 
-import { AppScope, Prettify } from "@hacado/types";
+import { AppScope } from "@hacado/types/apps";
+import { Prettify } from "@hacado/types/utils";
 import { cn, FormDescription, Label } from "@hacado/ui";
 import { AppSelector, AppSelectorProps } from "@hacado/ui-admin";
 import { ResetButton } from "./reset-button";

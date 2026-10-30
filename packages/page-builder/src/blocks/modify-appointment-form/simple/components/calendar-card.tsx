@@ -1,6 +1,6 @@
 "use client";
 import { toDateFnsLocale, useI18n, useLocale } from "@hacado/i18n/client";
-import type { Time } from "@hacado/types";
+import type { Time } from "@hacado/types/booking";
 import {
   Button,
   Calendar,

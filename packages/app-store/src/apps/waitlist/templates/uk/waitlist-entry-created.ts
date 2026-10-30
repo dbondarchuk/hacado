@@ -3,7 +3,7 @@ import {
   buildCustomerEmailTemplate,
   businessFooterBlock,
 } from "@hacado/email-builder/static";
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const waitlistEntryCreatedEmailTemplate: TemplatesTemplate =
   buildCustomerEmailTemplate({

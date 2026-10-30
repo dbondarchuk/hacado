@@ -3,10 +3,10 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
-  DateRange,
   HydratedSyncedPayment,
   SyncedPaymentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DateRange } from "@hacado/types/general";
 import {
   AlertDialog,
   AlertDialogAction,

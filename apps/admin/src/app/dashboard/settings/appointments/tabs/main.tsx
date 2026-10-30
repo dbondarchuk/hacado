@@ -1,11 +1,11 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
+import { Time } from "@hacado/types/booking";
 import {
   allowPromoCodeType,
   BookingConfiguration,
   customTimeSlotSchema,
-  Time,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   Button,
   FormControl,

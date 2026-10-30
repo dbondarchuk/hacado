@@ -2,7 +2,7 @@
 
 import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
 import { useI18n } from "@hacado/i18n/client";
-import { communicationChannels } from "@hacado/types";
+import { communicationChannels } from "@hacado/types/communication";
 
 import {
   DataTableFilterBox,

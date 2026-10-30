@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { DateRange } from "@hacado/types";
+import { DateRange } from "@hacado/types/general";
 import { CalendarDateRangePicker, useTimeZone } from "@hacado/ui";
 import { DateTime } from "luxon";
 import { Options } from "nuqs";

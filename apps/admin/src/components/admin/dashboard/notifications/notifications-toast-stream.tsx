@@ -11,8 +11,8 @@ import {
   DASHBOARD_BADGE_EVENT,
   DashboardBadgeUpdate,
   DashboardNotification,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
 import { Badge, cn, toast, useTimeZone } from "@hacado/ui";
 import { applyDashboardBadgeUpdate, resolvedI18nText } from "@hacado/ui-admin";
 import { useRouter } from "next/navigation";

@@ -1,4 +1,4 @@
-import { BasicAppSetup } from "@hacado/types";
+import { BasicAppSetup } from "@hacado/types/apps";
 
 // Import all setup components
 import { AutomaticAiDiscoveryAppSetup } from "./apps/automatic-ai-discovery/setup";

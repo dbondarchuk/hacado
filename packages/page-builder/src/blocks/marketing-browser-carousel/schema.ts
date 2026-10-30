@@ -1,6 +1,6 @@
 import { BaseReaderBlockProps, generateId } from "@hacado/builder";
 import type { I18nFn } from "@hacado/i18n";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { zStyles } from "./styles";
 

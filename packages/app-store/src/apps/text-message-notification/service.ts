@@ -1,24 +1,26 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  Appointment,
-  AppointmentStatus,
-  BookingConfiguration,
-  BrandConfiguration,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  EventEnvelope,
-  GeneralConfiguration,
   IConnectedApp,
   IConnectedAppProps,
   IEventSubscriber,
-  isClosedAppointmentStatus,
   ITextMessageResponder,
   RespondResult,
-  SessionUser,
-  SocialConfiguration,
   TextMessageReply,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  AppointmentStatus,
+  isClosedAppointmentStatus,
+} from "@hacado/types/booking";
+import { BookingConfiguration } from "@hacado/types/configuration/booking";
+import { BrandConfiguration } from "@hacado/types/configuration/brand";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { SocialConfiguration } from "@hacado/types/configuration/social";
+import { EventEnvelope } from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
 import {
   dispatchAppointmentEventPayload,
   getAdminUrl,

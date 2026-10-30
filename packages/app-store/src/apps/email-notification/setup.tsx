@@ -1,7 +1,8 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps, zEmail } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
+import { zEmail } from "@hacado/types/utils";
 import {
   Button,
   Form,

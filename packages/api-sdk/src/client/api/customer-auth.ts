@@ -1,9 +1,9 @@
 import type {
-  CustomerOtpChannels,
   CustomerPackage,
   CustomerPackageListModel,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
+import type { WithTotal } from "@hacado/types/database";
 import { fetchClientApi } from "./utils";
 
 export type RequestOtpResponse = {

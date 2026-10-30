@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentReschedulePolicyRow } from "@hacado/types";
+import { AppointmentReschedulePolicyRow } from "@hacado/types/configuration/booking";
 import {
   Badge,
   Card,

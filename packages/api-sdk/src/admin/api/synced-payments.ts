@@ -4,8 +4,8 @@ import {
   SyncedPaymentAssignablePaymentType,
   SyncedPaymentStandalonePaymentType,
   SyncedPaymentStatus,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
 import { fetchAdminApi } from "./utils";
 
 export const listSyncedPayments = async (params?: {

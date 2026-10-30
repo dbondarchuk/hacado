@@ -1,12 +1,12 @@
 import { BaseAllKeys, languages } from "@hacado/i18n";
+import { calendarSourcesConfigurationSchema } from "@hacado/types/configuration/booking";
 import {
   asOptionalField,
-  calendarSourcesConfigurationSchema,
   zAssetName,
   zNonEmptyString,
   zObjectId,
   zPhone,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import { z } from "zod";
 
 export const userUpdateSchema = z.object({

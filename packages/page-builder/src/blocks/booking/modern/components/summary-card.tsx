@@ -1,5 +1,5 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { effectiveAddonPrice } from "@hacado/types";
+import { effectiveAddonPrice } from "@hacado/types/booking";
 import { cn, useCurrencyFormat } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { DateTime } from "luxon";

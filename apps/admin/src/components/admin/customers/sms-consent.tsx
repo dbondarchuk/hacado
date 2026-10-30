@@ -2,7 +2,7 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { CustomerSmsConsentStatus } from "@hacado/types";
+import { CustomerSmsConsentStatus } from "@hacado/types/customers";
 import {
   Button,
   Card,

@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@hacado/api-sdk";
-import { Payment } from "@hacado/types";
+import { Payment } from "@hacado/types/booking";
 import { dispatchDashboardBadge, useReload } from "@hacado/ui-admin";
 import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
 import { useRouter, useSearchParams } from "next/navigation";

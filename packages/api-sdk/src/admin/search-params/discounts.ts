@@ -11,7 +11,7 @@ import {
   parseAsStringEnum,
 } from "nuqs/server";
 
-import { discountTypes } from "@hacado/types";
+import { discountTypes } from "@hacado/types/booking";
 import { baseSearchParams } from "./base";
 
 export const discountsSearchParams = {

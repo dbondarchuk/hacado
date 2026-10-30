@@ -5,7 +5,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
   CommunicationLogContentPayload,
-} from "@hacado/types";
+} from "@hacado/types/communication";
 import {
   Button,
   Dialog,

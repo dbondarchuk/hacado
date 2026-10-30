@@ -3,14 +3,13 @@ import {
   ConnectedAppData,
   ConnectedAppError,
   ConnectedAppStatusWithText,
-  DaySchedule,
   IAvailabilityProvider,
   IConnectedApp,
   IConnectedAppProps,
-  parseTime,
-  Period,
-  TimeSlot,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Period, TimeSlot } from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
+import { parseTime } from "@hacado/types/utils";
 import { DateTime } from "luxon";
 import { SmartScheduleConfiguration } from "./models";
 import { SmartScheduleAdminAllKeys } from "./translations/types";

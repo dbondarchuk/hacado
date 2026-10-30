@@ -1,4 +1,5 @@
-import { App, BillingPlanTier } from "@hacado/types";
+import { App } from "@hacado/types/apps";
+import { BillingPlanTier } from "@hacado/types/billing";
 import { FileText } from "lucide-react";
 import { BLOG_APP_NAME } from "./const";
 import { BlogAdminKeys } from "./translations/types";

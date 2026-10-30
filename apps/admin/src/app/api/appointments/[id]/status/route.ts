@@ -2,7 +2,8 @@ import { getActor } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
 import { getLoggerFactory } from "@hacado/logger";
-import { appointmentStatuses, okStatus } from "@hacado/types";
+import { appointmentStatuses } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

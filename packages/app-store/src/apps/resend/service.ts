@@ -15,9 +15,8 @@ import {
   INeedsAttentionApp,
   IOAuthConnectedApp,
   NeedsAttentionItem,
-  OrganizationMember,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { OrganizationMember, SessionUser } from "@hacado/types/users";
 import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import { createEvent } from "ics";

@@ -6,7 +6,7 @@ import {
   HydratedSyncedPayment,
   SyncedPaymentAssignablePaymentType,
   syncedPaymentAssignablePaymentTypes,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Button,
   Dialog,

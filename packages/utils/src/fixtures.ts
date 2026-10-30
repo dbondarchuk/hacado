@@ -1,4 +1,4 @@
-import { Appointment, AppointmentFields } from "@hacado/types";
+import { Appointment, AppointmentFields } from "@hacado/types/booking";
 import { v4 } from "uuid";
 
 const proxyHandler = {

@@ -6,7 +6,7 @@ import {
   paymentsSearchParams,
 } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types";
+import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types/booking";
 import { Button, toast } from "@hacado/ui";
 import { FileDown, Loader2 } from "lucide-react";
 import { useQueryState } from "nuqs";

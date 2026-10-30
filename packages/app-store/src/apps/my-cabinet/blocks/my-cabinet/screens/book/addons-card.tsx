@@ -4,7 +4,7 @@ import {
   effectiveAddonDuration,
   effectiveAddonPrice,
   isAddonAvailableForMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { cn, Markdown, useCurrencyFormat } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { Check, Clock } from "lucide-react";

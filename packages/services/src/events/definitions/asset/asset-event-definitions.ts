@@ -1,13 +1,15 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  AssetCreatedPayload,
+  AssetDeletedPayload,
+  AssetUpdatedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   ASSET_CREATED_EVENT_TYPE,
   ASSET_DELETED_EVENT_TYPE,
   ASSET_UPDATED_EVENT_TYPE,
-  type AssetCreatedPayload,
-  type AssetDeletedPayload,
-  type AssetUpdatedPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

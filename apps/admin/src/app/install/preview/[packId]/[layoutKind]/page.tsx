@@ -13,8 +13,8 @@ import {
   type WebsitePackId,
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
-import { ServicesContainer } from "@hacado/services";
-import { flattenCatalogServiceIds } from "@hacado/types";
+import { ServicesContainer } from "@hacado/services/container";
+import { flattenCatalogServiceIds } from "@hacado/types/configuration/booking";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 

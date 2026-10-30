@@ -2,16 +2,16 @@ import type { Language } from "@hacado/i18n";
 import type {
   AppointmentChoice,
   AppointmentPackage,
-  BookingCatalogNode,
-  Currency,
-  IServicesContainer,
   PublicStaffMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   minEffectiveDuration,
   minEffectivePrice,
   summarizePackageItems,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import type { BookingCatalogNode } from "@hacado/types/configuration/booking";
+import type { IServicesContainer } from "@hacado/types/services";
+import type { Currency } from "@hacado/types/utils";
 import { formatAmountWithCurrency } from "@hacado/utils";
 
 export type PublicCatalogService = {

@@ -1,5 +1,6 @@
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { DaySchedule, Shift } from "@hacado/types";
+import { Shift } from "@hacado/types/booking";
+import { DaySchedule } from "@hacado/types/configuration/schedule";
 import {
   cn,
   ScrollArea,

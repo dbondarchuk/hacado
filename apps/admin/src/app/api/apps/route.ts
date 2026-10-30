@@ -4,7 +4,7 @@ import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { getLoggerFactory } from "@hacado/logger";
 import { BRAND_SETTINGS_UPGRADE_URL } from "@hacado/services/billing";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { canInstallApp } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";

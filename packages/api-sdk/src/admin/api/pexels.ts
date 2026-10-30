@@ -1,4 +1,4 @@
-import type { PexelsSearchResult } from "@hacado/types";
+import type { PexelsSearchResult } from "@hacado/types/pexels";
 import { fetchAdminApi } from "./utils";
 
 export type PexelsSearchParams = {

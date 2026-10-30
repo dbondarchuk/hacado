@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@hacado/logger";
-import { inStorePaymentUpdateModelSchema } from "@hacado/types";
+import { inStorePaymentUpdateModelSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(

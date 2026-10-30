@@ -3,12 +3,12 @@
 import { authClient } from "@/app/auth-client";
 import { AvailableApps } from "@hacado/app-store";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { ComplexApp } from "@hacado/types/apps";
 import {
-  ComplexApp,
   DefaultAppToInstallScope,
   defaultAppToInstallScopes,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/configuration/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   AlertDialog,
   AlertDialogCancel,

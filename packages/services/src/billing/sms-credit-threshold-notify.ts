@@ -2,8 +2,8 @@ import {
   SMS_CREDITS_EXHAUSTED_EVENT_TYPE,
   SMS_CREDITS_LOW_EVENT_TYPE,
   systemEventSource,
-  type IEventService,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import type { IEventService } from "@hacado/types/services";
 
 export function resolveSmsCreditThresholdKind(
   previousBalance: number,

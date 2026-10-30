@@ -1,5 +1,5 @@
 import { adminApi } from "@hacado/api-sdk";
-import { WithTotal } from "@hacado/types";
+import { WithTotal } from "@hacado/types/database";
 import {
   CheckDesignNameUniqueActionType,
   CreateDesignActionType,

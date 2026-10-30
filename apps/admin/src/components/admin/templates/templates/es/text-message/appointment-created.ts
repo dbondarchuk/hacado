@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const appointmentCreatedTextMessageTemplate: TemplatesTemplate = {
   name: "Nuevo mensaje de texto de solicitud de cita",

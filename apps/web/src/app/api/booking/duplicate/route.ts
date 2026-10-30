@@ -5,7 +5,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   appointmentRequestSchema,
   CheckDuplicateAppointmentsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime } from "luxon";
 import { NextRequest, NextResponse } from "next/server";
 

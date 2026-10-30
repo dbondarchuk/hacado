@@ -1,5 +1,5 @@
 import { TranslationKeys, useI18n } from "@hacado/i18n/client";
-import { ModifyAppointmentType } from "@hacado/types";
+import { ModifyAppointmentType } from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import { RefreshCw, XCircle } from "lucide-react";
 import { useModifyAppointmentFormContext } from "./context";

@@ -1,9 +1,5 @@
-import {
-  paymentTypeSchema,
-  zNonEmptyString,
-  zObjectId,
-  zUniqueArray,
-} from "@hacado/types";
+import { paymentTypeSchema } from "@hacado/types/booking";
+import { zNonEmptyString, zObjectId, zUniqueArray } from "@hacado/types/utils";
 import * as z from "zod";
 
 export const refundPaymentsSchema = z.object({

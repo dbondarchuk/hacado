@@ -3,7 +3,7 @@ import {
   appointmentCancellationRescheduleSchema,
   BookingConfiguration,
   bookingConfigurationSchema,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 
 /** Customer-friendly defaults when the install wizard enables cancel/reschedule. */
 export function getInstallEnabledCancellationsAndReschedules(): AppointmentCancellationRescheduleConfiguration {

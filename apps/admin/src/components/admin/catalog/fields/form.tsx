@@ -4,12 +4,12 @@ import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
-  DatabaseId,
   fieldTypes,
   fileFieldAcceptItemSchema,
   getFieldSchemaWithUniqueCheck,
   ServiceFieldUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DatabaseId } from "@hacado/types/database";
 import {
   Button,
   Card,

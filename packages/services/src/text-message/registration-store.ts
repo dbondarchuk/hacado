@@ -1,9 +1,9 @@
 import type {
-  PostalAddress,
   SmsEntityType,
   SmsRegistrationStatus,
   SmsRegistrationView,
-} from "@hacado/types";
+} from "@hacado/types/text-message/registration";
+import type { PostalAddress } from "@hacado/types/utils";
 import { getDbConnection } from "../database";
 
 export const SMS_REGISTRATIONS_COLLECTION_NAME = "sms-registrations";

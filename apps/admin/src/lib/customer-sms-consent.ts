@@ -1,4 +1,5 @@
-import type { Customer, ISmsConsentService } from "@hacado/types";
+import type { Customer } from "@hacado/types/customers";
+import type { ISmsConsentService } from "@hacado/types/services";
 import { normalizeToE164 } from "@hacado/utils";
 
 export const customerConsentPhone = (

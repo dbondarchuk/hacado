@@ -9,7 +9,7 @@ import {
   InPersonPaymentMethod,
   inPersonPaymentMethod,
   paymentLinkPaymentMethod,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Button,
   Card,

@@ -6,8 +6,8 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   bookingConfigurationSchema,
   flattenCatalogServiceIds,
-  zObjectId,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
+import { zObjectId } from "@hacado/types/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

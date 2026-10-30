@@ -17,7 +17,7 @@ import {
   Payment,
   paymentLinkPaymentMethod,
   paymentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Button,
   cn,

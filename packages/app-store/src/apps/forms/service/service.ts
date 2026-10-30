@@ -7,18 +7,16 @@ import {
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppUninstallResult,
-  Customer,
-  customerEventSource,
-  CustomerSearchField,
   DashboardNotification,
-  type EventSource,
   ICommandSearchProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
-  SessionUser,
-  systemEventSource,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Customer, CustomerSearchField } from "@hacado/types/customers";
+import type { EventSource } from "@hacado/types/events";
+import { customerEventSource, systemEventSource } from "@hacado/types/events";
+import { SessionUser } from "@hacado/types/users";
 import {
   fileNameToMimeType,
   getAdminUrl,

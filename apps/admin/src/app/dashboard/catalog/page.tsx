@@ -7,7 +7,7 @@ import {
   getSessionPlanTier,
 } from "@/lib/billing/subscription-plan-access";
 import { getI18nAsync } from "@hacado/i18n/server";
-import type { NavItem } from "@hacado/types";
+import type { NavItem } from "@hacado/types/admin";
 import {
   Breadcrumbs,
   Card,

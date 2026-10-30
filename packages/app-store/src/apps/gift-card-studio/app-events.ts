@@ -1,4 +1,4 @@
-import type { AppEventConfig, EventDefinition } from "@hacado/types";
+import type { AppEventConfig, EventDefinition } from "@hacado/types/events";
 import { formatAmountWithCurrency } from "@hacado/utils";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
 import { buildNewPurchaseEmailNotifications } from "./emails/new-purchase-email";

@@ -6,13 +6,13 @@ import {
   AppointmentEvent,
   AppointmentOption,
   AppointmentRequest,
-  Customer,
   effectiveAddonDuration,
   effectiveAddonPrice,
   effectiveStaffDuration,
   effectiveStaffPrice,
   isAddonAvailableForMember,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { Customer } from "@hacado/types/customers";
 import { canUseFeature, formatAmount, getDiscountAmount } from "@hacado/utils";
 import { getServicesContainer } from "../utils";
 

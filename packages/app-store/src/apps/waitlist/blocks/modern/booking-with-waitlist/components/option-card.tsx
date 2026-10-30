@@ -2,17 +2,19 @@ import { clientApi, ClientApiError } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
-  catalogNodesAtPath,
   creditsPerRedemptionForItem,
   CustomerPackage,
   effectiveStaffDuration,
   effectiveStaffPrice,
-  filterCatalogNodes,
   getActiveStaffForAssignments,
   minEffectiveDuration,
   minEffectivePrice,
   summarizePackageItems,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import {
+  catalogNodesAtPath,
+  filterCatalogNodes,
+} from "@hacado/types/configuration/booking";
 import { Button, cn, Markdown, Skeleton, useCurrencyFormat } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { Clock, Minus, Plus } from "lucide-react";

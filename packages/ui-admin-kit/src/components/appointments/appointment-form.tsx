@@ -2,17 +2,14 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   Appointment,
   AppointmentAddon,
   AppointmentChoice,
   AppointmentEventRequest,
   AppointmentFields,
-  asOptinalNumberField,
   CalendarEvent,
-  Customer,
-  CustomerAppointmentTextOffer,
-  CustomerListModel,
   CustomerPackage,
   Discount,
   effectiveAddonDuration,
@@ -23,11 +20,15 @@ import {
   getFields,
   getUnassignedMemberIssues,
   isMemberAssignedToOption,
-  OrganizationMember,
-  Prettify,
   WithLabelFieldData,
+} from "@hacado/types/booking";
+import { Customer, CustomerListModel } from "@hacado/types/customers";
+import { OrganizationMember } from "@hacado/types/users";
+import {
+  asOptinalNumberField,
+  Prettify,
   zNonEmptyString,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   AlertDialog,
   AlertDialogAction,

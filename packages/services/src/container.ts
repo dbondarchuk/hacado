@@ -1,0 +1,252 @@
+import { IServicesContainer } from "@hacado/types/services";
+import { cache } from "react";
+import { ActivityService } from "./activity.service";
+import { AssetsService } from "./assets.service";
+import { PolarBillingService } from "./billing/polar-billing.service";
+import { getPolarClient } from "./billing/utils";
+import { BookingService } from "./booking.service";
+import {
+  BullMQJobService,
+  BullMQNotificationService,
+  BullMQSystemNotificationService,
+  getBullMQJobConfig,
+  getBullMQNotificationConfig,
+  RedisDashboardNotificationPublisher,
+} from "./bullmq";
+import { getRedisClient } from "./bullmq/redis-client";
+import { CatalogService } from "./catalog.service";
+import { CommunicationLogsService } from "./communication-logs.service";
+import { CachedConfigurationService } from "./configuration-cached.service";
+import { ConfigurationService } from "./configuration.service";
+import { CachedConnectedAppsService } from "./connected-apps.service";
+import { CustomerAuthService } from "./customer-auth.service";
+import { CustomersService } from "./customers.service";
+import { BullMQEventService, getBullMQEventConfig } from "./events";
+import { GiftCardsService } from "./gift-cards.service";
+import { OrganizationService } from "./organization.service";
+import { PackagesService } from "./packages.service";
+import { CachedPagesService } from "./pages-cached.service";
+import { PaymentsService } from "./payments.service";
+import { S3AssetsStorageService } from "./s3-assets-storage";
+import { getS3Configuration } from "./s3-assets-storage/utils";
+import { ScheduleService } from "./schedule.service";
+import { ShortLinksService } from "./short-links";
+import { SyncedPaymentsService } from "./synced-payments.service";
+import { TeamService } from "./team.service";
+import { TemplatesService } from "./templates.service";
+import { SmsConsentService } from "./text-message/sms-consent.service";
+import { TextMessageConfigurationService } from "./text-message/text-message-configuration.service";
+
+/**
+ * ServicesContainer provides organization-scoped services.
+ * Each service must be created with an organizationId to ensure proper isolation.
+ */
+export const ServicesContainer: (
+  organizationId: string,
+  noCachedServices?: boolean,
+) => IServicesContainer = cache(
+  (organizationId: string, noCachedServices?: boolean) => {
+    const redisClient = getRedisClient();
+    const jobService = new BullMQJobService(
+      organizationId,
+      getBullMQJobConfig(),
+    );
+
+    const eventService = new BullMQEventService(
+      organizationId,
+      getBullMQEventConfig(),
+    );
+
+    const configurationService = noCachedServices
+      ? new ConfigurationService(organizationId, eventService)
+      : new CachedConfigurationService(
+          organizationId,
+          eventService,
+          redisClient,
+        );
+
+    const assetsStorage = new S3AssetsStorageService(
+      organizationId,
+      getS3Configuration(),
+    );
+
+    const dashboardNotificationsService =
+      new RedisDashboardNotificationPublisher(organizationId, redisClient);
+    const organizationService = new OrganizationService(
+      organizationId,
+      eventService,
+    );
+
+    const assetsService = new AssetsService(
+      organizationId,
+      configurationService,
+      assetsStorage,
+      eventService,
+      organizationService,
+    );
+
+    const teamService = new TeamService(organizationId, eventService);
+    const customersService = new CustomersService(organizationId, eventService);
+    const activityService = new ActivityService(
+      organizationId,
+      dashboardNotificationsService,
+      redisClient,
+    );
+
+    const connectedAppsService = new CachedConnectedAppsService(
+      organizationId,
+      (orgId) => {
+        if (!orgId || orgId === organizationId) {
+          return services;
+        }
+
+        return ServicesContainer(orgId);
+      },
+    );
+
+    const scheduleService = new ScheduleService(
+      connectedAppsService,
+      configurationService,
+    );
+
+    const catalogService = new CatalogService(
+      organizationId,
+      configurationService,
+      eventService,
+      organizationService,
+    );
+
+    const paymentsService = new PaymentsService(
+      organizationId,
+      connectedAppsService,
+      eventService,
+    );
+
+    const billingService = new PolarBillingService(
+      organizationId,
+      organizationService,
+      eventService,
+      getPolarClient(),
+    );
+
+    const packagesService = new PackagesService(
+      organizationId,
+      catalogService,
+      paymentsService,
+      eventService,
+    );
+
+    const pagesService = new CachedPagesService(
+      organizationId,
+      eventService,
+      organizationService,
+      redisClient,
+    );
+
+    const smsConsentService = new SmsConsentService(organizationId);
+    const textMessageConfigurationService = new TextMessageConfigurationService(
+      organizationId,
+      configurationService,
+      pagesService,
+    );
+
+    const bookingService = new BookingService(
+      organizationId,
+      configurationService,
+      connectedAppsService,
+      assetsService,
+      customersService,
+      scheduleService,
+      catalogService,
+      paymentsService,
+      eventService,
+      organizationService,
+      billingService,
+      teamService,
+      packagesService,
+      textMessageConfigurationService,
+    );
+
+    const syncedPaymentsService = new SyncedPaymentsService(
+      organizationId,
+      bookingService,
+      paymentsService,
+      customersService,
+      eventService,
+    );
+
+    const templatesService = new TemplatesService(organizationId, eventService);
+    const communicationLogsService = new CommunicationLogsService(
+      organizationId,
+      assetsStorage,
+    );
+
+    const notificationService = new BullMQNotificationService(
+      organizationId,
+      getBullMQNotificationConfig(),
+      communicationLogsService,
+    );
+
+    const giftCardsService = new GiftCardsService(
+      organizationId,
+      paymentsService,
+      eventService,
+      connectedAppsService,
+    );
+
+    const customerAuthService = new CustomerAuthService(organizationId, {
+      configurationService,
+      customersService,
+      notificationService,
+      organizationService,
+      redisClient,
+      templatesService,
+      textMessageConfigurationService,
+    });
+
+    const shortLinksService = new ShortLinksService();
+
+    const services: IServicesContainer = {
+      activityService,
+      configurationService,
+      assetsStorage,
+      assetsService,
+      bookingService,
+      pagesService,
+      customersService,
+      catalogService,
+      scheduleService,
+      templatesService,
+      communicationLogsService,
+      connectedAppsService,
+      paymentsService,
+      syncedPaymentsService,
+      jobService,
+      eventService,
+      notificationService,
+      organizationService,
+      teamService,
+      dashboardNotificationsService,
+      giftCardsService,
+      packagesService,
+      billingService,
+      customerAuthService,
+      shortLinksService,
+      smsConsentService,
+      textMessageConfigurationService,
+      redisClient,
+    };
+
+    return services;
+  },
+);
+
+export const SystemServicesContainer = cache(() => {
+  const notificationService = new BullMQSystemNotificationService(
+    getBullMQNotificationConfig(),
+  );
+
+  return {
+    notificationService,
+  };
+});

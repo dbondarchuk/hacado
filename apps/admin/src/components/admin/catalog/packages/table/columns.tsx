@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentPackageListModel } from "@hacado/types";
+import { AppointmentPackageListModel } from "@hacado/types/booking";
 import {
   Badge,
   Checkbox,

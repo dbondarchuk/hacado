@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { AppointmentOption } from "@hacado/types";
+import { AppointmentOption } from "@hacado/types/booking";
 import { Checkbox, Link, useTimeZone } from "@hacado/ui";
 import {
   tableSortHeader,

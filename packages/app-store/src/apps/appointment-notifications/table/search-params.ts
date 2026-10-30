@@ -6,7 +6,7 @@ import {
 } from "nuqs";
 
 import { baseSearchParams } from "@hacado/api-sdk";
-import { communicationChannels } from "@hacado/types";
+import { communicationChannels } from "@hacado/types/communication";
 import { appointmentNotificationTypes } from "../models";
 
 export const searchParams = {

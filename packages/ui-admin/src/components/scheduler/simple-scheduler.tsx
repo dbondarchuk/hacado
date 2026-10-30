@@ -1,7 +1,8 @@
 "use client";
 
 import { AllKeys, useI18n } from "@hacado/i18n/client";
-import { AvailablePeriod, ScheduleDaySource } from "@hacado/types";
+import { AvailablePeriod } from "@hacado/types/booking";
+import { ScheduleDaySource } from "@hacado/types/configuration/schedule";
 import {
   Accordion,
   AccordionContent,

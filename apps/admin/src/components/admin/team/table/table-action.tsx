@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types";
+import { MEMBER_STATUSES, USER_ROLES } from "@hacado/types/users";
 
 import {
   DataTableFilterBox,

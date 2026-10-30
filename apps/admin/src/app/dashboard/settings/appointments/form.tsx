@@ -6,7 +6,7 @@ import {
   BookingConfiguration,
   bookingConfigurationSchema,
   normalizeCatalogNodes,
-} from "@hacado/types";
+} from "@hacado/types/configuration/booking";
 import {
   cn,
   Form,

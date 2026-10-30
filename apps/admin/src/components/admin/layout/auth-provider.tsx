@@ -1,5 +1,5 @@
 import { authClient } from "@/app/auth-client";
-import type { SessionUser } from "@hacado/types";
+import type { SessionUser } from "@hacado/types/users";
 import { AuthContext } from "@hacado/ui-admin";
 import { useMemo } from "react";
 

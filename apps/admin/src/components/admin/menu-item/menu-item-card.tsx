@@ -7,7 +7,7 @@ import {
   MenuItemType,
   menuItemTypes,
   MenuItemWithSubMenu,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
 import {
   Button,
   Card,

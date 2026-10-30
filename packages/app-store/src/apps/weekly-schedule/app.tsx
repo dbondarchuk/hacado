@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { CalendarDays } from "lucide-react";
 import { WEEKLY_SCHEDULE_APP_NAME } from "./const";
 import {

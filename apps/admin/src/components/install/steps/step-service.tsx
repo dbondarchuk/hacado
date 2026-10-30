@@ -26,11 +26,9 @@ import type { InstallServiceDraftItem } from "@/components/install/types";
 import { getSessionPlanTier } from "@/lib/billing/subscription-plan-access";
 import { useI18n, type Language } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import {
-  canCreateMoreServices,
-  CurrencySymbolMap,
-  type Currency,
-} from "@hacado/types";
+import { canCreateMoreServices } from "@hacado/types/billing";
+import type { Currency } from "@hacado/types/utils";
+import { CurrencySymbolMap } from "@hacado/types/utils";
 import {
   Badge,
   Button,

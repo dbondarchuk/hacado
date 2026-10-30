@@ -1,4 +1,4 @@
-import type { IAssetsService } from "@hacado/types";
+import type { IAssetsService } from "@hacado/types/services";
 import {
   isSvgFaviconSource,
   parseSvgViewBoxSize,

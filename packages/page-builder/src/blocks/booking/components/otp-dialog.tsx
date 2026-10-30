@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppointmentFields } from "@hacado/types";
+import { AppointmentFields } from "@hacado/types/booking";
 import {
   CustomerOtpVerified,
   Dialog,

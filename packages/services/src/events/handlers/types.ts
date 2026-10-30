@@ -1,4 +1,5 @@
-import type { EventEnvelope, IConnectedAppProps } from "@hacado/types";
+import type { IConnectedAppProps } from "@hacado/types/apps";
+import type { EventEnvelope } from "@hacado/types/events";
 import type { Redis } from "ioredis";
 
 export type EventHandlerContext = {

@@ -6,7 +6,7 @@ import {
   appointmentStatuses,
   CalendarEvent,
   isClosedAppointmentStatus,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { resolveCalendarMemberId } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

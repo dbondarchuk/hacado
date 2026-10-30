@@ -6,7 +6,6 @@ import {
   ConnectedAppError,
   ConnectedAppRequestError,
   ConnectedAppResponse,
-  EventEnvelope,
   IConnectedAppProps,
   IEventSubscriber,
   INeedsAttentionApp,
@@ -15,11 +14,11 @@ import {
   IScriptProvider,
   LayoutScriptProviderContext,
   NeedsAttentionItem,
-  okStatus,
-  OrganizationMember,
   ScriptContribution,
-  SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { EventEnvelope } from "@hacado/types/events";
+import { okStatus } from "@hacado/types/general";
+import { OrganizationMember, SessionUser } from "@hacado/types/users";
 import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
 import {

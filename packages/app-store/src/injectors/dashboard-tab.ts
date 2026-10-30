@@ -1,4 +1,4 @@
-import { DashboardTabInjectorApp } from "@hacado/types";
+import { DashboardTabInjectorApp } from "@hacado/types/apps";
 import { WAITLIST_APP_NAME } from "../apps/waitlist/const";
 import { WaitlistNotificationDashboardTabInjector } from "../apps/waitlist/dashboard-tab-injector";
 

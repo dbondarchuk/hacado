@@ -3,7 +3,7 @@ import {
   renderUserEmailTemplate,
 } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap, type Language } from "@hacado/i18n";
-import { Appointment, isClosedAppointmentStatus } from "@hacado/types";
+import { Appointment, isClosedAppointmentStatus } from "@hacado/types/booking";
 import { AppointmentStatusToICalMethodMap, template } from "@hacado/utils";
 import { UserEmailTemplates } from ".";
 

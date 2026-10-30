@@ -1,11 +1,10 @@
 import { getLoggerFactory } from "@hacado/logger";
+import { Email, TextMessage } from "@hacado/types/apps";
 import {
-  Email,
   EmailNotificationRequest,
   IServicesContainer,
-  TextMessage,
   TextMessageNotificationRequest,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { Job } from "bullmq";
 import { createDefaultEmailService } from "../../email/factory";
 import {

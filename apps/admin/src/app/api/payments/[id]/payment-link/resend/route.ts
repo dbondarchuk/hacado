@@ -3,7 +3,8 @@ import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-upda
 import { ensureCustomerSmsConsent } from "@/lib/customer-sms-consent";
 import { resendPaymentLinkSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { IPaymentLinkProvider, PaymentLinkPayment } from "@hacado/types";
+import { IPaymentLinkProvider } from "@hacado/types/apps";
+import { PaymentLinkPayment } from "@hacado/types/booking";
 import { hasPermission } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

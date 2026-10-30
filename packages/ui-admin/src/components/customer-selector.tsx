@@ -4,7 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
   getCustomerSchemaWithUniqueCheck,
-} from "@hacado/types";
+} from "@hacado/types/customers";
 import {
   Button,
   cn,

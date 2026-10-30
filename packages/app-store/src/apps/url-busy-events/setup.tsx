@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import {
   Button,
   Form,

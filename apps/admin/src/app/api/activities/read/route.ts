@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { NextResponse } from "next/server";
 
 export async function POST() {

@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { MessageSquareReply } from "lucide-react";
 import { TEXT_MESSAGE_AUTO_REPLY_APP_NAME } from "./const";
 import {

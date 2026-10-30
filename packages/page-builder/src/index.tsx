@@ -9,7 +9,8 @@ import {
 } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
 import { Header } from "@hacado/page-builder-base";
-import { PageHeader, UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
+import { PageHeader } from "@hacado/types/pages";
 import { deepMemo } from "@hacado/ui";
 import { useMemo } from "react";
 import {

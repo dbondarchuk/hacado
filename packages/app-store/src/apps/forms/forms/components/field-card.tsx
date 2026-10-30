@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useI18n } from "@hacado/i18n/client";
-import { WithId } from "@hacado/types";
+import { WithId } from "@hacado/types/general";
 import {
   AlertDialog,
   AlertDialogAction,

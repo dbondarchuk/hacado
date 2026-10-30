@@ -1,4 +1,7 @@
-import { DashboardNotificationBadge, IConnectedAppProps } from "@hacado/types";
+import {
+  DashboardNotificationBadge,
+  IConnectedAppProps,
+} from "@hacado/types/apps";
 import { FORMS_UNREAD_RESPONSES_BADGE_KEY } from "../const";
 import { FormsRepositoryService } from "./repository-service";
 

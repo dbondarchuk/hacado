@@ -1,4 +1,4 @@
-import { DashboardQuickLinkInjectorApp } from "@hacado/types";
+import { DashboardQuickLinkInjectorApp } from "@hacado/types/apps";
 import { Gift, Receipt, ShoppingCart } from "lucide-react";
 import { GIFT_CARD_STUDIO_UNREAD_PURCHASES_BADGE_KEY } from "./const";
 import { GiftCardStudioManualPurchaseQuickLink } from "./quick-link-manual-purchase";

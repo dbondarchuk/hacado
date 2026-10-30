@@ -2,12 +2,9 @@
 
 import { clientApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS,
-  zEmail,
-  zPhone,
-  type CustomerOtpChannels,
-} from "@hacado/types";
+import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
+import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@hacado/types/customer-auth";
+import { zEmail, zPhone } from "@hacado/types/utils";
 import {
   Button,
   Input,

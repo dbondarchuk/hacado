@@ -1,7 +1,7 @@
 "use client";
 
 import { adminApi } from "@hacado/api-sdk";
-import { Payment } from "@hacado/types";
+import { Payment } from "@hacado/types/booking";
 import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
 import { parseAsString, useQueryState } from "nuqs";
 import { useEffect, useState } from "react";

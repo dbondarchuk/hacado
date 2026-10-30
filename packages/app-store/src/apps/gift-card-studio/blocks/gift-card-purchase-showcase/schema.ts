@@ -5,7 +5,7 @@ import {
   migratePropsSlots,
 } from "@hacado/page-builder-base/slots";
 import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { DEFAULT_AMOUNT_PRESETS, MAX_AMOUNT_PRESETS } from "./presets";
 import { createShowcaseSlots } from "./slot-defaults";

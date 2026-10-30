@@ -3,11 +3,11 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import {
-  DatabaseId,
   discountTypes,
   DiscountUpdateModel,
   getDiscountSchemaWithUniqueCheck,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { DatabaseId } from "@hacado/types/database";
 import {
   AlertDialog,
   AlertDialogAction,

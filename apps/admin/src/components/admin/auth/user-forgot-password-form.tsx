@@ -12,7 +12,7 @@ import {
   useTurnstileField,
 } from "@/components/admin/auth/turnstile-field";
 import { useI18n } from "@hacado/i18n/client";
-import { zEmail } from "@hacado/types";
+import { zEmail } from "@hacado/types/utils";
 import {
   Button,
   Form,

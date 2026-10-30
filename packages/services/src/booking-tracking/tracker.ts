@@ -3,7 +3,7 @@ import {
   BookingProgressSession,
   BookingStep,
   BookingTrackingMetadata,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   ABANDON_AFTER_SECONDS,
   getCountedEnteredKey,

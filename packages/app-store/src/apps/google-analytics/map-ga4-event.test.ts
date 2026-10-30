@@ -1,4 +1,4 @@
-import type { EventEnvelope } from "@hacado/types";
+import type { EventEnvelope } from "@hacado/types/events";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../forms/models/events";

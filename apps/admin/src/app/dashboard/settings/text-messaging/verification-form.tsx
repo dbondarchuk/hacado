@@ -6,12 +6,12 @@ import {
   SmsOptInPreview,
   type SmsOptInPreviewProps,
 } from "@hacado/page-builder/opt-in-preview";
-import {
-  smsVerificationFormSchema,
-  type SmsEntityType,
-  type SmsRegistrationInput,
-  type SmsRegistrationView,
-} from "@hacado/types";
+import type {
+  SmsEntityType,
+  SmsRegistrationInput,
+  SmsRegistrationView,
+} from "@hacado/types/text-message/registration";
+import { smsVerificationFormSchema } from "@hacado/types/text-message/registration";
 import {
   Alert,
   AlertDescription,

@@ -1,9 +1,9 @@
 import type { Language } from "@hacado/i18n";
+import type { CustomerSmsConsentStatus } from "@hacado/types/customers";
 import type {
-  CustomerSmsConsentStatus,
   ISmsConsentService,
   SmsConsentWrite,
-} from "@hacado/types";
+} from "@hacado/types/services";
 import { normalizeToE164 } from "@hacado/utils";
 import { BaseService } from "../services/base.service";
 import { classifyInboundSmsKeyword } from "./compliance";

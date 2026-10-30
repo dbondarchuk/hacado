@@ -6,8 +6,8 @@ import {
   effectiveAddonDuration,
   effectiveAddonPrice,
   summarizePackageItems,
-  timeZones,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
 import {
   Avatar,
   AvatarFallback,

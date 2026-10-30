@@ -10,7 +10,7 @@ import {
   ReplaceOriginalColors,
   useClassName,
 } from "@hacado/page-builder-base";
-import { Appointment } from "@hacado/types";
+import { Appointment } from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { ConfirmationCard } from "./confirmation-card";

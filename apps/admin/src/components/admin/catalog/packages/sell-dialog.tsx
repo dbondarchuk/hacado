@@ -7,8 +7,8 @@ import {
   AppointmentPackage,
   inPersonPaymentMethod,
   paymentLinkPaymentMethod,
-  zObjectId,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { zObjectId } from "@hacado/types/utils";
 import {
   Button,
   Dialog,

@@ -1,4 +1,5 @@
-import { BillingPlanTier, NavItemGroup } from "@hacado/types";
+import { NavItemGroup } from "@hacado/types/admin";
+import { BillingPlanTier } from "@hacado/types/billing";
 import {
   ArrowDownToLine,
   BadgeDollarSign,

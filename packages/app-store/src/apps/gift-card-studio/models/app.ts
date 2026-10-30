@@ -1,4 +1,9 @@
-import { Prettify, zObjectId, zTaggedUnion, zUniqueArray } from "@hacado/types";
+import {
+  Prettify,
+  zObjectId,
+  zTaggedUnion,
+  zUniqueArray,
+} from "@hacado/types/utils";
 import * as z from "zod";
 import type { GiftCardStudioAdminAllKeys } from "../translations/types";
 import { designSchemaBase, getDesignsQuerySchema } from "./design";

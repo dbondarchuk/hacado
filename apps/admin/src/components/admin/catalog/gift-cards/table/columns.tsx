@@ -1,6 +1,6 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { GiftCardListModel } from "@hacado/types";
+import { GiftCardListModel } from "@hacado/types/booking";
 import {
   Badge,
   Button,

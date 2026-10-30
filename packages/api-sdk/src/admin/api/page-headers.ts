@@ -1,10 +1,10 @@
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
-  okStatus,
   PageHeader,
   PageHeaderListModel,
   PageHeaderUpdateModel,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import {
   PageHeadersSearchParams,
   pageHeadersSearchParamsSerializer,

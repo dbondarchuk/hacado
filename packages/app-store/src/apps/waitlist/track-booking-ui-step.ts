@@ -1,5 +1,5 @@
 import { clientApi } from "@hacado/api-sdk";
-import type { BookingTrackingMetadata } from "@hacado/types";
+import type { BookingTrackingMetadata } from "@hacado/types/booking";
 
 /** Waitlist wizard screens that core booking tracking does not know about. */
 const WAITLIST_UI_STEP_TRACKING = {

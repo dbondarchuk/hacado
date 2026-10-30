@@ -9,7 +9,7 @@ import {
   ModifyAppointmentInformation,
   ModifyAppointmentInformationRequest,
   ModifyAppointmentRequest,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { fetchClientApi } from "./utils";
 
 export const getSmsConsent = async (phone: string) => {

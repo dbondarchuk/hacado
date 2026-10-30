@@ -1,6 +1,6 @@
 import { getServicesContainer } from "@/app/utils";
 import { getI18nAsync, getLocale } from "@hacado/i18n/server";
-import type { AppointmentStatus } from "@hacado/types";
+import type { AppointmentStatus } from "@hacado/types/booking";
 import { Link } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { DateTime } from "luxon";

@@ -3,7 +3,7 @@
 import { LanguageOptions } from "@/constants/texts";
 import { adminApi, AdminApiError } from "@hacado/api-sdk";
 import { languages, useI18n } from "@hacado/i18n/client";
-import { zNonEmptyString } from "@hacado/types";
+import { zNonEmptyString } from "@hacado/types/utils";
 import {
   Button,
   Card,

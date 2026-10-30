@@ -1,20 +1,22 @@
+import { CommunicationChannel } from "@hacado/types/communication";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  EventSource,
+  TemplateCreatedPayload,
+  TemplateDeletedPayload,
+  TemplateUpdatedPayload,
+} from "@hacado/types/events";
 import {
-  CommunicationChannel,
-  IEventService,
-  ITemplatesService,
-  Query,
   TEMPLATE_CREATED_EVENT_TYPE,
   TEMPLATE_DELETED_EVENT_TYPE,
   TEMPLATE_UPDATED_EVENT_TYPE,
+} from "@hacado/types/events";
+import { IEventService, ITemplatesService } from "@hacado/types/services";
+import {
   Template,
   TemplateListModel,
   TemplateUpdateModel,
-  WithTotal,
-  type EventSource,
-  type TemplateCreatedPayload,
-  type TemplateDeletedPayload,
-  type TemplateUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/templates";
 import { buildSearchQuery, escapeRegex } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { Filter, ObjectId, Sort } from "mongodb";

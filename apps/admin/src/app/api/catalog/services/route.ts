@@ -2,10 +2,8 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { servicesSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  appointmentOptionSchema,
-  ServiceLimitReachedError,
-} from "@hacado/types";
+import { ServiceLimitReachedError } from "@hacado/types/billing";
+import { appointmentOptionSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

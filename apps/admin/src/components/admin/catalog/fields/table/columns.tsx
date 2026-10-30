@@ -1,6 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { IdName, ServiceField } from "@hacado/types";
+import { ServiceField } from "@hacado/types/booking";
+import { IdName } from "@hacado/types/services";
 import {
   Button,
   Checkbox,

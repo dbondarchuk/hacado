@@ -9,8 +9,8 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import {
   requiresSmsVerification,
   SmsRegistrationStore,
-} from "@hacado/services";
-import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types";
+} from "@hacado/services/text-message";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { Breadcrumbs, Heading, Link } from "@hacado/ui";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";

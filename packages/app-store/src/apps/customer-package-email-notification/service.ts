@@ -2,34 +2,39 @@ import { renderToStaticMarkup } from "@hacado/email-builder/static";
 import { resolveLanguageFromMap } from "@hacado/i18n";
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
-  AppJobRequest,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
-  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
-  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
-  CustomerPackage,
   DemoArguments,
-  EventEnvelope,
   ICommunicationTemplatesProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDemoArgumentsProvider,
   IEventSubscriber,
-  JobRequest,
+} from "@hacado/types/apps";
+import {
+  CustomerPackage,
   PackageAdjustRequest,
   resolveCustomerPackageStatus,
+} from "@hacado/types/booking";
+import type {
+  CustomerPackageAdjustedPayload,
+  CustomerPackageCancelledPayload,
+  CustomerPackageExhaustedPayload,
+  CustomerPackageExpiredPayload,
+  CustomerPackageIssuedPayload,
+} from "@hacado/types/events";
+import {
+  CUSTOMER_PACKAGE_ADJUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_CANCELLED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXHAUSTED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_EXPIRED_EVENT_TYPE,
+  CUSTOMER_PACKAGE_ISSUED_EVENT_TYPE,
+  EventEnvelope,
   systemEventSource,
-  TemplateTemplatesList,
-  type CustomerPackageAdjustedPayload,
-  type CustomerPackageCancelledPayload,
-  type CustomerPackageExhaustedPayload,
-  type CustomerPackageExpiredPayload,
-  type CustomerPackageIssuedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import { AppJobRequest, JobRequest } from "@hacado/types/jobs";
+import { TemplateTemplatesList } from "@hacado/types/templates";
 import {
   getAdminUrl,
   getArguments,

@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { NavItemGroup } from "@hacado/types";
+import { NavItemGroup } from "@hacado/types/admin";
 import {
   Avatar,
   AvatarFallback,

@@ -8,18 +8,18 @@ import {
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
   DashboardNotification,
-  EventSource,
   ICommandSearchProvider,
   IConnectedApp,
   IConnectedAppProps,
   IDashboardNotifierApp,
   IPageSeoArgumentsProvider,
   ISitemapItemsProvider,
-  Page,
   PageSeoArguments,
-  SessionUser,
   SitemapUrlEntry,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { EventSource } from "@hacado/types/events";
+import { Page } from "@hacado/types/pages";
+import { SessionUser } from "@hacado/types/users";
 import { hasPermission } from "@hacado/utils";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,

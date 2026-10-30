@@ -7,7 +7,7 @@ import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import { CalendarSourceConfiguration } from "@hacado/types";
+import { CalendarSourceConfiguration } from "@hacado/types/configuration/booking";
 import {
   Button,
   Card,

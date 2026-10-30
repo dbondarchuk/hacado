@@ -1,4 +1,4 @@
-import type { getAppointmentOptionSchemaWithUniqueCheck } from "@hacado/types";
+import type { getAppointmentOptionSchemaWithUniqueCheck } from "@hacado/types/booking";
 import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 

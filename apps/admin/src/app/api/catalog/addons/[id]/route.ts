@@ -1,7 +1,8 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { getLoggerFactory } from "@hacado/logger";
-import { appointmentAddonSchema, okStatus } from "@hacado/types";
+import { appointmentAddonSchema } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

@@ -4,7 +4,8 @@ import {
   useI18n,
   useLocale,
 } from "@hacado/i18n/client";
-import { ModifyAppointmentInformation, timeZones } from "@hacado/types";
+import { ModifyAppointmentInformation } from "@hacado/types/booking";
+import { timeZones } from "@hacado/types/utils";
 import {
   Button,
   Collapsible,

@@ -1,5 +1,5 @@
 import { clientApi } from "@hacado/api-sdk";
-import { CollectPayment } from "@hacado/types";
+import { CollectPayment } from "@hacado/types/booking";
 import {
   FetchPreviewPayload,
   FetchPreviewResponse,

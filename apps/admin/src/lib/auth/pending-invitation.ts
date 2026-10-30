@@ -1,5 +1,5 @@
 import { getDbConnection } from "@hacado/services/database";
-import type { Organization as OrganizationDbModel } from "@hacado/types";
+import type { Organization as OrganizationDbModel } from "@hacado/types/organizations";
 
 export type PublicInvitation = {
   id: string;

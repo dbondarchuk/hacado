@@ -1,13 +1,15 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  EventDefinition,
+  TemplateCreatedPayload,
+  TemplateDeletedPayload,
+  TemplateUpdatedPayload,
+} from "@hacado/types/events";
 import {
   TEMPLATE_CREATED_EVENT_TYPE,
   TEMPLATE_DELETED_EVENT_TYPE,
   TEMPLATE_UPDATED_EVENT_TYPE,
-  type EventDefinition,
-  type TemplateCreatedPayload,
-  type TemplateDeletedPayload,
-  type TemplateUpdatedPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

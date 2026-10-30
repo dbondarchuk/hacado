@@ -1,15 +1,17 @@
 import { BaseAllKeys } from "@hacado/i18n";
+import type {
+  AppointmentCreatedPayload,
+  AppointmentRescheduledPayload,
+  AppointmentSlotRescheduledPayload,
+  AppointmentStatusChangedPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APPOINTMENT_CREATED_EVENT_TYPE,
   APPOINTMENT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
-  type AppointmentCreatedPayload,
-  type AppointmentRescheduledPayload,
-  type AppointmentSlotRescheduledPayload,
-  type AppointmentStatusChangedPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { durationToTime } from "@hacado/utils";
 
 import { buildAppointmentLimitReachedEmails } from "./appointment-limit-email";

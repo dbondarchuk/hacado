@@ -1,7 +1,10 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { Appointment, isAppointmentCoveredByPackage } from "@hacado/types";
+import {
+  Appointment,
+  isAppointmentCoveredByPackage,
+} from "@hacado/types/booking";
 import { Link, useCurrencyFormat, useTimeZone } from "@hacado/ui";
 import { durationToTime } from "@hacado/utils";
 import { CheckCircle2 } from "lucide-react";

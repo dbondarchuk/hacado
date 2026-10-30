@@ -4,15 +4,15 @@ import {
   ICS_APP_NAME,
   OUTLOOK_APP_NAME,
 } from "@hacado/app-store";
+import type { ConnectedApp } from "@hacado/types/apps";
+import type { Schedule } from "@hacado/types/configuration/schedule";
+import { shiftsSchema } from "@hacado/types/configuration/schedule";
+import { fontsNames } from "@hacado/types/configuration/styling";
 import {
   catalogCategoryForIndustry,
-  fontsNames,
   normalizePostalAddress,
-  shiftsSchema,
   zBusinessIndustry,
-  type ConnectedApp,
-  type Schedule,
-} from "@hacado/types";
+} from "@hacado/types/utils";
 import {
   getCatalogProfession,
   getDefaultCatalogSeed,

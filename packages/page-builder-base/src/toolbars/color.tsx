@@ -1,5 +1,5 @@
 import { ConfigurationProps } from "@hacado/builder";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import {
   Button,
   DropdownMenu,

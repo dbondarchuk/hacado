@@ -1,10 +1,10 @@
 import { getServicesContainer } from "@/utils/utils";
 import type {
-  BrandConfiguration,
   IPageSeoArgumentsProvider,
-  Page,
   PageSeoArguments,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { BrandConfiguration } from "@hacado/types/configuration/brand";
+import type { Page } from "@hacado/types/pages";
 import { template } from "@hacado/utils";
 
 export function seoArgString(

@@ -8,8 +8,11 @@ import type {
   CreateOrUpdatePaymentIntentRequest,
   DateTime,
   ModifyAppointmentRequest,
-} from "@hacado/types";
-import { Availability, ModifyAppointmentInformation } from "@hacado/types";
+} from "@hacado/types/booking";
+import {
+  Availability,
+  ModifyAppointmentInformation,
+} from "@hacado/types/booking";
 import { toast, useTimeZone, useUseClientTimezone } from "@hacado/ui";
 import { DateTime as LuxonDateTime } from "luxon";
 import React, { useMemo } from "react";

@@ -4,7 +4,7 @@ import { useI18n } from "@hacado/i18n/client";
 import {
   applyBookingLocks,
   GetAppointmentOptionsResponse,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../components/fixtures";
 import {

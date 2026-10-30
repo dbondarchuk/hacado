@@ -1,4 +1,4 @@
-import type { UnsplashSearchResult } from "@hacado/types";
+import type { UnsplashSearchResult } from "@hacado/types/unsplash";
 import { fetchAdminApi } from "./utils";
 
 export type UnsplashSearchParams = {

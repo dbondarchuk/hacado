@@ -1,8 +1,11 @@
 import { getServicesContainer, getWebsiteUrl } from "@/utils/utils";
 import { AvailableAppServices } from "@hacado/app-store/services";
 import { getLoggerFactory } from "@hacado/logger";
-import type { ISitemapItemsProvider, SitemapUrlEntry } from "@hacado/types";
-import { pageSlugHasPlaceholder } from "@hacado/types";
+import type {
+  ISitemapItemsProvider,
+  SitemapUrlEntry,
+} from "@hacado/types/apps";
+import { pageSlugHasPlaceholder } from "@hacado/types/apps";
 import { NextRequest } from "next/server";
 
 const SITEMAP_ITEMS_PROVIDER_SCOPE = "sitemap-items-provider" as const;

@@ -2,17 +2,19 @@ import { AvailableApps } from "@hacado/app-store";
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
 import { BaseAllKeys, fallbackLanguage, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
+import type {
+  AppConnectedPayload,
+  AppFailedPayload,
+  AppInstalledPayload,
+  AppUninstalledPayload,
+  EventDefinition,
+} from "@hacado/types/events";
 import {
   APP_CONNECTED_EVENT_TYPE,
   APP_FAILED_EVENT_TYPE,
   APP_INSTALLED_EVENT_TYPE,
   APP_UNINSTALLED_EVENT_TYPE,
-  type AppConnectedPayload,
-  type AppFailedPayload,
-  type AppInstalledPayload,
-  type AppUninstalledPayload,
-  type EventDefinition,
-} from "@hacado/types";
+} from "@hacado/types/events";
 import { getAdminUrl } from "@hacado/utils";
 
 export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {

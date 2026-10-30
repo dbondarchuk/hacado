@@ -1,4 +1,4 @@
-import { Customer } from "@hacado/types";
+import { Customer } from "@hacado/types/customers";
 import React from "react";
 import { ResponsesTable } from "./responses/table/table";
 import { ResponsesTableAction } from "./responses/table/table-action";

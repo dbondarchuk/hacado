@@ -1,5 +1,5 @@
 import type { AdminKeys } from "@hacado/i18n";
-import type { PaymentExportRow } from "@hacado/types";
+import type { PaymentExportRow } from "@hacado/types/booking";
 import { formatAmountString, rowsToCsv } from "@hacado/utils";
 
 const COLUMN_KEYS = [

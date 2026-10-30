@@ -1,4 +1,4 @@
-import { AppMenuItem } from "@hacado/types";
+import { AppMenuItem } from "@hacado/types/apps";
 import { Bell } from "lucide-react";
 import { CustomerWaitlistNotificationsAppSetup } from "./setup";
 import {

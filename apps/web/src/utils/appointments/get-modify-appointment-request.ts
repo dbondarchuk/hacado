@@ -4,7 +4,6 @@ import {
   Appointment,
   CANCELLATION_NOT_ALLOWED_BY_POLICY_REASON,
   CANCELLATION_NOT_ALLOWED_REASON,
-  CustomerSession,
   isClosedAppointmentStatus,
   MAX_RESCHEDULES_REACHED_REASON,
   ModifyAppointmentInformation,
@@ -13,7 +12,8 @@ import {
   RESCHEDULE_NOT_ALLOWED_BY_POLICY_REASON,
   RESCHEDULE_NOT_ALLOWED_REASON,
   RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { CustomerSession } from "@hacado/types/customer-auth";
 import { formatAmount, getPolicyForRequest } from "@hacado/utils";
 import { DateTime } from "luxon";
 import { applyGiftCards } from "../gift-cards/apply";

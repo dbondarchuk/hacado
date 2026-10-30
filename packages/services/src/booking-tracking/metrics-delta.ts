@@ -1,4 +1,4 @@
-import { BookingProgressMetricsDelta } from "@hacado/types";
+import { BookingProgressMetricsDelta } from "@hacado/types/booking";
 
 export function metricsDeltaToInc(
   delta: BookingProgressMetricsDelta,

@@ -1,11 +1,8 @@
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  BillingPlanTier,
-  CommandSearchGroup,
-  IServicesContainer,
-  SessionUser,
-  meetsMinimumPlanTier,
-} from "@hacado/types";
+import { CommandSearchGroup } from "@hacado/types/apps";
+import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
+import { IServicesContainer } from "@hacado/types/services";
+import { SessionUser } from "@hacado/types/users";
 import { canManageTeam, gateMemberIds, hasPermission } from "@hacado/utils";
 import type { CommandSearchScope } from "./scope";
 

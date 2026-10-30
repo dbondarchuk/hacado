@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { packagesSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { appointmentPackageSchema, PackageError } from "@hacado/types";
+import { appointmentPackageSchema, PackageError } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

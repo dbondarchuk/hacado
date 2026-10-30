@@ -6,16 +6,16 @@ import { I18nRichText } from "@hacado/i18n/components";
 import { Header } from "@hacado/page-builder-base";
 import { ColorExtendedInput } from "@hacado/page-builder-base/style-inputs";
 import { EditableText, richTextToString } from "@hacado/rte-inline";
+import { LinkMenuItem } from "@hacado/types/configuration/styling";
 import {
   getPageHeaderSchemaWithUniqueNameCheck,
-  LinkMenuItem,
   pageHeaderLogoNameFontSize,
   pageHeaderLogoNameFontWeight,
   pageHeaderLogoSize,
   pageHeaderPositionType,
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,
-} from "@hacado/types";
+} from "@hacado/types/pages";
 import {
   BooleanSelect,
   Breadcrumbs,

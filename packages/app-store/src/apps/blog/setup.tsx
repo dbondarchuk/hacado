@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { AppSetupProps } from "@hacado/types";
+import { AppSetupProps } from "@hacado/types/apps";
 import { Button, Form, Spinner } from "@hacado/ui";
 import {
   ConnectedAppNameAndLogo,

@@ -1,12 +1,12 @@
+import { Appointment } from "@hacado/types/booking";
+import { CommunicationChannel } from "@hacado/types/communication";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
 import {
-  Appointment,
-  CommunicationChannel,
-  okStatus,
   Template,
   TemplateListModel,
   TemplateUpdateModel,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/templates";
 import { FormattedArguments } from "@hacado/utils";
 import {
   TemplateSearchParams,

@@ -2,7 +2,7 @@
 
 import { useCanUseFeature } from "@/lib/billing/use-subscription-plan-access";
 import { useI18n } from "@hacado/i18n/client";
-import { appointmentStatuses } from "@hacado/types";
+import { appointmentStatuses } from "@hacado/types/booking";
 import { Button, cn } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,

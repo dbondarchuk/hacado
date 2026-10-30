@@ -1,4 +1,4 @@
-import type { CommandSearchGroup } from "@hacado/types";
+import type { CommandSearchGroup } from "@hacado/types/apps";
 import { fetchAdminApi } from "./utils";
 
 export const searchCommands = async (

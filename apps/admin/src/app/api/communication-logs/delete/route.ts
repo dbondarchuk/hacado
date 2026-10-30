@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { bulkDeleteSchema } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(request: NextRequest) {

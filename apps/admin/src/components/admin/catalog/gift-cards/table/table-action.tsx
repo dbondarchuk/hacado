@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { giftCardStatus } from "@hacado/types";
+import { giftCardStatus } from "@hacado/types/booking";
 import { ButtonGroup } from "@hacado/ui";
 import {
   CustomersDataTableAsyncFilterBox,

@@ -14,7 +14,7 @@ import {
   sessionCanUseFeature,
 } from "@/utils/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import type { Resource } from "@hacado/types";
+import type { Resource } from "@hacado/types/configuration/resources";
 import { ConfigProvider, SonnerToaster, Toaster } from "@hacado/ui";
 import {
   buildGoogleFontsUrl,

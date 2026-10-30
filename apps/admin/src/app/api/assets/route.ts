@@ -2,7 +2,8 @@ import { getActor, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { assetsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { AssetTotalSizeLimitReachedError, UploadedFile } from "@hacado/types";
+import { UploadedFile } from "@hacado/types/assets";
+import { AssetTotalSizeLimitReachedError } from "@hacado/types/billing";
 import {
   fileNameToMimeType,
   getAppointmentBucket,

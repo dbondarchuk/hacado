@@ -1,10 +1,6 @@
-import {
-  dateRangeSchema,
-  querySchema,
-  zObjectId,
-  zTaggedUnion,
-  zUniqueArray,
-} from "@hacado/types";
+import { querySchema } from "@hacado/types/database";
+import { dateRangeSchema } from "@hacado/types/general";
+import { zObjectId, zTaggedUnion, zUniqueArray } from "@hacado/types/utils";
 import * as z from "zod";
 
 import { WaitlistAdminAllKeys } from "../translations/types";

@@ -1,12 +1,11 @@
 import {
-  Appointment,
-  AppointmentStatus,
   EventAttributes,
-  formatPostalAddress,
-  GeneralConfiguration,
   IcalEventMethod,
   ParticipationStatus,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import { Appointment, AppointmentStatus } from "@hacado/types/booking";
+import { GeneralConfiguration } from "@hacado/types/configuration/general";
+import { formatPostalAddress } from "@hacado/types/utils";
 import { DateTime } from "luxon";
 import { getIcsEventUid } from "./ics-uid";
 import { getAdminUrl } from "./website";

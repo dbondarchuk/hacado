@@ -8,7 +8,7 @@ import {
   ClosedAppointmentStatus,
   getPaymentProcessorRefundTarget,
   Payment,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   AlertDialog,
   AlertDialogAction,

@@ -6,7 +6,7 @@ import {
   SocialLink,
   SocialLinkType,
   socialTypeLabels,
-} from "@hacado/types";
+} from "@hacado/types/configuration/social";
 import {
   AlertDialog,
   AlertDialogAction,

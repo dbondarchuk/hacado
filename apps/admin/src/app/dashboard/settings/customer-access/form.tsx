@@ -6,7 +6,7 @@ import { getCustomerOtpSms } from "@hacado/services/customer-auth-messages";
 import {
   CustomerAuthConfiguration,
   customerAuthConfigurationSchema,
-} from "@hacado/types";
+} from "@hacado/types/configuration/customer-auth";
 import {
   Alert,
   AlertDescription,

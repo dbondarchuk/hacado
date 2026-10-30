@@ -4,7 +4,7 @@ import {
   HourNumbers,
   MinuteNumbers,
   Time,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Button,
   Calendar,

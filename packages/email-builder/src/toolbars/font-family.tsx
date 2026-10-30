@@ -3,7 +3,7 @@ import {
   ToolbarDropdownPropsValues,
 } from "@hacado/builder";
 import { useI18n } from "@hacado/i18n/client";
-import { Leaves } from "@hacado/types";
+import { Leaves } from "@hacado/types/utils";
 import { FONT_FAMILIES } from "../style-inputs/helpers/font-family";
 import { FontFamily } from "../style-inputs/helpers/zod";
 

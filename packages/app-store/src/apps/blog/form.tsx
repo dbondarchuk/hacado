@@ -3,7 +3,7 @@
 import { adminApi } from "@hacado/api-sdk";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateEditor } from "@hacado/rte";
-import { DatabaseId } from "@hacado/types";
+import { DatabaseId } from "@hacado/types/database";
 import {
   BooleanSelect,
   Breadcrumbs,

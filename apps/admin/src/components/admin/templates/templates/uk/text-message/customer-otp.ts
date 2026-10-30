@@ -1,4 +1,4 @@
-import { TemplatesTemplate } from "@hacado/types";
+import { TemplatesTemplate } from "@hacado/types/templates";
 
 export const customerOtpTextTemplate: TemplatesTemplate = {
   name: "OTP SMS для клієнта",

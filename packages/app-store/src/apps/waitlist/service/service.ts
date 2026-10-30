@@ -2,19 +2,13 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import {
   ApiRequest,
   ApiResponse,
-  Appointment,
-  BOOKING_TRACKING_STEP_EVENT_TYPE,
-  BookingTrackingEventData,
   CommandSearchInput,
   ConnectedAppData,
   ConnectedAppRequestError,
   ConnectedAppStatusWithText,
   ConnectedAppUninstallResult,
-  CUSTOMER_SESSION_COOKIE,
   DashboardNotification,
   DemoArguments,
-  effectiveAddonDuration,
-  EventEnvelope,
   ICommandSearchProvider,
   ICommunicationTemplatesProvider,
   IConnectedApp,
@@ -22,12 +16,22 @@ import {
   IDashboardNotifierApp,
   IDemoArgumentsProvider,
   IEventSubscriber,
+} from "@hacado/types/apps";
+import {
+  Appointment,
+  BOOKING_TRACKING_STEP_EVENT_TYPE,
+  BookingTrackingEventData,
+  effectiveAddonDuration,
   isAddonAvailableForMember,
+} from "@hacado/types/booking";
+import {
+  CUSTOMER_SESSION_COOKIE,
   readCookieValue,
-  SessionUser,
-  TemplateTemplatesList,
-  type EventSource,
-} from "@hacado/types";
+} from "@hacado/types/customer-auth";
+import type { EventSource } from "@hacado/types/events";
+import { EventEnvelope } from "@hacado/types/events";
+import { TemplateTemplatesList } from "@hacado/types/templates";
+import { SessionUser } from "@hacado/types/users";
 import {
   dispatchAppointmentEventPayload,
   gateMemberIds,

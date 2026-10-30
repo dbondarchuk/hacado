@@ -7,8 +7,8 @@ import {
   LinkMenuItem,
   MenuItem,
   MenuItemWithSubMenu,
-  PageHeaderUpdateModel,
-} from "@hacado/types";
+} from "@hacado/types/configuration/styling";
+import { PageHeaderUpdateModel } from "@hacado/types/pages";
 import {
   Accordion,
   AccordionContent,

@@ -1,9 +1,9 @@
 import { BaseAllKeys } from "@hacado/i18n";
-import {
-  SETTINGS_UPDATED_EVENT_TYPE,
-  type EventDefinition,
-  type SettingsUpdatedPayload,
-} from "@hacado/types";
+import type {
+  EventDefinition,
+  SettingsUpdatedPayload,
+} from "@hacado/types/events";
+import { SETTINGS_UPDATED_EVENT_TYPE } from "@hacado/types/events";
 
 import { dashboardUrls } from "../links";
 

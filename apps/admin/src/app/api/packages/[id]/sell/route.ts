@@ -2,7 +2,8 @@ import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
 import { getLoggerFactory } from "@hacado/logger";
-import { PackageError, zObjectId } from "@hacado/types";
+import { PackageError } from "@hacado/types/booking";
+import { zObjectId } from "@hacado/types/utils";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 

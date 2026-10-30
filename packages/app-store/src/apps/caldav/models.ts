@@ -1,4 +1,4 @@
-import { zOptionalOrMaxLengthString, zTaggedUnion } from "@hacado/types";
+import { zOptionalOrMaxLengthString, zTaggedUnion } from "@hacado/types/utils";
 import * as z from "zod";
 import { CaldavAdminAllKeys } from "./translations/types";
 

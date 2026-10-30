@@ -11,7 +11,7 @@ import {
   ModifyAppointmentRequest,
   modifyAppointmentRequestSchema,
   OnlinePayment,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { formatAmount } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

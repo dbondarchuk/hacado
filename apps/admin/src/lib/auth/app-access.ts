@@ -1,6 +1,7 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { withCatalogTarget } from "@hacado/app-store/utils";
-import type { ConnectedApp, SessionUser } from "@hacado/types";
+import type { ConnectedApp } from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canAccessConnectedApp,
   filterConnectedAppsForUser,

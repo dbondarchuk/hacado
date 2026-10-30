@@ -1,7 +1,7 @@
 "use client";
 
 import { clientApi } from "@hacado/api-sdk";
-import { GetAppointmentOptionsResponse } from "@hacado/types";
+import { GetAppointmentOptionsResponse } from "@hacado/types/booking";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../../waitlist/components/fixtures";
 import { Schedule } from "./schedule";

@@ -1,22 +1,25 @@
+import { openAppointmentStatusMongoFilter } from "@hacado/types/booking";
 import {
   Customer,
-  CUSTOMER_CREATED_EVENT_TYPE,
-  CUSTOMER_DELETED_EVENT_TYPE,
-  CUSTOMER_UPDATED_EVENT_TYPE,
   CustomerListModel,
   CustomerSearchField,
   CustomerUpdateModel,
-  IEventService,
-  Leaves,
-  openAppointmentStatusMongoFilter,
-  Query,
-  WithTotal,
-  type CustomerCreatedPayload,
-  type CustomerDeletedPayload,
-  type CustomerUpdatedPayload,
-  type EventSource,
-  type ICustomersService,
-} from "@hacado/types";
+} from "@hacado/types/customers";
+import { Query, WithTotal } from "@hacado/types/database";
+import type {
+  CustomerCreatedPayload,
+  CustomerDeletedPayload,
+  CustomerUpdatedPayload,
+  EventSource,
+} from "@hacado/types/events";
+import {
+  CUSTOMER_CREATED_EVENT_TYPE,
+  CUSTOMER_DELETED_EVENT_TYPE,
+  CUSTOMER_UPDATED_EVENT_TYPE,
+} from "@hacado/types/events";
+import type { ICustomersService } from "@hacado/types/services";
+import { IEventService } from "@hacado/types/services";
+import { Leaves } from "@hacado/types/utils";
 import { buildSearchQuery, escapeRegex, normalizeToE164 } from "@hacado/utils";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {

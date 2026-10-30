@@ -3,7 +3,7 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   BookingTrackingMetadata,
   isClientTrackableBookingStep,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";
 
 function parseClientTrackingMetadata(

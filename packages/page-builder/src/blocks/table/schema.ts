@@ -7,7 +7,7 @@ import {
   migrateContainerSlot,
   type EmbeddedSlotData,
 } from "@hacado/page-builder-base/slots";
-import { Prettify } from "@hacado/types";
+import { Prettify } from "@hacado/types/utils";
 import * as z from "zod";
 import { equalColWidthPercents } from "./grid-utils";
 import { zStyles } from "./styles";

@@ -3,7 +3,7 @@ import {
   AppointmentChoice,
   shouldSkipLockedMemberStep,
   shouldSkipLockedServiceStep,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import {
   Calendar,
   CheckCircle2,

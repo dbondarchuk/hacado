@@ -1,3 +1,4 @@
+import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
   ActiveStaffOption,
   ApplyDiscountResponse,
@@ -9,14 +10,13 @@ import {
   AvailabilityByMember,
   CheckDuplicateAppointmentsResponse,
   CollectPayment,
-  CustomerAppointmentTextOffer,
   DateTime,
   effectiveAddonDuration,
   effectiveAddonPrice,
   Fields,
   PublicStaffMember,
   WithLabelFieldData,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 import { DateTime as LuxonDateTime } from "luxon";
 import { createContext, FC, ReactNode, useContext } from "react";
 

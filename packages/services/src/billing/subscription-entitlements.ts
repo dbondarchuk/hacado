@@ -1,4 +1,5 @@
-import { BillingPlanTier, type Organization } from "@hacado/types";
+import { BillingPlanTier } from "@hacado/types/billing";
+import type { Organization } from "@hacado/types/organizations";
 import { getBillingPlanProductIdMap } from "./plan-config";
 
 export function resolvePlanTierFromProductId(

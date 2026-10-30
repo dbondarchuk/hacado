@@ -1,7 +1,7 @@
 import { getServicesContainer, getSession, getWebsiteUrl } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { getLoggerFactory } from "@hacado/logger";
-import { PaymentLinkPayment } from "@hacado/types";
+import { PaymentLinkPayment } from "@hacado/types/booking";
 import { hasPermission } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

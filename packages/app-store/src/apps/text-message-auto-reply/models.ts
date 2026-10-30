@@ -1,4 +1,4 @@
-import { zObjectId } from "@hacado/types";
+import { zObjectId } from "@hacado/types/utils";
 import * as z from "zod";
 import { TextMessageAutoReplyAdminAllKeys } from "./translations/types";
 

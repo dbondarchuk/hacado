@@ -1,10 +1,10 @@
 import {
-  AddonsType,
   AppointmentAddon,
   AppointmentAddonUpdateModel,
-  okStatus,
-  WithTotal,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { WithTotal } from "@hacado/types/database";
+import { okStatus } from "@hacado/types/general";
+import { AddonsType } from "@hacado/types/services";
 import {
   AddonsSearchParams,
   addonsSearchParamsSerializer,

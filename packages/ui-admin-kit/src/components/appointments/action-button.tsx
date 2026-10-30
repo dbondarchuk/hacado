@@ -2,7 +2,8 @@
 
 import { adminApi } from "@hacado/api-sdk";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
-import { AppointmentStatus, okStatus } from "@hacado/types";
+import { AppointmentStatus } from "@hacado/types/booking";
+import { okStatus } from "@hacado/types/general";
 import { Button, ButtonProps, cn, Spinner, toastPromise } from "@hacado/ui";
 import { useRouter } from "next/navigation";
 import React from "react";

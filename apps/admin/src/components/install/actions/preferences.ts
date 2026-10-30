@@ -3,10 +3,11 @@
 import { auth } from "@/app/auth";
 import { languages } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { ServicesContainer } from "@hacado/services";
 import { ORGANIZATIONS_COLLECTION_NAME } from "@hacado/services/collections";
+import { ServicesContainer } from "@hacado/services/container";
 import { getDbConnection } from "@hacado/services/database";
-import { hasPostalAddress, Organization } from "@hacado/types";
+import { Organization } from "@hacado/types/organizations";
+import { hasPostalAddress } from "@hacado/types/utils";
 import { headers } from "next/headers";
 import * as z from "zod";
 import { runCompleteInstallSetupSteps } from "./complete-setup";

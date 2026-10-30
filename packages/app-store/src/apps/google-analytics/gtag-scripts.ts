@@ -1,4 +1,4 @@
-import type { ScriptContribution } from "@hacado/types";
+import type { ScriptContribution } from "@hacado/types/apps";
 
 export function buildGtagScripts(measurementId: string): ScriptContribution[] {
   return [

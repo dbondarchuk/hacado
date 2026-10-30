@@ -1,4 +1,4 @@
-import { App } from "@hacado/types";
+import { App } from "@hacado/types/apps";
 import { BellRing } from "lucide-react";
 import { APPOINTMENT_NOTIFICATIONS_APP_NAME } from "./const";
 import {

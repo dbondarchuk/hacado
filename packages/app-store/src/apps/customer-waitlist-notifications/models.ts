@@ -1,4 +1,4 @@
-import { asOptionalField, zObjectId } from "@hacado/types";
+import { asOptionalField, zObjectId } from "@hacado/types/utils";
 import { isSmsEnabled } from "@hacado/utils";
 import * as z from "zod";
 

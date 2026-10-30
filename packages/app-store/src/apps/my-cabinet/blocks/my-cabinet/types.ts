@@ -2,7 +2,7 @@ import type {
   Appointment,
   ModifyAppointmentInformation,
   ModifyAppointmentType,
-} from "@hacado/types";
+} from "@hacado/types/booking";
 
 export type AppointmentResponse = {
   appointment: Appointment;

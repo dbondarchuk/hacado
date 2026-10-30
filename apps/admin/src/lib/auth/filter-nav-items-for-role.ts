@@ -1,8 +1,5 @@
-import type {
-  NavItemGroup,
-  RequiredPermission,
-  SessionUser,
-} from "@hacado/types";
+import type { NavItemGroup } from "@hacado/types/admin";
+import type { RequiredPermission, SessionUser } from "@hacado/types/users";
 import { meetsRequiredPermission } from "@hacado/utils";
 
 type NavItemWithPermission = {

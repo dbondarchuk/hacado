@@ -1,8 +1,6 @@
 import { getLoggerFactory } from "@hacado/logger";
-import {
-  PAYMENT_UPDATED_EVENT_TYPE,
-  type PaymentUpdatedPayload,
-} from "@hacado/types";
+import type { PaymentUpdatedPayload } from "@hacado/types/events";
+import { PAYMENT_UPDATED_EVENT_TYPE } from "@hacado/types/events";
 import { claimEventHandler } from "../claim-event-handler";
 import type { EventHandler } from "./types";
 

@@ -4,8 +4,8 @@ import { I18nRichText } from "@hacado/i18n/components";
 import {
   isRequiredOptionTypes,
   optionPaymentCalculationType,
-  optionTipsModes,
-} from "@hacado/types";
+} from "@hacado/types/booking";
+import { optionTipsModes } from "@hacado/types/configuration/booking";
 import {
   FormControl,
   FormDescription,

@@ -3,7 +3,7 @@
 import { updateMyPhone } from "@/app/dashboard/users/me/profile/update-phone-action";
 import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
 import { useI18n } from "@hacado/i18n/client";
-import { zPhone } from "@hacado/types";
+import { zPhone } from "@hacado/types/utils";
 import {
   Button,
   Dialog,

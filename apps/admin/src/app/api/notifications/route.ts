@@ -5,12 +5,12 @@ import {
 } from "@/app/utils";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
-import { getDashboardNotificationRealtimeBroker } from "@hacado/services";
+import { getDashboardNotificationRealtimeBroker } from "@hacado/services/bullmq";
 import {
   DashboardNotification,
   IDashboardNotifierApp,
-  type SessionUser,
-} from "@hacado/types";
+} from "@hacado/types/apps";
+import type { SessionUser } from "@hacado/types/users";
 import {
   canReadActivity,
   canReadSyncedPayments,

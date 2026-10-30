@@ -1,7 +1,7 @@
 import { getServicesContainer, getUser } from "@/app/utils";
 import { communicationLogsSearchParamsLoader } from "@hacado/api-sdk";
 import { getLoggerFactory } from "@hacado/logger";
-import { okStatus } from "@hacado/types";
+import { okStatus } from "@hacado/types/general";
 import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
 import { NextRequest, NextResponse } from "next/server";
 

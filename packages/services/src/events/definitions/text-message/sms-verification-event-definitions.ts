@@ -1,18 +1,22 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
 import { BaseAllKeys } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
+import type { ActivitySeverity } from "@hacado/types/activity";
+import type {
+  EventDefinition,
+  EventEnvelope,
+  SmsVerificationStatusPayload,
+} from "@hacado/types/events";
 import {
   SMS_VERIFICATION_CREATED_EVENT_TYPE,
   SMS_VERIFICATION_FAILED_EVENT_TYPE,
   SMS_VERIFICATION_PENDING_EVENT_TYPE,
   SMS_VERIFICATION_SUCCEEDED_EVENT_TYPE,
-  type ActivitySeverity,
-  type EmailNotificationRequest,
-  type EventDefinition,
-  type EventEnvelope,
-  type IServicesContainer,
-  type SmsVerificationStatusPayload,
-} from "@hacado/types";
+} from "@hacado/types/events";
+import type {
+  EmailNotificationRequest,
+  IServicesContainer,
+} from "@hacado/types/services";
 import { getAdminUrl } from "@hacado/utils";
 import { dashboardUrls } from "../links";
 

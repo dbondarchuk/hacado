@@ -1,4 +1,4 @@
-import { PaymentFee } from "@hacado/types";
+import { PaymentFee } from "@hacado/types/booking";
 import { round2 } from "@hacado/utils";
 
 export type SquareMoney = {

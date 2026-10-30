@@ -1,5 +1,6 @@
 import { getI18nAsync } from "@hacado/i18n/server";
-import { getRedisClient, SystemServicesContainer } from "@hacado/services";
+import { getRedisClient } from "@hacado/services/bullmq";
+import { SystemServicesContainer } from "@hacado/services/container";
 import { randomInt } from "node:crypto";
 import {
   isMemberPhoneAvailable,

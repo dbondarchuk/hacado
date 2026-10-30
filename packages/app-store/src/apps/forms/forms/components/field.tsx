@@ -1,6 +1,6 @@
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
-import { fileFieldAcceptItemSchema } from "@hacado/types";
+import { fileFieldAcceptItemSchema } from "@hacado/types/booking";
 import {
   BooleanSelect,
   Button,

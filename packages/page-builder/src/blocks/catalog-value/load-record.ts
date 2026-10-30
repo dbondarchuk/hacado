@@ -1,5 +1,5 @@
 import type { Language } from "@hacado/i18n";
-import type { Currency } from "@hacado/types";
+import type { Currency } from "@hacado/types/utils";
 import { cache } from "react";
 import type { CatalogSource } from "./properties";
 import { type CatalogRecord, toCatalogRecord } from "./record";

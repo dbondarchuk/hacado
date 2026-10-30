@@ -1,5 +1,7 @@
 import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
-import { Customer, IConnectedAppProps, WithTotal } from "@hacado/types";
+import { IConnectedAppProps } from "@hacado/types/apps";
+import { Customer } from "@hacado/types/customers";
+import { WithTotal } from "@hacado/types/database";
 import { escapeRegex } from "@hacado/utils";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
