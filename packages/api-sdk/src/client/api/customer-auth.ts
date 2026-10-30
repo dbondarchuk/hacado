@@ -134,7 +134,7 @@ export const getMyPackages = async () => {
 };
 
 export const getEligiblePackages = async (params: {
-  optionId: string;
+  serviceId: string;
   memberId: string;
   dateTime?: string;
 }) => {

@@ -298,6 +298,8 @@ export const getAppointmentOptionSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return appointmentOptionSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({
@@ -355,6 +357,8 @@ export const getAppointmentAddonSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return appointmentAddonSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

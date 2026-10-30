@@ -1469,6 +1469,13 @@ pages:
     pageSlug: Адреса сторінки
     pageSlugTooltip: Відносний URL сторінки. Наприклад, сторінка з адресою 'my-new-page' буде доступна за повноюадресою 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Адреса сторінки
+    pageName: Назва сторінки
+    pageNamePlaceholder: напр. Політики
+    url: URL
+    editUrl: Редагувати URL
+    slugGeneratedPlaceholder: stvoreno-z-nazvy
+    slugAutoHint: Заповнюється, коли ви вводите назву. Ви можете змінити його.
+    slugChangeWarning: Зміна URL може зламати посилання, якими ви вже поділилися.
     published: Опубліковано?
     publishedTooltip: Чи видима сторінка для ваших відвідувачів
     publishDate: Дата публікації

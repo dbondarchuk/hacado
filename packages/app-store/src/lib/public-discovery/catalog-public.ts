@@ -32,7 +32,7 @@ export type PublicCatalogService = {
 };
 
 export type PublicCatalogPackageItem = {
-  optionId: string;
+  serviceId: string;
   name: string;
   credits: number;
   duration?: number;
@@ -77,16 +77,16 @@ function activeAssignmentsForOption(
 
 function walkCatalogLeaves(
   nodes: BookingCatalogNode[] | undefined,
-): Array<{ type: "option"; id: string } | { type: "package"; id: string }> {
+): Array<{ type: "service"; id: string } | { type: "package"; id: string }> {
   const leaves: Array<
-    { type: "option"; id: string } | { type: "package"; id: string }
+    { type: "service"; id: string } | { type: "package"; id: string }
   > = [];
   const walk = (list: BookingCatalogNode[]) => {
     for (const node of list) {
       if (node.type === "group") {
         walk(node.children ?? []);
-      } else if (node.type === "option" && node.optionId) {
-        leaves.push({ type: "option", id: node.optionId });
+      } else if (node.type === "service" && node.serviceId) {
+        leaves.push({ type: "service", id: node.serviceId });
       } else if (node.type === "package" && node.packageId) {
         leaves.push({ type: "package", id: node.packageId });
       }
@@ -140,7 +140,7 @@ function buildPackage(
   language: Language,
 ): PublicCatalogPackage {
   const included = summarizePackageItems(pkg.items, options).map((item) => ({
-    optionId: item.optionId,
+    serviceId: item.serviceId,
     name: item.name,
     credits: item.credits,
     duration: item.duration,
@@ -184,7 +184,7 @@ export async function getPublicCatalogSnapshot(
   const assignedMemberIds = new Set<string>();
 
   for (const leaf of walkCatalogLeaves(response.catalog)) {
-    if (leaf.type === "option") {
+    if (leaf.type === "service") {
       const option = optionsById.get(leaf.id);
       if (!option) continue;
 

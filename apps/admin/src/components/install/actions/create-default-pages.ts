@@ -19,7 +19,7 @@ import {
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
 import {
-  flattenCatalogOptionIds,
+  flattenCatalogServiceIds,
   IServicesContainer,
   systemEventSource,
 } from "@hacado/types";
@@ -306,7 +306,7 @@ async function getTemplateServices(
   logger.debug("Building template services payload");
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const optionIds = flattenCatalogOptionIds(booking?.catalog);
+  const optionIds = flattenCatalogServiceIds(booking?.catalog);
 
   const output: TemplateServiceArg[] = [];
   for (const optionId of optionIds) {

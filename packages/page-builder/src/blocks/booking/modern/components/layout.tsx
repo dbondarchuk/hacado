@@ -62,7 +62,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
           onClick={() => {
             if (!ctx.isEditor) {
               clientApi.booking.trackAdvanceFromUiStep(currentStep, {
-                optionId: selectedAppointmentOption?._id,
+                serviceId: selectedAppointmentOption?._id,
                 memberId: ctx.selectedMemberId ?? undefined,
                 duration,
               });

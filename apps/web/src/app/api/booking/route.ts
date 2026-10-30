@@ -264,7 +264,7 @@ export async function POST(request: NextRequest) {
           : "appointment",
         convertedId: result._id,
         appointmentId: result._id,
-        optionId: eventOrError.event.service._id,
+        serviceId: eventOrError.event.service._id,
         duration: eventOrError.event.totalDuration,
         customerId: appointmentRequest.fields.email,
         customerEmail: appointmentRequest.fields.email,

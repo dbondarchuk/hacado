@@ -17,6 +17,7 @@ import {
   FormLabel,
   FormLabelWithRequiredIndicator,
   FormMessage,
+  Heading,
   Input,
   Select,
   SelectContent,
@@ -221,52 +222,63 @@ export const BlogPostForm: React.FC<{
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full h-full space-y-8"
       >
-        <div className="flex flex-col gap-2 w-full">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    className="md:text-xl lg:text-2xl font-bold tracking-tight border-0 w-full px-0"
-                    autoFocus
-                    h={"lg"}
-                    disabled={loading}
-                    placeholder={t("form.titlePlaceholder")}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <Heading
+          title={t(isNewPost ? "app.pages.new.title" : "app.pages.edit.title")}
+          description={t(
+            isNewPost
+              ? "app.pages.new.description"
+              : "app.pages.edit.description",
+          )}
+        />
         <div className="grid lg:grid-cols-3 gap-4">
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem className="lg:col-span-2 w-full flex-grow relative h-full">
-                <FormLabel>{t("form.content")}</FormLabel>
-                <FormControl>
-                  <div className="min-h-[400px] border rounded-md min-w-0">
-                    <PlateEditor
-                      className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
+          <div className="lg:col-span-2 flex flex-col gap-4 min-w-0">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabelWithRequiredIndicator required>
+                    {t("form.title")}
+                  </FormLabelWithRequiredIndicator>
+                  <FormControl>
+                    <Input
+                      autoFocus
                       disabled={loading}
-                      value={field.value || []}
-                      onChange={(v) => {
-                        field.onChange(v);
-                        field.onBlur();
-                      }}
+                      placeholder={t("form.titlePlaceholder")}
+                      {...field}
+                      value={field.value ?? ""}
                     />
-                  </div>
-                </FormControl>
-                <FormDescription>{t("form.contentTooltip")}</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </FormControl>
+                  <FormDescription>{t("form.titleTooltip")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem className="w-full flex-grow relative h-full">
+                  <FormLabel>{t("form.content")}</FormLabel>
+                  <FormControl>
+                    <div className="min-h-[400px] border rounded-md min-w-0">
+                      <PlateEditor
+                        className="bg-background px-4 sm:px-4 pb-24 min-h-[400px]"
+                        disabled={loading}
+                        value={field.value || []}
+                        onChange={(v) => {
+                          field.onChange(v);
+                          field.onBlur();
+                        }}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormDescription>{t("form.contentTooltip")}</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <div className="flex flex-col gap-4">
             <FormField
               control={form.control}
@@ -310,9 +322,7 @@ export const BlogPostForm: React.FC<{
                         }}
                         value={field.value}
                         className="w-full"
-                        classNames={{
-                          trigger: "h-8 text-xs",
-                        }}
+                        classNames={{}}
                       />
                     </FormControl>
                     <FormDescription>
@@ -386,7 +396,7 @@ export const BlogPostForm: React.FC<{
                       }}
                     >
                       <FormControl>
-                        <SelectTrigger className="h-8 text-xs">
+                        <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                       </FormControl>

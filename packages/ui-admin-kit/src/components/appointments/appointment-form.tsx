@@ -767,7 +767,7 @@ export const AppointmentScheduleForm: React.FC<
   React.useEffect(() => {
     if (!customerPackageId || !customerPackage) return;
     if (
-      !customerPackage.items.some((item) => item.optionId === selectedOptionId)
+      !customerPackage.items.some((item) => item.serviceId === selectedOptionId)
     ) {
       form.setValue("customerPackageId", null);
       setCustomerPackage(undefined);
@@ -980,7 +980,7 @@ export const AppointmentScheduleForm: React.FC<
                         <CustomerPackageSelector
                           value={field.value ?? undefined}
                           customerId={customerId || undefined}
-                          optionId={selectedOptionId || undefined}
+                          serviceId={selectedOptionId || undefined}
                           memberId={selectedMemberId || undefined}
                           dateTime={dateTime}
                           disabled={loading || packageLocked}

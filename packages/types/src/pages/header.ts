@@ -104,7 +104,14 @@ export const getPageHeaderSchemaWithUniqueNameCheck = (
 ) => {
   return z.object({
     ...pageHeaderSchema.shape,
-    name: pageHeaderSchema.shape.name.refine(uniqueNameCheckFn, { message }),
+    name: pageHeaderSchema.shape.name.refine(
+      async (name) => {
+        if (!name) return true;
+
+        return uniqueNameCheckFn(name);
+      },
+      { message },
+    ),
   });
 };
 

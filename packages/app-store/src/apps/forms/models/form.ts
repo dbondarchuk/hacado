@@ -44,6 +44,8 @@ export const getFormSchemaWithUniqueCheck = (
   message: string = "app_forms_admin.validation.form.name.unique" satisfies FormsAdminAllKeys,
 ) => {
   return formSchemaBase.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

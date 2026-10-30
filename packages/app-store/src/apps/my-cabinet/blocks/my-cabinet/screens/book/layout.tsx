@@ -284,7 +284,7 @@ export const BookingWithWaitlistLayout = ({
                     onClick={() => {
                       if (!ctx.isEditor) {
                         trackWaitlistBookingUiStep(currentStep, {
-                          optionId: selectedAppointmentOption?._id,
+                          serviceId: selectedAppointmentOption?._id,
                           memberId: ctx.selectedMemberId ?? undefined,
                           duration,
                         });

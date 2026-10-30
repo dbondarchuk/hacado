@@ -77,6 +77,8 @@ export const getBlogPostSchemaWithUniqueCheck = (
   message: string = "app_blog_admin.validation.post.slug.unique" satisfies BlogAdminAllKeys,
 ) => {
   return blogPostSchema.superRefine(async (args, ctx) => {
+    if (!args.slug) return;
+
     const isUnique = await uniqueSlugCheckFn(args.slug);
     if (!isUnique) {
       ctx.addIssue({

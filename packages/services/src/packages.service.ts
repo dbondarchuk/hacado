@@ -83,7 +83,7 @@ export class PackagesService extends BaseService implements IPackagesService {
   private async snapshotItems(data: AppointmentPackageUpdateModel) {
     const items = await Promise.all(
       data.items.map(async (item) => {
-        const option = await this.catalogService.getService(item.optionId);
+        const option = await this.catalogService.getService(item.serviceId);
         if (!option) {
           throw new PackageError(
             "option_not_included",
@@ -92,7 +92,7 @@ export class PackagesService extends BaseService implements IPackagesService {
         }
         return {
           _id: item._id ?? new ObjectId().toString(),
-          optionId: item.optionId,
+          serviceId: item.serviceId,
           credits: item.credits,
           creditsPerRedemption: item.creditsPerRedemption ?? 1,
           optionName: option.name,
@@ -106,6 +106,11 @@ export class PackagesService extends BaseService implements IPackagesService {
     data: AppointmentPackageUpdateModel,
     source: EventSource,
   ): Promise<AppointmentPackage> {
+    const isUnique = await this.checkPackageUniqueName(data.name);
+    if (!isUnique) {
+      throw new PackageError("name_already_exists", "Name already exists");
+    }
+
     const items = await this.snapshotItems(data);
     const now = new Date();
     const doc: AppointmentPackage = {
@@ -144,6 +149,11 @@ export class PackagesService extends BaseService implements IPackagesService {
     const existing = await this.getPackage(id);
     if (!existing) return null;
 
+    const isUnique = await this.checkPackageUniqueName(data.name, id);
+    if (!isUnique) {
+      throw new PackageError("name_already_exists", "Name already exists");
+    }
+
     const items = await this.snapshotItems({
       ...data,
       items: data.items.map((item, index) => ({
@@ -177,6 +187,31 @@ export class PackagesService extends BaseService implements IPackagesService {
       source,
     );
     return updated;
+  }
+
+  public async checkPackageUniqueName(
+    name: string,
+    id?: string,
+  ): Promise<boolean> {
+    const logger = this.loggerFactory("checkPackageUniqueName");
+    logger.debug({ name, id }, "Checking package unique name");
+    const db = await getDbConnection();
+    const filter: Filter<AppointmentPackage> = {
+      name,
+      organizationId: this.organizationId,
+    };
+
+    if (id) {
+      filter._id = { $ne: id };
+    }
+
+    const hasNext = await db
+      .collection<AppointmentPackage>(APPOINTMENT_PACKAGES_COLLECTION_NAME)
+      .aggregate([{ $match: filter }])
+      .hasNext();
+
+    logger.debug({ name, id, hasNext }, "Package unique name check result");
+    return !hasNext;
   }
 
   public async setPackageStatus(
@@ -557,7 +592,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
     const eligibility = canUsePackageForAppointment({
       customerPackage,
-      optionId: input.optionId,
+      serviceId: input.serviceId,
       memberId: input.memberId,
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,
@@ -935,7 +970,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
   public async findEligible(input: {
     customerId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];
@@ -954,7 +989,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     return items.filter((pkg) => {
       const result = canUsePackageForAppointment({
         customerPackage: pkg,
-        optionId: input.optionId,
+        serviceId: input.serviceId,
         memberId: input.memberId,
         appointmentDate: input.appointmentDate,
         optionStaffMemberIds: input.optionStaffMemberIds,
@@ -965,7 +1000,7 @@ export class PackagesService extends BaseService implements IPackagesService {
 
   public async canUsePackageForAppointment(input: {
     customerPackageId: string;
-    optionId: string;
+    serviceId: string;
     memberId: string;
     appointmentDate: Date;
     optionStaffMemberIds: string[];
@@ -981,7 +1016,7 @@ export class PackagesService extends BaseService implements IPackagesService {
     }
     return canUsePackageForAppointment({
       customerPackage,
-      optionId: input.optionId,
+      serviceId: input.serviceId,
       memberId: input.memberId,
       appointmentDate: input.appointmentDate,
       optionStaffMemberIds: input.optionStaffMemberIds,

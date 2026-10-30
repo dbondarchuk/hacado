@@ -26,13 +26,13 @@ export function newAppointmentHrefForCustomerPackage(
       return remaining >= creditsPerRedemptionForItem(entry);
     }) ?? pkg.items[0];
 
-  if (!item?.optionId) return null;
+  if (!item?.serviceId) return null;
 
   return `/dashboard/appointments/new${serialize({
     customer: pkg.customerId,
     fromValue: {
       customerId: pkg.customerId,
-      optionId: item.optionId,
+      optionId: item.serviceId,
       customerPackageId: pkg._id,
     },
   })}`;

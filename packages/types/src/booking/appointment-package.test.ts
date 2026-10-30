@@ -8,7 +8,7 @@ import {
 } from "./appointment-package";
 
 const itemId = "111111111111111111111111";
-const optionId = "222222222222222222222222";
+const serviceId = "222222222222222222222222";
 const memberId = "333333333333333333333333";
 
 function makePackage(
@@ -26,7 +26,7 @@ function makePackage(
     items: [
       {
         _id: itemId,
-        optionId,
+        serviceId,
         credits: 10,
         creditsPerRedemption: 1,
         optionName: "Massage",
@@ -48,7 +48,7 @@ describe("package eligibility", () => {
   it("allows assigned staff when no member allowlist is set", () => {
     const result = canUsePackageForAppointment({
       customerPackage: makePackage(),
-      optionId,
+      serviceId,
       memberId,
       appointmentDate: new Date("2026-08-20T12:00:00.000Z"),
       optionStaffMemberIds: [memberId],
@@ -65,7 +65,7 @@ describe("package eligibility", () => {
       customerPackage: makePackage({
         expiresAt: new Date("2026-01-01T00:00:00.000Z"),
       }),
-      optionId,
+      serviceId,
       memberId,
       appointmentDate: new Date("2026-08-20T12:00:00.000Z"),
       optionStaffMemberIds: [memberId],
@@ -78,7 +78,7 @@ describe("package eligibility", () => {
   it("rejects when the option is not included", () => {
     const result = canUsePackageForAppointment({
       customerPackage: makePackage(),
-      optionId: "444444444444444444444444",
+      serviceId: "444444444444444444444444",
       memberId,
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
@@ -90,7 +90,7 @@ describe("package eligibility", () => {
   it("rejects staff outside the package allowlist", () => {
     const result = canUsePackageForAppointment({
       customerPackage: makePackage({ eligibleMemberIds: [memberId] }),
-      optionId,
+      serviceId,
       memberId: "555555555555555555555555",
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId, "555555555555555555555555"],
@@ -102,7 +102,7 @@ describe("package eligibility", () => {
   it("rejects staff not assigned to the option", () => {
     const result = canUsePackageForAppointment({
       customerPackage: makePackage(),
-      optionId,
+      serviceId,
       memberId,
       appointmentDate: new Date(),
       optionStaffMemberIds: ["555555555555555555555555"],
@@ -118,7 +118,7 @@ describe("package eligibility", () => {
         remainingCredits: 0,
         status: "exhausted",
       }),
-      optionId,
+      serviceId,
       memberId,
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
@@ -147,7 +147,7 @@ describe("package eligibility", () => {
         remainingByItem: { [itemId]: 1 },
         remainingCredits: 1,
       }),
-      optionId,
+      serviceId,
       memberId,
       appointmentDate: new Date(),
       optionStaffMemberIds: [memberId],
@@ -162,21 +162,21 @@ describe("summarizePackageItems", () => {
       [
         {
           _id: itemId,
-          optionId,
+          serviceId,
           credits: 10,
           creditsPerRedemption: 1,
         },
         {
           _id: "444444444444444444444444",
-          optionId: "555555555555555555555555",
+          serviceId: "555555555555555555555555",
           credits: 3,
           creditsPerRedemption: 1,
         },
       ],
-      [{ _id: optionId, name: "Massage" }],
+      [{ _id: serviceId, name: "Massage" }],
     );
     assert.deepEqual(next, [
-      { optionId, name: "Massage", credits: 10, duration: undefined },
+      { serviceId, name: "Massage", credits: 10, duration: undefined },
     ]);
   });
 
@@ -185,14 +185,14 @@ describe("summarizePackageItems", () => {
       [
         {
           _id: itemId,
-          optionId,
+          serviceId,
           credits: 5,
           creditsPerRedemption: 1,
         },
       ],
       [
         {
-          _id: optionId,
+          _id: serviceId,
           name: "Massage",
           durationType: "fixed",
           duration: 60,
@@ -200,7 +200,7 @@ describe("summarizePackageItems", () => {
       ],
     );
     assert.deepEqual(next, [
-      { optionId, name: "Massage", credits: 5, duration: 60 },
+      { serviceId, name: "Massage", credits: 5, duration: 60 },
     ]);
   });
 });

@@ -256,7 +256,7 @@ export const PageSettingsPanel = memo(
                   autoResize
                   placeholder={t("pages.form.descriptionPlaceholder")}
                   {...field}
-                  className="text-sm px-2 py-1"
+                  className="px-2 py-1"
                 />
               </FormControl>
               <FormDescription>

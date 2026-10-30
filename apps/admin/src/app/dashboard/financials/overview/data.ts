@@ -672,7 +672,7 @@ export function createFinancialOverviewQueries(organizationId: string) {
       estimatedRevenueAddFields(),
       {
         $group: {
-          _id: "$option.name",
+          _id: "$service.name",
           count: { $sum: 1 },
           revenue: { $sum: "$estimatedRevenue" },
         },

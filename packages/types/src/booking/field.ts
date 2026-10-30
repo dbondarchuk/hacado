@@ -106,6 +106,8 @@ export const getFieldSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return fieldSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

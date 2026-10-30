@@ -5,8 +5,8 @@ import {
   BookingCatalogNode,
   BookingConfiguration,
   catalogNodeIds,
-  flattenCatalogOptionIds,
   flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
   moveCatalogNode,
   normalizeCatalogNodes,
 } from "@hacado/types";
@@ -48,7 +48,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
   };
 
   const ids = catalogNodeIds(catalog);
-  const usedOptionIds = flattenCatalogOptionIds(catalog);
+  const usedOptionIds = flattenCatalogServiceIds(catalog);
   const usedPackageIds = flattenCatalogPackageIds(catalog);
   const sort = (activeId: string, overId: string) => {
     const next = moveCatalogNode(catalog, activeId, overId);
@@ -97,7 +97,7 @@ export const CatalogTab: React.FC<TabProps> = ({ form, disabled }) => {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() =>
-                  addNode({ type: "option", id: newId(), optionId: "" })
+                  addNode({ type: "service", id: newId(), serviceId: "" })
                 }
               >
                 <Sparkles className="h-4 w-4" />

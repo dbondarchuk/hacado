@@ -280,7 +280,7 @@ configuration:
         max: Le nom du groupe ne doit pas comporter plus de 256 caractères
       groupDescription:
         max: La description du groupe ne doit pas dépasser 1 024 caractères.
-      optionId:
+      serviceId:
         required: Le service est requis
         unique: Ce service est déjà dans le catalogue
       packageId:
@@ -528,6 +528,7 @@ package:
   name:
     required: Le nom du package est requis
     max: Le nom du package ne doit pas comporter plus de 256 caractères
+    unique: Le nom du package doit être unique
   description:
     required: La description du colis est requise
     max: La description du colis ne doit pas dépasser 1 024 caractères
@@ -535,7 +536,7 @@ package:
     min: Le prix du forfait doit être d'au moins 0
   items:
     min: Au moins un service est requis
-    optionId:
+    serviceId:
       required: Le service est requis
     credits:
       integer: Les crédits doivent être un nombre entier

@@ -5,7 +5,7 @@ import { BaseAllKeys } from "@hacado/i18n";
 import { getLoggerFactory } from "@hacado/logger";
 import {
   bookingConfigurationSchema,
-  flattenCatalogOptionIds,
+  flattenCatalogServiceIds,
   zObjectId,
 } from "@hacado/types";
 import { NextRequest, NextResponse } from "next/server";
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
 const addBookingAvailableOptionRequestSchema = z.object({
   optionId: zObjectId(
-    "validation.configuration.booking.catalog.optionId.required" satisfies BaseAllKeys,
+    "validation.configuration.booking.catalog.serviceId.required" satisfies BaseAllKeys,
   ),
 });
 
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
       : getDefaultBookingConfiguration();
 
   const catalog = booking.catalog ?? [];
-  const alreadyPresent = flattenCatalogOptionIds(catalog).includes(optionId);
+  const alreadyPresent = flattenCatalogServiceIds(catalog).includes(optionId);
   if (alreadyPresent) {
     logger.debug({ optionId }, "Option already present in booking catalog");
     return NextResponse.json({ success: true, alreadyPresent: true });
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
 
   const nextCatalog = [
     ...catalog,
-    { type: "option" as const, id: optionId, optionId },
+    { type: "service" as const, id: optionId, serviceId: optionId },
   ];
   const updatedBooking = bookingConfigurationSchema.parse({
     ...booking,

@@ -13,7 +13,9 @@ function parseClientTrackingMetadata(
   const src = raw as Record<string, unknown>;
   const metadata: BookingTrackingMetadata = {};
 
-  if (typeof src.optionId === "string") metadata.optionId = src.optionId;
+  if (typeof src.serviceId === "string") metadata.serviceId = src.serviceId;
+  else if (typeof src.optionId === "string") metadata.serviceId = src.optionId;
+
   if (typeof src.memberId === "string") metadata.memberId = src.memberId;
   if (typeof src.duration === "number" && Number.isFinite(src.duration)) {
     metadata.duration = src.duration;

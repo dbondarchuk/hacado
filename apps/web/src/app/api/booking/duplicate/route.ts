@@ -84,11 +84,11 @@ export async function POST(request: NextRequest) {
   }
 
   if (!eventOrError.customer) {
-    logger.error(
+    logger.info(
       {
         optionId: appointmentRequest.serviceId,
       },
-      "Customer not found",
+      "Customer not found - maybe new customer",
     );
 
     return NextResponse.json({

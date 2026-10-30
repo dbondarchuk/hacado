@@ -1,13 +1,9 @@
 "use client";
 
-import { useI18n } from "@hacado/i18n/client";
-import { Link } from "@hacado/ui";
 import { DataTableResetFilter, DataTableSearch } from "@hacado/ui-admin";
-import { Plus, Receipt } from "lucide-react";
 import { usePackagesTableFilters } from "./use-table-filters";
 
 export function PackagesTableAction() {
-  const t = useI18n("admin");
   const {
     isAnyFilterActive,
     resetFilters,
@@ -29,28 +25,6 @@ export function PackagesTableAction() {
           isFilterActive={isAnyFilterActive}
           onReset={resetFilters}
         />
-      </div>
-      <div className="flex flex-wrap items-center gap-2">
-        <Link
-          href="/dashboard/catalog/packages/sold"
-          button
-          variant="outline"
-          aria-label={t("catalog.packages.sold.title")}
-        >
-          <Receipt className="h-4 w-4" />
-          <span className="max-md:hidden">
-            {t("catalog.packages.sold.title")}
-          </span>
-        </Link>
-        <Link
-          href="/dashboard/catalog/packages/new"
-          button
-          variant="default"
-          aria-label={t("catalog.packages.addNew")}
-        >
-          <Plus className="h-4 w-4" />
-          <span className="max-md:hidden">{t("catalog.packages.addNew")}</span>
-        </Link>
       </div>
     </div>
   );

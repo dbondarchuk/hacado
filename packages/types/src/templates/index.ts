@@ -53,6 +53,8 @@ export const getTemplateSchemaWithUniqueCheck = (
   message: string,
 ) => {
   return templateSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
     const isUnique = await uniqueNameCheckFn(args.name);
     if (!isUnique) {
       ctx.addIssue({

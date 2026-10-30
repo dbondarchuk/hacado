@@ -42,6 +42,20 @@ export type BookingProgressTrackerDeps = {
 const TERMINAL_COMPLETED = "completed";
 const TERMINAL_ABANDONED = "abandoned";
 
+type LegacyBookingProgressSession = BookingProgressSession & {
+  optionId?: string;
+};
+
+function readSession(raw: string): BookingProgressSession {
+  const session = JSON.parse(raw) as LegacyBookingProgressSession;
+  if (!session.serviceId && session.optionId) {
+    session.serviceId = session.optionId;
+  }
+  delete session.optionId;
+
+  return session;
+}
+
 export class BookingProgressTracker {
   private readonly organizationId: string;
   private readonly redis: BookingProgressRedis;
@@ -83,9 +97,7 @@ export class BookingProgressTracker {
 
     const sessionKey = getRedisKey(this.organizationId, sessionId);
     const existingRaw = await this.redis.get(sessionKey);
-    const existing = existingRaw
-      ? (JSON.parse(existingRaw) as BookingProgressSession)
-      : null;
+    const existing = existingRaw ? readSession(existingRaw) : null;
 
     if (!existing && createIfMissing === false) {
       return;
@@ -182,7 +194,7 @@ export class BookingProgressTracker {
       return { claimed: false, skippedOptionsOnly: false };
     }
 
-    const session = JSON.parse(existingRaw) as BookingProgressSession;
+    const session = readSession(existingRaw);
     const now = this.now();
     if (
       session.status !== "active" ||
@@ -200,7 +212,7 @@ export class BookingProgressTracker {
     if (!latestRaw) {
       return { claimed: false, skippedOptionsOnly: false };
     }
-    const latest = JSON.parse(latestRaw) as BookingProgressSession;
+    const latest = readSession(latestRaw);
     if (!isSessionStale(latest.lastActivityAt, this.abandonAfterSeconds, now)) {
       await this.redis.del(getTerminalKey(this.organizationId, sessionId));
       return { claimed: false, skippedOptionsOnly: false };
@@ -229,7 +241,10 @@ export class BookingProgressTracker {
     metadata?: BookingTrackingMetadata,
   ): void {
     if (!metadata) return;
-    if (metadata.optionId) session.optionId = metadata.optionId;
+
+    const legacyOptionId = (metadata as { optionId?: string }).optionId;
+    const serviceId = metadata.serviceId || legacyOptionId;
+    if (serviceId) session.serviceId = serviceId;
     if (metadata.duration !== undefined) session.duration = metadata.duration;
     if (metadata.isPaymentRequired !== undefined) {
       session.isPaymentRequired = metadata.isPaymentRequired;

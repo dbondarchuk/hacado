@@ -84,6 +84,26 @@ export const updatePackage = async (
   return result;
 };
 
+export const checkPackageUniqueName = async (name: string, id?: string) => {
+  console.debug("Checking package name uniqueness", {
+    name,
+    id,
+  });
+
+  const response = await fetchAdminApi(
+    `/packages/check?name=${encodeURIComponent(name)}${id ? `&id=${encodeURIComponent(id)}` : ""}`,
+  );
+
+  const data = await response.json<{ isUnique: boolean }>();
+  console.debug("Package name uniqueness check completed", {
+    name,
+    id,
+    isUnique: data.isUnique,
+  });
+
+  return data.isUnique;
+};
+
 export const deletePackage = async (id: string) => {
   console.debug("Deleting package", {
     id,
@@ -201,7 +221,7 @@ export const getCustomerPackages = async (params: {
 
 export const getEligibleCustomerPackages = async (params: {
   customerId: string;
-  optionId: string;
+  serviceId: string;
   memberId: string;
   dateTime?: Date;
 }) => {
@@ -211,7 +231,7 @@ export const getEligibleCustomerPackages = async (params: {
 
   const search = new URLSearchParams({
     customerId: params.customerId,
-    optionId: params.optionId,
+    serviceId: params.serviceId,
     memberId: params.memberId,
   });
 

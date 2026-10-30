@@ -70,7 +70,7 @@ const BookingNavButtons = ({ className }: { className?: string }) => {
           onClick={() => {
             if (!ctx.isEditor) {
               trackWaitlistBookingUiStep(currentStep, {
-                optionId: selectedAppointmentOption?._id,
+                serviceId: selectedAppointmentOption?._id,
                 memberId: ctx.selectedMemberId ?? undefined,
                 duration,
               });

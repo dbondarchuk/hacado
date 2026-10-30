@@ -344,7 +344,7 @@ configuration:
         max: Group name must be no more than 256 characters
       groupDescription:
         max: Group description must be no more than 1024 characters
-      optionId:
+      serviceId:
         required: Service is required
         unique: This service is already in the catalog
       packageId:
@@ -594,6 +594,7 @@ package:
   name:
     required: Package name is required
     max: Package name must be no more than 256 characters
+    unique: Package name must be unique
   description:
     required: Package description is required
     max: Package description must be no more than 1024 characters
@@ -601,7 +602,7 @@ package:
     min: Package price must be at least 0
   items:
     min: At least one service is required
-    optionId:
+    serviceId:
       required: Service is required
     credits:
       integer: Credits must be an integer

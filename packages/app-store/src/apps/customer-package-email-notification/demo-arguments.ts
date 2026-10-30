@@ -19,7 +19,7 @@ export const demoCustomerPackage: CustomerPackage = {
   items: [
     {
       _id: itemId,
-      optionId: "dfjkdlfj",
+      serviceId: "dfjkdlfj",
       credits: 10,
       creditsPerRedemption: 1,
       optionName: "Demo option",

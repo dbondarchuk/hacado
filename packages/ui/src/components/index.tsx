@@ -34,6 +34,7 @@ export * from "./duration-input";
 export * from "./form";
 export * from "./forms";
 export * from "./heading";
+export * from "./hint-input";
 export * from "./icon";
 export * from "./iframe";
 export * from "./image-zoom";

@@ -20,27 +20,31 @@ export async function GET(request: NextRequest) {
   });
 
   const customerId = request.nextUrl.searchParams.get("customerId") ?? "";
-  const optionId = request.nextUrl.searchParams.get("optionId") ?? "";
+  const serviceId =
+    request.nextUrl.searchParams.get("serviceId") ||
+    request.nextUrl.searchParams.get("optionId") ||
+    "";
+
   const memberId = request.nextUrl.searchParams.get("memberId") ?? "";
   const dateTimeRaw = request.nextUrl.searchParams.get("dateTime");
   const appointmentDate = dateTimeRaw ? new Date(dateTimeRaw) : new Date();
 
-  if (!customerId || !optionId || !memberId) {
+  if (!customerId || !serviceId || !memberId) {
     logger.debug("Invalid request parameters", {
       customerId,
-      optionId,
+      serviceId,
       memberId,
     });
     return NextResponse.json({ items: [] });
   }
 
   const servicesContainer = await getServicesContainer();
-  const option = await servicesContainer.catalogService.getService(optionId);
+  const option = await servicesContainer.catalogService.getService(serviceId);
   const optionStaffMemberIds = (option?.staff ?? []).map((s) => s.memberId);
 
   const items = await servicesContainer.packagesService.findEligible({
     customerId,
-    optionId,
+    serviceId,
     memberId,
     appointmentDate,
     optionStaffMemberIds,

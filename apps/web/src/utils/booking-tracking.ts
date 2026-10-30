@@ -89,7 +89,7 @@ export async function trackBookingStepWithCustomer(
 
   const enhancedMetadata: BookingTrackingMetadata = {
     ...metadata,
-    optionId: appointmentRequest?.serviceId || metadata?.optionId,
+    serviceId: appointmentRequest?.serviceId || metadata?.serviceId,
     customerEmail: appointmentRequest?.fields?.email,
     customerName: appointmentRequest?.fields?.name,
     customerId,

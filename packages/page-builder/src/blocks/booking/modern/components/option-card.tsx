@@ -83,7 +83,7 @@ export const AppointmentOptionCard: React.FC = () => {
   const filteredCatalog = React.useMemo(
     () =>
       filterCatalogNodes(catalog, {
-        optionIds: visibleOptions.map((option) => option._id),
+        serviceIds: visibleOptions.map((option) => option._id),
         packageIds: packages?.map((pkg) => pkg._id),
       }),
     [catalog, visibleOptions, packages],
@@ -354,11 +354,11 @@ export const AppointmentOptionCard: React.FC = () => {
       const needed = creditsPerRedemptionForItem(item);
       return (
         remaining >= needed &&
-        appointmentOptions.some((option) => option._id === item.optionId)
+        appointmentOptions.some((option) => option._id === item.serviceId)
       );
     });
     const option = redeemableItem
-      ? appointmentOptions.find((item) => item._id === redeemableItem.optionId)
+      ? appointmentOptions.find((item) => item._id === redeemableItem.serviceId)
       : undefined;
     if (!option) {
       setPackagesError(true);
@@ -388,7 +388,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setCurrentStep("calendar");
     if (!isEditor) {
       clientApi.booking.trackAdvanceFromUiStep("option", {
-        optionId: option._id,
+        serviceId: option._id,
         memberId: memberId ?? undefined,
         duration: nextDuration,
       });
@@ -539,7 +539,7 @@ export const AppointmentOptionCard: React.FC = () => {
                     )}
                     onClick={() => {
                       const option = appointmentOptions.find(
-                        (item) => item._id === pkg.items[0]?.optionId,
+                        (item) => item._id === pkg.items[0]?.serviceId,
                       );
                       if (!option) return;
                       setPurchasePackageId(pkg._id);
@@ -576,7 +576,7 @@ export const AppointmentOptionCard: React.FC = () => {
                         <ul className="space-y-0.5 text-xs text-muted-foreground package-card-included-list">
                           {included.map((item) => (
                             <li
-                              key={item.optionId}
+                              key={item.serviceId}
                               className="flex items-center justify-between gap-2 package-card-included-item"
                             >
                               <span className="package-card-included-item-name">
@@ -603,7 +603,7 @@ export const AppointmentOptionCard: React.FC = () => {
                 );
               }
               const option = visibleOptions.find(
-                (item) => item._id === node.optionId,
+                (item) => item._id === node.serviceId,
               );
               if (!option) return null;
               return renderServiceOption(option, {

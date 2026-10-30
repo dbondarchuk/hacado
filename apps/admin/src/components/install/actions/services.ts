@@ -10,7 +10,7 @@ import {
   appointmentAddonSchema,
   canCreateMoreServices,
   catalogFromFlatOptions,
-  flattenCatalogOptionIds,
+  flattenCatalogServiceIds,
   FREE_TIER_LIMITS,
   ServiceLimitReachedError,
   type AppointmentAddonUpdateModel,
@@ -98,7 +98,7 @@ export async function replaceServices(
     booking = getDefaultBookingConfiguration();
   }
 
-  const oldIds = [...new Set(flattenCatalogOptionIds(booking.catalog))];
+  const oldIds = [...new Set(flattenCatalogServiceIds(booking.catalog))];
 
   for (const id of oldIds) {
     const opt = await services.catalogService.getService(id);
@@ -315,7 +315,7 @@ export async function getInstallServicesSnapshot(): Promise<
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const ids = flattenCatalogOptionIds(booking?.catalog);
+  const ids = flattenCatalogServiceIds(booking?.catalog);
 
   const rows: InstallServiceServerSnapshot[] = [];
   for (const id of ids) {

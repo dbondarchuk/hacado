@@ -1469,6 +1469,13 @@ pages:
     pageSlug: Babosa de página
     pageSlugTooltip: URL relativa a la página. Por ejemplo, la página con el slug 'mi-nueva-página' estará disponible en 'tudominio.com/mi-nueva-página'
     pageSlugPlaceholder: Babosa de página
+    pageName: Nombre de la página
+    pageNamePlaceholder: p. ej. Políticas
+    url: URL
+    editUrl: Editar URL
+    slugGeneratedPlaceholder: creado-a-partir-del-nombre
+    slugAutoHint: Se completa al escribir el nombre. Puedes cambiarlo.
+    slugChangeWarning: Cambiar la URL puede romper los enlaces que ya has compartido.
     published: ¿Publicado?
     publishedTooltip: ¿La página es visible para sus visitantes?
     publishDate: Fecha de publicación

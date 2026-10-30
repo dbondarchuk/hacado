@@ -14,7 +14,7 @@ import {
 } from "@hacado/page-builder/templates";
 import { deserializeMarkdown } from "@hacado/rte";
 import { ServicesContainer } from "@hacado/services";
-import { flattenCatalogOptionIds } from "@hacado/types";
+import { flattenCatalogServiceIds } from "@hacado/types";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -60,7 +60,7 @@ async function loadLayoutServices(
   const services = ServicesContainer(organizationId, true);
   const booking =
     (await services.configurationService.getConfiguration("booking")) ?? null;
-  const optionIds = flattenCatalogOptionIds(booking?.catalog);
+  const optionIds = flattenCatalogServiceIds(booking?.catalog);
   const output: LayoutTemplateService[] = [];
 
   for (const optionId of optionIds) {

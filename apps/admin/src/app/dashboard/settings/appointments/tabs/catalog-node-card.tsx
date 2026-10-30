@@ -86,7 +86,7 @@ const GroupChildrenList: React.FC<{
           size="sm"
           disabled={disabled}
           onClick={() =>
-            append({ type: "option", id: newId(), optionId: "" } as never)
+            append({ type: "service", id: newId(), serviceId: "" } as never)
           }
         >
           {t("settings.appointments.form.options.addService")}
@@ -207,10 +207,10 @@ export const CatalogNodeCard: React.FC<{
         </Button>
       </CardHeader>
       <CardContent className="flex min-w-0 flex-col gap-3">
-        {node.type === "option" ? (
+        {node.type === "service" ? (
           <FormField
             control={form.control}
-            name={fieldName("optionId")}
+            name={fieldName("serviceId")}
             render={({ field }) => (
               <FormItem className="min-w-0 grid-cols-[minmax(0,1fr)]">
                 <FormLabelWithRequiredIndicator required>

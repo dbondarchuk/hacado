@@ -45,6 +45,7 @@ export const packageErrorCodes = [
   "no_redemption_to_restore",
   "has_purchases",
   "payment_required",
+  "name_already_exists",
 ] as const;
 export type PackageErrorCode = (typeof packageErrorCodes)[number];
 
@@ -60,7 +61,7 @@ export class PackageError extends Error {
 
 export const appointmentPackageItemSchema = z.object({
   _id: zObjectId().optional(),
-  optionId: zObjectId("validation.package.items.optionId.required"),
+  serviceId: zObjectId("validation.package.items.serviceId.required"),
   credits: z.coerce
     .number<number>()
     .int("validation.package.items.credits.integer")
@@ -78,7 +79,7 @@ export type AppointmentPackageItemInput = z.infer<
 
 export type AppointmentPackageItem = Prettify<
   Required<
-    Pick<AppointmentPackageItemInput, "_id" | "optionId" | "credits">
+    Pick<AppointmentPackageItemInput, "_id" | "serviceId" | "credits">
   > & {
     creditsPerRedemption: number;
   }
@@ -122,6 +123,24 @@ export const appointmentPackageSchema = z.object({
   ).optional(),
   isAutoConfirm: z.enum(isRequiredOptionTypes).default("inherit"),
 });
+
+export const getAppointmentPackageSchemaWithUniqueCheck = (
+  uniqueNameCheckFn: (name: string) => Promise<boolean>,
+  message: string,
+) => {
+  return appointmentPackageSchema.superRefine(async (args, ctx) => {
+    if (!args.name) return;
+
+    const isUnique = await uniqueNameCheckFn(args.name);
+    if (!isUnique) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["name"],
+        message,
+      });
+    }
+  });
+};
 
 export type AppointmentPackageUpdateModel = z.infer<
   typeof appointmentPackageSchema
@@ -202,7 +221,7 @@ export function isAppointmentCoveredByPackage(appointment: {
 
 export type PackageEligibilityInput = {
   customerPackage: CustomerPackage;
-  optionId: string;
+  serviceId: string;
   memberId: string;
   appointmentDate: Date;
   optionStaffMemberIds: string[];
@@ -214,7 +233,7 @@ export type PackageEligibilityResult =
   | { ok: false; code: PackageErrorCode };
 
 export type PackageItemSummary = {
-  optionId: string;
+  serviceId: string;
   name: string;
   credits: number;
   duration?: number;
@@ -235,13 +254,13 @@ export function summarizePackageItems(
   if (!items?.length) return [];
   const byId = new Map((options ?? []).map((option) => [option._id, option]));
   return items.flatMap((item) => {
-    const option = byId.get(item.optionId);
+    const option = byId.get(item.serviceId);
     if (!option) return [];
     const duration =
       option.durationType === "flexible" ? option.durationMin : option.duration;
     return [
       {
-        optionId: item.optionId,
+        serviceId: item.serviceId,
         name: option.name,
         credits: item.credits,
         duration,
@@ -297,7 +316,7 @@ export function canUsePackageForAppointment(
   }
 
   const item = input.customerPackage.items.find(
-    (entry) => entry.optionId === input.optionId,
+    (entry) => entry.serviceId === input.serviceId,
   );
   if (!item) {
     return { ok: false, code: "option_not_included" };

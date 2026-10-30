@@ -149,7 +149,7 @@ export default async function Page(props: Props) {
       <HeaderActionButtonsProvider>
         <div className="flex flex-1 flex-col gap-4 w-full">
           <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex flex-row items-center gap-4 justify-between">
+          <div className="flex flex-row items-center gap-4 justify-between empty:hidden">
             {!menuItem.hideHeading && (
               <Heading
                 title={title}

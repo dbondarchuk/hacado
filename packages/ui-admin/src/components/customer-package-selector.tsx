@@ -44,7 +44,7 @@ const toItem = (pkg: CustomerPackage): IComboboxItem => ({
 export type CustomerPackageSelectorProps = {
   value?: string;
   customerId?: string;
-  optionId?: string;
+  serviceId?: string;
   memberId?: string;
   dateTime?: Date;
   disabled?: boolean;
@@ -62,7 +62,7 @@ export const CustomerPackageSelector = React.forwardRef<
     {
       value,
       customerId,
-      optionId,
+      serviceId,
       memberId,
       dateTime,
       disabled,
@@ -79,18 +79,18 @@ export const CustomerPackageSelector = React.forwardRef<
       Record<string, CustomerPackage>
     >({});
 
-    const canFetch = !!customerId && !!optionId && !!memberId;
-    const fetchKey = `${customerId ?? ""}:${optionId ?? ""}:${memberId ?? ""}:${dateTime?.toISOString() ?? ""}`;
+    const canFetch = !!customerId && !!serviceId && !!memberId;
+    const fetchKey = `${customerId ?? ""}:${serviceId ?? ""}:${memberId ?? ""}:${dateTime?.toISOString() ?? ""}`;
 
     const getPackages = React.useCallback(
       async (_page: number, _search?: string) => {
-        if (!customerId || !optionId || !memberId) {
+        if (!customerId || !serviceId || !memberId) {
           return { items: [] as IComboboxItem[], hasMore: false };
         }
 
         const result = await adminApi.packages.getEligibleCustomerPackages({
           customerId,
-          optionId,
+          serviceId,
           memberId,
           dateTime,
         });
@@ -121,7 +121,7 @@ export const CustomerPackageSelector = React.forwardRef<
           hasMore: false,
         };
       },
-      [customerId, optionId, memberId, dateTime, value],
+      [customerId, serviceId, memberId, dateTime, value],
     );
 
     React.useEffect(() => {

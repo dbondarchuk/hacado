@@ -26,25 +26,19 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupAddonClasses,
-  InputGroupInput,
-  InputGroupInputClasses,
-  Link,
   toastPromise,
   useDebounceCacheFn,
 } from "@hacado/ui";
 import { SaveButton, useDemoArguments } from "@hacado/ui-admin";
 import { formatArguments, generateSlugPreview } from "@hacado/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Globe, Settings as SettingsIcon } from "lucide-react";
+import { Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import { NavigationGuardDialog, useIsDirty } from "../navigation-guard/dialog";
+import { PageIdentityBar } from "./page-identity-bar";
 import { PageSettingsPanel } from "./page-settings-panel";
 
 // Helper function to generate slug from title
@@ -344,90 +338,20 @@ export const PageForm: React.FC<{
   return (
     <Form {...form}>
       <NavigationGuardDialog isDirty={isFormDirty} />
-      <div className="flex flex-1 flex-col gap-4">
-        <div className="flex flex-col gap-4 justify-between">
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="flex flex-col">
           <Breadcrumbs items={breadcrumbItems} />
-          <div className="flex flex-col-reverse md:flex-row md:items-start justify-between gap-4">
-            {/* <Heading title={t("pages.edit")} description={`/${slug}`} /> */}
-            <div className="flex flex-col gap-2 w-full">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        className="md:text-2xl lg:text-2xl font-bold tracking-tight border-0 w-full"
-                        autoFocus
-                        h={"lg"}
-                        disabled={loading}
-                        placeholder={t("pages.form.titlePlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="slug"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <InputGroup>
-                        <InputGroupAddon
-                          className={cn(
-                            InputGroupAddonClasses({
-                              variant: "prefix",
-                              h: "sm",
-                            }),
-                            "border-0 pt-2.5",
-                          )}
-                        >
-                          <span className="text-base text-muted-foreground">
-                            /
-                          </span>
-                        </InputGroupAddon>
-                        <InputGroupInput>
-                          <Input
-                            className={cn(
-                              "text-base text-muted-foreground",
-                              InputGroupInputClasses({ variant: "prefix" }),
-                              "pl-0.5 border-0",
-                            )}
-                            h="sm"
-                            disabled={
-                              loading || (!isNewPage && slug === "home")
-                            }
-                            placeholder={t("pages.form.pageSlugPlaceholder")}
-                            onChange={(e) => {
-                              field.onChange(e);
-                              setSlugManuallyChanged(true);
-                            }}
-                            value={field.value}
-                          />
-                        </InputGroupInput>
-                      </InputGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {initialData?._id && initialData.slug && (
-              <Link
-                button
-                href={`${websiteUrl}/${initialData.slug}?preview=true`}
-                variant="default"
-                target="_blank"
-              >
-                <Globe /> {t("pages.viewPage")}
-              </Link>
-            )}
-          </div>
-          {/* <Separator /> */}
+          <PageIdentityBar
+            loading={loading}
+            websiteUrl={websiteUrl}
+            isNewPage={isNewPage}
+            onSlugManualChange={() => setSlugManuallyChanged(true)}
+            viewHref={
+              initialData?._id && initialData.slug
+                ? `${websiteUrl}/${initialData.slug}?preview=true`
+                : undefined
+            }
+          />
         </div>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

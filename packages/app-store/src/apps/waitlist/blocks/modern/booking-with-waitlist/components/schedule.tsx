@@ -21,7 +21,7 @@ import {
   ApplyDiscountResponse,
   AvailabilityByMember,
   BookingRestriction,
-  catalogPathForOption,
+  catalogPathForService,
   CheckDuplicateAppointmentsResponse,
   effectiveAddonDuration,
   getActiveStaffAcrossAssignments,
@@ -308,7 +308,7 @@ export const Schedule: React.FC<
 
   React.useEffect(() => {
     if (!waitlistOffer || appliedOfferCatalogPath.current) return;
-    const path = catalogPathForOption(catalog, waitlistOffer.optionId);
+    const path = catalogPathForService(catalog, waitlistOffer.optionId);
     if (path === undefined) return;
     setCatalogPath(path);
     appliedOfferCatalogPath.current = true;

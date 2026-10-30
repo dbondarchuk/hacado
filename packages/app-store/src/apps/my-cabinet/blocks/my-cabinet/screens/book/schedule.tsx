@@ -614,13 +614,13 @@ export const Schedule: React.FC<
           const needed = creditsPerRedemptionForItem(item);
           return (
             remaining >= needed &&
-            appointmentOptions.some((option) => option._id === item.optionId)
+            appointmentOptions.some((option) => option._id === item.serviceId)
           );
         });
 
         const option = redeemableItem
           ? appointmentOptions.find(
-              (item) => item._id === redeemableItem.optionId,
+              (item) => item._id === redeemableItem.serviceId,
             )
           : undefined;
 

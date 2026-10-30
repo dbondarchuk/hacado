@@ -1,6 +1,10 @@
 import PageContainer from "@/components/admin/layout/page-container";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { Breadcrumbs, Heading } from "@hacado/ui";
+import {
+  HeaderActionButtonsContainer,
+  HeaderActionButtonsProvider,
+} from "@hacado/ui-admin-kit";
 import { Metadata } from "next";
 import { FinancialsOverviewLoader } from "./loader";
 
@@ -31,16 +35,22 @@ export default async function FinancialOverviewPage(props: Params) {
 
   return (
     <PageContainer scrollable>
-      <div className="flex flex-1 flex-col gap-4 w-full">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("financialOverview.view.title")}
-            description={t("financialOverview.description")}
-          />
+      <HeaderActionButtonsProvider>
+        <div className="flex flex-1 flex-col gap-4 w-full">
+          <div className="flex flex-col gap-4">
+            <Breadcrumbs items={breadcrumbItems} />
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <Heading
+                title={t("financialOverview.view.title")}
+                description={t("financialOverview.description")}
+                className="min-w-0"
+              />
+              <HeaderActionButtonsContainer className="w-full flex-wrap justify-end md:w-auto" />
+            </div>
+          </div>
+          <FinancialsOverviewLoader searchParams={searchParams} />
         </div>
-        <FinancialsOverviewLoader searchParams={searchParams} />
-      </div>
+      </HeaderActionButtonsProvider>
     </PageContainer>
   );
 }

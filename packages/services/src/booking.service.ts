@@ -29,8 +29,8 @@ import {
   DISCOUNT_APPLIED_EVENT_TYPE,
   emptyCustomerAppointmentTextOffer,
   FieldSchema,
-  flattenCatalogOptionIds,
   flattenCatalogPackageIds,
+  flattenCatalogServiceIds,
   FREE_TIER_LIMITS,
   getActiveStaffForAssignments,
   GetAppointmentOptionsResponse,
@@ -1709,11 +1709,11 @@ export class BookingService extends BaseService implements IBookingService {
       {} as Record<string, FieldSchema>,
     );
 
-    const catalogOptionIds = flattenCatalogOptionIds(config.catalog);
+    const catalogOptionIds = flattenCatalogServiceIds(config.catalog);
     const catalogPackageIds = new Set(flattenCatalogPackageIds(config.catalog));
     const packageItemOptionIds = publicPackages
       .filter((pkg) => catalogPackageIds.has(pkg._id))
-      .flatMap((pkg) => pkg.items.map((item) => item.optionId));
+      .flatMap((pkg) => pkg.items.map((item) => item.serviceId));
 
     let customerPackageOptionIds: string[] = [];
     if (opts?.customerId) {
@@ -1729,7 +1729,7 @@ export class BookingService extends BaseService implements IBookingService {
           customerPackages.flatMap((pkg) =>
             pkg.items
               .filter((item) => (pkg.remainingByItem[item._id] ?? 0) > 0)
-              .map((item) => item.optionId),
+              .map((item) => item.serviceId),
           ),
         ),
       ];
@@ -1827,8 +1827,8 @@ export class BookingService extends BaseService implements IBookingService {
             const children = filterCatalog(node.children);
             return children.length ? { ...node, children } : null;
           }
-          if (node.type === "option") {
-            return bookableOptionIds.has(node.optionId) ? node : null;
+          if (node.type === "service") {
+            return bookableOptionIds.has(node.serviceId) ? node : null;
           }
           return publicPackageIds.has(node.packageId) ? node : null;
         })
@@ -1842,7 +1842,7 @@ export class BookingService extends BaseService implements IBookingService {
       members,
       catalog: filterCatalog(catalogSource),
       packages: publicPackages.filter((pkg) =>
-        pkg.items.some((item) => bookableOptionIds.has(item.optionId)),
+        pkg.items.some((item) => bookableOptionIds.has(item.serviceId)),
       ),
       requireCustomerOtp: !!config.requireCustomerOtp,
       hasActiveCustomerPackages,
@@ -2375,7 +2375,7 @@ export class BookingService extends BaseService implements IBookingService {
         dbEvent.packageUsage = await this.packagesService.redeem({
           customerPackageId: redeemPackageId,
           appointmentId: id,
-          optionId: event.service._id,
+          serviceId: event.service._id,
           memberId,
           appointmentDate: event.dateTime,
           optionStaffMemberIds,

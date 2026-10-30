@@ -26,7 +26,7 @@ import {
   FieldsType,
   FieldType,
   filterCatalogNodes,
-  flattenCatalogOptionIds,
+  flattenCatalogServiceIds,
   FREE_TIER_LIMITS,
   ICatalogService,
   IConfigurationService,
@@ -1141,7 +1141,7 @@ export class CatalogService extends BaseService implements ICatalogService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
-    const catalogOptionIds = flattenCatalogOptionIds(
+    const catalogOptionIds = flattenCatalogServiceIds(
       bookingConfiguration?.catalog,
     );
     if (catalogOptionIds.includes(id)) {
@@ -1155,7 +1155,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         {
           ...bookingConfiguration,
           catalog: filterCatalogNodes(bookingConfiguration.catalog, {
-            optionIds: remainingIds,
+            serviceIds: remainingIds,
           }),
         },
         source,
@@ -1196,7 +1196,7 @@ export class CatalogService extends BaseService implements ICatalogService {
 
     const bookingConfiguration =
       await this.configurationService.getConfiguration<"booking">("booking");
-    const catalogOptionIds = flattenCatalogOptionIds(
+    const catalogOptionIds = flattenCatalogServiceIds(
       bookingConfiguration?.catalog,
     );
     if (catalogOptionIds.some((optionId) => ids.includes(optionId))) {
@@ -1210,7 +1210,7 @@ export class CatalogService extends BaseService implements ICatalogService {
         {
           ...bookingConfiguration,
           catalog: filterCatalogNodes(bookingConfiguration.catalog, {
-            optionIds: remainingIds,
+            serviceIds: remainingIds,
           }),
         },
         source,

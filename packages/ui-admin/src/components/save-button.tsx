@@ -128,7 +128,7 @@ export type SaveButtonProps = {
 };
 
 const bar = cva(
-  "fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-3xl items-center justify-between gap-4 rounded-xl border px-4 py-3 text-sm shadow-lg animate-in fade-in slide-in-from-bottom-4",
+  "sticky bottom-0 z-50 mx-auto flex max-w-[calc(100vw-2rem)] md:max-w-3xl items-center justify-between gap-4 rounded-xl border px-4 py-3 text-sm shadow-lg animate-in fade-in slide-in-from-bottom-4",
   {
     variants: {
       tone: {

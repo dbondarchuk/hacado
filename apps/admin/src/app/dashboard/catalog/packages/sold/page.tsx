@@ -1,3 +1,4 @@
+import { SellPackageButton } from "@/components/admin/catalog/packages/sold/sell-button";
 import { SoldPackagesTable } from "@/components/admin/catalog/packages/sold/table";
 import { SoldPackagesTableAction } from "@/components/admin/catalog/packages/sold/table-action";
 import PageContainer from "@/components/admin/layout/page-container";
@@ -44,10 +45,13 @@ export default async function SoldPackagesPage(props: Params) {
       <div className="flex flex-1 flex-col gap-4 w-full">
         <div className="flex flex-col gap-4 justify-between">
           <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("catalog.packages.sold.title")}
-            description={t("catalog.packages.sold.description")}
-          />
+          <div className="flex items-center justify-between">
+            <Heading
+              title={t("catalog.packages.sold.title")}
+              description={t("catalog.packages.sold.description")}
+            />
+            <SellPackageButton />
+          </div>
         </div>
         <SoldPackagesTableAction />
         <Suspense

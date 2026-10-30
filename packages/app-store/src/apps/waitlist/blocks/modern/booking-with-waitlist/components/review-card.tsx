@@ -257,7 +257,7 @@ export const ReviewCard: React.FC = () => {
     if (!selectedAppointmentOption?._id || !selectedMemberId) return;
     clientApi.customerAuth
       .getEligiblePackages({
-        optionId: selectedAppointmentOption._id,
+        serviceId: selectedAppointmentOption._id,
         memberId: selectedMemberId,
       })
       .then((response) => {
@@ -421,7 +421,7 @@ export const ReviewCard: React.FC = () => {
               <ul className="space-y-0.5 text-xs text-muted-foreground review-package-included-list">
                 {purchasingIncluded.map((item) => (
                   <li
-                    key={item.optionId}
+                    key={item.serviceId}
                     className="flex items-center justify-between gap-2 review-package-included-item"
                   >
                     <span className="review-package-included-item-name">

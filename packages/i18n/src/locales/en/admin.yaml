@@ -1521,6 +1521,13 @@ pages:
       Page relative URL. For example, page with slug 'my-new-page'
       will be available at 'yourdomain.com/my-new-page'
     pageSlugPlaceholder: Page slug
+    pageName: Page name
+    pageNamePlaceholder: e.g. Policies
+    url: URL
+    editUrl: Edit URL
+    slugGeneratedPlaceholder: created-from-the-name
+    slugAutoHint: Filled in as you type the name. You can change it.
+    slugChangeWarning: Changing the URL can break links you have already shared.
     published: Published?
     publishedTooltip: Is page visible to your visitors
     publishDate: Publish date

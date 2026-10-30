@@ -281,7 +281,7 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
                 <ul className="space-y-0.5 text-sm text-muted-foreground package-card-included-list">
                   {included.map((item) => (
                     <li
-                      key={item.optionId}
+                      key={item.serviceId}
                       className="flex items-center justify-between gap-2 package-card-included-item"
                     >
                       <span className="package-card-included-item-name">
@@ -322,7 +322,7 @@ export const CatalogCards: React.FC<CatalogCardsProps> = ({
         />,
       ];
     }
-    const choice = options.find((item) => item._id === node.optionId);
+    const choice = options.find((item) => item._id === node.serviceId);
     if (!choice) return [];
     return [
       <AppointmentChoiceCard

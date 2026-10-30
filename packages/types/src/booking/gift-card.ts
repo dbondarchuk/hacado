@@ -42,9 +42,16 @@ export const getGiftCardSchemaWithUniqueCheck = (
   const schema = omitPaymentId
     ? giftCardSchema.omit({ paymentId: true })
     : giftCardSchema;
-  return schema.refine((data) => check(data.code), {
-    message: errorKey,
-  });
+  return schema.refine(
+    (data) => {
+      if (!data.code) return true;
+
+      return check(data.code);
+    },
+    {
+      message: errorKey,
+    },
+  );
 };
 
 export type GiftCardUpdateModel = z.infer<typeof giftCardSchema>;

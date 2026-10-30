@@ -16,8 +16,8 @@ export const Heading: React.FC<HeadingProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <h2 className="text-2xl font-bold tracking-tight">
+    <div className={cn("flex flex-col gap-0.5", className)}>
+      <h2 className="text-lg font-semibold leading-tight tracking-tight">
         {href ? (
           <Link href={href} variant="underline">
             {title}
@@ -27,7 +27,9 @@ export const Heading: React.FC<HeadingProps> = ({
         )}
       </h2>
       {description && (
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-sm leading-snug text-muted-foreground">
+          {description}
+        </p>
       )}
     </div>
   );

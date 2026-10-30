@@ -5,8 +5,8 @@ import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
   AppointmentPackage,
-  appointmentPackageSchema,
   AppointmentPackageUpdateModel,
+  getAppointmentPackageSchemaWithUniqueCheck,
   zObjectId,
 } from "@hacado/types";
 import {
@@ -36,6 +36,7 @@ import {
   SelectValue,
   toastPromise,
   useCurrencySymbol,
+  useDebounceCacheFn,
 } from "@hacado/ui";
 import { SaveButton, ServiceSelector } from "@hacado/ui-admin";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -45,18 +46,6 @@ import { Resolver, useForm } from "react-hook-form";
 import * as z from "zod";
 import { EligibleStaff } from "./eligible-staff";
 
-const packageFormSchema = appointmentPackageSchema
-  .omit({ eligibleMemberIds: true, isPublic: true })
-  .extend({
-    eligibleStaff: z.array(
-      z.object({
-        memberId: zObjectId("validation.package.eligibleMemberIds.required"),
-      }),
-    ),
-  });
-
-type PackageFormValues = z.infer<typeof packageFormSchema>;
-
 export const PackageForm: React.FC<{
   initialData?: AppointmentPackage;
 }> = ({ initialData }) => {
@@ -64,9 +53,26 @@ export const PackageForm: React.FC<{
   const router = useRouter();
   const currencySymbol = useCurrencySymbol();
   const [loading, setLoading] = React.useState(false);
+  const cachedUniqueNameCheck = useDebounceCacheFn(
+    adminApi.packages.checkPackageUniqueName,
+    300,
+  );
+
+  const formSchema = getAppointmentPackageSchemaWithUniqueCheck(
+    (name) => cachedUniqueNameCheck(name, initialData?._id),
+    "package.name.unique",
+  ).extend({
+    eligibleStaff: z.array(
+      z.object({
+        memberId: zObjectId("validation.package.eligibleMemberIds.required"),
+      }),
+    ),
+  });
+
+  type PackageFormValues = z.infer<typeof formSchema>;
 
   const form = useForm<PackageFormValues>({
-    resolver: zodResolver(packageFormSchema) as Resolver<PackageFormValues>,
+    resolver: zodResolver(formSchema) as Resolver<PackageFormValues>,
     mode: "all",
     reValidateMode: "onChange",
     defaultValues: initialData
@@ -86,7 +92,7 @@ export const PackageForm: React.FC<{
           name: "",
           description: "",
           price: 0,
-          items: [{ optionId: "", credits: 10, creditsPerRedemption: 1 }],
+          items: [{ serviceId: "", credits: 10, creditsPerRedemption: 1 }],
           eligibleStaff: [],
           isAutoConfirm: "inherit",
         },
@@ -210,7 +216,7 @@ export const PackageForm: React.FC<{
             <CardContent className="grid grid-cols-1 gap-4 pt-6 md:grid-cols-2">
               <FormField
                 control={form.control}
-                name="items.0.optionId"
+                name="items.0.serviceId"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabelWithRequiredIndicator required>

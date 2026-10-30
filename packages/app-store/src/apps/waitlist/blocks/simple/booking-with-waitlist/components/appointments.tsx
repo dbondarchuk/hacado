@@ -8,7 +8,7 @@ import {
   BookingCatalogNode,
   BookingRestriction,
   catalogNodesAtPath,
-  catalogPathForOption,
+  catalogPathForService,
   creditsPerRedemptionForItem,
   CustomerAppointmentTextOffer,
   CustomerPackage,
@@ -160,7 +160,7 @@ export const Appointments: React.FC<
     () =>
       filterCatalogNodes(catalog, {
         excludePackages: isOnlyWaitlist,
-        optionIds: availableOptions.map((choice) => choice._id),
+        serviceIds: availableOptions.map((choice) => choice._id),
         packageIds: isOnlyWaitlist
           ? undefined
           : packages?.map((pkg) => pkg._id),
@@ -172,7 +172,7 @@ export const Appointments: React.FC<
   React.useEffect(() => {
     const optionId = waitlistOffer?.optionId ?? fromQuery;
     if (!optionId || appliedOfferCatalogPath.current === optionId) return;
-    const path = catalogPathForOption(displayCatalog, optionId);
+    const path = catalogPathForService(displayCatalog, optionId);
     if (path === undefined) return;
     setCatalogPath(path);
     appliedOfferCatalogPath.current = optionId;
@@ -247,10 +247,10 @@ export const Appointments: React.FC<
       const needed = creditsPerRedemptionForItem(item);
       return (
         remaining >= needed &&
-        options.some((choice) => choice._id === item.optionId)
+        options.some((choice) => choice._id === item.serviceId)
       );
     });
-    const optionId = redeemableItem?.optionId;
+    const optionId = redeemableItem?.serviceId;
     if (!optionId) {
       setPackagesError(true);
       return;
@@ -261,7 +261,9 @@ export const Appointments: React.FC<
     setOption(optionId);
 
     if (!isEditor) {
-      clientApi.booking.trackAdvanceFromUiStep("option", { optionId });
+      clientApi.booking.trackAdvanceFromUiStep("option", {
+        serviceId: optionId,
+      });
     }
   };
 
@@ -519,7 +521,7 @@ export const Appointments: React.FC<
               setOption(optionId);
               if (!isEditor) {
                 clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId,
+                  serviceId: optionId,
                 });
               }
             }}
@@ -527,10 +529,10 @@ export const Appointments: React.FC<
               setPurchasePackageId(pkg._id);
               setCustomerPackageId(undefined);
               setPackageBookingFlow(false);
-              setOption(pkg.items[0]?.optionId ?? null);
+              setOption(pkg.items[0]?.serviceId ?? null);
               if (!isEditor) {
                 clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId: pkg.items[0]?.optionId,
+                  serviceId: pkg.items[0]?.serviceId,
                 });
               }
             }}
@@ -566,7 +568,7 @@ export const Appointments: React.FC<
               setOption(optionId);
               if (!isEditor) {
                 clientApi.booking.trackAdvanceFromUiStep("option", {
-                  optionId,
+                  serviceId: optionId,
                 });
               }
             }}

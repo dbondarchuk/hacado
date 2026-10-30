@@ -254,7 +254,7 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     cell: ({ row }) => <OptionCell appointment={row.original} />,
-    id: "option.name",
+    id: "service.name",
     header: tableSortHeader(
       "appointments.table.columns.option",
       "string",

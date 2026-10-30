@@ -1469,6 +1469,13 @@ pages:
     pageSlug: Limace de page
     pageSlugTooltip: URL relative de la page. Par exemple, la page avec le slug « ma-nouvelle-page » sera disponible sur « votredomaine.com/my-new-page ».
     pageSlugPlaceholder: Limace de page
+    pageName: Nom de la page
+    pageNamePlaceholder: p. ex. Politiques
+    url: URL
+    editUrl: Modifier l'URL
+    slugGeneratedPlaceholder: cree-a-partir-du-nom
+    slugAutoHint: Rempli automatiquement à partir du nom. Vous pouvez le modifier.
+    slugChangeWarning: Modifier l'URL peut casser les liens que vous avez déjà partagés.
     published: Publié ?
     publishedTooltip: La page est-elle visible par vos visiteurs
     publishDate: Date de publication

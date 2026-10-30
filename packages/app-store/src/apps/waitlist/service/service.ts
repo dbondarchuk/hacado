@@ -732,7 +732,7 @@ export class WaitlistConnectedApp
               customerId: result.customer._id,
               customerEmail: result.customer.email,
               customerName: result.customer.name,
-              optionId: data.optionId,
+              serviceId: data.optionId,
               duration: data.duration,
             },
           };

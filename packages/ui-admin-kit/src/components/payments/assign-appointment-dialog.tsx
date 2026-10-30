@@ -397,7 +397,7 @@ export const AssignAppointmentDialog = ({
                   <TableHead className="w-10" />
                   <TableHead>
                     {renderSortHead(
-                      "option.name",
+                      "service.name",
                       "syncedPayments.assignDialog.columns.option",
                     )}
                   </TableHead>

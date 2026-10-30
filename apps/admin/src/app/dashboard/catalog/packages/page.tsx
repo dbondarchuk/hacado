@@ -1,3 +1,4 @@
+import { getUser } from "@/app/utils";
 import { PackagesTable } from "@/components/admin/catalog/packages/table/table";
 import { PackagesTableAction } from "@/components/admin/catalog/packages/table/table-action";
 import PageContainer from "@/components/admin/layout/page-container";
@@ -6,8 +7,10 @@ import {
   packagesSearchParamsSerializer,
 } from "@hacado/api-sdk";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { Breadcrumbs, Heading } from "@hacado/ui";
+import { Breadcrumbs, Heading, Link } from "@hacado/ui";
 import { DataTableSkeleton } from "@hacado/ui-admin";
+import { hasPermission } from "@hacado/utils";
+import { Plus, Receipt } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -22,6 +25,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PackagesPage(props: Params) {
   const t = await getI18nAsync("admin");
+  const user = await getUser();
+  const canCreate = hasPermission(user, "package", "create");
   const searchParams = await props.searchParams;
   const parsed = packagesSearchParamsCache.parse(searchParams);
   const key = packagesSearchParamsSerializer({ ...parsed });
@@ -40,10 +45,38 @@ export default async function PackagesPage(props: Params) {
       <div className="flex flex-1 flex-col gap-4 w-full">
         <div className="flex flex-col gap-4 justify-between">
           <Breadcrumbs items={breadcrumbItems} />
-          <Heading
-            title={t("catalog.packages.title")}
-            description={t("catalog.packages.description")}
-          />
+          <div className="flex items-center justify-between">
+            <Heading
+              title={t("catalog.packages.title")}
+              description={t("catalog.packages.description")}
+            />
+            <div className="flex shrink-0 items-center gap-2">
+              <Link
+                href="/dashboard/catalog/packages/sold"
+                button
+                variant="outline"
+                aria-label={t("catalog.packages.sold.title")}
+              >
+                <Receipt className="h-4 w-4" />
+                <span className="max-md:hidden">
+                  {t("catalog.packages.sold.title")}
+                </span>
+              </Link>
+              {canCreate ? (
+                <Link
+                  button
+                  href="/dashboard/catalog/packages/new"
+                  variant="default"
+                  aria-label={t("catalog.packages.addNew")}
+                >
+                  <Plus className="h-4 w-4" />
+                  <span className="max-md:hidden">
+                    {t("catalog.packages.addNew")}
+                  </span>
+                </Link>
+              ) : null}
+            </div>
+          </div>
         </div>
         <PackagesTableAction />
         <Suspense
