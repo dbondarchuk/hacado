@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { fallbackLanguage, useI18n } from "@hacado/i18n/client";
 import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
@@ -79,12 +79,9 @@ import { appointmentSmsConsentKind } from "@hacado/ui/sms-consent-choice";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Textarea } from "@hacado/ui/textarea";
 import { DateTimePicker } from "@hacado/ui/time-picker";
-import {
-  durationToTime,
-  formatAmount,
-  getDiscountAmount,
-  normalizeToE164,
-} from "@hacado/utils";
+import { formatAmount, getDiscountAmount } from "@hacado/utils/currency";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { durationToTime } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Clock, DollarSign, X } from "lucide-react";
 import { DateTime } from "luxon";
@@ -525,7 +522,7 @@ export const AppointmentScheduleForm: React.FC<
       let appointmentId = id;
       if (isEdit) {
         await toastPromise(
-          adminApi.appointments.updateAppointment(
+          appointmentsApi.updateAppointment(
             id,
             appointmentEvent,
             files,
@@ -539,7 +536,7 @@ export const AppointmentScheduleForm: React.FC<
         );
       } else {
         const result = await toastPromise(
-          adminApi.appointments.createAppointment(
+          appointmentsApi.createAppointment(
             appointmentEvent,
             files,
             data.confirmed,

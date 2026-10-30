@@ -3,7 +3,7 @@
 import { ActivityActorDisplayView } from "@/components/admin/activity/actor-display";
 import {} from "@/components/admin/dashboard/notifications/notifications-toast-stream";
 import { useActivityFeedStore } from "@/notifications/store";
-import { adminApi } from "@hacado/api-sdk";
+import { activitiesApi } from "@hacado/api-sdk/admin/activities";
 import { useI18n } from "@hacado/i18n/client";
 import type { ActivitySeverity } from "@hacado/types/activity";
 import type { ActivityFeedPreview } from "@hacado/types/apps";
@@ -76,7 +76,7 @@ export const ActivityFeedHeaderButton: React.FC = () => {
 
   const onOpenChange = (open: boolean) => {
     if (open) {
-      void adminApi.activities.markActivityFeedRead().then(() => {
+      void activitiesApi.markActivityFeedRead().then(() => {
         clearSeverity();
       });
     }

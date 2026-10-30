@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { languages, type Language } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { cn } from "@hacado/ui/cn";
@@ -12,10 +12,8 @@ import {
 } from "@hacado/ui/form";
 import { Link } from "@hacado/ui/link";
 import { Skeleton } from "@hacado/ui/skeleton";
-import {
-  appendSharedPoolSuffix,
-  template as renderTemplate,
-} from "@hacado/utils";
+import { appendSharedPoolSuffix } from "@hacado/utils/sms";
+import { template as renderTemplate } from "@hacado/utils/string";
 import React from "react";
 import { TemplateSelector } from "./template-selector";
 
@@ -27,7 +25,7 @@ let previewArgsRequest: Promise<Record<string, unknown>> | undefined;
 
 function loadSmsPreviewArgs() {
   if (!previewArgsRequest) {
-    previewArgsRequest = adminApi.templates
+    previewArgsRequest = templatesApi
       .getDemoTemplateArguments()
       .then((demo) => {
         const record = demo as Record<string, any>;
@@ -204,7 +202,7 @@ export function SmsMessagePreview({
 
     let active = true;
     setPreview({ status: "loading" });
-    adminApi.templates
+    templatesApi
       .getTemplate(customId)
       .then((stored) => {
         if (!active) return;

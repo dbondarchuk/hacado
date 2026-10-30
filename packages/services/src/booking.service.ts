@@ -95,18 +95,16 @@ import {
   ITextMessageConfigurationService,
 } from "@hacado/types/services";
 import { OrganizationMember } from "@hacado/types/users";
-import {
-  buildSearchQuery,
-  canUseMemberCalendarSources,
-  escapeRegex,
-  fileNameToMimeType,
-  getAdminUrl,
-  getAppointmentBucket,
-  getAvailableTimeSlotsInCalendar,
-  getIcsEventUid,
-  omit,
-  parseTime,
-} from "@hacado/utils";
+import { fileNameToMimeType } from "@hacado/utils/assets";
+import { getAppointmentBucket } from "@hacado/utils/file";
+import { getIcsEventUid } from "@hacado/utils/ics-uid";
+import { omit } from "@hacado/utils/object";
+import { canUseMemberCalendarSources } from "@hacado/utils/permissions";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
+import { parseTime } from "@hacado/utils/time";
+import { getAvailableTimeSlotsInCalendar } from "@hacado/utils/time-slot";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import { v4 } from "uuid";

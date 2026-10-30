@@ -16,7 +16,7 @@ import {
   canReadSyncedPayments,
   canUpdateAppointments,
   resolveUpdatableAppointmentMemberId,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import { DateTime } from "luxon";
 import { NextRequest } from "next/server";
 import { v4 } from "uuid";

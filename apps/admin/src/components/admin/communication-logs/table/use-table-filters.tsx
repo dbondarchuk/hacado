@@ -1,6 +1,6 @@
 "use client";
 
-import { communicationLogsSearchParams } from "@hacado/api-sdk";
+import { communicationLogsSearchParams } from "@hacado/api-sdk/admin/search-params/communication-logs";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

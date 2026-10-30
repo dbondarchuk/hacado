@@ -31,7 +31,8 @@ import {
   IGiftCardsService,
   IPaymentsService,
 } from "@hacado/types/services";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

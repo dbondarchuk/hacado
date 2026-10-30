@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { useI18n } from "@hacado/i18n/client";
 import { PageFooterListModel } from "@hacado/types/pages";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedPageFootersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.pageFooters.deletePageFooters(
+        pageFootersApi.deletePageFooters(
           selected.map((pageFooter) => pageFooter._id),
         ),
         {

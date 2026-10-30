@@ -7,7 +7,7 @@ import {
 } from "@hacado/types/booking";
 import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { CheckCircle2 } from "lucide-react";
 import { DateTime } from "luxon";
 import { forwardRef } from "react";

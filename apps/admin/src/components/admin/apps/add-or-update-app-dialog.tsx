@@ -33,7 +33,7 @@ import {
 import { Label } from "@hacado/ui/label";
 import { toast, toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { filterInstallDefaultScopesForUser } from "@hacado/utils";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils/app-access";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import { setDefaultAppByScope } from "./store/actions";

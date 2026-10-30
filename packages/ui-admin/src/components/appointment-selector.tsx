@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
@@ -100,7 +100,7 @@ export const AppointmentSelector = React.forwardRef<
       if (!value || itemsCache[value]) {
         return;
       }
-      adminApi.appointments
+      appointmentsApi
         .getAppointment(value)
         .then((appointment) => {
           setItemsCache((prev) => ({
@@ -114,7 +114,7 @@ export const AppointmentSelector = React.forwardRef<
     const getAppointments = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.appointments.getAppointments({
+        const result = await appointmentsApi.getAppointments({
           page,
           limit,
           search,

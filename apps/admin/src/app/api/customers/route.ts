@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { customersSearchParamsLoader } from "@hacado/api-sdk";
+import { customersSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/customers";
 import { getLoggerFactory } from "@hacado/logger";
 import { customerSchema } from "@hacado/types/customers";
 import { NextRequest, NextResponse } from "next/server";

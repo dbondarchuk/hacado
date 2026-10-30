@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { communicationLogsApi } from "@hacado/api-sdk/admin/communication-logs";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
@@ -29,13 +29,10 @@ export const ClearAllCommunicationLogsButton: React.FC = () => {
     try {
       setIsLoading(true);
 
-      await toastPromise(
-        adminApi.communicationLogs.clearAllCommunicationLogs(),
-        {
-          success: t("communicationLogs.logsCleared"),
-          error: t("common.toasts.error"),
-        },
-      );
+      await toastPromise(communicationLogsApi.clearAllCommunicationLogs(), {
+        success: t("communicationLogs.logsCleared"),
+        error: t("common.toasts.error"),
+      });
 
       router.refresh();
       setIsOpen(false);

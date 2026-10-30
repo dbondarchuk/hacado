@@ -1,6 +1,6 @@
 import { getSession } from "@/app/utils";
 import { GeoapifyService } from "@/utils/geoapify.service";
-import { addressesSearchParamsLoader } from "@hacado/api-sdk";
+import { addressesSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/addresses";
 import { getLoggerFactory } from "@hacado/logger";
 import type { Country } from "@hacado/types/utils";
 import { countryOptions } from "@hacado/types/utils";

@@ -1,5 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { pagesSearchParamsLoader } from "@hacado/api-sdk";
+import { pagesSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/pages";
 import { getLoggerFactory } from "@hacado/logger";
 import { PageLimitReachedError } from "@hacado/types/billing";
 import { PageListModelWithUrl, pageSchema } from "@hacado/types/pages";

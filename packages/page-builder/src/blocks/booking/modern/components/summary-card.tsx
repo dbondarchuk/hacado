@@ -2,7 +2,7 @@ import { useI18n, useLocale } from "@hacado/i18n/client";
 import { effectiveAddonPrice } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
 import { useCurrencyFormat } from "@hacado/ui/context";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { DateTime } from "luxon";
 import type { ReactNode } from "react";
 import { useScheduleContext } from "./context";

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import { useI18n } from "@hacado/i18n/client";
 import { Page } from "@hacado/types/pages";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedPagesButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.pages.deletePages(selected.map((page) => page._id)),
+        pagesApi.deletePages(selected.map((page) => page._id)),
         {
           success: t("pages.table.delete.success"),
           error: t("pages.table.delete.error"),

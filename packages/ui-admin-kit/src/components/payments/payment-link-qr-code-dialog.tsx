@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
@@ -125,7 +125,7 @@ export const PaymentLinkQrCodeDialog = ({
       setLoading(true);
       try {
         const { url: resolved } =
-          await adminApi.payments.getPaymentLinkUrl(paymentId);
+          await paymentsApi.getPaymentLinkUrl(paymentId);
         if (!cancelled) {
           setUrl(resolved);
         }

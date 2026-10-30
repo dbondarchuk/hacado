@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   getPaymentProcessorRefundTarget,
@@ -24,7 +24,7 @@ import { CurrencyPercentageInput } from "@hacado/ui/currency-percentage-input";
 import { Label } from "@hacado/ui/label";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { formatAmount } from "@hacado/utils";
+import { formatAmount } from "@hacado/utils/currency";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { getPaymentMethod } from "./payment-method-display";
@@ -127,7 +127,7 @@ export const PaymentRefundDialog: React.FC<PaymentRefundDialogProps> = ({
 
         setIsRefundInProgress(true);
 
-        const result = await adminApi.payments.refundPayment(
+        const result = await paymentsApi.refundPayment(
           payment._id,
           refundAmount,
         );

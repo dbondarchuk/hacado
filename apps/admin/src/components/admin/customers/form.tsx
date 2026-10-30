@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerUpdateModel,
@@ -42,7 +42,7 @@ import { toastPromise } from "@hacado/ui/sonner";
 import { Switch } from "@hacado/ui/switch";
 import { Textarea } from "@hacado/ui/textarea";
 import { DateTimeInput } from "@hacado/ui/time-picker";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, User, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -325,7 +325,7 @@ export const CustomerForm: React.FC<{
     : hasPermission(user, "customer", "create");
 
   const customerUniqueCheck = useDebounceCacheFn(
-    adminApi.customers.checkCustomerUniqueEmailAndPhone,
+    customersApi.checkCustomerUniqueEmailAndPhone,
     300,
   );
 
@@ -370,10 +370,10 @@ export const CustomerForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const customer = await adminApi.customers.createCustomer(data);
+          const customer = await customersApi.createCustomer(data);
           router.push(`/dashboard/customers/${customer._id}`);
         } else {
-          await adminApi.customers.updateCustomer(initialData._id, data);
+          await customersApi.updateCustomer(initialData._id, data);
 
           router.refresh();
         }

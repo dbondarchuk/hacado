@@ -10,6 +10,19 @@
     "lint:fix": "eslint . --fix"
   },
   "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./appointments": "./src/components/appointments/index.ts",
+    "./communications": "./src/components/communications/index.ts",
+    "./data-table": "./src/components/data-table/index.ts",
+    "./event-calendar": "./src/components/event-calendar/index.ts",
+    "./modification": "./src/components/modification/index.ts",
+    "./packages": "./src/components/packages/index.ts",
+    "./page": "./src/components/page/index.ts",
+    "./payments": "./src/components/payments/index.ts",
+    "./sms-consent-attest": "./src/components/sms-consent-attest.tsx",
+    "./templates": "./src/components/templates/index.ts"
+  },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "19.2.18",

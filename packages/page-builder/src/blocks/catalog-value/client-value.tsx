@@ -1,6 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
+import { servicesApi } from "@hacado/api-sdk/admin/services";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import { useConfig } from "@hacado/ui/context";
 import type React from "react";
@@ -12,10 +15,10 @@ import { toCatalogRecord, type CatalogRecord } from "./record";
 import { CatalogValueProps, CatalogValuePropsDefaults } from "./schema";
 
 const loadEntity: Record<CatalogSource, (itemId: string) => Promise<any>> = {
-  service: (itemId) => adminApi.services.getService(itemId),
-  addon: (itemId) => adminApi.addons.getAddon(itemId),
-  member: (itemId) => adminApi.teams.getMemberProfile(itemId),
-  package: (itemId) => adminApi.packages.getPackage(itemId),
+  service: (itemId) => servicesApi.getService(itemId),
+  addon: (itemId) => addonsApi.getAddon(itemId),
+  member: (itemId) => teamsApi.getMemberProfile(itemId),
+  package: (itemId) => packagesApi.getPackage(itemId),
 };
 
 async function fetchCatalogRecord(source: CatalogSource, itemId: string) {

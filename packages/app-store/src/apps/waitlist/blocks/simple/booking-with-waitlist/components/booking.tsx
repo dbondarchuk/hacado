@@ -1,5 +1,5 @@
 "use client";
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import {
   applyBookingLocks,
@@ -44,7 +44,7 @@ export const BookingWithWaitlist: React.FC<
   );
 
   const loadOptions = React.useCallback(async () => {
-    const data = await clientApi.booking.getBookingOptions();
+    const data = await bookingApi.getBookingOptions();
     setResponse(data);
   }, []);
 

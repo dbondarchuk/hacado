@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { WithTotal } from "@hacado/types/database";
 import {
   CheckFormNameUniqueActionType,
@@ -44,7 +44,7 @@ export async function getForms(appId: string, query: GetFormsAction["query"]) {
   logger.debug({ appId, query }, "Getting forms");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetFormsActionType,
       query,
     })) as WithTotal<FormListModel>;
@@ -68,7 +68,7 @@ export async function getFormById(appId: string, id: string) {
   logger.debug({ appId, id }, "Getting form");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetFormByIdActionType,
       id,
     })) as FormModel;
@@ -89,7 +89,7 @@ export async function createForm(appId: string, form: FormUpdateModel) {
   logger.debug({ appId, form }, "Creating form");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: CreateFormActionType,
       form,
     })) as FormModel;
@@ -114,7 +114,7 @@ export async function updateForm(
   logger.debug({ appId, id, form }, "Updating form");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: UpdateFormActionType,
       id,
       form,
@@ -136,7 +136,7 @@ export async function deleteForm(appId: string, id: string) {
   logger.debug({ appId, id }, "Deleting form");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteFormActionType,
       id,
     });
@@ -157,7 +157,7 @@ export async function deleteSelectedForms(appId: string, ids: string[]) {
   logger.debug({ appId, ids }, "Deleting selected forms");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteSelectedFormsActionType,
       ids,
     });
@@ -185,7 +185,7 @@ export async function setFormArchived(
   logger.debug({ appId, id, isArchived }, "Setting form archived");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: SetFormArchivedActionType,
       id,
       isArchived,
@@ -210,7 +210,7 @@ export async function setFormsArchived(
   logger.debug({ appId, ids, isArchived }, "Setting forms archived");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: SetFormsArchivedActionType,
       ids,
       isArchived,
@@ -237,7 +237,7 @@ export async function getFormResponses(
   logger.debug({ appId, query }, "Getting form responses");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetFormResponsesActionType,
       query,
     })) as WithTotal<FormResponseModel>;
@@ -261,7 +261,7 @@ export async function getFormResponseById(appId: string, id: string) {
   logger.debug({ appId, id }, "Getting form response");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetFormResponseByIdActionType,
       id,
     })) as FormResponseModel | null;
@@ -286,7 +286,7 @@ export async function updateFormResponse(
   logger.debug({ appId, id, update }, "Updating form response");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: UpdateFormResponseActionType,
       id,
       update,
@@ -312,7 +312,7 @@ export async function createFormResponse(
   logger.debug({ appId, formId, update }, "Creating form response");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: CreateFormResponseActionType,
       formId,
       update,
@@ -334,7 +334,7 @@ export async function deleteFormResponse(appId: string, id: string) {
   logger.debug({ appId, id }, "Deleting form response");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteFormResponseActionType,
       id,
     });
@@ -358,7 +358,7 @@ export async function deleteSelectedFormResponses(
   logger.debug({ appId, ids }, "Deleting selected form responses");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DeleteSelectedFormResponsesActionType,
       ids,
     });
@@ -389,7 +389,7 @@ export async function reassignFormResponses(
   );
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: ReassignFormResponsesActionType,
       ids,
       customerId,
@@ -414,7 +414,7 @@ export async function markFormResponsesRead(appId: string) {
   logger.debug({ appId }, "Marking form responses as read");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: MarkFormResponsesReadActionType,
     });
 
@@ -438,7 +438,7 @@ export async function checkFormNameUnique(
   logger.debug({ appId, name, id }, "Checking form name uniqueness");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: CheckFormNameUniqueActionType,
       name,
       id,

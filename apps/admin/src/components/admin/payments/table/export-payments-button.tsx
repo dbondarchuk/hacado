@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  adminApi,
   PaymentsExportError,
-  paymentsSearchParams,
-} from "@hacado/api-sdk";
+  paymentsApi,
+} from "@hacado/api-sdk/admin/payments";
+import { paymentsSearchParams } from "@hacado/api-sdk/admin/search-params/payments";
 import { useI18n } from "@hacado/i18n/client";
 import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
@@ -40,7 +40,7 @@ export function ExportPaymentsButton({
     setIsExporting(true);
 
     try {
-      await adminApi.payments.exportPayments({
+      await paymentsApi.exportPayments({
         search: searchQuery || undefined,
         type: typeFilter ?? undefined,
         method: methodFilter ?? undefined,

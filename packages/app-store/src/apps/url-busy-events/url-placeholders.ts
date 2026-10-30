@@ -1,4 +1,4 @@
-import { templateSafeWithError } from "@hacado/utils";
+import { templateSafeWithError } from "@hacado/utils/string";
 
 /** Placeholders supported in URL and header templates (Mustache `{{name}}`). */
 export type UrlBusyEventsPlaceholderValues = {

@@ -1,4 +1,4 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields, getFields } from "@hacado/types/booking";
 import { Form } from "@hacado/ui/form";
@@ -8,7 +8,7 @@ import {
   appointmentSmsConsentKind,
   useSmsConsentState,
 } from "@hacado/ui/sms-consent-choice";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -139,8 +139,7 @@ export const FormCard: React.FC = () => {
                     lookup={
                       consentLookup ??
                       (async (phone) => {
-                        const result =
-                          await clientApi.booking.getSmsConsent(phone);
+                        const result = await bookingApi.getSmsConsent(phone);
                         return result.consented === true;
                       })
                     }

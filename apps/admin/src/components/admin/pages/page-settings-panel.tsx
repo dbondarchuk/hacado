@@ -24,7 +24,7 @@ import { use12HourFormat } from "@hacado/ui/hooks";
 import { TagInput } from "@hacado/ui/tag-input";
 import { Textarea } from "@hacado/ui/textarea";
 import { DateTimePicker } from "@hacado/ui/time-picker";
-import { fileNameToMimeType } from "@hacado/utils";
+import { fileNameToMimeType } from "@hacado/utils/assets";
 import { memo, useCallback } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import { FooterSelector } from "./footer-selector";

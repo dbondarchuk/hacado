@@ -35,7 +35,8 @@ import type {
   TeamMemberListModel,
   UserRole,
 } from "@hacado/types/users";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   canInviteWithAvailableUsers,

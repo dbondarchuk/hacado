@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { calendarApi } from "@hacado/api-sdk/admin/calendar";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Appointment,
@@ -9,7 +9,7 @@ import {
 } from "@hacado/types/booking";
 import { DaySchedule } from "@hacado/types/configuration/schedule";
 import { useTimeZone } from "@hacado/ui/context";
-import { getColorForName } from "@hacado/utils";
+import { getColorForName } from "@hacado/utils/colors";
 import {
   CheckCircle,
   DollarSign,
@@ -79,7 +79,7 @@ export const EventsCalendar: React.FC<EventsCalendarProps> = ({
       setLoading(true);
       setEvents([]);
 
-      const result = await adminApi.calendar.getCalendar({
+      const result = await calendarApi.getCalendar({
         start: DateTime.fromJSDate(start)
           .setZone(timeZone)
           .startOf("day")

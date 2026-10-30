@@ -1,6 +1,7 @@
 import type { Language } from "@hacado/i18n";
 import type { Currency } from "@hacado/types/utils";
-import { formatAmount, stripMarkdown } from "@hacado/utils";
+import { formatAmount } from "@hacado/utils/currency";
+import { stripMarkdown } from "@hacado/utils/markdown";
 import {
   type CatalogSource,
   type DurationFormat,

@@ -1,11 +1,11 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { ensureCustomerSmsConsent } from "@/lib/customer-sms-consent";
-import { resendPaymentLinkSchema } from "@hacado/api-sdk";
+import { resendPaymentLinkSchema } from "@hacado/api-sdk/admin/schemas/payments";
 import { getLoggerFactory } from "@hacado/logger";
 import { IPaymentLinkProvider } from "@hacado/types/apps";
 import { PaymentLinkPayment } from "@hacado/types/booking";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

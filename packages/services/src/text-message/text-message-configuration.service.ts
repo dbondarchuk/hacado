@@ -4,7 +4,7 @@ import type {
   ITextMessageConfigurationService,
 } from "@hacado/types/services";
 import type { TextMessagingConfig } from "@hacado/types/text-message/registration";
-import { publishedPageUrl } from "@hacado/utils";
+import { publishedPageUrl } from "@hacado/utils/website";
 import { BaseService } from "../services/base.service";
 import { readSmsMessagingAccess } from "./messaging-access";
 

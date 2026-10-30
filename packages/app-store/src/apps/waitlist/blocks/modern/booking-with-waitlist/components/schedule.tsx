@@ -1,6 +1,11 @@
 "use client";
 
-import { clientApi, handleBookingSubmitError } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { availabilityApi } from "@hacado/api-sdk/client/availability";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { handleBookingSubmitError } from "@hacado/api-sdk/client/booking-submit-error";
+import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/client/payments";
 import { useI18n } from "@hacado/i18n/client";
 import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import type {
@@ -559,7 +564,7 @@ export const Schedule: React.FC<
         duration: totalDuration,
       };
 
-      await clientApi.apps.callAppApi({
+      await appsApi.callAppApi({
         appId: waitlistAppId,
         path: "waitlist",
         method: "POST",
@@ -704,7 +709,7 @@ export const Schedule: React.FC<
             return;
           }
 
-          const data = await clientApi.availability.getAvailability({
+          const data = await availabilityApi.getAvailability({
             memberIds: requests.map((r) => r.memberId),
             durations: requests.map((r) => r.duration),
           });
@@ -721,7 +726,7 @@ export const Schedule: React.FC<
           return;
         }
 
-        const data = await clientApi.availability.getAvailability({
+        const data = await availabilityApi.getAvailability({
           memberIds: [resolvedMemberId],
           durations: [totalDuration],
         });
@@ -773,8 +778,7 @@ export const Schedule: React.FC<
       setIsLoading(true);
 
       try {
-        const data =
-          await clientApi.booking.checkDuplicateAppointments(request);
+        const data = await bookingApi.checkDuplicateAppointments(request);
 
         return data;
       } catch (e) {
@@ -810,7 +814,7 @@ export const Schedule: React.FC<
       }
 
       try {
-        const data = await clientApi.giftCards.applyGiftCards({
+        const data = await giftCardsApi.applyGiftCards({
           codes,
           amount,
         });
@@ -933,8 +937,8 @@ export const Schedule: React.FC<
       try {
         setIsLoading(true);
         const data = await (intentId
-          ? clientApi.payments.updatePaymentIntent(intentId, body)
-          : clientApi.payments.createPaymentIntent(body));
+          ? paymentsApi.updatePaymentIntent(intentId, body)
+          : paymentsApi.createPaymentIntent(body));
 
         return data;
       } catch (e) {
@@ -983,10 +987,7 @@ export const Schedule: React.FC<
           ),
         );
 
-        const { id } = await clientApi.booking.createAppointment(
-          eventBody,
-          files,
-        );
+        const { id } = await bookingApi.createAppointment(eventBody, files);
 
         if (successPage) {
           const expireDate = LuxonDateTime.now().plus({ minutes: 1 });

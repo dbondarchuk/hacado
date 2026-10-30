@@ -3,7 +3,10 @@
 import { authClient } from "@/app/auth-client";
 import { LanguageOptions } from "@/constants/texts";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { UserUpdate, userUpdateSchema } from "@hacado/api-sdk";
+import {
+  UserUpdate,
+  userUpdateSchema,
+} from "@hacado/api-sdk/admin/schemas/user";
 import { languages } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";

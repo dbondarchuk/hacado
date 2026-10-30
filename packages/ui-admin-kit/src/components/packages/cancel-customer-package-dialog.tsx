@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerPackageListModel } from "@hacado/types/booking";
 import {
@@ -41,7 +41,7 @@ export const CancelCustomerPackageDialog: React.FC<
     setLoading(true);
     try {
       await toastPromise(
-        adminApi.packages.adjustCustomerPackage(pkg._id, { cancel: true }),
+        packagesApi.adjustCustomerPackage(pkg._id, { cancel: true }),
         {
           success: t("catalog.packages.customer.cancel.success"),
           error: t("catalog.packages.form.toasts.requestError"),

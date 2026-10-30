@@ -23,19 +23,17 @@ import {
   CustomerTextMessageNotificationAdminNamespace,
 } from "./translations/types";
 
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getPhoneField } from "@hacado/utils/phone";
 import {
   appendSharedPoolSuffix,
-  dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
-  getPhoneField,
-  getWebsiteUrl,
   isPlatformSmsCountry,
   isSmsEnabled,
   smsCustomerName,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 
 export default class CustomerTextMessageNotificationConnectedApp
   implements IConnectedApp, IEventSubscriber, ICustomerAppointmentTextMessage

@@ -4,7 +4,7 @@ import PageContainer from "@/components/admin/layout/page-container";
 import {
   discountsSearchParamsCache,
   discountsSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/discounts";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";

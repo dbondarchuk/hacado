@@ -4,7 +4,7 @@ import { Asset } from "@hacado/types/assets";
 import { useInView } from "react-intersection-observer";
 
 import { AssetsTableAction } from "@/components/admin/assets/table/table-action";
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { AssetPreview } from "@hacado/ui-admin/asset-preview";
 import { useAuth } from "@hacado/ui-admin/context";
@@ -29,7 +29,7 @@ import { Skeleton } from "@hacado/ui/skeleton";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
 import { Textarea } from "@hacado/ui/textarea";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
@@ -243,7 +243,7 @@ export const CustomerFiles: React.FC<{
 
   const loadAssets = React.useCallback(
     async (page: number) => {
-      const result = await adminApi.assets.getAssets({
+      const result = await assetsApi.getAssets({
         customerId: [customerId],
         search,
         page,

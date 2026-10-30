@@ -9,7 +9,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { destructAndReplace, resolveProperty } from "@hacado/utils";
+import { destructAndReplace, resolveProperty } from "@hacado/utils/object";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { ConfigurationProps } from "../../documents/types";

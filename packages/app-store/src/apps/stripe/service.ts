@@ -27,8 +27,8 @@ import {
   systemEventSource,
 } from "@hacado/types/events";
 import { IPaymentsService } from "@hacado/types/services";
-import { getWebsiteDomain } from "@hacado/utils";
 import { encrypt } from "@hacado/utils/server";
+import { getWebsiteDomain } from "@hacado/utils/website";
 import Stripe from "stripe";
 import { getStripeApplePayDomainAssociation } from "./apple-pay";
 import { STRIPE_APP_NAME } from "./const";

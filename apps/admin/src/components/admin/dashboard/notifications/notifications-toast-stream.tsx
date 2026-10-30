@@ -5,7 +5,7 @@ import {
   useActivityFeedStore,
   useNotificationsStore,
 } from "@/notifications/store";
-import { BASE_ADMIN_API_URL } from "@hacado/api-sdk";
+import { BASE_ADMIN_API_URL } from "@hacado/api-sdk/admin/utils";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   DASHBOARD_BADGE_EVENT,

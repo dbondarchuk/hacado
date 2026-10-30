@@ -1,5 +1,5 @@
 "use client";
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { AppointmentFields } from "@hacado/types/booking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useMemo } from "react";
@@ -33,7 +33,7 @@ import {
 } from "../../../waitlist-sms-consent";
 
 import { useI18n } from "@hacado/i18n/client";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { DateTime as LuxonDateTime } from "luxon";
 import { WaitlistDatePicker } from "../../../../components/waitlist-date-picker";
 import {
@@ -178,8 +178,7 @@ export const WaitlistFormCard: React.FC = () => {
                       field.onBlur();
                     }}
                     lookup={async (phone) => {
-                      const result =
-                        await clientApi.booking.getSmsConsent(phone);
+                      const result = await bookingApi.getSmsConsent(phone);
                       return result.consented === true;
                     }}
                   />

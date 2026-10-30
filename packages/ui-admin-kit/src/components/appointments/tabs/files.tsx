@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { AssetEntity } from "@hacado/types/assets";
 import { Appointment } from "@hacado/types/booking";
@@ -29,7 +29,8 @@ import { DndFileInput } from "@hacado/ui/dnd-file-input";
 import { useUploadFile } from "@hacado/ui/hooks";
 import { toast, toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { canUpdateAppointment, mimeTypeToExtension } from "@hacado/utils";
+import { mimeTypeToExtension } from "@hacado/utils/assets";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import { FileIcon, Trash } from "lucide-react";
 // import Image from "next/image";
 import { useAuth } from "@hacado/ui-admin/context";
@@ -54,7 +55,7 @@ export const AppointmentFiles = ({ appointment }: AppointmentFilesProps) => {
       if (!canUpdate) return;
       try {
         setLoading(true);
-        await toastPromise(adminApi.assets.deleteAsset(fileId), {
+        await toastPromise(assetsApi.deleteAsset(fileId), {
           success: t("appointments.view.changesSaved"),
           error: t("appointments.view.requestError"),
         });

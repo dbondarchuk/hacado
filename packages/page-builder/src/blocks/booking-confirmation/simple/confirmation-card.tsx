@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { DollarSign, Timer } from "lucide-react";
 import { forwardRef } from "react";
 

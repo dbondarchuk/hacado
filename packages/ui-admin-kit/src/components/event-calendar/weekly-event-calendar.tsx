@@ -10,7 +10,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils/time";
 import { Clock } from "lucide-react";
 import { DateTime, HourNumbers, SecondNumbers } from "luxon";
 import React, { CSSProperties, Fragment, useCallback } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import { toastPromise } from "@hacado/ui/sonner";
@@ -26,8 +26,7 @@ export function CancelInvitationButton({
           setLoading(true);
           await toastPromise(
             (async () => {
-              const result =
-                await adminApi.teams.cancelInvitation(invitationId);
+              const result = await teamsApi.cancelInvitation(invitationId);
               if (!result.ok) throw new Error(result.code);
               return result;
             })(),

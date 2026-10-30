@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { WithTotal } from "@hacado/types/database";
 import {
   CheckDesignNameUniqueActionType,
@@ -49,7 +49,7 @@ export async function getDesigns(
   const logger = loggerFactory("getDesigns");
   logger.debug({ appId, query }, "Getting designs");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetDesignsActionType,
     query,
   })) as WithTotal<DesignListModel>;
@@ -65,7 +65,7 @@ export async function getDesignById(appId: string, id: string) {
   const logger = loggerFactory("getDesignById");
   logger.debug({ appId, id }, "Getting design by id");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetDesignByIdActionType,
     id,
   })) as DesignModel | null;
@@ -78,7 +78,7 @@ export async function createDesign(appId: string, design: DesignUpdateModel) {
   const logger = loggerFactory("createDesign");
   logger.debug({ appId, design }, "Creating design");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: CreateDesignActionType,
     design,
   })) as DesignModel;
@@ -95,7 +95,7 @@ export async function updateDesign(
   const logger = loggerFactory("updateDesign");
   logger.debug({ appId, id, design }, "Updating design");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: UpdateDesignActionType,
     id,
     design,
@@ -109,7 +109,7 @@ export async function deleteDesign(appId: string, id: string) {
   const logger = loggerFactory("deleteDesign");
   logger.debug({ appId, id }, "Deleting design");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: DeleteDesignActionType,
     id,
   })) as boolean;
@@ -122,7 +122,7 @@ export async function deleteDesigns(appId: string, ids: string[]) {
   const logger = loggerFactory("deleteDesigns");
   logger.debug({ appId, ids }, "Deleting designs");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: DeleteDesignsActionType,
     ids,
   })) as boolean;
@@ -139,7 +139,7 @@ export async function setDesignArchived(
   const logger = loggerFactory("setDesignArchived");
   logger.debug({ appId, id, isArchived }, "Setting design archived");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: SetDesignArchivedActionType,
     id,
     isArchived,
@@ -157,7 +157,7 @@ export async function setDesignsArchived(
   const logger = loggerFactory("setDesignsArchived");
   logger.debug({ appId, ids, isArchived }, "Setting designs archived");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: SetDesignsArchivedActionType,
     ids,
     isArchived,
@@ -175,7 +175,7 @@ export async function checkDesignNameUnique(
   const logger = loggerFactory("checkDesignNameUnique");
   logger.debug({ appId, name, id }, "Checking design name uniqueness");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: CheckDesignNameUniqueActionType,
     name,
     id,
@@ -192,7 +192,7 @@ export async function getPurchasedGiftCards(
   const logger = loggerFactory("getPurchasedGiftCards");
   logger.debug({ appId, query }, "Getting purchased gift cards");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetPurchasedGiftCardsActionType,
     query,
   })) as WithTotal<PurchasedGiftCardListModel>;
@@ -208,7 +208,7 @@ export async function getPurchasedGiftCardById(appId: string, id: string) {
   const logger = loggerFactory("getPurchasedGiftCardById");
   logger.debug({ appId, id }, "Getting purchased gift card by id");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetPurchasedGiftCardByIdActionType,
     id,
   })) as PurchasedGiftCardListModel | null;
@@ -227,7 +227,7 @@ export async function createPurchasedGiftCard(
   const logger = loggerFactory("createPurchasedGiftCard");
   logger.debug({ appId, purchase }, "Creating purchased gift card");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: CreatePurchasedGiftCardActionType,
     purchase,
   })) as PurchasedGiftCardListModel;
@@ -257,7 +257,7 @@ export async function getPreviewImage(
   const logger = loggerFactory("getPreviewImage");
   logger.debug({ appId, payload }, "Getting preview image");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetPreviewActionType,
     ...payload,
   })) as { success: true; imageDataUrl: string };
@@ -270,7 +270,7 @@ export async function getSettings(appId: string) {
   const logger = loggerFactory("getSettings");
   logger.debug({ appId }, "Getting settings");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: GetSettingsActionType,
   })) as GiftCardStudioSettings;
 
@@ -285,7 +285,7 @@ export async function updateSettings(
   const logger = loggerFactory("updateSettings");
   logger.debug({ appId }, "Updating settings");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: UpdateSettingsActionType,
     ...settings,
   })) as GiftCardStudioSettings;
@@ -302,7 +302,7 @@ export async function regenerateGiftCardAssets(
   const logger = loggerFactory("regenerateGiftCardAssets");
   logger.debug({ appId, id, assetType }, "Regenerating gift card assets");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: RegenerateGiftCardAssetsActionType,
     id,
     assetType,
@@ -319,7 +319,7 @@ export async function deletePurchasedGiftCard(appId: string, id: string) {
   const logger = loggerFactory("deletePurchasedGiftCard");
   logger.debug({ appId, id }, "Deleting purchased gift card");
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: DeletePurchasedGiftCardActionType,
     id,
   })) as boolean;
@@ -333,7 +333,7 @@ export async function markGiftCardStudioPurchasesRead(appId: string) {
   logger.debug({ appId }, "Marking gift card studio purchases as read");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: MarkGiftCardStudioPurchasesReadActionType,
     });
 
@@ -359,7 +359,7 @@ export async function resendEmail(
     `Resending email to ${participantType}`,
   );
 
-  const result = (await adminApi.apps.processRequest(appId, {
+  const result = (await appsApi.processRequest(appId, {
     type: ResendEmailActionType,
     id,
     participantType,

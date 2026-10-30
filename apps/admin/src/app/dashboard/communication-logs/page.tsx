@@ -4,7 +4,7 @@ import PageContainer from "@/components/admin/layout/page-container";
 import {
   communicationLogsSearchParamsCache,
   serializeCommunicationLogsSearchParams,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/communication-logs";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";

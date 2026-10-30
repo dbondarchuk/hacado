@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import type { TeamMemberListModel } from "@hacado/types/users";
 import { Button } from "@hacado/ui/button";
@@ -72,7 +72,7 @@ export const MemberSelectorCompact: React.FC<MemberSelectorCompactProps> = ({
 
     let cancelled = false;
     void (async () => {
-      const result = await adminApi.teams.getMembers({
+      const result = await teamsApi.getMembers({
         page: 1,
         limit: 1,
         priorityId: [value],
@@ -102,7 +102,7 @@ export const MemberSelectorCompact: React.FC<MemberSelectorCompactProps> = ({
     const load = async () => {
       setLoading(true);
       try {
-        const result = await adminApi.teams.getMembers({
+        const result = await teamsApi.getMembers({
           page,
           limit: PAGE_SIZE,
           search: debouncedSearch || undefined,

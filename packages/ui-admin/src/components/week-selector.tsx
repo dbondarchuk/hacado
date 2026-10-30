@@ -18,7 +18,7 @@ import {
   getDateFromWeekIdentifier,
   getWeekIdentifier,
   hasSame,
-} from "@hacado/utils";
+} from "@hacado/utils/time";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";

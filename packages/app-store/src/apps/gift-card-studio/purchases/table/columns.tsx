@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit/payments";
 import {
   CustomerName,
   tableSortHeader,

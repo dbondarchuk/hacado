@@ -2,9 +2,9 @@ import { getOrganizationId, getServicesContainer } from "@/utils/utils";
 import {
   isSvgFaviconSource,
   parseSvgViewBoxSize,
-  stream2buffer,
   validateFaviconDimensions,
-} from "@hacado/utils";
+} from "@hacado/utils/favicon";
+import { stream2buffer } from "@hacado/utils/stream";
 import { createHash } from "crypto";
 import type { Metadata } from "next";
 import sharp from "sharp";

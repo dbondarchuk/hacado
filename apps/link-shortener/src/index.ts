@@ -3,7 +3,7 @@ import {
   SHORT_CODE_ALPHABET,
   ShortLinksService,
 } from "@hacado/services/short-links";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import dotenv from "dotenv";
 import http from "http";
 import { URL } from "url";

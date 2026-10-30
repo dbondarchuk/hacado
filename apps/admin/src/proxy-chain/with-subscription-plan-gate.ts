@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { BRAND_SETTINGS_UPGRADE_URL } from "@hacado/services/billing";
 import type { SubscriptionFeature } from "@hacado/types/billing";
 import { BillingPlanTier } from "@hacado/types/billing";
-import { canUseFeature } from "@hacado/utils";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareProxy } from "./types";
 import { containsAdminApi } from "./utils";

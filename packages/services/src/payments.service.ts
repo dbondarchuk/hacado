@@ -36,7 +36,7 @@ import {
   IEventService,
   IPaymentsService,
 } from "@hacado/types/services";
-import { escapeRegex } from "@hacado/utils";
+import { escapeRegex } from "@hacado/utils/string";
 import { Document, Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

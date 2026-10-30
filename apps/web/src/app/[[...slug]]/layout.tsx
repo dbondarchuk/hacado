@@ -18,13 +18,13 @@ import type { Resource } from "@hacado/types/configuration/resources";
 import { ConfigProvider } from "@hacado/ui/context";
 import { SonnerToaster } from "@hacado/ui/sonner";
 import { Toaster } from "@hacado/ui/toaster";
+import { getColorsCss } from "@hacado/utils/colors";
 import {
   buildGoogleFontsUrl,
   DEFAULT_WEB_PRIMARY_FONT,
   DEFAULT_WEB_SECONDARY_FONT,
-  getColorsCss,
-  isFreeTier,
-} from "@hacado/utils";
+} from "@hacado/utils/fonts";
+import { isFreeTier } from "@hacado/utils/subscription";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { redirect } from "next/navigation";

@@ -3,7 +3,7 @@ import {
   getOrganizationIdAndSlug,
   getServicesContainer,
 } from "@/app/utils";
-import { organizationDomainSchema } from "@hacado/api-sdk";
+import { organizationDomainSchema } from "@hacado/api-sdk/admin/schemas/organization";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types/general";
 import { validateCustomDomainDns } from "@hacado/utils/server";

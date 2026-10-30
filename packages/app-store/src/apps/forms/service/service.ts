@@ -17,14 +17,11 @@ import { Customer, CustomerSearchField } from "@hacado/types/customers";
 import type { EventSource } from "@hacado/types/events";
 import { customerEventSource, systemEventSource } from "@hacado/types/events";
 import { SessionUser } from "@hacado/types/users";
-import {
-  fileNameToMimeType,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  hasPermission,
-  parseJSON,
-} from "@hacado/utils";
+import { fileNameToMimeType } from "@hacado/utils/assets";
+import { parseJSON } from "@hacado/utils/fetch-with-json";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { hasPermission } from "@hacado/utils/permissions";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { v4 as uuidv4 } from "uuid";
 import { getEmailTemplate } from "../emails/utils";
 import { FORM_RESPONSE_CREATED_EVENT_TYPE } from "../events";

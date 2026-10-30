@@ -1,7 +1,8 @@
 "use client";
 
 import { LanguageOptions } from "@/constants/texts";
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { organizationApi } from "@hacado/api-sdk/admin/organization";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { languages, useI18n } from "@hacado/i18n/client";
 import { zNonEmptyString } from "@hacado/types/utils";
 import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
@@ -129,7 +130,7 @@ export const BrandTab: React.FC<{
     try {
       setSavingDomain(true);
       domainForm.clearErrors("domain");
-      await adminApi.organization.setCustomDomain({
+      await organizationApi.setCustomDomain({
         domain: data.domain,
       });
 
@@ -193,7 +194,7 @@ export const BrandTab: React.FC<{
       setDisconnecting(true);
       await toastPromise(
         (async () => {
-          return adminApi.organization.deleteCustomDomain();
+          return organizationApi.deleteCustomDomain();
         })(),
         {
           success: t("settings.brand.form.toasts.changesSaved"),

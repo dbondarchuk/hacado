@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@hacado/i18n/client";
-import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit/communications";
 import { useReload } from "@hacado/ui-admin/hooks";
 import { AlertModal } from "@hacado/ui/alert-modal";
 import { Button } from "@hacado/ui/button";

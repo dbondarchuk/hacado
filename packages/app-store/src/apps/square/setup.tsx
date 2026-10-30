@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
@@ -65,7 +65,7 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
   const isInStoreSyncEnabled = form.watch("enableInStoreSync");
 
   const getStatus = async (appId: string) => {
-    const status = await adminApi.apps.getAppStatus(appId);
+    const status = await appsApi.getAppStatus(appId);
     setApp(() => status);
 
     if (status.status === "pending") {
@@ -90,7 +90,7 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
       return;
     }
 
-    void adminApi.apps.getAppStatus(existingAppId).then(setApp);
+    void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 
   React.useEffect(() => {
@@ -108,16 +108,16 @@ export const SquareAppSetup: React.FC<AppSetupProps> = ({
       let appId: string;
       if (app?._id || existingAppId) {
         appId = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(appId, {
+        await appsApi.setAppStatus(appId, {
           status: "pending",
           statusText:
             "app_square_admin.form.pendingAuthorization" satisfies SquareAdminAllKeys,
         });
       } else {
-        appId = await adminApi.apps.addNewApp(SquareApp.name);
+        appId = await appsApi.addNewApp(SquareApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(appId);
+      const loginUrl = await appsApi.getAppLoginUrl(appId);
 
       getStatus(appId);
       window.open(loginUrl, "_blank", "popup=true");

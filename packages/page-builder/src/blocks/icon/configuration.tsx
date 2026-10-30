@@ -8,7 +8,7 @@ import { ComboboxAsync } from "@hacado/ui/combobox-async";
 import { Icon, iconNames, type IconName } from "@hacado/ui/icon";
 import { Label } from "@hacado/ui/label";
 import { deepMemo } from "@hacado/ui/utils";
-import { capitalize } from "@hacado/utils";
+import { capitalize } from "@hacado/utils/string";
 import { useCallback } from "react";
 import { IconProps, IconPropsDefaults } from "./schema";
 import { iconShortcuts } from "./shortcuts";

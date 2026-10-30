@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import { Input } from "@hacado/ui/input";
@@ -80,7 +80,7 @@ export const OtpCard: React.FC = () => {
             if (!payment || payment.intent?.status === "paid") {
               onSubmit(payment?.intent?._id);
             } else {
-              clientApi.booking.trackPaymentReached(payment.intent?.amount);
+              bookingApi.trackPaymentReached(payment.intent?.amount);
               setCurrentStep("payment");
             }
           }}

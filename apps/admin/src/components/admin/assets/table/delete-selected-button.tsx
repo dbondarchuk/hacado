@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { Asset } from "@hacado/types/assets";
 import {
@@ -34,7 +34,7 @@ export const DeleteSelectedAssetsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.assets.deleteAssets(selected.map((asset) => asset._id)),
+        assetsApi.deleteAssets(selected.map((asset) => asset._id)),
         {
           success: t("assets.table.delete.success"),
           error: t("assets.table.delete.error"),

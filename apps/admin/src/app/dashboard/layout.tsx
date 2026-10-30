@@ -22,7 +22,7 @@ import {
   getAppMinimumPlanTier,
   getSessionPlanTier,
 } from "@/lib/billing/subscription-plan-access";
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AvailableApps } from "@hacado/app-store";
 import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { withCatalogTarget } from "@hacado/app-store/utils";
@@ -34,11 +34,9 @@ import { cn } from "@hacado/ui/cn";
 import { ConfigProvider } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { SidebarInset, SidebarProvider } from "@hacado/ui/sidebar";
-import {
-  canFilterByMember,
-  filterConnectedAppsForUser,
-  isFreeTier,
-} from "@hacado/utils";
+import { filterConnectedAppsForUser } from "@hacado/utils/app-access";
+import { canFilterByMember } from "@hacado/utils/permissions";
+import { isFreeTier } from "@hacado/utils/subscription";
 import { AlertTriangle, Sparkles } from "lucide-react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

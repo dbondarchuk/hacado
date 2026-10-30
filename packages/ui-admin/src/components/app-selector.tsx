@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppScope, ConnectedApp } from "@hacado/types/apps";
 import { Prettify } from "@hacado/types/utils";
@@ -114,8 +114,8 @@ export const AppSelector = React.forwardRef<
         try {
           setIsLoading(true);
           const apps = scope
-            ? await adminApi.apps.getAppsByScope(scope)
-            : await adminApi.apps.getAppsByName(appName!);
+            ? await appsApi.getAppsByScope(scope)
+            : await appsApi.getAppsByName(appName!);
           setApps(apps);
         } catch (e) {
           toast.error(t("common.requestFailed"));

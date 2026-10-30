@@ -5,7 +5,7 @@ import { AppMenuItems } from "@hacado/app-store/menu-items";
 import { ConnectedApp, ConnectedAppAccount } from "@hacado/types/apps";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { SessionUser } from "@hacado/types/users";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import {
   BadgePercent,
   CalendarPlus,

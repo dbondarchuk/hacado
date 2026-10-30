@@ -7,7 +7,7 @@ import {
   scopesForHref,
   type CommandSearchScope,
 } from "@/lib/command-search/scope";
-import { adminApi } from "@hacado/api-sdk";
+import { searchApi } from "@hacado/api-sdk/admin/search";
 import { useI18n, type AllKeys } from "@hacado/i18n/client";
 import { NavItem, NavItemGroup } from "@hacado/types/admin";
 import { CommandSearchGroup, ConnectedApp } from "@hacado/types/apps";
@@ -106,7 +106,7 @@ export function CommandPaletteProvider({
     setLoading(true);
     const timer = window.setTimeout(async () => {
       try {
-        const data = await adminApi.search.searchCommands(
+        const data = await searchApi.searchCommands(
           { q: parsed.text, type: parsed.scope },
           { signal: controller.signal },
         );

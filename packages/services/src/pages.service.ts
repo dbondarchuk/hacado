@@ -44,7 +44,8 @@ import {
   IOrganizationService,
   IPagesService,
 } from "@hacado/types/services";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { DateTime } from "luxon";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";

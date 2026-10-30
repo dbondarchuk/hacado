@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import {
@@ -33,7 +33,7 @@ export const SetStatusSelectedGiftCardsButton: React.FC<{
     try {
       setIsLoading(true);
 
-      const promise = adminApi.giftCards.setGiftCardsStatus(
+      const promise = giftCardsApi.setGiftCardsStatus(
         selected.map((g) => g._id),
         status,
       );

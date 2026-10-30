@@ -3,7 +3,7 @@ import {
   AppointmentView,
   AppointmentViewButtons,
   AppointmentViewProvider,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/appointments";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { notFound } from "next/navigation";

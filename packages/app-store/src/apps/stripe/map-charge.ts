@@ -1,5 +1,5 @@
 import { PaymentFee } from "@hacado/types/booking";
-import { round2 } from "@hacado/utils";
+import { round2 } from "@hacado/utils/currency";
 import type Stripe from "stripe";
 
 type StripeChargeWithTip = Stripe.Charge & {

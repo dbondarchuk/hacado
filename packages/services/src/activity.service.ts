@@ -12,7 +12,7 @@ import type {
   IActivityService,
   IDashboardNotificationsService,
 } from "@hacado/types/services";
-import { escapeRegex } from "@hacado/utils";
+import { escapeRegex } from "@hacado/utils/string";
 import type { Redis } from "ioredis";
 import type { Document, Filter } from "mongodb";
 import { ObjectId } from "mongodb";

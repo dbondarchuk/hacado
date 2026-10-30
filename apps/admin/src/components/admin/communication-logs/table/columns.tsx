@@ -1,7 +1,7 @@
 "use client";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types/communication";
-import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit";
+import { CommunicationLogPayloadDialog } from "@hacado/ui-admin-kit/communications";
 import {
   CustomerName,
   MemberName,

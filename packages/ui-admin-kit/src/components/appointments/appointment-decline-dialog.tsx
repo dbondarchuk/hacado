@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
@@ -36,7 +36,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { formatAmount } from "@hacado/utils";
+import { formatAmount } from "@hacado/utils/currency";
 import { CalendarX2 } from "lucide-react";
 import { DateTime } from "luxon";
 import React, { useCallback, useEffect } from "react";
@@ -402,7 +402,7 @@ export const AppointmentDeclineDialog: React.FC<{
   );
 
   const refundSelected = async () => {
-    const result = await adminApi.payments.refundPayments({
+    const result = await paymentsApi.refundPayments({
       refunds: selectedPayments,
     });
 

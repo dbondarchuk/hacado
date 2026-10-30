@@ -7,7 +7,9 @@ import { Appointment } from "@hacado/types/booking";
 import { sendCommunicationRequestSchema } from "@hacado/types/communication";
 import { Customer } from "@hacado/types/customers";
 import { okStatus } from "@hacado/types/general";
-import { getAdminUrl, getArguments, template } from "@hacado/utils";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { template } from "@hacado/utils/string";
+import { getAdminUrl } from "@hacado/utils/website";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

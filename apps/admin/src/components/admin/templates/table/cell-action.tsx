@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
 import { TemplateListModel } from "@hacado/types/templates";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -32,7 +32,7 @@ export const CellAction: React.FC<CellActionProps> = ({ template }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.templates.deleteTemplate(template._id), {
+      await toastPromise(templatesApi.deleteTemplate(template._id), {
         success: t("templates.table.cellAction.templateDeleted", {
           name: template.name,
         }),

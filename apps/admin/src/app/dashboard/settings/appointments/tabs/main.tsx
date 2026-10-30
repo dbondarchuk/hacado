@@ -40,7 +40,7 @@ import {
 } from "@hacado/ui/select";
 import { TagInput } from "@hacado/ui/tag-input";
 import { SimpleTimePicker } from "@hacado/ui/time-picker";
-import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils";
+import { formatTime, formatTimeLocale, parseTime } from "@hacado/utils/time";
 import React from "react";
 import { TabProps } from "./types";
 

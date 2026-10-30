@@ -1,6 +1,6 @@
 "use client";
 
-import { giftCardsSearchParams } from "@hacado/api-sdk";
+import { giftCardsSearchParams } from "@hacado/api-sdk/admin/search-params/gift-cards";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

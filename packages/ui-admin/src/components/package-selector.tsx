@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentPackage } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
@@ -58,7 +58,7 @@ export const PackageSelector = React.forwardRef<
     const getPackages = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.packages.getPackages({
+        const result = await packagesApi.getPackages({
           page,
           limit,
           search,

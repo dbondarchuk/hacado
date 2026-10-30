@@ -1,7 +1,7 @@
 import { useI18n } from "@hacado/i18n/client";
 import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import { Icon, iconNames, type IconName } from "@hacado/ui/icon";
-import { capitalize } from "@hacado/utils";
+import { capitalize } from "@hacado/utils/string";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
 

@@ -5,7 +5,7 @@ import { PaymentsTableAction } from "@/components/admin/payments/table/table-act
 import {
   paymentsSearchParamsCache,
   paymentsSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/payments";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";

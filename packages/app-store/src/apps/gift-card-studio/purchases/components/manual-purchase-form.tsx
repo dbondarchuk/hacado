@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import { inPersonPaymentMethod } from "@hacado/types/booking";
@@ -14,7 +15,7 @@ import {
 import {
   SmsConsentAttest,
   useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/sms-consent-attest";
 import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import { Button } from "@hacado/ui/button";
@@ -211,7 +212,7 @@ export const ManualPurchaseDialog: React.FC<{
       return;
     }
     void fetchSettings();
-    void adminApi.payments
+    void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
       .catch(() => setPaymentLinkApps([]));
@@ -308,7 +309,7 @@ export const ManualPurchaseDialog: React.FC<{
     }
 
     let cancelled = false;
-    adminApi.customers
+    customersApi
       .getCustomer(customerId)
       .then((customer) => {
         if (cancelled) {

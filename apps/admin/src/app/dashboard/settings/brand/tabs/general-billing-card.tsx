@@ -3,7 +3,7 @@
 import { SmsTopupPurchaseDialog } from "@/app/dashboard/settings/brand/tabs/sms-topup-purchase-dialog";
 import { PurchaseSeatsDialog } from "@/components/admin/team/purchase-seats-dialog";
 import { SeatsPurchaseSuccessToast } from "@/components/admin/team/seats-purchase-success-toast";
-import { adminApi } from "@hacado/api-sdk";
+import { billingApi } from "@hacado/api-sdk/admin/billing";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   BillingPlanTier,
@@ -136,7 +136,7 @@ export function GeneralBillingCard({
   const openPortal = async () => {
     setOpening(true);
     try {
-      const result = await adminApi.billing.getBillingPortalUrl();
+      const result = await billingApi.getBillingPortalUrl();
       window.location.assign(result);
     } catch (error) {
       toast.error(t("settings.general.billing.portalError"));

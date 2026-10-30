@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import {
   Schedule,
   ScheduleDaySource,
@@ -13,7 +13,7 @@ export const getWeeklySchedule = async (
   weekIdentifier: WeekIdentifier,
   memberId?: string,
 ) => {
-  return (await adminApi.apps.processRequest(appId, {
+  return (await appsApi.processRequest(appId, {
     type: "get-weekly-schedule",
     week: weekIdentifier,
     memberId,
@@ -32,7 +32,7 @@ export const updateWeeklySchedule = async (
   schedule: Schedule,
   memberId?: string,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "set-schedules",
     schedules: {
       [weekIdentifier]: schedule,
@@ -47,7 +47,7 @@ export const setCompanyHolidays = async (
   weekIdentifier: WeekIdentifier,
   holidays: ScheduleWeekDay[],
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "set-company-holidays",
     week: weekIdentifier,
     holidays,
@@ -59,7 +59,7 @@ export const resetWeeklySchedule = async (
   week: WeekIdentifier,
   memberId?: string,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "remove-schedule",
     week,
     memberId,
@@ -71,7 +71,7 @@ export const resetAllWeeklySchedule = async (
   week: WeekIdentifier,
   memberId?: string,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "remove-all-schedules",
     week,
     memberId,
@@ -83,7 +83,7 @@ export const removeRecurringWeeklySchedule = async (
   exceptionId: string,
   memberId?: string,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "remove-recurring-schedule",
     exceptionId,
     memberId,
@@ -100,7 +100,7 @@ export const copyWeeklySchedule = async (
   if (fromSchedule.isDefault)
     throw new Error(`Week ${fromWeek} does not have custom schedule`);
 
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "set-schedules",
     schedules: {
       [toWeek]: fromSchedule.schedule,
@@ -122,7 +122,7 @@ export const repeatWeeklySchedule = async (
   replaceExisting?: boolean,
   memberId?: string,
 ) => {
-  await adminApi.apps.processRequest(appId, {
+  await appsApi.processRequest(appId, {
     type: "repeat-schedule",
     week,
     interval,

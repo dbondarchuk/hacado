@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from "@hacado/ui/collapsible";
 import { useCurrencyFormat } from "@hacado/ui/context";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { ChevronDown } from "lucide-react";
 import { DateTime } from "luxon";
 import type { ReactNode } from "react";

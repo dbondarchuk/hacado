@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { fieldsSearchParamsLoader } from "@hacado/api-sdk";
+import { fieldsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/fields";
 import { getLoggerFactory } from "@hacado/logger";
 import { fieldSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { AssetEntity } from "@hacado/types/assets";
 import { AssetPreview } from "@hacado/ui-admin/asset-preview";
@@ -45,7 +45,7 @@ export const AssetEditForm: React.FC<{ asset: AssetEntity }> = ({ asset }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.assets.updateAsset(asset._id, data), {
+      await toastPromise(assetsApi.updateAsset(asset._id, data), {
         success: t("assets.toasts.changesSaved"),
         error: t("common.toasts.error"),
       });

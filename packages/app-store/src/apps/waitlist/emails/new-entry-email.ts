@@ -5,7 +5,8 @@ import {
 import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { EmailNotificationRequest } from "@hacado/types/services";
-import { durationToTime, getAdminUrl } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import type { WaitlistEntry, WaitlistTime } from "../models";
 import { WaitlistAdminAllKeys } from "../translations/types";

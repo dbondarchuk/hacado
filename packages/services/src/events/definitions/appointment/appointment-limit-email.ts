@@ -7,7 +7,7 @@ import type {
   EmailNotificationRequest,
   IServicesContainer,
 } from "@hacado/types/services";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { getOpenAppointmentsCreatedInBillingCycleCount } from "../../../billing/free-tier-appointment-usage";
 import { resolvePlanTierFromOrganization } from "../../../billing/subscription-entitlements";

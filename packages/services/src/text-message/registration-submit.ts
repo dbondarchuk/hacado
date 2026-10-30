@@ -5,7 +5,8 @@ import type {
   SmsRegistrationInput,
   SmsRegistrationSaveResponse,
 } from "@hacado/types/text-message/registration";
-import { getAppsExternalUrl, normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { getAppsExternalUrl } from "@hacado/utils/website";
 import { Telnyx } from "telnyx";
 import { getHelpSms } from "./messages";
 import {

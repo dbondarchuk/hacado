@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { fieldsApi } from "@hacado/api-sdk/admin/fields";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
@@ -109,7 +109,7 @@ export const ServiceFieldForm: React.FC<{
   const t = useI18n("admin");
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.fields.checkFieldUniqueName,
+    fieldsApi.checkFieldUniqueName,
     300,
   );
 
@@ -137,10 +137,10 @@ export const ServiceFieldForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.fields.createField(data);
+          const { _id } = await fieldsApi.createField(data);
           router.push(`/dashboard/catalog/fields/${_id}`);
         } else {
-          await adminApi.fields.updateField(initialData._id, data);
+          await fieldsApi.updateField(initialData._id, data);
 
           router.refresh();
         }

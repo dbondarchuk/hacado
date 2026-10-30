@@ -1,5 +1,5 @@
 "use client";
-import { baseSearchParams } from "@hacado/api-sdk";
+import { baseSearchParams } from "@hacado/api-sdk/admin/search-params/base";
 import { useI18n } from "@hacado/i18n/client";
 import { Sort } from "@hacado/types/database";
 import { Button } from "@hacado/ui/button";

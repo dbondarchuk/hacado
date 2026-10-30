@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { activitiesApi } from "@hacado/api-sdk/admin/activities";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AsyncFilterBoxOption,
@@ -21,7 +21,7 @@ export const ActivityEventTypeAsyncFilterBox: React.FC<{
   const fetchItems = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.activities.getActivityEventTypes({
+      const result = await activitiesApi.getActivityEventTypes({
         page,
         limit,
         search,

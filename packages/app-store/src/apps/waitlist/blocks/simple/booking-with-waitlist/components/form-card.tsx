@@ -24,10 +24,11 @@ import {
 } from "@hacado/ui/sms-consent-choice";
 import { Spinner } from "@hacado/ui/spinner";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { discountsApi } from "@hacado/api-sdk/client/discounts";
 import { TranslationKeys, useI18n } from "@hacado/i18n/client";
 import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { DateTime as Luxon } from "luxon";
 import { CardWithAppointmentInformation } from "./card-with-info";
 import { useScheduleContext } from "./context";
@@ -154,7 +155,7 @@ export const FormCard: React.FC = () => {
 
       const data = isEditor
         ? { code: promoCode, value: 10, type: "percentage" as const }
-        : await clientApi.discounts.applyDiscount(request);
+        : await discountsApi.applyDiscount(request);
 
       setDiscount(data);
       setPromoCodeError(undefined);
@@ -279,8 +280,7 @@ export const FormCard: React.FC = () => {
                     checked={smsConsent}
                     onCheckedChange={setSmsConsent}
                     lookup={async (phone) => {
-                      const result =
-                        await clientApi.booking.getSmsConsent(phone);
+                      const result = await bookingApi.getSmsConsent(phone);
                       return result.consented === true;
                     }}
                   />

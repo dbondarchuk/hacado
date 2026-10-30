@@ -1,7 +1,7 @@
 "use client";
 
 import { TeamSeatsCapacityHint } from "@/components/admin/team/team-seats-capacity-hint";
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import {
@@ -51,7 +51,7 @@ export function InviteMemberButton({
       setLoading(true);
       await toastPromise(
         (async () => {
-          const result = await adminApi.teams.inviteMember({ email, role });
+          const result = await teamsApi.inviteMember({ email, role });
           if (!result.ok) {
             throw new Error(result.code);
           }

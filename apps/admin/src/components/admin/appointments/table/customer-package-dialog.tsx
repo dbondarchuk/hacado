@@ -6,7 +6,7 @@ import {
   CustomerPackageListModel,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
-import { CustomerPackageActions } from "@hacado/ui-admin-kit";
+import { CustomerPackageActions } from "@hacado/ui-admin-kit/packages";
 import { Badge } from "@hacado/ui/badge";
 import { Button } from "@hacado/ui/button";
 import { useTimeZone } from "@hacado/ui/context";

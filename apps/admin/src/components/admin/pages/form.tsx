@@ -1,6 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import {
   AppsBlocksEditors,
   AppsBlocksTemplates,
@@ -31,7 +33,8 @@ import {
 } from "@hacado/ui/form";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
 import { toastPromise } from "@hacado/ui/sonner";
-import { formatArguments, generateSlugPreview } from "@hacado/utils";
+import { formatArguments } from "@hacado/utils/format-arguments";
+import { generateSlugPreview } from "@hacado/utils/page";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -66,7 +69,7 @@ export const PageForm: React.FC<{
   const t = useI18n("admin");
 
   const cachedUniqueSlugCheck = useDebounceCacheFn(
-    adminApi.pages.checkUniqueSlug,
+    pagesApi.checkUniqueSlug,
     300,
   );
 
@@ -186,14 +189,14 @@ export const PageForm: React.FC<{
         }
 
         if (!initialData?._id) {
-          const { _id } = await adminApi.pages.createPage(data);
+          const { _id } = await pagesApi.createPage(data);
           onFormSubmit();
 
           setTimeout(() => {
             router.push(`/dashboard/pages/${_id}`);
           }, 100);
         } else {
-          await adminApi.pages.updatePage(initialData._id, data);
+          await pagesApi.updatePage(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {
@@ -279,7 +282,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchHeader = async () => {
       if (!headerId) return;
-      const data = await adminApi.pageHeaders.getPageHeader(headerId);
+      const data = await pageHeadersApi.getPageHeader(headerId);
       setHeader(data);
     };
 
@@ -294,7 +297,7 @@ export const PageForm: React.FC<{
   React.useEffect(() => {
     const fetchFooter = async () => {
       if (!footerId) return;
-      const data = await adminApi.pageFooters.getPageFooter(footerId);
+      const data = await pageFootersApi.getPageFooter(footerId);
       setFooter(data);
     };
 

@@ -23,14 +23,15 @@ import { EventEnvelope } from "@hacado/types/events";
 import { SessionUser } from "@hacado/types/users";
 import {
   dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   resolveAppointmentEventForMemberId,
+} from "@hacado/utils/appointment-event-dispatch";
+import { getArguments } from "@hacado/utils/get-arguments";
+import {
   resolveProcessOtherMembersAppointmentsConfig,
   subscriptionAllowsMultipleUsers,
-  template,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
+import { template } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { getTextMessageNotificationMessages } from "./messages";
 import {
   TextMessageNotificationConfiguration,

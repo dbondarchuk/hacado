@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerPackage } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
@@ -91,7 +91,7 @@ export const CustomerPackageSelector = React.forwardRef<
           return { items: [] as IComboboxItem[], hasMore: false };
         }
 
-        const result = await adminApi.packages.getEligibleCustomerPackages({
+        const result = await packagesApi.getEligibleCustomerPackages({
           customerId,
           serviceId,
           memberId,
@@ -100,7 +100,7 @@ export const CustomerPackageSelector = React.forwardRef<
 
         let packages = result.items;
         if (value && !packages.some((pkg) => pkg._id === value)) {
-          const listed = await adminApi.packages.getCustomerPackages({
+          const listed = await packagesApi.getCustomerPackages({
             customerId,
             page: 1,
             limit: 50,

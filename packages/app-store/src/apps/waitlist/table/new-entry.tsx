@@ -1,11 +1,11 @@
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon, AppointmentOption } from "@hacado/types/booking";
 import { CustomerListModel } from "@hacado/types/customers";
 import {
   SmsConsentAttest,
   useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/sms-consent-attest";
 import { AddonSelector } from "@hacado/ui-admin/addon-selector";
 import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
 import { useReload } from "@hacado/ui-admin/hooks";
@@ -120,7 +120,7 @@ export const NewEntryDialog = ({
     if (!isOpen || !customerIdLock) return;
 
     let cancelled = false;
-    adminApi.customers
+    customersApi
       .getCustomer(customerIdLock)
       .then((loaded) => {
         if (cancelled) return;

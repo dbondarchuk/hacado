@@ -1,4 +1,4 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
@@ -18,7 +18,7 @@ import {
 } from "@hacado/ui/sms-consent-choice";
 import { Textarea } from "@hacado/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@hacado/ui/toggle-group";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Calendar } from "lucide-react";
 import { DateTime } from "luxon";
@@ -196,8 +196,7 @@ export const WaitlistFormCard: React.FC = () => {
                         field.onBlur();
                       }}
                       lookup={async (phone) => {
-                        const result =
-                          await clientApi.booking.getSmsConsent(phone);
+                        const result = await bookingApi.getSmsConsent(phone);
                         return result.consented === true;
                       }}
                     />

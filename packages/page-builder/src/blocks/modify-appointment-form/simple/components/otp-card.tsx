@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
 import type { CustomerOtpChannels } from "@hacado/types/configuration/customer-auth";
 import { CUSTOMER_OTP_RESEND_COOLDOWN_SECONDS } from "@hacado/types/customer-auth";
@@ -42,7 +42,7 @@ export const OtpCard: React.FC = () => {
         : t("modification.otp.descriptionEmailOnly");
 
   useEffect(() => {
-    clientApi.customerAuth
+    customerAuthApi
       .getAuthOptions()
       .then((res) => {
         const channels = res.otpChannels ?? "email";
@@ -77,7 +77,7 @@ export const OtpCard: React.FC = () => {
     if (authType === "phone" && !phoneValid) return;
     setIsRequestOtpLoading(true);
     try {
-      const response = await clientApi.customerAuth.requestOtp(
+      const response = await customerAuthApi.requestOtp(
         authType === "phone" ? { phone } : { email },
       );
       setIsOtpSent(true);
@@ -99,7 +99,7 @@ export const OtpCard: React.FC = () => {
   const verifyOtp = async () => {
     setIsVerifyOtpLoading(true);
     try {
-      await clientApi.customerAuth.verifyOtp(
+      await customerAuthApi.verifyOtp(
         authType === "phone" ? { phone, otp } : { email, otp },
       );
       setIsOtpVerified(true);

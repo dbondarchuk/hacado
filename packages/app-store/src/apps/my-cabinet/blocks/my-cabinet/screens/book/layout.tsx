@@ -5,7 +5,7 @@ import { useCurrencyFormat } from "@hacado/ui/context";
 import { useIsMobile, usePrevious } from "@hacado/ui/hooks";
 import { Spinner } from "@hacado/ui/spinner";
 import { Stepper } from "@hacado/ui/stepper";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";

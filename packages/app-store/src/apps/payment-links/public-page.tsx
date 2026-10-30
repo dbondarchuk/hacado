@@ -1,6 +1,7 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { PaymentAppForms } from "@hacado/app-store/payment-forms";
 import { useI18n } from "@hacado/i18n/client";
 import { PublicPageClientProps } from "@hacado/types/apps";
@@ -145,7 +146,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<LoadResponse>({
+      const data = await appsApi.callAppApi<LoadResponse>({
         appId,
         path: `public/${encodeURIComponent(publicId)}`,
         method: "GET",
@@ -218,7 +219,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       setErrorMessage(null);
 
       try {
-        const data = await clientApi.apps.callAppApi<
+        const data = await appsApi.callAppApi<
           CollectPayment & { success?: boolean; code?: string }
         >({
           appId,
@@ -259,7 +260,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<{
+      const data = await appsApi.callAppApi<{
         success: boolean;
         code?: string;
       }>({
@@ -298,7 +299,7 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await clientApi.apps.callAppApi<{
+      const data = await appsApi.callAppApi<{
         success: boolean;
       }>({
         appId,
@@ -505,14 +506,14 @@ export const PaymentLinksPublicPage: React.FC<PublicPageClientProps> = ({
       <div className="mx-auto flex w-full max-w-md flex-col gap-4 px-4 py-10">
         <h1 className="text-2xl font-semibold">{t("status.pending.title")}</h1>
         <CustomerOtpForm
-          getAuthOptions={() => clientApi.customerAuth.getAuthOptions()}
+          getAuthOptions={() => customerAuthApi.getAuthOptions()}
           requestOtp={({ channel, email, phone }) =>
-            clientApi.customerAuth.requestOtp(
+            customerAuthApi.requestOtp(
               channel === "phone" ? { phone } : { email },
             )
           }
           verifyOtp={({ channel, email, phone, otp }) =>
-            clientApi.customerAuth.verifyOtp(
+            customerAuthApi.verifyOtp(
               channel === "phone" ? { phone, otp } : { email, otp },
             )
           }

@@ -22,12 +22,10 @@ import {
 } from "@hacado/types/booking";
 import { WithDatabaseId } from "@hacado/types/database";
 import { EventEnvelope, EventSource } from "@hacado/types/events";
-import {
-  dispatchAppointmentEventPayload,
-  getAdminUrl,
-  stripMarkdown,
-} from "@hacado/utils";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
+import { stripMarkdown } from "@hacado/utils/markdown";
 import { encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import {
   ZOOM_API_BASE_URL,

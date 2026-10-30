@@ -22,7 +22,7 @@ import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { Skeleton } from "@hacado/ui/skeleton";
 import { toast } from "@hacado/ui/sonner";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { getTimeZones } from "@vvo/tzdb";
 import {
   Check,

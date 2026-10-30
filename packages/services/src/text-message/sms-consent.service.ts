@@ -4,7 +4,7 @@ import type {
   ISmsConsentService,
   SmsConsentWrite,
 } from "@hacado/types/services";
-import { normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
 import { BaseService } from "../services/base.service";
 import { classifyInboundSmsKeyword } from "./compliance";
 import { getInboundSmsKeywordReply } from "./messages";

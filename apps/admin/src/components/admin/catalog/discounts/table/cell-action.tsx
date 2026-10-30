@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { discountsApi } from "@hacado/api-sdk/admin/discounts";
 import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -33,7 +33,7 @@ export const CellAction: React.FC<CellActionProps> = ({ discount }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.discounts.deleteDiscount(discount._id), {
+      await toastPromise(discountsApi.deleteDiscount(discount._id), {
         success: t("catalog.discounts.table.cellAction.discountDeleted", {
           name: discount.name,
         }),

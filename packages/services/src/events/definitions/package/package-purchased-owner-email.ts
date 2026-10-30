@@ -9,7 +9,8 @@ import type {
   EmailNotificationRequest,
   IServicesContainer,
 } from "@hacado/types/services";
-import { formatAmountWithCurrency, getAdminUrl } from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { DatabaseId } from "@hacado/types/database";
 import { SaveButton } from "@hacado/ui-admin/save-button";
@@ -122,7 +122,7 @@ export const AppointmentNotificationForm: React.FC<{
 
   React.useEffect(() => {
     let active = true;
-    adminApi.configuration
+    configurationApi
       .getConfiguration("textMessaging")
       .then((value) => {
         if (active) setSmsEnabled(value?.enabled === true);

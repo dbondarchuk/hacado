@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { communicationsApi } from "@hacado/api-sdk/admin/communications";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -129,7 +130,7 @@ export const SendCommunicationDialog: React.FC<
     try {
       setLoading(true);
 
-      const promise = adminApi.communications.sendCustomerMessage(data);
+      const promise = communicationsApi.sendCustomerMessage(data);
 
       await toastPromise(promise, {
         success: t("communications.messageSent"),
@@ -150,7 +151,7 @@ export const SendCommunicationDialog: React.FC<
 
     try {
       setIsTemplateLoading(true);
-      const template = await adminApi.templates.getTemplate(templateId);
+      const template = await templatesApi.getTemplate(templateId);
 
       if (template.type !== channel) {
         throw new Error(t("communications.wrongTemplateType"));

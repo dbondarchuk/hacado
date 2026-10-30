@@ -53,7 +53,8 @@ import { Markdown } from "@hacado/ui/markdown";
 import { RadioGroup, RadioGroupItem } from "@hacado/ui/radio-group";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime, formatAmountWithCurrency } from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 

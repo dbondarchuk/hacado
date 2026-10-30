@@ -9,7 +9,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { areTimesEqual, formatTimeLocale } from "@hacado/utils";
+import { areTimesEqual, formatTimeLocale } from "@hacado/utils/time";
 import { getTimeZones } from "@vvo/tzdb";
 import * as Locales from "date-fns/locale";
 import { Globe2Icon } from "lucide-react";

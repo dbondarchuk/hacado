@@ -1,7 +1,10 @@
 import { getServicesContainer } from "@/app/utils";
-import { pagesSearchParams, pagesSearchParamsCache } from "@hacado/api-sdk";
+import {
+  pagesSearchParams,
+  pagesSearchParamsCache,
+} from "@hacado/api-sdk/admin/search-params/pages";
 import { DataTable } from "@hacado/ui-admin/data-table";
-import { isSmsLinkShorteningEnabled } from "@hacado/utils";
+import { isSmsLinkShorteningEnabled } from "@hacado/utils/short-links";
 import { columns } from "./columns";
 import { LinkShorteningEnabledProvider } from "./link-shortening-enabled-context";
 

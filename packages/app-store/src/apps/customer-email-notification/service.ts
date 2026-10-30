@@ -14,15 +14,14 @@ import {
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
 import { EventEnvelope } from "@hacado/types/events";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
 import {
   AppointmentStatusToICalMethodMap,
-  dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
   getEventCalendarContent,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/email";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import {
   CustomerEmailNotificationConfiguration,
   customerEmailNotificationConfigurationSchema,

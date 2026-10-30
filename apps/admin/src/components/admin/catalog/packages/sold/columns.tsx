@@ -1,6 +1,6 @@
 "use client";
 
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   appointmentStatuses,

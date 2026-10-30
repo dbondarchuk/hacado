@@ -14,7 +14,7 @@ import {
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { memberEventSource } from "@hacado/types/events";
 import { smsRegistrationInputSchema } from "@hacado/types/text-message/registration";
-import { getWebsiteUrl as organizationWebsiteUrl } from "@hacado/utils";
+import { getWebsiteUrl as organizationWebsiteUrl } from "@hacado/utils/website";
 import { NextRequest, NextResponse } from "next/server";
 import { publicPageUrl, storeOptInImage } from "../shared";
 

@@ -8,7 +8,7 @@ import {
   localBusinessTypeForIndustry,
   normalizePostalAddress,
 } from "@hacado/types/utils";
-import { stripMarkdown } from "@hacado/utils";
+import { stripMarkdown } from "@hacado/utils/markdown";
 import {
   getPublicCatalogSnapshot,
   type PublicCatalogMember,

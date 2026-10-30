@@ -41,7 +41,7 @@ import {
   IPaymentsService,
   ISyncedPaymentsService,
 } from "@hacado/types/services";
-import { round2 } from "@hacado/utils";
+import { round2 } from "@hacado/utils/currency";
 import { Filter, ObjectId, Sort, UpdateFilter } from "mongodb";
 import { SYNCED_PAYMENTS_COLLECTION_NAME } from "./collections";
 import { getDbConnection } from "./database";

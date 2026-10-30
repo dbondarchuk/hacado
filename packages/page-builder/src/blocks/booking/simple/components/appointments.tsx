@@ -1,5 +1,7 @@
 "use client";
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerAppointmentTextOffer } from "@hacado/types/apps";
 import {
@@ -149,7 +151,7 @@ export const Appointments: React.FC<
     setCustomerPackageId(undefined);
     setOption(null);
     try {
-      const session = await clientApi.customerAuth.checkSession();
+      const session = await customerAuthApi.checkSession();
       if (session?.success) {
         setOtpVerified(true);
         setPackageOtpOpen(false);
@@ -177,7 +179,7 @@ export const Appointments: React.FC<
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
-    clientApi.customerAuth
+    customerAuthApi
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
@@ -221,7 +223,7 @@ export const Appointments: React.FC<
     setPurchasePackageId(undefined);
     setOption(optionId);
     if (!isEditor) {
-      clientApi.booking.trackAdvanceFromUiStep("option", {
+      bookingApi.trackAdvanceFromUiStep("option", {
         serviceId: optionId,
       });
     }
@@ -361,7 +363,7 @@ export const Appointments: React.FC<
             setSpecialistFirstAny(false);
             setSpecialistFirstMemberId(memberId);
             if (!isEditor) {
-              clientApi.booking.trackAdvanceFromUiStep("specialist", {
+              bookingApi.trackAdvanceFromUiStep("specialist", {
                 memberId,
               });
             }
@@ -370,7 +372,7 @@ export const Appointments: React.FC<
             setSpecialistFirstAny(true);
             setSpecialistFirstMemberId(null);
             if (!isEditor) {
-              clientApi.booking.trackAdvanceFromUiStep("specialist", {});
+              bookingApi.trackAdvanceFromUiStep("specialist", {});
             }
           }}
         />
@@ -469,7 +471,7 @@ export const Appointments: React.FC<
               setPackageBookingFlow(false);
               setOption(optionId);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
+                bookingApi.trackAdvanceFromUiStep("option", {
                   serviceId: optionId,
                 });
               }
@@ -480,7 +482,7 @@ export const Appointments: React.FC<
               setPackageBookingFlow(false);
               setOption(pkg.items[0]?.serviceId ?? null);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
+                bookingApi.trackAdvanceFromUiStep("option", {
                   serviceId: pkg.items[0]?.serviceId,
                 });
               }
@@ -516,7 +518,7 @@ export const Appointments: React.FC<
               setPackageBookingFlow(false);
               setOption(optionId);
               if (!isEditor) {
-                clientApi.booking.trackAdvanceFromUiStep("option", {
+                bookingApi.trackAdvanceFromUiStep("option", {
                   serviceId: optionId,
                 });
               }

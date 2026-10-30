@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { billingApi } from "@hacado/api-sdk/admin/billing";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AlertDialog,
@@ -31,7 +32,7 @@ export const SubscriptionPastDueDialog: React.FC<{
   const openBillingPortal = async () => {
     setOpeningPortal(true);
     try {
-      const url = await adminApi.billing.getBillingPortalUrl();
+      const url = await billingApi.getBillingPortalUrl();
       window.location.assign(url);
     } catch {
       toast.error(t("settings.general.billing.portalError"));

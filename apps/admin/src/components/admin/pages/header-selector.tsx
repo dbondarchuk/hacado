@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
 import { PageHeaderListModel } from "@hacado/types/pages";
 import { cn } from "@hacado/ui/cn";
@@ -85,7 +85,7 @@ export const HeaderSelector = React.forwardRef<
     const getHeaders = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const res = await adminApi.pageHeaders.getPageHeaders({
+        const res = await pageHeadersApi.getPageHeaders({
           page,
           limit,
           search,

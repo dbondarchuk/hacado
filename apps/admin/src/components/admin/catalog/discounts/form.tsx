@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { discountsApi } from "@hacado/api-sdk/admin/discounts";
 import { useI18n } from "@hacado/i18n/client";
 import {
   discountTypes,
@@ -315,7 +315,7 @@ export const DiscountForm: React.FC<{
   const currencySymbol = useCurrencySymbol();
 
   const cachedDiscountNameAndCodeCheck = useDebounceCacheFn(
-    adminApi.discounts.checkDiscountNameAndCode,
+    discountsApi.checkDiscountNameAndCode,
     300,
   );
 
@@ -351,10 +351,10 @@ export const DiscountForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.discounts.createDiscount(data);
+          const { _id } = await discountsApi.createDiscount(data);
           router.push(`/dashboard/catalog/discounts/${_id}`);
         } else {
-          await adminApi.discounts.updateDiscount(initialData._id, data);
+          await discountsApi.updateDiscount(initialData._id, data);
 
           router.refresh();
         }

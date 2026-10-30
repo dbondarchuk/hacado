@@ -1,5 +1,8 @@
 import { getServicesContainer } from "@/app/utils";
-import { addonsSearchParams, addonsSearchParamsCache } from "@hacado/api-sdk";
+import {
+  addonsSearchParams,
+  addonsSearchParamsCache,
+} from "@hacado/api-sdk/admin/search-params/addons";
 import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 

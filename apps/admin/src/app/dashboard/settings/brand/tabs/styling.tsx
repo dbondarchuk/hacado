@@ -35,7 +35,7 @@ import {
   FormLabelWithRequiredIndicator,
   FormMessage,
 } from "@hacado/ui/form";
-import { getWebfontPreviewFilename } from "@hacado/utils";
+import { getWebfontPreviewFilename } from "@hacado/utils/fonts";
 import { Trash } from "lucide-react";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";

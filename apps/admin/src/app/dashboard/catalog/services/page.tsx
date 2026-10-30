@@ -7,13 +7,13 @@ import { sessionCanCreateMoreServices } from "@/lib/billing/subscription-plan-ac
 import {
   servicesSearchParamsCache,
   servicesSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/services";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

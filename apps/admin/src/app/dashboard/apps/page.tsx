@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Skeleton } from "@hacado/ui/skeleton";
-import { canViewCompanyApps } from "@hacado/utils";
+import { canViewCompanyApps } from "@hacado/utils/app-access";
 import { Boxes, Store } from "lucide-react";
 import { Metadata } from "next/types";
 import { Suspense } from "react";

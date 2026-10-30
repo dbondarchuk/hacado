@@ -28,12 +28,10 @@ import {
   ITextMessageConfigurationService,
   TextMessageNotificationRequest,
 } from "@hacado/types/services";
-import {
-  isPlatformSmsCountry,
-  isSmsLinkShorteningEnabled,
-  maskify,
-  normalizeToE164,
-} from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { isSmsLinkShorteningEnabled } from "@hacado/utils/short-links";
+import { isPlatformSmsCountry } from "@hacado/utils/sms";
+import { maskify } from "@hacado/utils/string";
 import { convert } from "html-to-text";
 import type { Redis } from "ioredis";
 import { resolvePlanTierFromOrganization } from "./billing/subscription-entitlements";

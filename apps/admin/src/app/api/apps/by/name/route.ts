@@ -2,7 +2,7 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { filterConnectedAppsForUser } from "@hacado/utils";
+import { filterConnectedAppsForUser } from "@hacado/utils/app-access";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

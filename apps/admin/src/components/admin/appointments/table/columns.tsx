@@ -4,7 +4,7 @@ import {
   Appointment,
   isAppointmentCoveredByPackage,
 } from "@hacado/types/booking";
-import { AppointmentDialog } from "@hacado/ui-admin-kit";
+import { AppointmentDialog } from "@hacado/ui-admin-kit/appointments";
 import {
   CustomerName,
   MemberName,
@@ -19,7 +19,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   CalendarCheck,

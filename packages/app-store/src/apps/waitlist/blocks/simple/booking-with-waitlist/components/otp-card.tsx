@@ -1,6 +1,7 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerOtpForm } from "@hacado/ui/customer-otp-form";
 import React, { useCallback } from "react";
@@ -19,7 +20,7 @@ export const OtpCard: React.FC = () => {
   } = useScheduleContext();
 
   const getAuthOptions = useCallback(
-    () => clientApi.customerAuth.getAuthOptions(),
+    () => customerAuthApi.getAuthOptions(),
     [],
   );
 
@@ -34,7 +35,7 @@ export const OtpCard: React.FC = () => {
         initialPhone={fields.phone}
         getAuthOptions={getAuthOptions}
         requestOtp={({ channel, email, phone }) =>
-          clientApi.customerAuth.requestBookingOtp({
+          customerAuthApi.requestBookingOtp({
             name: fields.name,
             email,
             phone,
@@ -42,12 +43,12 @@ export const OtpCard: React.FC = () => {
           })
         }
         verifyOtp={({ channel, email, phone, otp }) =>
-          clientApi.customerAuth.verifyOtp(
+          customerAuthApi.verifyOtp(
             channel === "phone" ? { phone, otp } : { email, otp },
           )
         }
         onVerified={async (result) => {
-          clientApi.booking.trackOtpVerified();
+          bookingApi.trackOtpVerified();
           setOtpVerified(true);
           setFields({
             ...fields,
@@ -61,7 +62,7 @@ export const OtpCard: React.FC = () => {
           if (!payment || payment.intent?.status === "paid") {
             onSubmit(payment?.intent?._id);
           } else {
-            clientApi.booking.trackPaymentReached(payment.intent?.amount);
+            bookingApi.trackPaymentReached(payment.intent?.amount);
             setStep("payment");
           }
         }}

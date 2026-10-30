@@ -8,7 +8,7 @@ import type {
 } from "@hacado/types/events";
 import { SUBSCRIPTION_STATUS_CHANGED_EVENT_TYPE } from "@hacado/types/events";
 import type { EmailNotificationRequest } from "@hacado/types/services";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 
 import { dashboardUrls } from "../links";
 

@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@hacado/ui/form";
 import { Spinner } from "@hacado/ui/spinner";
-import { subscriptionAllowsMultipleUsers } from "@hacado/utils";
+import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
 import React from "react";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";
 import { TextMessageResenderApp } from "./app";

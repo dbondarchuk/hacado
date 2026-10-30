@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
@@ -56,7 +56,7 @@ export const PackageForm: React.FC<{
   const currencySymbol = useCurrencySymbol();
   const [loading, setLoading] = React.useState(false);
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.packages.checkPackageUniqueName,
+    packagesApi.checkPackageUniqueName,
     300,
   );
 
@@ -122,9 +122,9 @@ export const PackageForm: React.FC<{
       const payload = toPayload(data);
       const save = async () => {
         if (initialData) {
-          await adminApi.packages.updatePackage(initialData._id, payload);
+          await packagesApi.updatePackage(initialData._id, payload);
         } else {
-          const created = await adminApi.packages.createPackage(payload);
+          const created = await packagesApi.createPackage(payload);
           router.replace(`/dashboard/catalog/packages/${created._id}`);
         }
         router.refresh();

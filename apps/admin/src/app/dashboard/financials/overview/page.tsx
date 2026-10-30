@@ -3,7 +3,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/page";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";

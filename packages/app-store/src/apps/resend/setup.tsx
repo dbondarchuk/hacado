@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
@@ -95,7 +95,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
   });
 
   const getStatus = async (appId: string) => {
-    const status = await adminApi.apps.getAppStatus(appId);
+    const status = await appsApi.getAppStatus(appId);
     setApp(() => status);
 
     if (isAuthorizing(status)) {
@@ -124,7 +124,7 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
     if (!existingAppId) {
       return;
     }
-    void adminApi.apps.getAppStatus(existingAppId).then(setApp);
+    void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 
   React.useEffect(() => {
@@ -142,16 +142,16 @@ export const ResendAppSetup: React.FC<AppSetupProps> = ({
       let appId: string;
       if (app?._id || existingAppId) {
         appId = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(appId, {
+        await appsApi.setAppStatus(appId, {
           status: "pending",
           statusText:
             "app_resend_admin.form.pendingAuthorization" satisfies ResendAdminAllKeys,
         });
       } else {
-        appId = await adminApi.apps.addNewApp(ResendApp.name);
+        appId = await appsApi.addNewApp(ResendApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(appId);
+      const loginUrl = await appsApi.getAppLoginUrl(appId);
       getStatus(appId);
       window.open(loginUrl, "_blank", "popup=true");
     } catch (e: unknown) {

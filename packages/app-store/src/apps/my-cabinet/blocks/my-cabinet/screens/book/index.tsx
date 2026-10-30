@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { GetAppointmentOptionsResponse } from "@hacado/types/booking";
 import React from "react";
 import { demoBookingOptionsResponse } from "../../../../../waitlist/components/fixtures";
@@ -29,7 +29,7 @@ export const CabinetBookScreen: React.FC<
 
   React.useEffect(() => {
     const loadOptions = async () => {
-      const data = await clientApi.booking.getBookingOptions();
+      const data = await bookingApi.getBookingOptions();
       setResponse(data);
     };
 

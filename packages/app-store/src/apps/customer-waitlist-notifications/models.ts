@@ -1,5 +1,5 @@
 import { asOptionalField, zObjectId } from "@hacado/types/utils";
-import { isSmsEnabled } from "@hacado/utils";
+import { isSmsEnabled } from "@hacado/utils/sms";
 import * as z from "zod";
 
 export const SLOT_OPENED_COOLDOWN_MINUTES_MIN = 15;

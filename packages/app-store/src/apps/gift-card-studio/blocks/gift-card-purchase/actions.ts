@@ -1,4 +1,4 @@
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import { CollectPayment } from "@hacado/types/booking";
 import {
   FetchPreviewPayload,
@@ -12,7 +12,7 @@ export const fetchPreview = async (
   appId: string,
   payload: FetchPreviewPayload,
 ) => {
-  const res = await clientApi.apps.callAppApi<FetchPreviewResponse>({
+  const res = await appsApi.callAppApi<FetchPreviewResponse>({
     appId,
     path: "preview",
     method: "POST",
@@ -23,7 +23,7 @@ export const fetchPreview = async (
 };
 
 export const getInitOptions = async (appId: string) => {
-  const res = await clientApi.apps.callAppApi<GetInitOptionsResponse>({
+  const res = await appsApi.callAppApi<GetInitOptionsResponse>({
     appId,
     path: "init-options",
     method: "GET",
@@ -35,7 +35,7 @@ export const createOrUpdateIntent = async (
   appId: string,
   payload: IntentRequest,
 ) => {
-  const res = await clientApi.apps.callAppApi<CollectPayment>({
+  const res = await appsApi.callAppApi<CollectPayment>({
     appId,
     path: "intent",
     method: "POST",
@@ -48,7 +48,7 @@ export const purchaseGiftCard = async (
   appId: string,
   payload: PurchaseRequestPayload,
 ) => {
-  const res = await clientApi.apps.callAppApi<
+  const res = await appsApi.callAppApi<
     | { success: true; giftCardCode: string }
     | { success: false; code: string; error: string }
   >({

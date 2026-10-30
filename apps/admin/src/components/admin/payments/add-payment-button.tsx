@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { Payment } from "@hacado/types/booking";
-import { AddUpdatePaymentDialog } from "@hacado/ui-admin-kit";
+import { AddUpdatePaymentDialog } from "@hacado/ui-admin-kit/payments";
 import { Button } from "@hacado/ui/button";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";

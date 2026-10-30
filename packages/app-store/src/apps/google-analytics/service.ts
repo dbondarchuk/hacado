@@ -19,8 +19,8 @@ import {
 import { EventEnvelope } from "@hacado/types/events";
 import { okStatus } from "@hacado/types/general";
 import { OrganizationMember, SessionUser } from "@hacado/types/users";
-import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import {
   GA4_USER_DATA_COLLECTION_ACKNOWLEDGEMENT,
   GOOGLE_ANALYTICS_APP_NAME,

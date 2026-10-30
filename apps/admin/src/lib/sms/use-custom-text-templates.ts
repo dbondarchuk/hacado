@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { textMessagingApi } from "@hacado/api-sdk/admin/text-messaging";
 import { useEffect, useState } from "react";
 
 export function useCustomTextTemplatesAllowed() {
@@ -8,7 +8,7 @@ export function useCustomTextTemplatesAllowed() {
 
   useEffect(() => {
     let active = true;
-    adminApi.textMessaging
+    textMessagingApi
       .getTextMessagingAccess()
       .then((access) => {
         if (active) setAllowed(access.allowCustomTemplates);

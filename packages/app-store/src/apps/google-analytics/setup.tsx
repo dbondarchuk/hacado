@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
@@ -88,10 +88,10 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
       setIsLoadingStreams(true);
       try {
         const [streamList, selected] = await Promise.all([
-          adminApi.apps.processRequest(appId, {
+          appsApi.processRequest(appId, {
             type: "get-data-stream-list",
           } as RequestAction),
-          adminApi.apps.processRequest(appId, {
+          appsApi.processRequest(appId, {
             type: "get-selected-data-stream",
           } as RequestAction),
         ]);
@@ -122,7 +122,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
     setIsSavingStream(true);
     try {
       await toastPromise(
-        adminApi.apps.processRequest(appId, {
+        appsApi.processRequest(appId, {
           type: "set-data-stream",
           stream,
         } as RequestAction),
@@ -132,7 +132,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
         },
       );
 
-      const status = await adminApi.apps.getAppStatus(appId);
+      const status = await appsApi.getAppStatus(appId);
       setApp(status);
       onSuccess(appId);
     } catch (e: unknown) {
@@ -143,7 +143,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
   };
 
   const getStatus = async (id: string) => {
-    const status = await adminApi.apps.getAppStatus(id);
+    const status = await appsApi.getAppStatus(id);
     setApp(() => status);
 
     if (isAuthorizing(status)) {
@@ -171,7 +171,7 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
     if (!existingAppId) {
       return;
     }
-    void adminApi.apps.getAppStatus(existingAppId).then(setApp);
+    void appsApi.getAppStatus(existingAppId).then(setApp);
   }, [existingAppId]);
 
   React.useEffect(() => {
@@ -187,16 +187,16 @@ export const GoogleAnalyticsAppSetup: React.FC<AppSetupProps> = ({
       let id: string;
       if (app?._id || existingAppId) {
         id = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(id, {
+        await appsApi.setAppStatus(id, {
           status: "pending",
           statusText:
             "app_google-analytics_admin.form.pendingAuthorization" satisfies GoogleAnalyticsAdminAllKeys,
         });
       } else {
-        id = await adminApi.apps.addNewApp(GoogleAnalyticsApp.name);
+        id = await appsApi.addNewApp(GoogleAnalyticsApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(id);
+      const loginUrl = await appsApi.getAppLoginUrl(id);
 
       getStatus(id);
       window.open(loginUrl, "_blank", "popup=true");

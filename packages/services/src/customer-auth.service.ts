@@ -30,13 +30,9 @@ import type {
   ICustomerAuthService,
   IServicesContainer,
 } from "@hacado/types/services";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { createHmac, randomInt, randomUUID } from "node:crypto";
 import { getCustomerOtpSms } from "./customer-auth/messages";
 import { BaseService } from "./services/base.service";

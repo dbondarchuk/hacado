@@ -2,7 +2,7 @@ import { getServicesContainer } from "@/app/utils";
 import {
   pageFootersSearchParams,
   pageFootersSearchParamsCache,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/pages";
 import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 

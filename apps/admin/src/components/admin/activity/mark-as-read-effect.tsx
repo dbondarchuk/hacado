@@ -1,7 +1,7 @@
 "use client";
 
 import { useActivityFeedStore } from "@/notifications/store";
-import { adminApi } from "@hacado/api-sdk";
+import { activitiesApi } from "@hacado/api-sdk/admin/activities";
 import React, { useEffect } from "react";
 
 export const MarkAsReadEffect: React.FC<{
@@ -9,7 +9,7 @@ export const MarkAsReadEffect: React.FC<{
 }> = ({ uniqueKey }) => {
   const { clearSeverity } = useActivityFeedStore();
   useEffect(() => {
-    void adminApi.activities.markActivityFeedRead().then(() => {
+    void activitiesApi.markActivityFeedRead().then(() => {
       clearSeverity();
     });
   }, [uniqueKey]);

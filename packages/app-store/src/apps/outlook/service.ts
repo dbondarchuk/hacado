@@ -31,8 +31,8 @@ import {
   AppointmentOnlineMeetingInformation,
 } from "@hacado/types/booking";
 import { WithDatabaseId } from "@hacado/types/database";
-import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { Client } from "@microsoft/microsoft-graph-client";
 import {
   Attachment,

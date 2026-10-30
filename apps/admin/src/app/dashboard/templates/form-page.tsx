@@ -6,12 +6,9 @@ import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
 import { CommunicationChannel } from "@hacado/types/communication";
 import { Template, TemplatesTemplate } from "@hacado/types/templates";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
-import {
-  demoAppointment,
-  demoOtp,
-  getAdminUrl,
-  getArguments,
-} from "@hacado/utils";
+import { demoAppointment, demoOtp } from "@hacado/utils/fixtures";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getAdminUrl } from "@hacado/utils/website";
 import { notFound } from "next/navigation";
 import React from "react";
 import { getTemplate } from "./cached";

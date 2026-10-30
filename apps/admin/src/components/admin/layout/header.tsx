@@ -3,7 +3,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import { Link } from "@hacado/ui/link";
 import { Separator } from "@hacado/ui/separator";
 import { SidebarTrigger } from "@hacado/ui/sidebar";
-import { canReadActivity } from "@hacado/utils";
+import { canReadActivity } from "@hacado/utils/permissions";
 import { Globe2 } from "lucide-react";
 import { ActivityFeedHeaderButton } from "./activity-feed-header-button";
 import { BreadcrumbsRender } from "./breadcrumbs";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n, useLocale } from "@hacado/i18n/client";
-import { SendCommunicationDialog } from "@hacado/ui-admin-kit";
+import { SendCommunicationDialog } from "@hacado/ui-admin-kit/communications";
 import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 import { Button } from "@hacado/ui/button";
 import { useTimeZone } from "@hacado/ui/context";
@@ -18,7 +18,7 @@ import { Link } from "@hacado/ui/link";
 import { ScrollArea } from "@hacado/ui/scroll-area";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { CalendarPlus, Send, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter } from "next/navigation";

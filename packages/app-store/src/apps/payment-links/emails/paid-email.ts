@@ -6,7 +6,7 @@ import { fallbackLanguage, languages, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { PaymentLinkPayment } from "@hacado/types/booking";
 import type { EmailNotificationRequest } from "@hacado/types/services";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import { PaymentLinksAdminAllKeys } from "../translations/types";
 
 export type PaidEmailRecipient = {

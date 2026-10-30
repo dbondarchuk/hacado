@@ -2,11 +2,11 @@ import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import { ensureCustomerSmsConsent } from "@/lib/customer-sms-consent";
-import { createPaymentLinkSchema } from "@hacado/api-sdk";
+import { createPaymentLinkSchema } from "@hacado/api-sdk/admin/schemas/payments";
 import { getLoggerFactory } from "@hacado/logger";
 import { IPaymentLinkProvider } from "@hacado/types/apps";
 import { PaymentUpdateModel } from "@hacado/types/booking";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { randomBytes } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 

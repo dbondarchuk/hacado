@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { textMessagingApi } from "@hacado/api-sdk/admin/text-messaging";
 import type { SmsMessagingAccess } from "@hacado/types/text-message/registration";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export function useSmsMessagingAccess() {
 
   useEffect(() => {
     let active = true;
-    adminApi.textMessaging
+    textMessagingApi
       .getTextMessagingAccess()
       .then((value) => {
         if (active) setAccess(value);

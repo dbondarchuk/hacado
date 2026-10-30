@@ -18,7 +18,10 @@ import { useDebounce } from "@hacado/ui/hooks";
 import { Separator } from "@hacado/ui/separator";
 import { Skeleton } from "@hacado/ui/skeleton";
 import { toast, toastPromise } from "@hacado/ui/sonner";
-import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
+import {
+  getDateFromWeekIdentifier,
+  getWeekIdentifier,
+} from "@hacado/utils/time";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateTime } from "luxon";
 import { useRouter, useSearchParams } from "next/navigation";

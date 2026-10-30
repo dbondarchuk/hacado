@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer, getUser } from "@/app/utils";
 import { getSubscriptionBlockingResponseForAppointmentWriteActions } from "@/utils/subscription/subscription-access";
-import { appointmentsSearchParamsLoader } from "@hacado/api-sdk";
+import { appointmentsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/appointments";
 import { getLoggerFactory } from "@hacado/logger";
 import { AppointmentLimitReachedError } from "@hacado/types/billing";
 import {
@@ -14,7 +14,7 @@ import {
   isMemberAssignedToOption,
   PackageError,
 } from "@hacado/types/booking";
-import { gateMemberIds } from "@hacado/utils";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

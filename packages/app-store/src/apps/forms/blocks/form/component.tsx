@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
@@ -85,7 +85,7 @@ export const FormBlockComponent = ({
           return false;
         }
 
-        const res = await clientApi.apps.callAppApi<
+        const res = await appsApi.callAppApi<
           | {
               customerFound: boolean;
             }
@@ -218,7 +218,7 @@ export const FormBlockComponent = ({
     formData.append("json", JSON.stringify(data));
 
     try {
-      const res = await clientApi.apps.callAppApi<{
+      const res = await appsApi.callAppApi<{
         success: boolean;
         error?: string;
         message?: string;

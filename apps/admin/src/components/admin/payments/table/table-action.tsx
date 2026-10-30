@@ -6,7 +6,7 @@ import {
   paymentStatus,
   paymentType,
 } from "@hacado/types/booking";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import {
   AppointmentsDataTableAsyncFilterBox,
   CustomersDataTableAsyncFilterBox,

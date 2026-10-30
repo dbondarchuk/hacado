@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { giftCardStatus } from "@hacado/types/booking";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableFilterBox,

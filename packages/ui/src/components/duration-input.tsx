@@ -1,5 +1,5 @@
 import { useI18n } from "@hacado/i18n/client";
-import { durationToTime, timeToDuration, weeks } from "@hacado/utils";
+import { durationToTime, timeToDuration, weeks } from "@hacado/utils/time";
 import { Clock } from "lucide-react";
 import React from "react";
 import { cn } from "../utils/cn";

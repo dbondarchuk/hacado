@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
 import { AppointmentStatus } from "@hacado/types/booking";
 import { okStatus } from "@hacado/types/general";
@@ -34,7 +34,7 @@ export const changeStatus = async (
       if (result instanceof Promise) await result;
     }
 
-    const res = await adminApi.appointments.changeStatus(
+    const res = await appointmentsApi.changeStatus(
       _id,
       status,
       doNotNotifyCustomer,

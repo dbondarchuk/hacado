@@ -20,8 +20,9 @@ import {
 } from "@hacado/types/booking";
 import { systemEventSource } from "@hacado/types/events";
 import { AppJobRequest } from "@hacado/types/jobs";
-import { getAppsExternalUrl, maskify } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { maskify } from "@hacado/utils/string";
+import { getAppsExternalUrl } from "@hacado/utils/website";
 import { Environment } from "@paypal/paypal-server-sdk";
 import {
   APPLE_PAY_DOMAIN_ASSOCIATION_PRODUCTION,

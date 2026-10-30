@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { useI18n } from "@hacado/i18n/client";
 import { Payment } from "@hacado/types/booking";
 import {
@@ -48,7 +48,7 @@ export const PaymentDeleteConfirmationModal = ({
   const remove = async () => {
     setIsLoading(true);
     try {
-      await toastPromise(adminApi.payments.deleteInstore(payment._id), {
+      await toastPromise(paymentsApi.deleteInstore(payment._id), {
         success: t("payment.card.deleteSuccess"),
         error: t("common.toasts.error"),
       });

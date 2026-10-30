@@ -3,7 +3,7 @@
 // import Image from "next/image";
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerListModel } from "@hacado/types/customers";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
@@ -65,7 +65,7 @@ export const CustomersDataTableAsyncFilterBox: React.FC<
   const getCustomers = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.customers.getCustomers({
+      const result = await customersApi.getCustomers({
         page,
         limit,
         search,

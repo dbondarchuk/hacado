@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
@@ -62,7 +62,7 @@ export const WebhooksAppSetup: React.FC<AppSetupProps> = ({
     let cancelled = false;
     (async () => {
       try {
-        const res = await adminApi.apps.processStaticRequest<{
+        const res = await appsApi.processStaticRequest<{
           eventTypes: string[];
         }>("webhooks", { type: LIST_SELECTABLE_EVENT_TYPES_REQUEST_TYPE });
         if (

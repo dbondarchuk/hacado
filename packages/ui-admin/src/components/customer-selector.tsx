@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CustomerListModel,
@@ -106,7 +106,7 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
   const t = useI18n("admin");
 
   const customerUniqueCheck = useDebounceCacheFn(
-    adminApi.customers.checkCustomerUniqueEmailAndPhone,
+    customersApi.checkCustomerUniqueEmailAndPhone,
     300,
   );
 
@@ -137,7 +137,7 @@ const AddNewCustomerItem: React.FC<{ onCreated: (value: string) => void }> = ({
     setLoading(true);
     try {
       const fn = async () => {
-        const customer = await adminApi.customers.createCustomer(data);
+        const customer = await customersApi.createCustomer(data);
         onCreated(customer._id);
       };
       await toastPromise(fn(), {
@@ -269,7 +269,7 @@ export const CustomerSelector = React.forwardRef<
     const getCustomers = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.customers.getCustomers({
+        const result = await customersApi.getCustomers({
           page,
           limit,
           search,

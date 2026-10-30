@@ -3,7 +3,7 @@ import { AppointmentReschedulePolicyRow } from "@hacado/types/configuration/book
 import {
   ReschedulePolicyCard,
   ReschedulePolicyCardContent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/modification";
 import { NonSortable } from "@hacado/ui-admin/non-sortable";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
 import { Badge } from "@hacado/ui/badge";

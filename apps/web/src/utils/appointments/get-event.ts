@@ -13,7 +13,8 @@ import {
   isAddonAvailableForMember,
 } from "@hacado/types/booking";
 import { Customer } from "@hacado/types/customers";
-import { canUseFeature, formatAmount, getDiscountAmount } from "@hacado/utils";
+import { formatAmount, getDiscountAmount } from "@hacado/utils/currency";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { getServicesContainer } from "../utils";
 
 export const getAppointmentEventFromRequest = async (

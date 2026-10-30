@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableResetFilter,
   DataTableSearch,

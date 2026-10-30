@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerSmsConsentStatus } from "@hacado/types/customers";
 import { Button } from "@hacado/ui/button";
@@ -29,7 +29,7 @@ export const CustomerSmsConsent = ({
     setLoading(true);
     try {
       const next = await toastPromise(
-        adminApi.customers.setCustomerSmsConsent(customerId, consented),
+        customersApi.setCustomerSmsConsent(customerId, consented),
         {
           success: consented
             ? t("customers.smsConsent.attested")

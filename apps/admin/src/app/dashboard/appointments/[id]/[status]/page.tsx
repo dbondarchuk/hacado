@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { canUpdateAppointment } from "@hacado/utils";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import { forbidden, notFound, redirect } from "next/navigation";
 
 type Props = PageProps<"/dashboard/appointments/[id]/[status]">;

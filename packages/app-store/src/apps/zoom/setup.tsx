@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps, ConnectedApp } from "@hacado/types/apps";
 import {
@@ -28,7 +28,7 @@ export const ZoomAppSetup: React.FC<AppSetupProps> = ({
   const [timer, setTimer] = React.useState<NodeJS.Timeout>();
 
   const getStatus = async (appId: string) => {
-    const status = await adminApi.apps.getAppStatus(appId);
+    const status = await appsApi.getAppStatus(appId);
     setApp(() => status);
 
     if (status.status === "pending") {
@@ -60,16 +60,16 @@ export const ZoomAppSetup: React.FC<AppSetupProps> = ({
       let appId: string;
       if (app?._id || existingAppId) {
         appId = (app?._id || existingAppId)!;
-        await adminApi.apps.setAppStatus(appId, {
+        await appsApi.setAppStatus(appId, {
           status: "pending",
           statusText:
             "app_zoom_admin.form.pendingAuthorization" satisfies ZoomAdminAllKeys,
         });
       } else {
-        appId = await adminApi.apps.addNewApp(ZoomApp.name);
+        appId = await appsApi.addNewApp(ZoomApp.name);
       }
 
-      const loginUrl = await adminApi.apps.getAppLoginUrl(appId);
+      const loginUrl = await appsApi.getAppLoginUrl(appId);
 
       getStatus(appId);
       window.open(loginUrl, "_blank", "popup=true");

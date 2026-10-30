@@ -47,7 +47,8 @@ import {
   IssueCustomerPackageInput,
   RedeemPackageInput,
 } from "@hacado/types/services";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { DateTime } from "luxon";
 import {
   ClientSession,

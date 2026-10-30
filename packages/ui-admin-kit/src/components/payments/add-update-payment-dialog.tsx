@@ -1,6 +1,8 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { AvailableApps } from "@hacado/app-store";
 import {
   AdminKeys,
@@ -382,7 +384,7 @@ export const AddUpdatePaymentDialog = ({
 
     let cancelled = false;
 
-    adminApi.payments
+    paymentsApi
       .listPaymentLinkApps()
       .then((result) => {
         if (cancelled) {
@@ -410,7 +412,7 @@ export const AddUpdatePaymentDialog = ({
 
     let cancelled = false;
 
-    adminApi.customers
+    customersApi
       .getCustomer(resolvedCustomerId)
       .then((customer) => {
         if (cancelled) {
@@ -491,7 +493,7 @@ export const AddUpdatePaymentDialog = ({
 
       if (!isEdit && data.method === "payment-link") {
         const result = await toastPromise(
-          adminApi.payments
+          paymentsApi
             .createPaymentLink({
               amount: data.amount,
               customerId: data.customerId,
@@ -557,8 +559,8 @@ export const AddUpdatePaymentDialog = ({
 
       const result = await toastPromise(
         isEdit
-          ? adminApi.payments.updateInstore(props.paymentId, instoreBody)
-          : adminApi.payments.addInstore(instoreBody),
+          ? paymentsApi.updateInstore(props.paymentId, instoreBody)
+          : paymentsApi.addInstore(instoreBody),
         {
           success: t("common.toasts.saved"),
           error: t("common.toasts.error"),

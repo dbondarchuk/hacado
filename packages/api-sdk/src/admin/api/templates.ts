@@ -7,7 +7,7 @@ import {
   TemplateListModel,
   TemplateUpdateModel,
 } from "@hacado/types/templates";
-import { FormattedArguments } from "@hacado/utils";
+import { FormattedArguments } from "@hacado/utils/format-arguments";
 import {
   TemplateSearchParams,
   templateSearchParamsSerializer,

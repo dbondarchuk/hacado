@@ -1,7 +1,8 @@
 "use client";
 
 import { ProfileForm } from "@/components/admin/users/profile-form";
-import { adminApi, UserUpdate } from "@hacado/api-sdk";
+import { UserUpdate } from "@hacado/api-sdk/admin/schemas/user";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import React from "react";
 
 export const TeamMemberProfileForm: React.FC<{
@@ -15,7 +16,7 @@ export const TeamMemberProfileForm: React.FC<{
       canManageMeetingUrlProvider={false}
       showSecuritySection={false}
       onSave={async (data) => {
-        await adminApi.teams.updateMemberProfile(memberId, data);
+        await teamsApi.updateMemberProfile(memberId, data);
       }}
     />
   );

@@ -17,12 +17,9 @@ import {
   IOrganizationService,
   ITeamService,
 } from "@hacado/types/services";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  maskify,
-} from "@hacado/utils";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { maskify } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 
 export class InboundTextMessageService {
   protected readonly loggerFactory = getLoggerFactory(

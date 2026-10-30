@@ -3,7 +3,7 @@ import {
   getAccessibleConnectedApps,
   getOwnerMemberIds,
 } from "@/lib/auth/app-access";
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
 import { getI18nAsync } from "@hacado/i18n/server";
@@ -16,12 +16,12 @@ import type {
 } from "@hacado/types/apps";
 import { normalizeCustomerAuthConfiguration } from "@hacado/types/configuration/customer-auth";
 import type { OrganizationMember, SessionUser } from "@hacado/types/users";
+import { canAccessConnectedApp } from "@hacado/utils/app-access";
 import {
-  canAccessConnectedApp,
   canFilterByMember,
   canUpdateAppointments,
   hasPermission,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import {
   listNeedsAttentionDismissals,
   pruneNeedsAttentionDismissals,

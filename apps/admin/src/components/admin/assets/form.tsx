@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { useI18n } from "@hacado/i18n/client";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { DndFileInput } from "@hacado/ui/dnd-file-input";
@@ -36,7 +37,7 @@ export const AssetForm: React.FC = () => {
     //     "assets.fileNameExtension",
     //   )
     //   .refine(
-    //     (filename) => adminApi.assets.checkAssetUniqueFileName(filename),
+    //     (filename) => assetsApi.checkAssetUniqueFileName(filename),
     //     {
     //       message: "assets.fileNameUnique",
     //     },
@@ -58,7 +59,7 @@ export const AssetForm: React.FC = () => {
     try {
       setLoading(true);
 
-      await adminApi.assets.createAsset(data.file, {
+      await assetsApi.createAsset(data.file, {
         description: data.description,
       });
 

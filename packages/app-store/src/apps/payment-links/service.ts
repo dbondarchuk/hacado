@@ -45,19 +45,17 @@ import {
 } from "@hacado/types/events";
 import { resolvePageHeaderPosition } from "@hacado/types/pages";
 import { TemplateTemplatesList } from "@hacado/types/templates";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { getArguments } from "@hacado/utils/get-arguments";
 import {
   appendSharedPoolSuffix,
-  canUseFeature,
-  formatAmountWithCurrency,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   isPlatformSmsCountry,
   isSmsEnabled,
   smsCustomerName,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { canUseFeature } from "@hacado/utils/subscription";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { PAYMENT_LINK_VERIFIED_COOKIE } from "./const";

@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { Payment } from "@hacado/types/booking";
-import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
+import { PaymentDetailsDialog } from "@hacado/ui-admin-kit/payments";
 import { useReload } from "@hacado/ui-admin/hooks";
 import { dispatchDashboardBadge } from "@hacado/ui-admin/notifications";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -54,7 +54,7 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
 
     const paymentId = searchParams.get("paymentId");
     if (paymentId) {
-      void adminApi.payments
+      void paymentsApi
         .getPayment(paymentId)
         .then((payment) => {
           setDetailsPayment(payment);
@@ -80,7 +80,7 @@ export function PurchasesMainPage({ appId }: { appId: string }) {
         created.paymentStatus === "pending"
       ) {
         try {
-          const payment = await adminApi.payments.getPayment(created.paymentId);
+          const payment = await paymentsApi.getPayment(created.paymentId);
           setDetailsPayment(payment);
           setDetailsOpen(true);
         } catch (error) {

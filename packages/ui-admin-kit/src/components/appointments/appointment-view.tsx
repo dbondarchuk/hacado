@@ -22,7 +22,7 @@ import {
   TabsContent,
   TabsTrigger,
 } from "@hacado/ui/tabs";
-import { canUpdateAppointment } from "@hacado/utils";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
 import {
   CalendarCheck2,
   CalendarCog,

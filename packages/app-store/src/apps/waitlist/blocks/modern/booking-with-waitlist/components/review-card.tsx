@@ -1,4 +1,6 @@
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { discountsApi } from "@hacado/api-sdk/client/discounts";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   ApplyDiscountRequest,
@@ -21,7 +23,8 @@ import { useCurrencyFormat } from "@hacado/ui/context";
 import { Input } from "@hacado/ui/input";
 import { Markdown } from "@hacado/ui/markdown";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime, template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
+import { durationToTime } from "@hacado/utils/time";
 import { TimeZone } from "@vvo/tzdb";
 import {
   AlertTriangle,
@@ -148,7 +151,7 @@ export const ReviewCard: React.FC = () => {
 
       const data = isEditor
         ? { code: promoCode, value: 10, type: "percentage" as const }
-        : await clientApi.discounts.applyDiscount(request);
+        : await discountsApi.applyDiscount(request);
 
       setDiscount(data);
       setPromoCodeError(undefined);
@@ -253,7 +256,7 @@ export const ReviewCard: React.FC = () => {
       return;
     }
     if (!selectedAppointmentOption?._id || !selectedMemberId) return;
-    clientApi.customerAuth
+    customerAuthApi
       .getEligiblePackages({
         serviceId: selectedAppointmentOption._id,
         memberId: selectedMemberId,

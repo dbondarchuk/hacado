@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BookingConfiguration,
@@ -62,7 +62,7 @@ export const AppointmentsSettingsForm: React.FC<{
             payments: { requireDeposit: false, tipsMode: "off" },
           };
       await toastPromise(
-        adminApi.configuration.setConfiguration("booking", payload),
+        configurationApi.setConfiguration("booking", payload),
         {
           success: t("settings.appointments.form.toasts.changesSaved"),
           error: t("settings.appointments.form.toasts.requestError"),

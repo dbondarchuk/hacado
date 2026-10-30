@@ -1,5 +1,5 @@
 import { PaymentFee } from "@hacado/types/booking";
-import { round2 } from "@hacado/utils";
+import { round2 } from "@hacado/utils/currency";
 
 export type SquareMoney = {
   amount?: bigint | number | string;

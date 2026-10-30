@@ -3,7 +3,8 @@ import { CommandSearchGroup } from "@hacado/types/apps";
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { IServicesContainer } from "@hacado/types/services";
 import { SessionUser } from "@hacado/types/users";
-import { canManageTeam, gateMemberIds, hasPermission } from "@hacado/utils";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { canManageTeam, hasPermission } from "@hacado/utils/permissions";
 import type { CommandSearchScope } from "./scope";
 
 const LIMIT = 5;

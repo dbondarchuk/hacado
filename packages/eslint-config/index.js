@@ -83,6 +83,21 @@ module.exports = [
               message:
                 "Import from a component/subpath (e.g. `@hacado/ui-admin/save-button`, `@hacado/ui-admin/data-table`) instead of the package root.",
             },
+            {
+              name: "@hacado/utils",
+              message:
+                "Import from a module subpath (e.g. `@hacado/utils/time`, `@hacado/utils/permissions`) instead of the package root.",
+            },
+            {
+              name: "@hacado/api-sdk",
+              message:
+                "Import from a domain subpath (e.g. `@hacado/api-sdk/admin/appointments`, `@hacado/api-sdk/client/booking`) instead of the package root.",
+            },
+            {
+              name: "@hacado/ui-admin-kit",
+              message:
+                "Import from a domain subpath (e.g. `@hacado/ui-admin-kit/appointments`, `@hacado/ui-admin-kit/payments`) instead of the package root.",
+            },
           ],
         },
       ],

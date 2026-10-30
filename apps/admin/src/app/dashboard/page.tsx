@@ -34,7 +34,7 @@ import {
   canUpdateAppointments,
   canViewFinancials,
   resolveCalendarMemberId,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";

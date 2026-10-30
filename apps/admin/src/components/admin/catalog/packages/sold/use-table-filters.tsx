@@ -1,6 +1,6 @@
 "use client";
 
-import { soldPackagesSearchParams } from "@hacado/api-sdk";
+import { soldPackagesSearchParams } from "@hacado/api-sdk/admin/search-params/sold-packages";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

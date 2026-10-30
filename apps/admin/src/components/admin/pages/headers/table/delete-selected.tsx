@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
 import { PageHeaderListModel } from "@hacado/types/pages";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedPageHeadersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.pageHeaders.deletePageHeaders(
+        pageHeadersApi.deletePageHeaders(
           selected.map((pageHeader) => pageHeader._id),
         ),
         {

@@ -4,7 +4,7 @@ import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templat
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types/communication";
 
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import {
   DataTableFilterBox,
   DataTableResetFilter,

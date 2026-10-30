@@ -11,7 +11,7 @@ import { Combobox, type IComboboxItem } from "@hacado/ui/combobox";
 import { Label } from "@hacado/ui/label";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { getWebfontPreviewFilename } from "@hacado/utils";
+import { getWebfontPreviewFilename } from "@hacado/utils/fonts";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";

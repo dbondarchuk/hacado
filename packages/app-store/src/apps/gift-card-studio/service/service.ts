@@ -37,12 +37,10 @@ import {
 import { AppJobRequest } from "@hacado/types/jobs";
 import { TemplateTemplatesList } from "@hacado/types/templates";
 import { SessionUser } from "@hacado/types/users";
-import {
-  canUseFeature,
-  formatAmountWithCurrency,
-  hasPermission,
-  normalizeToE164,
-} from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { hasPermission } from "@hacado/utils/permissions";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { randomBytes } from "crypto";
 import { DateTime } from "luxon";
 import { DEFAULT_MAX_AMOUNT, DEFAULT_MIN_AMOUNT } from "../const";

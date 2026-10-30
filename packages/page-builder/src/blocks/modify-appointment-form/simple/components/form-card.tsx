@@ -20,7 +20,7 @@ import { use12HourFormat, usePrevious } from "@hacado/ui/hooks";
 import { DateTimePicker } from "@hacado/ui/time-picker";
 
 import { useI18n } from "@hacado/i18n/client";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { getTimeZones } from "@vvo/tzdb";
 import { ModifyAppointmentFields } from "../../types";
 import { useModifyAppointmentFormContext } from "./context";

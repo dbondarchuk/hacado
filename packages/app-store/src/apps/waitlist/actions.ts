@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { WithTotal } from "@hacado/types/database";
 import { CustomerWaitlistTextOffer } from "./customer-waitlist-text";
 import {
@@ -32,7 +32,7 @@ export async function getWaitlistEntries(
   logger.debug({ appId, query }, "Getting waitlist entries");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetWaitlistEntriesActionType,
       query,
     })) as WithTotal<WaitlistEntry>;
@@ -56,7 +56,7 @@ export async function getWaitlistEntry(appId: string, id: string) {
   logger.debug({ appId, id }, "Getting waitlist entry");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetWaitlistEntryActionType,
       id,
     })) as WaitlistEntry;
@@ -77,7 +77,7 @@ export async function dismissWaitlistEntries(appId: string, ids: string[]) {
   logger.debug({ appId, waitlistEntryIds: ids }, "Dismissing waitlist entries");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: DismissWaitlistEntriesActionType,
       ids,
     });
@@ -108,7 +108,7 @@ export async function createWaitlistEntry(
   logger.debug({ appId, entry }, "Creating waitlist entry");
 
   try {
-    const result = await adminApi.apps.processRequest(appId, {
+    const result = await appsApi.processRequest(appId, {
       type: CreateWaitlistEntryActionType,
       entry,
     });
@@ -129,7 +129,7 @@ export async function getWaitlistSmsText(
   const logger = loggerFactory("getWaitlistSmsText");
 
   try {
-    const result = (await adminApi.apps.processRequest(appId, {
+    const result = (await appsApi.processRequest(appId, {
       type: GetWaitlistSmsTextActionType,
     })) as CustomerWaitlistTextOffer;
 

@@ -4,7 +4,7 @@ import {
   TextMessage,
   TextMessageResponse,
 } from "@hacado/types/apps";
-import { maskify } from "@hacado/utils";
+import { maskify } from "@hacado/utils/string";
 import { appendStopFooter } from "../compliance";
 import { SmsTransientError } from "../errors";
 import { countSmsSegments } from "../segments";

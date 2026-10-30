@@ -1,6 +1,7 @@
 import { getLoggerFactory } from "@hacado/logger";
 import { ITextMessageSender } from "@hacado/types/apps";
-import { maskify, normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { maskify } from "@hacado/utils/string";
 import { markCommunicationLogDeliveryFailed } from "../../communication-logs.service";
 import { classifyInboundSmsKeyword } from "../compliance";
 import { InboundTextMessageService } from "../inbound-reply.service";

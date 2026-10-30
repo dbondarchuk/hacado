@@ -6,7 +6,7 @@ import {
   DataTableSearch,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { DeleteSelectedAddonsButton } from "./delete-selected";
 import { useAddonsTableFilters } from "./use-table-filters";
 

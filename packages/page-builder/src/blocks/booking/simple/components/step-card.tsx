@@ -1,4 +1,4 @@
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import {
@@ -10,7 +10,8 @@ import {
   CardTitle,
 } from "@hacado/ui/card";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime, formatAmountString } from "@hacado/utils";
+import { formatAmountString } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { DollarSign, Timer } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
@@ -37,7 +38,7 @@ export const StepCard: React.FC = () => {
       setIsLoadingFn(true);
       try {
         if (dir === "next" && !ctx.isEditor) {
-          clientApi.booking.trackAdvanceFromUiStep(stepType, {
+          bookingApi.trackAdvanceFromUiStep(stepType, {
             serviceId: appointmentOption._id,
             memberId: ctx.selectedMemberId ?? undefined,
             duration,

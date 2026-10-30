@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { EmailBuilder } from "@hacado/email-builder";
 import { useI18n } from "@hacado/i18n/client";
 import { CommunicationChannel } from "@hacado/types/communication";
@@ -9,7 +9,7 @@ import {
   Template,
   TemplatesTemplate,
 } from "@hacado/types/templates";
-import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
 import { ArgumentsAutocomplete } from "@hacado/ui-admin/arguments-autocomplete";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import {
@@ -45,7 +45,7 @@ export const TemplateForm: React.FC<
   const template = "template" in rest ? rest.template : undefined;
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.templates.checkUniqueName,
+    templatesApi.checkUniqueName,
     300,
   );
 
@@ -76,14 +76,14 @@ export const TemplateForm: React.FC<
 
       const fn = async () => {
         if (!initialData) {
-          const { _id } = await adminApi.templates.createTemplate(data);
+          const { _id } = await templatesApi.createTemplate(data);
           onFormSubmit();
 
           setTimeout(() => {
             router.push(`/dashboard/templates/${_id}`);
           }, 100);
         } else {
-          await adminApi.templates.updateTemplate(initialData._id, data);
+          await templatesApi.updateTemplate(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {

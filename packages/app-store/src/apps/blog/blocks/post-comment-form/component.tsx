@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
@@ -148,7 +148,7 @@ export const BlogPostCommentFormComponent = ({
 
     setSubmitting(true);
     try {
-      const res = await clientApi.apps.callAppApi<{
+      const res = await appsApi.callAppApi<{
         success: boolean;
         pending?: boolean;
         error?: string;

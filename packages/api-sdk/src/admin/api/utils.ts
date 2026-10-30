@@ -2,7 +2,7 @@ import {
   fetchWithJson,
   responseWithJsonBody,
   type FetchWithJsonResponse,
-} from "@hacado/utils";
+} from "@hacado/utils/fetch-with-json";
 
 export const BASE_ADMIN_API_URL = "/api";
 

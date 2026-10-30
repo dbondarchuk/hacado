@@ -2,10 +2,8 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { communicationChannels } from "@hacado/types/communication";
-import {
-  HeaderActionButtonsPortal,
-  ResponsiveFilterBar,
-} from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import {
   DataTableFilterBox,
   DataTableResetFilter,

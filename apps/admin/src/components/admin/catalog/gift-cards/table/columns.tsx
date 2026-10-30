@@ -4,7 +4,7 @@ import { GiftCardListModel } from "@hacado/types/booking";
 import {
   GiftCardPaymentsDialog,
   PaymentDetailsDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/payments";
 import {
   CustomerName,
   tableSortHeader,

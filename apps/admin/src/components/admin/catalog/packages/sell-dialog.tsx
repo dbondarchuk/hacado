@@ -1,6 +1,9 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
 import {
@@ -12,7 +15,7 @@ import { zObjectId } from "@hacado/types/utils";
 import {
   SmsConsentAttest,
   useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/sms-consent-attest";
 import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
 import { PackageSelector } from "@hacado/ui-admin/package-selector";
 import { Button } from "@hacado/ui/button";
@@ -181,7 +184,7 @@ export const SellPackageDialog: React.FC<{
 
   React.useEffect(() => {
     if (!open) return;
-    void adminApi.payments
+    void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
       .catch(() => setPaymentLinkApps([]));
@@ -201,7 +204,7 @@ export const SellPackageDialog: React.FC<{
     }
 
     let cancelled = false;
-    adminApi.customers
+    customersApi
       .getCustomer(customerId)
       .then((customer) => {
         if (cancelled) return;
@@ -288,7 +291,7 @@ export const SellPackageDialog: React.FC<{
       setLoading(true);
       let definition = selectedPackage;
       if (!definition || definition._id !== values.packageId) {
-        definition = await adminApi.packages.getPackage(values.packageId);
+        definition = await packagesApi.getPackage(values.packageId);
       }
       if (!definition) return;
 
@@ -297,7 +300,7 @@ export const SellPackageDialog: React.FC<{
           let paymentId: string | undefined;
           let paymentLinkUrl: string | undefined;
           if (values.price > 0 && values.paymentMethod === "payment-link") {
-            const result = await adminApi.payments
+            const result = await paymentsApi
               .createPaymentLink({
                 amount: values.price,
                 customerId: values.customerId,
@@ -330,7 +333,7 @@ export const SellPackageDialog: React.FC<{
             values.price > 0 &&
             values.paymentMethod !== "payment-link"
           ) {
-            const payment = await adminApi.payments.addInstore({
+            const payment = await paymentsApi.addInstore({
               amount: values.price,
               description: definition.name,
               type: "payment",
@@ -343,18 +346,15 @@ export const SellPackageDialog: React.FC<{
           }
 
           try {
-            const created = await adminApi.packages.sellPackage(
-              values.packageId,
-              {
-                customerId: values.customerId,
-                paymentId,
-                price: values.price,
-              },
-            );
+            const created = await packagesApi.sellPackage(values.packageId, {
+              customerId: values.customerId,
+              paymentId,
+              price: values.price,
+            });
             return { created, paymentLinkUrl };
           } catch (error) {
             if (paymentId && values.paymentMethod === "payment-link") {
-              await adminApi.payments
+              await paymentsApi
                 .cancelPaymentLink(paymentId)
                 .catch((cancelError) => {
                   console.error(cancelError);

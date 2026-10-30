@@ -1,8 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { Payment } from "@hacado/types/booking";
-import { PaymentDetailsDialog } from "@hacado/ui-admin-kit";
+import { PaymentDetailsDialog } from "@hacado/ui-admin-kit/payments";
 import { parseAsString, useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 
@@ -25,7 +25,7 @@ export function OpenPaymentDetailsFromQuery() {
 
     void (async () => {
       try {
-        const result = await adminApi.payments.getPayment(paymentId);
+        const result = await paymentsApi.getPayment(paymentId);
         if (cancelled) {
           return;
         }

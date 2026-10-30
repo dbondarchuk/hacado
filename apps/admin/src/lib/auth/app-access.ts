@@ -5,7 +5,7 @@ import type { SessionUser } from "@hacado/types/users";
 import {
   canAccessConnectedApp,
   filterConnectedAppsForUser,
-} from "@hacado/utils";
+} from "@hacado/utils/app-access";
 
 export async function getOwnerMemberIds(
   organizationId?: string,

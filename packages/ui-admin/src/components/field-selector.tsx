@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { fieldsApi } from "@hacado/api-sdk/admin/fields";
 import { I18nFn, useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
@@ -20,7 +20,7 @@ const FieldLabel: React.FC<{ field: ServiceField; t: I18nFn<"admin"> }> = ({
 };
 
 const getFields = async () => {
-  const response = await adminApi.fields.getFields({
+  const response = await fieldsApi.getFields({
     limit: 10000,
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import { useI18n } from "@hacado/i18n/client";
 import { PageListModelWithUrl } from "@hacado/types/pages";
 import { cn } from "@hacado/ui/cn";
@@ -64,7 +64,7 @@ export const PageSelector = React.forwardRef<
     const getPages = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.pages.getPages({
+        const result = await pagesApi.getPages({
           page,
           limit,
           search,
@@ -106,7 +106,7 @@ export const PageSelector = React.forwardRef<
       if (!value || itemsCache[value]) return;
       let cancelled = false;
       void (async () => {
-        const result = await adminApi.pages.getPages({
+        const result = await pagesApi.getPages({
           page: 1,
           limit: 1,
           priorityId: [value],

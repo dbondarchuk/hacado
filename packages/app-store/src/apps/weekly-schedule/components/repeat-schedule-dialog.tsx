@@ -45,7 +45,7 @@ import {
 } from "@hacado/ui/input-group";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { getWeekIdentifier } from "@hacado/utils";
+import { getWeekIdentifier } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Repeat2 } from "lucide-react";
 import { useRouter } from "next/navigation";

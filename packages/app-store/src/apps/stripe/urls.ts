@@ -1,4 +1,4 @@
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 
 export const stripeConnectAuthorizeBase =
   "https://connect.stripe.com/oauth/authorize";

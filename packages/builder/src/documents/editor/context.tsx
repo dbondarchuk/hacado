@@ -5,7 +5,7 @@ import { create, StoreApi, UseBoundStore, useStore } from "zustand";
 
 import { UploadedFile } from "@hacado/types/assets";
 import { DeepOmit } from "@hacado/types/utils";
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import {
   createContext,
   FC,

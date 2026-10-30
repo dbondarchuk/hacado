@@ -1,9 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { Checkbox } from "@hacado/ui/checkbox";
-import { normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
 import { useEffect, useState } from "react";
 
 export type SmsConsentAttestStatus = "consented" | "optedOut" | "missing";
@@ -38,7 +38,7 @@ export const useCustomerPhoneSmsConsent = (
 
     let cancelled = false;
     setStatus(undefined);
-    adminApi.customers
+    customersApi
       .getCustomerSmsConsent(customerId, normalized)
       .then((result) => {
         if (!cancelled) setStatus(smsConsentAttestStatus(result));

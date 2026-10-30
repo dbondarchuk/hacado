@@ -1,4 +1,4 @@
-import { deepEqual } from "@hacado/utils";
+import { deepEqual } from "@hacado/utils/deep-equal";
 import { ComponentProps, ComponentType, memo } from "react";
 
 export const genericMemo: <T extends ComponentType<any>>(

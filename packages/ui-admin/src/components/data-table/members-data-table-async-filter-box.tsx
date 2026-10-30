@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import { TeamMemberListModel } from "@hacado/types/users";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
@@ -64,7 +64,7 @@ export const MembersDataTableAsyncFilterBox: React.FC<
   const getMembers = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.teams.getMembers({
+      const result = await teamsApi.getMembers({
         page,
         limit,
         search,

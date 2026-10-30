@@ -3,7 +3,7 @@ import { BrandConfiguration } from "@hacado/types/configuration/brand";
 import { GeneralConfiguration } from "@hacado/types/configuration/general";
 import type { TextMessagingConfig } from "@hacado/types/text-message/registration";
 import { CurrencySymbolMap } from "@hacado/types/utils";
-import { formatAmountWithCurrency } from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
 import { createContext, useContext } from "react";
 
 const disabledTextMessaging: TextMessagingConfig = { enabled: false };

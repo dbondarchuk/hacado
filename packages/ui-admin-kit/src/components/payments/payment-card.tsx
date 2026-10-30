@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   InStorePaymentUpdateModel,
@@ -19,7 +19,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { canManageSyncedPayments } from "@hacado/utils";
+import { canManageSyncedPayments } from "@hacado/utils/permissions";
 import {
   Ban,
   Check,
@@ -206,7 +206,7 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
       setLinkActionLoading(true);
       await toastPromise(
         (async () => {
-          const { url } = await adminApi.payments.getPaymentLinkUrl(_id);
+          const { url } = await paymentsApi.getPaymentLinkUrl(_id);
           await navigator.clipboard.writeText(url);
         })(),
         {
@@ -224,13 +224,10 @@ export const PaymentCard: React.FC<PaymentCardProps> = ({
   const onCancelLink = async () => {
     try {
       setLinkActionLoading(true);
-      const updated = await toastPromise(
-        adminApi.payments.cancelPaymentLink(_id),
-        {
-          success: tAdmin("common.toasts.saved"),
-          error: tAdmin("common.toasts.error"),
-        },
-      );
+      const updated = await toastPromise(paymentsApi.cancelPaymentLink(_id), {
+        success: tAdmin("common.toasts.saved"),
+        error: tAdmin("common.toasts.error"),
+      });
       onUpdate(updated);
     } catch (error) {
       console.error(error);

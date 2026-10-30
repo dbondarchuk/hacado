@@ -3,7 +3,8 @@
 import { AdminKeys, useI18n } from "@hacado/i18n/client";
 import type { BookingStep, PaymentSummary } from "@hacado/types/booking";
 import type { DateRange } from "@hacado/types/general";
-import { HeaderActionButtonsPortal, PaymentCard } from "@hacado/ui-admin-kit";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
+import { PaymentCard } from "@hacado/ui-admin-kit/payments";
 import { useReload } from "@hacado/ui-admin/hooks";
 import { Card, CardContent, CardHeader, CardTitle } from "@hacado/ui/card";
 import { useCurrencyFormat, useTimeZone } from "@hacado/ui/context";

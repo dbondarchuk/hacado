@@ -27,8 +27,8 @@ import {
 } from "@hacado/types/booking";
 import { WithDatabaseId } from "@hacado/types/database";
 import { okStatus } from "@hacado/types/general";
-import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { Credentials, OAuth2Client } from "google-auth-library";
 import { DateTime } from "luxon";
 import {

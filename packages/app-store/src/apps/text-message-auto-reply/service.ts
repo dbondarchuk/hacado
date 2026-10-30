@@ -10,16 +10,14 @@ import {
   RespondResult,
   TextMessageReply,
 } from "@hacado/types/apps";
+import { getArguments } from "@hacado/utils/get-arguments";
 import {
   appendSharedPoolSuffix,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   isPlatformSmsCountry,
   isSmsEnabled,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { getAutoReplySms } from "./messages";
 import {
   TextMessageAutoReplyConfiguration,

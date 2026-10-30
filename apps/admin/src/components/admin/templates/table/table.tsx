@@ -3,7 +3,7 @@ import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
 import {
   templateSearchParams,
   templateSearchParamsCache,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/templates";
 import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 

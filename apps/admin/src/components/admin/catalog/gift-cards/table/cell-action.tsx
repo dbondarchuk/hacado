@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -39,7 +39,7 @@ export const CellAction: React.FC<CellActionProps> = ({ giftCard }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.giftCards.deleteGiftCard(giftCard._id), {
+      await toastPromise(giftCardsApi.deleteGiftCard(giftCard._id), {
         success: t("catalog.giftCards.table.cellAction.giftCardDeleted", {
           code: giftCard.code,
         }),
@@ -59,20 +59,17 @@ export const CellAction: React.FC<CellActionProps> = ({ giftCard }) => {
   const onSetStatus = async (status: "active" | "inactive") => {
     try {
       setLoading(true);
-      await toastPromise(
-        adminApi.giftCards.setGiftCardStatus(giftCard._id, status),
-        {
-          success:
-            status === "active"
-              ? t("catalog.giftCards.table.cellAction.giftCardSetActive", {
-                  code: giftCard.code,
-                })
-              : t("catalog.giftCards.table.cellAction.giftCardSetInactive", {
-                  code: giftCard.code,
-                }),
-          error: t("common.toasts.error"),
-        },
-      );
+      await toastPromise(giftCardsApi.setGiftCardStatus(giftCard._id, status), {
+        success:
+          status === "active"
+            ? t("catalog.giftCards.table.cellAction.giftCardSetActive", {
+                code: giftCard.code,
+              })
+            : t("catalog.giftCards.table.cellAction.giftCardSetInactive", {
+                code: giftCard.code,
+              }),
+        error: t("common.toasts.error"),
+      });
       router.refresh();
     } catch (error: any) {
       console.error(error);

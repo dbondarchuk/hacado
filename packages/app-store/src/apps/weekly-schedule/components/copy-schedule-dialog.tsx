@@ -27,7 +27,7 @@ import {
 import { Label } from "@hacado/ui/label";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { getWeekIdentifier } from "@hacado/utils";
+import { getWeekIdentifier } from "@hacado/utils/time";
 import { Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

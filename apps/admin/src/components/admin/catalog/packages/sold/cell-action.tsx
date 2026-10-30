@@ -1,7 +1,7 @@
 "use client";
 
 import { newAppointmentHrefForCustomerPackage } from "@/components/admin/catalog/packages/new-appointment-href";
-import { serializeAppointmentsSearchParams } from "@hacado/api-sdk";
+import { serializeAppointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   appointmentStatuses,
@@ -12,7 +12,7 @@ import {
   canAdjustCustomerPackageCredits,
   CancelCustomerPackageDialog,
   ReactivateCustomerPackageDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/packages";
 import { Button } from "@hacado/ui/button";
 import {
   DropdownMenu,

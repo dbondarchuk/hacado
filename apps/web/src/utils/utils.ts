@@ -2,7 +2,7 @@ import { canInstallApp } from "@hacado/app-store";
 import { ServicesContainer } from "@hacado/services/container";
 import type { SubscriptionFeature } from "@hacado/types/billing";
 import { BillingPlanTier } from "@hacado/types/billing";
-import { canUseFeature } from "@hacado/utils";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { headers } from "next/headers";
 import { cache } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 import { useCustomTextTemplatesAllowed } from "@/lib/sms/use-custom-text-templates";
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
@@ -57,7 +57,7 @@ export const AddNewTemplateButton: React.FC = () => {
 
   const fetchAvailableTemplates = async (type: CommunicationChannel) => {
     setIsLoading(true);
-    const templates = await adminApi.templates.getTemplateTemplates(type);
+    const templates = await templatesApi.getTemplateTemplates(type);
     setAvailableTemplates(templates);
     setIsLoading(false);
   };

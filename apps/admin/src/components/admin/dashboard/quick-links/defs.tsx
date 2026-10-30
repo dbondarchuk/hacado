@@ -8,7 +8,7 @@ import {
   canReadActivity,
   canViewFinancials,
   hasPermission,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
 import {
   Activity,
   BookUser,

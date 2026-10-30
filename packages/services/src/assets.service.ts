@@ -25,7 +25,8 @@ import {
   IEventService,
   IOrganizationService,
 } from "@hacado/types/services";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { createHash } from "crypto";
 import { DateTime } from "luxon";
 import { ClientSession, Filter, ObjectId, Sort } from "mongodb";

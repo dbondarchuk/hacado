@@ -39,7 +39,8 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { durationToTime, formatAmountWithCurrency } from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { ArrowLeft, ChevronDown, Lock, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

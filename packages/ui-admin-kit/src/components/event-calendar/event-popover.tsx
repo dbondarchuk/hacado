@@ -5,7 +5,7 @@ import { cn } from "@hacado/ui/cn";
 import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { CalendarClock, Clock, Timer, Video } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

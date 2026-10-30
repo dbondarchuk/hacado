@@ -16,7 +16,7 @@ import {
 import { BillingPlanTier, meetsMinimumPlanTier } from "@hacado/types/billing";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
-import { getWebsiteUrl } from "@hacado/utils";
+import { getWebsiteUrl } from "@hacado/utils/website";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";

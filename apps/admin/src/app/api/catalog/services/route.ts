@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
-import { servicesSearchParamsLoader } from "@hacado/api-sdk";
+import { servicesSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/services";
 import { getLoggerFactory } from "@hacado/logger";
 import { ServiceLimitReachedError } from "@hacado/types/billing";
 import { appointmentOptionSchema } from "@hacado/types/booking";

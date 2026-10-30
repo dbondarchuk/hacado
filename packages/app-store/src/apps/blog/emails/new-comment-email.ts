@@ -5,7 +5,7 @@ import {
 import { fallbackLanguage, type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { EmailNotificationRequest } from "@hacado/types/services";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import type { BlogCommentCreatedPayload } from "../models/events";
 import { BlogAdminAllKeys } from "../translations/types";
 

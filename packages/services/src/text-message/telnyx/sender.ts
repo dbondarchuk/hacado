@@ -1,4 +1,4 @@
-import { getPhoneCountry } from "@hacado/utils";
+import { getPhoneCountry } from "@hacado/utils/phone";
 import {
   getSupportedSmsCountries,
   SMS_NOT_SUPPORTED,

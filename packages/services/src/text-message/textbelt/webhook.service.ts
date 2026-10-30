@@ -12,7 +12,8 @@ import {
   IOrganizationService,
   ITeamService,
 } from "@hacado/types/services";
-import { maskify, normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { maskify } from "@hacado/utils/string";
 import crypto from "crypto";
 import { InboundTextMessageService } from "../inbound-reply.service";
 import { SmsConsentService } from "../sms-consent.service";

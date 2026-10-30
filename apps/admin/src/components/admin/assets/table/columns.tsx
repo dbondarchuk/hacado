@@ -15,7 +15,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { humanFileSize } from "@hacado/utils";
+import { humanFileSize } from "@hacado/utils/file";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { CellAction } from "./cell-action";

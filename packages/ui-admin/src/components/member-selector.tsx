@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { teamsApi } from "@hacado/api-sdk/admin/teams";
 import { useI18n } from "@hacado/i18n/client";
 import { TeamMemberListModel } from "@hacado/types/users";
 import { cn } from "@hacado/ui/cn";
@@ -105,7 +105,7 @@ export const MemberSelector = React.forwardRef<
     const getMembers = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.teams.getMembers({
+        const result = await teamsApi.getMembers({
           page,
           limit,
           search,
@@ -140,7 +140,7 @@ export const MemberSelector = React.forwardRef<
       if (!value || itemsCache[value]) return;
       let cancelled = false;
       void (async () => {
-        const result = await adminApi.teams.getMembers({
+        const result = await teamsApi.getMembers({
           page: 1,
           limit: 1,
           priorityId: [value],

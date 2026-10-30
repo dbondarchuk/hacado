@@ -4,7 +4,7 @@ import { PageHeadersTableAction } from "@/components/admin/pages/headers/table/t
 import {
   pageHeadersSearchParamsCache,
   pageHeadersSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/pages";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";

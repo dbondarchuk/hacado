@@ -1,7 +1,7 @@
 "use client";
 
 import { ResourcesCard } from "@/components/admin/resource/resources-card";
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   ScriptsConfiguration,
@@ -31,13 +31,10 @@ export const ScriptsSettingsForm: React.FC<{
   const onSubmit = async (data: ScriptsConfiguration) => {
     try {
       setLoading(true);
-      await toastPromise(
-        adminApi.configuration.setConfiguration("scripts", data),
-        {
-          success: t("settings.scripts.form.toasts.changesSaved"),
-          error: t("settings.scripts.form.toasts.requestError"),
-        },
-      );
+      await toastPromise(configurationApi.setConfiguration("scripts", data), {
+        success: t("settings.scripts.form.toasts.changesSaved"),
+        error: t("settings.scripts.form.toasts.requestError"),
+      });
 
       router.refresh();
     } catch (error: any) {

@@ -11,7 +11,7 @@ import {
 import { Checkbox } from "@hacado/ui/checkbox";
 import { useTimeZone } from "@hacado/ui/context";
 import { Link } from "@hacado/ui/link";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 // import Image from "next/image";

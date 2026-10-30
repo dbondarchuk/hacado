@@ -8,7 +8,7 @@ import {
   useIsSelectedBlock,
 } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
-import { templateSafeWithError } from "@hacado/utils";
+import { templateSafeWithError } from "@hacado/utils/string";
 import { Ref, useCallback } from "react";
 import { Image } from "./image";
 import { ResizableImage } from "./resizable-image";

@@ -1,6 +1,6 @@
 import { type Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { DateTime } from "luxon";
 import { WaitlistEntry, waitlistTime } from "../waitlist/models/waitlist";
 import { getSlotTimeOfDayArgs } from "./slot-match";

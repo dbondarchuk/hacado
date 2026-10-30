@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { ConnectedAppStatusWithText } from "@hacado/types/apps";
 import { toastPromise } from "@hacado/ui/sonner";
@@ -55,7 +55,7 @@ export function useConnectedAppSetup<T extends FieldValues>({
       setIsDataLoading(true);
       setIsLoading(true);
 
-      const data = await adminApi.apps.getAppData(existingAppId);
+      const data = await appsApi.getAppData(existingAppId);
       setInitialAppData(data);
 
       form.reset(data);
@@ -74,12 +74,12 @@ export function useConnectedAppSetup<T extends FieldValues>({
         appId: string;
         status: ConnectedAppStatusWithText;
       }>(async (resolve, reject) => {
-        const _appId = appId || (await adminApi.apps.addNewApp(appName));
+        const _appId = appId || (await appsApi.addNewApp(appName));
         setAppId(_appId);
 
         const processedData = processDataForSubmit?.(data) || data;
 
-        const status = (await adminApi.apps.processRequest(
+        const status = (await appsApi.processRequest(
           _appId,
           processedData,
         )) as ConnectedAppStatusWithText;

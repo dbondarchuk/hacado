@@ -5,7 +5,7 @@ import { OpenPaymentDetailsFromQuery } from "@/components/admin/payments/table/o
 import {
   giftCardsSearchParamsCache,
   giftCardsSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/gift-cards";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";

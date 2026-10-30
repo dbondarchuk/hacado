@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerListModel } from "@hacado/types/customers";
 import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
@@ -38,7 +38,7 @@ export const MergeSelectedCustomersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.customers.mergeCustomers(
+        customersApi.mergeCustomers(
           targetCustomerId,
           selected.map((customer) => customer._id),
         ),

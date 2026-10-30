@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerPackageListModel } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
@@ -81,7 +81,7 @@ export const AdjustPackageCreditsDialog: React.FC<
     setLoading(true);
     try {
       await toastPromise(
-        adminApi.packages.adjustCustomerPackage(pkg._id, {
+        packagesApi.adjustCustomerPackage(pkg._id, {
           itemId,
           delta,
           reason: reason.trim() || undefined,

@@ -14,7 +14,7 @@ import {
 import { Button } from "@hacado/ui/button";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { getWeekIdentifier } from "@hacado/utils";
+import { getWeekIdentifier } from "@hacado/utils/time";
 import { UndoDot } from "lucide-react";
 import { DateTime } from "luxon";
 import React from "react";

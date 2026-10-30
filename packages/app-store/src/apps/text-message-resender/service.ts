@@ -9,13 +9,10 @@ import {
   RespondResult,
   TextMessageReply,
 } from "@hacado/types/apps";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  subscriptionAllowsMultipleUsers,
-  template,
-} from "@hacado/utils";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { subscriptionAllowsMultipleUsers } from "@hacado/utils/permissions";
+import { template } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { getTextMessageResenderMessages } from "./messages";
 import {
   TextMessageResenderConfiguration,

@@ -15,7 +15,7 @@ import {
   APP_INSTALLED_EVENT_TYPE,
   APP_UNINSTALLED_EVENT_TYPE,
 } from "@hacado/types/events";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 
 export const APP_EVENT_DEFINITIONS: Record<string, EventDefinition> = {
   [APP_INSTALLED_EVENT_TYPE]: {

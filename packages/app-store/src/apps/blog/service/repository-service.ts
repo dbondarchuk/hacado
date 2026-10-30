@@ -3,7 +3,7 @@ import { IConnectedAppProps } from "@hacado/types/apps";
 import { Query, WithTotal } from "@hacado/types/database";
 import { systemEventSource } from "@hacado/types/events";
 import { resolvePageHeaderPosition } from "@hacado/types/pages";
-import { escapeRegex } from "@hacado/utils";
+import { escapeRegex } from "@hacado/utils/string";
 import { ObjectId, type Document, type Filter, type Sort } from "mongodb";
 import {
   BLOG_COMMENTS_COLLECTION_NAME,

@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import { Payment, PaymentSummary } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
@@ -99,7 +100,7 @@ export const ResendPaymentLinkDialog = ({
 
     let cancelled = false;
 
-    adminApi.customers
+    customersApi
       .getCustomer(payment.customerId)
       .then((customer) => {
         if (cancelled) {
@@ -184,7 +185,7 @@ export const ResendPaymentLinkDialog = ({
     try {
       setLoading(true);
       const result = await toastPromise(
-        adminApi.payments.resendPaymentLink(payment._id, {
+        paymentsApi.resendPaymentLink(payment._id, {
           ...data,
           smsConsent: data.channel === "sms" && smsConsent ? true : undefined,
         }),

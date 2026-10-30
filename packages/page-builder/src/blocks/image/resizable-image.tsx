@@ -7,7 +7,7 @@ import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui/cn";
 import { useDebounce } from "@hacado/ui/hooks";
 import { mergeRefs } from "@hacado/ui/utils";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { ImageProps } from "./schema";
 import { styles } from "./styles";

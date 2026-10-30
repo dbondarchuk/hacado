@@ -32,7 +32,7 @@ import {
 } from "@hacado/ui/form";
 import { useTheme } from "@hacado/ui/hooks";
 import { Input } from "@hacado/ui/input";
-import { stripObject } from "@hacado/utils";
+import { stripObject } from "@hacado/utils/strip-object";
 import { Editor } from "@monaco-editor/react";
 import { cva } from "class-variance-authority";
 import { GripVertical, Trash } from "lucide-react";

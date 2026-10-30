@@ -1,11 +1,11 @@
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon } from "@hacado/types/booking";
 import { AddonsType } from "@hacado/types/services";
 import { cn } from "@hacado/ui/cn";
 import { Combobox, IComboboxItem } from "@hacado/ui/combobox";
 import { MultiSelect, OptionType } from "@hacado/ui/multi-select";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, DollarSign } from "lucide-react";
 import React from "react";
 
@@ -30,7 +30,7 @@ const AddonLabel: React.FC<{ addon: AppointmentAddon }> = ({ addon }) => {
 
 const getAddons = async (forOptionId?: string) => {
   const includeUsage = forOptionId ? true : false;
-  const response = await adminApi.addons.getAddons({
+  const response = await addonsApi.getAddons({
     limit: 10000,
     includeUsage,
   });

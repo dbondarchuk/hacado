@@ -23,7 +23,6 @@ import {
   canUpdateAppointment,
   canUpdateAppointments,
   canUpdateTeamMemberProfile,
-  canUseFeature,
   canUseScheduleApps,
   canViewFinancials,
   hasPermission,
@@ -31,7 +30,8 @@ import {
   resolveCalendarMemberId,
   resolveProcessOtherMembersAppointmentsConfig,
   resolveUpdatableAppointmentMemberId,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
+import { canUseFeature } from "@hacado/utils/subscription";
 import { createContext, useContext } from "react";
 
 export type AuthContextProps = {

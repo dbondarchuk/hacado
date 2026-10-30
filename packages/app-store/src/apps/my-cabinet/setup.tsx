@@ -1,6 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
@@ -84,19 +86,16 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
       setIsLoading(true);
       // Install only — `install()` seeds header/footer. Do not call
       // processRequest here or empty form values would overwrite seeded ids.
-      const appId = await toastPromise(
-        adminApi.apps.addNewApp(MyCabinetApp.name),
-        {
-          success: {
-            message: tApps("common.connectedAppSetup.success.title"),
-            description: tApps("common.connectedAppSetup.success.description"),
-          },
-          error: {
-            message: tApps("common.connectedAppSetup.error.title"),
-            description: tApps("common.connectedAppSetup.error.description"),
-          },
+      const appId = await toastPromise(appsApi.addNewApp(MyCabinetApp.name), {
+        success: {
+          message: tApps("common.connectedAppSetup.success.title"),
+          description: tApps("common.connectedAppSetup.success.description"),
         },
-      );
+        error: {
+          message: tApps("common.connectedAppSetup.error.title"),
+          description: tApps("common.connectedAppSetup.error.description"),
+        },
+      });
       setConnectedAppId(appId);
       onSuccess(appId, true);
     } catch (e: any) {
@@ -109,7 +108,7 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
   const fetchHeaders = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageHeaders.getPageHeaders({
+      const result = await pageHeadersApi.getPageHeaders({
         page,
         limit,
         search: search || undefined,
@@ -136,7 +135,7 @@ export const MyCabinetAppSetup: React.FC<AppSetupProps> = ({
   const fetchFooters = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageFooters.getPageFooters({
+      const result = await pageFootersApi.getPageFooters({
         page,
         limit,
         search: search || undefined,

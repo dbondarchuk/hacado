@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import { getCustomerOtpSms } from "@hacado/services/customer-auth-messages";
 import {
@@ -76,7 +76,7 @@ export const CustomerAccessSettingsForm: React.FC<{
     try {
       setLoading(true);
       await toastPromise(
-        adminApi.configuration.setConfiguration("customerAuth", data),
+        configurationApi.setConfiguration("customerAuth", data),
         {
           success: t("settings.customerAccess.form.toasts.changesSaved"),
           error: t("settings.customerAccess.form.toasts.requestError"),

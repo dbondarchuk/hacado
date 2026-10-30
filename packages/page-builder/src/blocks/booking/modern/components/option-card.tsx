@@ -1,4 +1,6 @@
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import {
   AppointmentChoice,
@@ -20,7 +22,7 @@ import { cn } from "@hacado/ui/cn";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { Markdown } from "@hacado/ui/markdown";
 import { Skeleton } from "@hacado/ui/skeleton";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";
@@ -300,7 +302,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setSelectedAppointmentOption(undefined);
     setSelectedAddons([]);
     try {
-      const session = await clientApi.customerAuth.checkSession();
+      const session = await customerAuthApi.checkSession();
       if (session?.success) {
         setOtpVerified(true);
         setFields({
@@ -329,7 +331,7 @@ export const AppointmentOptionCard: React.FC = () => {
     let cancelled = false;
     setPackagesLoading(true);
     setPackagesError(false);
-    clientApi.customerAuth
+    customerAuthApi
       .getMyPackages()
       .then((response) => {
         if (cancelled) return;
@@ -393,7 +395,7 @@ export const AppointmentOptionCard: React.FC = () => {
     setIsLoading(true);
     setCurrentStep("calendar");
     if (!isEditor) {
-      clientApi.booking.trackAdvanceFromUiStep("option", {
+      bookingApi.trackAdvanceFromUiStep("option", {
         serviceId: option._id,
         memberId: memberId ?? undefined,
         duration: nextDuration,

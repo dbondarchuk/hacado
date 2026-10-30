@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { resolvedI18nText } from "@hacado/ui-admin/hooks";
 import {
@@ -42,7 +43,7 @@ export const DeleteAppButton: React.FC<DeleteAppButtonProps> = ({
   const disconnectApp = async () => {
     setIsLoading(true);
     try {
-      await adminApi.apps.deleteApp(appId);
+      await appsApi.deleteApp(appId);
 
       toast.success(t("common.disconnect.toast.success"));
       setIsDialogOpen(false);

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
 import { useI18n } from "@hacado/i18n/client";
 import {
   ScheduleConfiguration,
@@ -36,13 +36,10 @@ export const ScheduleSettingsForm: React.FC<ScheduleSettingsFormProps> = ({
   const onSubmit = async (data: ScheduleConfiguration) => {
     try {
       setLoading(true);
-      await toastPromise(
-        adminApi.configuration.setConfiguration("schedule", data),
-        {
-          success: t("settings.schedule.form.toasts.changesSaved"),
-          error: t("settings.schedule.form.toasts.requestError"),
-        },
-      );
+      await toastPromise(configurationApi.setConfiguration("schedule", data), {
+        success: t("settings.schedule.form.toasts.changesSaved"),
+        error: t("settings.schedule.form.toasts.requestError"),
+      });
       router.refresh();
     } catch (error: any) {
       console.error(error);

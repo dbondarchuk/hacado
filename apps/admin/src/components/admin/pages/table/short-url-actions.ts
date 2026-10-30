@@ -2,7 +2,7 @@
 
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { isSmsLinkShorteningEnabled } from "@hacado/utils";
+import { isSmsLinkShorteningEnabled } from "@hacado/utils/short-links";
 
 const loggerFactory = getLoggerFactory("PagesShortUrl");
 

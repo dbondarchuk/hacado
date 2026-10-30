@@ -20,7 +20,9 @@ import {
 import type { ICustomersService } from "@hacado/types/services";
 import { IEventService } from "@hacado/types/services";
 import { Leaves } from "@hacado/types/utils";
-import { buildSearchQuery, escapeRegex, normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import {
   APPOINTMENTS_COLLECTION_NAME,

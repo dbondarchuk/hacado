@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { AdminKeys, useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import { Header } from "@hacado/page-builder-base/reader";
@@ -167,7 +167,7 @@ export const PageHeaderForm: React.FC<{
   }));
 
   const cachedUniqueSlugCheck = useDebounceCacheFn(
-    adminApi.pageHeaders.checkUniquePageHeaderName,
+    pageHeadersApi.checkUniquePageHeaderName,
     300,
   );
 
@@ -233,10 +233,10 @@ export const PageHeaderForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.pageHeaders.createPageHeader(payload);
+          const { _id } = await pageHeadersApi.createPageHeader(payload);
           router.push(`/dashboard/pages/headers/${_id}`);
         } else {
-          await adminApi.pageHeaders.updatePageHeader(initialData._id, payload);
+          await pageHeadersApi.updatePageHeader(initialData._id, payload);
           router.refresh();
         }
       };

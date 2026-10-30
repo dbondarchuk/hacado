@@ -2,7 +2,8 @@
 
 import { ProfileForm as SharedProfileForm } from "@/components/admin/users/profile-form";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { adminApi, UserUpdate } from "@hacado/api-sdk";
+import { UserUpdate } from "@hacado/api-sdk/admin/schemas/user";
+import { usersApi } from "@hacado/api-sdk/admin/users";
 import React from "react";
 
 export const ProfileForm: React.FC<{
@@ -23,7 +24,7 @@ export const ProfileForm: React.FC<{
       isSelfProfile
       enabledSocialProviders={enabledSocialProviders}
       onSave={async (data) => {
-        await adminApi.users.updateMyUser(data);
+        await usersApi.updateMyUser(data);
       }}
     />
   );

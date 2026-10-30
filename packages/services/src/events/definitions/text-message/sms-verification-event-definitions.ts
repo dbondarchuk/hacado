@@ -17,7 +17,7 @@ import type {
   EmailNotificationRequest,
   IServicesContainer,
 } from "@hacado/types/services";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import { dashboardUrls } from "../links";
 
 const verificationUrl = `${dashboardUrls.textMessagingVerification}`;

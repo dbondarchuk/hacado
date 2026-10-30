@@ -2,7 +2,7 @@ import { getServicesContainer } from "@/app/utils";
 import {
   giftCardsSearchParams,
   giftCardsSearchParamsCache,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/gift-cards";
 import { DataTable } from "@hacado/ui-admin/data-table";
 import { columns } from "./columns";
 

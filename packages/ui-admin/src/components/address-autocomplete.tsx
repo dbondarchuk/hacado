@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { addressesApi } from "@hacado/api-sdk/admin/addresses";
 import { useI18n } from "@hacado/i18n/client";
 import type {
   AddressSuggestion,
@@ -75,7 +75,7 @@ export const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({
 
     void (async () => {
       try {
-        const result = await adminApi.addresses.getAddressSuggestions({
+        const result = await addressesApi.getAddressSuggestions({
           page: 1,
           limit: 10,
           search: query,

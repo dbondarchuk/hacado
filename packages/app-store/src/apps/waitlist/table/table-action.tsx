@@ -2,10 +2,8 @@
 
 import { useI18n } from "@hacado/i18n/client";
 
-import {
-  HeaderActionButtonsPortal,
-  ResponsiveFilterBar,
-} from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
+import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
@@ -17,7 +15,7 @@ import {
   OptionsDataTableAsyncFilterBox,
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
-import { canFilterByMember, hasPermission } from "@hacado/utils";
+import { canFilterByMember, hasPermission } from "@hacado/utils/permissions";
 
 import React from "react";
 import { WaitlistStatus, waitlistStatus } from "../models";

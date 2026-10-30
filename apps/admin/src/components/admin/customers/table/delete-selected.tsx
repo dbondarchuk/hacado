@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { useI18n } from "@hacado/i18n/client";
 import { CustomerListModel } from "@hacado/types/customers";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedCustomersButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.customers.deleteCustomers(selected.map((page) => page._id)),
+        customersApi.deleteCustomers(selected.map((page) => page._id)),
         {
           success: t("customers.table.delete.success"),
           error: t("customers.table.delete.error"),

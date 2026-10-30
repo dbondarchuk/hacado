@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import { cn } from "@hacado/ui/cn";
@@ -101,7 +101,7 @@ export const GiftCardSelector = React.forwardRef<
     const getGiftCards = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const result = await adminApi.giftCards.getGiftCards({
+        const result = await giftCardsApi.getGiftCards({
           page,
           limit,
           search,

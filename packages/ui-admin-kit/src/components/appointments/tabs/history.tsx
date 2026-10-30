@@ -7,7 +7,7 @@ import {
 } from "@hacado/types/booking";
 import { useInView } from "react-intersection-observer";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { AvailableApps } from "@hacado/app-store";
 import { Badge } from "@hacado/ui/badge";
 import { cn } from "@hacado/ui/cn";
@@ -313,7 +313,7 @@ export const AppointmentHistory: React.FC<AppointmentHistoryProps> = ({
 
   const loadEntries = React.useCallback(
     async (page: number) => {
-      const result = await adminApi.appointments.getAppointmentHistory(
+      const result = await appointmentsApi.getAppointmentHistory(
         appointmentId,
         {
           page,

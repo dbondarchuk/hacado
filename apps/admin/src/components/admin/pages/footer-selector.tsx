@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import { useI18n } from "@hacado/i18n/client";
 import { PageFooterListModel } from "@hacado/types/pages";
 import { cn } from "@hacado/ui/cn";
@@ -85,7 +85,7 @@ export const FooterSelector = React.forwardRef<
     const getFooters = React.useCallback(
       async (page: number, search?: string) => {
         const limit = 10;
-        const res = await adminApi.pageFooters.getPageFooters({
+        const res = await pageFootersApi.getPageFooters({
           page,
           limit,
           search,

@@ -12,7 +12,7 @@ import {
   APPOINTMENT_SLOT_RESCHEDULED_EVENT_TYPE,
   APPOINTMENT_STATUS_CHANGED_EVENT_TYPE,
 } from "@hacado/types/events";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 
 import { buildAppointmentLimitReachedEmails } from "./appointment-limit-email";
 

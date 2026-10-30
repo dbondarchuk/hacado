@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { packagesApi } from "@hacado/api-sdk/admin/packages";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentPackage } from "@hacado/types/booking";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -29,7 +29,7 @@ export const CellAction: React.FC<{ pkg: AppointmentPackage }> = ({ pkg }) => {
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await toastPromise(adminApi.packages.deletePackage(pkg._id), {
+      await toastPromise(packagesApi.deletePackage(pkg._id), {
         success: t("catalog.packages.table.cellAction.packageDeleted", {
           name: pkg.name,
         }),

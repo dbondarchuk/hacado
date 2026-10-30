@@ -1,6 +1,6 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { useConfig, useTextMessaging } from "@hacado/ui/context";
 import {
@@ -26,7 +26,7 @@ export function useWaitlistSmsText(appId?: string) {
     }
 
     let cancelled = false;
-    clientApi.apps
+    appsApi
       .callAppApi<CustomerWaitlistTextOffer>({
         appId,
         path: "sms-text",

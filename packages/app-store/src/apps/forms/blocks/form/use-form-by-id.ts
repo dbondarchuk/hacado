@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useCallback, useEffect, useState } from "react";
 import { FormModel } from "../../models";
 import { GetFormByIdActionType } from "../../models/app";
@@ -34,7 +34,7 @@ export function useFormById(
     setState({ status: "loading", form: null, error: null });
 
     try {
-      const res = await adminApi.apps.processRequest<FormModel>(appId, {
+      const res = await appsApi.processRequest<FormModel>(appId, {
         type: GetFormByIdActionType,
         id: formId,
       });

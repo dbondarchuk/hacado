@@ -1,6 +1,8 @@
 import { StylingConfiguration } from "@hacado/types/configuration/styling";
 import { genericMemo } from "@hacado/ui/utils";
-import { buildGoogleFontsUrl, deepEqual, getColorsCss } from "@hacado/utils";
+import { getColorsCss } from "@hacado/utils/colors";
+import { deepEqual } from "@hacado/utils/deep-equal";
+import { buildGoogleFontsUrl } from "@hacado/utils/fonts";
 import React from "react";
 import {
   BaseStyleDictionary,

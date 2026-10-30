@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { textMessagingApi } from "@hacado/api-sdk/admin/text-messaging";
 import { useI18n } from "@hacado/i18n/client";
 import {
   SmsOptInPreview,
@@ -135,7 +135,7 @@ export const TextMessagingVerificationForm = ({
       const resubmit = data.enabled && values.status !== "verified";
       const optInImage = resubmit ? await captureOptInPreview() : undefined;
       await toastPromise(
-        adminApi.textMessaging.saveSmsVerification({
+        textMessagingApi.saveSmsVerification({
           ...data,
           address: data.address
             ? {

@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@hacado/ui/select";
 import { ToolbarButton } from "@hacado/ui/toolbar";
-import { destructAndReplace, resolveProperty } from "@hacado/utils";
+import { destructAndReplace, resolveProperty } from "@hacado/utils/object";
 import { Sketch } from "@uiw/react-color";
 import { X } from "lucide-react";
 import React, { ReactNode } from "react";

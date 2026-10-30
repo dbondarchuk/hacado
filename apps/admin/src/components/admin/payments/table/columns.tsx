@@ -7,7 +7,7 @@ import {
   getPaymentMethod,
   getPaymentStatusColor,
   PaymentDetailsDialog,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/payments";
 import {
   tableSortHeader,
   tableSortNoopFunction,

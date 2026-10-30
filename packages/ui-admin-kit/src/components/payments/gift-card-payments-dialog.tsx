@@ -1,8 +1,7 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { Payment, PaymentSummary } from "@hacado/types/booking";
-import { AddUpdatePaymentDialog, PaymentCard } from "@hacado/ui-admin-kit";
 import { Button } from "@hacado/ui/button";
 import {
   Dialog,
@@ -19,6 +18,8 @@ import { Skeleton } from "@hacado/ui/skeleton";
 import { toast } from "@hacado/ui/sonner";
 import { BanknoteArrowUp } from "lucide-react";
 import { useState } from "react";
+import { AddUpdatePaymentDialog } from "./add-update-payment-dialog";
+import { PaymentCard } from "./payment-card";
 
 export const GiftCardPaymentsDialog: React.FC<{
   giftCardId: string;
@@ -33,7 +34,7 @@ export const GiftCardPaymentsDialog: React.FC<{
   const getPayments = async () => {
     setIsLoading(true);
     try {
-      const payments = await adminApi.giftCards.getGiftCardPayments(giftCardId);
+      const payments = await giftCardsApi.getGiftCardPayments(giftCardId);
       setPayments(payments);
     } catch (error: any) {
       console.error(error);

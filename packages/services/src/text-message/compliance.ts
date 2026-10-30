@@ -46,7 +46,7 @@ export const classifyInboundSmsKeyword = (
   return null;
 };
 
-export { isSmsEnabled } from "@hacado/utils";
+export { isSmsEnabled } from "@hacado/utils/sms";
 
 export const shouldRecordOwnerAttestation = (checked: boolean): boolean =>
   checked;

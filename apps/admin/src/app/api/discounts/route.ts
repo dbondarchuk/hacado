@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { discountsSearchParamsLoader } from "@hacado/api-sdk";
+import { discountsSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/discounts";
 import { getLoggerFactory } from "@hacado/logger";
 import { discountSchema } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";

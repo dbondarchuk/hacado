@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { communicationLogsApi } from "@hacado/api-sdk/admin/communication-logs";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
@@ -307,7 +307,7 @@ export const RecentCommunications: React.FC<RecentCommunicationsProps> = ({
 
   const loadLogs = React.useCallback(
     async (page: number) => {
-      const result = await adminApi.communicationLogs.getCommunicationLogs({
+      const result = await communicationLogsApi.getCommunicationLogs({
         participantType: ["customer"],
         page,
         limit: toLoad,

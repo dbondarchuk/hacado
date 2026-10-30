@@ -32,11 +32,9 @@ import type { EventSource } from "@hacado/types/events";
 import { EventEnvelope } from "@hacado/types/events";
 import { TemplateTemplatesList } from "@hacado/types/templates";
 import { SessionUser } from "@hacado/types/users";
-import {
-  dispatchAppointmentEventPayload,
-  gateMemberIds,
-  hasPermission,
-} from "@hacado/utils";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { hasPermission } from "@hacado/utils/permissions";
 import {
   CreateWaitlistEntryAction,
   CreateWaitlistEntryActionType,

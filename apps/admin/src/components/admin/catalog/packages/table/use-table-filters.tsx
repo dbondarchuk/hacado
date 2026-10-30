@@ -1,6 +1,6 @@
 "use client";
 
-import { packagesSearchParams } from "@hacado/api-sdk";
+import { packagesSearchParams } from "@hacado/api-sdk/admin/search-params/packages";
 import { useQueryState } from "nuqs";
 import { useCallback } from "react";
 

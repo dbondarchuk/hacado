@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateMarkdownEditor } from "@hacado/rte";
 import {
@@ -49,7 +49,7 @@ export const AddonForm: React.FC<{
   const currencySymbol = useCurrencySymbol();
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.addons.checkAddonUniqueName,
+    addonsApi.checkAddonUniqueName,
     300,
   );
 
@@ -80,10 +80,10 @@ export const AddonForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.addons.createAddon(payload);
+          const { _id } = await addonsApi.createAddon(payload);
           router.push(`/dashboard/catalog/addons/${_id}`);
         } else {
-          await adminApi.addons.updateAddon(initialData._id, payload);
+          await addonsApi.updateAddon(initialData._id, payload);
 
           router.refresh();
         }

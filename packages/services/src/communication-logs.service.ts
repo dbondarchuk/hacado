@@ -15,7 +15,9 @@ import {
 import { Query, WithTotal } from "@hacado/types/database";
 import { DateRange } from "@hacado/types/general";
 import { ICommunicationLogsService } from "@hacado/types/services";
-import { buildSearchQuery, escapeRegex, stream2buffer } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { stream2buffer } from "@hacado/utils/stream";
+import { escapeRegex } from "@hacado/utils/string";
 import { Filter, ObjectId, Sort } from "mongodb";
 import { Readable } from "stream";
 import {

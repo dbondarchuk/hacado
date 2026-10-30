@@ -4,7 +4,8 @@ import {
   TextMessage,
   TextMessageResponse,
 } from "@hacado/types/apps";
-import { getAppsExternalUrl, maskify } from "@hacado/utils";
+import { maskify } from "@hacado/utils/string";
+import { getAppsExternalUrl } from "@hacado/utils/website";
 import { prepareTextbeltSmsBody } from "../compliance";
 import { TextBeltConfiguration } from "./types";
 

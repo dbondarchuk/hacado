@@ -36,7 +36,7 @@ import type {
   OrganizationMember,
   SessionUser,
 } from "@hacado/types/users";
-import { getAdminUrl } from "@hacado/utils";
+import { getAdminUrl } from "@hacado/utils/website";
 import { polar, portal, webhooks } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";

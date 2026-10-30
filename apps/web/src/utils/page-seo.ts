@@ -5,7 +5,7 @@ import type {
 } from "@hacado/types/apps";
 import type { BrandConfiguration } from "@hacado/types/configuration/brand";
 import type { Page } from "@hacado/types/pages";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 
 export function seoArgString(
   seoArgs: PageSeoArguments,

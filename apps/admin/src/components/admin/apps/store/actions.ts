@@ -27,7 +27,7 @@ import {
   canInstallCompanyApps,
   filterConnectedAppsForInstallQuota,
   filterInstallDefaultScopesForUser,
-} from "@hacado/utils";
+} from "@hacado/utils/app-access";
 
 const logger = getLoggerFactory("AppStoreActions");
 

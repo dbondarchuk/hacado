@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { useI18n } from "@hacado/i18n/client";
 import { Appointment, CalendarEvent } from "@hacado/types/booking";
 import { SwitchCardFormItem } from "@hacado/ui-admin/switch-card-form-item";
@@ -117,7 +117,7 @@ export const AppointmentRescheduleDialog: React.FC<
       setLoading(true);
 
       await toastPromise(
-        adminApi.appointments.reschedule(
+        appointmentsApi.reschedule(
           appointment._id,
           data.dateTime,
           data.duration,

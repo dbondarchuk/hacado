@@ -5,7 +5,7 @@ import { getI18nAsync } from "@hacado/i18n/server";
 import type { SessionUser } from "@hacado/types/users";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
-import { canUpdateTeamMemberProfile } from "@hacado/utils";
+import { canUpdateTeamMemberProfile } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, notFound, redirect } from "next/navigation";
 

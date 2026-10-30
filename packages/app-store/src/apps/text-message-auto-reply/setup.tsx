@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
-import { TextMessageBuilder } from "@hacado/ui-admin-kit";
+import { TextMessageBuilder } from "@hacado/ui-admin-kit/templates";
 import {
   ConnectedAppNameAndLogo,
   ConnectedAppStatusMessage,

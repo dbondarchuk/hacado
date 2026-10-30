@@ -1,7 +1,8 @@
 "use client";
 
 import { authClient } from "@/app/auth-client";
-import { adminApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/admin/booking";
+import { servicesApi } from "@hacado/api-sdk/admin/services";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
 import {
@@ -52,7 +53,7 @@ export const ServiceForm: React.FC<{
   const t = useI18n("admin");
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.services.checkServiceUniqueName,
+    servicesApi.checkServiceUniqueName,
     300,
   );
 
@@ -128,17 +129,14 @@ export const ServiceForm: React.FC<{
     if (!newOption?.id) return;
     try {
       setAvailabilityLoading(true);
-      await toastPromise(
-        adminApi.booking.addBookingAvailableOption(newOption.id),
-        {
-          success: t(
-            "catalog.services.form.addToAvailabilityDialog.toasts.added",
-          ),
-          error: t(
-            "catalog.services.form.addToAvailabilityDialog.toasts.requestError",
-          ),
-        },
-      );
+      await toastPromise(bookingApi.addBookingAvailableOption(newOption.id), {
+        success: t(
+          "catalog.services.form.addToAvailabilityDialog.toasts.added",
+        ),
+        error: t(
+          "catalog.services.form.addToAvailabilityDialog.toasts.requestError",
+        ),
+      });
       setShowAvailabilityDialog(false);
       navigateToOptionEdit();
     } catch (error) {
@@ -165,11 +163,11 @@ export const ServiceForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.services.createService(payload);
+          const { _id } = await servicesApi.createService(payload);
           setNewOption({ id: _id, name: data.name });
           setShowAvailabilityDialog(true);
         } else {
-          await adminApi.services.updateService(initialData._id, payload);
+          await servicesApi.updateService(initialData._id, payload);
 
           router.refresh();
         }

@@ -26,7 +26,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { templateSafeWithError } from "@hacado/utils";
+import { templateSafeWithError } from "@hacado/utils/string";
 import JsonView from "@uiw/react-json-view";
 import { darkTheme } from "@uiw/react-json-view/dark";
 import { lightTheme } from "@uiw/react-json-view/light";

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { syncedPaymentsApi } from "@hacado/api-sdk/admin/synced-payments";
 import { useI18n } from "@hacado/i18n/client";
 import {
   HydratedSyncedPayment,
@@ -12,7 +12,7 @@ import {
   EditSyncedPaymentAmountsDialog,
   RecordSyncedPaymentDialog,
   SyncedPaymentCard,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/payments";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   AlertDialog,
@@ -35,7 +35,7 @@ import {
 import { Skeleton } from "@hacado/ui/skeleton";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { canManageSyncedPayments } from "@hacado/utils";
+import { canManageSyncedPayments } from "@hacado/utils/permissions";
 import { Check, FilterX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -72,7 +72,7 @@ export const SyncedPaymentsReview = () => {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const result = await adminApi.syncedPayments.listSyncedPayments({
+      const result = await syncedPaymentsApi.listSyncedPayments({
         status: showAll ? undefined : NEEDS_REVIEW,
         limit: PAGE_SIZE,
         offset: page * PAGE_SIZE,
@@ -102,7 +102,7 @@ export const SyncedPaymentsReview = () => {
     setApprovingAll(true);
     try {
       const result = await toastPromise(
-        adminApi.syncedPayments.confirmAllMatchedSyncedPayments({
+        syncedPaymentsApi.confirmAllMatchedSyncedPayments({
           start: range?.start,
           end: range?.end,
           externalId,
@@ -236,9 +236,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.confirmSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.confirmSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -246,9 +244,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.rejectSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.rejectSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -256,9 +252,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.ignoreSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.ignoreSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -267,11 +261,11 @@ export const SyncedPaymentsReview = () => {
                       ? (appointmentId) =>
                           runAction(item._id, () =>
                             item.appointmentId
-                              ? adminApi.syncedPayments.reassignSyncedPayment(
+                              ? syncedPaymentsApi.reassignSyncedPayment(
                                   item._id,
                                   appointmentId,
                                 )
-                              : adminApi.syncedPayments.assignSyncedPayment(
+                              : syncedPaymentsApi.assignSyncedPayment(
                                   item._id,
                                   appointmentId,
                                 ),
@@ -289,9 +283,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.unassignSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.unassignSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -299,9 +291,7 @@ export const SyncedPaymentsReview = () => {
                     canManage
                       ? () =>
                           runAction(item._id, () =>
-                            adminApi.syncedPayments.unrecordSyncedPayment(
-                              item._id,
-                            ),
+                            syncedPaymentsApi.unrecordSyncedPayment(item._id),
                           )
                       : undefined
                   }
@@ -349,11 +339,11 @@ export const SyncedPaymentsReview = () => {
           setAssignTarget(null);
           await runAction(target._id, () =>
             target.appointmentId
-              ? adminApi.syncedPayments.reassignSyncedPayment(
+              ? syncedPaymentsApi.reassignSyncedPayment(
                   target._id,
                   appointmentId,
                 )
-              : adminApi.syncedPayments.assignSyncedPayment(
+              : syncedPaymentsApi.assignSyncedPayment(
                   target._id,
                   appointmentId,
                 ),
@@ -380,7 +370,7 @@ export const SyncedPaymentsReview = () => {
           const target = recordTarget;
           setRecordTarget(null);
           await runAction(target._id, () =>
-            adminApi.syncedPayments.recordSyncedPayment(target._id, details),
+            syncedPaymentsApi.recordSyncedPayment(target._id, details),
           );
         }}
       />

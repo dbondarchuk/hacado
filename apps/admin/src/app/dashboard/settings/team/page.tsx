@@ -12,13 +12,13 @@ import { BRAND_SETTINGS_UPGRADE_URL } from "@/lib/billing/subscription-plan-acce
 import {
   teamsSearchParamsCache,
   teamsSearchParamsSerializer,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/teams";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Button } from "@hacado/ui/button";
 import { Heading } from "@hacado/ui/heading";
-import { canManageTeam } from "@hacado/utils";
+import { canManageTeam } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import Link from "next/link";
 import { forbidden, redirect } from "next/navigation";

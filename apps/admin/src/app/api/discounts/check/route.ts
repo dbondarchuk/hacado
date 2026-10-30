@@ -1,7 +1,7 @@
 import { getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { checkDiscountNameAndCodeParamsLoader } from "@hacado/api-sdk";
+import { checkDiscountNameAndCodeParamsLoader } from "@hacado/api-sdk/admin/search-params/discounts";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 

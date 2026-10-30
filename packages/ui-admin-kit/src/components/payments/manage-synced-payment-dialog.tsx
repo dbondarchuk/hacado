@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { syncedPaymentsApi } from "@hacado/api-sdk/admin/synced-payments";
 import { useI18n } from "@hacado/i18n/client";
 import { HydratedSyncedPayment } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
@@ -80,7 +80,7 @@ export const ManageSyncedPaymentDialog = ({
 
     setLoading(true);
     try {
-      const result = await adminApi.syncedPayments.listSyncedPayments({
+      const result = await syncedPaymentsApi.listSyncedPayments({
         externalId,
         limit: 1,
       });
@@ -141,14 +141,8 @@ export const ManageSyncedPaymentDialog = ({
     }
     return runAction(() =>
       record.appointmentId
-        ? adminApi.syncedPayments.reassignSyncedPayment(
-            record._id,
-            appointmentId,
-          )
-        : adminApi.syncedPayments.assignSyncedPayment(
-            record._id,
-            appointmentId,
-          ),
+        ? syncedPaymentsApi.reassignSyncedPayment(record._id, appointmentId)
+        : syncedPaymentsApi.assignSyncedPayment(record._id, appointmentId),
     );
   };
 
@@ -179,17 +173,17 @@ export const ManageSyncedPaymentDialog = ({
                 disabled={pending}
                 onConfirm={() =>
                   runAction(() =>
-                    adminApi.syncedPayments.confirmSyncedPayment(record._id),
+                    syncedPaymentsApi.confirmSyncedPayment(record._id),
                   )
                 }
                 onReject={() =>
                   runAction(() =>
-                    adminApi.syncedPayments.rejectSyncedPayment(record._id),
+                    syncedPaymentsApi.rejectSyncedPayment(record._id),
                   )
                 }
                 onIgnore={() =>
                   runAction(() =>
-                    adminApi.syncedPayments.ignoreSyncedPayment(record._id),
+                    syncedPaymentsApi.ignoreSyncedPayment(record._id),
                   )
                 }
                 onAssignSuggestion={handleAssign}
@@ -198,12 +192,12 @@ export const ManageSyncedPaymentDialog = ({
                 onRecord={() => setRecordOpen(true)}
                 onUnassign={() =>
                   runAction(() =>
-                    adminApi.syncedPayments.unassignSyncedPayment(record._id),
+                    syncedPaymentsApi.unassignSyncedPayment(record._id),
                   )
                 }
                 onUnrecord={() =>
                   runAction(() =>
-                    adminApi.syncedPayments.unrecordSyncedPayment(record._id),
+                    syncedPaymentsApi.unrecordSyncedPayment(record._id),
                   )
                 }
               />
@@ -243,10 +237,7 @@ export const ManageSyncedPaymentDialog = ({
             onOpenChange={setRecordOpen}
             onConfirm={(details) =>
               runAction(() =>
-                adminApi.syncedPayments.recordSyncedPayment(
-                  record._id,
-                  details,
-                ),
+                syncedPaymentsApi.recordSyncedPayment(record._id, details),
               )
             }
           />

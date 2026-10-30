@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon } from "@hacado/types/booking";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedAddonsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.addons.deleteAddons(selected.map((page) => page._id)),
+        addonsApi.deleteAddons(selected.map((page) => page._id)),
         {
           success: t("catalog.addons.deleteSelected.success", {
             count: selected.length,

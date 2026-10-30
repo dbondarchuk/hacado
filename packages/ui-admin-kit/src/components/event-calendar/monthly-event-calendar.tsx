@@ -6,7 +6,7 @@ import {
   TooltipResponsiveContent,
   TooltipResponsiveTrigger,
 } from "@hacado/ui/tooltip-responsive";
-import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils";
+import { formatTimeLocale, hasSame, parseTime } from "@hacado/utils/time";
 
 import { Clock } from "lucide-react";
 import { DateTime } from "luxon";

@@ -16,7 +16,7 @@ import {
   isSvgFaviconSource,
   probeImageDimensions,
   type FaviconConstraintErrorCode,
-} from "@hacado/utils";
+} from "@hacado/utils/favicon";
 import { VariantProps } from "class-variance-authority";
 import React from "react";
 import { AssetSelectorDialog } from "./assets-selector-dialog";

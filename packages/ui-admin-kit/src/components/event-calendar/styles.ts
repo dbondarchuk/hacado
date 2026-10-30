@@ -1,7 +1,7 @@
 import {
   getCalendarEventColorStyles,
   type CalendarEventColorStatus,
-} from "@hacado/utils";
+} from "@hacado/utils/colors";
 import type { CSSProperties } from "react";
 import type { CalendarEventVariant, EventCalendarEvent } from "./types";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { fieldsSearchParams } from "@hacado/api-sdk";
+import { fieldsSearchParams } from "@hacado/api-sdk/admin/search-params/fields";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

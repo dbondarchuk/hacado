@@ -6,7 +6,7 @@ import {
   IConnectedAppsService,
   IScheduleService,
 } from "@hacado/types/services";
-import { eachOfInterval } from "@hacado/utils";
+import { eachOfInterval } from "@hacado/utils/time";
 
 /**
  * Resolves open hours from the org default schedule, optionally overridden

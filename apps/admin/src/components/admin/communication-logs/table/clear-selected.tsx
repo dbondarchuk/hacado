@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { communicationLogsApi } from "@hacado/api-sdk/admin/communication-logs";
 import { useI18n } from "@hacado/i18n/client";
 import { CommunicationLog } from "@hacado/types/communication";
 import {
@@ -33,7 +33,7 @@ export const ClearSelectedCommunicationLogsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.communicationLogs.clearSelectedCommunicationLogs(
+        communicationLogsApi.clearSelectedCommunicationLogs(
           selected.map((log) => log._id),
         ),
         {

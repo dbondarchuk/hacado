@@ -1,4 +1,5 @@
-import { appendSharedPoolSuffix, isSmsEnabled, template } from "@hacado/utils";
+import { appendSharedPoolSuffix, isSmsEnabled } from "@hacado/utils/sms";
+import { template } from "@hacado/utils/string";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {

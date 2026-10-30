@@ -7,7 +7,7 @@ import {
 } from "@hacado/types/booking";
 import { Customer } from "@hacado/types/customers";
 import { IServicesContainer } from "@hacado/types/services";
-import { formatAmount } from "@hacado/utils";
+import { formatAmount } from "@hacado/utils/currency";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";
 import { getAppointmentEventFromRequest } from "./get-event";

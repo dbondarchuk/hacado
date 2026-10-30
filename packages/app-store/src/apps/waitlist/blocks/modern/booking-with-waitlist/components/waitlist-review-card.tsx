@@ -6,7 +6,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { Markdown } from "@hacado/ui/markdown";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { Calendar, Clock } from "lucide-react";
 import { formatDateRange, groupWaitlistDates } from "../../../../models/utils";
 import {

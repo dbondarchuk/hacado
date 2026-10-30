@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { textMessagingApi } from "@hacado/api-sdk/admin/text-messaging";
 import { useI18n } from "@hacado/i18n/client";
 import type { TextMessagingSettingsInput } from "@hacado/types/text-message/registration";
 import { textMessagingSettingsFormSchema } from "@hacado/types/text-message/registration";
@@ -51,7 +51,7 @@ export const TextMessagingSettingsForm = ({
   const onSubmit = async (data: TextMessagingSettingsInput) => {
     setLoading(true);
     try {
-      await toastPromise(adminApi.textMessaging.saveTextMessaging(data), {
+      await toastPromise(textMessagingApi.saveTextMessaging(data), {
         success: t("settings.textMessaging.toasts.saved"),
         error: t("settings.textMessaging.toasts.error"),
       });

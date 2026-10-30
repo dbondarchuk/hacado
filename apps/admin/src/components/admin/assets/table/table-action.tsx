@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@hacado/i18n/client";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import {
   CustomersDataTableAsyncFilterBox,
   DataTableResetFilter,

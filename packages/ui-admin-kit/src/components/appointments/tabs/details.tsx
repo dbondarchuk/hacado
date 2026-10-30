@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
@@ -28,7 +28,8 @@ import { use12HourFormat } from "@hacado/ui/hooks";
 import { Link } from "@hacado/ui/link";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Textarea } from "@hacado/ui/textarea";
-import { canUpdateAppointment, durationToTime } from "@hacado/utils";
+import { canUpdateAppointment } from "@hacado/utils/permissions";
+import { durationToTime } from "@hacado/utils/time";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarCheck2, CalendarX2, Wallet } from "lucide-react";
 import { DateTime } from "luxon";
@@ -134,7 +135,7 @@ export const AppointmentDetails = ({
     try {
       setLoading(true);
       await toastPromise(
-        adminApi.appointments.updateNote(appointment._id, data.note),
+        appointmentsApi.updateNote(appointment._id, data.note),
         {
           success: t("appointments.view.noteUpdated"),
           error: t("appointments.view.requestError"),

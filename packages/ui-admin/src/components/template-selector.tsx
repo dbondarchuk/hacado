@@ -1,4 +1,4 @@
-import { adminApi } from "@hacado/api-sdk";
+import { templatesApi } from "@hacado/api-sdk/admin/templates";
 import { useI18n } from "@hacado/i18n/client";
 import { CommunicationChannel } from "@hacado/types/communication";
 import { TemplateListModel } from "@hacado/types/templates";
@@ -8,7 +8,7 @@ import React from "react";
 import { toast } from "sonner";
 
 const getTemplates = async (type: CommunicationChannel) => {
-  const { items } = await adminApi.templates.getTemplates({
+  const { items } = await templatesApi.getTemplates({
     type: [type],
     limit: 10000000,
   });

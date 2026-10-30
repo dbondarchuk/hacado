@@ -25,16 +25,17 @@ import {
 import { SessionUser } from "@hacado/types/users";
 import { formatPostalAddress } from "@hacado/types/utils";
 import {
-  AppointmentStatusToICalMethodMap,
   dispatchAppointmentEventPayload,
-  getAdminUrl,
-  getArguments,
-  getIcsEventUid,
-  getWebsiteUrl,
   resolveAppointmentEventForMemberId,
+} from "@hacado/utils/appointment-event-dispatch";
+import { AppointmentStatusToICalMethodMap } from "@hacado/utils/email";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getIcsEventUid } from "@hacado/utils/ics-uid";
+import {
   resolveProcessOtherMembersAppointmentsConfig,
   subscriptionAllowsMultipleUsers,
-} from "@hacado/utils";
+} from "@hacado/utils/permissions";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { convert } from "html-to-text";
 import {
   CalendarWriterConfiguration,

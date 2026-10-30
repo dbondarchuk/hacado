@@ -2,7 +2,7 @@ import { useI18n } from "@hacado/i18n/client";
 import { Checkbox } from "@hacado/ui/checkbox";
 import { Label } from "@hacado/ui/label";
 import { Markdown } from "@hacado/ui/markdown";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 import { DateTime } from "luxon";
 import { useScheduleContext } from "./context";
 

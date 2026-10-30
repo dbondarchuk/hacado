@@ -1,6 +1,6 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { customTextTemplatesAllowed } from "@/lib/sms/custom-text-templates";
-import { templateSearchParamsLoader } from "@hacado/api-sdk";
+import { templateSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/templates";
 import { getLoggerFactory } from "@hacado/logger";
 import { templateSchema } from "@hacado/types/templates";
 import { NextRequest, NextResponse } from "next/server";

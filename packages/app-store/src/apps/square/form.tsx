@@ -1,12 +1,13 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/client/apps";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { useI18n } from "@hacado/i18n/client";
 import { PaymentAppFormProps } from "@hacado/types/apps";
 import { useConfig, useCurrency } from "@hacado/ui/context";
 import { toast } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { formatAmountString } from "@hacado/utils";
+import { formatAmountString } from "@hacado/utils/currency";
 import React from "react";
 import {
   ApplePay,
@@ -107,12 +108,12 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });
-        clientApi.booking.trackPaymentFailed(intent.amount);
+        bookingApi.trackPaymentFailed(intent.amount);
         return;
       }
       setIsPaying(true);
       try {
-        const data = await clientApi.apps.callAppApi<{
+        const data = await appsApi.callAppApi<{
           success?: boolean;
           error?: string;
         }>({
@@ -129,11 +130,11 @@ export const SquareForm: React.FC<PaymentAppFormProps<SquareFormProps>> = ({
           throw new Error(data?.error ?? "payment_failed");
         }
 
-        clientApi.booking.trackPaymentSucceeded(intent.amount);
+        bookingApi.trackPaymentSucceeded(intent.amount);
         onSubmit();
       } catch (e: unknown) {
         console.error(e);
-        clientApi.booking.trackPaymentFailed(intent.amount);
+        bookingApi.trackPaymentFailed(intent.amount);
         toast.error(t("toast.payment_failed"), {
           description: t("toast.payment_failed_description"),
         });

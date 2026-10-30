@@ -1,5 +1,5 @@
 import { useLocale } from "@hacado/i18n/client";
-import { is12hourUserTimeFormat } from "@hacado/utils";
+import { is12hourUserTimeFormat } from "@hacado/utils/time";
 
 export const use12HourFormat = () => {
   const locale = useLocale();

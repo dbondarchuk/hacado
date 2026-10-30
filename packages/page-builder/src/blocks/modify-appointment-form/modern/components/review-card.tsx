@@ -15,7 +15,7 @@ import {
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { Input } from "@hacado/ui/input";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { AlertTriangle, Gift, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useMemo, useState } from "react";

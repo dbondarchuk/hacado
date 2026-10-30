@@ -10,24 +10,32 @@ import { PaymentsTableAction } from "@/components/admin/payments/table/table-act
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
 import {
   appointmentsSearchParamsCache,
+  serializeAppointmentsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/appointments";
+import {
   assetsSearchParamsCache,
+  serializeAssetsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/assets";
+import {
   communicationLogsSearchParamsCache,
+  serializeCommunicationLogsSearchParams,
+} from "@hacado/api-sdk/admin/search-params/communication-logs";
+import {
   paymentsSearchParamsCache,
   paymentsSearchParamsSerializer,
-  serializeAppointmentsSearchParams,
-  serializeAssetsSearchParams,
-  serializeCommunicationLogsSearchParams,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/payments";
 import { CustomerTabInjectorApps } from "@hacado/app-store/injectors/customer-tab";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";
 import {
+  RecentCommunications,
+  SendCommunicationButton,
+} from "@hacado/ui-admin-kit/communications";
+import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsPortal,
   HeaderActionButtonsProvider,
-  RecentCommunications,
-  SendCommunicationButton,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/page";
 import { CustomerName, DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
@@ -38,7 +46,7 @@ import {
   TabsTrigger,
   TabsViaUrl,
 } from "@hacado/ui/tabs";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { CalendarClock } from "lucide-react";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";

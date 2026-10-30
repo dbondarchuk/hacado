@@ -10,7 +10,8 @@ import {
 } from "@hacado/ui/card";
 import { cn } from "@hacado/ui/cn";
 import { Spinner } from "@hacado/ui/spinner";
-import { durationToTime, formatAmountString } from "@hacado/utils";
+import { formatAmountString } from "@hacado/utils/currency";
+import { durationToTime } from "@hacado/utils/time";
 import { Calendar, DollarSign, Timer } from "lucide-react";
 import { DateTime as Luxon } from "luxon";
 import React from "react";

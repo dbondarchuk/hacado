@@ -17,7 +17,7 @@ import {
 import { Heading } from "@hacado/ui/heading";
 import { Link } from "@hacado/ui/link";
 import { Markdown } from "@hacado/ui/markdown";
-import { canInstallApp } from "@hacado/utils";
+import { canInstallApp } from "@hacado/utils/app-access";
 import { ArrowLeft } from "lucide-react";
 // import Image from "next/image";
 import { redirect } from "next/navigation";

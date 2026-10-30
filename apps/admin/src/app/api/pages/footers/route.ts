@@ -1,5 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { pageFootersSearchParamsLoader } from "@hacado/api-sdk";
+import { pageFootersSearchParamsLoader } from "@hacado/api-sdk/admin/search-params/pages";
 import { getLoggerFactory } from "@hacado/logger";
 import { pageFooterSchema } from "@hacado/types/pages";
 import { NextRequest, NextResponse } from "next/server";

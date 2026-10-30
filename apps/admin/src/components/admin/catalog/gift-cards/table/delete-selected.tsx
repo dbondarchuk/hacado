@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedGiftCardsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.giftCards.deleteGiftCards(selected.map((page) => page._id)),
+        giftCardsApi.deleteGiftCards(selected.map((page) => page._id)),
         {
           success: t("catalog.giftCards.deleteSelected.success", {
             count: selected.length,

@@ -5,17 +5,15 @@ import { appointmentSkipsSmsConsent } from "@hacado/services/sms-compliance";
 import { ConnectedAppData, IConnectedAppProps } from "@hacado/types/apps";
 import { Appointment } from "@hacado/types/booking";
 import { AppJobRequest } from "@hacado/types/jobs";
+import { getArguments } from "@hacado/utils/get-arguments";
 import {
   appendSharedPoolSuffix,
-  canUseFeature,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   isPlatformSmsCountry,
   smsCustomerName,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { canUseFeature } from "@hacado/utils/subscription";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import pLimit from "p-limit";
 import { getAppointmentReminderSms } from "./messages";

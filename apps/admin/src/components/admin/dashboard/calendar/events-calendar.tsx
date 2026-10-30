@@ -3,7 +3,7 @@
 import {
   EventCalendarView,
   EventsCalendar as KitEventsCalendar,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/event-calendar";
 import { cn } from "@hacado/ui/cn";
 import { useTimeZone } from "@hacado/ui/context";
 import { DateTime } from "luxon";

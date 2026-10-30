@@ -3,7 +3,7 @@ import { cn } from "@hacado/ui/cn";
 import { Dialog, DialogContent, DialogTrigger } from "@hacado/ui/dialog";
 import { ImageZoom } from "@hacado/ui/image-zoom";
 import { Link } from "@hacado/ui/link";
-import { mimeTypeToExtension } from "@hacado/utils";
+import { mimeTypeToExtension } from "@hacado/utils/assets";
 import { FileIcon, Play } from "lucide-react";
 // import Image from "next/image";
 import React from "react";

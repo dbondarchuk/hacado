@@ -3,7 +3,7 @@ import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-upda
 import { getLoggerFactory } from "@hacado/logger";
 import { IPaymentLinkProvider } from "@hacado/types/apps";
 import { PaymentLinkPayment } from "@hacado/types/booking";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

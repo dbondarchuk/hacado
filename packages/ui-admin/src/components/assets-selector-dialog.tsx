@@ -1,6 +1,8 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
+import { pexelsApi } from "@hacado/api-sdk/admin/pexels";
+import { unsplashApi } from "@hacado/api-sdk/admin/unsplash";
 import { useI18n } from "@hacado/i18n/client";
 import { UploadedFile } from "@hacado/types/assets";
 import { PexelsMedia } from "@hacado/types/pexels";
@@ -177,7 +179,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadAssets = React.useCallback(
     async (page: number, search?: string) => {
-      const result = await adminApi.assets.getAssets({
+      const result = await assetsApi.getAssets({
         page,
         limit: toLoad,
         search,
@@ -194,7 +196,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadUnsplash = React.useCallback(
     async (page: number, search?: string) => {
-      const result = await adminApi.unsplash.searchUnsplashPhotos({
+      const result = await unsplashApi.searchUnsplashPhotos({
         page,
         limit: toLoad,
         query: search || undefined,
@@ -210,7 +212,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
 
   const loadPexels = React.useCallback(
     async (page: number, search?: string, type: PexelsMediaType = "photo") => {
-      const result = await adminApi.pexels.searchPexelsMedia({
+      const result = await pexelsApi.searchPexelsMedia({
         page,
         limit: toLoad,
         query: search || undefined,
@@ -311,7 +313,7 @@ export const AssetSelectorDialog: React.FC<AssetSelectorProps> = ({
       if (!selectedUnsplash) return;
 
       try {
-        await adminApi.unsplash.trackUnsplashDownload(
+        await unsplashApi.trackUnsplashDownload(
           selectedUnsplash.downloadLocation,
         );
       } catch (error) {

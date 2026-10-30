@@ -12,7 +12,7 @@ import {
 import type { BookingCatalogNode } from "@hacado/types/configuration/booking";
 import type { IServicesContainer } from "@hacado/types/services";
 import type { Currency } from "@hacado/types/utils";
-import { formatAmountWithCurrency } from "@hacado/utils";
+import { formatAmountWithCurrency } from "@hacado/utils/currency";
 
 export type PublicCatalogService = {
   kind: "service";

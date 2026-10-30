@@ -28,8 +28,8 @@ import {
   OrganizationDomainChangedPayload,
   systemEventSource,
 } from "@hacado/types/events";
-import { getAppsExternalUrl, getWebsiteDomain } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAppsExternalUrl, getWebsiteDomain } from "@hacado/utils/website";
 import { getApplePayDomainAssociation } from "./apple-pay";
 import { getSquareOrder, getSquarePayment } from "./client";
 import { SQUARE_APP_NAME } from "./const";

@@ -3,7 +3,8 @@ import { IConnectedAppProps } from "@hacado/types/apps";
 import { Query, WithTotal } from "@hacado/types/database";
 import type { EventSource } from "@hacado/types/events";
 import { DateRange } from "@hacado/types/general";
-import { buildSearchQuery, escapeRegex } from "@hacado/utils";
+import { buildSearchQuery } from "@hacado/utils/query";
+import { escapeRegex } from "@hacado/utils/string";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
   WaitlistEntry,

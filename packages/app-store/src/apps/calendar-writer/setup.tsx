@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@hacado/ui/form";
 import { Spinner } from "@hacado/ui/spinner";
-import { canProcessOtherMembersAppointments } from "@hacado/utils";
+import { canProcessOtherMembersAppointments } from "@hacado/utils/permissions";
 import React from "react";
 import { ProcessOtherMembersAppointmentsField } from "../../components/process-other-members-appointments-field";
 import { useConnectedAppSetup } from "../../hooks/use-connected-app-setup";

@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { fieldsApi } from "@hacado/api-sdk/admin/fields";
 import { useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
 import { useAuth } from "@hacado/ui-admin/context";
@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@hacado/ui/dropdown-menu";
 import { toastPromise } from "@hacado/ui/sonner";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ field }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.fields.deleteField(field._id), {
+      await toastPromise(fieldsApi.deleteField(field._id), {
         success: t("catalog.fields.table.cellAction.fieldDeleted", {
           label: field.data.label,
         }),

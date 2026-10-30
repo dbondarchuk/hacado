@@ -3,7 +3,7 @@
 import { useCanUseFeature } from "@/lib/billing/use-subscription-plan-access";
 import { useI18n } from "@hacado/i18n/client";
 import { appointmentStatuses } from "@hacado/types/booking";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
@@ -17,7 +17,7 @@ import {
 } from "@hacado/ui-admin/data-table";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
-import { canFilterByMember } from "@hacado/utils";
+import { canFilterByMember } from "@hacado/utils/permissions";
 import { X } from "lucide-react";
 import React from "react";
 import { useAppointmentsTableFilters } from "./use-table-filters";

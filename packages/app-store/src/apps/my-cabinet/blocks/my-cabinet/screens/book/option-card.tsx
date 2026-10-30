@@ -15,7 +15,7 @@ import { cn } from "@hacado/ui/cn";
 import { useCurrencyFormat } from "@hacado/ui/context";
 import { Markdown } from "@hacado/ui/markdown";
 import { Skeleton } from "@hacado/ui/skeleton";
-import { durationToTime } from "@hacado/utils";
+import { durationToTime } from "@hacado/utils/time";
 import { Clock, Minus, Plus } from "lucide-react";
 import React from "react";
 import { useScheduleContext } from "./context";

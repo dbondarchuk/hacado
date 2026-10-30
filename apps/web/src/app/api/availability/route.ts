@@ -1,7 +1,7 @@
 import { trackBookingStep } from "@/utils/booking-tracking";
 import { isSubscriptionPastDue } from "@/utils/subscription-access";
 import { getServicesContainer } from "@/utils/utils";
-import { availabilitySearchParamsLoader } from "@hacado/api-sdk";
+import { availabilitySearchParamsLoader } from "@hacado/api-sdk/client/search-params/availability";
 import { getLoggerFactory } from "@hacado/logger";
 import { AvailabilityByMember } from "@hacado/types/booking";
 import { NextRequest, NextResponse } from "next/server";

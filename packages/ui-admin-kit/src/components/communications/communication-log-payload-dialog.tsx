@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { communicationLogsApi } from "@hacado/api-sdk/admin/communication-logs";
 import { useI18n } from "@hacado/i18n/client";
 import {
   CommunicationChannel,
@@ -51,7 +51,7 @@ export const CommunicationLogPayloadDialog: React.FC<
 
     let cancelled = false;
     setLoading(true);
-    adminApi.communicationLogs
+    communicationLogsApi
       .getCommunicationLogContent(logId)
       .then((data) => {
         if (!cancelled) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { discountsSearchParams } from "@hacado/api-sdk";
+import { discountsSearchParams } from "@hacado/api-sdk/admin/search-params/discounts";
 import { useQueryState } from "nuqs";
 import { useCallback, useMemo } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
 import {
   AppsBlocksEditors,
   AppsBlocksTemplates,
@@ -79,7 +79,7 @@ export const PageFooterForm: React.FC<{
   }, [apps]);
 
   const cachedUniqueNameCheck = useDebounceCacheFn(
-    adminApi.pageFooters.checkUniquePageFooterName,
+    pageFootersApi.checkUniquePageFooterName,
     300,
   );
 
@@ -139,7 +139,7 @@ export const PageFooterForm: React.FC<{
 
       const fn = async () => {
         if (!initialData?._id) {
-          const { _id } = await adminApi.pageFooters.createPageFooter(data);
+          const { _id } = await pageFootersApi.createPageFooter(data);
 
           onFormSubmit();
 
@@ -147,7 +147,7 @@ export const PageFooterForm: React.FC<{
             router.push(`/dashboard/pages/footers/${_id}`);
           }, 100);
         } else {
-          await adminApi.pageFooters.updatePageFooter(initialData._id, data);
+          await pageFootersApi.updatePageFooter(initialData._id, data);
           onFormSubmit();
 
           setTimeout(() => {

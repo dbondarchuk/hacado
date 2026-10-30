@@ -2,9 +2,10 @@ import { getServicesContainer, getUser } from "@/app/utils";
 import {
   communicationLogsSearchParams,
   communicationLogsSearchParamsCache,
-} from "@hacado/api-sdk";
+} from "@hacado/api-sdk/admin/search-params/communication-logs";
 import { DataTable } from "@hacado/ui-admin/data-table";
-import { canFilterCommunicationByMember, gateMemberIds } from "@hacado/utils";
+import { gateMemberIds } from "@hacado/utils/gate-member-ids";
+import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
 import { columns } from "./columns";
 
 export const CommunicationLogsTable: React.FC<{

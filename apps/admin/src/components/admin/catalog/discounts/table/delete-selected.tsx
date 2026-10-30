@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { discountsApi } from "@hacado/api-sdk/admin/discounts";
 import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedDiscountsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.discounts.deleteDiscounts(selected.map((page) => page._id)),
+        discountsApi.deleteDiscounts(selected.map((page) => page._id)),
         {
           success: t("catalog.discounts.deleteSelected.success", {
             count: selected.length,

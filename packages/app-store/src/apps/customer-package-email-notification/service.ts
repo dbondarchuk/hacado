@@ -35,12 +35,9 @@ import {
 } from "@hacado/types/events";
 import { AppJobRequest, JobRequest } from "@hacado/types/jobs";
 import { TemplateTemplatesList } from "@hacado/types/templates";
-import {
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
-  templateSafeWithError,
-} from "@hacado/utils";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import { DateTime } from "luxon";
 import { demoPackageEmailArguments } from "./demo-arguments";
 import {

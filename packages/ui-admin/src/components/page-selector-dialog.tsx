@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { pagesApi } from "@hacado/api-sdk/admin/pages";
 import { useI18n } from "@hacado/i18n/client";
 import { PageListModelWithUrl } from "@hacado/types/pages";
 import { Button } from "@hacado/ui/button";
@@ -80,7 +80,7 @@ export const PageSelectorDialog: React.FC<PageSelectorDialogProps> = ({
   }, [debouncedSearch]);
 
   const loadPages = React.useCallback(async (page: number, search?: string) => {
-    const result = await adminApi.pages.getPages({
+    const result = await pagesApi.getPages({
       page,
       limit: toLoad,
       search,

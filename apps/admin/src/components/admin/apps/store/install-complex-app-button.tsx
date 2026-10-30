@@ -23,7 +23,7 @@ import { Checkbox } from "@hacado/ui/checkbox";
 import { Label } from "@hacado/ui/label";
 import { toastPromise } from "@hacado/ui/sonner";
 import { Spinner } from "@hacado/ui/spinner";
-import { filterInstallDefaultScopesForUser } from "@hacado/utils";
+import { filterInstallDefaultScopesForUser } from "@hacado/utils/app-access";
 import React from "react";
 import {
   installComplexApp,

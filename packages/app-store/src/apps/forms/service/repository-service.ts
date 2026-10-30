@@ -2,7 +2,7 @@ import { getLoggerFactory, LoggerFactory } from "@hacado/logger";
 import { IConnectedAppProps } from "@hacado/types/apps";
 import { Customer } from "@hacado/types/customers";
 import { WithTotal } from "@hacado/types/database";
-import { escapeRegex } from "@hacado/utils";
+import { escapeRegex } from "@hacado/utils/string";
 import { ObjectId, type Filter, type Sort } from "mongodb";
 import {
   FORM_RESPONSES_COLLECTION_NAME,

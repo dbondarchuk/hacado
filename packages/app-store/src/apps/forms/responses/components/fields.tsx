@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@hacado/ui/select";
 import { Textarea } from "@hacado/ui/textarea";
-import { fileNameToMimeType } from "@hacado/utils";
+import { fileNameToMimeType } from "@hacado/utils/assets";
 import { FC } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { FormsFieldType } from "../../models/fields";

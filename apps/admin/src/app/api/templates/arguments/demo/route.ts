@@ -1,12 +1,9 @@
 import { getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
 import { DemoArguments, IDemoArgumentsProvider } from "@hacado/types/apps";
-import {
-  demoAppointment,
-  demoOtp,
-  getAdminUrl,
-  getArguments,
-} from "@hacado/utils";
+import { demoAppointment, demoOtp } from "@hacado/utils/fixtures";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { getAdminUrl } from "@hacado/utils/website";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

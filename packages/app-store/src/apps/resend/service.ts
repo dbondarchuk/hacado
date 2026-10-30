@@ -17,8 +17,8 @@ import {
   NeedsAttentionItem,
 } from "@hacado/types/apps";
 import { OrganizationMember, SessionUser } from "@hacado/types/users";
-import { getAdminUrl } from "@hacado/utils";
 import { decrypt, encrypt } from "@hacado/utils/server";
+import { getAdminUrl } from "@hacado/utils/website";
 import { createEvent } from "ics";
 import { Resend } from "resend";
 import { Readable } from "stream";

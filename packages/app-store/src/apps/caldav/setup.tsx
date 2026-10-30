@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
@@ -75,11 +75,11 @@ export const CaldavAppSetup: React.FC<AppSetupProps> = ({
     setFetchingCalendars(true);
     try {
       const result = existingAppId
-        ? await adminApi.apps.processRequest(existingAppId, {
+        ? await appsApi.processRequest(existingAppId, {
             type: "fetchCalendars",
             data: form.getValues(),
           })
-        : await adminApi.apps.processStaticRequest(CALDAV_APP_NAME, {
+        : await appsApi.processStaticRequest(CALDAV_APP_NAME, {
             ...form.getValues(),
             fetchCalendars: true,
           });

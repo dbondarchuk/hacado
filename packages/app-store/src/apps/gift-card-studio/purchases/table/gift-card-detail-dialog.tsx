@@ -1,9 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { GiftCardListModel } from "@hacado/types/booking";
-import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit";
+import { GiftCardPaymentsDialog } from "@hacado/ui-admin-kit/payments";
 import { CustomerName } from "@hacado/ui-admin/data-table";
 import { AutoSkeleton } from "@hacado/ui/auto-skeleton";
 import { Button } from "@hacado/ui/button";
@@ -56,9 +56,7 @@ export const GiftCardDetailDialog: React.FC<{
   const getGiftCard = async () => {
     setIsLoading(true);
     try {
-      const giftCard = await adminApi.giftCards.getGiftCard(
-        purchase.giftCardId,
-      );
+      const giftCard = await giftCardsApi.getGiftCard(purchase.giftCardId);
       setGiftCard(giftCard);
     } catch (error: any) {
       console.error(error);

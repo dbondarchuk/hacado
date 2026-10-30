@@ -20,7 +20,7 @@ import {
 import { EventSource } from "@hacado/types/events";
 import { Page } from "@hacado/types/pages";
 import { SessionUser } from "@hacado/types/users";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import {
   BLOG_COMMENT_CREATED_EVENT_TYPE,
   BLOG_COMMENT_DELETED_EVENT_TYPE,

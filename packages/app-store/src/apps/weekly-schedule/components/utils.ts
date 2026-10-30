@@ -1,5 +1,5 @@
 import { WeekIdentifier } from "@hacado/types/general";
-import { getDateFromWeekIdentifier } from "@hacado/utils";
+import { getDateFromWeekIdentifier } from "@hacado/utils/time";
 import { DateTime } from "luxon";
 
 export const getWeekDisplay = (week: WeekIdentifier) => {

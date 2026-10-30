@@ -9,7 +9,7 @@ import {
   PageScriptProviderContext,
   ScriptContribution,
 } from "@hacado/types/apps";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 import {
   buildPageJsonLd,
   jsonLdScriptContent,

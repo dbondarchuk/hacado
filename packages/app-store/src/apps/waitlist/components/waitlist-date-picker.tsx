@@ -20,7 +20,7 @@ import {
   DialogTrigger,
 } from "@hacado/ui/dialog";
 import { Label } from "@hacado/ui/label";
-import { eachOfInterval } from "@hacado/utils";
+import { eachOfInterval } from "@hacado/utils/time";
 import { ChevronDown, ChevronRight, Plus, X } from "lucide-react";
 import { DateTime as LuxonDateTime } from "luxon";
 import { useState } from "react";

@@ -18,7 +18,7 @@ import { Heading } from "@hacado/ui/heading";
 import { Input } from "@hacado/ui/input";
 import { Link } from "@hacado/ui/link";
 import { Markdown } from "@hacado/ui/markdown";
-import { canInstallApp } from "@hacado/utils";
+import { canInstallApp } from "@hacado/utils/app-access";
 import React from "react";
 
 export type AppStoreProps = {};

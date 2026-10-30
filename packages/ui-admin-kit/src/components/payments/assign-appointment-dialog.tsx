@@ -1,6 +1,7 @@
 "use client";
 
-import { adminApi, appointmentsSearchParams } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
+import { appointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
 import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
 import {
   Appointment,
@@ -188,11 +189,11 @@ export const AssignAppointmentDialog = ({
       };
 
       const result = referenceDate
-        ? await adminApi.appointments.getAppointments({
+        ? await appointmentsApi.getAppointments({
             ...request,
             referenceDate,
           })
-        : await adminApi.appointments.getAppointments(request);
+        : await appointmentsApi.getAppointments(request);
 
       if (current === requestId.current) {
         setItems(result.items);

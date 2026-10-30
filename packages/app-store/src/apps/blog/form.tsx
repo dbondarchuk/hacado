@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { usersApi } from "@hacado/api-sdk/admin/users";
 import { useI18n } from "@hacado/i18n/client";
 import { PlateEditor } from "@hacado/rte";
 import { DatabaseId } from "@hacado/types/database";
@@ -33,7 +33,7 @@ import {
 import { toastPromise } from "@hacado/ui/sonner";
 import { TagInput } from "@hacado/ui/tag-input";
 import { DateTimePicker } from "@hacado/ui/time-picker";
-import { fileNameToMimeType } from "@hacado/utils";
+import { fileNameToMimeType } from "@hacado/utils/assets";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
@@ -134,7 +134,7 @@ export const BlogPostForm: React.FC<{
     }
 
     let cancelled = false;
-    void adminApi.users.getMyUser().then((user) => {
+    void usersApi.getMyUser().then((user) => {
       if (cancelled) {
         return;
       }

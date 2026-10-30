@@ -7,10 +7,10 @@ import { getLoggerFactory } from "@hacado/logger";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/page";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
-import { meetsRequiredPermission } from "@hacado/utils";
+import { meetsRequiredPermission } from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, redirect } from "next/navigation";
 import { cache } from "react";

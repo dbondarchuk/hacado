@@ -2,7 +2,7 @@
 
 import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
-import { templateSafeWithError } from "@hacado/utils";
+import { templateSafeWithError } from "@hacado/utils/string";
 import { Avatar } from "./avatar";
 import { AvatarProps } from "./schema";
 

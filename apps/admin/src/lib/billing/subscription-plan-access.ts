@@ -15,7 +15,7 @@ import {
   DEFAULT_MINIMUM_PLAN_TIER,
   meetsMinimumPlanTier,
 } from "@hacado/types/billing";
-import { canUseFeature } from "@hacado/utils";
+import { canUseFeature } from "@hacado/utils/subscription";
 
 export {
   BRAND_SETTINGS_UPGRADE_URL,

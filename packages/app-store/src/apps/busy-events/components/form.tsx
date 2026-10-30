@@ -12,7 +12,10 @@ import { Button } from "@hacado/ui/button";
 import { useDebounce } from "@hacado/ui/hooks";
 import { Skeleton } from "@hacado/ui/skeleton";
 import { toast, toastPromise } from "@hacado/ui/sonner";
-import { getDateFromWeekIdentifier, getWeekIdentifier } from "@hacado/utils";
+import {
+  getDateFromWeekIdentifier,
+  getWeekIdentifier,
+} from "@hacado/utils/time";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";

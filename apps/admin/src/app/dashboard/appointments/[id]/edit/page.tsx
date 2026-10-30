@@ -7,10 +7,13 @@ import { resolveBookingTips } from "@hacado/types/configuration/booking";
 import {
   AppointmentScheduleForm,
   AppointmentScheduleFormFrom,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/appointments";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
-import { canReassignAppointment, canUpdateAppointment } from "@hacado/utils";
+import {
+  canReassignAppointment,
+  canUpdateAppointment,
+} from "@hacado/utils/permissions";
 import { Metadata } from "next";
 import { forbidden, notFound } from "next/navigation";
 

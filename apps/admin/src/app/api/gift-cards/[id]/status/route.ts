@@ -1,7 +1,7 @@
 import { getActor, getServicesContainer } from "@/app/utils";
 import { requirePermission } from "@/lib/auth/require-permission";
 import { requireSubscriptionFeature } from "@/lib/billing/subscription-feature-guard";
-import { setGiftCardStatusSchema } from "@hacado/api-sdk";
+import { setGiftCardStatusSchema } from "@hacado/api-sdk/admin/schemas/gift-cards";
 import { getLoggerFactory } from "@hacado/logger";
 import { okStatus } from "@hacado/types/general";
 import { NextRequest, NextResponse } from "next/server";

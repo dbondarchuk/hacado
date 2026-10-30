@@ -1,6 +1,11 @@
 "use client";
 
-import { clientApi, ClientApiError } from "@hacado/api-sdk";
+import { availabilityApi } from "@hacado/api-sdk/client/availability";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
+import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/client/payments";
+import { ClientApiError } from "@hacado/api-sdk/client/utils";
 import { useI18n } from "@hacado/i18n/client";
 import type {
   ApplyGiftCardsSuccessResponse,
@@ -95,7 +100,7 @@ export const ModifyAppointmentForm: React.FC<
   const [isOtpVerified, setIsOtpVerified] = React.useState(false);
 
   React.useEffect(() => {
-    clientApi.customerAuth
+    customerAuthApi
       .checkSession()
       .then(() => setIsOtpVerified(true))
       .catch(() => setIsOtpVerified(false));
@@ -136,7 +141,7 @@ export const ModifyAppointmentForm: React.FC<
         throw new Error("Type is required");
       }
 
-      const data = await clientApi.booking.getModifyAppointmentInformation({
+      const data = await bookingApi.getModifyAppointmentInformation({
         lookup: "dateTime",
         type,
         dateTime: fields.dateTime,
@@ -181,7 +186,7 @@ export const ModifyAppointmentForm: React.FC<
     codes: string[],
     amount: number,
   ): Promise<ApplyGiftCardsSuccessResponse["giftCards"] | undefined> => {
-    const data = await clientApi.giftCards.applyGiftCards({ codes, amount });
+    const data = await giftCardsApi.applyGiftCards({ codes, amount });
     if (data.success) {
       setGiftCards(data.giftCards);
       return data.giftCards;
@@ -224,8 +229,8 @@ export const ModifyAppointmentForm: React.FC<
 
       setIsLoading(true);
       const response = await (intentId
-        ? clientApi.payments.updatePaymentIntent(intentId, body)
-        : clientApi.payments.createPaymentIntent(body));
+        ? paymentsApi.updatePaymentIntent(intentId, body)
+        : paymentsApi.createPaymentIntent(body));
 
       return response;
     } catch (e) {
@@ -255,7 +260,7 @@ export const ModifyAppointmentForm: React.FC<
     setIsLoading(true);
 
     try {
-      const data = await clientApi.availability.getAvailability({
+      const data = await availabilityApi.getAvailability({
         memberIds: [appointment.memberId],
         durations: [appointment.duration],
       });
@@ -286,7 +291,7 @@ export const ModifyAppointmentForm: React.FC<
         throw new Error("Date time is required");
       }
 
-      await clientApi.booking.modifyAppointment(appointment.id, {
+      await bookingApi.modifyAppointment(appointment.id, {
         type,
         dateTime: newDateTime?.toUTC().toJSDate() as Date,
         paymentIntentId: paymentIntentId ?? paymentInformation?.intent?._id,

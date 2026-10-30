@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { useI18n } from "@hacado/i18n/client";
 import { useReload } from "@hacado/ui-admin/hooks";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -79,7 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ purchase }) => {
     try {
       setLoading(true);
       await toastPromise(
-        adminApi.giftCards.setGiftCardStatus(purchase.giftCardId, status),
+        giftCardsApi.setGiftCardStatus(purchase.giftCardId, status),
         {
           success:
             status === "active"

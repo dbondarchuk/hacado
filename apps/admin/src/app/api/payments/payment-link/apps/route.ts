@@ -1,6 +1,6 @@
 import { getServicesContainer, getSession } from "@/app/utils";
 import { getLoggerFactory } from "@hacado/logger";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

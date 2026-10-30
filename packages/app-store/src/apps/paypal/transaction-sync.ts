@@ -1,7 +1,7 @@
 import { AppLogger } from "@hacado/logger";
 import { ConnectedAppData } from "@hacado/types/apps";
 import { PaymentFee } from "@hacado/types/booking";
-import { round2 } from "@hacado/utils";
+import { round2 } from "@hacado/utils/currency";
 import { PaypalClient, PaypalTransactionDetail } from "./client";
 import { PAYPAL_TRANSACTION_SYNC_LOOKBACK_SECONDS } from "./const";
 import { PaypalConfiguration } from "./models";

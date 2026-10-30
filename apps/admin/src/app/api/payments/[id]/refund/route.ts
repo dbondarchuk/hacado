@@ -1,5 +1,5 @@
 import { getActor, getServicesContainer } from "@/app/utils";
-import { refundPaymentSchema } from "@hacado/api-sdk";
+import { refundPaymentSchema } from "@hacado/api-sdk/admin/schemas/payments";
 import { getLoggerFactory } from "@hacado/logger";
 import { NextRequest, NextResponse } from "next/server";
 

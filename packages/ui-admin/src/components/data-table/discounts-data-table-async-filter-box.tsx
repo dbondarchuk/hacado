@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { discountsApi } from "@hacado/api-sdk/admin/discounts";
 import { useI18n } from "@hacado/i18n/client";
 import { Discount } from "@hacado/types/booking";
 import { useDebounceCacheFn } from "@hacado/ui/hooks";
@@ -60,7 +60,7 @@ export const DiscountsDataTableAsyncFilterBox: React.FC<
   const getDiscounts = useDebounceCacheFn(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.discounts.getDiscounts({
+      const result = await discountsApi.getDiscounts({
         page,
         limit,
         search,

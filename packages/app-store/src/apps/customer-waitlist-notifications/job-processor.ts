@@ -12,18 +12,16 @@ import type {
   ScheduleChangedPayload,
 } from "@hacado/types/events";
 import { AppJobRequest } from "@hacado/types/jobs";
+import { getArguments } from "@hacado/utils/get-arguments";
+import { canUseMemberCalendarSources } from "@hacado/utils/permissions";
 import {
   appendSharedPoolSuffix,
-  canUseMemberCalendarSources,
-  getAdminUrl,
-  getArguments,
-  getWebsiteUrl,
   isPlatformSmsCountry,
   isSmsEnabled,
   smsCustomerName,
-  template,
-  templateSafeWithError,
-} from "@hacado/utils";
+} from "@hacado/utils/sms";
+import { template, templateSafeWithError } from "@hacado/utils/string";
+import { getAdminUrl, getWebsiteUrl } from "@hacado/utils/website";
 import pLimit from "p-limit";
 import { WAITLIST_APP_NAME } from "../waitlist/const";
 import { WaitlistEntry } from "../waitlist/models/waitlist";

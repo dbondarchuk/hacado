@@ -7,7 +7,7 @@ import {
   communicationLogStatuses,
   communicationParticipantTypeSchema,
 } from "@hacado/types/communication";
-import { ResponsiveFilterBar } from "@hacado/ui-admin-kit";
+import { ResponsiveFilterBar } from "@hacado/ui-admin-kit/data-table";
 import { useAuth } from "@hacado/ui-admin/context";
 import {
   CustomersDataTableAsyncFilterBox,
@@ -19,7 +19,7 @@ import {
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
 import { cn } from "@hacado/ui/cn";
-import { canFilterCommunicationByMember } from "@hacado/utils";
+import { canFilterCommunicationByMember } from "@hacado/utils/permissions";
 
 import React from "react";
 import { ClearAllCommunicationLogsButton } from "./clear-all";

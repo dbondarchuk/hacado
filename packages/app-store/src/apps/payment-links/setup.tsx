@@ -1,6 +1,9 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appsApi } from "@hacado/api-sdk/admin/apps";
+import { configurationApi } from "@hacado/api-sdk/admin/configuration";
+import { pageFootersApi } from "@hacado/api-sdk/admin/page-footers";
+import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
 import { AppSetupProps } from "@hacado/types/apps";
 import {
@@ -121,7 +124,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
     }
 
     let cancelled = false;
-    void adminApi.configuration
+    void configurationApi
       .getConfiguration("defaultApps")
       .then((apps) => {
         if (!cancelled) {
@@ -150,7 +153,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
       // Install only — `install()` seeds templates + header/footer. Do not call
       // processRequest here or empty form values would overwrite seeded ids.
       const appId = await toastPromise(
-        adminApi.apps.addNewApp(PaymentLinksApp.name),
+        appsApi.addNewApp(PaymentLinksApp.name),
         {
           success: {
             message: tApps("common.connectedAppSetup.success.title"),
@@ -174,7 +177,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const fetchHeaders = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageHeaders.getPageHeaders({
+      const result = await pageHeadersApi.getPageHeaders({
         page,
         limit,
         search: search || undefined,
@@ -201,7 +204,7 @@ export const PaymentLinksAppSetup: React.FC<AppSetupProps> = ({
   const fetchFooters = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.pageFooters.getPageFooters({
+      const result = await pageFootersApi.getPageFooters({
         page,
         limit,
         search: search || undefined,

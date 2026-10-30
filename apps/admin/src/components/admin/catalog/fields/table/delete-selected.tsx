@@ -1,6 +1,6 @@
 "use client";
 
-import { adminApi } from "@hacado/api-sdk";
+import { fieldsApi } from "@hacado/api-sdk/admin/fields";
 import { useI18n } from "@hacado/i18n/client";
 import { ServiceField } from "@hacado/types/booking";
 import {
@@ -33,7 +33,7 @@ export const DeleteSelectedFieldsButton: React.FC<{
       setIsLoading(true);
 
       await toastPromise(
-        adminApi.fields.deleteFields(selected.map((page) => page._id)),
+        fieldsApi.deleteFields(selected.map((page) => page._id)),
         {
           success: t("catalog.fields.deleteSelected.success", {
             count: selected.length,

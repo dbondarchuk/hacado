@@ -1,6 +1,9 @@
 "use client";
 
-import { adminApi, AdminApiError } from "@hacado/api-sdk";
+import { customersApi } from "@hacado/api-sdk/admin/customers";
+import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
+import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { AvailableApps } from "@hacado/app-store";
 import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
 import {
@@ -13,7 +16,7 @@ import {
 import {
   SmsConsentAttest,
   useCustomerPhoneSmsConsent,
-} from "@hacado/ui-admin-kit";
+} from "@hacado/ui-admin-kit/sms-consent-attest";
 import { CustomerSelector } from "@hacado/ui-admin/customer-selector";
 import { SaveButton } from "@hacado/ui-admin/save-button";
 import { Button } from "@hacado/ui/button";
@@ -95,7 +98,7 @@ export const GiftCardForm: React.FC<{
   const [phoneDestinations, setPhoneDestinations] = useState<string[]>([]);
 
   const cachedGiftCardCodeCheck = useDebounceCacheFn(
-    adminApi.giftCards.checkGiftCardCodeUnique,
+    giftCardsApi.checkGiftCardCodeUnique,
     300,
   );
 
@@ -203,7 +206,7 @@ export const GiftCardForm: React.FC<{
     if (initialData?._id) {
       return;
     }
-    void adminApi.payments
+    void paymentsApi
       .listPaymentLinkApps()
       .then((result) => setPaymentLinkApps(result.items))
       .catch(() => setPaymentLinkApps([]));
@@ -230,7 +233,7 @@ export const GiftCardForm: React.FC<{
     }
 
     let cancelled = false;
-    adminApi.customers
+    customersApi
       .getCustomer(customerId)
       .then((customer) => {
         if (cancelled) {
@@ -313,7 +316,7 @@ export const GiftCardForm: React.FC<{
           }
 
           if (data.paymentMethod === "payment-link") {
-            const result = await adminApi.payments
+            const result = await paymentsApi
               .createPaymentLink({
                 amount: data.amount,
                 customerId: data.customerId,
@@ -353,7 +356,7 @@ export const GiftCardForm: React.FC<{
               }
             }
 
-            await adminApi.giftCards.createGiftCard({
+            await giftCardsApi.createGiftCard({
               code: data.code,
               amount: data.amount,
               expiresAt: data.expiresAt,
@@ -367,7 +370,7 @@ export const GiftCardForm: React.FC<{
             return;
           }
 
-          const payment = await adminApi.payments.addInstore({
+          const payment = await paymentsApi.addInstore({
             amount: data.amount,
             description: "giftCard",
             type: "payment",
@@ -377,7 +380,7 @@ export const GiftCardForm: React.FC<{
             disableUpdate: true,
           });
 
-          await adminApi.giftCards.createGiftCard({
+          await giftCardsApi.createGiftCard({
             code: data.code,
             amount: data.amount,
             expiresAt: data.expiresAt,
@@ -387,7 +390,7 @@ export const GiftCardForm: React.FC<{
 
           router.push(`/dashboard/catalog/gift-cards`);
         } else {
-          await adminApi.giftCards.updateGiftCard(initialData._id, {
+          await giftCardsApi.updateGiftCard(initialData._id, {
             code: data.code,
             amount: data.amount,
             expiresAt: data.expiresAt,

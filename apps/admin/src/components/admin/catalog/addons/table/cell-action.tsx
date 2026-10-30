@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { addonsApi } from "@hacado/api-sdk/admin/addons";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentAddon } from "@hacado/types/booking";
 import { useAuth } from "@hacado/ui-admin/context";
@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@hacado/ui/dropdown-menu";
 import { toastPromise } from "@hacado/ui/sonner";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ addon }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.addons.deleteAddon(addon._id), {
+      await toastPromise(addonsApi.deleteAddon(addon._id), {
         success: t("catalog.addons.table.cellAction.addonDeleted", {
           name: addon.name,
         }),

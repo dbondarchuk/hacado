@@ -16,7 +16,7 @@ import { Appointment } from "@hacado/types/booking";
 import { EventEnvelope } from "@hacado/types/events";
 import { AppJobRequest } from "@hacado/types/jobs";
 import { TemplateTemplatesList } from "@hacado/types/templates";
-import { dispatchAppointmentEventPayload } from "@hacado/utils";
+import { dispatchAppointmentEventPayload } from "@hacado/utils/appointment-event-dispatch";
 import { AppointmentNotificationsJobProcessor } from "./job-processor";
 import {
   AppointmentNotification,

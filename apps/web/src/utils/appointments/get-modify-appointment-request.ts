@@ -14,7 +14,8 @@ import {
   RESCHEDULED_APPOINTMENT_NOT_ALLOWED_REASON,
 } from "@hacado/types/booking";
 import { CustomerSession } from "@hacado/types/customer-auth";
-import { formatAmount, getPolicyForRequest } from "@hacado/utils";
+import { getPolicyForRequest } from "@hacado/utils/cancellation-policy";
+import { formatAmount } from "@hacado/utils/currency";
 import { DateTime } from "luxon";
 import { applyGiftCards } from "../gift-cards/apply";
 import { getServicesContainer, sessionCanUseFeature } from "../utils";

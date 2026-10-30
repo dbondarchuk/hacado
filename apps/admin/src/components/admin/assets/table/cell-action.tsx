@@ -1,5 +1,5 @@
 "use client";
-import { adminApi } from "@hacado/api-sdk";
+import { assetsApi } from "@hacado/api-sdk/admin/assets";
 import { useI18n } from "@hacado/i18n/client";
 import { Asset } from "@hacado/types/assets";
 import { AlertModal } from "@hacado/ui/alert-modal";
@@ -64,7 +64,7 @@ export const CellAction: React.FC<CellActionProps> = ({ asset }) => {
     try {
       setLoading(true);
 
-      await toastPromise(adminApi.assets.deleteAsset(asset._id), {
+      await toastPromise(assetsApi.deleteAsset(asset._id), {
         success: t("assets.toasts.assetDeleted", { filename: asset.filename }),
         error: t("common.toasts.error"),
       });

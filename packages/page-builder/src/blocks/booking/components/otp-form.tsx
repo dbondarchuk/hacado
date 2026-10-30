@@ -1,6 +1,7 @@
 "use client";
 
-import { clientApi } from "@hacado/api-sdk";
+import { bookingApi } from "@hacado/api-sdk/client/booking";
+import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { useI18n } from "@hacado/i18n/client";
 import { AppointmentFields } from "@hacado/types/booking";
 import {
@@ -30,7 +31,7 @@ export const BookingOtpForm: React.FC<BookingOtpFormProps> = ({
   const t = useI18n("translation");
 
   const getAuthOptions = useCallback(
-    () => clientApi.customerAuth.getAuthOptions(),
+    () => customerAuthApi.getAuthOptions(),
     [],
   );
 
@@ -41,7 +42,7 @@ export const BookingOtpForm: React.FC<BookingOtpFormProps> = ({
       initialPhone={fields.phone}
       getAuthOptions={getAuthOptions}
       requestOtp={({ channel, email, phone }) =>
-        clientApi.customerAuth.requestBookingOtp({
+        customerAuthApi.requestBookingOtp({
           ...(existingCustomerOnly
             ? { existingOnly: true }
             : { name: fields.name }),
@@ -51,12 +52,12 @@ export const BookingOtpForm: React.FC<BookingOtpFormProps> = ({
         })
       }
       verifyOtp={({ channel, email, phone, otp }) =>
-        clientApi.customerAuth.verifyOtp(
+        customerAuthApi.verifyOtp(
           channel === "phone" ? { phone, otp } : { email, otp },
         )
       }
       onVerified={(result) => {
-        clientApi.booking.trackOtpVerified();
+        bookingApi.trackOtpVerified();
         return onVerified(result);
       }}
       labels={{

@@ -7,7 +7,7 @@ import {
   useSelectedRowsStore,
 } from "@hacado/ui-admin/data-table";
 import { ButtonGroup } from "@hacado/ui/button-group";
-import { hasPermission } from "@hacado/utils";
+import { hasPermission } from "@hacado/utils/permissions";
 import { DeleteSelectedCustomersButton } from "./delete-selected";
 import { MergeSelectedCustomersButton } from "./merge-selected";
 import { useCustomersTableFilters } from "./use-table-filters";

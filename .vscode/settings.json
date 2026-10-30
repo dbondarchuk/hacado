@@ -58,6 +58,6 @@
     ]
   },
   "js/ts.tsserver.log": "off",
-  "js/ts.tsserver.maxMemory": 6144,
+  "js/ts.tsserver.maxMemory": 8192,
   "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

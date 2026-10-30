@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { adminApi } from "@hacado/api-sdk";
+import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { useI18n, useLocale } from "@hacado/i18n/client";
 import { Appointment } from "@hacado/types/booking";
 import { useTimeZone } from "@hacado/ui/context";
@@ -70,7 +70,7 @@ export const AppointmentsDataTableAsyncFilterBox: React.FC<
   const fetchAppointments = React.useCallback(
     async (page: number, search?: string) => {
       const limit = 10;
-      const result = await adminApi.appointments.getAppointments({
+      const result = await appointmentsApi.getAppointments({
         page,
         limit,
         search,

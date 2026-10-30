@@ -12,7 +12,7 @@ import {
   modifyAppointmentRequestSchema,
   OnlinePayment,
 } from "@hacado/types/booking";
-import { formatAmount } from "@hacado/utils";
+import { formatAmount } from "@hacado/utils/currency";
 import { NextRequest, NextResponse } from "next/server";
 
 const processRescheduleRequest = async (

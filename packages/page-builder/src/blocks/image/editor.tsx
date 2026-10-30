@@ -9,7 +9,7 @@ import {
 } from "@hacado/builder/editor";
 import { useBlockEditor } from "@hacado/builder/overlay";
 import { useResizeBlockStyles } from "@hacado/page-builder-base/helpers";
-import { template } from "@hacado/utils";
+import { template } from "@hacado/utils/string";
 import { Ref, useCallback } from "react";
 import { useAllowImageResize } from "./context";
 import { Image } from "./reader";

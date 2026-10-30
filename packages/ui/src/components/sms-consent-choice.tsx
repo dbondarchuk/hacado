@@ -2,7 +2,7 @@
 
 import { useI18n } from "@hacado/i18n/client";
 import type { CustomerAppointmentTextOffer } from "@hacado/types/apps";
-import { normalizeToE164 } from "@hacado/utils";
+import { normalizeToE164 } from "@hacado/utils/phone";
 import React from "react";
 import { useConfig, useTextMessaging } from "../context/config";
 import { SmsConsentField, smsPolicyRichTags } from "./sms-consent-field";
