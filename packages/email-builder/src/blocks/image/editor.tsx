@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useCurrentBlockId,
   useDispatchAction,
   useEditorArgs,
   useIsSelectedBlock,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { templateSafeWithError } from "@hacado/utils";
 import { Ref, useCallback } from "react";
 import { Image } from "./image";

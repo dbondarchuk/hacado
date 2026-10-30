@@ -1,6 +1,6 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import { cn, useDebounce } from "@hacado/ui";
 import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
 import {

@@ -1,5 +1,5 @@
 "use client";
-import { ReplaceOriginalColors } from "@hacado/page-builder-base";
+import { ReplaceOriginalColors } from "@hacado/page-builder-base/helpers";
 import {
   Carousel,
   CarouselApi,

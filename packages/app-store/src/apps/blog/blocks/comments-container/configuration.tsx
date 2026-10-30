@@ -1,11 +1,9 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import {
-  RawNumberInput,
-  StylesConfigurationPanel,
-} from "@hacado/page-builder-base";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
+import { RawNumberInput } from "@hacado/page-builder-base/style-inputs";
 import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import {

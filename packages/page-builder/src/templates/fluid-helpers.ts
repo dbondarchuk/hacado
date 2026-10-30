@@ -1,4 +1,5 @@
-import { generateId, TEditorBlock } from "@hacado/builder";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { ButtonPropsDefaults } from "../blocks/button";
 import {

@@ -7,7 +7,8 @@ import {
   PreviewChrome,
   type PreviewHeaderVariant,
 } from "@/components/install/preview-chrome";
-import { generateId, type TEditorBlock } from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import { useI18n } from "@hacado/i18n/client";
 import { ReplaceOriginalColors } from "@hacado/page-builder-base/reader";
 import { PageReader, Styling } from "@hacado/page-builder/reader";

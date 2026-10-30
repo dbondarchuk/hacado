@@ -1,11 +1,12 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { cn, Icon } from "@hacado/ui";
 import { Ref } from "react";
 import { IconProps } from "./schema";

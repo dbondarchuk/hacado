@@ -1,6 +1,7 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { MyCabinetBlockComponent } from "./component";
 import { MyCabinetBlockProps } from "./schema";
 

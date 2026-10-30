@@ -1,4 +1,4 @@
-import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { Gem, Gift } from "lucide-react";
 import { GiftCardStudioAdminAllKeys } from "../translations/types";
 import {

@@ -1,5 +1,5 @@
 "use client";
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import {
   PageHeaderUpdateModel,
   resolvePageHeaderPosition,

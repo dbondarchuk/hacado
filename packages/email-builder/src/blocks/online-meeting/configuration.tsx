@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  ColorInput,
-  ConfigurationProps,
-  FileInput,
-  TextInput,
-} from "@hacado/builder";
+import { ColorInput, FileInput, TextInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { OnlineMeetingProps, OnlineMeetingPropsDefaults } from "./schema";

@@ -1,7 +1,7 @@
 import { Popup } from "./popup";
 import { PopupReaderProps } from "./schema";
 
-import { ReaderBlock } from "@hacado/builder";
+import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,

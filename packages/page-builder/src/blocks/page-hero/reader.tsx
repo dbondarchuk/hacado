@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@hacado/builder";
+import { ReaderBlock } from "@hacado/builder/reader";
 import {
   BackgroundVideoLayer,
   BlockStyle,

@@ -1,11 +1,12 @@
 "use client";
 
+import { EditorEmbeddedSlot } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
-  EditorEmbeddedSlot,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
-import { ReplaceOriginalColors, useClassName } from "@hacado/page-builder-base";
+  ReplaceOriginalColors,
+  useClassName,
+} from "@hacado/page-builder-base/helpers";
 import { BlockStyle } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui";
 import { normalizeAmountPresets } from "./presets";

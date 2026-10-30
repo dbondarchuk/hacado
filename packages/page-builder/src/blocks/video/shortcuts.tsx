@@ -1,4 +1,4 @@
-import { Shortcut } from "@hacado/page-builder-base";
+import { Shortcut } from "@hacado/page-builder-base/shortcuts";
 import { AlignLeft, Film, Play, Volume2 } from "lucide-react";
 import { VideoStylesSchema } from "./styles";
 

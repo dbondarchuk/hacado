@@ -1,6 +1,7 @@
 "use client";
 
-import { ConfigurationProps, PageInput } from "@hacado/builder";
+import { PageInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { useCallback } from "react";

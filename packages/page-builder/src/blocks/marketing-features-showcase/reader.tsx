@@ -1,4 +1,4 @@
-import { ReaderBlock, TReaderBlock } from "@hacado/builder";
+import { ReaderBlock, TReaderBlock } from "@hacado/builder/reader";
 import {
   BlockStyle,
   generateClassName,

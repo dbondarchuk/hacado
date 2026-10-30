@@ -1,7 +1,7 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
-import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base";
+import { ConfigurationProps } from "@hacado/builder/types";
+import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base/slot-panel";
 import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { MarketingFeatureItemProps } from "./schema";

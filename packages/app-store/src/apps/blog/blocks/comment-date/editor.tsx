@@ -1,12 +1,9 @@
 "use client";
 
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useEditorArgs,
-} from "@hacado/builder";
+import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { useI18n } from "@hacado/i18n/client";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { DateTime } from "luxon";
 import {

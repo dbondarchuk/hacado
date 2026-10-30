@@ -17,15 +17,11 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  ConfigurationProps,
-  generateId,
-  SelectInput,
-  SliderInput,
-  TextInput,
-} from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { SelectInput, SliderInput, TextInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
 import { Button, cn, deepMemo, Label } from "@hacado/ui";
 import { Clock, GripVertical, Plus, Timer, Trash2 } from "lucide-react";
 import { useCallback, useMemo } from "react";

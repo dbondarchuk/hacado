@@ -1,6 +1,6 @@
 "use client";
 
-import { ReplaceOriginalColors } from "@hacado/page-builder-base";
+import { ReplaceOriginalColors } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { GripVertical } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";

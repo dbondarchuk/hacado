@@ -1,4 +1,4 @@
-import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { AllKeys, BuilderKeys } from "@hacado/i18n";
 import { UserRound } from "lucide-react";
 import { MyCabinetAdminAllKeys } from "../translations/types";

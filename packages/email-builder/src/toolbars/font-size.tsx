@@ -1,4 +1,5 @@
-import { ConfigurationProps, NumberInputToolbarMenu } from "@hacado/builder";
+import { NumberInputToolbarMenu } from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { Leaves } from "@hacado/types/utils";
 

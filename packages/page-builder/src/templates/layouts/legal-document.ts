@@ -1,4 +1,5 @@
-import { generateId, type TEditorBlock } from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import { LinkPropsDefaults } from "../../blocks/link/schema";
 import { sectionShell } from "../section-helpers";
 import { headingFromText, paragraphFromText } from "./text";

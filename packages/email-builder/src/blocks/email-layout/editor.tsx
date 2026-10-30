@@ -2,12 +2,9 @@
 
 import { Fragment } from "react";
 
-import {
-  EditorChildren,
-  useBlockEditor,
-  useCurrentBlock,
-  useSetSelectedBlockId,
-} from "@hacado/builder";
+import { EditorChildren } from "@hacado/builder/blocks";
+import { useCurrentBlock, useSetSelectedBlockId } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { getFontFamily, getPadding } from "../../style-inputs/helpers/styles";
 import { EmailLayoutDefaultProps, EmailLayoutProps } from "./schema";
 

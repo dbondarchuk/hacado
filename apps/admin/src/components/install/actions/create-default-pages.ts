@@ -4,7 +4,8 @@ import {
   GIFT_CARD_STUDIO_APP_NAME,
   WAITLIST_APP_NAME,
 } from "@hacado/app-store";
-import { generateId, type LayoutTemplateService } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { type LayoutTemplateService } from "@hacado/builder/types";
 import type { Language } from "@hacado/i18n";
 import { getI18nAsync } from "@hacado/i18n/server";
 import { getLoggerFactory } from "@hacado/logger";

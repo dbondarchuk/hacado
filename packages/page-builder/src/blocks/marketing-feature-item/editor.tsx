@@ -1,16 +1,14 @@
 "use client";
 
-import {
-  BlockFilterRule,
-  EditorEmbeddedSlot,
-  useBlockEditor,
-  useCurrentBlock,
-} from "@hacado/builder";
+import { EditorEmbeddedSlot } from "@hacado/builder/blocks";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockFilterRule } from "@hacado/builder/types";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { MarketingFeatureItemProps } from "./schema";
 import { styles } from "./styles";

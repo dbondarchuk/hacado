@@ -1,7 +1,7 @@
 "use client";
 
 import { footerDefaultPage } from "@/components/install/defaults/footer";
-import type { TEditorBlock } from "@hacado/builder";
+import type { TEditorBlock } from "@hacado/builder/editor";
 import type { Language } from "@hacado/i18n";
 import { useI18n } from "@hacado/i18n/client";
 import { PageReader } from "@hacado/page-builder/reader";

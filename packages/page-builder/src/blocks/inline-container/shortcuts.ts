@@ -7,7 +7,7 @@ import {
   fontSizeShortcut,
   Shortcut,
   textAlignmentShortcut,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/shortcuts";
 import { AllStylesSchemas } from "@hacado/page-builder-base/style";
 import {
   AlignCenterHorizontal,

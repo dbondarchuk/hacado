@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import * as z from "zod";
 
 export const ConditionalContainerPropsSchema = z.object({

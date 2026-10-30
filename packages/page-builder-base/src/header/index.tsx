@@ -1,6 +1,6 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import { richTextToString, StaticText } from "@hacado/rte-inline/reader";
 import {
   ButtonMenuItem,

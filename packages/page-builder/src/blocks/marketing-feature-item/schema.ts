@@ -1,4 +1,5 @@
-import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import {
   embeddedSlotSchema,

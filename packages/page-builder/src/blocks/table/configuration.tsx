@@ -1,14 +1,14 @@
 "use client";
 
 import {
-  ConfigurationProps,
-  SliderInput,
   useBlock,
   useDocumentBlock,
   useInspectBlockId,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { SliderInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base";
+import { SlotOrBlockStylesPanel } from "@hacado/page-builder-base/slot-panel";
 import { deepMemo } from "@hacado/ui";
 import { Columns3, Rows3 } from "lucide-react";
 import { useCallback, useMemo } from "react";

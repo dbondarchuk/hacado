@@ -1,7 +1,7 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
-import { BannerProvider } from "@hacado/page-builder-base";
+import { usePortalContext } from "@hacado/builder/portal";
+import { BannerProvider } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui";
 import { X } from "lucide-react";
 import { DateTime } from "luxon";

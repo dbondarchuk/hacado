@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { deepMemo, Label, Textarea } from "@hacado/ui";
 import { useCallback } from "react";

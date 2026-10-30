@@ -1,7 +1,11 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
-import { ReplaceOriginalColors, useClassName } from "@hacado/page-builder-base";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import {
+  ReplaceOriginalColors,
+  useClassName,
+} from "@hacado/page-builder-base/helpers";
 import { BlockStyle } from "@hacado/page-builder-base/reader";
 import { cn } from "@hacado/ui";
 import { GiftCardPurchaseBlockReader } from "./reader-component";

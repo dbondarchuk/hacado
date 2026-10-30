@@ -1,5 +1,5 @@
 import { LanguageOptions } from "@/constants/texts";
-import { BaseSidebarPanel } from "@hacado/builder";
+import { BaseSidebarPanel } from "@hacado/builder/inputs";
 import { languages, useI18n } from "@hacado/i18n/client";
 import {
   PageFooterListModel,

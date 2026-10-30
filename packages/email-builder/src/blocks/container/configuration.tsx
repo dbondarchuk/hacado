@@ -1,6 +1,6 @@
 "use client";
 
-import { ConfigurationProps } from "@hacado/builder";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { MultiStylePropertyPanel } from "../../style-inputs/multi-style-property-panel";
 import { ContainerProps } from "./schema";
 

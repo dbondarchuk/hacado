@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import * as z from "zod";
 import { zColorNullable, zStylesBase } from "../../style-inputs/helpers/zod";
 

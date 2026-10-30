@@ -1,15 +1,12 @@
 "use client";
 
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useEditorArgs,
-} from "@hacado/builder";
+import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { Appointment } from "@hacado/types/booking";
 import { cn } from "@hacado/ui";
 import { useMemo } from "react";

@@ -1,11 +1,8 @@
 "use client";
 
-import {
-  useBlockEditor,
-  useCurrentBlock,
-  useEditorArgs,
-} from "@hacado/builder";
-import { useClassName } from "@hacado/page-builder-base";
+import { useCurrentBlock, useEditorArgs } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { template } from "@hacado/utils";
 import { Ref } from "react";

@@ -1,4 +1,4 @@
-import { ReaderDocumentBlocksDictionary } from "@hacado/builder";
+import { ReaderDocumentBlocksDictionary } from "@hacado/builder/reader";
 import { AccordionItem } from "./accordion-item/reader";
 import { Accordion } from "./accordion/reader";
 import { BeforeAfterReader } from "./before-after/reader";

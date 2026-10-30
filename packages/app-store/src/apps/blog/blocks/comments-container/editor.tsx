@@ -1,13 +1,13 @@
 "use client";
 
+import { EditorChildren } from "@hacado/builder/blocks";
 import {
   EditorArgsContext,
-  EditorChildren,
-  useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { useMemo } from "react";
 import { blogCommentFixtures } from "../comment-fixtures";
 import { CommentsPaginationContext } from "./comments-pagination-context";

@@ -3,12 +3,12 @@
 import sanitizeHtml from "sanitize-html";
 
 import {
-  templateProps,
-  useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
   useEditorArgs,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { templateProps } from "@hacado/builder/helpers";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { ArgumentsAutocomplete } from "@hacado/ui-admin";
 import { OnlineMeetingProps, OnlineMeetingPropsDefaults } from "./schema";
 import { getLogoUrl, getStyles } from "./styles";

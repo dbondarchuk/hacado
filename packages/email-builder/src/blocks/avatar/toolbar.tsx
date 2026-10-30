@@ -1,4 +1,5 @@
-import { ConfigurationProps, ToolbarDropdownMenu } from "@hacado/builder";
+import { ToolbarDropdownMenu } from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { Circle, Square, SquareRoundCorner } from "lucide-react";
 import { TextAlignDropdownMenu } from "../../toolbars/text-align";

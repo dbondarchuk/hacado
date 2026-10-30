@@ -1,4 +1,5 @@
-import { generateId, TEditorBlock } from "@hacado/builder";
+import { TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { COLORS } from "@hacado/page-builder-base/style";
 import { AccordionItemPropsDefaults } from "../blocks/accordion-item";

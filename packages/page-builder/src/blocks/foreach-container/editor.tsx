@@ -1,15 +1,15 @@
+import { EditorChildren } from "@hacado/builder/blocks";
 import {
   EditorArgsContext,
-  EditorChildren,
   EditorReaderChildrenBlock,
-  evaluate,
-  useBlockEditor,
   useCurrentBlock,
   useEditorArgs,
   useIsSelectedBlock,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { evaluate } from "@hacado/builder/helpers";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import { useI18n } from "@hacado/i18n/client";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { useMemo } from "react";
 import { ForeachContainerProps, styles } from "./schema";

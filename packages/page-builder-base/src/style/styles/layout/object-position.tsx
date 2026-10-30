@@ -1,4 +1,4 @@
-import { RawDoubleNumberInput } from "@hacado/builder";
+import { RawDoubleNumberInput } from "@hacado/builder/inputs";
 import { useI18n } from "@hacado/i18n/client";
 import { Move } from "lucide-react";
 import * as z from "zod";

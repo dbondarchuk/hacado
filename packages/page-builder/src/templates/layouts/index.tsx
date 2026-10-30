@@ -3,7 +3,7 @@ import type {
   LayoutTemplateDefinition,
   LayoutTemplateService,
   TemplatesConfiguration,
-} from "@hacado/builder";
+} from "@hacado/builder/types";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { LayoutTemplate } from "lucide-react";
 import { layoutTemplatePreviewPath } from "../preview-manifest";

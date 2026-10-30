@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import { ALL_STYLES, getStylesSchema } from "@hacado/page-builder-base/style";
 import { Prettify, zObjectId } from "@hacado/types/utils";
 import * as z from "zod";

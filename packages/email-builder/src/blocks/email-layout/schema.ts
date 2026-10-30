@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import * as z from "zod";
 import { EMAIL_BRAND } from "../../brand";
 import {

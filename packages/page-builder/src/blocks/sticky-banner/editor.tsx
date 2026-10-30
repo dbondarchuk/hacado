@@ -3,10 +3,10 @@
 import {
   EditorBlock,
   useBlockChildrenBlockIds,
-  useBlockEditor,
   useCurrentBlock,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { X } from "lucide-react";
 import { StickyBannerProps } from "./schema";

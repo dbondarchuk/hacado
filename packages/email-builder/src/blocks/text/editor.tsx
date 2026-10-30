@@ -1,11 +1,11 @@
 import {
-  useBlockEditor,
   useCurrentBlock,
   useCurrentBlockId,
   useDispatchAction,
   useIsSelectedBlock,
-  usePortalContext,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
 import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
 import { TextProps } from "./schema";
 import { getStyles } from "./styles";

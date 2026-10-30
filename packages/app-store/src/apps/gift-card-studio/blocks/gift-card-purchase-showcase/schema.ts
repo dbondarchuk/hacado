@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import type { I18nFn } from "@hacado/i18n";
 import {
   embeddedSlotSchema,

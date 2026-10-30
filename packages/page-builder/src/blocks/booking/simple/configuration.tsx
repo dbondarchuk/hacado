@@ -2,14 +2,14 @@
 
 import {
   BooleanInput,
-  ConfigurationProps,
   MemberInput,
   PageInput,
   SelectInput,
   ServiceInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
-import { StylesConfigurationPanel } from "@hacado/page-builder-base";
+import { StylesConfigurationPanel } from "@hacado/page-builder-base/configuration-panel";
 import { deepMemo } from "@hacado/ui";
 import { useCallback } from "react";
 import { BookingProps } from "./schema";

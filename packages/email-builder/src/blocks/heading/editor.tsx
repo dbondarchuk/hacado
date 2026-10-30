@@ -4,13 +4,13 @@ import { Ref, useRef } from "react";
 import sanitizeHtml from "sanitize-html";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
   useEditorArgs,
-  usePortalContext,
   useSetSelectedBlockId,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
 import { ArgumentsAutocomplete } from "@hacado/ui-admin";
 import { mergeRefs } from "@hacado/ui/src/utils/merge-refs";
 import { HeadingProps } from "./schema";

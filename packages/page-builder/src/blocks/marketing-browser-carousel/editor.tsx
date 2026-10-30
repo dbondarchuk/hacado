@@ -1,11 +1,12 @@
 "use client";
 
-import { useBlockEditor, useCurrentBlock } from "@hacado/builder";
+import { useCurrentBlock } from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
 import {
   BlockStyle,
   ReplaceOriginalColors,
   useClassName,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { cn } from "@hacado/ui";
 import { MarketingBrowserCarouselClient } from "./marketing-browser-carousel.client";
 import type { MarketingBrowserCarouselProps } from "./schema";

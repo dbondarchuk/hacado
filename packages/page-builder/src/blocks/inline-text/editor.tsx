@@ -1,20 +1,20 @@
 "use client";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
   useEditorArgs,
   useIsSelectedBlock,
-  usePortalContext,
   useSetSelectedBlockId,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import { EditableText, RichTextValue } from "@hacado/rte-inline";
 import { cn, useDebounceCallback } from "@hacado/ui";
 import { useCallback, useRef } from "react";

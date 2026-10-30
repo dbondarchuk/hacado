@@ -1,17 +1,19 @@
 import {
-  ConfigurationProps,
   ToolbarDropdownMenu,
   ToolbarDropdownPropsValues,
   ToolbarToggle,
-} from "@hacado/builder";
+} from "@hacado/builder/toolbars";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { AllKeys, useI18n } from "@hacado/i18n/client";
+import {
+  FONT_FAMILIES,
+  FONT_FAMILIES_LIST,
+} from "@hacado/page-builder-base/reader";
 import {
   backgroundColorShortcut,
   colorShortcut,
-  ColorShortcutToolbar,
-  FONT_FAMILIES,
-  FONT_FAMILIES_LIST,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/shortcuts";
+import { ColorShortcutToolbar } from "@hacado/page-builder-base/toolbars";
 import { AlignHorizontalSpaceAround } from "lucide-react";
 import { PageLayoutDefaultProps, PageLayoutProps } from "./schema";
 

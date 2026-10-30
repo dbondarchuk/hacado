@@ -1,4 +1,4 @@
-import { ReaderBlock, ReaderProps } from "@hacado/builder";
+import { ReaderBlock, ReaderProps } from "@hacado/builder/reader";
 import {
   getFontFamily,
   ReaderProvider,

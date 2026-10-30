@@ -4,7 +4,7 @@ import {
   useCurrentBlockId,
   useDispatchAction,
   useEditorStateStore,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
 import { useCallback } from "react";
 import { BaseStyleDictionary, StyleValue } from "../style";
 

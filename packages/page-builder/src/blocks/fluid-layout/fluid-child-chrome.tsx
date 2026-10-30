@@ -1,6 +1,6 @@
 "use client";
 
-import { useDragHandle } from "@hacado/builder";
+import { useDragHandle } from "@hacado/builder/dnd";
 import { useI18n } from "@hacado/i18n/client";
 import { cn } from "@hacado/ui";
 import {

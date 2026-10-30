@@ -1,14 +1,14 @@
 "use client";
 
 import {
-  useBlockEditor,
   useCurrentBlock,
   useDispatchAction,
   useIsCurrentBlockOverlay,
   useIsSelectedBlock,
-  usePortalContext,
-} from "@hacado/builder";
-import { BlockStyle, useClassName } from "@hacado/page-builder-base";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
+import { BlockStyle, useClassName } from "@hacado/page-builder-base/helpers";
 import { PlateEditor, PlateStaticEditor } from "@hacado/rte";
 import { cn, useDebounceCallback } from "@hacado/ui";
 import { TextProps } from "./schema";

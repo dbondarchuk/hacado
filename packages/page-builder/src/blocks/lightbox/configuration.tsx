@@ -1,6 +1,7 @@
 "use client";
 
-import { ConfigurationProps, SelectInput, SliderInput } from "@hacado/builder";
+import { SelectInput, SliderInput } from "@hacado/builder/inputs";
+import { ConfigurationProps } from "@hacado/builder/types";
 import { useI18n } from "@hacado/i18n/client";
 import { Checkbox, deepMemo, Label } from "@hacado/ui";
 import { Repeat1 } from "lucide-react";

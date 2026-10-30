@@ -1,6 +1,6 @@
 "use client";
 
-import { usePortalContext } from "@hacado/builder";
+import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
 import {
   Button,

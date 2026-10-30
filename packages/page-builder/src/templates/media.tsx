@@ -1,4 +1,5 @@
-import { generateId, TemplatesConfiguration } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { TemplatesConfiguration } from "@hacado/builder/types";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import {
   Columns3,

@@ -1,4 +1,4 @@
-import { isSlotLikeObject } from "@hacado/builder";
+import { isSlotLikeObject } from "@hacado/builder/reader";
 import { plateValueToPlainTextBlocks } from "@hacado/rte";
 import {
   richTextToString,

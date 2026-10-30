@@ -1,4 +1,5 @@
-import { BaseReaderBlockProps, generateId } from "@hacado/builder";
+import { generateId } from "@hacado/builder/helpers";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import { COLORS } from "@hacado/page-builder-base/style";
 import * as z from "zod";
 import { ContainerPropsDefaults } from "../container/schema";

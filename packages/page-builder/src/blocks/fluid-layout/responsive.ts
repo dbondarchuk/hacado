@@ -1,4 +1,4 @@
-import type { ViewportSize } from "@hacado/builder";
+import type { ViewportSize } from "@hacado/builder/editor";
 import {
   FLUID_COLUMNS,
   FLUID_MOBILE_COLUMNS,

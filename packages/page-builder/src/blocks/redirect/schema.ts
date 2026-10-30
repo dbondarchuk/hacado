@@ -1,4 +1,4 @@
-import { BaseReaderBlockProps } from "@hacado/builder";
+import { BaseReaderBlockProps } from "@hacado/builder/reader";
 import { Prettify, zNonEmptyString } from "@hacado/types/utils";
 import * as z from "zod";
 

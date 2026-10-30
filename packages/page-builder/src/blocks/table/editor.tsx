@@ -19,19 +19,21 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import {
   EditorEmbeddedSlot,
-  useBlockEditor,
+  useIsSelectedEmbeddedSlot,
+} from "@hacado/builder/blocks";
+import {
   useCurrentBlock,
   useDispatchAction,
   useDocumentBlock,
-  useIsSelectedEmbeddedSlot,
-  usePortalContext,
-} from "@hacado/builder";
+} from "@hacado/builder/editor";
+import { useBlockEditor } from "@hacado/builder/overlay";
+import { usePortalContext } from "@hacado/builder/portal";
 import { useI18n } from "@hacado/i18n/client";
 import {
   BlockStyle,
   useClassName,
   useResizeBlockStyles,
-} from "@hacado/page-builder-base";
+} from "@hacado/page-builder-base/helpers";
 import {
   Button,
   cn,

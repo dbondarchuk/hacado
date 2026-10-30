@@ -1,4 +1,4 @@
-import { EditorDocumentBlocksDictionary } from "@hacado/builder";
+import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
 import { AllKeys } from "@hacado/i18n";
 import {
   ArrowRight,

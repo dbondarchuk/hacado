@@ -1,8 +1,6 @@
-import {
-  generateId,
-  type LayoutTemplateContext,
-  type TEditorBlock,
-} from "@hacado/builder";
+import { type TEditorBlock } from "@hacado/builder/editor";
+import { generateId } from "@hacado/builder/helpers";
+import { type LayoutTemplateContext } from "@hacado/builder/types";
 import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
 import { BookingPropsDefaults } from "../../blocks/booking/modern/schema";
 import { CarouselPropsDefaults } from "../../blocks/carousel/schema";

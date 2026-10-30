@@ -1,4 +1,5 @@
-import { evaluate, ReaderBlock } from "@hacado/builder";
+import { evaluate } from "@hacado/builder/helpers";
+import { ReaderBlock } from "@hacado/builder/reader";
 import { ConditionalContainerReaderProps } from "./schema";
 
 export const ConditionalContainerReader = ({

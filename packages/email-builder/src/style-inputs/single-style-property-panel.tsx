@@ -8,7 +8,7 @@ import {
   SelectInput,
   SliderInput,
   TextAlignInput,
-} from "@hacado/builder";
+} from "@hacado/builder/inputs";
 import { useI18n } from "@hacado/i18n/client";
 import { DraftingCompass } from "lucide-react";
 import { FONT_FAMILIES } from "./helpers/font-family";

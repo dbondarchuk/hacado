@@ -1,4 +1,4 @@
-import { ReaderBlock } from "@hacado/builder";
+import { ReaderBlock } from "@hacado/builder/reader";
 import { I18nText } from "@hacado/i18n/components";
 import {
   BlockStyle,
