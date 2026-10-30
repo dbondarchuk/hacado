@@ -1,6 +1,7 @@
 import { generateId } from "@hacado/builder/helpers";
 import { BaseReaderBlockProps } from "@hacado/builder/reader";
-import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+import type { I18nFn } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   embeddedSlotSchema,
   migratePropsSlots,

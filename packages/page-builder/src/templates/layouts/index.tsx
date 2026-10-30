@@ -4,7 +4,8 @@ import type {
   LayoutTemplateService,
   TemplatesConfiguration,
 } from "@hacado/builder/types";
-import type { BaseAllKeys, I18nFn } from "@hacado/i18n";
+import type { I18nFn } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { LayoutTemplate } from "lucide-react";
 import { layoutTemplatePreviewPath } from "../preview-manifest";
 import { matchServiceImage } from "./media";

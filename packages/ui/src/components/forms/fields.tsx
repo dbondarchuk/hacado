@@ -1,4 +1,5 @@
-import { TranslationKeys } from "@hacado/i18n";
+import type { TranslationKeys } from "@hacado/i18n/keys";
+
 import {
   Field,
   FieldFileData,

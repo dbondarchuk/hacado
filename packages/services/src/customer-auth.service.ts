@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import type {
   CustomerAuthConfiguration,
   CustomerOtpChannels,

@@ -1,4 +1,5 @@
-import { BuilderKeys } from "@hacado/i18n";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+
 import { ColorExtendedInput } from "../../style-inputs/base/color-exteneded-input";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";

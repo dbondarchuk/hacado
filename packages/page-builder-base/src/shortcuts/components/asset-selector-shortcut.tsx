@@ -1,4 +1,5 @@
-import { BuilderKeys } from "@hacado/i18n";
+import type { BuilderKeys } from "@hacado/i18n/keys";
+
 import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
 import { StyleValue } from "../../style/css-renderer";
 import { BaseStyleDictionary } from "../../style/types";

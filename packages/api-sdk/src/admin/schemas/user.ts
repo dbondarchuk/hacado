@@ -1,4 +1,5 @@
-import { BaseAllKeys, languages } from "@hacado/i18n";
+import { languages } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { calendarSourcesConfigurationSchema } from "@hacado/types/configuration/booking";
 import {
   asOptionalField,

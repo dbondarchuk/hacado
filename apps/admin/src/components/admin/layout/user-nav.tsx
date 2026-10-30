@@ -1,6 +1,7 @@
 "use client";
 import { authClient } from "@/app/auth-client";
-import type { AdminKeys } from "@hacado/i18n";
+import type { AdminKeys } from "@hacado/i18n/keys";
+
 import { useI18n } from "@hacado/i18n/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@hacado/ui/avatar";
 import {

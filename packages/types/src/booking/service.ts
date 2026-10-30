@@ -1,4 +1,5 @@
-import { ValidationKeys } from "@hacado/i18n";
+import type { ValidationKeys } from "@hacado/i18n/keys";
+
 import * as z from "zod";
 import type { CustomerAppointmentTextOffer } from "../apps/text-message/customer-appointment-text";
 import {

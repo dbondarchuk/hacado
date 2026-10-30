@@ -1,5 +1,6 @@
 import { TemplatesConfiguration } from "@hacado/builder/types";
-import type { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import {
   BarChart3,
   Building2,

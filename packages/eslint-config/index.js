@@ -98,6 +98,24 @@ module.exports = [
               message:
                 "Import from a domain subpath (e.g. `@hacado/ui-admin-kit/appointments`, `@hacado/ui-admin-kit/payments`) instead of the package root.",
             },
+            // Exact root only — patterns treat `@hacado/i18n` as a prefix and
+            // would incorrectly ban `@hacado/i18n/keys`.
+            {
+              name: "@hacado/i18n",
+              importNames: [
+                "AdminKeys",
+                "AppsKeys",
+                "BaseAllKeys",
+                "BuilderKeys",
+                "InstallKeys",
+                "I18nKeys",
+                "TranslationKeys",
+                "UiKeys",
+                "ValidationKeys",
+              ],
+              message:
+                "Import key unions from `@hacado/i18n/keys` so the package root stays light.",
+            },
           ],
           patterns: [
             {
@@ -114,7 +132,7 @@ module.exports = [
                 "ValidationKeys",
               ],
               message:
-                "Import key unions from `@hacado/i18n/keys` (or `@hacado/i18n`) so client/server stay light.",
+                "Import key unions from `@hacado/i18n/keys` so client/server stay light.",
             },
           ],
         },

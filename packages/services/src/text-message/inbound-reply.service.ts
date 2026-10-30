@@ -1,5 +1,6 @@
 import { getTextBeltWebhookEmailTemplate } from "@hacado/app-store/exports";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
 import {
   ITextMessageResponder,

@@ -2,6 +2,7 @@
 import { TEditorBlock } from "@hacado/builder/editor";
 import { generateId } from "@hacado/builder/helpers";
 import { EditorDocumentBlocksDictionary } from "@hacado/builder/types";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   AppWindow,
   ArrowBigRightDash,
@@ -69,7 +70,6 @@ import {
   LinkToolbar,
 } from "./link";
 
-import { BaseAllKeys } from "@hacado/i18n";
 import {
   BookingConfirmationConfiguration as BookingConfirmationModernConfiguration,
   BookingConfirmationEditor as BookingConfirmationModernEditor,

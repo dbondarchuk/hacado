@@ -1,7 +1,8 @@
 import { getActor, getServicesContainer, getSession } from "@/app/utils";
 import { getDefaultBookingConfiguration } from "@/components/install/default-booking";
 import { sessionCanUseFeature } from "@/lib/billing/subscription-plan-access";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
 import {
   bookingConfigurationSchema,

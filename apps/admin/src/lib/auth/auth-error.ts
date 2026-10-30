@@ -1,4 +1,4 @@
-import type { AdminKeys } from "@hacado/i18n";
+import type { AdminKeys } from "@hacado/i18n/keys";
 
 /**
  * Better Auth OAuth / API error codes we surface with a specific message.

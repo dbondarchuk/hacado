@@ -1,7 +1,8 @@
 import { getMember, getServicesContainer, getWebsiteUrl } from "@/app/utils";
 import { requireCanUpdateAppointment } from "@/lib/auth/require-appointment-update";
 import { renderToStaticMarkup } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
 import { Appointment } from "@hacado/types/booking";
 import { sendCommunicationRequestSchema } from "@hacado/types/communication";

@@ -1,4 +1,5 @@
-import { AllKeys, BaseAllKeys } from "@hacado/i18n";
+import { AllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 
 export interface CSSValueOption<T extends string> {
   value: T;

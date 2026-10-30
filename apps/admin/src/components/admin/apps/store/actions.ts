@@ -5,7 +5,8 @@ import { getOwnerMemberIds } from "@/lib/auth/app-access";
 import { sessionCanInstallApp } from "@/lib/billing/subscription-plan-access";
 import { AvailableApps } from "@hacado/app-store";
 import { withCatalogTarget } from "@hacado/app-store/utils";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getLoggerFactory } from "@hacado/logger";
 import { ConnectedAppStatusWithText } from "@hacado/types/apps";
 import {

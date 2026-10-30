@@ -1,4 +1,5 @@
-import { AllKeys, BaseAllKeys } from "@hacado/i18n";
+import { AllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import * as z from "zod";
 import { Customer } from "../customers";
 import { WithDatabaseId, WithOrganizationId } from "../database";

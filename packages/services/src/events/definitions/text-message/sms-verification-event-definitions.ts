@@ -1,5 +1,6 @@
 import { renderUserEmailTemplate } from "@hacado/email-builder/static";
-import { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import { getI18nAsync } from "@hacado/i18n/server";
 import type { ActivitySeverity } from "@hacado/types/activity";
 import type {

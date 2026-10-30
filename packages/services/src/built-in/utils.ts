@@ -1,4 +1,5 @@
-import type { BaseAllKeys } from "@hacado/i18n";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
+
 import type { AppScope, ConnectedAppData } from "@hacado/types/apps";
 import { BuiltInApps } from "./apps";
 

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  PaymentsExportError,
-  paymentsApi,
-} from "@hacado/api-sdk/admin/payments";
+import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { paymentsSearchParams } from "@hacado/api-sdk/admin/search-params/payments";
 import { useI18n } from "@hacado/i18n/client";
 import { PAYMENTS_EXPORT_MAX_ROWS } from "@hacado/types/booking";
@@ -57,7 +54,7 @@ export function ExportPaymentsButton({
       toast.success(t("paymentsList.exportCsvSuccess"));
     } catch (error) {
       if (
-        error instanceof PaymentsExportError &&
+        error instanceof paymentsApi.PaymentsExportError &&
         error.status === 413 &&
         error.body?.code === "export_limit_exceeded"
       ) {
