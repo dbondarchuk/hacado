@@ -1,7 +1,7 @@
 "use client";
 
-import type { AdminKeys } from "@hacado/i18n/keys";
 import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import { PaymentSummary } from "@hacado/types/booking";
 import {
   getPaymentDescription,

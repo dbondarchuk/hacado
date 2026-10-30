@@ -1,8 +1,8 @@
 "use client";
 
-import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nText } from "@hacado/i18n/components";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { ColorExtendedInput } from "@hacado/page-builder-base/style-inputs";
 import { EditableText } from "@hacado/rte-inline";
 import {

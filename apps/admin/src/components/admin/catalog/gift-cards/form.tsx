@@ -1,12 +1,12 @@
 "use client";
 
-import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { giftCardsApi } from "@hacado/api-sdk/admin/gift-cards";
 import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   getGiftCardSchemaWithUniqueCheck,
   GiftCardListModel,

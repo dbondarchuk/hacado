@@ -1,7 +1,7 @@
 "use client";
 
-import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { languages, useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { Button } from "@hacado/ui/button";
 import { Combobox } from "@hacado/ui/combobox";
 import {

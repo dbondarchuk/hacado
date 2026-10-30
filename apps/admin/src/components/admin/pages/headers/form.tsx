@@ -1,9 +1,9 @@
 "use client";
 
-import type { AdminKeys } from "@hacado/i18n/keys";
 import { pageHeadersApi } from "@hacado/api-sdk/admin/page-headers";
 import { useI18n } from "@hacado/i18n/client";
 import { I18nRichText } from "@hacado/i18n/components";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import { Header } from "@hacado/page-builder-base/reader";
 import { ColorExtendedInput } from "@hacado/page-builder-base/style-inputs";
 import { EditableText, richTextToString } from "@hacado/rte-inline";

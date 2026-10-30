@@ -1,9 +1,9 @@
 "use client";
 
-import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { authClient } from "@/app/auth-client";
 import { AvailableApps } from "@hacado/app-store";
 import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { ComplexApp } from "@hacado/types/apps";
 import {
   DefaultAppToInstallScope,

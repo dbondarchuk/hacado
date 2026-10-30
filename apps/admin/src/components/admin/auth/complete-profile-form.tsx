@@ -1,6 +1,5 @@
 "use client";
 
-import type { AdminKeys } from "@hacado/i18n/keys";
 import { AuthFormProgress } from "@/components/admin/auth/auth-form-progress";
 import { CompleteProfilePhoneStep } from "@/components/admin/auth/complete-profile-phone-step";
 import {
@@ -10,6 +9,7 @@ import {
 import { PhoneOtpStep } from "@/components/admin/auth/phone-otp-step";
 import { saveSignupMemberProfile } from "@/components/admin/auth/save-signup-member-profile";
 import { useI18n } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import { toast } from "@hacado/ui/sonner";
 import { useMemo, useState, type ReactNode } from "react";
 
