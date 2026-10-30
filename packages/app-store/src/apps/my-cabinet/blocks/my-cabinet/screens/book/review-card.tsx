@@ -1,6 +1,7 @@
 import { customerAuthApi } from "@hacado/api-sdk/client/customer-auth";
 import { discountsApi } from "@hacado/api-sdk/client/discounts";
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import {
   ApplyDiscountRequest,
   CustomerPackage,

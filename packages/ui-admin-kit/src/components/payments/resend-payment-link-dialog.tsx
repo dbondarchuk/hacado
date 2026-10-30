@@ -2,7 +2,8 @@
 
 import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { paymentsApi } from "@hacado/api-sdk/admin/payments";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { Payment, PaymentSummary } from "@hacado/types/booking";
 import { Button } from "@hacado/ui/button";
 import {

@@ -1,6 +1,7 @@
 "use client";
 
-import { AllKeys, I18nFn, useI18n, ValidationKeys } from "@hacado/i18n/client";
+import { AllKeys, I18nFn, useI18n } from "@hacado/i18n/client";
+import type { ValidationKeys } from "@hacado/i18n/keys";
 import { ErrorMessageWithParams } from "@hacado/types/utils";
 import { CircleAlert, Info } from "lucide-react";
 import React from "react";

@@ -1,8 +1,9 @@
 "use client";
 
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { unlinkSocialAccount } from "@/app/dashboard/users/me/profile/unlink-social-action";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import {
   Dialog,

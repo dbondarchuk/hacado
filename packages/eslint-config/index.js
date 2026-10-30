@@ -99,6 +99,24 @@ module.exports = [
                 "Import from a domain subpath (e.g. `@hacado/ui-admin-kit/appointments`, `@hacado/ui-admin-kit/payments`) instead of the package root.",
             },
           ],
+          patterns: [
+            {
+              group: ["@hacado/i18n/client", "@hacado/i18n/server"],
+              importNames: [
+                "AdminKeys",
+                "AppsKeys",
+                "BaseAllKeys",
+                "BuilderKeys",
+                "InstallKeys",
+                "I18nKeys",
+                "TranslationKeys",
+                "UiKeys",
+                "ValidationKeys",
+              ],
+              message:
+                "Import key unions from `@hacado/i18n/keys` (or `@hacado/i18n`) so client/server stay light.",
+            },
+          ],
         },
       ],
     },

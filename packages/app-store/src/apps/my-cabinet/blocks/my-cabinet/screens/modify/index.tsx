@@ -5,7 +5,8 @@ import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { giftCardsApi } from "@hacado/api-sdk/client/gift-cards";
 import { paymentsApi } from "@hacado/api-sdk/client/payments";
 import { ClientApiError } from "@hacado/api-sdk/client/utils";
-import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import type {
   ApplyGiftCardsSuccessResponse,
   Availability,

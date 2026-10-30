@@ -1,4 +1,5 @@
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { Combobox } from "@hacado/ui/combobox";
 import { Repeat } from "lucide-react";
 import * as z from "zod";

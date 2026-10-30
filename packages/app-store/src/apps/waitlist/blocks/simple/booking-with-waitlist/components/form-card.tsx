@@ -1,4 +1,5 @@
 "use client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import {
   ApplyDiscountRequest,
   AppointmentFields,
@@ -26,7 +27,7 @@ import { Spinner } from "@hacado/ui/spinner";
 
 import { bookingApi } from "@hacado/api-sdk/client/booking";
 import { discountsApi } from "@hacado/api-sdk/client/discounts";
-import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { fieldSchemaMapper, fieldsComponentMap } from "@hacado/ui/forms";
 import { deepEqual } from "@hacado/utils/deep-equal";
 import { DateTime as Luxon } from "luxon";

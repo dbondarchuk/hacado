@@ -1,4 +1,5 @@
-import { TranslationKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import { cn } from "../../utils";
 import { FormLabel } from "../form";
 

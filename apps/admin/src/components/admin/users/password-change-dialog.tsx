@@ -1,6 +1,7 @@
 "use client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { authClient } from "@/app/auth-client";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import {
   Dialog,

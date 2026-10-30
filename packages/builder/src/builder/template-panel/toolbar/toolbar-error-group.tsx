@@ -1,6 +1,7 @@
 "use client";
 
-import { AllKeys, BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { Popover, PopoverContent, PopoverTrigger } from "@hacado/ui/popover";
 import { ScrollArea } from "@hacado/ui/scroll-area";
 import { Separator } from "@hacado/ui/separator";

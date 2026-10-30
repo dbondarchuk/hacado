@@ -1,6 +1,7 @@
 import { TextInput } from "@hacado/builder/inputs";
 import { BaseBlockProps as BaseBlockPropsType } from "@hacado/builder/types";
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { cn } from "@hacado/ui/cn";
 import {
   Collapsible,

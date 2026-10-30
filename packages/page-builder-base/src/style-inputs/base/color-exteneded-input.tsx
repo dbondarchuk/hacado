@@ -1,7 +1,8 @@
 "use client";
 
 import { type ColorInput } from "@hacado/builder/inputs";
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { DistributiveOmit } from "@hacado/types/utils";
 import { Button } from "@hacado/ui/button";
 import { Combobox } from "@hacado/ui/combobox";

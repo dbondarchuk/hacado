@@ -4,12 +4,8 @@ import { customersApi } from "@hacado/api-sdk/admin/customers";
 import { paymentsApi } from "@hacado/api-sdk/admin/payments";
 import { AdminApiError } from "@hacado/api-sdk/admin/utils";
 import { AvailableApps } from "@hacado/app-store";
-import {
-  AdminKeys,
-  BaseAllKeys,
-  useI18n,
-  useLocale,
-} from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys, BaseAllKeys } from "@hacado/i18n/keys";
 import {
   Appointment,
   GiftCardListModel,

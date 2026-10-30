@@ -1,6 +1,7 @@
+import type { ValidationKeys } from "@hacado/i18n/keys";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { AllKeys, useI18n, ValidationKeys } from "@hacado/i18n/client";
+import { AllKeys, useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import { cn } from "@hacado/ui/cn";
 import { Input } from "@hacado/ui/input";

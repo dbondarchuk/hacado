@@ -1,4 +1,5 @@
 "use client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { authClient } from "@/app/auth-client";
 import { AuthFormProgress } from "@/components/admin/auth/auth-form-progress";
 import { EmailOtpStep } from "@/components/admin/auth/email-otp-step";
@@ -17,7 +18,7 @@ import {
 } from "@/components/install/constants";
 import { buildCompleteProfileCallbackUrl } from "@/lib/auth/complete-profile-callback";
 import type { SocialAuthProvider } from "@/lib/auth/social-auth-providers";
-import { BaseAllKeys, languages, useI18n } from "@hacado/i18n/client";
+import { languages, useI18n } from "@hacado/i18n/client";
 import { zEmail, zPhone } from "@hacado/types/utils";
 import { Button } from "@hacado/ui/button";
 import { Combobox } from "@hacado/ui/combobox";

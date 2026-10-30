@@ -1,7 +1,8 @@
 "use client";
 
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import { setUserPassword } from "@/app/dashboard/users/me/profile/set-password-action";
-import { BaseAllKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
 import { Button } from "@hacado/ui/button";
 import {
   Dialog,

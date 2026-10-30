@@ -2,7 +2,8 @@
 
 import { appointmentsApi } from "@hacado/api-sdk/admin/appointments";
 import { appointmentsSearchParams } from "@hacado/api-sdk/admin/search-params/appointments";
-import { AdminKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
 import {
   Appointment,
   AppointmentStatus,

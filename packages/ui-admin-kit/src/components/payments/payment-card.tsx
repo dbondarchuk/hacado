@@ -1,7 +1,8 @@
 "use client";
 
 import { paymentsApi } from "@hacado/api-sdk/admin/payments";
-import { AllKeys, BaseAllKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { AllKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import type { BaseAllKeys } from "@hacado/i18n/keys";
 import {
   InStorePaymentUpdateModel,
   Payment,

@@ -1,4 +1,5 @@
-import { BuilderKeys, useI18n } from "@hacado/i18n/client";
+import { useI18n } from "@hacado/i18n/client";
+import type { BuilderKeys } from "@hacado/i18n/keys";
 import { AssetSelectorInput } from "@hacado/ui-admin/asset-selector-input";
 import { Button } from "@hacado/ui/button";
 import { Label } from "@hacado/ui/label";

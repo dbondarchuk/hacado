@@ -1,4 +1,5 @@
-import { TranslationKeys, useI18n, useLocale } from "@hacado/i18n/client";
+import { useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import { Time } from "@hacado/types/booking";
 import { timeZones } from "@hacado/types/utils";
 import { useCurrencyFormat } from "@hacado/ui/context";

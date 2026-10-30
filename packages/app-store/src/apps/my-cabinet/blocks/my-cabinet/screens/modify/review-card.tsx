@@ -1,9 +1,5 @@
-import {
-  TranslationKeys,
-  useFormatter,
-  useI18n,
-  useLocale,
-} from "@hacado/i18n/client";
+import { useFormatter, useI18n, useLocale } from "@hacado/i18n/client";
+import type { TranslationKeys } from "@hacado/i18n/keys";
 import { ModifyAppointmentInformation } from "@hacado/types/booking";
 import { timeZones } from "@hacado/types/utils";
 import { Button } from "@hacado/ui/button";

@@ -1,6 +1,7 @@
 "use client";
 
-import { AdminKeys, useI18n } from "@hacado/i18n/client";
+import type { AdminKeys } from "@hacado/i18n/keys";
+import { useI18n } from "@hacado/i18n/client";
 import type { BookingStep, PaymentSummary } from "@hacado/types/booking";
 import type { DateRange } from "@hacado/types/general";
 import { HeaderActionButtonsPortal } from "@hacado/ui-admin-kit/page";
