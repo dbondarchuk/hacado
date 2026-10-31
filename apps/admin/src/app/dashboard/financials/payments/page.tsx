@@ -7,11 +7,11 @@ import {
   paymentsSearchParamsSerializer,
 } from "@hacado/api-sdk/admin/search-params/payments";
 import { getI18nAsync } from "@hacado/i18n/server";
-import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import {
   HeaderActionButtonsContainer,
   HeaderActionButtonsProvider,
 } from "@hacado/ui-admin-kit/page";
+import { DataTableSkeleton } from "@hacado/ui-admin/data-table";
 import { Breadcrumbs } from "@hacado/ui/breadcrumbs";
 import { Heading } from "@hacado/ui/heading";
 import { Metadata } from "next";
